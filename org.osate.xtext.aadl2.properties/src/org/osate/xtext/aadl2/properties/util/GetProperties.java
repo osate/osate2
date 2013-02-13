@@ -520,9 +520,8 @@ public class GetProperties {
 	}
 
 	/**
-	 * get the scaling factor of the processor the thread is bound to.
-	 * If not specified calculate it based on cycle time and reference processor cycle time
-	 * if either is not specified, try looking for the scaling factor
+	 * calculate the scaling factor from cycle times of the bound and reference processor
+	 * if not available try the same from the MIPS of the two processors.
 	 * The default value is 1
 	 * @param thread
 	 * @return double scaling factor of processor speed
@@ -533,28 +532,20 @@ public class GetProperties {
 		if (processor == null) {
 			return 1.0;
 		}
-//		double factor = getScalingFactorPropertyValue(processor);
-//		if (factor != 0.0){
-//			return factor;
-//		}
 		double procCycleTime = getCycleTimeinUS(processor);
 		double refCycleTime = getReferenceProcessorCycleTimeinUS(thread);
-		if (procCycleTime == 0.0||refCycleTime == 0.0){
-			// use the execution time as if specified for the processor it is bound to
-			return 1.0;
+		if (procCycleTime > 0.0&&refCycleTime > 0.0){
+			return procCycleTime / refCycleTime;
 		}
-		return procCycleTime / refCycleTime;
+		// try cycle time from MIPS
+		procCycleTime = getMIPSActualInMIPS(processor, 0.0);
+		refCycleTime = getMIPSActualInMIPS(	getReferenceProcessor(thread), 0.0);
+		if (procCycleTime > 0.0&&refCycleTime > 0.0){
+			return procCycleTime / refCycleTime;
+		}
+		// use current processor
+		return 1.0;
 	}
-	
-//	public static double getScalingFactorPropertyValue(final ComponentInstance processor){
-//		Property sf = lookupPropertyDefinition(processor,TimingProperties._NAME, TimingProperties.SCALING_FACTOR);
-//		double res = 1.0;
-//		try {
-//			res = PropertyUtils.getRealValue(processor, sf);
-//		} catch (Exception e) {
-//		}
-//		return res;
-//	}
 
 	/**
 	 * Get the MIPS per sec of the reference processor. First tries to find the
@@ -637,6 +628,22 @@ public class GetProperties {
 			// time for MIPS therefore microsec (10E-6)
 			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
 			return (1 / cycleTime);
+		} else
+			return 0;
+	}
+
+	/**
+	 * return cycletime in terms of MIPS, zero if no cycle timee
+	 * 
+	 * @param curprocessor
+	 * @return MIPS
+	 */
+	public static double getMIPSasCycleTimeinMicroSec(final ComponentInstance curprocessor) {
+		double mips = getMIPSCapacityInMIPS(curprocessor, 0.0);
+		if (mips != 0.0) {
+			// time for MIPS therefore microsec (10E-6)
+			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
+			return (1 / mips);
 		} else
 			return 0;
 	}
