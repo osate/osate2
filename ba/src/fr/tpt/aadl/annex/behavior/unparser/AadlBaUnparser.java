@@ -30,16 +30,21 @@ import org.eclipse.emf.common.util.Enumerator ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.util.FeatureMap ;
 
+import org.osate.aadl2.AadlPackage ;
 import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.PropertySet ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.aadl2.modelsupport.AadlConstants ;
 import org.osate.aadl2.modelsupport.UnparseText ;
+import org.osate.internal.workspace.AadlElement ;
+
 import fr.tpt.aadl.annex.behavior.aadlba.* ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.util.AadlBaSwitch ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
+import fr.tpt.aadl.utils.Aadl2Visitors ;
 
 public class AadlBaUnparser
 {
@@ -422,13 +427,13 @@ public class AadlBaUnparser
 
       public String caseBehaviorActionSequence(BehaviorActionSequence object)
       {
-        processEList(object.getActions(), " ; ") ;
+        processEList(object.getActions(), " ;\n") ;
         return DONE ;
       }
 
       public String caseBehaviorActionSet(BehaviorActionSet object)
       {
-        processEList(object.getActions(), " & ") ;
+        processEList(object.getActions(), " &\n") ;
         return DONE ;
       }
 
@@ -590,6 +595,15 @@ public class AadlBaUnparser
       
       public String caseElementHolder(ElementHolder el)
       {
+        Element refContainer = Aadl2Visitors.getContainingPackageSection(el.getElement());
+        Element holderPackageOrPropertySet = Aadl2Visitors.getContainingPackageSection(el);
+        if(false==holderPackageOrPropertySet.equals(refContainer))
+        {
+          StringBuilder sb = new StringBuilder(el.getElement().getQualifiedName());
+          String prefix=sb.substring(0, sb.lastIndexOf("::")+2);
+          aadlbaText.addOutput(prefix);
+        }
+      
         if(el instanceof GroupableElement)
         {
           GroupableElement ge = (GroupableElement) el ;
