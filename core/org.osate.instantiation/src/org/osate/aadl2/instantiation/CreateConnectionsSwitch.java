@@ -798,7 +798,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			// dstEnd is further down in the hierarchy than srcEnd: find feature corresponding to dstEnd
 			for (int count = downIndex.size() - 1; count >= 0; count--) {
 				int idx = downIndex.get(count);
-				srcEnd = ((FeatureInstance) srcEnd).getFeatureInstances().get(idx);
+				if (idx >= 0 && idx < ((FeatureInstance) srcEnd).getFeatureInstances().size()){
+					srcEnd = ((FeatureInstance) srcEnd).getFeatureInstances().get(idx);
+				} else {
+					System.out.println("Hi"+srcEnd);
+				}
 			}
 		}
 
