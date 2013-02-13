@@ -404,16 +404,6 @@ public class GetProperties {
 			return null;
 	}
 	
-	// We have added the reference time unit for the cycle time to the name
-	// to reduce confusion and incorrect use.
-	// It corresponds to DEFAULT_CYCLE_TIME_IN_SEC
-	@Deprecated
-	public static final double DEFAULT_CYCLE_TIME = 1.0e-9;
-	
-	// 1 ps equals 1 GIPS
-	public static final double DEFAULT_CYCLE_TIME_IN_SEC = 1.0e-9;
-	public static final double DEFAULT_CYCLE_TIME_IN_MS = 1.0e-6;
-	public static final double DEFAULT_CYCLE_TIME_IN_US = 1.0e-3;
 
 	/**
 	 * cycle time of processor
@@ -423,18 +413,7 @@ public class GetProperties {
 	public static double getCycleTimeinUS(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
 		UnitLiteral microSecond = findUnitLiteral(cycleTime, AadlProject.US_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, DEFAULT_CYCLE_TIME_IN_US);
-	}
-
-	/**
-	 * cycle time of processor
-	 * @param ne processor component instance
-	 * @return
-	 */
-	public static double getCycleTimeinMS(final NamedElement ne) {
-		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
-		UnitLiteral milliSecond = findUnitLiteral(cycleTime, AadlProject.MS_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, milliSecond, DEFAULT_CYCLE_TIME_IN_MS);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, 0);
 	}
 	/**
 	 * cycle time of processor
@@ -444,7 +423,7 @@ public class GetProperties {
 	public static double getCycleTimeinSec(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
 		UnitLiteral second = findUnitLiteral(cycleTime, AadlProject.SEC_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, second, DEFAULT_CYCLE_TIME_IN_SEC);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, second, 0);
 	}
 	
 	
@@ -480,15 +459,15 @@ public class GetProperties {
 
 	
 	/**
-	 * compute MIPS from processor cycle time
-	 * @param bci
+	 * compute MIPS for thread based on actual execution time
+	 * @param threadinstance thread instance
 	 * @return
 	 */
-	public static double getActualMIPS(ComponentInstance bci) {
-		double exectimeval = getSpecifiedComputeExecutionTimeinSec(bci);
-		double period = getPeriodInSeconds(bci, 0.0);
+	public static double getActualThreadMIPS(ComponentInstance threadinstance) {
+		double exectimeval = getActualComputeExecutionTimeinSec(threadinstance);
+		double period = getPeriodInSeconds(threadinstance, 0.0);
 		if (exectimeval > 0 && period > 0) {
-			double mipspersec = getReferenceMIPS(bci);
+			double mipspersec = getBoundProcessorMIPS(threadinstance);
 			double time = exectimeval / period;
 			double mips = time * mipspersec;
 			return mips;
@@ -597,6 +576,51 @@ public class GetProperties {
 			double mipscap = getMIPSCapacityInMIPS(pci, 0.0);
 			if (mipscap > 0)
 				return mipscap;
+		}
+		return 1000;
+	}
+	/**
+	 * Get the MIPS per sec of the bound processor. First tries to find the
+	 * MIPS capacity.  If it does not find
+	 * it, then it gets the cycle time of that processor. 
+	 * Failing that, it returns a
+	 * value corresponding to a 1GIPS processor.
+	 */
+	public static double getBoundProcessorMIPS(final ComponentInstance thread) {
+		
+		List<ComponentInstance> pciList = getActualProcessorBinding(thread);
+		ComponentInstance pci = pciList.isEmpty() ? null : pciList.get(0);
+		if (pci != null) {
+			double mipscap = getMIPSCapacityInMIPS(pci, 0);
+			if (mipscap > 0){
+				return mipscap;
+			}
+			// try cycle time as MIPS
+			mipscap = getCycletimeasMIPS(pci);
+			if (mipscap>0){
+				return mipscap;
+			}
+		}
+		return 1000;
+	}
+	
+	/**
+	 * Get the MIPS per sec of the  processor. First tries to find the
+	 * MIPS capacity.  If it does not find
+	 * it, then it gets the cycle time of that processor. 
+	 * Failing that, it returns a
+	 * value corresponding to a 1GIPS processor.
+	 */
+	public static double getActualProcessorMIPS(final ComponentInstance processor) {
+
+		double mipscap = getMIPSCapacityInMIPS(processor, 0);
+		if (mipscap > 0){
+			return mipscap;
+		}
+		// try cycle time as MIPS
+		mipscap = getCycletimeasMIPS(processor);
+		if (mipscap>0){
+			return mipscap;
 		}
 		return 1000;
 	}
