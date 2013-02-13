@@ -275,11 +275,13 @@ public class AadlBaRulesCheckersDriver
             {
                result &= process(bc) ;
             }
+            /*
             else // Check Execute condition. Warning execution condition may be
                  // null.
             {
                result &= _semantic.D_3_18_Checker(_currentBt);
             }
+            */
             
             if(_currentBt.getActionBlock() != null)
             {
