@@ -90,9 +90,11 @@ property set Timing_Properties is
 	
 	Reference_Processor: inherit classifier (processor)
 		applies to (subprogram, subprogram group, thread, thread group, process, device, system);
-	
-	Scaling_Factor: inherit aadlreal
-		applies to (processor, system);
+
+-- Scaling factor does not really work since we do not identify the reference processor in the processor
+-- Use cycle time or MIPS on each processor instead
+--	Scaling_Factor: inherit aadlreal
+--		applies to (processor, system);
 	
 	Scheduler_Quantum: inherit Time
 		applies to (processor);
