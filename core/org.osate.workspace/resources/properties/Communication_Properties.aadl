@@ -25,7 +25,7 @@ property set Communication_Properties is
 	Queue_Size: aadlinteger 0 .. Max_Queue_Size => 1
 		applies to (event port, event data port, subprogram access);
 	
-	Required_Connection: aadlboolean => true
+	Required_Connection: aadlboolean 
 		applies to (feature);
 	
 	Timing: enumeration (sampled, immediate, delayed) => sampled

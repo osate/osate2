@@ -1,0 +1,5 @@
+property set ARINC429 is
+  WordID : aadlinteger applies to (port);
+  FirstBit : aadlinteger applies to (port);
+  NumberBits : aadlinteger applies to (port);
+end ARINC429;
