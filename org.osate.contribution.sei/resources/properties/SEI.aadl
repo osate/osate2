@@ -38,28 +38,17 @@ property set SEI is
   Partition_Latency: Time => 50 Ms applies to (system, process);
   Is_Partition: aadlboolean  => false applies to (system, process);
   -- properties to support adjustment of execution time according to processor speed
-  -- execution time is specified in terms of a reference processor
-  -- Its speed is specified by the property constant reference_cycle_time
-  -- The speed of processors is specified by cycle_time
-  -- Adjustments to the execution time are made according to the cycle time ratio
-  -- 1 GHz processor as default reference cycle time
-  reference_cycle_time: constant Time=> 1000 ps;
   -- time to execute one processor cycle
   -- Used to convert execution time into processor cycles
   -- default cycle time of a 1 GHz processor
-  cycle_time: Time  applies to (processor);
-  -- If reference_proc is specified that the specified processor is used as reference processor 
-  -- instead of the above constant
-  reference_processor: inherit classifier(processor) applies to (thread, thread group, process, system, device);
-  -- processor speed scaling factor. default is assumed to be 1.
-  speed_scaling_factor : aadlreal applies to (processor, system);
+  cycle_time: Time => 1000 ps applies to (processor);
   -- conversion factor from cycle time to instruction time (default is assumed to be 1
   cycles_per_instruction : aadlreal applies to (processor, system);
 
   -- The next set of properties are used in the resource budgeting plug-in
   
-  -- number of instructions that can be executed on a processor (MIPS, MIPS, GIPS)
-  MIPSCapacity: aadlreal  units SEI::Processor_Speed_Units applies to (processor, system);
+  -- number of instructions that can be executed on a processor (KIPS, MIPS, GIPS)
+  MIPSCapacity: aadlreal  units SEI::Processor_Speed_Units => 1.0 GIPS applies to (processor, system);
   -- number of instructions allocatetd to an application component as budget
   -- devices may have need for execution of instructions to handle their drivers
   MIPSBudget: aadlreal  units SEI::Processor_Speed_Units applies to (thread, thread group, process, system, device);

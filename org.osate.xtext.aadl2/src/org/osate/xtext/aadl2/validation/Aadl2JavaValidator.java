@@ -4669,7 +4669,7 @@ public boolean hasExtendCycles(Classifier cl) {
 			boolean cxtFGIsInverse = false;
 			if (connection.getAllSourceContext() instanceof FeatureGroup){
 				cxtFGIsInverse = ((FeatureGroup)connection.getAllSourceContext()).isInverse();
-			} else if (connection.getAllSourceContext() instanceof FeatureGroup){
+			} else if (connection.getAllDestinationContext() instanceof FeatureGroup){
 				cxtFGIsInverse = ((FeatureGroup)connection.getAllDestinationContext()).isInverse();
 			}
 			if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||

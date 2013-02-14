@@ -1675,9 +1675,8 @@ public final class AadlUtil {
 	public static EList<Connection> getIngoingConnections(ComponentImplementation cimpl, Feature feature) {
 		EList<Connection> result = new BasicEList<Connection>();
 		List<Feature> features = feature.getAllFeatureRefinements();
-
-		for (Connection conn : cimpl.getAllConnections()) {
-			Context cxt = conn.getAllSourceContext();
+		EList<Connection> cimplconns = cimpl.getAllConnections();
+		for (Connection conn : cimplconns) {
 			if (features.contains(conn.getAllSource())
 					|| (conn.isBidirectional() && features.contains(conn.getAllDestination()))) {
 				result.add(conn);

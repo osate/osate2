@@ -12,6 +12,10 @@
             id="org.osate.contributes.SAE.aadlcontribution4">
       </aadlcontribution>
       <aadlcontribution
+            file="resources/properties/ARINC429.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution5">
+      </aadlcontribution>
+      <aadlcontribution
             file="resources/properties/Data_Model.aadl"
             id="org.osate.contributes.SAE.aadlcontribution2">
       </aadlcontribution>

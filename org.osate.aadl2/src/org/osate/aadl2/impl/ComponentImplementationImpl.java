@@ -1864,7 +1864,8 @@ public abstract class ComponentImplementationImpl extends
 		NamedElement searchResult = super.findNamedElement(name);
 		if (searchResult != null)
 			return searchResult;
-		searchResult = this.getType().findNamedElement(name);
+		if (this.getType() != null)
+			searchResult = this.getType().findNamedElement(name);
 		// now look in type and its extensions
 		if (searchResult != null)
 			return searchResult;
