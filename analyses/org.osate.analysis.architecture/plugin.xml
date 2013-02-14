@@ -80,6 +80,46 @@
             </enablement>
          </action>
          
+          
+         <action
+               id="org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency.action"
+              label="%DoConnectionBindingConsistency.label"
+               tooltip="%DoConnectionBindingConsistency.toolTip"
+               icon="%DoConnectionBindingConsistency.icon"
+               class="org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency"
+               menubarPath="menu.analyses/menu.semantic/stuff.grp"
+               toolbarPath="arch.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
+          
+         <action
+               id="org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency.action"
+               label="%A429ConnectionConsistency.label"
+               tooltip="%A429ConnectionConsistency.toolTip"
+               icon="%A429ConnectionConsistency.icon"
+               class="org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency"
+               menubarPath="menu.analyses/menu.semantic/stuff.grp"
+               toolbarPath="arch.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
         
          <action
                id="org.osate.analysis.architecture.actions.DoModelStatistics.action"
@@ -184,6 +224,24 @@
                class="org.osate.analysis.architecture.actions.CheckRequiredConnection"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Semantic/anal.grp"
                enablesFor="1"/>
+        
+         <action
+               id="org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency.popupAction"
+               label="%DoConnectionBindingConsistency.label"
+               tooltip="%DoConnectionBindingConsistency.toolTip"
+               icon="%DoConnectionBindingConsistency.icon"
+               class="org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Semantic/anal.grp"
+               enablesFor="1"/>
+        
+         <action
+               id="org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency.popupAction"
+               label="%A429ConnectionConsistency.label"
+               tooltip="%A429ConnectionConsistency.toolTip"
+               icon="%A429ConnectionConsistency.icon"
+               class="org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Semantic/anal.grp"
+               enablesFor="1"/>
          
          <action
                id="org.osate.analysis.architecture.actions.DoModelStatistics.popupAction"
@@ -263,6 +321,22 @@
    <extension
          id="RequiredConnectionObjectMarker"
          name="Required Connection Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension
+         id="ConnectionBindingConsistencyObjectMarker"
+         name="Connection Binding Consistency Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension
+         id="A429ConnectionConsistencyObjectMarker"
+         name="A429 Connection Consistency Marker"
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>

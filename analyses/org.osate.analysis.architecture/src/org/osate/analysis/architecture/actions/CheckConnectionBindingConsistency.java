@@ -40,59 +40,46 @@
 package org.osate.analysis.architecture.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.architecture.ArchitecturePlugin;
-import org.osate.analysis.architecture.PropertyTotals;
+import org.osate.analysis.architecture.ConnectionBindingConsistency;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
-public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
+public final class CheckConnectionBindingConsistency extends AaxlReadOnlyActionAsJob {
+	
 	protected Bundle getBundle() {
 		return ArchitecturePlugin.getDefault().getBundle();
 	}
-		
+	
 	protected String getMarkerType() {
-		return "org.osate.analysis.architecture.WeightTotalObjectMarker";
-	}
-
-	protected String getActionName() {
-		return "Weight totals";
+		return "org.osate.analysis.architecture.ConnectionBindingConsistencyObjectMarker";
 	}
 	
 	@Override
-	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		/* Doesn't make sense to set the number of work units, because
-		 * the whole point of this action is count the number of elements.
-		 * To set the work units we would effectively have to count everything
-		 * twice.
-		 */
-		monitor.beginTask("Gathering weight summaries", IProgressMonitor.UNKNOWN);
-
+	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		if (!(obj instanceof ComponentInstance)){
-			Dialog.showWarning("Weight Totals","Please invoke command on an instance model");
-			monitor.done();
+			Dialog.showWarning(getActionName(),"Please invoke command on an instance model");
 			return;
 		}
-
-		// Get the system instance (if any)
 		SystemInstance si = ((ComponentInstance)obj).getSystemInstance();
-	
-		/* Create a new model statistics analysis object and run it over
-		 * the declarative model.  If an instance model exists, run it over
-		 * that too.
-		 */
-		PropertyTotals stats = new PropertyTotals(monitor,getErrorManager());
-			stats.calcWeight(si);
-		monitor.done();
-		
-		/* Accumulate the results in a StringBuffer, but also report them
-		 * using info markers attached to the root model object.
-		 */
-		final String modelStats = stats.getModelResult();
 
-		Dialog.showInfo("Weight Totals", modelStats);
+		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
+		ConnectionBindingConsistency anal = new ConnectionBindingConsistency(monitor,getErrorManager());
+		if (si != null) {
+			anal.defaultTraversal(si);
+		}
+		if(anal.cancelled()) {
+			throw new OperationCanceledException();
+		}
+		monitor.done();
+	}
+
+	protected String getActionName() {
+		return "Check connection binding consistency";
 	}
 }
