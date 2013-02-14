@@ -438,7 +438,7 @@ behavior_annex returns [BehaviorAnnex BehAnnex]
    int line = input.get(0).getLine() ;
    
    // compute lineOffset here.
-   _lineOffset = 1 ;
+   _lineOffset = 0 ;
    AadlBaLocationReference location = new AadlBaLocationReference(
                                          _annexOffset, filename, line);
    BehAnnex.setLocationReference(location) ; 

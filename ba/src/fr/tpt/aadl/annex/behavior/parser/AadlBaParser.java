@@ -1,4 +1,4 @@
-// $ANTLR 3.4 AadlBa.g 2013-02-13 18:12:47
+// $ANTLR 3.4 AadlBa.g 2013-02-14 10:16:41
  
   package fr.tpt.aadl.annex.behavior.parser;
   
@@ -355,7 +355,7 @@ public class AadlBaParser extends Parser {
            int line = input.get(0).getLine() ;
            
            // compute lineOffset here.
-           _lineOffset = 1 ;
+           _lineOffset = 0 ;
            AadlBaLocationReference location = new AadlBaLocationReference(
                                                  _annexOffset, filename, line);
            BehAnnex.setLocationReference(location) ; 
