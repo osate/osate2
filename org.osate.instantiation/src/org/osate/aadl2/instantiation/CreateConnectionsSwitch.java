@@ -684,35 +684,21 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected ConnectionInstance addConnectionInstance(final SystemInstance systemInstance,
 			final ConnectionInfo connInfo, final ConnectionInstanceEnd dstI) {
-//		if (connInfo.src instanceof FeatureInstance) {
-//			if (dstI.eContainer() instanceof FeatureInstance) {
-//				/* filter out port to port due to port group */
-//				if (AadlUtil.findConnectionInstance(connInfo.src, dstI) != null) {
-//					// the opposite already exists
-//					return null;
-//				}
-//			}
-//			Feature f = ((FeatureInstance) connInfo.src).getFeature();
-//			if (f instanceof FeatureGroup) {
-//				if (AadlUtil.findConnectionInstance(dstI, connInfo.src) != null) {
-//					// the opposite already exists
-//					return null;
-//				}
-//			}
-//		}
 		// Generate a name for the connection
-		String containerPath = (connInfo.container != null) ? connInfo.container.getInstanceObjectPath() : "";
-		int len = (connInfo.container != null) ? containerPath.length() + 1 : 0;
+		String containerPath = (connInfo.container != null) ? connInfo.container.getInstanceObjectPath() : systemInstance.getName();
+		int len =  containerPath.length() + 1 ;
 		String srcPath = connInfo.src.getInstanceObjectPath();
 		StringBuffer sb = new StringBuffer();
-
+		String dstPath = "xxx";
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
-		sb.append(srcPath.substring(i));
+		srcPath = srcPath.substring(i);
+		sb.append(srcPath);
 		sb.append(" -> ");
 		if (dstI != null) {
-			String dstPath = dstI.getInstanceObjectPath();
+			dstPath = dstI.getInstanceObjectPath();
 			i = (dstPath.startsWith(containerPath)) ? len : 0;
-			sb.append(dstPath.substring(i));
+			dstPath = dstPath.substring(i);
+			sb.append(dstPath);
 		}
 
 		// with arrays we can get duplicates that we don't need
@@ -745,10 +731,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			conni = connInfo.createConnectionInstance(sb.toString(), dstI);
 
 			if (conni == null) {
-				warning(systemInstance,
-						"Connection from " + connInfo.src.getComponentInstancePath() + " to "
-								+ dstI.getComponentInstancePath()
-								+ " does not connect two components. No connection instance created.");
+				warning(container,
+						"Connection sequence from " + srcPath + " to "
+								+ dstPath
+								+ " is only outgoing. No connection instance created.");
 				return null;
 			} else {
 				container.getConnectionInstances().add(conni);
