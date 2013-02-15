@@ -349,8 +349,12 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		// TODO if we use this we need to change InstanceObject to not use
 		// ownedElement return getOwnedElements();
 		EList<Element> list = new BasicEList<Element>(20);
-		for (EObject eo : eContents()) {
-			list.add((Element) eo);
+		for (EObject eo : eContents())
+		{
+			if(eo instanceof Element)
+			{
+				list.add((Element) eo);
+			}
 		}
 		return list;
 	}
