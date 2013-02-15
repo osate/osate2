@@ -34,9 +34,19 @@
 package org.osate.aadl2.errormodel.analysis.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 
 public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	protected String getMarkerType() {
@@ -47,11 +57,69 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		return "RBD";
 	}
 
+	
+	public void processRootSystem (SystemInstance systemInstance)
+	{
+		EList<CompositeState> states;
+		CompositeErrorBehavior ceb;
+		
+		ceb = EM2Util.getCompositeErrorBehavior (systemInstance);
+		states = ceb.getStates();
+		
+		for (CompositeState state : states)
+		{
+			ConditionExpression cond = state.getCondition();
+			
+			OsateDebug.osateDebug("state name" + state.getState().getName());
+			OsateDebug.osateDebug("conds");
+
+			for (Element e : cond.getChildren())
+			{
+				
+				OsateDebug.osateDebug("el" + e);
+				if (e instanceof ConditionElement)
+				{
+					ConditionElement ce = (ConditionElement) e;
+					OsateDebug.osateDebug("ce constraint" + ce.getConstraint());
+					OsateDebug.osateDebug("ce reference" + ce.getReference());
+
+					for (Element e2 : ce.getChildren())
+					{
+						OsateDebug.osateDebug("e2 child" + e2);
+					}
+
+				}
+			}
+			//state.getState().getName();
+		}
+	}
+	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
+		SystemInstance si;
+		
 		monitor.beginTask("RBD", IProgressMonitor.UNKNOWN);
 
-		Dialog.showInfo("RDB", "Please choose an instance model");	
+		si = null;
+		
 
+		if (obj instanceof InstanceObject){
+			si = ((InstanceObject)obj).getSystemInstance();
+		}
+		
+		if (si == null)
+		{
+			Dialog.showInfo("RDB", "Please choose an instance model");	
+			monitor.done();
+		}
+		
+		if (! EM2Util.hasCompositeErrorBehavior (si))
+		{
+			Dialog.showInfo("RDB", "Your system instance does not have a composite error behavior");	
+			monitor.done();
+		}
+		
+		processRootSystem (si);
+		
 		monitor.done();
 	}
 
