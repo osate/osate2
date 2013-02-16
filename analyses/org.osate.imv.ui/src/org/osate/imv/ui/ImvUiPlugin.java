@@ -72,6 +72,9 @@ public class ImvUiPlugin extends AbstractUIPlugin {
 	     registry.put(IImageKeys.RESIZE_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.RESIZE_ICON));
 	     registry.put(IImageKeys.AUTO_LAYOUT_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.AUTO_LAYOUT_ICON));
 	     registry.put(IImageKeys.RESIZE_ACTUAL_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.RESIZE_ACTUAL_ICON));
+	     registry.put(IImageKeys.SHOW_ERROR_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.SHOW_ERROR_ICON));
+	     registry.put(IImageKeys.HIDE_ERROR_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.HIDE_ERROR_ICON));
+
 	}
 
 }

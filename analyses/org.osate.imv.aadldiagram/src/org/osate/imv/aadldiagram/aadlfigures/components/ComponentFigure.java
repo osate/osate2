@@ -11,25 +11,62 @@
 
 package org.osate.imv.aadldiagram.aadlfigures.components;
 
+import java.awt.event.ComponentAdapter;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Color;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.draw2d.ResizableMevFigure;
 import org.osate.imv.aadldiagram.propertydecorations.IPropertyDecorationDelegate;
+import org.osate.imv.aadldiagram.util.ErrorUtil;
+import org.osate.imv.aadldiagram.viewer.AadlPersistentDiagramViewer;
 
 
 public class ComponentFigure extends ResizableMevFigure {
 
 	private List<IPropertyDecorationDelegate> propertyDecorations;
+	private AadlComponentAdapter adapter;
 
 	public ComponentFigure() {
 		this.propertyDecorations = new ArrayList<IPropertyDecorationDelegate>();
+		this.adapter = null;
 	}
 
+	public void setAdapter (AadlComponentAdapter a)
+	{
+		this.adapter = a;
+	}
+	
+	public Color getAADLBackgroundColor ()
+	{
+		Color c;
+		int factor;
+
+		factor = -1;
+		
+		if ( (adapter != null) && (adapter.getModelElement() instanceof ComponentInstance))
+		{
+			factor = ErrorUtil.getFactor (AadlPersistentDiagramViewer.getErrorComponent(), 
+										  ((ComponentInstance) adapter.getModelElement()));
+		}
+
+		if ( (AadlPersistentDiagramViewer.useError()) && (factor != -1 ))
+		{
+			c = new Color(null, factor * 25 / 10, 0, 0);
+		}	
+		else
+		{
+			c = getBackgroundColor();
+		}
+		return c;
+	}
+	
 	public Rectangle getFeatureBounds() {
 		// Clip bounds so that features will be contained within the client area
 		// but the resize handle should still be visible outside of the client area.
@@ -71,6 +108,7 @@ public class ComponentFigure extends ResizableMevFigure {
 		}
 
 		// Clip to the containers bounds.
+
 		graphics.clipRect(getBounds());
 		graphics.pushState();
 		paintChildren(graphics);

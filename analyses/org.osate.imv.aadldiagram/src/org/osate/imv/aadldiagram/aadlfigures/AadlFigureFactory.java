@@ -131,8 +131,10 @@ public class AadlFigureFactory {
 		default:
 			System.err.println("Component category " + adapter.getCategory() + " is NOT currently supported.");
 		}
+		
 
 		if (figure != null) {
+			figure.setAdapter(adapter);
 			// Set border
 			Border border = new ComponentTitleBorder(adapter.toString());
 			figure.setBorder(border);

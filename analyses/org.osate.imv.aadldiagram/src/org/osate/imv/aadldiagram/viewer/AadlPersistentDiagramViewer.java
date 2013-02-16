@@ -17,6 +17,8 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.widgets.Composite;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.imv.aadldiagram.AadlDiagram;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.visitors.RestoreStateVisitor;
@@ -28,6 +30,9 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 	private IAadlAdapterSaverDelegate saverDelegate;
 	private IAadlAdapterRestorerDelegate restorerDelegate;
 
+	private static ComponentInstance errorComponent = null;
+	private static boolean useError = false;
+	
 	private Set<AadlComponentAdapter> dirtyAdapters;
 
 	public AadlPersistentDiagramViewer(Composite parent) {
@@ -85,6 +90,39 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 //			}
 	}
 
+	public void showErrors()
+	{
+		IAadlElementAdapter selectedAdapter = this.getAadlDiagram().getSelectedAdapter();
+		System.out.println ("selected=" + selectedAdapter.getModelElement());
+		if (selectedAdapter.getModelElement() instanceof ComponentInstance)
+		{
+			errorComponent = (ComponentInstance) (selectedAdapter.getModelElement());
+			useError = true;
+		}
+		forceRefresh = true;
+		refresh();
+		forceRefresh = false;
+ 	}
+	
+	public void hideErrors()
+	{
+		IAadlElementAdapter selectedAdapter = this.getAadlDiagram().getSelectedAdapter();
+		useError = false;
+		forceRefresh = true;
+		refresh();
+		forceRefresh = false;
+ 	}
+	
+	public static boolean useError ()
+	{
+		return useError;
+	}
+	
+	public static ComponentInstance getErrorComponent ()
+	{
+		return errorComponent;
+	}
+	
 	public void decrementComponentNestingHandler() {
 		this.getAadlDiagram().decrementNestingLevel();
 		forceRefresh = true;

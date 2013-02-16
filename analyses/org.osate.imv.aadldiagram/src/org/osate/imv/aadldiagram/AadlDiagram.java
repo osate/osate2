@@ -289,4 +289,5 @@ public class AadlDiagram extends FigureCanvas {
 		this.setContents(this.scalableFigureLayeredPane);
 	}
 
+	
 }

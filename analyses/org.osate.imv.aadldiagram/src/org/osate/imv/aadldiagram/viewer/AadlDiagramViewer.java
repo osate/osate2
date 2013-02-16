@@ -49,6 +49,8 @@ public class AadlDiagramViewer extends Viewer implements IAadlElementAdapterList
 
 	private AadlDiagram aadlDiagram;
 
+	
+	
 	private Object inputElement;
 
 	private List<AadlDiagramViewerListener> viewerListeners;

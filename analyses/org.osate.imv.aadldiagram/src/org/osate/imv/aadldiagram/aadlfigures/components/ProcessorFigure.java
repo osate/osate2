@@ -37,7 +37,7 @@ public class ProcessorFigure extends ComponentFigure {
 		// Configure graphic context.
 		g.setLineWidth(lineWidth);
 		g.setForegroundColor(ColorConstants.black);
-		g.setBackgroundColor(getBackgroundColor());
+		g.setBackgroundColor(this.getAADLBackgroundColor());
 		g.setLineJoin(SWT.JOIN_ROUND);
 		g.setAntialias(SWT.ON);
 

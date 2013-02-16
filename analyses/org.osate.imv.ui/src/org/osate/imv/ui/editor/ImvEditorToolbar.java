@@ -1,5 +1,5 @@
 /************************************************************************************
- * Copyright (c) 2012 Brandon Breuil. Contributions by Peter Feiler.                                               *
+ * Copyright (c) 2012 Brandon Breuil. Contributions by Peter Feiler and J.Delange   *
  *                                                                                  *
  * All rights reserved. This program and the accompanying materials are made        *
  * available under the terms of the Eclipse Public License v1.0 which accompanies   *
@@ -156,6 +156,29 @@ public class ImvEditorToolbar extends Composite {
 				mevViewer.decrementComponentNestingHandler();
 			}
 		});
+		
+		// Separator.
+		new ToolItem(toolbar, SWT.SEPARATOR);
+		// Show errors propagation
+		ToolItem showErrorModel = new ToolItem(toolbar, SWT.PUSH);
+		showErrorModel.setImage(ImvUiPlugin.getDefault().getImageRegistry().get(IImageKeys.SHOW_ERROR_ICON));
+		showErrorModel.setToolTipText("Show errors");
+		showErrorModel.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				mevViewer.showErrors();
+			}
+		});
+		ToolItem hideErrorModel = new ToolItem(toolbar, SWT.PUSH);
+		hideErrorModel.setImage(ImvUiPlugin.getDefault().getImageRegistry().get(IImageKeys.HIDE_ERROR_ICON));
+		hideErrorModel.setToolTipText("Hide errors");
+		hideErrorModel.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				mevViewer.incrementComponentNestingHandler();
+			}
+		});
+	
 
 		// Separator.
 		new ToolItem(toolbar, SWT.SEPARATOR);
