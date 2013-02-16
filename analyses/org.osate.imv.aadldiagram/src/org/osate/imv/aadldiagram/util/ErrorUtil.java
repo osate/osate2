@@ -17,8 +17,8 @@ public class ErrorUtil {
 		ComponentInstance 		boundProcessor;
 		List<ComponentInstance> boundProcessors;
 
-		System.out.println("source=" + source);
-		System.out.println("dest  =" + dest);
+		//System.out.println("source=" + source);
+		//System.out.println("dest  =" + dest);
 
 		if ( (source == null) || (dest == null))
 		{
