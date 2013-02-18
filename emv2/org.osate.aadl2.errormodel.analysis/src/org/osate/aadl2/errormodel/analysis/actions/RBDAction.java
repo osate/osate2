@@ -37,6 +37,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
@@ -46,6 +49,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 
 public final class RBDAction extends AaxlReadOnlyActionAsJob {
@@ -57,13 +65,35 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		return "RBD";
 	}
 
+	protected ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+		ContainedNamedElement result =  EM2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
+		return result;
+	}
+	
+	private static ComponentInstance findInstance (EList<ComponentInstance> instances, String name)
+	{
+		for (ComponentInstance ci : instances)
+		{
+			if (ci.getName().equalsIgnoreCase(name))
+			{
+				return ci;
+			}
+		}
+		
+		return null;
+	}
+	
 	
 	public void processRootSystem (SystemInstance systemInstance)
 	{
 		EList<CompositeState> states;
 		CompositeErrorBehavior ceb;
-		
+		EList<ComponentInstance> componentInstances;
+
 		ceb = EM2Util.getCompositeErrorBehavior (systemInstance);
+		
+		componentInstances = EM2Util.getComponentInstancesWithErrorPropagations (systemInstance);
+		
 		states = ceb.getStates();
 		
 		for (CompositeState state : states)
@@ -71,25 +101,78 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			ConditionExpression cond = state.getCondition();
 			
 			OsateDebug.osateDebug("state name" + state.getState().getName());
-			OsateDebug.osateDebug("conds");
+			
+			
+			OsateDebug.osateDebug("cond=SAndExpression");
 
-			for (Element e : cond.getChildren())
+			if (cond instanceof SAndExpression)
 			{
-				
-				OsateDebug.osateDebug("el" + e);
-				if (e instanceof ConditionElement)
+				SAndExpression sae = (SAndExpression)cond;
+				for (ConditionExpression conditionExpression : sae.getOperands())
 				{
-					ConditionElement ce = (ConditionElement) e;
-					OsateDebug.osateDebug("ce constraint" + ce.getConstraint());
-					OsateDebug.osateDebug("ce reference" + ce.getReference());
+					OsateDebug.osateDebug("   operand=" + conditionExpression);
 
-					for (Element e2 : ce.getChildren())
+					if (conditionExpression instanceof ConditionElement)
 					{
-						OsateDebug.osateDebug("e2 child" + e2);
-					}
+						ConditionElement conditionElement = (ConditionElement) conditionExpression;
+						ErrorBehaviorState behaviorState = conditionElement.getReference();
+						if (behaviorState != null)
+						{
+							OsateDebug.osateDebug("         behaviorState " + behaviorState);
+					
 
+						}
+						for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
+						{
+							Subcomponent subcomponent = subcomponentElement.getSubcomponent();
+							OsateDebug.osateDebug("      subcomponent " + subcomponent);
+							ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
+							OsateDebug.osateDebug("         instance " + relatedInstance);
+							if (behaviorState != null)
+							{
+								OsateDebug.osateDebug("         behaviorState " + behaviorState);
+
+								TypeSet ts = behaviorState.getTypeSet();
+								ContainedNamedElement PA = getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
+								OsateDebug.osateDebug("         PA " + PA);
+
+							}
+						}
+					}
+					if (conditionExpression instanceof SOrExpression)
+					{
+						SOrExpression sor = (SOrExpression)conditionExpression;
+						for (ConditionExpression conditionExpression2 : sor.getOperands())
+						{
+							OsateDebug.osateDebug("      operand=" + conditionExpression2);
+
+							if (conditionExpression2 instanceof ConditionElement)
+							{
+								ConditionElement conditionElement2 = (ConditionElement) conditionExpression2;
+								ErrorBehaviorState behaviorState2 = conditionElement2.getReference();
+		
+								for (SubcomponentElement subcomponentElement2 : conditionElement2.getSubcomponents())
+								{
+									Subcomponent subcomponent2 = subcomponentElement2.getSubcomponent();
+									OsateDebug.osateDebug("         subcomponent2 " + subcomponent2);
+									ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent2.getName());
+									OsateDebug.osateDebug("         instance2 " + relatedInstance);
+									if (behaviorState2 != null)
+									{
+										OsateDebug.osateDebug("         behaviorState2 " + behaviorState2);
+		
+										TypeSet ts = behaviorState2.getTypeSet();
+										ContainedNamedElement PA = getOccurenceDistributionProperty(relatedInstance,null,behaviorState2,ts);
+										OsateDebug.osateDebug("         PA2 " + PA);
+
+									}
+								}
+							}
+						}
+					}
 				}
 			}
+
 			//state.getState().getName();
 		}
 	}
