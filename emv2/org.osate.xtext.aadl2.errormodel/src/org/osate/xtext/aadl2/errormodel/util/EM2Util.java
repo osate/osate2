@@ -84,7 +84,7 @@ public class EM2Util {
 	 * @param element declarative model element or error annex element
 	 * @return ErrorModelLibrary, ErrorBehaviorStateMachine, ErrorModelSubclause
 	 */
-	public static EList<PropertyAssociation> getContainingPropertiesHolder(EObject element) {
+	public static EList<PropertyAssociation> getContainingPropertiesHolder(Element element) {
 		EObject container = element;
 		while (container != null ){
 			if (container instanceof ErrorModelSubclause ){
@@ -623,6 +623,11 @@ public class EM2Util {
 	 * Then try to find it in the local context if not null. The context is the context object of the referenced target.
 	 * For example: the transition for a state reference.
 	 * Finally, we look for the property at the definition site of the referenced object.
+	 * NOTE: the target element may actually be contained in a different context from the context in which we are interested in its property.
+	 * For example, we are interested in the occurrence distribution for an error state. It actually is contained in an error behavior state machine.
+	 * We are interested in its property value in the context of of the reference to the state, e.g., an error source.
+	 * In some cases we are interested in the state as it is associated with the component via the use behavior clause.
+	 * In that case there is no local context for the state reference.
 	 * @param propertyName String
 	 * @param ci ComponentInstance the component with the error model element, whose property we are retrieving
 	 * @param localContext Element the object that contains the reference to a target object, or null.
@@ -630,14 +635,13 @@ public class EM2Util {
 	 * @return
 	 */
 	public static ContainedNamedElement getProperty(String propertyName, ComponentInstance ci,NamedElement localContext,NamedElement target, TypeSet ts){
-		Stack<ComponentInstance> ciStack = new Stack<ComponentInstance>();
-		ContainedNamedElement result = getPropertyInInstanceHierarchy(propertyName,ci,target,localContext,ciStack, ts);
+		ContainedNamedElement result = getPropertyInInstanceHierarchy(propertyName,ci,target,localContext, ts);
 		if (result==null&& localContext != null){
 			// look up in local context of target reference
 			// for example: the flow source in error propagations or transition in component error behavior for a state reference
 			EList<PropertyAssociation> props = EM2Util.getContainingPropertiesHolder(localContext);
 			if (props != null) {
-				result = getProperty(props, propertyName, target,localContext,ciStack,ts);
+				result = getProperty(props, propertyName, target,localContext,ts);
 			}
 		}
 		if (result==null){
@@ -645,13 +649,11 @@ public class EM2Util {
 			// for example: for a state reference the properties section of the EBSM that defines the state
 			EList<PropertyAssociation> props = EM2Util.getContainingPropertiesHolder(target);
 			if (props != null) {
-				result = getProperty(props, propertyName, target,localContext,ciStack,ts);
+				result = getProperty(props, propertyName, target,localContext,ts);
 			}
 		}
 		return result;
 	}
-	
-	
 	
 	
 	/**
@@ -665,6 +667,12 @@ public class EM2Util {
 	 * @return property association
 	 */
 	public static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,NamedElement target, 
+			NamedElement localContext, TypeSet ts){
+		Stack<ComponentInstance> ciStack = new Stack<ComponentInstance>();
+		return getPropertyInInstanceHierarchy(propertyName,ci,target,localContext,ciStack, ts);
+	}
+
+	private static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,NamedElement target, 
 			NamedElement localContext,Stack<ComponentInstance> ciStack, TypeSet ts){
 		ContainedNamedElement result = null;
 
@@ -710,12 +718,39 @@ public class EM2Util {
 	}
 	
 	/**
+	 * retrieve an error model property (such as Hazard) attached to an error model element.
+	 * @param props list of property associations from the properties section in the error model
+	 * @param propertyName name of property we are looking for
+	 * @param target the error model element
+	 * @param ciStack stack of nested CI
+	 * @return property association
+	 */
+	public static ContainedNamedElement getProperty(EList<PropertyAssociation> props,String propertyName, NamedElement target,
+			NamedElement localContext, TypeSet ts){
+		if (props == null) return null;
+		ContainedNamedElement result = null;
+		for (PropertyAssociation propertyAssociation : props) {
+			Property prop = propertyAssociation.getProperty();
+			String name = prop.getQualifiedName();
+			if (propertyName.equalsIgnoreCase(name)){
+				result = EM2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,null,ts);
+				if (result!=null)
+				return result;
+			}
+		}
+		return result;
+	}
+	
+	/**
 	 * determine whether the property applies to specified error model element or elements contained in it
 	 * (typically error types inside an error model element)
-	 * In other words eme must be the last or second to last element in a path.
-	 * @param propertyAssociation
-	 * @param eme Error Model element
-	 * @return the containment path the property is actually associated with
+	 * ciStack represents the path from the context of the PA to the component instance whose property we want to retrieve
+	 * In other words target must be the last or second to last element in a path.
+	 * @param propertyAssociation PropertyAssociation that is the candidate
+	 * @param ciStack ComponentInstance in instance model hierarchy with the error model element, whose property we are retrieving
+	 * @param localContext Element the object that contains the reference to a target object, or null.
+	 * @param target Element the target object in the error model whose property we retrieve
+	 * @return ContainedNamedElement the containment path that matches
 	 */
 	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, NamedElement target, 
 			NamedElement localContext,Stack<ComponentInstance> ciStack, TypeSet ts ){
@@ -732,8 +767,11 @@ public class EM2Util {
 					}
 				}
 				if (nomatch) break;
+				// we are past the component portion of the path
 				NamedElement targetel = cpes.get(cpes.size()-1).getNamedElement();
+				// check on the last element
 				if (targetel instanceof ErrorTypes){
+					// it points to an error type or type set
 					if (ts !=null){
 						if (targetel instanceof ErrorType){
 							// we refer to a type
@@ -754,12 +792,15 @@ public class EM2Util {
 					// last element should be target element
 					if ( target == targetel){
 						if (localContext != null){
+							// make sure the local context matches the previous element in the path
 							NamedElement localContextme = cpes.get(cpes.size()-2).getNamedElement();
 							if ( localContext != localContextme){
 								break;
 							} else {
 								return containedNamedElement;
 							}
+						} else {
+							return containedNamedElement;
 						}
 					} else {
 						break;
