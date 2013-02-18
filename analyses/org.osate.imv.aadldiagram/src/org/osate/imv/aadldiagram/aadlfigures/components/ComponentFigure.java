@@ -48,7 +48,12 @@ public class ComponentFigure extends ResizableMevFigure {
 		Color c;
 		int factor;
 
-		factor = -1;
+		factor = ErrorUtil.INVALID_FACTOR;
+		
+		if (! AadlPersistentDiagramViewer.useError())
+		{
+			return getBackgroundColor();
+		}
 		
 		if ( (adapter != null) && (adapter.getModelElement() instanceof ComponentInstance))
 		{
@@ -58,6 +63,14 @@ public class ComponentFigure extends ResizableMevFigure {
 
 		if ( (AadlPersistentDiagramViewer.useError()) && (factor != -1 ))
 		{
+			/*
+			 * The factor is on a scale between 0 .. 100
+			 * The RGB should be on a scale between 0 .. 255
+			 * So, to scale the error factor to the RGB value,
+			 * we make the following operation: rgb_value = error_factor * 2.5
+			 * As we operate with integer only, we have to separate
+			 * the * 2.5 into * 25 / 10. 
+			 */
 			c = new Color(null, factor * 25 / 10, 0, 0);
 		}	
 		else

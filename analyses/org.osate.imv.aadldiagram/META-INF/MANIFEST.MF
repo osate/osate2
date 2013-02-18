@@ -25,5 +25,8 @@ Export-Package: org.osate.imv.aadldiagram,
 Import-Package: org.eclipse.emf.common.util,
  org.osate.aadl2,
  org.osate.aadl2.instance,
+ org.osate.aadl2.util,
  org.osate.imv.aadldiagram.draw2d,
+ org.osate.xtext.aadl2.errormodel.errorModel,
+ org.osate.xtext.aadl2.errormodel.util,
  org.osate.xtext.aadl2.properties.util

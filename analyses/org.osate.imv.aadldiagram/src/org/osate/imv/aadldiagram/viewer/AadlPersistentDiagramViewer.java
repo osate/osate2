@@ -106,11 +106,10 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 	
 	public void hideErrors()
 	{
-		IAadlElementAdapter selectedAdapter = this.getAadlDiagram().getSelectedAdapter();
+		System.out.println ("hideerror=" );
+
 		useError = false;
-		forceRefresh = true;
 		refresh();
-		forceRefresh = false;
  	}
 	
 	public static boolean useError ()

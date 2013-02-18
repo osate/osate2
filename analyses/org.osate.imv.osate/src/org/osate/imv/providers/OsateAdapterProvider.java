@@ -52,6 +52,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.impl.ConnectionReferenceImpl;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 
@@ -341,7 +342,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				}
 				else
 				{
-					System.out.println ("no memory associated");
+					OsateDebug.osateDebug ("no memory associated");
 				}
 
 
