@@ -31,6 +31,7 @@ import org.osate.imv.aadldiagram.aadlfigures.components.MemoryFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.ProcessFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.ProcessorFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.SubprogramFigure;
+import org.osate.imv.aadldiagram.aadlfigures.components.SubprogramGroupFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.SystemFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.ThreadFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.ThreadGroupFigure;
@@ -127,6 +128,9 @@ public class AadlFigureFactory {
 			break;
 		case SUBPROGRAM:
 			figure = buildSubprogramFigure(adapter);
+			break;
+		case SUBPROGRAM_GROUP:
+			figure = buildSubprogramGroupFigure(adapter);
 			break;
 		default:
 			System.err.println("Component category " + adapter.getCategory() + " is NOT currently supported.");
@@ -317,6 +321,11 @@ public class AadlFigureFactory {
 
 	private ComponentFigure buildSubprogramFigure(AadlComponentAdapter adapter) {
 		ComponentFigure figure = new SubprogramFigure();
+		return figure;
+	}
+
+	private ComponentFigure buildSubprogramGroupFigure(AadlComponentAdapter adapter) {
+		ComponentFigure figure = new SubprogramGroupFigure();
 		return figure;
 	}
 
