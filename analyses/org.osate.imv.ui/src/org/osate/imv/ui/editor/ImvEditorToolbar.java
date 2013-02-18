@@ -175,7 +175,7 @@ public class ImvEditorToolbar extends Composite {
 		hideErrorModel.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				mevViewer.incrementComponentNestingHandler();
+				mevViewer.hideErrors();
 			}
 		});
 	
