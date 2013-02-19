@@ -93,6 +93,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
@@ -1665,6 +1666,28 @@ public final class AadlUtil {
 	}
 
 	/**
+	 * determine whether a feature instance has outgoing features
+	 * will examine feature groups recursively
+	 * 
+	 * @param fi FeatureInstance of a feature or feature group
+	 */
+	public static boolean hasOutgoingFeatures(FeatureInstance fi) {
+		EList<FeatureInstance> filist = fi.getFeatureInstances();
+		if (filist.isEmpty()){
+			// feature or feature group without features
+			if (!fi.getDirection().equals(DirectionType.IN))
+				return true;
+		} else {
+			for (Iterator<FeatureInstance> fit = filist.iterator(); fit.hasNext();) {
+				FeatureInstance subfi = fit.next();
+				if (hasOutgoingFeatures(subfi))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * get ingoing connections to subcomponents from a specified feature of the
 	 * component impl
 	 * 
@@ -1733,6 +1756,17 @@ public final class AadlUtil {
 	 */
 	public static boolean isOutgoingFeature(Feature f) {
 		return (f instanceof Port && ((Port) f).getDirection().outgoing()) || (f instanceof Access)//&& ((Access) f).getKind() == AccessType.REQUIRED)
+				|| (f instanceof FeatureGroup);
+	}
+	
+	/**
+	 * determine whether the feature is an outgoing port or feature group
+	 * 
+	 * @param f Feature
+	 * @return boolean true if incoming
+	 */
+	public static boolean isIncomingFeature(Feature f) {
+		return (f instanceof Port && ((Port) f).getDirection().incoming()) || (f instanceof Access)//&& ((Access) f).getKind() == AccessType.REQUIRED)
 				|| (f instanceof FeatureGroup);
 	}
 
