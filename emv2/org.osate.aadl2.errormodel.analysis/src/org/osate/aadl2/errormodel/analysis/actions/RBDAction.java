@@ -168,6 +168,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	private double handleCondition (final ConditionExpression cond, final EList<ComponentInstance> componentInstances)
 	{
 		double result = 0;
+		double tmp;
 		OsateDebug.osateDebug("cond="+cond);
 		
 		if (cond instanceof ConditionElement)
@@ -181,7 +182,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			for (ConditionExpression conditionExpression : sor.getOperands())
 			{
 				OsateDebug.osateDebug("      operand=" + conditionExpression);
-				result = handleCondition (conditionExpression, componentInstances);
+				result += handleCondition (conditionExpression, componentInstances);
 			}
 		}
 		
@@ -190,7 +191,15 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			SAndExpression sae = (SAndExpression)cond;
 			for (ConditionExpression conditionExpression : sae.getOperands())
 			{
-				result = handleCondition (conditionExpression, componentInstances);
+				tmp = handleCondition (conditionExpression, componentInstances);
+				if (result == 0)
+				{
+					result = tmp;
+				}
+				else
+				{
+					result = result * tmp;
+				}
 			}
 		}
 		return result;
