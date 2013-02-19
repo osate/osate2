@@ -631,7 +631,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (srcCxt instanceof Subcomponent && srcprop == null&&srccontain == null &&dstCxt instanceof Subcomponent&& (dstprop != null||dstcontain != null)){
 			if (srcems != null){
 				// has an EMV2 subclause but no propagation specification for the feature
-				error(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
+				warning(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
 			} else {
 				// TODO check in instance model for connection end point if no error model subclause
 				info(conn,"Connection source has no error model subclause but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain))+". Please add error model to source or validate against error model of source subcomponents in instance model");
@@ -671,7 +671,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			if (srcCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent&& srcprop == null&&srccontain == null && (dstprop != null||dstcontain != null)){
 				if (dstems != null){ // we are doing opposite direction
 					// has an EMV2 subclause but no propagation specification for the feature
-					error(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
+					warning(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
 				} else {
 					// TODO check in instance model for connection end point if no error model subclause
 					info(conn,"Connection source has no error model subclause but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain))+". Please validate propagations in instance model");
