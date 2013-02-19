@@ -2763,12 +2763,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				warning(connection, '\'' + destination.getName() + "' is missing a classifier.");
 			else if (sourceClassifier != null && destinationClassifier != null) {
 				Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(connection, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
-				EnumerationLiteral classifierMatchingRuleValue;
-				try {
-					classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(connection, classifierMatchingRuleProperty);
-				}
-				catch (PropertyNotPresentException e) {
-					classifierMatchingRuleValue = null;
+				EnumerationLiteral classifierMatchingRuleValue = null;
+				if (classifierMatchingRuleProperty != null){
+					try {
+						classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(connection, classifierMatchingRuleProperty);
+					}
+					catch (PropertyNotPresentException e) {
+						classifierMatchingRuleValue = null;
+					}
 				}
 				if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||
 						classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
