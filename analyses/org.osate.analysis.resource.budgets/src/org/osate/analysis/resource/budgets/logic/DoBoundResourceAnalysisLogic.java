@@ -42,6 +42,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -335,6 +336,7 @@ public class DoBoundResourceAnalysisLogic {
 		String binding = doBindings ? "bound" : "all";
 		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
 		EList budgetedConnections = new BasicEList();
+		// filters out to use only Port connections or feature group connections
 		ConnectionGroupIterator cgi = new ConnectionGroupIterator(connections);
 		while (cgi.hasNext()) {
 			Object obj = cgi.next();
@@ -346,7 +348,7 @@ public class DoBoundResourceAnalysisLogic {
 			if (obj instanceof ConnectionInstance) {
 				ConnectionInstance pci = (ConnectionInstance) obj;
 
-				if (pci.getKind() == ConnectionKind.PORT_CONNECTION) {
+//				if (pci.getKind() == ConnectionKind.PORT_CONNECTION||pci.getKind() == ConnectionKind.FEATURE_GROUP_CONNECTION) {
 					double budget = 0.0;
 					double actual = 0.0;
 					if (doBindings) {
@@ -390,14 +392,14 @@ public class DoBoundResourceAnalysisLogic {
 					} else {
 						// no binding; just do totals
 						budget = GetProperties.getBandWidthBudgetInKbps(pci, 0.0);
-						if (budget == 0) {
+						if (budget == 0 && !pci.getKind().equals(ConnectionKind.ACCESS_CONNECTION)) {
 							errManager.warning(pci, "Connection " + pci.getName() + " has no bandwidth budget");
 						}
 						if (budget > 0) {
 							totalBandWidth += budget;
 						}
 					}
-				}
+//				}
 			}
 		}
 		if (totalBandWidth > Buscapacity) {
