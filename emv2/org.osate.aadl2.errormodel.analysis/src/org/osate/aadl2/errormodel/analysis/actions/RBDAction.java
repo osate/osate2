@@ -33,6 +33,9 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -64,6 +67,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 
 public final class RBDAction extends AaxlReadOnlyActionAsJob {
+	
+	private double 						finalResult;
+	private List<ComponentInstance> 	componentsNames;
+	
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
@@ -139,11 +146,15 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			OsateDebug.osateDebug("      subcomponent " + subcomponent);
 			ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
 			OsateDebug.osateDebug("         instance " + relatedInstance);
+			
+			if (! this.componentsNames.contains(relatedInstance))
+			{
+				this.componentsNames.add (relatedInstance);
+			}
+			
 			if (behaviorState != null)
 			{
 				//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-
-				TypeSet ts = behaviorState.getTypeSet();
 				ContainedNamedElement PA = getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
 				//OsateDebug.osateDebug("         PA " + PA);
 				result = processOccurence (PA);
@@ -190,7 +201,6 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		EList<CompositeState> 		states;
 		CompositeErrorBehavior 		ceb;
 		EList<ComponentInstance> 	componentInstances;
-		double						probabilityTotal;
 		double						probabilityTemp;
 
 		ceb = EM2Util.getCompositeErrorBehavior (systemInstance);
@@ -199,7 +209,6 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		
 		states = ceb.getStates();
 		
-		probabilityTotal = 0;
 		probabilityTemp  = 0;
 		for (CompositeState state : states)
 		{
@@ -207,17 +216,19 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			{
 				probabilityTemp = handleCondition (state.getCondition(), componentInstances);
 				OsateDebug.osateDebug("temp=" + probabilityTemp);
+				finalResult = finalResult + probabilityTemp;
 			}
 		}
 	}
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
-		
+		String message;
 		monitor.beginTask("RBD", IProgressMonitor.UNKNOWN);
 
 		si = null;
-		
+		this.componentsNames = new ArrayList<ComponentInstance>();
+		this.finalResult = 0;
 
 		if (obj instanceof InstanceObject){
 			si = ((InstanceObject)obj).getSystemInstance();
@@ -236,6 +247,15 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		}
 		
 		processRootSystem (si);
+		
+		message  = "Failure probability: " + this.finalResult + "\n";
+		message += "Components involved:\n"; 
+		for (ComponentInstance ci : this.componentsNames)
+		{
+			message += "   * " + ci.getName() + " ("+ci.getCategory().toString()+")\n";
+		}
+		Dialog.showInfo("Reliability Block Diagram", message);	
+
 		
 		monitor.done();
 	}
