@@ -251,11 +251,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			for (FeatureInstance featurei : ci.getFeatureInstances()) 
 			{
-				final boolean inFeatureGroup = !featurei.getFeatureInstances().isEmpty();
 				Feature feature = featurei.getFeature();
-				// XXX check test both branches test for the same TODO warning if subcomponents with outgoing features exist
-				if (inFeatureGroup ? featurei.getDirection() != DirectionType.IN
-						: featurei.getDirection() != DirectionType.IN) 
+				// TODO warning if subcomponents with outgoing features exist
+				if (AadlUtil.hasOutgoingFeatures(featurei)) 
 				{
 					List<Connection> outgoingConns = filterOutgoingConnections(outsideSubConns, feature, sub);
 					boolean connectedInside = false;
@@ -1141,9 +1139,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	protected List<Connection> filterStartingConnections(List<Connection> connlist, Subcomponent sub) {
 		List<Connection> result = new ArrayList<Connection>(connlist.size());
-
+		EList<Subcomponent> sublist = sub.getAllSubcomponentRefinements();
 		for (Connection conn : connlist) {
-			if (conn.getAllSource() == sub || conn.isBidirectional() && conn.getAllDestination() == sub) {
+			if (sublist.contains(conn.getAllSource())  || (conn.isBidirectional() && sublist.contains(conn.getAllDestination()))) {
 				result.add(conn);
 			}
 		}
