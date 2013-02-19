@@ -38,7 +38,7 @@ public class SystemFigure extends ComponentFigure {
 
 	protected void fillShape(Graphics g) {
 		g.pushState();
-		g.setBackgroundColor(this.getBackgroundColor());
+		g.setBackgroundColor(this.getAADLBackgroundColor());
 		g.fillRoundRectangle(getClientArea(), Math.max(0, corner.width),
 				Math.max(0, corner.height));
 		g.popState();

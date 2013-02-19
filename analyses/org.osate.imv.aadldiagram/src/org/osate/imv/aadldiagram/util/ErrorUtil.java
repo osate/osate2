@@ -9,6 +9,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -84,10 +85,20 @@ public class ErrorUtil {
 					if ((cr.getDestination() instanceof FeatureInstance) && 
 					    (cr.getDestination().getContainingComponentInstance() == dest))
 					{
-						//OsateDebug.osateDebug("same");
+						OsateDebug.osateDebug("same");
 						FeatureInstance destinationFeature = (FeatureInstance) cr.getDestination();
 						sourcePropagation = EM2Util.getOutgoingErrorPropagation (fi);
 						destinationPropagation = EM2Util.getOutgoingErrorPropagation (destinationFeature);
+						
+						if (sourcePropagation == null)
+						{
+							continue;
+						}
+						
+						if (destinationPropagation == null)
+						{
+							continue;
+						}
 						
 						TypeSet sourceTypes = sourcePropagation.getTypeSet();
 						TypeSet destinationTypes = sourcePropagation.getTypeSet();
@@ -106,6 +117,7 @@ public class ErrorUtil {
 											 * same error propagation
 											 * between the source and the destination.
 											 */
+											OsateDebug.osateDebug("same type");
 											return DEFAULT_FACTOR;
 										}
 									}
