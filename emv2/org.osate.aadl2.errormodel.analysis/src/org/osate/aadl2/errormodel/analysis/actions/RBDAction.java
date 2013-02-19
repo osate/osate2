@@ -51,7 +51,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
@@ -63,7 +62,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 
 public final class RBDAction extends AaxlReadOnlyActionAsJob {
@@ -143,9 +141,9 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
 		{
 			Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-			OsateDebug.osateDebug("      subcomponent " + subcomponent);
+			//OsateDebug.osateDebug("      subcomponent " + subcomponent);
 			ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
-			OsateDebug.osateDebug("         instance " + relatedInstance);
+			//OsateDebug.osateDebug("         instance " + relatedInstance);
 			
 			if (! this.componentsNames.contains(relatedInstance))
 			{
@@ -169,7 +167,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	{
 		double result = 0;
 		double tmp;
-		OsateDebug.osateDebug("cond="+cond);
+		//OsateDebug.osateDebug("cond="+cond);
 		
 		if (cond instanceof ConditionElement)
 		{
@@ -181,7 +179,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			SOrExpression sor = (SOrExpression)cond;
 			for (ConditionExpression conditionExpression : sor.getOperands())
 			{
-				OsateDebug.osateDebug("      operand=" + conditionExpression);
+				//OsateDebug.osateDebug("      operand=" + conditionExpression);
 				result += handleCondition (conditionExpression, componentInstances);
 			}
 		}
@@ -224,7 +222,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			if (state.getState().getName().equalsIgnoreCase("failed"))
 			{
 				probabilityTemp = handleCondition (state.getCondition(), componentInstances);
-				OsateDebug.osateDebug("temp=" + probabilityTemp);
+			//	OsateDebug.osateDebug("temp=" + probabilityTemp);
 				finalResult = finalResult + probabilityTemp;
 			}
 		}
