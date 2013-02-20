@@ -883,8 +883,22 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 		ConnectionInstanceEnd instance = null;
 		if (connCtxt == null) {
 			//lookup subcomponent using the connection src
-			instance = ctxt
-					.findSubcomponentInstance((Subcomponent) connEndPoint);
+			if (connEndPoint instanceof Subcomponent)
+			{
+				instance = ctxt
+						.findSubcomponentInstance((Subcomponent) connEndPoint);
+			}
+			if (connEndPoint instanceof Feature)
+			{
+				instance = ctxt
+						.findFeatureInstance((Feature) connEndPoint);
+			}
+			
+			if (instance == null)
+			{
+				OsateDebug.osateDebug("[ConnectionInstanceImpl] Error while evaluating object");
+			}
+		
 		} else if (connCtxt instanceof ComponentImplementation) {
 			//lookup feature in the context using the connection src
 			instance = ctxt.findFeatureInstance((Feature) connEndPoint);
