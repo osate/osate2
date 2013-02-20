@@ -390,6 +390,10 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-UnitLiteral-factor-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-UnitLiteral-factor-_lowerValue"/>
         </ownedAttribute>
+        <ownedOperation xmi:id="_wyQnEneIEeKgEKvvpWKI1Q" name="getAbsoluteFactor">
+         <ownedParameter xmi:id="_wyQnE3eIEeKgEKvvpWKI1Q" name="return" type="Real" direction="return"/>
+         <ownedParameter xmi:id="_wyQnFHeIEeKgEKvvpWKI1Q" name="target" type="_wyQnBneIEeKgEKvvpWKI1Q" effect="read"/>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_unitsType_ownedUnitLiteral" name="A_unitsType_ownedUnitLiteral" memberEnd="Types-A_unitsType_ownedUnitLiteral-owner Types-UnitsType-ownedLiteral">
         <ownedEnd xmi:id="Types-A_unitsType_ownedUnitLiteral-owner" name="owner" type="Types-UnitsType" association="Types-A_unitsType_ownedUnitLiteral">
@@ -581,7 +585,26 @@
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-NumberValue-unit-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-NumberValue-unit-_lowerValue"/>
-        </ownedAttribute>
+        </ownedAttribute>    
+        <ownedOperation xmi:id="_lrCjYHdKEeKISfVO9XlNZQ" name="getScaledValue">
+          <ownedParameter xmi:id="_tgAUgHdKEeKISfVO9XlNZQ" name="return" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Real"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_IRuDgHdLEeKISfVO9XlNZQ" name="target" type="Types-UnitLiteral" effect="read"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="_pHrv8Hd3EeKgEKvvpWKI1Q" name="getScaledValue">
+          <ownedParameter xmi:id="_rmJ9gHd3EeKgEKvvpWKI1Q" name="return" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Real"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_qKczkna-EeKJupUQiGe8EA" name="getScaledValue">
+          <ownedParameter xmi:id="_rYO1UHa-EeKJupUQiGe8EA" name="return" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Real"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_t9eZQHa-EeKJupUQiGe8EA" name="target" effect="read">
+            <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ClassifierValue" name="ClassifierValue">
         <ownedComment xmi:id="Expressions-ClassifierValue-_ownedComment.0">
