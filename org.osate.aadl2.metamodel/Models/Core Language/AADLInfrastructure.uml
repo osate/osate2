@@ -230,7 +230,7 @@ endif</body>
         </ownedParameter>
         <ownedParameter xmi:id="_-6X54HarEeK2C_3Ts9FVpQ" name="propertySetName" type="String" effect="read"/>
         <ownedParameter xmi:id="_UA_HQHasEeK2C_3Ts9FVpQ" name="propertyName" type="String" effect="read"/>
-      </ownedOperation>      
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
       <ownedComment xmi:id="Namespace-_ownedComment.0" annotatedElement="Namespace">
