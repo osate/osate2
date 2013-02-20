@@ -166,6 +166,9 @@ public class AadlBaNameResolver
       {
         for(int j = i+1 ; j < ltrans.size() ; j++)
         {
+          if(ltrans.get(i).getName()==null
+                || ltrans.get(j).getName()==null)
+            continue;
           if(ltrans.get(i).getName().equalsIgnoreCase(ltrans.get(j).getName()))
           {
             reportDuplicateNameError(ltrans.get(j), ltrans.get(i)) ;
