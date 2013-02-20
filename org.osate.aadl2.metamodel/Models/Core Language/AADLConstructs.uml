@@ -260,6 +260,13 @@
           <subsettedProperty href="AADLInfrastructure.uml#Classifier-classifierFeature"/>
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
+       <ownedOperation xmi:id="_JRMUAHa9EeKJupUQiGe8EA" name="getAllSubcomponents">
+          <ownedParameter xmi:id="_NKoDsHa9EeKJupUQiGe8EA" name="return" type="Components-Subcomponent" direction="return">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZKBN4Ha9EeKJupUQiGe8EA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YJWbEHa9EeKJupUQiGe8EA"/>
+          </ownedParameter>
+        </ownedOperation>
+        
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Components-A_componentImplementation_ownedExtension" name="A_componentImplementation_ownedExtension" memberEnd="Components-A_componentImplementation_ownedExtension-owner Components-ComponentImplementation-ownedExtension">
         <ownedEnd xmi:id="Components-A_componentImplementation_ownedExtension-owner" name="owner" type="Components-ComponentImplementation" association="Components-A_componentImplementation_ownedExtension">

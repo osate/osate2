@@ -222,6 +222,15 @@ endif</body>
         </ownedRule>
         <ownedParameter xmi:id="NamedElement-qualifiedName.1-_ownedParameter.0" type="String" direction="return"/>
       </ownedOperation>
+      <ownedOperation xmi:id="_O_zh0HarEeK2C_3Ts9FVpQ" name="getPropertyValues">
+        <ownedParameter xmi:id="_Syr9kHarEeK2C_3Ts9FVpQ" name="return" direction="return">
+          <type xmi:type="uml:Class" href="../Property%20Language/AADLProperties.uml#Expressions-PropertyExpression"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vNtWQHa3EeKJupUQiGe8EA" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wYXLgHa3EeKJupUQiGe8EA"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_-6X54HarEeK2C_3Ts9FVpQ" name="propertySetName" type="String" effect="read"/>
+        <ownedParameter xmi:id="_UA_HQHasEeK2C_3Ts9FVpQ" name="propertyName" type="String" effect="read"/>
+      </ownedOperation>      
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
       <ownedComment xmi:id="Namespace-_ownedComment.0" annotatedElement="Namespace">
