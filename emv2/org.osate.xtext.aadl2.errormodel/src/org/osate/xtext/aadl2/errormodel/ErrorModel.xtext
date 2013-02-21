@@ -130,7 +130,7 @@ NoError returns TypeSet:
 
 TypeToken returns TypeToken:
 	{TypeToken}
-     '{' type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])* '}'
+     '(' type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])* ')'
 ;
 
 TypeTokenConstraint returns TypeSet:

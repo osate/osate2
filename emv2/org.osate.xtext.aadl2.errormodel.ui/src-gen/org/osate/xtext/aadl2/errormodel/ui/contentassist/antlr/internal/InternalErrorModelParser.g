@@ -6642,11 +6642,11 @@ rule__TypeToken__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getTypeTokenAccess().getLeftCurlyBracketKeyword_1()); }
+{ before(grammarAccess.getTypeTokenAccess().getLeftParenthesisKeyword_1()); }
 
-	KEYWORD_12 
+	KEYWORD_1 
 
-{ after(grammarAccess.getTypeTokenAccess().getLeftCurlyBracketKeyword_1()); }
+{ after(grammarAccess.getTypeTokenAccess().getLeftParenthesisKeyword_1()); }
 )
 
 ;
@@ -6730,11 +6730,11 @@ rule__TypeToken__Group__4__Impl
     }
 :
 (
-{ before(grammarAccess.getTypeTokenAccess().getRightCurlyBracketKeyword_4()); }
+{ before(grammarAccess.getTypeTokenAccess().getRightParenthesisKeyword_4()); }
 
-	KEYWORD_13 
+	KEYWORD_2 
 
-{ after(grammarAccess.getTypeTokenAccess().getRightCurlyBracketKeyword_4()); }
+{ after(grammarAccess.getTypeTokenAccess().getRightParenthesisKeyword_4()); }
 )
 
 ;

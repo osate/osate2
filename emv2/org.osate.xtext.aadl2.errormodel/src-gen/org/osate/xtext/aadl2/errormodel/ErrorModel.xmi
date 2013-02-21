@@ -406,7 +406,7 @@
             <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
           </type>
         </elements>
-        <elements xsi:type="xtext:Keyword" value="{"/>
+        <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
@@ -426,7 +426,7 @@
             </terminal>
           </elements>
         </elements>
-        <elements xsi:type="xtext:Keyword" value="}"/>
+        <elements xsi:type="xtext:Keyword" value=")"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeTokenConstraint">

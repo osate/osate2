@@ -1166,9 +1166,9 @@ ruleTypeToken returns [EObject current=null]
             $current);
     }
 )
-	otherlv_1=KEYWORD_12
+	otherlv_1=KEYWORD_1
     {
-    	newLeafNode(otherlv_1, grammarAccess.getTypeTokenAccess().getLeftCurlyBracketKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getTypeTokenAccess().getLeftParenthesisKeyword_1());
     }
 (
 (
@@ -1206,9 +1206,9 @@ ruleTypeToken returns [EObject current=null]
 
 )
 ))*
-	otherlv_5=KEYWORD_13
+	otherlv_5=KEYWORD_2
     {
-    	newLeafNode(otherlv_5, grammarAccess.getTypeTokenAccess().getRightCurlyBracketKeyword_4());
+    	newLeafNode(otherlv_5, grammarAccess.getTypeTokenAccess().getRightParenthesisKeyword_4());
     }
 )
 ;

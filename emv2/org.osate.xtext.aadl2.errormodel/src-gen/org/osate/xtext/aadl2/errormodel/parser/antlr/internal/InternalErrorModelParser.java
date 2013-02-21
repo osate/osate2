@@ -2856,7 +2856,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeToken"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1158:1: ruleTypeToken returns [EObject current=null] : ( () otherlv_1= KEYWORD_12 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_13 ) ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1158:1: ruleTypeToken returns [EObject current=null] : ( () otherlv_1= KEYWORD_1 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_2 ) ;
     public final EObject ruleTypeToken() throws RecognitionException {
         EObject current = null;
 
@@ -2867,11 +2867,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1161:28: ( ( () otherlv_1= KEYWORD_12 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_13 ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1162:1: ( () otherlv_1= KEYWORD_12 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_13 )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1161:28: ( ( () otherlv_1= KEYWORD_1 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_2 ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1162:1: ( () otherlv_1= KEYWORD_1 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_2 )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1162:1: ( () otherlv_1= KEYWORD_12 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_13 )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1162:2: () otherlv_1= KEYWORD_12 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_13
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1162:1: ( () otherlv_1= KEYWORD_1 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_2 )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1162:2: () otherlv_1= KEYWORD_1 ( ( ruleQEMREF ) ) (otherlv_3= KEYWORD_3 ( ( ruleQEMREF ) ) )* otherlv_5= KEYWORD_2
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1162:2: ()
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1163:5: 
@@ -2884,9 +2884,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_12,FollowSets000.FOLLOW_KEYWORD_12_in_ruleTypeToken2399); 
+            otherlv_1=(Token)match(input,KEYWORD_1,FollowSets000.FOLLOW_KEYWORD_1_in_ruleTypeToken2399); 
 
-                	newLeafNode(otherlv_1, grammarAccess.getTypeTokenAccess().getLeftCurlyBracketKeyword_1());
+                	newLeafNode(otherlv_1, grammarAccess.getTypeTokenAccess().getLeftParenthesisKeyword_1());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1173:1: ( ( ruleQEMREF ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1174:1: ( ruleQEMREF )
@@ -2972,9 +2972,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_5=(Token)match(input,KEYWORD_13,FollowSets000.FOLLOW_KEYWORD_13_in_ruleTypeToken2472); 
+            otherlv_5=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleTypeToken2472); 
 
-                	newLeafNode(otherlv_5, grammarAccess.getTypeTokenAccess().getRightCurlyBracketKeyword_4());
+                	newLeafNode(otherlv_5, grammarAccess.getTypeTokenAccess().getRightParenthesisKeyword_4());
                 
 
             }
@@ -6090,7 +6090,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             int alt51=3;
             int LA51_0 = input.LA(1);
 
-            if ( (LA51_0==KEYWORD_12) ) {
+            if ( (LA51_0==KEYWORD_1) ) {
                 alt51=1;
             }
             else if ( (LA51_0==KEYWORD_66) ) {
@@ -8731,7 +8731,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             int alt77=2;
                             int LA77_0 = input.LA(1);
 
-                            if ( (LA77_0==KEYWORD_12) ) {
+                            if ( (LA77_0==KEYWORD_1) ) {
                                 alt77=1;
                             }
                             switch (alt77) {
@@ -9057,7 +9057,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     int alt81=2;
                     int LA81_0 = input.LA(1);
 
-                    if ( (LA81_0==KEYWORD_12) ) {
+                    if ( (LA81_0==KEYWORD_1) ) {
                         alt81=1;
                     }
                     switch (alt81) {
@@ -11589,7 +11589,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     int alt105=2;
                     int LA105_0 = input.LA(1);
 
-                    if ( (LA105_0==KEYWORD_12) ) {
+                    if ( (LA105_0==KEYWORD_1) ) {
                         alt105=1;
                     }
                     switch (alt105) {
@@ -13035,7 +13035,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             int alt119=2;
             int LA119_0 = input.LA(1);
 
-            if ( (LA119_0==KEYWORD_12) ) {
+            if ( (LA119_0==KEYWORD_1) ) {
                 alt119=1;
             }
             switch (alt119) {
@@ -19158,7 +19158,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
     static final String DFA107_minS =
         "\1\17\5\63\1\17\4\63\2\uffff\2\63";
     static final String DFA107_maxS =
-        "\1\145\5\131\1\100\4\131\2\uffff\2\131";
+        "\1\145\5\126\1\100\4\126\2\uffff\2\126";
     static final String DFA107_acceptS =
         "\13\uffff\1\2\1\1\2\uffff";
     static final String DFA107_specialS =
@@ -19166,20 +19166,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
     static final String[] DFA107_transitionS = {
             "\1\1\2\uffff\1\10\3\uffff\1\7\10\uffff\1\6\1\11\1\4\1\uffff"+
             "\1\2\6\uffff\1\5\10\uffff\1\13\14\uffff\1\3\44\uffff\1\12",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
             "\1\15\60\uffff\1\16",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
             "",
             "",
-            "\1\13\42\uffff\1\14\2\uffff\1\14",
-            "\1\13\42\uffff\1\14\2\uffff\1\14"
+            "\1\13\32\uffff\1\14\7\uffff\1\14",
+            "\1\13\32\uffff\1\14\7\uffff\1\14"
     };
 
     static final short[] DFA107_eot = DFA.unpackEncodedString(DFA107_eotS);
@@ -19405,11 +19405,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_KEYWORD_13_in_ruleNoError2308 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleTypeToken_in_entryRuleTypeToken2342 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleTypeToken2352 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_12_in_ruleTypeToken2399 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleTypeToken2421 = new BitSet(new long[]{0x0000000000000000L,0x0000000004010000L});
+        public static final BitSet FOLLOW_KEYWORD_1_in_ruleTypeToken2399 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleTypeToken2421 = new BitSet(new long[]{0x0000000000000000L,0x0000000000018000L});
         public static final BitSet FOLLOW_KEYWORD_3_in_ruleTypeToken2435 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleTypeToken2457 = new BitSet(new long[]{0x0000000000000000L,0x0000000004010000L});
-        public static final BitSet FOLLOW_KEYWORD_13_in_ruleTypeToken2472 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleTypeToken2457 = new BitSet(new long[]{0x0000000000000000L,0x0000000000018000L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleTypeToken2472 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_entryRuleTypeTokenConstraint2506 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleTypeTokenConstraint2516 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleTypeSetReference_in_ruleTypeTokenConstraint2562 = new BitSet(new long[]{0x0000000000000002L});
@@ -19437,7 +19437,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleTypeTokenConstraintNoError_in_ruleTypeTransformation3043 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
         public static final BitSet FOLLOW_KEYWORD_15_in_ruleTypeTransformation3056 = new BitSet(new long[]{0x0000000000000000L,0x0000002002000020L});
         public static final BitSet FOLLOW_ruleTypeTokenConstraintNoError_in_ruleTypeTransformation3076 = new BitSet(new long[]{0x2000000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_23_in_ruleTypeTransformation3089 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+        public static final BitSet FOLLOW_KEYWORD_23_in_ruleTypeTransformation3089 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
         public static final BitSet FOLLOW_ruleTypeToken_in_ruleTypeTransformation3109 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
         public static final BitSet FOLLOW_KEYWORD_9_in_ruleTypeTransformation3122 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleTypeMappingSet_in_entryRuleTypeMappingSet3156 = new BitSet(new long[]{0x0000000000000000L});
@@ -19458,7 +19458,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleTypeMapping_in_entryRuleTypeMapping3430 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleTypeMapping3440 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleTypeMapping3486 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-        public static final BitSet FOLLOW_KEYWORD_14_in_ruleTypeMapping3499 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+        public static final BitSet FOLLOW_KEYWORD_14_in_ruleTypeMapping3499 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
         public static final BitSet FOLLOW_ruleTypeToken_in_ruleTypeMapping3519 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
         public static final BitSet FOLLOW_KEYWORD_9_in_ruleTypeMapping3532 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleErrorPropagations_in_entryRuleErrorPropagations3566 = new BitSet(new long[]{0x0000000000000000L});
@@ -19538,8 +19538,8 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5218 = new BitSet(new long[]{0x0000000000000000L,0x0000002002000060L});
         public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorPath5239 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
         public static final BitSet FOLLOW_KEYWORD_14_in_ruleErrorPath5253 = new BitSet(new long[]{0x4000040B80448000L,0x0000002000000001L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5276 = new BitSet(new long[]{0x0000000008000000L,0x0000000002400000L});
-        public static final BitSet FOLLOW_KEYWORD_24_in_ruleErrorPath5301 = new BitSet(new long[]{0x0000000008000000L,0x0000000002400000L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5276 = new BitSet(new long[]{0x0000000008000000L,0x0000000000404000L});
+        public static final BitSet FOLLOW_KEYWORD_24_in_ruleErrorPath5301 = new BitSet(new long[]{0x0000000008000000L,0x0000000000404000L});
         public static final BitSet FOLLOW_ruleTypeToken_in_ruleErrorPath5335 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
         public static final BitSet FOLLOW_KEYWORD_66_in_ruleErrorPath5355 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
         public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorPath5377 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
@@ -19648,7 +19648,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_KEYWORD_15_in_ruleErrorBehaviorTransition7547 = new BitSet(new long[]{0x0000040B80448000L,0x0000002010004001L});
         public static final BitSet FOLLOW_ruleConditionExpression_in_ruleErrorBehaviorTransition7567 = new BitSet(new long[]{0x2000000000000000L});
         public static final BitSet FOLLOW_KEYWORD_23_in_ruleErrorBehaviorTransition7580 = new BitSet(new long[]{0x0008000000000000L,0x0000002000004000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7602 = new BitSet(new long[]{0x0000000000000000L,0x0000000002400000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7602 = new BitSet(new long[]{0x0000000000000000L,0x0000000000404000L});
         public static final BitSet FOLLOW_ruleTypeToken_in_ruleErrorBehaviorTransition7623 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
         public static final BitSet FOLLOW_KEYWORD_32_in_ruleErrorBehaviorTransition7650 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
         public static final BitSet FOLLOW_KEYWORD_1_in_ruleErrorBehaviorTransition7682 = new BitSet(new long[]{0x0008000000000000L,0x0000002000000000L});
@@ -19659,7 +19659,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorBehaviorTransition7765 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleTransitionBranch_in_entryRuleTransitionBranch7799 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleTransitionBranch7809 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleTransitionBranch7856 = new BitSet(new long[]{0x0800000000000000L,0x0000000002000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleTransitionBranch7856 = new BitSet(new long[]{0x0800000000000000L,0x0000000000004000L});
         public static final BitSet FOLLOW_ruleTypeToken_in_ruleTransitionBranch7877 = new BitSet(new long[]{0x0800000000000000L});
         public static final BitSet FOLLOW_KEYWORD_32_in_ruleTransitionBranch7904 = new BitSet(new long[]{0x0800000000000000L});
         public static final BitSet FOLLOW_KEYWORD_40_in_ruleTransitionBranch7929 = new BitSet(new long[]{0x0000004000000000L,0x0000002100000000L});
@@ -19752,7 +19752,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_KEYWORD_15_in_ruleOutgoingPropagationCondition9916 = new BitSet(new long[]{0x2000040B80448000L,0x0000002010004001L});
         public static final BitSet FOLLOW_ruleConditionExpression_in_ruleOutgoingPropagationCondition9936 = new BitSet(new long[]{0x2000000000000000L});
         public static final BitSet FOLLOW_KEYWORD_23_in_ruleOutgoingPropagationCondition9950 = new BitSet(new long[]{0x0008040B80448000L,0x0000002000000001L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleOutgoingPropagationCondition9974 = new BitSet(new long[]{0x0000000000000000L,0x0000000002400000L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleOutgoingPropagationCondition9974 = new BitSet(new long[]{0x0000000000000000L,0x0000000000404000L});
         public static final BitSet FOLLOW_ruleTypeToken_in_ruleOutgoingPropagationCondition9995 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
         public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleOutgoingPropagationCondition10027 = new BitSet(new long[]{0x0008000000000000L});
         public static final BitSet FOLLOW_KEYWORD_32_in_ruleOutgoingPropagationCondition10047 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
@@ -19808,7 +19808,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleSConditionExpression_in_ruleCompositeState11152 = new BitSet(new long[]{0x2000000000000000L});
         public static final BitSet FOLLOW_KEYWORD_55_in_ruleCompositeState11177 = new BitSet(new long[]{0x2000000000000000L});
         public static final BitSet FOLLOW_KEYWORD_23_in_ruleCompositeState11202 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleCompositeState11221 = new BitSet(new long[]{0x0000000000000000L,0x0000000002400000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleCompositeState11221 = new BitSet(new long[]{0x0000000000000000L,0x0000000000404000L});
         public static final BitSet FOLLOW_ruleTypeToken_in_ruleCompositeState11242 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
         public static final BitSet FOLLOW_KEYWORD_9_in_ruleCompositeState11256 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleSConditionExpression_in_entryRuleSConditionExpression11290 = new BitSet(new long[]{0x0000000000000000L});
