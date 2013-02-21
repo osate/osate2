@@ -597,7 +597,8 @@ public class AadlBaUnparser
       {
         Element refContainer = Aadl2Visitors.getContainingPackageSection(el.getElement());
         Element holderPackageOrPropertySet = Aadl2Visitors.getContainingPackageSection(el);
-        if(false==holderPackageOrPropertySet.equals(refContainer))
+        if(refContainer!=null && holderPackageOrPropertySet!=null &&
+              false==holderPackageOrPropertySet.equals(refContainer))
         {
           StringBuilder sb = new StringBuilder(el.getElement().getQualifiedName());
           String prefix=sb.substring(0, sb.lastIndexOf("::")+2);
