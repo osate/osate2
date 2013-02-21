@@ -84,6 +84,7 @@ import org.osate.aadl2.util.OsateDebug;
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getConnectionReferences <em>Connection Reference</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#isBidirectional <em>Bidirectional</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getSource <em>Source</em>}</li>
  * </ul>
  * </p>
@@ -171,6 +172,26 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 	 * @ordered
 	 */
 	protected EList<ConnectionReference> connectionReferences;
+
+	/**
+	 * The default value of the '{@link #isBidirectional() <em>Bidirectional</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isBidirectional()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean BIDIRECTIONAL_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isBidirectional() <em>Bidirectional</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isBidirectional()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean bidirectional = BIDIRECTIONAL_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
@@ -384,6 +405,29 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isBidirectional() {
+		return bidirectional;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBidirectional(boolean newBidirectional) {
+		boolean oldBidirectional = bidirectional;
+		bidirectional = newBidirectional;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.CONNECTION_INSTANCE__BIDIRECTIONAL,
+					oldBidirectional, bidirectional));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConnectionInstanceEnd getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject) source;
@@ -529,6 +573,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 			return basicGetDestination();
 		case InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE:
 			return getConnectionReferences();
+		case InstancePackage.CONNECTION_INSTANCE__BIDIRECTIONAL:
+			return isBidirectional();
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
 			if (resolve)
 				return getSource();
@@ -570,6 +616,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 			getConnectionReferences().addAll(
 					(Collection<? extends ConnectionReference>) newValue);
 			return;
+		case InstancePackage.CONNECTION_INSTANCE__BIDIRECTIONAL:
+			setBidirectional((Boolean) newValue);
+			return;
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
 			setSource((ConnectionInstanceEnd) newValue);
 			return;
@@ -603,6 +652,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 		case InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE:
 			getConnectionReferences().clear();
 			return;
+		case InstancePackage.CONNECTION_INSTANCE__BIDIRECTIONAL:
+			setBidirectional(BIDIRECTIONAL_EDEFAULT);
+			return;
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
 			setSource((ConnectionInstanceEnd) null);
 			return;
@@ -632,6 +684,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 		case InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE:
 			return connectionReferences != null
 					&& !connectionReferences.isEmpty();
+		case InstancePackage.CONNECTION_INSTANCE__BIDIRECTIONAL:
+			return bidirectional != BIDIRECTIONAL_EDEFAULT;
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
 			return source != null;
 		}
@@ -653,6 +707,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 		result.append(complete);
 		result.append(", kind: "); //$NON-NLS-1$
 		result.append(kind);
+		result.append(", bidirectional: "); //$NON-NLS-1$
+		result.append(bidirectional);
 		result.append(')');
 		return result.toString();
 	}
@@ -883,22 +939,19 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
 		ConnectionInstanceEnd instance = null;
 		if (connCtxt == null) {
 			//lookup subcomponent using the connection src
-			if (connEndPoint instanceof Subcomponent)
-			{
+			if (connEndPoint instanceof Subcomponent) {
 				instance = ctxt
 						.findSubcomponentInstance((Subcomponent) connEndPoint);
 			}
-			if (connEndPoint instanceof Feature)
-			{
-				instance = ctxt
-						.findFeatureInstance((Feature) connEndPoint);
+			if (connEndPoint instanceof Feature) {
+				instance = ctxt.findFeatureInstance((Feature) connEndPoint);
 			}
-			
-			if (instance == null)
-			{
-				OsateDebug.osateDebug("[ConnectionInstanceImpl] Error while evaluating object");
+
+			if (instance == null) {
+				OsateDebug
+						.osateDebug("[ConnectionInstanceImpl] Error while evaluating object");
 			}
-		
+
 		} else if (connCtxt instanceof ComponentImplementation) {
 			//lookup feature in the context using the connection src
 			instance = ctxt.findFeatureInstance((Feature) connEndPoint);

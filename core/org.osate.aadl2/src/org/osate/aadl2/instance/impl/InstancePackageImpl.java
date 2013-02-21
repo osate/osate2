@@ -440,9 +440,19 @@ public class InstancePackageImpl extends EPackageImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getConnectionInstance_Bidirectional() {
+		return (EAttribute) connectionInstanceEClass.getEStructuralFeatures()
+				.get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getConnectionInstance_Source() {
 		return (EReference) connectionInstanceEClass.getEStructuralFeatures()
-				.get(6);
+				.get(7);
 	}
 
 	/**
@@ -976,6 +986,8 @@ public class InstancePackageImpl extends EPackageImpl implements
 				CONNECTION_INSTANCE__DESTINATION);
 		createEReference(connectionInstanceEClass,
 				CONNECTION_INSTANCE__CONNECTION_REFERENCE);
+		createEAttribute(connectionInstanceEClass,
+				CONNECTION_INSTANCE__BIDIRECTIONAL);
 		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__SOURCE);
 
 		flowElementInstanceEClass = createEClass(FLOW_ELEMENT_INSTANCE);
@@ -1223,6 +1235,10 @@ public class InstancePackageImpl extends EPackageImpl implements
 				this.getConnectionReference(),
 				null,
 				"connectionReference", null, 1, -1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getConnectionInstance_Bidirectional(),
+				theAadl2Package.getBoolean(),
+				"bidirectional", null, 1, 1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEReference(
 				getConnectionInstance_Source(),
 				this.getConnectionInstanceEnd(),

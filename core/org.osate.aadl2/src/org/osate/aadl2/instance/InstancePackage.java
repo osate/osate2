@@ -556,13 +556,22 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_INSTANCE__CONNECTION_REFERENCE = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Bidirectional</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_INSTANCE__BIDIRECTIONAL = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 6;
+
+	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_INSTANCE__SOURCE = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 6;
+	int CONNECTION_INSTANCE__SOURCE = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Connection Instance</em>' class.
@@ -571,7 +580,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_INSTANCE_FEATURE_COUNT = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 7;
+	int CONNECTION_INSTANCE_FEATURE_COUNT = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 8;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.SystemOperationModeImpl <em>System Operation Mode</em>}' class.
@@ -1861,6 +1870,17 @@ public interface InstancePackage extends EPackage {
 	EReference getConnectionInstance_ConnectionReference();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.instance.ConnectionInstance#isBidirectional <em>Bidirectional</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bidirectional</em>'.
+	 * @see org.osate.aadl2.instance.ConnectionInstance#isBidirectional()
+	 * @see #getConnectionInstance()
+	 * @generated
+	 */
+	EAttribute getConnectionInstance_Bidirectional();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.ConnectionInstance#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2594,6 +2614,15 @@ public interface InstancePackage extends EPackage {
 		 */
 		EReference CONNECTION_INSTANCE__CONNECTION_REFERENCE = eINSTANCE
 				.getConnectionInstance_ConnectionReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Bidirectional</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_INSTANCE__BIDIRECTIONAL = eINSTANCE
+				.getConnectionInstance_Bidirectional();
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
