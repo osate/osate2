@@ -194,6 +194,42 @@ public class Aadl2Utils
   }
   
   /**
+   * Returns the parameter usage (by_reference, by_value) of the given NamedElement object.<BR>
+   * <BR>
+   * 
+   * Returns the local "Parameter_Usage" property value, if it is set. Otherwise,
+   * returns the default parameter value found in Generation_Properties (home
+   * made property set). If the default parameter value is not found,
+   * returns {@null}.  
+   * 
+   * @param ne the given NamedElement object
+   * @return local parameter usage or default parameter usage or {@code null}
+   */
+  public static String getParameter_Usage(NamedElement ne)
+  {
+    String result = null ;
+   
+    try
+    {
+      result = PropertyUtils.getEnumValue(ne, "Parameter_Usage") ;
+    }
+    catch(Exception e)
+    {
+      try
+      {
+        Property prop = GetProperties.lookupPropertyDefinition(ne, "Generation_Properties", "Parameter_Usage");
+        NamedValue nv = (NamedValue) prop.getDefaultValue() ;
+        result = ((EnumerationLiteral) nv.getNamedValue()).getName();
+      }
+      catch(Exception e1)
+      {
+        return null ;
+      }
+    }	    
+    return result ;
+  }
+  
+  /**
    * Returns the access right of the given NamedElement object.<BR>
    * <BR>
    * 
