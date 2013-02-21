@@ -90,6 +90,7 @@ public class ConnectionInstanceItemProvider extends
 			addCompletePropertyDescriptor(object);
 			addKindPropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
+			addBidirectionalPropertyDescriptor(object);
 			addSourcePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -193,6 +194,26 @@ public class ConnectionInstanceItemProvider extends
 	}
 
 	/**
+	 * This adds a property descriptor for the Bidirectional feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBidirectionalPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_ConnectionInstance_bidirectional_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_bidirectional_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.CONNECTION_INSTANCE__BIDIRECTIONAL,
+						true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Source feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -282,6 +303,7 @@ public class ConnectionInstanceItemProvider extends
 		switch (notification.getFeatureID(ConnectionInstance.class)) {
 		case InstancePackage.CONNECTION_INSTANCE__COMPLETE:
 		case InstancePackage.CONNECTION_INSTANCE__KIND:
+		case InstancePackage.CONNECTION_INSTANCE__BIDIRECTIONAL:
 			fireNotifyChanged(new ViewerNotification(notification,
 					notification.getNotifier(), false, true));
 			return;
