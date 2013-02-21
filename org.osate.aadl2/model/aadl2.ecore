@@ -208,6 +208,10 @@
         <details key="body" value="if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then&#xD;&#xA;  self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))&#xD;&#xA;else &#xD;&#xA;  '' &#xD;&#xA;endif"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="getPropertyValues" ordered="false" upperBound="-1" eType="#//PropertyExpression">
+      <eParameters name="propertySetName" ordered="false" lowerBound="1" eType="#//String"/>
+      <eParameters name="propertyName" ordered="false" lowerBound="1" eType="#//String"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false" eType="#//String">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The name of the NamedElement."/>
@@ -711,6 +715,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentImplementation" abstract="true"
       eSuperTypes="#//ComponentClassifier">
+    <eOperations name="getAllSubcomponents" ordered="false" upperBound="-1" eType="#//Subcomponent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
         lowerBound="1" eType="#//ComponentType" volatile="true" transient="true" derived="true">
       <eAnnotations source="subsets" references="#//Classifier/general"/>
@@ -2280,9 +2285,19 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyValue" abstract="true" eSuperTypes="#//PropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="NumberValue" abstract="true" eSuperTypes="#//PropertyValue">
+    <eOperations name="getScaledValue" ordered="false" lowerBound="1" eType="#//Real">
+      <eParameters name="target" ordered="false" lowerBound="1" eType="#//UnitLiteral"/>
+    </eOperations>
+    <eOperations name="getScaledValue" ordered="false" lowerBound="1" eType="#//Real"/>
+    <eOperations name="getScaledValue" ordered="false" lowerBound="1" eType="#//Real">
+      <eParameters name="target" ordered="false" lowerBound="1" eType="#//String"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="unit" ordered="false" eType="#//UnitLiteral"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnitLiteral" eSuperTypes="#//EnumerationLiteral">
+    <eOperations name="getAbsoluteFactor" ordered="false" lowerBound="1" eType="#//Real">
+      <eParameters name="target" ordered="false" lowerBound="1" eType="#//UnitLiteral"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseUnit" ordered="false"
         eType="#//UnitLiteral"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="factor" ordered="false"
