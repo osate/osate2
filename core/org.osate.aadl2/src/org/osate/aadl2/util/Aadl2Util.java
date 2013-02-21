@@ -1,16 +1,25 @@
 package org.osate.aadl2.util;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.ThreadImplementation;
 
 public class Aadl2Util {
+
+	/**
+	 * The property service to be used by the meta-model class to lookup property definitions. When using OSATE in the
+	 * Eclipse IDE, an implementation is provided by the org.osate.xtext.aadl2.properties.ui plugin making use of
+	 * GetProperties to search for property definitions in the workspace.
+	 */
+	public static IPropertyService propertyService = null;
 
 	/**
 	 * Xtext resolver leaves unresolved proxy when reference cannot be resolved.
@@ -125,4 +134,41 @@ public class Aadl2Util {
 		return null;
 	}
 
+
+	/**
+	 * find property definition for given name. The property may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param context EObject the model object that references the property definition
+	 * @param ps String property set name, which may be null
+	 * @param name String Property Definition name
+	 * @return Property or null
+	 */
+	public static Property lookupPropertyDefinition(	final EObject context,
+														final String propSetName,
+														final String propName ) {
+		if ( propertyService != null ) {
+			return propertyService.lookupPropertyDefinition(context,propSetName, propName );
+		}
+
+		// When no property service is provided, search through the resources of the resource set.
+		for ( final Resource res : context.eResource().getResourceSet().getResources() ) {
+			if ( !res.getContents().isEmpty() ) {
+				final EObject root = res.getContents().get( 0 );
+				
+				if ( root instanceof PropertySet ) {
+					final PropertySet propSet = (PropertySet) root;
+					
+					if ( propSetName.equals( propSet.getName() ) ) {
+						final NamedElement property = propSet.findNamedElement( propName );
+						
+						if ( property instanceof Property ) {
+							return (Property) property;
+						}
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
 }

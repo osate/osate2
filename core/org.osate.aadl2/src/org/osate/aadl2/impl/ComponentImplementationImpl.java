@@ -81,6 +81,7 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.operations.ComponentImplementationOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
@@ -1534,7 +1535,7 @@ public abstract class ComponentImplementationImpl extends
 	 * @return List of connections
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	public EList<Subcomponent> getAllSubcomponents() {
+	/*public EList<Subcomponent> getAllSubcomponents() {
 		final EList<Classifier> ancestors = getAllExtendPlusSelf();
 		final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
 		// Process from farthest ancestor to self
@@ -1556,8 +1557,11 @@ public abstract class ComponentImplementationImpl extends
 			}
 		}
 		return returnlist;
+	}*/
+	
+	public EList<Subcomponent> getAllSubcomponents() {
+		return ComponentImplementationOperations.getAllSubcomponents(this);
 	}
-
 	/**
 	 * get all features including inherited features
 	 * 

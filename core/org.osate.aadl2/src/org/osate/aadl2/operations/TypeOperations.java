@@ -101,7 +101,7 @@ public class TypeOperations extends NamedElementOperations {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(),
 					Aadl2Package.eINSTANCE.getType().getEAllOperations()
-							.get(12));
+							.get(13));
 			try {
 				CONFORMS_TO__TYPE__EOCL_QRY = helper
 						.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
