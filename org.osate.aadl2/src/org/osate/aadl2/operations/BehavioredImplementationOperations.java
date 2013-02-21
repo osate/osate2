@@ -55,7 +55,8 @@ import org.osate.aadl2.SubprogramCallSequence;
  *
  * @generated
  */
-public class BehavioredImplementationOperations extends ClassifierOperations {
+public class BehavioredImplementationOperations extends
+		ComponentImplementationOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.operations.NumberValueOperations;
 import org.osate.aadl2.UnitsType;
 
 /**
@@ -127,6 +128,24 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public double getScaledValue(UnitLiteral target) {
+		return NumberValueOperations.getScaledValue(this, target);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public double getScaledValue() {
+		return NumberValueOperations.getScaledValue(this);
 	}
 
 	/**

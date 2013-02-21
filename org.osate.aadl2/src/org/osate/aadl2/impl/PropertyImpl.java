@@ -514,9 +514,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		for (PropertyAssociation pa : pas) {
 			//			OsateDebug.osateDebug("pa" + pa);
 			vals.add(pa.evaluate(ctx));
-			
-			if (( ! (ctx.getInstanceObject() instanceof ConnectionReference )) && (!pa.isAppend()))
-			{
+
+			if ((!(ctx.getInstanceObject() instanceof ConnectionReference))
+					&& (!pa.isAppend())) {
 				break;
 			}
 		}
@@ -557,7 +557,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			return;
 		}
 
-		
 		getPropertyValueFromDeclarativeModel(ctx, paa);
 
 		/*
@@ -572,7 +571,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		 * ConnectionInstance that returns the value of the potential other
 		 * contained references.
 		 */
-		if (isInherit() && ( ! (io instanceof ConnectionReference)))  {
+		if (isInherit() && (!(io instanceof ConnectionReference))) {
 			io = (InstanceObject) io.eContainer();
 			if (io != null) {
 				getPropertyValueInternal(
@@ -609,7 +608,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 				((FeatureImpl) compDecl).getPropertyValue(this, pas, cl);
 			} else if (compDecl instanceof PortConnection) {
 				((PortConnectionImpl) compDecl).getPropertyValue(this, pas);
-			}else {
+			} else {
 				compDecl.getPropertyValueInternal(this, pas, true);
 			}
 		}

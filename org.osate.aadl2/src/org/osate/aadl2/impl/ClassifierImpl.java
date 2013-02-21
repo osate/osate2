@@ -1050,8 +1050,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	public NamedElement findNamedElement(String name) {
 		Classifier cl = this;
 		while (!Aadl2Util.isNull(cl)) {
-			NamedElement res = Aadl2Util.findOwnedNamedElement(cl,name);
-			if (res != null) return res;
+			NamedElement res = Aadl2Util.findOwnedNamedElement(cl, name);
+			if (res != null)
+				return res;
 			cl = cl.getExtended();
 		}
 		return null;

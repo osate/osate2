@@ -134,6 +134,6 @@ public interface UnitLiteral extends EnumerationLiteral {
 	 * @param target UnitLiteral
 	 * @return conversion factor
 	 */
-	public double getAbsoluteFactor(UnitLiteral target);
+	 double getAbsoluteFactor(UnitLiteral target);
 
 } // UnitLiteral

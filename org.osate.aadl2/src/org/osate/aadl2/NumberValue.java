@@ -77,6 +77,8 @@ public interface NumberValue extends PropertyValue {
 	 * @generated
 	 */
 	void setUnit(UnitLiteral value);
+	
+	
 
 	/**
 	 * @author dionisio
@@ -106,7 +108,7 @@ public interface NumberValue extends PropertyValue {
 	 * have a unit then the scaled value is the same as the number's value.
 	 * @return the value scaled to the base unit
 	 */
-	public double getScaledValue();
+	double getScaledValue();
 
 	/**
 	 * Get the scaled value of the number, this is the number's value
@@ -115,7 +117,7 @@ public interface NumberValue extends PropertyValue {
 	 * @param target the target unit
 	 * @return the value scaled to the target unit
 	 */
-	public double getScaledValue(UnitLiteral target);
+	double getScaledValue(UnitLiteral target);
 
-	public double getScaledValue(String target);
+	double getScaledValue(String target);
 } // NumberValue

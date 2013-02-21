@@ -207,7 +207,6 @@ import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorPrototype;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.VirtualProcessorType;
-import org.osate.aadl2.*;
 
 /**
  * <!-- begin-user-doc -->

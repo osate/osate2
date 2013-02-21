@@ -53,6 +53,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.util.Aadl2Validator;
@@ -72,6 +73,7 @@ import org.osate.aadl2.util.Aadl2Validator;
  *   <li>{@link org.osate.aadl2.NamedElement#isDistinguishableFrom(org.osate.aadl2.NamedElement, org.osate.aadl2.Namespace) <em>Is Distinguishable From</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#separator() <em>Separator</em>}</li>
  *   <li>{@link org.osate.aadl2.NamedElement#qualifiedName() <em>Qualified Name</em>}</li>
+ *   <li>{@link org.osate.aadl2.NamedElement#getPropertyValues(java.lang.String, java.lang.String) <em>Get Property Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -450,6 +452,19 @@ public class NamedElementOperations extends ElementOperations {
 				return namedElement.getName();
 		} else
 			return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static EList<PropertyExpression> getPropertyValues(
+			NamedElement namedElement, String propertySetName,
+			String propertyName) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 } // NamedElementOperations

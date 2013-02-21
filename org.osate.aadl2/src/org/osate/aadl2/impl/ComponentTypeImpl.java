@@ -69,7 +69,6 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
