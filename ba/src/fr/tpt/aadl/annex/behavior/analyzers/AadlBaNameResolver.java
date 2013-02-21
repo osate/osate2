@@ -164,10 +164,12 @@ public class AadlBaNameResolver
       
       for (int i = 0 ; i < ltrans.size() - 1 ; i++)
       {
+        if(ltrans.get(i).getName()==null)
+          continue ;
+        
         for(int j = i+1 ; j < ltrans.size() ; j++)
         {
-          if(ltrans.get(i).getName()==null
-                || ltrans.get(j).getName()==null)
+          if (ltrans.get(j).getName()==null)
             continue;
           if(ltrans.get(i).getName().equalsIgnoreCase(ltrans.get(j).getName()))
           {
