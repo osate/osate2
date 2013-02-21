@@ -116,6 +116,12 @@ A connecton instance is unidirectional. A sequence of bidirectional declarative 
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mRVLkXV0Ed-5Z-hOGUPk8w" value="*"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mRVLknV0Ed-5Z-hOGUPk8w" value="1"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_TJtKoHw2EeKNv_e5kQsGcQ" name="bidirectional">
+        <ownedComment xmi:id="_TJtKoXw2EeKNv_e5kQsGcQ">
+          <body>Indicates if this connection is bidirectional or not</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FlowElementInstance" name="FlowElementInstance" isAbstract="true">
       <ownedComment xmi:id="_79zmsFn3Ed-39ebAzHAVCA">
