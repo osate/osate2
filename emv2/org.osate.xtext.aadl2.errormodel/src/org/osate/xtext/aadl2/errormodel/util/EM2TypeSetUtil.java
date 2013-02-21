@@ -3,19 +3,13 @@ package org.osate.xtext.aadl2.errormodel.util;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 
 public class EM2TypeSetUtil {
 	
@@ -319,55 +313,50 @@ public class EM2TypeSetUtil {
 	public static TypeToken mapTypeToken(TypeToken token, TypeMappingSet tms){
 		EList<TypeMapping> tmlist = tms.getMapping();
 		for (TypeMapping typeMapping : tmlist) {
-			if (typeMapping instanceof TokenTypeMapping){
-				TokenTypeMapping ttm = (TokenTypeMapping)typeMapping;
-				TypeSet src = ttm.getSource();
-				if (contains(src,token)){
-					return ttm.getTarget();
-				}
-			} else {
-				return mapTypes(token,tms);
+			TypeSet src = typeMapping.getSource();
+			if (contains(src,token)){
+				return typeMapping.getTarget();
 			}
 		}
 		return token;
 	}
 
-	/**
-	 * map types in a token one type at a time using TypeMappingSet
-	 * It only maps individual element types based in ElementTypeMapping rules
-	 * Otherwise no mapping occurs.
-	 * A new token is returned and the original token is not modified.
-	 * @param token TypeToken
-	 * @param tms TypeMappingSet
-	 * @return TypeToken
-	 */
-	public static TypeToken mapTypes(TypeToken token, TypeMappingSet tms){
-		TypeToken resulttoken = ErrorModelFactory.eINSTANCE.createTypeToken();
-		EList<ErrorType> typelist = token.getType();
-		for (ErrorType errorType : typelist) {
-			resulttoken.getType().add(mapType(errorType, tms));
-		}
-		return token;
-	}
-	
-	/**
-	 * map an error type into its target type using the type mapping set
-	 * @param type ErrorType
-	 * @param tms TypeMappingset
-	 * @return ErrorType
-	 */
-	public static ErrorType mapType(ErrorType type, TypeMappingSet tms){
-		EList<TypeMapping> tmlist = tms.getMapping();
-		for (TypeMapping typeMapping : tmlist) {
-			if (typeMapping instanceof ElementTypeMapping){
-				ElementTypeMapping etm = (ElementTypeMapping)typeMapping;
-				ErrorType src = etm.getSource();
-				if (contains(src,type)){
-					return etm.getTarget();
-				}
-			}
-		}
-		return type;
-	}
+//	/**
+//	 * map types in a token one type at a time using TypeMappingSet
+//	 * It only maps individual element types based in ElementTypeMapping rules
+//	 * Otherwise no mapping occurs.
+//	 * A new token is returned and the original token is not modified.
+//	 * @param token TypeToken
+//	 * @param tms TypeMappingSet
+//	 * @return TypeToken
+//	 */
+//	public static TypeToken mapTypes(TypeToken token, TypeMappingSet tms){
+//		TypeToken resulttoken = ErrorModelFactory.eINSTANCE.createTypeToken();
+//		EList<ErrorType> typelist = token.getType();
+//		for (ErrorType errorType : typelist) {
+//			resulttoken.getType().add(mapType(errorType, tms));
+//		}
+//		return token;
+//	}
+//	
+//	/**
+//	 * map an error type into its target type using the type mapping set
+//	 * @param type ErrorType
+//	 * @param tms TypeMappingset
+//	 * @return ErrorType
+//	 */
+//	public static ErrorType mapType(ErrorType type, TypeMappingSet tms){
+//		EList<TypeMapping> tmlist = tms.getMapping();
+//		for (TypeMapping typeMapping : tmlist) {
+//			if (typeMapping instanceof ElementTypeMapping){
+//				ElementTypeMapping etm = (ElementTypeMapping)typeMapping;
+//				ErrorType src = etm.getSource();
+//				if (contains(src,type)){
+//					return etm.getTarget();
+//				}
+//			}
+//		}
+//		return type;
+//	}
 
 }

@@ -761,50 +761,13 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_TRANSFORMATION__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
-	 * The number of structural features of the '<em>Type Transformation</em>' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int TYPE_TRANSFORMATION_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTokenTransformationImpl <em>Type Token Transformation</em>}' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTokenTransformationImpl
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeTokenTransformation()
-	 * @generated
-	 */
-  int TYPE_TOKEN_TRANSFORMATION = 9;
-
-  /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int TYPE_TOKEN_TRANSFORMATION__OWNED_ELEMENT = TYPE_TRANSFORMATION__OWNED_ELEMENT;
-
-  /**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int TYPE_TOKEN_TRANSFORMATION__OWNED_COMMENT = TYPE_TRANSFORMATION__OWNED_COMMENT;
-
-  /**
 	 * The feature id for the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int TYPE_TOKEN_TRANSFORMATION__SOURCE = TYPE_TRANSFORMATION_FEATURE_COUNT + 0;
+  int TYPE_TRANSFORMATION__SOURCE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The feature id for the '<em><b>Contributor</b></em>' containment reference.
@@ -813,7 +776,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int TYPE_TOKEN_TRANSFORMATION__CONTRIBUTOR = TYPE_TRANSFORMATION_FEATURE_COUNT + 1;
+  int TYPE_TRANSFORMATION__CONTRIBUTOR = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -822,80 +785,16 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int TYPE_TOKEN_TRANSFORMATION__TARGET = TYPE_TRANSFORMATION_FEATURE_COUNT + 2;
+  int TYPE_TRANSFORMATION__TARGET = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
-	 * The number of structural features of the '<em>Type Token Transformation</em>' class.
+	 * The number of structural features of the '<em>Type Transformation</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int TYPE_TOKEN_TRANSFORMATION_FEATURE_COUNT = TYPE_TRANSFORMATION_FEATURE_COUNT + 3;
-
-  /**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ElementTypeTransformationImpl <em>Element Type Transformation</em>}' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ElementTypeTransformationImpl
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getElementTypeTransformation()
-	 * @generated
-	 */
-  int ELEMENT_TYPE_TRANSFORMATION = 10;
-
-  /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_TRANSFORMATION__OWNED_ELEMENT = TYPE_TRANSFORMATION__OWNED_ELEMENT;
-
-  /**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_TRANSFORMATION__OWNED_COMMENT = TYPE_TRANSFORMATION__OWNED_COMMENT;
-
-  /**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_TRANSFORMATION__SOURCE = TYPE_TRANSFORMATION_FEATURE_COUNT + 0;
-
-  /**
-	 * The feature id for the '<em><b>Contributor</b></em>' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_TRANSFORMATION__CONTRIBUTOR = TYPE_TRANSFORMATION_FEATURE_COUNT + 1;
-
-  /**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_TRANSFORMATION__TARGET = TYPE_TRANSFORMATION_FEATURE_COUNT + 2;
-
-  /**
-	 * The number of structural features of the '<em>Element Type Transformation</em>' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_TRANSFORMATION_FEATURE_COUNT = TYPE_TRANSFORMATION_FEATURE_COUNT + 3;
+  int TYPE_TRANSFORMATION_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeMappingSetImpl <em>Type Mapping Set</em>}' class.
@@ -905,7 +804,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeMappingSet()
 	 * @generated
 	 */
-  int TYPE_MAPPING_SET = 11;
+  int TYPE_MAPPING_SET = 9;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -987,7 +886,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeMapping()
 	 * @generated
 	 */
-  int TYPE_MAPPING = 12;
+  int TYPE_MAPPING = 10;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1008,50 +907,13 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_MAPPING__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
-	 * The number of structural features of the '<em>Type Mapping</em>' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int TYPE_MAPPING_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TokenTypeMappingImpl <em>Token Type Mapping</em>}' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.TokenTypeMappingImpl
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTokenTypeMapping()
-	 * @generated
-	 */
-  int TOKEN_TYPE_MAPPING = 13;
-
-  /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int TOKEN_TYPE_MAPPING__OWNED_ELEMENT = TYPE_MAPPING__OWNED_ELEMENT;
-
-  /**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int TOKEN_TYPE_MAPPING__OWNED_COMMENT = TYPE_MAPPING__OWNED_COMMENT;
-
-  /**
 	 * The feature id for the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int TOKEN_TYPE_MAPPING__SOURCE = TYPE_MAPPING_FEATURE_COUNT + 0;
+  int TYPE_MAPPING__SOURCE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -1060,71 +922,16 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int TOKEN_TYPE_MAPPING__TARGET = TYPE_MAPPING_FEATURE_COUNT + 1;
+  int TYPE_MAPPING__TARGET = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
-	 * The number of structural features of the '<em>Token Type Mapping</em>' class.
+	 * The number of structural features of the '<em>Type Mapping</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int TOKEN_TYPE_MAPPING_FEATURE_COUNT = TYPE_MAPPING_FEATURE_COUNT + 2;
-
-  /**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ElementTypeMappingImpl <em>Element Type Mapping</em>}' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ElementTypeMappingImpl
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getElementTypeMapping()
-	 * @generated
-	 */
-  int ELEMENT_TYPE_MAPPING = 14;
-
-  /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_MAPPING__OWNED_ELEMENT = TYPE_MAPPING__OWNED_ELEMENT;
-
-  /**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_MAPPING__OWNED_COMMENT = TYPE_MAPPING__OWNED_COMMENT;
-
-  /**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_MAPPING__SOURCE = TYPE_MAPPING_FEATURE_COUNT + 0;
-
-  /**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_MAPPING__TARGET = TYPE_MAPPING_FEATURE_COUNT + 1;
-
-  /**
-	 * The number of structural features of the '<em>Element Type Mapping</em>' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ELEMENT_TYPE_MAPPING_FEATURE_COUNT = TYPE_MAPPING_FEATURE_COUNT + 2;
+  int TYPE_MAPPING_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationsImpl <em>Error Propagations</em>}' class.
@@ -1134,7 +941,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorPropagations()
 	 * @generated
 	 */
-  int ERROR_PROPAGATIONS = 15;
+  int ERROR_PROPAGATIONS = 11;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1216,7 +1023,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorPropagation()
 	 * @generated
 	 */
-  int ERROR_PROPAGATION = 16;
+  int ERROR_PROPAGATION = 12;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1334,7 +1141,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorFlow()
 	 * @generated
 	 */
-  int ERROR_FLOW = 17;
+  int ERROR_FLOW = 13;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1407,7 +1214,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorSource()
 	 * @generated
 	 */
-  int ERROR_SOURCE = 18;
+  int ERROR_SOURCE = 14;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1516,7 +1323,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorStateOrTypeSet()
 	 * @generated
 	 */
-  int ERROR_BEHAVIOR_STATE_OR_TYPE_SET = 19;
+  int ERROR_BEHAVIOR_STATE_OR_TYPE_SET = 15;
 
   /**
 	 * The number of structural features of the '<em>Error Behavior State Or Type Set</em>' class.
@@ -1535,7 +1342,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorSink()
 	 * @generated
 	 */
-  int ERROR_SINK = 20;
+  int ERROR_SINK = 16;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1617,7 +1424,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorPath()
 	 * @generated
 	 */
-  int ERROR_PATH = 21;
+  int ERROR_PATH = 17;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1735,7 +1542,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getObservablePropagationConnections()
 	 * @generated
 	 */
-  int OBSERVABLE_PROPAGATION_CONNECTIONS = 22;
+  int OBSERVABLE_PROPAGATION_CONNECTIONS = 18;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1781,7 +1588,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getObservablePropagationConnection()
 	 * @generated
 	 */
-  int OBSERVABLE_PROPAGATION_CONNECTION = 23;
+  int OBSERVABLE_PROPAGATION_CONNECTION = 19;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1863,7 +1670,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedObservableErrorPropagationPoint()
 	 * @generated
 	 */
-  int QUALIFIED_OBSERVABLE_ERROR_PROPAGATION_POINT = 24;
+  int QUALIFIED_OBSERVABLE_ERROR_PROPAGATION_POINT = 20;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1918,7 +1725,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorStateMachine()
 	 * @generated
 	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE = 25;
+  int ERROR_BEHAVIOR_STATE_MACHINE = 21;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1966,22 +1773,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_STATE_MACHINE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
-	 * The feature id for the '<em><b>Extends</b></em>' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
 	 * The feature id for the '<em><b>Use Types</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The feature id for the '<em><b>Use Transformation</b></em>' reference list.
@@ -1990,7 +1788,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE__USE_TRANSFORMATION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int ERROR_BEHAVIOR_STATE_MACHINE__USE_TRANSFORMATION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
 	 * The feature id for the '<em><b>Events</b></em>' containment reference list.
@@ -1999,7 +1797,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE__EVENTS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
+  int ERROR_BEHAVIOR_STATE_MACHINE__EVENTS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The feature id for the '<em><b>States</b></em>' containment reference list.
@@ -2008,7 +1806,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE__STATES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
+  int ERROR_BEHAVIOR_STATE_MACHINE__STATES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
 	 * The feature id for the '<em><b>Transitions</b></em>' containment reference list.
@@ -2017,7 +1815,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE__TRANSITIONS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
+  int ERROR_BEHAVIOR_STATE_MACHINE__TRANSITIONS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -2026,7 +1824,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
+  int ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
 	 * The number of structural features of the '<em>Error Behavior State Machine</em>' class.
@@ -2035,7 +1833,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_STATE_MACHINE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
+  int ERROR_BEHAVIOR_STATE_MACHINE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorEventImpl <em>Error Behavior Event</em>}' class.
@@ -2045,7 +1843,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorEvent()
 	 * @generated
 	 */
-  int ERROR_BEHAVIOR_EVENT = 26;
+  int ERROR_BEHAVIOR_EVENT = 22;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2109,7 +1907,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorEvent()
 	 * @generated
 	 */
-  int ERROR_EVENT = 27;
+  int ERROR_EVENT = 23;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2191,7 +1989,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getRepairEvent()
 	 * @generated
 	 */
-  int REPAIR_EVENT = 28;
+  int REPAIR_EVENT = 24;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2264,7 +2062,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getRecoverEvent()
 	 * @generated
 	 */
-  int RECOVER_EVENT = 29;
+  int RECOVER_EVENT = 25;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2337,7 +2135,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorState()
 	 * @generated
 	 */
-  int ERROR_BEHAVIOR_STATE = 30;
+  int ERROR_BEHAVIOR_STATE = 26;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2419,7 +2217,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorBehaviorTransition()
 	 * @generated
 	 */
-  int ERROR_BEHAVIOR_TRANSITION = 31;
+  int ERROR_BEHAVIOR_TRANSITION = 27;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2555,7 +2353,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTransitionBranch()
 	 * @generated
 	 */
-  int TRANSITION_BRANCH = 32;
+  int TRANSITION_BRANCH = 28;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2628,7 +2426,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getBranchValue()
 	 * @generated
 	 */
-  int BRANCH_VALUE = 33;
+  int BRANCH_VALUE = 29;
 
   /**
 	 * The feature id for the '<em><b>Realvalue</b></em>' attribute.
@@ -2674,7 +2472,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConnectionTransformation()
 	 * @generated
 	 */
-  int CONNECTION_TRANSFORMATION = 34;
+  int CONNECTION_TRANSFORMATION = 30;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2720,7 +2518,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeUseContext()
 	 * @generated
 	 */
-  int TYPE_USE_CONTEXT = 36;
+  int TYPE_USE_CONTEXT = 32;
 
   /**
 	 * The number of structural features of the '<em>Type Use Context</em>' class.
@@ -2739,7 +2537,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEBSMUseContext()
 	 * @generated
 	 */
-  int EBSM_USE_CONTEXT = 35;
+  int EBSM_USE_CONTEXT = 31;
 
   /**
 	 * The number of structural features of the '<em>EBSM Use Context</em>' class.
@@ -2758,7 +2556,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getComponentErrorBehavior()
 	 * @generated
 	 */
-  int COMPONENT_ERROR_BEHAVIOR = 37;
+  int COMPONENT_ERROR_BEHAVIOR = 33;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2849,7 +2647,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConditionExpression()
 	 * @generated
 	 */
-  int CONDITION_EXPRESSION = 38;
+  int CONDITION_EXPRESSION = 34;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2886,7 +2684,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrmoreExpression()
 	 * @generated
 	 */
-  int ORMORE_EXPRESSION = 39;
+  int ORMORE_EXPRESSION = 35;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2941,7 +2739,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrlessExpression()
 	 * @generated
 	 */
-  int ORLESS_EXPRESSION = 40;
+  int ORLESS_EXPRESSION = 36;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2996,7 +2794,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConditionElement()
 	 * @generated
 	 */
-  int CONDITION_ELEMENT = 41;
+  int CONDITION_ELEMENT = 37;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3069,7 +2867,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEventOrPropagation()
 	 * @generated
 	 */
-  int EVENT_OR_PROPAGATION = 42;
+  int EVENT_OR_PROPAGATION = 38;
 
   /**
 	 * The number of structural features of the '<em>Event Or Propagation</em>' class.
@@ -3088,7 +2886,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOutgoingPropagationCondition()
 	 * @generated
 	 */
-  int OUTGOING_PROPAGATION_CONDITION = 43;
+  int OUTGOING_PROPAGATION_CONDITION = 39;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3197,7 +2995,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorDetection()
 	 * @generated
 	 */
-  int ERROR_DETECTION = 44;
+  int ERROR_DETECTION = 40;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3324,7 +3122,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorCodeValue()
 	 * @generated
 	 */
-  int ERROR_CODE_VALUE = 45;
+  int ERROR_CODE_VALUE = 41;
 
   /**
 	 * The feature id for the '<em><b>Int Value</b></em>' attribute.
@@ -3370,7 +3168,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorStateToModeMapping()
 	 * @generated
 	 */
-  int ERROR_STATE_TO_MODE_MAPPING = 46;
+  int ERROR_STATE_TO_MODE_MAPPING = 42;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3425,7 +3223,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getCompositeErrorBehavior()
 	 * @generated
 	 */
-  int COMPOSITE_ERROR_BEHAVIOR = 47;
+  int COMPOSITE_ERROR_BEHAVIOR = 43;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3471,7 +3269,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getCompositeState()
 	 * @generated
 	 */
-  int COMPOSITE_STATE = 48;
+  int COMPOSITE_STATE = 44;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3544,7 +3342,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSubcomponentElement()
 	 * @generated
 	 */
-  int SUBCOMPONENT_ELEMENT = 49;
+  int SUBCOMPONENT_ELEMENT = 45;
 
   /**
 	 * The feature id for the '<em><b>Subcomponent</b></em>' reference.
@@ -3572,7 +3370,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrExpression()
 	 * @generated
 	 */
-  int OR_EXPRESSION = 50;
+  int OR_EXPRESSION = 46;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3618,7 +3416,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAndExpression()
 	 * @generated
 	 */
-  int AND_EXPRESSION = 51;
+  int AND_EXPRESSION = 47;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3664,7 +3462,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSOrExpression()
 	 * @generated
 	 */
-  int SOR_EXPRESSION = 52;
+  int SOR_EXPRESSION = 48;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3710,7 +3508,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSAndExpression()
 	 * @generated
 	 */
-  int SAND_EXPRESSION = 53;
+  int SAND_EXPRESSION = 49;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4115,90 +3913,37 @@ public interface ErrorModelPackage extends EPackage
   EClass getTypeTransformation();
 
   /**
-	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation <em>Type Token Transformation</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Type Token Transformation</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation
-	 * @generated
-	 */
-  EClass getTypeTokenTransformation();
-
-  /**
-	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation#getSource <em>Source</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Source</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation#getSource()
-	 * @see #getTypeTokenTransformation()
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getSource()
+	 * @see #getTypeTransformation()
 	 * @generated
 	 */
-  EReference getTypeTokenTransformation_Source();
+  EReference getTypeTransformation_Source();
 
   /**
-	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation#getContributor <em>Contributor</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getContributor <em>Contributor</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Contributor</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation#getContributor()
-	 * @see #getTypeTokenTransformation()
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getContributor()
+	 * @see #getTypeTransformation()
 	 * @generated
 	 */
-  EReference getTypeTokenTransformation_Contributor();
+  EReference getTypeTransformation_Contributor();
 
   /**
-	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Target</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation#getTarget()
-	 * @see #getTypeTokenTransformation()
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getTarget()
+	 * @see #getTypeTransformation()
 	 * @generated
 	 */
-  EReference getTypeTokenTransformation_Target();
-
-  /**
-	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation <em>Element Type Transformation</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Element Type Transformation</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation
-	 * @generated
-	 */
-  EClass getElementTypeTransformation();
-
-  /**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation#getSource()
-	 * @see #getElementTypeTransformation()
-	 * @generated
-	 */
-  EReference getElementTypeTransformation_Source();
-
-  /**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation#getContributor <em>Contributor</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Contributor</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation#getContributor()
-	 * @see #getElementTypeTransformation()
-	 * @generated
-	 */
-  EReference getElementTypeTransformation_Contributor();
-
-  /**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation#getTarget()
-	 * @see #getElementTypeTransformation()
-	 * @generated
-	 */
-  EReference getElementTypeTransformation_Target();
+  EReference getTypeTransformation_Target();
 
   /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet <em>Type Mapping Set</em>}'.
@@ -4243,68 +3988,26 @@ public interface ErrorModelPackage extends EPackage
   EClass getTypeMapping();
 
   /**
-	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping <em>Token Type Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Token Type Mapping</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping
-	 * @generated
-	 */
-  EClass getTokenTypeMapping();
-
-  /**
-	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping#getSource <em>Source</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Source</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping#getSource()
-	 * @see #getTokenTypeMapping()
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping#getSource()
+	 * @see #getTypeMapping()
 	 * @generated
 	 */
-  EReference getTokenTypeMapping_Source();
+  EReference getTypeMapping_Source();
 
   /**
-	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Target</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping#getTarget()
-	 * @see #getTokenTypeMapping()
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping#getTarget()
+	 * @see #getTypeMapping()
 	 * @generated
 	 */
-  EReference getTokenTypeMapping_Target();
-
-  /**
-	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping <em>Element Type Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Element Type Mapping</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping
-	 * @generated
-	 */
-  EClass getElementTypeMapping();
-
-  /**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping#getSource()
-	 * @see #getElementTypeMapping()
-	 * @generated
-	 */
-  EReference getElementTypeMapping_Source();
-
-  /**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping#getTarget()
-	 * @see #getElementTypeMapping()
-	 * @generated
-	 */
-  EReference getElementTypeMapping_Target();
+  EReference getTypeMapping_Target();
 
   /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations <em>Error Propagations</em>}'.
@@ -4679,17 +4382,6 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 */
   EClass getErrorBehaviorStateMachine();
-
-  /**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getExtends <em>Extends</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Extends</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getExtends()
-	 * @see #getErrorBehaviorStateMachine()
-	 * @generated
-	 */
-  EReference getErrorBehaviorStateMachine_Extends();
 
   /**
 	 * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getUseTypes <em>Use Types</em>}'.
@@ -6077,22 +5769,12 @@ public interface ErrorModelPackage extends EPackage
     EClass TYPE_TRANSFORMATION = eINSTANCE.getTypeTransformation();
 
     /**
-		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTokenTransformationImpl <em>Type Token Transformation</em>}' class.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTokenTransformationImpl
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeTokenTransformation()
-		 * @generated
-		 */
-    EClass TYPE_TOKEN_TRANSFORMATION = eINSTANCE.getTypeTokenTransformation();
-
-    /**
 		 * The meta object literal for the '<em><b>Source</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference TYPE_TOKEN_TRANSFORMATION__SOURCE = eINSTANCE.getTypeTokenTransformation_Source();
+    EReference TYPE_TRANSFORMATION__SOURCE = eINSTANCE.getTypeTransformation_Source();
 
     /**
 		 * The meta object literal for the '<em><b>Contributor</b></em>' containment reference feature.
@@ -6100,7 +5782,7 @@ public interface ErrorModelPackage extends EPackage
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference TYPE_TOKEN_TRANSFORMATION__CONTRIBUTOR = eINSTANCE.getTypeTokenTransformation_Contributor();
+    EReference TYPE_TRANSFORMATION__CONTRIBUTOR = eINSTANCE.getTypeTransformation_Contributor();
 
     /**
 		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
@@ -6108,41 +5790,7 @@ public interface ErrorModelPackage extends EPackage
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference TYPE_TOKEN_TRANSFORMATION__TARGET = eINSTANCE.getTypeTokenTransformation_Target();
-
-    /**
-		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ElementTypeTransformationImpl <em>Element Type Transformation</em>}' class.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ElementTypeTransformationImpl
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getElementTypeTransformation()
-		 * @generated
-		 */
-    EClass ELEMENT_TYPE_TRANSFORMATION = eINSTANCE.getElementTypeTransformation();
-
-    /**
-		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EReference ELEMENT_TYPE_TRANSFORMATION__SOURCE = eINSTANCE.getElementTypeTransformation_Source();
-
-    /**
-		 * The meta object literal for the '<em><b>Contributor</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EReference ELEMENT_TYPE_TRANSFORMATION__CONTRIBUTOR = eINSTANCE.getElementTypeTransformation_Contributor();
-
-    /**
-		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EReference ELEMENT_TYPE_TRANSFORMATION__TARGET = eINSTANCE.getElementTypeTransformation_Target();
+    EReference TYPE_TRANSFORMATION__TARGET = eINSTANCE.getTypeTransformation_Target();
 
     /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeMappingSetImpl <em>Type Mapping Set</em>}' class.
@@ -6181,22 +5829,12 @@ public interface ErrorModelPackage extends EPackage
     EClass TYPE_MAPPING = eINSTANCE.getTypeMapping();
 
     /**
-		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TokenTypeMappingImpl <em>Token Type Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.TokenTypeMappingImpl
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTokenTypeMapping()
-		 * @generated
-		 */
-    EClass TOKEN_TYPE_MAPPING = eINSTANCE.getTokenTypeMapping();
-
-    /**
 		 * The meta object literal for the '<em><b>Source</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference TOKEN_TYPE_MAPPING__SOURCE = eINSTANCE.getTokenTypeMapping_Source();
+    EReference TYPE_MAPPING__SOURCE = eINSTANCE.getTypeMapping_Source();
 
     /**
 		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
@@ -6204,33 +5842,7 @@ public interface ErrorModelPackage extends EPackage
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference TOKEN_TYPE_MAPPING__TARGET = eINSTANCE.getTokenTypeMapping_Target();
-
-    /**
-		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ElementTypeMappingImpl <em>Element Type Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ElementTypeMappingImpl
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getElementTypeMapping()
-		 * @generated
-		 */
-    EClass ELEMENT_TYPE_MAPPING = eINSTANCE.getElementTypeMapping();
-
-    /**
-		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EReference ELEMENT_TYPE_MAPPING__SOURCE = eINSTANCE.getElementTypeMapping_Source();
-
-    /**
-		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EReference ELEMENT_TYPE_MAPPING__TARGET = eINSTANCE.getElementTypeMapping_Target();
+    EReference TYPE_MAPPING__TARGET = eINSTANCE.getTypeMapping_Target();
 
     /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationsImpl <em>Error Propagations</em>}' class.
@@ -6533,14 +6145,6 @@ public interface ErrorModelPackage extends EPackage
 		 * @generated
 		 */
     EClass ERROR_BEHAVIOR_STATE_MACHINE = eINSTANCE.getErrorBehaviorStateMachine();
-
-    /**
-		 * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EReference ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS = eINSTANCE.getErrorBehaviorStateMachine_Extends();
 
     /**
 		 * The meta object literal for the '<em><b>Use Types</b></em>' reference list feature.

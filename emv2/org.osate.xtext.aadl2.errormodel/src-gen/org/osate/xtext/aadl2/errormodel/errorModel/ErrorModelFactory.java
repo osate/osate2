@@ -104,24 +104,6 @@ public interface ErrorModelFactory extends EFactory
   TypeTransformation createTypeTransformation();
 
   /**
-	 * Returns a new object of class '<em>Type Token Transformation</em>'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type Token Transformation</em>'.
-	 * @generated
-	 */
-  TypeTokenTransformation createTypeTokenTransformation();
-
-  /**
-	 * Returns a new object of class '<em>Element Type Transformation</em>'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Element Type Transformation</em>'.
-	 * @generated
-	 */
-  ElementTypeTransformation createElementTypeTransformation();
-
-  /**
 	 * Returns a new object of class '<em>Type Mapping Set</em>'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -138,24 +120,6 @@ public interface ErrorModelFactory extends EFactory
 	 * @generated
 	 */
   TypeMapping createTypeMapping();
-
-  /**
-	 * Returns a new object of class '<em>Token Type Mapping</em>'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Token Type Mapping</em>'.
-	 * @generated
-	 */
-  TokenTypeMapping createTokenTypeMapping();
-
-  /**
-	 * Returns a new object of class '<em>Element Type Mapping</em>'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Element Type Mapping</em>'.
-	 * @generated
-	 */
-  ElementTypeMapping createElementTypeMapping();
 
   /**
 	 * Returns a new object of class '<em>Error Propagations</em>'.

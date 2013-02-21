@@ -65,8 +65,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="transformation" upperBound="-1"
         eType="#//TypeTransformation" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeTransformation" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeTokenTransformation" eSuperTypes="#//TypeTransformation">
+  <eClassifiers xsi:type="ecore:EClass" name="TypeTransformation" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//TypeSet"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contributor" eType="#//TypeSet"
@@ -74,27 +73,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//TypeToken"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementTypeTransformation" eSuperTypes="#//TypeTransformation">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ErrorType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="contributor" eType="#//ErrorType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ErrorType"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeMappingSet" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//TypeUseContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
         upperBound="-1" eType="#//ErrorModelLibrary"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" upperBound="-1"
         eType="#//TypeMapping" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TypeMapping" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TokenTypeMapping" eSuperTypes="#//TypeMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="TypeMapping" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//TypeSet"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//TypeToken"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementTypeMapping" eSuperTypes="#//TypeMapping">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ErrorType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ErrorType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagations" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagations" upperBound="-1"
@@ -150,7 +139,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="observablePoint" eType="#//ErrorPropagation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorStateMachine" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//TypeUseContext">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//ErrorBehaviorStateMachine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
         upperBound="-1" eType="#//ErrorModelLibrary"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTransformation" unique="false"

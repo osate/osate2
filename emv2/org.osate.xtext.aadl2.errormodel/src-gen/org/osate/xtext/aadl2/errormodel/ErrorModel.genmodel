@@ -47,29 +47,18 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformationSet/useTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformationSet/transformation"/>
     </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//TypeTransformation"/>
-    <genClasses ecoreClass="ErrorModel.ecore#//TypeTokenTransformation">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTokenTransformation/source"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTokenTransformation/contributor"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTokenTransformation/target"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//ElementTypeTransformation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ElementTypeTransformation/source"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ElementTypeTransformation/contributor"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ElementTypeTransformation/target"/>
+    <genClasses ecoreClass="ErrorModel.ecore#//TypeTransformation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformation/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformation/contributor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformation/target"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeMappingSet">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMappingSet/useTypes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMappingSet/mapping"/>
     </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//TypeMapping"/>
-    <genClasses ecoreClass="ErrorModel.ecore#//TokenTypeMapping">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TokenTypeMapping/source"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TokenTypeMapping/target"/>
-    </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//ElementTypeMapping">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ElementTypeMapping/source"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ElementTypeMapping/target"/>
+    <genClasses ecoreClass="ErrorModel.ecore#//TypeMapping">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMapping/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeMapping/target"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorPropagations">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPropagations/propagations"/>
@@ -115,7 +104,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedObservableErrorPropagationPoint/observablePoint"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorStateMachine">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/extends"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/useTypes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/useTransformation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/events"/>

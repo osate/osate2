@@ -144,40 +144,24 @@ TypeTokenConstraintNoError returns TypeSet:
 TypeTransformationSet returns TypeTransformationSet: 
 	'type' 'transformations' name=ID 
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
-      (( transformation+=ElementTypeTransformation )+|( transformation+=TypeTokenTransformation )+) 
+      ( transformation+=TypeTransformation )+ 
       'end' 'transformations' ';'
           ;
 
-TypeTransformation returns TypeTransformation:
-	TypeTokenTransformation | ElementTypeTransformation
-;
-
-TypeTokenTransformation returns TypeTokenTransformation: 
+TypeTransformation returns TypeTransformation: 
 	source=TypeTokenConstraintNoError '-[' contributor=TypeTokenConstraintNoError ']->' target=TypeToken ';'
-          ;
-
-ElementTypeTransformation returns ElementTypeTransformation: 
-	source=[ErrorType|QEMREF] '-[' contributor=[ErrorType|QEMREF] ']->' target=[ErrorType|QEMREF] ';'
           ;
 
 
 TypeMappingSet returns TypeMappingSet:
 	'type' 'mappings' name=ID
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
-	((mapping+=TokenTypeMapping)+|(mapping+=ElementTypeMapping)+)
+	(mapping+=TypeMapping)+
 	'end' 'mappings' ';'
 ;
 
 TypeMapping returns TypeMapping:
-	TokenTypeMapping | ElementTypeMapping
-;
-
-TokenTypeMapping returns TokenTypeMapping:
 	 source=TypeTokenConstraint '->' target=TypeToken ';'
-;
-
-ElementTypeMapping returns ElementTypeMapping:
-	 source=[ErrorType|QEMREF] '->' target=[ErrorType|QEMREF] ';'
 ;
 
 ErrorPropagations returns ErrorPropagations: 
@@ -252,7 +236,6 @@ QualifiedObservableErrorPropagationPoint returns QualifiedObservableErrorPropaga
 
 ErrorBehaviorStateMachine returns ErrorBehaviorStateMachine: 
   'error' 'behavior' name=ID
-  ( 'extends' extends=[ErrorBehaviorStateMachine|QEMREF] )?
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
    ('use' 'transformations' useTransformation+=[TypeTransformationSet|QEMREF] ';')?
   ( 'events' (events+=ErrorBehaviorEvent )+ )?

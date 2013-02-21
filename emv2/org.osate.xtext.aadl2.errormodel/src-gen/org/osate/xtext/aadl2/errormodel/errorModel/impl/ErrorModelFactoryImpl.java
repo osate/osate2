@@ -69,12 +69,8 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
 			case ErrorModelPackage.TYPE_TOKEN: return createTypeToken();
 			case ErrorModelPackage.TYPE_TRANSFORMATION_SET: return createTypeTransformationSet();
 			case ErrorModelPackage.TYPE_TRANSFORMATION: return createTypeTransformation();
-			case ErrorModelPackage.TYPE_TOKEN_TRANSFORMATION: return createTypeTokenTransformation();
-			case ErrorModelPackage.ELEMENT_TYPE_TRANSFORMATION: return createElementTypeTransformation();
 			case ErrorModelPackage.TYPE_MAPPING_SET: return createTypeMappingSet();
 			case ErrorModelPackage.TYPE_MAPPING: return createTypeMapping();
-			case ErrorModelPackage.TOKEN_TYPE_MAPPING: return createTokenTypeMapping();
-			case ErrorModelPackage.ELEMENT_TYPE_MAPPING: return createElementTypeMapping();
 			case ErrorModelPackage.ERROR_PROPAGATIONS: return createErrorPropagations();
 			case ErrorModelPackage.ERROR_PROPAGATION: return createErrorPropagation();
 			case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
@@ -223,28 +219,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public TypeTokenTransformation createTypeTokenTransformation()
-  {
-		TypeTokenTransformationImpl typeTokenTransformation = new TypeTokenTransformationImpl();
-		return typeTokenTransformation;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public ElementTypeTransformation createElementTypeTransformation()
-  {
-		ElementTypeTransformationImpl elementTypeTransformation = new ElementTypeTransformationImpl();
-		return elementTypeTransformation;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
   public TypeMappingSet createTypeMappingSet()
   {
 		TypeMappingSetImpl typeMappingSet = new TypeMappingSetImpl();
@@ -260,28 +234,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
 		TypeMappingImpl typeMapping = new TypeMappingImpl();
 		return typeMapping;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public TokenTypeMapping createTokenTypeMapping()
-  {
-		TokenTypeMappingImpl tokenTypeMapping = new TokenTypeMappingImpl();
-		return tokenTypeMapping;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public ElementTypeMapping createElementTypeMapping()
-  {
-		ElementTypeMappingImpl elementTypeMapping = new ElementTypeMappingImpl();
-		return elementTypeMapping;
 	}
 
   /**

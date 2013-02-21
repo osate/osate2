@@ -39,8 +39,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionTransformation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -70,12 +68,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
@@ -307,22 +305,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				if(context == grammarAccess.getConnectionTransformationRule() ||
 				   context == grammarAccess.getElementRule()) {
 					sequence_ConnectionTransformation(context, (ConnectionTransformation) semanticObject); 
-					return; 
-				}
-				else break;
-			case ErrorModelPackage.ELEMENT_TYPE_MAPPING:
-				if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getElementTypeMappingRule() ||
-				   context == grammarAccess.getTypeMappingRule()) {
-					sequence_ElementTypeMapping(context, (ElementTypeMapping) semanticObject); 
-					return; 
-				}
-				else break;
-			case ErrorModelPackage.ELEMENT_TYPE_TRANSFORMATION:
-				if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getElementTypeTransformationRule() ||
-				   context == grammarAccess.getTypeTransformationRule()) {
-					sequence_ElementTypeTransformation(context, (ElementTypeTransformation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -581,18 +563,17 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
-			case ErrorModelPackage.TOKEN_TYPE_MAPPING:
-				if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getTokenTypeMappingRule() ||
-				   context == grammarAccess.getTypeMappingRule()) {
-					sequence_TokenTypeMapping(context, (TokenTypeMapping) semanticObject); 
-					return; 
-				}
-				else break;
 			case ErrorModelPackage.TRANSITION_BRANCH:
 				if(context == grammarAccess.getElementRule() ||
 				   context == grammarAccess.getTransitionBranchRule()) {
 					sequence_TransitionBranch(context, (TransitionBranch) semanticObject); 
+					return; 
+				}
+				else break;
+			case ErrorModelPackage.TYPE_MAPPING:
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getTypeMappingRule()) {
+					sequence_TypeMapping(context, (TypeMapping) semanticObject); 
 					return; 
 				}
 				else break;
@@ -645,11 +626,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
-			case ErrorModelPackage.TYPE_TOKEN_TRANSFORMATION:
+			case ErrorModelPackage.TYPE_TRANSFORMATION:
 				if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getTypeTokenTransformationRule() ||
 				   context == grammarAccess.getTypeTransformationRule()) {
-					sequence_TypeTokenTransformation(context, (TypeTokenTransformation) semanticObject); 
+					sequence_TypeTransformation(context, (TypeTransformation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -755,24 +735,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (source=[ErrorType|QEMREF] target=[ErrorType|QEMREF])
-	 */
-	protected void sequence_ElementTypeMapping(EObject context, ElementTypeMapping semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (source=[ErrorType|QEMREF] contributor=[ErrorType|QEMREF] target=[ErrorType|QEMREF])
-	 */
-	protected void sequence_ElementTypeTransformation(EObject context, ElementTypeTransformation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     ((type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*) | (type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*))
 	 */
 	protected void sequence_Element_ElementErrorType_TypeToken(EObject context, TypeToken semanticObject) {
@@ -784,7 +746,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         extends=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useTransformation+=[TypeTransformationSet|QEMREF]? 
 	 *         events+=ErrorBehaviorEvent* 
@@ -1145,15 +1106,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (source=TypeTokenConstraint target=TypeToken)
-	 */
-	protected void sequence_TokenTypeMapping(EObject context, TokenTypeMapping semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (((target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | mask?='mask') value=BranchValue)
 	 */
 	protected void sequence_TransitionBranch(EObject context, TransitionBranch semanticObject) {
@@ -1181,13 +1133,18 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
-	 *         (mapping+=TokenTypeMapping+ | mapping+=ElementTypeMapping+)
-	 *     )
+	 *     (name=ID (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? mapping+=TypeMapping+)
 	 */
 	protected void sequence_TypeMappingSet(EObject context, TypeMappingSet semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (source=TypeTokenConstraint target=TypeToken)
+	 */
+	protected void sequence_TypeMapping(EObject context, TypeMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1221,15 +1178,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (source=TypeTokenConstraintNoError contributor=TypeTokenConstraintNoError target=TypeToken)
-	 */
-	protected void sequence_TypeTokenTransformation(EObject context, TypeTokenTransformation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*)
 	 */
 	protected void sequence_TypeToken(EObject context, TypeToken semanticObject) {
@@ -1239,13 +1187,18 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
-	 *         (transformation+=ElementTypeTransformation+ | transformation+=TypeTokenTransformation+)
-	 *     )
+	 *     (name=ID (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? transformation+=TypeTransformation+)
 	 */
 	protected void sequence_TypeTransformationSet(EObject context, TypeTransformationSet semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (source=TypeTokenConstraintNoError contributor=TypeTokenConstraintNoError target=TypeToken)
+	 */
+	protected void sequence_TypeTransformation(EObject context, TypeTransformation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

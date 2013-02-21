@@ -113,28 +113,12 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
 				return createTypeTransformationAdapter();
 			}
 			@Override
-			public Adapter caseTypeTokenTransformation(TypeTokenTransformation object) {
-				return createTypeTokenTransformationAdapter();
-			}
-			@Override
-			public Adapter caseElementTypeTransformation(ElementTypeTransformation object) {
-				return createElementTypeTransformationAdapter();
-			}
-			@Override
 			public Adapter caseTypeMappingSet(TypeMappingSet object) {
 				return createTypeMappingSetAdapter();
 			}
 			@Override
 			public Adapter caseTypeMapping(TypeMapping object) {
 				return createTypeMappingAdapter();
-			}
-			@Override
-			public Adapter caseTokenTypeMapping(TokenTypeMapping object) {
-				return createTokenTypeMappingAdapter();
-			}
-			@Override
-			public Adapter caseElementTypeMapping(ElementTypeMapping object) {
-				return createElementTypeMappingAdapter();
 			}
 			@Override
 			public Adapter caseErrorPropagations(ErrorPropagations object) {
@@ -469,36 +453,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
 	}
 
   /**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation <em>Type Token Transformation</em>}'.
-	 * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation
-	 * @generated
-	 */
-  public Adapter createTypeTokenTransformationAdapter()
-  {
-		return null;
-	}
-
-  /**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation <em>Element Type Transformation</em>}'.
-	 * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation
-	 * @generated
-	 */
-  public Adapter createElementTypeTransformationAdapter()
-  {
-		return null;
-	}
-
-  /**
 	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet <em>Type Mapping Set</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -524,36 +478,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
   public Adapter createTypeMappingAdapter()
-  {
-		return null;
-	}
-
-  /**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping <em>Token Type Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping
-	 * @generated
-	 */
-  public Adapter createTokenTypeMappingAdapter()
-  {
-		return null;
-	}
-
-  /**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping <em>Element Type Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping
-	 * @generated
-	 */
-  public Adapter createElementTypeMappingAdapter()
   {
 		return null;
 	}

@@ -81,17 +81,17 @@ public class ErrorModelScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	public EList<ErrorBehaviorState> getAllStates(ErrorBehaviorStateMachine context){
 		EList<ErrorBehaviorState> result = context.getStates();
-		if (context.getExtends() != null){
-			result.addAll(context.getExtends().getStates());
-		}
+//		if (context.getExtends() != null){
+//			result.addAll(context.getExtends().getStates());
+//		}
 		return result;
 	}
 
 	public EList<ErrorBehaviorEvent> getAllEvents(ErrorBehaviorStateMachine context){
 		EList<ErrorBehaviorEvent> result = context.getEvents();
-		if (context.getExtends() != null){
-			result.addAll(context.getExtends().getEvents());
-		}
+//		if (context.getExtends() != null){
+//			result.addAll(context.getExtends().getEvents());
+//		}
 		return result;
 	}
 

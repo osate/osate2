@@ -8,7 +8,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
-import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -26,10 +25,6 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -46,7 +41,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
@@ -128,18 +122,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkTypeTokenUniqueTypes(tt);
 	}
 	
-	@Check(CheckType.FAST)
-	public void caseElementTypeMapping(
-			ElementTypeMapping etMapping) {
-		checkElementMappingTypeConsistency(etMapping);
-	}
-	
-	@Check(CheckType.FAST)
-	public void caseElementTypeTransformation(
-			ElementTypeTransformation etXform) {
-		checkElementTransformTypeConsistency(etXform);
-	}
-	
 	
 	@Check(CheckType.FAST)
 	public void caseRecoverEvent(
@@ -161,7 +143,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseTypeMappingSet(
 			TypeMappingSet tms) {
-		checkElementRuleConsistency(tms);
+//		checkElementRuleConsistency(tms);
 	}
 	
 	@Check(CheckType.NORMAL)
@@ -175,7 +157,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void ErrorBehaviorStateMachine(
 			ErrorBehaviorStateMachine ebsm) {
-		checkCyclicExtends(ebsm);
+//		checkCyclicExtends(ebsm);
 // TODO:		checkUniqueIdentifiers(ebsm);
 	}
 	
@@ -295,49 +277,49 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 	
 	
-	private void checkElementMappingTypeConsistency(ElementTypeMapping etMapping){
-		ErrorType srcET = etMapping.getSource();
-		ErrorType tgtET = etMapping.getTarget();
-		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(tgtET)){
-			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, tgtET)){
-				error(etMapping,
-				"Source and target error types are not in same type hierarchy");
-			}
-		}
-	}
-	
-	private void checkElementTransformTypeConsistency(ElementTypeTransformation etXform){
-		ErrorType srcET = etXform.getSource();
-		ErrorType conET = etXform.getContributor();
-		ErrorType tgtET = etXform.getTarget();
-		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(tgtET)){
-			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, tgtET)){
-				error(etXform,
-				"Source type "+srcET.getName()+" and target type "+tgtET.getName()+" are not in same type hierarchy");
-			}
-		}
-		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(conET)){
-			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, conET)){
-				error(etXform,
-				"Source type "+srcET.getName()+" and contributor type "+conET.getName()+" are not in same type hierarchy");
-			}
-		}
-	}
-	
-	private void checkElementRuleConsistency(TypeMappingSet tms){
-		HashSet<ErrorType> sourceTypes = new HashSet<ErrorType>();
-		for (TypeMapping tm : tms.getMapping()){
-			if (tm instanceof ElementTypeMapping){
-				ErrorType et = ((ElementTypeMapping) tm).getSource();
-				if (sourceTypes.contains(et)){
-					error(tm,
-					"Type "+et.getName()+" already being mapped");
-				} else {
-					sourceTypes.add(et);
-				}
-			}
-		}
-	}
+//	private void checkElementMappingTypeConsistency(ElementTypeMapping etMapping){
+//		ErrorType srcET = etMapping.getSource();
+//		ErrorType tgtET = etMapping.getTarget();
+//		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(tgtET)){
+//			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, tgtET)){
+//				error(etMapping,
+//				"Source and target error types are not in same type hierarchy");
+//			}
+//		}
+//	}
+//	
+//	private void checkElementTransformTypeConsistency(ElementTypeTransformation etXform){
+//		ErrorType srcET = etXform.getSource();
+//		ErrorType conET = etXform.getContributor();
+//		ErrorType tgtET = etXform.getTarget();
+//		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(tgtET)){
+//			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, tgtET)){
+//				error(etXform,
+//				"Source type "+srcET.getName()+" and target type "+tgtET.getName()+" are not in same type hierarchy");
+//			}
+//		}
+//		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(conET)){
+//			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, conET)){
+//				error(etXform,
+//				"Source type "+srcET.getName()+" and contributor type "+conET.getName()+" are not in same type hierarchy");
+//			}
+//		}
+//	}
+//	
+//	private void checkElementRuleConsistency(TypeMappingSet tms){
+//		HashSet<ErrorType> sourceTypes = new HashSet<ErrorType>();
+//		for (TypeMapping tm : tms.getMapping()){
+//			if (tm instanceof ElementTypeMapping){
+//				ErrorType et = ((ElementTypeMapping) tm).getSource();
+//				if (sourceTypes.contains(et)){
+//					error(tm,
+//					"Type "+et.getName()+" already being mapped");
+//				} else {
+//					sourceTypes.add(et);
+//				}
+//			}
+//		}
+//	}
 	
 	private void checkTypeSetUniqueTypes(TypeSet ts){
 		EList<TypeToken> etlist = ts.getElementType();
@@ -535,19 +517,19 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkCyclicExtends(ErrorBehaviorStateMachine origebsm){
-		ErrorBehaviorStateMachine ebsm = origebsm;
-		if (ebsm.getExtends() == null) return;
-		HashSet<ErrorBehaviorStateMachine> result = new HashSet<ErrorBehaviorStateMachine>();
-		while (ebsm.getExtends() != null){
-			result.add(ebsm);
-			ebsm = ebsm.getExtends();
-			if (result.contains(ebsm)){
-				error(origebsm, "Cycle in extends of error behavior state machine "+origebsm.getName());
-				return;
-			}
-		}
-	}
+//	private void checkCyclicExtends(ErrorBehaviorStateMachine origebsm){
+//		ErrorBehaviorStateMachine ebsm = origebsm;
+//		if (ebsm.getExtends() == null) return;
+//		HashSet<ErrorBehaviorStateMachine> result = new HashSet<ErrorBehaviorStateMachine>();
+//		while (ebsm.getExtends() != null){
+//			result.add(ebsm);
+//			ebsm = ebsm.getExtends();
+//			if (result.contains(ebsm)){
+//				error(origebsm, "Cycle in extends of error behavior state machine "+origebsm.getName());
+//				return;
+//			}
+//		}
+//	}
 	
 	private void checkErrorSourceTypes(ErrorSource ef){
 		ErrorPropagation ep = ef.getOutgoing();

@@ -1086,11 +1086,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cUseTypesErrorModelLibraryCrossReference_3_3_1_0 = (CrossReference)cUseTypesAssignment_3_3_1.eContents().get(0);
 		private final RuleCall cUseTypesErrorModelLibraryQEMREFParserRuleCall_3_3_1_0_1 = (RuleCall)cUseTypesErrorModelLibraryCrossReference_3_3_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_3_4 = (Keyword)cGroup_3.eContents().get(4);
-		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
-		private final Assignment cTransformationAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
-		private final RuleCall cTransformationElementTypeTransformationParserRuleCall_4_0_0 = (RuleCall)cTransformationAssignment_4_0.eContents().get(0);
-		private final Assignment cTransformationAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
-		private final RuleCall cTransformationTypeTokenTransformationParserRuleCall_4_1_0 = (RuleCall)cTransformationAssignment_4_1.eContents().get(0);
+		private final Assignment cTransformationAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTransformationTypeTransformationParserRuleCall_4_0 = (RuleCall)cTransformationAssignment_4.eContents().get(0);
 		private final Keyword cEndKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cTransformationsKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
@@ -1099,16 +1096,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	"type" "transformations" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 		//
-		//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? (transformation+=ElementTypeTransformation+ |
-		//
-		//	transformation+=TypeTokenTransformation+) "end" "transformations" ";";
+		//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? transformation+=TypeTransformation+ "end" "transformations" ";";
 		public ParserRule getRule() { return rule; }
 
 		//"type" "transformations" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 		//
-		//useTypes+=[ErrorModelLibrary|QEMREF])* ";")? (transformation+=ElementTypeTransformation+ |
-		//
-		//transformation+=TypeTokenTransformation+) "end" "transformations" ";"
+		//useTypes+=[ErrorModelLibrary|QEMREF])* ";")? transformation+=TypeTransformation+ "end" "transformations" ";"
 		public Group getGroup() { return cGroup; }
 
 		//"type"
@@ -1159,20 +1152,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_3_4() { return cSemicolonKeyword_3_4; }
 
-		//transformation+=ElementTypeTransformation+ | transformation+=TypeTokenTransformation+
-		public Alternatives getAlternatives_4() { return cAlternatives_4; }
+		//transformation+=TypeTransformation+
+		public Assignment getTransformationAssignment_4() { return cTransformationAssignment_4; }
 
-		//transformation+=ElementTypeTransformation+
-		public Assignment getTransformationAssignment_4_0() { return cTransformationAssignment_4_0; }
-
-		//ElementTypeTransformation
-		public RuleCall getTransformationElementTypeTransformationParserRuleCall_4_0_0() { return cTransformationElementTypeTransformationParserRuleCall_4_0_0; }
-
-		//transformation+=TypeTokenTransformation+
-		public Assignment getTransformationAssignment_4_1() { return cTransformationAssignment_4_1; }
-
-		//TypeTokenTransformation
-		public RuleCall getTransformationTypeTokenTransformationParserRuleCall_4_1_0() { return cTransformationTypeTokenTransformationParserRuleCall_4_1_0; }
+		//TypeTransformation
+		public RuleCall getTransformationTypeTransformationParserRuleCall_4_0() { return cTransformationTypeTransformationParserRuleCall_4_0; }
 
 		//"end"
 		public Keyword getEndKeyword_5() { return cEndKeyword_5; }
@@ -1186,27 +1170,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class TypeTransformationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeTransformation");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cTypeTokenTransformationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cElementTypeTransformationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		
-		//TypeTransformation:
-		//
-		//	TypeTokenTransformation | ElementTypeTransformation;
-		public ParserRule getRule() { return rule; }
-
-		//TypeTokenTransformation | ElementTypeTransformation
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//TypeTokenTransformation
-		public RuleCall getTypeTokenTransformationParserRuleCall_0() { return cTypeTokenTransformationParserRuleCall_0; }
-
-		//ElementTypeTransformation
-		public RuleCall getElementTypeTransformationParserRuleCall_1() { return cElementTypeTransformationParserRuleCall_1; }
-	}
-
-	public class TypeTokenTransformationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeTokenTransformation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cSourceAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cSourceTypeTokenConstraintNoErrorParserRuleCall_0_0 = (RuleCall)cSourceAssignment_0.eContents().get(0);
@@ -1218,7 +1181,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetTypeTokenParserRuleCall_4_0 = (RuleCall)cTargetAssignment_4.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//TypeTokenTransformation:
+		//TypeTransformation:
 		//
 		//	source=TypeTokenConstraintNoError "-[" contributor=TypeTokenConstraintNoError "]->" target=TypeToken ";";
 		public ParserRule getRule() { return rule; }
@@ -1254,67 +1217,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
-	public class ElementTypeTransformationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ElementTypeTransformation");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cSourceAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cSourceErrorTypeCrossReference_0_0 = (CrossReference)cSourceAssignment_0.eContents().get(0);
-		private final RuleCall cSourceErrorTypeQEMREFParserRuleCall_0_0_1 = (RuleCall)cSourceErrorTypeCrossReference_0_0.eContents().get(1);
-		private final Keyword cHyphenMinusLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cContributorAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cContributorErrorTypeCrossReference_2_0 = (CrossReference)cContributorAssignment_2.eContents().get(0);
-		private final RuleCall cContributorErrorTypeQEMREFParserRuleCall_2_0_1 = (RuleCall)cContributorErrorTypeCrossReference_2_0.eContents().get(1);
-		private final Keyword cRightSquareBracketHyphenMinusGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTargetAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cTargetErrorTypeCrossReference_4_0 = (CrossReference)cTargetAssignment_4.eContents().get(0);
-		private final RuleCall cTargetErrorTypeQEMREFParserRuleCall_4_0_1 = (RuleCall)cTargetErrorTypeCrossReference_4_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		
-		//ElementTypeTransformation:
-		//
-		//	source=[ErrorType|QEMREF] "-[" contributor=[ErrorType|QEMREF] "]->" target=[ErrorType|QEMREF] ";";
-		public ParserRule getRule() { return rule; }
-
-		//source=[ErrorType|QEMREF] "-[" contributor=[ErrorType|QEMREF] "]->" target=[ErrorType|QEMREF] ";"
-		public Group getGroup() { return cGroup; }
-
-		//source=[ErrorType|QEMREF]
-		public Assignment getSourceAssignment_0() { return cSourceAssignment_0; }
-
-		//[ErrorType|QEMREF]
-		public CrossReference getSourceErrorTypeCrossReference_0_0() { return cSourceErrorTypeCrossReference_0_0; }
-
-		//QEMREF
-		public RuleCall getSourceErrorTypeQEMREFParserRuleCall_0_0_1() { return cSourceErrorTypeQEMREFParserRuleCall_0_0_1; }
-
-		//"-["
-		public Keyword getHyphenMinusLeftSquareBracketKeyword_1() { return cHyphenMinusLeftSquareBracketKeyword_1; }
-
-		//contributor=[ErrorType|QEMREF]
-		public Assignment getContributorAssignment_2() { return cContributorAssignment_2; }
-
-		//[ErrorType|QEMREF]
-		public CrossReference getContributorErrorTypeCrossReference_2_0() { return cContributorErrorTypeCrossReference_2_0; }
-
-		//QEMREF
-		public RuleCall getContributorErrorTypeQEMREFParserRuleCall_2_0_1() { return cContributorErrorTypeQEMREFParserRuleCall_2_0_1; }
-
-		//"]->"
-		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_3() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_3; }
-
-		//target=[ErrorType|QEMREF]
-		public Assignment getTargetAssignment_4() { return cTargetAssignment_4; }
-
-		//[ErrorType|QEMREF]
-		public CrossReference getTargetErrorTypeCrossReference_4_0() { return cTargetErrorTypeCrossReference_4_0; }
-
-		//QEMREF
-		public RuleCall getTargetErrorTypeQEMREFParserRuleCall_4_0_1() { return cTargetErrorTypeQEMREFParserRuleCall_4_0_1; }
-
-		//";"
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
-	}
-
 	public class TypeMappingSetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeMappingSet");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1334,11 +1236,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cUseTypesErrorModelLibraryCrossReference_3_3_1_0 = (CrossReference)cUseTypesAssignment_3_3_1.eContents().get(0);
 		private final RuleCall cUseTypesErrorModelLibraryQEMREFParserRuleCall_3_3_1_0_1 = (RuleCall)cUseTypesErrorModelLibraryCrossReference_3_3_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_3_4 = (Keyword)cGroup_3.eContents().get(4);
-		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
-		private final Assignment cMappingAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
-		private final RuleCall cMappingTokenTypeMappingParserRuleCall_4_0_0 = (RuleCall)cMappingAssignment_4_0.eContents().get(0);
-		private final Assignment cMappingAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
-		private final RuleCall cMappingElementTypeMappingParserRuleCall_4_1_0 = (RuleCall)cMappingAssignment_4_1.eContents().get(0);
+		private final Assignment cMappingAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cMappingTypeMappingParserRuleCall_4_0 = (RuleCall)cMappingAssignment_4.eContents().get(0);
 		private final Keyword cEndKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cMappingsKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
@@ -1347,16 +1246,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	"type" "mappings" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 		//
-		//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? (mapping+=TokenTypeMapping+ | mapping+=ElementTypeMapping+) "end"
-		//
-		//	"mappings" ";";
+		//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? mapping+=TypeMapping+ "end" "mappings" ";";
 		public ParserRule getRule() { return rule; }
 
 		//"type" "mappings" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 		//
-		//useTypes+=[ErrorModelLibrary|QEMREF])* ";")? (mapping+=TokenTypeMapping+ | mapping+=ElementTypeMapping+) "end"
-		//
-		//"mappings" ";"
+		//useTypes+=[ErrorModelLibrary|QEMREF])* ";")? mapping+=TypeMapping+ "end" "mappings" ";"
 		public Group getGroup() { return cGroup; }
 
 		//"type"
@@ -1407,20 +1302,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_3_4() { return cSemicolonKeyword_3_4; }
 
-		//mapping+=TokenTypeMapping+ | mapping+=ElementTypeMapping+
-		public Alternatives getAlternatives_4() { return cAlternatives_4; }
+		//mapping+=TypeMapping+
+		public Assignment getMappingAssignment_4() { return cMappingAssignment_4; }
 
-		//mapping+=TokenTypeMapping+
-		public Assignment getMappingAssignment_4_0() { return cMappingAssignment_4_0; }
-
-		//TokenTypeMapping
-		public RuleCall getMappingTokenTypeMappingParserRuleCall_4_0_0() { return cMappingTokenTypeMappingParserRuleCall_4_0_0; }
-
-		//mapping+=ElementTypeMapping+
-		public Assignment getMappingAssignment_4_1() { return cMappingAssignment_4_1; }
-
-		//ElementTypeMapping
-		public RuleCall getMappingElementTypeMappingParserRuleCall_4_1_0() { return cMappingElementTypeMappingParserRuleCall_4_1_0; }
+		//TypeMapping
+		public RuleCall getMappingTypeMappingParserRuleCall_4_0() { return cMappingTypeMappingParserRuleCall_4_0; }
 
 		//"end"
 		public Keyword getEndKeyword_5() { return cEndKeyword_5; }
@@ -1434,27 +1320,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class TypeMappingElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeMapping");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cTokenTypeMappingParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cElementTypeMappingParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		
-		//TypeMapping:
-		//
-		//	TokenTypeMapping | ElementTypeMapping;
-		public ParserRule getRule() { return rule; }
-
-		//TokenTypeMapping | ElementTypeMapping
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//TokenTypeMapping
-		public RuleCall getTokenTypeMappingParserRuleCall_0() { return cTokenTypeMappingParserRuleCall_0; }
-
-		//ElementTypeMapping
-		public RuleCall getElementTypeMappingParserRuleCall_1() { return cElementTypeMappingParserRuleCall_1; }
-	}
-
-	public class TokenTypeMappingElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TokenTypeMapping");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cSourceAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cSourceTypeTokenConstraintParserRuleCall_0_0 = (RuleCall)cSourceAssignment_0.eContents().get(0);
@@ -1463,7 +1328,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetTypeTokenParserRuleCall_2_0 = (RuleCall)cTargetAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//TokenTypeMapping:
+		//TypeMapping:
 		//
 		//	source=TypeTokenConstraint "->" target=TypeToken ";";
 		public ParserRule getRule() { return rule; }
@@ -1485,51 +1350,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//TypeToken
 		public RuleCall getTargetTypeTokenParserRuleCall_2_0() { return cTargetTypeTokenParserRuleCall_2_0; }
-
-		//";"
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
-	}
-
-	public class ElementTypeMappingElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ElementTypeMapping");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cSourceAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cSourceErrorTypeCrossReference_0_0 = (CrossReference)cSourceAssignment_0.eContents().get(0);
-		private final RuleCall cSourceErrorTypeQEMREFParserRuleCall_0_0_1 = (RuleCall)cSourceErrorTypeCrossReference_0_0.eContents().get(1);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cTargetAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cTargetErrorTypeCrossReference_2_0 = (CrossReference)cTargetAssignment_2.eContents().get(0);
-		private final RuleCall cTargetErrorTypeQEMREFParserRuleCall_2_0_1 = (RuleCall)cTargetErrorTypeCrossReference_2_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		//ElementTypeMapping:
-		//
-		//	source=[ErrorType|QEMREF] "->" target=[ErrorType|QEMREF] ";";
-		public ParserRule getRule() { return rule; }
-
-		//source=[ErrorType|QEMREF] "->" target=[ErrorType|QEMREF] ";"
-		public Group getGroup() { return cGroup; }
-
-		//source=[ErrorType|QEMREF]
-		public Assignment getSourceAssignment_0() { return cSourceAssignment_0; }
-
-		//[ErrorType|QEMREF]
-		public CrossReference getSourceErrorTypeCrossReference_0_0() { return cSourceErrorTypeCrossReference_0_0; }
-
-		//QEMREF
-		public RuleCall getSourceErrorTypeQEMREFParserRuleCall_0_0_1() { return cSourceErrorTypeQEMREFParserRuleCall_0_0_1; }
-
-		//"->"
-		public Keyword getHyphenMinusGreaterThanSignKeyword_1() { return cHyphenMinusGreaterThanSignKeyword_1; }
-
-		//target=[ErrorType|QEMREF]
-		public Assignment getTargetAssignment_2() { return cTargetAssignment_2; }
-
-		//[ErrorType|QEMREF]
-		public CrossReference getTargetErrorTypeCrossReference_2_0() { return cTargetErrorTypeCrossReference_2_0; }
-
-		//QEMREF
-		public RuleCall getTargetErrorTypeQEMREFParserRuleCall_2_0_1() { return cTargetErrorTypeQEMREFParserRuleCall_2_0_1; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
@@ -2331,54 +2151,49 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cExtendsKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cExtendsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final CrossReference cExtendsErrorBehaviorStateMachineCrossReference_3_1_0 = (CrossReference)cExtendsAssignment_3_1.eContents().get(0);
-		private final RuleCall cExtendsErrorBehaviorStateMachineQEMREFParserRuleCall_3_1_0_1 = (RuleCall)cExtendsErrorBehaviorStateMachineCrossReference_3_1_0.eContents().get(1);
+		private final Keyword cUseKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cTypesKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		private final Assignment cUseTypesAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final CrossReference cUseTypesErrorModelLibraryCrossReference_3_2_0 = (CrossReference)cUseTypesAssignment_3_2.eContents().get(0);
+		private final RuleCall cUseTypesErrorModelLibraryQEMREFParserRuleCall_3_2_0_1 = (RuleCall)cUseTypesErrorModelLibraryCrossReference_3_2_0.eContents().get(1);
+		private final Group cGroup_3_3 = (Group)cGroup_3.eContents().get(3);
+		private final Keyword cCommaKeyword_3_3_0 = (Keyword)cGroup_3_3.eContents().get(0);
+		private final Assignment cUseTypesAssignment_3_3_1 = (Assignment)cGroup_3_3.eContents().get(1);
+		private final CrossReference cUseTypesErrorModelLibraryCrossReference_3_3_1_0 = (CrossReference)cUseTypesAssignment_3_3_1.eContents().get(0);
+		private final RuleCall cUseTypesErrorModelLibraryQEMREFParserRuleCall_3_3_1_0_1 = (RuleCall)cUseTypesErrorModelLibraryCrossReference_3_3_1_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_3_4 = (Keyword)cGroup_3.eContents().get(4);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cUseKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Keyword cTypesKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
-		private final Assignment cUseTypesAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
-		private final CrossReference cUseTypesErrorModelLibraryCrossReference_4_2_0 = (CrossReference)cUseTypesAssignment_4_2.eContents().get(0);
-		private final RuleCall cUseTypesErrorModelLibraryQEMREFParserRuleCall_4_2_0_1 = (RuleCall)cUseTypesErrorModelLibraryCrossReference_4_2_0.eContents().get(1);
-		private final Group cGroup_4_3 = (Group)cGroup_4.eContents().get(3);
-		private final Keyword cCommaKeyword_4_3_0 = (Keyword)cGroup_4_3.eContents().get(0);
-		private final Assignment cUseTypesAssignment_4_3_1 = (Assignment)cGroup_4_3.eContents().get(1);
-		private final CrossReference cUseTypesErrorModelLibraryCrossReference_4_3_1_0 = (CrossReference)cUseTypesAssignment_4_3_1.eContents().get(0);
-		private final RuleCall cUseTypesErrorModelLibraryQEMREFParserRuleCall_4_3_1_0_1 = (RuleCall)cUseTypesErrorModelLibraryCrossReference_4_3_1_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
+		private final Keyword cTransformationsKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		private final Assignment cUseTransformationAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
+		private final CrossReference cUseTransformationTypeTransformationSetCrossReference_4_2_0 = (CrossReference)cUseTransformationAssignment_4_2.eContents().get(0);
+		private final RuleCall cUseTransformationTypeTransformationSetQEMREFParserRuleCall_4_2_0_1 = (RuleCall)cUseTransformationTypeTransformationSetCrossReference_4_2_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cUseKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Keyword cTransformationsKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
-		private final Assignment cUseTransformationAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
-		private final CrossReference cUseTransformationTypeTransformationSetCrossReference_5_2_0 = (CrossReference)cUseTransformationAssignment_5_2.eContents().get(0);
-		private final RuleCall cUseTransformationTypeTransformationSetQEMREFParserRuleCall_5_2_0_1 = (RuleCall)cUseTransformationTypeTransformationSetCrossReference_5_2_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_5_3 = (Keyword)cGroup_5.eContents().get(3);
+		private final Keyword cEventsKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cEventsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cEventsErrorBehaviorEventParserRuleCall_5_1_0 = (RuleCall)cEventsAssignment_5_1.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cEventsKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cEventsAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cEventsErrorBehaviorEventParserRuleCall_6_1_0 = (RuleCall)cEventsAssignment_6_1.eContents().get(0);
+		private final Keyword cStatesKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cStatesAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cStatesErrorBehaviorStateParserRuleCall_6_1_0 = (RuleCall)cStatesAssignment_6_1.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cStatesKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cStatesAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cStatesErrorBehaviorStateParserRuleCall_7_1_0 = (RuleCall)cStatesAssignment_7_1.eContents().get(0);
+		private final Keyword cTransitionsKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cTransitionsAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0 = (RuleCall)cTransitionsAssignment_7_1.eContents().get(0);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cTransitionsKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cTransitionsAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cTransitionsErrorBehaviorTransitionParserRuleCall_8_1_0 = (RuleCall)cTransitionsAssignment_8_1.eContents().get(0);
-		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cPropertiesKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cPropertiesAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_9_1_0 = (RuleCall)cPropertiesAssignment_9_1.eContents().get(0);
-		private final Keyword cEndKeyword_10 = (Keyword)cGroup.eContents().get(10);
-		private final Keyword cBehaviorKeyword_11 = (Keyword)cGroup.eContents().get(11);
-		private final Keyword cSemicolonKeyword_12 = (Keyword)cGroup.eContents().get(12);
+		private final Keyword cPropertiesKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cPropertiesAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_8_1_0 = (RuleCall)cPropertiesAssignment_8_1.eContents().get(0);
+		private final Keyword cEndKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Keyword cBehaviorKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final Keyword cSemicolonKeyword_11 = (Keyword)cGroup.eContents().get(11);
 		
 		//ErrorBehaviorStateMachine:
 		//
-		//	"error" "behavior" name=ID ("extends" extends=[ErrorBehaviorStateMachine|QEMREF])? ("use" "types"
+		//	"error" "behavior" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 		//
-		//	useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
+		//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
 		//
 		//	useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)? ("states"
 		//
@@ -2387,9 +2202,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	properties+=ContainedPropertyAssociation+)? "end" "behavior" ";";
 		public ParserRule getRule() { return rule; }
 
-		//"error" "behavior" name=ID ("extends" extends=[ErrorBehaviorStateMachine|QEMREF])? ("use" "types"
+		//"error" "behavior" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 		//
-		//useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
+		//useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
 		//
 		//useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)? ("states"
 		//
@@ -2410,134 +2225,119 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//("extends" extends=[ErrorBehaviorStateMachine|QEMREF])?
+		//("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"extends"
-		public Keyword getExtendsKeyword_3_0() { return cExtendsKeyword_3_0; }
+		//"use"
+		public Keyword getUseKeyword_3_0() { return cUseKeyword_3_0; }
 
-		//extends=[ErrorBehaviorStateMachine|QEMREF]
-		public Assignment getExtendsAssignment_3_1() { return cExtendsAssignment_3_1; }
+		//"types"
+		public Keyword getTypesKeyword_3_1() { return cTypesKeyword_3_1; }
 
-		//[ErrorBehaviorStateMachine|QEMREF]
-		public CrossReference getExtendsErrorBehaviorStateMachineCrossReference_3_1_0() { return cExtendsErrorBehaviorStateMachineCrossReference_3_1_0; }
+		//useTypes+=[ErrorModelLibrary|QEMREF]
+		public Assignment getUseTypesAssignment_3_2() { return cUseTypesAssignment_3_2; }
+
+		//[ErrorModelLibrary|QEMREF]
+		public CrossReference getUseTypesErrorModelLibraryCrossReference_3_2_0() { return cUseTypesErrorModelLibraryCrossReference_3_2_0; }
 
 		//QEMREF
-		public RuleCall getExtendsErrorBehaviorStateMachineQEMREFParserRuleCall_3_1_0_1() { return cExtendsErrorBehaviorStateMachineQEMREFParserRuleCall_3_1_0_1; }
+		public RuleCall getUseTypesErrorModelLibraryQEMREFParserRuleCall_3_2_0_1() { return cUseTypesErrorModelLibraryQEMREFParserRuleCall_3_2_0_1; }
 
-		//("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
+		//("," useTypes+=[ErrorModelLibrary|QEMREF])*
+		public Group getGroup_3_3() { return cGroup_3_3; }
+
+		//","
+		public Keyword getCommaKeyword_3_3_0() { return cCommaKeyword_3_3_0; }
+
+		//useTypes+=[ErrorModelLibrary|QEMREF]
+		public Assignment getUseTypesAssignment_3_3_1() { return cUseTypesAssignment_3_3_1; }
+
+		//[ErrorModelLibrary|QEMREF]
+		public CrossReference getUseTypesErrorModelLibraryCrossReference_3_3_1_0() { return cUseTypesErrorModelLibraryCrossReference_3_3_1_0; }
+
+		//QEMREF
+		public RuleCall getUseTypesErrorModelLibraryQEMREFParserRuleCall_3_3_1_0_1() { return cUseTypesErrorModelLibraryQEMREFParserRuleCall_3_3_1_0_1; }
+
+		//";"
+		public Keyword getSemicolonKeyword_3_4() { return cSemicolonKeyword_3_4; }
+
+		//("use" "transformations" useTransformation+=[TypeTransformationSet|QEMREF] ";")?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"use"
 		public Keyword getUseKeyword_4_0() { return cUseKeyword_4_0; }
 
-		//"types"
-		public Keyword getTypesKeyword_4_1() { return cTypesKeyword_4_1; }
-
-		//useTypes+=[ErrorModelLibrary|QEMREF]
-		public Assignment getUseTypesAssignment_4_2() { return cUseTypesAssignment_4_2; }
-
-		//[ErrorModelLibrary|QEMREF]
-		public CrossReference getUseTypesErrorModelLibraryCrossReference_4_2_0() { return cUseTypesErrorModelLibraryCrossReference_4_2_0; }
-
-		//QEMREF
-		public RuleCall getUseTypesErrorModelLibraryQEMREFParserRuleCall_4_2_0_1() { return cUseTypesErrorModelLibraryQEMREFParserRuleCall_4_2_0_1; }
-
-		//("," useTypes+=[ErrorModelLibrary|QEMREF])*
-		public Group getGroup_4_3() { return cGroup_4_3; }
-
-		//","
-		public Keyword getCommaKeyword_4_3_0() { return cCommaKeyword_4_3_0; }
-
-		//useTypes+=[ErrorModelLibrary|QEMREF]
-		public Assignment getUseTypesAssignment_4_3_1() { return cUseTypesAssignment_4_3_1; }
-
-		//[ErrorModelLibrary|QEMREF]
-		public CrossReference getUseTypesErrorModelLibraryCrossReference_4_3_1_0() { return cUseTypesErrorModelLibraryCrossReference_4_3_1_0; }
-
-		//QEMREF
-		public RuleCall getUseTypesErrorModelLibraryQEMREFParserRuleCall_4_3_1_0_1() { return cUseTypesErrorModelLibraryQEMREFParserRuleCall_4_3_1_0_1; }
-
-		//";"
-		public Keyword getSemicolonKeyword_4_4() { return cSemicolonKeyword_4_4; }
-
-		//("use" "transformations" useTransformation+=[TypeTransformationSet|QEMREF] ";")?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//"use"
-		public Keyword getUseKeyword_5_0() { return cUseKeyword_5_0; }
-
 		//"transformations"
-		public Keyword getTransformationsKeyword_5_1() { return cTransformationsKeyword_5_1; }
+		public Keyword getTransformationsKeyword_4_1() { return cTransformationsKeyword_4_1; }
 
 		//useTransformation+=[TypeTransformationSet|QEMREF]
-		public Assignment getUseTransformationAssignment_5_2() { return cUseTransformationAssignment_5_2; }
+		public Assignment getUseTransformationAssignment_4_2() { return cUseTransformationAssignment_4_2; }
 
 		//[TypeTransformationSet|QEMREF]
-		public CrossReference getUseTransformationTypeTransformationSetCrossReference_5_2_0() { return cUseTransformationTypeTransformationSetCrossReference_5_2_0; }
+		public CrossReference getUseTransformationTypeTransformationSetCrossReference_4_2_0() { return cUseTransformationTypeTransformationSetCrossReference_4_2_0; }
 
 		//QEMREF
-		public RuleCall getUseTransformationTypeTransformationSetQEMREFParserRuleCall_5_2_0_1() { return cUseTransformationTypeTransformationSetQEMREFParserRuleCall_5_2_0_1; }
+		public RuleCall getUseTransformationTypeTransformationSetQEMREFParserRuleCall_4_2_0_1() { return cUseTransformationTypeTransformationSetQEMREFParserRuleCall_4_2_0_1; }
 
 		//";"
-		public Keyword getSemicolonKeyword_5_3() { return cSemicolonKeyword_5_3; }
+		public Keyword getSemicolonKeyword_4_3() { return cSemicolonKeyword_4_3; }
 
 		//("events" events+=ErrorBehaviorEvent+)?
-		public Group getGroup_6() { return cGroup_6; }
+		public Group getGroup_5() { return cGroup_5; }
 
 		//"events"
-		public Keyword getEventsKeyword_6_0() { return cEventsKeyword_6_0; }
+		public Keyword getEventsKeyword_5_0() { return cEventsKeyword_5_0; }
 
 		//events+=ErrorBehaviorEvent+
-		public Assignment getEventsAssignment_6_1() { return cEventsAssignment_6_1; }
+		public Assignment getEventsAssignment_5_1() { return cEventsAssignment_5_1; }
 
 		//ErrorBehaviorEvent
-		public RuleCall getEventsErrorBehaviorEventParserRuleCall_6_1_0() { return cEventsErrorBehaviorEventParserRuleCall_6_1_0; }
+		public RuleCall getEventsErrorBehaviorEventParserRuleCall_5_1_0() { return cEventsErrorBehaviorEventParserRuleCall_5_1_0; }
 
 		//("states" states+=ErrorBehaviorState+)?
-		public Group getGroup_7() { return cGroup_7; }
+		public Group getGroup_6() { return cGroup_6; }
 
 		//"states"
-		public Keyword getStatesKeyword_7_0() { return cStatesKeyword_7_0; }
+		public Keyword getStatesKeyword_6_0() { return cStatesKeyword_6_0; }
 
 		//states+=ErrorBehaviorState+
-		public Assignment getStatesAssignment_7_1() { return cStatesAssignment_7_1; }
+		public Assignment getStatesAssignment_6_1() { return cStatesAssignment_6_1; }
 
 		//ErrorBehaviorState
-		public RuleCall getStatesErrorBehaviorStateParserRuleCall_7_1_0() { return cStatesErrorBehaviorStateParserRuleCall_7_1_0; }
+		public RuleCall getStatesErrorBehaviorStateParserRuleCall_6_1_0() { return cStatesErrorBehaviorStateParserRuleCall_6_1_0; }
 
 		//("transitions" transitions+=ErrorBehaviorTransition+)?
-		public Group getGroup_8() { return cGroup_8; }
+		public Group getGroup_7() { return cGroup_7; }
 
 		//"transitions"
-		public Keyword getTransitionsKeyword_8_0() { return cTransitionsKeyword_8_0; }
+		public Keyword getTransitionsKeyword_7_0() { return cTransitionsKeyword_7_0; }
 
 		//transitions+=ErrorBehaviorTransition+
-		public Assignment getTransitionsAssignment_8_1() { return cTransitionsAssignment_8_1; }
+		public Assignment getTransitionsAssignment_7_1() { return cTransitionsAssignment_7_1; }
 
 		//ErrorBehaviorTransition
-		public RuleCall getTransitionsErrorBehaviorTransitionParserRuleCall_8_1_0() { return cTransitionsErrorBehaviorTransitionParserRuleCall_8_1_0; }
+		public RuleCall getTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0() { return cTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0; }
 
 		//("properties" properties+=ContainedPropertyAssociation+)?
-		public Group getGroup_9() { return cGroup_9; }
+		public Group getGroup_8() { return cGroup_8; }
 
 		//"properties"
-		public Keyword getPropertiesKeyword_9_0() { return cPropertiesKeyword_9_0; }
+		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
 		//properties+=ContainedPropertyAssociation+
-		public Assignment getPropertiesAssignment_9_1() { return cPropertiesAssignment_9_1; }
+		public Assignment getPropertiesAssignment_8_1() { return cPropertiesAssignment_8_1; }
 
 		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_9_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_9_1_0; }
+		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_8_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_8_1_0; }
 
 		//"end"
-		public Keyword getEndKeyword_10() { return cEndKeyword_10; }
+		public Keyword getEndKeyword_9() { return cEndKeyword_9; }
 
 		//"behavior"
-		public Keyword getBehaviorKeyword_11() { return cBehaviorKeyword_11; }
+		public Keyword getBehaviorKeyword_10() { return cBehaviorKeyword_10; }
 
 		//";"
-		public Keyword getSemicolonKeyword_12() { return cSemicolonKeyword_12; }
+		public Keyword getSemicolonKeyword_11() { return cSemicolonKeyword_11; }
 	}
 
 	public class ErrorBehaviorEventElements extends AbstractParserRuleElementFinder {
@@ -4528,12 +4328,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private TypeTokenConstraintNoErrorElements pTypeTokenConstraintNoError;
 	private TypeTransformationSetElements pTypeTransformationSet;
 	private TypeTransformationElements pTypeTransformation;
-	private TypeTokenTransformationElements pTypeTokenTransformation;
-	private ElementTypeTransformationElements pElementTypeTransformation;
 	private TypeMappingSetElements pTypeMappingSet;
 	private TypeMappingElements pTypeMapping;
-	private TokenTypeMappingElements pTokenTypeMapping;
-	private ElementTypeMappingElements pElementTypeMapping;
 	private ErrorPropagationsElements pErrorPropagations;
 	private ErrorPropagationElements pErrorPropagation;
 	private PropagationDirectionElements pPropagationDirection;
@@ -4878,9 +4674,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	"type" "transformations" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 	//
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? (transformation+=ElementTypeTransformation+ |
-	//
-	//	transformation+=TypeTokenTransformation+) "end" "transformations" ";";
+	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? transformation+=TypeTransformation+ "end" "transformations" ";";
 	public TypeTransformationSetElements getTypeTransformationSetAccess() {
 		return (pTypeTransformationSet != null) ? pTypeTransformationSet : (pTypeTransformationSet = new TypeTransformationSetElements());
 	}
@@ -4891,7 +4685,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeTransformation:
 	//
-	//	TypeTokenTransformation | ElementTypeTransformation;
+	//	source=TypeTokenConstraintNoError "-[" contributor=TypeTokenConstraintNoError "]->" target=TypeToken ";";
 	public TypeTransformationElements getTypeTransformationAccess() {
 		return (pTypeTransformation != null) ? pTypeTransformation : (pTypeTransformation = new TypeTransformationElements());
 	}
@@ -4900,35 +4694,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTransformationAccess().getRule();
 	}
 
-	//TypeTokenTransformation:
-	//
-	//	source=TypeTokenConstraintNoError "-[" contributor=TypeTokenConstraintNoError "]->" target=TypeToken ";";
-	public TypeTokenTransformationElements getTypeTokenTransformationAccess() {
-		return (pTypeTokenTransformation != null) ? pTypeTokenTransformation : (pTypeTokenTransformation = new TypeTokenTransformationElements());
-	}
-	
-	public ParserRule getTypeTokenTransformationRule() {
-		return getTypeTokenTransformationAccess().getRule();
-	}
-
-	//ElementTypeTransformation:
-	//
-	//	source=[ErrorType|QEMREF] "-[" contributor=[ErrorType|QEMREF] "]->" target=[ErrorType|QEMREF] ";";
-	public ElementTypeTransformationElements getElementTypeTransformationAccess() {
-		return (pElementTypeTransformation != null) ? pElementTypeTransformation : (pElementTypeTransformation = new ElementTypeTransformationElements());
-	}
-	
-	public ParserRule getElementTypeTransformationRule() {
-		return getElementTypeTransformationAccess().getRule();
-	}
-
 	//TypeMappingSet:
 	//
 	//	"type" "mappings" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 	//
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? (mapping+=TokenTypeMapping+ | mapping+=ElementTypeMapping+) "end"
-	//
-	//	"mappings" ";";
+	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? mapping+=TypeMapping+ "end" "mappings" ";";
 	public TypeMappingSetElements getTypeMappingSetAccess() {
 		return (pTypeMappingSet != null) ? pTypeMappingSet : (pTypeMappingSet = new TypeMappingSetElements());
 	}
@@ -4939,35 +4709,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeMapping:
 	//
-	//	TokenTypeMapping | ElementTypeMapping;
+	//	source=TypeTokenConstraint "->" target=TypeToken ";";
 	public TypeMappingElements getTypeMappingAccess() {
 		return (pTypeMapping != null) ? pTypeMapping : (pTypeMapping = new TypeMappingElements());
 	}
 	
 	public ParserRule getTypeMappingRule() {
 		return getTypeMappingAccess().getRule();
-	}
-
-	//TokenTypeMapping:
-	//
-	//	source=TypeTokenConstraint "->" target=TypeToken ";";
-	public TokenTypeMappingElements getTokenTypeMappingAccess() {
-		return (pTokenTypeMapping != null) ? pTokenTypeMapping : (pTokenTypeMapping = new TokenTypeMappingElements());
-	}
-	
-	public ParserRule getTokenTypeMappingRule() {
-		return getTokenTypeMappingAccess().getRule();
-	}
-
-	//ElementTypeMapping:
-	//
-	//	source=[ErrorType|QEMREF] "->" target=[ErrorType|QEMREF] ";";
-	public ElementTypeMappingElements getElementTypeMappingAccess() {
-		return (pElementTypeMapping != null) ? pElementTypeMapping : (pElementTypeMapping = new ElementTypeMappingElements());
-	}
-	
-	public ParserRule getElementTypeMappingRule() {
-		return getElementTypeMappingAccess().getRule();
 	}
 
 	//ErrorPropagations:
@@ -5144,9 +4892,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorBehaviorStateMachine:
 	//
-	//	"error" "behavior" name=ID ("extends" extends=[ErrorBehaviorStateMachine|QEMREF])? ("use" "types"
+	//	"error" "behavior" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
 	//
-	//	useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
+	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
 	//
 	//	useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)? ("states"
 	//

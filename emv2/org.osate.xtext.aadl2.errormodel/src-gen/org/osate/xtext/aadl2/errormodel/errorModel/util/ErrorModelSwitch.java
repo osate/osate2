@@ -153,22 +153,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ErrorModelPackage.TYPE_TOKEN_TRANSFORMATION: {
-				TypeTokenTransformation typeTokenTransformation = (TypeTokenTransformation)theEObject;
-				T result = caseTypeTokenTransformation(typeTokenTransformation);
-				if (result == null) result = caseTypeTransformation(typeTokenTransformation);
-				if (result == null) result = caseElement(typeTokenTransformation);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ErrorModelPackage.ELEMENT_TYPE_TRANSFORMATION: {
-				ElementTypeTransformation elementTypeTransformation = (ElementTypeTransformation)theEObject;
-				T result = caseElementTypeTransformation(elementTypeTransformation);
-				if (result == null) result = caseTypeTransformation(elementTypeTransformation);
-				if (result == null) result = caseElement(elementTypeTransformation);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ErrorModelPackage.TYPE_MAPPING_SET: {
 				TypeMappingSet typeMappingSet = (TypeMappingSet)theEObject;
 				T result = caseTypeMappingSet(typeMappingSet);
@@ -182,22 +166,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				TypeMapping typeMapping = (TypeMapping)theEObject;
 				T result = caseTypeMapping(typeMapping);
 				if (result == null) result = caseElement(typeMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ErrorModelPackage.TOKEN_TYPE_MAPPING: {
-				TokenTypeMapping tokenTypeMapping = (TokenTypeMapping)theEObject;
-				T result = caseTokenTypeMapping(tokenTypeMapping);
-				if (result == null) result = caseTypeMapping(tokenTypeMapping);
-				if (result == null) result = caseElement(tokenTypeMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ErrorModelPackage.ELEMENT_TYPE_MAPPING: {
-				ElementTypeMapping elementTypeMapping = (ElementTypeMapping)theEObject;
-				T result = caseElementTypeMapping(elementTypeMapping);
-				if (result == null) result = caseTypeMapping(elementTypeMapping);
-				if (result == null) result = caseElement(elementTypeMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -652,38 +620,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
 	}
 
   /**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Token Transformation</em>'.
-	 * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Token Transformation</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-  public T caseTypeTokenTransformation(TypeTokenTransformation object)
-  {
-		return null;
-	}
-
-  /**
-	 * Returns the result of interpreting the object as an instance of '<em>Element Type Transformation</em>'.
-	 * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Element Type Transformation</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-  public T caseElementTypeTransformation(ElementTypeTransformation object)
-  {
-		return null;
-	}
-
-  /**
 	 * Returns the result of interpreting the object as an instance of '<em>Type Mapping Set</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -711,38 +647,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
 	 * @generated
 	 */
   public T caseTypeMapping(TypeMapping object)
-  {
-		return null;
-	}
-
-  /**
-	 * Returns the result of interpreting the object as an instance of '<em>Token Type Mapping</em>'.
-	 * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Token Type Mapping</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-  public T caseTokenTypeMapping(TokenTypeMapping object)
-  {
-		return null;
-	}
-
-  /**
-	 * Returns the result of interpreting the object as an instance of '<em>Element Type Mapping</em>'.
-	 * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Element Type Mapping</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-  public T caseElementTypeMapping(ElementTypeMapping object)
   {
 		return null;
 	}

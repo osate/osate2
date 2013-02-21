@@ -321,9 +321,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 			for (ErrorBehaviorState ebs : ebsl){
 				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
-			if (ebsm.getExtends() != null){
-				return findErrorBehaviorStateInEBSM(ebsm.getExtends(), name);
-			}
+//			if (ebsm.getExtends() != null){
+//				return findErrorBehaviorStateInEBSM(ebsm.getExtends(), name);
+//			}
 		}
 		return null;
 	}
@@ -368,9 +368,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 			for (ErrorBehaviorTransition ebs : ebsl){
 				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
-			if (ebsm.getExtends() != null){
-				return findErrorBehaviorTransitionInEBSM(ebsm.getExtends(), name);
-			}
+//			if (ebsm.getExtends() != null){
+//				return findErrorBehaviorTransitionInEBSM(ebsm.getExtends(), name);
+//			}
 		}
 		return null;
 	}
@@ -444,9 +444,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 			for (ErrorBehaviorEvent ebs : ebsl){
 				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
-			if (ebsm.getExtends() != null){
-				return findErrorBehaviorEventInEBSM(ebsm.getExtends(), name);
-			}
+//			if (ebsm.getExtends() != null){
+//				return findErrorBehaviorEventInEBSM(ebsm.getExtends(), name);
+//			}
 		}
 		return null;
 	}

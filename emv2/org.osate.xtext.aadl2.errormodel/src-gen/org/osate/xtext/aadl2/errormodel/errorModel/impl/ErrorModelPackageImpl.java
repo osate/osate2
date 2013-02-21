@@ -20,8 +20,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
-import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -57,13 +55,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.TokenTypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeTokenTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
@@ -144,20 +140,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  private EClass typeTokenTransformationEClass = null;
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  private EClass elementTypeTransformationEClass = null;
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
   private EClass typeMappingSetEClass = null;
 
   /**
@@ -166,20 +148,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 * @generated
 	 */
   private EClass typeMappingEClass = null;
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  private EClass tokenTypeMappingEClass = null;
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  private EClass elementTypeMappingEClass = null;
 
   /**
 	 * <!-- begin-user-doc -->
@@ -864,9 +832,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getTypeTokenTransformation()
+  public EReference getTypeTransformation_Source()
   {
-		return typeTokenTransformationEClass;
+		return (EReference)typeTransformationEClass.getEStructuralFeatures().get(0);
 	}
 
   /**
@@ -874,9 +842,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getTypeTokenTransformation_Source()
+  public EReference getTypeTransformation_Contributor()
   {
-		return (EReference)typeTokenTransformationEClass.getEStructuralFeatures().get(0);
+		return (EReference)typeTransformationEClass.getEStructuralFeatures().get(1);
 	}
 
   /**
@@ -884,59 +852,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getTypeTokenTransformation_Contributor()
+  public EReference getTypeTransformation_Target()
   {
-		return (EReference)typeTokenTransformationEClass.getEStructuralFeatures().get(1);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EReference getTypeTokenTransformation_Target()
-  {
-		return (EReference)typeTokenTransformationEClass.getEStructuralFeatures().get(2);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EClass getElementTypeTransformation()
-  {
-		return elementTypeTransformationEClass;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EReference getElementTypeTransformation_Source()
-  {
-		return (EReference)elementTypeTransformationEClass.getEStructuralFeatures().get(0);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EReference getElementTypeTransformation_Contributor()
-  {
-		return (EReference)elementTypeTransformationEClass.getEStructuralFeatures().get(1);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EReference getElementTypeTransformation_Target()
-  {
-		return (EReference)elementTypeTransformationEClass.getEStructuralFeatures().get(2);
+		return (EReference)typeTransformationEClass.getEStructuralFeatures().get(2);
 	}
 
   /**
@@ -984,9 +902,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getTokenTypeMapping()
+  public EReference getTypeMapping_Source()
   {
-		return tokenTypeMappingEClass;
+		return (EReference)typeMappingEClass.getEStructuralFeatures().get(0);
 	}
 
   /**
@@ -994,49 +912,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getTokenTypeMapping_Source()
+  public EReference getTypeMapping_Target()
   {
-		return (EReference)tokenTypeMappingEClass.getEStructuralFeatures().get(0);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EReference getTokenTypeMapping_Target()
-  {
-		return (EReference)tokenTypeMappingEClass.getEStructuralFeatures().get(1);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EClass getElementTypeMapping()
-  {
-		return elementTypeMappingEClass;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EReference getElementTypeMapping_Source()
-  {
-		return (EReference)elementTypeMappingEClass.getEStructuralFeatures().get(0);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EReference getElementTypeMapping_Target()
-  {
-		return (EReference)elementTypeMappingEClass.getEStructuralFeatures().get(1);
+		return (EReference)typeMappingEClass.getEStructuralFeatures().get(1);
 	}
 
   /**
@@ -1394,7 +1272,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getErrorBehaviorStateMachine_Extends()
+  public EReference getErrorBehaviorStateMachine_UseTypes()
   {
 		return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(0);
 	}
@@ -1404,7 +1282,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getErrorBehaviorStateMachine_UseTypes()
+  public EReference getErrorBehaviorStateMachine_UseTransformation()
   {
 		return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(1);
 	}
@@ -1414,7 +1292,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getErrorBehaviorStateMachine_UseTransformation()
+  public EReference getErrorBehaviorStateMachine_Events()
   {
 		return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(2);
 	}
@@ -1424,7 +1302,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getErrorBehaviorStateMachine_Events()
+  public EReference getErrorBehaviorStateMachine_States()
   {
 		return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(3);
 	}
@@ -1434,7 +1312,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getErrorBehaviorStateMachine_States()
+  public EReference getErrorBehaviorStateMachine_Transitions()
   {
 		return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(4);
 	}
@@ -1444,19 +1322,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getErrorBehaviorStateMachine_Transitions()
-  {
-		return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(5);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
   public EReference getErrorBehaviorStateMachine_Properties()
   {
-		return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(6);
+		return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(5);
 	}
 
   /**
@@ -2471,30 +2339,17 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		createEReference(typeTransformationSetEClass, TYPE_TRANSFORMATION_SET__TRANSFORMATION);
 
 		typeTransformationEClass = createEClass(TYPE_TRANSFORMATION);
-
-		typeTokenTransformationEClass = createEClass(TYPE_TOKEN_TRANSFORMATION);
-		createEReference(typeTokenTransformationEClass, TYPE_TOKEN_TRANSFORMATION__SOURCE);
-		createEReference(typeTokenTransformationEClass, TYPE_TOKEN_TRANSFORMATION__CONTRIBUTOR);
-		createEReference(typeTokenTransformationEClass, TYPE_TOKEN_TRANSFORMATION__TARGET);
-
-		elementTypeTransformationEClass = createEClass(ELEMENT_TYPE_TRANSFORMATION);
-		createEReference(elementTypeTransformationEClass, ELEMENT_TYPE_TRANSFORMATION__SOURCE);
-		createEReference(elementTypeTransformationEClass, ELEMENT_TYPE_TRANSFORMATION__CONTRIBUTOR);
-		createEReference(elementTypeTransformationEClass, ELEMENT_TYPE_TRANSFORMATION__TARGET);
+		createEReference(typeTransformationEClass, TYPE_TRANSFORMATION__SOURCE);
+		createEReference(typeTransformationEClass, TYPE_TRANSFORMATION__CONTRIBUTOR);
+		createEReference(typeTransformationEClass, TYPE_TRANSFORMATION__TARGET);
 
 		typeMappingSetEClass = createEClass(TYPE_MAPPING_SET);
 		createEReference(typeMappingSetEClass, TYPE_MAPPING_SET__USE_TYPES);
 		createEReference(typeMappingSetEClass, TYPE_MAPPING_SET__MAPPING);
 
 		typeMappingEClass = createEClass(TYPE_MAPPING);
-
-		tokenTypeMappingEClass = createEClass(TOKEN_TYPE_MAPPING);
-		createEReference(tokenTypeMappingEClass, TOKEN_TYPE_MAPPING__SOURCE);
-		createEReference(tokenTypeMappingEClass, TOKEN_TYPE_MAPPING__TARGET);
-
-		elementTypeMappingEClass = createEClass(ELEMENT_TYPE_MAPPING);
-		createEReference(elementTypeMappingEClass, ELEMENT_TYPE_MAPPING__SOURCE);
-		createEReference(elementTypeMappingEClass, ELEMENT_TYPE_MAPPING__TARGET);
+		createEReference(typeMappingEClass, TYPE_MAPPING__SOURCE);
+		createEReference(typeMappingEClass, TYPE_MAPPING__TARGET);
 
 		errorPropagationsEClass = createEClass(ERROR_PROPAGATIONS);
 		createEReference(errorPropagationsEClass, ERROR_PROPAGATIONS__PROPAGATIONS);
@@ -2541,7 +2396,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		createEReference(qualifiedObservableErrorPropagationPointEClass, QUALIFIED_OBSERVABLE_ERROR_PROPAGATION_POINT__OBSERVABLE_POINT);
 
 		errorBehaviorStateMachineEClass = createEClass(ERROR_BEHAVIOR_STATE_MACHINE);
-		createEReference(errorBehaviorStateMachineEClass, ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS);
 		createEReference(errorBehaviorStateMachineEClass, ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES);
 		createEReference(errorBehaviorStateMachineEClass, ERROR_BEHAVIOR_STATE_MACHINE__USE_TRANSFORMATION);
 		createEReference(errorBehaviorStateMachineEClass, ERROR_BEHAVIOR_STATE_MACHINE__EVENTS);
@@ -2715,13 +2569,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		typeTransformationSetEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		typeTransformationSetEClass.getESuperTypes().add(this.getTypeUseContext());
 		typeTransformationEClass.getESuperTypes().add(theAadl2Package.getElement());
-		typeTokenTransformationEClass.getESuperTypes().add(this.getTypeTransformation());
-		elementTypeTransformationEClass.getESuperTypes().add(this.getTypeTransformation());
 		typeMappingSetEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		typeMappingSetEClass.getESuperTypes().add(this.getTypeUseContext());
 		typeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
-		tokenTypeMappingEClass.getESuperTypes().add(this.getTypeMapping());
-		elementTypeMappingEClass.getESuperTypes().add(this.getTypeMapping());
 		errorPropagationsEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorPropagationEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorPropagationEClass.getESuperTypes().add(this.getEventOrPropagation());
@@ -2806,30 +2656,17 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		initEReference(getTypeTransformationSet_Transformation(), this.getTypeTransformation(), null, "transformation", null, 0, -1, TypeTransformationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeTransformationEClass, TypeTransformation.class, "TypeTransformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(typeTokenTransformationEClass, TypeTokenTransformation.class, "TypeTokenTransformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeTokenTransformation_Source(), this.getTypeSet(), null, "source", null, 0, 1, TypeTokenTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeTokenTransformation_Contributor(), this.getTypeSet(), null, "contributor", null, 0, 1, TypeTokenTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeTokenTransformation_Target(), this.getTypeToken(), null, "target", null, 0, 1, TypeTokenTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(elementTypeTransformationEClass, ElementTypeTransformation.class, "ElementTypeTransformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getElementTypeTransformation_Source(), this.getErrorType(), null, "source", null, 0, 1, ElementTypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getElementTypeTransformation_Contributor(), this.getErrorType(), null, "contributor", null, 0, 1, ElementTypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getElementTypeTransformation_Target(), this.getErrorType(), null, "target", null, 0, 1, ElementTypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeTransformation_Source(), this.getTypeSet(), null, "source", null, 0, 1, TypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeTransformation_Contributor(), this.getTypeSet(), null, "contributor", null, 0, 1, TypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeTransformation_Target(), this.getTypeToken(), null, "target", null, 0, 1, TypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeMappingSetEClass, TypeMappingSet.class, "TypeMappingSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypeMappingSet_UseTypes(), this.getErrorModelLibrary(), null, "useTypes", null, 0, -1, TypeMappingSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypeMappingSet_Mapping(), this.getTypeMapping(), null, "mapping", null, 0, -1, TypeMappingSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeMappingEClass, TypeMapping.class, "TypeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(tokenTypeMappingEClass, TokenTypeMapping.class, "TokenTypeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTokenTypeMapping_Source(), this.getTypeSet(), null, "source", null, 0, 1, TokenTypeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTokenTypeMapping_Target(), this.getTypeToken(), null, "target", null, 0, 1, TokenTypeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(elementTypeMappingEClass, ElementTypeMapping.class, "ElementTypeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getElementTypeMapping_Source(), this.getErrorType(), null, "source", null, 0, 1, ElementTypeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getElementTypeMapping_Target(), this.getErrorType(), null, "target", null, 0, 1, ElementTypeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeMapping_Source(), this.getTypeSet(), null, "source", null, 0, 1, TypeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeMapping_Target(), this.getTypeToken(), null, "target", null, 0, 1, TypeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorPropagationsEClass, ErrorPropagations.class, "ErrorPropagations", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getErrorPropagations_Propagations(), this.getErrorPropagation(), null, "propagations", null, 0, -1, ErrorPropagations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2876,7 +2713,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		initEReference(getQualifiedObservableErrorPropagationPoint_ObservablePoint(), this.getErrorPropagation(), null, "observablePoint", null, 0, 1, QualifiedObservableErrorPropagationPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorBehaviorStateMachineEClass, ErrorBehaviorStateMachine.class, "ErrorBehaviorStateMachine", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getErrorBehaviorStateMachine_Extends(), this.getErrorBehaviorStateMachine(), null, "extends", null, 0, 1, ErrorBehaviorStateMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorBehaviorStateMachine_UseTypes(), this.getErrorModelLibrary(), null, "useTypes", null, 0, -1, ErrorBehaviorStateMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorBehaviorStateMachine_UseTransformation(), this.getTypeTransformationSet(), null, "useTransformation", null, 0, -1, ErrorBehaviorStateMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorBehaviorStateMachine_Events(), this.getErrorBehaviorEvent(), null, "events", null, 0, -1, ErrorBehaviorStateMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
