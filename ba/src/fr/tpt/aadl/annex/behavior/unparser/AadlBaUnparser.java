@@ -30,15 +30,12 @@ import org.eclipse.emf.common.util.Enumerator ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.util.FeatureMap ;
 
-import org.osate.aadl2.AadlPackage ;
 import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.Element ;
-import org.osate.aadl2.PropertySet ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.aadl2.modelsupport.AadlConstants ;
 import org.osate.aadl2.modelsupport.UnparseText ;
-import org.osate.internal.workspace.AadlElement ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.* ;
 
