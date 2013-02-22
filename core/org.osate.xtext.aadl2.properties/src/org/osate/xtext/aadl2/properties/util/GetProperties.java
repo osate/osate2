@@ -434,6 +434,13 @@ public class GetProperties {
 			return PropertyUtils.getScaledNumberValue(ph, pl, 
 					findUnitLiteral(pl, AadlProject.MS_LITERAL), defaultValue);
 	}
+	
+	public static double getPartitionLatencyInMicroSec(final NamedElement ph, final double defaultValue)
+	{
+			Property pl =lookupPropertyDefinition(ph,SEI._NAME, SEI.PARTITION_LATENCY);
+			return PropertyUtils.getScaledNumberValue(ph, pl, 
+					findUnitLiteral(pl, AadlProject.US_LITERAL), defaultValue);
+	}
 
 
 	public static double scaleValueToMicroSecond(final NumberValue nv) {
@@ -678,6 +685,12 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
 	}
 
+	public static double getPeriodinMicroSec(final NamedElement ne) {
+		Property period = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PERIOD);
+		UnitLiteral microSecond = findUnitLiteral(period, AadlProject.US_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, period, microSecond, 0.0);
+	}
+
 	public static double getPeriodinNS(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PERIOD);
 		UnitLiteral microSecond = findUnitLiteral(period, AadlProject.NS_LITERAL);
@@ -711,10 +724,16 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, deadline, second, 0.0);
 	}
 
-	public static double getDeadlineinMS(final NamedElement ne) {
+	public static double getDeadlineinMilliSec(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
 		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
+	}
+
+	public static double getDeadlineinMicroSec(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
+		UnitLiteral microSecond = findUnitLiteral(deadline, AadlProject.US_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, deadline, microSecond, 0.0);
 	}
 
 	public static double getDeadlineinNS(final NamedElement ne) {
@@ -828,12 +847,6 @@ public class GetProperties {
 			return PropertyUtils.getScaledNumberValue(ne, SourceStackSize, Bytes,0.0);
 	}
 
-
-	public static double getPartitionLatencyinMS(final NamedElement ne, final double defaultValue) {
-			Property partitionLatency = lookupPropertyDefinition(ne,SEI._NAME, SEI.PARTITION_LATENCY);
-			UnitLiteral milliSecond = findUnitLiteral(partitionLatency, AadlProject.MS_LITERAL);
-			return PropertyUtils.getScaledNumberValue(ne, partitionLatency, milliSecond, defaultValue);
-	}
 
 	public static boolean getIsPartition(final NamedElement ne) {
 		try {
