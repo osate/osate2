@@ -10,9 +10,11 @@ OccurrenceDistribution : EMV2::DistributionSpecification
 --so other properties may have that type
 DistributionSpecification : type record (
 	ProbabilityValue : aadlreal;
+	SecondValue: aadlreal;
+	ThirdValue: aadlreal;
 	Distribution : EMV2::DistributionFunction;);
 	
-DistributionFunction : type enumeration (Poisson,Fixed,Gauss);
+DistributionFunction : type enumeration (Poisson,Fixed,Normal,Gauss,Exponential,Weibull,Binominal);
   
 DurationType : type record (
 	Duration : Time_Range;
