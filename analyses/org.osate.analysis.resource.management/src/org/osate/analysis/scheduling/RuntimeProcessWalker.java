@@ -144,7 +144,7 @@ public class RuntimeProcessWalker  {
   		return;
   	}
 
-  	double deadlineval = GetProperties.getDeadlineinMS(elt);
+  	double deadlineval = GetProperties.getDeadlineinMilliSec(elt);
   	curComponent.setDeadline((int) deadlineval);
 
   	double exectimeval;
