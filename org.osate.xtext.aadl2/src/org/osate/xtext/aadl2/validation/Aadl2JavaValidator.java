@@ -385,6 +385,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseFeatureGroup(FeatureGroup featureGroup) {
 		checkForInverseInFeatureGroup(featureGroup);
 		checkDirectionOfFeatureGroupMembers(featureGroup);
+		checkLegalFeatureGroup(featureGroup);
 	}
 
 	@Check(CheckType.FAST)
@@ -2321,17 +2322,89 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * "Feature arrays must only be declared for threads, devices, and processors."
 	 */
 	private void checkForFeatureArrays(Feature feature) {
-		if (!feature.getArrayDimensions().isEmpty()) {
-			Element e = feature.getOwner();
-			if (e instanceof ComponentType){
-				ComponentType componentType = (ComponentType) feature.getOwner();
-				if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType) && !(componentType instanceof DataType)
-						&& !(componentType instanceof BusType)&& !(componentType instanceof DeviceType) && !(componentType instanceof ProcessorType)) {
+		Element e = feature.getOwner();
+		if (e instanceof ComponentType){
+			ComponentType componentType = (ComponentType) e;
+			if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType) && !(componentType instanceof DataType)
+					&& !(componentType instanceof BusType)&& !(componentType instanceof DeviceType) && !(componentType instanceof ProcessorType)) {
+				if (!feature.getArrayDimensions().isEmpty()) {
 					error(feature,
 							"Feature arrays can only be declared for abstract, thread, device, and processor classifiers.");
+				} else if (feature instanceof FeatureGroup){
+					FeatureGroup fg = (FeatureGroup) feature;
+					FeatureGroupType fgt = fg.getAllFeatureGroupType();
+					if (containsFeatureArrays(fgt)){
+						error(feature,
+								"Feature group contains feature arrays. They are can only be declared for abstract, thread, device, and processor classifiers.");
+					}
 				}
 			}
 		}
+	}
+	
+	private void checkLegalFeatureGroup(FeatureGroup fg){
+		Element e = fg.getOwner();
+		if (e instanceof SubprogramGroupType){
+			if (containsNonSubprogramGroupFeatures(fg.getAllFeatureGroupType())){
+				error(fg,
+						"Feature group in Subprogram Group Type can only contain Subprogram Access, Subprogram Group Access, or Abstract features.");
+			}
+		} else if (e instanceof SubprogramType){
+			if (containsNonSubprogramFeatures(fg.getAllFeatureGroupType())){
+				error(fg,
+						"Feature group in Subprogram Type can only contain Subprogram Access, Subprogram Group Access, Data Access, Abstract, Parameter, Data Port, Event Data Port features.");
+			}
+		}
+		
+	}
+	
+	private boolean containsFeatureArrays(FeatureGroupType fgt){
+		if (Aadl2Util.isNull(fgt)) return false;
+		EList<Feature> fl = fgt.getAllFeatures();
+		for (Feature feature : fl) {
+			if (!feature.getArrayDimensions().isEmpty()) {
+				return true;
+			} else if (feature instanceof FeatureGroup){
+				if (containsFeatureArrays(((FeatureGroup)feature).getAllFeatureGroupType())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean containsNonSubprogramGroupFeatures(FeatureGroupType fgt){
+		if (Aadl2Util.isNull(fgt)) return false;
+		EList<Feature> fl = fgt.getAllFeatures();
+		for (Feature feature : fl) {
+			if (feature instanceof FeatureGroup){
+				if (containsNonSubprogramGroupFeatures(((FeatureGroup)feature).getAllFeatureGroupType())){
+					return true;
+				} 
+			} else if (!(feature instanceof SubprogramAccess || feature instanceof SubprogramGroupAccess
+					|| feature instanceof AbstractFeature)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean containsNonSubprogramFeatures(FeatureGroupType fgt){
+		if (Aadl2Util.isNull(fgt)) return false;
+		EList<Feature> fl = fgt.getAllFeatures();
+		for (Feature feature : fl) {
+			if (feature instanceof FeatureGroup){
+				if (containsNonSubprogramFeatures(((FeatureGroup)feature).getAllFeatureGroupType())){
+					return true;
+				} 
+			} else if (!(feature instanceof SubprogramAccess || feature instanceof SubprogramGroupAccess
+					|| feature instanceof AbstractFeature || feature instanceof Parameter
+					|| feature instanceof DataAccess || feature instanceof EventPort || feature instanceof EventDataPort
+					)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
