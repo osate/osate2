@@ -134,8 +134,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			}
 
 			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef)  {
-				final EList fel = etef.getFlowElements();
-				if (fel.isEmpty()) return DONE;
+				if (etef.getFlowElements().isEmpty()) return DONE;
 				
 				final double totalLatency = doETEF(etef); 
 				double val = 0;
