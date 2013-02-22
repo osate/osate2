@@ -1529,6 +1529,7 @@
             </terminal>
           </elements>
         </elements>
+        <elements xsi:type="xtext:Keyword" value="!"/>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="errorCode" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
         </elements>

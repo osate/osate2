@@ -388,7 +388,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorDetectionAccess().getConditionAssignment_3(), "rule__ErrorDetection__ConditionAssignment_3");
 					put(grammarAccess.getErrorDetectionAccess().getInternalDetectionPortAssignment_5_0(), "rule__ErrorDetection__InternalDetectionPortAssignment_5_0");
 					put(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortAssignment_5_1(), "rule__ErrorDetection__DetectionReportingPortAssignment_5_1");
-					put(grammarAccess.getErrorDetectionAccess().getErrorCodeAssignment_6(), "rule__ErrorDetection__ErrorCodeAssignment_6");
+					put(grammarAccess.getErrorDetectionAccess().getErrorCodeAssignment_7(), "rule__ErrorDetection__ErrorCodeAssignment_7");
 					put(grammarAccess.getErrorCodeValueAccess().getIntValueAssignment_0(), "rule__ErrorCodeValue__IntValueAssignment_0");
 					put(grammarAccess.getErrorCodeValueAccess().getConstantAssignment_1(), "rule__ErrorCodeValue__ConstantAssignment_1");
 					put(grammarAccess.getErrorCodeValueAccess().getEnumLiteralAssignment_2(), "rule__ErrorCodeValue__EnumLiteralAssignment_2");

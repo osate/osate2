@@ -374,7 +374,7 @@ ErrorDetection returns ErrorDetection:
     	all?='all'
     )
 	'-[' (condition=ConditionExpression)? ']->' 
-	( internalDetectionPort=InternalPort| detectionReportingPort=[aadl2::Port|ID] )
+	( internalDetectionPort=InternalPort| detectionReportingPort=[aadl2::Port|ID] ) '!'
 	(errorCode=ErrorCodeValue)?
 	';' 
 ;
