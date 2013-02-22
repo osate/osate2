@@ -88,6 +88,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
@@ -250,7 +251,7 @@ public class InstantiateModel {
 		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
 		if (root == null)
 		{
-			errorMessage = instantiateModel.getErrorMessage();
+			errorMessage = InstantiateModel.getErrorMessage();
 		}
 		return root;
 	}
@@ -367,7 +368,7 @@ public class InstantiateModel {
 			try {
 				fillSystemInstance(root);
 			} catch (Exception e) {
-				this.setErrorMessage (e.getMessage());
+				InstantiateModel.setErrorMessage (e.getMessage());
 				e.printStackTrace();
 				return null;
 			}
@@ -710,12 +711,50 @@ public class InstantiateModel {
 		populateComponentInstance(newInstance, index);
 	}
 
+	/**
+	 * same method but with different name exists in createEndToEndFlowSwitch.
+	 * It adds the flow instances on demand when ETEF is created
+	 * @param ci
+	 */
 	private void instantiateFlowSpecs(ComponentInstance ci) {
 		for (FlowSpecification spec : InstanceUtil.getComponentType(ci, 0, classifierCache).getAllFlowSpecifications()) {
 			FlowSpecificationInstance speci = ci.createFlowSpecification();
 			speci.setName(spec.getName());
 			speci.setFlowSpecification(spec);
-
+			FlowEnd inend = spec.getAllInEnd();
+			if (inend != null) {
+				Feature srcfp = inend.getFeature();
+				Context srcpg = inend.getContext();
+				if (srcpg == null) {
+					FeatureInstance fi = ci.findFeatureInstance(srcfp);
+					if (fi != null)
+						speci.setSource(fi);
+				} else if (srcpg instanceof FeatureGroup) {
+					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
+					if (pgi != null) {
+						FeatureInstance fi = pgi.findFeatureInstance(srcfp);
+						if (fi != null)
+							speci.setSource(fi);
+					}
+				}
+			}
+			FlowEnd outend = spec.getAllOutEnd();
+			if (outend != null) {
+				Feature dstfp = outend.getFeature();
+				Context dstpg = outend.getContext();
+				if (dstpg == null) {
+					FeatureInstance fi = ci.findFeatureInstance(dstfp);
+					if (fi != null)
+						speci.setDestination(fi);
+				} else if (dstpg instanceof FeatureGroup) {
+					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
+					if (pgi != null) {
+						FeatureInstance fi = pgi.findFeatureInstance(dstfp);
+						if (fi != null)
+							speci.setDestination(fi);
+					}
+				}
+			}
 			for (Mode mode : spec.getAllInModes()) {
 				ModeInstance mi = ci.findModeInstance(mode);
 				if (mi != null) {
