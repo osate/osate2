@@ -207,7 +207,7 @@ public class Aadl2Utils
    */
   public static String getParameter_Usage(NamedElement ne)
   {
-    String result = null ;
+    String result = "" ;
    
     try
     {
@@ -223,7 +223,7 @@ public class Aadl2Utils
       }
       catch(Exception e1)
       {
-        return null ;
+        return "" ;
       }
     }	    
     return result ;
