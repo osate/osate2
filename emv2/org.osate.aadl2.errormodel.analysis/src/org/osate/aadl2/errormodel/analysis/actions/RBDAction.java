@@ -77,10 +77,6 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		return "RBD";
 	}
 
-	protected ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result =  EM2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
-		return result;
-	}
 	
 	private static ComponentInstance findInstance (EList<ComponentInstance> instances, String name)
 	{
@@ -93,43 +89,6 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		}
 		
 		return null;
-	}
-	
-	private double processOccurence (final ContainedNamedElement PAContainmentPath)
-	{
-		double result;
-		
-		result = 0;
-		
-		if (PAContainmentPath == null)
-		{
-			return 0;
-		}
-		
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof RecordValue){
-	
-				RecordValue rv = (RecordValue)val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				// for all error types/aliases in type set or the element identified in the containment clause 
-				for (BasicPropertyAssociation bpa : fields)
-				{
-					if (bpa.getProperty().getName().equalsIgnoreCase("probabilityvalue"))
-					{
-						if (bpa.getValue() instanceof RealLiteral)
-						{
-							RealLiteral rl = (RealLiteral)bpa.getValue();
-							result = rl.getScaledValue();
-						}
-					}
-					//OsateDebug.osateDebug("bpa prop =" + bpa.getProperty());
-
-					//OsateDebug.osateDebug("bpa value=" + bpa.getValue());
-				}
-			}
-		}
-		return result;
 	}
 	
 	private double handleElement (final ConditionElement conditionElement, final EList<ComponentInstance> componentInstances)
@@ -153,9 +112,9 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			if (behaviorState != null)
 			{
 				//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-				ContainedNamedElement PA = getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
+				ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
 				//OsateDebug.osateDebug("         PA " + PA);
-				result = processOccurence (PA);
+				result = EM2Util.getOccurenceValue (PA);
 			}
 		}
 		
