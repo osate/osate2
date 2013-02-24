@@ -20,10 +20,18 @@ public class WriteToFile {
 	UnparseText textBuffer ;
 	String reportType;
 	EObject root;
+	String fileExtension;
+	
 	public WriteToFile(String reporttype, EObject root){
 		this.reportType = reporttype;
 		this.root = root;
 		this.textBuffer = new UnparseText();
+		this.fileExtension = "csv";
+	}
+	
+	public void setFileExtension (String fe)
+	{
+		this.fileExtension = fe;
 	}
 	
 	public void addOutput(String text){
@@ -46,7 +54,7 @@ public class WriteToFile {
 			String filename = path.lastSegment();
 			path = path.removeFileExtension().removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		}
-		path = path.removeFileExtension().addFileExtension("csv");
+		path = path.removeFileExtension().addFileExtension(this.fileExtension);
 		return path;
 	}
 	
