@@ -83,149 +83,9 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 		return result;
 	}
 	
-	private static ComponentInstance findInstance (EList<ComponentInstance> instances, String name)
-	{
-		for (ComponentInstance ci : instances)
-		{
-			if (ci.getName().equalsIgnoreCase(name))
-			{
-				return ci;
-			}
-		}
-		
-		return null;
-	}
-	
-	private double processOccurence (final ContainedNamedElement PAContainmentPath)
-	{
-		double result;
-		
-		result = 0;
-		
-		if (PAContainmentPath == null)
-		{
-			return 0;
-		}
-		
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof RecordValue){
-	
-				RecordValue rv = (RecordValue)val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				// for all error types/aliases in type set or the element identified in the containment clause 
-				for (BasicPropertyAssociation bpa : fields)
-				{
-					if (bpa.getProperty().getName().equalsIgnoreCase("probabilityvalue"))
-					{
-						if (bpa.getValue() instanceof RealLiteral)
-						{
-							RealLiteral rl = (RealLiteral)bpa.getValue();
-							result = rl.getScaledValue();
-						}
-					}
-				}
-			}
-		}
-		return result;
-	}
-	
-	private double handleElement (final ConditionElement conditionElement, final EList<ComponentInstance> componentInstances)
-	{
-		double result = 0;
-		
-		ErrorBehaviorState behaviorState = conditionElement.getReference();
-
-		for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
-		{
-			Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-			//OsateDebug.osateDebug("      subcomponent " + subcomponent);
-			ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
-			//OsateDebug.osateDebug("         instance " + relatedInstance);
-			
-			if (! this.componentsNames.contains(relatedInstance))
-			{
-				this.componentsNames.add (relatedInstance);
-			}
-			
-			if (behaviorState != null)
-			{
-				//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-				ContainedNamedElement PA = getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
-				//OsateDebug.osateDebug("         PA " + PA);
-				result = processOccurence (PA);
-			}
-		}
-		
-		return result;
-	}
 	
 	
-	private double handleCondition (final ConditionExpression cond, final EList<ComponentInstance> componentInstances)
-	{
-		double result = 0;
-		double tmp;
-		//OsateDebug.osateDebug("cond="+cond);
 		
-		if (cond instanceof ConditionElement)
-		{
-			return handleElement((ConditionElement)cond, componentInstances);
-		}
-		
-		if (cond instanceof SOrExpression)
-		{
-			SOrExpression sor = (SOrExpression)cond;
-			for (ConditionExpression conditionExpression : sor.getOperands())
-			{
-				//OsateDebug.osateDebug("      operand=" + conditionExpression);
-				result += handleCondition (conditionExpression, componentInstances);
-			}
-		}
-		
-		if (cond instanceof SAndExpression)
-		{
-			SAndExpression sae = (SAndExpression)cond;
-			for (ConditionExpression conditionExpression : sae.getOperands())
-			{
-				tmp = handleCondition (conditionExpression, componentInstances);
-				if (result == 0)
-				{
-					result = tmp;
-				}
-				else
-				{
-					result = result * tmp;
-				}
-			}
-		}
-		return result;
-	}
-	
-	public void processRootSystem (SystemInstance systemInstance)
-	{
-		EList<CompositeState> 		states;
-		CompositeErrorBehavior 		ceb;
-		EList<ComponentInstance> 	componentInstances;
-		double						probabilityTemp;
-
-		ceb = EM2Util.getCompositeErrorBehavior (systemInstance);
-		
-		componentInstances = EM2Util.getComponentInstancesWithErrorPropagations (systemInstance);
-		
-		states = ceb.getStates();
-		
-		probabilityTemp  = 0;
-		for (CompositeState state : states)
-		{
-			if (state.getState().getName().equalsIgnoreCase("failed"))
-			{
-				probabilityTemp = handleCondition (state.getCondition(), componentInstances);
-			//	OsateDebug.osateDebug("temp=" + probabilityTemp);
-				finalResult = finalResult + probabilityTemp;
-			}
-		}
-	}
-	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		String message;
@@ -247,6 +107,7 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 		try
 		{
 			Model prismModel = new Model (si);
+			prismModel.process ();
 			prismModel.saveFile();
 			message  = "Model successfully generated\n";
 		}
