@@ -607,13 +607,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		//if the feature names don't match
-		if (!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
-		//if the spec has a context, but the impl doesn't
+		if (!(outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+		//if the spec has a context, but the impl doesn't: flow spec picks an element from a FG
 				(outContextName == null && !Aadl2Util.isNull(specContext)) ||
-				//if the impl has a context, but the spec doesn't
-				(outContextName != null && Aadl2Util.isNull(specContext)) ||
+				//if the impl has a context (FG), but the spec doesn't (feature is FG)
+				(outContextName != null && Aadl2Util.isNull(specContext)&&outContextName.equalsIgnoreCase(specFeature.getName())) ||
 				//if the context names don't match
-				(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName()))) {
+				(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName())))) {
 			error(flow,
 					'\'' + (outContextName != null ? outContextName + '.' : "") + outFeatureName
 							+ "' does not match the out flow feature identifier '"
@@ -652,13 +652,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		//if the feature names don't match
-		if (!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+		if (!(inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 		//if the spec has a context, but the impl doesn't
 				(inContextName == null && !Aadl2Util.isNull(specContext)) ||
 				//if the impl has a context, but the spec doesn't
-				(inContextName != null && Aadl2Util.isNull(specContext)) ||
+				(inContextName != null && Aadl2Util.isNull(specContext)&&inContextName.equalsIgnoreCase(specFeature.getName())) ||
 				//if the context names don't match
-				(inContextName != null && !inContextName.equalsIgnoreCase(specContext.getName()))) {
+				(inContextName != null && !inContextName.equalsIgnoreCase(specContext.getName())))) {
 			error(flow,
 					'\'' + (inContextName != null ? inContextName + '.' : "") + inFeatureName
 							+ "' does not match the in flow feature identifier '"
