@@ -19,9 +19,13 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -53,6 +57,51 @@ public class EM2Util {
 	
 	public static String ErrorModelAnnexName = "EMV2";
 
+	public static ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+		ContainedNamedElement result =  EM2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
+		return result;
+	}
+	
+	/*
+	 * Retrieve the value associated with a containment path
+	 * See RDB action to see how it is used.
+	 */
+	public static double getOccurenceValue (final ContainedNamedElement PAContainmentPath)
+	{
+		double result;
+		
+		result = 0;
+		
+		if (PAContainmentPath == null)
+		{
+			return 0;
+		}
+		
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+			if (val instanceof RecordValue){
+	
+				RecordValue rv = (RecordValue)val;
+				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+				// for all error types/aliases in type set or the element identified in the containment clause 
+				for (BasicPropertyAssociation bpa : fields)
+				{
+					if (bpa.getProperty().getName().equalsIgnoreCase("probabilityvalue"))
+					{
+						if (bpa.getValue() instanceof RealLiteral)
+						{
+							RealLiteral rl = (RealLiteral)bpa.getValue();
+							result = rl.getScaledValue();
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	
+	
 	/**
 	 * get ErrorModelSubclause object that contains the element object.
 	 * @param element error annex element
