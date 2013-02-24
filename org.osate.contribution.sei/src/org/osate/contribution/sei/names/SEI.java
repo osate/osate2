@@ -26,7 +26,7 @@ public final class SEI {
 	public static final String POWER_BUDGET = "PowerBudget";
 	public static final String BANDWIDTH_CAPACITY = "BandWidthCapacity";
 	public static final String BANDWIDTH_BUDGET = "BandWidthBudget";
-	public static final String MIPS_ACTUAL = "MIPSActual";
+//	public static final String MIPS_ACTUAL = "MIPSActual";
 	public static final String RAM_ACTUAL = "RAMActual";
 	public static final String ROM_ACTUAL = "ROMActual";
 	public static final String DATA_RATE = "Data_Rate";
