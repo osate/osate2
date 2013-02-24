@@ -337,12 +337,13 @@ public class GetProperties {
 			UnitLiteral MIPS = findUnitLiteral(MIPSBudget, SEI.MIPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, MIPSBudget, MIPS, defaultValue);
 	}
-
-	public static double getMIPSActualInMIPS(final NamedElement ne, final double defaultValue) {
-			Property MIPSActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_ACTUAL);
-			UnitLiteral MIPS = findUnitLiteral(MIPSActual, SEI.MIPS_LITERAL);
-			return PropertyUtils.getScaledNumberValue(ne, MIPSActual, MIPS, defaultValue);
-	}
+//
+//	public static double getMIPSActualInMIPS(final NamedElement ne, final double defaultValue) {
+//		if (ne == null) return defaultValue;
+//			Property MIPSActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_ACTUAL);
+//			UnitLiteral MIPS = findUnitLiteral(MIPSActual, SEI.MIPS_LITERAL);
+//			return PropertyUtils.getScaledNumberValue(ne, MIPSActual, MIPS, defaultValue);
+//	}
 
 	public static double getRAMCapacityInKB(final NamedElement ne, final double defaultValue) {
 			Property RAMCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.RAM_CAPACITY);
@@ -470,11 +471,11 @@ public class GetProperties {
 	 * @param threadinstance thread instance
 	 * @return
 	 */
-	public static double getActualThreadMIPS(ComponentInstance threadinstance) {
-		double exectimeval = getActualComputeExecutionTimeinSec(threadinstance);
+	public static double getThreadExecutioninMIPS(ComponentInstance threadinstance) {
+		double exectimeval = getSpecifiedComputeExecutionTimeinSec(threadinstance);
 		double period = getPeriodInSeconds(threadinstance, 0.0);
 		if (exectimeval > 0 && period > 0) {
-			double mipspersec = getBoundProcessorMIPS(threadinstance);
+			double mipspersec = getReferenceMIPS(threadinstance);
 			double time = exectimeval / period;
 			double mips = time * mipspersec;
 			return mips;
@@ -534,24 +535,27 @@ public class GetProperties {
 	 * @return double scaling factor of processor speed
 	 */
 	public static double getProcessorScalingFactor(final ComponentInstance thread) {
-		List<ComponentInstance> processorList = getActualProcessorBinding(thread);
-		ComponentInstance processor = processorList.isEmpty() ? null : processorList.get(0);
-		if (processor == null) {
-			return 1.0;
-		}
-		double procCycleTime = getCycleTimeinUS(processor);
-		double refCycleTime = getReferenceProcessorCycleTimeinUS(thread);
-		if (procCycleTime > 0.0&&refCycleTime > 0.0){
-			return procCycleTime / refCycleTime;
-		}
-		// try cycle time from MIPS
-		procCycleTime = getMIPSActualInMIPS(processor, 0.0);
-		refCycleTime = getMIPSActualInMIPS(	getReferenceProcessor(thread), 0.0);
-		if (procCycleTime > 0.0&&refCycleTime > 0.0){
-			return procCycleTime / refCycleTime;
-		}
-		// use current processor
-		return 1.0;
+//		List<ComponentInstance> processorList = getActualProcessorBinding(thread);
+//		ComponentInstance processor = processorList.isEmpty() ? null : processorList.get(0);
+//		if (processor == null) {
+//			return 1.0;
+//		}
+		double refmipspersec = getReferenceMIPS(thread);
+		double mipspersec = getBoundProcessorMIPS(thread);
+		return refmipspersec / mipspersec;
+//		double procCycleTime = getCycleTimeinUS(processor);
+//		double refCycleTime = getReferenceProcessorCycleTimeinUS(thread);
+//		if (procCycleTime > 0.0&&refCycleTime > 0.0){
+//			return procCycleTime / refCycleTime;
+//		}
+//		// try cycle time from MIPS
+//		procCycleTime = getActualThreadMIPS(thread);
+//		refCycleTime = getReferenceMIPS(thread);
+//		if (procCycleTime > 0.0&&refCycleTime > 0.0){
+//			return procCycleTime / refCycleTime;
+//		}
+//		// use current processor
+//		return 1.0;
 	}
 
 	/**
@@ -568,8 +572,7 @@ public class GetProperties {
 			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
 			return (1 / cycleTime);
 		}
-		List<ComponentInstance> pciList = getActualProcessorBinding(thread);
-		ComponentInstance pci = pciList.isEmpty() ? null : pciList.get(0);
+		ComponentClassifier pci = getReferenceProcessor(thread);
 		if (pci != null) {
 			double mipscap = getMIPSCapacityInMIPS(pci, 0.0);
 			if (mipscap > 0)
