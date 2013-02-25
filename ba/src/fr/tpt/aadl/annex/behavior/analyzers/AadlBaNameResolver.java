@@ -890,10 +890,10 @@ public class AadlBaNameResolver
 	  }
    }
    
-   // Resolves the given identifier within the property Data_Model::Element Names
-   // of a declared struct or union component (event if element names is set).
-   // If the given component is not declared as a struct or union, it returns
-   // false and reports error according to the hasToReport flag.
+   // Resolves the given identifier within the property Data_Model::Element 
+   // Names of a declared struct or union component (event if element names is
+   // set). If the given component is not declared as a struct or union, it 
+   // returns false and reports error according to the hasToReport flag.
    private boolean structOrUnionOrArrayIdResolver(Identifier id,
 		                                   DataClassifier component,
 		                                   boolean hasToReport)
