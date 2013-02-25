@@ -78,7 +78,6 @@ import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.aadl2.properties.UndefinedPropertyException;
 
 /**
  * <!-- begin-user-doc -->
@@ -793,11 +792,11 @@ public abstract class NamedElementImpl extends ElementImpl implements
 	 * @see org.osate.aadl2.NamedElement#getPropertyValues(org.osate.aadl2.Property, java.lang.String)
 	 */
 	public EList<PropertyExpression> getPropertyValues(
-			final String p_propertySetName, final String p_propertyName)
+			final String propertySetName, final String propertyName)
 			throws InvalidModelException, IllegalArgumentException,
 			PropertyIsModalException, IllegalStateException,
 			PropertyDoesNotApplyToHolderException {
-		return null;
+		return NamedElementOperations.getPropertyValues( this, propertySetName, propertyName );
 	}
 
 	public boolean equals(Object arg0) {
