@@ -25,15 +25,9 @@ public class Model {
 	
 	public void process ()
 	{
-		
-		for (Element e : rootInstance.getChildren())
-		{
-			OsateDebug.osateDebug("element e="+e);
-			if (e instanceof ComponentInstance)
-			{
-				addModule(new Module ((ComponentInstance)e));
-			}
-		}
+		Module m = new Module (rootInstance, this);
+		m.process ();
+		addModule (m);
 	}
 	
 	public void saveFile ()
