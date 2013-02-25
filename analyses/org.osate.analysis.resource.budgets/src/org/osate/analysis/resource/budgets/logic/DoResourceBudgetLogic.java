@@ -217,8 +217,8 @@ public class DoResourceBudgetLogic {
 				total = budget;
 			} else {
 				total = actualmips;
-				if (actualmips > budget){
-					errManager.info(ci, resourceName + " " + ci.getInstanceObjectPath() + " execution time (in MIPS) " + actualmips +" greater than budget "+budget);
+				if (actualmips > budget && budget > 0){
+					errManager.info(ci, resourceName + " " + ci.getInstanceObjectPath() + " thread execution time (in MIPS) " + actualmips +" greater than budget "+budget);
 				}
 			}
 		}
