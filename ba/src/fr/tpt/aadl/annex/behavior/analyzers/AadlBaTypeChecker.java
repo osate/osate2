@@ -2663,8 +2663,7 @@ public class AadlBaTypeChecker
       else // DataAccess case.
       {
         DataAccess data = (DataAccess) feat ;
-        String accessRight = Aadl2Utils.getAccessRight(data) ;
-        currentDirRight = Enum.valueOf(DataAccessRight.class, accessRight);
+        currentDirRight = Aadl2Utils.getDataAccessRight(data) ;
         expectedDirRight.add(currentDirRight) ;
       }
       
@@ -2674,7 +2673,7 @@ public class AadlBaTypeChecker
       
       // ValueExpression case.
       if(currentDirRight == DirectionType.IN ||
-         currentDirRight == DataAccessRight.read_only)
+         currentDirRight == Aadl2Utils.DataAccessRight.read_only)
       {
         vth = valueExpressionCheck(valueExp) ;
 
@@ -2706,7 +2705,7 @@ public class AadlBaTypeChecker
           hasCheckingPassed = false ;
         }
       }
-      else if(currentDirRight != DataAccessRight.unknown)
+      else if(currentDirRight != Aadl2Utils.DataAccessRight.unknown)
       {
         v = AadlBaUtils.isOnlyOneValue(valueExp) ;
 
@@ -2737,8 +2736,7 @@ public class AadlBaTypeChecker
             
             if(dirRightFound == null)
             {
-              String accessRight = AadlBaUtils.getDataAccessRight(tar) ;
-              dirRightFound = Enum.valueOf(DataAccessRight.class, accessRight);
+              dirRightFound = AadlBaUtils.getDataAccessRight(tar) ;
             }
             
             dirRightsFound.add(dirRightFound) ;
@@ -3451,29 +3449,4 @@ public class AadlBaTypeChecker
       throw new UnsupportedOperationException() ;
     }
   }   
-}
-
-// Convenient enumeration class for DataAccess right checking.
-enum DataAccessRight
-{
-  unknown ("unknown"),
-  read_only ("read only"),
-  write_only ("write only"),
-  read_write ("read and write") ;
-  
-  String literal ;
-  
-  DataAccessRight (String literal)
-  {
-    this.literal = literal ; 
-  }
-  
-  static DataAccessRight getDataAccessRight(String literal)
-  {
-    try { return valueOf(literal) ;}
-    catch (IllegalArgumentException e)
-    {
-      return unknown ;
-    }
-  }
 }

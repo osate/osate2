@@ -38,6 +38,7 @@ import fr.tpt.aadl.annex.behavior.analyzers.TypeHolder ;
 import fr.tpt.aadl.utils.Aadl2Utils ;
 import fr.tpt.aadl.utils.Aadl2Visitors ;
 import fr.tpt.aadl.utils.PropertyUtils ;
+import fr.tpt.aadl.utils.Aadl2Utils.DataAccessRight ;
 import fr.tpt.aadl.utils.names.DataModelProperties ;
 
 /**
@@ -1782,14 +1783,14 @@ public class AadlBaUtils {
   /**
    * If the given Target object is a DataAccessHolder object or a
    * DataComponentReference object which the last element is a DataAccessHolder
-   * object, it returns the data access right or {@code null} if the default
-   * data access right is not set. Else it returns {@code null}.
+   * object, it returns the data access right or "unknown" if the default
+   * data access right is not set.
    * 
    * @see Aadl2Utils.getAccessRight
    * @param tar the given Target object
-   * @return the data access right or {@code null}
+   * @return the data access right or "unknown"
    */
-  public static String getDataAccessRight(Target tar)
+  public static String getAccessRight(Target tar)
   {
     ElementHolder el = null ;
     
@@ -1811,9 +1812,25 @@ public class AadlBaUtils {
     }
     else
     {
-      return null ;
+      return "unknown" ;
     }
   }
+  
+  /**
+   * Same as {@link #getAccessRight(Target)}, if the given Target object is a
+   * DataAccessHolder object or a DataComponentReference object which the last
+   * element is a DataAccessHolder object, it returns the DataAccessRight enum
+   * reference or {@link fr.tpt.aadl.utils.Aadl2Utils.DataAccessRight#unknown} if the default data access
+   * right is not set.
+   * 
+   * @see Aadl2Utils.getAccessRight
+   * @param tar the given Target object
+   * @return the data access right or {@link fr.tpt.aadl.utils.Aadl2Utils.DataAccessRight#unknown}
+   */
+  public static DataAccessRight getDataAccessRight(Target tar)
+  {
+    return DataAccessRight.getDataAccessRight(getAccessRight(tar)) ;
+  }  
 
   /**
    * Returns the name of the given ModeTransitionTrigger object.
