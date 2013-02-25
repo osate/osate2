@@ -16,10 +16,10 @@ property set SEI is
   -- delta based information is communicated with guaranteed delivery
 
   -- state data representation
-  DataRepresentation: SEI::DataRepresentationType applies to (data, port);
+  StateRepresentation: SEI::StateRepresentationType applies to (data, port);
   
-  -- Data Representation types 
-  DataRepresentationType: type enumeration (State, StateDelta);
+  -- State Representation types 
+  StateRepresentationType: type enumeration (State, StateDelta);
   
   -- types of protocol characteristics
   ProtocolQoSType : type enumeration (GuaranteedDelivery, SecureDelivery, OrderedDelivery);
@@ -84,7 +84,7 @@ property set SEI is
   -- Data volume units : amount of data per second
 -- now defined in core  Data_Volume_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
   
-  Data_Rate : aadlreal applies to (port);
+--   Data_Rate : aadlreal applies to (port); We now have output_rate as predeclared property
   
   --  The next properties are used for the Value-Driven Incremental Development plug-in
   nsloc : aadlinteger applies to (system, subprogram, abstract, thread, process); 
