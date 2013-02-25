@@ -235,15 +235,15 @@ public class Aadl2Utils
    * 
    * Returns the local "Access_Right" property value, if it is set. Otherwise,
    * returns the default access right value found in Memory_Properties (pre
-   * declared property set). If the default access right is not found,
-   * returns {@null}.  
+   * declared property set). If the default access right is not found, it
+   * returns "unknown".  
    * 
    * @param ne the given NamedElement object
-   * @return local access right or default access right or {@code null}
+   * @return local access right or default access right or "unknown"
    */
   public static String getAccessRight(NamedElement ne)
   {
-    String result = null ;
+    String result = "unknown" ;
     
     try
     {
@@ -262,7 +262,7 @@ public class Aadl2Utils
         }
         catch(Exception e1)
         {
-          return null ;
+          return "unknown" ;
         }
       }
       else
@@ -272,6 +272,60 @@ public class Aadl2Utils
     }
     
     return result ;
+  }
+  
+  /**
+   * Same as {@link #getAccessRight(NamedElement)}, it returns the access right
+   * of the given NamedElement object, using DataAccessRight enumeration.
+   * <BR><BR>
+   * 
+   * Returns the local "Access_Right" property value, if it is set. Otherwise,
+   * returns the default access right value found in Memory_Properties (pre
+   * declared property set). If the default access right is not found, it
+   * returns DataAccessRight.unknown .  
+   * 
+   * @param ne the given NamedElement object
+   * @return local access right or default access right or DataAccessRight.unknown
+   */
+  public static DataAccessRight getDataAccessRight(NamedElement ne)
+  {
+    return DataAccessRight.getDataAccessRight(getAccessRight(ne)) ;
+  }
+  
+  /**
+   * Convenient enumeration class for data access right checking.
+   * <BR><BR>
+   * 
+   * {@link DataAccessRight#getDataAccessRight(String)} to translate
+   * data access right expressed in string object into a DataAccessRight
+   * enumeration reference. 
+   */
+  public enum DataAccessRight
+  {
+    unknown("unknown"), read_only("read only"), write_only("write only"),
+    read_write("read and write") ;
+
+    String literal ;
+
+    DataAccessRight(
+                    String literal)
+    {
+      this.literal = literal ;
+    }
+
+    // Do not use Enum.Valueof because if literal is null, Enum will throw an
+    // uncatched exceptions.
+    public static DataAccessRight getDataAccessRight(String literal)
+    {
+      try
+      {
+        return valueOf(literal) ;
+      }
+      catch(IllegalArgumentException e)
+      {
+        return unknown ;
+      }
+    }
   }
   
   /**
