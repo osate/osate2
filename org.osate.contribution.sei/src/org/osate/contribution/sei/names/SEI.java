@@ -15,6 +15,7 @@ public final class SEI {
 	public static final String PARTITION_LATENCY = "Partition_Latency";
 	public static final String IS_PARTITION = "Is_Partition";
 	public static final String CYCLE_TIME = "cycle_time";
+	public static final String CYCLES_PER_INSTRUCTION = "cycles_per_instruction";
 	public static final String MIPS_CAPACITY = "MIPSCapacity";
 	public static final String MIPS_BUDGET = "MIPSBudget";
 	public static final String RAM_CAPACITY = "RAMCapacity";
@@ -29,7 +30,7 @@ public final class SEI {
 //	public static final String MIPS_ACTUAL = "MIPSActual";
 	public static final String RAM_ACTUAL = "RAMActual";
 	public static final String ROM_ACTUAL = "ROMActual";
-	public static final String DATA_RATE = "Data_Rate";
+//	public static final String DATA_RATE = "Data_Rate"; We now have output_rate as predeclared property
 
 	public static final String NETWEIGHT = "NetWeight";
 	public static final String GROSSWEIGHT = "GrossWeight";
