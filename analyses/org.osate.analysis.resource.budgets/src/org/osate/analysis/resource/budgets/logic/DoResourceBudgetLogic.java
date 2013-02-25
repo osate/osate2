@@ -131,6 +131,7 @@ public class DoResourceBudgetLogic {
 		}
 		return 0.0;
 	}
+	
 	private double getBudget(NamedElement ne,ResourceKind kind){
 		switch(kind){
 		case MIPS: 
@@ -142,17 +143,7 @@ public class DoResourceBudgetLogic {
 		}
 		return 0.0;
 	}
-	private double getActual(NamedElement ne,ResourceKind kind){
-		switch(kind){
-		case MIPS: 
-			return GetProperties.getMIPSActualInMIPS(ne, 0.0);
-		case RAM: 
-			return GetProperties.getRAMActualInKB(ne, 0.0);
-		case ROM: 
-			return GetProperties.getROMActualInKB(ne, 0.0);
-		}
-		return 0.0;
-	}
+	
 
 	private double sumCapacity(EList ilist, ResourceKind rk, String resourceName, boolean required) {
 		double total = 0.0;
@@ -221,7 +212,7 @@ public class DoResourceBudgetLogic {
 		double budget = getBudget(ci, rk);
 		String resourceName = ci.getCategory().getName();
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
-			double actualmips = GetProperties.getActualThreadMIPS(ci);
+			double actualmips = GetProperties.getThreadExecutioninMIPS(ci);
 			if (actualmips == 0.0) {
 				total = budget;
 			} else {

@@ -163,7 +163,7 @@ public class DoBoundResourceAnalysisLogic {
 				// one of the children has a budget, which was accounted for
 				break;
 			}
-			double actualmips = GetProperties.getActualThreadMIPS(bci);
+			double actualmips = GetProperties.getThreadExecutioninMIPS(bci);
 			double budget = GetProperties.getMIPSBudgetInMIPS(bci, 0.0);
 			if (actualmips > 0) {
 				if (budget > 0 && actualmips > budget) {
