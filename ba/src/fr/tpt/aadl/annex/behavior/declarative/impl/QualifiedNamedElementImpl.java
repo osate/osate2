@@ -6,28 +6,13 @@
  */
 package fr.tpt.aadl.annex.behavior.declarative.impl ;
 
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
-import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue ;
-import fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant ;
-import fr.tpt.aadl.annex.behavior.aadlba.Value ;
-import fr.tpt.aadl.annex.behavior.aadlba.ValueConstant ;
-
-import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement ;
-import fr.tpt.aadl.annex.behavior.declarative.DeclarativePackage ;
-import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
-import fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement ;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
-
 import org.eclipse.emf.common.notify.Notification ;
 import org.eclipse.emf.common.notify.NotificationChain ;
 import org.eclipse.emf.common.util.EList ;
-
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.EObject ;
 import org.eclipse.emf.ecore.InternalEObject ;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl ;
-
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentCategory ;
 import org.osate.aadl2.Element ;
@@ -35,8 +20,18 @@ import org.osate.aadl2.Feature ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.ModeTransition ;
 import org.osate.aadl2.Prototype ;
-
 import org.osate.aadl2.impl.DataClassifierImpl ;
+
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue ;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant ;
+import fr.tpt.aadl.annex.behavior.aadlba.Value ;
+import fr.tpt.aadl.annex.behavior.aadlba.ValueConstant ;
+import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement ;
+import fr.tpt.aadl.annex.behavior.declarative.DeclarativePackage ;
+import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
+import fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement ;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 /**
  * <!-- begin-user-doc -->
@@ -652,5 +647,4 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-
 } //QualifiedNamedElementImpl

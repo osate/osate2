@@ -58,7 +58,7 @@ public abstract class BehaviorElementImpl extends ElementImpl implements Behavio
   {
     return AadlBaPackage.Literals.BEHAVIOR_ELEMENT;
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {

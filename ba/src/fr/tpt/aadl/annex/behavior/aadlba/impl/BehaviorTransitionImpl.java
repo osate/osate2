@@ -27,8 +27,8 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -190,10 +190,11 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
 
   /**
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @generated
    */
-	public NotificationChain basicSetCondition(BehaviorCondition newCondition, NotificationChain msgs) {
+  public NotificationChain basicSetCondition(BehaviorCondition newCondition, NotificationChain msgs)
+  {
     BehaviorCondition oldCondition = condition;
     condition = newCondition;
     if (eNotificationRequired())
@@ -204,7 +205,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
     return msgs;
   }
 
-		/**
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -336,11 +337,12 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
 
   /**
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @generated
    */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
     switch (featureID)
     {
       case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
@@ -349,7 +351,7 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
-		/**
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -474,11 +476,10 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
     result.append(')');
     return result.toString();
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-
 } //BehaviorTransitionImpl

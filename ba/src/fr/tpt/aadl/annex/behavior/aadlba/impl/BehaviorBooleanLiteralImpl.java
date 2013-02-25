@@ -58,11 +58,10 @@ public class BehaviorBooleanLiteralImpl extends BooleanLiteralImpl implements Be
   {
     return AadlBaPackage.Literals.BEHAVIOR_BOOLEAN_LITERAL;
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-
 } //BehaviorBooleanLiteralImpl

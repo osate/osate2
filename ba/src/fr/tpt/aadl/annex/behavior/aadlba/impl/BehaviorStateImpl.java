@@ -371,11 +371,10 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
     result.append(')');
     return result.toString();
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-
 } //BehaviorStateImpl

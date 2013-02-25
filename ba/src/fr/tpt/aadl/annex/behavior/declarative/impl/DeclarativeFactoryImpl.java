@@ -102,33 +102,10 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public Identifier createIdentifier()
+  public ArrayableIdentifier createArrayableIdentifier()
   {
-    IdentifierImpl identifier = new IdentifierImpl() ;
-    return identifier ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public QualifiedNamedElement createQualifiedNamedElement()
-  {
-    QualifiedNamedElementImpl qualifiedNamedElement =
-          new QualifiedNamedElementImpl() ;
-    return qualifiedNamedElement ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NamedValue createNamedValue()
-  {
-    NamedValueImpl namedValue = new NamedValueImpl() ;
-    return namedValue ;
+    ArrayableIdentifierImpl arrayableIdentifier = new ArrayableIdentifierImpl() ;
+    return arrayableIdentifier ;
   }
 
   /**
@@ -147,43 +124,11 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public Enumeration createEnumeration()
+  public DeclarativeArrayDimension createDeclarativeArrayDimension()
   {
-    EnumerationImpl enumeration = new EnumerationImpl() ;
-    return enumeration ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Reference createReference()
-  {
-    ReferenceImpl reference = new ReferenceImpl() ;
-    return reference ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ArrayableIdentifier createArrayableIdentifier()
-  {
-    ArrayableIdentifierImpl arrayableIdentifier = new ArrayableIdentifierImpl() ;
-    return arrayableIdentifier ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DeclarativeTime createDeclarativeTime()
-  {
-    DeclarativeTimeImpl declarativeTime = new DeclarativeTimeImpl() ;
-    return declarativeTime ;
+    DeclarativeArrayDimensionImpl declarativeArrayDimension =
+          new DeclarativeArrayDimensionImpl() ;
+    return declarativeArrayDimension ;
   }
 
   /**
@@ -203,11 +148,66 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public DeclarativeArrayDimension createDeclarativeArrayDimension()
+  public DeclarativeTime createDeclarativeTime()
   {
-    DeclarativeArrayDimensionImpl declarativeArrayDimension =
-          new DeclarativeArrayDimensionImpl() ;
-    return declarativeArrayDimension ;
+    DeclarativeTimeImpl declarativeTime = new DeclarativeTimeImpl() ;
+    return declarativeTime ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Enumeration createEnumeration()
+  {
+    EnumerationImpl enumeration = new EnumerationImpl() ;
+    return enumeration ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Identifier createIdentifier()
+  {
+    IdentifierImpl identifier = new IdentifierImpl() ;
+    return identifier ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedValue createNamedValue()
+  {
+    NamedValueImpl namedValue = new NamedValueImpl() ;
+    return namedValue ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public QualifiedNamedElement createQualifiedNamedElement()
+  {
+    QualifiedNamedElementImpl qualifiedNamedElement =
+          new QualifiedNamedElementImpl() ;
+    return qualifiedNamedElement ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Reference createReference()
+  {
+    ReferenceImpl reference = new ReferenceImpl() ;
+    return reference ;
   }
 
   /**

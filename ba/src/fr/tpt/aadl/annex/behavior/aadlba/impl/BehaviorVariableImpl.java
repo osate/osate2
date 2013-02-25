@@ -63,14 +63,14 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
   /**
    * The cached value of the '{@link #getArrayDimensions() <em>Array Dimension</em>}' containment reference list.
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @see #getArrayDimensions()
    * @generated
    * @ordered
    */
-	protected EList<ArrayDimension> arrayDimensions;
+  protected EList<ArrayDimension> arrayDimensions;
 
-		/**
+  /**
    * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -104,8 +104,8 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @generated
    */
-  @Override
   public EList<ArrayDimension> getArrayDimensions()
   {
     if (arrayDimensions == null)
@@ -300,7 +300,7 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
     getArrayDimensions().add(newArrayDimension);
     return newArrayDimension;
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {

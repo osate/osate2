@@ -441,61 +441,16 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement <em>Behavior Element</em>}'.
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement
+   * @see fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier
    * @generated
    */
-  public Adapter createDeclarativeBehaviorElementAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.Identifier <em>Identifier</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Identifier
-   * @generated
-   */
-  public Adapter createIdentifierAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement <em>Qualified Named Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement
-   * @generated
-   */
-  public Adapter createQualifiedNamedElementAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue <em>Named Value</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue
-   * @generated
-   */
-  public Adapter createNamedValueAdapter()
+  public Adapter createArrayableIdentifierAdapter()
   {
     return null ;
   }
@@ -516,61 +471,31 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.Enumeration <em>Enumeration</em>}'.
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension <em>Array Dimension</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Enumeration
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension
    * @generated
    */
-  public Adapter createEnumerationAdapter()
+  public Adapter createDeclarativeArrayDimensionAdapter()
   {
     return null ;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.Reference <em>Reference</em>}'.
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement <em>Behavior Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Reference
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement
    * @generated
    */
-  public Adapter createReferenceAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier
-   * @generated
-   */
-  public Adapter createArrayableIdentifierAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime <em>Time</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime
-   * @generated
-   */
-  public Adapter createDeclarativeTimeAdapter()
+  public Adapter createDeclarativeBehaviorElementAdapter()
   {
     return null ;
   }
@@ -591,16 +516,91 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension <em>Array Dimension</em>}'.
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime <em>Time</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime
    * @generated
    */
-  public Adapter createDeclarativeArrayDimensionAdapter()
+  public Adapter createDeclarativeTimeAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.Enumeration <em>Enumeration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Enumeration
+   * @generated
+   */
+  public Adapter createEnumerationAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.Identifier <em>Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Identifier
+   * @generated
+   */
+  public Adapter createIdentifierAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue <em>Named Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue
+   * @generated
+   */
+  public Adapter createNamedValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement <em>Qualified Named Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement
+   * @generated
+   */
+  public Adapter createQualifiedNamedElementAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.declarative.Reference <em>Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Reference
+   * @generated
+   */
+  public Adapter createReferenceAdapter()
   {
     return null ;
   }
@@ -621,21 +621,6 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement <em>Behavior Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement
-   * @generated
-   */
-  public Adapter createBehaviorElementAdapter()
-  {
-    return null ;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.aadl2.NamedElement <em>Named Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -646,6 +631,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createNamedElementAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement <em>Behavior Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement
+   * @generated
+   */
+  public Adapter createBehaviorElementAdapter()
   {
     return null ;
   }
@@ -676,6 +676,156 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBehaviorStateAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions <em>Behavior Actions</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions
+   * @generated
+   */
+  public Adapter createBehaviorActionsAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction <em>Behavior Action</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction
+   * @generated
+   */
+  public Adapter createBehaviorActionAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BasicAction <em>Basic Action</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BasicAction
+   * @generated
+   */
+  public Adapter createBasicActionAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction
+   * @generated
+   */
+  public Adapter createCommunicationActionAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ArrayDimension <em>Array Dimension</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.ArrayDimension
+   * @generated
+   */
+  public Adapter createArrayDimensionAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition <em>Behavior Transition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition
+   * @generated
+   */
+  public Adapter createBehaviorTransitionAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime <em>Behavior Time</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime
+   * @generated
+   */
+  public Adapter createBehaviorTimeAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition <em>Dispatch Trigger Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition
+   * @generated
+   */
+  public Adapter createDispatchTriggerConditionAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout <em>Dispatch Relative Timeout</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout
+   * @generated
+   */
+  public Adapter createDispatchRelativeTimeoutAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeout <em>Completion Relative Timeout</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeout
+   * @generated
+   */
+  public Adapter createCompletionRelativeTimeoutAdapter()
   {
     return null ;
   }
@@ -906,66 +1056,6 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions <em>Behavior Actions</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions
-   * @generated
-   */
-  public Adapter createBehaviorActionsAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction <em>Behavior Action</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction
-   * @generated
-   */
-  public Adapter createBehaviorActionAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BasicAction <em>Basic Action</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.BasicAction
-   * @generated
-   */
-  public Adapter createBasicActionAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction
-   * @generated
-   */
-  public Adapter createCommunicationActionAdapter()
-  {
-    return null ;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IndexableElement <em>Indexable Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1006,36 +1096,6 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createGroupableElementAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel <em>Parameter Label</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel
-   * @generated
-   */
-  public Adapter createParameterLabelAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.Target <em>Target</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.Target
-   * @generated
-   */
-  public Adapter createTargetAdapter()
   {
     return null ;
   }
@@ -1086,16 +1146,31 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition <em>Dispatch Trigger Condition</em>}'.
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel <em>Parameter Label</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition
+   * @see fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel
    * @generated
    */
-  public Adapter createDispatchTriggerConditionAdapter()
+  public Adapter createParameterLabelAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.Target <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.Target
+   * @generated
+   */
+  public Adapter createTargetAdapter()
   {
     return null ;
   }
@@ -1111,81 +1186,6 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDispatchTriggerAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime <em>Behavior Time</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime
-   * @generated
-   */
-  public Adapter createBehaviorTimeAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout <em>Dispatch Relative Timeout</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout
-   * @generated
-   */
-  public Adapter createDispatchRelativeTimeoutAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeout <em>Completion Relative Timeout</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeout
-   * @generated
-   */
-  public Adapter createCompletionRelativeTimeoutAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition <em>Behavior Transition</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition
-   * @generated
-   */
-  public Adapter createBehaviorTransitionAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ArrayDimension <em>Array Dimension</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.aadl2.ArrayDimension
-   * @generated
-   */
-  public Adapter createArrayDimensionAdapter()
   {
     return null ;
   }

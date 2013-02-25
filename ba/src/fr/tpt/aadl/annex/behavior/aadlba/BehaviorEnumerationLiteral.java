@@ -20,7 +20,6 @@
 package fr.tpt.aadl.annex.behavior.aadlba;
 
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 
 /**
@@ -31,7 +30,6 @@ import org.osate.aadl2.StringLiteral;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getProperty <em>Property</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getEnumLiteral <em>Enum Literal</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getComponent <em>Component</em>}</li>
  * </ul>
@@ -43,32 +41,6 @@ import org.osate.aadl2.StringLiteral;
  */
 public interface BehaviorEnumerationLiteral extends Literal
 {
-  /**
-   * Returns the value of the '<em><b>Property</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Property</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Property</em>' reference.
-   * @see #setProperty(PropertyExpression)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorEnumerationLiteral_Property()
-   * @model required="true"
-   * @generated
-   */
-  PropertyExpression getProperty();
-
-  /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getProperty <em>Property</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property</em>' reference.
-   * @see #getProperty()
-   * @generated
-   */
-  void setProperty(PropertyExpression value);
-
   /**
    * Returns the value of the '<em><b>Enum Literal</b></em>' reference.
    * <!-- begin-user-doc -->

@@ -157,7 +157,21 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass actualPortHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass assignmentActionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass anyEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -262,6 +276,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass behaviorPropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass behaviorPropertyConstantEClass = null;
 
   /**
@@ -318,6 +339,20 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass behaviorVariableHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass calledSubprogramHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass communicationActionEClass = null;
 
   /**
@@ -339,7 +374,42 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass dataAccessHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dataAccessPrototypeHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass dataComponentReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dataHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dataPortHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dataSubcomponentHolderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -354,6 +424,20 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   private EClass dispatchConjunctionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dispatchRelativeTimeoutEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass dispatchTriggerEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -381,6 +465,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass elementHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass elementValuesEClass = null;
 
   /**
@@ -395,7 +486,28 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass eventDataPortHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eventPortHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass executeConditionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass executionTimeoutCatchEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -423,7 +535,35 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass groupableElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass groupHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass groupPrototypeHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass ifStatementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass indexableElementEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -452,6 +592,20 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   private EClass integerValueVariableEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass iterativeVariableEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass iterativeVariableHolderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -487,6 +641,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   private EClass otherwiseEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parameterHolderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -535,7 +696,28 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass portHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass portPrototypeHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass portSendActionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass prototypeHolderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -563,7 +745,42 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass structUnionElementEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass structUnionElementHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass subprogramAccessHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass subprogramCallActionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass subprogramHolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass subprogramPrototypeHolderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -627,223 +844,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   private EClass whileOrDoUntilStatementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass actualPortHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass executionTimeoutCatchEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass dispatchRelativeTimeoutEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass dataHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass subprogramHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass iterativeVariableEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass dataAccessHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass dataSubcomponentHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass behaviorVariableHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass elementHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass dataPortHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eventPortHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eventDataPortHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass parameterHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass subprogramAccessHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass dispatchTriggerEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass behaviorPropertyEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass anyEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass groupHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass calledSubprogramHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass indexableElementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass groupableElementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass portHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass portPrototypeHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass prototypeHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass dataAccessPrototypeHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass subprogramPrototypeHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass groupPrototypeHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass structUnionElementEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass structUnionElementHolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass iterativeVariableHolderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1021,6 +1021,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getActualPortHolder()
+  {
+    return actualPortHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getAssignmentAction()
   {
     return assignmentActionEClass;
@@ -1044,6 +1054,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EReference getAssignmentAction_ValueExpression()
   {
     return (EReference)assignmentActionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAny()
+  {
+    return anyEClass;
   }
 
   /**
@@ -1188,23 +1208,25 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
   /**
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @generated
    */
-	public EReference getBehaviorAnnex_Actions() {
+  public EReference getBehaviorAnnex_Actions()
+  {
     return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(3);
   }
 
-		/**
+  /**
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @generated
    */
-	public EReference getBehaviorAnnex_Conditions() {
+  public EReference getBehaviorAnnex_Conditions()
+  {
     return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(4);
   }
 
-		/**
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1249,7 +1271,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getBehaviorEnumerationLiteral_Property()
+  public EReference getBehaviorEnumerationLiteral_EnumLiteral()
   {
     return (EReference)behaviorEnumerationLiteralEClass.getEStructuralFeatures().get(0);
   }
@@ -1259,19 +1281,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getBehaviorEnumerationLiteral_EnumLiteral()
-  {
-    return (EReference)behaviorEnumerationLiteralEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getBehaviorEnumerationLiteral_Component()
   {
-    return (EReference)behaviorEnumerationLiteralEClass.getEStructuralFeatures().get(2);
+    return (EReference)behaviorEnumerationLiteralEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1292,6 +1304,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EClass getBehaviorNamedElement()
   {
     return behaviorNamedElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getBehaviorProperty()
+  {
+    return behaviorPropertyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getBehaviorProperty_PropertySet()
+  {
+    return (EReference)behaviorPropertyEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1519,6 +1551,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getBehaviorVariableHolder()
+  {
+    return behaviorVariableHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCalledSubprogramHolder()
+  {
+    return calledSubprogramHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getCommunicationAction()
   {
     return communicationActionEClass;
@@ -1559,6 +1611,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDataAccessHolder()
+  {
+    return dataAccessHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDataAccessPrototypeHolder()
+  {
+    return dataAccessPrototypeHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getDataComponentReference()
   {
     return dataComponentReferenceEClass;
@@ -1572,6 +1644,36 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EReference getDataComponentReference_Data()
   {
     return (EReference)dataComponentReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDataHolder()
+  {
+    return dataHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDataPortHolder()
+  {
+    return dataPortHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDataSubcomponentHolder()
+  {
+    return dataSubcomponentHolderEClass;
   }
 
   /**
@@ -1629,6 +1731,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDispatchRelativeTimeout()
+  {
+    return dispatchRelativeTimeoutEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDispatchTrigger()
+  {
+    return dispatchTriggerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getDispatchTriggerCondition()
   {
     return dispatchTriggerConditionEClass;
@@ -1669,6 +1791,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getElementHolder()
+  {
+    return elementHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getElementHolder_Element()
+  {
+    return (EReference)elementHolderEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getElementValues()
   {
     return elementValuesEClass;
@@ -1689,9 +1831,39 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getEventDataPortHolder()
+  {
+    return eventDataPortHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEventPortHolder()
+  {
+    return eventPortHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getExecuteCondition()
   {
     return executeConditionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExecutionTimeoutCatch()
+  {
+    return executionTimeoutCatchEClass;
   }
 
   /**
@@ -1809,6 +1981,46 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getGroupableElement()
+  {
+    return groupableElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getGroupableElement_GroupHolders()
+  {
+    return (EReference)groupableElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getGroupHolder()
+  {
+    return groupHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getGroupPrototypeHolder()
+  {
+    return groupPrototypeHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getIfStatement()
   {
     return ifStatementEClass;
@@ -1842,6 +2054,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EReference getIfStatement_ElseStatement()
   {
     return (EReference)ifStatementEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIndexableElement()
+  {
+    return indexableElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIndexableElement_ArrayIndexes()
+  {
+    return (EReference)indexableElementEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1909,6 +2141,36 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getIterativeVariable()
+  {
+    return iterativeVariableEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIterativeVariable_DataClassifier()
+  {
+    return (EReference)iterativeVariableEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIterativeVariableHolder()
+  {
+    return iterativeVariableHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getLiteral()
   {
     return literalEClass;
@@ -1952,6 +2214,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EClass getOtherwise()
   {
     return otherwiseEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getParameterHolder()
+  {
+    return parameterHolderEClass;
   }
 
   /**
@@ -2039,6 +2311,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPortHolder()
+  {
+    return portHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPortPrototypeHolder()
+  {
+    return portPrototypeHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPortSendAction()
   {
     return portSendActionEClass;
@@ -2062,6 +2354,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EReference getPortSendAction_ValueExpression()
   {
     return (EReference)portSendActionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPrototypeHolder()
+  {
+    return prototypeHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPrototypeHolder_PrototypeBinding()
+  {
+    return (EReference)prototypeHolderEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2169,6 +2481,46 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getStructUnionElement()
+  {
+    return structUnionElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStructUnionElement_DataClassifier()
+  {
+    return (EReference)structUnionElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getStructUnionElementHolder()
+  {
+    return structUnionElementHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSubprogramAccessHolder()
+  {
+    return subprogramAccessHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getSubprogramCallAction()
   {
     return subprogramCallActionEClass;
@@ -2202,6 +2554,26 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EReference getSubprogramCallAction_DataAccess()
   {
     return (EReference)subprogramCallActionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSubprogramHolder()
+  {
+    return subprogramHolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSubprogramPrototypeHolder()
+  {
+    return subprogramPrototypeHolderEClass;
   }
 
   /**
@@ -2372,386 +2744,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
   public EAttribute getWhileOrDoUntilStatement_DoUntil()
   {
     return (EAttribute)whileOrDoUntilStatementEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getActualPortHolder()
-  {
-    return actualPortHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getExecutionTimeoutCatch()
-  {
-    return executionTimeoutCatchEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDispatchRelativeTimeout()
-  {
-    return dispatchRelativeTimeoutEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDataHolder()
-  {
-    return dataHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSubprogramHolder()
-  {
-    return subprogramHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getIterativeVariable()
-  {
-    return iterativeVariableEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getIterativeVariable_DataClassifier()
-  {
-    return (EReference)iterativeVariableEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDataAccessHolder()
-  {
-    return dataAccessHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDataSubcomponentHolder()
-  {
-    return dataSubcomponentHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBehaviorVariableHolder()
-  {
-    return behaviorVariableHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getElementHolder()
-  {
-    return elementHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getElementHolder_Element()
-  {
-    return (EReference)elementHolderEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDataPortHolder()
-  {
-    return dataPortHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEventPortHolder()
-  {
-    return eventPortHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEventDataPortHolder()
-  {
-    return eventDataPortHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getParameterHolder()
-  {
-    return parameterHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSubprogramAccessHolder()
-  {
-    return subprogramAccessHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDispatchTrigger()
-  {
-    return dispatchTriggerEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getBehaviorProperty()
-  {
-    return behaviorPropertyEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getBehaviorProperty_PropertySet()
-  {
-    return (EReference)behaviorPropertyEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAny()
-  {
-    return anyEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getGroupHolder()
-  {
-    return groupHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getCalledSubprogramHolder()
-  {
-    return calledSubprogramHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getIndexableElement()
-  {
-    return indexableElementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getIndexableElement_ArrayIndexes()
-  {
-    return (EReference)indexableElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getGroupableElement()
-  {
-    return groupableElementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getGroupableElement_GroupHolders()
-  {
-    return (EReference)groupableElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPortHolder()
-  {
-    return portHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPortPrototypeHolder()
-  {
-    return portPrototypeHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPrototypeHolder()
-  {
-    return prototypeHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPrototypeHolder_PrototypeBinding()
-  {
-    return (EReference)prototypeHolderEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDataAccessPrototypeHolder()
-  {
-    return dataAccessPrototypeHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSubprogramPrototypeHolder()
-  {
-    return subprogramPrototypeHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getGroupPrototypeHolder()
-  {
-    return groupPrototypeHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getStructUnionElement()
-  {
-    return structUnionElementEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getStructUnionElement_DataClassifier()
-  {
-    return (EReference)structUnionElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getStructUnionElementHolder()
-  {
-    return structUnionElementHolderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getIterativeVariableHolder()
-  {
-    return iterativeVariableHolderEClass;
   }
 
   /**
@@ -2973,7 +2965,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     behaviorElementEClass = createEClass(BEHAVIOR_ELEMENT);
 
     behaviorEnumerationLiteralEClass = createEClass(BEHAVIOR_ENUMERATION_LITERAL);
-    createEReference(behaviorEnumerationLiteralEClass, BEHAVIOR_ENUMERATION_LITERAL__PROPERTY);
     createEReference(behaviorEnumerationLiteralEClass, BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL);
     createEReference(behaviorEnumerationLiteralEClass, BEHAVIOR_ENUMERATION_LITERAL__COMPONENT);
 
@@ -3475,7 +3466,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEClass(behaviorElementEClass, BehaviorElement.class, "BehaviorElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(behaviorEnumerationLiteralEClass, BehaviorEnumerationLiteral.class, "BehaviorEnumerationLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getBehaviorEnumerationLiteral_Property(), theAadl2Package.getPropertyExpression(), null, "property", null, 1, 1, BehaviorEnumerationLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBehaviorEnumerationLiteral_EnumLiteral(), theAadl2Package.getStringLiteral(), null, "enumLiteral", null, 1, 1, BehaviorEnumerationLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBehaviorEnumerationLiteral_Component(), theAadl2Package.getComponentClassifier(), null, "component", null, 1, 1, BehaviorEnumerationLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

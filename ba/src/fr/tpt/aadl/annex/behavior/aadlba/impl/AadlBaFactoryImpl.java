@@ -260,6 +260,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Any createAny()
+  {
+    AnyImpl any = new AnyImpl();
+    return any;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public BehaviorActionBlock createBehaviorActionBlock()
   {
     BehaviorActionBlockImpl behaviorActionBlock = new BehaviorActionBlockImpl();
@@ -425,6 +436,28 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public BehaviorVariableHolder createBehaviorVariableHolder()
+  {
+    BehaviorVariableHolderImpl behaviorVariableHolder = new BehaviorVariableHolderImpl();
+    return behaviorVariableHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CalledSubprogramHolder createCalledSubprogramHolder()
+  {
+    CalledSubprogramHolderImpl calledSubprogramHolder = new CalledSubprogramHolderImpl();
+    return calledSubprogramHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public CompletionRelativeTimeout createCompletionRelativeTimeout()
   {
     CompletionRelativeTimeoutImpl completionRelativeTimeout = new CompletionRelativeTimeoutImpl();
@@ -436,10 +469,54 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public DataAccessHolder createDataAccessHolder()
+  {
+    DataAccessHolderImpl dataAccessHolder = new DataAccessHolderImpl();
+    return dataAccessHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DataAccessPrototypeHolder createDataAccessPrototypeHolder()
+  {
+    DataAccessPrototypeHolderImpl dataAccessPrototypeHolder = new DataAccessPrototypeHolderImpl();
+    return dataAccessPrototypeHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public DataComponentReference createDataComponentReference()
   {
     DataComponentReferenceImpl dataComponentReference = new DataComponentReferenceImpl();
     return dataComponentReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DataPortHolder createDataPortHolder()
+  {
+    DataPortHolderImpl dataPortHolder = new DataPortHolderImpl();
+    return dataPortHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DataSubcomponentHolder createDataSubcomponentHolder()
+  {
+    DataSubcomponentHolderImpl dataSubcomponentHolder = new DataSubcomponentHolderImpl();
+    return dataSubcomponentHolder;
   }
 
   /**
@@ -462,6 +539,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     DispatchConjunctionImpl dispatchConjunction = new DispatchConjunctionImpl();
     return dispatchConjunction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DispatchRelativeTimeout createDispatchRelativeTimeout()
+  {
+    DispatchRelativeTimeoutImpl dispatchRelativeTimeout = new DispatchRelativeTimeoutImpl();
+    return dispatchRelativeTimeout;
   }
 
   /**
@@ -502,6 +590,39 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public EventDataPortHolder createEventDataPortHolder()
+  {
+    EventDataPortHolderImpl eventDataPortHolder = new EventDataPortHolderImpl();
+    return eventDataPortHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EventPortHolder createEventPortHolder()
+  {
+    EventPortHolderImpl eventPortHolder = new EventPortHolderImpl();
+    return eventPortHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ExecutionTimeoutCatch createExecutionTimeoutCatch()
+  {
+    ExecutionTimeoutCatchImpl executionTimeoutCatch = new ExecutionTimeoutCatchImpl();
+    return executionTimeoutCatch;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Factor createFactor()
   {
     FactorImpl factor = new FactorImpl();
@@ -535,6 +656,28 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public GroupHolder createGroupHolder()
+  {
+    GroupHolderImpl groupHolder = new GroupHolderImpl();
+    return groupHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public GroupPrototypeHolder createGroupPrototypeHolder()
+  {
+    GroupPrototypeHolderImpl groupPrototypeHolder = new GroupPrototypeHolderImpl();
+    return groupPrototypeHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public IfStatement createIfStatement()
   {
     IfStatementImpl ifStatement = new IfStatementImpl();
@@ -557,6 +700,28 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public IterativeVariable createIterativeVariable()
+  {
+    IterativeVariableImpl iterativeVariable = new IterativeVariableImpl();
+    return iterativeVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IterativeVariableHolder createIterativeVariableHolder()
+  {
+    IterativeVariableHolderImpl iterativeVariableHolder = new IterativeVariableHolderImpl();
+    return iterativeVariableHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public LockAction createLockAction()
   {
     LockActionImpl lockAction = new LockActionImpl();
@@ -572,6 +737,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     OtherwiseImpl otherwise = new OtherwiseImpl();
     return otherwise;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ParameterHolder createParameterHolder()
+  {
+    ParameterHolderImpl parameterHolder = new ParameterHolderImpl();
+    return parameterHolder;
   }
 
   /**
@@ -634,6 +810,17 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public PortPrototypeHolder createPortPrototypeHolder()
+  {
+    PortPrototypeHolderImpl portPrototypeHolder = new PortPrototypeHolderImpl();
+    return portPrototypeHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public PortSendAction createPortSendAction()
   {
     PortSendActionImpl portSendAction = new PortSendActionImpl();
@@ -667,10 +854,65 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public StructUnionElement createStructUnionElement()
+  {
+    StructUnionElementImpl structUnionElement = new StructUnionElementImpl();
+    return structUnionElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StructUnionElementHolder createStructUnionElementHolder()
+  {
+    StructUnionElementHolderImpl structUnionElementHolder = new StructUnionElementHolderImpl();
+    return structUnionElementHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SubprogramAccessHolder createSubprogramAccessHolder()
+  {
+    SubprogramAccessHolderImpl subprogramAccessHolder = new SubprogramAccessHolderImpl();
+    return subprogramAccessHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public SubprogramCallAction createSubprogramCallAction()
   {
     SubprogramCallActionImpl subprogramCallAction = new SubprogramCallActionImpl();
     return subprogramCallAction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SubprogramHolder createSubprogramHolder()
+  {
+    SubprogramHolderImpl subprogramHolder = new SubprogramHolderImpl();
+    return subprogramHolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SubprogramPrototypeHolder createSubprogramPrototypeHolder()
+  {
+    SubprogramPrototypeHolderImpl subprogramPrototypeHolder = new SubprogramPrototypeHolderImpl();
+    return subprogramPrototypeHolder;
   }
 
   /**
@@ -737,248 +979,6 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     WhileOrDoUntilStatementImpl whileOrDoUntilStatement = new WhileOrDoUntilStatementImpl();
     return whileOrDoUntilStatement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExecutionTimeoutCatch createExecutionTimeoutCatch()
-  {
-    ExecutionTimeoutCatchImpl executionTimeoutCatch = new ExecutionTimeoutCatchImpl();
-    return executionTimeoutCatch;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DispatchRelativeTimeout createDispatchRelativeTimeout()
-  {
-    DispatchRelativeTimeoutImpl dispatchRelativeTimeout = new DispatchRelativeTimeoutImpl();
-    return dispatchRelativeTimeout;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SubprogramHolder createSubprogramHolder()
-  {
-    SubprogramHolderImpl subprogramHolder = new SubprogramHolderImpl();
-    return subprogramHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public IterativeVariable createIterativeVariable()
-  {
-    IterativeVariableImpl iterativeVariable = new IterativeVariableImpl();
-    return iterativeVariable;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DataAccessHolder createDataAccessHolder()
-  {
-    DataAccessHolderImpl dataAccessHolder = new DataAccessHolderImpl();
-    return dataAccessHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DataSubcomponentHolder createDataSubcomponentHolder()
-  {
-    DataSubcomponentHolderImpl dataSubcomponentHolder = new DataSubcomponentHolderImpl();
-    return dataSubcomponentHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public BehaviorVariableHolder createBehaviorVariableHolder()
-  {
-    BehaviorVariableHolderImpl behaviorVariableHolder = new BehaviorVariableHolderImpl();
-    return behaviorVariableHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DataPortHolder createDataPortHolder()
-  {
-    DataPortHolderImpl dataPortHolder = new DataPortHolderImpl();
-    return dataPortHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EventPortHolder createEventPortHolder()
-  {
-    EventPortHolderImpl eventPortHolder = new EventPortHolderImpl();
-    return eventPortHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EventDataPortHolder createEventDataPortHolder()
-  {
-    EventDataPortHolderImpl eventDataPortHolder = new EventDataPortHolderImpl();
-    return eventDataPortHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ParameterHolder createParameterHolder()
-  {
-    ParameterHolderImpl parameterHolder = new ParameterHolderImpl();
-    return parameterHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SubprogramAccessHolder createSubprogramAccessHolder()
-  {
-    SubprogramAccessHolderImpl subprogramAccessHolder = new SubprogramAccessHolderImpl();
-    return subprogramAccessHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Any createAny()
-  {
-    AnyImpl any = new AnyImpl();
-    return any;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public GroupHolder createGroupHolder()
-  {
-    GroupHolderImpl groupHolder = new GroupHolderImpl();
-    return groupHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public CalledSubprogramHolder createCalledSubprogramHolder()
-  {
-    CalledSubprogramHolderImpl calledSubprogramHolder = new CalledSubprogramHolderImpl();
-    return calledSubprogramHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PortPrototypeHolder createPortPrototypeHolder()
-  {
-    PortPrototypeHolderImpl portPrototypeHolder = new PortPrototypeHolderImpl();
-    return portPrototypeHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public DataAccessPrototypeHolder createDataAccessPrototypeHolder()
-  {
-    DataAccessPrototypeHolderImpl dataAccessPrototypeHolder = new DataAccessPrototypeHolderImpl();
-    return dataAccessPrototypeHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SubprogramPrototypeHolder createSubprogramPrototypeHolder()
-  {
-    SubprogramPrototypeHolderImpl subprogramPrototypeHolder = new SubprogramPrototypeHolderImpl();
-    return subprogramPrototypeHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public GroupPrototypeHolder createGroupPrototypeHolder()
-  {
-    GroupPrototypeHolderImpl groupPrototypeHolder = new GroupPrototypeHolderImpl();
-    return groupPrototypeHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public StructUnionElement createStructUnionElement()
-  {
-    StructUnionElementImpl structUnionElement = new StructUnionElementImpl();
-    return structUnionElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public StructUnionElementHolder createStructUnionElementHolder()
-  {
-    StructUnionElementHolderImpl structUnionElementHolder = new StructUnionElementHolderImpl();
-    return structUnionElementHolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public IterativeVariableHolder createIterativeVariableHolder()
-  {
-    IterativeVariableHolderImpl iterativeVariableHolder = new IterativeVariableHolderImpl();
-    return iterativeVariableHolder;
   }
 
   /**

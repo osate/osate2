@@ -19,15 +19,14 @@
  */
 package fr.tpt.aadl.annex.behavior.aadlba;
 
-import java.util.Map;
+import java.util.Map ;
 
-import org.eclipse.emf.common.util.EList;
-
-import org.osate.aadl2.AnnexSubclause;
+import org.eclipse.emf.common.util.EList ;
+import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.Element ;
 
-import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference;
+import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,15 +67,7 @@ public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
    * @generated
    */
   EList<BehaviorVariable> getVariables();
-  
-  /**
-   * @generated NOT
-   */
-  
-  Map<AadlBaLocationReference, Element> getLinks();
-  
-  public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters();
-  
+
   /**
    * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getVariables <em>Variables</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -176,36 +167,44 @@ public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
    */
   boolean isSetTransitions();
 
-		/**
+  /**
    * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
    * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock}.
    * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Actions</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Actions</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
    * @return the value of the '<em>Actions</em>' containment reference list.
    * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Actions()
    * @model containment="true"
    * @generated
    */
-	EList<BehaviorActionBlock> getActions();
+  EList<BehaviorActionBlock> getActions();
 
-		/**
+  /**
    * Returns the value of the '<em><b>Conditions</b></em>' containment reference list.
    * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition}.
    * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Conditions</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Conditions</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
    * @return the value of the '<em>Conditions</em>' containment reference list.
    * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Conditions()
    * @model containment="true"
    * @generated
    */
-	EList<BehaviorCondition> getConditions();
+  EList<BehaviorCondition> getConditions();
+  
+  /**
+   * @generated NOT
+   */
+  
+  Map<AadlBaLocationReference, Element> getLinks();
+  
+  public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters();
 
 } // BehaviorAnnex

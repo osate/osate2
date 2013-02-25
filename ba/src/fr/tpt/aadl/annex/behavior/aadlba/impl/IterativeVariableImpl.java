@@ -188,11 +188,10 @@ public class IterativeVariableImpl extends BehaviorNamedElementImpl implements I
     }
     return super.eIsSet(featureID);
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-
 } //IterativeVariableImpl

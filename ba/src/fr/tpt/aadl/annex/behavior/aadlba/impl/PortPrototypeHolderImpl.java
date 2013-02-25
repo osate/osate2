@@ -23,8 +23,8 @@ import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel;
 import fr.tpt.aadl.annex.behavior.aadlba.PortPrototypeHolder;
 import fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder;
-
 import fr.tpt.aadl.annex.behavior.aadlba.Target;
+
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;

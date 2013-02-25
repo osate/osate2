@@ -26,9 +26,9 @@ import fr.tpt.aadl.annex.behavior.aadlba.GroupableElement;
 import fr.tpt.aadl.annex.behavior.aadlba.IndexableElement;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
 import fr.tpt.aadl.annex.behavior.aadlba.ParameterHolder;
-
 import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel;
 import fr.tpt.aadl.annex.behavior.aadlba.Target;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;

@@ -23,7 +23,6 @@ import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.IterativeVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.IterativeVariableHolder;
 
-
 import org.eclipse.emf.ecore.EClass;
 
 /**

@@ -40,7 +40,5 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
  */
 public interface BehaviorElement extends Element
 {
-  
   public AadlBaLocationReference getAadlBaLocationReference();
-  
 } // BehaviorElement

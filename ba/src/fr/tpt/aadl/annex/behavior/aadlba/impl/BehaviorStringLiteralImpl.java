@@ -64,5 +64,4 @@ public class BehaviorStringLiteralImpl extends StringLiteralImpl implements Beha
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-  
 } //BehaviorStringLiteralImpl

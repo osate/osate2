@@ -24,11 +24,11 @@ import fr.tpt.aadl.annex.behavior.aadlba.DataAccessHolder;
 import fr.tpt.aadl.annex.behavior.aadlba.ElementValues;
 import fr.tpt.aadl.annex.behavior.aadlba.GroupHolder;
 import fr.tpt.aadl.annex.behavior.aadlba.GroupableElement;
-
 import fr.tpt.aadl.annex.behavior.aadlba.IndexableElement;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
 import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel;
 import fr.tpt.aadl.annex.behavior.aadlba.Target;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;

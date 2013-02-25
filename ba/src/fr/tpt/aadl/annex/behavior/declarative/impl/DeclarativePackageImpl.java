@@ -45,28 +45,7 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass declarativeBehaviorElementEClass = null ;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass identifierEClass = null ;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass qualifiedNamedElementEClass = null ;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass namedValueEClass = null ;
+  private EClass arrayableIdentifierEClass = null ;
 
   /**
    * <!-- begin-user-doc -->
@@ -80,28 +59,14 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass enumerationEClass = null ;
+  private EClass declarativeArrayDimensionEClass = null ;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass referenceEClass = null ;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass arrayableIdentifierEClass = null ;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass declarativeTimeEClass = null ;
+  private EClass declarativeBehaviorElementEClass = null ;
 
   /**
    * <!-- begin-user-doc -->
@@ -115,7 +80,42 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass declarativeArrayDimensionEClass = null ;
+  private EClass declarativeTimeEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass enumerationEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass identifierEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass namedValueEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass qualifiedNamedElementEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass referenceEClass = null ;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -194,9 +194,9 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getDeclarativeBehaviorElement()
+  public EClass getArrayableIdentifier()
   {
-    return declarativeBehaviorElementEClass ;
+    return arrayableIdentifierEClass ;
   }
 
   /**
@@ -204,123 +204,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDeclarativeBehaviorElement_OsateRef()
+  public EReference getArrayableIdentifier_ArrayIndexes()
   {
-    return (EReference) declarativeBehaviorElementEClass
-          .getEStructuralFeatures().get(0) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getDeclarativeBehaviorElement_BaRef()
-  {
-    return (EReference) declarativeBehaviorElementEClass
-          .getEStructuralFeatures().get(1) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getIdentifier()
-  {
-    return identifierEClass ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getIdentifier_Id()
-  {
-    return (EAttribute) identifierEClass.getEStructuralFeatures().get(0) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getQualifiedNamedElement()
-  {
-    return qualifiedNamedElementEClass ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getQualifiedNamedElement_BaNamespace()
-  {
-    return (EReference) qualifiedNamedElementEClass.getEStructuralFeatures()
+    return (EReference) arrayableIdentifierEClass.getEStructuralFeatures()
           .get(0) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getQualifiedNamedElement_BaName()
-  {
-    return (EReference) qualifiedNamedElementEClass.getEStructuralFeatures()
-          .get(1) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getNamedValue()
-  {
-    return namedValueEClass ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNamedValue_Reference()
-  {
-    return (EReference) namedValueEClass.getEStructuralFeatures().get(0) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getNamedValue_Dequeue()
-  {
-    return (EAttribute) namedValueEClass.getEStructuralFeatures().get(1) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getNamedValue_Fresh()
-  {
-    return (EAttribute) namedValueEClass.getEStructuralFeatures().get(2) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getNamedValue_Count()
-  {
-    return (EAttribute) namedValueEClass.getEStructuralFeatures().get(3) ;
   }
 
   /**
@@ -418,9 +305,9 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getEnumeration()
+  public EClass getDeclarativeArrayDimension()
   {
-    return enumerationEClass ;
+    return declarativeArrayDimensionEClass ;
   }
 
   /**
@@ -428,9 +315,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEnumeration_Literal()
+  public EReference getDeclarativeArrayDimension_Dimension()
   {
-    return (EReference) enumerationEClass.getEStructuralFeatures().get(0) ;
+    return (EReference) declarativeArrayDimensionEClass
+          .getEStructuralFeatures().get(0) ;
   }
 
   /**
@@ -438,9 +326,9 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getReference()
+  public EClass getDeclarativeBehaviorElement()
   {
-    return referenceEClass ;
+    return declarativeBehaviorElementEClass ;
   }
 
   /**
@@ -448,9 +336,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getReference_Ids()
+  public EReference getDeclarativeBehaviorElement_OsateRef()
   {
-    return (EReference) referenceEClass.getEStructuralFeatures().get(0) ;
+    return (EReference) declarativeBehaviorElementEClass
+          .getEStructuralFeatures().get(0) ;
   }
 
   /**
@@ -458,40 +347,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getArrayableIdentifier()
+  public EReference getDeclarativeBehaviorElement_BaRef()
   {
-    return arrayableIdentifierEClass ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getArrayableIdentifier_ArrayIndexes()
-  {
-    return (EReference) arrayableIdentifierEClass.getEStructuralFeatures()
-          .get(0) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getDeclarativeTime()
-  {
-    return declarativeTimeEClass ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getDeclarativeTime_UnitId()
-  {
-    return (EReference) declarativeTimeEClass.getEStructuralFeatures().get(0) ;
+    return (EReference) declarativeBehaviorElementEClass
+          .getEStructuralFeatures().get(1) ;
   }
 
   /**
@@ -531,9 +390,9 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getDeclarativeArrayDimension()
+  public EClass getDeclarativeTime()
   {
-    return declarativeArrayDimensionEClass ;
+    return declarativeTimeEClass ;
   }
 
   /**
@@ -541,10 +400,151 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDeclarativeArrayDimension_Dimension()
+  public EReference getDeclarativeTime_UnitId()
   {
-    return (EReference) declarativeArrayDimensionEClass
-          .getEStructuralFeatures().get(0) ;
+    return (EReference) declarativeTimeEClass.getEStructuralFeatures().get(0) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEnumeration()
+  {
+    return enumerationEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEnumeration_Literal()
+  {
+    return (EReference) enumerationEClass.getEStructuralFeatures().get(0) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIdentifier()
+  {
+    return identifierEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIdentifier_Id()
+  {
+    return (EAttribute) identifierEClass.getEStructuralFeatures().get(0) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getNamedValue()
+  {
+    return namedValueEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNamedValue_Reference()
+  {
+    return (EReference) namedValueEClass.getEStructuralFeatures().get(0) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getNamedValue_Dequeue()
+  {
+    return (EAttribute) namedValueEClass.getEStructuralFeatures().get(1) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getNamedValue_Fresh()
+  {
+    return (EAttribute) namedValueEClass.getEStructuralFeatures().get(2) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getNamedValue_Count()
+  {
+    return (EAttribute) namedValueEClass.getEStructuralFeatures().get(3) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getQualifiedNamedElement()
+  {
+    return qualifiedNamedElementEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedNamedElement_BaNamespace()
+  {
+    return (EReference) qualifiedNamedElementEClass.getEStructuralFeatures()
+          .get(0) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getQualifiedNamedElement_BaName()
+  {
+    return (EReference) qualifiedNamedElementEClass.getEStructuralFeatures()
+          .get(1) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getReference()
+  {
+    return referenceEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getReference_Ids()
+  {
+    return (EReference) referenceEClass.getEStructuralFeatures().get(0) ;
   }
 
   /**

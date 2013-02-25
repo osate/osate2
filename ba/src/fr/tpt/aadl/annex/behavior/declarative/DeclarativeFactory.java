@@ -29,31 +29,13 @@ public interface DeclarativeFactory extends EFactory
               .init() ;
 
   /**
-   * Returns a new object of class '<em>Identifier</em>'.
+   * Returns a new object of class '<em>Arrayable Identifier</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Identifier</em>'.
+   * @return a new object of class '<em>Arrayable Identifier</em>'.
    * @generated
    */
-  Identifier createIdentifier() ;
-
-  /**
-   * Returns a new object of class '<em>Qualified Named Element</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Qualified Named Element</em>'.
-   * @generated
-   */
-  QualifiedNamedElement createQualifiedNamedElement() ;
-
-  /**
-   * Returns a new object of class '<em>Named Value</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Named Value</em>'.
-   * @generated
-   */
-  NamedValue createNamedValue() ;
+  ArrayableIdentifier createArrayableIdentifier() ;
 
   /**
    * Returns a new object of class '<em>Comm Action</em>'.
@@ -65,40 +47,13 @@ public interface DeclarativeFactory extends EFactory
   CommAction createCommAction() ;
 
   /**
-   * Returns a new object of class '<em>Enumeration</em>'.
+   * Returns a new object of class '<em>Array Dimension</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Enumeration</em>'.
+   * @return a new object of class '<em>Array Dimension</em>'.
    * @generated
    */
-  Enumeration createEnumeration() ;
-
-  /**
-   * Returns a new object of class '<em>Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Reference</em>'.
-   * @generated
-   */
-  Reference createReference() ;
-
-  /**
-   * Returns a new object of class '<em>Arrayable Identifier</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Arrayable Identifier</em>'.
-   * @generated
-   */
-  ArrayableIdentifier createArrayableIdentifier() ;
-
-  /**
-   * Returns a new object of class '<em>Time</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Time</em>'.
-   * @generated
-   */
-  DeclarativeTime createDeclarativeTime() ;
+  DeclarativeArrayDimension createDeclarativeArrayDimension() ;
 
   /**
    * Returns a new object of class '<em>Behavior Transition</em>'.
@@ -110,13 +65,58 @@ public interface DeclarativeFactory extends EFactory
   DeclarativeBehaviorTransition createDeclarativeBehaviorTransition() ;
 
   /**
-   * Returns a new object of class '<em>Array Dimension</em>'.
+   * Returns a new object of class '<em>Time</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Array Dimension</em>'.
+   * @return a new object of class '<em>Time</em>'.
    * @generated
    */
-  DeclarativeArrayDimension createDeclarativeArrayDimension() ;
+  DeclarativeTime createDeclarativeTime() ;
+
+  /**
+   * Returns a new object of class '<em>Enumeration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enumeration</em>'.
+   * @generated
+   */
+  Enumeration createEnumeration() ;
+
+  /**
+   * Returns a new object of class '<em>Identifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Identifier</em>'.
+   * @generated
+   */
+  Identifier createIdentifier() ;
+
+  /**
+   * Returns a new object of class '<em>Named Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Named Value</em>'.
+   * @generated
+   */
+  NamedValue createNamedValue() ;
+
+  /**
+   * Returns a new object of class '<em>Qualified Named Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Qualified Named Element</em>'.
+   * @generated
+   */
+  QualifiedNamedElement createQualifiedNamedElement() ;
+
+  /**
+   * Returns a new object of class '<em>Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Reference</em>'.
+   * @generated
+   */
+  Reference createReference() ;
 
   /**
    * Returns the package supported by this factory.

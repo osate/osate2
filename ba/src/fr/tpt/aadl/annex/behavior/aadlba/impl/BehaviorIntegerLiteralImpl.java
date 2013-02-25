@@ -58,11 +58,10 @@ public class BehaviorIntegerLiteralImpl extends IntegerLiteralImpl implements Be
   {
     return AadlBaPackage.Literals.BEHAVIOR_INTEGER_LITERAL;
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-
 } //BehaviorIntegerLiteralImpl

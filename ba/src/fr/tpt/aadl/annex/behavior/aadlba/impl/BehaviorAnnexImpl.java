@@ -19,32 +19,28 @@
  */
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
-import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
-import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
+import java.util.Collection ;
+import java.util.HashMap ;
+import java.util.Map ;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
+import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
+import org.eclipse.emf.ecore.util.InternalEList ;
 import org.osate.aadl2.Element ;
-import org.osate.aadl2.impl.AnnexSubclauseImpl;
+import org.osate.aadl2.impl.AnnexSubclauseImpl ;
+
+import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable ;
+import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 /**
  * <!-- begin-user-doc -->
@@ -76,27 +72,6 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
   protected EList<BehaviorVariable> variables;
 
   /**
-   * @generated NOT
-   */
-  
-  private Map<AadlBaLocationReference, Element> _links = new HashMap
-	        <AadlBaLocationReference, Element>() ;
-  
-  public Map<AadlBaLocationReference, Element> getLinks()
-  {
-	  return _links;
-  }
-  
-  private Map<BehaviorAnnex, AadlBaHighlighter> _annexHighlighters = 
-		   new HashMap<BehaviorAnnex, AadlBaHighlighter>();
- 
-  public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters()
-  {
-	  return _annexHighlighters;
-  }
-  
-  
-  /**
    * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -119,24 +94,24 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
   /**
    * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @see #getActions()
    * @generated
    * @ordered
    */
-	protected EList<BehaviorActionBlock> actions;
+  protected EList<BehaviorActionBlock> actions;
 
-		/**
+  /**
    * The cached value of the '{@link #getConditions() <em>Conditions</em>}' containment reference list.
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @see #getConditions()
    * @generated
    * @ordered
    */
-	protected EList<BehaviorCondition> conditions;
+  protected EList<BehaviorCondition> conditions;
 
-		/**
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -261,10 +236,11 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 
   /**
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @generated
    */
-	public EList<BehaviorActionBlock> getActions() {
+  public EList<BehaviorActionBlock> getActions()
+  {
     if (actions == null)
     {
       actions = new EObjectContainmentEList<BehaviorActionBlock>(BehaviorActionBlock.class, this, AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS);
@@ -272,12 +248,13 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
     return actions;
   }
 
-		/**
+  /**
    * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+   * <!-- end-user-doc -->
    * @generated
    */
-	public EList<BehaviorCondition> getConditions() {
+  public EList<BehaviorCondition> getConditions()
+  {
     if (conditions == null)
     {
       conditions = new EObjectContainmentEList<BehaviorCondition>(BehaviorCondition.class, this, AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS);
@@ -285,7 +262,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
     return conditions;
   }
 
-		/**
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -427,4 +404,23 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
   
+  /**
+   * @generated NOT
+   */
+  
+  private Map<AadlBaLocationReference, Element> _links = new HashMap
+          <AadlBaLocationReference, Element>() ;
+  
+  public Map<AadlBaLocationReference, Element> getLinks()
+  {
+    return _links;
+  }
+  
+  private Map<BehaviorAnnex, AadlBaHighlighter> _annexHighlighters = 
+       new HashMap<BehaviorAnnex, AadlBaHighlighter>();
+ 
+  public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters()
+  {
+    return _annexHighlighters;
+  }
 } //BehaviorAnnexImpl

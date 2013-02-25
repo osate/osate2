@@ -22,17 +22,21 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariableHolder;
-
 import fr.tpt.aadl.annex.behavior.aadlba.ElementValues;
 import fr.tpt.aadl.annex.behavior.aadlba.IndexableElement;
 import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
 import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel;
 import fr.tpt.aadl.annex.behavior.aadlba.Target;
+
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 

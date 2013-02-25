@@ -682,6 +682,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
 
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ActualPortHolder <em>Actual Port Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.ActualPortHolder
+   * @generated
+   */
+  public Adapter createActualPortHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction <em>Assignment Action</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -692,6 +707,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAssignmentActionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.Any <em>Any</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.Any
+   * @generated
+   */
+  public Adapter createAnyAdapter()
   {
     return null;
   }
@@ -907,6 +937,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorProperty <em>Behavior Property</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorProperty
+   * @generated
+   */
+  public Adapter createBehaviorPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorPropertyConstant <em>Behavior Property Constant</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1027,6 +1072,36 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariableHolder <em>Behavior Variable Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariableHolder
+   * @generated
+   */
+  public Adapter createBehaviorVariableHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.CalledSubprogramHolder <em>Called Subprogram Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.CalledSubprogramHolder
+   * @generated
+   */
+  public Adapter createCalledSubprogramHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.CommunicationAction <em>Communication Action</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1072,6 +1147,36 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataAccessHolder <em>Data Access Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DataAccessHolder
+   * @generated
+   */
+  public Adapter createDataAccessHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataAccessPrototypeHolder <em>Data Access Prototype Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DataAccessPrototypeHolder
+   * @generated
+   */
+  public Adapter createDataAccessPrototypeHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference <em>Data Component Reference</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1082,6 +1187,51 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDataComponentReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataHolder <em>Data Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DataHolder
+   * @generated
+   */
+  public Adapter createDataHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataPortHolder <em>Data Port Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DataPortHolder
+   * @generated
+   */
+  public Adapter createDataPortHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataSubcomponentHolder <em>Data Subcomponent Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DataSubcomponentHolder
+   * @generated
+   */
+  public Adapter createDataSubcomponentHolderAdapter()
   {
     return null;
   }
@@ -1112,6 +1262,36 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDispatchConjunctionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout <em>Dispatch Relative Timeout</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout
+   * @generated
+   */
+  public Adapter createDispatchRelativeTimeoutAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger <em>Dispatch Trigger</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger
+   * @generated
+   */
+  public Adapter createDispatchTriggerAdapter()
   {
     return null;
   }
@@ -1162,6 +1342,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ElementHolder <em>Element Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.ElementHolder
+   * @generated
+   */
+  public Adapter createElementHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ElementValues <em>Element Values</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1192,6 +1387,36 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.EventDataPortHolder <em>Event Data Port Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.EventDataPortHolder
+   * @generated
+   */
+  public Adapter createEventDataPortHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.EventPortHolder <em>Event Port Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.EventPortHolder
+   * @generated
+   */
+  public Adapter createEventPortHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ExecuteCondition <em>Execute Condition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1202,6 +1427,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExecuteConditionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ExecutionTimeoutCatch <em>Execution Timeout Catch</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.ExecutionTimeoutCatch
+   * @generated
+   */
+  public Adapter createExecutionTimeoutCatchAdapter()
   {
     return null;
   }
@@ -1252,6 +1492,51 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.GroupableElement <em>Groupable Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.GroupableElement
+   * @generated
+   */
+  public Adapter createGroupableElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.GroupHolder <em>Group Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.GroupHolder
+   * @generated
+   */
+  public Adapter createGroupHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.GroupPrototypeHolder <em>Group Prototype Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.GroupPrototypeHolder
+   * @generated
+   */
+  public Adapter createGroupPrototypeHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IfStatement <em>If Statement</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1262,6 +1547,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createIfStatementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IndexableElement <em>Indexable Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.IndexableElement
+   * @generated
+   */
+  public Adapter createIndexableElementAdapter()
   {
     return null;
   }
@@ -1322,6 +1622,36 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createIntegerValueVariableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IterativeVariable <em>Iterative Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.IterativeVariable
+   * @generated
+   */
+  public Adapter createIterativeVariableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IterativeVariableHolder <em>Iterative Variable Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.IterativeVariableHolder
+   * @generated
+   */
+  public Adapter createIterativeVariableHolderAdapter()
   {
     return null;
   }
@@ -1397,6 +1727,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createOtherwiseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ParameterHolder <em>Parameter Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.ParameterHolder
+   * @generated
+   */
+  public Adapter createParameterHolderAdapter()
   {
     return null;
   }
@@ -1492,6 +1837,36 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PortHolder <em>Port Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.PortHolder
+   * @generated
+   */
+  public Adapter createPortHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PortPrototypeHolder <em>Port Prototype Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.PortPrototypeHolder
+   * @generated
+   */
+  public Adapter createPortPrototypeHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PortSendAction <em>Port Send Action</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1502,6 +1877,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPortSendActionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder <em>Prototype Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder
+   * @generated
+   */
+  public Adapter createPrototypeHolderAdapter()
   {
     return null;
   }
@@ -1552,6 +1942,51 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.StructUnionElement <em>Struct Union Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.StructUnionElement
+   * @generated
+   */
+  public Adapter createStructUnionElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.StructUnionElementHolder <em>Struct Union Element Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.StructUnionElementHolder
+   * @generated
+   */
+  public Adapter createStructUnionElementHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramAccessHolder <em>Subprogram Access Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.SubprogramAccessHolder
+   * @generated
+   */
+  public Adapter createSubprogramAccessHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction <em>Subprogram Call Action</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1562,6 +1997,36 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSubprogramCallActionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramHolder <em>Subprogram Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.SubprogramHolder
+   * @generated
+   */
+  public Adapter createSubprogramHolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramPrototypeHolder <em>Subprogram Prototype Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.SubprogramPrototypeHolder
+   * @generated
+   */
+  public Adapter createSubprogramPrototypeHolderAdapter()
   {
     return null;
   }
@@ -1697,471 +2162,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createWhileOrDoUntilStatementAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ActualPortHolder <em>Actual Port Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.ActualPortHolder
-   * @generated
-   */
-  public Adapter createActualPortHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ExecutionTimeoutCatch <em>Execution Timeout Catch</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.ExecutionTimeoutCatch
-   * @generated
-   */
-  public Adapter createExecutionTimeoutCatchAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout <em>Dispatch Relative Timeout</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout
-   * @generated
-   */
-  public Adapter createDispatchRelativeTimeoutAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataHolder <em>Data Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DataHolder
-   * @generated
-   */
-  public Adapter createDataHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramHolder <em>Subprogram Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.SubprogramHolder
-   * @generated
-   */
-  public Adapter createSubprogramHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IterativeVariable <em>Iterative Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.IterativeVariable
-   * @generated
-   */
-  public Adapter createIterativeVariableAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataAccessHolder <em>Data Access Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DataAccessHolder
-   * @generated
-   */
-  public Adapter createDataAccessHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataSubcomponentHolder <em>Data Subcomponent Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DataSubcomponentHolder
-   * @generated
-   */
-  public Adapter createDataSubcomponentHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariableHolder <em>Behavior Variable Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariableHolder
-   * @generated
-   */
-  public Adapter createBehaviorVariableHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ElementHolder <em>Element Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.ElementHolder
-   * @generated
-   */
-  public Adapter createElementHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataPortHolder <em>Data Port Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DataPortHolder
-   * @generated
-   */
-  public Adapter createDataPortHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.EventPortHolder <em>Event Port Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.EventPortHolder
-   * @generated
-   */
-  public Adapter createEventPortHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.EventDataPortHolder <em>Event Data Port Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.EventDataPortHolder
-   * @generated
-   */
-  public Adapter createEventDataPortHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.ParameterHolder <em>Parameter Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.ParameterHolder
-   * @generated
-   */
-  public Adapter createParameterHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramAccessHolder <em>Subprogram Access Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.SubprogramAccessHolder
-   * @generated
-   */
-  public Adapter createSubprogramAccessHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger <em>Dispatch Trigger</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger
-   * @generated
-   */
-  public Adapter createDispatchTriggerAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorProperty <em>Behavior Property</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorProperty
-   * @generated
-   */
-  public Adapter createBehaviorPropertyAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.Any <em>Any</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.Any
-   * @generated
-   */
-  public Adapter createAnyAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.GroupHolder <em>Group Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.GroupHolder
-   * @generated
-   */
-  public Adapter createGroupHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.CalledSubprogramHolder <em>Called Subprogram Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.CalledSubprogramHolder
-   * @generated
-   */
-  public Adapter createCalledSubprogramHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IndexableElement <em>Indexable Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.IndexableElement
-   * @generated
-   */
-  public Adapter createIndexableElementAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.GroupableElement <em>Groupable Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.GroupableElement
-   * @generated
-   */
-  public Adapter createGroupableElementAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PortHolder <em>Port Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.PortHolder
-   * @generated
-   */
-  public Adapter createPortHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PortPrototypeHolder <em>Port Prototype Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.PortPrototypeHolder
-   * @generated
-   */
-  public Adapter createPortPrototypeHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder <em>Prototype Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder
-   * @generated
-   */
-  public Adapter createPrototypeHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.DataAccessPrototypeHolder <em>Data Access Prototype Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.DataAccessPrototypeHolder
-   * @generated
-   */
-  public Adapter createDataAccessPrototypeHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramPrototypeHolder <em>Subprogram Prototype Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.SubprogramPrototypeHolder
-   * @generated
-   */
-  public Adapter createSubprogramPrototypeHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.GroupPrototypeHolder <em>Group Prototype Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.GroupPrototypeHolder
-   * @generated
-   */
-  public Adapter createGroupPrototypeHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.StructUnionElement <em>Struct Union Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.StructUnionElement
-   * @generated
-   */
-  public Adapter createStructUnionElementAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.StructUnionElementHolder <em>Struct Union Element Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.StructUnionElementHolder
-   * @generated
-   */
-  public Adapter createStructUnionElementHolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link fr.tpt.aadl.annex.behavior.aadlba.IterativeVariableHolder <em>Iterative Variable Holder</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.IterativeVariableHolder
-   * @generated
-   */
-  public Adapter createIterativeVariableHolderAdapter()
   {
     return null;
   }

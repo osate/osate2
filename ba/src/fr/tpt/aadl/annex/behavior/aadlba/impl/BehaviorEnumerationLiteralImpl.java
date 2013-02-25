@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 
 /**
@@ -41,7 +40,6 @@ import org.osate.aadl2.StringLiteral;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorEnumerationLiteralImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorEnumerationLiteralImpl#getEnumLiteral <em>Enum Literal</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorEnumerationLiteralImpl#getComponent <em>Component</em>}</li>
  * </ul>
@@ -51,16 +49,6 @@ import org.osate.aadl2.StringLiteral;
  */
 public class BehaviorEnumerationLiteralImpl extends BehaviorElementImpl implements BehaviorEnumerationLiteral
 {
-  /**
-   * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getProperty()
-   * @generated
-   * @ordered
-   */
-  protected PropertyExpression property;
-
   /**
    * The cached value of the '{@link #getEnumLiteral() <em>Enum Literal</em>}' reference.
    * <!-- begin-user-doc -->
@@ -100,49 +88,6 @@ public class BehaviorEnumerationLiteralImpl extends BehaviorElementImpl implemen
   protected EClass eStaticClass()
   {
     return AadlBaPackage.Literals.BEHAVIOR_ENUMERATION_LITERAL;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyExpression getProperty()
-  {
-    if (property != null && ((EObject)property).eIsProxy())
-    {
-      InternalEObject oldProperty = (InternalEObject)property;
-      property = (PropertyExpression)eResolveProxy(oldProperty);
-      if (property != oldProperty)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__PROPERTY, oldProperty, property));
-      }
-    }
-    return property;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyExpression basicGetProperty()
-  {
-    return property;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setProperty(PropertyExpression newProperty)
-  {
-    PropertyExpression oldProperty = property;
-    property = newProperty;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__PROPERTY, oldProperty, property));
   }
 
   /**
@@ -241,9 +186,6 @@ public class BehaviorEnumerationLiteralImpl extends BehaviorElementImpl implemen
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__PROPERTY:
-        if (resolve) return getProperty();
-        return basicGetProperty();
       case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
         if (resolve) return getEnumLiteral();
         return basicGetEnumLiteral();
@@ -264,9 +206,6 @@ public class BehaviorEnumerationLiteralImpl extends BehaviorElementImpl implemen
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__PROPERTY:
-        setProperty((PropertyExpression)newValue);
-        return;
       case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
         setEnumLiteral((StringLiteral)newValue);
         return;
@@ -287,9 +226,6 @@ public class BehaviorEnumerationLiteralImpl extends BehaviorElementImpl implemen
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__PROPERTY:
-        setProperty((PropertyExpression)null);
-        return;
       case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
         setEnumLiteral((StringLiteral)null);
         return;
@@ -310,8 +246,6 @@ public class BehaviorEnumerationLiteralImpl extends BehaviorElementImpl implemen
   {
     switch (featureID)
     {
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__PROPERTY:
-        return property != null;
       case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
         return enumLiteral != null;
       case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:

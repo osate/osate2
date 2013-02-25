@@ -49,6 +49,15 @@ public interface AadlBaFactory extends EFactory
   AssignmentAction createAssignmentAction();
 
   /**
+   * Returns a new object of class '<em>Any</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Any</em>'.
+   * @generated
+   */
+  Any createAny();
+
+  /**
    * Returns a new object of class '<em>Behavior Action Block</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -184,6 +193,24 @@ public interface AadlBaFactory extends EFactory
   BehaviorVariable createBehaviorVariable();
 
   /**
+   * Returns a new object of class '<em>Behavior Variable Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Behavior Variable Holder</em>'.
+   * @generated
+   */
+  BehaviorVariableHolder createBehaviorVariableHolder();
+
+  /**
+   * Returns a new object of class '<em>Called Subprogram Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Called Subprogram Holder</em>'.
+   * @generated
+   */
+  CalledSubprogramHolder createCalledSubprogramHolder();
+
+  /**
    * Returns a new object of class '<em>Completion Relative Timeout</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -193,6 +220,24 @@ public interface AadlBaFactory extends EFactory
   CompletionRelativeTimeout createCompletionRelativeTimeout();
 
   /**
+   * Returns a new object of class '<em>Data Access Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Data Access Holder</em>'.
+   * @generated
+   */
+  DataAccessHolder createDataAccessHolder();
+
+  /**
+   * Returns a new object of class '<em>Data Access Prototype Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Data Access Prototype Holder</em>'.
+   * @generated
+   */
+  DataAccessPrototypeHolder createDataAccessPrototypeHolder();
+
+  /**
    * Returns a new object of class '<em>Data Component Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -200,6 +245,24 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   DataComponentReference createDataComponentReference();
+
+  /**
+   * Returns a new object of class '<em>Data Port Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Data Port Holder</em>'.
+   * @generated
+   */
+  DataPortHolder createDataPortHolder();
+
+  /**
+   * Returns a new object of class '<em>Data Subcomponent Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Data Subcomponent Holder</em>'.
+   * @generated
+   */
+  DataSubcomponentHolder createDataSubcomponentHolder();
 
   /**
    * Returns a new object of class '<em>Dispatch Condition</em>'.
@@ -218,6 +281,15 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   DispatchConjunction createDispatchConjunction();
+
+  /**
+   * Returns a new object of class '<em>Dispatch Relative Timeout</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Dispatch Relative Timeout</em>'.
+   * @generated
+   */
+  DispatchRelativeTimeout createDispatchRelativeTimeout();
 
   /**
    * Returns a new object of class '<em>Dispatch Trigger Condition Stop</em>'.
@@ -247,6 +319,33 @@ public interface AadlBaFactory extends EFactory
   ElseStatement createElseStatement();
 
   /**
+   * Returns a new object of class '<em>Event Data Port Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Event Data Port Holder</em>'.
+   * @generated
+   */
+  EventDataPortHolder createEventDataPortHolder();
+
+  /**
+   * Returns a new object of class '<em>Event Port Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Event Port Holder</em>'.
+   * @generated
+   */
+  EventPortHolder createEventPortHolder();
+
+  /**
+   * Returns a new object of class '<em>Execution Timeout Catch</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Execution Timeout Catch</em>'.
+   * @generated
+   */
+  ExecutionTimeoutCatch createExecutionTimeoutCatch();
+
+  /**
    * Returns a new object of class '<em>Factor</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -274,6 +373,24 @@ public interface AadlBaFactory extends EFactory
   ForOrForAllStatement createForOrForAllStatement();
 
   /**
+   * Returns a new object of class '<em>Group Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Group Holder</em>'.
+   * @generated
+   */
+  GroupHolder createGroupHolder();
+
+  /**
+   * Returns a new object of class '<em>Group Prototype Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Group Prototype Holder</em>'.
+   * @generated
+   */
+  GroupPrototypeHolder createGroupPrototypeHolder();
+
+  /**
    * Returns a new object of class '<em>If Statement</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -292,6 +409,24 @@ public interface AadlBaFactory extends EFactory
   IntegerRange createIntegerRange();
 
   /**
+   * Returns a new object of class '<em>Iterative Variable</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Iterative Variable</em>'.
+   * @generated
+   */
+  IterativeVariable createIterativeVariable();
+
+  /**
+   * Returns a new object of class '<em>Iterative Variable Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Iterative Variable Holder</em>'.
+   * @generated
+   */
+  IterativeVariableHolder createIterativeVariableHolder();
+
+  /**
    * Returns a new object of class '<em>Lock Action</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -308,6 +443,15 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   Otherwise createOtherwise();
+
+  /**
+   * Returns a new object of class '<em>Parameter Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parameter Holder</em>'.
+   * @generated
+   */
+  ParameterHolder createParameterHolder();
 
   /**
    * Returns a new object of class '<em>Port Count Value</em>'.
@@ -355,6 +499,15 @@ public interface AadlBaFactory extends EFactory
   PortFreshValue createPortFreshValue();
 
   /**
+   * Returns a new object of class '<em>Port Prototype Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Port Prototype Holder</em>'.
+   * @generated
+   */
+  PortPrototypeHolder createPortPrototypeHolder();
+
+  /**
    * Returns a new object of class '<em>Port Send Action</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -382,6 +535,33 @@ public interface AadlBaFactory extends EFactory
   SimpleExpression createSimpleExpression();
 
   /**
+   * Returns a new object of class '<em>Struct Union Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Struct Union Element</em>'.
+   * @generated
+   */
+  StructUnionElement createStructUnionElement();
+
+  /**
+   * Returns a new object of class '<em>Struct Union Element Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Struct Union Element Holder</em>'.
+   * @generated
+   */
+  StructUnionElementHolder createStructUnionElementHolder();
+
+  /**
+   * Returns a new object of class '<em>Subprogram Access Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subprogram Access Holder</em>'.
+   * @generated
+   */
+  SubprogramAccessHolder createSubprogramAccessHolder();
+
+  /**
    * Returns a new object of class '<em>Subprogram Call Action</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -389,6 +569,24 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   SubprogramCallAction createSubprogramCallAction();
+
+  /**
+   * Returns a new object of class '<em>Subprogram Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subprogram Holder</em>'.
+   * @generated
+   */
+  SubprogramHolder createSubprogramHolder();
+
+  /**
+   * Returns a new object of class '<em>Subprogram Prototype Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subprogram Prototype Holder</em>'.
+   * @generated
+   */
+  SubprogramPrototypeHolder createSubprogramPrototypeHolder();
 
   /**
    * Returns a new object of class '<em>Target</em>'.
@@ -443,204 +641,6 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   WhileOrDoUntilStatement createWhileOrDoUntilStatement();
-
-  /**
-   * Returns a new object of class '<em>Execution Timeout Catch</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Execution Timeout Catch</em>'.
-   * @generated
-   */
-  ExecutionTimeoutCatch createExecutionTimeoutCatch();
-
-  /**
-   * Returns a new object of class '<em>Dispatch Relative Timeout</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Dispatch Relative Timeout</em>'.
-   * @generated
-   */
-  DispatchRelativeTimeout createDispatchRelativeTimeout();
-
-  /**
-   * Returns a new object of class '<em>Subprogram Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Subprogram Holder</em>'.
-   * @generated
-   */
-  SubprogramHolder createSubprogramHolder();
-
-  /**
-   * Returns a new object of class '<em>Iterative Variable</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Iterative Variable</em>'.
-   * @generated
-   */
-  IterativeVariable createIterativeVariable();
-
-  /**
-   * Returns a new object of class '<em>Data Access Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Data Access Holder</em>'.
-   * @generated
-   */
-  DataAccessHolder createDataAccessHolder();
-
-  /**
-   * Returns a new object of class '<em>Data Subcomponent Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Data Subcomponent Holder</em>'.
-   * @generated
-   */
-  DataSubcomponentHolder createDataSubcomponentHolder();
-
-  /**
-   * Returns a new object of class '<em>Behavior Variable Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Behavior Variable Holder</em>'.
-   * @generated
-   */
-  BehaviorVariableHolder createBehaviorVariableHolder();
-
-  /**
-   * Returns a new object of class '<em>Data Port Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Data Port Holder</em>'.
-   * @generated
-   */
-  DataPortHolder createDataPortHolder();
-
-  /**
-   * Returns a new object of class '<em>Event Port Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Event Port Holder</em>'.
-   * @generated
-   */
-  EventPortHolder createEventPortHolder();
-
-  /**
-   * Returns a new object of class '<em>Event Data Port Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Event Data Port Holder</em>'.
-   * @generated
-   */
-  EventDataPortHolder createEventDataPortHolder();
-
-  /**
-   * Returns a new object of class '<em>Parameter Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Parameter Holder</em>'.
-   * @generated
-   */
-  ParameterHolder createParameterHolder();
-
-  /**
-   * Returns a new object of class '<em>Subprogram Access Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Subprogram Access Holder</em>'.
-   * @generated
-   */
-  SubprogramAccessHolder createSubprogramAccessHolder();
-
-  /**
-   * Returns a new object of class '<em>Any</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Any</em>'.
-   * @generated
-   */
-  Any createAny();
-
-  /**
-   * Returns a new object of class '<em>Group Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Group Holder</em>'.
-   * @generated
-   */
-  GroupHolder createGroupHolder();
-
-  /**
-   * Returns a new object of class '<em>Called Subprogram Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Called Subprogram Holder</em>'.
-   * @generated
-   */
-  CalledSubprogramHolder createCalledSubprogramHolder();
-
-  /**
-   * Returns a new object of class '<em>Port Prototype Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Port Prototype Holder</em>'.
-   * @generated
-   */
-  PortPrototypeHolder createPortPrototypeHolder();
-
-  /**
-   * Returns a new object of class '<em>Data Access Prototype Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Data Access Prototype Holder</em>'.
-   * @generated
-   */
-  DataAccessPrototypeHolder createDataAccessPrototypeHolder();
-
-  /**
-   * Returns a new object of class '<em>Subprogram Prototype Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Subprogram Prototype Holder</em>'.
-   * @generated
-   */
-  SubprogramPrototypeHolder createSubprogramPrototypeHolder();
-
-  /**
-   * Returns a new object of class '<em>Group Prototype Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Group Prototype Holder</em>'.
-   * @generated
-   */
-  GroupPrototypeHolder createGroupPrototypeHolder();
-
-  /**
-   * Returns a new object of class '<em>Struct Union Element</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Struct Union Element</em>'.
-   * @generated
-   */
-  StructUnionElement createStructUnionElement();
-
-  /**
-   * Returns a new object of class '<em>Struct Union Element Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Struct Union Element Holder</em>'.
-   * @generated
-   */
-  StructUnionElementHolder createStructUnionElementHolder();
-
-  /**
-   * Returns a new object of class '<em>Iterative Variable Holder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Iterative Variable Holder</em>'.
-   * @generated
-   */
-  IterativeVariableHolder createIterativeVariableHolder();
 
   /**
    * Returns the package supported by this factory.

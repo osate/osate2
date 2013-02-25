@@ -188,11 +188,10 @@ public class StructUnionElementImpl extends BehaviorNamedElementImpl implements 
     }
     return super.eIsSet(featureID);
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-
 } //StructUnionElementImpl

@@ -64,5 +64,4 @@ public class BehaviorRealLiteralImpl extends RealLiteralImpl implements Behavior
   {
     return (AadlBaLocationReference) this.getLocationReference() ;
   }
-  
 } //BehaviorRealLiteralImpl

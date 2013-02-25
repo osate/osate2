@@ -120,40 +120,6 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<IntegerValue> getArrayIndexes()
-  {
-    if (arrayIndexes == null)
-    {
-      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER__ARRAY_INDEXES);
-    }
-    return arrayIndexes;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void unsetArrayIndexes()
-  {
-    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public boolean isSetArrayIndexes()
-  {
-    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public NamedElement getElement()
   {
     if (element != null && ((EObject)element).eIsProxy())
@@ -190,6 +156,40 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
     element = newElement;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER__ELEMENT, oldElement, element));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<IntegerValue> getArrayIndexes()
+  {
+    if (arrayIndexes == null)
+    {
+      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER__ARRAY_INDEXES);
+    }
+    return arrayIndexes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void unsetArrayIndexes()
+  {
+    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isSetArrayIndexes()
+  {
+    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
   }
 
   /**

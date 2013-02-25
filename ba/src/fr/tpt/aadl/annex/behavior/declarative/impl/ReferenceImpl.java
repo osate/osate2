@@ -10,9 +10,9 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchTrigger ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition ;
 import fr.tpt.aadl.annex.behavior.aadlba.ElementValues ;
-
 import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel ;
 import fr.tpt.aadl.annex.behavior.aadlba.Target ;
+
 import fr.tpt.aadl.annex.behavior.aadlba.impl.ActualPortHolderImpl ;
 
 import fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier ;

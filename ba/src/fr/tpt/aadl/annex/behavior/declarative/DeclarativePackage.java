@@ -68,16 +68,6 @@ public interface DeclarativePackage extends EPackage
               .init() ;
 
   /**
-   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorElementImpl <em>Behavior Element</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorElementImpl
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeBehaviorElement()
-   * @generated
-   */
-  int DECLARATIVE_BEHAVIOR_ELEMENT = 3 ;
-
-  /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.IdentifierImpl <em>Identifier</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -204,56 +194,6 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int IDENTIFIER_FEATURE_COUNT = AadlBaPackage.BEHAVIOR_STATE_FEATURE_COUNT + 3 ;
-
-  /**
-   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.QualifiedNamedElementImpl <em>Qualified Named Element</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.QualifiedNamedElementImpl
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getQualifiedNamedElement()
-   * @generated
-   */
-  int QUALIFIED_NAMED_ELEMENT = 9 ;
-
-  /**
-   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.NamedValueImpl <em>Named Value</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.NamedValueImpl
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getNamedValue()
-   * @generated
-   */
-  int NAMED_VALUE = 8 ;
-
-  /**
-   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.CommActionImpl <em>Comm Action</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.CommActionImpl
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getCommAction()
-   * @generated
-   */
-  int COMM_ACTION = 1 ;
-
-  /**
-   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.EnumerationImpl <em>Enumeration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.EnumerationImpl
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getEnumeration()
-   * @generated
-   */
-  int ENUMERATION = 6 ;
-
-  /**
-   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.ReferenceImpl <em>Reference</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.ReferenceImpl
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getReference()
-   * @generated
-   */
-  int REFERENCE = 10 ;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.ArrayableIdentifierImpl <em>Arrayable Identifier</em>}' class.
@@ -393,6 +333,16 @@ public interface DeclarativePackage extends EPackage
   int ARRAYABLE_IDENTIFIER_FEATURE_COUNT = IDENTIFIER_FEATURE_COUNT + 1 ;
 
   /**
+   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.CommActionImpl <em>Comm Action</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.CommActionImpl
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getCommAction()
+   * @generated
+   */
+  int COMM_ACTION = 1 ;
+
+  /**
    * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -522,26 +472,6 @@ public interface DeclarativePackage extends EPackage
         AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 10 ;
 
   /**
-   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeTimeImpl <em>Time</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeTimeImpl
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeTime()
-   * @generated
-   */
-  int DECLARATIVE_TIME = 5 ;
-
-  /**
-   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorTransitionImpl <em>Behavior Transition</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorTransitionImpl
-   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeBehaviorTransition()
-   * @generated
-   */
-  int DECLARATIVE_BEHAVIOR_TRANSITION = 4 ;
-
-  /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeArrayDimensionImpl <em>Array Dimension</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -621,6 +551,16 @@ public interface DeclarativePackage extends EPackage
         Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT + 3 ;
 
   /**
+   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorElementImpl <em>Behavior Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorElementImpl
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeBehaviorElement()
+   * @generated
+   */
+  int DECLARATIVE_BEHAVIOR_ELEMENT = 3 ;
+
+  /**
    * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -669,6 +609,16 @@ public interface DeclarativePackage extends EPackage
    */
   int DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT =
         AadlBaPackage.BEHAVIOR_ELEMENT_FEATURE_COUNT + 2 ;
+
+  /**
+   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorTransitionImpl <em>Behavior Transition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorTransitionImpl
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeBehaviorTransition()
+   * @generated
+   */
+  int DECLARATIVE_BEHAVIOR_TRANSITION = 4 ;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -821,6 +771,16 @@ public interface DeclarativePackage extends EPackage
         AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT + 4 ;
 
   /**
+   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeTimeImpl <em>Time</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeTimeImpl
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeTime()
+   * @generated
+   */
+  int DECLARATIVE_TIME = 5 ;
+
+  /**
    * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -896,6 +856,16 @@ public interface DeclarativePackage extends EPackage
    */
   int DECLARATIVE_TIME_FEATURE_COUNT =
         AadlBaPackage.BEHAVIOR_TIME_FEATURE_COUNT + 3 ;
+
+  /**
+   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.QualifiedNamedElementImpl <em>Qualified Named Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.QualifiedNamedElementImpl
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getQualifiedNamedElement()
+   * @generated
+   */
+  int QUALIFIED_NAMED_ELEMENT = 9 ;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1155,6 +1125,16 @@ public interface DeclarativePackage extends EPackage
         Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT + 4 ;
 
   /**
+   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.EnumerationImpl <em>Enumeration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.EnumerationImpl
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getEnumeration()
+   * @generated
+   */
+  int ENUMERATION = 6 ;
+
+  /**
    * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1403,6 +1383,16 @@ public interface DeclarativePackage extends EPackage
   int ENUMERATION_FEATURE_COUNT = QUALIFIED_NAMED_ELEMENT_FEATURE_COUNT + 1 ;
 
   /**
+   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.NamedValueImpl <em>Named Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.NamedValueImpl
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getNamedValue()
+   * @generated
+   */
+  int NAMED_VALUE = 8 ;
+
+  /**
    * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1493,6 +1483,16 @@ public interface DeclarativePackage extends EPackage
         AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT + 6 ;
 
   /**
+   * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.ReferenceImpl <em>Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.ReferenceImpl
+   * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getReference()
+   * @generated
+   */
+  int REFERENCE = 10 ;
+
+  /**
    * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1579,143 +1579,25 @@ public interface DeclarativePackage extends EPackage
         AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 3 ;
 
   /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement <em>Behavior Element</em>}'.
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Behavior Element</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement
+   * @return the meta object for class '<em>Arrayable Identifier</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier
    * @generated
    */
-  EClass getDeclarativeBehaviorElement() ;
+  EClass getArrayableIdentifier() ;
 
   /**
-   * Returns the meta object for the reference '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement#getOsateRef <em>Osate Ref</em>}'.
+   * Returns the meta object for the containment reference list '{@link fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier#getArrayIndexes <em>Array Indexes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Osate Ref</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement#getOsateRef()
-   * @see #getDeclarativeBehaviorElement()
+   * @return the meta object for the containment reference list '<em>Array Indexes</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier#getArrayIndexes()
+   * @see #getArrayableIdentifier()
    * @generated
    */
-  EReference getDeclarativeBehaviorElement_OsateRef() ;
-
-  /**
-   * Returns the meta object for the reference '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement#getBaRef <em>Ba Ref</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Ba Ref</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement#getBaRef()
-   * @see #getDeclarativeBehaviorElement()
-   * @generated
-   */
-  EReference getDeclarativeBehaviorElement_BaRef() ;
-
-  /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.Identifier <em>Identifier</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Identifier</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Identifier
-   * @generated
-   */
-  EClass getIdentifier() ;
-
-  /**
-   * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.declarative.Identifier#getId <em>Id</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Id</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Identifier#getId()
-   * @see #getIdentifier()
-   * @generated
-   */
-  EAttribute getIdentifier_Id() ;
-
-  /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement <em>Qualified Named Element</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Qualified Named Element</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement
-   * @generated
-   */
-  EClass getQualifiedNamedElement() ;
-
-  /**
-   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement#getBaNamespace <em>Ba Namespace</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Ba Namespace</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement#getBaNamespace()
-   * @see #getQualifiedNamedElement()
-   * @generated
-   */
-  EReference getQualifiedNamedElement_BaNamespace() ;
-
-  /**
-   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement#getBaName <em>Ba Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Ba Name</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement#getBaName()
-   * @see #getQualifiedNamedElement()
-   * @generated
-   */
-  EReference getQualifiedNamedElement_BaName() ;
-
-  /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue <em>Named Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Named Value</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue
-   * @generated
-   */
-  EClass getNamedValue() ;
-
-  /**
-   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue#getReference <em>Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Reference</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue#getReference()
-   * @see #getNamedValue()
-   * @generated
-   */
-  EReference getNamedValue_Reference() ;
-
-  /**
-   * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue#isDequeue <em>Dequeue</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Dequeue</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue#isDequeue()
-   * @see #getNamedValue()
-   * @generated
-   */
-  EAttribute getNamedValue_Dequeue() ;
-
-  /**
-   * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue#isFresh <em>Fresh</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Fresh</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue#isFresh()
-   * @see #getNamedValue()
-   * @generated
-   */
-  EAttribute getNamedValue_Fresh() ;
-
-  /**
-   * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue#isCount <em>Count</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Count</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue#isCount()
-   * @see #getNamedValue()
-   * @generated
-   */
-  EAttribute getNamedValue_Count() ;
+  EReference getArrayableIdentifier_ArrayIndexes() ;
 
   /**
    * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.CommAction <em>Comm Action</em>}'.
@@ -1816,88 +1698,57 @@ public interface DeclarativePackage extends EPackage
   EReference getCommAction_Reference() ;
 
   /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.Enumeration <em>Enumeration</em>}'.
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension <em>Array Dimension</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Enumeration</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Enumeration
+   * @return the meta object for class '<em>Array Dimension</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension
    * @generated
    */
-  EClass getEnumeration() ;
+  EClass getDeclarativeArrayDimension() ;
 
   /**
-   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.Enumeration#getLiteral <em>Literal</em>}'.
+   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension#getDimension <em>Dimension</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Literal</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Enumeration#getLiteral()
-   * @see #getEnumeration()
+   * @return the meta object for the containment reference '<em>Dimension</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension#getDimension()
+   * @see #getDeclarativeArrayDimension()
    * @generated
    */
-  EReference getEnumeration_Literal() ;
+  EReference getDeclarativeArrayDimension_Dimension() ;
 
   /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.Reference <em>Reference</em>}'.
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement <em>Behavior Element</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Reference</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Reference
+   * @return the meta object for class '<em>Behavior Element</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement
    * @generated
    */
-  EClass getReference() ;
+  EClass getDeclarativeBehaviorElement() ;
 
   /**
-   * Returns the meta object for the containment reference list '{@link fr.tpt.aadl.annex.behavior.declarative.Reference#getIds <em>Ids</em>}'.
+   * Returns the meta object for the reference '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement#getOsateRef <em>Osate Ref</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Ids</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.Reference#getIds()
-   * @see #getReference()
+   * @return the meta object for the reference '<em>Osate Ref</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement#getOsateRef()
+   * @see #getDeclarativeBehaviorElement()
    * @generated
    */
-  EReference getReference_Ids() ;
+  EReference getDeclarativeBehaviorElement_OsateRef() ;
 
   /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+   * Returns the meta object for the reference '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement#getBaRef <em>Ba Ref</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Arrayable Identifier</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier
+   * @return the meta object for the reference '<em>Ba Ref</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement#getBaRef()
+   * @see #getDeclarativeBehaviorElement()
    * @generated
    */
-  EClass getArrayableIdentifier() ;
-
-  /**
-   * Returns the meta object for the containment reference list '{@link fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier#getArrayIndexes <em>Array Indexes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Array Indexes</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier#getArrayIndexes()
-   * @see #getArrayableIdentifier()
-   * @generated
-   */
-  EReference getArrayableIdentifier_ArrayIndexes() ;
-
-  /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime <em>Time</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Time</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime
-   * @generated
-   */
-  EClass getDeclarativeTime() ;
-
-  /**
-   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime#getUnitId <em>Unit Id</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Unit Id</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime#getUnitId()
-   * @see #getDeclarativeTime()
-   * @generated
-   */
-  EReference getDeclarativeTime_UnitId() ;
+  EReference getDeclarativeBehaviorElement_BaRef() ;
 
   /**
    * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorTransition <em>Behavior Transition</em>}'.
@@ -1932,25 +1783,174 @@ public interface DeclarativePackage extends EPackage
   EReference getDeclarativeBehaviorTransition_DestState() ;
 
   /**
-   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension <em>Array Dimension</em>}'.
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime <em>Time</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Array Dimension</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension
+   * @return the meta object for class '<em>Time</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime
    * @generated
    */
-  EClass getDeclarativeArrayDimension() ;
+  EClass getDeclarativeTime() ;
 
   /**
-   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension#getDimension <em>Dimension</em>}'.
+   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime#getUnitId <em>Unit Id</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Dimension</em>'.
-   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension#getDimension()
-   * @see #getDeclarativeArrayDimension()
+   * @return the meta object for the containment reference '<em>Unit Id</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime#getUnitId()
+   * @see #getDeclarativeTime()
    * @generated
    */
-  EReference getDeclarativeArrayDimension_Dimension() ;
+  EReference getDeclarativeTime_UnitId() ;
+
+  /**
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.Enumeration <em>Enumeration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Enumeration</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Enumeration
+   * @generated
+   */
+  EClass getEnumeration() ;
+
+  /**
+   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.Enumeration#getLiteral <em>Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Literal</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Enumeration#getLiteral()
+   * @see #getEnumeration()
+   * @generated
+   */
+  EReference getEnumeration_Literal() ;
+
+  /**
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.Identifier <em>Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Identifier</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Identifier
+   * @generated
+   */
+  EClass getIdentifier() ;
+
+  /**
+   * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.declarative.Identifier#getId <em>Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Id</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Identifier#getId()
+   * @see #getIdentifier()
+   * @generated
+   */
+  EAttribute getIdentifier_Id() ;
+
+  /**
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue <em>Named Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Named Value</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue
+   * @generated
+   */
+  EClass getNamedValue() ;
+
+  /**
+   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue#getReference <em>Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Reference</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue#getReference()
+   * @see #getNamedValue()
+   * @generated
+   */
+  EReference getNamedValue_Reference() ;
+
+  /**
+   * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue#isDequeue <em>Dequeue</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Dequeue</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue#isDequeue()
+   * @see #getNamedValue()
+   * @generated
+   */
+  EAttribute getNamedValue_Dequeue() ;
+
+  /**
+   * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue#isFresh <em>Fresh</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Fresh</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue#isFresh()
+   * @see #getNamedValue()
+   * @generated
+   */
+  EAttribute getNamedValue_Fresh() ;
+
+  /**
+   * Returns the meta object for the attribute '{@link fr.tpt.aadl.annex.behavior.declarative.NamedValue#isCount <em>Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Count</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.NamedValue#isCount()
+   * @see #getNamedValue()
+   * @generated
+   */
+  EAttribute getNamedValue_Count() ;
+
+  /**
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement <em>Qualified Named Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Qualified Named Element</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement
+   * @generated
+   */
+  EClass getQualifiedNamedElement() ;
+
+  /**
+   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement#getBaNamespace <em>Ba Namespace</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Ba Namespace</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement#getBaNamespace()
+   * @see #getQualifiedNamedElement()
+   * @generated
+   */
+  EReference getQualifiedNamedElement_BaNamespace() ;
+
+  /**
+   * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement#getBaName <em>Ba Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Ba Name</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement#getBaName()
+   * @see #getQualifiedNamedElement()
+   * @generated
+   */
+  EReference getQualifiedNamedElement_BaName() ;
+
+  /**
+   * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.declarative.Reference <em>Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Reference</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Reference
+   * @generated
+   */
+  EClass getReference() ;
+
+  /**
+   * Returns the meta object for the containment reference list '{@link fr.tpt.aadl.annex.behavior.declarative.Reference#getIds <em>Ids</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Ids</em>'.
+   * @see fr.tpt.aadl.annex.behavior.declarative.Reference#getIds()
+   * @see #getReference()
+   * @generated
+   */
+  EReference getReference_Ids() ;
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1976,121 +1976,23 @@ public interface DeclarativePackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorElementImpl <em>Behavior Element</em>}' class.
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.ArrayableIdentifierImpl <em>Arrayable Identifier</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorElementImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeBehaviorElement()
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.ArrayableIdentifierImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getArrayableIdentifier()
      * @generated
      */
-    EClass DECLARATIVE_BEHAVIOR_ELEMENT = eINSTANCE
-          .getDeclarativeBehaviorElement() ;
+    EClass ARRAYABLE_IDENTIFIER = eINSTANCE.getArrayableIdentifier() ;
 
     /**
-     * The meta object literal for the '<em><b>Osate Ref</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Array Indexes</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF = eINSTANCE
-          .getDeclarativeBehaviorElement_OsateRef() ;
-
-    /**
-     * The meta object literal for the '<em><b>Ba Ref</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF = eINSTANCE
-          .getDeclarativeBehaviorElement_BaRef() ;
-
-    /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.IdentifierImpl <em>Identifier</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.IdentifierImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getIdentifier()
-     * @generated
-     */
-    EClass IDENTIFIER = eINSTANCE.getIdentifier() ;
-
-    /**
-     * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IDENTIFIER__ID = eINSTANCE.getIdentifier_Id() ;
-
-    /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.QualifiedNamedElementImpl <em>Qualified Named Element</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.QualifiedNamedElementImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getQualifiedNamedElement()
-     * @generated
-     */
-    EClass QUALIFIED_NAMED_ELEMENT = eINSTANCE.getQualifiedNamedElement() ;
-
-    /**
-     * The meta object literal for the '<em><b>Ba Namespace</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE = eINSTANCE
-          .getQualifiedNamedElement_BaNamespace() ;
-
-    /**
-     * The meta object literal for the '<em><b>Ba Name</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference QUALIFIED_NAMED_ELEMENT__BA_NAME = eINSTANCE
-          .getQualifiedNamedElement_BaName() ;
-
-    /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.NamedValueImpl <em>Named Value</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.NamedValueImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getNamedValue()
-     * @generated
-     */
-    EClass NAMED_VALUE = eINSTANCE.getNamedValue() ;
-
-    /**
-     * The meta object literal for the '<em><b>Reference</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference NAMED_VALUE__REFERENCE = eINSTANCE.getNamedValue_Reference() ;
-
-    /**
-     * The meta object literal for the '<em><b>Dequeue</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute NAMED_VALUE__DEQUEUE = eINSTANCE.getNamedValue_Dequeue() ;
-
-    /**
-     * The meta object literal for the '<em><b>Fresh</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute NAMED_VALUE__FRESH = eINSTANCE.getNamedValue_Fresh() ;
-
-    /**
-     * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute NAMED_VALUE__COUNT = eINSTANCE.getNamedValue_Count() ;
+    EReference ARRAYABLE_IDENTIFIER__ARRAY_INDEXES = eINSTANCE
+          .getArrayableIdentifier_ArrayIndexes() ;
 
     /**
      * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.CommActionImpl <em>Comm Action</em>}' class.
@@ -2169,78 +2071,53 @@ public interface DeclarativePackage extends EPackage
     EReference COMM_ACTION__REFERENCE = eINSTANCE.getCommAction_Reference() ;
 
     /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.EnumerationImpl <em>Enumeration</em>}' class.
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeArrayDimensionImpl <em>Array Dimension</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.EnumerationImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getEnumeration()
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeArrayDimensionImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeArrayDimension()
      * @generated
      */
-    EClass ENUMERATION = eINSTANCE.getEnumeration() ;
+    EClass DECLARATIVE_ARRAY_DIMENSION = eINSTANCE
+          .getDeclarativeArrayDimension() ;
 
     /**
-     * The meta object literal for the '<em><b>Literal</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Dimension</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ENUMERATION__LITERAL = eINSTANCE.getEnumeration_Literal() ;
+    EReference DECLARATIVE_ARRAY_DIMENSION__DIMENSION = eINSTANCE
+          .getDeclarativeArrayDimension_Dimension() ;
 
     /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.ReferenceImpl <em>Reference</em>}' class.
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorElementImpl <em>Behavior Element</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.ReferenceImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getReference()
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorElementImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeBehaviorElement()
      * @generated
      */
-    EClass REFERENCE = eINSTANCE.getReference() ;
+    EClass DECLARATIVE_BEHAVIOR_ELEMENT = eINSTANCE
+          .getDeclarativeBehaviorElement() ;
 
     /**
-     * The meta object literal for the '<em><b>Ids</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Osate Ref</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REFERENCE__IDS = eINSTANCE.getReference_Ids() ;
+    EReference DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF = eINSTANCE
+          .getDeclarativeBehaviorElement_OsateRef() ;
 
     /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.ArrayableIdentifierImpl <em>Arrayable Identifier</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.ArrayableIdentifierImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getArrayableIdentifier()
-     * @generated
-     */
-    EClass ARRAYABLE_IDENTIFIER = eINSTANCE.getArrayableIdentifier() ;
-
-    /**
-     * The meta object literal for the '<em><b>Array Indexes</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Ba Ref</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ARRAYABLE_IDENTIFIER__ARRAY_INDEXES = eINSTANCE
-          .getArrayableIdentifier_ArrayIndexes() ;
-
-    /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeTimeImpl <em>Time</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeTimeImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeTime()
-     * @generated
-     */
-    EClass DECLARATIVE_TIME = eINSTANCE.getDeclarativeTime() ;
-
-    /**
-     * The meta object literal for the '<em><b>Unit Id</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference DECLARATIVE_TIME__UNIT_ID = eINSTANCE
-          .getDeclarativeTime_UnitId() ;
+    EReference DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF = eINSTANCE
+          .getDeclarativeBehaviorElement_BaRef() ;
 
     /**
      * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeBehaviorTransitionImpl <em>Behavior Transition</em>}' class.
@@ -2272,24 +2149,147 @@ public interface DeclarativePackage extends EPackage
           .getDeclarativeBehaviorTransition_DestState() ;
 
     /**
-     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeArrayDimensionImpl <em>Array Dimension</em>}' class.
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeTimeImpl <em>Time</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeArrayDimensionImpl
-     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeArrayDimension()
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativeTimeImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getDeclarativeTime()
      * @generated
      */
-    EClass DECLARATIVE_ARRAY_DIMENSION = eINSTANCE
-          .getDeclarativeArrayDimension() ;
+    EClass DECLARATIVE_TIME = eINSTANCE.getDeclarativeTime() ;
 
     /**
-     * The meta object literal for the '<em><b>Dimension</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Unit Id</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DECLARATIVE_ARRAY_DIMENSION__DIMENSION = eINSTANCE
-          .getDeclarativeArrayDimension_Dimension() ;
+    EReference DECLARATIVE_TIME__UNIT_ID = eINSTANCE
+          .getDeclarativeTime_UnitId() ;
+
+    /**
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.EnumerationImpl <em>Enumeration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.EnumerationImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getEnumeration()
+     * @generated
+     */
+    EClass ENUMERATION = eINSTANCE.getEnumeration() ;
+
+    /**
+     * The meta object literal for the '<em><b>Literal</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENUMERATION__LITERAL = eINSTANCE.getEnumeration_Literal() ;
+
+    /**
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.IdentifierImpl <em>Identifier</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.IdentifierImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getIdentifier()
+     * @generated
+     */
+    EClass IDENTIFIER = eINSTANCE.getIdentifier() ;
+
+    /**
+     * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IDENTIFIER__ID = eINSTANCE.getIdentifier_Id() ;
+
+    /**
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.NamedValueImpl <em>Named Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.NamedValueImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getNamedValue()
+     * @generated
+     */
+    EClass NAMED_VALUE = eINSTANCE.getNamedValue() ;
+
+    /**
+     * The meta object literal for the '<em><b>Reference</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NAMED_VALUE__REFERENCE = eINSTANCE.getNamedValue_Reference() ;
+
+    /**
+     * The meta object literal for the '<em><b>Dequeue</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute NAMED_VALUE__DEQUEUE = eINSTANCE.getNamedValue_Dequeue() ;
+
+    /**
+     * The meta object literal for the '<em><b>Fresh</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute NAMED_VALUE__FRESH = eINSTANCE.getNamedValue_Fresh() ;
+
+    /**
+     * The meta object literal for the '<em><b>Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute NAMED_VALUE__COUNT = eINSTANCE.getNamedValue_Count() ;
+
+    /**
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.QualifiedNamedElementImpl <em>Qualified Named Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.QualifiedNamedElementImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getQualifiedNamedElement()
+     * @generated
+     */
+    EClass QUALIFIED_NAMED_ELEMENT = eINSTANCE.getQualifiedNamedElement() ;
+
+    /**
+     * The meta object literal for the '<em><b>Ba Namespace</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE = eINSTANCE
+          .getQualifiedNamedElement_BaNamespace() ;
+
+    /**
+     * The meta object literal for the '<em><b>Ba Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference QUALIFIED_NAMED_ELEMENT__BA_NAME = eINSTANCE
+          .getQualifiedNamedElement_BaName() ;
+
+    /**
+     * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.declarative.impl.ReferenceImpl <em>Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.ReferenceImpl
+     * @see fr.tpt.aadl.annex.behavior.declarative.impl.DeclarativePackageImpl#getReference()
+     * @generated
+     */
+    EClass REFERENCE = eINSTANCE.getReference() ;
+
+    /**
+     * The meta object literal for the '<em><b>Ids</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REFERENCE__IDS = eINSTANCE.getReference_Ids() ;
 
   }
 
