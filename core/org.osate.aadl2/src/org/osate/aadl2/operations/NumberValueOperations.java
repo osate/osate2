@@ -36,6 +36,7 @@ package org.osate.aadl2.operations;
 
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.UnitsType;
 
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.UnitLiteral;
@@ -75,7 +76,7 @@ public class NumberValueOperations extends ElementOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static double getScaledValue(NumberValue numberValue,
 			UnitLiteral target) {
@@ -90,27 +91,33 @@ public class NumberValueOperations extends ElementOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static double getScaledValue(NumberValue numberValue) {
-				if (numberValue instanceof RealLiteral) {
-						return ((RealLiteral) numberValue).getValue();
-					}
-			
-					return ((IntegerLiteral) numberValue).getValue();
+		final double value = getValue(numberValue);
+		final UnitLiteral unit = numberValue.getUnit();
+		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
+
+		return value * factor;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static double getScaledValue(NumberValue numberValue, String target) {
-				final double value = getValue(numberValue);
-				final UnitLiteral unit = numberValue.getUnit();
-				final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
-		
-				return value * factor;
+		final UnitLiteral currentUnit = numberValue.getUnit();
+		final UnitLiteral targetUnit;
+
+		if (currentUnit == null) {
+			targetUnit = null;
+		} else {
+			targetUnit = ((UnitsType) currentUnit.eContainer())
+					.findLiteral(target);
+		}
+
+		return getScaledValue(numberValue, targetUnit);
 	}
 
 } // NumberValueOperations

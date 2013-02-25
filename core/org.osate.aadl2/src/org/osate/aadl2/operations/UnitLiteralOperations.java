@@ -34,6 +34,8 @@
  */
 package org.osate.aadl2.operations;
 
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.UnitLiteral;
 
 /**
@@ -63,13 +65,36 @@ public class UnitLiteralOperations extends NamedElementOperations {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public static double getAbsoluteFactor(UnitLiteral unitLiteral,
 			UnitLiteral target) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		double factor = 1.0;
+		if (unitLiteral == target)
+			return factor;
+		UnitLiteral current = unitLiteral;
+		while (current.getBaseUnit() != null) {
+			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
+					.getFactor()).getValue() : ((RealLiteral) current
+					.getFactor()).getValue());
+			factor *= val;
+			current = current.getBaseUnit();
+			if (current == target)
+				return factor;
+		}
+		// did not find target. Let's go in opposite direction
+		factor = 1.0;
+		current = target;
+		while (current.getBaseUnit() != null) {
+			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
+					.getFactor()).getValue() : ((RealLiteral) current
+					.getFactor()).getValue());
+			factor /= val;
+			current = current.getBaseUnit();
+			if (current == unitLiteral)
+				return factor;
+		}
+		return 1.0;
 	}
 
 } // UnitLiteralOperations
