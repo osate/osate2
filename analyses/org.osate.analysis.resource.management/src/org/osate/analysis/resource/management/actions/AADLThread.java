@@ -28,6 +28,7 @@ public final class AADLThread extends SoftwareNode {
 		final long period = (long)GetProperties.getPeriodinNS(thread);
 
 		long deadline;
+		long cycles = 0;
 		try
 		{
 			deadline = (long)GetProperties.getDeadlineinNS(thread);
@@ -56,8 +57,20 @@ public final class AADLThread extends SoftwareNode {
 				maxComputeTime = 0.0;
 			}
 		}
-	
-		final long cycles = (long) ((maxComputeTime * GetProperties.getProcessorScalingFactor(thread))/GetProperties.getCycleTimeinSec(thread));
+		if (maxComputeTime > 0){
+			double cycletime = GetProperties.getReferenceProcessorCycleTimeinSec(thread);
+			if (cycletime == 0){
+				// 1 GHz processor; time in microsec
+				cycletime = 1.0e-9;
+			}
+			cycles = (long) (maxComputeTime / cycletime);
+		} else {
+			double mipsbudget = GetProperties.getMIPSBudgetInMIPS(thread);
+			if (mipsbudget > 0){
+				// mips per sec, period in ns. cycles per period => mips / # dispatches * M
+				cycles = (long) mipsbudget * period /1000;
+			}
+		}
 	
 		return new AADLThread(thread, cycles, period, deadline);
 	}
