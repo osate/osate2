@@ -1558,10 +1558,11 @@ public abstract class ComponentImplementationImpl extends
 		}
 		return returnlist;
 	}*/
-	
+
 	public EList<Subcomponent> getAllSubcomponents() {
 		return ComponentImplementationOperations.getAllSubcomponents(this);
 	}
+
 	/**
 	 * get all features including inherited features
 	 * 
