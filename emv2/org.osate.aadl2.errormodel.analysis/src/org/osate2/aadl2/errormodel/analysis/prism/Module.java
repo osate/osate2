@@ -305,15 +305,21 @@ public class Module {
 				 */
 				if(trans.getDestinationBranches() != null)
 				{
+					double mainProbability = Util.translateConditionToProbability (aadlComponent, trans.getCondition());
+
 					List<TransitionBranch> branches = trans.getDestinationBranches();
 					for (TransitionBranch tb : branches)
 					{
 						OsateDebug.osateDebug("[PRISM][Module.java]          dest = " + tb);
 						probability = Double.parseDouble(tb.getValue().getRealvalue());
+						OsateDebug.osateDebug("[PRISM][Module.java]          probability = " + probability);
+						OsateDebug.osateDebug("[PRISM][Module.java]          mainProbability = " + mainProbability);
+
+
 						tmpState = statesMap.get(tb.getTarget().getName());
 						after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
 									   new Terminal (""+tmpState));
-						command.addTransition (new Transition (probability, after));
+						command.addTransition (new Transition (mainProbability * probability, after));
 
 					}
 				}
