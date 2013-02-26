@@ -335,7 +335,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				if (callContext instanceof ComponentType){
 					//first try to find subprogram implementation
 					ComponentType ct = (ComponentType)callContext;
-					String implname = ct.getName()+"."+name;
+					String implname = ct.getQualifiedName()+"."+name;
 					searchResult = findClassifier(context, reference, implname);
 					if (searchResult != null && searchResult instanceof ComponentImplementation) {
 						return Collections.singletonList((EObject) searchResult);
