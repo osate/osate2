@@ -33,7 +33,7 @@ public class BusFigure extends ComponentFigure{
 
 		g.setLineWidth(lineWidth);
 		g.setForegroundColor(ColorConstants.black);
-		g.setBackgroundColor(getBackgroundColor());
+		g.setBackgroundColor(this.getAADLBackgroundColor());
 		g.setAntialias(SWT.ON);
 
 		if(this.virtual)

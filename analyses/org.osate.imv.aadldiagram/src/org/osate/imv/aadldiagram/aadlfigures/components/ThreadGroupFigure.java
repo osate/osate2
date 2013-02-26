@@ -36,7 +36,7 @@ public class ThreadGroupFigure extends ComponentFigure {
 		// Configure GC.
 		g.setLineWidth(this.lineWidth);
 		g.setForegroundColor(ColorConstants.black);
-		g.setBackgroundColor(getBackgroundColor());
+		g.setBackgroundColor(this.getAADLBackgroundColor());
 		g.setLineStyle(SWT.LINE_DASH);
 		g.setAntialias(SWT.ON);
 
