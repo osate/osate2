@@ -185,7 +185,7 @@ public class AadlBaUtils {
   public static DataRepresentation getDataRepresentation(
                                                        BehaviorPropertyValue pv)
   {
-    return getDataRepresentation(pv.getProperty().getOwnedPropertyType()) ;
+    return getDataRepresentation(pv.getProperty().getPropertyType()) ;
   }
 
   /**

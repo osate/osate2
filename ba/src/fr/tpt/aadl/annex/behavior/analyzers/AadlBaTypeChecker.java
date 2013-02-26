@@ -1581,7 +1581,12 @@ public class AadlBaTypeChecker
        BehaviorPropertyValue pv = _fact.createBehaviorPropertyValue();
        
        pv.setProperty((Property) qne.getOsateRef()) ;
-       pv.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
+       
+       if(qne.getBaNamespace() != null)
+       {
+         pv.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
+       }
+       
        pv.setLocationReference(qne.getLocationReference());
        
        result = pv ;
@@ -1592,7 +1597,12 @@ public class AadlBaTypeChecker
        BehaviorPropertyConstant pc = _fact.createBehaviorPropertyConstant();
        
        pc.setProperty((PropertyConstant) qne.getOsateRef()) ;
-       pc.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
+       
+       if(qne.getBaNamespace() != null)
+       {
+         pc.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
+       }
+             
        pc.setLocationReference(qne.getLocationReference());
        
        result = pc ;

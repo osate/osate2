@@ -1371,7 +1371,7 @@ public class AadlBaNameResolver
    }
 
    private boolean qualifiedNamedElementResolver(QualifiedNamedElement qne,
-		                                               boolean hasToReport)
+		                                             boolean hasToReport)
    {
 	   String packageName = null ;
 	   EObject ne ;
