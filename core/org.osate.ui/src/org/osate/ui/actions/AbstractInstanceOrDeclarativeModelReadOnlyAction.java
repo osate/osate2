@@ -47,6 +47,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.dialogs.SOMChooserDialog;
 
@@ -149,7 +150,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 	private void analyzeInstanceModelInMode(final IProgressMonitor monitor,
 			final AnalysisErrorReporterManager errManager,
 			final SystemInstance si, final SystemOperationMode som) {
-		errManager.addPrefix(som.toString());
+		errManager.addPrefix(Aadl2Util.getPrintableSOMName(som));
 		analyzeInstanceModel(monitor, errManager, si, som);
 		si.clearCurrentSystemOperationMode();
 		errManager.removePrefix();
