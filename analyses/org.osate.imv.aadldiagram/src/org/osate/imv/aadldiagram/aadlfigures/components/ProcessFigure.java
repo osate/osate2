@@ -32,7 +32,7 @@ public class ProcessFigure extends ComponentFigure{
 
 		g.setLineWidth(lineWidth);
 		g.setForegroundColor(ColorConstants.black);
-		g.setBackgroundColor(getBackgroundColor());
+		g.setBackgroundColor(this.getAADLBackgroundColor());
 		g.setAntialias(SWT.ON);
 
 		Rectangle r = this.getClientArea();
