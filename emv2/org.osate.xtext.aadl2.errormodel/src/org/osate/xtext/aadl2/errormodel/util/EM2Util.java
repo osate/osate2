@@ -33,6 +33,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
@@ -58,7 +59,11 @@ public class EM2Util {
 	
 	public final static String ErrorModelAnnexName = "EMV2";
 
-	
+	/**
+	 * Get the error-annex subclause for a given Component Instance
+	 * @param ci	The component instance that contains the error model subclause
+	 * @return		The related ErrorModelSubclause object, null otherwise
+	 */
 	public static ErrorModelSubclause getErrorAnnexClause (ComponentInstance ci)
 	{
 		AnnexSubclause subclause = Aadl2InstanceUtil.getAnnexSubclause(ci, ErrorModelAnnexName);
@@ -70,24 +75,29 @@ public class EM2Util {
 	}
 	
 	
-	
-	/*
-	public static 
-	for (AnnexSubclause al : asl){
-		if (al instanceof ErrorModelSubclause){
-			return ((ErrorModelSubclause)al);
-		}
-	}
-	*/
-	
+	/**
+	 * Retrieve the value of the OccurenceDistribution property of the
+	 * EMV2 property. You can use it like this:
+	 * 	ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(instance,null,ee,null);
+     * res = EM2Util.getOccurenceValue (PA);
+     * 
+     * @see		Util
+	 * @param 	ci				ComponentInstance object that contains the property
+	 * @param localContext		the context or null
+	 * @param target			the property
+	 * @param ts				corresponding typeset or null
+	 * @return
+	 */
 	public static ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
 		ContainedNamedElement result =  EM2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
 		return result;
 	}
 	
-	/*
+	/**
 	 * Retrieve the value associated with a containment path
 	 * See RDB action to see how it is used.
+	 *
+	 * @param PAContainmentPath value get from getOccurenceDistributionProperty
 	 */
 	public static double getOccurenceValue (final ContainedNamedElement PAContainmentPath)
 	{
