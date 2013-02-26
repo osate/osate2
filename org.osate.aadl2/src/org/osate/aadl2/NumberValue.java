@@ -77,8 +77,6 @@ public interface NumberValue extends PropertyValue {
 	 * @generated
 	 */
 	void setUnit(UnitLiteral value);
-	
-	
 
 	/**
 	 * @author dionisio

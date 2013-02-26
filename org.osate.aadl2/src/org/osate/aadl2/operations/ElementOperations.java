@@ -332,5 +332,4 @@ public class ElementOperations {
 		return ((Boolean) query.evaluate(element)).booleanValue();
 	}
 
-
 } // ElementOperations
