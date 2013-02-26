@@ -404,10 +404,10 @@ public class DoBoundResourceAnalysisLogic {
 		}
 		if (totalBandWidth > Buscapacity) {
 			errorSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of " + binding + " tasks"
-					+ (loopback ? " with loopback" : "") + " exceeds bandwidth capacity " + Buscapacity + " Kbps of " + curBus.getComponentInstancePath());
+					+ (loopback ? " with loopback" : "") + " exceeds bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
 		} else if (totalBandWidth > 0.0 && Buscapacity > 0.0) {
 			infoSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of " + binding + " tasks"
-					+ (loopback ? " with loopback" : "") + " within bandwidth capacity " + Buscapacity + " Kbps of " + curBus.getComponentInstancePath());
+					+ (loopback ? " with loopback" : "") + " within bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
 		}
 	}
 	
