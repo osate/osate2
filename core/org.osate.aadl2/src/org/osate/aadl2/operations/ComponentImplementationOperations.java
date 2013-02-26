@@ -68,34 +68,30 @@ public class ComponentImplementationOperations extends ClassifierOperations {
 		super();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-		public static EList<Subcomponent> getAllSubcomponents(
-						ComponentImplementation componentImplementation) {
-					final EList<Classifier> ancestors = componentImplementation.getAllExtendPlusSelf();
-					final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
-					// Process from farthest ancestor to self
-					for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
-							.size()); li.hasPrevious();) {
-						final ComponentImplementation current = (ComponentImplementation) li
-								.previous();
-						final EList<Subcomponent> currentItems = current
-								.getOwnedSubcomponents();
-						if (currentItems != null) {
-							for (Iterator<Subcomponent> i = currentItems.iterator(); i
-									.hasNext();) {
-								final Subcomponent fe = i.next();
-								final Subcomponent rfe = fe.getRefined();
-								if (rfe != null)
-									returnlist.remove(rfe);
-								returnlist.add(fe); 
-							}
-						}
-					}
-					return returnlist;
+
+	public static EList<Subcomponent> getAllSubcomponents(
+			ComponentImplementation componentImplementation) {
+		final EList<Classifier> ancestors = componentImplementation.getAllExtendPlusSelf();
+		final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
+				.size()); li.hasPrevious();) {
+			final ComponentImplementation current = (ComponentImplementation) li
+					.previous();
+			final EList<Subcomponent> currentItems = current
+					.getOwnedSubcomponents();
+			if (currentItems != null) {
+				for (Iterator<Subcomponent> i = currentItems.iterator(); i
+						.hasNext();) {
+					final Subcomponent fe = i.next();
+					final Subcomponent rfe = fe.getRefined();
+					if (rfe != null)
+						returnlist.remove(rfe);
+					returnlist.add(fe); 
 				}
+			}
+		}
+		return returnlist;
+	}
 
 } // ComponentImplementationOperations

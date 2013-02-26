@@ -796,7 +796,8 @@ public abstract class NamedElementImpl extends ElementImpl implements
 			throws InvalidModelException, IllegalArgumentException,
 			PropertyIsModalException, IllegalStateException,
 			PropertyDoesNotApplyToHolderException {
-		return NamedElementOperations.getPropertyValues( this, propertySetName, propertyName );
+		return NamedElementOperations.getPropertyValues(this, propertySetName,
+				propertyName);
 	}
 
 	public boolean equals(Object arg0) {
