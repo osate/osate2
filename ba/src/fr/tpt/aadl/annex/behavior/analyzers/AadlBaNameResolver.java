@@ -1325,7 +1325,9 @@ public class AadlBaNameResolver
    {
       PackageSection context = Aadl2Visitors.getContainingPackageSection(_ba);
       
-      PropertiesLinkingService pls = new PropertiesLinkingService () ;                                          
+      // Use deprecated method because when using the default constructor
+      // PropertiesLinkingService doesn't find any propertyset.
+      PropertiesLinkingService pls = PropertyUtils.getPropertiesLinkingService(context) ;                                          
       
       NamedElement pt = pls.findPropertyType(context, (AadlBaVisitors.
                                            INITIALIZE_ENTRYPOINT_PROPERTY_NAME));
@@ -1383,25 +1385,30 @@ public class AadlBaNameResolver
 	   PropertiesLinkingService pls = null ;
 	   
 	   // Now check the type in each current package's sections.
-	   for(Namespace ns: _contextsTab)
+	   for(Namespace context: _contextsTab)
 	   {
-	      pls = new PropertiesLinkingService() ;
+	      // Use a deprecated method because when using the default constructor
+	      // PropertiesLinkingService doesn't find any propertyset.
+	      pls = PropertyUtils.getPropertiesLinkingService(context) ;
 	      
 	      // If namespace is null than the element must be declared in the
 	      // current package.
 	      ne = pls.findNamedElementInAadlPackage(packageName,
-	                                             qne.getBaName().getId(), ns);
+	                                             qne.getBaName().getId(), context);
 	      if(ne == null)
 	      {
-	        EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
+	        // Why this, i don't know ...
+	        EReference reference = Aadl2Package.eINSTANCE.
+	                                                   getNamedValue_NamedValue();
 	        
-	        ne=pls.findNamedElementInPredeclaredPropertySets(qne.getBaName().getId(),
-	                                                         ns, reference);
+	        ne=pls.findNamedElementInPredeclaredPropertySets(qne.getBaName().
+	                                                         getId(),context,
+	                                                         reference);
 	        if(ne==null)
 	        {
 	              PropertySet ps = null;
 	              if(packageName!=null)
-	                ps = pls.findPropertySet(ns, packageName);
+	                ps = pls.findPropertySet(context, packageName);
 	                if(ps!=null)
 	                  ne = ps.findNamedElement(qne.getBaName().getId());
 	        }
