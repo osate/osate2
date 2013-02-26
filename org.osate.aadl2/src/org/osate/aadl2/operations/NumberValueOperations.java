@@ -66,13 +66,15 @@ public class NumberValueOperations extends ElementOperations {
 	protected NumberValueOperations() {
 		super();
 	}
-		private static double getValue(final NumberValue numberValue) {
-				if (numberValue instanceof RealLiteral) {
-					return ((RealLiteral) numberValue).getValue();
-				}
-		
-				return ((IntegerLiteral) numberValue).getValue();
-			}
+
+	private static double getValue(final NumberValue numberValue) {
+		if (numberValue instanceof RealLiteral) {
+			return ((RealLiteral) numberValue).getValue();
+		}
+
+		return ((IntegerLiteral) numberValue).getValue();
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -80,12 +82,12 @@ public class NumberValueOperations extends ElementOperations {
 	 */
 	public static double getScaledValue(NumberValue numberValue,
 			UnitLiteral target) {
-				final double value = getValue(numberValue);
-				final UnitLiteral unit = numberValue.getUnit();
-				final double factor = (unit == null) ? 1.0 : unit
-						.getAbsoluteFactor(target);
-		
-				return value * factor;
+		final double value = getValue(numberValue);
+		final UnitLiteral unit = numberValue.getUnit();
+		final double factor = (unit == null) ? 1.0 : unit
+				.getAbsoluteFactor(target);
+
+		return value * factor;
 	}
 
 	/**
