@@ -13,9 +13,34 @@ public class Formula {
 	private String name;
 	private Expression expression;
 
+	/**
+	 * Create a formula with a name and a simple expression
+	 * @param n	Name of the formula in PRISM.
+	 * @param e Expression associated with the formula.
+	 */
 	public Formula (String n, Expression e)
 	{
 		this.name 		= n;
 		this.expression = e;
 	}
+	
+	/**
+	 * Produce the PRISM code that maps this formula.
+	 * Create PRISM code using this pattern:
+	 * 		formula FORMULA_NAME FORMULA_EXPRESSION
+	 * For example:
+	 *		 formula gps_operational = sensor1_state = 0 & sensor2_state = 0 & processing_state = 0;
+	 * @return
+	 */
+	public String getPRISMCode ()
+	{
+		StringBuffer sb = new StringBuffer();
+		sb.append ("formula ");
+		sb.append (this.name);
+		sb.append (" = ");
+		sb.append (expression.toString());
+		sb.append (";");
+		return sb.toString();
+	}
+	
 }

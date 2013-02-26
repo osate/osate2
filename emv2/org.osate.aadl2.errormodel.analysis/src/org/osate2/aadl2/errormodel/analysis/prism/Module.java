@@ -32,6 +32,7 @@ public class Module {
 	private int 					nStates;
 	private Model					associatedModel;
 	private Map<String,Integer>		statesMap;
+	private	List<Formula>			formulas;
 	
 	/**
 	 * 
@@ -41,6 +42,7 @@ public class Module {
 	public Module (ComponentInstance ci, Model m)
 	{
 		this.commands 			= new ArrayList<Command>();
+		this.formulas 			= new ArrayList<Formula>();
 		this.associatedModel    = m;
 		this.aadlComponent 		= ci;
 		this.nStates 			= 0;
@@ -132,6 +134,19 @@ public class Module {
 
 		}
 		sb.append ("endmodule\n");
+		
+		/**
+		 * Generate code for each formula associated
+		 * with this module (for example, a formula
+		 * that check the state of a module/component).
+		 */
+		for (Formula f : this.formulas)
+		{
+			sb.append ("\n");
+			sb.append (f.getPRISMCode());
+			sb.append ("\n");
+		}
+		
 		return sb.toString();
 	}
 	
@@ -178,19 +193,35 @@ public class Module {
 					"Component " + aadlComponent.getName() + " should have an associated state machine");
 		}
 		
+		/**
+		 * Here, we map the states of the error state machine
+		 * into a number. For that, we add the corresponding
+		 * number to a HashMap. Then, we can retrieve
+		 * the associated value of a state using the state name (a String)
+		 * in the HashMap (called statesMap). There is one particular
+		 * case for the default state that is always associated
+		 * with 0.
+		 */
 		if (useStateMachine != null)
 		{
 			int stateIndex = 1;
+			int stateValue;
 			for (ErrorBehaviorState state : useStateMachine.getStates())
 			{
+				stateValue = stateIndex;
 				if (state.isIntial())
 				{
-					statesMap.put(state.getName(), 0);
+					stateValue = 0;
 				}
 				else
 				{
-					statesMap.put(state.getName(), stateIndex++);
+					stateValue = stateIndex++;
 				}
+				statesMap.put(state.getName(), stateValue);
+
+				Expression fe = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent)), new Terminal (""+stateValue));
+				Formula f = new Formula (Util.getComponentName(aadlComponent)+"_is_"+state.getName().toLowerCase(), fe);
+				this.formulas.add (f);
 			}
 			this.nStates = useStateMachine.getStates().size();
 		}
