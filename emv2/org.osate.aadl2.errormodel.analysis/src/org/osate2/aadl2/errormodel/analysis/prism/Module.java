@@ -19,6 +19,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
 
+/**
+ * Class that implements a PRISM module. Basically,
+ * one PRISM module is created for each ComponentInstance
+ * of the AADL instance model.
+ * @author jdelange
+ *
+ */
 public class Module {
 	private List<Command> 			commands;
 	private ComponentInstance 		aadlComponent;
@@ -26,6 +33,11 @@ public class Module {
 	private Model					associatedModel;
 	private Map<String,Integer>		statesMap;
 	
+	/**
+	 * 
+	 * @param ci	The AADL component that corresponds to this PRISM module
+	 * @param m		The PRISM model that contains this module
+	 */
 	public Module (ComponentInstance ci, Model m)
 	{
 		this.commands 			= new ArrayList<Command>();
@@ -35,12 +47,29 @@ public class Module {
 		this.statesMap			= new HashMap<String,Integer>();
 	}
 	
+	/**
+	 * 
+	 * @param ci	The AADL component that corresponds to this PRISM module
+	 * @param m		The PRISM model that contains this module
+	 * @param ns	Number of states (in that case, we do not auto-detect the number of states)
+	 */
 	public Module (ComponentInstance ci, Model m, int ns)
 	{
 		this (ci, m);
 		this.nStates 			= ns;
 	}
 	
+	/**
+	 * Produce a String that contains the code that maps the
+	 * AADL ComponentInstance into a PRISM module. It contains
+	 * both formulas and module code.
+	 * 
+	 * Note that the method process() shall be called before
+	 * so that all necessary objects are created/instantiated
+	 * to generated/produce the code.
+	 * 
+	 * @return The code to be written in the PRISM model file
+	 */
 	public String getPrismCode ()
 	{
 		StringBuffer sb = new StringBuffer ();
@@ -50,7 +79,10 @@ public class Module {
 			sb.append ("\t" + Util.getComponentName (aadlComponent) + "_state: [ 0 .. "+ (this.nStates - 1) +"] init 0;\n");
 		}
 		
-		
+		/**
+		 * Here, we write each command with transition/probability that
+		 * triggers state changes.
+		 */
 		for (Command command : commands)
 		{
 			double sum;
@@ -72,7 +104,7 @@ public class Module {
 				alreadyOne = true;
 			}
 			
-			/*
+			/**
 			 * If the sum of all probability is not reached, we keep the same state, nothing change
 			 */
 			if (sum < 1.0)
@@ -103,6 +135,14 @@ public class Module {
 		return sb.toString();
 	}
 	
+	/**
+	 * This method process the AADL component and creates
+	 * all PRISM objects and artifact to generate code.
+	 * This method shall be called before the getPrismCode()
+	 * method.
+	 * 
+	 * @return The actual module instance
+	 */
 	public Module process ()
 	{
 		Command command;
@@ -209,8 +249,6 @@ public class Module {
 			}
 			
 		}
-		
-		
 		
 		return this;
 	}

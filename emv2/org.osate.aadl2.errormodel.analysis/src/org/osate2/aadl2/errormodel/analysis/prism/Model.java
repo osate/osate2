@@ -9,6 +9,13 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 
+/**
+ * Class that implement a full PRISM model containing
+ * several modules.
+ * 
+ * @author jdelange
+ *
+ */
 public class Model {
 	private List<Module> 	modules;
 	private List<Formula> 	formulas;
@@ -24,6 +31,12 @@ public class Model {
 	}
 	
 	
+	/**
+	 * Process the complete AADL model, create
+	 * the PRISM modules and fill the model.
+	 * This method shall be called before trying to produce
+	 * PRISM code.
+	 */
 	public void process ()
 	{
 		List<ComponentInstance> instances;
@@ -35,7 +48,13 @@ public class Model {
 		}
 		
 	}
-	
+
+
+	/**
+	 * Save the PRISM model. Please note that you should
+	 * call the perform() method before so that the model
+	 * is processed and contains module to write.
+	 */
 	public void saveFile ()
 	{
 		this.prismFile.addOutput("dtmc\n\n");
