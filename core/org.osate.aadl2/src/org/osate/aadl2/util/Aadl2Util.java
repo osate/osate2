@@ -11,6 +11,7 @@ import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.instance.SystemOperationMode;
 
 public class Aadl2Util {
 
@@ -171,4 +172,14 @@ public class Aadl2Util {
 		
 		return null;
 	}
+	
+
+	public static String getPrintableSOMName(SystemOperationMode som) {
+		String somName = som.getName();
+		if (somName != null && (somName.equalsIgnoreCase("No Modes") || somName.equalsIgnoreCase("NoModes"))) {
+			return "";
+		}
+		return "In SystemMode " + somName + ": ";
+	}
+
 }
