@@ -16,6 +16,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
+import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
 
@@ -219,6 +220,11 @@ public class Module {
 				}
 				statesMap.put(state.getName(), stateValue);
 
+				/**
+				 * Add an helper formula to easily know if the component reach a given state or not
+				 * It generates formulas such as
+				 * formula COMPONENT_IS_STATENAME = COMPONENT_STATE_VAR = STATE_VALUE
+				 */
 				Expression fe = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent)), new Terminal (""+stateValue));
 				Formula f = new Formula (Util.getComponentName(aadlComponent)+"_is_"+state.getName().toLowerCase(), fe);
 				this.formulas.add (f);
@@ -256,25 +262,62 @@ public class Module {
 			{
 				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorTransition " + trans);
 				OsateDebug.osateDebug("[PRISM][Module.java]       src= " + trans.getSource().getName());
-				OsateDebug.osateDebug("[PRISM][Module.java]       dst= " + trans.getTarget());
+				OsateDebug.osateDebug("[PRISM][Module.java]       target= " + trans.getTarget());
 				OsateDebug.osateDebug("[PRISM][Module.java]       cond= " + trans.getCondition());
+				OsateDebug.osateDebug("[PRISM][Module.java]       destination= " + trans.getDestinationBranches());
+
 				
 				tmpState = statesMap.get(trans.getSource().getName());
 				
 				Expression before = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent)),
 											   new Terminal (""+tmpState));
 				
-				 probability = Util.translateConditionToProbability (aadlComponent, trans.getCondition());
+				
+				command = new Command ();
+				command.setCondition (before);
+				
+				/**
+				 * This is a simple transition like this
+				 * tfail: Operational -[Failure ]-> Failed;
+				 * In that case, we take the probability from the OccurenceDistribution
+				 * value associated to the event failure (named Failure in the following
+				 * example).
+				 */
 				
 				if (trans.getTarget() != null)
 				{
+					probability = Util.translateConditionToProbability (aadlComponent, trans.getCondition());
 					tmpState = statesMap.get(trans.getTarget().getName());
-					 after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
+					after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
 								   new Terminal (""+tmpState));
+					command.addTransition (new Transition (probability, after));
 				}
-				command = new Command ();
-				command.setCondition (before);
-				command.addTransition (new Transition (probability, after));
+				
+				
+				/**
+				 * When we have a destination branch, this is the case when we have
+				 * a transition like this:
+				 * 			treset: Failed -[ ResetEvent ]->  (Operational with 0.8, Failed with 0.2);
+				 * It means that, from the same state, we can go to different other
+				 * states with different probability. Here, when we are in failed and ResetEvent
+				 * is triggered, we go to Operational with a probability of 0.8 or stay
+				 * in Failed with a probability of 0.2.
+				 */
+				if(trans.getDestinationBranches() != null)
+				{
+					List<TransitionBranch> branches = trans.getDestinationBranches();
+					for (TransitionBranch tb : branches)
+					{
+						OsateDebug.osateDebug("[PRISM][Module.java]          dest = " + tb);
+						probability = Double.parseDouble(tb.getValue().getRealvalue());
+						tmpState = statesMap.get(tb.getTarget().getName());
+						after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
+									   new Terminal (""+tmpState));
+						command.addTransition (new Transition (probability, after));
+
+					}
+				}
+
 				
 				this.commands.add (command);
 			}

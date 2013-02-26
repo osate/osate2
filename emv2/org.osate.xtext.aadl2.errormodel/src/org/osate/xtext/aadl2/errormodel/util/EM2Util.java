@@ -836,6 +836,10 @@ public class EM2Util {
 	 */
 	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, NamedElement target, 
 			NamedElement localContext,Stack<ComponentInstance> ciStack, TypeSet ts ){
+		if (ciStack == null)
+		{
+			return null;
+		}
 		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
 		for (ContainedNamedElement containedNamedElement : applies) {
 			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
