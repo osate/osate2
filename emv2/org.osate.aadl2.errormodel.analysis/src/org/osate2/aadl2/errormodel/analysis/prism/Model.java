@@ -7,6 +7,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 
 public class Model {
 	private List<Module> 	modules;
@@ -25,9 +26,14 @@ public class Model {
 	
 	public void process ()
 	{
-		Module m = new Module (rootInstance, this);
-		m.process ();
-		addModule (m);
+		List<ComponentInstance> instances;
+		instances = EM2Util.getComponentInstancesWithComponentErrorBehavior(rootInstance);
+		
+		for (ComponentInstance instance : instances)
+		{
+			addModule ( (new Module(instance, this)).process());
+		}
+		
 	}
 	
 	public void saveFile ()

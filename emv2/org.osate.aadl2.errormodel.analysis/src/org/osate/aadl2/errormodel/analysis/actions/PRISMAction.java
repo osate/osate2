@@ -50,6 +50,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
@@ -67,8 +68,9 @@ import org.osate2.aadl2.errormodel.analysis.prism.Model;
 
 public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 	
-	private double 						finalResult;
-	private List<ComponentInstance> 	componentsNames;
+	private double 									finalResult;
+	private List<ComponentInstance> 				componentsNames;
+	private static AnalysisErrorReporterManager	 	errorManager;
 	
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
@@ -84,14 +86,23 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 	
-	
+	public static void reportWarning (ComponentInstance io, String message)
+	{
+		if (errorManager != null)
+		{
+			errorManager.warning(io, message);
+		}
+	}
 		
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		String message;
 		monitor.beginTask("RBD", IProgressMonitor.UNKNOWN);
-
+		
+		errorManager = this.getErrorManager();
+		
 		si = null;
+		
 		
 		if (obj instanceof InstanceObject){
 			si = ((InstanceObject)obj).getSystemInstance();
@@ -114,12 +125,10 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 		catch (Exception e)
 		{
 			message = "Error while generating the model, reason: " + e.toString();
+			e.printStackTrace();
+			Dialog.showInfo("Generating PRISM model", message);	
 		}
-
-		
-		Dialog.showInfo("Generating PRISM model", message);	
-
-		
+	
 		monitor.done();
 	}
 

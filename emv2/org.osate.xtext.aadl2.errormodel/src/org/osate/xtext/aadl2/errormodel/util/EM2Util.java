@@ -31,6 +31,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
@@ -55,8 +56,30 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 
 public class EM2Util {
 	
-	public static String ErrorModelAnnexName = "EMV2";
+	public final static String ErrorModelAnnexName = "EMV2";
 
+	
+	public static ErrorModelSubclause getErrorAnnexClause (ComponentInstance ci)
+	{
+		AnnexSubclause subclause = Aadl2InstanceUtil.getAnnexSubclause(ci, ErrorModelAnnexName);
+		if (subclause instanceof ErrorModelSubclause)
+		{
+			return ((ErrorModelSubclause)subclause);
+		}
+		return null;
+	}
+	
+	
+	
+	/*
+	public static 
+	for (AnnexSubclause al : asl){
+		if (al instanceof ErrorModelSubclause){
+			return ((ErrorModelSubclause)al);
+		}
+	}
+	*/
+	
 	public static ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
 		ContainedNamedElement result =  EM2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
 		return result;
