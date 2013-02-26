@@ -63,6 +63,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -88,7 +89,7 @@ public class DoPowerAnalysisLogic {
 		final SOMIterator soms = new SOMIterator(si);
 		while (soms.hasNext()) {
 			final SystemOperationMode som = soms.nextSOM();
-			final String somName = som.getName();
+			final String somName = Aadl2Util.getPrintableSOMName(som);
 			msg = new StringBuffer();
 			ForAllElement DoCapacity = new ForAllElement() {
 				@Override
@@ -100,7 +101,7 @@ public class DoPowerAnalysisLogic {
 					ComponentInstance ci = (ComponentInstance) aobj;
 					capacity = GetProperties.getPowerCapacity(ci, 0.0);
 					if (capacity > 0) {
-						OsateLogger.log(showSOM(somName) + "Computing Power for Bus " + ci.getName());
+						OsateLogger.log(somName + "Computing Power for Bus " + ci.getName());
 					} else {
 						return;
 					}
@@ -110,7 +111,7 @@ public class DoPowerAnalysisLogic {
 						if (!fi.getDstConnectionInstances().isEmpty()) {
 							double supply = GetProperties.getPowerBudget(fi, 0.0);
 							if (supply > 0) {
-								OsateLogger.log(showSOM(somName) + "  Supply " + supply + " from Bus "
+								OsateLogger.log(somName + "  Supply " + supply + " from Bus "
 										+ fi.getContainingComponentInstance().getName());
 								supplyTotal += supply;
 							}
@@ -123,13 +124,13 @@ public class DoPowerAnalysisLogic {
 						FeatureInstance dstfi = (FeatureInstance) ac.getDestination();
 						double res = GetProperties.getPowerBudget(dstfi, 0.0);
 						if (res > 0) {
-							OsateLogger.log(showSOM(somName) + "  Budget " + res + " by Component "
+							OsateLogger.log(somName + "  Budget " + res + " by Component "
 									+ dstfi.getContainingComponentInstance().getName());
 							budgetTotal += res;
 						}
 						res = GetProperties.getPowerSupply(dstfi, 0.0);
 						if (res > 0) {
-							OsateLogger.log(showSOM(somName) + "  Supply " + res + " from Component "
+							OsateLogger.log(somName + "  Supply " + res + " from Component "
 									+ dstfi.getContainingComponentInstance().getName());
 							supplyTotal += res;
 						}
@@ -230,13 +231,6 @@ public class DoPowerAnalysisLogic {
 		return res;
 	}
 
-	private String showSOM(String somName) {
-		if (somName != null && (somName.equalsIgnoreCase("No Modes") || somName.equalsIgnoreCase("NoModes"))) {
-			return "";
-		}
-		return "In SystemMode " + somName + ": ";
-	}
-
 	private String toString(double value) {
 		return value > 2000.0 ? value / 1000 + " W" : value + " mW";
 	}
@@ -253,7 +247,7 @@ public class DoPowerAnalysisLogic {
 			if (supply > capacity) {
 				modelExceeds = "** " + resourceName + " supply " + toString(supply) + " exceeds capacity "
 						+ toString(capacity);
-				errManager.error(ci, showSOM(somName) + modelExceeds);
+				errManager.error(ci, somName + modelExceeds);
 			}
 		}
 		String suppliedmsg = "";
@@ -274,9 +268,9 @@ public class DoPowerAnalysisLogic {
 					+ " mW vs. budget total " + budget + " mW";
 		}
 		if (budget > available) {
-			errManager.error(ci, showSOM(somName) + modelStats);
+			errManager.error(ci, somName + modelStats);
 		} else {
-			errManager.info(ci, showSOM(somName) + modelStats);
+			errManager.info(ci, somName+ modelStats);
 		}
 		msg.append(modelStats + (modelExceeds.length() > 0 ? "\n***" + modelExceeds : "") + "\n");
 	}

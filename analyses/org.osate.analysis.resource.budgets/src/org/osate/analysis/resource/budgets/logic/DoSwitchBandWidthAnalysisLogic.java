@@ -40,6 +40,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 
 /**
@@ -68,7 +69,7 @@ public class DoSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysisLogic
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
-				final String somName = som.getName();
+				final String somName = Aadl2Util.getPrintableSOMName(som);
 				checkBusLoads(root, false, false, somName);
 			}
 			monitor.done();

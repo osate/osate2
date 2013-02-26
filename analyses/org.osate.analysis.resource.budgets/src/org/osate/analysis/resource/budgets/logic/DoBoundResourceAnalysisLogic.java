@@ -62,6 +62,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.util.ConnectionGroupIterator;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
@@ -95,7 +96,7 @@ public class DoBoundResourceAnalysisLogic {
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
-				final String somName = som.getName();
+				final String somName = Aadl2Util.getPrintableSOMName(som);
 				checkProcessorLoads(root, somName);
 				checkMemoryLoads(root, somName);
 			}
@@ -545,27 +546,18 @@ public class DoBoundResourceAnalysisLogic {
 	}
 
 	protected void errorSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
-			msg = "In SystemMode " + somName + ": " + msg;
-		}
-		errManager.error(obj, msg);
-		loggingErrManager.error(obj, msg);
+		errManager.error(obj, somName+msg);
+		loggingErrManager.error(obj, somName+msg);
 	}
 
 	protected void warningSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
-			msg = "In SystemMode " + somName + ": " + msg;
-		}
-		errManager.warning(obj, msg);
-		loggingErrManager.warning(obj, msg);
+		errManager.warning(obj, somName+msg);
+		loggingErrManager.warning(obj, somName+msg);
 	}
 
 	protected void infoSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
-			msg = "In SystemMode " + somName + ": " + msg;
-		}
-		errManager.info(obj, msg);
-		loggingErrManager.info(obj, msg);
+		errManager.info(obj, somName+msg);
+		loggingErrManager.info(obj, somName+msg);
 	}
 
 	protected String getResultsMessages() {
