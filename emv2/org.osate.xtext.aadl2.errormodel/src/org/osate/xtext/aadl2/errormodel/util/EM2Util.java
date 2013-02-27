@@ -938,9 +938,20 @@ public class EM2Util {
 		return hasComponentErrorBehavior(ci.getComponentClassifier());
 	}
 	
+	/**
+	 * 
+	 * @param cl 	The component classifier that is under test to have
+	 * 				an error-annex subclause.
+	 * @return		True is the component classifier has an error annex
+	 * 				subclause. False otherwise.
+	 */
 	public static boolean hasComponentErrorBehavior(ComponentClassifier cl){
 		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
-		return emsc.getComponentBehavior() != null;
+		if(emsc != null)
+		{
+			return emsc.getComponentBehavior() != null;
+		}
+		return false;
 	}
 	
 	public static boolean hasCompositeErrorBehavior(ComponentInstance ci){
