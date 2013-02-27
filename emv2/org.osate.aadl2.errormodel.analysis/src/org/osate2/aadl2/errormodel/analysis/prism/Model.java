@@ -1,7 +1,9 @@
 package org.osate2.aadl2.errormodel.analysis.prism;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -16,11 +18,28 @@ import org.osate.xtext.aadl2.errormodel.util.EM2Util;
  * @author jdelange
  *
  */
-public class Model {
+public class Model 
+{
 	private List<Module> 	modules;
 	private List<Formula> 	formulas;
 	private WriteToFile     prismFile;
 	private ComponentInstance rootInstance;
+	/**
+	 * The propagationsMap variable contains for each outport identifier
+	 * the potential error type propagated and their mapping into integer.
+	 * We map only OUT ports. So, we will have something like:
+	 * OUTPORTNAME1 => PROPAGATION1 => 1,
+	 *                 PROPAGATION2 => 2
+	 * OUTPORTNAME2 => PROPAGATION1 => 1,
+	 *                 PROPAGATION2 => 2                 
+	 */
+	private Map<String,Map<String,Integer>>		propagationsMap;
+
+	
+
+	private static Model currentInstance;
+	
+	
 	public Model (ComponentInstance rootSystem)
 	{
 		this.prismFile = new WriteToFile("PRISM", rootSystem);
@@ -28,8 +47,16 @@ public class Model {
 		this.formulas = new ArrayList<Formula> ();
 		this.rootInstance = rootSystem;
 		this.prismFile.setFileExtension("pm");
+		this.propagationsMap	= new HashMap<String,Map<String,Integer>>();
+		currentInstance = this;
+		
 	}
 	
+	
+	public static Model getCurrentInstance ()
+	{
+		return currentInstance;
+	}
 	
 	/**
 	 * Process the complete AADL model, create
@@ -76,4 +103,9 @@ public class Model {
 		this.formulas.add (f);
 	}
 	
+	
+	public Map<String,Map<String,Integer>> getPropagationMap ()
+	{
+		return this.propagationsMap;
+	}
 }

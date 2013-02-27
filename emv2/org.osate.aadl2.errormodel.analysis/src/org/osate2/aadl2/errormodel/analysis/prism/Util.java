@@ -1,15 +1,31 @@
 package org.osate2.aadl2.errormodel.analysis.prism;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
 
 /**
  * Utility methods used for the AADL to PRISM translator
@@ -45,6 +61,19 @@ public class Util
 	}
 	
 	/**
+	 * Return the name that corresponds to a variable associated
+	 * to a feature. The name is built using the ComponentInstance
+	 * and the Feature.
+	 * @param ci	The ComponentInstance processed and that contains the feature
+	 * @param fe	The Feature to map
+	 * @return
+	 */
+	public static String getFeatureName (ComponentInstance ci, Feature fe)
+	{
+		return getComponentName(ci) + "_" + fe.getName().toLowerCase();
+	}
+	
+	/**
 	 * Each AADL component mapped into PRISM has a state variable
 	 * This method returns the identifier of the state
 	 * variable for a given component.
@@ -54,6 +83,100 @@ public class Util
 	public static String getComponentStateVariableName (ComponentInstance ci)
 	{
 		return getComponentName(ci)+"_state";
+	}
+	
+	/**
+	 * Find other conditions required to switch from a state to another.
+	 * That might be due to the content of the transition itself 
+	 * (for example, when a transition is triggered from an 
+	 * incoming error propagation). 
+	 * propagation
+	 * @param instance 	The AADL instance that contains is related to the transition
+	 * @param trans 	The transition from the Error Model State Behavior that trigger the switch from one state to another
+	 * @return
+	 */
+	public static List<Expression> findOtherConditions (ComponentInstance instance, ErrorBehaviorTransition trans)
+	{
+		List<Expression> exprs = new ArrayList<Expression>();		
+		ConditionExpression condition;
+		
+		condition = trans.getCondition();
+		if (condition instanceof ConditionElement)
+		{
+			ConditionElement conditionElement 	= (ConditionElement) condition;
+			EventOrPropagation event   		  	= (EventOrPropagation) conditionElement.getIncoming();
+			TypeSet typeSet						= (TypeSet) conditionElement.getConstraint();
+			
+			
+			//OsateDebug.osateDebug("[Utils]    incoming :" + event);
+			
+			
+			if ((event != null) && (event instanceof ErrorPropagation))
+			{
+				ComponentInstance instanceSource 	= null;
+				Feature featureSource 				= null;
+				boolean found 						= false;
+				ErrorPropagation ep 				= (ErrorPropagation) event;
+				
+				Feature	associatedFeature 			= (Feature) ep.getFeature();
+				
+				
+				//instance.getAllEnclosingConnectionInstances()
+				//OsateDebug.osateDebug("[Utils]       ErrorPropagation kind:" + ep);
+				//OsateDebug.osateDebug("[Utils]       ErrorPropagation associated feature:" + associatedFeature);
+				for (ConnectionInstance ci : instance.getAllEnclosingConnectionInstances())
+				{
+					for (ConnectionReference cr : ci.getConnectionReferences())
+					{
+						//OsateDebug.osateDebug("[Utils]       ErrorPropagation cr dest cl:" + cr.getConnection().getAllDestination());
+						if (cr.getConnection().getAllDestination() == associatedFeature)
+						{
+							//OsateDebug.osateDebug("[Utils]       crSource:" + cr.getSource());
+							featureSource = ((FeatureInstance)cr.getSource()).getFeature();
+							instanceSource = cr.getSource().getContainingComponentInstance();
+							found = true;
+						}
+					}
+					
+					if ((found = true) && (instanceSource != null))
+					{
+						//OsateDebug.osateDebug("[Utils]       Instance src:" + instanceSource);
+						//OsateDebug.osateDebug("[Utils]       Feature src:" + featureSource);
+
+						ErrorModelSubclause sourceSubclause = EM2Util.getErrorAnnexClause (instanceSource);
+						//OsateDebug.osateDebug("[Utils]       ErrorPropagation src:" + sourceSubclause);
+						for (ErrorFlow flow : sourceSubclause.getPropagation().getFlows())
+						{
+							//OsateDebug.osateDebug("[Utils]       Flow:" + flow);
+
+							if (flow instanceof ErrorSource)
+							{
+								ErrorSource errorSource = (ErrorSource)flow;
+								ErrorBehaviorState state = (ErrorBehaviorState) errorSource.getFailureModeReference();
+								//OsateDebug.osateDebug("[Utils]       ErrorSource feature:" + errorSource.getOutgoing().getFeature());
+								if (errorSource.getOutgoing().getFeature() == featureSource)
+								{
+									TypeSet ts = errorSource.getTypeTokenConstraint();
+									TypeToken tt = ts.getElementType().get(0);
+									ErrorType et = tt.getType().get(0);
+									//OsateDebug.osateDebug("[Utils]       ErrorSource token:" + et);
+									Expression e = new Equal (new Terminal (Util.getFeatureName(instanceSource, featureSource)),
+															  new Terminal ("" + Model.getCurrentInstance().getPropagationMap().get(featureSource.getName()).get(et.getName())));
+									exprs.add(e);
+								}
+
+							}
+
+						}
+
+					}
+				}
+
+			}
+			//OsateDebug.osateDebug("[Utils]    constraint :" + typeSet);
+		}
+		
+		return exprs;
 	}
 	
 	
@@ -96,15 +219,15 @@ public class Util
 			TypeSet typeSet						= (TypeSet) conditionElement.getConstraint();
 			
 			
-			OsateDebug.osateDebug("[Utils]    incoming :" + event);
+			//OsateDebug.osateDebug("[Utils]    incoming :" + event);
 			if ((event != null) && (event instanceof ErrorEvent))
 			{
 
 				ErrorEvent ee = (ErrorEvent) event;
-				OsateDebug.osateDebug("[Utils]       Event kind:" + ee);
+				//OsateDebug.osateDebug("[Utils]       Event kind:" + ee);
 
 				ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(instance,null,ee,null);
-				OsateDebug.osateDebug("[Utils]       PA :" + PA);
+				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
 
 				res = EM2Util.getOccurenceValue (PA);
 			}
@@ -112,14 +235,25 @@ public class Util
 			if ((event != null) && (event instanceof RecoverEvent))
 			{
 				RecoverEvent re = (RecoverEvent) event;
-				OsateDebug.osateDebug("[Utils]       Recover kind:" + re);
+				//OsateDebug.osateDebug("[Utils]       Recover kind:" + re);
 
 				ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(instance,null,re,null);
-				OsateDebug.osateDebug("[Utils]       PA :" + PA);
+				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
 
 				res = EM2Util.getOccurenceValue (PA);
 			}
-			OsateDebug.osateDebug("[Utils]    constraint :" + typeSet);
+			
+			/**
+			 * In case of an ErrorPropagation, we assume the probability
+			 * to switch is 100% and that there is no other event that
+			 * may trigger a switch. This might be changed when improving
+			 * the generator.
+			 */
+			if ((event != null) && (event instanceof ErrorPropagation))
+			{
+				res = 1.0;
+			}
+			//OsateDebug.osateDebug("[Utils]    constraint :" + typeSet);
 		}
 		
 		return res;

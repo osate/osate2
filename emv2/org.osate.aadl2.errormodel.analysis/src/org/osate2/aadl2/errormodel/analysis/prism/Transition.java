@@ -1,21 +1,25 @@
 package org.osate2.aadl2.errormodel.analysis.prism;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
 
 public class Transition {
 	private double probability;
-	private Expression expression;
+	private List<Expression> expressions;
 	
 	public Transition ()
 	{
 		this.probability = 0.0;
-		this.expression = new Terminal ("unknown_expression");
+		this.expressions = new ArrayList<Expression>();
 	}
 	
 	public Transition (double d, Expression e)
 	{
+		this();
 		this.probability = d;
-		this.expression = e;
+		this.expressions.add (e);
 	}
 	
 	public double getProbability ()
@@ -23,14 +27,14 @@ public class Transition {
 		return this.probability;
 	}
 	
-	public Expression getExpression ()
+	public List<Expression> getExpressions ()
 	{
-		return this.expression;
+		return this.expressions;
 	}
 	
-	public void setExpression (Expression e)
+	public void addExpression (Expression e)
 	{
-		this.expression = e;
+		this.expressions.add (e);
 	}
 	
 	public void setProbability (double d)

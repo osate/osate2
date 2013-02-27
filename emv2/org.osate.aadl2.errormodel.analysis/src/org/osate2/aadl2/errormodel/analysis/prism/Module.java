@@ -15,8 +15,15 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
 
@@ -34,7 +41,7 @@ public class Module {
 	private Model					associatedModel;
 	private Map<String,Integer>		statesMap;
 	private	List<Formula>			formulas;
-	
+	private Map<String,Integer>		vars;
 	/**
 	 * 
 	 * @param ci	The AADL component that corresponds to this PRISM module
@@ -48,6 +55,7 @@ public class Module {
 		this.aadlComponent 		= ci;
 		this.nStates 			= 0;
 		this.statesMap			= new HashMap<String,Integer>();
+		this.vars    			= new HashMap<String,Integer>();
 	}
 	
 	/**
@@ -82,6 +90,15 @@ public class Module {
 			sb.append ("\t" + Util.getComponentName (aadlComponent) + "_state: [ 0 .. "+ (this.nStates - 1) +"] init 0;\n");
 		}
 		
+		if (this.vars.size() > 0)
+		{
+			for (String s : this.vars.keySet())
+			{
+				int size = this.vars.get(s);
+				sb.append ("\t" + Util.getComponentName (aadlComponent) + "_"+s.toLowerCase()+": [ 0 .. "+ size +"] init 0;\n");
+			}
+		}
+		
 		/**
 		 * Here, we write each command with transition/probability that
 		 * triggers state changes.
@@ -101,9 +118,18 @@ public class Module {
 				}
 				sb.append (t.getProbability());	
 				sb.append (" : ");
-				sb.append ("(");
-				sb.append (t.getExpression().toString());
-				sb.append (")");
+				boolean firstExpression = true;
+				for (Expression e : t.getExpressions())
+				{
+					if ( ! firstExpression )
+					{
+						sb.append ( " & ");
+					}
+					sb.append ("(");
+					sb.append (e.toString());
+					sb.append (")");
+					firstExpression = false;
+				}
 				alreadyOne = true;
 			}
 			
@@ -152,6 +178,56 @@ public class Module {
 	}
 	
 	/**
+	 * This method try to find additional assignment to do when switching to
+	 * the targetmode. The intent here is to assign all values when switching
+	 * to another state.
+	 * 
+	 * @param targetState The target state in which the statemachine will be
+	 * @return 	A List that contains all expression that should be performed
+	 *   		(mostly assignment) when switching to this state. The list
+	 *   		is empty if nothing shall be performed.
+	 */
+	private List<Expression> getAdditionalAssignments (ErrorBehaviorState targetState)
+	{
+		List<Expression> exprs = new ArrayList<Expression>();
+		
+		ErrorModelSubclause errorModelSubclause = EM2Util.getErrorAnnexClause(aadlComponent);
+
+		if (errorModelSubclause.getPropagation() != null)
+		{
+			for (ErrorFlow ef : errorModelSubclause.getPropagation().getFlows())
+			{
+				if (ef instanceof ErrorSource)
+				{
+					ErrorSource errorSource = (ErrorSource)ef;
+					Expression expr = null;
+					expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, errorSource.getOutgoing().getFeature()), true),
+									  new Terminal ("0"));
+
+					if (errorSource.getFailureModeReference() instanceof ErrorBehaviorState)
+					{
+						ErrorBehaviorState state = (ErrorBehaviorState)errorSource.getFailureModeReference();
+						if (state.getName() == targetState.getName())
+						{
+							TypeToken tt = errorSource.getTypeTokenConstraint().getElementType().get(0);
+							String tokenName = tt.getType().get(0).getName();
+							//OsateDebug.osateDebug("tokenName" + tokenName);
+							expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, errorSource.getOutgoing().getFeature()), true),
+									        		    new Terminal ("" + this.associatedModel.getPropagationMap().get(errorSource.getOutgoing().getFeature().getName()).get(tokenName)));
+							
+						}
+					}
+					exprs.add(expr);
+
+				}
+			}
+					
+		}
+		return exprs;
+	}
+	
+	
+	/**
 	 * This method process the AADL component and creates
 	 * all PRISM objects and artifact to generate code.
 	 * This method shall be called before the getPrismCode()
@@ -169,6 +245,7 @@ public class Module {
 		OsateDebug.osateDebug("[PRISM][Module.java] Process " + aadlComponent.getName());
 		
 		ErrorBehaviorStateMachine useStateMachine = null;
+		ErrorPropagations propagations = null;
 		ErrorModelSubclause errorModelSubclause = EM2Util.getErrorAnnexClause(aadlComponent);
 		ComponentErrorBehavior errorBehavior = EM2Util.getComponentErrorBehavior (aadlComponent.getComponentClassifier());
 		ErrorBehaviorStateMachine componentStateMachine = EM2Util.getContainingErrorBehaviorStateMachine(aadlComponent.getComponentClassifier());
@@ -243,6 +320,40 @@ public class Module {
 			}
 		}
 		
+		/**
+		 * Here, we see if we have any error propagation.
+		 * If yes, then, we declare a variable for each OUT port.
+		 * The variable can have N values, N being the number of potential
+		 * error types propagated. The variable has a value 0 if no error
+		 * is propagated.
+		 */
+		if (errorModelSubclause.getPropagation() != null)
+		{
+			propagations = errorModelSubclause.getPropagation();
+			for (ErrorPropagation ep : propagations.getPropagations())
+			{
+				OsateDebug.osateDebug("[PRISM][Module.java] Process propagation " + ep);
+				if (ep.getDirection().outgoing())
+				{
+					Map<String,Integer> tmpMap = new HashMap<String,Integer>();
+					int errorVal = 1;
+					TypeSet ts = ep.getTypeSet();
+					OsateDebug.osateDebug("[PRISM][Module.java] typeset " + ts);
+					for (TypeToken tt : ts.getElementType())
+					{
+						for (ErrorType et : tt.getType())
+						{
+							OsateDebug.osateDebug("[PRISM][Module.java] typetoken " + et);
+							tmpMap.put(et.getName(), errorVal++);
+						}
+
+					}
+					this.vars.put (ep.getFeature().getName(), errorVal - 1);
+					this.associatedModel.getPropagationMap().put(ep.getFeature().getName(), tmpMap);
+				}
+			}
+		}
+		
 		if (errorBehavior != null)
 		{
 			OsateDebug.osateDebug("[PRISM][Module.java] Process error behavior of " + aadlComponent.getName());
@@ -250,12 +361,11 @@ public class Module {
 			for (ErrorDetection ed : errorBehavior.getErrorDetections())
 			{
 				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorDerection " + ed);
-
 			}
+			
 			for (ErrorBehaviorEvent ed : errorBehavior.getEvents())
 			{
 				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorEvent " + ed);
-
 			}
 			
 			for (ErrorBehaviorTransition trans : errorBehavior.getTransitions())
@@ -274,7 +384,6 @@ public class Module {
 				
 				
 				command = new Command ();
-				command.setCondition (before);
 				
 				/**
 				 * This is a simple transition like this
@@ -290,7 +399,22 @@ public class Module {
 					tmpState = statesMap.get(trans.getTarget().getName());
 					after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
 								   new Terminal (""+tmpState));
-					command.addTransition (new Transition (probability, after));
+					Transition transaction = new Transition (probability, after);
+					
+					/**
+					 * We try to find if other variables may be updated when switching
+					 * to the new state. The getAdditionalAssignments () provides
+					 * a list of expression to perform for that particular case.
+					 */
+					List<Expression> additionalAssignments = getAdditionalAssignments(trans.getTarget());
+					
+					for (Expression e : additionalAssignments)
+					{
+						transaction.addExpression(e);
+				
+					}
+					
+					command.addTransition (transaction);
 				}
 				
 				
@@ -319,12 +443,34 @@ public class Module {
 						tmpState = statesMap.get(tb.getTarget().getName());
 						after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
 									   new Terminal (""+tmpState));
-						command.addTransition (new Transition (mainProbability * probability, after));
+						Transition transition = new Transition (mainProbability * probability, after);
+						
+						/**
+						 * We try to find if other variables may be updated when switching
+						 * to the new state. The getAdditionalAssignments () provides
+						 * a list of expression to perform for that particular case.
+						 */
+						List<Expression> additionalAssignments = getAdditionalAssignments(tb.getTarget());
+						for (Expression e : additionalAssignments)
+						{
+							transition.addExpression(e);
+					
+						}
+						
+						command.addTransition (transition);
 
 					}
 				}
 
-				
+				/**
+				 * We try to find other conditions that may trigger
+				 * this transition (guard conditions).
+				 */
+				for (Expression e : Util.findOtherConditions (aadlComponent, trans))
+				{
+					before = new And (before, e);
+				}
+				command.setCondition (before);
 				this.commands.add (command);
 			}
 			
