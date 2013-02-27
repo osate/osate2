@@ -68,7 +68,8 @@ public class Model
 	{
 		List<ComponentInstance> instances;
 		instances = EM2Util.getComponentInstancesWithComponentErrorBehavior(rootInstance);
-		
+		instances.addAll (EM2Util.getComponentInstancesWithhasCompositeErrorBehaviorOnly(rootInstance));
+
 		for (ComponentInstance instance : instances)
 		{
 			addModule ( (new Module(instance, this)).process());

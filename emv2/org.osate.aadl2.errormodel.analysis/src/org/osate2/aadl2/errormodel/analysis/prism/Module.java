@@ -5,11 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -21,6 +28,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
@@ -226,7 +236,64 @@ public class Module {
 		return exprs;
 	}
 	
+	/**
+	 * Map a single element from a ConditionExpression into a PRISM entity
+	 * This is used mostly to map Composite Error Condition
+	 * into PRISM artifacts.
+	 * 
+	 * @param conditionElement - The Element to map into PRISM
+	 * @return A PRISM Expression that represents the conditionElement from the
+	 *         AADL EMV2, null if this cannot be mapped.
+	 */
+	private Expression handleElement (final ConditionElement conditionElement)
+	{
+
+		ErrorBehaviorState behaviorState = conditionElement.getReference();
+
+		for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
+		{
+			Subcomponent subcomponent = subcomponentElement.getSubcomponent();
+			
+			if (behaviorState != null)
+			{
+				return new Terminal (subcomponent.getName() + Util.getComponentName(aadlComponent) + "_is_" + behaviorState.getName().toLowerCase());
+
+			}
+		}
+		
+		return new Terminal ("unknown");
+	}
 	
+	/**
+	 * Mao a condition from a composite error behavior into a PRISM expression
+	 * 
+	 * @param cond	The Condition from the Error Composite Behavior to map
+	 * @return A PRISM Expression, null if this cannot be mapped
+	 */
+	private Expression handleCompositeCondition (final ConditionExpression cond)
+	{
+		Expression res = null;
+		
+		if (cond instanceof ConditionElement)
+		{
+			res = handleElement((ConditionElement)cond);
+		}
+		
+		if (cond instanceof SOrExpression)
+		{
+			SOrExpression sor = (SOrExpression)cond;
+			res = new Or (handleCompositeCondition(sor.getOperands().get(0)), handleCompositeCondition(sor.getOperands().get(1)));
+			
+		}
+		
+		if (cond instanceof SAndExpression)
+		{
+			SAndExpression sae = (SAndExpression)cond;
+			res = new And (handleCompositeCondition(sae.getOperands().get(0)), handleCompositeCondition(sae.getOperands().get(1)));
+			
+		}
+		return res;
+	}
 	/**
 	 * This method process the AADL component and creates
 	 * all PRISM objects and artifact to generate code.
@@ -249,6 +316,7 @@ public class Module {
 		ErrorModelSubclause errorModelSubclause = EM2Util.getErrorAnnexClause(aadlComponent);
 		ComponentErrorBehavior errorBehavior = EM2Util.getComponentErrorBehavior (aadlComponent.getComponentClassifier());
 		ErrorBehaviorStateMachine componentStateMachine = EM2Util.getContainingErrorBehaviorStateMachine(aadlComponent.getComponentClassifier());
+		CompositeErrorBehavior compositeErrorBehavior = EM2Util.getCompositeErrorBehavior (aadlComponent);
 		
 		if (errorModelSubclause != null)
 		{
@@ -351,6 +419,29 @@ public class Module {
 					this.vars.put (ep.getFeature().getName(), errorVal - 1);
 					this.associatedModel.getPropagationMap().put(ep.getFeature().getName(), tmpMap);
 				}
+			}
+		}
+		
+		
+		/**
+		 * For each statement of the composite error behavior
+		 * we map it into a formula so that we can use it for making
+		 * evaluation/computation.
+		 * For each composite state, we have something like
+		 * 
+		 */
+		if (compositeErrorBehavior != null)
+		{
+			EList<CompositeState> states = compositeErrorBehavior.getStates();
+			int n = 0;
+			
+			for (CompositeState state : states)
+			{
+				Expression e = handleCompositeCondition (state.getCondition());
+
+				Formula f = new Formula (Util.getComponentName(aadlComponent)+"_is_" + state.getState().getName().toLowerCase() + n, e);
+				this.formulas.add (f);
+				n++;
 			}
 		}
 		
