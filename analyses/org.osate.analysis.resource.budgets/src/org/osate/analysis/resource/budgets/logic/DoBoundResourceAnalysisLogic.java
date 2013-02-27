@@ -63,6 +63,7 @@ import org.osate.aadl2.modelsupport.util.ConnectionGroupIterator;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
@@ -92,12 +93,18 @@ public class DoBoundResourceAnalysisLogic {
 	public void analysisBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
 			SystemInstance root = ((InstanceObject) obj).getSystemInstance();
+			InstanceValidation iv = new InstanceValidation(errManager);
+			if (!iv.checkReferenceProcessor(root)){
+				Dialog.showError("Bound Resource Budget Analysis","Model contains thread execution times without reference processor.");
+				return;
+			}
 			monitor.beginTask(actionName, IProgressMonitor.UNKNOWN);
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
 				final String somName = Aadl2Util.getPrintableSOMName(som);
 				checkProcessorLoads(root, somName);
+//				checkVirtualProcessorLoads(root, somName);
 				checkMemoryLoads(root, somName);
 			}
 			monitor.done();
@@ -120,6 +127,45 @@ public class DoBoundResourceAnalysisLogic {
 		mal.processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
 	}
 
+	protected void checkVirtualProcessorLoads(SystemInstance si, final String somName) {
+		ForAllElement mal = new ForAllElement() {
+			@Override
+			protected void process(Element obj) {
+				checkProcessorLoad((ComponentInstance) obj, somName);
+			}
+		};
+		mal.processPreOrderComponentInstance(si, ComponentCategory.VIRTUAL_PROCESSOR);
+	}
+	
+	/**
+	 * get all components bound to the given component
+	 * @param procorVP
+	 * @return
+	 */
+	protected EList getBoundComponents(final ComponentInstance procorVP){
+		SystemInstance root = procorVP.getSystemInstance();
+		EList boundComponents = new ForAllElement() {
+			@Override
+			protected boolean suchThat(Element obj) {
+				List<ComponentInstance> boundProcessorList = GetProperties.getActualProcessorBinding((ComponentInstance)obj);
+				if (boundProcessorList.isEmpty())
+					return false;
+				return boundProcessorList.contains(procorVP);
+			}
+			@Override
+			protected void action(Element obj) {
+				if (obj instanceof ComponentInstance && ((ComponentInstance)obj).getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+					EList subresultlist = getBoundComponents((ComponentInstance)obj);
+					resultList.addAll(subresultlist);
+				} else {
+					resultList.add(obj);
+				}
+			}
+		}.processPostOrderComponentInstance(root);
+		return boundComponents;
+	}
+
+
 	/**
 	 * check the load from components bound to the given processor The
 	 * components can be threads or higher level components.
@@ -127,30 +173,12 @@ public class DoBoundResourceAnalysisLogic {
 	 * @param curProcessor Component Instance of processor
 	 */
 	protected void checkProcessorLoad(ComponentInstance curProcessor, String somName) {
-		// check about cycletime and MIPS capacity consistency
-		double MIPScapacity = GetProperties.getMIPSCapacityInMIPS(curProcessor,0.0);
-		// get cycle time and compare with MIPS capacity
-		double cycleMIPS = GetProperties.getCycletimeasMIPS(curProcessor);
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(curProcessor);
-		if (cycleMIPS > 0.0) {
-			if (MIPScapacity > 0.0) {
-				if (Math.abs(MIPScapacity - cycleMIPS) > 1) {
-					errorSummary(curProcessor, null, "MIPS capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " and cycle time in MIPS "
-							+ GetProperties.toStringScaled(cycleMIPS, mipsliteral) + " specified inconsistently. Please remove one.");
-				}
-			}
+		double MIPScapacity = GetProperties.getMIPSCapacityInMIPS(curProcessor,0.0);
+		if (MIPScapacity == 0 && curProcessor.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
-		SystemInstance root = curProcessor.getSystemInstance();
-		final ComponentInstance currentProcessor = curProcessor;
-		EList boundComponents = new ForAllElement() {
-			@Override
-			protected boolean suchThat(Element obj) {
-				List<ComponentInstance> boundProcessorList = GetProperties.getActualProcessorBinding((ComponentInstance)obj);
-				if (boundProcessorList.isEmpty())
-					return false;
-				return boundProcessorList.get(0) == currentProcessor;
-			}
-		}.processPostOrderComponentInstance(root);
+		EList boundComponents = getBoundComponents(curProcessor);
 		if (boundComponents.size() == 0) {
 			errorSummary(curProcessor, somName, "No application components bound to "
 					+ curProcessor.getComponentInstancePath());
@@ -169,10 +197,10 @@ public class DoBoundResourceAnalysisLogic {
 			if (actualmips > 0) {
 				if (budget > 0 && actualmips > budget) {
 					warningSummary(bci, somName, "Execution time (in MIPS) " + GetProperties.toStringScaled(actualmips, mipsliteral) + " exceeds MIPS budget "
-							+ GetProperties.toStringScaled(budget, mipsliteral) + " on processor " + curProcessor.getComponentInstancePath());
+							+ GetProperties.toStringScaled(budget, mipsliteral) + " for "+bci.getComponentInstancePath());
 				} else if (budget > 0 && actualmips < budget) {
 					infoSummary(bci, somName, "Execution time (in MIPS) " + GetProperties.toStringScaled(actualmips, mipsliteral) + " is less than MIPS budget "
-							+ GetProperties.toStringScaled(budget, mipsliteral) + " on processor " + curProcessor.getComponentInstancePath());
+							+ GetProperties.toStringScaled(budget, mipsliteral) + " for "+bci.getComponentInstancePath());
 				}
 				// add ancestors to coverage list
 				while ((bci = bci.getContainingComponentInstance()) != null) {

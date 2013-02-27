@@ -46,6 +46,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.StringBufferAnalysisErrorReporter;
+import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoResourceBudgetLogic;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
@@ -87,6 +88,12 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 //				final SystemOperationMode som = soms.nextSOM();
 //				final String somName = som.getName();
 			final String somName = null;
+			InstanceValidation iv = new InstanceValidation(getErrorManager());
+			if (!iv.checkReferenceProcessor(si)){
+				Dialog.showWarning("Resource Budget Analysis","Model contains thread execution times without reference processor.");
+				return;
+			}
+
 			logic = new DoResourceBudgetLogic(reportMessage, loggingErrManager, getErrorManager());
 			logic.analyzeResourceBudget(si, somName);
 //			}

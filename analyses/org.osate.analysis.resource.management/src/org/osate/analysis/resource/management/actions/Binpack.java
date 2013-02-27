@@ -226,12 +226,12 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			 */
 			incompletethreads = new ForAllElement(){
 				protected boolean suchThat(Element obj){
-						return GetProperties.getActualComputeExecutionTimeinMS((ComponentInstance)obj) == 0.0;
+						return GetProperties.getThreadExecutioninMilliSec((ComponentInstance)obj) == 0.0;
 				}
 			}.processPreOrderComponentInstance(root,ComponentCategory.THREAD);
 			for (final Iterator i = incompletethreads.iterator(); i.hasNext();) {
 				final Element o = (Element) i.next();
-				warning(o, "Thread is missing compute execution time property. Using default of 0 ns");
+				warning(o, "Thread is missing compute_execution_time or InstructionsPerDispatch property. Using default of 0 ns");
 			} 
 
 			/* Find if all the port connections have data size
@@ -535,7 +535,10 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		for (final Iterator i = threads.iterator(); i.hasNext();) {
 			final ComponentInstance thr = (ComponentInstance) i.next();
 			final SoftwareNode thrSN = (SoftwareNode) threadToSoftwareNode.get(thr);
-			final Set allowed = getAllowedProcessorBindings(thr);
+			Set allowed = getActualProcessorBindings(thr);
+			if (allowed.size() == 0){
+				allowed = getAllowedProcessorBindings(thr);
+			}
 			if (allowed.size() >0){
 				final Object[] allowedProcs = new Object[allowed.size()];
 				int idx = 0;
@@ -696,6 +699,53 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 //		}
 //		return props;
 //	}
+
+	/**
+	 * Get the processor components that a given thread is allowed to be bound to
+	 * based on the thread's ACTUAL_PROCESSOR_BINDING property value. The processors are
+	 * search for in the same system instance that the given thread component is
+	 * a part of.
+	 *
+	 * @param thread
+	 *                 The thread.
+	 * @return An unmodifiable set of processor ComponentInstances.
+	 * @exception IllegalArgumentException
+	 *                      Thrown if the category of the component instance
+	 *                      referenced by <code>thread</code> is not
+	 *                      {@link ComponentCategory#THREAD_LITERAL}.
+	 */
+	public Set getActualProcessorBindings(final ComponentInstance thread) {
+		if (thread.getCategory() != ComponentCategory.THREAD) {
+			throw new IllegalArgumentException("Component \""
+					+ thread.getName() + "\" is not a thread.");
+		}
+		final Set<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
+		addRealProcessorBindings(thread, actualProcs);
+		return Collections.unmodifiableSet(actualProcs);
+	}
+	
+	protected List addRealProcessorBindings(ComponentInstance ci, Set<ComponentInstance> result){
+		try
+		{
+			List<ComponentInstance> actualBindingsVals = GetProperties.getActualProcessorBinding(ci);
+			for (ComponentInstance componentInstance : actualBindingsVals) {
+				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+					addRealProcessorBindings(componentInstance, result);
+				} else {
+					result.add(componentInstance);
+				}
+			}
+			return actualBindingsVals;
+		}
+		catch (PropertyNotPresentException e)
+		{
+			//Ignore this situation and move on.
+			return Collections.EMPTY_LIST;
+		}
+		
+	}
+	
+	
 
 	/**
 	 * Get the processor components that a given thread is allowed to be bound to

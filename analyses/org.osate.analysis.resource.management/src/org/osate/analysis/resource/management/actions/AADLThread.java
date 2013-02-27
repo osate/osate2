@@ -38,37 +38,15 @@ public final class AADLThread extends SoftwareNode {
 			deadline = 0;
 		}
 		
-		double maxComputeTime;
-		try
-		{
-			maxComputeTime = GetProperties.getActualComputeExecutionTimeinSec(thread);
-		}
-		catch (PropertyNotPresentException e)
-		{
-			maxComputeTime = 0.0;
-		}
-		if (maxComputeTime == 0){ // Choose deadline as WCET
-			try
-			{
-				maxComputeTime = GetProperties.getDeadlineinSec(thread);
-			}
-			catch (PropertyNotPresentException e)
-			{
-				maxComputeTime = 0.0;
-			}
-		}
-		if (maxComputeTime > 0){
-			double cycletime = GetProperties.getReferenceProcessorCycleTimeinSec(thread);
-			if (cycletime == 0){
-				// 1 GHz processor; time in microsec
-				cycletime = 1.0e-9;
-			}
-			cycles = (long) (maxComputeTime / cycletime);
-		} else {
-			double mipsbudget = GetProperties.getMIPSBudgetInMIPS(thread);
-			if (mipsbudget > 0){
+		double instructionsperdispatch = GetProperties.getSpecifiedThreadInstructionsinIPD(thread);
+		if (instructionsperdispatch == 0){
+			double mips = GetProperties.getThreadExecutioninMIPS(thread);
+			 if (mips == 0){
+				 mips = GetProperties.getMIPSBudgetInMIPS(thread);
+			 }
+			if (mips > 0){
 				// mips per sec, period in ns. cycles per period => mips / # dispatches * M
-				cycles = (long) mipsbudget * period /1000;
+				cycles = (long) mips * period /1000;
 			}
 		}
 	

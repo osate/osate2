@@ -55,6 +55,7 @@ public class DoResourceBudgetLogic {
 	private final AnalysisErrorReporterManager errManager;
 
 	private double capacity = 0;
+	private double vcapacity = 0;
 	private double budgetTotal = 0;
 
 	private int components = 0;
@@ -73,9 +74,15 @@ public class DoResourceBudgetLogic {
 		init();
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(si);
 		EList proclist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
-		checkProcessorMIPS(proclist);
 		capacity = sumCapacity(proclist, ResourceKind.MIPS, "processor",  true);
+		EList vproclist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.VIRTUAL_PROCESSOR);
+		vcapacity = sumVPMIPSBudget(vproclist,  true);
 		budgetTotal = sumBudgets(si, ResourceKind.MIPS, GetProperties.getMIPSUnitLiteral(si), true, somName);
+		if (budgetTotal > vcapacity){
+			budgetTotal = budgetTotal - vcapacity;
+			// VP was added into the budget total so we take it back out
+			// VP was not added into the capacity total
+		}
 		report(si, "MIPS", GetProperties.getMIPSUnitLiteral(si), somName);
 
 		init();
@@ -99,31 +106,16 @@ public class DoResourceBudgetLogic {
 		capacityResources = 0;
 		budgetTotal = 0;
 	}
-
-	private void checkProcessorMIPS(EList ilist) {
-		for (Iterator it = ilist.iterator(); it.hasNext();) {
-			ComponentInstance curProcessor = (ComponentInstance) it.next();
-			double MIPScapacity = GetProperties.getActualProcessorMIPS(curProcessor);
-			// get cycle time and compare with MIPS capacity
-			double cycleMIPS = GetProperties.getCycletimeasMIPS(curProcessor);
-
-			if (cycleMIPS > 0.0) {
-				if (MIPScapacity > 0.0) {
-					if (Math.abs(MIPScapacity - cycleMIPS) > 1) {
-						errorSummary(curProcessor, null, "MIPS capacity " + MIPScapacity + " and cycle time in MIPS "
-								+ cycleMIPS + " specified inconsistently. Please remove one.");
-					}
-				}
-			}
-		}
-	}
 	
 	private enum ResourceKind {MIPS, RAM, ROM};
 	
 	private double getCapacity(ComponentInstance ne,ResourceKind kind){
 		switch(kind){
 		case MIPS: 
-			return GetProperties.getActualProcessorMIPS(ne);
+			if (ne.getCategory().equals(ComponentCategory.PROCESSOR))
+				return GetProperties.getProcessorMIPS(ne);
+			if (ne.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR))
+				return GetProperties.getMIPSBudgetInMIPS(ne);
 		case RAM: 
 			return GetProperties.getRAMCapacityInKB(ne, 0.0);
 		case ROM: 
@@ -144,6 +136,18 @@ public class DoResourceBudgetLogic {
 		return 0.0;
 	}
 	
+
+	private double sumVPMIPSBudget(EList ilist,  boolean required) {
+		double total = 0.0;
+		for (Iterator it = ilist.iterator(); it.hasNext();) {
+			ComponentInstance io = (ComponentInstance) it.next();
+			double budget = GetProperties.getMIPSBudgetInMIPS(io);
+			total += budget;
+			if (budget == 0)
+					errManager.warning(io, "Virtual processor " + io.getInstanceObjectPath() + " without MIPS budget.");
+		}
+		return total;
+	}
 
 	private double sumCapacity(EList ilist, ResourceKind rk, String resourceName, boolean required) {
 		double total = 0.0;

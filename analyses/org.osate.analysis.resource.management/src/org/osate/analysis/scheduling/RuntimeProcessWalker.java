@@ -44,6 +44,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -97,9 +98,6 @@ public class RuntimeProcessWalker  {
 
 
   public void initWalker(){
-  	if (currentProcessor == null){
-  		cleanProcessHolder();
-  	}
     Element root = currentProcessor.getSystemInstance();
     TreeIterator ciit = EcoreUtil.getAllContents(Collections.singleton(root));
     while (ciit.hasNext()){
@@ -110,6 +108,30 @@ public class RuntimeProcessWalker  {
     }
 
   }
+  
+  public boolean containsProcessorBinding(ComponentInstance elt){
+	  	List<ComponentInstance> bindinglist;
+	  	//construct a new schedulable component, and put into the runTimeComponents only
+	  	//when all the timing properties are not null ! except the ARC related properties.
+	  	try
+	  	{
+	  		bindinglist = GetProperties.getActualProcessorBinding(elt);
+	  	}
+	  	catch (PropertyNotPresentException e)
+	  	{
+	  		return false;
+	  	}
+	  	for (ComponentInstance componentInstance : bindinglist) {
+			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+				if (containsProcessorBinding(componentInstance)){
+					return true;
+				}
+			} else if (componentInstance == currentProcessor){
+				return true;
+			}
+		}
+	  return false;
+  }
 
   /**
    * add thread if it is bound to the processor set in processorName
@@ -117,45 +139,39 @@ public class RuntimeProcessWalker  {
    */
   public void addThread( ComponentInstance elt ){
 
-  	RuntimeProcess curComponent = null;
-  	//construct a new schedulable component, and put into the runTimeComponents only
-  	//when all the timing properties are not null ! except the ARC related properties.
-  	try
-  	{
-  		GetProperties.getActualProcessorBinding(elt);
-  	}
-  	catch (PropertyNotPresentException e)
-  	{
-  		errManager.error(elt, " is not bound to a processor");
+
+	  double exectimeval;
+	  try
+	  {
+		  exectimeval = GetProperties.getThreadExecutioninMilliSec(elt);
+	  }
+	  catch (PropertyNotPresentException e)
+	  {
+		  errManager.error(elt, elt.getComponentInstancePath()+": Execution time is not set");
+		  return;
+	  }
+	  
+	  if (!containsProcessorBinding(elt)) {
+		  errManager.error(elt, elt.getComponentInstancePath()+" is not bound to a processor");
   		return;
   	}
-  	curComponent = new RuntimeProcess();
-  	curComponent.setProcessorName(currentProcessor.getInstanceObjectPath());
 
   	double val;
   	try
   	{
   		val = GetProperties.getPeriodinMS(elt);
-  		curComponent.setPeriod((int)val);
   	}
   	catch (PropertyNotPresentException e)
   	{
-  		errManager.error(elt, ": Period is not set");
+  		errManager.error(elt, elt.getComponentInstancePath()+": Period is not set");
   		return;
   	}
 
   	double deadlineval = GetProperties.getDeadlineinMilliSec(elt);
-  	curComponent.setDeadline((int) deadlineval);
-
-  	double exectimeval;
-  	try
-  	{
-  		exectimeval = GetProperties.getActualComputeExecutionTimeinMS(elt);
-  	}
-  	catch (PropertyNotPresentException e)
-  	{
-  		exectimeval = deadlineval/300;
-  	}
+  	RuntimeProcess curComponent = new RuntimeProcess();
+  	curComponent.setProcessorName(currentProcessor.getInstanceObjectPath());
+		curComponent.setPeriod((int)val);
+	  	curComponent.setDeadline((int) deadlineval);
   	curComponent.setExecutionTime((int) exectimeval);
 
   	curComponent.setPhaseOffset(0);
