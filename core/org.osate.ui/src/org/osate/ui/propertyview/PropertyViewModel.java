@@ -29,6 +29,8 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.core.OsateCorePlugin;
@@ -292,9 +294,20 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	}
 	
 	private String getValueAsString(PropertyExpression expression) {
-		String value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
-		//TODO: Test this to see what cleanup is truly necessary.
-		return value;
+		if (expression instanceof InstanceReferenceValue) {
+			InstanceObject referencedObject = ((InstanceReferenceValue)expression).getReferencedInstanceObject();
+			if (referencedObject != null) {
+				return referencedObject.getInstanceObjectPath();
+			}
+			else {
+				return "null";
+			}
+		}
+		else {
+			String value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
+			//TODO: Test this to see what cleanup is truly necessary.
+			return value;
+		}
 	}
 	
 	// Label Provider Methods
@@ -384,10 +397,6 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			else if (element instanceof UndefinedProperty || element instanceof UndefinedMode) {
 				return "No property value is defined.";
 			}
-//					/* || (element instanceof ValuedMode) || (element instanceof UndefinedProperty) || (element instanceof UndefinedMode)*/) {
-//				//TODO: figure this out.
-//				return "Need to figure out status.";
-//			}
 			else
 				return null;
 		}
