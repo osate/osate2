@@ -10,9 +10,10 @@
 <plugin>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
-    <package 
-       uri = "http://aadl.info/AADL/2.0" 
-       class = "org.osate.aadl2.Aadl2Package" /> 
+    <package
+          class="org.osate.aadl2.Aadl2Package"
+          genModel="model/aadl2.genmodel"
+          uri="http://aadl.info/AADL/2.0"/> 
   </extension>
 
   <extension point="org.eclipse.emf.ecore.extension_parser">
@@ -23,8 +24,9 @@
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://aadl.info/AADL/2.0/instance"
-            class="org.osate.aadl2.instance.InstancePackage"/>
+            class="org.osate.aadl2.instance.InstancePackage"
+            genModel="model/instance.genmodel"
+            uri="http://aadl.info/AADL/2.0/instance"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
