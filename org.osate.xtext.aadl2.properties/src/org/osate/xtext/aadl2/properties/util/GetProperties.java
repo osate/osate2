@@ -432,6 +432,19 @@ public class GetProperties {
 		}
 		return 0.0;
 	}
+
+	/**
+	 * Get the  bound processor. It will take the first if the binding identifies more than one.
+	 */
+	public static ComponentInstance getBoundProcessor(final ComponentInstance processorthread) {
+		List<ComponentInstance> pciList = getActualProcessorBinding(processorthread);
+		ComponentInstance pci = pciList.isEmpty() ? null : pciList.get(0);
+		if (pci != null) {
+			return pci;
+		}
+		return null;
+	}
+
 	
 	/**
 	 * Get the MIPS of the  processor from the MIPSCapacity.  

@@ -47,7 +47,7 @@ property set SEI is
 -- getInstructionExecutionTimeinSec(processor instance) [1/(MIPSCapacity*1e6)] provide the equivalent of cycle time
 -- people need distinction between instruction execution time and cycle time we can reintroduce the cycleperinstruction property
 
-  InstructionsPerDispatch: aadlreal  units SEI::InstructionVolumeUnits applies to (thread);
+  InstructionsPerDispatch: range of aadlreal  units SEI::InstructionVolumeUnits applies to (thread);
   InstructionVolumeUnits: type units (IPD, KIPD => IPD * 1000,MIPD => KIPD * 1000);
 
   -- The next set of properties are used in the resource budgeting plug-in
