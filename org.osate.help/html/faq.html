@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<LINK REL="STYLESHEET" HREF="book.css" CHARSET="ISO-8859-1" TYPE="text/css">
-	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+	<title>Open Source AADL Tool Environment (OSATE) Online Help - FAQ</title>
 </head>
 
 <body>
@@ -54,6 +54,78 @@ it could be done by following this process:
 Make sure you activate the problem view and check that it reports all
 information, as described in <a href="plugins/sei.html">this page</a>.
 </p>
+
+<h3>Working with the AADL perspective</h3>
+<p>
+You want to work in the AADL perspective.
+You can set it through <em>Open Perspective</em> in the <em>Window</em>
+ menu (or in the Perspective toolbar found on the right in the tool bar section).
+</em>
+
+<h3>Adding the Xtext Nature</h3>
+<p>
+You want to make sure your projects have the AADL and Xtext nature enabled.
+This should be done automatically when creating an AADL project but you may
+need to do that manually.
+This is typically indicated by a decorator on the project. You can enable the 
+natures in the AADL Navigator by selecting the project and invoking 
+<em>Configure</em> in the context menu. 
+The Xtext nature drives the auto-build (compilation) process.
+</p>
+
+<h3>Viewing and Filtering the Content of the Problems View</h3>
+<p>
+The Problems view in Eclipse presents markers attached to resources in the workspace. 
+(If you do not have the view, you can open it through the menu Window/Show View). 
+These markers are tagged as Error, Warning, or Information. 
+They carry a message and are associated with location information (to lines or model elements). 
+The Markers are also typed and can be sorted and filtered by type.
+</p>
+
+
+<p>
+You can specify what the content of the Problems view is by configuring it through 
+commands available through a menu (triangle) in the top right of the Problems view.
+</p>
+
+<p>
+It is useful to select Group by/Type as this will group markers from a particular 
+analysis together rather than grouping them by error, warning, info. 
+</p>
+
+<p>
+It is also useful to Configure content… Users like to set the Scope to 
+be On selected element and its children. 
+This will cause only the markers of a selected file, folder, or project 
+to be shown. You can also define new configurations, where you limit the
+type of marker that you want to have included, e.g., only markers of certain 
+analyses.
+</p>
+
+
+<h3>Tips and trick for editing models</h3>
+<ul>
+	<li>The AADL text editor does hyperlinking of references. 
+	    When you hold down the <Ctrl> key, the test holding 
+	    a reference turns into a hyperlink to the reference 
+	    model element.
+	</li>
+	<li>The AADL text editor supports a short-cut for 
+	    commenting out multiple lines of AADL text. 
+	    Select the lines and type <Ctrl>/ to comment or 
+	    uncomment the selected lines.
+	</li>
+	<li>The AADL text editor supports context sensitive help.
+	    When you pause (hover) over a model element a callout 
+	    pops up. When you type <Ctrl><space> a list of suggestions 
+	    pops up. For example, in an empty file you can type p and 
+	    then <Ctrl><space>. The popup will offer templates for 
+	    “package” and “property set”.
+	</li>
+</ul>
+
+
+
 
 </body>
 </html>
