@@ -15,8 +15,10 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.ComponentClassifier;
@@ -48,6 +50,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	
 	// Constants
 	
+	private static final String UNDEFINED = "undefined";
 	private static final String EQUALS = " => ";
 	private static final String EMPTY = "";
 	
@@ -124,6 +127,22 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		public abstract Color getColor();
 	}
 	
+	private class UndefinedMode extends InMode {
+		public UndefinedMode(final ModedProperty mp, final List<Mode> modes) {
+			super(mp, modes);
+		}
+		
+		@Override
+		public String getValue() {
+			return UNDEFINED;
+		}
+		
+		@Override
+		public Color getColor() {
+			return Display.getDefault().getSystemColor(SWT.COLOR_RED);
+		}
+	}
+	
 	private class ValuedMode extends InMode {
 		final String value;
 		
@@ -134,6 +153,25 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		
 		public ValuedMode(ModedProperty prop, ModalPropertyValue mpv) {
 			this(prop, mpv.getOwnedValue(), mpv.getAllInModes());
+		}
+		
+		@Override
+		public String getValue() {
+			return value;
+		}
+		
+		@Override
+		public Color getColor() {
+			return null;
+		}
+	}
+	
+	private class DefaultMode extends InMode {
+		final String value;
+		
+		public DefaultMode(final ModedProperty prop, final List<Mode> modes) {
+			super(prop, modes);
+			value = getValueAsString(prop.definition.getDefaultValue());
 		}
 		
 		@Override
@@ -189,6 +227,22 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		
 		public Object[] getModes() {
 			return modes.toArray();
+		}
+	}
+	
+	private class UndefinedProperty extends AbstractModelProperty {
+		public UndefinedProperty(final PropSet ps, final Property pn) {
+			super(ps, pn);
+		}
+		
+		@Override
+		public String getValue() {
+			return UNDEFINED;
+		}
+		
+		@Override
+		public Color getColor() {
+			return Display.getDefault().getSystemColor(SWT.COLOR_RED);
 		}
 	}
 	
@@ -324,8 +378,11 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			if (element instanceof ValuedProperty || element instanceof ValuedMode) {
 				return "Property exists locally.";
 			}
-			else if (element instanceof DefaultProperty) {
+			else if (element instanceof DefaultProperty || element instanceof DefaultMode) {
 				return "Property taking default value.";
+			}
+			else if (element instanceof UndefinedProperty || element instanceof UndefinedMode) {
+				return "No property value is defined.";
 			}
 //					/* || (element instanceof ValuedMode) || (element instanceof UndefinedProperty) || (element instanceof UndefinedMode)*/) {
 //				//TODO: figure this out.
@@ -434,6 +491,14 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		showUndefined = flag;
 	}
 	
+	public void toggleShowUndefined() {
+		showUndefined = !showUndefined;
+	}
+	
+	public boolean getShowUndefined() {
+		return showUndefined;
+	}
+	
 	/**
 	 * Rebuild list of property values.
 	 * @param element
@@ -480,6 +545,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 										for (ModalPropertyValue mpv : firstAssociation.getOwnedValues()) {
 											if (mpv.getAllInModes().size() == 0) {
 												new ValuedMode(prop, mpv.getOwnedValue(), elementModes);
+												elementModes.clear();
 											}
 											else {
 												new ValuedMode(prop, mpv);
@@ -494,6 +560,14 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 										if (prop.getModes().length == 0) {
 											propSet.removeProperty(prop);
 										}
+										else if (!elementModes.isEmpty()) {
+											if (pn.getDefaultValue() != null) {
+												new DefaultMode(prop, elementModes);
+											}
+											else if (showUndefined) {
+												new UndefinedMode(prop, elementModes);
+											}
+										}
 									}
 									else {
 										new ValuedProperty(propSet, pn, firstAssociation);
@@ -503,7 +577,9 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 									if (pn.getDefaultValue() != null) {
 										new DefaultProperty(propSet, pn);
 									}
-									//TODO: figure this out: show undefined
+									else if (showUndefined) {
+										new UndefinedProperty(propSet, pn);
+									}
 								}
 //							}
 						}
