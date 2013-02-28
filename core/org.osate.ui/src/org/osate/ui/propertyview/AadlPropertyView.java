@@ -5,6 +5,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelection;
@@ -17,21 +19,20 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-
-import com.google.inject.Inject;
+import org.osate.ui.OsateUiPlugin;
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -40,6 +41,9 @@ import com.google.inject.Inject;
  * @author aarong
  */
 public class AadlPropertyView extends ViewPart implements ISelectionListener {
+	private static final String SHOW_UNDEFINED_TRUE_TOOL_TIP = "Click to hide undefined properties";
+	private static final String SHOW_UNDEFINED_FALSE_TOOL_TIP = "Click to show undefined properties";
+	
 	private static final String NO_PROPERTIES_TO_SHOW =
 			"No properties to show: Please select a single object that is an AADL Property Holder.";
 	
@@ -59,6 +63,11 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	 * The label for the no results message.
 	 */
 	private Label noPropertiesLabel;
+	
+	/**
+	 * Action for toggling the display of nonexistent properties
+	 */
+	private Action showUndefinedAction = null;
 	
 	/**
 	 * Model
@@ -106,8 +115,8 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		// Show the "nothing to show" page by default
 		pageBook.showPage(noPropertiesLabel);
 		getSite().getPage().addSelectionListener(this);
-//		createActions();
-//		fillToolbar();
+		createActions();
+		fillToolbar();
 //		createContextMenu();
 	}
 	
@@ -117,6 +126,33 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	
 	private void showNoProperties() {
 		pageBook.showPage(noPropertiesLabel);
+	}
+	
+	private void createActions() {
+		showUndefinedAction = new Action() {
+			@Override
+			public void run() {
+				model.toggleShowUndefined();
+				updateActionStates();
+				buildNewModel(getCurrentElement());
+			}
+		};
+		showUndefinedAction.setImageDescriptor(OsateUiPlugin.getImageDescriptor("icons/nonexistent_property.gif"));
+		
+		updateActionStates();
+	}
+	
+	private void updateActionStates() {
+		final boolean flag = model.getShowUndefined();
+		showUndefinedAction.setChecked(flag);
+		showUndefinedAction.setToolTipText(flag ? SHOW_UNDEFINED_TRUE_TOOL_TIP : SHOW_UNDEFINED_FALSE_TOOL_TIP);
+	}
+	
+	private void fillToolbar() {
+		IActionBars bars = getViewSite().getActionBars();
+		IToolBarManager manager = bars.getToolBarManager();
+		manager.add(showUndefinedAction);
+//		manager.add(addNewPropertyAssociationToolbarAction);
 	}
 
 	@Override
@@ -196,13 +232,15 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	}
 	
 	private void buildNewModel(NamedElement element) {
-		model.rebuildModel(element);
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				treeViewer.refresh();
-				treeViewer.expandAll();
-			}
-		});
+		if (element != null) {
+			model.rebuildModel(element);
+			Display.getDefault().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					treeViewer.refresh();
+					treeViewer.expandAll();
+				}
+			});
+		}
 	}
 }
