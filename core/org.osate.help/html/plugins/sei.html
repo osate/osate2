@@ -97,6 +97,94 @@ it can be opened with a spreadsheet such as LibreOffice or Microsoft Excel.
 </p>
 
 
+<h3>Weight Plug-In</h3>
+<p>
+Once the analysis is done, a report is generated in the <em>reports/</em>
+directory, in the root directory of the AADL project. On completion,
+the plug-in also a dialog that summarizes the result of the analysis (as shown below).
+</p>
+<img src="weight-dialog.png"/>
+<p>
+When the system is being analyzed, the following properties are analyzed:
+</p>
+<ul>
+<li>SEI::NetWeight</li>
+<li>SEI::GrossWeight</li>
+<li>SEI::WeightLimit</li>
+</ul>
+<p>
+These properties are associated to the following elements:
+</p>
+<ul>
+	<li><strong>connection</strong></li>
+	<li><strong>components</strong>, except for process, virtual bus and virtual processor</li>
+</ul>
+
+
+<h3>Check Miss Rates</h3>
+<p>
+When the system is being analyzed, the following properties are processed:
+</p>
+<ul>
+<li>SEI::SteamMissRate</li>
+</ul>
+<p>
+These properties are associated to connection (port connection, no access connection).
+</p>
+
+
+<h3>Analyze Bound Bus Load</h3>
+<p>
+When the system is being analyzed, the following properties are processed:
+</p>
+<ul>
+	<li><strong></strong></li>
+</ul>
+
+<h3>Analyze Bus Load</h3>
+<p>
+When the system is being analyzed, the following properties are processed:
+</p>
+<ul>
+	<li><strong></strong></li>
+</ul>
+
+
+<h3>Analyze Bus Power Draw</h3>
+<p>
+When the system is being analyzed, the following properties are processed:
+</p>
+<ul>
+	<li><strong></strong></li>
+</ul>
+
+
+<h3>Analyze Resources Allocation/h3>
+<p>
+When the system is being analyzed, the following properties are processed:
+</p>
+<ul>
+	<li><strong></strong></li>
+</ul>
+
+
+<h3>Analyze Resources Budgets</h3>
+<p>
+When the system is being analyzed, the following properties are processed:
+</p>
+<ul>
+<li><strong>ReferenceProcessor</strong> for thread, indicate on which
+processor the metrics are valid (such as execution time, etc.)</li>
+<li><strong>SEI::RAMCapacity</strong></li>
+<li><strong>SEI::ROMBudget</strong></li>
+<li><strong>SEI::RAMCapacity</strong></li>
+<li><strong>SEI::ROMBudget</strong></li>
+<li><strong>SEI::MIPSCapacity</strong></li>
+<li><strong>SEI::MIPSBudget</strong></li>
+</ul>
+
+
+
 <h3>Security Plug-In</h3>
 <p>
 The security plug-in make an evaluation of the system according to
