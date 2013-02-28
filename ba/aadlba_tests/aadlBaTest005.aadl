@@ -249,7 +249,7 @@ annex behavior_specification
  
   states
     a : state ;
-    
+    dummy : initial complete final state ;
  -- *** TRANSITIONS ***
 
   transitions
