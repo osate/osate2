@@ -177,6 +177,9 @@ in a dialog box, as shown in the following picture.
 
 <h3>Analyze Bus Power Draw</h3>
 <p>
+This plug-in analyzes the system, using buses
+as a power cable with components providing
+or consuming power.
 When the system is being analyzed, the following properties are processed:
 </p>
 <ul>
@@ -188,9 +191,15 @@ When the system is being analyzed, the following properties are processed:
 
 <h3>Analyze Resource Allocation/h3>
 <p>
+This analysis check the processor load (using MIPS budget and capacity), 
+and the memory load (with the memory bound to the processes and using
+the RAM and ROM budget/capacities). It also check the bus load
+according to the bus bandwidth and its bound connections.
 When the system is being analyzed, the following properties are processed:
 </p>
 <ul>
+	<li><strong>ReferenceProcessor</strong>: thread has to be associated
+	with a reference processor.</li>
 	<li><strong>SEI::BandWidthCapacity</strong></li>
 	<li><strong>Actual_Connection_Binding</strong></li>
 	<li><strong>Actual_Processor_Binding</strong></li>
@@ -230,7 +239,7 @@ in a dialog box, as shown in the following picture.
 The security plug-in make an evaluation of the system according to
 the security levels of each process and its mode. For that, the
 model must define the properties <em>SEI::SecurityLevel</em>
-on appropriate components. The
+on appropriate components.
 </p>
 
 </body>
