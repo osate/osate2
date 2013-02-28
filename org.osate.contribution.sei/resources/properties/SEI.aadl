@@ -37,21 +37,26 @@ property set SEI is
   -- contributes to flow latency on cross-partition communication
   Partition_Latency: Time => 50 Ms applies to (system, process);
   Is_Partition: aadlboolean  => false applies to (system, process);
+  
   -- properties to support adjustment of execution time according to processor speed
   -- time to execute one processor cycle
   -- Used to convert execution time into processor cycles
-  -- default cycle time of a 1 GHz processor
-  cycle_time: Time => 1000 ps applies to (processor);
-  -- conversion factor from cycle time to instruction time (default is assumed to be 1
-  cycles_per_instruction : aadlreal applies to (processor, system);
+--   cycle_time: Time applies to (processor); Removed.
+-- XXX: MIPSCapacity provides speed in terms of instructions. 
+-- methods getInstructionExecutionTimeinUS(processor instance) [1/MIPSCapacity] and
+-- getInstructionExecutionTimeinSec(processor instance) [1/(MIPSCapacity*1e6)] provide the equivalent of cycle time
+-- people need distinction between instruction execution time and cycle time we can reintroduce the cycleperinstruction property
+
+  InstructionsPerDispatch: range of aadlreal  units SEI::InstructionVolumeUnits applies to (thread);
+  InstructionVolumeUnits: type units (IPD, KIPD => IPD * 1000,MIPD => KIPD * 1000);
 
   -- The next set of properties are used in the resource budgeting plug-in
   
   -- number of instructions that can be executed on a processor (KIPS, MIPS, GIPS)
-  MIPSCapacity: aadlreal  units SEI::Processor_Speed_Units => 1.0 GIPS applies to (processor, system);
+  MIPSCapacity: aadlreal units SEI::Processor_Speed_Units applies to (processor, system);
   -- number of instructions allocatetd to an application component as budget
   -- devices may have need for execution of instructions to handle their drivers
-  MIPSBudget: aadlreal  units SEI::Processor_Speed_Units applies to (thread, thread group, process, system, device);
+  MIPSBudget: aadlreal  units SEI::Processor_Speed_Units applies to (thread, thread group, process, system, device, virtual processor);
   -- RAM capacity of a platform component
   RAMCapacity: aadlreal  units Size_Units applies to (memory, system);
   -- RAM budget of an application component.  Devices may have RAM need
@@ -69,7 +74,7 @@ property set SEI is
   -- capacity of a bus component for transfer of data
   BandWidthCapacity: aadlreal  units Data_Volume_Units applies to (bus, system);
   -- demand for data transfer by a connection
-  BandWidthBudget: aadlreal  units Data_Volume_Units applies to (connection);
+  BandWidthBudget: aadlreal  units Data_Volume_Units applies to (connection, virtual bus);
   -- actual RAM requirement by application component
   -- This number may be supplied from a compiler when compiling the source
   -- This number is related to the Source_Code_Size and Source_Data_Size properties

@@ -136,82 +136,6 @@ public class GetProperties {
 		return EMFIndexRetrieval.getPropertyConstantInWorkspace(context,qname);
 	}
 
-//	/**
-//	 * find property definition for given property name. The property may be qualified by the property set name via the ps parameter
-//	 * For predeclared properties this is not required
-//	 * @param ps String property set name, which may be null
-//	 * @param name String Property Definition name
-//	 * @return Property or null
-//	 */
-//	public static Property lookupPropertyDefinition(String ps, String name) {
-//		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(ps != null?(ps+ "::" +name):name);
-//	}
-//
-//
-//	/**
-//	 * find property type for given name. The property type may be qualified by the property set name via the ps parameter
-//	 * For predeclared properties this is not required
-//	 * @param ps String property set name, which may be null
-//	 * @param name String Property Type name
-//	 * @return PropertyType or null
-//	 */
-//	public static PropertyType lookupPropertyType(String ps, String name) {
-//		return EMFIndexRetrieval.getPropertyTypeInWorkspace(ps != null?(ps+ "::" +name):name);
-//	}
-//
-//
-//	/**
-//	 * find property constant for given name. The property constant may be qualified by the property set name via the ps parameter
-//	 * For predeclared properties this is not required
-//	 * @param ps String property set name, which may be null
-//	 * @param name String Property Constant name
-//	 * @return PropertyConstant or null
-//	 */
-//	public static PropertyConstant lookupPropertyConstant(String ps, String name) {
-//		return EMFIndexRetrieval.getPropertyConstantInWorkspace(ps != null?(ps+ "::" +name):name);
-//	}
-//
-//	/**
-//	 * find property definition/type/constant for given name. The name may be qualified by the property set name
-//	 * For predeclared properties this is not required
-//	 * @param name String Property Definition/Type/Constant name
-//	 * @return NamedElement or null
-//	 */
-//	public static NamedElement lookupNamedElementInPropertySet(String name) {
-//		return EMFIndexRetrieval.getPropertySetElementInWorkspace(name);
-//	}
-//
-//	/**
-//	 * find property definition for given property name. The property may be qualified by the property set name
-//	 * For predeclared properties this is not required
-//	 * @param name String Property Definition name
-//	 * @return Property or null
-//	 */
-//	public static Property lookupPropertyDefinition(String name) {
-//		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(name);
-//	}
-//
-//
-//	/**
-//	 * find property type for given property name. The property type may be qualified by the property set name
-//	 * For predeclared properties this is not required
-//	 * @param name String property type name
-//	 * @return PropertyType or null
-//	 */
-//	public static PropertyType lookupPropertyType(String name) {
-//		return EMFIndexRetrieval.getPropertyTypeInWorkspace(name);
-//	}
-//
-//
-//	/**
-//	 * find property constant for given property name. The property may be qualified by the property set name
-//	 * For predeclared properties this is not required
-//	 * @param name String property constant name
-//	 * @return PropertyConstant or null
-//	 */
-//	public static PropertyConstant lookupPropertyConstant(String name) {
-//		return EMFIndexRetrieval.getPropertyConstantInWorkspace(name);
-//	}
 	/**
 	 * Retrieve the unit literal given a unit string for a property It is useful
 	 * when calling getScaledValue methods that require the literal as object
@@ -337,13 +261,6 @@ public class GetProperties {
 			UnitLiteral MIPS = findUnitLiteral(MIPSBudget, SEI.MIPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, MIPSBudget, MIPS, defaultValue);
 	}
-//
-//	public static double getMIPSActualInMIPS(final NamedElement ne, final double defaultValue) {
-//		if (ne == null) return defaultValue;
-//			Property MIPSActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_ACTUAL);
-//			UnitLiteral MIPS = findUnitLiteral(MIPSActual, SEI.MIPS_LITERAL);
-//			return PropertyUtils.getScaledNumberValue(ne, MIPSActual, MIPS, defaultValue);
-//	}
 
 	public static double getRAMCapacityInKB(final NamedElement ne, final double defaultValue) {
 			Property RAMCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.RAM_CAPACITY);
@@ -407,26 +324,25 @@ public class GetProperties {
 	
 
 	/**
-	 * cycle time of processor
-	 * @param ne processor component instance
+	 * instruction execution time of processor
+	 * This is calculated from the MIPSCapacity.
+	 * This function acts as replacement for the cycle_time property
+	 * @param proc processor component instance
 	 * @return
 	 */
-	public static double getCycleTimeinUS(final NamedElement ne) {
-		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
-		UnitLiteral microSecond = findUnitLiteral(cycleTime, AadlProject.US_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, 0);
+	public static double getInstructionExecutionTimeinUS(final ComponentInstance proc) {
+		return 1/getProcessorMIPS(proc);
 	}
 	/**
-	 * cycle time of processor
-	 * @param ne processor component instance
+	 * instruction execution time of processor
+	 * This is calculated from the MIPSCapacity.
+	 * This function acts as replacement for the cycle_time property
+	 * @param proc processor component instance
 	 * @return
 	 */
-	public static double getCycleTimeinSec(final NamedElement ne) {
-		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
-		UnitLiteral second = findUnitLiteral(cycleTime, AadlProject.SEC_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, second, 0);
+	public static double getInstructionExecutionTimeinSec(final ComponentInstance proc) {
+		return 1/(getProcessorMIPS(proc)*1e6);
 	}
-	
 	
 	
 	public static double getPartitionLatencyInMilliSec(final NamedElement ph, final double defaultValue)
@@ -465,59 +381,7 @@ public class GetProperties {
 		}
 	}
 
-	
-	/**
-	 * compute MIPS for thread based on actual execution time
-	 * @param threadinstance thread instance
-	 * @return
-	 */
-	public static double getThreadExecutioninMIPS(ComponentInstance threadinstance) {
-		double exectimeval = getSpecifiedComputeExecutionTimeinSec(threadinstance);
-		double period = getPeriodInSeconds(threadinstance, 0.0);
-		if (exectimeval > 0 && period > 0) {
-			double mipspersec = getReferenceMIPS(threadinstance);
-			double time = exectimeval / period;
-			double mips = time * mipspersec;
-			return mips;
-		}
-		return 0.0;
-	}
 
-	/**
-	 * get cycle time of the reference processor specified for the thread
-	 * This value is determined based on the reference processor
-	 * If not specified zero is returned.
-	 * 
-	 * @param thread
-	 * @return double cycle time in micro sec. or zero
-	 */
-	public static double getReferenceProcessorCycleTimeinUS(final ComponentInstance thread) {
-		double cycleTime = 0.0;
-		ComponentClassifier pci = null;
-		pci = getReferenceProcessor(thread);
-		if (pci != null) {
-			cycleTime = getCycleTimeinUS(pci);
-		}
-		return cycleTime;
-	}
-
-	/**
-	 * get cycle time of the reference processor specified for the thread
-	 * This value is determined based on the reference processor
-	 * If not specified zero is returned.
-	 * 
-	 * @param thread
-	 * @return double cycle time in sec. or zero
-	 */
-	public static double getReferenceProcessorCycleTimeinSec(final ComponentInstance thread) {
-		double cycleTime = 0.0;
-		ComponentClassifier pci = null;
-		pci = getReferenceProcessor(thread);
-		if (pci != null) {
-			cycleTime = getCycleTimeinSec(pci);
-		}
-		return cycleTime;
-	}
 	
 	public static double fromMStoSec(NamedElement ne, double value){
 		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
@@ -528,57 +392,30 @@ public class GetProperties {
 	}
 
 	/**
-	 * calculate the scaling factor from cycle times of the bound and reference processor
-	 * if not available try the same from the MIPS of the two processors.
+	 * calculate the scaling factor from the MIPSCapacity of the two processors.
 	 * The default value is 1
 	 * @param thread
 	 * @return double scaling factor of processor speed
 	 */
 	public static double getProcessorScalingFactor(final ComponentInstance thread) {
-//		List<ComponentInstance> processorList = getActualProcessorBinding(thread);
-//		ComponentInstance processor = processorList.isEmpty() ? null : processorList.get(0);
-//		if (processor == null) {
-//			return 1.0;
-//		}
 		double refmipspersec = getReferenceMIPS(thread);
 		double mipspersec = getBoundProcessorMIPS(thread);
+		if (refmipspersec == 0 || mipspersec == 0 )
+			return 1;
 		return refmipspersec / mipspersec;
-//		double procCycleTime = getCycleTimeinUS(processor);
-//		double refCycleTime = getReferenceProcessorCycleTimeinUS(thread);
-//		if (procCycleTime > 0.0&&refCycleTime > 0.0){
-//			return procCycleTime / refCycleTime;
-//		}
-//		// try cycle time from MIPS
-//		procCycleTime = getActualThreadMIPS(thread);
-//		refCycleTime = getReferenceMIPS(thread);
-//		if (procCycleTime > 0.0&&refCycleTime > 0.0){
-//			return procCycleTime / refCycleTime;
-//		}
-//		// use current processor
-//		return 1.0;
 	}
 
 	/**
 	 * Get the MIPS per sec of the reference processor. First tries to find the
 	 * MIPS capacity. It then tries an explicit reference processor. If it finds
-	 * it, then it gets the cycle time of that processor. Otherwise it tries to
-	 * find an explicit reference_cycle_time value. Failing that, it returns a
-	 * value corresponding to a 1GIPS processor.
+	 * it, then it gets the cycle time of that processor. 
 	 */
 	public static double getReferenceMIPS(final ComponentInstance thread) {
-		double cycleTime = getReferenceProcessorCycleTimeinUS(thread);
-		if (cycleTime != 0.0) {
-			// time for MIPS therefore microsec (10E-6)
-			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
-			return (1 / cycleTime);
-		}
 		ComponentClassifier pci = getReferenceProcessor(thread);
 		if (pci != null) {
-			double mipscap = getMIPSCapacityInMIPS(pci, 0.0);
-			if (mipscap > 0)
-				return mipscap;
+			return getMIPSCapacityInMIPS(pci, 0.0);
 		}
-		return 1000;
+		return 0.0;
 	}
 	/**
 	 * Get the MIPS per sec of the bound processor. First tries to find the
@@ -588,74 +425,167 @@ public class GetProperties {
 	 * value corresponding to a 1GIPS processor.
 	 */
 	public static double getBoundProcessorMIPS(final ComponentInstance thread) {
-		
 		List<ComponentInstance> pciList = getActualProcessorBinding(thread);
 		ComponentInstance pci = pciList.isEmpty() ? null : pciList.get(0);
 		if (pci != null) {
-			double mipscap = getMIPSCapacityInMIPS(pci, 0);
-			if (mipscap > 0){
-				return mipscap;
-			}
-			// try cycle time as MIPS
-			mipscap = getCycletimeasMIPS(pci);
-			if (mipscap>0){
-				return mipscap;
-			}
+			return getMIPSCapacityInMIPS(pci, 0);
 		}
-		return 1000;
+		return 0.0;
+	}
+
+	/**
+	 * Get the  bound processor. It will take the first if the binding identifies more than one.
+	 */
+	public static ComponentInstance getBoundProcessor(final ComponentInstance processorthread) {
+		List<ComponentInstance> pciList = getActualProcessorBinding(processorthread);
+		ComponentInstance pci = pciList.isEmpty() ? null : pciList.get(0);
+		if (pci != null) {
+			return pci;
+		}
+		return null;
+	}
+
+	
+	/**
+	 * Get the MIPS of the  processor from the MIPSCapacity.  
+	 */
+	public static double getProcessorMIPS(final ComponentInstance processor) {
+		return getMIPSCapacityInMIPS(processor, 0);
+	}
+	
+	
+	/**
+	 * compute MIPS for thread based on instructions per dispatch; 
+	 * @param threadinstance thread instance
+	 * @return MIPS or 0.0
+	 */
+	public static double getThreadExecutionIPDinMIPS(ComponentInstance threadinstance) {
+		double period = getPeriodInSeconds(threadinstance, 0.0);
+		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
+		if (mipd > 0 && period > 0) {
+			double mips = mipd / period;
+			return mips;
+		}
+		return 0.0;
 	}
 	
 	/**
-	 * Get the MIPS per sec of the  processor. First tries to find the
-	 * MIPS capacity.  If it does not find
-	 * it, then it gets the cycle time of that processor. 
-	 * Failing that, it returns a
-	 * value corresponding to a 1GIPS processor.
+	 * compute MIPS for thread based on instructions per dispatch; or based on specified execution time
+	 * @param threadinstance thread instance
+	 * @return MIPS or 0.0
 	 */
-	public static double getActualProcessorMIPS(final ComponentInstance processor) {
+	public static double getThreadExecutioninMIPS(ComponentInstance threadinstance) {
+		double mips = getThreadExecutionIPDinMIPS(threadinstance);
+		if (mips == 0){
+			double period = getPeriodInSeconds(threadinstance, 0.0);
+			double exectimeval = getSpecifiedComputeExecutionTimeinSec(threadinstance);
+			if (exectimeval > 0 && period > 0) {
+				double mipspersec = getReferenceMIPS(threadinstance);
+				double time = exectimeval / period;
+				mips = time * mipspersec;
+			}
+		}
+		return mips;
+	}
 
-		double mipscap = getMIPSCapacityInMIPS(processor, 0);
-		if (mipscap > 0){
-			return mipscap;
+	
+	/**
+	 * compute Execution time for actual processor from instructions per dispatch; or based on specified execution time
+	 * @param threadinstance thread instance
+	 * @return double scaled execution time in Sec
+	 */
+	public static double getThreadExecutioninSec(ComponentInstance threadinstance) {
+		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
+		double actualProcMips = getBoundProcessorMIPS(threadinstance);
+		if (mipd > 0 && actualProcMips > 0) {
+			return mipd / actualProcMips;
 		}
-		// try cycle time as MIPS
-		mipscap = getCycletimeasMIPS(processor);
-		if (mipscap>0){
-			return mipscap;
+		return getScaledComputeExecutionTimeinSec(threadinstance);
+	}
+	
+	/**
+	 * compute Execution time for actual processor from instructions per dispatch; or based on specified execution time
+	 * @param threadinstance thread instance
+	 * @return double scaled execution time in Sec
+	 */
+	public static double getThreadExecutioninMilliSec(ComponentInstance threadinstance) {
+		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
+		double actualProcMips = getBoundProcessorMIPS(threadinstance);
+		if (mipd > 0 && actualProcMips > 0) {
+			// adjust from sec to milli sec
+			return (mipd / actualProcMips)*1000;
 		}
-		return 1000;
+		return getScaledComputeExecutionTimeinMS(threadinstance);
 	}
 
 	/**
-	 * return cycletime in terms of MIPS, zero if no cycle timee
-	 * 
-	 * @param curprocessor
-	 * @return MIPS
+	 * get execution time scaled in terms of the processor the thread is bound to
+	 * If it is not bound then return the specified execution time
+	 * @param ne thread component instance
+	 * @return scaled time or 0.0
 	 */
-	public static double getCycletimeasMIPS(final ComponentInstance curprocessor) {
-		double cycleTime = getCycleTimeinUS(curprocessor);
-		if (cycleTime != 0.0) {
-			// time for MIPS therefore microsec (10E-6)
-			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
-			return (1 / cycleTime);
-		} else
-			return 0;
+	public static double getScaledComputeExecutionTimeinMS(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
+		if (ne instanceof ComponentInstance) {
+			double scale = getProcessorScalingFactor((ComponentInstance) ne);
+			return time * scale;
+		}
+		return time;
 	}
 
 	/**
-	 * return cycletime in terms of MIPS, zero if no cycle timee
-	 * 
-	 * @param curprocessor
-	 * @return MIPS
+	 * get execution time scaled in terms of the processor the thread is bound to
+	 * If it is not bound then return the specified execution time
+	 * @param ne thread component instance
+	 * @return scaled time or 0.0
 	 */
-	public static double getMIPSasCycleTimeinMicroSec(final ComponentInstance curprocessor) {
-		double mips = getMIPSCapacityInMIPS(curprocessor, 0.0);
-		if (mips != 0.0) {
-			// time for MIPS therefore microsec (10E-6)
-			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
-			return (1 / mips);
-		} else
-			return 0;
+	public static double getScaledComputeExecutionTimeinSec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
+		if (ne instanceof ComponentInstance) {
+			double scale = getProcessorScalingFactor((ComponentInstance) ne);
+			return time * scale;
+		}
+		return time;
+	}
+
+	/**
+	 * get execution time as specified - not adjusted for different processor speeds
+	 * @param ne thread component instance
+	 * @return specified time or 0.0
+	 */
+	public static double getSpecifiedComputeExecutionTimeinSec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
+		return time;
+	}
+
+	/**
+	 * get specified instructions per dispatch as MIPD
+	 * @param ne thread component instance
+	 * @return double MIPD
+	 */
+	public static double getSpecifiedThreadInstructionsinMIPD(final NamedElement ne) {
+		Property ipd = lookupPropertyDefinition(ne,SEI._NAME, SEI.INSTRUCTIONSPERDISPATCH);
+		UnitLiteral mipdunit = findUnitLiteral(ipd, SEI.MIPD_LITERAL);
+		double mipd = PropertyUtils.getScaledRangeMaximum(ne, ipd, mipdunit, 0.0);
+		return mipd;
+	}
+
+	/**
+	 * get specified instructions per dispatch as IPD
+	 * @param ne thread component instance
+	 * @return double IPD
+	 */
+	public static double getSpecifiedThreadInstructionsinIPD(final NamedElement ne) {
+		Property ipd = lookupPropertyDefinition(ne,SEI._NAME, SEI.INSTRUCTIONSPERDISPATCH);
+		UnitLiteral mipdunit = findUnitLiteral(ipd, SEI.IPD_LITERAL);
+		double mipd = PropertyUtils.getScaledRangeMaximum(ne, ipd, mipdunit, 0.0);
+		return mipd;
 	}
 
 	public static double getPowerCapacity(final NamedElement ne, final double defaultValue) {
@@ -671,12 +601,6 @@ public class GetProperties {
 	}
 
 	public static double getPowerSupply(final NamedElement ne, final double defaultValue) {
-//		if (SaviSupplyPD != null) {
-//			double savisupply = PropertyUtils.getScaledNumberValue(ne, SaviSupplyPD, mWatt, -1);
-//			if (savisupply >= 0) {
-//				return savisupply;
-//			}
-//		}
 		Property powerSupply = lookupPropertyDefinition(ne,SEI._NAME, SEI.POWER_SUPPLY);
 		UnitLiteral mWatt = findUnitLiteral(powerSupply, SEI.MW_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, powerSupply, mWatt, defaultValue);
@@ -745,51 +669,6 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, deadline, nanoSecond, 0.0);
 	}
 
-	/**
-	 * get execution time scaled in terms of the processor the thread is bound to
-	 * If it is not bound then return the specified execution time
-	 * @param ne thread component instance
-	 * @return
-	 */
-	public static double getActualComputeExecutionTimeinMS(final NamedElement ne) {
-		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
-		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
-		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
-		if (ne instanceof ComponentInstance) {
-			double scale = getProcessorScalingFactor((ComponentInstance) ne);
-			return time * scale;
-		}
-		return time;
-	}
-
-	/**
-	 * get execution time scaled in terms of the processor the thread is bound to
-	 * If it is not bound then return the specified execution time
-	 * @param ne thread component instance
-	 * @return
-	 */
-	public static double getActualComputeExecutionTimeinSec(final NamedElement ne) {
-		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
-		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
-		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
-		if (ne instanceof ComponentInstance) {
-			double scale = getProcessorScalingFactor((ComponentInstance) ne);
-			return time * scale;
-		}
-		return time;
-	}
-
-	/**
-	 * get execution time as specified - not adjusted for different processor speeds
-	 * @param ne thread component instance
-	 * @return
-	 */
-	public static double getSpecifiedComputeExecutionTimeinSec(final NamedElement ne) {
-		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
-		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
-		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
-		return time;
-	}
 
 	public static double getPeriodInSeconds(final NamedElement ne, final double defaultValue) {
 		Property period = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PERIOD);
