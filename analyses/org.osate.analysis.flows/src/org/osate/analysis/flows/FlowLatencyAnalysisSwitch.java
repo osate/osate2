@@ -523,50 +523,50 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return false;
 	}
 
-	private  boolean isThread(final AObject thread){
+	private  boolean isThread(final NamedElement thread){
 		return (thread instanceof ThreadSubcomponent)
 				|| ((thread instanceof ComponentInstance)
 						&& (((ComponentInstance) thread).getCategory() == ComponentCategory.THREAD));
 	}
 
-	private  boolean isDevice(final AObject thread){
+	private  boolean isDevice(final NamedElement thread){
 		return (thread instanceof DeviceSubcomponent)
 				|| ((thread instanceof ComponentInstance)
 						&& (((ComponentInstance) thread).getCategory() == ComponentCategory.DEVICE));
 	}
 	
-	private  boolean isSystem(final AObject system)
+	private  boolean isSystem(final NamedElement system)
 	{
 		return (system instanceof SystemSubcomponent)
 				|| ((system instanceof ComponentInstance)
 						&& (((ComponentInstance)system).getCategory() == ComponentCategory.SYSTEM));
 	}
 	
-	private  boolean isProcess(final AObject process)
+	private  boolean isProcess(final NamedElement process)
 	{
 		return (process instanceof ProcessSubcomponent)
 				|| ((process instanceof ComponentInstance)
 						&& (((ComponentInstance)process).getCategory() == ComponentCategory.PROCESS));
 	}
 	
-	private  boolean isPeriodicComponent(final AObject subcomponent){
+	private  boolean isPeriodicComponent(final NamedElement subcomponent){
 		return isPeriodicThread(subcomponent) || isPeriodicDevice(subcomponent);
 	}
 
-	private  boolean isPeriodicThread(final AObject thread){
+	private  boolean isPeriodicThread(final NamedElement thread){
 		if (!isThread(thread)) return false;
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol((NamedElement)thread);
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(thread);
 		if (dp == null) return false;
 		return  dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
 	}
 	
-	private  boolean isPeriodicDevice(final AObject device){
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol((NamedElement)device);
+	private  boolean isPeriodicDevice(final NamedElement device){
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(device);
 		if (dp == null) return false;
 		return  dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
 	}
 	
-	private  NamedElement enclosingPartition(final AObject component) {
+	private  NamedElement enclosingPartition(final NamedElement component) {
 		if (component instanceof ComponentInstance) {
 			ComponentInstance ci = (ComponentInstance) component;
 			while (ci.eContainer() != null && ci.eContainer() instanceof ComponentInstance) {
