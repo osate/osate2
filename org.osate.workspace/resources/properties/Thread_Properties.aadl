@@ -15,7 +15,7 @@ property set Thread_Properties is
 		applies to (thread, thread group);
 	
 	Priority: inherit aadlinteger
-		applies to (thread, thread group, process, system, device);
+		applies to (thread, thread group, process, system, device, data);
 	
 	Criticality: aadlinteger
 		applies to (thread, thread group);

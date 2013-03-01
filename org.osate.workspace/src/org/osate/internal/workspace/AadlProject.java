@@ -238,8 +238,13 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	public IPath getAadlPath(IFile file) {
 		IPath p = file.getProjectRelativePath();
 		IPath result = new Path("/" + project.getName());
-			result = result.append(p);
-			result = result.removeFileExtension().addFileExtension(WorkspacePlugin.SOURCE_FILE_EXT);
+		result = result.append(p);
+		String fileExtension = result.getFileExtension() ;
+		char version = fileExtension.charAt(fileExtension.length()- 1) ;
+		fileExtension = WorkspacePlugin.SOURCE_FILE_EXT ;
+		if (Character.isDigit(version))
+		   fileExtension += version ;
+		result = result.removeFileExtension().addFileExtension(fileExtension);
 		return result;
 	}
 
