@@ -3063,21 +3063,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					|| srcDirection == DirectionType.OUT && dstDirection == DirectionType.OUT) {
 				error(connection, "Source and destination directions do not allow any flow.");
 			}
-		} else if (srcContext instanceof Subcomponent || dstContext instanceof Subcomponent) {
+		} else if ((srcContext instanceof Subcomponent || dstContext instanceof Subcomponent)||
+			       (srcContext instanceof SubprogramCall || dstContext instanceof SubprogramCall)) {
 			// going up or down hierarchy
 			if (!sameDirection(srcDirection, dstDirection)) {
 				error(connection,
 						"Source feature '" + source.getName() + "' and destination feature '" + destination.getName()
 								+ "' must have same direction.");
 			}
-			if (srcContext instanceof Subcomponent) {
+			if ((srcContext instanceof Subcomponent) || (srcContext instanceof SubprogramCall)) {
 				if (!(srcDirection.outgoing()))
 					error(connection, "Outgoing connection requires outgoing feature '" + srcContext.getName() + "."
 							+ source.getName() + "'.");
 				if (!(dstDirection.outgoing()))
 					error(connection, "Outgoing connection requires outgoing feature '" + destination.getName() + "'.");
 			}
-			if (dstContext instanceof Subcomponent) {
+			if ((dstContext instanceof Subcomponent) || (dstContext instanceof SubprogramCall)) {
 				if (!(dstDirection.incoming()))
 					error(connection, "Incoming connection requires incoming feature '" + dstContext.getName() + "."
 							+ destination.getName() + "'.");
@@ -3085,10 +3086,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					error(connection, "Incoming connection requires incoming feature '" + source.getName() + "'.");
 			}
 		} else {
+
 			// we have a connection a component implementation going directly from its incoming feature to an outgoing feature
 			if (!(srcDirection.incoming() && dstDirection.outgoing())) {
 				error(connection, "Source feature '" + source.getName()
-						+ "' must be incoming and destination feature '" + destination.getName()
+						+ "' must2   be incoming and destination feature '" + destination.getName()
 						+ "' must be outgoing.");
 			}
 		}
