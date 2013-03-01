@@ -121,6 +121,8 @@ public class AnnexParserAgent  extends LazyLinker {
 		AnnexLinkingServiceRegistry linkingserviceregistry = (AnnexLinkingServiceRegistry) AnnexRegistry
 				.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
 
+	  // Don't resolve annexes if there are parsing errors.
+		boolean hasToResolveAnnex = errReporter.getNumErrors() <= 0 ;
 
 		List<DefaultAnnexLibrary> all=AnnexUtil.getAllDefaultAnnexLibraries(model);
 		for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
@@ -238,7 +240,9 @@ public class AnnexParserAgent  extends LazyLinker {
 						// now resolve reference so we messages if we have references to undefined items
 						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
 						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
-						if (resolver != null) {
+						if (resolver != null &&
+						    hasToResolveAnnex &&
+						    errReporter.getNumErrors() == errs) {// Don't resolve any annex with parsing error.)
 							resolver.resolveAnnex(annexName, Collections.singletonList(asc), resolveErrManager);
 						} else if (linkingservice != null){ 
 							try {
