@@ -29,7 +29,7 @@ property set SEI is
   ProtocolQoS: list of SEI::ProtocolQoSType applies to (system, bus, connection);
 
   -- manual priority assignment for threeads
-  Priority: aadlinteger  applies to (thread);
+--  Priority: aadlinteger  applies to (thread); now provided in the core standard
 
 
   -- properties to support specification of partitions and latency analysis

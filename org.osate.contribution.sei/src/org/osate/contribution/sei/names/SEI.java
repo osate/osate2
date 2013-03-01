@@ -11,7 +11,7 @@ public final class SEI {
 	public static final String SECURITY_LEVEL = "SecurityLevel";
 	public static final String SAFETY_CRITICALITY = "SafetyCriticality";
 	public static final String STREAM_MISS_RATE = "StreamMissRate";
-	public static final String PRIORITY = "Priority";
+//	public static final String PRIORITY = "Priority"; now in ThreadPriorties.java in aadl2/properties
 	public static final String PARTITION_LATENCY = "Partition_Latency";
 	public static final String IS_PARTITION = "Is_Partition";
 	public static final String INSTRUCTIONSPERDISPATCH = "InstructionsPerDispatch";
