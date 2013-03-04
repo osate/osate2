@@ -862,6 +862,10 @@ public class GetProperties {
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.IMMEDIATE);
 	}
+	public static EnumerationLiteral getSampledUnitLiteral(PortConnection pc){
+		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
+		return findEnumerationLiteral(timing, CommunicationProperties.SAMPLED);
+	}
 	
 
 	public static double getNetWeight(final NamedElement ne, final double defaultValue) {
