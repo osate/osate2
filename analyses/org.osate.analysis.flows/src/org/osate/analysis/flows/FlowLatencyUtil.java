@@ -38,14 +38,6 @@ public class FlowLatencyUtil {
 	
 	public static FlowLatencyUtil eInstance = new FlowLatencyUtil();
 	
-	/**
-	 * retrieve the latency property value
-	 * @param ph property holder
-	 * @return double value in MicroSec
-	 */
-	public double getLatencyinMicroSec(final NamedElement ph){
-			return GetProperties.getLatencyinMicroSec(ph);
-	}
 
 	
 	/**

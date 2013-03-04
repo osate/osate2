@@ -41,41 +41,27 @@ package org.osate.analysis.flows;
 
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.aadl2.instance.ConnectionKind;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
-import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
-import org.osate.aadl2.modelsupport.OsateLogger;
-import org.osate.aadl2.modelsupport.UnparseText;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.aadl2.parsesupport.AObject;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @author phf
@@ -130,7 +116,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				
 				final double totalLatency = doETEF(etef); 
 				double val = 0;
-					val = FlowLatencyUtil.eInstance.getLatencyinMicroSec(etef);
+					val = GetProperties.getLatencyinMicroSec(etef);
 				if (val > 0)
 				{
 					if (totalLatency > val) {
@@ -209,7 +195,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// If we are analyzing an end to end flow, then we treat the first
 		// subcomponent-flow pair specially to prime the latency computation.
-			myLatencyETE = FlowLatencyUtil.eInstance.getLatencyinMicroSec(etef);
+			myLatencyETE = GetProperties.getLatencyinMicroSec(etef);
 
 			fe = it.next();
 			ci = fe.getContainingComponentInstance();
@@ -219,12 +205,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			// Get the latency from the flow specification
 			FlowSpecificationInstance fefs = (FlowSpecificationInstance)fe;
 			double FlowSpecificationLatency;
-			FlowSpecificationLatency = FlowLatencyUtil.eInstance.getLatencyinMicroSec(fefs);
+			FlowSpecificationLatency = GetProperties.getLatencyinMicroSec(fefs);
 			double dv = 0.0;
 
 
 			// Use deadline as latency if available, unless the specified latency is greater
-			if (isThread(ci) || isDevice(ci)) {
+			if (InstanceModelUtil.isThread(ci) || InstanceModelUtil.isDevice(ci)) {
 					dv = GetProperties.getDeadlineinMilliSec(ci);
 				if (FlowSpecificationLatency > dv){
 					if ( dv > 0){
@@ -237,7 +223,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						warning(fefs,"Flow spec "+fefs.getName()+" latency used in flow latency calculation is zero");
 					}
 				}
-				if (isPeriodicThread(ci) || isPeriodicDevice(ci)){
+				if (InstanceModelUtil.isPeriodicThread(ci) || InstanceModelUtil.isPeriodicDevice(ci)){
 					// TODO a device may sample external state (e.g., temperature) which results in no sampling delay
 					// or it may observe an external event or state change by sampling the environment (e.g., switch up/down) which results in sampling delay
 					previousSamplingPeriod = GetProperties.getPeriodinMicroSec(ci);
@@ -269,7 +255,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				// we are dealing with a component flow spec
 				fefs = (FlowSpecificationInstance)fe;
 				boolean previousPeriodic = ci==null?false:
-					isPeriodicComponent(ci);
+					InstanceModelUtil.isPeriodicComponent(ci);
 				// get component of current flow spec instance
 				ci = fefs.getContainingComponentInstance();
 				double samplingLatency = 0; // The amount of latency due to the most recent sampling point (partition or periodic thread)
@@ -279,7 +265,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				double deadlineDelay = 0; // thread/device processing delay - WC is deadline
 				double partitionLatency = 0; // latency due to partition sampling
 				boolean crossPartition = false;
-				if ((isSystem(ci) || isProcess(ci)) && GetProperties.getIsPartition(ci)) {
+				if ((InstanceModelUtil.isSystem(ci) || InstanceModelUtil.isProcess(ci)) && GetProperties.getIsPartition(ci)) {
 					// system or process is tagged as partition
 					// must be a new partition
 					samplingLatency = GetProperties.getPartitionLatencyInMicroSec(ci, 0.0);
@@ -297,14 +283,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					if (partition != null && partition != previousPartition){
 						crossPartition = true;
 						samplingLatency = GetProperties.getPartitionLatencyInMicroSec(partition,0.0);
+						if (samplingLatency == 0){
+							samplingLatency = GetProperties.getPeriodinMicroSec(partition);
+						}
 					}
 					previousPartition = partition;
 					
-					if (isThread(ci) || isDevice(ci)) {
+					if (InstanceModelUtil.isThread(ci) || InstanceModelUtil.isDevice(ci)) {
 						// take into account queuing delay
-						if (isEventConnection(conn)||isEventPortConnection(conn)){
+						if (InstanceModelUtil.isEventConnection(conn)||InstanceModelUtil.isEventDataConnection(conn)){
 							// take into account queuing delay on event and event data ports. for port groups assume worst case
-							queuingDelay = getQueueDelayinMicroSec(fefs,isPeriodicComponent(ci));
+							queuingDelay = getQueueDelayinMicroSec(fefs,InstanceModelUtil.isPeriodicComponent(ci));
 							
 						}
 						/* If the current component is a thread, we need to 
@@ -325,11 +314,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						 * runs, in which case we use the thread's period for
 						 * the sampling latency.
 						 */
-						boolean isSampling = isPeriodicComponent(ci) &&
-								( !isPortConnection(conn) || !isImmediatePortConnection(conn) // delayed or sampling
-										||(isPeriodicDevice(ci)&& isImmediatePortConnection(conn)&& !isSynchronous) //devices are assumed to be in a separate partition/time domain (should do warning)
+						boolean isSampling = InstanceModelUtil.isPeriodicComponent(ci) &&
+								( !InstanceModelUtil.isPortConnection(conn) || !InstanceModelUtil.isImmediatePortConnection(conn) // delayed or sampling
+										||(InstanceModelUtil.isPeriodicDevice(ci)&& InstanceModelUtil.isImmediatePortConnection(conn)&& !isSynchronous) //devices are assumed to be in a separate partition/time domain (should do warning)
 										// while threads with an immediate connection are assumed to be on the same processor
-										|| (isImmediatePortConnection(conn)&&crossPartition)// deal with immediate going across partition boundary (should do warning)
+										|| (InstanceModelUtil.isImmediatePortConnection(conn)&&crossPartition)// deal with immediate going across partition boundary (should do warning)
 										|| !previousPeriodic);
 						if (isSampling) {
 							periodLatency = GetProperties.getPeriodinMicroSec(ci);
@@ -352,9 +341,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 * accumulated latency to correct the situation.
 				 */
 				boolean doRoundUp = false;
-				if (isPeriodicComponent(ci)
-						&& isImmediatePortConnection(conn) && previousPeriodic) {
-					if ((isPeriodicThread(ci))){  // &&isSynchronous for threads we always assume immediate
+				if (InstanceModelUtil.isPeriodicComponent(ci)
+						&& InstanceModelUtil.isImmediatePortConnection(conn) && previousPeriodic) {
+					if ((InstanceModelUtil.isPeriodicThread(ci))){  // &&isSynchronous for threads we always assume immediate
 						// we only remove it if it is an immediate thread connection and the thread is synchronous with the predecesssor
 						additiveLatency = additiveLatency - previouslyAddedDelay;
 						doRoundUp = true;
@@ -397,7 +386,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 * it is greater than the thread's deadline, or if the deadline 
 				 * is 0 (i.e., we are looking at an incomplete model).
 				 */
-				double fsLatency = FlowLatencyUtil.eInstance.getLatencyinMicroSec(fefs);
+				double fsLatency = GetProperties.getLatencyinMicroSec(fefs);
 				if (fsLatency == 0 && deadlineDelay == 0){
 					warning(fefs,"Flow spec "+fefs.getName()+" has no latency. ");
 				} else if (fsLatency>0 && deadlineDelay == 0){
@@ -447,22 +436,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	protected double getConnectionLatencyinMicroSec(ConnectionInstance conn){
 		double res = FlowLatencyUtil.eInstance.computeConnectionLatencyinMicroSec(conn);
 		if (res == 0.0){
-			FlowLatencyUtil.eInstance.getLatencyinMicroSec(conn);
+			GetProperties.getLatencyinMicroSec(conn);
 		}
 		return res;
 	}
 
 
 
-	private  FeatureInstance getSourcePort(final FlowSpecificationInstance fs){
-			return fs.getSource();
-	}
-
-
 	private  double getQueueDelayinMicroSec(final FlowSpecificationInstance fefs, boolean periodic){
 		if (fefs == null) return 0;
 		ComponentInstance comp = fefs.getContainingComponentInstance();
-		FeatureInstance port = getSourcePort(fefs);
+		FeatureInstance port =fefs.getSource();
 		if (port == null || comp == null){
 			return 0;
 		}
@@ -471,119 +455,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return qs*dl;
 	}
 	
-
-	
-	private  boolean isPortConnection(final ConnectionInstance conn){
-		return conn.getKind() == ConnectionKind.PORT_CONNECTION;
-	}
-
-	private  boolean isEventPortConnection(final ConnectionInstance conn){
-		ConnectionInstanceEnd cie = conn.getSource();
-		if (cie instanceof FeatureInstance){
-			return   ((FeatureInstance)cie).getCategory() == FeatureCategory.EVENT_DATA_PORT;
-		}
-		return false;
-	}
-
-	private  boolean isEventConnection(final ConnectionInstance conn){
-		ConnectionInstanceEnd cie = conn.getSource();
-		if (cie instanceof FeatureInstance){
-			return   ((FeatureInstance)cie).getCategory() == FeatureCategory.EVENT_PORT;
-		}
-		return false;
-	}
-
-	
-	private boolean isDelayedPortConnection(final ConnectionInstance conn){
-		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl){
-				Connection c = cr.getConnection();
-				if ( c instanceof PortConnection){
-					PortConnection pc =(PortConnection)c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == GetProperties.getDelayedUnitLiteral(pc);
-				}
-			}
-		}
-		return false;
-	}
-	
-	private boolean isSampledPortConnection(final ConnectionInstance conn){
-		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl){
-				Connection c = cr.getConnection();
-				if ( c instanceof PortConnection){
-					PortConnection pc =(PortConnection)c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == GetProperties.getSampledUnitLiteral(pc);
-				}
-			}
-		}
-		return false;
-	}
-	
-	private boolean isImmediatePortConnection(final ConnectionInstance conn){
-		if (isPortConnection(conn)) {
-			EList<ConnectionReference> cl = conn.getConnectionReferences();
-			for (ConnectionReference cr : cl){
-				Connection c = cr.getConnection();
-				if ( c instanceof PortConnection){
-					PortConnection pc =(PortConnection)c;
-					EnumerationLiteral el = GetProperties.getConnectionTiming(pc);
-					return el == GetProperties.getImmediateUnitLiteral(pc);
-				}
-			}
-		}
-		return false;
-	}
-
-	private  boolean isThread(final NamedElement thread){
-		return (thread instanceof ThreadSubcomponent)
-				|| ((thread instanceof ComponentInstance)
-						&& (((ComponentInstance) thread).getCategory() == ComponentCategory.THREAD));
-	}
-
-	private  boolean isDevice(final NamedElement thread){
-		return (thread instanceof DeviceSubcomponent)
-				|| ((thread instanceof ComponentInstance)
-						&& (((ComponentInstance) thread).getCategory() == ComponentCategory.DEVICE));
-	}
-	
-	private  boolean isSystem(final NamedElement system)
-	{
-		return (system instanceof SystemSubcomponent)
-				|| ((system instanceof ComponentInstance)
-						&& (((ComponentInstance)system).getCategory() == ComponentCategory.SYSTEM));
-	}
-	
-	private  boolean isProcess(final NamedElement process)
-	{
-		return (process instanceof ProcessSubcomponent)
-				|| ((process instanceof ComponentInstance)
-						&& (((ComponentInstance)process).getCategory() == ComponentCategory.PROCESS));
-	}
-	
-	private  boolean isPeriodicComponent(final NamedElement subcomponent){
-		return isPeriodicThread(subcomponent) || isPeriodicDevice(subcomponent);
-	}
-
-	private  boolean isPeriodicThread(final NamedElement thread){
-		if (!isThread(thread)) return false;
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(thread);
-		if (dp == null) return false;
-		return  dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
-	}
-	
-	private  boolean isPeriodicDevice(final NamedElement device){
-		if (device instanceof ComponentInstance && ((ComponentInstance)device).getCategory().equals(ComponentCategory.DEVICE)){
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(device);
-		if (dp == null) return false;
-		return  dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
-		}
-		return false;
-	}
 	
 	private  NamedElement enclosingPartition(final NamedElement component) {
 		if (component instanceof ComponentInstance) {
@@ -595,6 +466,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						return ci;
 				} catch (PropertyDoesNotApplyToHolderException e) {
 					//Do nothing.
+				}
+			}
+			if (ci.getCategory().equals(ComponentCategory.THREAD)){
+				// lets find who the thread is bound to
+				List<ComponentInstance> res = GetProperties.getActualProcessorBinding(ci);
+				for (ComponentInstance componentInstance : res) {
+					if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+						return componentInstance;
+					}
 				}
 			}
 		} else {
