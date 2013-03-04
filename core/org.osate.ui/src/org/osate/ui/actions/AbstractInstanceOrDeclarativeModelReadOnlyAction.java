@@ -43,6 +43,7 @@ package org.osate.ui.actions;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.window.Window;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -94,7 +95,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 	
 	
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-		final Element root = ((Element)obj).getElementRoot();
+		final NamedElement root = ((NamedElement)obj).getElementRoot();
 		if (root instanceof SystemInstance) {
 			final SystemInstance si = (SystemInstance) root;
 			final int whichMode;
@@ -126,7 +127,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 					}
 				}
 				
-				if (initializeAnalysis()) {
+				if (initializeAnalysis(si)) {
 					final AnalysisErrorReporterManager errManager = getErrorManager();
 					if (chosenSOM != null) {
 						si.setCurrentSystemOperationMode(chosenSOM);
@@ -141,10 +142,11 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 				}
 			}
 		} else {
-			if (initializeAnalysis()) {
+			if (obj instanceof NamedElement && initializeAnalysis((NamedElement)obj)) {
 				analyzeDeclarativeModel(monitor, getErrorManager(), obj);
 			}
 		}
+		finalizeAnalysis();
 	}
 	
 	private void analyzeInstanceModelInMode(final IProgressMonitor monitor,
@@ -169,9 +171,24 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 	 * @return <code>true</code> if the analysis should proceed or 
 	 * <code>false</code> if the user cancelled the analysis.
 	 */
-	protected boolean initializeAnalysis() {
+	protected boolean initializeAnalysis(NamedElement object) {
 		return true;
 	}
+	
+
+	/**
+	 * finalize the state of analysis.  For example,
+	 * this can close a report being generated.
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 * 
+	 * @return <code>true</code> if the analysis should proceed or 
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean finalizeAnalysis() {
+		return true;
+	}
+
 
 	/**
 	 * Analyze the model starting from a declarative model element.
