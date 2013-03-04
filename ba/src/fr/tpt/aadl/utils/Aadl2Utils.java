@@ -467,10 +467,20 @@ public class Aadl2Utils
       ICompositeNode node = NodeModelUtils.findActualNodeFor(e);
       
       result = new LocationReference() ;
-      result.setFilename(e.eResource().getURI().lastSegment()) ;
-      result.setOffset(node.getOffset()) ;
-      result.setLength(node.getLength()) ;
-      result.setLine(node.getStartLine()) ;      
+      
+      if(node != null && e.eResource() != null)
+      {
+        result.setFilename(e.eResource().getURI().lastSegment()) ;
+        result.setOffset(node.getOffset()) ;
+        result.setLength(node.getLength()) ;
+        result.setLine(node.getStartLine()) ;
+      }
+      else
+      {
+        // DEBUG
+        System.err.println("Aadl2Utils.getLocationReference: node or eResource " +
+        		               "not found for " + e) ;
+      }
     }
 
     return result ;
