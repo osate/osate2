@@ -44,6 +44,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -52,6 +53,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
@@ -60,6 +62,9 @@ import org.osgi.framework.Bundle;
 
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyActionAction {
+	
+	
+	private WriteToFile csvlog ;
 
 	protected void initPropertyReferences() {
 	}
@@ -83,21 +88,48 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	}
 
 	@Override
+	protected boolean initializeAnalysis(NamedElement obj) {
+	    	csvlog = new WriteToFile("FlowLatency", obj);
+			return true;
+	}
+
+	@Override
+	protected boolean finalizeAnalysis() {
+			csvlog.saveToFile();
+			return true;
+		}
+
+	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, SystemInstance root, SystemOperationMode som) {
-		int count = AadlUtil.countElementsBySubclass(root, ComponentInstance.class);
-		monitor.beginTask(getActionName(), count);
+		monitor.beginTask(getActionName(), 1);
+		String header = Aadl2Util.getPrintableSOMName(som);
+		if (!header.isEmpty())
+			csvlog.addOutputNewline(header);
+		header = "flow,model element,name,deadline or conn delay,sampling delay,partition delay,flow spec,additional, total, expected\n";
+		csvlog.addOutputNewline(header);
 		final FlowLatencyAnalysisSwitch flowLatencySwitch =
-			new FlowLatencyAnalysisSwitch( monitor, errManager,root);
+			new FlowLatencyAnalysisSwitch( monitor, errManager,csvlog);
 		flowLatencySwitch.processPreOrderComponentInstance(root);
 		flowLatencySwitch.setIsAsynchronous();
 		flowLatencySwitch.processPreOrderComponentInstance(root);
+		csvlog.addOutputNewline("");
+		csvlog.addOutputNewline("");
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();
 		}
 		monitor.done();		
-		flowLatencySwitch.saveCSVContent();
 	}
 
+	
+	public void saveCSVContent(){
+		csvlog.saveToFile();
+	}
+	
+	public void initCSVReport(NamedElement root){
+    	csvlog = new WriteToFile("FlowLatency", root);
+		String header = "flow,model element,name,deadline or conn delay,sampling delay,partition delay,flow spec,additional, total, expected\n\r";
+		csvlog.addOutputNewline(header);
+	}
 
 
 

@@ -85,11 +85,9 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  */
 public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	
-	private boolean DEBUG = true;
+	private WriteToFile csvlog ;
 	
 	private boolean isSynchronous = true;
-	
-	private WriteToFile csvlog ;
 	
 	public void setIsSynchronous(){
 		isSynchronous = true;
@@ -103,19 +101,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return isSynchronous;
 	}
 	
-	public void saveCSVContent(){
-		csvlog.saveToFile();
-	}
-	
     /**
      * the analysis method that is invoked on each visited model element
      */
     public FlowLatencyAnalysisSwitch( final IProgressMonitor monitor,
-    		final AnalysisErrorReporterManager errMgr, EObject root) {
+    		final AnalysisErrorReporterManager errMgr, WriteToFile log) {
     	super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL, errMgr);
-    	csvlog = new WriteToFile("FlowLatency", root);
-		String header = "flow,model element,name,deadline or conn delay,sampling delay,partition delay,flow spec,additional, total, expected\n\r";
-		csvlog.addOutputNewline(header);
+    	csvlog = log;
     }
     
     protected final void initSwitches() {
@@ -254,7 +246,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				additiveLatency = FlowSpecificationLatency;
 			}
 			// the partition period here is ignored
-			logLatencyinMicroSec(etef.getName(),"Subcomponent",ci.getName(),totalLatency+additiveLatency,additiveLatency,FlowSpecificationLatency,previousSamplingPeriod,0.0,dv,myLatencyETE) ;
+			logLatencyinMicroSec(etef.getName(),ci.getCategory().getName(),ci.getName(),totalLatency+additiveLatency,additiveLatency,FlowSpecificationLatency,previousSamplingPeriod,0.0,dv,myLatencyETE) ;
 
 		// remembers the deadline/conn latency added in. To be removed if immediate connection.
 		double previouslyAddedDelay = 0;
@@ -439,7 +431,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		
 		/* account for the last additive flow latency */
 		totalLatency = totalLatency + additiveLatency;
-		logLatencyinMicroSec( etef.getName(),"Total","",totalLatency,additiveLatency,0,0,0,0,myLatencyETE);
+		logLatencyinMicroSec( etef.getName(),"Total","",totalLatency,0,0,0,0,0,myLatencyETE);
+		csvlog.addOutputNewline("");
 		return totalLatency;
 	}
 	
@@ -618,7 +611,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	}
 	
 	private void logLatencyinMicroSec(final String flowStr, String elementType, String nameStr, double totalLatency, double additiveLatency, double flowLatency, double smpldelay, double partdelay, double deadline, double expected) {
-	
+		if (csvlog != null)
 		csvlog.addOutputNewline(flowStr+isSynchronousLabel()+","+elementType+","+nameStr+","+convertUStoOutputUnit(deadline)+","+convertUStoOutputUnit(smpldelay)+","+convertUStoOutputUnit(partdelay)+","+convertUStoOutputUnit(flowLatency)+","+convertUStoOutputUnit(additiveLatency)+","+convertUStoOutputUnit(totalLatency)+","+convertUStoOutputUnit(expected)) ;
 	}
 }
