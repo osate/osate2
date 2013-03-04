@@ -341,10 +341,12 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMaximumValue());
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getDeltaValue());
 			}
-		} else if (pv instanceof ClassifierValue ){
+		} 
+		else if (pv instanceof ClassifierValue )
+		{
 			if(!(pt instanceof ClassifierType))
 			{
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value to a classifier");
+				error(pv, prefix+"type2 '"+pt.eClass().getName()+"' of property definition does not match reference value to a classifier");
 			}
 			
 			
@@ -360,11 +362,24 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			{
 				for (int k = 0 ; k < ct.getClassifierReferences().size() ; k++)
 				{
-					MetaclassReferenceImpl mcri = (MetaclassReferenceImpl)ct.getClassifierReferences().get(k);
-					String typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "").replace("implementation", "");
+					String typeName;
+					MetaclassReferenceImpl mcri;
+					
+					mcri = (MetaclassReferenceImpl)ct.getClassifierReferences().get(k);
 					String classifierName = mcri.getMetaclass().getName().toLowerCase().replace("classifier", "");
-//					OsateDebug.osateDebug ("First  part = " + typeName);
-//					OsateDebug.osateDebug ("Second part = " +classifierName);
+					
+					typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "");
+
+					//OsateDebug.osateDebug ("First  part = " + typeName);
+					//OsateDebug.osateDebug ("Second part = " +classifierName);
+					if (typeName.equals(classifierName))
+					{
+						return;
+					}
+					//OsateDebug.osateDebug ("First  part = " + typeName);
+					//OsateDebug.osateDebug ("Second part = " +classifierName);
+					
+					typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "").replace("implementation", "");
 
 					if (typeName.equals(classifierName))
 					{
@@ -372,7 +387,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					}
 				}
 				
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value with the appropriate classifier");
+				error(pv, prefix+"type3 '"+pt.eClass().getName()+"' of property definition does not match reference value with the appropriate classifier");
 
 			}
 			else
