@@ -85,7 +85,7 @@ public final class DoCheckConnectionsLatency extends AaxlReadOnlyActionAsJob {
 			si = null;
 		}
 
-		validator.defaultTraversalAllDeclarativeModels();
+		//validator.defaultTraversalAllDeclarativeModels();
 		
 		if (si != null) 
 		{
