@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -295,19 +296,33 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	
 	private String getValueAsString(PropertyExpression expression) {
 		if (expression instanceof InstanceReferenceValue) {
-			InstanceObject referencedObject = ((InstanceReferenceValue)expression).getReferencedInstanceObject();
-			if (referencedObject != null) {
-				return referencedObject.getInstanceObjectPath();
-			}
-			else {
-				return "null";
-			}
+			return getInstanceReferenceAsString((InstanceReferenceValue) expression);
 		}
-		else {
+		else if (expression instanceof ListValue){
+			EList<PropertyExpression> list = ((ListValue)expression).getOwnedListElements();
+			String res ="";
+			for (PropertyExpression propertyExpression : list) {
+				if (propertyExpression instanceof InstanceReferenceValue){
+					res = res +(res.isEmpty()?"":", ")+getInstanceReferenceAsString((InstanceReferenceValue)propertyExpression);
+				}
+			} 
+			if (!res.isEmpty())
+				return res;
+		}
 			String value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
 			//TODO: Test this to see what cleanup is truly necessary.
 			return value;
+	}
+	
+	protected String getInstanceReferenceAsString(InstanceReferenceValue expression){
+		InstanceObject referencedObject = ((InstanceReferenceValue)expression).getReferencedInstanceObject();
+		if (referencedObject != null) {
+			return referencedObject.getInstanceObjectPath();
 		}
+		else {
+			return "null";
+		}
+
 	}
 	
 	// Label Provider Methods
