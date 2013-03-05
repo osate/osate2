@@ -29,10 +29,10 @@ public class TimingAnalysisInvocation {
 	public static boolean timingSchedulabilityAnalysis(
 			final AnalysisErrorReporterManager errMgr, WriteToFile csvlog,
 			final ComponentInstance processor) {
-		String protocol = GetProperties.getSchedulingProtocol(processor);
-		if (protocol == null || protocol.equalsIgnoreCase("EDF")){
-			return doUtilization(errMgr, csvlog, processor);
-		}
+//		String protocol = GetProperties.getSchedulingProtocol(processor);
+//		if (protocol == null || protocol.equalsIgnoreCase("EDF")){
+//			return doUtilization(errMgr, csvlog, processor);
+//		}
 
 		if (processor.getCategory() != ComponentCategory.PROCESSOR)
 			return false;

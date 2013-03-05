@@ -188,9 +188,10 @@ public class RuntimeProcessWalker  {
   	double deadlineval = GetProperties.getDeadlineinMilliSec(elt);
   	RuntimeProcess curComponent = new RuntimeProcess();
   	curComponent.setProcessorName(currentProcessor.getInstanceObjectPath());
-		curComponent.setPeriod((int)val);
-	  	curComponent.setDeadline((int) deadlineval);
-  	curComponent.setExecutionTime((int) exectimeval);
+  	// convert time into MicroSeconds so it does not get rounded down
+		curComponent.setPeriod((int)(val*1000));
+	  	curComponent.setDeadline((int) (deadlineval*1000));
+  	curComponent.setExecutionTime((int) (exectimeval*1000));
 
   	curComponent.setPhaseOffset(0);
 
