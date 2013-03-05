@@ -1,5 +1,7 @@
 package org.osate.xtext.aadl2.properties.util;
 
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Connection;
@@ -17,6 +19,7 @@ import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 
 public class InstanceModelUtil {
 	
@@ -132,6 +135,32 @@ public class InstanceModelUtil {
 	}
 	return false;
 }
+	
+
+	  public static boolean isBoundToProcessor(ComponentInstance elt, ComponentInstance processor){
+		  	List<ComponentInstance> bindinglist;
+		  	//construct a new schedulable component, and put into the runTimeComponents only
+		  	//when all the timing properties are not null ! except the ARC related properties.
+		  	try
+		  	{
+		  		bindinglist = GetProperties.getActualProcessorBinding(elt);
+		  	}
+		  	catch (PropertyNotPresentException e)
+		  	{
+		  		return false;
+		  	}
+		  	for (ComponentInstance componentInstance : bindinglist) {
+				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+					if (isBoundToProcessor(componentInstance,processor)){
+						return true;
+					}
+				} else if (componentInstance == processor){
+					return true;
+				}
+			}
+		  return false;
+	}
+
 
 
 }
