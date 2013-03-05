@@ -189,27 +189,4 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
-   
-   <extension point="org.osate.ui.analysis">
-      <analysis
-   		 id="org.osate.analysis.resource.management.actions.Binpack.analysis"
-   		 name="Bind and Schedule Threads"
-   		 class="org.osate.analysis.resource.management.actions.BinpackAnalysis">
-   		 <instanceModel selectRootObject="true"/>
-   	  </analysis>
-
-      <analysis
-   		 id="org.osate.analysis.resource.management.actions.Schedule.analysis"
-   		 name="Schedule a Bound System"
-   		 class="org.osate.analysis.resource.management.actions.ScheduleAnalysis">
-   		 <instanceModel selectRootObject="true"/>
-      </analysis>
-
-      <analysis
-   		 id="org.osate.analysis.resource.management.actions.CheckPriorityInversion.analysis"
-   		 name="Check Priority Inversion"
-   		 class="org.osate.analysis.resource.management.actions.CheckPriorityInversionAnalysis">
-   		 <instanceModel selectRootObject="true"/>
-   	  </analysis>
-   </extension>
 </plugin>

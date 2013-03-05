@@ -71,6 +71,7 @@ public class RuntimeProcessWalker  {
   
   //some helper method can be put here
   final AnalysisErrorReporterManager errManager;
+  final WriteToFile csvlog;
   
   private QuickSort quick = new QuickSort(){
 	  	protected int compare(Object obj1, Object obj2){
@@ -82,8 +83,24 @@ public class RuntimeProcessWalker  {
 	  	}
 	  };
 
-  public RuntimeProcessWalker(final AnalysisErrorReporterManager errMgr) {
+  public RuntimeProcessWalker(final AnalysisErrorReporterManager errMgr, WriteToFile csvlogfile) {
   	errManager = errMgr;
+  	csvlog = csvlogfile;
+  }
+  
+  protected void reportInfo(final Element obj, final String msg){
+	  errManager.info(obj, msg);
+	  csvlog.addOutputNewline(msg);
+  }
+  
+  protected void reportWarning(final Element obj, final String msg){
+	  errManager.warning(obj, msg);
+	  csvlog.addOutputNewline("Warning: "+msg);
+  }
+  
+  protected void reportError(final Element obj, final String msg){
+	  errManager.error(obj, msg);
+	  csvlog.addOutputNewline("Error: "+msg);
   }
 
   public void setCurrentProcessor(ComponentInstance processor) { currentProcessor = processor; }
@@ -106,40 +123,34 @@ public class RuntimeProcessWalker  {
     		addThread((ComponentInstance)o);
     	}
     }
-
   }
+
   
-  public boolean containsProcessorBinding(ComponentInstance elt){
-	  	List<ComponentInstance> bindinglist;
-	  	//construct a new schedulable component, and put into the runTimeComponents only
-	  	//when all the timing properties are not null ! except the ARC related properties.
-	  	try
-	  	{
-	  		bindinglist = GetProperties.getActualProcessorBinding(elt);
-	  	}
-	  	catch (PropertyNotPresentException e)
-	  	{
-	  		return false;
-	  	}
-	  	for (ComponentInstance componentInstance : bindinglist) {
-			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
-				if (containsProcessorBinding(componentInstance)){
-					return true;
-				}
-			} else if (componentInstance == currentProcessor){
-				return true;
-			}
-		}
-	  return false;
+  public void reportProcessorBinding(ComponentInstance elt){
+	  List<ComponentInstance> bindinglist;
+	  // report binding of threads to VP and processor
+	  csvlog.addOutput(elt.getCategory().getName()+" "+elt.getComponentInstancePath()+ " ===> ");
+	  bindinglist = GetProperties.getActualProcessorBinding(elt);
+	  if (bindinglist.isEmpty()){
+		  csvlog.addOutputNewline("NOTHING");
+
+	  } else {
+		  for (ComponentInstance componentInstance : bindinglist) {
+			  if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+				  reportProcessorBinding(componentInstance);
+			  } else {
+				  csvlog.addOutputNewline(componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath());
+			  }
+		  }
+	  }
   }
 
+  
   /**
    * add thread if it is bound to the processor set in processorName
    * @param elt
    */
   public void addThread( ComponentInstance elt ){
-
-
 	  double exectimeval;
 	  try
 	  {
@@ -147,15 +158,10 @@ public class RuntimeProcessWalker  {
 	  }
 	  catch (PropertyNotPresentException e)
 	  {
-		  errManager.error(elt, elt.getComponentInstancePath()+": Execution time is not set");
+		  reportError(elt, elt.getComponentInstancePath()+": Execution time is not set");
 		  return;
 	  }
 	  
-	  if (!containsProcessorBinding(elt)) {
-		  errManager.error(elt, elt.getComponentInstancePath()+" is not bound to a processor");
-  		return;
-  	}
-
   	double val;
   	try
   	{
@@ -163,7 +169,7 @@ public class RuntimeProcessWalker  {
   	}
   	catch (PropertyNotPresentException e)
   	{
-  		errManager.error(elt, elt.getComponentInstancePath()+": Period is not set");
+  		reportError(elt, elt.getComponentInstancePath()+": Period is not set");
   		return;
   	}
 
@@ -263,7 +269,6 @@ public class RuntimeProcessWalker  {
     
     boolean result = analysis.schedulabilityAnalysis();
 
-	StringBuffer buf = new StringBuffer();
 	int totaltime = 0;
     for (int i=0; i<runTimeComponents.size(); i++) {
         RuntimeProcess curComponent =
@@ -271,33 +276,25 @@ public class RuntimeProcessWalker  {
         totaltime += curComponent.getExecutionTime()*1000/curComponent.getPeriod();
     }
     
+    csvlog.addOutputNewline("Schedulability Results" );
     if (result){
-    	errManager.info(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is schedulable with utilization "+totaltime/10+"%");
+    	reportInfo(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is schedulable with utilization "+totaltime/10+"%");
     } else {
-    	errManager.info(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is not schedulable with utilization "+totaltime/10+"%");
+    	reportError(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is not schedulable with utilization "+totaltime/10+"%");
     }
-    
-    buf.append("Utilization "+totaltime/10+"% for processor: " +
-         getCurrentProcessor().getInstanceObjectPath()  + "\n"
-         + "thread name, period, deadline, execution time, phase offset, priority, max response time, schedulability "
-          +"\n" +"\n" );
+    csvlog.addOutputNewline("thread name, period, deadline, execution time, phase offset, priority, max response time, schedulability ");
 
     for (int i=0; i<runTimeComponents.size(); i++) {
          RuntimeProcess curComponent =
                              (RuntimeProcess)runTimeComponents.get(i);
-//         if (curComponent.getARCName()!= null) {
-//            buf.append(curComponent.getComponentName() + "(in ARC " + curComponent.getARCName() +"):" +"\t");
-//         }
-//         else{
-            buf.append(curComponent.getComponentName() +", " );
-//         }
-         buf.append( curComponent.getPeriod()+", " + curComponent.getDeadline() + ", "
+         csvlog.addOutput(curComponent.getComponentName() +", " );
+         csvlog.addOutputNewline( curComponent.getPeriod()+", " + curComponent.getDeadline() + ", "
 		                      + curComponent.getExecutionTime() + ", " + curComponent.getPhaseOffset() + ", "
 		                      + curComponent.getPriority() + ", " + curComponent.getMaxResponseTime()
-		                      +", " + curComponent.getSchedulability() +"\n" );
+		                      +", " + curComponent.getSchedulability() );
     }
-    buf.append("\n\n");
-    TimingAnalysisInvocation.csvlog(buf.toString());
+    csvlog.addOutputNewline("" );
+    csvlog.addOutputNewline("" );
 
 	//clean the ARC vector holder.
     analysis.cleanARCList();

@@ -42,13 +42,16 @@ package org.osate.analysis.resource.management.actions;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.analysis.resource.management.ResourcemanagementPlugin;
+import org.osate.analysis.scheduling.RuntimeProcessWalker;
 import org.osate.analysis.scheduling.TimingAnalysisInvocation;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
 import org.osate.ui.dialogs.Dialog;
@@ -73,6 +76,20 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 	protected String getMarkerType() {
 		return "org.osate.analysis.resource.management.ScheduleObjectMarker";
 	}
+	
+	private WriteToFile csvlog ;
+
+	@Override
+	protected boolean initializeAnalysis(NamedElement obj) {
+	    	csvlog = new WriteToFile("SchedulingAnalysis", obj);
+			return true;
+	}
+
+	@Override
+	protected boolean finalizeAnalysis() {
+			csvlog.saveToFile();
+			return true;
+		}
 
 	@Override
 	protected void analyzeDeclarativeModel(final IProgressMonitor monitor,
@@ -81,6 +98,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 		Dialog.showError("Schedule Error", "Can only schedule system instances");
 	}
 
+	@Override
 	protected void analyzeInstanceModel(final IProgressMonitor monitor,
 			final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
@@ -90,7 +108,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 				@Override
 				public void process(Element obj) {
 					ComponentInstance ci = (ComponentInstance) obj;
-						TimingAnalysisInvocation.timingSchedulabilityAnalysis(this.getErrorManager(), ci);
+						TimingAnalysisInvocation.timingSchedulabilityAnalysis(this.getErrorManager(), csvlog, ci);
 					return;
 				}
 			};
@@ -99,7 +117,19 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 		} catch (InvalidModelException e) {
 			error(e.getElement(), e.getMessage());
 		}
-		TimingAnalysisInvocation.saveCSVContent();
+		// now report thread bindings
+		csvlog.addOutputNewline("Thread binding report");
+		ForAllElement processThread = new ForAllElement(errManager) {
+			@Override
+			public void process(Element obj) {
+				ComponentInstance ci = (ComponentInstance) obj;
+				RuntimeProcessWalker walker = new RuntimeProcessWalker( errManager,csvlog);
+				walker.reportProcessorBinding(ci);
+				return;
+			}
+		};
+		processThread.processPreOrderComponentInstance(root,
+				ComponentCategory.THREAD);
 		monitor.done();
 	}
 }

@@ -19,12 +19,11 @@ public class TimingAnalysisInvocation {
 	 * @param processor
 	 */
 	public static boolean timingSchedulabilityAnalysis(
-			final AnalysisErrorReporterManager errMgr, 
+			final AnalysisErrorReporterManager errMgr, WriteToFile csvlog,
 			final ComponentInstance processor) {
 		if (processor.getCategory() != ComponentCategory.PROCESSOR)
 			return false;
-		if (csvlog == null) csvlog = new WriteToFile("SchedulingAnalysis", processor);
-		RuntimeProcessWalker walker = new RuntimeProcessWalker( errMgr);
+		RuntimeProcessWalker walker = new RuntimeProcessWalker( errMgr,csvlog);
 		walker.cleanProcessHolder() ;
 		walker.setCurrentProcessor(processor);
 		walker.initWalker();
@@ -32,20 +31,6 @@ public class TimingAnalysisInvocation {
 		walker.assignPriority();
 		boolean result = walker.timingSchedualabilityAnalysis();
 		return result;
-	}
-	
-	private static WriteToFile csvlog = null;
-	
-	
-	public static void csvlog(String s){
-		if (csvlog != null)
-		csvlog.addOutputNewline(s);
-	}
-	
-	public static void saveCSVContent(){
-		if (csvlog != null)
-		csvlog.saveToFile();
-		csvlog = null;
 	}
 	
 	
