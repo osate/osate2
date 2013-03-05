@@ -18,6 +18,7 @@ import EAnalysis.BinPacking.SoftwareNode;
 public final class AADLThread extends SoftwareNode {
 	public static final long DEFAULT_PERIOD_NANOSECOND = 1L;
 
+	// cycles: cycles per dispatch
 	private AADLThread(final ComponentInstance thr, final long cycles,
 			final long period, final long deadline) {
 		super(cycles, period, deadline, thr.getName());
@@ -48,6 +49,8 @@ public final class AADLThread extends SoftwareNode {
 				// mips per sec, period in ns. cycles per period => mips / # dispatches * M
 				cycles = (long) mips * period /1000;
 			}
+		} else {
+			cycles = (long) instructionsperdispatch ;
 		}
 	
 		return new AADLThread(thread, cycles, period, deadline);
@@ -59,7 +62,7 @@ public final class AADLThread extends SoftwareNode {
 	}
 	
 	public String getReport(){
-		return "Thread "+this.name+" instructions "+this.cycles+" Period "+this.period+" Deadline "+this.deadline;
+		return "Thread "+this.name+" instructions "+this.cycles+" instr per sec "+this.cyclesPerSecond+" Period "+this.period+" Deadline "+this.deadline;
 	}
 	
 }

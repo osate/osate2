@@ -159,9 +159,9 @@ public class SoftwareNode implements ProcessingLoad, Cloneable,
 		BigInteger giga = new BigInteger("1000000000");
 		BigInteger bigCycles = new BigInteger(Long.toString(cycles));
 		BigInteger bigPeriod = new BigInteger(Long.toString(period));
-		bi.add(bigCycles);
-		bi.multiply(giga);
-		bi.divide(bigPeriod);
+		bi = bi.add(bigCycles);
+		bi = bi.multiply(giga);
+		bi = bi.divide(bigPeriod);
 		cyclesPerSecond = bi.longValue();
 	}
 

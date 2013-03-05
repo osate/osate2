@@ -21,6 +21,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @author phf
@@ -67,7 +68,7 @@ public class PriorityInversion {
 		EList boundThreads = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
-				if (!isPeriodicThread(obj)) return false;
+				if (!InstanceModelUtil.isPeriodicThread((ComponentInstance)obj)) return false;
 				List<ComponentInstance> boundProcessor;
 				try
 				{
@@ -87,21 +88,6 @@ public class PriorityInversion {
 		checkIncreasingMonotonicity(boundThreads);
 	}
 
-	
-	private boolean isThread(Element thread){
-		return (thread instanceof ThreadSubcomponent) || (thread instanceof ComponentInstance && ((ComponentInstance)thread).getCategory() == ComponentCategory.THREAD);
-	}
-	
-	private boolean isPeriodicThread(Element thread){
-		if (!isThread(thread)) return false;
-		
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol((NamedElement) thread);
-		if (dp != null) {
-			return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
-		} else { 
-			return false;
-		}
-	}
 
 	public void checkIncreasingMonotonicity(EList threadList) {
 		if (threadList.isEmpty())

@@ -58,6 +58,7 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class RuntimeProcessWalker  {
   //to record the invariants  visisted and put back to the system tree.
@@ -127,6 +128,11 @@ public class RuntimeProcessWalker  {
 
   
   public void reportProcessorBinding(ComponentInstance elt){
+	  double threadMips = GetProperties.getThreadExecutioninMIPS(elt);
+	  reportProcessorBinding(elt, threadMips);
+  }
+  
+  public void reportProcessorBinding(ComponentInstance elt, double threadMips){
 	  List<ComponentInstance> bindinglist;
 	  // report binding of threads to VP and processor
 	  csvlog.addOutput(elt.getCategory().getName()+" "+elt.getComponentInstancePath()+ " ===> ");
@@ -137,37 +143,16 @@ public class RuntimeProcessWalker  {
 	  } else {
 		  for (ComponentInstance componentInstance : bindinglist) {
 			  if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
-				  reportProcessorBinding(componentInstance);
+				  reportProcessorBinding(componentInstance,threadMips);
 			  } else {
-				  csvlog.addOutputNewline(componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath());
+				  // we have a processor
+				  double cpumips = GetProperties.getMIPSCapacityInMIPS(componentInstance, 0);
+				  csvlog.addOutputNewline(componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath()
+						  +(cpumips > 0?(" Utilization "+threadMips/cpumips*100+"%"):" No CPU capacity"));
 			  }
 		  }
 	  }
   }
-
-  public boolean isBoundToCurrentProcessor(ComponentInstance elt){
-	  	List<ComponentInstance> bindinglist;
-	  	//construct a new schedulable component, and put into the runTimeComponents only
-	  	//when all the timing properties are not null ! except the ARC related properties.
-	  	try
-	  	{
-	  		bindinglist = GetProperties.getActualProcessorBinding(elt);
-	  	}
-	  	catch (PropertyNotPresentException e)
-	  	{
-	  		return false;
-	  	}
-	  	for (ComponentInstance componentInstance : bindinglist) {
-			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
-				if (isBoundToCurrentProcessor(componentInstance)){
-					return true;
-				}
-			} else if (componentInstance == currentProcessor){
-				return true;
-			}
-		}
-	  return false;
-}
 
   
   /**
@@ -185,7 +170,7 @@ public class RuntimeProcessWalker  {
 		  reportError(elt, elt.getComponentInstancePath()+": Execution time is not set");
 		  return;
 	  }
-	  if (!isBoundToCurrentProcessor(elt)) {
+	  if (!InstanceModelUtil.isBoundToProcessor(elt,currentProcessor)) {
   		return;
   	}
 	  
