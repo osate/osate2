@@ -37,8 +37,16 @@ public class AADLBus extends Link {
 		RecordValue rv = GetProperties.getTransmissionTime(proc);
 		if (rv == null) return DEFAULT_TRANSMISSION_TIME;
 		RangeValue bpa = (RangeValue)PropertyUtils.getRecordFieldValue(rv, "PerByte");
-		NumberValue nv = bpa.getMaximumValue();
-		return nv.getScaledValue(GetProperties.getSecUnitLiteral(proc));
+		if (bpa != null){
+			NumberValue nv = bpa.getMaximumValue();
+			return nv.getScaledValue(GetProperties.getSecUnitLiteral(proc));
+		}
+		return 0;
+	}
+	
+	public String getReport(){
+		String res = "Bus "+this.name+ "Bytes per sec " + this.cyclesPerSecond;
+		return res;
 	}
 
 }

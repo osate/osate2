@@ -58,4 +58,8 @@ public final class AADLThread extends SoftwareNode {
 		return (ComponentInstance) getSemanticObject();
 	}
 	
+	public String getReport(){
+		return "Thread "+this.name+" instructions "+this.cycles+" Period "+this.period+" Deadline "+this.deadline;
+	}
+	
 }

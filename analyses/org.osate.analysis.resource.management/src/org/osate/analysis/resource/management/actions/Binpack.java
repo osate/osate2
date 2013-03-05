@@ -63,6 +63,7 @@ import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
@@ -77,6 +78,7 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -144,6 +146,20 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	protected String getActionName() {
 		return "Bind threads to processors";
 	}
+	
+	private WriteToFile csvlog ;
+
+	@Override
+	protected boolean initializeAnalysis(NamedElement obj) {
+	    	csvlog = new WriteToFile("Binpacking", obj);
+			return true;
+	}
+
+	@Override
+	protected boolean finalizeAnalysis() {
+			csvlog.saveToFile();
+			return true;
+		}
 
 	// Don't allow analysis in all modes.
 	protected boolean analyzeInSingleModeOnly() {
@@ -178,6 +194,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				"Can only SW/HW bind (binpack) system instances");
 	}
 
+	@Override
 	protected void analyzeInstanceModel(final IProgressMonitor monitor,
 			final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
@@ -191,14 +208,10 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			final ForAllElement addBuses = new ForAllElement(errManager) {
 				public void process(Element obj){				
 					ComponentInstance bi = (ComponentInstance) obj;
-					try {
 						final RecordValue transTime = GetProperties.getTransmissionTime(bi);
 						if (transTime == null) {
-							warning(obj, "Bus Transmission Time property not found");
+							warning(obj, "Bus is missing Transmission Time property, using default transmission time of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
 						}
-					} catch (PropertyNotPresentException e) {
-						warning(obj, "Bus is missing Transmission Time property, using default transmission time of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
-					}
 				}
 			};
 			addBuses.processPreOrderComponentInstance(root,ComponentCategory.BUS);				
@@ -248,10 +261,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 							Classifier cl = srcAP.getClassifier();
 							if (cl instanceof DataClassifier){
 								DataClassifier srcDC = (DataClassifier) cl;
-
-								try {
-									GetProperties.getSourceDataSizeInBytes(srcDC);
-								} catch(PropertyNotPresentException e) {
+								if (GetProperties.getSourceDataSizeInBytes(srcDC)==0){
 									warning(obj,"Data size of port connection not specified");
 								}
 							}
@@ -360,8 +370,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final ForAllElement addProcessors = new ForAllElement(errManager) {
 			public void process(Element obj) {			
 				ComponentInstance ci = (ComponentInstance) obj;
-				final Processor proc = AADLProcessor.createInstance(ci, processorMultiplier);
+				final AADLProcessor proc = AADLProcessor.createInstance(ci, processorMultiplier);
 				if (proc != null) {
+					csvlog.addOutputNewline(proc.getReport() );
 					siteArchitecture.addSiteGuest(proc, theSite);
 					problem.hardwareGraph.add(proc);
 					// add reverse mapping
@@ -381,6 +392,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				ComponentInstance bi = (ComponentInstance) obj;
 				
 				final AADLBus bus = AADLBus.createInstance(bi);
+				csvlog.addOutputNewline(bus.getReport() );
 				busToHardware.put(bi,bus);
 			}
 		};
@@ -432,8 +444,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final ForAllElement addThreads = new ForAllElement(errManager) {
 			public void process(Element obj) {
 				final ComponentInstance ci = (ComponentInstance) obj;
-				final SoftwareNode thread = AADLThread.createInstance(ci);
+				final AADLThread thread = AADLThread.createInstance(ci);
 				problem.softwareGraph.add(thread);
+				csvlog.addOutputNewline(thread.getReport() );
 				
 				// add reverse mapping
 				threadToSoftwareNode.put(ci, thread);
