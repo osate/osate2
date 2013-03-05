@@ -49,7 +49,7 @@ public class WriteToFile {
 		IPath path = OsateResourceUtil.getOsatePath(uri);
 		if (root instanceof InstanceObject){
 			String filename = path.lastSegment();
-			path = path.removeFileExtension().removeLastSegments(2).append("/reports/"+reporttype+"/"+filename);
+			path = path.removeFileExtension().removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		} else {
 			String filename = path.lastSegment();
 			path = path.removeFileExtension().removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
