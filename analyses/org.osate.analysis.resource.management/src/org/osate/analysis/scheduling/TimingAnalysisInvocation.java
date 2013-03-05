@@ -60,24 +60,38 @@ public class TimingAnalysisInvocation {
 				ComponentCategory.THREAD);
 		double cpuMips = GetProperties.getMIPSCapacityInMIPS(processor, 0);
 		csvlog.addOutputNewline( "EDF Schedulability Result");
-		if (cpuMips == 0&& !boundThreads.isEmpty()){
-			errMgr.error(processor, "Processor "+processor.getInstanceObjectPath()+" is not schedulable because it has no MIPS capacity");
-			csvlog.addOutputNewline( "Processor "+processor.getInstanceObjectPath()+" is not schedulable because it has no MIPS capacity");
-			return false;
+		double utilization = 0;
+		if (cpuMips == 0 ){
+			if( !boundThreads.isEmpty()){
+				errMgr.error(processor, "Processor "+processor.getInstanceObjectPath()+" has threads and is not schedulable because it has no MIPS capacity");
+				csvlog.addOutputNewline( "Processor "+processor.getInstanceObjectPath()+" has threads and is not schedulable because it has no MIPS capacity");
+				return false;
+			} else {
+				errMgr.error(processor, "Processor "+processor.getInstanceObjectPath()+" is not used and has no MIPS capacity");
+				csvlog.addOutputNewline( "Processor "+processor.getInstanceObjectPath()+" is not used and has no MIPS capacity");
+				return false;
+			}
 		}
 		double demandMips = 0;
-		for (Element element : boundThreads) {
-			demandMips =demandMips+ GetProperties.getThreadExecutioninMIPS((ComponentInstance) element);
-		}
-		double utilization = (demandMips / cpuMips)*100;
-		if (utilization > 100){
-			errMgr.error(processor, "Processor "+processor.getInstanceObjectPath()+" is not schedulable with utilization "+utilization+"%");
-			csvlog.addOutputNewline( "Processor "+processor.getInstanceObjectPath()+" is not schedulable with utilization "+utilization+"%");
-			return false;
+		if( !boundThreads.isEmpty()){
+			errMgr.error(processor, "Processor "+processor.getInstanceObjectPath()+" is schedulable but has no bound threads");
+			csvlog.addOutputNewline( "Processor "+processor.getInstanceObjectPath()+" is schedulable but has no bound threads");
+		return false;
 		} else {
-			errMgr.info(processor, "Processor "+processor.getInstanceObjectPath()+" is schedulable with utilization "+utilization+"%");
-			csvlog.addOutputNewline("Processor "+processor.getInstanceObjectPath()+" is schedulable with utilization "+utilization+"%");
-			return true;
+			for (Element element : boundThreads) {
+				demandMips =demandMips+ GetProperties.getThreadExecutioninMIPS((ComponentInstance) element);
+				utilization = (demandMips / cpuMips)*100;
+				if (utilization > 100){
+					errMgr.error(processor, "Processor "+processor.getInstanceObjectPath()+" is not schedulable with utilization "+utilization+"%");
+					csvlog.addOutputNewline( "Processor "+processor.getInstanceObjectPath()+" is not schedulable with utilization "+utilization+"%");
+					return false;
+				} else {
+					errMgr.info(processor, "Processor "+processor.getInstanceObjectPath()+" is schedulable with utilization "+utilization+"%");
+					csvlog.addOutputNewline("Processor "+processor.getInstanceObjectPath()+" is schedulable with utilization "+utilization+"%");
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 	

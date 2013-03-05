@@ -54,7 +54,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentCategory;
@@ -290,6 +293,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				result = binPackSystem(root, processorMultiplier, expansor, packer, errManager);
 			} while (!result.success && processorMultiplier < MAX_MULTIPLIER);
 			
+			reportResults(som,result, processorMultiplier);
+
+			
 			if (result.success) {
 				showResults(som, root, result, processorMultiplier);
 			} else {
@@ -368,7 +374,6 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				ComponentInstance ci = (ComponentInstance) obj;
 				final AADLProcessor proc = AADLProcessor.createInstance(ci, processorMultiplier);
 				if (proc != null) {
-					csvlog.addOutputNewline(proc.getReport() );
 					siteArchitecture.addSiteGuest(proc, theSite);
 					problem.hardwareGraph.add(proc);
 					// add reverse mapping
@@ -388,7 +393,6 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				ComponentInstance bi = (ComponentInstance) obj;
 				
 				final AADLBus bus = AADLBus.createInstance(bi);
-				csvlog.addOutputNewline(bus.getReport() );
 				busToHardware.put(bi,bus);
 			}
 		};
@@ -442,7 +446,6 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				final ComponentInstance ci = (ComponentInstance) obj;
 				final AADLThread thread = AADLThread.createInstance(ci);
 				problem.softwareGraph.add(thread);
-				csvlog.addOutputNewline(thread.getReport() );
 				
 				// add reverse mapping
 				threadToSoftwareNode.put(ci, thread);
@@ -587,8 +590,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
 //		final Properties props = constructDeclarativeBindings(threadsToProc);
 //		final AadlUnparser unparser = new AadlUnparser();
-		final String propText = getBindingText(threadsToProc); //unparser.doUnparse(props);
 		
+		final String propText = getBindingText(threadsToProc); //unparser.doUnparse(props);
 		boolean done = false;
 		while (!done) {
 			final Dialog d = new PackingSuccessfulDialog(getShell(), som,
@@ -644,6 +647,39 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		}
 		return threadsToProc;
 	}
+	
+	public void reportResults(SystemOperationMode som,final AssignmentResult result, final int processorMultiplier) {
+		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
+
+		csvlog.addOutputNewline("Binpacking results"+(!som.getName().equalsIgnoreCase("No Modes")?" for SOM "+som.getName():"")+": "+(result.success?"Success":"FAILED") );
+		for (final Iterator i = result.problem.hardwareGraph.iterator(); i.hasNext();) {
+			final HardwareNode hn = (HardwareNode) i.next();
+			final ComponentInstance proc = (ComponentInstance) hn.getSemanticObject();
+			double load = hn.cyclesPerSecond - hn.getAvailableCapacity();
+			load /= hn.cyclesPerSecond / (double) processorMultiplier;
+			load *= 100.0;
+			long longLoad = (long) Math.ceil(load);
+			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - (hn.cyclesPerSecond / (double) processorMultiplier);
+			overload /= hn.cyclesPerSecond / (double) processorMultiplier;
+			overload *= 100.0;
+			long longOverload = (long) Math.ceil(overload);
+			long available = longOverload * -1;
+			csvlog.addOutputNewline("Processor "+proc.getInstanceObjectPath()+" ("+hn.cyclesPerSecond/1000000+" MIPS) Load: "+
+					Long.toString(longLoad) + "%" +" Available: "+
+					Long.toString(available) + "%" );
+		}
+		csvlog.addOutputNewline("Thread to Processor Bindings");
+		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
+			final ComponentInstance thread = (ComponentInstance) iter.next();
+			final ComponentInstance proc = (ComponentInstance) threadsToProc.get(thread);
+			  double threadMips = GetProperties.getThreadExecutioninMIPS(thread);
+			  double cpumips = GetProperties.getMIPSCapacityInMIPS(proc, 0);
+
+			csvlog.addOutputNewline("Thread "+thread.getInstanceObjectPath()+" ==> Processor "+proc.getInstanceObjectPath()
+					+(cpumips > 0?(" Utilization "+threadMips/cpumips*100+"%"):" No CPU capacity"));
+		}
+	}
+
 	
 	private void setInstanceModelBindings(
 			final SystemInstance root, final Map threadsToProc) {
