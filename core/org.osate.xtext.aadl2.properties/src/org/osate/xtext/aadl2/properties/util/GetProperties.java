@@ -191,13 +191,19 @@ public class GetProperties {
 	}
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		Property actualProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualProcessorBinding);
-		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
-		for (PropertyExpression propertyExpression : propertyValues){
-			InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
-			components.add((ComponentInstance)obj);
+		try
+		{
+			List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualProcessorBinding);
+			for (PropertyExpression propertyExpression : propertyValues){
+				InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
+				components.add((ComponentInstance)obj);
+			}
+		}
+		catch (PropertyNotPresentException e)
+		{
 		}
 		return components;
 	}
