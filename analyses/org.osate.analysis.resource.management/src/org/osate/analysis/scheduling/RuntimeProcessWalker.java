@@ -145,6 +145,30 @@ public class RuntimeProcessWalker  {
 	  }
   }
 
+  public boolean isBoundToCurrentProcessor(ComponentInstance elt){
+	  	List<ComponentInstance> bindinglist;
+	  	//construct a new schedulable component, and put into the runTimeComponents only
+	  	//when all the timing properties are not null ! except the ARC related properties.
+	  	try
+	  	{
+	  		bindinglist = GetProperties.getActualProcessorBinding(elt);
+	  	}
+	  	catch (PropertyNotPresentException e)
+	  	{
+	  		return false;
+	  	}
+	  	for (ComponentInstance componentInstance : bindinglist) {
+			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+				if (isBoundToCurrentProcessor(componentInstance)){
+					return true;
+				}
+			} else if (componentInstance == currentProcessor){
+				return true;
+			}
+		}
+	  return false;
+}
+
   
   /**
    * add thread if it is bound to the processor set in processorName
@@ -161,6 +185,9 @@ public class RuntimeProcessWalker  {
 		  reportError(elt, elt.getComponentInstancePath()+": Execution time is not set");
 		  return;
 	  }
+	  if (!isBoundToCurrentProcessor(elt)) {
+  		return;
+  	}
 	  
   	double val;
   	try
