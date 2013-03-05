@@ -468,7 +468,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					//Do nothing.
 				}
 			}
-			if (ci.getCategory().equals(ComponentCategory.THREAD)){
+			// reset ci
+			ci = (ComponentInstance) component;
+			if (ci.getCategory().equals(ComponentCategory.THREAD)||ci.getCategory().equals(ComponentCategory.THREAD_GROUP)||ci.getCategory().equals(ComponentCategory.PROCESS)){
 				// lets find who the thread is bound to
 				List<ComponentInstance> res = GetProperties.getActualProcessorBinding(ci);
 				for (ComponentInstance componentInstance : res) {
