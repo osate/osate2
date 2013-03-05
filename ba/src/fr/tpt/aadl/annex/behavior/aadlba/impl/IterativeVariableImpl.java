@@ -49,145 +49,139 @@ import org.osate.aadl2.DataClassifier;
 public class IterativeVariableImpl extends BehaviorNamedElementImpl implements IterativeVariable
 {
   /**
-   * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDataClassifier()
-   * @generated
-   * @ordered
-   */
+	 * @see #getDataClassifier()
+	 * @generated
+	 * @ordered
+	 */
   protected DataClassifier dataClassifier;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected IterativeVariableImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.ITERATIVE_VARIABLE;
-  }
+		return AadlBaPackage.Literals.ITERATIVE_VARIABLE;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public DataClassifier getDataClassifier()
   {
-    if (dataClassifier != null && ((EObject)dataClassifier).eIsProxy())
-    {
-      InternalEObject oldDataClassifier = (InternalEObject)dataClassifier;
-      dataClassifier = (DataClassifier)eResolveProxy(oldDataClassifier);
-      if (dataClassifier != oldDataClassifier)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
-      }
-    }
-    return dataClassifier;
-  }
+		if (dataClassifier != null && ((EObject)dataClassifier).eIsProxy()) {
+			InternalEObject oldDataClassifier = (InternalEObject)dataClassifier;
+			dataClassifier = (DataClassifier)eResolveProxy(oldDataClassifier);
+			if (dataClassifier != oldDataClassifier) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
+			}
+		}
+		return dataClassifier;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public DataClassifier basicGetDataClassifier()
   {
-    return dataClassifier;
-  }
+		return dataClassifier;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setDataClassifier(DataClassifier newDataClassifier)
   {
-    DataClassifier oldDataClassifier = dataClassifier;
-    dataClassifier = newDataClassifier;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
-  }
+		DataClassifier oldDataClassifier = dataClassifier;
+		dataClassifier = newDataClassifier;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER:
-        if (resolve) return getDataClassifier();
-        return basicGetDataClassifier();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER:
+				if (resolve) return getDataClassifier();
+				return basicGetDataClassifier();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER:
-        setDataClassifier((DataClassifier)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER:
+				setDataClassifier((DataClassifier)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER:
-        setDataClassifier((DataClassifier)null);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER:
+				setDataClassifier((DataClassifier)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER:
-        return dataClassifier != null;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.ITERATIVE_VARIABLE__DATA_CLASSIFIER:
+				return dataClassifier != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()

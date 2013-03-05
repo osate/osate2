@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class CompletionRelativeTimeoutImpl extends BehaviorTimeImpl implements CompletionRelativeTimeout
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected CompletionRelativeTimeoutImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.COMPLETION_RELATIVE_TIMEOUT;
-  }
+		return AadlBaPackage.Literals.COMPLETION_RELATIVE_TIMEOUT;
+	}
 
 } //CompletionRelativeTimeoutImpl

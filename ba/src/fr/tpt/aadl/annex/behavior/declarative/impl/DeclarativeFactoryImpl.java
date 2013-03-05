@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package fr.tpt.aadl.annex.behavior.declarative.impl ;
 

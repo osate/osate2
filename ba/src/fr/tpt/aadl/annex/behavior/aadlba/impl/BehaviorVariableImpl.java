@@ -61,235 +61,223 @@ import org.osate.aadl2.DataClassifier;
 public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements BehaviorVariable
 {
   /**
-   * The cached value of the '{@link #getArrayDimensions() <em>Array Dimension</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimension</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getArrayDimensions()
-   * @generated
-   * @ordered
-   */
+	 * @see #getArrayDimensions()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<ArrayDimension> arrayDimensions;
 
   /**
-   * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDataClassifier() <em>Data Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDataClassifier()
-   * @generated
-   * @ordered
-   */
+	 * @see #getDataClassifier()
+	 * @generated
+	 * @ordered
+	 */
   protected DataClassifier dataClassifier;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorVariableImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_VARIABLE;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_VARIABLE;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<ArrayDimension> getArrayDimensions()
   {
-    if (arrayDimensions == null)
-    {
-      arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION);
-    }
-    return arrayDimensions;
-  }
+		if (arrayDimensions == null) {
+			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION);
+		}
+		return arrayDimensions;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public DataClassifier getDataClassifier()
   {
-    if (dataClassifier != null && ((EObject)dataClassifier).eIsProxy())
-    {
-      InternalEObject oldDataClassifier = (InternalEObject)dataClassifier;
-      dataClassifier = (DataClassifier)eResolveProxy(oldDataClassifier);
-      if (dataClassifier != oldDataClassifier)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
-      }
-    }
-    return dataClassifier;
-  }
+		if (dataClassifier != null && ((EObject)dataClassifier).eIsProxy()) {
+			InternalEObject oldDataClassifier = (InternalEObject)dataClassifier;
+			dataClassifier = (DataClassifier)eResolveProxy(oldDataClassifier);
+			if (dataClassifier != oldDataClassifier) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
+			}
+		}
+		return dataClassifier;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public DataClassifier basicGetDataClassifier()
   {
-    return dataClassifier;
-  }
+		return dataClassifier;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setDataClassifier(DataClassifier newDataClassifier)
   {
-    DataClassifier oldDataClassifier = dataClassifier;
-    dataClassifier = newDataClassifier;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
-  }
+		DataClassifier oldDataClassifier = dataClassifier;
+		dataClassifier = newDataClassifier;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER, oldDataClassifier, dataClassifier));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
-        return ((InternalEList<?>)getArrayDimensions()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
+				return ((InternalEList<?>)getArrayDimensions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
-        return getArrayDimensions();
-      case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER:
-        if (resolve) return getDataClassifier();
-        return basicGetDataClassifier();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
+				return getArrayDimensions();
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER:
+				if (resolve) return getDataClassifier();
+				return basicGetDataClassifier();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
-        getArrayDimensions().clear();
-        getArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER:
-        setDataClassifier((DataClassifier)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
+				getArrayDimensions().clear();
+				getArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER:
+				setDataClassifier((DataClassifier)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
-        getArrayDimensions().clear();
-        return;
-      case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER:
-        setDataClassifier((DataClassifier)null);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
+				getArrayDimensions().clear();
+				return;
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER:
+				setDataClassifier((DataClassifier)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
-        return arrayDimensions != null && !arrayDimensions.isEmpty();
-      case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER:
-        return dataClassifier != null;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION:
+				return arrayDimensions != null && !arrayDimensions.isEmpty();
+			case AadlBaPackage.BEHAVIOR_VARIABLE__DATA_CLASSIFIER:
+				return dataClassifier != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == ArrayableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION: return Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
+		if (baseClass == ArrayableElement.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION: return Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == ArrayableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION: return AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
+		if (baseClass == ArrayableElement.class) {
+			switch (baseFeatureID) {
+				case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION: return AadlBaPackage.BEHAVIOR_VARIABLE__ARRAY_DIMENSION;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
   
   /**
    * <!-- begin-user-doc -->

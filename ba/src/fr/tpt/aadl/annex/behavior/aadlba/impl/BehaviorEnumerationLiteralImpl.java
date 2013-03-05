@@ -50,208 +50,200 @@ import org.osate.aadl2.StringLiteral;
 public class BehaviorEnumerationLiteralImpl extends BehaviorElementImpl implements BehaviorEnumerationLiteral
 {
   /**
-   * The cached value of the '{@link #getEnumLiteral() <em>Enum Literal</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getEnumLiteral() <em>Enum Literal</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEnumLiteral()
-   * @generated
-   * @ordered
-   */
+	 * @see #getEnumLiteral()
+	 * @generated
+	 * @ordered
+	 */
   protected StringLiteral enumLiteral;
 
   /**
-   * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getComponent()
-   * @generated
-   * @ordered
-   */
+	 * @see #getComponent()
+	 * @generated
+	 * @ordered
+	 */
   protected ComponentClassifier component;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorEnumerationLiteralImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_ENUMERATION_LITERAL;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_ENUMERATION_LITERAL;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public StringLiteral getEnumLiteral()
   {
-    if (enumLiteral != null && ((EObject)enumLiteral).eIsProxy())
-    {
-      InternalEObject oldEnumLiteral = (InternalEObject)enumLiteral;
-      enumLiteral = (StringLiteral)eResolveProxy(oldEnumLiteral);
-      if (enumLiteral != oldEnumLiteral)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL, oldEnumLiteral, enumLiteral));
-      }
-    }
-    return enumLiteral;
-  }
+		if (enumLiteral != null && ((EObject)enumLiteral).eIsProxy()) {
+			InternalEObject oldEnumLiteral = (InternalEObject)enumLiteral;
+			enumLiteral = (StringLiteral)eResolveProxy(oldEnumLiteral);
+			if (enumLiteral != oldEnumLiteral) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL, oldEnumLiteral, enumLiteral));
+			}
+		}
+		return enumLiteral;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public StringLiteral basicGetEnumLiteral()
   {
-    return enumLiteral;
-  }
+		return enumLiteral;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setEnumLiteral(StringLiteral newEnumLiteral)
   {
-    StringLiteral oldEnumLiteral = enumLiteral;
-    enumLiteral = newEnumLiteral;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL, oldEnumLiteral, enumLiteral));
-  }
+		StringLiteral oldEnumLiteral = enumLiteral;
+		enumLiteral = newEnumLiteral;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL, oldEnumLiteral, enumLiteral));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public ComponentClassifier getComponent()
   {
-    if (component != null && ((EObject)component).eIsProxy())
-    {
-      InternalEObject oldComponent = (InternalEObject)component;
-      component = (ComponentClassifier)eResolveProxy(oldComponent);
-      if (component != oldComponent)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT, oldComponent, component));
-      }
-    }
-    return component;
-  }
+		if (component != null && ((EObject)component).eIsProxy()) {
+			InternalEObject oldComponent = (InternalEObject)component;
+			component = (ComponentClassifier)eResolveProxy(oldComponent);
+			if (component != oldComponent) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT, oldComponent, component));
+			}
+		}
+		return component;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public ComponentClassifier basicGetComponent()
   {
-    return component;
-  }
+		return component;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setComponent(ComponentClassifier newComponent)
   {
-    ComponentClassifier oldComponent = component;
-    component = newComponent;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT, oldComponent, component));
-  }
+		ComponentClassifier oldComponent = component;
+		component = newComponent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT, oldComponent, component));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
-        if (resolve) return getEnumLiteral();
-        return basicGetEnumLiteral();
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:
-        if (resolve) return getComponent();
-        return basicGetComponent();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
+				if (resolve) return getEnumLiteral();
+				return basicGetEnumLiteral();
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:
+				if (resolve) return getComponent();
+				return basicGetComponent();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
-        setEnumLiteral((StringLiteral)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:
-        setComponent((ComponentClassifier)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
+				setEnumLiteral((StringLiteral)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:
+				setComponent((ComponentClassifier)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
-        setEnumLiteral((StringLiteral)null);
-        return;
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:
-        setComponent((ComponentClassifier)null);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
+				setEnumLiteral((StringLiteral)null);
+				return;
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:
+				setComponent((ComponentClassifier)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
-        return enumLiteral != null;
-      case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:
-        return component != null;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__ENUM_LITERAL:
+				return enumLiteral != null;
+			case AadlBaPackage.BEHAVIOR_ENUMERATION_LITERAL__COMPONENT:
+				return component != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //BehaviorEnumerationLiteralImpl

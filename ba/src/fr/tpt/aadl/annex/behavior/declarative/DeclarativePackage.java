@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package fr.tpt.aadl.annex.behavior.declarative ;
 
@@ -78,7 +74,7 @@ public interface DeclarativePackage extends EPackage
   int IDENTIFIER = 7 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -206,7 +202,7 @@ public interface DeclarativePackage extends EPackage
   int ARRAYABLE_IDENTIFIER = 0 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -343,7 +339,7 @@ public interface DeclarativePackage extends EPackage
   int COMM_ACTION = 1 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -482,7 +478,7 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_ARRAY_DIMENSION = 2 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -561,7 +557,7 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_BEHAVIOR_ELEMENT = 3 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -621,7 +617,7 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_BEHAVIOR_TRANSITION = 4 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -781,7 +777,7 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_TIME = 5 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -868,7 +864,7 @@ public interface DeclarativePackage extends EPackage
   int QUALIFIED_NAMED_ELEMENT = 9 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -917,7 +913,7 @@ public interface DeclarativePackage extends EPackage
         Aadl2Package.DATA_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION ;
 
   /**
-   * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Member</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1135,7 +1131,7 @@ public interface DeclarativePackage extends EPackage
   int ENUMERATION = 6 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1181,7 +1177,7 @@ public interface DeclarativePackage extends EPackage
         QUALIFIED_NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION ;
 
   /**
-   * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Member</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1393,7 +1389,7 @@ public interface DeclarativePackage extends EPackage
   int NAMED_VALUE = 8 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1493,7 +1489,7 @@ public interface DeclarativePackage extends EPackage
   int REFERENCE = 10 ;
 
   /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated

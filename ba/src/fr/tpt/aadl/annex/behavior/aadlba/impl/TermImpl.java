@@ -54,204 +54,197 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class TermImpl extends BehaviorElementImpl implements Term
 {
   /**
-   * The cached value of the '{@link #getFactors() <em>Factors</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFactors() <em>Factors</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFactors()
-   * @generated
-   * @ordered
-   */
+	 * @see #getFactors()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<Factor> factors;
 
   /**
-   * The cached value of the '{@link #getMultiplyingOperators() <em>Multiplying Operators</em>}' attribute list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getMultiplyingOperators() <em>Multiplying Operators</em>}' attribute list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMultiplyingOperators()
-   * @generated
-   * @ordered
-   */
+	 * @see #getMultiplyingOperators()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<MultiplyingOperator> multiplyingOperators;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected TermImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.TERM;
-  }
+		return AadlBaPackage.Literals.TERM;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<Factor> getFactors()
   {
-    if (factors == null)
-    {
-      factors = new EObjectContainmentEList<Factor>(Factor.class, this, AadlBaPackage.TERM__FACTORS);
-    }
-    return factors;
-  }
+		if (factors == null) {
+			factors = new EObjectContainmentEList<Factor>(Factor.class, this, AadlBaPackage.TERM__FACTORS);
+		}
+		return factors;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<MultiplyingOperator> getMultiplyingOperators()
   {
-    if (multiplyingOperators == null)
-    {
-      multiplyingOperators = new EDataTypeEList.Unsettable<MultiplyingOperator>(MultiplyingOperator.class, this, AadlBaPackage.TERM__MULTIPLYING_OPERATORS);
-    }
-    return multiplyingOperators;
-  }
+		if (multiplyingOperators == null) {
+			multiplyingOperators = new EDataTypeEList.Unsettable<MultiplyingOperator>(MultiplyingOperator.class, this, AadlBaPackage.TERM__MULTIPLYING_OPERATORS);
+		}
+		return multiplyingOperators;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetMultiplyingOperators()
   {
-    if (multiplyingOperators != null) ((InternalEList.Unsettable<?>)multiplyingOperators).unset();
-  }
+		if (multiplyingOperators != null) ((InternalEList.Unsettable<?>)multiplyingOperators).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetMultiplyingOperators()
   {
-    return multiplyingOperators != null && ((InternalEList.Unsettable<?>)multiplyingOperators).isSet();
-  }
+		return multiplyingOperators != null && ((InternalEList.Unsettable<?>)multiplyingOperators).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.TERM__FACTORS:
-        return ((InternalEList<?>)getFactors()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS:
+				return ((InternalEList<?>)getFactors()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.TERM__FACTORS:
-        return getFactors();
-      case AadlBaPackage.TERM__MULTIPLYING_OPERATORS:
-        return getMultiplyingOperators();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS:
+				return getFactors();
+			case AadlBaPackage.TERM__MULTIPLYING_OPERATORS:
+				return getMultiplyingOperators();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.TERM__FACTORS:
-        getFactors().clear();
-        getFactors().addAll((Collection<? extends Factor>)newValue);
-        return;
-      case AadlBaPackage.TERM__MULTIPLYING_OPERATORS:
-        getMultiplyingOperators().clear();
-        getMultiplyingOperators().addAll((Collection<? extends MultiplyingOperator>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS:
+				getFactors().clear();
+				getFactors().addAll((Collection<? extends Factor>)newValue);
+				return;
+			case AadlBaPackage.TERM__MULTIPLYING_OPERATORS:
+				getMultiplyingOperators().clear();
+				getMultiplyingOperators().addAll((Collection<? extends MultiplyingOperator>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.TERM__FACTORS:
-        getFactors().clear();
-        return;
-      case AadlBaPackage.TERM__MULTIPLYING_OPERATORS:
-        unsetMultiplyingOperators();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS:
+				getFactors().clear();
+				return;
+			case AadlBaPackage.TERM__MULTIPLYING_OPERATORS:
+				unsetMultiplyingOperators();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.TERM__FACTORS:
-        return factors != null && !factors.isEmpty();
-      case AadlBaPackage.TERM__MULTIPLYING_OPERATORS:
-        return isSetMultiplyingOperators();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.TERM__FACTORS:
+				return factors != null && !factors.isEmpty();
+			case AadlBaPackage.TERM__MULTIPLYING_OPERATORS:
+				return isSetMultiplyingOperators();
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public String toString()
   {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (multiplyingOperators: ");
-    result.append(multiplyingOperators);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (multiplyingOperators: ");
+		result.append(multiplyingOperators);
+		result.append(')');
+		return result.toString();
+	}
 
 } //TermImpl

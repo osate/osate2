@@ -432,7 +432,7 @@ public class DeclarativeArrayDimensionImpl extends ArrayDimensionImpl implements
     }
     return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass) ;
   }
-  
+
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()
   {

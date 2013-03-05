@@ -41,47 +41,47 @@ import org.osate.aadl2.PrototypeBinding;
 public interface PrototypeHolder extends BehaviorElement
 {
   /**
-   * Returns the value of the '<em><b>Prototype Binding</b></em>' reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Prototype Binding</b></em>' reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Prototype Binding</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Prototype Binding</em>' reference.
-   * @see #setPrototypeBinding(PrototypeBinding)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPrototypeHolder_PrototypeBinding()
-   * @model
-   * @generated
-   */
+	 * @return the value of the '<em>Prototype Binding</em>' reference.
+	 * @see #setPrototypeBinding(PrototypeBinding)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPrototypeHolder_PrototypeBinding()
+	 * @model
+	 * @generated
+	 */
   PrototypeBinding getPrototypeBinding();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder#getPrototypeBinding <em>Prototype Binding</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder#getPrototypeBinding <em>Prototype Binding</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Prototype Binding</em>' reference.
-   * @see #getPrototypeBinding()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Prototype Binding</em>' reference.
+	 * @see #getPrototypeBinding()
+	 * @generated
+	 */
   void setPrototypeBinding(PrototypeBinding value);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model prototypeRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = prototype ;'"
-   * @generated
-   */
+	 * @model prototypeRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = prototype ;'"
+	 * @generated
+	 */
   void setPrototype(Prototype prototype);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Prototype) element;'"
-   * @generated
-   */
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Prototype) element;'"
+	 * @generated
+	 */
   Prototype getPrototype();
 
 } // PrototypeHolder

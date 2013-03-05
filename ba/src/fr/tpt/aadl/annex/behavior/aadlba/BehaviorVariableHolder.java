@@ -33,21 +33,21 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface BehaviorVariableHolder extends DataHolder, IndexableElement, Target, ElementValues
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model variableRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = variable ;'"
-   * @generated
-   */
+	 * @model variableRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = variable ;'"
+	 * @generated
+	 */
   void setVariable(BehaviorVariable variable);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (BehaviorVariable) element;'"
-   * @generated
-   */
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (BehaviorVariable) element;'"
+	 * @generated
+	 */
   BehaviorVariable getBehaviorVariable();
 
 } // BehaviorVariableHolder

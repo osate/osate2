@@ -40,55 +40,55 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface IntegerRange extends ElementValues
 {
   /**
-   * Returns the value of the '<em><b>Lower Integer Value</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Lower Integer Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Lower Integer Value</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Lower Integer Value</em>' containment reference.
-   * @see #setLowerIntegerValue(IntegerValue)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIntegerRange_LowerIntegerValue()
-   * @model containment="true" required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Lower Integer Value</em>' containment reference.
+	 * @see #setLowerIntegerValue(IntegerValue)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIntegerRange_LowerIntegerValue()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
   IntegerValue getLowerIntegerValue();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerRange#getLowerIntegerValue <em>Lower Integer Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerRange#getLowerIntegerValue <em>Lower Integer Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Lower Integer Value</em>' containment reference.
-   * @see #getLowerIntegerValue()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Lower Integer Value</em>' containment reference.
+	 * @see #getLowerIntegerValue()
+	 * @generated
+	 */
   void setLowerIntegerValue(IntegerValue value);
 
   /**
-   * Returns the value of the '<em><b>Upper Integer Value</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Upper Integer Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Upper Integer Value</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Upper Integer Value</em>' containment reference.
-   * @see #setUpperIntegerValue(IntegerValue)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIntegerRange_UpperIntegerValue()
-   * @model containment="true" required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Upper Integer Value</em>' containment reference.
+	 * @see #setUpperIntegerValue(IntegerValue)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIntegerRange_UpperIntegerValue()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
   IntegerValue getUpperIntegerValue();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerRange#getUpperIntegerValue <em>Upper Integer Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IntegerRange#getUpperIntegerValue <em>Upper Integer Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Upper Integer Value</em>' containment reference.
-   * @see #getUpperIntegerValue()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Upper Integer Value</em>' containment reference.
+	 * @see #getUpperIntegerValue()
+	 * @generated
+	 */
   void setUpperIntegerValue(IntegerValue value);
 
 } // IntegerRange

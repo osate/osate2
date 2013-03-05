@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class ExecutionTimeoutCatchImpl extends BehaviorElementImpl implements ExecutionTimeoutCatch
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected ExecutionTimeoutCatchImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.EXECUTION_TIMEOUT_CATCH;
-  }
+		return AadlBaPackage.Literals.EXECUTION_TIMEOUT_CATCH;
+	}
 
 } //ExecutionTimeoutCatchImpl

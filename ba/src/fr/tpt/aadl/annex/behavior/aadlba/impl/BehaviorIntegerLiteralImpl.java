@@ -39,25 +39,25 @@ import org.osate.aadl2.impl.IntegerLiteralImpl;
 public class BehaviorIntegerLiteralImpl extends IntegerLiteralImpl implements BehaviorIntegerLiteral
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorIntegerLiteralImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_INTEGER_LITERAL;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_INTEGER_LITERAL;
+	}
 
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()

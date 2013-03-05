@@ -38,24 +38,24 @@ import org.osate.aadl2.impl.NamedElementImpl;
 public abstract class BehaviorNamedElementImpl extends NamedElementImpl implements BehaviorNamedElement
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorNamedElementImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_NAMED_ELEMENT;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_NAMED_ELEMENT;
+	}
 
 } //BehaviorNamedElementImpl

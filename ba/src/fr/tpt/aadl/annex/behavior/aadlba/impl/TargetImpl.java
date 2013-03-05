@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class TargetImpl extends BehaviorElementImpl implements Target
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected TargetImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.TARGET;
-  }
+		return AadlBaPackage.Literals.TARGET;
+	}
 
 } //TargetImpl

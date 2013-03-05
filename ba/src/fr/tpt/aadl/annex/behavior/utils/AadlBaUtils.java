@@ -383,7 +383,7 @@ public class AadlBaUtils {
    * object types.
    */
   public static Classifier getClassifier(Element el,
-                                           Classifier parentContainer)
+                                         Classifier parentContainer)
   {
     Classifier result = null ;
 
@@ -646,13 +646,16 @@ public class AadlBaUtils {
    * @param parentContainer only for AADLBA declarative objects which have no
    * parent set, yet
    * @return the binded component's DataClassifier object or {@code null} for
-   * the ValueConstant objects (excepted BehaviorEnumerationLiteral object)
+   * the ValueConstant objects (excepted BehaviorEnumerationLiteral object) and
+   * for the Abstract components objects.
    * @exception UnsupportedOperationException for unsupported binded 
    * object types.
    */
   public static DataClassifier getDataClassifier(Value v, ComponentClassifier
                                                                 parentContainer)
   {
+    Classifier result = null ;
+    
     if(v instanceof ValueVariable)
     {
       // Either ElementHolder or DataComponentReference object.
@@ -681,15 +684,23 @@ public class AadlBaUtils {
         parentContainer = (ComponentClassifier) tmp.eContainer() ;
       }
       
-      return (DataClassifier) getClassifier(el, parentContainer) ;
+      result = getClassifier(el, parentContainer) ;
     }
     else if (v instanceof BehaviorEnumerationLiteral)
     {
       BehaviorEnumerationLiteral bel = (BehaviorEnumerationLiteral) v ;
-
-      return (DataClassifier) bel.getComponent() ;
+      result = bel.getComponent() ; 
     }
     else
+    {
+      result = null ;
+    }
+    
+    if(result instanceof DataClassifier)
+    {
+      return (DataClassifier) result ;
+    }
+    else // Abstract components case.
     {
       return null ;
     }
@@ -796,7 +807,7 @@ public class AadlBaUtils {
     // null.
     if(v instanceof ValueVariable &&
        (! (v instanceof PortCountValue || v instanceof PortFreshValue))
-       )
+      )
     {
       result.klass = getDataClassifier(v, parentContainer) ;
     }
@@ -998,11 +1009,12 @@ public class AadlBaUtils {
       
       return result ;
     }
-    else if (el == null)
+    else if (el == null || el instanceof Abstract)
     {
       // returns the default type holder for untyped prototypes.
       return new TypeHolder() ; 
     }
+    else
     {
       String errorMsg = "getTypeHolder : " + el.getClass().getSimpleName()
           + " is not supported yet at line " +
@@ -1804,11 +1816,11 @@ public class AadlBaUtils {
       el = dhl.get(dhl.size() -1) ;
     }
     
-    if (el instanceof DataAccessHolder ||
-          el instanceof DataAccessPrototypeHolder ||
-          el instanceof FeaturePrototypeHolder)
+    if (el instanceof DataAccessHolder          ||
+        el instanceof DataAccessPrototypeHolder ||
+        el instanceof FeaturePrototypeHolder)
     {
-      return Aadl2Utils.getAccessRight((DataAccess)el.getElement()) ;
+      return Aadl2Utils.getAccessRight(el.getElement()) ;
     }
     else
     {

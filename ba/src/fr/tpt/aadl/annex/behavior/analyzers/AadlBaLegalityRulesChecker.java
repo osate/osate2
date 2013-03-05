@@ -22,39 +22,57 @@
 package fr.tpt.aadl.annex.behavior.analyzers ;
 
 import java.util.ArrayList ;
-import java.util.Comparator;
+import java.util.Comparator ;
 import java.util.HashSet ;
 import java.util.List ;
 import java.util.Set ;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EObject ;
 import org.eclipse.emf.ecore.EReference ;
-
 import org.osate.aadl2.Aadl2Package ;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.ComponentClassifier ;
+import org.osate.aadl2.DeviceClassifier ;
 import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.MetaclassReference ;
 import org.osate.aadl2.NamedValue ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.Property ;
-import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyOwner ;
 import org.osate.aadl2.PropertySet ;
-import org.osate.aadl2.SubprogramClassifier;
-import org.osate.aadl2.ThreadClassifier;
+import org.osate.aadl2.SubprogramClassifier ;
+import org.osate.aadl2.ThreadClassifier ;
 import org.osate.aadl2.VirtualProcessorClassifier ;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 import org.osate.xtext.aadl2.properties.util.ThreadProperties ;
 import org.osate.xtext.aadl2.properties.util.TimingProperties ;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 
-import fr.tpt.aadl.annex.behavior.aadlba.*;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
+import fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BasicAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionCollection ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionSequence ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariableHolder ;
+import fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeout ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout ;
+import fr.tpt.aadl.annex.behavior.aadlba.ElseStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.Target ;
+import fr.tpt.aadl.annex.behavior.aadlba.TimedAction ;
 import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorTransition ;
 import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
 import fr.tpt.aadl.utils.PropertyUtils ;
 import fr.tpt.aadl.utils.names.DispatchTriggerProperties ;
 
@@ -505,14 +523,20 @@ public class AadlBaLegalityRulesChecker
                   
                   if(literal.equalsIgnoreCase(DispatchTriggerProperties.TIMED))
                   {
-                     // XXX is TimingProperties.PERIOD the right property for
-                    // D.4.(5) checking ?
-                     PropertyAssociation period = PropertyUtils.
-                        getPropertyAssociation(_baParentContainer,
-                                               TimingProperties.PERIOD) ;
+                     boolean hasPeriod = false ;
+                     try
+                     {
+                        PropertyUtils.getIntValue(_baParentContainer,
+                                                  TimingProperties.PERIOD) ;
+                        hasPeriod = true ;
+                     }
+                     catch(Exception e)
+                     {
+                        hasPeriod = false ;
+                     }
                      
                      // Positive case.
-                     if(period != null)
+                     if(hasPeriod)
                      {
                         _hasAlreadyDispatchRelativeTimeoutCatch = true ;
                         return true ;
@@ -521,8 +545,8 @@ public class AadlBaLegalityRulesChecker
                           // ba's parent container.
                      {
                         reportLegalityError(tc, "The dispatch relative timeout"+
-                              " and catch statement must declared for timed " +
-                              " thread with period property properly set: " +
+                              " and catch statement must declared in timed " +
+                              " thread with a period property properly set: " +
                               " Behavior Annex D.4.(5) semantic rule failed") ;
                         
                         // Early exit to skip the next error reporting. 

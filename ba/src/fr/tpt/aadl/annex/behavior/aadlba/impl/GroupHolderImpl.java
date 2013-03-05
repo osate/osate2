@@ -59,274 +59,262 @@ import org.osate.aadl2.NamedElement;
 public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
 {
   /**
-   * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getElement()
-   * @generated
-   * @ordered
-   */
+	 * @see #getElement()
+	 * @generated
+	 * @ordered
+	 */
   protected NamedElement element;
 
   /**
-   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getArrayIndexes()
-   * @generated
-   * @ordered
-   */
+	 * @see #getArrayIndexes()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<IntegerValue> arrayIndexes;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected GroupHolderImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.GROUP_HOLDER;
-  }
+		return AadlBaPackage.Literals.GROUP_HOLDER;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NamedElement getElement()
   {
-    if (element != null && ((EObject)element).eIsProxy())
-    {
-      InternalEObject oldElement = (InternalEObject)element;
-      element = (NamedElement)eResolveProxy(oldElement);
-      if (element != oldElement)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.GROUP_HOLDER__ELEMENT, oldElement, element));
-      }
-    }
-    return element;
-  }
+		if (element != null && ((EObject)element).eIsProxy()) {
+			InternalEObject oldElement = (InternalEObject)element;
+			element = (NamedElement)eResolveProxy(oldElement);
+			if (element != oldElement) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.GROUP_HOLDER__ELEMENT, oldElement, element));
+			}
+		}
+		return element;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NamedElement basicGetElement()
   {
-    return element;
-  }
+		return element;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setElement(NamedElement newElement)
   {
-    NamedElement oldElement = element;
-    element = newElement;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.GROUP_HOLDER__ELEMENT, oldElement, element));
-  }
+		NamedElement oldElement = element;
+		element = newElement;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.GROUP_HOLDER__ELEMENT, oldElement, element));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<IntegerValue> getArrayIndexes()
   {
-    if (arrayIndexes == null)
-    {
-      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES);
-    }
-    return arrayIndexes;
-  }
+		if (arrayIndexes == null) {
+			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES);
+		}
+		return arrayIndexes;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetArrayIndexes()
   {
-    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
-  }
+		if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetArrayIndexes()
   {
-    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
-  }
+		return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setGroup(NamedElement group)
   {
-    element = group ;
-  }
+		element = group ;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NamedElement getGroup()
   {
-    return element;
-  }
+		return element;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
-        return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
+				return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.GROUP_HOLDER__ELEMENT:
-        if (resolve) return getElement();
-        return basicGetElement();
-      case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
-        return getArrayIndexes();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.GROUP_HOLDER__ELEMENT:
+				if (resolve) return getElement();
+				return basicGetElement();
+			case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
+				return getArrayIndexes();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.GROUP_HOLDER__ELEMENT:
-        setElement((NamedElement)newValue);
-        return;
-      case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
-        getArrayIndexes().clear();
-        getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.GROUP_HOLDER__ELEMENT:
+				setElement((NamedElement)newValue);
+				return;
+			case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
+				getArrayIndexes().clear();
+				getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.GROUP_HOLDER__ELEMENT:
-        setElement((NamedElement)null);
-        return;
-      case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
-        unsetArrayIndexes();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.GROUP_HOLDER__ELEMENT:
+				setElement((NamedElement)null);
+				return;
+			case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
+				unsetArrayIndexes();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.GROUP_HOLDER__ELEMENT:
-        return element != null;
-      case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
-        return isSetArrayIndexes();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.GROUP_HOLDER__ELEMENT:
+				return element != null;
+			case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES:
+				return isSetArrayIndexes();
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == IndexableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
+		if (baseClass == IndexableElement.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == IndexableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
+		if (baseClass == IndexableElement.class) {
+			switch (baseFeatureID) {
+				case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.GROUP_HOLDER__ARRAY_INDEXES;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
 
 } //GroupHolderImpl

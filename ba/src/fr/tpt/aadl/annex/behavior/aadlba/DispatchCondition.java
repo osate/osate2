@@ -41,68 +41,68 @@ import org.eclipse.emf.common.util.EList;
 public interface DispatchCondition extends BehaviorCondition
 {
   /**
-   * Returns the value of the '<em><b>Dispatch Trigger Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Dispatch Trigger Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Dispatch Trigger Condition</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Dispatch Trigger Condition</em>' containment reference.
-   * @see #setDispatchTriggerCondition(DispatchTriggerCondition)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDispatchCondition_DispatchTriggerCondition()
-   * @model containment="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Dispatch Trigger Condition</em>' containment reference.
+	 * @see #setDispatchTriggerCondition(DispatchTriggerCondition)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDispatchCondition_DispatchTriggerCondition()
+	 * @model containment="true"
+	 * @generated
+	 */
   DispatchTriggerCondition getDispatchTriggerCondition();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition#getDispatchTriggerCondition <em>Dispatch Trigger Condition</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition#getDispatchTriggerCondition <em>Dispatch Trigger Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Dispatch Trigger Condition</em>' containment reference.
-   * @see #getDispatchTriggerCondition()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Dispatch Trigger Condition</em>' containment reference.
+	 * @see #getDispatchTriggerCondition()
+	 * @generated
+	 */
   void setDispatchTriggerCondition(DispatchTriggerCondition value);
 
   /**
-   * Returns the value of the '<em><b>Frozen Ports</b></em>' containment reference list.
-   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.ActualPortHolder}.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Frozen Ports</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.ActualPortHolder}.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Frozen Ports</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Frozen Ports</em>' containment reference list.
-   * @see #isSetFrozenPorts()
-   * @see #unsetFrozenPorts()
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDispatchCondition_FrozenPorts()
-   * @model containment="true" unsettable="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Frozen Ports</em>' containment reference list.
+	 * @see #isSetFrozenPorts()
+	 * @see #unsetFrozenPorts()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDispatchCondition_FrozenPorts()
+	 * @model containment="true" unsettable="true"
+	 * @generated
+	 */
   EList<ActualPortHolder> getFrozenPorts();
 
   /**
-   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isSetFrozenPorts()
-   * @see #getFrozenPorts()
-   * @generated
-   */
+	 * @see #isSetFrozenPorts()
+	 * @see #getFrozenPorts()
+	 * @generated
+	 */
   void unsetFrozenPorts();
 
   /**
-   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}' containment reference list is set.
-   * <!-- begin-user-doc -->
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Frozen Ports</em>' containment reference list is set.
-   * @see #unsetFrozenPorts()
-   * @see #getFrozenPorts()
-   * @generated
-   */
+	 * @return whether the value of the '<em>Frozen Ports</em>' containment reference list is set.
+	 * @see #unsetFrozenPorts()
+	 * @see #getFrozenPorts()
+	 * @generated
+	 */
   boolean isSetFrozenPorts();
 
 } // DispatchCondition

@@ -67,405 +67,372 @@ import org.osate.aadl2.PrototypeBinding;
 public class FeaturePrototypeHolderImpl extends DataHolderImpl implements FeaturePrototypeHolder
 {
   /**
-   * The cached value of the '{@link #getPrototypeBinding() <em>Prototype Binding</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getPrototypeBinding() <em>Prototype Binding</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPrototypeBinding()
-   * @generated
-   * @ordered
-   */
+	 * @see #getPrototypeBinding()
+	 * @generated
+	 * @ordered
+	 */
   protected PrototypeBinding prototypeBinding;
 
   /**
-   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getArrayIndexes()
-   * @generated
-   * @ordered
-   */
+	 * @see #getArrayIndexes()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<IntegerValue> arrayIndexes;
 
   /**
-   * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getGroupHolders()
-   * @generated
-   * @ordered
-   */
+	 * @see #getGroupHolders()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<GroupHolder> groupHolders;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected FeaturePrototypeHolderImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.FEATURE_PROTOTYPE_HOLDER;
-  }
+		return AadlBaPackage.Literals.FEATURE_PROTOTYPE_HOLDER;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public PrototypeBinding getPrototypeBinding()
   {
-    if (prototypeBinding != null && ((EObject)prototypeBinding).eIsProxy())
-    {
-      InternalEObject oldPrototypeBinding = (InternalEObject)prototypeBinding;
-      prototypeBinding = (PrototypeBinding)eResolveProxy(oldPrototypeBinding);
-      if (prototypeBinding != oldPrototypeBinding)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
-      }
-    }
-    return prototypeBinding;
-  }
+		if (prototypeBinding != null && ((EObject)prototypeBinding).eIsProxy()) {
+			InternalEObject oldPrototypeBinding = (InternalEObject)prototypeBinding;
+			prototypeBinding = (PrototypeBinding)eResolveProxy(oldPrototypeBinding);
+			if (prototypeBinding != oldPrototypeBinding) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
+			}
+		}
+		return prototypeBinding;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public PrototypeBinding basicGetPrototypeBinding()
   {
-    return prototypeBinding;
-  }
+		return prototypeBinding;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setPrototypeBinding(PrototypeBinding newPrototypeBinding)
   {
-    PrototypeBinding oldPrototypeBinding = prototypeBinding;
-    prototypeBinding = newPrototypeBinding;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
-  }
+		PrototypeBinding oldPrototypeBinding = prototypeBinding;
+		prototypeBinding = newPrototypeBinding;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<IntegerValue> getArrayIndexes()
   {
-    if (arrayIndexes == null)
-    {
-      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES);
-    }
-    return arrayIndexes;
-  }
+		if (arrayIndexes == null) {
+			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES);
+		}
+		return arrayIndexes;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetArrayIndexes()
   {
-    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
-  }
+		if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetArrayIndexes()
   {
-    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
-  }
+		return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<GroupHolder> getGroupHolders()
   {
-    if (groupHolders == null)
-    {
-      groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS);
-    }
-    return groupHolders;
-  }
+		if (groupHolders == null) {
+			groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS);
+		}
+		return groupHolders;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetGroupHolders()
   {
-    if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
-  }
+		if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetGroupHolders()
   {
-    return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
-  }
+		return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setPrototype(Prototype prototype)
   {
-    element = prototype ;
-  }
+		element = prototype ;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public Prototype getPrototype()
   {
-    return (Prototype) element;
-  }
+		return (Prototype) element;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
-        return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
-        return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+				return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+				return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        if (resolve) return getPrototypeBinding();
-        return basicGetPrototypeBinding();
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
-        return getArrayIndexes();
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
-        return getGroupHolders();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+				if (resolve) return getPrototypeBinding();
+				return basicGetPrototypeBinding();
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+				return getArrayIndexes();
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+				return getGroupHolders();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        setPrototypeBinding((PrototypeBinding)newValue);
-        return;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
-        getArrayIndexes().clear();
-        getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
-        return;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
-        getGroupHolders().clear();
-        getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+				setPrototypeBinding((PrototypeBinding)newValue);
+				return;
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+				getArrayIndexes().clear();
+				getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
+				return;
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+				getGroupHolders().clear();
+				getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        setPrototypeBinding((PrototypeBinding)null);
-        return;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
-        unsetArrayIndexes();
-        return;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
-        unsetGroupHolders();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+				setPrototypeBinding((PrototypeBinding)null);
+				return;
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+				unsetArrayIndexes();
+				return;
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+				unsetGroupHolders();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-        return prototypeBinding != null;
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
-        return isSetArrayIndexes();
-      case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
-        return isSetGroupHolders();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+				return prototypeBinding != null;
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES:
+				return isSetArrayIndexes();
+			case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS:
+				return isSetGroupHolders();
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == PrototypeHolder.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-        default: return -1;
-      }
-    }
-    if (baseClass == IndexableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == GroupableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
+		if (baseClass == PrototypeHolder.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
+				default: return -1;
+			}
+		}
+		if (baseClass == IndexableElement.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+				default: return -1;
+			}
+		}
+		if (baseClass == ParameterLabel.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == Target.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == ElementValues.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == GroupableElement.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == PrototypeHolder.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-        default: return -1;
-      }
-    }
-    if (baseClass == IndexableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == GroupableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
+		if (baseClass == PrototypeHolder.class) {
+			switch (baseFeatureID) {
+				case AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
+				default: return -1;
+			}
+		}
+		if (baseClass == IndexableElement.class) {
+			switch (baseFeatureID) {
+				case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__ARRAY_INDEXES;
+				default: return -1;
+			}
+		}
+		if (baseClass == ParameterLabel.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == Target.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == ElementValues.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == GroupableElement.class) {
+			switch (baseFeatureID) {
+				case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.FEATURE_PROTOTYPE_HOLDER__GROUP_HOLDERS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
 
 } //FeaturePrototypeHolderImpl

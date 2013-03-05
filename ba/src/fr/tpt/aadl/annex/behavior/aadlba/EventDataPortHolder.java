@@ -34,21 +34,21 @@ import org.osate.aadl2.EventDataPort;
 public interface EventDataPortHolder extends ActualPortHolder, ElementValues, DispatchTrigger, Target
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model eventDataPortRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = eventDataPort ;'"
-   * @generated
-   */
+	 * @model eventDataPortRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = eventDataPort ;'"
+	 * @generated
+	 */
   void setEventDataPort(EventDataPort eventDataPort);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (EventDataPort) element;'"
-   * @generated
-   */
+	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (EventDataPort) element;'"
+	 * @generated
+	 */
   EventDataPort geteventDataPort();
 
 } // EventDataPortHolder

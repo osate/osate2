@@ -40,55 +40,55 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface PortSendAction extends CommunicationAction
 {
   /**
-   * Returns the value of the '<em><b>Port</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Port</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Port</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Port</em>' containment reference.
-   * @see #setPort(ActualPortHolder)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortSendAction_Port()
-   * @model containment="true" required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Port</em>' containment reference.
+	 * @see #setPort(ActualPortHolder)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortSendAction_Port()
+	 * @model containment="true"
+	 * @generated
+	 */
   ActualPortHolder getPort();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortSendAction#getPort <em>Port</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortSendAction#getPort <em>Port</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Port</em>' containment reference.
-   * @see #getPort()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Port</em>' containment reference.
+	 * @see #getPort()
+	 * @generated
+	 */
   void setPort(ActualPortHolder value);
 
   /**
-   * Returns the value of the '<em><b>Value Expression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Value Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Value Expression</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Value Expression</em>' containment reference.
-   * @see #setValueExpression(ValueExpression)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortSendAction_ValueExpression()
-   * @model containment="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Value Expression</em>' containment reference.
+	 * @see #setValueExpression(ValueExpression)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortSendAction_ValueExpression()
+	 * @model containment="true"
+	 * @generated
+	 */
   ValueExpression getValueExpression();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortSendAction#getValueExpression <em>Value Expression</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortSendAction#getValueExpression <em>Value Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value Expression</em>' containment reference.
-   * @see #getValueExpression()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Value Expression</em>' containment reference.
+	 * @see #getValueExpression()
+	 * @generated
+	 */
   void setValueExpression(ValueExpression value);
 
 } // PortSendAction

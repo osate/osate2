@@ -52,325 +52,319 @@ import org.osate.aadl2.Mode;
 public class BehaviorStateImpl extends BehaviorNamedElementImpl implements BehaviorState
 {
   /**
-   * The default value of the '{@link #isInitial() <em>Initial</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isInitial() <em>Initial</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isInitial()
-   * @generated
-   * @ordered
-   */
+	 * @see #isInitial()
+	 * @generated
+	 * @ordered
+	 */
   protected static final boolean INITIAL_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isInitial() <em>Initial</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isInitial() <em>Initial</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isInitial()
-   * @generated
-   * @ordered
-   */
+	 * @see #isInitial()
+	 * @generated
+	 * @ordered
+	 */
   protected boolean initial = INITIAL_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isComplete() <em>Complete</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isComplete() <em>Complete</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isComplete()
-   * @generated
-   * @ordered
-   */
+	 * @see #isComplete()
+	 * @generated
+	 * @ordered
+	 */
   protected static final boolean COMPLETE_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isComplete() <em>Complete</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isComplete() <em>Complete</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isComplete()
-   * @generated
-   * @ordered
-   */
+	 * @see #isComplete()
+	 * @generated
+	 * @ordered
+	 */
   protected boolean complete = COMPLETE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #isFinal() <em>Final</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isFinal()
-   * @generated
-   * @ordered
-   */
+	 * @see #isFinal()
+	 * @generated
+	 * @ordered
+	 */
   protected static final boolean FINAL_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #isFinal() <em>Final</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isFinal()
-   * @generated
-   * @ordered
-   */
+	 * @see #isFinal()
+	 * @generated
+	 * @ordered
+	 */
   protected boolean final_ = FINAL_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getBindedMode() <em>Binded Mode</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getBindedMode() <em>Binded Mode</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getBindedMode()
-   * @generated
-   * @ordered
-   */
+	 * @see #getBindedMode()
+	 * @generated
+	 * @ordered
+	 */
   protected Mode bindedMode;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorStateImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_STATE;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_STATE;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isInitial()
   {
-    return initial;
-  }
+		return initial;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setInitial(boolean newInitial)
   {
-    boolean oldInitial = initial;
-    initial = newInitial;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__INITIAL, oldInitial, initial));
-  }
+		boolean oldInitial = initial;
+		initial = newInitial;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__INITIAL, oldInitial, initial));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isComplete()
   {
-    return complete;
-  }
+		return complete;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setComplete(boolean newComplete)
   {
-    boolean oldComplete = complete;
-    complete = newComplete;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__COMPLETE, oldComplete, complete));
-  }
+		boolean oldComplete = complete;
+		complete = newComplete;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__COMPLETE, oldComplete, complete));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isFinal()
   {
-    return final_;
-  }
+		return final_;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setFinal(boolean newFinal)
   {
-    boolean oldFinal = final_;
-    final_ = newFinal;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__FINAL, oldFinal, final_));
-  }
+		boolean oldFinal = final_;
+		final_ = newFinal;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__FINAL, oldFinal, final_));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public Mode getBindedMode()
   {
-    if (bindedMode != null && ((EObject)bindedMode).eIsProxy())
-    {
-      InternalEObject oldBindedMode = (InternalEObject)bindedMode;
-      bindedMode = (Mode)eResolveProxy(oldBindedMode);
-      if (bindedMode != oldBindedMode)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE, oldBindedMode, bindedMode));
-      }
-    }
-    return bindedMode;
-  }
+		if (bindedMode != null && ((EObject)bindedMode).eIsProxy()) {
+			InternalEObject oldBindedMode = (InternalEObject)bindedMode;
+			bindedMode = (Mode)eResolveProxy(oldBindedMode);
+			if (bindedMode != oldBindedMode) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE, oldBindedMode, bindedMode));
+			}
+		}
+		return bindedMode;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public Mode basicGetBindedMode()
   {
-    return bindedMode;
-  }
+		return bindedMode;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setBindedMode(Mode newBindedMode)
   {
-    Mode oldBindedMode = bindedMode;
-    bindedMode = newBindedMode;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE, oldBindedMode, bindedMode));
-  }
+		Mode oldBindedMode = bindedMode;
+		bindedMode = newBindedMode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE, oldBindedMode, bindedMode));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
-        return isInitial();
-      case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
-        return isComplete();
-      case AadlBaPackage.BEHAVIOR_STATE__FINAL:
-        return isFinal();
-      case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
-        if (resolve) return getBindedMode();
-        return basicGetBindedMode();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
+				return isInitial();
+			case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
+				return isComplete();
+			case AadlBaPackage.BEHAVIOR_STATE__FINAL:
+				return isFinal();
+			case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
+				if (resolve) return getBindedMode();
+				return basicGetBindedMode();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
-        setInitial((Boolean)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
-        setComplete((Boolean)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_STATE__FINAL:
-        setFinal((Boolean)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
-        setBindedMode((Mode)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
+				setInitial((Boolean)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
+				setComplete((Boolean)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_STATE__FINAL:
+				setFinal((Boolean)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
+				setBindedMode((Mode)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
-        setInitial(INITIAL_EDEFAULT);
-        return;
-      case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
-        setComplete(COMPLETE_EDEFAULT);
-        return;
-      case AadlBaPackage.BEHAVIOR_STATE__FINAL:
-        setFinal(FINAL_EDEFAULT);
-        return;
-      case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
-        setBindedMode((Mode)null);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
+				setInitial(INITIAL_EDEFAULT);
+				return;
+			case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
+				setComplete(COMPLETE_EDEFAULT);
+				return;
+			case AadlBaPackage.BEHAVIOR_STATE__FINAL:
+				setFinal(FINAL_EDEFAULT);
+				return;
+			case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
+				setBindedMode((Mode)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
-        return initial != INITIAL_EDEFAULT;
-      case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
-        return complete != COMPLETE_EDEFAULT;
-      case AadlBaPackage.BEHAVIOR_STATE__FINAL:
-        return final_ != FINAL_EDEFAULT;
-      case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
-        return bindedMode != null;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_STATE__INITIAL:
+				return initial != INITIAL_EDEFAULT;
+			case AadlBaPackage.BEHAVIOR_STATE__COMPLETE:
+				return complete != COMPLETE_EDEFAULT;
+			case AadlBaPackage.BEHAVIOR_STATE__FINAL:
+				return final_ != FINAL_EDEFAULT;
+			case AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE:
+				return bindedMode != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public String toString()
   {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (initial: ");
-    result.append(initial);
-    result.append(", complete: ");
-    result.append(complete);
-    result.append(", final: ");
-    result.append(final_);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (initial: ");
+		result.append(initial);
+		result.append(", complete: ");
+		result.append(complete);
+		result.append(", final: ");
+		result.append(final_);
+		result.append(')');
+		return result.toString();
+	}
 
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()

@@ -59,295 +59,288 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleExpression
 {
   /**
-   * The default value of the '{@link #getUnaryAddingOperator() <em>Unary Adding Operator</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getUnaryAddingOperator() <em>Unary Adding Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnaryAddingOperator()
-   * @generated
-   * @ordered
-   */
+	 * @see #getUnaryAddingOperator()
+	 * @generated
+	 * @ordered
+	 */
   protected static final UnaryAddingOperator UNARY_ADDING_OPERATOR_EDEFAULT = UnaryAddingOperator.NONE;
 
   /**
-   * The cached value of the '{@link #getUnaryAddingOperator() <em>Unary Adding Operator</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getUnaryAddingOperator() <em>Unary Adding Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnaryAddingOperator()
-   * @generated
-   * @ordered
-   */
+	 * @see #getUnaryAddingOperator()
+	 * @generated
+	 * @ordered
+	 */
   protected UnaryAddingOperator unaryAddingOperator = UNARY_ADDING_OPERATOR_EDEFAULT;
 
   /**
-   * This is true if the Unary Adding Operator attribute has been set.
-   * <!-- begin-user-doc -->
+	 * This is true if the Unary Adding Operator attribute has been set.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
+	 * @generated
+	 * @ordered
+	 */
   protected boolean unaryAddingOperatorESet;
 
   /**
-   * The cached value of the '{@link #getTerms() <em>Terms</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getTerms() <em>Terms</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTerms()
-   * @generated
-   * @ordered
-   */
+	 * @see #getTerms()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<Term> terms;
 
   /**
-   * The cached value of the '{@link #getBinaryAddingOperators() <em>Binary Adding Operators</em>}' attribute list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getBinaryAddingOperators() <em>Binary Adding Operators</em>}' attribute list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getBinaryAddingOperators()
-   * @generated
-   * @ordered
-   */
+	 * @see #getBinaryAddingOperators()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<BinaryAddingOperator> binaryAddingOperators;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected SimpleExpressionImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.SIMPLE_EXPRESSION;
-  }
+		return AadlBaPackage.Literals.SIMPLE_EXPRESSION;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public UnaryAddingOperator getUnaryAddingOperator()
   {
-    return unaryAddingOperator;
-  }
+		return unaryAddingOperator;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setUnaryAddingOperator(UnaryAddingOperator newUnaryAddingOperator)
   {
-    UnaryAddingOperator oldUnaryAddingOperator = unaryAddingOperator;
-    unaryAddingOperator = newUnaryAddingOperator == null ? UNARY_ADDING_OPERATOR_EDEFAULT : newUnaryAddingOperator;
-    boolean oldUnaryAddingOperatorESet = unaryAddingOperatorESet;
-    unaryAddingOperatorESet = true;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR, oldUnaryAddingOperator, unaryAddingOperator, !oldUnaryAddingOperatorESet));
-  }
+		UnaryAddingOperator oldUnaryAddingOperator = unaryAddingOperator;
+		unaryAddingOperator = newUnaryAddingOperator == null ? UNARY_ADDING_OPERATOR_EDEFAULT : newUnaryAddingOperator;
+		boolean oldUnaryAddingOperatorESet = unaryAddingOperatorESet;
+		unaryAddingOperatorESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR, oldUnaryAddingOperator, unaryAddingOperator, !oldUnaryAddingOperatorESet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetUnaryAddingOperator()
   {
-    UnaryAddingOperator oldUnaryAddingOperator = unaryAddingOperator;
-    boolean oldUnaryAddingOperatorESet = unaryAddingOperatorESet;
-    unaryAddingOperator = UNARY_ADDING_OPERATOR_EDEFAULT;
-    unaryAddingOperatorESet = false;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR, oldUnaryAddingOperator, UNARY_ADDING_OPERATOR_EDEFAULT, oldUnaryAddingOperatorESet));
-  }
+		UnaryAddingOperator oldUnaryAddingOperator = unaryAddingOperator;
+		boolean oldUnaryAddingOperatorESet = unaryAddingOperatorESet;
+		unaryAddingOperator = UNARY_ADDING_OPERATOR_EDEFAULT;
+		unaryAddingOperatorESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR, oldUnaryAddingOperator, UNARY_ADDING_OPERATOR_EDEFAULT, oldUnaryAddingOperatorESet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetUnaryAddingOperator()
   {
-    return unaryAddingOperatorESet;
-  }
+		return unaryAddingOperatorESet;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<Term> getTerms()
   {
-    if (terms == null)
-    {
-      terms = new EObjectContainmentEList<Term>(Term.class, this, AadlBaPackage.SIMPLE_EXPRESSION__TERMS);
-    }
-    return terms;
-  }
+		if (terms == null) {
+			terms = new EObjectContainmentEList<Term>(Term.class, this, AadlBaPackage.SIMPLE_EXPRESSION__TERMS);
+		}
+		return terms;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<BinaryAddingOperator> getBinaryAddingOperators()
   {
-    if (binaryAddingOperators == null)
-    {
-      binaryAddingOperators = new EDataTypeEList.Unsettable<BinaryAddingOperator>(BinaryAddingOperator.class, this, AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS);
-    }
-    return binaryAddingOperators;
-  }
+		if (binaryAddingOperators == null) {
+			binaryAddingOperators = new EDataTypeEList.Unsettable<BinaryAddingOperator>(BinaryAddingOperator.class, this, AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS);
+		}
+		return binaryAddingOperators;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetBinaryAddingOperators()
   {
-    if (binaryAddingOperators != null) ((InternalEList.Unsettable<?>)binaryAddingOperators).unset();
-  }
+		if (binaryAddingOperators != null) ((InternalEList.Unsettable<?>)binaryAddingOperators).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetBinaryAddingOperators()
   {
-    return binaryAddingOperators != null && ((InternalEList.Unsettable<?>)binaryAddingOperators).isSet();
-  }
+		return binaryAddingOperators != null && ((InternalEList.Unsettable<?>)binaryAddingOperators).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
-        return ((InternalEList<?>)getTerms()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				return ((InternalEList<?>)getTerms()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR:
-        return getUnaryAddingOperator();
-      case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
-        return getTerms();
-      case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
-        return getBinaryAddingOperators();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR:
+				return getUnaryAddingOperator();
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				return getTerms();
+			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
+				return getBinaryAddingOperators();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR:
-        setUnaryAddingOperator((UnaryAddingOperator)newValue);
-        return;
-      case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
-        getTerms().clear();
-        getTerms().addAll((Collection<? extends Term>)newValue);
-        return;
-      case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
-        getBinaryAddingOperators().clear();
-        getBinaryAddingOperators().addAll((Collection<? extends BinaryAddingOperator>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR:
+				setUnaryAddingOperator((UnaryAddingOperator)newValue);
+				return;
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				getTerms().clear();
+				getTerms().addAll((Collection<? extends Term>)newValue);
+				return;
+			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
+				getBinaryAddingOperators().clear();
+				getBinaryAddingOperators().addAll((Collection<? extends BinaryAddingOperator>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR:
-        unsetUnaryAddingOperator();
-        return;
-      case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
-        getTerms().clear();
-        return;
-      case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
-        unsetBinaryAddingOperators();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR:
+				unsetUnaryAddingOperator();
+				return;
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				getTerms().clear();
+				return;
+			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
+				unsetBinaryAddingOperators();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR:
-        return isSetUnaryAddingOperator();
-      case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
-        return terms != null && !terms.isEmpty();
-      case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
-        return isSetBinaryAddingOperators();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SIMPLE_EXPRESSION__UNARY_ADDING_OPERATOR:
+				return isSetUnaryAddingOperator();
+			case AadlBaPackage.SIMPLE_EXPRESSION__TERMS:
+				return terms != null && !terms.isEmpty();
+			case AadlBaPackage.SIMPLE_EXPRESSION__BINARY_ADDING_OPERATORS:
+				return isSetBinaryAddingOperators();
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public String toString()
   {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (unaryAddingOperator: ");
-    if (unaryAddingOperatorESet) result.append(unaryAddingOperator); else result.append("<unset>");
-    result.append(", binaryAddingOperators: ");
-    result.append(binaryAddingOperators);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (unaryAddingOperator: ");
+		if (unaryAddingOperatorESet) result.append(unaryAddingOperator); else result.append("<unset>");
+		result.append(", binaryAddingOperators: ");
+		result.append(binaryAddingOperators);
+		result.append(')');
+		return result.toString();
+	}
 
 } //SimpleExpressionImpl

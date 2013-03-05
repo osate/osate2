@@ -39,25 +39,25 @@ import org.osate.aadl2.impl.ElementImpl;
 public abstract class BehaviorElementImpl extends ElementImpl implements BehaviorElement
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorElementImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_ELEMENT;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_ELEMENT;
+	}
 
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()

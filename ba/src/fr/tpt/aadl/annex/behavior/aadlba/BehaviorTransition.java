@@ -43,134 +43,134 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface BehaviorTransition extends BehaviorNamedElement
 {
   /**
-   * Returns the value of the '<em><b>Source State</b></em>' reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Source State</b></em>' reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Source State</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Source State</em>' reference.
-   * @see #setSourceState(BehaviorState)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_SourceState()
-   * @model required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Source State</em>' reference.
+	 * @see #setSourceState(BehaviorState)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_SourceState()
+	 * @model
+	 * @generated
+	 */
   BehaviorState getSourceState();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getSourceState <em>Source State</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getSourceState <em>Source State</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Source State</em>' reference.
-   * @see #getSourceState()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Source State</em>' reference.
+	 * @see #getSourceState()
+	 * @generated
+	 */
   void setSourceState(BehaviorState value);
 
   /**
-   * Returns the value of the '<em><b>Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Condition</em>' containment reference.
-   * @see #setCondition(BehaviorCondition)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_Condition()
-   * @model containment="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Condition</em>' containment reference.
+	 * @see #setCondition(BehaviorCondition)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_Condition()
+	 * @model containment="true"
+	 * @generated
+	 */
   BehaviorCondition getCondition();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getCondition <em>Condition</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getCondition <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Condition</em>' containment reference.
-   * @see #getCondition()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Condition</em>' containment reference.
+	 * @see #getCondition()
+	 * @generated
+	 */
   void setCondition(BehaviorCondition value);
 
   /**
-   * Returns the value of the '<em><b>Destination State</b></em>' reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Destination State</b></em>' reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Destination State</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Destination State</em>' reference.
-   * @see #setDestinationState(BehaviorState)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_DestinationState()
-   * @model required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Destination State</em>' reference.
+	 * @see #setDestinationState(BehaviorState)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_DestinationState()
+	 * @model
+	 * @generated
+	 */
   BehaviorState getDestinationState();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getDestinationState <em>Destination State</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getDestinationState <em>Destination State</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Destination State</em>' reference.
-   * @see #getDestinationState()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Destination State</em>' reference.
+	 * @see #getDestinationState()
+	 * @generated
+	 */
   void setDestinationState(BehaviorState value);
 
   /**
-   * Returns the value of the '<em><b>Action Block</b></em>' reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Action Block</b></em>' reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Action Block</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Action Block</em>' reference.
-   * @see #setActionBlock(BehaviorActionBlock)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_ActionBlock()
-   * @model
-   * @generated
-   */
+	 * @return the value of the '<em>Action Block</em>' reference.
+	 * @see #setActionBlock(BehaviorActionBlock)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_ActionBlock()
+	 * @model
+	 * @generated
+	 */
   BehaviorActionBlock getActionBlock();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getActionBlock <em>Action Block</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getActionBlock <em>Action Block</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Action Block</em>' reference.
-   * @see #getActionBlock()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Action Block</em>' reference.
+	 * @see #getActionBlock()
+	 * @generated
+	 */
   void setActionBlock(BehaviorActionBlock value);
 
   /**
-   * Returns the value of the '<em><b>Priority</b></em>' attribute.
-   * The default value is <code>"-1"</code>.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Priority</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Priority</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Priority</em>' attribute.
-   * @see #setPriority(long)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_Priority()
-   * @model default="-1" unique="false" dataType="org.osate.aadl2.Integer"
-   * @generated
-   */
+	 * @return the value of the '<em>Priority</em>' attribute.
+	 * @see #setPriority(long)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_Priority()
+	 * @model default="-1" unique="false" dataType="org.osate.aadl2.Integer"
+	 * @generated
+	 */
   long getPriority();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getPriority <em>Priority</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getPriority <em>Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Priority</em>' attribute.
-   * @see #getPriority()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Priority</em>' attribute.
+	 * @see #getPriority()
+	 * @generated
+	 */
   void setPriority(long value);
 
 } // BehaviorTransition

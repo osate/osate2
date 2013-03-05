@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class DispatchTriggerConditionStopImpl extends BehaviorElementImpl implements DispatchTriggerConditionStop
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected DispatchTriggerConditionStopImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.DISPATCH_TRIGGER_CONDITION_STOP;
-  }
+		return AadlBaPackage.Literals.DISPATCH_TRIGGER_CONDITION_STOP;
+	}
 
 } //DispatchTriggerConditionStopImpl

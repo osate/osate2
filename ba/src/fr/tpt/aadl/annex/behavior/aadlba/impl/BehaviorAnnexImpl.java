@@ -62,341 +62,331 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnnex
 {
   /**
-   * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVariables()
-   * @generated
-   * @ordered
-   */
+	 * @see #getVariables()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<BehaviorVariable> variables;
 
   /**
-   * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStates()
-   * @generated
-   * @ordered
-   */
+	 * @see #getStates()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<BehaviorState> states;
 
   /**
-   * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTransitions()
-   * @generated
-   * @ordered
-   */
+	 * @see #getTransitions()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<BehaviorTransition> transitions;
 
   /**
-   * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getActions()
-   * @generated
-   * @ordered
-   */
+	 * @see #getActions()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<BehaviorActionBlock> actions;
 
   /**
-   * The cached value of the '{@link #getConditions() <em>Conditions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getConditions() <em>Conditions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConditions()
-   * @generated
-   * @ordered
-   */
+	 * @see #getConditions()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<BehaviorCondition> conditions;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorAnnexImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_ANNEX;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_ANNEX;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<BehaviorVariable> getVariables()
   {
-    if (variables == null)
-    {
-      variables = new EObjectContainmentEList.Unsettable<BehaviorVariable>(BehaviorVariable.class, this, AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES);
-    }
-    return variables;
-  }
+		if (variables == null) {
+			variables = new EObjectContainmentEList.Unsettable<BehaviorVariable>(BehaviorVariable.class, this, AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES);
+		}
+		return variables;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetVariables()
   {
-    if (variables != null) ((InternalEList.Unsettable<?>)variables).unset();
-  }
+		if (variables != null) ((InternalEList.Unsettable<?>)variables).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetVariables()
   {
-    return variables != null && ((InternalEList.Unsettable<?>)variables).isSet();
-  }
+		return variables != null && ((InternalEList.Unsettable<?>)variables).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<BehaviorState> getStates()
   {
-    if (states == null)
-    {
-      states = new EObjectContainmentEList.Unsettable<BehaviorState>(BehaviorState.class, this, AadlBaPackage.BEHAVIOR_ANNEX__STATES);
-    }
-    return states;
-  }
+		if (states == null) {
+			states = new EObjectContainmentEList.Unsettable<BehaviorState>(BehaviorState.class, this, AadlBaPackage.BEHAVIOR_ANNEX__STATES);
+		}
+		return states;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetStates()
   {
-    if (states != null) ((InternalEList.Unsettable<?>)states).unset();
-  }
+		if (states != null) ((InternalEList.Unsettable<?>)states).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetStates()
   {
-    return states != null && ((InternalEList.Unsettable<?>)states).isSet();
-  }
+		return states != null && ((InternalEList.Unsettable<?>)states).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<BehaviorTransition> getTransitions()
   {
-    if (transitions == null)
-    {
-      transitions = new EObjectContainmentEList.Unsettable<BehaviorTransition>(BehaviorTransition.class, this, AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS);
-    }
-    return transitions;
-  }
+		if (transitions == null) {
+			transitions = new EObjectContainmentEList.Unsettable<BehaviorTransition>(BehaviorTransition.class, this, AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS);
+		}
+		return transitions;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetTransitions()
   {
-    if (transitions != null) ((InternalEList.Unsettable<?>)transitions).unset();
-  }
+		if (transitions != null) ((InternalEList.Unsettable<?>)transitions).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetTransitions()
   {
-    return transitions != null && ((InternalEList.Unsettable<?>)transitions).isSet();
-  }
+		return transitions != null && ((InternalEList.Unsettable<?>)transitions).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<BehaviorActionBlock> getActions()
   {
-    if (actions == null)
-    {
-      actions = new EObjectContainmentEList<BehaviorActionBlock>(BehaviorActionBlock.class, this, AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS);
-    }
-    return actions;
-  }
+		if (actions == null) {
+			actions = new EObjectContainmentEList<BehaviorActionBlock>(BehaviorActionBlock.class, this, AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS);
+		}
+		return actions;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<BehaviorCondition> getConditions()
   {
-    if (conditions == null)
-    {
-      conditions = new EObjectContainmentEList<BehaviorCondition>(BehaviorCondition.class, this, AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS);
-    }
-    return conditions;
-  }
+		if (conditions == null) {
+			conditions = new EObjectContainmentEList<BehaviorCondition>(BehaviorCondition.class, this, AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS);
+		}
+		return conditions;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
-        return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
-        return ((InternalEList<?>)getStates()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
-        return ((InternalEList<?>)getTransitions()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
-        return ((InternalEList<?>)getActions()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
-        return ((InternalEList<?>)getConditions()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
+				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
+				return ((InternalEList<?>)getStates()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
+				return ((InternalEList<?>)getTransitions()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
+				return ((InternalEList<?>)getActions()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				return ((InternalEList<?>)getConditions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
-        return getVariables();
-      case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
-        return getStates();
-      case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
-        return getTransitions();
-      case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
-        return getActions();
-      case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
-        return getConditions();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
+				return getVariables();
+			case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
+				return getStates();
+			case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
+				return getTransitions();
+			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
+				return getActions();
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				return getConditions();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
-        getVariables().clear();
-        getVariables().addAll((Collection<? extends BehaviorVariable>)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
-        getStates().clear();
-        getStates().addAll((Collection<? extends BehaviorState>)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
-        getTransitions().clear();
-        getTransitions().addAll((Collection<? extends BehaviorTransition>)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
-        getActions().clear();
-        getActions().addAll((Collection<? extends BehaviorActionBlock>)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
-        getConditions().clear();
-        getConditions().addAll((Collection<? extends BehaviorCondition>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
+				getVariables().clear();
+				getVariables().addAll((Collection<? extends BehaviorVariable>)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
+				getStates().clear();
+				getStates().addAll((Collection<? extends BehaviorState>)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
+				getTransitions().clear();
+				getTransitions().addAll((Collection<? extends BehaviorTransition>)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
+				getActions().clear();
+				getActions().addAll((Collection<? extends BehaviorActionBlock>)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				getConditions().clear();
+				getConditions().addAll((Collection<? extends BehaviorCondition>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
-        unsetVariables();
-        return;
-      case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
-        unsetStates();
-        return;
-      case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
-        unsetTransitions();
-        return;
-      case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
-        getActions().clear();
-        return;
-      case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
-        getConditions().clear();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
+				unsetVariables();
+				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
+				unsetStates();
+				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
+				unsetTransitions();
+				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
+				getActions().clear();
+				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				getConditions().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
-        return isSetVariables();
-      case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
-        return isSetStates();
-      case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
-        return isSetTransitions();
-      case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
-        return actions != null && !actions.isEmpty();
-      case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
-        return conditions != null && !conditions.isEmpty();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_ANNEX__VARIABLES:
+				return isSetVariables();
+			case AadlBaPackage.BEHAVIOR_ANNEX__STATES:
+				return isSetStates();
+			case AadlBaPackage.BEHAVIOR_ANNEX__TRANSITIONS:
+				return isSetTransitions();
+			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
+				return actions != null && !actions.isEmpty();
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				return conditions != null && !conditions.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()

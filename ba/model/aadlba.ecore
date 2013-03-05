@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadlba"
-    nsURI="https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior/aadlba"
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadlba" nsURI="https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior/aadlba"
     nsPrefix="aadlba">
   <eClassifiers xsi:type="ecore:EClass" name="ActualPortHolder" abstract="true" eSuperTypes="#//PortHolder">
     <eOperations name="setPort" lowerBound="1">
@@ -108,16 +106,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorTime" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="integerValue" lowerBound="1"
         eType="#//IntegerValue" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="unit" unique="false" lowerBound="1"
-        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unit" unique="false" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorTransition" eSuperTypes="#//BehaviorNamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceState" unique="false"
-        lowerBound="1" eType="#//BehaviorState"/>
+        eType="#//BehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" unique="false"
         eType="#//BehaviorCondition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationState" unique="false"
-        lowerBound="1" eType="#//BehaviorState"/>
+        eType="#//BehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="actionBlock" unique="false"
         eType="#//BehaviorActionBlock"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" unique="false"
@@ -245,7 +242,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ElementHolder" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" unique="false"
-        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ElementValues" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>
@@ -415,7 +412,7 @@
       interface="true" eSuperTypes="#//IntegerValue #//ValueVariable"/>
   <eClassifiers xsi:type="ecore:EClass" name="IterativeVariable" eSuperTypes="#//BehaviorNamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
-        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IterativeVariableHolder" eSuperTypes="#//DataHolder">
     <eOperations name="setIterativeVariable" lowerBound="1">
@@ -482,7 +479,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PortHolder" abstract="true" eSuperTypes="#//IndexableElement #//ElementHolder #//GroupableElement #//ValueVariable #//IntegerValueVariable"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortPrototypeHolder" eSuperTypes="#//PortHolder #//PrototypeHolder #//Target"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortSendAction" eSuperTypes="#//CommunicationAction">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="port" lowerBound="1" eType="#//ActualPortHolder"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//ActualPortHolder"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueExpression" eType="#//ValueExpression"
         containment="true"/>
@@ -630,8 +627,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ValueConstant" abstract="true" interface="true"
       eSuperTypes="#//Value"/>
   <eClassifiers xsi:type="ecore:EClass" name="ValueExpression" eSuperTypes="#//Value #//ParameterLabel #//ExecuteCondition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relations" lowerBound="1"
-        upperBound="-1" eType="#//Relation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relations" upperBound="-1"
+        eType="#//Relation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="logicalOperators" unique="false"
         upperBound="-1" eType="#//LogicalOperator" unsettable="true"/>
   </eClassifiers>

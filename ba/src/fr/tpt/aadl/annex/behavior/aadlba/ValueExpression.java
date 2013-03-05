@@ -41,60 +41,60 @@ import org.eclipse.emf.common.util.EList;
 public interface ValueExpression extends Value, ParameterLabel, ExecuteCondition
 {
   /**
-   * Returns the value of the '<em><b>Relations</b></em>' containment reference list.
-   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Relation}.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Relations</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Relation}.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Relations</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Relations</em>' containment reference list.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueExpression_Relations()
-   * @model containment="true" required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Relations</em>' containment reference list.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueExpression_Relations()
+	 * @model containment="true"
+	 * @generated
+	 */
   EList<Relation> getRelations();
 
   /**
-   * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
-   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator}.
-   * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator}.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator}.
+	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator}.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Logical Operators</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Logical Operators</em>' attribute list.
-   * @see fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator
-   * @see #isSetLogicalOperators()
-   * @see #unsetLogicalOperators()
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueExpression_LogicalOperators()
-   * @model unique="false" unsettable="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Logical Operators</em>' attribute list.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator
+	 * @see #isSetLogicalOperators()
+	 * @see #unsetLogicalOperators()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueExpression_LogicalOperators()
+	 * @model unique="false" unsettable="true"
+	 * @generated
+	 */
   EList<LogicalOperator> getLogicalOperators();
 
   /**
-   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list.
-   * <!-- begin-user-doc -->
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isSetLogicalOperators()
-   * @see #getLogicalOperators()
-   * @generated
-   */
+	 * @see #isSetLogicalOperators()
+	 * @see #getLogicalOperators()
+	 * @generated
+	 */
   void unsetLogicalOperators();
 
   /**
-   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list is set.
-   * <!-- begin-user-doc -->
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list is set.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Logical Operators</em>' attribute list is set.
-   * @see #unsetLogicalOperators()
-   * @see #getLogicalOperators()
-   * @generated
-   */
+	 * @return whether the value of the '<em>Logical Operators</em>' attribute list is set.
+	 * @see #unsetLogicalOperators()
+	 * @see #getLogicalOperators()
+	 * @generated
+	 */
   boolean isSetLogicalOperators();
 
 } // ValueExpression
