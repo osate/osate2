@@ -372,12 +372,18 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final ForAllElement addProcessors = new ForAllElement(errManager) {
 			public void process(Element obj) {			
 				ComponentInstance ci = (ComponentInstance) obj;
-				final AADLProcessor proc = AADLProcessor.createInstance(ci, processorMultiplier);
-				if (proc != null) {
-					siteArchitecture.addSiteGuest(proc, theSite);
-					problem.hardwareGraph.add(proc);
-					// add reverse mapping
-					procToHardware.put(ci, proc);
+				if( GetProperties.getMIPSCapacityInMIPS(ci, 0)>0) {
+					final AADLProcessor proc = AADLProcessor.createInstance(ci, processorMultiplier);
+					if (proc != null) {
+						siteArchitecture.addSiteGuest(proc, theSite);
+						problem.hardwareGraph.add(proc);
+						// add reverse mapping
+						procToHardware.put(ci, proc);
+					}
+				} else {
+					// report processor without capacity
+					warning(ci, "Processor "+ci.getComponentInstancePath()+"has no MIPS capacity. Not used in allocation.");
+
 				}
 			}
 		};
@@ -446,7 +452,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				final ComponentInstance ci = (ComponentInstance) obj;
 				final AADLThread thread = AADLThread.createInstance(ci);
 				problem.softwareGraph.add(thread);
-				
+				csvlog.addOutputNewline(thread.getReport());
 				// add reverse mapping
 				threadToSoftwareNode.put(ci, thread);
 
