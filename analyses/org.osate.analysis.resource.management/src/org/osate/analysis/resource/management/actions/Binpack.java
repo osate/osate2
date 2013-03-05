@@ -150,12 +150,6 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	private WriteToFile csvlog ;
 
 	@Override
-	protected boolean initializeAnalysis(NamedElement obj) {
-	    	csvlog = new WriteToFile("Binpacking", obj);
-			return true;
-	}
-
-	@Override
 	protected boolean finalizeAnalysis() {
 			csvlog.saveToFile();
 			return true;
@@ -166,7 +160,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		return true;
 	}
 	
-	protected boolean initializeAnalysis() {
+	@Override
+	protected boolean initializeAnalysis(NamedElement obj) {
+    	csvlog = new WriteToFile("Binpacking", obj);
 		// Select the bin packing strategy
 		partitionChoice = org.osate.ui.dialogs.Dialog.askQuestion(
 				"Choose partitioning algorithm",
