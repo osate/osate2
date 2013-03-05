@@ -769,7 +769,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		return Collections.unmodifiableSet(actualProcs);
 	}
 	
-	protected List addRealProcessorBindings(ComponentInstance ci, Set<ComponentInstance> result){
+	protected void addRealProcessorBindings(ComponentInstance ci, Set<ComponentInstance> result){
 		try
 		{
 			List<ComponentInstance> actualBindingsVals = GetProperties.getActualProcessorBinding(ci);
@@ -780,12 +780,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 					result.add(componentInstance);
 				}
 			}
-			return actualBindingsVals;
 		}
 		catch (PropertyNotPresentException e)
 		{
-			//Ignore this situation and move on.
-			return Collections.EMPTY_LIST;
 		}
 		
 	}
