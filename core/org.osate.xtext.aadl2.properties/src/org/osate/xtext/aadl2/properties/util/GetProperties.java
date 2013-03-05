@@ -714,7 +714,7 @@ public class GetProperties {
 				for (Object f : fl) {
 					Classifier c = ((Feature) f).getAllClassifier();
 					if (c == null) {
-						res = res + 1.0;
+//						res = res + 1.0;
 					} else {
 						res = res + getSourceDataSizeInBytes(c);
 					}
