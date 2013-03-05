@@ -28,15 +28,25 @@ You should have received a copy of the Eclipse Public License along with this pr
    </url>
 
    <requires>
+      <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.aadl2.modelsupport" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.annexsupport" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="fr.tpt.aadl.utils" version="0.9.5" match="greaterOrEqual"/>
-      <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.osate.aadl2.edit"/>
    </requires>
 
    <plugin
          id="fr.tpt.aadl.annex.behavior"
+         download-size="0"
+         install-size="0"
+         version="0.9.5"
+         unpack="false"/>
+
+   <plugin
+         id="fr.tpt.aadl.annex.behavior.edit"
          download-size="0"
          install-size="0"
          version="0.9.5"
