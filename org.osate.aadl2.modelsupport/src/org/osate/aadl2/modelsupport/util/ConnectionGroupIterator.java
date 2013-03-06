@@ -13,12 +13,12 @@ import org.osate.aadl2.instance.ConnectionReference;
 
 
 public class ConnectionGroupIterator {
-	EList done =null;
-	Iterator internalit = null;
+	EList<Connection> done =null;
+	Iterator<ConnectionInstance> internalit = null;
 	ConnectionInstance nextObject = null;
 	
-	public ConnectionGroupIterator(EList list){
-		done = new UniqueEList();
+	public ConnectionGroupIterator(EList<ConnectionInstance> list){
+		done = new UniqueEList<Connection>();
 		internalit = list.iterator();
 	}
 	
