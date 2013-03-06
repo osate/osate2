@@ -32,9 +32,9 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>indigo.target</file>
+									<file>juno.target</file>
 									<type>target</type>
-									<classifier>indigo</classifier>
+									<classifier>juno</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>
