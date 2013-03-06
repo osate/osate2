@@ -473,6 +473,24 @@
 			commandId="org.osate.xtext.aadl2.ui.predeclaredproperties">
 		</handler>
 	</extension>
+    <extension
+          point="org.eclipse.ui.views">
+       <category
+             id="aadl.view_category"
+             name="AADL">
+       </category>
+       <view
+             category="aadl.view_category"
+             class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView"
+             icon="icons/propertyview/pview.gif"
+             id="org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView"
+             name="AADL Property Values"
+             restorable="true">
+          <description>
+             Shows all the AADL property associations for the selected AADL element.
+          </description>
+       </view>
+    </extension>
 	
 
 </plugin>

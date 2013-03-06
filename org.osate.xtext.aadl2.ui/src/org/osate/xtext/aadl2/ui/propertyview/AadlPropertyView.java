@@ -1,4 +1,4 @@
-package org.osate.ui.propertyview;
+package org.osate.xtext.aadl2.ui.propertyview;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -26,13 +26,16 @@ import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.ui.OsateUiPlugin;
+import org.osate.xtext.aadl2.ui.MyAadl2Activator;
+
+import com.google.inject.Inject;
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -87,6 +90,9 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	 */
 	private EditingDomain editingDomain = null;
 	
+	@Inject
+	private ISerializer serializer;
+	
 	@Override
 	public void createPartControl(final Composite parent) {
 		pageBook = new PageBook(parent, SWT.NULL);
@@ -96,7 +102,7 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		noPropertiesLabel.setAlignment(SWT.CENTER);
 		noPropertiesLabel.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_LIST_BACKGROUND));
 		
-		model = new PropertyViewModel();
+		model = new PropertyViewModel(serializer);
 		model.setShowUndefined(false);
 		treeViewer = new TreeViewer(pageBook, SWT.H_SCROLL | SWT.V_SCROLL);
 		Tree tree = treeViewer.getTree();
@@ -137,7 +143,8 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 				buildNewModel(getCurrentElement());
 			}
 		};
-		showUndefinedAction.setImageDescriptor(OsateUiPlugin.getImageDescriptor("icons/nonexistent_property.gif"));
+//		showUndefinedAction.setImageDescriptor(OsateUiPlugin.getImageDescriptor("icons/nonexistent_property.gif"));
+		showUndefinedAction.setImageDescriptor(MyAadl2Activator.getImageDescriptor("icons/propertyview/nonexistent_property.gif"));
 		
 		updateActionStates();
 	}
