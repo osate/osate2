@@ -57,6 +57,7 @@ import org.osate.aadl2.modelsupport.QuickSort;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.analysis.resource.management.actions.Schedule;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -70,9 +71,7 @@ public class RuntimeProcessWalker  {
   //binding.
   private static ComponentInstance currentProcessor;
   
-  //some helper method can be put here
-  final AnalysisErrorReporterManager errManager;
-  final WriteToFile csvlog;
+  final Schedule scheduleAction;
   
   private QuickSort quick = new QuickSort(){
 	  	protected int compare(Object obj1, Object obj2){
@@ -84,24 +83,13 @@ public class RuntimeProcessWalker  {
 	  	}
 	  };
 
-  public RuntimeProcessWalker(final AnalysisErrorReporterManager errMgr, WriteToFile csvlogfile) {
-  	errManager = errMgr;
-  	csvlog = csvlogfile;
-  }
-  
-  protected void reportInfo(final Element obj, final String msg){
-	  errManager.info(obj, msg);
-	  csvlog.addOutputNewline(msg);
-  }
-  
-  protected void reportWarning(final Element obj, final String msg){
-	  errManager.warning(obj, msg);
-	  csvlog.addOutputNewline("Warning: "+msg);
-  }
-  
-  protected void reportError(final Element obj, final String msg){
-	  errManager.error(obj, msg);
-	  csvlog.addOutputNewline("Error: "+msg);
+  /**
+   * Schedule Action is the action extended from AbstractAaxlAction.
+   * It makes the reporting methods available.
+   * @param scheduleAction
+   */
+	  public RuntimeProcessWalker(final Schedule scheduleAction ) {
+  	this.scheduleAction = scheduleAction;
   }
 
   public void setCurrentProcessor(ComponentInstance processor) { currentProcessor = processor; }
@@ -127,34 +115,6 @@ public class RuntimeProcessWalker  {
   }
 
   
-  public void reportProcessorBinding(ComponentInstance elt){
-	  double threadMips = GetProperties.getThreadExecutioninMIPS(elt);
-	  reportProcessorBinding(elt, threadMips);
-  }
-  
-  public void reportProcessorBinding(ComponentInstance elt, double threadMips){
-	  List<ComponentInstance> bindinglist;
-	  // report binding of threads to VP and processor
-	  csvlog.addOutput(elt.getCategory().getName()+" "+elt.getComponentInstancePath()+ (InstanceModelUtil.isThread(elt)?"("+threadMips+" MIPS)":"")+" ===> ");
-	  bindinglist = GetProperties.getActualProcessorBinding(elt);
-	  if (bindinglist.isEmpty()){
-		  csvlog.addOutputNewline("NOTHING");
-
-	  } else {
-		  for (ComponentInstance componentInstance : bindinglist) {
-			  if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
-				  reportProcessorBinding(componentInstance,threadMips);
-			  } else {
-				  // we have a processor
-				  double cpumips = GetProperties.getMIPSCapacityInMIPS(componentInstance, 0);
-				  csvlog.addOutputNewline(componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath()+"("+cpumips+"MIPS)"
-						  +(cpumips > 0?(" Utilization "+threadMips/cpumips*100+"%"):" No CPU capacity"));
-			  }
-		  }
-	  }
-  }
-
-  
   /**
    * add thread if it is bound to the processor set in processorName
    * @param elt
@@ -167,7 +127,7 @@ public class RuntimeProcessWalker  {
 	  }
 	  catch (PropertyNotPresentException e)
 	  {
-		  reportError(elt, elt.getComponentInstancePath()+": Execution time is not set");
+		  scheduleAction.error(elt, elt.getComponentInstancePath()+": Execution time is not set");
 		  return;
 	  }
 	  if (!InstanceModelUtil.isBoundToProcessor(elt,currentProcessor)) {
@@ -181,7 +141,7 @@ public class RuntimeProcessWalker  {
   	}
   	catch (PropertyNotPresentException e)
   	{
-  		reportError(elt, elt.getComponentInstancePath()+": Period is not set");
+  		scheduleAction.error(elt, elt.getComponentInstancePath()+": Period is not set");
   		return;
   	}
 
@@ -289,25 +249,24 @@ public class RuntimeProcessWalker  {
         totaltime += curComponent.getExecutionTime()*1000/curComponent.getPeriod();
     }
     
-    csvlog.addOutputNewline("Schedulability Results" );
+    scheduleAction.logInfo("Schedulability Results" );
     if (result){
-    	reportInfo(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is schedulable with utilization "+totaltime/10+"%");
+    	scheduleAction.info(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is schedulable with utilization "+totaltime/10+"%");
     } else {
-    	reportError(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is not schedulable with utilization "+totaltime/10+"%");
+    	scheduleAction.error(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is not schedulable with utilization "+totaltime/10+"%");
     }
-    csvlog.addOutputNewline("thread name, period, deadline, execution time, phase offset, priority, max response time, schedulability ");
+    scheduleAction.logInfo("thread name, period, deadline, execution time, phase offset, priority, max response time, schedulability ");
 
     for (int i=0; i<runTimeComponents.size(); i++) {
-         RuntimeProcess curComponent =
-                             (RuntimeProcess)runTimeComponents.get(i);
-         csvlog.addOutput(curComponent.getComponentName() +", " );
-         csvlog.addOutputNewline( curComponent.getPeriod()+", " + curComponent.getDeadline() + ", "
+         RuntimeProcess curComponent = (RuntimeProcess)runTimeComponents.get(i);
+         scheduleAction.logInfo(curComponent.getComponentName() +", " +
+         curComponent.getPeriod()+", " + curComponent.getDeadline() + ", "
 		                      + curComponent.getExecutionTime() + ", " + curComponent.getPhaseOffset() + ", "
 		                      + curComponent.getPriority() + ", " + curComponent.getMaxResponseTime()
 		                      +", " + curComponent.getSchedulability() );
     }
-    csvlog.addOutputNewline("" );
-    csvlog.addOutputNewline("" );
+    scheduleAction.logInfo("" );
+    scheduleAction.logInfo("" );
 
 	//clean the ARC vector holder.
     analysis.cleanARCList();

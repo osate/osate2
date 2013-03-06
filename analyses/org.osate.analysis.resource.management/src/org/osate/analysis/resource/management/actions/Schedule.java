@@ -39,7 +39,10 @@
 */
 package org.osate.analysis.resource.management.actions;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -52,9 +55,10 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.analysis.scheduling.RuntimeProcessWalker;
-import org.osate.analysis.scheduling.TimingAnalysisInvocation;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 import org.osgi.framework.Bundle;
 
 
@@ -95,13 +99,18 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 			final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
+		logInfo( "Processor Utilization/Scheduling Results");
 		try {
 			ForAllElement processProcessor = new ForAllElement(errManager) {
 				@Override
 				public void process(Element obj) {
-					ComponentInstance ci = (ComponentInstance) obj;
-						TimingAnalysisInvocation.timingSchedulabilityAnalysis(this.getErrorManager(), csvlog, ci);
-					return;
+					ComponentInstance processor = (ComponentInstance) obj;
+					String protocol = GetProperties.getSchedulingProtocol(processor);
+					if (protocol == null || protocol.equalsIgnoreCase("EDF")){
+						doUtilization(processor);
+					} else {
+						timingSchedulabilityAnalysis(processor);
+					}
 				}
 			};
 			processProcessor.processPreOrderComponentInstance(root,
@@ -110,13 +119,11 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 			error(e.getElement(), e.getMessage());
 		}
 		// now report thread bindings
-		csvlog.addOutputNewline("Thread binding report");
+		logInfo("\nThread binding report");
 		ForAllElement processThread = new ForAllElement(errManager) {
 			@Override
 			public void process(Element obj) {
-				ComponentInstance ci = (ComponentInstance) obj;
-				RuntimeProcessWalker walker = new RuntimeProcessWalker( errManager,csvlog);
-				walker.reportProcessorBinding(ci);
+				reportProcessorBinding((ComponentInstance)obj);
 				return;
 			}
 		};
@@ -124,4 +131,93 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 				ComponentCategory.THREAD);
 		monitor.done();
 	}
+	
+	
+	/**
+	 * This method drives scheduling analysis for a particular processor
+	 * The RuntimeProcessWalker remembers the name and does analysis
+	 * @param processor
+	 */
+	public boolean timingSchedulabilityAnalysis(final ComponentInstance processor) {
+		if (processor.getCategory() != ComponentCategory.PROCESSOR)
+			return false;
+		RuntimeProcessWalker walker = new RuntimeProcessWalker( this);
+		walker.cleanProcessHolder() ;
+		walker.setCurrentProcessor(processor);
+		walker.initWalker();
+		walker.componentsSortByPeriod();
+		walker.assignPriority();
+		boolean result = walker.timingSchedualabilityAnalysis();
+		return result;
+	}
+	
+	public boolean doUtilization(final ComponentInstance processor){
+		EList<Element> boundThreads = new ForAllElement() {
+			@Override
+			protected boolean suchThat(Element obj) {
+				if (!InstanceModelUtil.isPeriodicThread((ComponentInstance)obj)) return false;
+				List<ComponentInstance> boundProcessor;
+				return InstanceModelUtil.isBoundToProcessor((ComponentInstance)obj, processor);
+			}
+		}.processPreOrderComponentInstance(processor.getSystemInstance(),
+				ComponentCategory.THREAD);
+		double cpuMips = GetProperties.getMIPSCapacityInMIPS(processor, 0);
+		double utilization = 0;
+		if (cpuMips == 0 ){
+			if( !boundThreads.isEmpty()){
+				error(processor, "Processor "+processor.getInstanceObjectPath()+" has threads and is not schedulable because it has no MIPS capacity");
+				return false;
+			} else {
+				error(processor, "Processor "+processor.getInstanceObjectPath()+" is not used and has no MIPS capacity");
+				return false;
+			}
+		}
+		double demandMips = 0;
+		if( boundThreads.isEmpty()){
+			error(processor, "Processor "+processor.getInstanceObjectPath()+" is schedulable but has no bound threads");
+			return false;
+		} else {
+			for (Element element : boundThreads) {
+				demandMips =demandMips+ GetProperties.getThreadExecutioninMIPS((ComponentInstance) element);
+			}
+			utilization = (demandMips / cpuMips)*100;
+			if (utilization > 100){
+				error(processor, "Processor "+processor.getInstanceObjectPath()+" is not schedulable with utilization "+utilization+"%");
+				return false;
+			} else {
+				info(processor, "Processor "+processor.getInstanceObjectPath()+" is schedulable with utilization "+utilization+"%");
+				return true;
+			}
+		}
+	}
+	  
+	  public void reportProcessorBinding(ComponentInstance elt){
+		  double threadMips = GetProperties.getThreadExecutioninMIPS(elt);
+		  reportProcessorBinding(elt, threadMips);
+	  }
+	  
+	  public void reportProcessorBinding(ComponentInstance elt, double threadMips){
+		  List<ComponentInstance> bindinglist;
+		  // report binding of threads to VP and processor
+		  String threadText = elt.getCategory().getName()+" "+elt.getComponentInstancePath()+ (InstanceModelUtil.isThread(elt)?"("+threadMips+" MIPS)":"")+" ==> ";
+		  bindinglist = GetProperties.getActualProcessorBinding(elt);
+		  if (bindinglist.isEmpty()){
+			  logInfo( threadText+" NOTHING");
+
+		  } else {
+			  for (ComponentInstance componentInstance : bindinglist) {
+				  if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+					  reportProcessorBinding(componentInstance,threadMips);
+				  } else {
+					  // we have a processor
+					  double cpumips = GetProperties.getMIPSCapacityInMIPS(componentInstance, 0);
+					  logInfo(threadText+componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath()+"("+cpumips+"MIPS)"
+							  +(cpumips > 0?(" Utilization "+threadMips/cpumips*100+"%"):" No CPU capacity"));
+				  }
+			  }
+		  }
+	  }
+
+
+
 }
