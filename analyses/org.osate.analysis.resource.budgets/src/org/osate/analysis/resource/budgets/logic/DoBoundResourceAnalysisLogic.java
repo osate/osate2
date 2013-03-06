@@ -353,71 +353,60 @@ public class DoBoundResourceAnalysisLogic {
 		double totalBandWidth = 0.0;
 		String binding = doBindings ? "bound" : "all";
 		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
-		EList budgetedConnections = new BasicEList();
+		EList<ConnectionInstance> budgetedConnections = new BasicEList<ConnectionInstance>();
 		// filters out to use only Port connections or feature group connections
+		// it also tries to be smart about not double accounting for budgets on FG that now show for every port instance inside.
 		ConnectionGroupIterator cgi = new ConnectionGroupIterator(connections);
 		while (cgi.hasNext()) {
-			Object obj = cgi.next();
+			ConnectionInstance obj = cgi.next();
 			if (obj != null)
 				budgetedConnections.add(obj);
 		}
-		for (Iterator it = budgetedConnections.iterator(); it.hasNext();) {
-			Object obj = it.next();
-			if (obj instanceof ConnectionInstance) {
-				ConnectionInstance pci = (ConnectionInstance) obj;
-
-//				if (pci.getKind() == ConnectionKind.PORT_CONNECTION||pci.getKind() == ConnectionKind.FEATURE_GROUP_CONNECTION) {
-					double budget = 0.0;
-					double actual = 0.0;
-					if (doBindings) {
-						List connectionBindings = GetProperties.getActualConnectionBinding(pci);
-						if (connectionBindings != null && !connectionBindings.isEmpty()) {
-							for (Iterator i = connectionBindings.iterator(); i.hasNext();) {
-								final InstanceReferenceValue bindingVal = (InstanceReferenceValue) i.next();
-								final ComponentInstance boundObject = (ComponentInstance) bindingVal
-										.getReferencedInstanceObject();
-								if (boundObject == curBus) {
-									budget = GetProperties.getBandWidthBudgetInKbps(pci, 0.0);
-									actual = calcBandwidth(pci.getSource());
-									if (budget == 0 && actual == 0) {
-										errManager.warning(pci, "Connection " + pci.getName()
-												+ " has no bandwidth budget or port output rates");
-									}
-									if (budget > 0) {
-										if (actual > 0) {
-											totalBandWidth += actual;
-											if (actual > budget) {
-												errManager.warning(pci, "Connection " + pci.getName()
-														+ " has port-based bandwidth exceeds bandwidth budget");
-											}
-										} else {
-											totalBandWidth += budget;
-										}
-									}
-								}
-							}
+		for (ConnectionInstance connectionInstance : budgetedConnections) {
+			double budget = 0.0;
+			double actual = 0.0;
+			if (doBindings) {
+				if (GetProperties.getActualConnectionBinding(connectionInstance).isEmpty()){
+					// try to find a bus since there is not explicit binding
+					if (connectedByBus(connectionInstance, curBus) || (hasSwitchLoopback(connectionInstance, curBus) && loopback)) {
+						budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
+						if (budget == 0) {
+							errManager.warning(connectionInstance, "Connection " + connectionInstance.getName() + " has no bandwidth budget");
 						} else {
-							// if null
-							if (connectedByBus(pci, curBus) || (hasSwitchLoopback(pci, curBus) && loopback)) {
-								budget = GetProperties.getBandWidthBudgetInKbps(pci, 0.0);
-								if (budget == 0) {
-									errManager.warning(pci, "Connection " + pci.getName() + " has no bandwidth budget");
-								} else {
-									totalBandWidth += budget;
-								}
-							}
-						}
-					} else {
-						// no binding; just do totals
-						budget = GetProperties.getBandWidthBudgetInKbps(pci, 0.0);
-						if (budget == 0 && !pci.getKind().equals(ConnectionKind.ACCESS_CONNECTION)) {
-							errManager.warning(pci, "Connection " + pci.getName() + " has no bandwidth budget");
-						}
-						if (budget > 0) {
 							totalBandWidth += budget;
 						}
 					}
-//				}
+				} else {
+					// we have a binding, is it to the current bus
+					if (InstanceModelUtil.isBoundToBus(connectionInstance, curBus)){
+						budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
+						actual = calcBandwidth(connectionInstance.getSource());
+						if (budget == 0 && actual == 0) {
+							errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
+									+ " has no bandwidth budget or port output rates");
+						}
+						if (budget > 0) {
+							if (actual > 0) {
+								totalBandWidth += actual;
+								if (actual > budget) {
+									errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
+											+ " has port-based bandwidth exceeds bandwidth budget");
+								}
+							} else {
+								totalBandWidth += budget;
+							}
+						}
+					}
+				}
+			} else {
+				// no binding; just do totals
+				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
+				if (budget == 0 && !connectionInstance.getKind().equals(ConnectionKind.ACCESS_CONNECTION)) {
+					errManager.warning(connectionInstance, "Connection " + connectionInstance.getName() + " has no bandwidth budget");
+				}
+				if (budget > 0) {
+					totalBandWidth += budget;
+				}
 			}
 		}
 		if (totalBandWidth > Buscapacity) {
