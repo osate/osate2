@@ -47,7 +47,7 @@ public final class AADLThread extends SoftwareNode {
 			 }
 			if (mips > 0){
 				// mips per sec, period in ns. cycles per period => mips / # dispatches * M
-				cycles = (long) mips * period /1000;
+				cycles = (long) (mips * period /1000);
 			}
 		} else {
 			cycles = (long) instructionsperdispatch ;

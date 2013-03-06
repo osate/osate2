@@ -135,7 +135,7 @@ public class RuntimeProcessWalker  {
   public void reportProcessorBinding(ComponentInstance elt, double threadMips){
 	  List<ComponentInstance> bindinglist;
 	  // report binding of threads to VP and processor
-	  csvlog.addOutput(elt.getCategory().getName()+" "+elt.getComponentInstancePath()+ " ===> ");
+	  csvlog.addOutput(elt.getCategory().getName()+" "+elt.getComponentInstancePath()+ (InstanceModelUtil.isThread(elt)?"("+threadMips+" MIPS)":"")+" ===> ");
 	  bindinglist = GetProperties.getActualProcessorBinding(elt);
 	  if (bindinglist.isEmpty()){
 		  csvlog.addOutputNewline("NOTHING");
@@ -147,7 +147,7 @@ public class RuntimeProcessWalker  {
 			  } else {
 				  // we have a processor
 				  double cpumips = GetProperties.getMIPSCapacityInMIPS(componentInstance, 0);
-				  csvlog.addOutputNewline(componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath()
+				  csvlog.addOutputNewline(componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath()+"("+cpumips+"MIPS)"
 						  +(cpumips > 0?(" Utilization "+threadMips/cpumips*100+"%"):" No CPU capacity"));
 			  }
 		  }
