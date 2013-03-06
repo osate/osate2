@@ -1,4 +1,4 @@
-package org.osate.ui.propertyview;
+package org.osate.xtext.aadl2.ui.propertyview;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -34,11 +33,8 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.properties.PropertyAcc;
-import org.osate.core.OsateCorePlugin;
-import org.osate.ui.OsateUiPlugin;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
-
-import com.google.inject.Inject;
+import org.osate.xtext.aadl2.ui.MyAadl2Activator;
 
 /**
  * Model for the AADL Property View.
@@ -46,10 +42,10 @@ import com.google.inject.Inject;
  * @author aarong
  */
 public class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeContentProvider, ITableLabelProvider {
-	private static final String MODE_ICON = "icons/mode.gif";
-	private static final String SCALAR_ICON = "icons/scalar.gif";
-	private static final String LIST_ICON = "icons/list.gif";
-	private static final String PROPERTY_SET_ICON = "icons/property_set.gif";
+	private static final String MODE_ICON = "icons/propertyview/mode.gif";
+	private static final String SCALAR_ICON = "icons/propertyview/scalar.gif";
+	private static final String LIST_ICON = "icons/propertyview/list.gif";
+	private static final String PROPERTY_SET_ICON = "icons/propertyview/property_set.gif";
 	
 	// Constants
 	
@@ -83,8 +79,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	/** Immutable wrapped root list for external use */
 	final List<PropSet> inputLeaked = Collections.unmodifiableList(input);
 	
-	@Inject
-	private ISerializer serializer;
+	private final ISerializer serializer;
 	
 	// Inner Classes
 	
@@ -289,40 +284,25 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		}
 	}
 	
-	public PropertyViewModel()
-	{
-		OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.Aadl2").injectMembers(this);
+	public PropertyViewModel(final ISerializer serializer) {
+		this.serializer = serializer;
 	}
 	
 	private String getValueAsString(PropertyExpression expression) {
 		if (expression instanceof InstanceReferenceValue) {
-			return getInstanceReferenceAsString((InstanceReferenceValue) expression);
+			InstanceObject referencedObject = ((InstanceReferenceValue)expression).getReferencedInstanceObject();
+			if (referencedObject != null) {
+				return referencedObject.getInstanceObjectPath();
+			}
+			else {
+				return "null";
+			}
 		}
-		else if (expression instanceof ListValue){
-			EList<PropertyExpression> list = ((ListValue)expression).getOwnedListElements();
-			String res ="";
-			for (PropertyExpression propertyExpression : list) {
-				if (propertyExpression instanceof InstanceReferenceValue){
-					res = res +(res.isEmpty()?"":", ")+getInstanceReferenceAsString((InstanceReferenceValue)propertyExpression);
-				}
-			} 
-			if (!res.isEmpty())
-				return res;
-		}
+		else {
 			String value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
 			//TODO: Test this to see what cleanup is truly necessary.
 			return value;
-	}
-	
-	protected String getInstanceReferenceAsString(InstanceReferenceValue expression){
-		InstanceObject referencedObject = ((InstanceReferenceValue)expression).getReferencedInstanceObject();
-		if (referencedObject != null) {
-			return referencedObject.getInstanceObjectPath();
 		}
-		else {
-			return "null";
-		}
-
 	}
 	
 	// Label Provider Methods
@@ -331,7 +311,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	public Image getImage(Object element) {
 		if (element instanceof PropSet) {
 			if (propSetImage == null) {
-				ImageDescriptor descriptor = OsateUiPlugin.getImageDescriptor(PROPERTY_SET_ICON);
+				ImageDescriptor descriptor = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON);
 				propSetImage = descriptor.createImage();
 			}
 			return propSetImage;
@@ -339,14 +319,14 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		else if (element instanceof AbstractModelProperty) {
 			if (((AbstractModelProperty)element).isList) {
 				if (listImage == null) {
-					ImageDescriptor descriptor = OsateUiPlugin.getImageDescriptor(LIST_ICON);
+					ImageDescriptor descriptor = MyAadl2Activator.getImageDescriptor(LIST_ICON);
 					listImage = descriptor.createImage();
 				}
 				return listImage;
 			}
 			else {
 				if (scalarImage == null) {
-					ImageDescriptor descriptor = OsateUiPlugin.getImageDescriptor(SCALAR_ICON);
+					ImageDescriptor descriptor = MyAadl2Activator.getImageDescriptor(SCALAR_ICON);
 					scalarImage = descriptor.createImage();
 				}
 				return scalarImage;
@@ -354,7 +334,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		}
 		else if (element instanceof InMode) {
 			if (modeImage == null) {
-				ImageDescriptor descriptor = OsateUiPlugin.getImageDescriptor(MODE_ICON);
+				ImageDescriptor descriptor = MyAadl2Activator.getImageDescriptor(MODE_ICON);
 				modeImage = descriptor.createImage();
 			}
 			return modeImage;
