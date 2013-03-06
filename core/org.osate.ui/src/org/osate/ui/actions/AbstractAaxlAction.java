@@ -649,34 +649,39 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	}
 	
 	/**
+	 * Get the error manager used by the action.  
+	 * @return Error Reporter
+	 */
+	protected final WriteToFile getCSVLog(){
+			return csvlog;
+	}
+	
+	/**
 	 * Report error message on object as result of action as marker and in csv log.
 	 * @param obj Aobject that has been processed by the action
 	 * @param msg The error message
 	 */
-	protected final void error(final Element obj, final String msg){
+	public final void error(final Element obj, final String msg){
 		errManager.error(obj, msg);
-		if (csvlog != null)
-		csvlog.addOutput("ERROR: "+msg);
+		logError("ERROR: "+msg);
 	}
 	
 	/**
 	 * log error message on object as result of action.
-	 * @param obj Aobject that has been processed by the action
 	 * @param msg The error message
 	 */
-	protected final void logError(final Element obj, final String msg){
+	public final void logError( final String msg){
 		if (csvlog != null)
-		csvlog.addOutput("ERROR: "+msg);
+		csvlog.addOutputNewline("ERROR: "+msg);
 	}
 
 	/**
 	 * Log warning message on object as result of action.
-	 * @param obj Aobject that has been processed by the action
 	 * @param msg The warning message
 	 */
-	protected final void logWarning(final Element obj, final String msg){
+	public final void logWarning( final String msg){
 		if (csvlog != null)
-		csvlog.addOutput("Warning: "+msg);
+		csvlog.addOutputNewline("Warning: "+msg);
 	}
 
 
@@ -685,20 +690,18 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * @param obj Aobject that has been processed by the action
 	 * @param msg The warning message
 	 */
-	protected final void warning(final Element obj, final String msg){
+	public final void warning(final Element obj, final String msg){
 		errManager.warning(obj, msg);
-		if (csvlog != null)
-		csvlog.addOutput("Warning: "+msg);
+		logWarning("Warning: "+msg);
 	}
 
 	/**
 	 * log an informative  message on object as result of action.
-	 * @param obj Aobject that has been processed by the action
 	 * @param msg The informative message
 	 */
-	protected final void logInfo(final Element obj, final String msg){
+	public final void logInfo(final String msg){
 		if (csvlog != null)
-		csvlog.addOutput(msg);
+		csvlog.addOutputNewline(msg);
 	}
 	
 	/**
@@ -706,10 +709,9 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * @param obj Element that has been processed by the action
 	 * @param msg The informative message
 	 */
-	protected final void info(final Element obj, final String msg){
+	public final void info(final Element obj, final String msg){
 		errManager.info(obj, msg);
-		if (csvlog != null)
-		csvlog.addOutput(msg);
+		logInfo(msg);
 	}
 	
 	/**
