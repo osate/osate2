@@ -66,6 +66,7 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 //TODO-LW: assumes connection ends are features
@@ -147,21 +148,9 @@ public class DoBoundResourceAnalysisLogic {
 		EList boundComponents = new ForAllElement() {
 			@Override
 			protected boolean suchThat(Element obj) {
-				List<ComponentInstance> boundProcessorList = GetProperties.getActualProcessorBinding((ComponentInstance)obj);
-				if (boundProcessorList.isEmpty())
-					return false;
-				return boundProcessorList.contains(procorVP);
+				return InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP);
 			}
-			@Override
-			protected void action(Element obj) {
-				if (obj instanceof ComponentInstance && ((ComponentInstance)obj).getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
-					EList subresultlist = getBoundComponents((ComponentInstance)obj);
-					resultList.addAll(subresultlist);
-				} else {
-					resultList.add(obj);
-				}
-			}
-		}.processPostOrderComponentInstance(root);
+		}.processPreOrderComponentInstance(root,ComponentCategory.THREAD);
 		return boundComponents;
 	}
 
