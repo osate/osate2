@@ -91,6 +91,7 @@ public class Model
 			this.prismFile.addOutput(m.getPrismCode());
 			this.prismFile.addOutputNewline("\n");
 		}
+		this.prismFile.addOutput("\nrewards \"steps\"\n   true : 1;\nendrewards\n");
 		this.prismFile.saveToFile();
 	}
 	
