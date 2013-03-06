@@ -19,6 +19,7 @@ import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 
 public class InstanceModelUtil {
@@ -155,6 +156,30 @@ public class InstanceModelUtil {
 						return true;
 					}
 				} else if (componentInstance == processor){
+					return true;
+				}
+			}
+		  return false;
+	}
+
+	  public static boolean isBoundToBus(InstanceObject elt, ComponentInstance bus){
+		  	List<ComponentInstance> bindinglist;
+		  	//construct a new schedulable component, and put into the runTimeComponents only
+		  	//when all the timing properties are not null ! except the ARC related properties.
+		  	try
+		  	{
+		  		bindinglist = GetProperties.getActualConnectionBinding(elt);
+		  	}
+		  	catch (PropertyNotPresentException e)
+		  	{
+		  		return false;
+		  	}
+		  	for (ComponentInstance componentInstance : bindinglist) {
+				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
+					if (isBoundToBus(componentInstance,bus)){
+						return true;
+					}
+				} else if (componentInstance == bus){
 					return true;
 				}
 			}
