@@ -15,6 +15,13 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 
+/**
+ * mechanism to provide a logging capability into csv files
+ * has a saved flag to know whether to save since the last save
+ * unset by any addOutput method so the file can be saved multiple times.
+ * @author phf
+ *
+ */
 public class WriteToFile {
 	
 	UnparseText textBuffer ;
@@ -46,6 +53,15 @@ public class WriteToFile {
 	}
 	
 	
+	/**
+	 * placement of file into a report folder with a subfolder for the report type
+	 * The file is that of the instance model appended with the report type.
+	 * We do this so several csv files (of different report types) can be opened simultaneously
+	 * Excel does not like to open files with the same name twice
+	 * @param reporttype
+	 * @param root
+	 * @return
+	 */
 	protected IPath getReportPath(String reporttype, EObject root){
 		reporttype = reporttype.replaceAll(" ", "");
 		Resource res = root.eResource();
