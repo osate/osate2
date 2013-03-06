@@ -76,20 +76,12 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 	protected String getMarkerType() {
 		return "org.osate.analysis.resource.management.ScheduleObjectMarker";
 	}
-	
-	private WriteToFile csvlog ;
 
 	@Override
 	protected boolean initializeAnalysis(NamedElement obj) {
-	    	csvlog = new WriteToFile("SchedulingAnalysis", obj);
+	    	setCSVLog("SchedulingAnalysis", obj);
 			return true;
 	}
-
-	@Override
-	protected boolean finalizeAnalysis() {
-			csvlog.saveToFile();
-			return true;
-		}
 
 	@Override
 	protected void analyzeDeclarativeModel(final IProgressMonitor monitor,
