@@ -21,6 +21,7 @@ public class WriteToFile {
 	String reportType;
 	EObject root;
 	String fileExtension;
+	Boolean saved = false;
 	
 	public WriteToFile(String reporttype, EObject root){
 		this.reportType = reporttype;
@@ -36,25 +37,29 @@ public class WriteToFile {
 	
 	public void addOutput(String text){
 		textBuffer.addOutput(text);
+		saved = false;
 	}
 	
 	public void addOutputNewline(String text){
 		textBuffer.addOutputNewline(text);
+		saved = false;
 	}
 	
 	
 	protected IPath getReportPath(String reporttype, EObject root){
+		reporttype = reporttype.replaceAll(" ", "");
 		Resource res = root.eResource();
 		URI uri = res.getURI();
 		IPath path = OsateResourceUtil.getOsatePath(uri);
 		if (root instanceof InstanceObject){
-			String filename = path.lastSegment();
-			path = path.removeFileExtension().removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+			path = path.removeFileExtension();
+			String filename = path.lastSegment()+"__"+reporttype;
+			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		} else {
-			String filename = path.lastSegment();
-			path = path.removeFileExtension().removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+			String filename = path.lastSegment()+reporttype;
+			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		}
-		path = path.removeFileExtension().addFileExtension(this.fileExtension);
+		path = path.addFileExtension(this.fileExtension);
 		return path;
 	}
 	
@@ -64,6 +69,7 @@ public class WriteToFile {
 	 * @param content
 	 */	
 	public void saveToFile(){
+		if (saved) return;
 		IPath path = getReportPath(reportType,root);
 		if (path != null) {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
@@ -80,6 +86,7 @@ public class WriteToFile {
 				}
 			}
 		}
+		saved = true;
 	}
 	
 }
