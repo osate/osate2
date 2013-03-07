@@ -40,8 +40,11 @@
 package org.osate.analysis.architecture;
 
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.aadl2.ConnectionKind;
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -49,7 +52,11 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.ConnectionBindingUtil;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @author phf
@@ -59,12 +66,15 @@ import org.osate.xtext.aadl2.properties.util.ConnectionBindingUtil;
  */
 public class ConnectionBindingConsistency extends AadlProcessingSwitchWithProgress {
 	
+	private AbstractAaxlAction action;
+	
     public ConnectionBindingConsistency( final IProgressMonitor pm,
-    		final AnalysisErrorReporterManager errMgr) {
-    	super(pm, PROCESS_PRE_ORDER_ALL, errMgr);
+    		final AbstractAaxlAction action) {
+    	super(pm, PROCESS_PRE_ORDER_ALL);
+    	this.action = action;
     }
     
-    public final void initSwitches(){
+	public final void initSwitches(){
 		/* here we are creating the connection checking switches */
 
 		/* here we are creating the connection checking switches */
@@ -73,15 +83,29 @@ public class ConnectionBindingConsistency extends AadlProcessingSwitchWithProgre
 			 * check physical connectivity of port connection instances
 			 */
     		public Object caseConnectionInstance(ConnectionInstance conni)  {
-    			if (conni.getKind().equals(ConnectionKind.PORT)){
+    			if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)){
     				ComponentInstance srcHW = ConnectionBindingUtil.getHardwareComponent((FeatureInstance) conni.getSource());
     				ComponentInstance dstHW = ConnectionBindingUtil.getHardwareComponent((FeatureInstance) conni.getDestination());
     				if ( srcHW == null || dstHW == null) {
-    					warning(conni, "Connection source or destination is not bound to hardware");
-    					return DONE;
+    					action.warning(conni, "Connection "+conni.getComponentInstancePath()+" source or destination is not bound to hardware");
+    				} else {
+    					List<ComponentInstance> result = ConnectionBindingUtil.connectedByBus(srcHW, dstHW);
+    					if ( result.isEmpty()){
+    						action.error(conni, "Hardware (processor or device) of connection "+conni.getComponentInstancePath()+" source and destination are not physically connected");
+    					}
     				}
-    				if ( ConnectionBindingUtil.connectedByBus(srcHW, dstHW) == null){
-    					error(conni, "Hardware (processor or device) of connection source and destination are not physically connected");
+    				if (!InstanceModelUtil.isBoundToBus(conni)){
+    					action.warning(conni, "Connection "+conni.getComponentInstancePath()+" has no actual connection binding to a bus");
+    				} else {
+    					EList<ComponentInstance> bindings = InstanceModelUtil.getRealConnectionBindings(conni);
+    					ComponentInstance ci= bindings.get(0);
+    					if (srcHW != null && !ConnectionBindingUtil.connectedToBus(srcHW, ci)){
+    						action.warning(conni, "Connection "+conni.getComponentInstancePath()+" source bound hardware is not connected to the first bus in the actual binding");
+    					}
+    					ci= bindings.get(bindings.size()-1);
+    					if (dstHW != null && !ConnectionBindingUtil.connectedToBus(srcHW, ci)){
+    						action.warning(conni, "Connection "+conni.getComponentInstancePath()+" destination bound hardware is not connected to the first bus in the actual binding");
+    					}
     				}
     			}
     			return DONE;

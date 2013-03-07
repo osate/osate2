@@ -7,14 +7,15 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class InstanceValidation {
-	private final AnalysisErrorReporterManager errManager;
+	private final AbstractAaxlAction action;
 	private boolean isOK = true;
 
-	public InstanceValidation(final AnalysisErrorReporterManager errManager) {
-		this.errManager = errManager;
+	public InstanceValidation(final AbstractAaxlAction action) {
+		this.action = action;
 	}
 	
 	public boolean checkReferenceProcessor(SystemInstance root){
@@ -22,21 +23,26 @@ public class InstanceValidation {
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				if (obj instanceof ComponentInstance){
-					ComponentInstance ci = (ComponentInstance) obj;
-					double et = GetProperties.getSpecifiedComputeExecutionTimeinSec(ci);
-					if (et != 0){
-						ComponentClassifier refproc = GetProperties.getReferenceProcessor(ci);
-						if (refproc == null){
-							isOK = false;
-							errManager.error(ci, "Thread instance "+ci.getComponentInstancePath()+" has execution time, but no Reference_Processor. Please this property.");
-						}
-					}
-				}
+				checkForReferenceProcessor(obj);
 			}
 		};
 		mal.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 		return isOK;
+	}
+	
+	protected void checkForReferenceProcessor(Element obj){
+		if (obj instanceof ComponentInstance){
+			ComponentInstance ci = (ComponentInstance) obj;
+			double et = GetProperties.getSpecifiedComputeExecutionTimeinSec(ci);
+			if (et != 0){
+				ComponentClassifier refproc = GetProperties.getReferenceProcessor(ci);
+				if (refproc == null){
+					isOK = false;
+					action.error(ci, "Thread instance "+ci.getComponentInstancePath()+" has execution time, but no Reference_Processor. Please this property.");
+				}
+			}
+		}
+
 	}
 	
 

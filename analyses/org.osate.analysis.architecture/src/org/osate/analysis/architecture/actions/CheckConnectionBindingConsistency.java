@@ -42,6 +42,7 @@ package org.osate.analysis.architecture.actions;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.architecture.ArchitecturePlugin;
@@ -59,6 +60,12 @@ public final class CheckConnectionBindingConsistency extends AaxlReadOnlyActionA
 	protected String getMarkerType() {
 		return "org.osate.analysis.architecture.ConnectionBindingConsistencyObjectMarker";
 	}
+
+	@Override
+	protected boolean initializeAnalysis(NamedElement obj) {
+	    	setCSVLog("ConnectionBindingConsistency", obj);
+			return true;
+	}
 	
 	@Override
 	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
@@ -69,7 +76,7 @@ public final class CheckConnectionBindingConsistency extends AaxlReadOnlyActionA
 		SystemInstance si = ((ComponentInstance)obj).getSystemInstance();
 
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		ConnectionBindingConsistency anal = new ConnectionBindingConsistency(monitor,getErrorManager());
+		ConnectionBindingConsistency anal = new ConnectionBindingConsistency(monitor,this);
 		if (si != null) {
 			anal.defaultTraversal(si);
 		}

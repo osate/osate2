@@ -44,6 +44,7 @@ import java.util.Iterator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -52,6 +53,7 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.contribution.sei.names.SEI;
+import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
@@ -64,11 +66,12 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 	 */
 	private double WeightSum = 0.0;
 	private String ResultMsg = "Weight Analysis";
+	private AbstractAaxlAction action;
 	
-	public PropertyTotals(final IProgressMonitor monitor, AnalysisErrorReporterManager err) {
-		super(monitor, PROCESS_PRE_ORDER_ALL,err);
+	public PropertyTotals(final IProgressMonitor monitor, AbstractAaxlAction action) {
+		super(monitor, PROCESS_PRE_ORDER_ALL);
 	}
-	
+
 	protected final void initSwitches() {
 	    /* We overwrite the case method for a class in the meta model
 	     * specific switches.
@@ -77,11 +80,9 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 	}
 	
 	public final double calcWeight(ComponentInstance ci){
-    	csvlog = new WriteToFile("WeightAnalysis", ci);
 		String header = "Element,type,net weight, net/gross\n\r";
     	csvlog(header);
 		double total = doCalcWeight(ci, true,"");
-		saveCSVContent();
 		return total;
 		
 	}
@@ -186,7 +187,7 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 	
 	
 	private void csvlog(String s){
-		csvlog.addOutputNewline(s);
+		action.logInfo(s);
 	}
 	
 	private void logWeight(String ownerStr,  String elementType, 
@@ -194,12 +195,5 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 		if (elementWeight > 0 )
 		csvlog( ownerStr +","+elementType+","+elementWeight+", "+(net?"net":"gross"));
 	}
-	
-	
-	public void saveCSVContent(){
-		csvlog.saveToFile();
-	}
-	private WriteToFile csvlog ;
-
 
 }

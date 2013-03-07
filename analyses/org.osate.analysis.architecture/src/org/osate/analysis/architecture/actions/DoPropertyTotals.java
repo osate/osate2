@@ -41,6 +41,7 @@ package org.osate.analysis.architecture.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.architecture.ArchitecturePlugin;
@@ -61,6 +62,12 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 	protected String getActionName() {
 		return "Weight totals";
 	}
+	@Override
+	protected boolean initializeAnalysis(NamedElement obj) {
+	    	setCSVLog("WeightAnalysis", obj);
+			return true;
+	}
+	
 	
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
@@ -84,7 +91,7 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 		 * the declarative model.  If an instance model exists, run it over
 		 * that too.
 		 */
-		PropertyTotals stats = new PropertyTotals(monitor,getErrorManager());
+		PropertyTotals stats = new PropertyTotals(monitor,this);
 			stats.calcWeight(si);
 		monitor.done();
 		

@@ -72,7 +72,7 @@ public final class CheckA429PortConnectionConsistency extends AaxlReadOnlyAction
 		SystemInstance si = ((ComponentInstance)obj).getSystemInstance();
 
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		ARINC429ConnectionConsistency pcc = new ARINC429ConnectionConsistency(monitor, getErrorManager());
+		ARINC429ConnectionConsistency pcc = new ARINC429ConnectionConsistency(monitor, this);
 		pcc.processPreOrderAll(si);
 		if(pcc.cancelled()) {
 			throw new OperationCanceledException();

@@ -41,6 +41,7 @@ package org.osate.analysis.architecture.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.architecture.ArchitecturePlugin;
@@ -62,6 +63,14 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 	protected String getActionName() {
 		return "Model statistics";
 	}
+	
+
+	@Override
+	protected boolean initializeAnalysis(NamedElement obj) {
+	    	setCSVLog("ModelStatistics", obj);
+			return true;
+	}
+
 
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		/*
