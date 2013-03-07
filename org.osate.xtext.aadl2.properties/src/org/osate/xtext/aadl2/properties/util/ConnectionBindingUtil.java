@@ -78,8 +78,8 @@ public class ConnectionBindingUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
-	public static List connectedByBus(ComponentInstance srcHW, ComponentInstance dstHW) {
-		EList visitedBuses = new UniqueEList<ComponentInstance>();
+	public static List<ComponentInstance> connectedByBus(ComponentInstance srcHW, ComponentInstance dstHW) {
+		EList<ComponentInstance> visitedBuses = new UniqueEList<ComponentInstance>();
 		return doConnectedByBus(srcHW, dstHW, visitedBuses);
 	}
 
@@ -91,26 +91,26 @@ public class ConnectionBindingUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
-	protected static List doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW, EList visitedBuses) {
+	protected static List<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW, EList<ComponentInstance> visitedBuses) {
 		if (srcHW == null || dstHW == null)
-			return null;
+			return visitedBuses;
 		if (srcHW == dstHW)
-			return Collections.EMPTY_LIST;
-		EList busaccesslist = srcHW.getFeatureInstances();
-		for (Iterator it = busaccesslist.iterator(); it.hasNext();) {
+			return visitedBuses;
+		EList<FeatureInstance> busaccesslist = srcHW.getFeatureInstances();
+		for (Iterator<FeatureInstance> it = busaccesslist.iterator(); it.hasNext();) {
 			FeatureInstance fi = (FeatureInstance) it.next();
 			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
 				for (ConnectionInstance aci : fi.getDstConnectionInstances()) {
 					ComponentInstance curBus = (ComponentInstance) aci.getSource();
 					if (!visitedBuses.contains(curBus)) {
 						if (connectedToBus(dstHW, curBus)) {
-							EList res = new BasicEList<ComponentInstance>();
+							EList<ComponentInstance> res = new BasicEList<ComponentInstance>();
 							res.add(curBus);
 							return res;
 						} else {
 							// first check if there is a bus this bus is connected to
 							visitedBuses.add(curBus);
-							List res = doConnectedByBus(curBus, dstHW, visitedBuses);
+							List<ComponentInstance> res = doConnectedByBus(curBus, dstHW, visitedBuses);
 							if (res != null) {
 								res.add(0, curBus);
 								return res;

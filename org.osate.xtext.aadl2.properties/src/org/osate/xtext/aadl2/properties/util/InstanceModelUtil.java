@@ -2,6 +2,7 @@ package org.osate.xtext.aadl2.properties.util;
 
 import java.util.List;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Connection;
@@ -264,18 +265,18 @@ public class InstanceModelUtil {
 		/**
 		 * true if component instance is directly or indirectly bound to the bus
 		 * It could be bound to a virtual bus which in turn is bound to a bus
-		 * the component instance can be a connection or a virtual bus instance
-		 * @param componentInstance
+		 * the connectionInstance can be a connection or a virtual bus instance
+		 * @param connectionInstance
 		 * @param bus
 		 * @return
 		 */
-	  public static boolean isBoundToBus(InstanceObject componentInstance, ComponentInstance bus){
+	  public static boolean isBoundToBus(InstanceObject connectionInstance, ComponentInstance bus){
 		  	List<ComponentInstance> bindinglist;
 		  	//construct a new schedulable component, and put into the runTimeComponents only
 		  	//when all the timing properties are not null ! except the ARC related properties.
 		  	try
 		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding(componentInstance);
+		  		bindinglist = GetProperties.getActualConnectionBinding(connectionInstance);
 		  	}
 		  	catch (PropertyNotPresentException e)
 		  	{
@@ -292,6 +293,70 @@ public class InstanceModelUtil {
 			}
 		  return false;
 	}
+
+		/**
+		 * true if component instance is directly or indirectly bound to a bus
+		 * It could be bound to a virtual bus which in turn is bound to a bus
+		 * the connectionInstance can be a connection or a virtual bus instance
+		 * @param connectionInstance
+		 * @return
+		 */
+	  public static boolean isBoundToBus(InstanceObject connectionInstance){
+		  	List<ComponentInstance> bindinglist;
+		  	//construct a new schedulable component, and put into the runTimeComponents only
+		  	//when all the timing properties are not null ! except the ARC related properties.
+		  	try
+		  	{
+		  		bindinglist = GetProperties.getActualConnectionBinding(connectionInstance);
+		  	}
+		  	catch (PropertyNotPresentException e)
+		  	{
+		  		return false;
+		  	}
+		  	for (ComponentInstance boundComponentInstance : bindinglist) {
+				if (boundComponentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
+					if (isBoundToBus(boundComponentInstance)){
+						return true;
+					}
+				} else {
+					return true;
+				}
+			}
+		  return false;
+	}
+	  
+		/**
+		 * return list of component instances that the connection instance is bound to directly or indirectly
+		 * the connectionInstance can be a connection or a virtual bus instance
+		 * @param connectionInstance
+		 * @return
+		 */
+	  public static EList<ComponentInstance> getRealConnectionBindings(InstanceObject connectionInstance){
+		  EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
+		  return getRealConnectionBindings(connectionInstance, result);
+	}
+	  private static EList<ComponentInstance> getRealConnectionBindings(InstanceObject connectionInstance, EList<ComponentInstance> result){
+		  	List<ComponentInstance> bindinglist;
+		  	//construct a new schedulable component, and put into the runTimeComponents only
+		  	//when all the timing properties are not null ! except the ARC related properties.
+		  	try
+		  	{
+		  		bindinglist = GetProperties.getActualConnectionBinding(connectionInstance);
+		  	}
+		  	catch (PropertyNotPresentException e)
+		  	{
+		  		return result;
+		  	}
+		  	for (ComponentInstance boundComponentInstance : bindinglist) {
+				if (boundComponentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
+					getRealConnectionBindings(connectionInstance,result);
+				} else {
+					result.add(boundComponentInstance);
+				}
+			}
+		  return result;
+	}
+
 
 
 		/**
