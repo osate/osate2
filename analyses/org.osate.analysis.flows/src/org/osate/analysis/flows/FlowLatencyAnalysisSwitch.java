@@ -232,7 +232,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				additiveLatency = FlowSpecificationLatency;
 			}
 			// the partition period here is ignored
-			logLatencyinMicroSec(etef.getName(),ci.getCategory().getName(),ci.getName(),totalLatency+additiveLatency,additiveLatency,FlowSpecificationLatency,previousSamplingPeriod,0.0,dv,myLatencyETE) ;
+			logLatencyinMicroSec(etef.getComponentInstancePath(),ci.getCategory().getName(),ci.getComponentInstancePath(),totalLatency+additiveLatency,additiveLatency,FlowSpecificationLatency,previousSamplingPeriod,0.0,dv,myLatencyETE) ;
 
 		// remembers the deadline/conn latency added in. To be removed if immediate connection.
 		double previouslyAddedDelay = 0;
@@ -249,7 +249,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					double conlat = getConnectionLatencyinMicroSec(conn);
 					additiveLatency = additiveLatency + conlat;
 					previouslyAddedDelay = previouslyAddedDelay + conlat;
-					logLatencyinMicroSec(etef.getName(),"Connection",conn.getName(),totalLatency+additiveLatency,additiveLatency,0.0,0.0,0.0,conlat,myLatencyETE);
+					logLatencyinMicroSec(etef.getComponentInstancePath(),"Connection",conn.getName(),totalLatency+additiveLatency,additiveLatency,0.0,0.0,0.0,conlat,myLatencyETE);
 				}
 			} else if (fe instanceof FlowSpecificationInstance){
 				// we are dealing with a component flow spec
@@ -409,7 +409,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 */
 				additiveLatency = additiveLatency + processingDelay+queuingDelay;
 				previouslyAddedDelay = processingDelay+queuingDelay;
-				logLatencyinMicroSec( etef.getName(),ci.getCategory().getName(),ci.getName()+":"+fefs.getName(),totalLatency,additiveLatency,fsLatency,samplingLatency,partitionLatency,processingDelay,myLatencyETE);
+				logLatencyinMicroSec( etef.getComponentInstancePath(),ci.getCategory().getName(),ci.getComponentInstancePath()+":"+fefs.getName(),totalLatency,additiveLatency,fsLatency,samplingLatency,partitionLatency,processingDelay,myLatencyETE);
 			} else if (fe instanceof EndToEndFlowInstance){
 				// process recursively
 				double eteflatency = doETEF((EndToEndFlowInstance)fe);
@@ -420,7 +420,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		
 		/* account for the last additive flow latency */
 		totalLatency = totalLatency + additiveLatency;
-		logLatencyinMicroSec( etef.getName(),"Total","",totalLatency,0,0,0,0,0,myLatencyETE);
+		logLatencyinMicroSec( etef.getComponentInstancePath(),"Total","",totalLatency,0,0,0,0,0,myLatencyETE);
 		csvlog.addOutputNewline("");
 		return totalLatency;
 	}
@@ -436,7 +436,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	protected double getConnectionLatencyinMicroSec(ConnectionInstance conn){
 		double res = FlowLatencyUtil.eInstance.computeConnectionLatencyinMicroSec(conn);
 		if (res == 0.0){
-			GetProperties.getLatencyinMicroSec(conn);
+			res = GetProperties.getLatencyinMicroSec(conn);
 		}
 		return res;
 	}
