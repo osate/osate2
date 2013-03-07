@@ -39,16 +39,16 @@
 <repository location="http://download.eclipse.org/releases/juno"/>
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.1.0.v20120524-0542-7A6FEcDiVOTg1Q_HuZrEuBtr2dhs"/>
-<unit id="org.eclipse.help.feature.group" version="1.4.0.v20120608-133537-8P7vFOTFK_Qj4JmDIQXL8Tn"/>
-<unit id="org.eclipse.platform.feature.group" version="4.2.0.v20120608-135145-9JF7BHV8FyMteji0Oi_ePMz0xuZ8TVo7lV0z0ecb"/>
-<unit id="org.eclipse.equinox.executable.feature.group" version="3.6.0.v20120522-1813-7P7OG2BFLWUl7UmbVUO9iCm"/>
-<unit id="org.eclipse.rcp.feature.group" version="4.2.0.v20120528-1648-7IAPA7BrHQicRpNdOz-Obz-rlRCA"/>
-<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.1.0.v20120524-0542-8297FncFWmE7h4Asq1cgrz-i38"/>
-<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.0.v20120524-0542-62DG9JXTlSiz-UbcP0w0KGe8CBOP"/>
-<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.1.0.v20120524-0542-785EoBqNKNYz-GX2sUgCaBtr2dhs"/>
+<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.1.0.v20121211-153934-7A6FEcDiVOTg2RYDuZuFz-L2z00w"/>
+<unit id="org.eclipse.help.feature.group" version="1.4.1.v20120912-144938-8R7xFOXFLWUl7PpNBh_HIGkb4"/>
+<unit id="org.eclipse.platform.feature.group" version="4.2.1.v20130118-173121-9MF7GHYdG0B5kx4E_SkfZV-1mNjVATf67ZAb7"/>
+<unit id="org.eclipse.equinox.executable.feature.group" version="3.6.0.v20121119-201001-7P7OG2BFLWUl7UnqBnO8V4Of"/>
+<unit id="org.eclipse.rcp.feature.group" version="4.2.2.v20130129-152330-7IARAABrMQkGSvMgQnUlz-DQz00h"/>
+<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.1.0.v20121211-153934-8297FndFWmE7h7Bpz-vcqkxyKz0"/>
+<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.0.v20121212-204731-62DG9JXTlTj-UXcQ2y3NLn6U4Z3H"/>
+<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.1.0.v20121211-153934-785EoBqNKNZz-DW7sUc8hFwz00wd"/>
 
-<repository location="jar:file:/tmp/org.eclipse.platform-4.2.zip!/"/>
+<repository location="jar:file:/tmp/org.eclipse.platform-4.2.2.zip!/"/>
 </location>
 
 </locations>
