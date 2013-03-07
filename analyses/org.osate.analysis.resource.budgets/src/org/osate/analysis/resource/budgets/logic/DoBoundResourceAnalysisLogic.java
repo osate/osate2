@@ -94,11 +94,6 @@ public class DoBoundResourceAnalysisLogic {
 	public void analysisBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
 			SystemInstance root = ((InstanceObject) obj).getSystemInstance();
-			InstanceValidation iv = new InstanceValidation(errManager);
-			if (!iv.checkReferenceProcessor(root)){
-				Dialog.showError("Bound Resource Budget Analysis","Model contains thread execution times without reference processor.");
-				return;
-			}
 			monitor.beginTask(actionName, IProgressMonitor.UNKNOWN);
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {

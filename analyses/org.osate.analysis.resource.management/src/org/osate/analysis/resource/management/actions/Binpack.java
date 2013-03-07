@@ -89,6 +89,7 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osgi.framework.Bundle;
 
@@ -149,8 +150,6 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	protected String getActionName() {
 		return "Bind threads to processors";
 	}
-	
-	private WriteToFile csvlog ;
 
 	// Don't allow analysis in all modes.
 	protected boolean analyzeInSingleModeOnly() {
@@ -187,6 +186,15 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				"Binding Error",
 				"Can only SW/HW bind (binpack) system instances");
 	}
+	
+	protected void checkBuses(ComponentInstance obj){
+		ComponentInstance bi = (ComponentInstance) obj;
+		final RecordValue transTime = GetProperties.getTransmissionTime(bi);
+		if (transTime == null) {
+			logWarning("Bus "+bi.getComponentInstancePath()+" is missing Transmission Time property. Using default of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
+		}
+
+	}
 
 	@Override
 	protected void analyzeInstanceModel(final IProgressMonitor monitor,
@@ -196,16 +204,12 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			monitor.beginTask("Binding threads to processors in " + root.getName(),
 					IProgressMonitor.UNKNOWN);
 			
-			
+			logInfo("Binpacker Analysis Report\n");
 			/* Verify that all the busses have a transmission time
 			 */
 			final ForAllElement addBuses = new ForAllElement(errManager) {
 				public void process(Element obj){				
-					ComponentInstance bi = (ComponentInstance) obj;
-						final RecordValue transTime = GetProperties.getTransmissionTime(bi);
-						if (transTime == null) {
-							warning(obj, "Bus is missing Transmission Time property, using default transmission time of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
-						}
+					checkBuses((ComponentInstance)obj);
 				}
 			};
 			addBuses.processPreOrderComponentInstance(root,ComponentCategory.BUS);				
@@ -224,8 +228,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				}
 			}.processPreOrderComponentInstance(root);
 			for (final Iterator i = incompletethreads.iterator(); i.hasNext();) {
-				final Element o = (Element) i.next();
-				warning(o, "Thread or device is missing period property. Using default of 1 ns");
+				final ComponentInstance o = (ComponentInstance) i.next();
+				logWarning((InstanceModelUtil.isThread(o)?"Thread ":"Device ")+o.getComponentInstancePath()+" is missing period property. Using default of 1 ns");
 			} 
 			
 			/* Find and report all thread instances that don't have a 
@@ -237,8 +241,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				}
 			}.processPreOrderComponentInstance(root,ComponentCategory.THREAD);
 			for (final Iterator i = incompletethreads.iterator(); i.hasNext();) {
-				final Element o = (Element) i.next();
-				warning(o, "Thread is missing compute_execution_time or InstructionsPerDispatch property. Using default of 0 ns");
+				final ComponentInstance o = (ComponentInstance) i.next();
+				logWarning("Thread "+o.getComponentInstancePath()+" is missing compute_execution_time or InstructionsPerDispatch property. Using default of 0 ns");
 			} 
 
 			/* Find if all the port connections have data size
@@ -256,7 +260,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 							if (cl instanceof DataClassifier){
 								DataClassifier srcDC = (DataClassifier) cl;
 								if (GetProperties.getSourceDataSizeInBytes(srcDC)==0){
-									warning(obj,"Data size of port connection not specified");
+									logWarning("Data size of connection source port "+src.getComponentInstancePath()+" not specified");
 								}
 							}
 						}
@@ -447,7 +451,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				final ComponentInstance ci = (ComponentInstance) obj;
 				final AADLThread thread = AADLThread.createInstance(ci);
 				problem.softwareGraph.add(thread);
-				csvlog.addOutputNewline(thread.getReport());
+//				logInfo(thread.getReport());
 				// add reverse mapping
 				threadToSoftwareNode.put(ci, thread);
 
@@ -652,7 +656,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	public void reportResults(SystemOperationMode som,final AssignmentResult result, final int processorMultiplier) {
 		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
 
-		csvlog.addOutputNewline("Binpacking results"+(!som.getName().equalsIgnoreCase("No Modes")?" for SOM "+som.getName():"")+": "+(result.success?"Success":"FAILED") );
+		logInfo("\nBinpacking results"+(!som.getName().equalsIgnoreCase("No Modes")?" for SOM "+som.getName():"")+": "+(result.success?"Success":"FAILED") );
 		for (final Iterator i = result.problem.hardwareGraph.iterator(); i.hasNext();) {
 			final HardwareNode hn = (HardwareNode) i.next();
 			final ComponentInstance proc = (ComponentInstance) hn.getSemanticObject();
@@ -665,18 +669,18 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			overload *= 100.0;
 			long longOverload = (long) Math.ceil(overload);
 			long available = longOverload * -1;
-			csvlog.addOutputNewline("Processor "+proc.getInstanceObjectPath()+" ("+hn.cyclesPerSecond/1000000+" MIPS) Load: "+
+			logInfo("Processor "+proc.getInstanceObjectPath()+" ("+hn.cyclesPerSecond/1000000+" MIPS) Load: "+
 					Long.toString(longLoad) + "%" +" Available: "+
 					Long.toString(available) + "%" );
 		}
-		csvlog.addOutputNewline("Thread to Processor Bindings");
+		logInfo("\nThread to Processor Bindings");
 		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final ComponentInstance proc = (ComponentInstance) threadsToProc.get(thread);
 			  double threadMips = GetProperties.getThreadExecutioninMIPS(thread);
 			  double cpumips = GetProperties.getMIPSCapacityInMIPS(proc, 0);
 
-			csvlog.addOutputNewline("Thread "+thread.getInstanceObjectPath()+" ==> Processor "+proc.getInstanceObjectPath()
+			logInfo("Thread "+thread.getInstanceObjectPath()+" ==> Processor "+proc.getInstanceObjectPath()
 					+(cpumips > 0?(" Utilization "+threadMips/cpumips*100+"%"):" No CPU capacity"));
 		}
 	}

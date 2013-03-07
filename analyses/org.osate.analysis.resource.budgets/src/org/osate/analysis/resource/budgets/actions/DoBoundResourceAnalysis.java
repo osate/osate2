@@ -41,12 +41,15 @@ package org.osate.analysis.resource.budgets.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.StringBufferAnalysisErrorReporter;
+import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
 
@@ -77,6 +80,11 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		reportMessage = new StringBuffer();
+		InstanceValidation iv = new InstanceValidation(this);
+		if (!iv.checkReferenceProcessor(((InstanceObject)obj).getSystemInstance())){
+			Dialog.showWarning("Resource Budget Analysis","Model contains thread execution times without reference processor.");
+			return;
+		}
 		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager( new StringBufferAnalysisErrorReporter.Factory("*** ", "* ", "", reportMessage));
 		getLogicObject(loggingErrManager).analysisBody(monitor, obj);
 	}

@@ -41,6 +41,7 @@ package org.osate.analysis.resource.budgets.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -72,6 +73,12 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 	protected void initPropertyReferences() {
 	}
 
+	@Override
+	protected boolean initializeAnalysis(NamedElement obj) {
+	    	setCSVLog("ResourceBudgets", obj);
+			return true;
+	}
+
 	protected void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		reportMessage = new StringBuffer();
 		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new StringBufferAnalysisErrorReporter.Factory("*** ", "* ", "", reportMessage));
@@ -88,7 +95,7 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 //				final SystemOperationMode som = soms.nextSOM();
 //				final String somName = som.getName();
 			final String somName = null;
-			InstanceValidation iv = new InstanceValidation(getErrorManager());
+			InstanceValidation iv = new InstanceValidation(this);
 			if (!iv.checkReferenceProcessor(si)){
 				Dialog.showWarning("Resource Budget Analysis","Model contains thread execution times without reference processor.");
 				return;
