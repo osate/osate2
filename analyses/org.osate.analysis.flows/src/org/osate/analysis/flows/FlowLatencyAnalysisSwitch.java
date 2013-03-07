@@ -55,6 +55,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -113,34 +114,35 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 			public String caseEndToEndFlowInstance(final EndToEndFlowInstance etef)  {
 				if (etef.getFlowElements().isEmpty()) return DONE;
-				
+				logInfoOnly(etef, "End to End Latency report\n");
 				final double totalLatency = doETEF(etef); 
 				double val = 0;
 					val = GetProperties.getLatencyinMicroSec(etef);
 				if (val > 0)
 				{
 					if (totalLatency > val) {
-						error(etef, "End-to-end flow "+etef.getName()+" calculated latency "+isSynchronousLabel()
+						logError(etef, "End-to-end flow "+etef.getName()+" calculated latency "+isSynchronousLabel()
 								+ convertUStoOutputUnit(totalLatency)
 								+ " exceeds expected latency "
 								+ convertUStoOutputUnit(val) );
 					} else
 					if (totalLatency < val) {
-						info(etef, "End-to-end flow "+etef.getName()+" calculated latency "+isSynchronousLabel()
+						logInfo(etef, "End-to-end flow "+etef.getName()+" calculated latency "+isSynchronousLabel()
 								+ convertUStoOutputUnit(totalLatency)
 								+ " is less than expected latency "
 								+ convertUStoOutputUnit(val));
 					} else {
-						info(etef,"End-to-end flow "+etef.getName()+" calculated latency "+isSynchronousLabel()
+						logInfo(etef,"End-to-end flow "+etef.getName()+" calculated latency "+isSynchronousLabel()
 								+ convertUStoOutputUnit(totalLatency) + " matches expected latency");
 					}
 				} else {
-					info(etef,"Calculated latency"+isSynchronousLabel()+" for end-to-end flow "+etef.getName()+" is "
+					logInfo(etef,"Calculated latency"+isSynchronousLabel()+" for end-to-end flow "+etef.getName()+" is "
 							+ convertUStoOutputUnit(totalLatency) );
 				}
 				if (monitor.isCanceled()) {
 					cancelTraversal();
 				}
+				logInfoOnly("\n\n");
 				return DONE;
 			}
 		};
@@ -214,13 +216,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					dv = GetProperties.getDeadlineinMilliSec(ci);
 				if (FlowSpecificationLatency > dv){
 					if ( dv > 0){
-						warning(fefs,"Flow spec latency "+convertUStoOutputUnit(FlowSpecificationLatency)+" exceeds deadline "+convertUStoOutputUnit(dv));
+						logWarning(fefs,"Flow spec latency "+convertUStoOutputUnit(FlowSpecificationLatency)+" exceeds deadline "+convertUStoOutputUnit(dv));
 					}
 					additiveLatency = FlowSpecificationLatency;
 				} else {
 					additiveLatency = dv;
 					if (FlowSpecificationLatency == 0 && dv == 0){
-						warning(fefs,"Flow spec "+fefs.getName()+" latency used in flow latency calculation is zero");
+						logWarning(fefs,"Flow spec "+fefs.getName()+" latency used in flow latency calculation is zero");
 					}
 				}
 				if (InstanceModelUtil.isPeriodicThread(ci) || InstanceModelUtil.isPeriodicDevice(ci)){
@@ -327,7 +329,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 								samplingLatency = periodLatency;
 							}
 							if (periodLatency == 0) {
-								info(ci,"Periodic subcomponent has no period. Handled as non-sampling.");
+								logInfo(ci,"Periodic subcomponent "+ci.getName()+" has no period. Handled as non-sampling.");
 							}
 						} 
 					}
@@ -388,17 +390,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 */
 				double fsLatency = GetProperties.getLatencyinMicroSec(fefs);
 				if (fsLatency == 0 && deadlineDelay == 0){
-					warning(fefs,"Flow spec "+fefs.getName()+" has no latency. ");
+					logWarning(fefs,"Flow spec "+fefs.getName()+" has no latency. ");
 				} else if (fsLatency>0 && deadlineDelay == 0){
 					processingDelay = fsLatency;
 				} else if (fsLatency==0 && deadlineDelay > 0){
 					processingDelay = deadlineDelay;
 				} else 	if (deadlineDelay > 0 && fsLatency > 0){
 					if (fsLatency > deadlineDelay){
-						warning(fefs,"Flow spec "+fefs.getName()+" latency "+convertUStoOutputUnit(fsLatency)+" exceeds deadline "+convertUStoOutputUnit(deadlineDelay)+" Using flow latency.");
+						logWarning(fefs,"Flow spec "+fefs.getName()+" latency "+convertUStoOutputUnit(fsLatency)+" exceeds deadline "+convertUStoOutputUnit(deadlineDelay)+" Using flow latency.");
 						processingDelay = fsLatency;
 					} else if (deadlineDelay > fsLatency){
-						info(fefs,"Flow spec "+fefs.getName()+" latency "+convertUStoOutputUnit(fsLatency)+" less than deadline "+convertUStoOutputUnit(deadlineDelay)+" Using deadline.");
+						logInfo(fefs,"Flow spec "+fefs.getName()+" latency "+convertUStoOutputUnit(fsLatency)+" less than deadline "+convertUStoOutputUnit(deadlineDelay)+" Using deadline.");
 						processingDelay = deadlineDelay;
 					}
 				} 
@@ -495,5 +497,33 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	private void logLatencyinMicroSec(final String flowStr, String elementType, String nameStr, double totalLatency, double additiveLatency, double flowLatency, double smpldelay, double partdelay, double deadline, double expected) {
 		if (csvlog != null)
 		csvlog.addOutputNewline(flowStr+isSynchronousLabel()+","+elementType+","+nameStr+","+convertUStoOutputUnit(deadline)+","+convertUStoOutputUnit(smpldelay)+","+convertUStoOutputUnit(partdelay)+","+convertUStoOutputUnit(flowLatency)+","+convertUStoOutputUnit(additiveLatency)+","+convertUStoOutputUnit(totalLatency)+","+convertUStoOutputUnit(expected)) ;
+	}
+	
+	private void logInfo(final InstanceObject ci, String report) {
+		info(ci, report);
+		if (csvlog != null)
+		csvlog.addOutputNewline(ci.getComponentInstancePath()+": "+report) ;
+	}
+	
+	private void logInfoOnly(final InstanceObject ci, String report) {
+		if (csvlog != null)
+		csvlog.addOutputNewline(ci.getComponentInstancePath()+": "+report) ;
+	}
+	
+	private void logInfoOnly(String report) {
+		if (csvlog != null)
+		csvlog.addOutputNewline(report) ;
+	}
+	
+	private void logWarning(final InstanceObject ci, String report) {
+		warning(ci, report);
+		if (csvlog != null)
+		csvlog.addOutputNewline("Warning: "+ci.getComponentInstancePath()+": "+report) ;
+	}
+	
+	private void logError(final InstanceObject ci, String report) {
+		error(ci, report);
+		if (csvlog != null)
+		csvlog.addOutputNewline("ERROR: "+ci.getComponentInstancePath()+": "+report) ;
 	}
 }
