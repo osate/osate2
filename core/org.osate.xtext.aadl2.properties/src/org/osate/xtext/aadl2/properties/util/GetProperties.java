@@ -33,15 +33,20 @@
  */
 package org.osate.xtext.aadl2.properties.util;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
@@ -55,6 +60,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
@@ -68,6 +74,7 @@ import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.contribution.sei.names.DataModel;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
@@ -194,16 +201,10 @@ public class GetProperties {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		Property actualProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-		try
-		{
-			List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualProcessorBinding);
-			for (PropertyExpression propertyExpression : propertyValues){
-				InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
-				components.add((ComponentInstance)obj);
-			}
-		}
-		catch (PropertyNotPresentException e)
-		{
+		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualProcessorBinding);
+		for (PropertyExpression propertyExpression : propertyValues){
+			InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
+			components.add((ComponentInstance)obj);
 		}
 		return components;
 	}
@@ -887,6 +888,59 @@ public class GetProperties {
 	public static double getWeightLimit(final NamedElement ne, final double defaultValue) {
 		Property netWeight = lookupPropertyDefinition(ne,SEI._NAME, SEI.WEIGHTLIMIT);
 		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+	}
+
+	public static List<ComponentClassifier> getBaseType(final NamedElement ne) {
+		Property baseType = lookupPropertyDefinition(ne,DataModel._NAME, DataModel.BASE_TYPE);
+		List<ComponentClassifier> res = new BasicEList<ComponentClassifier>();
+		List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(baseType);
+		for (PropertyExpression propertyExpression : propertyValues){
+			res.add((ComponentClassifier)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+		}
+		return res;
+	}
+
+	public static String getMeasurementUnit(final NamedElement ne) {
+		Property mUnit = lookupPropertyDefinition(ne,DataModel._NAME, DataModel.MEASUREMENT_UNIT);
+		String propertyValue = PropertyUtils.getStringValue(ne, mUnit);
+		return propertyValue;
+	}
+
+	public static RecordValue getOutPutRate(final NamedElement ne) {
+		Property outputRate = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.OUTPUT_RATE);
+		 RecordValue propertyValue = (RecordValue) ne.getSimplePropertyValue(outputRate);
+		return propertyValue;
+	}
+
+	public static RecordValue getInPutRate(final NamedElement ne) {
+		Property inputRate = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.OUTPUT_RATE);
+		 RecordValue propertyValue = (RecordValue) ne.getSimplePropertyValue(inputRate);
+		return propertyValue;
+	}
+
+
+	public static RangeValue getValueRange(final RecordValue ne) {
+		EList<BasicPropertyAssociation> fields = ne.getOwnedFieldValues();
+		 BasicPropertyAssociation valueRange = getRecordField(fields, "Rate_Unit");
+		return (RangeValue) valueRange.getValue();
+	}
+
+
+	public static EnumerationLiteral getRateUnit(final RecordValue ne) {
+		EList<BasicPropertyAssociation> fields = ne.getOwnedFieldValues();
+		 BasicPropertyAssociation rateUnit = getRecordField(fields, "Value_Range");
+		return (EnumerationLiteral) rateUnit.getValue();
+	}
+
+	public static BasicPropertyAssociation getRecordField(EList<BasicPropertyAssociation> props,String fieldName){
+		for (BasicPropertyAssociation propertyAssociation : props) {
+			BasicProperty prop = propertyAssociation.getProperty();
+			String name = prop.getName();
+			if (fieldName.equalsIgnoreCase(name)){
+				return propertyAssociation;
+			}
+		}
+		return null;
 	}
 
 
