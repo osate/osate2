@@ -960,17 +960,6 @@ public class EM2Util {
 	}
 	
 	
-	public static BasicPropertyAssociation getRecordField(EList<BasicPropertyAssociation> props,String fieldName){
-		for (BasicPropertyAssociation propertyAssociation : props) {
-			BasicProperty prop = propertyAssociation.getProperty();
-			String name = prop.getName();
-			if (fieldName.equalsIgnoreCase(name)){
-				return propertyAssociation;
-			}
-		}
-		return null;
-	}
-	
 	public static boolean hasErrorPropagations(ComponentInstance ci){
 		return hasErrorPropagations(ci.getComponentClassifier());
 	}

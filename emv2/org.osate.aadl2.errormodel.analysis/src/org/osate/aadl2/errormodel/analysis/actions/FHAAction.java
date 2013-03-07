@@ -69,6 +69,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	protected String getMarkerType() {
@@ -280,7 +281,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 	protected void reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
-		BasicPropertyAssociation xref = EM2Util.getRecordField(fields, fieldName);
+		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
 		if (xref != null){
 			PropertyExpression val = xref.getOwnedValue();
 			if (val instanceof StringLiteral){
@@ -298,7 +299,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	 */
 	protected void reportEnumerationOrIntegerPropertyConstantPropertyValue(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
 		// added code to handle integer value and use of property constant instead of enumeration literal
-		BasicPropertyAssociation xref = EM2Util.getRecordField(fields, fieldName);
+		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
 		if (xref != null){
 			PropertyExpression val = xref.getOwnedValue();
 			if (val instanceof NamedValue){
