@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import sun.org.mozilla.javascript.internal.ErrorReporter;
+
 public class BFBPBinPacker extends BaseLowLevelBinPacker {
 	Expansor expansor;
 
@@ -177,6 +179,8 @@ public class BFBPBinPacker extends BaseLowLevelBinPacker {
 											// to add new link");
 											processor
 													.removeFromFeasibleSet(composite);
+											if (problem.errorReporter != null)
+											problem.errorReporter.reportError(1,problem);
 											return false;
 										}
 									}

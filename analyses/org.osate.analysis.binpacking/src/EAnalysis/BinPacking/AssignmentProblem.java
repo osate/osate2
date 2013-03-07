@@ -10,6 +10,12 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 public class AssignmentProblem implements Cloneable {
+	
+	BPErrorReporter errorReporter;
+	
+	public void setErrorReporter(BPErrorReporter r){
+		errorReporter = r;
+	}
 	/**
 	 * SoftwareNodes set ordered byte non-increasing bandwidth requirement
 	 */

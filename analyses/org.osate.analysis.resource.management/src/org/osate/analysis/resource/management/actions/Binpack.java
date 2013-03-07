@@ -363,10 +363,11 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		 * we walk the instance model and add all the processors.  Then we 
 		 * walk the instance model again to add all the threads.
 		 */
-		final OutDegreeAssignmentProblem problem = new OutDegreeAssignmentProblem(
+		OutDegreeAssignmentProblem problem1 = new OutDegreeAssignmentProblem(
 				new OutDegreeComparator(), new BandwidthComparator(),
 				new CapacityComparator());
-
+		problem1.setErrorReporter(null);
+		final OutDegreeAssignmentProblem problem = problem1;
 		// Add procs
 		final ForAllElement addProcessors = new ForAllElement(errManager) {
 			public void process(Element obj) {			
