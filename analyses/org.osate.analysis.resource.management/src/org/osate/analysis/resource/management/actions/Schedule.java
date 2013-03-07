@@ -82,7 +82,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 	}
 
 	@Override
-	protected boolean initializeAnalysis(NamedElement obj) {
+	protected boolean initializeAction(NamedElement obj) {
 	    	setCSVLog("SchedulingAnalysis", obj);
 			return true;
 	}

@@ -66,7 +66,7 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 	
 
 	@Override
-	protected boolean initializeAnalysis(NamedElement obj) {
+	protected boolean initializeAction(NamedElement obj) {
 	    	setCSVLog("ModelStatistics", obj);
 			return true;
 	}

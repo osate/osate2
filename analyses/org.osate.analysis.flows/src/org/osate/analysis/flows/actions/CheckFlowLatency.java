@@ -88,7 +88,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	}
 
 	@Override
-	protected boolean initializeAnalysis(NamedElement obj) {
+	protected boolean initializeAction(NamedElement obj) {
 	    	csvlog = new WriteToFile("FlowLatency", obj);
 			return true;
 	}

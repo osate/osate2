@@ -157,7 +157,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	}
 	
 	@Override
-	protected boolean initializeAnalysis(NamedElement obj) {
+	protected boolean initializeAction(NamedElement obj) {
     	setCSVLog("Binpacking", obj);
     	
 		// Select the bin packing strategy

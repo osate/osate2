@@ -63,7 +63,7 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 		return "Weight totals";
 	}
 	@Override
-	protected boolean initializeAnalysis(NamedElement obj) {
+	protected boolean initializeAction(NamedElement obj) {
 	    	setCSVLog("WeightAnalysis", obj);
 			return true;
 	}

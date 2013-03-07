@@ -62,7 +62,7 @@ public final class CheckConnectionBindingConsistency extends AaxlReadOnlyActionA
 	}
 
 	@Override
-	protected boolean initializeAnalysis(NamedElement obj) {
+	protected boolean initializeAction(NamedElement obj) {
 	    	setCSVLog("ConnectionBindingConsistency", obj);
 			return true;
 	}
