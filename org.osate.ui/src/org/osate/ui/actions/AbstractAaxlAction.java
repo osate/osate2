@@ -213,10 +213,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		// Init the properties
 		notFound.clear();
 		initPropertyReferences();
+		initializeAction((NamedElement)root);
 		if (suppressErrorMessages() || !reportPropertyLookupErrors()) {
 			// Run the command (indirectly)
 			processAaxlAction(monitor, resource, root);
 		}
+		finalizeAction();
 	}
 
 	protected abstract Job createJob(Element root);
@@ -745,6 +747,23 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected boolean initializeAnalysis(NamedElement object) {
 		return true;
 	}
+
+	/**
+	 * Initialize the state of the action.  For example,
+	 * this can open a dialog box to get additional parameters to the
+	 * analysis.  The analysis state should be initialized by setting
+	 * fields that are then used by {@link #analyzeDeclarativeModel}
+	 * and {@link #analyzeInstanceModel}.
+	 * 
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 * 
+	 * @return <code>true</code> if the analysis should proceed or 
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean initializeAction(NamedElement object) {
+		return true;
+	}
 	
 
 	/**
@@ -757,6 +776,19 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * <code>false</code> if the user cancelled the analysis.
 	 */
 	protected boolean finalizeAnalysis() {
+		return true;
+	}
+
+	/**
+	 * finalize the state of analysis.  For example,
+	 * this can close a report being generated.
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 * 
+	 * @return <code>true</code> if the analysis should proceed or 
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean finalizeAction() {
 		if (csvlog != null){
 			csvlog.saveToFile();
 		}

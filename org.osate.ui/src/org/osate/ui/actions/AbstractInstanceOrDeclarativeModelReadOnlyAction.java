@@ -101,16 +101,16 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 			final int whichMode;
 			if (si.getSystemOperationModes().size() > 1) {
 				whichMode = Dialog.askQuestion("Choose Mode",
-					"Please choose in which mode(s) the model should be analyzed.",
-					analyzeInSingleModeOnly() ? SINGLE_MODE_CHOICE_LABELS : ALL_MODE_CHOICE_LABELS,
-					lastDefaultModeChoice);
+						"Please choose in which mode(s) the model should be analyzed.",
+						analyzeInSingleModeOnly() ? SINGLE_MODE_CHOICE_LABELS : ALL_MODE_CHOICE_LABELS,
+								lastDefaultModeChoice);
 			} else {
 				// A system with no modes still has at least one SOM named NORMAL_SOM_NAME aka "no modes"
 				whichMode = INITIAL_MODE;
 			}
 			if (whichMode != -1) {
 				lastDefaultModeChoice = whichMode;
-				
+
 				SystemOperationMode chosenSOM = null;
 				if (!si.getSystemOperationModes().isEmpty()){
 					// the SOM list should not be empty
@@ -126,7 +126,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 						}
 					}
 				}
-				
+
 				if (initializeAnalysis(si)) {
 					final AnalysisErrorReporterManager errManager = getErrorManager();
 					if (chosenSOM != null) {
