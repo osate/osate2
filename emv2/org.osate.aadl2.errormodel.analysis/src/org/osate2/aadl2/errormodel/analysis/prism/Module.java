@@ -144,9 +144,14 @@ public class Module {
 			}
 			
 			/**
-			 * If the sum of all probability is not reached, we keep the same state, nothing change
+			 * If the sum of all probability is not reached, we keep 
+			 * the same state, nothing change.
+			 * We do that ONLY for DTMC since having a sum of all
+			 * probability from a given state must be equal to 1.
+			 * We do not have this probability for CTMC because
+			 * CTMC models an occurence of an event.
 			 */
-			if (sum < 1.0)
+			if ((this.associatedModel.getType() == ModelType.DTMC) && (sum < 1.0))
 			{
 				sb.append (" + ");	
 			
@@ -395,7 +400,7 @@ public class Module {
 		 * error types propagated. The variable has a value 0 if no error
 		 * is propagated.
 		 */
-		if (errorModelSubclause.getPropagation() != null)
+		if ((errorModelSubclause != null) && (errorModelSubclause.getPropagation() != null))
 		{
 			propagations = errorModelSubclause.getPropagation();
 			for (ErrorPropagation ep : propagations.getPropagations())

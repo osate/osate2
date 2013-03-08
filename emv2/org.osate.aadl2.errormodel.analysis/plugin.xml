@@ -93,7 +93,16 @@
                </or>
             </enablement>
          </action>      
-        
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferences.action"
+               label="%PRISMPreferences.label"
+               tooltip="%PRISMPreferences.toolTip"
+               icon="%PRISMPreferences.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferencesAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+         </action>  
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.FaultImpact.action"
                label="%FaultImpact.label"
@@ -191,6 +200,14 @@
                class="org.osate.aadl2.errormodel.analysis.actions.PRISMAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferences.popupAction"
+               label="%PRISMPreferences.label"
+               tooltip="%PRISMPreferences.toolTip"
+               icon="%PRISMPreferences.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferencesAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>               
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.FaultImpact.popupAction"
                label="%FaultImpact.label"

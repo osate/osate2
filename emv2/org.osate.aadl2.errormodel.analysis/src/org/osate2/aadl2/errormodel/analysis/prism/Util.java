@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -228,6 +229,33 @@ public class Util
 
 				ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(instance,null,ee,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
+				
+				/**
+				 * 
+				 * Consistency check for the distribution method
+				 * for event occurence
+ 				 *  1. For DTMC, we are supposed to have fixed probability.
+				 *  2. For CTMC, we are supposed to have poisson/exponential occurence rate.
+				 */
+				if ((Model.getCurrentInstance().getType() == ModelType.DTMC) &&
+					(! EM2Util.getOccurenceType(PA).equals("fixed")))
+				{
+					/**
+					 * Have to find out why the reportWarning does not work right now.
+					 */
+					OsateDebug.osateDebug("WRONG TYPE on " + instance);
+					PRISMAction.reportWarning(instance, "Distribution occurence should be set to fixed for DTMC generation");
+				}
+				
+				if ((Model.getCurrentInstance().getType() == ModelType.CTMC) &&
+						(! EM2Util.getOccurenceType(PA).equals("poisson")))
+				{
+					/**
+					 * Have to find out why the reportWarning does not work right now.
+					 */
+					OsateDebug.osateDebug("WRONG TYPE on " + instance);
+					PRISMAction.reportWarning(instance.getComponentInstance(), "Distribution occurence should be set to poisson for CTMC generation");
+				}
 
 				res = EM2Util.getOccurenceValue (PA);
 			}
@@ -258,4 +286,32 @@ public class Util
 		
 		return res;
 	}
+	
+	public static String getStringFromModelType (ModelType mt)
+	{
+		if (mt == ModelType.DTMC)
+		{
+			return "dtmc";
+		}
+		if (mt == ModelType.CTMC)
+		{
+			return "ctmc";
+		}
+		return "unknown_type";
+	}
+	
+	public static ModelType getModelTypeFromString (String s)
+	{
+		if (s.equals("dtmc"))
+		{
+			return ModelType.DTMC;
+		}
+		if (s.equals("ctmc"))
+		{
+			return  ModelType.CTMC;
+		}
+		return ModelType.UNKNOWN;
+
+	}
+	
 }

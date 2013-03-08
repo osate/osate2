@@ -23,6 +23,8 @@ public class Model
 	private List<Module> 	modules;
 	private List<Formula> 	formulas;
 	private WriteToFile     prismFile;
+	private ModelType		type;
+	
 	private ComponentInstance rootInstance;
 	/**
 	 * The propagationsMap variable contains for each outport identifier
@@ -42,14 +44,14 @@ public class Model
 	
 	public Model (ComponentInstance rootSystem)
 	{
-		this.prismFile = new WriteToFile("PRISM", rootSystem);
-		this.modules = new ArrayList<Module> ();
-		this.formulas = new ArrayList<Formula> ();
-		this.rootInstance = rootSystem;
-		this.prismFile.setFileExtension("pm");
+		this.prismFile 			= new WriteToFile("PRISM", rootSystem);
+		this.modules 			= new ArrayList<Module> ();
+		this.formulas 			= new ArrayList<Formula> ();
+		this.rootInstance 		= rootSystem;
 		this.propagationsMap	= new HashMap<String,Map<String,Integer>>();
+		this.type 				= Options.getModelType();
+		this.prismFile.setFileExtension("pm");
 		currentInstance = this;
-		
 	}
 	
 	
@@ -85,13 +87,28 @@ public class Model
 	 */
 	public void saveFile ()
 	{
-		this.prismFile.addOutput("dtmc\n\n");
+		if (this.type == ModelType.DTMC)
+		{
+			this.prismFile.addOutput("dtmc\n\n");
+		}
+		if (this.type == ModelType.CTMC)
+		{
+			this.prismFile.addOutput("dtmc\n\n");
+		}
 		for (Module m : this.modules)
 		{
 			this.prismFile.addOutput(m.getPrismCode());
 			this.prismFile.addOutputNewline("\n");
 		}
-		this.prismFile.addOutput("\nrewards \"steps\"\n   true : 1;\nendrewards\n");
+		
+		if (this.type == ModelType.DTMC)
+		{
+			/**
+			 * Reward automatically added to DTMC in order
+			 * to know how many steps did we performed.
+			 */
+			this.prismFile.addOutput("\nrewards \"steps\"\n   true : 1;\nendrewards\n");
+		}
 		this.prismFile.saveToFile();
 	}
 	
@@ -105,6 +122,15 @@ public class Model
 		this.formulas.add (f);
 	}
 	
+	public ModelType getType ()
+	{
+		return this.type;
+	}
+	
+	public void setType (ModelType t)
+	{
+		this.type = t;
+	}
 	
 	public Map<String,Map<String,Integer>> getPropagationMap ()
 	{

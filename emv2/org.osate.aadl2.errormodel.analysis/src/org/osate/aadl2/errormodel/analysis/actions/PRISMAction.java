@@ -52,6 +52,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
@@ -92,6 +93,10 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 		{
 			errorManager.warning(io, message);
 		}
+		else
+		{
+			OsateDebug.osateDebug("[PRISMAction] no error manager");
+		}
 	}
 		
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
@@ -101,11 +106,12 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 		
 		errorManager = this.getErrorManager();
 		
-		si = null;
+		si = null;  
 		
 		
 		if (obj instanceof InstanceObject){
 			si = ((InstanceObject)obj).getSystemInstance();
+			
 		}
 		
 		if (si == null)
