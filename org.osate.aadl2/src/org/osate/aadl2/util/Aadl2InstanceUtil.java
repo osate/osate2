@@ -4,6 +4,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
@@ -134,15 +135,41 @@ public class Aadl2InstanceUtil {
 		return false;
 	}
 
-	public static AnnexSubclause getAnnexSubclause(ComponentInstance ci, String annexName) {
-		ComponentClassifier cl = ci.getComponentClassifier();
-		EList<AnnexSubclause> asclist = cl.getAllAnnexSubclauses();
+	public static AnnexSubclause getAnnexSubclause(ComponentClassifier cl, String annexName) {
+		
+		EList<AnnexSubclause> asclist; 
+
+		asclist = cl.getAllAnnexSubclauses();
+		
+
+		if (cl.getExtended() != null)
+		{
+			asclist.addAll(cl.getExtended().getAllAnnexSubclauses());
+		}
+		
 		for (AnnexSubclause annexSubclause : asclist) {
 			if (annexSubclause.getName().equalsIgnoreCase(annexName)) {
 				return annexSubclause;
 			}
 		}
+		
+
 		return null;
+	}
+	
+	public static AnnexSubclause getAnnexSubclause(ComponentInstance ci, String annexName) {
+		ComponentClassifier cl;
+		AnnexSubclause res;
+		res = null;
+		
+		res = getAnnexSubclause (ci.getComponentClassifier(), annexName);
+		
+		if ( (res == null) && (ci.getComponentClassifier () instanceof ComponentImplementation))
+		{
+			res = getAnnexSubclause(((ComponentImplementation)ci.getComponentClassifier()).getType(), annexName);
+		}
+		
+		return res;
 	}
 
 	/**
