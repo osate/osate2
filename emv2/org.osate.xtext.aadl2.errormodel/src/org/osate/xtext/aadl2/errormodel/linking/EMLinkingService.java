@@ -359,7 +359,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 	
 	public ComponentErrorBehavior getExtendsComponentErrorBehavior(ComponentErrorBehavior ceb){
 		Classifier extcl = AadlUtil.getContainingClassifier(ceb).getExtended();
-		return Aadl2Util.isNull(extcl)?null:EM2Util.getComponentErrorBehavior(AadlUtil.getContainingClassifier(ceb));
+		return Aadl2Util.isNull(extcl)?null:EM2Util.getComponentErrorBehavior(extcl);
 	}
 	
 	public ErrorBehaviorTransition findErrorBehaviorTransitionInEBSM(ErrorBehaviorStateMachine ebsm, String name){
