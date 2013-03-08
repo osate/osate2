@@ -13,4 +13,19 @@
 	<artifactId>fr.tpt.aadl.annex.behavior</artifactId>
 	<version>0.9.5</version>
 	<packaging>eclipse-plugin</packaging>
+
+  <profiles>
+    <profile>
+      <id>sign</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jarsigner-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
