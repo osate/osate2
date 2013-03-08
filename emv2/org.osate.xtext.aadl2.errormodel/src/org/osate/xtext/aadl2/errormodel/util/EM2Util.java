@@ -18,9 +18,11 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
@@ -131,6 +133,49 @@ public class EM2Util {
 			}
 		}
 		return result;
+	}
+	
+	
+	/**
+	 * Retrieve the type/kind of distribution associated
+	 * with the Occurrence property
+	 * See PRISM converter to see how it is used.
+	 *
+	 * @param PAContainmentPath string value describing the distribution get from getOccurenceDistributionProperty
+	 */
+	public static String getOccurenceType (final ContainedNamedElement PAContainmentPath)
+	{
+		String result;
+		
+		if (PAContainmentPath == null)
+		{
+			return "unknown_distribution";
+		}
+		
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+			if (val instanceof RecordValue){
+	
+				RecordValue rv = (RecordValue)val;
+				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+				// for all error types/aliases in type set or the element identified in the containment clause 
+				for (BasicPropertyAssociation bpa : fields)
+				{
+					if (bpa.getProperty().getName().equalsIgnoreCase("distribution"))
+					{
+						if (bpa.getValue() instanceof NamedValue)
+						{
+							EnumerationLiteral el = (EnumerationLiteral)((NamedValue)bpa.getValue()).getNamedValue();
+							return (el.getName().toLowerCase());
+							
+							//RealLiteral rl = (NamedValue)bpa.getValue();
+							//result = rl.getScaledValue();
+						}
+					}
+				}
+			}
+		}
+		return "unknown_distribution";
 	}
 	
 	
@@ -977,7 +1022,11 @@ public class EM2Util {
 	
 	public static ComponentErrorBehavior getComponentErrorBehavior(Classifier cl){
 		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
-		return emsc.getComponentBehavior();
+		if (emsc != null) 
+		{
+			return emsc.getComponentBehavior();
+		}
+		return null;
 	}
 	
 	public static CompositeErrorBehavior getCompositeErrorBehavior(ComponentInstance ci){
@@ -986,7 +1035,14 @@ public class EM2Util {
 	
 	public static CompositeErrorBehavior getCompositeErrorBehavior(Classifier cl){
 		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
-		return emsc.getCompositeBehavior();
+		if(emsc != null)
+		{
+			return emsc.getCompositeBehavior();
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	/**
