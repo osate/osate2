@@ -322,11 +322,15 @@ public class Module {
 		ComponentErrorBehavior errorBehavior = EM2Util.getComponentErrorBehavior (aadlComponent.getComponentClassifier());
 		ErrorBehaviorStateMachine componentStateMachine = EM2Util.getContainingErrorBehaviorStateMachine(aadlComponent.getComponentClassifier());
 		CompositeErrorBehavior compositeErrorBehavior = EM2Util.getCompositeErrorBehavior (aadlComponent);
-		
+		OsateDebug.osateDebug("[PRISM][Module.java] errorModelSubclause=" + errorModelSubclause);
+		OsateDebug.osateDebug("[PRISM][Module.java] errorBehavior=" + errorBehavior);
+		OsateDebug.osateDebug("[PRISM][Module.java] componentStateMachine=" + componentStateMachine);
+
+		OsateDebug.osateDebug("[PRISM][Module.java] compositeErrorBehavior=" + compositeErrorBehavior);
+
 		if (errorModelSubclause != null)
 		{
 			useStateMachine = errorModelSubclause.getUseBehavior();
-			
 			OsateDebug.osateDebug("[PRISM][Module.java] Process error model annex subclause of " + aadlComponent.getName());
 
 			if (useStateMachine != null)
@@ -450,10 +454,43 @@ public class Module {
 			}
 		}
 		
+		handleComponentBehavior (errorBehavior);
+		
+		if ( (errorBehavior == null) && (errorModelSubclause != null ) && (errorModelSubclause.getUseBehavior() != null))
+		{
+			OsateDebug.osateDebug("[Module] process state machine from errormodel subclause");
+			handleBehavior (errorModelSubclause.getUseBehavior());
+		}
+		
+		return this;
+	}
+	
+
+	private void handleBehavior (ErrorBehaviorStateMachine errorBehavior)
+	{
 		if (errorBehavior != null)
 		{
 			OsateDebug.osateDebug("[PRISM][Module.java] Process error behavior of " + aadlComponent.getName());
 
+			
+			for (ErrorBehaviorEvent ed : errorBehavior.getEvents())
+			{
+				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorEvent " + ed);
+			}
+			
+			for (ErrorBehaviorTransition trans : errorBehavior.getTransitions())
+			{
+				handleTransition (trans);
+			}
+			
+		}		
+	}
+	private void handleComponentBehavior (ComponentErrorBehavior errorBehavior)
+	{
+		if (errorBehavior != null)
+		{
+			OsateDebug.osateDebug("[PRISM][Module.java] Process error behavior of " + aadlComponent.getName());
+	
 			for (ErrorDetection ed : errorBehavior.getErrorDetections())
 			{
 				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorDerection " + ed);
@@ -466,112 +503,128 @@ public class Module {
 			
 			for (ErrorBehaviorTransition trans : errorBehavior.getTransitions())
 			{
-				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorTransition " + trans);
-				OsateDebug.osateDebug("[PRISM][Module.java]       src= " + trans.getSource().getName());
-				OsateDebug.osateDebug("[PRISM][Module.java]       target= " + trans.getTarget());
-				OsateDebug.osateDebug("[PRISM][Module.java]       cond= " + trans.getCondition());
-				OsateDebug.osateDebug("[PRISM][Module.java]       destination= " + trans.getDestinationBranches());
-
-				
-				tmpState = statesMap.get(trans.getSource().getName());
-				
-				Expression before = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent)),
-											   new Terminal (""+tmpState));
-				
-				
-				command = new Command ();
-				
-				/**
-				 * This is a simple transition like this
-				 * tfail: Operational -[Failure ]-> Failed;
-				 * In that case, we take the probability from the OccurenceDistribution
-				 * value associated to the event failure (named Failure in the following
-				 * example).
-				 */
-				
-				if (trans.getTarget() != null)
-				{
-					probability = Util.translateConditionToProbability (aadlComponent, trans.getCondition());
-					tmpState = statesMap.get(trans.getTarget().getName());
-					after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
-								   new Terminal (""+tmpState));
-					Transition transaction = new Transition (probability, after);
-					
-					/**
-					 * We try to find if other variables may be updated when switching
-					 * to the new state. The getAdditionalAssignments () provides
-					 * a list of expression to perform for that particular case.
-					 */
-					List<Expression> additionalAssignments = getAdditionalAssignments(trans.getTarget());
-					
-					for (Expression e : additionalAssignments)
-					{
-						transaction.addExpression(e);
-				
-					}
-					
-					command.addTransition (transaction);
-				}
-				
-				
-				/**
-				 * When we have a destination branch, this is the case when we have
-				 * a transition like this:
-				 * 			treset: Failed -[ ResetEvent ]->  (Operational with 0.8, Failed with 0.2);
-				 * It means that, from the same state, we can go to different other
-				 * states with different probability. Here, when we are in failed and ResetEvent
-				 * is triggered, we go to Operational with a probability of 0.8 or stay
-				 * in Failed with a probability of 0.2.
-				 */
-				if(trans.getDestinationBranches() != null)
-				{
-					double mainProbability = Util.translateConditionToProbability (aadlComponent, trans.getCondition());
-
-					List<TransitionBranch> branches = trans.getDestinationBranches();
-					for (TransitionBranch tb : branches)
-					{
-						OsateDebug.osateDebug("[PRISM][Module.java]          dest = " + tb);
-						probability = Double.parseDouble(tb.getValue().getRealvalue());
-						OsateDebug.osateDebug("[PRISM][Module.java]          probability = " + probability);
-						OsateDebug.osateDebug("[PRISM][Module.java]          mainProbability = " + mainProbability);
-
-
-						tmpState = statesMap.get(tb.getTarget().getName());
-						after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
-									   new Terminal (""+tmpState));
-						Transition transition = new Transition (mainProbability * probability, after);
-						
-						/**
-						 * We try to find if other variables may be updated when switching
-						 * to the new state. The getAdditionalAssignments () provides
-						 * a list of expression to perform for that particular case.
-						 */
-						List<Expression> additionalAssignments = getAdditionalAssignments(tb.getTarget());
-						for (Expression e : additionalAssignments)
-						{
-							transition.addExpression(e);
-					
-						}
-						
-						command.addTransition (transition);
-
-					}
-				}
-
-				/**
-				 * We try to find other conditions that may trigger
-				 * this transition (guard conditions).
-				 */
-				for (Expression e : Util.findOtherConditions (aadlComponent, trans))
-				{
-					before = new And (before, e);
-				}
-				command.setCondition (before);
-				this.commands.add (command);
+				handleTransition (trans);
 			}
 			
+		}		
+	}
+
+	private void handleTransition (ErrorBehaviorTransition trans)
+	{
+		Command command;
+		Expression after = null;
+		double probability;
+		int tmpState;
+		
+		OsateDebug.osateDebug("[PRISM][Module.java]    ErrorTransition " + trans);
+		OsateDebug.osateDebug("[PRISM][Module.java]       src= " + trans.getSource().getName());
+		OsateDebug.osateDebug("[PRISM][Module.java]       target= " + trans.getTarget());
+		OsateDebug.osateDebug("[PRISM][Module.java]       cond= " + trans.getCondition());
+		OsateDebug.osateDebug("[PRISM][Module.java]       destination= " + trans.getDestinationBranches());
+
+		
+		tmpState = statesMap.get(trans.getSource().getName());
+		
+		Expression before = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent)),
+									   new Terminal (""+tmpState));
+		
+		
+		command = new Command ();
+		
+		/**
+		 * This is a simple transition like this
+		 * tfail: Operational -[Failure ]-> Failed;
+		 * In that case, we take the probability from the OccurenceDistribution
+		 * value associated to the event failure (named Failure in the following
+		 * example).
+		 */
+		
+		if (trans.getTarget() != null)
+		{
+			probability = Util.translateConditionToProbability (aadlComponent, trans.getCondition());
+			
+			if (probability == 0)
+			{
+				return;
+			}
+			
+			tmpState = statesMap.get(trans.getTarget().getName());
+			after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
+						   new Terminal (""+tmpState));
+			Transition transaction = new Transition (probability, after);
+			
+			/**
+			 * We try to find if other variables may be updated when switching
+			 * to the new state. The getAdditionalAssignments () provides
+			 * a list of expression to perform for that particular case.
+			 */
+			List<Expression> additionalAssignments = getAdditionalAssignments(trans.getTarget());
+			
+			for (Expression e : additionalAssignments)
+			{
+				transaction.addExpression(e);
+		
+			}
+			
+			command.addTransition (transaction);
 		}
 		
-		return this;
+		
+		/**
+		 * When we have a destination branch, this is the case when we have
+		 * a transition like this:
+		 * 			treset: Failed -[ ResetEvent ]->  (Operational with 0.8, Failed with 0.2);
+		 * It means that, from the same state, we can go to different other
+		 * states with different probability. Here, when we are in failed and ResetEvent
+		 * is triggered, we go to Operational with a probability of 0.8 or stay
+		 * in Failed with a probability of 0.2.
+		 */
+		if(trans.getDestinationBranches() != null)
+		{
+			double mainProbability = Util.translateConditionToProbability (aadlComponent, trans.getCondition());
+
+			List<TransitionBranch> branches = trans.getDestinationBranches();
+			for (TransitionBranch tb : branches)
+			{
+				OsateDebug.osateDebug("[PRISM][Module.java]          dest = " + tb);
+				probability = Double.parseDouble(tb.getValue().getRealvalue());
+				OsateDebug.osateDebug("[PRISM][Module.java]          probability = " + probability);
+				OsateDebug.osateDebug("[PRISM][Module.java]          mainProbability = " + mainProbability);
+
+
+				tmpState = statesMap.get(tb.getTarget().getName());
+				after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
+							   new Terminal (""+tmpState));
+				Transition transition = new Transition (mainProbability * probability, after);
+				
+				/**
+				 * We try to find if other variables may be updated when switching
+				 * to the new state. The getAdditionalAssignments () provides
+				 * a list of expression to perform for that particular case.
+				 */
+				List<Expression> additionalAssignments = getAdditionalAssignments(tb.getTarget());
+				for (Expression e : additionalAssignments)
+				{
+					transition.addExpression(e);
+			
+				}
+				
+				command.addTransition (transition);
+
+			}
+		}
+
+		/**
+		 * We try to find other conditions that may trigger
+		 * this transition (guard conditions).
+		 */
+		for (Expression e : Util.findOtherConditions (aadlComponent, trans))
+		{
+			before = new And (before, e);
+		}
+		command.setCondition (before);
+		this.commands.add (command);
+	
 	}
+	
 }

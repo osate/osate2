@@ -93,7 +93,7 @@ public class Model
 		}
 		if (this.type == ModelType.CTMC)
 		{
-			this.prismFile.addOutput("dtmc\n\n");
+			this.prismFile.addOutput("ctmc\n\n");
 		}
 		for (Module m : this.modules)
 		{
