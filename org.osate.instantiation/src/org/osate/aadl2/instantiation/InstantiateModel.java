@@ -267,6 +267,8 @@ public class InstantiateModel {
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final Resource res) throws Exception {
+		IResource ires = OsateResourceUtil.convertToIResource(res);
+		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		SystemImplementation si = target.getSystemImplementation();
 		URI uri = EcoreUtil.getURI(si);
@@ -287,7 +289,9 @@ public class InstantiateModel {
 	public static void rebuildAllInstanceModelFiles() throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile iFile : files) {
-			Resource res = OsateResourceUtil.getResource((IResource) iFile);
+			IResource ires = (IResource) iFile;
+			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
+			Resource res = OsateResourceUtil.getResource(ires);
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
 			SystemImplementation si = target.getSystemImplementation();
 			URI uri = EcoreUtil.getURI(si);
