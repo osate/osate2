@@ -28,13 +28,33 @@ public class PredeclaredProperties {
 
 	public static final String PLUGIN_RESOURCES_DIRECTORY_NAME = "Plugin_Resources";
 	
-	public static void createUpdatePluginContributedAadl(){
+	/**
+	 * update unmodified plugin resources. If not present, create them.
+	 */
+	public static void updatePluginContributedAadl(){
 		isInitialized = false;
-		initPluginContributedAadl();
+		doInitPluginContributedAadl(false);
+	}
+	
+	/**
+	 * reset plugin resources to originals. If not present, create them.
+	 */
+	public static void resetPluginContributedAadl(){
+		isInitialized = false;
+		doInitPluginContributedAadl(true);
 	}
 
+	/**
+	 * force plugin resources to be the original ones.
+	 */
 	public static void initPluginContributedAadl() {
 		if (isInitialized) return;
+		doInitPluginContributedAadl(false);
+	}
+
+
+		public static void doInitPluginContributedAadl(final boolean forceOriginal) {
+
 		try {
 			if (existsPluginResourcesProject()&&!isOpenPluginResourcesProject()) {
 
@@ -55,10 +75,8 @@ public class PredeclaredProperties {
 									.getContributedAadl()) {
 								String resourceName = contributedResourceUri.lastSegment();
 								IFile contributedResourceInWorkspace = pluginResourcesProject.getFile(resourceName);
-								if (!contributedResourceInWorkspace.exists()
-										|| contributedResourceInWorkspace
-												.getResourceAttributes()
-												.isReadOnly()){
+								if (!contributedResourceInWorkspace.exists() || forceOriginal
+										|| contributedResourceInWorkspace.getResourceAttributes().isReadOnly()){
 									try {
 										copyContributedResourceIntoWorkspace(
 												contributedResourceUri,
