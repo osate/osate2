@@ -34,7 +34,7 @@ import org.osate.aadl2.util.OsateDebug;
 class ConnectionInfo {
 	private ConnectionKind kind;
 	final List<Connection> connections;
-	private final List<Boolean> opposites;
+	final List<Boolean> opposites;
 	private final List<ComponentInstance> contexts;
 	private final List<ConnectionInstanceEnd> sources;
 	private final List<ConnectionInstanceEnd> destinations;

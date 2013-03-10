@@ -707,17 +707,67 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			container = systemInstance;
 		}
 		for (ConnectionInstance test : container.getConnectionInstances()) {
-			if (connInfo.connections.size() == test.getConnectionReferences().size()) {
+			int connssize = connInfo.connections.size();
+			if (connssize == test.getConnectionReferences().size()) {
 				Iterator<Connection> conns = connInfo.connections.iterator();
+				Iterator<Boolean> oppos = connInfo.opposites.iterator();
 				Iterator<ConnectionReference> testRefs = test.getConnectionReferences().iterator();
 
 				duplicate = true;
 				while (conns.hasNext()) {
 					Connection t = testRefs.next().getConnection();
-
-					if (t != conns.next()) {
+					Connection conn = conns.next();
+					boolean oppo = oppos.next();
+					if (t != conn) {
 						duplicate = false;
 						break;
+					} else {
+						// if it is only one connection and it is the same
+						// check whether we are going in opposite directions
+						if (connssize == 1){
+							if (oppo){
+								// non-matching src/dst
+								ConnectionInstanceEnd tsrc = test.getSource();
+								if (tsrc instanceof FeatureInstance){
+									// does the top feature (FG) match the source
+									// then we are ok since the new one goes the other way
+									tsrc = getTopFeatureInstance((FeatureInstance)tsrc);
+									Feature srcf = ((FeatureInstance)tsrc).getFeature();
+									if (t.getAllSource() == srcf){
+										duplicate = false;
+										break;
+									}
+								} else if (tsrc instanceof ComponentInstance){
+									// does the top feature (FG) match the source
+									// then we are ok since the new one goes the other way
+									Subcomponent srcsub = ((ComponentInstance)tsrc).getSubcomponent();
+									if (t.getAllSource() == srcsub){
+										duplicate = false;
+										break;
+									}
+								}
+							} else {
+								// non-matching src/src
+								ConnectionInstanceEnd tsrc = test.getSource();
+								if (tsrc instanceof FeatureInstance){
+									// do the sources not match. the original must be opposite, so we are ok
+									tsrc = getTopFeatureInstance((FeatureInstance)tsrc);
+									Feature srcf = ((FeatureInstance)tsrc).getFeature();
+									if (t.getAllSource() != srcf){
+										duplicate = false;
+										break;
+									}
+								} else if (tsrc instanceof ComponentInstance){
+									// does the top feature (FG) match the source
+									// then we are ok since the new one goes the other way
+									Subcomponent srcsub = ((ComponentInstance)tsrc).getSubcomponent();
+									if (t.getAllSource() != srcsub){
+										duplicate = false;
+										break;
+									}
+								}
+							}
+						}
 					}
 				}
 			}
@@ -757,6 +807,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			// }
 		}
 		return conni;
+	}
+	
+	private FeatureInstance getTopFeatureInstance(FeatureInstance fi){
+		FeatureInstance topfi = fi;
+		while (topfi.getOwner() instanceof FeatureInstance){
+			topfi = (FeatureInstance)topfi.getOwner();
+		}
+		return topfi;
 	}
 
 	/**
@@ -825,6 +883,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						if (((FeatureInstance) src).getDirection() != DirectionType.IN) {
 							connInfo.src = src;
 							addConnectionInstance(parentci.getSystemInstance(), connInfo, dst);
+						} else if (((FeatureInstance) dst).getDirection() != DirectionType.OUT) {
+							connInfo.src = dst;
+							addConnectionInstance(parentci.getSystemInstance(), connInfo, src);
 						}
 					}
 				}
