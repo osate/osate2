@@ -3460,7 +3460,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 					FeatureGroupType fgt = fg.getAllFeatureGroupType();
 					if (!Aadl2Util.isNull(fgt)){
-						if (!Aadl2Util.isNull(fgt.getInverse())&&fgt.getAllFeatures().isEmpty()){
+						if (!Aadl2Util.isNull(fgt.getInverse())&&fgt.getOwnedFeatures().isEmpty()){
 							// change direction since the FGT is an inverse and does not have features, i.e., the inEnd points to a
 							// feature in the inverse of FGT
 							oppositeDirection = ! oppositeDirection;
@@ -3483,13 +3483,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 					FeatureGroupType fgt = fg.getAllFeatureGroupType();
 					if (!Aadl2Util.isNull(fgt)){
-						if (!Aadl2Util.isNull(fgt.getInverse())&&fgt.getAllFeatures().isEmpty()){
+						if (!Aadl2Util.isNull(fgt.getInverse())&&fgt.getOwnedFeatures().isEmpty()){
 							// change direction since the FGT is an inverse and does not have features, i.e., the inEnd points to a
 							// feature in the inverse of FGT
 							oppositeDirection = ! oppositeDirection;
 						}
 					}
 				}
+				String hi = "hi";
 				checkOutgoingFeatureDirection(outFeature, flow, oppositeDirection,true);
 			}
 		}
@@ -3533,7 +3534,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			FeatureGroupType fgt = ((FeatureGroup) inFeature).getAllFeatureGroupType();
 			boolean inInverseof = ((FeatureGroup)inFeature).isInverse();
 			if (!Aadl2Util.isNull(fgt)) {
-				if (!Aadl2Util.isNull(fgt.getInverse())&& fgt.getAllFeatures().isEmpty()){
+				if (!Aadl2Util.isNull(fgt.getInverse())&& fgt.getOwnedFeatures().isEmpty()){
 					inInverseof = ! inInverseof;
 				}
 				if( fgt.getAllFeatures().isEmpty()) return true;
@@ -3598,7 +3599,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			FeatureGroupType fgt = ((FeatureGroup) outFeature).getAllFeatureGroupType();
 			boolean outInverseof = ((FeatureGroup)outFeature).isInverse();
 			if (fgt != null) {
-				if (!Aadl2Util.isNull(fgt.getInverse())&& fgt.getAllFeatures().isEmpty()){
+				if (!Aadl2Util.isNull(fgt.getInverse())&& fgt.getOwnedFeatures().isEmpty()){
 					// change direction only if inverse of and no features. Otherwise, we check features in this fgt
 					outInverseof = ! outInverseof;
 					// set up inverse fgt to be examined for features of the correct direction
