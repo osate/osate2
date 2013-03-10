@@ -245,7 +245,7 @@
 	<extension
 		point="org.eclipse.ui.commands">
 		<command
-			description="Instantiate the model."
+			description="Instantiate the system"
 			id="org.osate.xtext.aadl2.ui.instantiate"
 			name="Instantiate System">
 		</command>
@@ -280,8 +280,8 @@
             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
 		commandId="org.osate.xtext.aadl2.ui.instantiate"
-               label="Reinstantiate existing instance"
-		tooltip="Do (re)Instantiate" 
+               label="Reinstantiate selected instance"
+		tooltip="Do Reinstantiate" 
                style="push">
          </command>
       </menuContribution>
