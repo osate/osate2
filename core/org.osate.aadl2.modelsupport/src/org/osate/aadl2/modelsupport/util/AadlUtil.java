@@ -1475,46 +1475,6 @@ public final class AadlUtil {
 	private static final String PropertySetLabel = "propertySet[@name=";
 	private static final String PackageLabel = "aadlPackage[@name=";
 
-	// TODO: [SPECIFICATION] Consider removing or modifying.
-	// /**
-	// * add classifier to the name space. A name space is either an AadlSpec or
-	// an AadlPackageSection or a property set
-	// * @param nameSpace an AadlSpec, AadlPackageSection
-	// * @param classifier
-	// */
-	// public static boolean addClassifier(AObject nameSpace, Classifier
-	// classifier){
-	// if (nameSpace instanceof AadlSpec){
-	// ((AadlSpec)nameSpace).addClassifier(classifier);
-	// return true;
-	// }
-	// if (nameSpace instanceof AadlPackageSection){
-	// ((AadlPackageSection)nameSpace).addClassifier(classifier);
-	// return true;
-	// }
-	// return false;
-	// }
-
-	// TODO: [INSTANCE] Uncomment after instances are created.
-	// /**
-	// * find the connection instance with src as its source and dst as its
-	// destination
-	// * @param src InstanceObject
-	// * @param dst InstanceObject
-	// * @return ConnectionInstance or null if not found
-	// */
-	// public static ConnectionInstance findConnectionInstance(InstanceObject
-	// src, InstanceObject dst){
-	// SystemInstance si = src.getSystemInstance();
-	// EList cilist = si.getConnectionInstance();
-	// for (Iterator it = cilist.iterator();it.hasNext();){
-	// ConnectionInstance conni = (ConnectionInstance)it.next();
-	// if (src == conni.getXSrc() && dst == conni.getXDst()){
-	// return conni;
-	// }
-	// }
-	// return null;
-	// }
 
 	public static Element getInstanceOrigin(InstanceObject io) {
 		List<? extends NamedElement> el = io.getInstantiatedObjects();
@@ -1542,27 +1502,6 @@ public final class AadlUtil {
 		return target;
 	}
 
-	// TODO: [MODEL] This method is only used to support some of the ui goto
-	// actions. It is used in conjunction with
-	// AObject.getReferencedObject() by the CoreEditor's
-	// CoreActionBarContributor. This needs to be rethought and
-	// rewritten after the model is complete. I don't like it that we have ui
-	// support code in the model. However, even
-	// if we don't rethink this method, it will still need to be rewritten to
-	// reflect the new Aadl2 meta-model.
-	// /**
-	// * Does the object have a classifier reference
-	// * @param obj AObject
-	// * @return true of it has a classifier reference. This reference will be
-	// returned by getReferencedObject
-	// */
-	// public static boolean hasClassifier(AObject obj){
-	// return (obj instanceof Subcomponent
-	// || obj instanceof DataPort || obj instanceof EventDataPort
-	// || obj instanceof Parameter || obj instanceof FeatureGroup
-	// || obj instanceof BusAccess || obj instanceof DataAccess
-	// || obj instanceof ComponentImplementation || obj instanceof Subprogram);
-	// }
 
 	/*
 	 * ================================================================ Methods
