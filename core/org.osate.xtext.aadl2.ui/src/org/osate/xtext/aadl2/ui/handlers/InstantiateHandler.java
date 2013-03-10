@@ -48,6 +48,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -67,6 +68,7 @@ import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.presentation.Aadl2ModelEditor;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.navigator.AadlNavigator;
@@ -98,49 +100,58 @@ public class InstantiateHandler extends AbstractHandler {
 				for (Iterator iterator = ((TreeSelection)selection).iterator(); iterator.hasNext();) {
 					final Object f = (Object) iterator.next();
 					if (f instanceof IResource){
-						//						IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-						//						for (int i = 0; i < editorRefs.length; i++) {
-						//							IEditorReference edref = editorRefs[i];
-						//							String pname = edref.getPartName();
-						//							IEditorPart edpart = edref.getEditor(true);
-						//							String fname = ((IResource) f).getName();
-						//							if (edpart instanceof Aadl2ModelEditor && pname.equals(fname)){
-						//								page.closeEditor(edpart, true);
-						//							}
-						//						}
+												IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+												for (int i = 0; i < editorRefs.length; i++) {
+													IEditorReference edref = editorRefs[i];
+													String pname = edref.getPartName();
+													IEditorPart edpart = edref.getEditor(true);
+													String fname = ((IResource) f).getName();
+													if (edpart instanceof Aadl2ModelEditor && pname.equals(fname)){
+														page.closeEditor(edpart, true);
+													}
+												}
 
 						Resource res = OsateResourceUtil.getResource((IResource)f);
-						SystemInstance target = (SystemInstance)res.getContents().get(0);
-						SystemImplementation si = target.getSystemImplementation();
-						//										if (si.eResource().getErrors().isEmpty()){
-						SystemInstance sinst;
-						try
-						{
-							sinst = InstantiateModel.buildInstanceModelFile(si);
-							if (sinst == null)
-							{
-								String message;
-								message = "Error when instantiating the model";
-								if (InstantiateModel.getErrorMessage() != null)
-								{
-									message = message + " - reason: " + InstantiateModel.getErrorMessage() + "\nRefer to the help content and FAQ for more information";
-								}
-								Dialog.showError("Model Instantiate", message);
-							}
-						}
-						catch (UnsupportedOperationException uoe)
-						{
-							Dialog.showError("Model Instantiate", "Unsupported operation: " + uoe.getMessage());
-						}
-						catch (Exception e)
-						{
-							Dialog.showError("Model Instantiate", "Unknown error: " + e.getMessage());
+//						NamedElement obj = (SystemInstance)res.getContents().get(0);
+//						if (!(obj instanceof SystemInstance)){
+//							Dialog.showError("Model Instantiate", "Not a system instance");
+//							return null;
+//						}
+//						SystemInstance target = (SystemInstance)obj;
+//						SystemImplementation si = target.getSystemImplementation();
+//						SystemInstance sinst;
+//						try
+//						{
+//							sinst = InstantiateModel.buildInstanceModelFile(si);
+//							if (sinst == null)
+//							{
+//								String message;
+//								message = "Error when instantiating the model";
+//								if (InstantiateModel.getErrorMessage() != null)
+//								{
+//									message = message + " - reason: " + InstantiateModel.getErrorMessage() + "\nRefer to the help content and FAQ for more information";
+//								}
+//								Dialog.showError("Model Instantiate", message);
+//							}
+//						}
+//						catch (UnsupportedOperationException uoe)
+//						{
+//							Dialog.showError("Model Instantiate", "Unsupported operation: " + uoe.getMessage());
+//						}
+//						catch (Exception e)
+//						{
+//							Dialog.showError("Model Instantiate", "Unknown error: " + e.getMessage());
+//
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
 
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-						//										InstantiateModel.rebuildInstanceModelFile(res);
+																try {
+																	InstantiateModel.rebuildInstanceModelFile((IResource)f);//res);
+																} catch (Exception e) {
+																	// TODO Auto-generated catch block
+																	e.printStackTrace();
+																}
 						//										// unloading causes other entities (e.g., instance editor) to have to load the instance again
 						//										// which they can do when notified
 						//										res.unload();
@@ -148,7 +159,6 @@ public class InstantiateHandler extends AbstractHandler {
 						//											OsateResourceUtil.deleteAaxl2Resource(res.getURI());
 						//											Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
 						//										}
-
 					}
 				}
 			}
