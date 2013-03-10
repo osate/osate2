@@ -155,9 +155,10 @@ public class Aadl2EObjectAtOffsetHelper extends
 	
 @Override
 	protected EObject internalResolveElementAt(XtextResource resource, int offset, boolean containment) {
-		EObject crossRef = resolveCrossReferencedElementAt(resource, offset);
+		if (!containment){EObject crossRef = resolveCrossReferencedElementAt(resource, offset);
 		if (crossRef != null)
 			return crossRef;
+		}
 		IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
