@@ -13,7 +13,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -28,6 +30,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
@@ -90,44 +94,59 @@ public final class UiUtil {
 		return result.value;
 	}
 
-	/**
-	 * goto aaxl model through the editor associated with aaxl files. assumes
-	 * that the text file has been saved and compiled.
-	 * 
-	 * @param page
-	 *            Workbench page
-	 * @param root
-	 *            Root AObject of model to go to
-	 * @param linenumber
-	 *            line number in text whose locationin the object should be the
-	 *            target
-	 */
-	public static void gotoAaxlModel(IWorkbenchPage page, final Element root, int linenumber) {
-		if (root == null){
-			return;
-		}
-		Aadl2ResourceImpl res = (Aadl2ResourceImpl)root.eResource();
-		Element target = AadlUtil.findElement(root, linenumber);
-		if (target != null){
-			gotoAaxlModel(page, target);
-		}
-	}
+//	/**
+//	 * goto aaxl model through the editor associated with aaxl files. assumes
+//	 * that the text file has been saved and compiled.
+//	 * 
+//	 * @param page
+//	 *            Workbench page
+//	 * @param root
+//	 *            Root AObject of model to go to
+//	 * @param linenumber
+//	 *            line number in text whose locationin the object should be the
+//	 *            target
+//	 */
+//	public static void gotoAaxlModel(IWorkbenchPage page, final Element root, int linenumber) {
+//		if (root == null){
+//			return;
+//		}
+//		Aadl2ResourceImpl res = (Aadl2ResourceImpl)root.eResource();
+//		Element target = AadlUtil.findElement(root, linenumber);
+//		if (target != null){
+//			gotoAaxlModel(page, target);
+//		}
+//	}
 
 	
 	/**
-	 * goto aaxl model through the editor associated with aaxl files. 
+	 * goto declarative model object through the editor associated with aadl files. 
 	 * @param page Workbench page
-	 * @param target AObject that is the target object 
+	 * @param io InstanceObject whose source in the declarative model is the target of the goto 
 	 */
-	public static void gotoAaxlModel(IWorkbenchPage page, final Element target) {
+	public static void gotoInstanceObjectSource(IWorkbenchPage page, InstanceObject io) {
+		if (io == null){
+			return;
+		}
+		gotoDeclarativeModelElement(page, AadlUtil.getInstanceOrigin(io));
+	}
+	
+	/**
+	 * goto Xtext model through the editor associated with aadl files. 
+	 * @param page Workbench page
+	 * @param target Element that is the target object 
+	 */
+	public static void gotoDeclarativeModelElement(IWorkbenchPage page, Element target) {
 		if (target == null){
 			return;
 		}
-		Aadl2ResourceImpl res = (Aadl2ResourceImpl)target.eResource();
+		Resource res = target.eResource();
 		final IResource ires = OsateResourceUtil.convertToIResource(res);
 		if (ires != null && ires.exists())
 		{
 			try {
+				ICompositeNode node = NodeModelUtils.findActualNodeFor(target);
+				int offset = node.getTotalEndOffset();
+				int line = node.getTotalEndLine();
 				IMarker marker_p;
 				marker_p = ires.createMarker(AadlConstants.AADLGOTOMARKER);
 				marker_p.setAttribute(IMarker.SEVERITY,
@@ -135,7 +154,9 @@ public final class UiUtil {
 				String dest = EcoreUtil.getURI(target).toString();
 				marker_p.setAttribute(IMarker.MESSAGE, "Going to "
 						+ dest);
-				marker_p.setAttribute(AadlConstants.AADLURI, dest);
+				marker_p.setAttribute(IMarker.LOCATION, offset);
+				marker_p.setAttribute(IMarker.LINE_NUMBER, line);
+				marker_p.setAttribute(EValidator.URI_ATTRIBUTE, dest);
 				openEditor(page, marker_p, OpenStrategy.activateOnOpen());
 				// editor opened --- get rid of goto marker
 				ires.deleteMarkers(AadlConstants.AADLGOTOMARKER,
@@ -145,109 +166,109 @@ public final class UiUtil {
 			}
 		}
 	}
-
-	/**
-	 * goto aaxldi model in editor associated with diagram files. 
-	 * assumes that the text file has been saved and compiled.
-	 * @param page Workbench page
-	 * @param root Root AObject of model to go to
-	 * @param linenumber line number in text whose locationin the object should be the target
-	 */
-	public static int gotoAaxldiModel(IWorkbenchPage page, final Element root, int linenumber) {
-		Element target = AadlUtil.findElement(root, linenumber);
-		if (target == null){
-			return SILENT_FAILURE;
-		}
-		return gotoAaxldiModel(page,target);
-	}
-	
-	/**
-	 * goto aaxldi model in editor associated with diagram files. 
-	 * assumes that the text file has been saved and compiled.
-	 * @param page Workbench page
-	 * @param target AObject that is the target object 
-	 */
-	public static int gotoAaxldiModel(IWorkbenchPage page, Element target) {
-		if (target == null){
-			return SILENT_FAILURE;
-		}
-		if (target instanceof InstanceObject){
-			target = AadlUtil.getInstanceOrigin((InstanceObject)target);
-			if (target == null){
-				return SILENT_FAILURE;
-			}
-		}
-		Aadl2ResourceImpl res = (Aadl2ResourceImpl)target.eResource();
-		final IResource ires = OsateResourceUtil.convertToIResource(res);
-		if (ires == null){
-			return SILENT_FAILURE;
-		}
-		IFile aaxlFile = (IFile) ires;
-		IPath p = aaxlFile.getFullPath();
-		p = p.removeFileExtension().addFileExtension( "aaxldi");
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		IResource diaFile =  myWorkspaceRoot.getFile(p);
-		if (!diaFile.exists()) {
-			return NO_DIAGRAM_FILE;
-		}
-		if (ires != null && ires.exists())
-		{
-			try {
-				IMarker marker_p;
-				marker_p = diaFile.createMarker(EValidator.MARKER);
-				marker_p.setAttribute(IMarker.SEVERITY,
-						IMarker.SEVERITY_INFO);
-				String dest = EcoreUtil.getURI(target).toString();
-				marker_p.setAttribute(IMarker.MESSAGE, "Going to "
-						+ dest);
-				marker_p.setAttribute(AadlConstants.AADLURI, dest);
-				openEditor(page, marker_p, OpenStrategy.activateOnOpen());
-				// editor opened --- get rid of goto marker
-				diaFile.deleteMarkers(EValidator.MARKER,
-						false, IResource.DEPTH_ZERO);
-			} catch (CoreException e) {
-				OsateUiPlugin.log(e);
-			}
-		}
-		return SUCCESS;
-	}
-
-	/**
-	 * go to the source text location corresponding to the location of the specified AObject
-	 * The method will ensure that the source text is up to date with the model file
-	 */
-	public static void gotoSourceText(IWorkbenchPage page, Element obj) {
-		if (obj instanceof InstanceObject){
-			obj = AadlUtil.getInstanceOrigin((InstanceObject)obj);
-			if (obj == null){
-				return;
-			}
-		}
-		final IResource aaxlResource = OsateResourceUtil.convertToIResource(obj.eResource());
-		if (aaxlResource == null || !aaxlResource.exists() ){
-			return;
-		}
-		final IResource aadlResource = AadlWorkspace.getAadlWorkspace().getAadlProject(aaxlResource).getAadlFile((IFile)aaxlResource);
-		LocationReference loc = obj.getLocationReference();
-		if (loc != null ) {
-			try {
-				final IMarker marker_p =
-					aadlResource.createMarker(AadlConstants.AADLTEXTGOTOMARKER);
-				marker_p.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
-				String dest = EcoreUtil.getURI(obj).toString();
-				marker_p.setAttribute(IMarker.MESSAGE, "Going to " + dest);
-				marker_p.setAttribute(IMarker.LINE_NUMBER, loc.getLine());
-				
-				openEditor(page, marker_p, OpenStrategy.activateOnOpen());
-				
-				// editor opened --- get rid of goto marker
-				aadlResource.deleteMarkers(AadlConstants.AADLTEXTGOTOMARKER,
-						false, IResource.DEPTH_ZERO);
-			} catch (CoreException e) {
-				OsateUiPlugin.log(e);
-			}
-		}
-	}
+//
+//	/**
+//	 * goto aaxldi model in editor associated with diagram files. 
+//	 * assumes that the text file has been saved and compiled.
+//	 * @param page Workbench page
+//	 * @param root Root AObject of model to go to
+//	 * @param linenumber line number in text whose locationin the object should be the target
+//	 */
+//	public static int gotoAaxldiModel(IWorkbenchPage page, final Element root, int linenumber) {
+//		Element target = AadlUtil.findElement(root, linenumber);
+//		if (target == null){
+//			return SILENT_FAILURE;
+//		}
+//		return gotoAaxldiModel(page,target);
+//	}
+//	
+//	/**
+//	 * goto aaxldi model in editor associated with diagram files. 
+//	 * assumes that the text file has been saved and compiled.
+//	 * @param page Workbench page
+//	 * @param target AObject that is the target object 
+//	 */
+//	public static int gotoAaxldiModel(IWorkbenchPage page, Element target) {
+//		if (target == null){
+//			return SILENT_FAILURE;
+//		}
+//		if (target instanceof InstanceObject){
+//			target = AadlUtil.getInstanceOrigin((InstanceObject)target);
+//			if (target == null){
+//				return SILENT_FAILURE;
+//			}
+//		}
+//		Aadl2ResourceImpl res = (Aadl2ResourceImpl)target.eResource();
+//		final IResource ires = OsateResourceUtil.convertToIResource(res);
+//		if (ires == null){
+//			return SILENT_FAILURE;
+//		}
+//		IFile aaxlFile = (IFile) ires;
+//		IPath p = aaxlFile.getFullPath();
+//		p = p.removeFileExtension().addFileExtension( "aaxldi");
+//		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+//		IResource diaFile =  myWorkspaceRoot.getFile(p);
+//		if (!diaFile.exists()) {
+//			return NO_DIAGRAM_FILE;
+//		}
+//		if (ires != null && ires.exists())
+//		{
+//			try {
+//				IMarker marker_p;
+//				marker_p = diaFile.createMarker(EValidator.MARKER);
+//				marker_p.setAttribute(IMarker.SEVERITY,
+//						IMarker.SEVERITY_INFO);
+//				String dest = EcoreUtil.getURI(target).toString();
+//				marker_p.setAttribute(IMarker.MESSAGE, "Going to "
+//						+ dest);
+//				marker_p.setAttribute(AadlConstants.AADLURI, dest);
+//				openEditor(page, marker_p, OpenStrategy.activateOnOpen());
+//				// editor opened --- get rid of goto marker
+//				diaFile.deleteMarkers(EValidator.MARKER,
+//						false, IResource.DEPTH_ZERO);
+//			} catch (CoreException e) {
+//				OsateUiPlugin.log(e);
+//			}
+//		}
+//		return SUCCESS;
+//	}
+//
+//	/**
+//	 * go to the source text location corresponding to the location of the specified AObject
+//	 * The method will ensure that the source text is up to date with the model file
+//	 */
+//	public static void gotoSourceText(IWorkbenchPage page, Element obj) {
+//		if (obj instanceof InstanceObject){
+//			obj = AadlUtil.getInstanceOrigin((InstanceObject)obj);
+//			if (obj == null){
+//				return;
+//			}
+//		}
+//		final IResource aaxlResource = OsateResourceUtil.convertToIResource(obj.eResource());
+//		if (aaxlResource == null || !aaxlResource.exists() ){
+//			return;
+//		}
+//		final IResource aadlResource = AadlWorkspace.getAadlWorkspace().getAadlProject(aaxlResource).getAadlFile((IFile)aaxlResource);
+//		LocationReference loc = obj.getLocationReference();
+//		if (loc != null ) {
+//			try {
+//				final IMarker marker_p =
+//					aadlResource.createMarker(AadlConstants.AADLTEXTGOTOMARKER);
+//				marker_p.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
+//				String dest = EcoreUtil.getURI(obj).toString();
+//				marker_p.setAttribute(IMarker.MESSAGE, "Going to " + dest);
+//				marker_p.setAttribute(IMarker.LINE_NUMBER, loc.getLine());
+//				
+//				openEditor(page, marker_p, OpenStrategy.activateOnOpen());
+//				
+//				// editor opened --- get rid of goto marker
+//				aadlResource.deleteMarkers(AadlConstants.AADLTEXTGOTOMARKER,
+//						false, IResource.DEPTH_ZERO);
+//			} catch (CoreException e) {
+//				OsateUiPlugin.log(e);
+//			}
+//		}
+//	}
 
 	/**
 	 * Open an object editor for the given model object. Ensures that the editor

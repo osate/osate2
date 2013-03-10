@@ -69,7 +69,6 @@ import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.presentation.Aadl2ModelEditor;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.navigator.AadlNavigator;
@@ -107,7 +106,7 @@ public class InstantiateHandler extends AbstractHandler {
 							String pname = edref.getPartName();
 							IEditorPart edpart = edref.getEditor(true);
 							String fname = ((IResource) f).getName();
-							if (edpart instanceof Aadl2ModelEditor && pname.equals(fname)){
+							if ( pname.equals(fname)){
 								page.closeEditor(edpart, true);
 							}
 						}

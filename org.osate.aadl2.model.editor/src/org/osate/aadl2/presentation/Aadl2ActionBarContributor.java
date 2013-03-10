@@ -77,6 +77,9 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.ui.UiUtil;
 
 
 /**
@@ -147,6 +150,23 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 			}
 		}
 	};
+	protected IAction gotoSrcTextAction =
+		new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
+		public void run() {
+			if (currentSelection instanceof InstanceObject) {
+				if (activeEditorPart instanceof Aadl2ModelEditor) {
+					if (((Aadl2ModelEditor)activeEditorPart).isDirty()){
+						((Aadl2ModelEditor)activeEditorPart).doSave(null);
+					}
+					if (currentSelection instanceof InstanceObject){
+					UiUtil.gotoInstanceObjectSource(
+							activeEditorPart.getSite().getPage(),
+							(InstanceObject)currentSelection);
+					}
+				}
+			}
+		}
+	};
 
 	/**
 	 * This will contain one {@link org.eclipse.emf.edit.ui.action.CreateChildAction} corresponding to each descriptor
@@ -197,6 +217,8 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 * @generated
 	 */
 	protected IMenuManager createSiblingMenuManager;
+
+    protected InstanceObject currentSelection = null;
 
 	/**
 	 * This creates an instance of the contributor.
@@ -342,7 +364,9 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		ISelection selection = event.getSelection();
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
 			Object object = ((IStructuredSelection) selection).getFirstElement();
-
+			if (object instanceof InstanceObject){
+				this.currentSelection = (InstanceObject)object;
+			}
 			EditingDomain domain = ((IEditingDomainProvider) activeEditorPart).getEditingDomain();
 
 			newChildDescriptors = domain.getNewChildDescriptors(object, null);
@@ -563,6 +587,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	protected void addGlobalActions(IMenuManager menuManager) {
 		menuManager.insertAfter("additions-end", new Separator("ui-actions")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuManager.insertAfter("ui-actions", showPropertiesViewAction); //$NON-NLS-1$
+		menuManager.insertAfter("ui-actions", gotoSrcTextAction);
 
 		refreshViewerAction.setEnabled(refreshViewerAction.isEnabled());
 		menuManager.insertAfter("ui-actions", refreshViewerAction); //$NON-NLS-1$
