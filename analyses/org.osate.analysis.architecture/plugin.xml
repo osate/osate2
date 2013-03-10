@@ -260,7 +260,7 @@
                tooltip="%PortConnectionConsistency.toolTip"
                icon="%PortConnectionConsistency.icon"
                class="org.osate.analysis.architecture.actions.DoPortConnectionConsistency"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Arch/anal.grp"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Arch/anal.grp"
                enablesFor="1"/>
         
          <action
