@@ -687,6 +687,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (Aadl2Util.isNull(flow.getSpecification())) return;
 		EList<FlowSegment> segs = flow.getOwnedFlowSegments();
 		boolean connNext = true;
+		if (flow.getKind().equals(FlowKind.SOURCE)){
+			// the first element in a flow source should be a subcomponent/flow spec
+			connNext = false;
+		}
 		for (FlowSegment flowSegment : segs) {
 			FlowElement fe = flowSegment.getFlowElement();
 			if (connNext){
