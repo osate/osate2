@@ -65,6 +65,7 @@ import org.osate.aadl2.impl.DataPortImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.workspace.IAadlProject;
@@ -340,6 +341,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			checkOutFeatureIdentifier(flow);
 		if (flow.getKind().equals(FlowKind.SINK) || flow.getKind().equals(FlowKind.PATH))
 			checkInFeatureIdentifier(flow);
+		checkFlowConnectionOrder(flow);
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
 	}
@@ -666,6 +668,45 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							+ "' in the flow specification.");
 		}
 	}
+	
+
+	/**
+	 * Checks legality rule 1 in section 10.2 (Flow Implementations) on page 188.
+	 * "The source of a connection named in a flow implementation declaration must
+	 * be the same as the in_flow feature of the flow implementation, or as the
+	 * out flow feature of the directly preceding subcomponent flow specification,
+	 * if present."
+	 * 
+	 * Checks legality rule 2 in section 10.2 (Flow Implementations) on page 188.
+	 * "The destination of a connection named in a flow implementation declaration
+	 * must be the same as the out flow feature of the flow implementation, or as
+	 * the in_flow feature of the directly succeeding subcomponent flow
+	 * specification, if present.
+	 */
+	private void checkFlowConnectionOrder(FlowImplementation flow) {
+		if (Aadl2Util.isNull(flow.getSpecification())) return;
+		EList<FlowSegment> segs = flow.getOwnedFlowSegments();
+		boolean connNext = true;
+		for (FlowSegment flowSegment : segs) {
+			FlowElement fe = flowSegment.getFlowElement();
+			if (connNext){
+				// expecting a connection
+				connNext = ! connNext;
+				if (!(fe instanceof Connection)){
+					error(flow, "Expected connection, found "+ (fe instanceof FlowSpecification?"flow spec ":"subcomponent ")+ fe.getName());
+				}
+			} else {
+				// expecting a component and flow spec
+				connNext = ! connNext;
+				if (!(fe instanceof Subcomponent || (fe instanceof FlowSpecification && flowSegment.getContext() instanceof Subcomponent))){
+					error(flow, "Expected subcomponent/flow spec, found connection "+
+				(Aadl2Util.isNull(flowSegment.getContext())?"":flowSegment.getContext().getName())+"."+fe.getName());
+				}
+				
+			}
+		}
+	}
+
 
 	/**
 	 * Checks legality rule 1 in section 10.2 (Flow Implementations) on page 188.
