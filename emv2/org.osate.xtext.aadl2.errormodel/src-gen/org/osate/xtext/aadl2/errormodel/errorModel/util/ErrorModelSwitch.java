@@ -436,6 +436,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
 			case ErrorModelPackage.SUBCOMPONENT_ELEMENT: {
 				SubcomponentElement subcomponentElement = (SubcomponentElement)theEObject;
 				T result = caseSubcomponentElement(subcomponentElement);
+				if (result == null) result = caseElement(subcomponentElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

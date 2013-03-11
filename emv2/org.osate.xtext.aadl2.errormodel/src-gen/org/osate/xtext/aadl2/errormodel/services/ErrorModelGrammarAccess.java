@@ -193,6 +193,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOutgoingPropagationConditionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
 		private final RuleCall cCompositeStateParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
 		private final RuleCall cErrorStateToModeMappingParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
+		private final RuleCall cSubcomponentElementParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
 		
 		//Element returns aadl2::Element:
 		//
@@ -202,7 +203,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 		//
-		//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping;
+		//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement;
 		public ParserRule getRule() { return rule; }
 
 		//ElementErrorType | TypeToken | TypeTransformation | TypeMapping | ObservablePropagationConnections |
@@ -211,7 +212,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 		//
-		//OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping
+		//OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ElementErrorType
@@ -264,6 +265,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ErrorStateToModeMapping
 		public RuleCall getErrorStateToModeMappingParserRuleCall_16() { return cErrorStateToModeMappingParserRuleCall_16; }
+
+		//SubcomponentElement
+		public RuleCall getSubcomponentElementParserRuleCall_17() { return cSubcomponentElementParserRuleCall_17; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -4495,7 +4499,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 	//
-	//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping;
+	//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement;
 	public ElementElements getElementAccess() {
 		return (pElement != null) ? pElement : (pElement = new ElementElements());
 	}

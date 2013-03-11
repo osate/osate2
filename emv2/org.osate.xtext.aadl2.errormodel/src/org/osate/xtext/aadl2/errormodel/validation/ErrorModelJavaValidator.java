@@ -17,6 +17,7 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
@@ -368,7 +369,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			EList<ErrorTypes> typeslist = etl.getTypes();
 			for (ErrorTypes errorTypes : typeslist) {
 				if (etlset.containsKey(errorTypes.getName())){
-					ErrorModelLibrary eml = EM2Util.getContainingErrorModelLibrary(etlset.get(errorTypes.getName()));
+					ErrorModelLibrary eml = EM2Util.getContainingErrorModelLibrary((Element)etlset.get(errorTypes.getName()));
 					error(tuc,
 							"Error type or type set "+errorTypes.getName()+" in library "+EM2Util.getPrintName(etl)+" already exists in error type library "+EM2Util.getPrintName(eml));
 				} else {

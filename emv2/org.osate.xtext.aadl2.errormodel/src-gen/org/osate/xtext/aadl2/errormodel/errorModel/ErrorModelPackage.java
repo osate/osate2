@@ -3345,13 +3345,31 @@ public interface ErrorModelPackage extends EPackage
   int SUBCOMPONENT_ELEMENT = 45;
 
   /**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int SUBCOMPONENT_ELEMENT__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+
+  /**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int SUBCOMPONENT_ELEMENT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+
+  /**
 	 * The feature id for the '<em><b>Subcomponent</b></em>' reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int SUBCOMPONENT_ELEMENT__SUBCOMPONENT = 0;
+  int SUBCOMPONENT_ELEMENT__SUBCOMPONENT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The number of structural features of the '<em>Subcomponent Element</em>' class.
@@ -3360,7 +3378,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int SUBCOMPONENT_ELEMENT_FEATURE_COUNT = 1;
+  int SUBCOMPONENT_ELEMENT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl <em>Or Expression</em>}' class.

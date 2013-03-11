@@ -4,6 +4,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
 
 /**
@@ -22,7 +23,7 @@ import org.osate.aadl2.Subcomponent;
  * @model
  * @generated
  */
-public interface SubcomponentElement extends EObject
+public interface SubcomponentElement extends EObject, Element
 {
   /**
 	 * Returns the value of the '<em><b>Subcomponent</b></em>' reference.

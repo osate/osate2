@@ -86,6 +86,7 @@
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.57"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.63"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.60"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.70"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorModelSubclause">

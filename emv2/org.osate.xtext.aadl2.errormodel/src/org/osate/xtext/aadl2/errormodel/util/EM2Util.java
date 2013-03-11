@@ -145,8 +145,6 @@ public class EM2Util {
 	 */
 	public static String getOccurenceType (final ContainedNamedElement PAContainmentPath)
 	{
-		String result;
-		
 		if (PAContainmentPath == null)
 		{
 			return "unknown_distribution";
@@ -185,7 +183,7 @@ public class EM2Util {
 	 * @param element error annex element
 	 * @return ErrorModelSubclause
 	 */
-	public static ErrorModelSubclause getContainingErrorModelSubclause(EObject element) {
+	public static ErrorModelSubclause getContainingErrorModelSubclause(Element element) {
 		EObject container = element;
 		while (container != null && !(container instanceof ErrorModelSubclause))
 			container = container.eContainer();
@@ -197,7 +195,7 @@ public class EM2Util {
 	 * @param element  error annex element
 	 * @return ErrorPropagations
 	 */
-	public static ErrorPropagations getContainingErrorPropagations(EObject element) {
+	public static ErrorPropagations getContainingErrorPropagations(Element element) {
 		EObject container = element;
 		while (container != null && !(container instanceof ErrorPropagations))
 			container = container.eContainer();
@@ -207,7 +205,8 @@ public class EM2Util {
 	
 
 	/**
-	 * get enclosing object within the error annex that is a property list holder.
+	 * get enclosing object within the error annex that has a properties section..
+	 * ErrorModelLibrary, ErrorBehaviorStateMachine, and ErrorModelSubclause have properties sections
 	 * @param element declarative model element or error annex element
 	 * @return ErrorModelLibrary, ErrorBehaviorStateMachine, ErrorModelSubclause
 	 */
@@ -235,7 +234,7 @@ public class EM2Util {
 	 * @param element declarative model element or error annex element
 	 * @return ErrorPropagations
 	 */
-	public static ErrorPropagations getContainingClassifierErrorPropagations(EObject element) {
+	public static ErrorPropagations getContainingClassifierErrorPropagations(Element element) {
 		ErrorPropagations result = null;
 		Classifier cl = AadlUtil.getContainingClassifier(element);
 		if (cl == null) return null;
@@ -450,7 +449,7 @@ public class EM2Util {
 	 * @param element
 	 * @return Error Model object that contains the expression
 	 */
-	public static EObject getConditionOwner(EObject element) {
+	public static EObject getConditionOwner(Element element) {
 		EObject container = element;
 		while (container != null && (container instanceof ConditionExpression))
 			container = container.eContainer();
@@ -462,7 +461,7 @@ public class EM2Util {
 	 * @param element
 	 * @return ErrorBehaviorStateMachine object or null if element is not inside an EBSM
 	 */
-	public static ErrorBehaviorStateMachine getContainingErrorBehaviorStateMachine(EObject element) {
+	public static ErrorBehaviorStateMachine getContainingErrorBehaviorStateMachine(Element element) {
 		EObject container = element;
 		while (container != null && !(container instanceof ErrorBehaviorStateMachine))
 			container = container.eContainer();
@@ -475,7 +474,7 @@ public class EM2Util {
 	 * @param element
 	 * @return ErrorModelLibrary or null
 	 */
-	public static ErrorModelLibrary getContainingErrorModelLibrary(EObject element) {
+	public static ErrorModelLibrary getContainingErrorModelLibrary(Element element) {
 		EObject container = element;
 		while (container != null && !(container instanceof ErrorModelLibrary))
 			container = container.eContainer();
@@ -491,7 +490,7 @@ public class EM2Util {
 	 * component error behavior, composite error behavior
 	 * or null if not in any
 	 */
-	public static TypeUseContext getContainingTypeUseContext(EObject element) {
+	public static TypeUseContext getContainingTypeUseContext(Element element) {
 		EObject container = element;
 		while (container != null && !(container instanceof TypeUseContext))
 			container = container.eContainer();
@@ -504,7 +503,7 @@ public class EM2Util {
 	 * @param element
 	 * @return ComponentErrorBehavior or null
 	 */
-	public static ComponentErrorBehavior getContainingSubclauseComponentErrorBehavior(EObject element){
+	public static ComponentErrorBehavior getContainingSubclauseComponentErrorBehavior(Element element){
 		ErrorModelSubclause emsc = getContainingErrorModelSubclause(element);
 		return emsc ==null?null:(ComponentErrorBehavior) emsc.getComponentBehavior();
 	}
@@ -514,7 +513,7 @@ public class EM2Util {
 	 * @param element
 	 * @return ComponentErrorBehavior or null
 	 */
-	public static ComponentErrorBehavior getContainingComponentErrorBehavior(EObject element){
+	public static ComponentErrorBehavior getContainingComponentErrorBehavior(Element element){
 		EObject container = element;
 		while (container != null && !(container instanceof ComponentErrorBehavior))
 			container = container.eContainer();

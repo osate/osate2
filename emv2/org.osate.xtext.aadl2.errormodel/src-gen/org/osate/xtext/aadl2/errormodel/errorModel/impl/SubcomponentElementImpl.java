@@ -9,9 +9,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.aadl2.Subcomponent;
+
+import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -29,7 +30,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
  *
  * @generated
  */
-public class SubcomponentElementImpl extends MinimalEObjectImpl.Container implements SubcomponentElement
+public class SubcomponentElementImpl extends ElementImpl implements SubcomponentElement
 {
   /**
 	 * The cached value of the '{@link #getSubcomponent() <em>Subcomponent</em>}' reference.

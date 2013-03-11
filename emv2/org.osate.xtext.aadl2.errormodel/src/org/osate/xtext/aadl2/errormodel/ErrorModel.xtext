@@ -49,6 +49,7 @@ ElementErrorType|TypeToken
 |	ComponentErrorBehavior | CompositeErrorBehavior
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 |CompositeState	|ErrorStateToModeMapping
+| SubcomponentElement
 ;
 
 
