@@ -28,8 +28,11 @@ the use of formal method can be really useful. Then, you need
 to transform the architecture model into a representation
 suitable for model-checking tool. In our case, the AADL to PRISM
 transforms an AADL specification into a PRISM model, either 
-a DTMC or CTMC.
+a DTMC or CTMC. The choice of the target model is made
+in the PRISM menu, as shown below.
 </p>
+
+<img src="prism-menu.png"/>
 
 <p>
 The AADL model can be exported either in a DTMC or a CTMC:
@@ -44,6 +47,23 @@ The AADL model can be exported either in a DTMC or a CTMC:
 	with the <em>Poisson</em> distribution parameter.
 	</li>	 
 </ul>
+
+<p>
+To generate PRISM model from an AADL model, you first have to select
+the instance AADL model and then, invoke the PRISM menu option in OSATE,
+as shown below.
+</p>
+
+<img src="prism-menu2.png"/>
+
+
+<p>
+Once the PRISM model is created, it is available in a subdirectory
+called <em>report</em>, as shown below.
+</p>
+
+<img src="prism-menu3.png"/>
+
 
 <h3>AADL and PRISM mapping rules</h3>
 <table style="border: 1px solid black;">
@@ -179,10 +199,7 @@ Variable assignement while the component is in this state.
 
 </table>
 
-<h3>Example</h3>
-<p>
-FIXME
-</p>
+
 
 
 <h3>Issues and known limitations</h3>
