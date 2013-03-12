@@ -95,7 +95,6 @@ import org.osate.workspace.WorkspacePlugin;
 public class NewModelWizard extends Wizard implements INewWizard
 {
 	public static enum ObjectType {AADL_PACKAGE, AADL_PROPERTY_SET}
-	private static enum FileType {TEXT_FILE, OBJECT_FILE}
 	
 	/**
 	 * This caches an instance of the model package.
@@ -158,18 +157,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 	}
 	
 	/**
-	 * Create a new model.
-	 * Creates a new package or property set based on newObjectCreationPage.getObjectType
-	 */
-	private NamedElement createInitialModel()
-	{
-		if (newObjectCreationPage.getObjectType().equals(ObjectType.AADL_PACKAGE))
-			return aadl2Factory.createAadlPackage();
-		else
-			return aadl2Factory.createPropertySet();
-	}
-	
-	/**
 	 * Do the work after everything is specified.
 	 * Generates the appropriate files with the appropriate code within.
 	 */
@@ -187,17 +174,7 @@ public class NewModelWizard extends Wizard implements INewWizard
 	{
 		IProject selectedProject = newObjectCreationPage.getSelectedProject();
 		IPath filePath = new Path("/" + selectedProject.getName());
-		String fileExtension = null;
-		if (newObjectCreationPage.getFileType().equals(FileType.OBJECT_FILE))
-		{
-			filePath = new Path(filePath + WorkspacePlugin.getPreferenceStore(selectedProject).getString(WorkspacePlugin.PROJECT_MODEL_DIR));
-			fileExtension = "." + WorkspacePlugin.MODEL_FILE_EXT;
-		}
-		else
-		{
-			filePath = new Path(filePath + WorkspacePlugin.getPreferenceStore(selectedProject).getString(WorkspacePlugin.PROJECT_SOURCE_DIR));
-			fileExtension = "." + WorkspacePlugin.SOURCE_FILE_EXT;
-		}
+		String fileExtension =  "." + WorkspacePlugin.SOURCE_FILE_EXT;
 		if (newObjectCreationPage.getObjectType().equals(ObjectType.AADL_PACKAGE))
 			filePath = new Path(filePath.addTrailingSeparator() + WorkspacePlugin.AADL_PACKAGES_DIR);
 		else
@@ -215,17 +192,7 @@ public class NewModelWizard extends Wizard implements INewWizard
 	{
 		IProject selectedProject = newObjectCreationPage.getSelectedProject();
 		IPath filePath = selectedProject.getLocation();
-		String fileExtension = null;
-		if (newObjectCreationPage.getFileType().equals(FileType.OBJECT_FILE))
-		{
-			filePath = new Path(filePath + WorkspacePlugin.getPreferenceStore(selectedProject).getString(WorkspacePlugin.PROJECT_MODEL_DIR));
-			fileExtension = "." + WorkspacePlugin.MODEL_FILE_EXT;
-		}
-		else
-		{
-			filePath = new Path(filePath + WorkspacePlugin.getPreferenceStore(selectedProject).getString(WorkspacePlugin.PROJECT_SOURCE_DIR));
-			fileExtension = "." + WorkspacePlugin.SOURCE_FILE_EXT;
-		}
+		String fileExtension = "." + WorkspacePlugin.SOURCE_FILE_EXT;
 		if (newObjectCreationPage.getObjectType().equals(ObjectType.AADL_PACKAGE))
 			filePath = new Path(filePath.addTrailingSeparator() + WorkspacePlugin.AADL_PACKAGES_DIR);
 		else
@@ -326,8 +293,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 		//All buttons are radio buttons.
 		private Button aadlPackageButton = null;
 		private Button aadlPropertySetButton = null;
-		private Button textFileButton = null;
-		private Button objectFileButton = null;
 		private Text nameTextField = null;
 		private TableViewer projectViewer = null;
 		
@@ -348,8 +313,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 			ButtonAndTextListener listener = new ButtonAndTextListener(this);
 			aadlPackageButton.addSelectionListener(listener);
 			aadlPropertySetButton.addSelectionListener(listener);
-			textFileButton.addSelectionListener(listener);
-			objectFileButton.addSelectionListener(listener);
 			nameTextField.addModifyListener(listener);
 		}
 		
@@ -378,15 +341,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 			GridData layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false);
 			layoutData.verticalIndent = 15;
 			fileTypeGroup.setLayoutData(layoutData);
-			
-			textFileButton = new Button(fileTypeGroup, SWT.RADIO);
-			textFileButton.setText("Text File");
-			textFileButton.setSelection(true);
-			textFileButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-			
-			objectFileButton = new Button(fileTypeGroup, SWT.RADIO);
-			objectFileButton.setText("Object File");
-			objectFileButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 			
 			Label nameFieldLabel = new Label(composite, SWT.NONE);
 			nameFieldLabel.setText("Enter the new object's name:");
@@ -479,14 +433,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 				return ObjectType.AADL_PACKAGE;
 			else
 				return ObjectType.AADL_PROPERTY_SET;
-		}
-		
-		public FileType getFileType()
-		{
-			if (textFileButton.getSelection())
-				return FileType.TEXT_FILE;
-			else
-				return FileType.OBJECT_FILE;
 		}
 		
 		/**
