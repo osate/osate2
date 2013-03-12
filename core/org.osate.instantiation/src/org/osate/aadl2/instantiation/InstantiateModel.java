@@ -679,17 +679,13 @@ public class InstantiateModel {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
+
 		newInstance.setSubcomponent(sub);
 		newInstance.setCategory(sub.getCategory());
 		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
-		//OsateDebug.osateDebug ("instantiate sub " + sub.getName());
-		//OsateDebug.osateDebug ("   stack " + indexStack);
-		//OsateDebug.osateDebug ("   index " + index);
-		//OsateDebug.osateDebug ("   modalelem " + mm);
-
 		ic = getInstantiatedClassifier(newInstance, 0);
 		if (ic == null) {
 			cc = null;
@@ -698,12 +694,19 @@ public class InstantiateModel {
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
-		} else if (cc instanceof ComponentType) {
-			if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
-					|| sub instanceof ThreadGroupSubcomponent) {
-				errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
+		} else {
+			if (cc instanceof ComponentType) {
+				if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
+						|| sub instanceof ThreadGroupSubcomponent) {
+					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
+				}
 			}
+			newInstance.setCategory(cc.getCategory());
 		}
+		//OsateDebug.osateDebug ("instantiate sub " + sub.getName());
+		//OsateDebug.osateDebug ("   stack " + indexStack);
+		//OsateDebug.osateDebug ("   index " + index);
+		//OsateDebug.osateDebug ("   modalelem " + mm);
 
 		for (Mode mode : mm.getAllInModes()) {
 			ModeInstance mi = parent.findModeInstance(mode);
