@@ -183,5 +183,9 @@
        </topic>
        <topic href="html/emv2/prism.html" label="Export to PRISM">
        </topic>
+       <topic href="html/emv2/prism-dtmc.html" label="Export to PRISM - Example with DTMC">
+       </topic>
+       <topic href="html/emv2/prism-ctmc.html" label="Export to PRISM - Example with CTMC">
+       </topic>
     </topic>
 </toc>
