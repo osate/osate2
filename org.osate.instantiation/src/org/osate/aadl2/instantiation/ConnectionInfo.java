@@ -69,19 +69,19 @@ class ConnectionInfo {
 		opposites = new ArrayList<Boolean>();
 		contexts = new ArrayList<ComponentInstance>();
 		sources = new ArrayList<ConnectionInstanceEnd>();
-		sources.add(s);
+//		sources.add(s);
 		destinations = new ArrayList<ConnectionInstanceEnd>();
 	}
-
-	private ConnectionInfo(final ConnectionInfo base, final ConnectionInstanceEnd s) {
-		connections = base.connections;
-		opposites = base.opposites;
-		contexts = base.contexts;
-		sources = base.sources;
-		sources.add(s);
-		destinations = base.destinations;
-		src = s;
-	}
+//
+//	private ConnectionInfo(final ConnectionInfo base, final ConnectionInstanceEnd s) {
+//		connections = base.connections;
+//		opposites = base.opposites;
+//		contexts = base.contexts;
+//		sources = base.sources;
+//		sources.add(s);
+//		destinations = base.destinations;
+//		src = s;
+//	}
 
 	public static ConnectionInfo newConnectionInfo(final ConnectionInstanceEnd s) {
 		return new ConnectionInfo(s);
@@ -173,7 +173,7 @@ class ConnectionInfo {
 		//OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
 		kind = getKind(dst);
 		// TODO-LW: complete = ...;
-		destinations.add(dst);
+//		destinations.add(dst);
 		conni = InstanceFactory.eINSTANCE.createConnectionInstance();
 		conni.setName(name);
 		Iterator<Connection> connIter = connections.iterator();
