@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -298,11 +299,52 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 				return "null";
 			}
 		}
+		else if (expression instanceof ListValue && hasInstanceReferenceValue((ListValue)expression)) {
+			return serializeListWithInstanceReferenceValue((ListValue)expression);
+		}
 		else {
 			String value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
 			//TODO: Test this to see what cleanup is truly necessary.
 			return value;
 		}
+	}
+	
+	private boolean hasInstanceReferenceValue(ListValue topList) {
+		for (PropertyExpression subExpression : topList.getOwnedListElements()) {
+			if (subExpression instanceof InstanceReferenceValue) {
+				return true;
+			}
+			else if (subExpression instanceof ListValue && hasInstanceReferenceValue((ListValue)subExpression)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private String serializeListWithInstanceReferenceValue(ListValue topList) {
+		StringBuilder result = new StringBuilder("(");
+		for (Iterator<PropertyExpression> iter = topList.getOwnedListElements().iterator(); iter.hasNext();) {
+			PropertyExpression subExpression = iter.next();
+			if (subExpression instanceof InstanceReferenceValue) {
+				InstanceObject referencedObject = ((InstanceReferenceValue)subExpression).getReferencedInstanceObject();
+				if (referencedObject != null) {
+					result.append(referencedObject.getInstanceObjectPath());
+				}
+				else
+					result.append("null");
+			}
+			else if (subExpression instanceof ListValue) {
+				result.append(serializeListWithInstanceReferenceValue((ListValue)subExpression));
+			}
+			else {
+				result.append(serializer.serialize(subExpression).replaceAll("\n", "").replaceAll("\t", ""));
+			}
+			if (iter.hasNext()) {
+				result.append(", ");
+			}
+		}
+		result.append(")");
+		return result.toString();
 	}
 	
 	// Label Provider Methods
