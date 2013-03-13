@@ -179,6 +179,8 @@
     <topic href="html/emv2/index.html" label="Error-Model Annex v2">
        <topic href="html/emv2/imv.html" label="Error Support within IMV">
        </topic>
+       <topic href="html/emv2/fha.html" label="Fault and Hazard Analysis">
+       </topic>
        <topic href="html/emv2/rbd.html" label="Reliability Block Diagram">
        </topic>
        <topic href="html/emv2/prism.html" label="Export to PRISM">
