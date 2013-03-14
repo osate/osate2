@@ -405,7 +405,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 			toFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, toEnd.getName());
 		} else {
-			fromFi = ci.findSubcomponentInstance((Subcomponent)fromEnd);
+			toFi = ci.findSubcomponentInstance((Subcomponent)toEnd);
 		}
 
 		if (!connInfo.addSegment(newSegment, fromFi, toFi, ci, goOpposite)) {
