@@ -54,6 +54,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Property;
@@ -691,7 +692,11 @@ public class GetProperties {
 	public static String getSchedulingProtocol(final NamedElement ne) {
 		try {
 			Property schedulingprotocol = lookupPropertyDefinition(ne,DeploymentProperties._NAME, DeploymentProperties.SCHEDULING_PROTOCOL);
-			return PropertyUtils.getEnumLiteral(ne, schedulingprotocol).getName();
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(schedulingprotocol);
+			for (PropertyExpression propertyExpression : propertyValues){
+				return ((EnumerationLiteral)((NamedValue) propertyExpression).getNamedValue()).getName();
+			}
+			return null;
 		} catch (PropertyLookupException e) {
 			return null;
 		}
