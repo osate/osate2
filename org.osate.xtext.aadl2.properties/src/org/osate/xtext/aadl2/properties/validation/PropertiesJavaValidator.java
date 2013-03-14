@@ -298,44 +298,47 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 		if (Aadl2Util.isNull(pt)) return;
 		if (pv == null) return;
+		PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(pv);
+		Property pdef = pa.getProperty();
+		String msg = " to property '"+pdef.getQualifiedName()+"'of type '"+pt.eClass().getName()+"'";
 		if (!prefix.isEmpty() && !prefix.startsWith(" ")) prefix = prefix+" ";
 		if (pv instanceof ListValue ){
 			if (pt instanceof ListType){
 				typeMatchListElements(((ListType)pt).getElementType(), ((ListValue)pv).getOwnedListElements());
 			} else {
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property does not match list of values");
+				error(pa, prefix+"Assigning a list of values"+msg);
 			}
 		} else 	if(pv instanceof Operation || pv instanceof BooleanLiteral ){
 			if(!(pt instanceof AadlBoolean )) {
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Boolean value");
+				error(pa, prefix+"Assigning a Boolean value"+msg);
 			}
 		} else 	if (pv instanceof StringLiteral){
 			if (!( pt instanceof AadlString)){
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match String value");
+				error(pa, prefix+"Assigning String value"+msg);
 			}
 		} else if (pv instanceof EnumerationLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof EnumerationLiteral) ){
 			if (!(pt instanceof EnumerationType)){
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Enumeration literal");
+				error(pa, prefix+"Assigning Enumeration literal"+msg);
 			}
 		} else if (pv instanceof UnitLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof UnitLiteral) ){
 			if (!(pt instanceof UnitsType)){
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Unit literal");
+				error(pa, prefix+"Assigning Unit literal"+msg);
 			}
 		} else 	if (pv instanceof IntegerLiteral ){
 			if(!(pt instanceof AadlInteger)){
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Integer value");
+				error(pa, prefix+"Assigning Integer value"+msg);
 			} else {
 				checkUnits((AadlInteger)pt,(IntegerLiteral)pv);
 			}
 		} else if (pv instanceof RealLiteral ){
 			if(!(pt instanceof AadlReal)){
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Real value");
+				error(pa, prefix+"Assigning Real value"+msg);
 			} else {
 				checkUnits((AadlReal)pt,(RealLiteral)pv);
 			}
 		} else if ( pv instanceof RangeValue){
 			if(!(pt instanceof RangeType)){
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' type of property definition does not match Range value");
+				error(pa, prefix+"Assigning Range value"+msg);
 			} else {
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMinimumValue());
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMaximumValue());
@@ -346,7 +349,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		{
 			if(!(pt instanceof ClassifierType))
 			{
-				error(pv, prefix+"type2 '"+pt.eClass().getName()+"' of property definition does not match reference value to a classifier");
+				error(pv, prefix+"Assigning incorrect Classifier value"+msg);
 			}
 			
 			
@@ -369,15 +372,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					String classifierName = mcri.getMetaclass().getName().toLowerCase().replace("classifier", "");
 					
 					typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "");
-
-					//OsateDebug.osateDebug ("First  part = " + typeName);
-					//OsateDebug.osateDebug ("Second part = " +classifierName);
 					if (typeName.equals(classifierName))
 					{
 						return;
 					}
-					//OsateDebug.osateDebug ("First  part = " + typeName);
-					//OsateDebug.osateDebug ("Second part = " +classifierName);
 					
 					typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "").replace("implementation", "");
 
@@ -387,24 +385,24 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					}
 				}
 				
-				error(pv, prefix+"type3 '"+pt.eClass().getName()+"' of property definition does not match reference value with the appropriate classifier");
+				error(pa, prefix+"Assigning reference value with incorrect Classifier"+msg);
 
 			}
 			else
 			{
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' cannot be found");
+				error(pa, prefix+"type '"+pt.eClass().getName()+"' cannot be found");
 
 			}
 			
 		} else if (pv instanceof RecordValue){
 			if(!(pt instanceof RecordType )){
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match record value");
+				error(pv, prefix+"Assinging Record value"+msg);
 			} else {
 				typeMatchRecordFields(((RecordValue)pv).getOwnedFieldValues());
 			}
 		} else if (pv instanceof ReferenceValue ){
 			if(!(pt instanceof ReferenceType)){
-				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value to a model element");
+				error(pa, prefix+"Assigning incorrect reference value"+msg);
 			}
 		} else if (pv instanceof NamedValue ){
 			AbstractNamedValue nv = ((NamedValue)pv).getNamedValue();
@@ -413,10 +411,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			} else if (nv instanceof Property){
 				PropertyType pvt = ((Property)nv).getPropertyType();
 				if (!Aadl2Util.isNull(pvt) && pvt.eClass() != pt.eClass()){
-					error(pv, "Type "+pvt.eClass().getName()+" of referenced property does not match"+prefix+" type '"+pt.eClass().getName()+"' of property definition");
+					error(pa, "Assigning property of incorrect type"+msg);
 				}
 			} else {
-				error(pv, "Enum/Unit literal validation should have happened before");
+				error(pa, "Enum/Unit literal validation should have happened before");
 			}
 		} 
 	}
