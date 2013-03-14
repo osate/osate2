@@ -1449,8 +1449,8 @@ public class InstantiateModel {
 			{
 				InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier((ComponentInstance) elem, 0,
 						classifierCache);
-
-				addUsedProperties(ic.classifier, result);
+				if (ic != null)
+					addUsedProperties(ic.classifier, result);
 			} else if (elem instanceof FeatureInstance) {
 				FeatureInstance fi = (FeatureInstance) elem;
 				if (fi.getFeature() instanceof FeatureGroup) {
