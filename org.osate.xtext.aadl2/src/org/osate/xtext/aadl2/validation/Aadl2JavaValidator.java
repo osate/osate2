@@ -3677,12 +3677,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkPropertyDefinition(final Property pn) {
 		// Check the type correctness of the default value, if any
-		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue());
+		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(),pn,pn.getQualifiedName());
 		checkAppliesTo(pn);
 	}
 	
 	/**
-	 * check that the Meate model names exist
+	 * check that the Meta model names exist
 	 * @param pd
 	 */
 	private void checkAppliesTo(final Property pd){
@@ -3706,7 +3706,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		 * this, but can't do it if the type is given by reference, and it
 		 * cannot check that a int or real is within range.
 		 */
-		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue());
+		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(),pc,pc.getQualifiedName());
 	}
 
 //
