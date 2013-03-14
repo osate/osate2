@@ -69,6 +69,9 @@ public class PredeclaredProperties {
 				protected void execute(IProgressMonitor monitor)
 						throws CoreException, InvocationTargetException {
 					try {
+						if (forceOriginal){
+							deletePluginResourcesProject();
+						}
 						IProject pluginResourcesProject = createPluginResourcesProject();
 						if (pluginResourcesProject.isOpen()) {
 							for (URI contributedResourceUri : PluginSupportUtil
@@ -160,6 +163,18 @@ public class PredeclaredProperties {
 			}
 		}
 		return pluginResourcesProject;
+	}
+
+	private static void deletePluginResourcesProject()  {
+		IProject pluginResourcesProject = ResourcesPlugin.getWorkspace()
+				.getRoot().getProject(PLUGIN_RESOURCES_DIRECTORY_NAME);
+		if (pluginResourcesProject.exists()) {
+			try {
+				pluginResourcesProject.delete(true, true, null);
+			} catch (Exception ex) {
+				// Ignore this exception.
+			}
+		}
 	}
 
 	private static void copyContributedResourceIntoWorkspace(
