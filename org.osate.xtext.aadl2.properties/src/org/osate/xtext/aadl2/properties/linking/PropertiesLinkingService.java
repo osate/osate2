@@ -586,7 +586,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (res == null ){
 					Feature feature = AadlUtil.getContainingFeature(context);
 					if (feature != null){
-						ComponentClassifier fcl = feature.getAllClassifier();
+						Classifier fcl = feature.getAllClassifier();
 						if (fcl != null)
 							res = fcl.findNamedElement(name);
 					}
