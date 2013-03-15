@@ -428,4 +428,23 @@ public final class UiUtil {
 		}
 		return adapterFactory;
 	}
+	
+	public static String BestDecPoint(double value){
+		if (value < 1){
+			return String.format("%.3f", value);
+		} else 
+		if (value < 10){
+			return String.format("%.2f", value);
+		} else {
+			return String.format("%.1f", value);
+		}
+	}
+	
+	public static String OneDecPoint(double value){
+		return String.format("%.1f", value);
+	}
+	
+	public static String TwoDecPoint(double value){
+		return String.format("%.2f", value);
+	}
 }
