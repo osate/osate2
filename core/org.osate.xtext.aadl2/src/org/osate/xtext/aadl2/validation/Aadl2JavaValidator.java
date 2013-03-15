@@ -2868,8 +2868,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd destination = connection.getAllDestination();
 		if ((source instanceof DataAccess || source instanceof DataSubcomponent || source instanceof DataPort || source instanceof EventDataPort) &&
 				(destination instanceof DataAccess || destination instanceof DataSubcomponent || destination instanceof DataPort || destination instanceof EventDataPort)) {
-			ComponentClassifier sourceClassifier;
-			ComponentClassifier destinationClassifier;
+			Classifier sourceClassifier;
+			Classifier destinationClassifier;
 			if (source instanceof DataSubcomponent)
 				sourceClassifier = ((DataSubcomponent)source).getAllClassifier();
 			else
@@ -2930,7 +2930,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 	
-	private boolean testClassifierMatchRule(Connection connection, ConnectionEnd source, ComponentClassifier sourceClassifier, ConnectionEnd destination, ComponentClassifier destinationClassifier) {
+	private boolean testClassifierMatchRule(Connection connection, ConnectionEnd source, Classifier sourceClassifier, ConnectionEnd destination, Classifier destinationClassifier) {
 		if (sourceClassifier != destinationClassifier) {
 			if (sourceClassifier instanceof ComponentType && destinationClassifier instanceof ComponentImplementation) {
 				if (!sourceClassifier.equals(((ComponentImplementation)destinationClassifier).getType())) {
@@ -2969,7 +2969,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return false;
 	}
 	
-	private boolean classifiersFoundInSupportedClassifierSubsetMatchesProperty(Connection connection, ComponentClassifier source, ComponentClassifier destination) {
+	private boolean classifiersFoundInSupportedClassifierSubsetMatchesProperty(Connection connection, Classifier source, Classifier destination) {
 		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES);
 		if (matchesPropertyConstant == null)
 			return false;
@@ -2990,7 +2990,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return false;
 	}
 	
-	private boolean classifiersFoundInSupportedTypeConversionsProperty(Connection connection, ComponentClassifier source, ComponentClassifier destination) {
+	private boolean classifiersFoundInSupportedTypeConversionsProperty(Connection connection, Classifier source, Classifier destination) {
 		PropertyConstant conversionsPropertyConstant = GetProperties.lookupPropertyConstant(connection, AadlProject.SUPPORTED_TYPE_CONVERSIONS);
 		if (conversionsPropertyConstant == null)
 			return false;
@@ -3014,8 +3014,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	
 	private void checkFeatureRefinementClassifierSubstitution(Feature feature){
 		if (!Aadl2Util.isNull(feature.getRefined() )){
-			 ComponentClassifier refinedCl = feature.getClassifier();
-			 ComponentClassifier originalCl = feature.getRefined().getClassifier();
+			 Classifier refinedCl = feature.getClassifier();
+			 Classifier originalCl = feature.getRefined().getClassifier();
 			if (!Aadl2Util.isNull(refinedCl)&&!Aadl2Util.isNull(originalCl)){
 				checkClassifierSubstitutionMatch(feature,originalCl,refinedCl);
 			}
@@ -3033,7 +3033,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 	
-	private void checkClassifierSubstitutionMatch(NamedElement target, ComponentClassifier originalClassifier,ComponentClassifier refinedClassifier){
+	private void checkClassifierSubstitutionMatch(NamedElement target, Classifier originalClassifier,Classifier refinedClassifier){
 		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(target, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_SUBSTITUTION_RULE);
 		EnumerationLiteral classifierMatchingRuleValue;
 		try {
@@ -3194,8 +3194,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkParameterConnectionClassifiers(ParameterConnection connection) {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
-		ComponentClassifier sourceClassifier;
-		ComponentClassifier destinationClassifier;
+		Classifier sourceClassifier;
+		Classifier destinationClassifier;
 		if (source instanceof DataSubcomponent)
 			sourceClassifier = ((DataSubcomponent)source).getAllClassifier();
 		else
@@ -3401,8 +3401,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
 		if (source instanceof AccessConnectionEnd && destination instanceof AccessConnectionEnd) {
-			ComponentClassifier sourceClassifier;
-			ComponentClassifier destinationClassifier;
+			Classifier sourceClassifier;
+			Classifier destinationClassifier;
 			if (source instanceof Access)
 				sourceClassifier = ((Access)source).getAllClassifier();
 			else
