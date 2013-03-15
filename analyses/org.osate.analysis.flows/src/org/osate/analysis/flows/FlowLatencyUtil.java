@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
@@ -50,7 +51,7 @@ public class FlowLatencyUtil {
 		// get data size of sending port. If it has no classifier assume size 1 byte
 		FeatureInstance pio = (FeatureInstance)pci.getSource();
 		double DataSize = 0.0;
-		ComponentClassifier type = pio.getFeature().getAllClassifier();
+		Classifier type = pio.getFeature().getAllClassifier();
 		if (type != null){
 			// will do it for a single port or all ports in a feature group type
 			DataSize = GetProperties.getSourceDataSizeInBytes(type);
