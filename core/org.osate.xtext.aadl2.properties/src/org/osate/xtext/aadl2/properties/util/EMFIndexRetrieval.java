@@ -15,6 +15,7 @@ import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -109,12 +110,22 @@ public class EMFIndexRetrieval {
 	 * @return AADL package
 	 */
 	 public static AadlPackage getPackageInWorkspace(String pname){
+		 return getPackageInWorkspace(pname, OsateResourceUtil.getResourceSet());
+	 }
+
+	 /**
+	 * get package in workspace by looking it up in EMF index 
+	 * @param pname String package name
+	 * @param resoruceSet the resource in which the models are expected
+	 * @return AADL package
+	 */
+	 public static AadlPackage getPackageInWorkspace(String pname,XtextResourceSet resourceSet){
 		 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 if (eod.getName().toString().equalsIgnoreCase(pname)) {
  					 EObject res = eod.getEObjectOrProxy();
- 					 res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+ 					 res = EcoreUtil.resolve(res, resourceSet);
  					if (!Aadl2Util.isNull(res)) return (AadlPackage)res;
 	 			 }
 	 	 }
@@ -127,12 +138,20 @@ public class EMFIndexRetrieval {
 	 * @return AADL package
 	 */
 	 public static AadlPackage getPackageInWorkspace(EObject context,String pname){
+		 return getPackageInWorkspace(context, pname, OsateResourceUtil.getResourceSet());
+	 }
+	 /**
+	 * get package in workspace by looking it up in EMF index 
+	 * @param pname String package name
+	 * @return AADL package
+	 */
+	 public static AadlPackage getPackageInWorkspace(EObject context,String pname,XtextResourceSet resourceSet){
 		 IResourceDescriptions rds= rdp.getResourceDescriptions(context.eResource().getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 if (eod.getName().toString().equalsIgnoreCase(pname)) {
  					 EObject res = eod.getEObjectOrProxy();
- 					 res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+ 					 res = EcoreUtil.resolve(res, resourceSet);
  					if (!Aadl2Util.isNull(res)) return (AadlPackage)res;
 	 			 }
 	 	 }
@@ -195,12 +214,20 @@ public class EMFIndexRetrieval {
 	 * @return PropertySet or null
 	 */
 	 public static PropertySet getPropertySetInWorkspace(String pname){
+		 return getPropertySetInWorkspace(pname, OsateResourceUtil.getResourceSet());
+	 }
+	 /**
+	 * get PropertySet in workspace by looking it up in EMF index 
+	 * @param pname String PropertySet name
+	 * @return PropertySet or null
+	 */
+	 public static PropertySet getPropertySetInWorkspace(String pname,XtextResourceSet resourceSet){
 		 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 if (eod.getName().toString().equalsIgnoreCase(pname)) {
  					 EObject res = eod.getEObjectOrProxy();
- 					 res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+ 					 res = EcoreUtil.resolve(res, resourceSet);
  					if (!Aadl2Util.isNull(res)) return (PropertySet)res;
 	 			 }
 	 	 }
@@ -208,14 +235,14 @@ public class EMFIndexRetrieval {
 	 }
 
 
-	 /**
-	 * get the Property Definition by looking it up in EMF index 
-	 * @param pdname String name of property Definition (predeclared properties do not have to be qualified)
-	 * @return Property or null
-	 */
-	 public static Property getPropertyDefinitionInWorkspace(String pdname){
-	 	 return getPropertyDefinitionInWorkspace(OsateResourceUtil.getResourceSet(), pdname);
-	 }
+//	 /**
+//	 * get the Property Definition by looking it up in EMF index 
+//	 * @param pdname String name of property Definition (predeclared properties do not have to be qualified)
+//	 * @return Property or null
+//	 */
+//	 public static Property getPropertyDefinitionInWorkspace(String pdname){
+//	 	 return getPropertyDefinitionInWorkspace(OsateResourceUtil.getResourceSet(), pdname);
+//	 }
 	 
 	 /**
 	 * get the Property Definition by looking it up in EMF index 
