@@ -678,18 +678,35 @@ public class EMFIndexRetrieval {
 	 }
 	 
 
+//		/**
+//		 * Get all component implementations; in all 
+//		 * packages (public and private parts)
+//		 * 
+//		 * @return EList of component impl
+//		 */
+//		public static EList<ComponentImplementation> getAllComponentImpl() {
+//			EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
+//			EList<IEObjectDescription> cimpllist = EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Package.eINSTANCE.getComponentImplementation());
+//			for (IEObjectDescription eod : cimpllist) {
+//				EObject res = eod.getEObjectOrProxy();
+//				res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+//				if (!Aadl2Util.isNull(res)) result.add((ComponentImplementation)res);
+//			}
+//			return result;
+//		}
+
 		/**
 		 * Get all component implementations; in all 
 		 * packages (public and private parts)
 		 * 
 		 * @return EList of component impl
 		 */
-		public static EList<ComponentImplementation> getAllComponentImpl() {
+		public static EList<ComponentImplementation> getAllComponentImpl(XtextResourceSet resourceSet) {
 			EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
 			EList<IEObjectDescription> cimpllist = EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Package.eINSTANCE.getComponentImplementation());
 			for (IEObjectDescription eod : cimpllist) {
 				EObject res = eod.getEObjectOrProxy();
-				res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+				res = EcoreUtil.resolve(res, resourceSet);
 				if (!Aadl2Util.isNull(res)) result.add((ComponentImplementation)res);
 			}
 			return result;
