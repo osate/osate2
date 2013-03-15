@@ -169,13 +169,13 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 				error(processor, "Processor "+processor.getInstanceObjectPath()+" has threads and is not schedulable because it has no MIPS capacity");
 				return false;
 			} else {
-				error(processor, "Processor "+processor.getInstanceObjectPath()+" is not used and has no MIPS capacity");
+				warning(processor, "Processor "+processor.getInstanceObjectPath()+" is not used and has no MIPS capacity");
 				return false;
 			}
 		}
 		double demandMips = 0;
 		if( boundThreads.isEmpty()){
-			error(processor, "Processor "+processor.getInstanceObjectPath()+" is schedulable but has no bound threads");
+			warning(processor, "Processor "+processor.getInstanceObjectPath()+" has capacity, but has no bound threads");
 			return false;
 		} else {
 			for (Element element : boundThreads) {
