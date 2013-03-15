@@ -242,7 +242,7 @@ public class RuntimeProcessWalker  {
     
     boolean result = analysis.schedulabilityAnalysis();
 
-	int totaltime = 0;
+	double totaltime = 0;
     for (int i=0; i<runTimeComponents.size(); i++) {
         RuntimeProcess curComponent =
                             (RuntimeProcess)runTimeComponents.get(i);

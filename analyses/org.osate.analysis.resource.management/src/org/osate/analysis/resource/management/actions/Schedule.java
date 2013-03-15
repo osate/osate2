@@ -55,6 +55,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.analysis.scheduling.RuntimeProcessWalker;
+import org.osate.ui.UiUtil;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -162,7 +163,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 		}.processPreOrderComponentInstance(processor.getSystemInstance(),
 				ComponentCategory.THREAD);
 		double cpuMips = GetProperties.getMIPSCapacityInMIPS(processor, 0);
-		double utilization = 0;
+		double utilization = 0.0;
 		if (cpuMips == 0 ){
 			if( !boundThreads.isEmpty()){
 				error(processor, "Processor "+processor.getInstanceObjectPath()+" has threads and is not schedulable because it has no MIPS capacity");
@@ -182,10 +183,10 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 			}
 			utilization = (demandMips / cpuMips)*100;
 			if (utilization > 100){
-				error(processor, "Processor "+processor.getInstanceObjectPath()+" is not schedulable with utilization "+utilization+"%");
+				error(processor, "Processor "+processor.getInstanceObjectPath()+" is not schedulable with utilization "+UiUtil.OneDecPoint(utilization)+"%");
 				return false;
 			} else {
-				info(processor, "Processor "+processor.getInstanceObjectPath()+" is schedulable with utilization "+utilization+"%");
+				info(processor, "Processor "+processor.getInstanceObjectPath()+" is schedulable with utilization "+UiUtil.OneDecPoint(utilization)+"%");
 				return true;
 			}
 		}
@@ -193,13 +194,13 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 	  
 	  public void reportProcessorBinding(ComponentInstance elt){
 		  double threadMips = GetProperties.getThreadExecutioninMIPS(elt);
-		  reportProcessorBinding(elt, threadMips);
+		  reportProcessorBinding(elt, threadMips,"");
 	  }
 	  
-	  public void reportProcessorBinding(ComponentInstance elt, double threadMips){
+	  public void reportProcessorBinding(ComponentInstance elt, double threadMips, String prefix){
 		  List<ComponentInstance> bindinglist;
 		  // report binding of threads to VP and processor
-		  String threadText = elt.getCategory().getName()+" "+elt.getComponentInstancePath()+ (InstanceModelUtil.isThread(elt)?"("+threadMips+" MIPS)":"")+" ==> ";
+		  String threadText = prefix+elt.getCategory().getName()+" "+elt.getComponentInstancePath()+ (InstanceModelUtil.isThread(elt)?"("+UiUtil.BestDecPoint(threadMips)+" MIPS)":"")+" ==> ";
 		  bindinglist = GetProperties.getActualProcessorBinding(elt);
 		  if (bindinglist.isEmpty()){
 			  logInfo( threadText+" NOTHING");
@@ -207,12 +208,12 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 		  } else {
 			  for (ComponentInstance componentInstance : bindinglist) {
 				  if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
-					  reportProcessorBinding(componentInstance,threadMips);
+					  reportProcessorBinding(componentInstance,threadMips,threadText);
 				  } else {
 					  // we have a processor
 					  double cpumips = GetProperties.getMIPSCapacityInMIPS(componentInstance, 0);
-					  logInfo(threadText+componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath()+"("+cpumips+"MIPS)"
-							  +(cpumips > 0?(" Utilization "+threadMips/cpumips*100+"%"):" No CPU capacity"));
+					  logInfo(threadText+componentInstance.getCategory().getName()+" "+componentInstance.getComponentInstancePath()+"("+UiUtil.BestDecPoint(cpumips)+"MIPS)"
+							  +(cpumips > 0?(" Utilization "+UiUtil.OneDecPoint(threadMips/cpumips*100)+"%"):" No CPU capacity"));
 				  }
 			  }
 		  }
