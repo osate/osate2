@@ -132,6 +132,33 @@ public class OsateResourceUtil {
     }
     
     /**
+     * method that creates an Xtext-based ResoruceSet (EMF resource set plus synchronization
+     * It iwll not use the shared/global Osate resource set
+     * @return
+     */
+    public static XtextResourceSet createXtextResourceSet(){
+    	if (injector==null) {
+    		injector = OsateCorePlugin
+    				.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+    		if (injector == null){
+    			return null;
+    		}
+    	}
+    	if(Platform.isRunning())
+    	{
+    		if (fResourceSetProvider == null)
+    			fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
+
+     			return (XtextResourceSet) fResourceSetProvider.get(null);//project);
+    	}
+    	else
+    	{
+     			return injector.getInstance(XtextResourceSet.class) ;
+    	}
+   	
+    }
+    
+    /**
      * unload all aadl resources so they get reloaded for instantiation
      * @param rs Resource Set containing the instance model
      */
