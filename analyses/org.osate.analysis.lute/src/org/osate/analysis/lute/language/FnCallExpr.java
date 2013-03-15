@@ -407,7 +407,7 @@ public class FnCallExpr extends Expr {
 	private Val getProperty(InstanceObject aadl, String propName) 
 	{
 		PropertyExpression expr;
-		Property property = EMFIndexRetrieval.getPropertyDefinitionInWorkspace(propName);
+		Property property = EMFIndexRetrieval.getPropertyDefinitionInWorkspace(aadl,propName);
 		if (property == null)
 		{
 			return null;
@@ -518,7 +518,7 @@ public class FnCallExpr extends Expr {
 	}
 
 	private boolean checkBinding(InstanceObject s, String bindingPropertyName, InstanceObject t) {
-		Property bindingProperty = EMFIndexRetrieval.getPropertyDefinitionInWorkspace(bindingPropertyName);
+		Property bindingProperty = EMFIndexRetrieval.getPropertyDefinitionInWorkspace(s,bindingPropertyName);
 		PropertyExpression bindings = PropertyUtils.getSimplePropertyValue(s, bindingProperty);
 		if (bindings instanceof ListValue) {
 			ListValue list = (ListValue) bindings;
