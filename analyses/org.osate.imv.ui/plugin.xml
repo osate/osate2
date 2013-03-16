@@ -88,7 +88,7 @@
                class="org.osate.imv.ui.actions.OpenImvEditor"
                enablesFor="1"
                id="org.osate.imv.ui.actions.OpenImvEditor"
-               label="Explore instance or package implementation in IMV"
+               label="Graphically view instance or implementations"
                style="push">
             <enablement>
                <or>
@@ -139,7 +139,7 @@
                class="org.osate.imv.ui.actions.OpenImvEditor"
                enablesFor="1"
                id="org.osate.imv.ui.actions.OpenImvEditor.popUpMenu"
-               label="Explore instance or package implementation in IMV"
+               label="Graphically view instance or implementations"
                menubarPath="org.osate.ui.popupMenu.Aadl/general.grp">
             <enablement>
             <or>
