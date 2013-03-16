@@ -129,8 +129,6 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	private static final int IMMEDIATE_PARTITION = 0;
 	private static final int DEFER_EXEC_TIME = 1;
 	private static final int DEFER_BANDWIDTH = 2;
-
-	private static final int MAX_MULTIPLIER = 10;
 	
 	private int partitionChoice;
 	
@@ -280,25 +278,14 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				packer = new DFBPBinPacker(expansor);
 			}		
 			
-			/* Try to bin pack the system.  If it doesn't work, we 
-			 * try increasing the speed of the processor by a multiplier.
-			 * If it still doesn't work by the time the multiplier hits
-			 * 10x, then give up.
-			 */
-			int processorMultiplier = 0;
-			AssignmentResult result;
-			do {
-				processorMultiplier += 1;					
-				result = binPackSystem(root, processorMultiplier, expansor, packer, errManager);
-			} while (!result.success && processorMultiplier < MAX_MULTIPLIER);
-			
-			reportResults(som,result, processorMultiplier);
+			AssignmentResult result= binPackSystem(root,  expansor, packer, errManager);
+			reportResults(som,result);
 
 			
 			if (result.success) {
-				showResults(som, root, result, processorMultiplier);
+				showResults(som, root, result);
 			} else {
-				showNoResults(som, processorMultiplier);
+				showNoResults(som);
 			}
 		} catch (InvalidModelException e) {
 			error(e.getElement(), e.getMessage());
@@ -312,7 +299,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 
 	
 	protected AssignmentResult binPackSystem(
-			final SystemInstance root, final int processorMultiplier,
+			final SystemInstance root,
 			Expansor expansor, LowLevelBinPacker packer,
 			final AnalysisErrorReporterManager errManager) {
 		/* Map from AADL ComponentInstances representing threads to
@@ -373,7 +360,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			public void process(Element obj) {			
 				ComponentInstance ci = (ComponentInstance) obj;
 				if( GetProperties.getMIPSCapacityInMIPS(ci, 0)>0) {
-					final AADLProcessor proc = AADLProcessor.createInstance(ci, processorMultiplier);
+					final AADLProcessor proc = AADLProcessor.createInstance(ci);
 					if (proc != null) {
 						siteArchitecture.addSiteGuest(proc, theSite);
 						problem.hardwareGraph.add(proc);
@@ -592,17 +579,15 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	}
 	
 	public void showResults(final SystemOperationMode som, final SystemInstance root,
-			final AssignmentResult result, final int processorMultiplier) {
+			final AssignmentResult result) {
 		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
-//		final Properties props = constructDeclarativeBindings(threadsToProc);
-//		final AadlUnparser unparser = new AadlUnparser();
 		
-		final String propText = getBindingText(threadsToProc); //unparser.doUnparse(props);
+		final String propText = getBindingText(threadsToProc); 
 		boolean done = false;
 		while (!done) {
 			final Dialog d = new PackingSuccessfulDialog(getShell(), som,
 					root.getSystemImplementation().getName(), threadsToProc, 
-					result.problem.hardwareGraph, propText, processorMultiplier);
+					result.problem.hardwareGraph, propText);
 			final ShowDialog sd = new ShowDialog() {
 				public void run() {
 					this.result = d.open();
@@ -624,12 +609,11 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	}
 	
 	public void showNoResults(
-			final SystemOperationMode som, final int processorMultiplier){
+			final SystemOperationMode som){
 		org.osate.ui.dialogs.Dialog.showError(
 				"Application Binding Results",
 				"In system operation mode " + som.getName() + 
-				"the application system is not schedulable with processor speed " +
-				processorMultiplier + "X");	
+				"the application system is not schedulable");	
 	}
 
 	private Map getThreadBindings(final Set hardware) {
@@ -654,7 +638,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		return threadsToProc;
 	}
 	
-	public void reportResults(SystemOperationMode som,final AssignmentResult result, final int processorMultiplier) {
+	public void reportResults(SystemOperationMode som,final AssignmentResult result) {
 		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
 
 		logInfo("\nBinpacking results"+(!som.getName().equalsIgnoreCase("No Modes")?" for SOM "+som.getName():"")+": "+(result.success?"Success":"FAILED") );
@@ -662,11 +646,11 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			final HardwareNode hn = (HardwareNode) i.next();
 			final ComponentInstance proc = (ComponentInstance) hn.getSemanticObject();
 			double load = hn.cyclesPerSecond - hn.getAvailableCapacity();
-			load /= hn.cyclesPerSecond / (double) processorMultiplier;
+			load /= hn.cyclesPerSecond ;
 			load *= 100.0;
 			long longLoad = (long) Math.ceil(load);
-			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - (hn.cyclesPerSecond / (double) processorMultiplier);
-			overload /= hn.cyclesPerSecond / (double) processorMultiplier;
+			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - (hn.cyclesPerSecond );
+			overload /= hn.cyclesPerSecond ;
 			overload *= 100.0;
 			long longOverload = (long) Math.ceil(overload);
 			long available = longOverload * -1;

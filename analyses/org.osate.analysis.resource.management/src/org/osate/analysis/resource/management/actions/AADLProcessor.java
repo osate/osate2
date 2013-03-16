@@ -63,14 +63,9 @@ public final class AADLProcessor extends Processor {
 	}
 
 	public static AADLProcessor createInstance(final ComponentInstance proc) {
-		return createInstance(proc,1);
-	}
-
-	public static AADLProcessor createInstance(final ComponentInstance proc, int processorMultiplier) {
 		final Scheduler scheduler = getScheduler(proc);
 		if (scheduler != null) {
-			double doubleMultiplier = processorMultiplier * 1.0;
-			final double instructionsPerSecond = GetProperties.getProcessorMIPS(proc)*1e6 * doubleMultiplier; //* processorMultiplier;
+			final double instructionsPerSecond = GetProperties.getProcessorMIPS(proc)*1e6 ; 
 			return new AADLProcessor(proc, scheduler, instructionsPerSecond);
 		} else {
 			return null;

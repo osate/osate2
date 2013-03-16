@@ -53,26 +53,24 @@ public class PackingSuccessfulDialog extends MessageDialog {
 	final String systemName;
 	final String propText;
 	final Set hwGraph;
-	final int processorMultiplier;
 	
 	public PackingSuccessfulDialog(final Shell parentShell,
 			final SystemOperationMode som, final String systemName, final Map bindings, 
-			final Set hwGraph, final String propText, final int processorMultiplier) {
+			final Set hwGraph, final String propText) {
 //		super(parentShell, TITLE, null, MESSAGE, INFORMATION,
 //				new String[] { OKAY_LABEL, INSTANCE_LABEL, DECLARATIVE_LABEL },
 //				0 );
 		// XXX: Don't use the declarative label any more?
 		super(parentShell, TITLE, null, 
 				MODE_PREFIX + som.getName() + 
-				(processorMultiplier == 1?MESSAGE:OVERLOADMESSAGE+processorMultiplier+"X"+(availableCycles(hwGraph)?"\nAlso check that your processors are connected through a Bus":"")), 
-				processorMultiplier == 1?INFORMATION:ERROR,
-				processorMultiplier == 1?new String[] { OKAY_LABEL, INSTANCE_LABEL }:new String[] { OKAY_LABEL },
+				(MESSAGE+(availableCycles(hwGraph)?"\nAlso check that your processors are connected through a Bus":"")), 
+				INFORMATION,
+				new String[] { OKAY_LABEL, INSTANCE_LABEL },
 				0 );
 		this.bindings = bindings;
 		this.systemName = systemName;
 		this.propText = propText;
 		this.hwGraph = hwGraph;
-		this.processorMultiplier = processorMultiplier;
 	}
 	
 	public static boolean availableCycles(Set hwGraph){
@@ -232,11 +230,11 @@ public class PackingSuccessfulDialog extends MessageDialog {
 			final ComponentInstance proc = (ComponentInstance) hn.getSemanticObject();
 			final TableItem row = new TableItem(table, SWT.NONE);
 			double load = hn.cyclesPerSecond - hn.getAvailableCapacity();
-			load /= hn.cyclesPerSecond / (double) processorMultiplier;
+			load /= hn.cyclesPerSecond ;
 			load *= 100.0;
 			long longLoad = (long) Math.ceil(load);
-			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - (hn.cyclesPerSecond / (double) processorMultiplier);
-			overload /= hn.cyclesPerSecond / (double) processorMultiplier;
+			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - hn.cyclesPerSecond ;
+			overload /= hn.cyclesPerSecond ;
 			overload *= 100.0;
 			long longOverload = (long) Math.ceil(overload);
 			long available = longOverload * -1;
