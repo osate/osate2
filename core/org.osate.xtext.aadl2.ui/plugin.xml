@@ -454,7 +454,7 @@
             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
                commandId="org.osate.xtext.aadl2.ui.updatepredeclaredproperties"
-               label="Update Predeclared and Annex Properties"
+               label="Update unmodified Predeclared and Annex Properties"
                style="push">
          </command>
       </menuContribution>
@@ -462,7 +462,7 @@
             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
                commandId="org.osate.xtext.aadl2.ui.resetpredeclaredproperties"
-               label="Reset/create Predeclared and Annex Properties"
+               label="Reset/create all Predeclared and Annex Properties"
                style="push">
          </command>
       </menuContribution>
@@ -471,14 +471,14 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.osate.xtext.aadl2.ui.updatepredeclaredproperties"
-            name="Update Predeclared and Annex Properties project">
+            name="Update unmodified Predeclared and Annex Properties">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
-            id="org.osate.xtext.aadl2.ui.predeclaredproperties"
-            name="Create/update Predeclared and Annex Properties project">
+            id="org.osate.xtext.aadl2.ui.resetpredeclaredproperties"
+            name="Reset/create all Predeclared and Annex Properties">
       </command>
    </extension>
    	<extension
