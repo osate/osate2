@@ -220,6 +220,8 @@ public class DFCPBinPacker extends BaseLowLevelBinPacker {
 											processor
 													.removeFromFeasibleSet(composite);
 											BinPackerTester.failureCode = 1;
+											if (problem.errorReporter != null)
+											problem.errorReporter.reportError(1,problem);
 											return false;
 										}
 									}

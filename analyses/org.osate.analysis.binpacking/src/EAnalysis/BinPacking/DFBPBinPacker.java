@@ -207,6 +207,8 @@ public class DFBPBinPacker extends BaseLowLevelBinPacker
 										/* failed to add new link */
 										System.out.println("\t\t 1 Failed to add new link");
 										processor.removeFromFeasibleSet(composite);
+										if (problem.errorReporter != null)
+										problem.errorReporter.reportError(1,problem);
 										return false;
 									    }
 								    }

@@ -353,7 +353,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		OutDegreeAssignmentProblem problem1 = new OutDegreeAssignmentProblem(
 				new OutDegreeComparator(), new BandwidthComparator(),
 				new CapacityComparator());
-		problem1.setErrorReporter(null);
+		problem1.setErrorReporter(new BinPackErrorReporter());
 		final OutDegreeAssignmentProblem problem = problem1;
 		// Add procs
 		final ForAllElement addProcessors = new ForAllElement(errManager) {

@@ -221,6 +221,8 @@ public class BFCPBinPacker extends BaseLowLevelBinPacker {
 													.removeFromFeasibleSet(composite);
 											//DebugMonitor.println(DebugMonitor.channels[0],
 											// "failed to add new link");
+											if (problem.errorReporter != null)
+											problem.errorReporter.reportError(1,problem);
 											return false;
 										}
 									}
