@@ -354,10 +354,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we allow overriding of individual transitions rather than the whole CEB in an extends of a component
-//			ComponentErrorBehavior extceb = getExtendsComponentErrorBehavior(ceb);
-//			if (extceb != null){
-//				return findErrorBehaviorTransitionInCEB(extceb, name);
-//			}
+			ComponentErrorBehavior extceb = getExtendsComponentErrorBehavior(ceb);
+			if (extceb != null){
+				return findErrorBehaviorTransitionInCEB(extceb, name);
+			}
 		}
 		return null;
 	}
@@ -383,17 +383,21 @@ public class EMLinkingService extends PropertiesLinkingService {
 	
 	public ErrorDetection findErrorDetection(Element context, String name){
 		ComponentErrorBehavior compbehavior = EM2Util.getContainingComponentErrorBehavior(context);
+		return findErrorDetectioninCEB(compbehavior, name);
+	}
+	
+	public ErrorDetection findErrorDetectioninCEB(ComponentErrorBehavior compbehavior, String name){
 		if (compbehavior != null){
 			EList<ErrorDetection> ebsl= compbehavior.getErrorDetections();
 			for (ErrorDetection ebs : ebsl){
 				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we support override of individual statements in CEB
-//			ComponentErrorBehavior extceb = getExtendsComponentErrorBehavior(compbehavior);
-//			if (extceb != null){
-//				return findErrorDetection(extceb, name);
-//			}
-		}
+			ComponentErrorBehavior extceb = getExtendsComponentErrorBehavior(compbehavior);
+			if (extceb != null){
+				return findErrorDetectioninCEB(extceb, name);
+			}
+   		}
 		return null;
 	}
 	
@@ -405,10 +409,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we support override of individual statements in CEB
-//			ComponentErrorBehavior extceb = getExtendsComponentErrorBehavior(compbehavior);
-//			if (extceb != null){
-//				return findOutgoingErrorPropagationCondition(extceb, name);
-//			}
+			ComponentErrorBehavior extceb = getExtendsComponentErrorBehavior(compbehavior);
+			if (extceb != null){
+				return findOutgoingErrorPropagationCondition(extceb, name);
+			}
 		}
 		return null;
 	}
@@ -441,10 +445,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 			}
 			// enable if we support override of individual statements in CEB
-//			ComponentErrorBehavior extceb = getExtendsComponentErrorBehavior(ceb);
-//			if (extceb != null){
-//				return findErrorBehaviorEventinCEB(extceb, name);
-//			}
+			ComponentErrorBehavior extceb = getExtendsComponentErrorBehavior(ceb);
+			if (extceb != null){
+				return findErrorBehaviorEventinCEB(extceb, name);
+			}
 		}
 		return null;
 	}
@@ -544,8 +548,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 			}
 			// enable if we allow override of individual error propagations
-//			ErrorPropagations exteps = getExtendsErrorPropagations(eps);
-//			if (exteps != null) return findErrorPropagationPoint(exteps,name,dir);
+			ErrorPropagations exteps = getExtendsErrorPropagations(eps);
+			if (exteps != null) return findErrorPropagationPoint(exteps,name,dir);
 		}
 		return null;
 	}
@@ -565,8 +569,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 			}
 			// enable if we allow override of individual error propagations
-//			ErrorPropagations exteps = getExtendsErrorPropagations(eps);
-//			if (exteps != null) return findObservableErrorPropagationPoint(exteps,name);
+			ErrorPropagations exteps = getExtendsErrorPropagations(eps);
+			if (exteps != null) return findObservableErrorPropagationPoint(exteps,name);
 		}
 		return null;
 	}
@@ -578,8 +582,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 				if (name.equalsIgnoreCase(ef.getName())) return ef;
 			}
 			// enable if we allow override of individual error propagations
-//			eps = getExtendsErrorPropagations(eps);
-//			if (eps != null) return findErrorFlow(eps,name);
+			eps = getExtendsErrorPropagations(eps);
+			if (eps != null) return findErrorFlow(eps,name);
 		}
 		return null;
 	}
