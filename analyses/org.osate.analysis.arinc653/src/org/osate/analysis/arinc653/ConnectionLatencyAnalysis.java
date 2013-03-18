@@ -197,6 +197,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 				{
 					compSource 	= ref.getSource().getContainingComponentInstance();
 					compDest 	= ref.getDestination().getContainingComponentInstance();
+ 
 					System.out.println ("[ConnectionLatency] source=" + compSource);
 					System.out.println ("[ConnectionLatency] dest  =" + compDest);
 
@@ -204,18 +205,22 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 					{
 						continue;
 					}
-					
-					if ((compSource.getCategory() == ComponentCategory.PROCESS) )
+					if ((compSource == null) || (compDest == null))
 					{
-						partitionSource = compSource;
-
+						continue;
 					}
 					
-					if ((compDest.getCategory() == ComponentCategory.PROCESS) )
+					
+					if ((compSource.getCategory() != ComponentCategory.PROCESS) ||
+						(compDest.getCategory() != ComponentCategory.PROCESS) 	)
 					{
+						continue;
+
+					}
+					partitionSource = compSource;
 						partitionDest = compDest;
 
-					}
+					
 				}
 				
 				
