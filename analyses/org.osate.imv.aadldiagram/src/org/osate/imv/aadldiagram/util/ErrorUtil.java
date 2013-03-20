@@ -15,7 +15,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ErrorUtil {
@@ -122,9 +122,9 @@ public class ErrorUtil {
 				{
 
 					//OsateDebug.osateDebug("same");
-					sourcePropagation = EM2Util.getOutgoingErrorPropagation (fi);
+					sourcePropagation = EMV2Util.getOutgoingErrorPropagation (fi);
 					//destinationPropagation = EM2Util.getOutgoingErrorPropagation (destinationFeature);
-					destinationPropagation = EM2Util.getIncomingErrorPropagation (dstFeature);
+					destinationPropagation = EMV2Util.getIncomingErrorPropagation (dstFeature);
 
 					if (sourcePropagation == null)
 					{
@@ -167,7 +167,7 @@ public class ErrorUtil {
 				}
 			}
 			
-			ErrorPropagation ep = EM2Util.getOutgoingErrorPropagation (fi);
+			ErrorPropagation ep = EMV2Util.getOutgoingErrorPropagation (fi);
 		}
 		
 		/*
