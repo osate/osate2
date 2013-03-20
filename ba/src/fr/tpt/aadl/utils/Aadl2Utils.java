@@ -21,12 +21,16 @@
 
 package fr.tpt.aadl.utils;
 
+import java.io.File ;
+import java.net.URL ;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.FileLocator ;
+import org.eclipse.core.runtime.Platform ;
 import org.eclipse.xtext.nodemodel.ICompositeNode ;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -48,6 +52,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.parsesupport.LocationReference ;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osgi.framework.Bundle ;
 
 public class Aadl2Utils
 {
@@ -483,6 +488,38 @@ public class Aadl2Utils
       }
     }
 
+    return result ;
+  }
+  
+  /**
+   * 
+   * 
+   * @param pluginId
+   * @param relativePath
+   * @return
+   * @throws Exception
+   */
+  public static File getPluginFile(String pluginId, String relativePath) throws Exception
+  {
+    File result = null ;
+    
+    if(Platform.isRunning())
+    {
+      Bundle bundle = Platform.getBundle(pluginId);
+      if(bundle == null)
+      {
+        throw new Exception("plugin: " + pluginId + " is not found");
+      }
+      
+      URL rootURL = bundle.getEntry(relativePath) ;
+      if(rootURL == null)
+      {
+        throw new Exception("file or directory: " + relativePath + " is not found");
+      }
+            
+      result = new File(FileLocator.toFileURL(rootURL).getFile()) ;
+    }
+    
     return result ;
   }
 }
