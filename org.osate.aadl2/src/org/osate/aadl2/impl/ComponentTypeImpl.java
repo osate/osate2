@@ -822,7 +822,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<Feature> getAllFeatures() {
-		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Feature> returnlist = new BasicEList<Feature>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
@@ -852,7 +852,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<FlowSpecification> getAllFlowSpecifications() {
-		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<FlowSpecification> returnlist = new BasicEList<FlowSpecification>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
@@ -883,7 +883,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	public EList<Mode> getAllModes() {
-		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentType current = (ComponentType) it.next();
@@ -900,7 +900,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<ModeTransition> getAllModeTransitions() {
-		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<ModeTransition> returnlist = new BasicEList<ModeTransition>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentType current = (ComponentType) it.next();
@@ -918,7 +918,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	public EList<Prototype> getAllPrototypes() {
-		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors

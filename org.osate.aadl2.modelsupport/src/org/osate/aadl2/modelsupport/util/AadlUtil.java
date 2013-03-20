@@ -2108,7 +2108,7 @@ public final class AadlUtil {
 	 */
 	public static EList<AnnexSubclause> getAllAnnexSubclauses(Classifier cl, String annexName) {
 		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
-		final EList<Classifier> classifiers = cl.getAllExtendPlusSelf();
+		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
 		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
 			final Classifier current = i.previous();
 			EList<AnnexSubclause> asclist = AadlUtil.findAnnexSubclause(current, annexName);

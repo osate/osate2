@@ -553,11 +553,23 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 
 	public EList<AnnexSubclause> getAllAnnexSubclauses() {
 		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
-		final EList<Classifier> classifiers = getAllExtendPlusSelf();
-		for (final ListIterator<Classifier> i = classifiers
-				.listIterator(classifiers.size()); i.hasPrevious();) {
-			final Classifier current = i.previous();
-			result.addAll(current.getOwnedAnnexSubclauses());
+		final EList<Classifier> classifiers = getSelfPlusAllExtended();
+		for (Classifier classifier : classifiers) {
+			result.addAll(classifier.getOwnedAnnexSubclauses());
+		}
+		return result;
+	}
+
+	public EList<AnnexSubclause> getAllAnnexSubclauses(EClass eclass) {
+		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		final EList<Classifier> classifiers = getSelfPlusAllExtended();
+		for (Classifier classifier : classifiers) {
+			EList<AnnexSubclause> oas = classifier.getOwnedAnnexSubclauses();
+			for (AnnexSubclause annexSubclause : oas) {
+				if (annexSubclause.eClass().equals(eclass)){
+					result.add(annexSubclause);
+				}
+			}
 		}
 		return result;
 	}
@@ -971,7 +983,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
-	public EList<Classifier> getAllExtendPlusSelf() {
+	public EList<Classifier> getSelfPlusAllExtended() {
 		final EList<Classifier> result = new BasicEList<Classifier>();
 		Classifier current = this;
 		do {
@@ -1011,7 +1023,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<PropertyAssociation> getAllPropertyAssociations() {
 		final EList<PropertyAssociation> result = new BasicEList<PropertyAssociation>();
-		final EList<Classifier> classifiers = getAllExtendPlusSelf();
+		final EList<Classifier> classifiers = getSelfPlusAllExtended();
 		for (final ListIterator<Classifier> i = classifiers
 				.listIterator(classifiers.size()); i.hasPrevious();) {
 			final Classifier current = i.previous();

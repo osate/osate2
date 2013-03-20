@@ -71,7 +71,7 @@ public class ComponentImplementationOperations extends ClassifierOperations {
 
 	public static EList<Subcomponent> getAllSubcomponents(
 			ComponentImplementation componentImplementation) {
-		final EList<Classifier> ancestors = componentImplementation.getAllExtendPlusSelf();
+		final EList<Classifier> ancestors = componentImplementation.getSelfPlusAllExtended();
 		final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
