@@ -116,6 +116,7 @@ public class LdmImporter {
 		Node nNode;
 		Node attrName;
 		Node depName;
+		Node depStrength;
 		NodeList nList;
 		String systemName;
 		String fileName;
@@ -123,6 +124,7 @@ public class LdmImporter {
 		String depNameString;
 		InputStream in;
 		ZipFile zipFile;
+		int strength;
 		
 		zipFile = null;
 		
@@ -199,6 +201,18 @@ public class LdmImporter {
 
 						depNameString = depName.getNodeValue().toString();
 						
+						depStrength = getAttribute(child, "strength");
+
+						strength = 1;
+						try
+						{
+							strength = Integer.parseInt(depStrength.getNodeValue().toString());
+						}
+						catch (Exception e)
+						{
+							strength = 1;
+						}
+						
 						/**
 						 * If only a subset of module must be included,
 						 * then, we filter the name of the module.
@@ -209,8 +223,8 @@ public class LdmImporter {
 						}
 						matrix.addModule(new Module (depNameString));
 						
-						matrix.getModule(systemName).addOutgoingDependency(matrix.getModule(depNameString));
-						matrix.getModule(depNameString).addIncomingDependency(matrix.getModule(systemName));
+						matrix.getModule(systemName).addOutgoingDependency(matrix.getModule(depNameString), strength);
+						matrix.getModule(depNameString).addIncomingDependency(matrix.getModule(systemName), strength);
 					}
 				}
 			}

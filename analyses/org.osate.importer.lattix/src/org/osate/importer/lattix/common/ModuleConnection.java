@@ -40,6 +40,8 @@ package org.osate.importer.lattix.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.util.OsateDebug;
+
 public class ModuleConnection {
 	String content;
 	Module source;
@@ -55,6 +57,12 @@ public class ModuleConnection {
 	public ModuleConnection (Module s, Module d)
 	{
 		this ("1", s, d);
+	}
+	
+	public ModuleConnection (Module s, Module d, int st)
+	{
+		
+		this (new String ("" + st), s, d);
 	}
 	
 	public Module getSource ()

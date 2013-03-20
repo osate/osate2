@@ -82,15 +82,15 @@ public class Module implements Comparable {
 		return this.subEntities.contains(e);
 	}
 	
-	public void addOutgoingDependency (Module destination)
+	public void addOutgoingDependency (Module destination, int s)
 	{
-		ModuleConnection conn = new ModuleConnection (this, destination);
+		ModuleConnection conn = new ModuleConnection (this, destination, s);
 		connections.add(conn);
 	}
 	
-	public void addIncomingDependency (Module source)
+	public void addIncomingDependency (Module source, int s)
 	{
-		ModuleConnection conn = new ModuleConnection (source, this);
+		ModuleConnection conn = new ModuleConnection (source, this, s);
 		connections.add(conn);
 	}
 	
