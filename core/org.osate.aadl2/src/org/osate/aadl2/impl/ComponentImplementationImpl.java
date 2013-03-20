@@ -1479,7 +1479,7 @@ public abstract class ComponentImplementationImpl extends
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<Connection> getAllConnections() {
-		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Connection> returnlist = new BasicEList<Connection>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
@@ -1587,7 +1587,7 @@ public abstract class ComponentImplementationImpl extends
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	public EList<Mode> getAllModes() {
-		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentImplementation current = (ComponentImplementation) it
@@ -1597,7 +1597,7 @@ public abstract class ComponentImplementationImpl extends
 		ComponentType type = getType();
 		if (Aadl2Util.isNull(type))
 			return returnlist;
-		ancestors = getType().getAllExtendPlusSelf();
+		ancestors = getType().getSelfPlusAllExtended();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentType current = (ComponentType) it.next();
 			returnlist.addAll(current.getOwnedModes());
@@ -1613,7 +1613,7 @@ public abstract class ComponentImplementationImpl extends
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<ModeTransition> getAllModeTransitions() {
-		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<ModeTransition> returnlist = new BasicEList<ModeTransition>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentImplementation current = (ComponentImplementation) it
@@ -1622,7 +1622,7 @@ public abstract class ComponentImplementationImpl extends
 		}
 		if (getType() == null)
 			return returnlist;
-		ancestors = getType().getAllExtendPlusSelf();
+		ancestors = getType().getSelfPlusAllExtended();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentType current = (ComponentType) it.next();
 			returnlist.addAll(current.getOwnedModeTransitions());
@@ -1639,7 +1639,7 @@ public abstract class ComponentImplementationImpl extends
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	public EList<Prototype> getAllPrototypes() {
-		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
@@ -1661,7 +1661,7 @@ public abstract class ComponentImplementationImpl extends
 		ComponentType type = getType();
 		if (Aadl2Util.isNull(type))
 			return returnlist;
-		ancestors = getType().getAllExtendPlusSelf();
+		ancestors = getType().getSelfPlusAllExtended();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
 				.size()); li.hasPrevious();) {
@@ -1690,7 +1690,7 @@ public abstract class ComponentImplementationImpl extends
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<EndToEndFlow> getAllEndToEndFlows() {
-		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<EndToEndFlow> returnlist = new BasicEList<EndToEndFlow>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
@@ -1717,7 +1717,7 @@ public abstract class ComponentImplementationImpl extends
 	public EList<FlowImplementation> getAllFlowImplementations() {
 		final BasicEList<FlowImplementation> result = new BasicEList<FlowImplementation>();
 
-		for (Classifier current : getAllExtendPlusSelf()) {
+		for (Classifier current : getSelfPlusAllExtended()) {
 			result.addAll(((ComponentImplementation) current)
 					.getOwnedFlowImplementations());
 		}
@@ -1838,7 +1838,7 @@ public abstract class ComponentImplementationImpl extends
 	 * @return List of connections
 	 */
 	public EList<Connection> getAllConnections(Mode mode) {
-		final EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Connection> returnlist = new BasicEList<Connection>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors

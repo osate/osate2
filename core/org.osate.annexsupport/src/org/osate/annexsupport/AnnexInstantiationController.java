@@ -76,7 +76,7 @@ public class AnnexInstantiationController extends ForAllElement {
 		// annex subclauses list ordered following the inheritance chain upwards
 		// result in annexMap
 		if (InstanceUtil.getComponentImplementation(instance, 0, null)!= null) {
-			final EList<Classifier> classifiers = InstanceUtil.getComponentImplementation(instance, 0, null).getAllExtendPlusSelf();
+			final EList<Classifier> classifiers = InstanceUtil.getComponentImplementation(instance, 0, null).getSelfPlusAllExtended();
 			for (final Iterator<Classifier> iter = classifiers.iterator(); iter.hasNext();) {
 				final Classifier classifier = iter.next();
 				for (Iterator<AnnexSubclause> subclauseIter = classifier.getOwnedAnnexSubclauses().iterator(); subclauseIter.hasNext();) {
