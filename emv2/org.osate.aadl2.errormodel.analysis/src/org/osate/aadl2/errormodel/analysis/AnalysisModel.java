@@ -17,7 +17,7 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -38,7 +38,7 @@ public class AnalysisModel {
 	
 	public AnalysisModel(ComponentInstance root) {
 		this.root = root;
-		subComponents = EM2Util.getComponentInstancesWithErrorPropagations(root);
+		subComponents = EMV2Util.getComponentInstancesWithErrorPropagations(root);
 		for (ComponentInstance ci : subComponents){
 			populateOutgoingConnections(ci);
 		}

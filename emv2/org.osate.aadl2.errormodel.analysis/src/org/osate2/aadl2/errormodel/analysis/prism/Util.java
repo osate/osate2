@@ -25,7 +25,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
 
 /**
@@ -144,7 +144,7 @@ public class Util
 						//OsateDebug.osateDebug("[Utils]       Instance src:" + instanceSource);
 						//OsateDebug.osateDebug("[Utils]       Feature src:" + featureSource);
 
-						ErrorModelSubclause sourceSubclause = EM2Util.getErrorAnnexClause (instanceSource);
+						ErrorModelSubclause sourceSubclause = EMV2Util.getClassifierEMV2Subclause(instanceSource.getComponentClassifier());
 						//OsateDebug.osateDebug("[Utils]       ErrorPropagation src:" + sourceSubclause);
 						for (ErrorFlow flow : sourceSubclause.getPropagation().getFlows())
 						{
@@ -227,7 +227,7 @@ public class Util
 				ErrorEvent ee = (ErrorEvent) event;
 				//OsateDebug.osateDebug("[Utils]       Event kind:" + ee);
 
-				ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(instance,null,ee,null);
+				ContainedNamedElement PA = EMV2Util.getOccurenceDistributionProperty(instance,null,ee,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
 				
 				/**
@@ -238,7 +238,7 @@ public class Util
 				 *  2. For CTMC, we are supposed to have poisson/exponential occurence rate.
 				 */
 				if ((Model.getCurrentInstance().getType() == ModelType.DTMC) &&
-					(! EM2Util.getOccurenceType(PA).equals("fixed")))
+					(! EMV2Util.getOccurenceType(PA).equals("fixed")))
 				{
 					/**
 					 * Have to find out why the reportWarning does not work right now.
@@ -248,7 +248,7 @@ public class Util
 				}
 				
 				if ((Model.getCurrentInstance().getType() == ModelType.CTMC) &&
-						(! EM2Util.getOccurenceType(PA).equals("poisson")))
+						(! EMV2Util.getOccurenceType(PA).equals("poisson")))
 				{
 					/**
 					 * Have to find out why the reportWarning does not work right now.
@@ -257,7 +257,7 @@ public class Util
 					PRISMAction.reportWarning(instance.getComponentInstance(), "Distribution occurence should be set to poisson for CTMC generation");
 				}
 
-				res = EM2Util.getOccurenceValue (PA);
+				res = EMV2Util.getOccurenceValue (PA);
 			}
 			
 			if ((event != null) && (event instanceof RecoverEvent))
@@ -265,10 +265,10 @@ public class Util
 				RecoverEvent re = (RecoverEvent) event;
 				//OsateDebug.osateDebug("[Utils]       Recover kind:" + re);
 
-				ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(instance,null,re,null);
+				ContainedNamedElement PA = EMV2Util.getOccurenceDistributionProperty(instance,null,re,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
 
-				res = EM2Util.getOccurenceValue (PA);
+				res = EMV2Util.getOccurenceValue (PA);
 			}
 			
 			/**

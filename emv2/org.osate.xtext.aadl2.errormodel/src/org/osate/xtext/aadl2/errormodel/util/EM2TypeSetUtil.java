@@ -21,7 +21,7 @@ public class EM2TypeSetUtil {
 	 */
 	public static ErrorType rootType(ErrorType et){
 		while (et.getSuperType() != null){
-			et = EM2Util.resolveAlias(et.getSuperType());
+			et = EMV2Util.resolveAlias(et.getSuperType());
 		}
 		return et;
 	}
@@ -43,7 +43,7 @@ public class EM2TypeSetUtil {
 	 * @return
 	 */
 	protected static boolean isSame(ErrorType t1, ErrorType t2){
-		return EM2Util.resolveAlias(t1) == EM2Util.resolveAlias(t2);
+		return EMV2Util.resolveAlias(t1) == EMV2Util.resolveAlias(t2);
 	}
 	
 	/**
@@ -56,8 +56,8 @@ public class EM2TypeSetUtil {
 	public static boolean contains(ErrorType supertype, ErrorType type){
 		if (supertype == null ) return false;
 		if ( type == null) return true;
-		type = EM2Util.resolveAlias(type);
-		supertype = EM2Util.resolveAlias(supertype);
+		type = EMV2Util.resolveAlias(type);
+		supertype = EMV2Util.resolveAlias(supertype);
 		while (type != null){
 			if (type==supertype){
 				return true;
@@ -115,7 +115,7 @@ public class EM2TypeSetUtil {
 	public static boolean contains(TypeSet ts, TypeToken token){
 		if (ts == null ) return false;
 		if ( token == null) return true;
-		ts = EM2Util.resolveAlias(ts);
+		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
 		for (TypeToken tselement : ts.getElementType()) {
 			if (tselement.getType().size() == toksize){
@@ -136,7 +136,7 @@ public class EM2TypeSetUtil {
 	public static boolean contains(TypeSet ts, ErrorType et){
 		if (ts == null ) return false;
 		if ( et == null) return true;
-		ts = EM2Util.resolveAlias(ts);
+		ts = EMV2Util.resolveAlias(ts);
 		for (TypeToken tselement : ts.getElementType()) {
 				if( contains(tselement,et)) return true;
 		}
@@ -154,8 +154,8 @@ public class EM2TypeSetUtil {
 	public static boolean contains(TypeSet ts, TypeSet subts){
 		if (ts == null ) return false;
 		if ( subts == null) return true;
-		ts = EM2Util.resolveAlias(ts);
-		subts = EM2Util.resolveAlias(subts);
+		ts = EMV2Util.resolveAlias(ts);
+		subts = EMV2Util.resolveAlias(subts);
 		EList<TypeToken> subelements = subts.getElementType();
 		for (TypeToken typeToken : subelements) {
 			if (!contains(ts,typeToken)) return false;
@@ -253,7 +253,7 @@ public class EM2TypeSetUtil {
 		EList<ErrorType> result = new UniqueEList<ErrorType>();
 		EList<ErrorType> mysubs = et.getSubType();
 		if (mysubs.isEmpty()) {
-			result.add(EM2Util.resolveAlias(et));
+			result.add(EMV2Util.resolveAlias(et));
 			return result;
 		}
 		for (ErrorType errorType : mysubs) {
@@ -265,7 +265,7 @@ public class EM2TypeSetUtil {
 	protected static void addAllLeafSubTypes(EList<ErrorType> result, ErrorType et){
 		EList<ErrorType> mysubs = et.getSubType();
 		if (mysubs.isEmpty()) {
-			result.add(EM2Util.resolveAlias(et));
+			result.add(EMV2Util.resolveAlias(et));
 			return ;
 		}
 		for (ErrorType errorType : mysubs) {
@@ -286,7 +286,7 @@ public class EM2TypeSetUtil {
 		EList<ErrorType> mysubs = et.getSubType();
 		if (mysubs.isEmpty()) return result;
 		for (ErrorType errorType : mysubs) {
-			result.add(EM2Util.resolveAlias(et));
+			result.add(EMV2Util.resolveAlias(et));
 			addAllSubTypes(result, errorType);
 		}
 		return result;
@@ -296,7 +296,7 @@ public class EM2TypeSetUtil {
 		EList<ErrorType> mysubs = et.getSubType();
 		if (mysubs.isEmpty()) return ;
 		for (ErrorType errorType : mysubs) {
-			result.add(EM2Util.resolveAlias(et));
+			result.add(EMV2Util.resolveAlias(et));
 			addAllSubTypes(result, errorType);
 		}
 	}

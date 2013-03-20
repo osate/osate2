@@ -37,6 +37,8 @@ package org.osate.aadl2.errormodel.analysis;
  * It does so by propagating a token one level at a time, taking fan-out into account, i.e.,
  * does so for the resulting token replicates.
  */
+import java.util.HashMap;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
@@ -59,7 +61,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
  * @author phf
@@ -111,11 +113,9 @@ public class PropagateErrorFlows {
 	 * @param ci component instance
 	 */
 	public void startErrorFlows(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		if (eps == null) return;
-		EList<ErrorSource> eslist = EM2Util.getErrorSources(eps);
+		HashMap<String, ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		 EList<EObject> nextStep =new UniqueEList<EObject>();
-		for (ErrorSource errorSource : eslist) {
+		for (ErrorSource errorSource : eslist.values()) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			Feature f = ep.getFeature();
 			// we also have observables, error propagations with kind, and not error propagations
@@ -165,13 +165,13 @@ public class PropagateErrorFlows {
 				ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
 				st.setToken(tu);
 			}
-			ep = EM2Util.getIncomingErrorPropagation(fi);
+			ep = EMV2Util.getIncomingErrorPropagation(fi);
 		} else if (path instanceof ErrorSource){
-			ep = EM2Util.getOutgoingErrorPropagation(fi);
+			ep = EMV2Util.getOutgoingErrorPropagation(fi);
 			TypeSet ts = ((ErrorSource)path).getTypeTokenConstraint();
 			if (ts == null) ts = ep.getTypeSet();
 			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
-			System.out.println("tokens "+EM2Util.getPrintName(result));
+			System.out.println("tokens "+EMV2Util.getPrintName(result));
 			if (!result.isEmpty()){
 			ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
 			st.setToken(result.get(0));
@@ -196,9 +196,9 @@ public class PropagateErrorFlows {
 			}
 			ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
 			st.setToken(tu);
-			ep = EM2Util.getOutgoingErrorPropagation(fi);
+			ep = EMV2Util.getOutgoingErrorPropagation(fi);
 		} else {
-			ep = EM2Util.getOutgoingErrorPropagation(fi);
+			ep = EMV2Util.getOutgoingErrorPropagation(fi);
 		}
 		report(fi,ep);
 		return ep != null;
@@ -224,12 +224,12 @@ public class PropagateErrorFlows {
 			if (tu != null){
 				report.addOutputNewline(ci.getName()+
 						(ep!=null?"."+ep.getFeature().getName():"")+
-						EM2Util.getPrintName(tu));
+						EMV2Util.getPrintName(tu));
 				return;
 			}
 			if (ep != null){
 			report.addOutputNewline(ci.getName()+"."+ep.getFeature().getName()+
-					(ep.getTypeSet()!=null?EM2Util.getPrintName(ep.getTypeSet()):""));
+					(ep.getTypeSet()!=null?EMV2Util.getPrintName(ep.getTypeSet()):""));
 			} else {
 				report.addOutputNewline(ci.getName());
 				}
@@ -260,15 +260,15 @@ public class PropagateErrorFlows {
 		ComponentInstance ci = incie instanceof ComponentInstance? (ComponentInstance)incie: incie.getContainingComponentInstance();
 		faultModel.getContainingComponentInstance(ci);
 		// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (incie instanceof FeatureInstance){
 			if (!process(source,conni,(FeatureInstance)incie)) { return;}
 		} else {
 			// component instance
 			if (!process(source,conni,(ComponentInstance)incie)) {return;}
 		}
-		if (eps != null){
-			ErrorFlow ef=EM2Util.findErrorFlow(eps, incie);
+		HashMap<String, ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
+		if (efs != null){
+			ErrorFlow ef=EMV2Util.findErrorFlowFrom(efs.values(), incie);
 			if (ef instanceof ErrorSink){
 				// process should have returned false, but for safety we check again
 				return;

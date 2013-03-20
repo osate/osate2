@@ -34,7 +34,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
 
 /**
@@ -206,7 +206,7 @@ public class Module {
 	{
 		List<Expression> exprs = new ArrayList<Expression>();
 		
-		ErrorModelSubclause errorModelSubclause = EM2Util.getErrorAnnexClause(aadlComponent);
+		ErrorModelSubclause errorModelSubclause = EMV2Util.getClassifierEMV2Subclause(aadlComponent.getComponentClassifier());
 
 		if (errorModelSubclause.getPropagation() != null)
 		{
@@ -318,10 +318,10 @@ public class Module {
 		
 		ErrorBehaviorStateMachine useStateMachine = null;
 		ErrorPropagations propagations = null;
-		ErrorModelSubclause errorModelSubclause = EM2Util.getErrorAnnexClause(aadlComponent);
-		ComponentErrorBehavior errorBehavior = EM2Util.getComponentErrorBehavior (aadlComponent.getComponentClassifier());
-		ErrorBehaviorStateMachine componentStateMachine = EM2Util.getContainingErrorBehaviorStateMachine(aadlComponent.getComponentClassifier());
-		CompositeErrorBehavior compositeErrorBehavior = EM2Util.getCompositeErrorBehavior (aadlComponent);
+		ErrorModelSubclause errorModelSubclause = EMV2Util.getClassifierEMV2Subclause(aadlComponent.getComponentClassifier());
+		ComponentErrorBehavior errorBehavior = errorModelSubclause.getComponentBehavior();
+		ErrorBehaviorStateMachine componentStateMachine = errorModelSubclause.getUseBehavior();
+		CompositeErrorBehavior compositeErrorBehavior = errorModelSubclause.getCompositeBehavior();
 		OsateDebug.osateDebug("[PRISM][Module.java] errorModelSubclause=" + errorModelSubclause);
 		OsateDebug.osateDebug("[PRISM][Module.java] errorBehavior=" + errorBehavior);
 		OsateDebug.osateDebug("[PRISM][Module.java] componentStateMachine=" + componentStateMachine);

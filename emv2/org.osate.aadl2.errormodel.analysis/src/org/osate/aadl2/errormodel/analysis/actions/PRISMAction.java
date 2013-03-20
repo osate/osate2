@@ -64,7 +64,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate2.aadl2.errormodel.analysis.prism.Model;
 
 public final class PRISMAction extends AaxlReadOnlyActionAsJob {
@@ -82,7 +82,7 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result =  EM2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
+		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
 		return result;
 	}
 	

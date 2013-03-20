@@ -1,12 +1,22 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.UniqueEList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -23,12 +33,16 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.impl.Aadl2PackageImpl;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
@@ -38,11 +52,17 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -51,29 +71,30 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
+import org.osate.xtext.aadl2.errormodel.serializer.EMV2TransientValueService;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
-public class EM2Util {
+public class EMV2Util {
 	
 	public final static String ErrorModelAnnexName = "EMV2";
+	private static EClass EMV2subclauseEClass = Aadl2Package.eINSTANCE.getAnnexSubclause();
 
 	/**
 	 * Get the error-annex subclause for a given Component Instance
 	 * @param ci	The component instance that contains the error model subclause
-	 * @return		The related ErrorModelSubclause object, null otherwise
+	 * @return EList<AnnexSubclause> list of ErrorModelSubclause objects
 	 */
-	public static ErrorModelSubclause getErrorAnnexClause (ComponentInstance ci)
+	public static EList<AnnexSubclause> getErrorAnnexSubclauses (ComponentInstance ci)
 	{
-		AnnexSubclause subclause = Aadl2InstanceUtil.getAnnexSubclause(ci, ErrorModelAnnexName);
-		if (subclause instanceof ErrorModelSubclause)
-		{
-			return ((ErrorModelSubclause)subclause);
-		}
-		return null;
+		return ci.getComponentClassifier().getAllAnnexSubclauses(EMV2subclauseEClass);
 	}
 	
 	
@@ -91,7 +112,7 @@ public class EM2Util {
 	 * @return
 	 */
 	public static ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result =  EM2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
+		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
 		return result;
 	}
 	
@@ -227,108 +248,253 @@ public class EM2Util {
 		return null;
 	}
 
+
 	/**
-	 * get error propagations object in the classifier containing the element object.
-	 * The extends hierarchy and the type in the case of an implementation are searched for the error propagations declaration
-	 * This object contains the list of propagations and error flows.
-	 * @param element declarative model element or error annex element
-	 * @return ErrorPropagations
+	 * get ErrorModelSubclause object in the classifier 
+	 * @param cl classifier
+	 * @return ErrorModelSubclause
 	 */
-	public static ErrorPropagations getContainingClassifierErrorPropagations(Element element) {
-		ErrorPropagations result = null;
-		Classifier cl = AadlUtil.getContainingClassifier(element);
-		if (cl == null) return null;
-		ErrorModelSubclause ems = getErrorModelSubclause(cl);
-		if (ems != null) result = ems.getPropagation();
-		if (result != null) return result;
-		if (cl instanceof ComponentImplementation){
-			ems = getErrorModelSubclause(((ComponentImplementation)cl).getType());
-			if (ems != null) result = ems.getPropagation();
-			if (result != null) return result;
+	private static void getClassifierEMV2Subclause(Classifier cl,EList<ErrorModelSubclause> result) {
+		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
+		if (ems != null) result.add(ems);
+	}
+
+	/**
+	 * recursively add all EMV2 subclauses of classifier and its extends ancestors
+	 * in case of implementations do not follow to the type
+	 * cl can be null or an unresolved proxy.
+	 * if cl has a subclause its subclause is added before following the extends hierarhy
+	 * @param cl Component Implementation
+	 * @param result list of EMV2 subclauses
+	 */
+	private static void getAllClassifierEMV2Subclause(Classifier cl,EList<ErrorModelSubclause> result) {
+		if (!Aadl2Util.isNull(cl)){
+			getClassifierEMV2Subclause(cl, result);
+			getAllClassifierEMV2Subclause(cl.getExtended(),result);
 		}
-		if (!Aadl2Util.isNull(cl.getExtended())){
-			return  getContainingClassifierErrorPropagations(cl.getExtended());
+	}
+
+	/**
+	 * return the list of EMV2 subclauses of the classifier and 
+	 * The extends hierarchy and the type in the case of an implementation are searched for the ErrorModelSubcany of its extends ancestors
+	 * @param element declarative model element or error annex element
+	 * @return ErrorModelSubclause
+	 */
+	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(Element element) {
+		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
+		Classifier cl = element.getContainingClassifier();
+		if (cl instanceof ComponentImplementation){
+			getAllClassifierEMV2Subclause(cl, result);
+			getAllClassifierEMV2Subclause(((ComponentImplementation)cl).getType(),result);
+		} else {
+			getAllClassifierEMV2Subclause(cl, result);
+		}
+		return result;
+	}
+
+
+	/**
+	 * get the error model subclause for the specified classifier.
+     * Does not look in the extends hierarchy
+	 * @param cl CLassifier
+	 * @return
+	 */
+	public static ErrorModelSubclause getOwnEMV2Subclause(Classifier cl){
+		if (cl == null) return null;
+		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
+		for (AnnexSubclause al : asl){
+			if (al instanceof ErrorModelSubclause){
+				return ((ErrorModelSubclause)al);
+			}
 		}
 		return null;
 	}
 
 	/**
-	 * get ErrorModelSubclause object in the classifier containing the element object.
-	 * The extends hierarchy and the type in the case of an implementation are searched for the ErrorModelSubclause
-	 * @param element declarative model element or error annex element
-	 * @return ErrorModelSubclause
+	 * get the error model subclause for the specified classifier.
+	 * It effectively returns the first subclause that applies to the classifier.
+	 * This is the subclause that determines the EBSM to be used (specified in use behavior).
+	 * The mthods goes up the extends hierarchy, and in the case of an implementation
+	 * tries its type and the type's hierarchy.
+	 * 
+	 * @param cl Classifier
+	 * @return
 	 */
-	public static ErrorModelSubclause getContainingClassifierEMV2Subclause(EObject element) {
-		Classifier cl = AadlUtil.getContainingClassifier(element);
+	public static ErrorModelSubclause getClassifierEMV2Subclause(Classifier cl){
 		if (cl == null) return null;
-		ErrorModelSubclause ems = getErrorModelSubclause(cl);
+		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
 		if (ems != null) return ems;
 		if (cl instanceof ComponentImplementation){
-			ems = getErrorModelSubclause(((ComponentImplementation)cl).getType());
+			ems = getExtendsEMV2Subclause((ComponentImplementation)cl);
 			if (ems != null) return ems;
-		}
-		if (!Aadl2Util.isNull(cl.getExtended())){
-			return  getContainingClassifierEMV2Subclause(cl.getExtended());
+			ems = getExtendsEMV2Subclause(((ComponentImplementation)cl).getType());
+			if (ems != null) return ems;
+		} else {
+			ems = getExtendsEMV2Subclause(cl);
+			if (ems != null) return ems;
 		}
 		return null;
 	}
 	
 	/**
-	 * find the error propagation point of the specified name
-	 * @param eps List of error propagations
-	 * @param eppName Name of error propagation point we are looking for
-	 * @param pd Directiontype
-	 * @param isNot boolean Error Containment
-	 * @return ErrorPropagation
+	 * find the first subclause on the classifier or its extends hierachy.
+	 * When used on a component implementation this method does not go from an implemetnation to a type.
+	 * 
+	 * @param cl
+	 * @return
 	 */
-	public static ErrorPropagation findErrorPropagation(ErrorPropagations eps, String eppName, DirectionType pd, boolean isNot){
-		for (ErrorPropagation ep : eps.getPropagations()) {
-			Feature f = ep.getFeature();
-			if (ep.isNot() == isNot && ep.getDirection() == pd && !Aadl2Util.isNull(f)&&(eppName.equalsIgnoreCase(f.getName())||eppName.equalsIgnoreCase(ep.getKind()))){
-				return ep;
+	public static ErrorModelSubclause getExtendsEMV2Subclause(Classifier cl){
+		if (cl == null) return null;
+		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
+		if (ems != null) return ems;
+		if (!Aadl2Util.isNull(cl.getExtended())){
+			ems= getExtendsEMV2Subclause(cl.getExtended());
+			if (ems != null) return ems;
+		}
+		return null;
+	}
+	
+
+	
+	/**
+	 * Find error propagation point in the extends hierarchy of the containing component of context
+	 * @param context
+	 * @param name
+	 * @param dir
+	 * @param isNot
+	 * @return
+	 */
+	public static ErrorPropagation findErrorPropagationPoint(Element context, String name, DirectionType dir, boolean isNot){
+		EList<ErrorModelSubclause> emslist =null;
+		if (context instanceof QualifiedObservableErrorPropagationPoint){
+			Subcomponent sub = ((QualifiedObservableErrorPropagationPoint)context).getSubcomponent();
+			emslist =  getAllContainingClassifierEMV2Subclauses(sub.getAllClassifier());
+		} else {
+			emslist = getAllContainingClassifierEMV2Subclauses(context);
+		}
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, name, dir, isNot);
+			if (res != null) return res;
+		}
+		return null;
+	}
+	
+	/**
+	 * Find error propagation point in the EMV2 subclause only
+	 * @param ems
+	 * @param name
+	 * @param dir
+	 * @param isNot
+	 * @return
+	 */
+	public static ErrorPropagation findErrorPropagationPoint(ErrorModelSubclause ems, String name, DirectionType dir, boolean isNot){
+		ErrorPropagations eps = ems.getPropagation();
+		if (eps != null){
+			for (ErrorPropagation ep : eps.getPropagations()){
+				if (ep.isNot() == isNot&& (dir == null ||ep.getDirection()== dir)){
+					// do we need to check (context instanceof QualifiedObservableErrorPropagationPoint)
+						Feature f = ep.getFeature();
+						if (!Aadl2Util.isNull(f) && f.getName().equalsIgnoreCase(name)) return ep;
+						String kind = ep.getKind();
+						if (kind != null && kind.equalsIgnoreCase(name)&&
+								(dir == null||dir.equals(ep.getDirection()))) return ep;
+					String observe = ep.getName();
+					if (ep.isObservable() && observe != null &&  observe.equalsIgnoreCase(name)) return ep;
+				}
 			}
 		}
 		return null;
 	}
+
 	
 	/**
-	 * find the outgoing error propagation point of the specified name
-	 * @param eps List of error propagations
+	 * find the incoming error propagation point of the specified name
+	 * @param element the model element in the context of which we find the error propagation
 	 * @param eppName Name of error propagation point we are looking for
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findIncomingErrorPropagation(ErrorPropagations eps, String eppName){
-		return findErrorPropagation(eps, eppName, DirectionType.IN,false);
+	public static ErrorPropagation findIncomingErrorPropagation(Element element, String eppName){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.IN,false);
+			if (res != null) return res;
+		}
+		return null;
+	}
+	public static ErrorPropagation findIncomingErrorPropagation(EList<ErrorModelSubclause> emslist, String eppName){
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.IN,false);
+			if (res != null) return res;
+		}
+		return null;
 	}
 	
+	
 	/**
 	 * find the outgoing error propagation point of the specified name
-	 * @param eps List of error propagations
+	 * @param element the model element in the context of which we find the error propagation
 	 * @param eppName Name of error propagation point we are looking for
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findOutgoingErrorPropagation(ErrorPropagations eps, String eppName){
-		return findErrorPropagation(eps, eppName, DirectionType.OUT,false);
+	public static ErrorPropagation findOutgoingErrorPropagation(Element element, String eppName){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,false);
+			if (res != null) return res;
+		}
+		return null;
+	}
+	public static ErrorPropagation findOutgoingErrorPropagation(EList<ErrorModelSubclause> emslist, String eppName){
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,false);
+			if (res != null) return res;
+		}
+		return null;
 	}
 	
 	/**
 	 * find the outgoing error containment point of the specified name
-	 * @param eps List of error propagations
-	 * @param eppName Name of error containment point we are looking for
+	 * @param element the model element in the context of which we find the error propagation
+	 * @param eppName Name of error propagation point we are looking for
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findIncomingErrorContainment(ErrorPropagations eps, String eppName){
-		return findErrorPropagation(eps, eppName, DirectionType.IN,true);
+	public static ErrorPropagation findOutgoingErrorContainment(Element element, String eppName){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,true);
+			if (res != null) return res;
+		}
+		return null;
+	}
+	public static ErrorPropagation findOutgoingErrorContainment(EList<ErrorModelSubclause> emslist, String eppName){
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,true);
+			if (res != null) return res;
+		}
+		return null;
 	}
 	
+	
 	/**
-	 * find the outgoing error containment point of the specified name
-	 * @param eps List of error propagations
-	 * @param eppName Name of error containment point we are looking for
+	 * find the incoming error propagation point of the specified name
+	 * @param element the model element in the context of which we find the error propagation
+	 * @param eppName Name of error propagation point we are looking for
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findOutgoingErrorContainment(ErrorPropagations eps, String eppName){
-		return findErrorPropagation(eps, eppName, DirectionType.OUT,true);
+	public static ErrorPropagation findIncomingErrorContainment(Element element, String eppName){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.IN,true);
+			if (res != null) return res;
+		}
+		return null;
+	}
+	public static ErrorPropagation findIncomingErrorContainment(EList<ErrorModelSubclause> emslist, String eppName){
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.IN,true);
+			if (res != null) return res;
+		}
+		return null;
 	}
 	
 	/**
@@ -338,9 +504,7 @@ public class EM2Util {
 	 */
 	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		ErrorPropagation ep = EM2Util.findOutgoingErrorPropagation(eps, fi.getName());
-		return ep;
+		return EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), fi.getName());
 	}
 	
 	/**
@@ -350,9 +514,7 @@ public class EM2Util {
 	 */
 	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		ErrorPropagation ep = EM2Util.findIncomingErrorPropagation(eps, fi.getName());
-		return ep;
+		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), fi.getName());
 	}
 	
 	/**
@@ -361,9 +523,7 @@ public class EM2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getIncomingAccessErrorPropagation(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		ErrorPropagation ep = EM2Util.findIncomingErrorPropagation(eps, "access");
-		return ep;
+		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), "access");
 	}
 	
 	/**
@@ -372,56 +532,330 @@ public class EM2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingAccessErrorPropagation(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		ErrorPropagation ep = EM2Util.findOutgoingErrorPropagation(eps, "access");
-		return ep;
+		return EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), "access");
 	}
 
+
+
 	/**
-	 * find the error flow whose incoming error propagation point is incie
-	 * @param eps List of error propagations
-	 * @param incie connection instance end, which can be a component instance or feature instance
+	 * find error flow starting with given classifier by looking through all error flows
+	 * @param cl
+	 * @param name
 	 * @return ErrorFlow
 	 */
-	public static ErrorFlow findErrorFlow(ErrorPropagations eps, InstanceObject incie){
-		for (ErrorFlow ef : eps.getFlows()) {
-			Feature f = null;
-			if (ef instanceof ErrorPath){
-				ErrorPath ep = (ErrorPath)ef;
-				 f = ep.getIncoming().getFeature();
-			} else if (ef instanceof ErrorSink){
-				ErrorSink es = (ErrorSink)ef;
-				 f = es.getIncoming().getFeature();
-			}
-			if (incie instanceof FeatureInstance){
-				if (((FeatureInstance)incie).getFeature().equals(f)){
-					return ef;
+	public static ErrorFlow findErrorFlow(Classifier cl, String name){
+		if (cl != null){
+			HashMap<String, ErrorFlow> efhashtab = getAllErrorFlows(cl);
+			return efhashtab.get(name);
+		}
+		return null;
+	}
+
+	
+
+		/**
+		 * find the error flow whose incoming error propagation point is incie
+		 * @param eps List of error propagations
+		 * @param incie connection instance end, which can be a component instance or feature instance
+		 * @return ErrorFlow
+		 */
+		public static ErrorFlow findErrorFlowFrom(Collection<ErrorFlow> efs, ConnectionInstanceEnd incie){
+			for (ErrorFlow ef : efs) {
+				Feature f = null;
+				if (ef instanceof ErrorPath){
+					ErrorPath ep = (ErrorPath)ef;
+					 f = ep.getIncoming().getFeature();
+				} else if (ef instanceof ErrorSink){
+					ErrorSink es = (ErrorSink)ef;
+					 f = es.getIncoming().getFeature();
 				}
+				if (incie instanceof FeatureInstance){
+					if (((FeatureInstance)incie).getFeature().equals(f)){
+						return ef;
+					}
+				}
+			}
+			return null;
+		}
+	
+		/**
+		 * find the error flow whose outgoing error propagation point is incie
+		 * @param eps List of error propagations
+		 * @param incie connection instance end, which can be a component instance or feature instance
+		 * @return ErrorFlow
+		 */
+		public static ErrorFlow findReverseErrorFlowFrom(Collection<ErrorFlow> efs, ConnectionInstanceEnd incie){
+			for (ErrorFlow ef : efs) {
+				Feature f = null;
+				if (ef instanceof ErrorPath){
+					ErrorPath ep = (ErrorPath)ef;
+					 f = ep.getOutgoing().getFeature();
+				} else if (ef instanceof ErrorSource){
+					ErrorSource es = (ErrorSource)ef;
+					 f = es.getOutgoing().getFeature();
+				}
+				if (incie instanceof FeatureInstance){
+					if (((FeatureInstance)incie).getFeature().equals(f)){
+						return ef;
+					}
+				}
+			}
+			return null;
+		}
+	
+	
+	public static ErrorBehaviorState findErrorBehaviorState(Element context, String name){
+		ErrorBehaviorStateMachine ebsm;
+		if (context instanceof ConditionElement && !((ConditionElement)context).getSubcomponents().isEmpty()){
+			// look up state in state machine of subcomponent
+			ConditionElement tcs = (ConditionElement)context;
+			 EList<SubcomponentElement> sublist = tcs.getSubcomponents();
+			Subcomponent sub = sublist.get(sublist.size()-1).getSubcomponent();
+			ComponentClassifier sc = sub.getAllClassifier();
+			if (sc == null) return null;
+			return findErrorBehaviorStateinUseBehavior( sc,name);
+		} else {
+			// resolve in local context, which is assumed to be an EBSM
+			ebsm = EMV2Util.getContainingErrorBehaviorStateMachine(context);
+			if (ebsm == null) ebsm = EMV2Util.getUsedErrorBehaviorStateMachine(context);
+			return findErrorBehaviorStateInEBSM(ebsm, name);
+		}
+	}
+	
+	/**
+	 * find the first subclause and look for this Use Behavior.
+	 * Since Use behavior is optional it might not find any 
+	 * It will not assume that Use Behavior is inherited
+	 * @param cl
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorState findErrorBehaviorStateinUseBehavior(Classifier cl, String name){
+		if (cl == null) return null;
+		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
+		// and then do a find on it.
+			ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
+			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+			if (ebsm != null){
+				return findErrorBehaviorStateInEBSM(ebsm, name);
+			}
+			return null;
+	}
+	
+	/**
+	 * find error behavior state in state machine
+	 * @param ebsm
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorState findErrorBehaviorStateInEBSM(ErrorBehaviorStateMachine ebsm, String name){
+		if (ebsm != null){
+			EList<ErrorBehaviorState> ebsl= ebsm.getStates();
+			for (ErrorBehaviorState ebs : ebsl){
+				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+			}
+			// enable if we support extends on EBSM
+//			if (ebsm.getExtends() != null){
+//				return findErrorBehaviorStateInEBSM(ebsm.getExtends(), name);
+//			}
+		}
+		return null;
+	}
+	
+	
+
+	/**
+	 * get the subclause use behavior (EBSM) for the specified classifier.
+     * Does not look in the extends hierarchy
+	 * @param cl CLassifier
+	 * @return ErrorBehaviorStateMachine
+	 */
+	public static ErrorBehaviorStateMachine getOwnUseBehavior(Classifier cl){
+		if (cl == null) return null;
+		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
+		for (AnnexSubclause al : asl){
+			if (al instanceof ErrorModelSubclause){
+				return ((ErrorModelSubclause)al).getUseBehavior();
 			}
 		}
 		return null;
 	}
 
 	/**
-	 * find the error flow whose outgoing error propagation point is incie
-	 * @param eps List of error propagations
-	 * @param incie connection instance end, which can be a component instance or feature instance
-	 * @return ErrorFlow
+	 * get the subclause use behavior (EBSM) for the specified classifier.
+	 * It effectively returns the first EBSM that applies to the classifier.
+	 * The method goes up the extends hierarchy, and in the case of an implementation
+	 * tries its type and the type's hierarchy.
+	 * 
+	 * @param cl Classifier
+	 * @return
 	 */
-	public static ErrorFlow findReverseErrorFlow(ErrorPropagations eps, InstanceObject incie){
-		for (ErrorFlow ef : eps.getFlows()) {
-			Feature f = null;
-			if (ef instanceof ErrorPath){
-				ErrorPath ep = (ErrorPath)ef;
-				 f = ep.getOutgoing().getFeature();
-			} else if (ef instanceof ErrorSource){
-				ErrorSource es = (ErrorSource)ef;
-				 f = es.getOutgoing().getFeature();
+	public static ErrorBehaviorStateMachine getClassifierUseBehavior(Classifier cl){
+		if (cl == null) return null;
+		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
+		if (ems != null) {
+			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+			if (ebsm != null)
+				return ebsm;
+		}
+		if (cl instanceof ComponentImplementation){
+			ems = getExtendsEMV2Subclause((ComponentImplementation)cl);
+			if (ems != null) {
+				ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+				if (ebsm != null)
+					return ebsm;
 			}
-			if (incie instanceof FeatureInstance){
-				if (((FeatureInstance)incie).getFeature().equals(f)){
-					return ef;
-				}
+			ems = getExtendsEMV2Subclause(((ComponentImplementation)cl).getType());
+			if (ems != null) {
+				ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+				if (ebsm != null)
+					return ebsm;
+			}
+		} else {
+			ems = getExtendsEMV2Subclause(cl);
+			if (ems != null) {
+				ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+				if (ebsm != null)
+					return ebsm;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * find the first subclause Use Behavior on the classifier or its extends hierachy.
+	 * When used on a component implementation this method does not go from an implemetnation to a type.
+	 * 
+	 * @param cl
+	 * @return
+	 */
+	public static ErrorBehaviorStateMachine getExtendsUseBehavior(Classifier cl){
+		if (cl == null) return null;
+		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
+		if (ems != null) {
+			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+			if (ebsm != null)
+				return ebsm;
+		}
+		if (!Aadl2Util.isNull(cl.getExtended())){
+			ems= getExtendsEMV2Subclause(cl.getExtended());
+			if (ems != null) {
+				ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+				if (ebsm != null)
+					return ebsm;
+			}
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * find error behavior transition in the specified context, i.e., its enclosing classifier subclause or inherited subclauses
+	 * we look in the component error behavior sections first, and then in the EBSM of the use behavior.
+	 * @param context
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorTransition findErrorBehaviorTransition(Element context, String name){
+		Classifier cl = context.getContainingClassifier();
+		if (cl != null){
+			// we are not in an error library
+			ErrorBehaviorTransition ebt = findErrorBehaviorTransitioninCEB(cl, name);
+			if (ebt != null) return ebt;
+			// find it in the EBSM from the use behavior
+			return findErrorBehaviorTransitioninUseBehavior(cl, name);
+		} else {
+			// we are inside an error library resolving transition references
+			ErrorBehaviorStateMachine ebsm = EMV2Util.getContainingErrorBehaviorStateMachine(context);
+			if (ebsm == null) ebsm = EMV2Util.getUsedErrorBehaviorStateMachine(context);
+			return findErrorBehaviorTransitionInEBSM(ebsm, name);
+		}
+	}
+	
+	
+	/**
+	 * find the first subclause and look for this Use Behavior.
+	 * Since Use behavior is optional it might not find any 
+	 * It will not assume that Use Behavior is inherited
+	 * @param cl
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorTransition findErrorBehaviorTransitioninUseBehavior(Classifier cl, String name){
+		if (cl == null) return null;
+		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
+		// and then do a find on it.
+			ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
+			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+			if (ebsm != null){
+				return findErrorBehaviorTransitionInEBSM(ebsm, name);
+			}
+			return null;
+	}
+
+	
+	
+	/**
+	 * find transition in EBSM
+	 * @param ebsm
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorTransition findErrorBehaviorTransitionInEBSM(ErrorBehaviorStateMachine ebsm, String name){
+		if (ebsm != null){
+			EList<ErrorBehaviorTransition> ebsl= ebsm.getTransitions();
+			for (ErrorBehaviorTransition ebs : ebsl){
+				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+			}
+			// enable if we introduce extends of EBSM
+//			if (ebsm.getExtends() != null){
+//				return findErrorBehaviorTransitionInEBSM(ebsm.getExtends(), name);
+//			}
+		}
+		return null;
+	}
+	
+	/**
+	 * find the error behavior transition in the component error behavior looking in all inherited subclauses according to extends and type of implementation
+	 * @param cl
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorTransition findErrorBehaviorTransitioninCEB(Classifier cl, String name){
+		if (cl == null) return null;
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorTransition res = findOwnErrorBehaviorTransition(errorModelSubclause, name);
+			if (res != null) return res;
+		}
+		return null;
+	}
+
+	/**
+	 * find transition in given subclause component error behavior
+	 * @param ems
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorTransition findOwnErrorBehaviorTransition(ErrorModelSubclause ems, String name){
+		if (ems == null) return null;
+		ComponentErrorBehavior ceb = ems.getComponentBehavior();
+		if (ceb != null){
+			EList<ErrorBehaviorTransition> transitions = ceb.getTransitions();
+			for (ErrorBehaviorTransition errorBehaviorTransition : transitions) {
+				if (name.equalsIgnoreCase(errorBehaviorTransition.getName())) return errorBehaviorTransition;
+			}
+		}
+		return null;
+	}
+
+	public static ErrorBehaviorEvent findOwnErrorBehaviorEvent(ErrorModelSubclause ems, String name){
+		if (ems == null) return null;
+		ComponentErrorBehavior ceb = ems.getComponentBehavior();
+		if (ceb != null){
+			EList<ErrorBehaviorEvent> events = ceb.getEvents();
+			for (ErrorBehaviorEvent errorBehaviorEvent : events) {
+				if (name.equalsIgnoreCase(errorBehaviorEvent.getName())) return errorBehaviorEvent;
 			}
 		}
 		return null;
@@ -429,19 +863,308 @@ public class EM2Util {
 
 	
 	/**
-	 * return list of error sources
-	 * @param eps error propagations
-	 * @return EList<ErrorSource> list of error sources
+	 * find the error behavior event in the component error behavior looking in all inherited subclauses according to extends and type of implementation
+	 * @param cl
+	 * @param name
+	 * @return
 	 */
-	public static EList<ErrorSource> getErrorSources(ErrorPropagations eps){
-		EList<ErrorSource> result = new BasicEList<ErrorSource>();
-		EList<ErrorFlow> flows = eps.getFlows();
-		for (ErrorFlow errorFlow : flows) {
-			if (errorFlow instanceof ErrorSource)
-				result.add((ErrorSource)errorFlow);
+	public static ErrorBehaviorEvent findErrorBehaviorEventinCEB(Classifier cl, String name){
+		if (cl == null) return null;
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorEvent res = findOwnErrorBehaviorEvent(errorModelSubclause, name);
+			if (res != null) return res;
+		}
+		return null;
+	}
+
+	
+	/**
+	 * find error behavior event in the specified context, i.e., its enclosing classifier subclause or inherited subclauses
+	 * we look in the component error behavior sections first, and then in the EBSM of the use behavior.
+	 * @param context
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorEvent findErrorBehaviorEvent(Element context, String name){
+		Classifier cl = context.getContainingClassifier();
+		if (cl != null){
+			// we are not in an error library
+			ErrorBehaviorEvent ebt = findErrorBehaviorEventinCEB(cl, name);
+			if (ebt != null) return ebt;
+			// find it in the EBSM from the use behavior
+			return findErrorBehaviorEventinUseBehavior(cl, name);
+		} else {
+			// we are inside an error library resolving transition references
+			ErrorBehaviorStateMachine ebsm = EMV2Util.getContainingErrorBehaviorStateMachine(context);
+			if (ebsm == null) ebsm = EMV2Util.getUsedErrorBehaviorStateMachine(context);
+			return findErrorBehaviorEventInEBSM(ebsm, name);
+		}
+	}
+	
+	
+	
+	/**
+	 * find the first subclause and look for this Use Behavior.
+	 * Since Use behavior is optional it might not find any 
+	 * It will not assume that Use Behavior is inherited
+	 * @param cl
+	 * @param name
+	 * @return
+	 */
+	public static ErrorBehaviorEvent findErrorBehaviorEventinUseBehavior(Classifier cl, String name){
+		if (cl == null) return null;
+		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
+		// and then do a find on it.
+			ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
+			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+			if (ebsm != null){
+				return findErrorBehaviorEventInEBSM(ebsm, name);
+			}
+			return null;
+	}
+
+	
+	public static ErrorBehaviorEvent findErrorBehaviorEventInEBSM(ErrorBehaviorStateMachine ebsm, String name){
+		if (ebsm != null){
+			EList<ErrorBehaviorEvent> ebsl= ebsm.getEvents();
+			for (ErrorBehaviorEvent ebs : ebsl){
+				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+			}
+			// enable if we support extends of EBSM
+//			if (ebsm.getExtends() != null){
+//				return findErrorBehaviorEventInEBSM(ebsm.getExtends(), name);
+//			}
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * find Error Detection in own subclause component error behavior
+	 * @param ems
+	 * @param name
+	 * @return
+	 */
+	public static ErrorDetection findOwnErrorDetection(ErrorModelSubclause ems, String name){
+		if (ems == null) return null;
+		ComponentErrorBehavior ceb = ems.getComponentBehavior();
+		if (ceb != null){
+			EList<ErrorDetection> detections = ceb.getErrorDetections();
+			for (ErrorDetection errorDetection : detections) {
+				if (name.equalsIgnoreCase(errorDetection.getName())) return errorDetection;
+			}
+		}
+		return null;
+	}
+
+	
+	/**
+	 * find the error detection in the component error behavior looking in all inherited subclauses according to extends and type of implementation
+	 * @param cl
+	 * @param name
+	 * @return
+	 */
+	public static ErrorDetection findErrorDetectioninCEB(Classifier cl, String name){
+		if (cl == null) return null;
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorDetection res = findOwnErrorDetection(errorModelSubclause, name);
+			if (res != null) return res;
+		}
+		return null;
+	}
+
+	
+	/**
+	 * find error detection in the specified context, i.e., its enclosing classifier subclause or inherited subclauses
+	 * we look in the component error behavior sections .
+	 * @param context
+	 * @param name
+	 * @return
+	 */
+	public static ErrorDetection findErrorDetection(Element context, String name){
+		Classifier cl = context.getContainingClassifier();
+		if (cl != null){
+			// we are not in an error library
+			ErrorDetection ebt = findErrorDetectioninCEB(cl, name);
+			 return ebt;
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * find Error Detection in own subclause component error behavior
+	 * @param ems
+	 * @param name
+	 * @return
+	 */
+	public static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems, String name){
+		if (ems == null) return null;
+		ComponentErrorBehavior ceb = ems.getComponentBehavior();
+		if (ceb != null){
+			EList<OutgoingPropagationCondition> outgoingPs = ceb.getOutgoingPropagationConditions();
+			for (OutgoingPropagationCondition outgoingPropagationCondition : outgoingPs) {
+				if (name.equalsIgnoreCase(outgoingPropagationCondition.getName())) return outgoingPropagationCondition;
+			}
+		}
+		return null;
+	}
+
+	
+	/**
+	 * find the error detection in the component error behavior looking in all inherited subclauses according to extends and type of implementation
+	 * @param cl
+	 * @param name
+	 * @return
+	 */
+	public static OutgoingPropagationCondition findOutgoingPropagationConditioninCEB(Classifier cl, String name){
+		if (cl == null) return null;
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, name);
+			if (res != null) return res;
+		}
+		return null;
+	}
+
+	
+	/**
+	 * find error detection in the specified context, i.e., its enclosing classifier subclause or inherited subclauses
+	 * we look in the component error behavior sections .
+	 * @param context
+	 * @param name
+	 * @return
+	 */
+	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, String name){
+		Classifier cl = context.getContainingClassifier();
+		if (cl != null){
+			// we are not in an error library
+			return findOutgoingPropagationConditioninCEB(cl, name);
+		}
+		return null;
+	}
+
+
+	
+	/**
+	 * return list of error flow including those inherited from classifiers being extended
+	 * @param eps error propagations
+	 * @return Collection<ErrorFlow> list of error flow
+	 */
+	public static HashMap<String,ErrorFlow> getAllErrorFlows(Classifier cl){
+		HashMap<String,ErrorFlow> result = new HashMap<String,ErrorFlow>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getPropagation();
+			if (eps!= null){
+				EList<ErrorFlow> eflist = eps.getFlows();
+				for (ErrorFlow errorFlow : eflist) {
+					if (!result.containsKey(errorFlow.getName())){
+						result.put(errorFlow.getName(),errorFlow);
+					}
+				}
+			}
 		}
 		return result;
 	}
+
+	
+	/**
+	 * return list of error flow duplicates
+	 * @param eps error propagations
+	 * @return Collection<ErrorFlow> list of error flow
+	 */
+	public static HashMap<String,ErrorFlow> duplicateErrorFlows(Classifier cl){
+		HashMap<String,ErrorFlow> result = new HashMap<String,ErrorFlow>();
+		Collection<ErrorFlow> dup = new ArrayList<ErrorFlow>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getPropagation();
+			if (eps!= null){
+				EList<ErrorFlow> eflist = eps.getFlows();
+				for (ErrorFlow errorFlow : eflist) {
+					if (!result.containsKey(errorFlow.getName())){
+						result.put(errorFlow.getName(),errorFlow);
+					} else {
+						dup.add(errorFlow);
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * return list of error sources including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return HashMap<String,ErrorFlow> list of error flow as HashMap for quick lookup of names
+	 */
+	public static HashMap<String,ErrorSource> getAllErrorSources(Classifier cl){
+		HashMap<String,ErrorSource> result = new HashMap<String,ErrorSource>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getPropagation();
+			if (eps!= null){
+				EList<ErrorFlow> eflist = eps.getFlows();
+				for (ErrorFlow errorFlow : eflist) {
+					if (errorFlow instanceof ErrorSource && !result.containsKey(errorFlow.getName())){
+						result.put(errorFlow.getName(),(ErrorSource)errorFlow);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+
+	
+//	
+//	/**
+//	 * return list of error behavior event including those inherited from classifiers being extended
+//	 * @param cl classifier
+//	 * @return EList<ErrorBehaviorEvent> list of error behavior events
+//	 */
+//	public static EList<ErrorBehaviorEvent> getAllErrorBehaviorEvents(Classifier cl){
+//		ErrorModelSubclause ems = getContainingClassifierEMV2Subclause(cl);
+//		return getAllErrorBehaviorEvents(ems);
+//	}
+//
+//	
+//	/**
+//	 * return list of error behavior event including those inherited from classifiers being extended
+//	 * @param ems error model subclause
+//	 * @return EList<ErrorBehaviorEvent> list of error behavior events
+//	 */
+//	public static EList<ErrorBehaviorEvent> getAllErrorBehaviorEvents(ErrorModelSubclause ems){
+//		EList<ErrorBehaviorEvent> result = new UniqueEList<ErrorBehaviorEvent>();
+//		while (ems != null){
+//			result.addAll(getErrorBehaviorEvents(ems));
+//			ems = getContainingExtendsClassifierEMV2Subclause(ems);
+//		}
+//		ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+//		result.addAll(ebsm.getEvents());
+//		return result;
+//	}
+//
+//	
+//	@SuppressWarnings("unchecked")
+//	/**
+//	 * get error behavior events of the local ems only
+//	 * @param ems Error Model Subclause
+//	 * @return
+//	 */
+//	public static EList<ErrorBehaviorEvent> getErrorBehaviorEvents(ErrorModelSubclause ems){
+//		if (ems != null ){
+//			ComponentErrorBehavior ceb = ems.getComponentBehavior();
+//			if (ceb != null){
+//			return ceb.getEvents();
+//			}
+//		}
+//		return (EList<ErrorBehaviorEvent>) ECollections.EMPTY_ELIST;
+//	}
+	
 
 	/**
 	 * get the EM object that contains the condition expression.
@@ -497,52 +1220,6 @@ public class EM2Util {
 		return (TypeUseContext) container;
 	}
 	
-	
-	/**
-	 * get containing component error behavior specification
-	 * @param element
-	 * @return ComponentErrorBehavior or null
-	 */
-	public static ComponentErrorBehavior getContainingSubclauseComponentErrorBehavior(Element element){
-		ErrorModelSubclause emsc = getContainingErrorModelSubclause(element);
-		return emsc ==null?null:(ComponentErrorBehavior) emsc.getComponentBehavior();
-	}
-
-	/**
-	 * get containing component error behavior specification
-	 * @param element
-	 * @return ComponentErrorBehavior or null
-	 */
-	public static ComponentErrorBehavior getContainingComponentErrorBehavior(Element element){
-		EObject container = element;
-		while (container != null && !(container instanceof ComponentErrorBehavior))
-			container = container.eContainer();
-		return (ComponentErrorBehavior) container;
-	}
-
-	/**
-	 * get the error model subclause for the specified classifier.
-	 * Looks for it in classifier being extended if not found.
-	 * If not found there then look for it in the component type if the classifier was an implementation.
-	 * @param cl CLassifier
-	 * @return
-	 */
-	public static ErrorModelSubclause getErrorModelSubclause(Classifier cl){
-		if (cl == null) return null;
-		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
-		for (AnnexSubclause al : asl){
-			if (al instanceof ErrorModelSubclause){
-				return ((ErrorModelSubclause)al);
-			}
-		}
-		if (!Aadl2Util.isNull(cl.getExtended())){
-			return getErrorModelSubclause(cl.getExtended());
-		}
-		if (cl instanceof ComponentImplementation){
-			return getErrorModelSubclause(((ComponentImplementation)cl).getType());
-		}
-		return null;
-	}
 
 	/**
 	 * extract the item name from a qualified name, the identifier after the last ::
@@ -687,7 +1364,7 @@ public class EM2Util {
 	 */
 	public static ErrorTypes resolveAlias(ErrorTypes et){
 		if (Aadl2Util.isNull(et)) return null;
-		return (et instanceof ErrorType)?EM2Util.resolveAlias((ErrorType)et):EM2Util.resolveAlias((TypeSet)et);
+		return (et instanceof ErrorType)?EMV2Util.resolveAlias((ErrorType)et):EMV2Util.resolveAlias((TypeSet)et);
 	}
 	
 	/**
@@ -765,7 +1442,7 @@ public class EM2Util {
 		if (result==null&& localContext != null){
 			// look up in local context of target reference
 			// for example: the flow source in error propagations or transition in component error behavior for a state reference
-			EList<PropertyAssociation> props = EM2Util.getContainingPropertiesHolder(localContext);
+			EList<PropertyAssociation> props = EMV2Util.getContainingPropertiesHolder(localContext);
 			if (props != null) {
 				result = getProperty(props, propertyName, target,localContext,ts);
 			}
@@ -773,7 +1450,7 @@ public class EM2Util {
 		if (result==null){
 			// look up in context of target definition
 			// for example: for a state reference the properties section of the EBSM that defines the state
-			EList<PropertyAssociation> props = EM2Util.getContainingPropertiesHolder(target);
+			EList<PropertyAssociation> props = EMV2Util.getContainingPropertiesHolder(target);
 			if (props != null) {
 				result = getProperty(props, propertyName, target,localContext,ts);
 			}
@@ -808,7 +1485,7 @@ public class EM2Util {
 			ciStack.pop();
 		}
 		if (result==null){
-			ErrorModelSubclause ems = EM2Util.getContainingClassifierEMV2Subclause(ci.getComponentClassifier());
+			ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(ci.getComponentClassifier());
 			if (ems != null) {
 				EList<PropertyAssociation> props = ems.getProperties();
 				result = getProperty(props, propertyName, target, localContext,ciStack,ts);
@@ -835,7 +1512,7 @@ public class EM2Util {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)){
-				result = EM2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,ciStack,ts);
+				result = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,ciStack,ts);
 				if (result!=null)
 				return result;
 			}
@@ -859,7 +1536,7 @@ public class EM2Util {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)){
-				result = EM2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,null,ts);
+				result = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,null,ts);
 				if (result!=null)
 				return result;
 			}
@@ -958,13 +1635,18 @@ public class EM2Util {
 		return null;
 	}
 	
-	
+	/**
+	 * test only current classifier, not inherited
+	 * @param ci
+	 * @return
+	 */
 	public static boolean hasErrorPropagations(ComponentInstance ci){
 		return hasErrorPropagations(ci.getComponentClassifier());
 	}
 
 	public static boolean hasErrorPropagations(ComponentClassifier cl){
-		return EM2Util.getContainingClassifierErrorPropagations(cl) != null;
+		ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
+		return ems != null && ems.getPropagation() != null;
 	}
 	
 	public static boolean hasComponentErrorBehavior(ComponentInstance ci){
@@ -979,12 +1661,8 @@ public class EM2Util {
 	 * 				subclause. False otherwise.
 	 */
 	public static boolean hasComponentErrorBehavior(ComponentClassifier cl){
-		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
-		if(emsc != null)
-		{
-			return emsc.getComponentBehavior() != null;
-		}
-		return false;
+		ErrorModelSubclause emsc = getClassifierEMV2Subclause(cl);
+		return (emsc != null&& emsc.getComponentBehavior() != null);
 	}
 	
 	public static boolean hasCompositeErrorBehavior(ComponentInstance ci){
@@ -992,45 +1670,8 @@ public class EM2Util {
 	}
 	
 	public static boolean hasCompositeErrorBehavior(ComponentClassifier cl){
-		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
-		return emsc.getCompositeBehavior() != null;
-	}
-	
-	public static ErrorPropagations getErrorPropagations(ComponentInstance ci){
-		return getErrorPropagations(ci.getComponentClassifier());
-	}
-
-	public static ErrorPropagations getErrorPropagations(Classifier cl){
-		return EM2Util.getContainingClassifierErrorPropagations(cl);
-	}
-	
-	public static ComponentErrorBehavior getComponentErrorBehavior(ComponentInstance ci){
-		return getComponentErrorBehavior(ci.getComponentClassifier());
-	}
-	
-	public static ComponentErrorBehavior getComponentErrorBehavior(Classifier cl){
-		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
-		if (emsc != null) 
-		{
-			return emsc.getComponentBehavior();
-		}
-		return null;
-	}
-	
-	public static CompositeErrorBehavior getCompositeErrorBehavior(ComponentInstance ci){
-		return getCompositeErrorBehavior(ci.getComponentClassifier());
-	}
-	
-	public static CompositeErrorBehavior getCompositeErrorBehavior(Classifier cl){
-		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
-		if(emsc != null)
-		{
-			return emsc.getCompositeBehavior();
-		}
-		else
-		{
-			return null;
-		}
+		ErrorModelSubclause emsc = getClassifierEMV2Subclause(cl);
+		return emsc != null&&emsc.getCompositeBehavior() != null;
 	}
 	
 	/**
@@ -1047,7 +1688,7 @@ public class EM2Util {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance&&
-					(EM2Util.hasErrorPropagations((ComponentInstance)obj)
+					(EMV2Util.hasErrorPropagations((ComponentInstance)obj)
 							|| ((ComponentInstance)obj).getComponentInstances().isEmpty()
 							|| ((ComponentInstance)obj).getCategory() == ComponentCategory.PROCESS
 							));
@@ -1067,7 +1708,7 @@ public class EM2Util {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance&&
-					(EM2Util.hasErrorPropagations((ComponentInstance)obj)
+					(EMV2Util.hasErrorPropagations((ComponentInstance)obj)
 							));
 			}
 			@Override
@@ -1103,7 +1744,7 @@ public class EM2Util {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance&&
-					(EM2Util.hasComponentErrorBehavior((ComponentInstance)obj)
+					(EMV2Util.hasComponentErrorBehavior((ComponentInstance)obj)
 							|| ((ComponentInstance)obj).getComponentInstances().isEmpty()
 							|| ((ComponentInstance)obj).getCategory() == ComponentCategory.PROCESS
 							));
@@ -1124,7 +1765,7 @@ public class EM2Util {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance&&
-					(EM2Util.hasComponentErrorBehavior((ComponentInstance)obj)
+					(EMV2Util.hasComponentErrorBehavior((ComponentInstance)obj)
 							));
 			}
 			@Override
@@ -1161,7 +1802,7 @@ public class EM2Util {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance&&
-					(EM2Util.hasCompositeErrorBehavior((ComponentInstance)obj)
+					(EMV2Util.hasCompositeErrorBehavior((ComponentInstance)obj)
 							|| ((ComponentInstance)obj).getComponentInstances().isEmpty()
 							|| ((ComponentInstance)obj).getCategory() == ComponentCategory.PROCESS
 							));
@@ -1181,7 +1822,7 @@ public class EM2Util {
 			@Override
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance&&
-					(EM2Util.hasCompositeErrorBehavior((ComponentInstance)obj)
+					(EMV2Util.hasCompositeErrorBehavior((ComponentInstance)obj)
 							));
 			}
 			@Override

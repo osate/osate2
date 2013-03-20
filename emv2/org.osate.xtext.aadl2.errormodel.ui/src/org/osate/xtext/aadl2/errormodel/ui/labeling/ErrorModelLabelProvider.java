@@ -34,7 +34,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.inject.Inject;
 
@@ -86,7 +86,7 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 		  return "Type "+(ele.getName()!=null?ele.getName():"");
 		}
 	String text(TypeToken ele) {
-		  return EM2Util.getPrintName(ele);
+		  return EMV2Util.getPrintName(ele);
 		}
 
 
@@ -95,7 +95,7 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 		}
 	String text(ErrorPropagation ele) {
 		  return (ele.isNot()?"not ":"")+"propagation "+
-	EM2Util.getPrintName(ele)
+	EMV2Util.getPrintName(ele)
 	;
 		}
 	String text(ComponentErrorBehavior ele) {

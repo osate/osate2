@@ -34,6 +34,7 @@
 package org.osate.aadl2.errormodel.analysis.actions;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -61,6 +62,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
@@ -68,7 +70,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public final class FHAAction extends AaxlReadOnlyActionAsJob {
@@ -102,29 +104,27 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 	protected ContainedNamedElement getHazardProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result =  EM2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
+		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
 		return result;
 	}
 	protected ContainedNamedElement getSeverityProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result = EM2Util.getProperty("MILSTD882::Severity",ci,localContext,target,ts);
-		if (result==null)result = EM2Util.getProperty("ARP4761::Severity",ci,localContext,target,ts);
-		if (result==null)result = EM2Util.getProperty("EMV2::Severity",ci,localContext,target,ts);
+		ContainedNamedElement result = EMV2Util.getProperty("MILSTD882::Severity",ci,localContext,target,ts);
+		if (result==null)result = EMV2Util.getProperty("ARP4761::Severity",ci,localContext,target,ts);
+		if (result==null)result = EMV2Util.getProperty("EMV2::Severity",ci,localContext,target,ts);
 		return result;
 	}
 	
 	protected ContainedNamedElement getLikelihoodProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result = EM2Util.getProperty("MILSTD882::Likelihood",ci,localContext,target,ts);
-		if (result==null)result = EM2Util.getProperty("ARP4761::Likelihood",ci,localContext,target,ts);
-		if (result==null)result = EM2Util.getProperty("EMV2::Likelihood",ci,localContext,target,ts);
+		ContainedNamedElement result = EMV2Util.getProperty("MILSTD882::Likelihood",ci,localContext,target,ts);
+		if (result==null)result = EMV2Util.getProperty("ARP4761::Likelihood",ci,localContext,target,ts);
+		if (result==null)result = EMV2Util.getProperty("EMV2::Likelihood",ci,localContext,target,ts);
 		return result;
 	}
 	
 
 	protected void processHazards(ComponentInstance ci, WriteToFile report){
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		if (eps == null) return;
-		EList<ErrorSource> eslist = EM2Util.getErrorSources(eps);
-		for (ErrorSource errorSource : eslist) {
+		HashMap<String, ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
+		for (ErrorSource errorSource : eslist.values()) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
 			ContainedNamedElement PA = null;
@@ -196,7 +196,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			ContainedNamedElement SevContainmentPath,ContainedNamedElement LikeContainmentPath,
 			NamedElement target, TypeSet ts, NamedElement localContext,WriteToFile report){
 		
-		ErrorType targetType = EM2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
+		ErrorType targetType = EMV2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue){
@@ -208,19 +208,19 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				if (targetType==null){
 					if (ts != null){
 						for(TypeToken token: ts.getElementType()){
-							reportFHAEntry(report, fields, Severity, Likelihood, ci, EM2Util.getPrintName(target),EM2Util.getName(token));
+							reportFHAEntry(report, fields, Severity, Likelihood, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
 						}
 					} else {
 						// did not have a type set. Let's use fmr (state of type set as failure mode.
 						if (localContext == null){
-							reportFHAEntry(report, fields, Severity, Likelihood,ci, EM2Util.getPrintName(target),"");
+							reportFHAEntry(report, fields, Severity, Likelihood,ci, EMV2Util.getPrintName(target),"");
 						} else {
-							reportFHAEntry(report, fields, Severity, Likelihood,ci, EM2Util.getPrintName(localContext),EM2Util.getPrintName(target));
+							reportFHAEntry(report, fields, Severity, Likelihood,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
 						}
 					}
 				} else {
 					// property points to type
-					reportFHAEntry(report, fields,  Severity, Likelihood,ci,EM2Util.getPrintName(target), EM2Util.getPrintName(targetType));
+					reportFHAEntry(report, fields,  Severity, Likelihood,ci,EMV2Util.getPrintName(target), EMV2Util.getPrintName(targetType));
 				}
 			}
 		}

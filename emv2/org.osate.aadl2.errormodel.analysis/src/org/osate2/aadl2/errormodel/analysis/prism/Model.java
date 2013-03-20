@@ -9,7 +9,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
  * Class that implement a full PRISM model containing
@@ -69,8 +69,8 @@ public class Model
 	public void process ()
 	{
 		List<ComponentInstance> instances;
-		instances = EM2Util.getComponentInstancesWithComponentErrorBehavior(rootInstance);
-		instances.addAll (EM2Util.getComponentInstancesWithhasCompositeErrorBehaviorOnly(rootInstance));
+		instances = EMV2Util.getComponentInstancesWithComponentErrorBehavior(rootInstance);
+		instances.addAll (EMV2Util.getComponentInstancesWithhasCompositeErrorBehaviorOnly(rootInstance));
 
 		for (ComponentInstance instance : instances)
 		{

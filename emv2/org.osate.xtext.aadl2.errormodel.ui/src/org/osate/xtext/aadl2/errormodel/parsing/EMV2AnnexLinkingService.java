@@ -13,7 +13,7 @@ import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameProvider;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -43,7 +43,7 @@ public class EMV2AnnexLinkingService implements AnnexLinkingService{
 
 	public List<EObject> resolveAnnexReference(String annexName,
 			EObject context, EReference reference, INode node) {
-		if (annexName.equalsIgnoreCase(EM2Util.ErrorModelAnnexName)){
+		if (annexName.equalsIgnoreCase(EMV2Util.ErrorModelAnnexName)){
 		return getLinkingService().getLinkedObjects(context, reference, node) ;
 		} else {
 			return Collections.<EObject> emptyList();

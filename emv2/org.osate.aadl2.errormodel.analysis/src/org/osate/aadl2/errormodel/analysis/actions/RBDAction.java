@@ -58,11 +58,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	
@@ -112,9 +113,9 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			if (behaviorState != null)
 			{
 				//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-				ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
+				ContainedNamedElement PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
 				//OsateDebug.osateDebug("         PA " + PA);
-				result = EM2Util.getOccurenceValue (PA);
+				result = EMV2Util.getOccurenceValue (PA);
 			}
 		}
 		
@@ -169,10 +170,11 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		EList<ComponentInstance> 	componentInstances;
 		double						probabilityTemp;
 
-		ceb = EM2Util.getCompositeErrorBehavior (systemInstance);
+		ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(systemInstance.getComponentClassifier());
+		ceb = ems.getCompositeBehavior();
 		
-		componentInstances = EM2Util.getComponentInstancesWithErrorPropagations (systemInstance);
-		
+		componentInstances = EMV2Util.getComponentInstancesWithErrorPropagations (systemInstance);
+		// TODO may need to be updated to handle inherits from classifier extensions
 		states = ceb.getStates();
 		
 		probabilityTemp  = 0;
@@ -206,7 +208,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			monitor.done();
 		}
 		
-		if (! EM2Util.hasCompositeErrorBehavior (si))
+		if (! EMV2Util.hasCompositeErrorBehavior (si))
 		{
 			Dialog.showInfo("RDB", "Your system instance does not have a composite error behavior");	
 			monitor.done();
