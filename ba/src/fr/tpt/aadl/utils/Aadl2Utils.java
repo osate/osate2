@@ -492,12 +492,14 @@ public class Aadl2Utils
   }
   
   /**
+   * Convert a relative path of file or directory contained in a given plugin
+   * into a absolute path.  
    * 
-   * 
-   * @param pluginId
-   * @param relativePath
-   * @return
-   * @throws Exception
+   * @param pluginId the given plugin identification
+   * @param relativePath the relative path of file or directory
+   * @return the absolute path
+   * @throws Exception raised if the plugin is not found or the relative path
+   * points to nowhere
    */
   public static File getPluginFile(String pluginId, String relativePath) throws Exception
   {
