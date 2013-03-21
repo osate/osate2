@@ -22,7 +22,7 @@
 
 package DataStructPrototypeTest
 public
-   with Data_Model, Base_Types, DummyPropertySet, Dummy::Types, DummySubRoutine ;
+   with Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
 data MyInteger
 
@@ -236,8 +236,8 @@ variables
  localMyIntegerArray_C[10][10] : MyIntegerArray_B ;
  localOtherMyIntegerArray_B[10][10][10] : MyIntegerArray_A ;
  localMyEnum : MyEnum ;
- localDay : Dummy::Types::Days.v1 ;
- squareTab[130][DummyPropertySet::aConstant] : MyInteger ; 
+ localDay : AadlBaTest::Types::Days.v1 ;
+ squareTab[130][AadlBaTestPropertySet::aConstant] : MyInteger ; 
  
 states
  
@@ -398,7 +398,7 @@ transitions
 
 -- Enumeration literal  
  a -[]-> a {
-             localMyEnum := Dummy::Types::Days.v1#monday ;
+             localMyEnum := AadlBaTest::Types::Days.v1#monday ;
              localDay := MyEnum#monday ;
              localMyEnum := localDay
            } ;
@@ -585,3 +585,4 @@ transitions
 end MySubProgConcrete ;
 
 end DataStructPrototypeTest;
+

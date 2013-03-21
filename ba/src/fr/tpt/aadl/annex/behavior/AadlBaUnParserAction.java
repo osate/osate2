@@ -26,7 +26,7 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.annexsupport.AnnexUnparser;
 
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
-import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser;
+import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser ;
 
 public class AadlBaUnParserAction implements AnnexUnparser
 {

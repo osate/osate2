@@ -26,7 +26,7 @@
 package GroupTest
 public
 
-with Data_Model, Base_Types, DummyPropertySet, Dummy::Types, DummySubRoutine ;
+with Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
 subprogram procedure
 end procedure ;
@@ -88,7 +88,11 @@ end Struct.impl ;
 feature group MyPortGroup
   features
     outPort : out event data port Base_Types::Integer ;
+--  outPortArray : out event data port Base_Types::Integer [10];
+  
     inPort : in event data port Base_Types::Integer ;
+--  inPortArray : in event data port Base_Types::Integer [10];
+
     recursiveGrp : feature group MyPortGroup ;
 end MyPortGroup ;
 --------------------------------------------------------------------------------
@@ -97,6 +101,7 @@ feature group MyDataAccessGroup
 
 features
   dataAccess : requires data access Struct.impl ;
+--  dataAccessArray : requires data access Struct.impl [10];
   recursiveGrp : feature group MyDataAccessGroup ;
 end MyDataAccessGroup ;
 --------------------------------------------------------------------------------
@@ -132,12 +137,12 @@ feature group MyPrototypeGroup
   
     definedOutPort : out feature Base_Types::Integer ;
     definedInPort : in feature Base_Types::Integer ;
-    definedDataAccess : data Struct.impl;
-    definedSubprog : subprogram multiplication ;
+    definedDataAccess : data Struct.impl [];
+    definedSubprog : subprogram multiplication [] ;
   
     recursiveGrp : feature group  ;
-    subprogGrp : subprogram group ;
-    threadGrp : thread group ;
+    subprogGrp : subprogram group [] ;
+    threadGrp : thread group [] ;
 end MyPrototypeGroup ;
 --------------------------------------------------------------------------------
 feature group MyPrototGroupConcrete extends MyPrototypeGroup
@@ -199,7 +204,7 @@ thread thread1
     inPortArrayA : in event port[10] ;
     outPortArrayA : out event port[10] ;
   
-    fakePort : out data port Dummy::Types::Opaque ;
+    fakePort : out data port AadlBaTest::Types::Opaque ;
   
     dataAccess : requires data access Struct.impl ;
     dataAccessArray : requires data access Struct.impl [10] ;
@@ -255,9 +260,16 @@ annex behavior_specification
     
     a -[]-> a {outPortA := 0} ;
     a -[]-> a {portGrp.outPort := 0} ;
+    -- a -[]-> a {portGrp.outPortArray[0] := 0} ;
     a -[]-> a {portGrp.recursiveGrp.outPort := 0} ;
+    -- a -[]-> a {portGrp.recursiveGrp.outPortArray[0] := 0} ;
+    -- a -[]-> a {subprogGrp.portGrp.outPortArray[0] := 0} ;
     a -[]-> a {subprogGrp.portGrp.recursiveGrp.outPort := 0} ;
+    -- a -[]-> a {subprogGrp.portGrp.recursiveGrp.outPortArray[0] := 0} ;
+    -- a -[]-> a {subprogGrp.recursiveGrpAccess.portGrp.outPortArray[0] := 0} ;
     a -[]-> a {subprogGrp.recursiveGrpAccess.portGrp.recursiveGrp.outPort := 0} ;
+    -- a -[]-> a {subprogGrp.recursiveGrpAccess.portGrp.recursiveGrp.outPortArray[0] := 0} ;
+
 
     -- data and data access tests --
 
@@ -267,14 +279,19 @@ annex behavior_specification
     a -[]-> a {dataAccessArray[0].intArray[0][0] := 0} ;
 
     a -[]-> a {dataAccessGrp.dataAccess.int := 0} ;
+    -- a -[]-> a {dataAccessGrp.dataAccessArray[0].int := 0} ;
     a -[]-> a {dataAccessGrp.dataAccess.intArray[0][0] := 0} ;
+    -- a -[]-> a {dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
     a -[]-> a {subprogGrp.dataAccessGrp.dataAccess.intArray[0][0] := 0} ;
+    -- a -[]-> a {subprogGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
     
     -- a -[]-> a {subprogGrp.int := 0} ; NOT SUPPORTED YET BY OSATE
     -- a -[]-> a {subprogGrp.intArray[0][0] := 0} ; NOT SUPPORTED YET BY OSATE
     -- a -[]-> a {subprogGrp.myStruct[0].int := 0} ; NOT SUPPORTED YET BY OSATE
     -- a -[]-> a {subprogGrp.myStruct[0].intArray[0][0] := 0} ; NOT SUPPORTED YET BY OSATE
         
+    -- a -[]-> a {subprogGrp.recursive.dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
+    -- a -[]-> a {subprogGrp.recursiveGrpAccess.dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
     -- a -[]-> a {subprogGrp.recursive.myStruct[0].intArray[0][0] := 0} ; NOT SUPPORTED YET BY OSATE
     -- a -[]-> a {subprogGrp.recursiveGrpAccess.myStruct[0].intArray[0][0] := 0} ; NOT SUPPORTED YET BY OSATE    
     
@@ -293,15 +310,22 @@ annex behavior_specification
     a -[]-> a {x := portGrp.inPort 'count} ;
     a -[]-> a {bool1 := portGrp.inPort 'fresh} ;
     a -[]-> a {x := portGrp.inPort} ;
+    -- a -[]-> a {x := portGrp.inPortArray[0]} ;
     a -[]-> a {x := portGrp.recursiveGrp.inPort} ;
+    -- a -[]-> a {x := portGrp.recursiveGrp.inPortArray[0]} ;
 
     a -[]-> a {x := subprogGrp.portGrp.inPort ?} ;
     a -[]-> a {x := subprogGrp.portGrp.inPort 'count} ;
     a -[]-> a {bool1 := subprogGrp.portGrp.inPort 'fresh} ;
     a -[]-> a {x := subprogGrp.portGrp.inPort} ;
+    -- a -[]-> a {x := subprogGrp.portGrp.inPortArray[0]} ;
     a -[]-> a {x := subprogGrp.portGrp.recursiveGrp.inPort} ;
+    -- a -[]-> a {x := subprogGrp.portGrp.recursiveGrp.inPortArray[0]} ; 
     
+    -- a -[]-> a {x := subprogGrp.recursiveGrpAccess.portGrp.outPortArray[0]} ;
     a -[]-> a {x := subprogGrp.recursiveGrpAccess.portGrp.recursiveGrp.outPort'count} ;
+    -- a -[]-> a {x := subprogGrp.recursiveGrpAccess.portGrp.recursiveGrp.outPortArray[0]} ;
+    
  
     -- data and data access tests -- 
 
@@ -311,14 +335,19 @@ annex behavior_specification
     a -[]-> a {x := dataAccessArray[0].intArray[0][0]} ;
 
     a -[]-> a {x := dataAccessGrp.dataAccess.int} ;
+    -- a -[]-> a {x := dataAccessGrp.dataAccessArray[0].int} ;
     a -[]-> a {x := dataAccessGrp.dataAccess.intArray[0][0]} ;
+    -- a -[]-> a {x := dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
     
     a -[]-> a {x := subprogGrp.dataAccessGrp.dataAccess.intArray[0][0]} ;
+    -- a -[]-> a {x := subprogGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
     -- a -[]-> a {x := subprogGrp.int := 0} ; NOT SUPPORTED YET BY OSATE
     -- a -[]-> a {x := subprogGrp.intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
     -- a -[]-> a {x := subprogGrp.myStruct[0].int} ; NOT SUPPORTED YET BY OSATE
     -- a -[]-> a {x := subprogGrp.myStruct[0].intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
         
+    -- a -[]-> a {x := subprogGrp.recursive.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
+    -- a -[]-> a {x := subprogGrp.recursiveGrpAccess.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
     -- a -[]-> a {x := subprogGrp.recursive.myStruct[0].intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
     -- a -[]-> a {x := subprogGrp.recursiveGrpAccess.myStruct[0].intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
  
@@ -407,12 +436,15 @@ annex behavior_specification
     
     a -[]-> a {threadGrp.outPort := 0} ;
     a -[]-> a {threadGrp.portGrp.outPort := 0} ;
+    -- a -[]-> a {threadGrp.outPortArray[0] := 0} ;
+    -- a -[]-> a {threadGrp.portGrp.outPortArray[0] := 0} ;
     a -[]-> a {threadGrp.recursiveGrp.portGrp.outPort := 0} ;
     a -[]-> a {threadGrp.subprogGrpAccess.portGrp.outPort := 0} ;
    
     -- data and data access tests --
 
     a -[]-> a {threadGrp.dataAccessGrp.dataAccess.intArray[0][0] := 0} ;
+    -- a -[]-> a {threadGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
     -- a -[]-> a {threadGrp.int := 0} ; 
     -- a -[]-> a {threadGrp.intArray[0][0] := 0} ; 
     -- a -[]-> a {threadGrp.myStruct[0].int := 0} ; 
@@ -437,18 +469,25 @@ annex behavior_specification
     a -[]-> a {x := threadGrp.portGrp.inPort 'count} ;
     a -[]-> a {bool1 := threadGrp.portGrp.inPort 'fresh} ;
     a -[]-> a {x := threadGrp.portGrp.inPort} ;
+    -- a -[]-> a {x := threadGrp.portGrp.inPortArray[0]} ;
     a -[]-> a {x := threadGrp.portGrp.recursiveGrp.inPort} ;
+    -- a -[]-> a {x := threadGrp.portGrp.recursiveGrp.inPortArray[0]} ;
     a -[]-> a {x := threadGrp.recursiveGrp.portGrp.recursiveGrp.inPort} ;
+    -- a -[]-> a {x := threadGrp.recursiveGrp.portGrp.recursiveGrp.inPortArray[0]} ;
     a -[]-> a {x := threadGrp.subprogGrpAccess.portGrp.recursiveGrp.inPort} ;
+    -- a -[]-> a {x := threadGrp.subprogGrpAccess.portGrp.recursiveGrp.inPortArray[0]} ;
  
     -- data access tests -- 
 
     a -[]-> a {x := threadGrp.dataAccessGrp.dataAccess.intArray[0][0]} ;
+    -- a -[]-> a {x := threadGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
     -- a -[]-> a {x := threadGrp.int} ;
     -- a -[]-> a {x := threadGrp.intArray[0][0]} ;
     a -[]-> a {x := threadGrp.myStruct[0].int} ;
     a -[]-> a {x := threadGrp.myStruct[0].intArray[0][0]} ;
+    -- a -[]-> a {x := threadGrp.recursiveGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
     a -[]-> a {x := threadGrp.recursiveGrp.myStruct[0].intArray[0][0]} ;
+    -- a -[]-> a {x := threadGrp.subprogGrpAccess.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
     -- a -[]-> a {x := threadGrp.subprogGrpAccess.myStruct[0].intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
  
   -- communication action tests --

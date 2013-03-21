@@ -17,7 +17,7 @@
 -- along with this program.  If not, see 
 -- http://www.eclipse.org/org/documents/epl-v10.php
 
-package DummySubRoutine
+package AadlBaTestSubprogram
 public
    with Base_Types ;
 
@@ -40,4 +40,4 @@ subprogram implementation addition.impl
 
 end addition.impl;
 
-end DummySubRoutine ;
+end AadlBaTestSubprogram ;

@@ -15,10 +15,13 @@ Export-Package: fr.tpt.aadl.annex.behavior,
  fr.tpt.aadl.annex.behavior.parser,
  fr.tpt.aadl.annex.behavior.texteditor,
  fr.tpt.aadl.annex.behavior.unparser,
- fr.tpt.aadl.annex.behavior.utils
-Require-Bundle: org.osate.aadl2;bundle-version="1.0.0",
+ fr.tpt.aadl.annex.behavior.utils,
+ fr.tpt.aadl.annex.behavior.wizards
+Require-Bundle: org.eclipse.ui.ide;bundle-version="3.8.2",
+ org.osate.aadl2;bundle-version="1.0.0",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.annexsupport;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.osate.ui;bundle-version="1.0.0",
  fr.tpt.aadl.utils;bundle-version="0.9.5"
 Bundle-ActivationPolicy: lazy

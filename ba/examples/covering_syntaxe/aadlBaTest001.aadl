@@ -22,7 +22,7 @@
 
 package NamesResolutionTest
 public
-   with AADL_Project, Data_Model, Base_Types, DummyPropertySet, Dummy::Types, DummySubRoutine ;
+   with AADL_Project, Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
 subprogram procedure
 end procedure ;
@@ -106,7 +106,7 @@ features
   inPortArrayA : in event port[10] ;
   outPortArrayA : out event port[10] ;
   
-  fakePort : out data port Dummy::Types::Opaque ;
+  fakePort : out data port AadlBaTest::Types::Opaque ;
   
   dataAccess : requires data access MyInteger.impl ;
   dataAccess2 : requires data access MyInteger.impl2 ;
@@ -136,10 +136,10 @@ variables
  tmp, tmp0 : MyInteger ;
  tab[10] : MyInteger ;
  squareTab[10][10] : MyInteger ;
- tab2[DummyPropertySet::aConstant] : MyInteger ;
+ tab2[AadlBaTestPropertySet::aConstant] : MyInteger ;
  tmp1 : Base_Types::Integer ;
- tmp2 : Dummy::Types::Opaque ;
- tmp3 : Dummy::Types::Opaque.v1 ;
+ tmp2 : AadlBaTest::Types::Opaque ;
+ tmp3 : AadlBaTest::Types::Opaque.v1 ;
  tmp4 : MyInteger.impl ;
  bool1, bool2 : Base_Types::Boolean ;
  
@@ -161,7 +161,7 @@ transitions
  a -[]-> a ;
  a -[]-> a {tmp := 1} timeout 20 ms ;
  a -[]-> a {tmp := 1} timeout x ms ;
- a -[]-> a {tmp := 1} timeout DummyPropertySet::aConstant ms ;
+ a -[]-> a {tmp := 1} timeout AadlBaTestPropertySet::aConstant ms ;
  regular1: a -[]-> a ;
  regular2 [1] : a -[]-> a ;
  regular3 [1_2] : a -[]-> a ;
@@ -185,7 +185,7 @@ transitions
  a2 -[on dispatch timeout]-> a ;
  a2 -[on dispatch timeout 10 min]-> a ;
  a2 -[on dispatch timeout tab[x] min]-> a ;
- a2 -[on dispatch timeout DummyPropertySet::aConstant min]-> a ;
+ a2 -[on dispatch timeout AadlBaTestPropertySet::aConstant min]-> a ;
 
  -- Execute condition tests --
  
@@ -208,8 +208,8 @@ transitions
  a -[1+x > 0]-> a ;
  a -[+x * 0 = 0]-> a ;
  a -[1 /x > 0]-> a ;
- a -[DummyPropertySet::aConstant mod x > 0 or true]-> a ;
- a -[DummyPropertySet::aValue > 0 or bool1]-> a ;
+ a -[AadlBaTestPropertySet::aConstant mod x > 0 or true]-> a ;
+ a -[AadlBaTestPropertySet::aValue > 0 or bool1]-> a ;
  a -[+y rem x > 0]-> a ;
  a -[x < -y + 3 and bool1 or bool2]-> a ;
  a -[abs x > 2]-> a ;-- Remember a numeric_literal can't be negative. So "abs -1" and "abs +1" are aadl behavior annex syntax errors.
@@ -228,7 +228,7 @@ transitions
  a -[]-> a {tmp := 1 & x := 1 & y := 1} ;
  a -[]-> a {tmp := 1 ; x := 1 ; y := 1} timeout 100 ms;
  a -[]-> a {tmp := 1 & x := 1 & y := 1} timeout x ms; 
- a -[]-> c {tmp := 1} timeout DummyPropertySet::aValue ms; 
+ a -[]-> c {tmp := 1} timeout AadlBaTestPropertySet::aValue ms; 
    
    -- Basic action variations tests --
    
@@ -245,9 +245,9 @@ transitions
  a -[]-> a {multiplication.impl ! (0, 0, tmp)} ;
  a -[]-> a {NamesResolutionTest::procedure !} ;
  a -[]-> a {NamesResolutionTest::multiplication ! (0, 0, tmp)} ;
- a -[]-> a {DummySubRoutine::parameterLessProcedure !} ;
- a -[]-> a {DummySubRoutine::addition ! (1, 2, x)} ;
- a -[]-> a {DummySubRoutine::addition.impl ! (0, 1, x)} ;
+ a -[]-> a {AadlBaTestSubprogram::parameterLessProcedure !} ;
+ a -[]-> a {AadlBaTestSubprogram::addition ! (1, 2, x)} ;
+ a -[]-> a {AadlBaTestSubprogram::addition.impl ! (0, 1, x)} ;
  a -[]-> a {dataAccessArray[x].multiplicationAccess ! (1, 2, tmp)};
  a -[]-> a {dataAccess.multiplicationAccess ! (1, 2, tmp)} ;
  a -[]-> a {proto ! (1, 2, tmp)};
@@ -298,14 +298,14 @@ transitions
  a -[]-> a { for(i : Base_Types::Integer in inPortA) {tmp:=1} } ;
  a -[]-> a { for(i : MyInteger in tmp..tmp0) {tmp:= tmp0} } ;
  a -[]-> a { for(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
- a -[]-> a { for(i : Dummy::Types::Integer.v1 in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { for(i : AadlBaTest::Types::Integer.v1 in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { forall(i : Base_Types::Integer in 0_1 .. 9) {tmp:=1} } ;
  a -[]-> a { forall(i : Base_Types::Integer in 0 .. 9) {tmp:=1 ; tmp:=1} } ;
  a -[]-> a { forall(i : Base_Types::Integer in 0 .. 9) {tmp:=1 & x:=1} } ;
  a -[]-> a { forall(i : Base_Types::Integer in y .. 9) {tmp:=1} } ;
  a -[]-> a { forall(i : Base_Types::Integer in inPortA) {tmp:=1} } ;
  a -[]-> a { forall(i : Base_Types::Integer in 0 .. 9) {tmp:=1} } ;
- a -[]-> a { forall(i : Dummy::Types::Integer.v1 in 0 .. 9) {tmp:=1} } ;
+ a -[]-> a { forall(i : AadlBaTest::Types::Integer.v1 in 0 .. 9) {tmp:=1} } ;
  a -[]-> a { while(true) {tmp:=1} } ;
  a -[]-> a { while(bool1) {tmp:=1 ; tmp:=1} } ;
  a -[]-> a { while(bool1) {tmp:=1 & x:=1} } ;

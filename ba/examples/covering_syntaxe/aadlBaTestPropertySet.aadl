@@ -17,7 +17,7 @@
 -- along with this program.  If not, see 
 -- http://www.eclipse.org/org/documents/epl-v10.php
 
-property set DummyPropertySet is
+property set AadlBaTestPropertySet is
 
 aConstant : constant aadlinteger => 28 ;
 aValue : aadlinteger applies to (subprogram) ;
@@ -27,4 +27,4 @@ aFloatConstant : constant aadlreal => 42.1 ;
 aStringConstant : constant aadlstring => "hello world" ;
 aBooleanConstant : constant aadlboolean => true ;
 
-end DummyPropertySet;
+end AadlBaTestPropertySet;

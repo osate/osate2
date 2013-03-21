@@ -19,7 +19,7 @@
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
 
-package fr.tpt.aadl.annex.behavior ;
+package fr.tpt.aadl.annex.behavior;
 
 import org.antlr.runtime.CharStream ;
 import org.antlr.runtime.CommonTokenStream ;
@@ -32,7 +32,7 @@ import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter ;
 import org.osate.annexsupport.AnnexParser;
 
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
 import fr.tpt.aadl.annex.behavior.parser.AadlBaLexer ;
 import fr.tpt.aadl.annex.behavior.parser.AadlBaParser ;
 import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;

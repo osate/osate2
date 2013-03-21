@@ -17,7 +17,7 @@
 -- along with this program.  If not, see 
 -- http://www.eclipse.org/org/documents/epl-v10.php
 
-package Dummy::Types
+package AadlBaTest::Types
 
 public
   with Data_Model ;
@@ -55,4 +55,4 @@ public
   
   end Days.v2 ;  
   
-end Dummy::Types ;
+end AadlBaTest::Types ;

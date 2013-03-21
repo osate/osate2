@@ -19,7 +19,7 @@
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
 
-package fr.tpt.aadl.annex.behavior ;
+package fr.tpt.aadl.annex.behavior;
 
 import java.util.Iterator ;
 import java.util.List ;
