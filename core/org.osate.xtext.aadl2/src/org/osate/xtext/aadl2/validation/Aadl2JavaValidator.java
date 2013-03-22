@@ -2397,7 +2397,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else if (e instanceof SubprogramType){
 			if (containsNonSubprogramFeatures(fg.getAllFeatureGroupType())){
 				error(fg,
-						"Feature group in Subprogram Type can only contain Subprogram Access, Subprogram Group Access, Data Access, Abstract, Parameter, Data Port, Event Data Port features.");
+						"Feature group in Subprogram Type can only contain Subprogram Access, Subprogram Group Access, Data Access, Abstract, Parameter, Event Port, Event Data Port features.");
 			}
 		}
 		
