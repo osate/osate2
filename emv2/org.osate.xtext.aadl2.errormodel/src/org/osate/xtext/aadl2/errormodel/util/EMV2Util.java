@@ -543,7 +543,8 @@ public class EMV2Util {
 	 * @param name
 	 * @return ErrorFlow
 	 */
-	public static ErrorFlow findErrorFlow(Classifier cl, String name){
+	public static ErrorFlow findErrorFlow(Element el, String name){
+		Classifier cl= el.getContainingClassifier();
 		if (cl != null){
 			HashMap<String, ErrorFlow> efhashtab = getAllErrorFlows(cl);
 			return efhashtab.get(name);
@@ -1317,10 +1318,15 @@ public class EMV2Util {
 	/**
 	 * get the EBSM referenced in the enclosing context, i.e., by the
 	 * component error behavior or composite error behavior declaration
+	 * or contained in the element if it is a classifier.
 	 * @param element model object contained in a component or composite error behavior declaration
 	 * @return ErrorBehaviorStateMachine or null
 	 */
 	public static ErrorBehaviorStateMachine getUsedErrorBehaviorStateMachine(EObject element) {
+		if (element instanceof Classifier){
+			Classifier cl = (Classifier)element;
+			 return EMV2Util.getClassifierUseBehavior(cl);
+		}
 		EObject container = element;
 		while (container != null && !(container instanceof EBSMUseContext))
 			container = container.eContainer();
