@@ -342,7 +342,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				}
 				else
 				{
-					OsateDebug.osateDebug ("no memory associated");
+//					OsateDebug.osateDebug ("no memory associated");
 				}
 
 
