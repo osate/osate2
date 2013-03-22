@@ -17,7 +17,7 @@ Export-Package: fr.tpt.aadl.annex.behavior,
  fr.tpt.aadl.annex.behavior.unparser,
  fr.tpt.aadl.annex.behavior.utils,
  fr.tpt.aadl.annex.behavior.wizards
-Require-Bundle: org.eclipse.ui.ide;bundle-version="3.8.2",
+Require-Bundle: org.eclipse.ui.ide;bundle-version="3.8.0",
  org.osate.aadl2;bundle-version="1.0.0",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.annexsupport;bundle-version="1.0.0",
