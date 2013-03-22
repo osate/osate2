@@ -138,7 +138,6 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			ErrorBehaviorStateMachine errorBehavior = errorModelSubclause.getUseBehavior();
 			if (errorBehavior != null)
 			{
-				OsateDebug.osateDebug("[PRISM][Module.java] Process error behavior of " + ci.getName());
 	
 				for (ErrorBehaviorTransition trans : errorBehavior.getTransitions())
 				{
@@ -146,23 +145,18 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 					if (cond instanceof ConditionElement)
 					{
 						ConditionElement condElement = (ConditionElement)trans.getCondition();
-						OsateDebug.osateDebug("[PRISM][Module.java] incoming= " + condElement.getIncoming());
 						if (condElement.getIncoming() instanceof ErrorEvent)
 						{
 							ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
-							OsateDebug.osateDebug("[PRISM][Module.java] ev= " + errorEvent);
 							ContainedNamedElement PA = null;
 							ContainedNamedElement Sev = null;
 							ContainedNamedElement Like = null;
 							PA = getHazardProperty(ci, null,errorEvent,errorEvent.getTypeSet());
 							Sev = getSeverityProperty(ci, null,errorEvent,errorEvent.getTypeSet());
 							Like = getLikelihoodProperty(ci, null,errorEvent,errorEvent.getTypeSet());
-							OsateDebug.osateDebug("[PRISM][Module.java]    PA " + PA);
-							OsateDebug.osateDebug("[PRISM][Module.java]    Sev " + Sev);
-							OsateDebug.osateDebug("[PRISM][Module.java]    Like " + Like);
 							if ((PA != null) && (Sev != null) && (Like != null))
 							{
-								reportHazardProperty(ci, PA, Sev, Like, null, errorEvent.getTypeSet(), null,report);
+								reportHazardProperty(ci, PA, Sev, Like, null, errorEvent.getTypeSet(), errorEvent,report);
 							}
 						}
 						//condElement.getIncoming()
@@ -256,6 +250,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				RecordValue rv = (RecordValue)val;
 				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
 				// for all error types/aliases in type set or the element identified in the containment clause 
+
 				if (targetType==null){
 					if (ts != null){
 						for(TypeToken token: ts.getElementType()){
@@ -263,20 +258,20 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 						}
 					} else {
 						// did not have a type set. Let's use fmr (state of type set as failure mode.
+						String targetName;
+						if (target == null)
+						{
+							targetName = "";
+						}
+						else
+						{
+							targetName = EM2Util.getPrintName(target);
+						}
 						if (localContext == null)
 						{
-							String targetName;
-							if (target == null)
-							{
-								targetName = "unspecified target";
-							}
-							else
-							{
-								targetName = EM2Util.getPrintName(target);
-							}
 							reportFHAEntry(report, fields, Severity, Likelihood,ci, targetName,"");
 						} else {
-							reportFHAEntry(report, fields, Severity, Likelihood,ci, EM2Util.getPrintName(localContext),EM2Util.getPrintName(target));
+							reportFHAEntry(report, fields, Severity, Likelihood,ci, EM2Util.getPrintName(localContext),targetName);
 						}
 					}
 				} else {
