@@ -337,10 +337,15 @@ public class EM2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi){
-		ComponentInstance ci = fi.getContainingComponentInstance();
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		ErrorPropagation ep = EM2Util.findOutgoingErrorPropagation(eps, fi.getName());
-		return ep;
+		ComponentInstance ci = null;
+		ErrorPropagations eps = null;
+		ci = fi.getContainingComponentInstance();
+		eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
+		if (eps != null)
+		{
+			return EM2Util.findOutgoingErrorPropagation(eps, fi.getName());
+		}
+		return null;
 	}
 	
 	/**
@@ -349,9 +354,16 @@ public class EM2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
-		ComponentInstance ci = fi.getContainingComponentInstance();
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		ErrorPropagation ep = EM2Util.findIncomingErrorPropagation(eps, fi.getName());
+		ComponentInstance ci = null;
+		ErrorPropagation ep = null;
+		ErrorPropagations eps = null;
+		
+		ci = fi.getContainingComponentInstance();
+		eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
+		if (eps != null)
+		{
+			ep = EM2Util.findIncomingErrorPropagation(eps, fi.getName());
+		}
 		return ep;
 	}
 	
