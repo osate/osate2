@@ -102,9 +102,27 @@ public class DeploymentHelper {
 		
 		runtimePartition = GetProperties.getActualProcessorBinding (partition).get(0);
 		
-		modulePartition = runtimePartition.getContainingComponentInstance();
+		/**
+		 * If we have a virtual processor, we return the containing component
+		 * (the processor) that is the module.
+		 */
+		if (runtimePartition.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+		{
+			return runtimePartition.getContainingComponentInstance();
+		}
 		
-		return modulePartition;
+		/**
+		 * If we have a processor, we return it directly.
+		 */		
+		if (runtimePartition.getCategory() == ComponentCategory.PROCESSOR)
+		{
+			return runtimePartition;
+		}
+		
+		/**
+		 * If we do not have a processor or a virtual processor, we return null
+		 */
+		return null;
 		
 	}
 	

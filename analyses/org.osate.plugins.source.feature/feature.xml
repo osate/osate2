@@ -84,6 +84,13 @@
          unpack="false"/>
    
    <plugin
+         id="org.osate.importer.lattix.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
          id="org.osate.analysis.lute.source"
          download-size="0"
          install-size="0"

@@ -58,6 +58,7 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.arinc653.helpers.DeploymentHelper;
 import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
 import org.osate.analysis.arinc653.utils.Preferences;
@@ -182,11 +183,11 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 				receiverLatency			= 0;
 				latency     			= 0;
 
-				System.out.println ("[ConnectionLatency] connection detected" + ci + "|" + ci.getSource().getContainingComponentInstance() + "|" + ci.getDestination().getContainingComponentInstance());
+				OsateDebug.osateDebug ("[ConnectionLatency] connection detected" + ci + "|" + ci.getSource().getContainingComponentInstance() + "|" + ci.getDestination().getContainingComponentInstance());
 
 				if (ci.getKind() != ConnectionKind.PORT_CONNECTION)
 				{
-					System.out.println ("[ConnectionLatency] connection not a port");
+					OsateDebug.osateDebug ("[ConnectionLatency] connection not a port");
 
 					return DONE;
 				}
@@ -197,36 +198,43 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 				{
 					compSource 	= ref.getSource().getContainingComponentInstance();
 					compDest 	= ref.getDestination().getContainingComponentInstance();
-					System.out.println ("[ConnectionLatency] source=" + compSource);
-					System.out.println ("[ConnectionLatency] dest  =" + compDest);
+ 
+					//OsateDebug.osateDebug ("[ConnectionLatency] source=" + compSource);
+					//OsateDebug.osateDebug ("[ConnectionLatency] dest  =" + compDest);
 
 					if ((compSource == null) || (compDest == null))
 					{
 						continue;
 					}
-					
-					if ((compSource.getCategory() == ComponentCategory.PROCESS) )
+					if ((compSource == null) || (compDest == null))
 					{
-						partitionSource = compSource;
-
+						continue;
 					}
 					
-					if ((compDest.getCategory() == ComponentCategory.PROCESS) )
+					
+					if (((compSource.getCategory() != ComponentCategory.PROCESS) ||
+						(compDest.getCategory() != ComponentCategory.PROCESS) 	) &&
+						((compSource.getCategory() != ComponentCategory.SYSTEM) ||
+						 (compDest.getCategory() != ComponentCategory.SYSTEM) 	)) 
 					{
+						continue;
+					}
+					
+					partitionSource = compSource;
 						partitionDest = compDest;
 
-					}
+					
 				}
-				
+	
 				
 				if ( (partitionSource == null) || (partitionDest == null))
 				{
-					System.out.println ("[ConnectionLatency] connection " + ci + " : source and/or destination partitions not found");
+					OsateDebug.osateDebug ("[ConnectionLatency] connection " + ci + " : source and/or destination partitions not found");
 
 					return DONE;
 				}
 
-				System.out.println ("[ConnectionLatency] connection between " + partitionSource + " and " + partitionDest);
+				OsateDebug.osateDebug ("[ConnectionLatency] connection between " + partitionSource + " and " + partitionDest);
 				try
 				{
 					partitionsOnSameProcessor = DeploymentHelper.sameProcessor(partitionSource, partitionDest);
@@ -325,7 +333,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 				}
 				else
 				{
-					System.out.println ("[ConnectionLatency] Partitions are on a different processor");
+					OsateDebug.osateDebug ("[ConnectionLatency] Partitions are on a different processor");
 
 					/*
 					 * Suite of the if/else : connection is separated
@@ -336,6 +344,18 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 					processorSource = DeploymentHelper.getModule (partitionSource);
 					processorDest   = DeploymentHelper.getModule (partitionDest);
 
+					if (processorSource.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)
+					{
+						OsateDebug.osateDebug ("[ConnectionLatency] Processor source is not a virtual processor");
+						return DONE;
+					}
+					
+					if (processorDest.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)
+					{
+						OsateDebug.osateDebug ("[ConnectionLatency] Processor dest is not a virtual processor");
+						return DONE;
+					}
+					
 					try
 					{
 						//	System.out.println ("get="+ GetProperties.getActualConnectionBinding (ci).get(0));
@@ -351,13 +371,20 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						{
 							connectionBusName = "invalid bus";
 						}
+						
+						
+						OsateDebug.osateDebug ("[ConnectionLatency] Bus name " + connectionBusName);
+						OsateDebug.osateDebug ("[ConnectionLatency] PART src " + partitionSource);
+						OsateDebug.osateDebug ("[ConnectionLatency] PART dst " + partitionDest);
+						OsateDebug.osateDebug ("[ConnectionLatency] CPU src " + processorSource);
+						OsateDebug.osateDebug ("[ConnectionLatency] CPU dst " + processorDest);
 						deviceSource = DeploymentHelper.getDeviceConnected (processorSource, connectionBusName);
 						deviceDestination = DeploymentHelper.getDeviceConnected (processorDest, connectionBusName);
+						
+							OsateDebug.osateDebug ("[ConnectionLatency] Device source " + deviceSource);
+							OsateDebug.osateDebug ("[ConnectionLatency] Device dest " + deviceDestination);
+
 						connectionBus = DeploymentHelper.getConnectedBus (deviceSource);
-						//	System.out.println ("[ConnectionLatency] Device source " + deviceSource);
-						//	System.out.println ("[ConnectionLatency] Device dest " + deviceDestination);
-
-
 						busLatency = GetProperties.getLatencyinMilliSec (connectionBus);
 					}
 					catch (Exception e)
@@ -365,7 +392,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						deviceSource = null;
 						deviceDestination = null;
 						busLatency = 0;
-						//	System.out.println ("[ConnectionLatency] Exception while trying to get informations about devices/buses" );
+						OsateDebug.osateDebug ("[ConnectionLatency] Exception while trying to get informations about devices/buses" );
 						e.printStackTrace();
 
 					}
