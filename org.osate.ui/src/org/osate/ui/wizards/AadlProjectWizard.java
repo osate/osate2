@@ -82,7 +82,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  */
 public class AadlProjectWizard extends BasicNewResourceWizard implements IExecutableExtension {
 
-	private WizardNewProjectReferencePage referencePage;
+	protected WizardNewProjectReferencePage referencePage;
 
 	/**
 	 */
@@ -123,7 +123,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	private IConfigurationElement configElement;
 
 	//cache of newly-created project
-	private IProject newProject;
+	protected IProject newProject;
 
 	/**
 	 * This is the project creation page.
@@ -288,7 +288,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	 * @exception OperationCanceledException
 	 *                if the operation is canceled
 	 */
-	void createProject(IProjectDescription description, IProject projectHandle, IProgressMonitor monitor)
+	protected void createProject(IProjectDescription description, IProject projectHandle, IProgressMonitor monitor)
 			throws CoreException, OperationCanceledException {
 		try {
 			monitor.beginTask("", 2000);//$NON-NLS-1$
@@ -396,7 +396,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		BasicNewProjectResourceWizard.updatePerspective(configElement);
 	}
 
-	class AADLWizardReferencePage extends WizardNewProjectReferencePage {
+	protected class AADLWizardReferencePage extends WizardNewProjectReferencePage {
 
 		public AADLWizardReferencePage(String pageName) {
 			super(pageName);
