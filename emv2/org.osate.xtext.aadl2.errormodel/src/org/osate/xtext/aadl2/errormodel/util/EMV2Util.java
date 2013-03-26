@@ -395,12 +395,14 @@ public class EMV2Util {
 				if (ep.isNot() == isNot&& (dir == null ||ep.getDirection()== dir)){
 					// do we need to check (context instanceof QualifiedObservableErrorPropagationPoint)
 					EList<FeatureReference> refs = ep.getFeaturerefs();
-					FeatureReference fref = refs.get(refs.size()-1);
-					Feature f = fref.getFeature(); 
+					if (!refs.isEmpty()){
+						FeatureReference fref = refs.get(refs.size()-1);
+						Feature f = fref.getFeature(); 
 						if (!Aadl2Util.isNull(f) && f.getName().equalsIgnoreCase(name)) return ep;
-						String kind = ep.getKind();
-						if (kind != null && kind.equalsIgnoreCase(name)&&
-								(dir == null||dir.equals(ep.getDirection()))) return ep;
+					}
+					String kind = ep.getKind();
+					if (kind != null && kind.equalsIgnoreCase(name)&&
+							(dir == null||dir.equals(ep.getDirection()))) return ep;
 					String observe = ep.getName();
 					if (ep.isObservable() && observe != null &&  observe.equalsIgnoreCase(name)) return ep;
 				}

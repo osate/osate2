@@ -128,8 +128,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 			}
 		} else if (Aadl2Package.eINSTANCE.getFeature() == requiredType) {
 			if (context instanceof FeatureReference){
-				// XXX TODO resolve feature
-				searchResult = findErrorType(cxt, name);
+				Classifier cl = AadlUtil.getContainingClassifier(context);
+				NamedElement ne = cl.findNamedElement(name);
+				if (ne instanceof Feature)searchResult = ne; 
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType) {
 			searchResult = findErrorType(cxt, name);
