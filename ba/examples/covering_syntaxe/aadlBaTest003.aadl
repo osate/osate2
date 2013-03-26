@@ -292,7 +292,8 @@ transitions
 
  a -[]-> a {
               requiresAccessProto.myInt := any ;
-              requiresAccessProto.myStruct_A.int := any
+              requiresAccessProto.myStruct_A.int := any ;
+              requiresAccessProto.myInt := providesAccessProto.myInt
            } ;
  
       -- port feature
@@ -585,4 +586,3 @@ transitions
 end MySubProgConcrete ;
 
 end DataStructPrototypeTest;
-

@@ -1654,6 +1654,10 @@ public class AadlBaUtils {
         }
       }
     }
+    else if(fpa instanceof FeatureGroupPrototypeActual)
+    {
+      return FeatureType.FEATURE_GROUP_PROTOTYPE ;
+    }
     else
     {
       // Reports error.
