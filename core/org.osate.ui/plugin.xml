@@ -218,6 +218,11 @@
             id="org.osate.Wizard.category.ID"
             name="%_Aadl_Wizard_category">
       </category>
+      <category
+            id="org.osate.Wizard.category.examples"
+            name="Aadl Examples"
+            parentCategory="org.eclipse.ui.Examples">
+      </category>
       <wizard
             id="org.osate.ui.wizards.AadlProjectWizardID"
             name="%_UI_AadlProjectWizard_label"
