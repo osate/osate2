@@ -128,12 +128,12 @@ public class BehaviorAnnexItemProvider
    * This returns BehaviorAnnex.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BehaviorAnnex"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "ba_logo_16.gif" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

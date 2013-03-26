@@ -206,12 +206,12 @@ public class BehaviorTransitionItemProvider
    * This returns BehaviorTransition.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BehaviorTransition"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "transition_16" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

@@ -120,12 +120,12 @@ public class BehaviorVariableHolderItemProvider
    * This returns BehaviorVariableHolder.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BehaviorVariableHolder"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "variable_16.gif" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

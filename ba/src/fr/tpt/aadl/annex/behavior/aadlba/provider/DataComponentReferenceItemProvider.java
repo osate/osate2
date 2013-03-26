@@ -120,12 +120,12 @@ public class DataComponentReferenceItemProvider
    * This returns DataComponentReference.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/DataComponentReference"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "dcr_16.gif";
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

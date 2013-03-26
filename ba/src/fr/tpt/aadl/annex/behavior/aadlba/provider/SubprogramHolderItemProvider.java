@@ -85,7 +85,8 @@ public class SubprogramHolderItemProvider
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramHolder"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH + "Subprogram.gif";
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

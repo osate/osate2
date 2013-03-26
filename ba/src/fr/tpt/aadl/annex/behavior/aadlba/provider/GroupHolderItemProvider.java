@@ -40,6 +40,9 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.osate.aadl2.ThreadGroup ;
+import org.osate.aadl2.FeatureGroup ;
+import org.osate.aadl2.NamedElement ;
 
 /**
  * This is the item provider adapter for a {@link fr.tpt.aadl.annex.behavior.aadlba.GroupHolder} object.
@@ -145,12 +148,26 @@ public class GroupHolderItemProvider
    * This returns GroupHolder.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/GroupHolder"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH ;
+    
+    GroupHolder holder = (GroupHolder) object ;
+    
+    NamedElement group = holder.getGroup() ;
+    
+    if(group instanceof ThreadGroup)
+      imgFile += "ThreadGroup.gif" ;
+    else if (group instanceof FeatureGroup)
+      imgFile += "FeatureGroup.gif" ;
+    else // SubprogramGroup and SubprogramGroupAccess cases.
+    {
+      imgFile += "Subprogram.gif" ;
+    }
+    
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

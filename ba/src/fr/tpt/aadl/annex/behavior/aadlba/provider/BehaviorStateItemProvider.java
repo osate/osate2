@@ -182,12 +182,36 @@ public class BehaviorStateItemProvider
    * This returns BehaviorState.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BehaviorState"));
+BehaviorState state = (BehaviorState) object ;
+    byte code = 0 ;
+    String imgFile = null ;
+    
+    if(state.isInitial())
+      code = 1 ;
+    
+    if(state.isComplete())
+      code += 10 ;
+    
+    if(state.isFinal())
+      code += 100 ;
+    
+    switch (code)
+    {
+      case 0 : {imgFile = BehaviorElementItemProvider.IMG_PATH + "e_state_16" ; break ;}
+      case 1 : {imgFile = BehaviorElementItemProvider.IMG_PATH + "i_state_16" ; break ;}
+      case 10 : {imgFile = BehaviorElementItemProvider.IMG_PATH + "c_state_16" ; break ;}
+      case 11 : {imgFile = BehaviorElementItemProvider.IMG_PATH + "ic_state_16" ; break ;}
+      case 100 : {imgFile = BehaviorElementItemProvider.IMG_PATH + "f_state_16" ; break ;}
+      case 101 : {imgFile = BehaviorElementItemProvider.IMG_PATH + "if_state_16" ; break ;}
+      case 110 : {imgFile = BehaviorElementItemProvider.IMG_PATH + "cf_state_16" ; break ;}
+      case 111 : {imgFile = BehaviorElementItemProvider.IMG_PATH + "icf_state_16" ; break ;}
+    }
+    
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

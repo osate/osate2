@@ -33,6 +33,8 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
+import fr.tpt.aadl.annex.behavior.aadlba.EventDataPortHolder ;
+
 /**
  * This is the item provider adapter for a {@link fr.tpt.aadl.annex.behavior.aadlba.EventDataPortHolder} object.
  * <!-- begin-user-doc -->
@@ -80,12 +82,22 @@ public class EventDataPortHolderItemProvider
    * This returns EventDataPortHolder.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/EventDataPortHolder"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH ;
+    
+    EventDataPortHolder holder = (EventDataPortHolder) object ;
+    switch (holder.geteventDataPort().getDirection())
+    {
+      default :
+      case IN : {imgFile += "InEventDataPort.gif" ; break ;}
+      case OUT : {imgFile += "OutEventDataPort.gif" ; break ;}
+      case IN_OUT : {imgFile += "InOutEventDataPort.gif" ; break ;}
+    }
+    
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

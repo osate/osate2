@@ -86,12 +86,12 @@ public class BehaviorBooleanLiteralItemProvider
    * This returns BehaviorBooleanLiteral.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BehaviorBooleanLiteral"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH + "Literal.gif" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

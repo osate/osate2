@@ -20,21 +20,27 @@
 package fr.tpt.aadl.annex.behavior.aadlba.provider;
 
 
-import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
+import java.util.Collection ;
+import java.util.List ;
 
-import java.util.Collection;
-import java.util.List;
+import org.eclipse.emf.common.notify.AdapterFactory ;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory ;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider ;
+import org.eclipse.emf.edit.provider.IItemLabelProvider ;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor ;
+import org.eclipse.emf.edit.provider.IItemPropertySource ;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider ;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider ;
+import org.osate.aadl2.ComponentPrototypeBinding ;
+import org.osate.aadl2.FeatureGroupPrototypeBinding ;
+import org.osate.aadl2.FeaturePrototypeBinding ;
+import org.osate.aadl2.PrototypeBinding ;
 
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage ;
+import fr.tpt.aadl.annex.behavior.aadlba.FeatureType ;
+import fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder ;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 
 /**
  * This is the item provider adapter for a {@link fr.tpt.aadl.annex.behavior.aadlba.GroupPrototypeHolder} object.
@@ -107,12 +113,45 @@ public class GroupPrototypeHolderItemProvider
    * This returns GroupPrototypeHolder.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/GroupPrototypeHolder"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH ;
+    
+    PrototypeHolder holder = (PrototypeHolder) object ;
+    
+    PrototypeBinding pb = holder.getPrototypeBinding() ;
+    
+    if(pb != null)
+    {
+      FeatureType type = FeatureType.ABSTRACT_FEATURE ;
+      
+      if(pb instanceof ComponentPrototypeBinding)
+      {
+        type = AadlBaUtils.getCompPrototypeType((ComponentPrototypeBinding) pb) ;
+      }
+      else if(pb instanceof FeatureGroupPrototypeBinding)
+      {
+        type = FeatureType.FEATURE_GROUP_PROTOTYPE ;
+      }
+      else if (pb instanceof FeaturePrototypeBinding)
+      {
+        type = AadlBaUtils.getFeatPrototypeType((FeaturePrototypeBinding)pb) ;
+      }
+      
+      switch (type)
+      {
+        case FEATURE_GROUP_PROTOTYPE : {imgFile += "FeatureGroup.gif" ; break;}
+        case THREAD_GROUP_PROTOTYPE : {imgFile += "ThreadGroup.gif" ; break;}
+        case REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:
+        case PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:  
+        case SUBPROGRAM_GROUP_PROTOTYPE : {imgFile += "Subprogram.gif" ; break;}
+        default : imgFile = "full/obj16/IfStatement" ;
+      }
+    }
+    
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

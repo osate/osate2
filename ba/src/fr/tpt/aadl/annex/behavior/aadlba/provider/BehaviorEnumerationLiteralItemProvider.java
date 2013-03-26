@@ -131,12 +131,12 @@ public class BehaviorEnumerationLiteralItemProvider
    * This returns BehaviorEnumerationLiteral.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BehaviorEnumerationLiteral"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH + "Literal.gif" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

@@ -121,12 +121,22 @@ public class DataAccessHolderItemProvider
    * This returns DataAccessHolder.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/DataAccessHolder"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH ;
+    
+    DataAccessHolder holder = (DataAccessHolder) object ;
+    
+    switch(holder.getDataAccess().getKind())
+    {
+      case PROVIDES : {imgFile += "ProvidesDataAccess.gif" ; break ;}
+      default :
+      case REQUIRES : {imgFile += "RequiresDataAccess.gif" ; break ;}
+    }
+    
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

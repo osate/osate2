@@ -20,21 +20,24 @@
 package fr.tpt.aadl.annex.behavior.aadlba.provider;
 
 
-import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
+import java.util.Collection ;
+import java.util.List ;
 
-import java.util.Collection;
-import java.util.List;
+import org.eclipse.emf.common.notify.AdapterFactory ;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory ;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider ;
+import org.eclipse.emf.edit.provider.IItemLabelProvider ;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor ;
+import org.eclipse.emf.edit.provider.IItemPropertySource ;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider ;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider ;
+import org.osate.aadl2.DirectionType ;
+import org.osate.aadl2.FeaturePrototypeBinding ;
+import org.osate.aadl2.PortSpecification ;
 
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage ;
+import fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder ;
 
 /**
  * This is the item provider adapter for a {@link fr.tpt.aadl.annex.behavior.aadlba.PortPrototypeHolder} object.
@@ -107,12 +110,35 @@ public class PortPrototypeHolderItemProvider
    * This returns PortPrototypeHolder.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/PortPrototypeHolder"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH ;
+    DirectionType type = null ;
+    
+    PrototypeHolder holder = (PrototypeHolder) object ;
+    
+    FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) 
+                                                  holder.getPrototypeBinding() ;
+    if(fpb != null)
+    {
+      type = ((PortSpecification)fpb.getActual()).getDirection();
+    }
+    else
+    {
+      type = DirectionType.IN ;
+    }
+    
+    switch (type)
+    {
+      default :
+      case IN : {imgFile += "InDataPort.gif" ; break ;}
+      case OUT : {imgFile += "OutDataPort.gif" ; break ;}
+      case IN_OUT : {imgFile += "InOutDataPort.gif" ; break ;}
+    }
+    
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

@@ -52,6 +52,9 @@ public class BehaviorElementItemProvider
     IItemLabelProvider,
     IItemPropertySource
 {
+  public static String IMG_PATH = "full/obj16/" ;
+  public static String OSATE_IMG_PATH = IMG_PATH + "from_osate/" ;
+  
   /**
    * This constructs an instance from a factory and a notifier.
    * <!-- begin-user-doc -->

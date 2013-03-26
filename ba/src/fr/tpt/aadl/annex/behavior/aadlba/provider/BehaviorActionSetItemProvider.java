@@ -120,12 +120,12 @@ public class BehaviorActionSetItemProvider
    * This returns BehaviorActionSet.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/BehaviorActionSet"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "action_16.gif";
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

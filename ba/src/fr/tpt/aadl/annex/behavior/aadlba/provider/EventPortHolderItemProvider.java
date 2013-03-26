@@ -20,18 +20,19 @@
 package fr.tpt.aadl.annex.behavior.aadlba.provider;
 
 
-import java.util.Collection;
-import java.util.List;
+import java.util.Collection ;
+import java.util.List ;
 
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.AdapterFactory ;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider ;
+import org.eclipse.emf.edit.provider.IItemLabelProvider ;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor ;
+import org.eclipse.emf.edit.provider.IItemPropertySource ;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider ;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider ;
 
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import fr.tpt.aadl.annex.behavior.aadlba.EventPortHolder ;
 
 /**
  * This is the item provider adapter for a {@link fr.tpt.aadl.annex.behavior.aadlba.EventPortHolder} object.
@@ -80,12 +81,22 @@ public class EventPortHolderItemProvider
    * This returns EventPortHolder.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/EventPortHolder"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH ;
+    
+    EventPortHolder holder = (EventPortHolder) object ;
+    switch (holder.getEventPort().getDirection())
+    {
+      default :
+      case IN : {imgFile += "InEventPort.gif" ; break ;}
+      case OUT : {imgFile += "OutEventPort.gif" ; break ;}
+      case IN_OUT : {imgFile += "InOutEventPort.gif" ; break ;}
+    }
+    
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

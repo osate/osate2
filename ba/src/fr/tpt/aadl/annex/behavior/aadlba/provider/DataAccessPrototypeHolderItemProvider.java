@@ -20,26 +20,28 @@
 package fr.tpt.aadl.annex.behavior.aadlba.provider;
 
 
-import fr.tpt.aadl.annex.behavior.aadlba.AadlBaFactory;
-import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
-import fr.tpt.aadl.annex.behavior.aadlba.DataAccessPrototypeHolder;
+import java.util.Collection ;
+import java.util.List ;
 
-import java.util.Collection;
-import java.util.List;
+import org.eclipse.emf.common.notify.AdapterFactory ;
+import org.eclipse.emf.common.notify.Notification ;
+import org.eclipse.emf.ecore.EStructuralFeature ;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory ;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider ;
+import org.eclipse.emf.edit.provider.IItemLabelProvider ;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor ;
+import org.eclipse.emf.edit.provider.IItemPropertySource ;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider ;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider ;
+import org.eclipse.emf.edit.provider.ViewerNotification ;
+import org.osate.aadl2.AccessSpecification ;
+import org.osate.aadl2.AccessType ;
+import org.osate.aadl2.FeaturePrototypeBinding ;
 
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.ecore.EStructuralFeature;
-
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
+import fr.tpt.aadl.annex.behavior.aadlba.AadlBaFactory ;
+import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage ;
+import fr.tpt.aadl.annex.behavior.aadlba.DataAccessPrototypeHolder ;
+import fr.tpt.aadl.annex.behavior.aadlba.PrototypeHolder ;
 
 /**
  * This is the item provider adapter for a {@link fr.tpt.aadl.annex.behavior.aadlba.DataAccessPrototypeHolder} object.
@@ -146,12 +148,34 @@ public class DataAccessPrototypeHolderItemProvider
    * This returns DataAccessPrototypeHolder.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/DataAccessPrototypeHolder"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH ;
+    AccessType type = null ;
+    
+    PrototypeHolder holder = (PrototypeHolder) object ;
+    
+    FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) 
+                                                  holder.getPrototypeBinding() ;
+    if(fpb != null)
+    {
+      type = ((AccessSpecification)fpb.getActual()).getKind();
+    }
+    else
+    {
+      type = AccessType.REQUIRES ;
+    }
+    
+    switch(type)
+    {
+      case PROVIDES : {imgFile += "ProvidesDataAccess.gif" ; break ;}
+      default :
+      case REQUIRES : {imgFile += "RequiresDataAccess.gif" ; break ;}
+    }
+    
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

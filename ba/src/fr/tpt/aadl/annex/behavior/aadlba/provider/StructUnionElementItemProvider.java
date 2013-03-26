@@ -108,12 +108,12 @@ public class StructUnionElementItemProvider
    * This returns StructUnionElement.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/StructUnionElement"));
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH + "Data.gif" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**
