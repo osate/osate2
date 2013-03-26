@@ -59,10 +59,18 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
@@ -122,7 +130,43 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 
-	protected void processHazards(ComponentInstance ci, WriteToFile report){
+	protected void processHazards(ComponentInstance ci, WriteToFile report)
+	{
+
+		ErrorModelSubclause errorModelSubclause = EMV2Util.getClassifierEMV2Subclause(ci.getComponentClassifier());
+		if (errorModelSubclause != null)
+		{
+			ErrorBehaviorStateMachine errorBehavior = errorModelSubclause.getUseBehavior();
+			if (errorBehavior != null)
+			{
+	
+				for (ErrorBehaviorTransition trans : errorBehavior.getTransitions())
+				{
+					ConditionExpression cond = trans.getCondition();
+					if (cond instanceof ConditionElement)
+					{
+						ConditionElement condElement = (ConditionElement)trans.getCondition();
+						if (condElement.getIncoming() instanceof ErrorEvent)
+						{
+							ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
+							ContainedNamedElement PA = null;
+							ContainedNamedElement Sev = null;
+							ContainedNamedElement Like = null;
+							PA = getHazardProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+							Sev = getSeverityProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+							Like = getLikelihoodProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+							if ((PA != null) && (Sev != null) && (Like != null))
+							{
+								reportHazardProperty(ci, PA, Sev, Like, null, errorEvent.getTypeSet(), errorEvent,report);
+							}
+						}
+						//condElement.getIncoming()
+					}
+
+				}
+			}
+		}
+
 		HashMap<String, ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		for (ErrorSource errorSource : eslist.values()) {
 			ErrorPropagation ep = errorSource.getOutgoing();
@@ -205,6 +249,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				RecordValue rv = (RecordValue)val;
 				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
 				// for all error types/aliases in type set or the element identified in the containment clause 
+
 				if (targetType==null){
 					if (ts != null){
 						for(TypeToken token: ts.getElementType()){
@@ -212,8 +257,18 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 						}
 					} else {
 						// did not have a type set. Let's use fmr (state of type set as failure mode.
-						if (localContext == null){
-							reportFHAEntry(report, fields, Severity, Likelihood,ci, EMV2Util.getPrintName(target),"");
+						String targetName;
+						if (target == null)
+						{
+							targetName = "";
+						}
+						else
+						{
+							targetName = EMV2Util.getPrintName(target);
+						}
+						if (localContext == null)
+						{
+							reportFHAEntry(report, fields, Severity, Likelihood,ci, targetName,"");
 						} else {
 							reportFHAEntry(report, fields, Severity, Likelihood,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
 						}
