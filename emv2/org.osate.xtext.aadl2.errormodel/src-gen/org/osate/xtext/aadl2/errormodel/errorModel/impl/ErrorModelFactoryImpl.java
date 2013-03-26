@@ -73,6 +73,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
 			case ErrorModelPackage.TYPE_MAPPING: return createTypeMapping();
 			case ErrorModelPackage.ERROR_PROPAGATIONS: return createErrorPropagations();
 			case ErrorModelPackage.ERROR_PROPAGATION: return createErrorPropagation();
+			case ErrorModelPackage.FEATURE_REFERENCE: return createFeatureReference();
 			case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
 			case ErrorModelPackage.ERROR_SOURCE: return createErrorSource();
 			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET: return createErrorBehaviorStateOrTypeSet();
@@ -256,6 +257,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
 		ErrorPropagationImpl errorPropagation = new ErrorPropagationImpl();
 		return errorPropagation;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public FeatureReference createFeatureReference()
+  {
+		FeatureReferenceImpl featureReference = new FeatureReferenceImpl();
+		return featureReference;
 	}
 
   /**

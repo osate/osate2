@@ -20,6 +20,7 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
@@ -42,6 +43,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
@@ -86,6 +88,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 					NamedElement ne = el.getNamedElement();
 					if (ne instanceof Subcomponent) {
 						cxtElement = ((Subcomponent) ne).getClassifier();
+					} else
+						if (ne instanceof FeatureGroup) {
+							cxtElement = ((FeatureGroup) ne).getClassifier();
 					} else {
 						cxtElement = ne;
 					}
@@ -110,13 +115,21 @@ public class EMLinkingService extends PropertiesLinkingService {
 					if (searchResult != null) return Collections.singletonList(searchResult);
 					searchResult = EMV2Util.findOutgoingPropagationCondition(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
-					// look up subcomponent in classifier of previous subcomponent
-					if (cxtElement instanceof Classifier) searchResult = ((Classifier)cxtElement).findNamedElement(name);
+					// look up subcomponent in classifier of previous subcomponent, or feature group
+					if (cxtElement instanceof Classifier) {
+						NamedElement finding = ((Classifier)cxtElement).findNamedElement(name);
+						if (finding instanceof Subcomponent || finding instanceof FeatureGroup) searchResult = finding;
+					}
 					if (searchResult != null) return Collections.singletonList(searchResult);
 				}
 			} else if (context instanceof RecoverEvent){
 				Classifier ns = AadlUtil.getContainingClassifier(context);
 				searchResult = ns.findNamedElement(name);
+			}
+		} else if (Aadl2Package.eINSTANCE.getFeature() == requiredType) {
+			if (context instanceof FeatureReference){
+				// XXX TODO resolve feature
+				searchResult = findErrorType(cxt, name);
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType) {
 			searchResult = findErrorType(cxt, name);

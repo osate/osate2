@@ -2,22 +2,28 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.Feature;
 
 import org.osate.aadl2.impl.NamedElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -29,7 +35,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#isObservable <em>Observable</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getKind <em>Kind</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getFeaturerefs <em>Featurerefs</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#isNot <em>Not</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getTypeSet <em>Type Set</em>}</li>
@@ -81,14 +87,14 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
   protected String kind = KIND_EDEFAULT;
 
   /**
-	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
+	 * The cached value of the '{@link #getFeaturerefs() <em>Featurerefs</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getFeature()
+	 * @see #getFeaturerefs()
 	 * @generated
 	 * @ordered
 	 */
-  protected Feature feature;
+  protected EList<FeatureReference> featurerefs;
 
   /**
 	 * The default value of the '{@link #isNot() <em>Not</em>}' attribute.
@@ -212,40 +218,12 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Feature getFeature()
+  public EList<FeatureReference> getFeaturerefs()
   {
-		if (feature != null && ((EObject)feature).eIsProxy()) {
-			InternalEObject oldFeature = (InternalEObject)feature;
-			feature = (Feature)eResolveProxy(oldFeature);
-			if (feature != oldFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_PROPAGATION__FEATURE, oldFeature, feature));
-			}
+		if (featurerefs == null) {
+			featurerefs = new EObjectContainmentEList<FeatureReference>(FeatureReference.class, this, ErrorModelPackage.ERROR_PROPAGATION__FEATUREREFS);
 		}
-		return feature;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public Feature basicGetFeature()
-  {
-		return feature;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public void setFeature(Feature newFeature)
-  {
-		Feature oldFeature = feature;
-		feature = newFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PROPAGATION__FEATURE, oldFeature, feature));
+		return featurerefs;
 	}
 
   /**
@@ -349,6 +327,8 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
 		switch (featureID) {
+			case ErrorModelPackage.ERROR_PROPAGATION__FEATUREREFS:
+				return ((InternalEList<?>)getFeaturerefs()).basicRemove(otherEnd, msgs);
 			case ErrorModelPackage.ERROR_PROPAGATION__TYPE_SET:
 				return basicSetTypeSet(null, msgs);
 		}
@@ -368,9 +348,8 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
 				return isObservable();
 			case ErrorModelPackage.ERROR_PROPAGATION__KIND:
 				return getKind();
-			case ErrorModelPackage.ERROR_PROPAGATION__FEATURE:
-				if (resolve) return getFeature();
-				return basicGetFeature();
+			case ErrorModelPackage.ERROR_PROPAGATION__FEATUREREFS:
+				return getFeaturerefs();
 			case ErrorModelPackage.ERROR_PROPAGATION__NOT:
 				return isNot();
 			case ErrorModelPackage.ERROR_PROPAGATION__DIRECTION:
@@ -386,6 +365,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -396,8 +376,9 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
 			case ErrorModelPackage.ERROR_PROPAGATION__KIND:
 				setKind((String)newValue);
 				return;
-			case ErrorModelPackage.ERROR_PROPAGATION__FEATURE:
-				setFeature((Feature)newValue);
+			case ErrorModelPackage.ERROR_PROPAGATION__FEATUREREFS:
+				getFeaturerefs().clear();
+				getFeaturerefs().addAll((Collection<? extends FeatureReference>)newValue);
 				return;
 			case ErrorModelPackage.ERROR_PROPAGATION__NOT:
 				setNot((Boolean)newValue);
@@ -427,8 +408,8 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
 			case ErrorModelPackage.ERROR_PROPAGATION__KIND:
 				setKind(KIND_EDEFAULT);
 				return;
-			case ErrorModelPackage.ERROR_PROPAGATION__FEATURE:
-				setFeature((Feature)null);
+			case ErrorModelPackage.ERROR_PROPAGATION__FEATUREREFS:
+				getFeaturerefs().clear();
 				return;
 			case ErrorModelPackage.ERROR_PROPAGATION__NOT:
 				setNot(NOT_EDEFAULT);
@@ -456,8 +437,8 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
 				return observable != OBSERVABLE_EDEFAULT;
 			case ErrorModelPackage.ERROR_PROPAGATION__KIND:
 				return KIND_EDEFAULT == null ? kind != null : !KIND_EDEFAULT.equals(kind);
-			case ErrorModelPackage.ERROR_PROPAGATION__FEATURE:
-				return feature != null;
+			case ErrorModelPackage.ERROR_PROPAGATION__FEATUREREFS:
+				return featurerefs != null && !featurerefs.isEmpty();
 			case ErrorModelPackage.ERROR_PROPAGATION__NOT:
 				return not != NOT_EDEFAULT;
 			case ErrorModelPackage.ERROR_PROPAGATION__DIRECTION:

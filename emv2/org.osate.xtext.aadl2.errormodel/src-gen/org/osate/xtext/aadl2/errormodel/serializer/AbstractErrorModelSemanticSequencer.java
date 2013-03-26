@@ -53,6 +53,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnections;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
@@ -432,6 +433,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else if(context == grammarAccess.getTypeDefinitionRule()) {
 					sequence_TypeDefinition(context, (ErrorType) semanticObject); 
+					return; 
+				}
+				else break;
+			case ErrorModelPackage.FEATURE_REFERENCE:
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getFeatureReferenceRule()) {
+					sequence_FeatureReference(context, (FeatureReference) semanticObject); 
 					return; 
 				}
 				else break;
@@ -876,7 +884,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
-	 *         ((observable?='observable' name=ID) | kind=PropagationKind | feature=[Feature|ID]) 
+	 *         ((observable?='observable' name=ID) | kind=PropagationKind | (featurerefs+=FeatureReference featurerefs+=FeatureReference*)) 
 	 *         not?='not'? 
 	 *         direction=PropagationDirection 
 	 *         typeSet=TypeSetReference
@@ -942,6 +950,15 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     ((name=ID elementType+=ElementErrorType elementType+=ElementErrorType*) | (name=ID aliasedType=[TypeSet|QEMREF]))
 	 */
 	protected void sequence_ErrorTypes_TypeSetAlias_TypeSetDefinition(EObject context, TypeSet semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     feature=[Feature|ID]
+	 */
+	protected void sequence_FeatureReference(EObject context, FeatureReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1016,7 +1033,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (subcomponent=[Subcomponent|ID]? observablePoint=[ErrorPropagation|ErrorPropagationPoint])
+	 *     (subcomponent=[Subcomponent|ID]? observablePoint=[ErrorPropagation|ID])
 	 */
 	protected void sequence_QualifiedObservableErrorPropagationPoint(EObject context, QualifiedObservableErrorPropagationPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

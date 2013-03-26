@@ -210,7 +210,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	
 	private void checkDirectionType(ErrorPropagation errorPropagation){
 		DirectionType pd = errorPropagation.getDirection();
-		Feature f = errorPropagation.getFeature();
+		Feature f = EMV2Util.getFeature(errorPropagation);
 		if (!Aadl2Util.isNull(f) && f instanceof Port){
 			DirectionType portd = ((Port)f).getDirection();
 			if (!(pd.
@@ -227,7 +227,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			ErrorPropagation ep1 = eps.get(i);
 			for (int k=i+1;k<epssize;k++){
 				ErrorPropagation ep2 = eps.get(k);
-				if (ep1.getFeature() == ep2.getFeature()){
+				if (EMV2Util.getFeature(ep1) == EMV2Util.getFeature(ep2)){
 					if (ep1.isNot() && ep2.isNot() || !ep1.isNot() && ! ep2.isNot()){
 						error(ep2, (ep1.isNot()?"Error containment ":"Error propagation ")+EMV2Util.getPrintName(ep2)+" already defined.");
 					}

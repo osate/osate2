@@ -117,7 +117,7 @@ public class PropagateErrorFlows {
 		 EList<EObject> nextStep =new UniqueEList<EObject>();
 		for (ErrorSource errorSource : eslist.values()) {
 			ErrorPropagation ep = errorSource.getOutgoing();
-			Feature f = ep.getFeature();
+			Feature f = EMV2Util.getFeature(ep);
 			// we also have observables, error propagations with kind, and not error propagations
 			if (f != null){
 			FeatureInstance fi = ci.findFeatureInstance(f);
@@ -180,7 +180,7 @@ public class PropagateErrorFlows {
 			ErrorPath epath = (ErrorPath)path;
 			ErrorPropagation srcep = epath.getIncoming();
 			ComponentInstance ci = fi.getContainingComponentInstance();
-			FeatureInstance srcfi = ci.findFeatureInstance(srcep.getFeature());
+			FeatureInstance srcfi = ci.findFeatureInstance(EMV2Util.getFeature(srcep));
 			ErrorModelState srcst = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(srcfi, ErrorModelState.class);
 			TypeToken tu = srcst.getToken();
 			// map the token
@@ -223,12 +223,12 @@ public class PropagateErrorFlows {
 			TypeToken tu = st.getToken();
 			if (tu != null){
 				report.addOutputNewline(ci.getName()+
-						(ep!=null?"."+ep.getFeature().getName():"")+
+						(ep!=null?"."+EMV2Util.getFeature(ep).getName():"")+
 						EMV2Util.getPrintName(tu));
 				return;
 			}
 			if (ep != null){
-			report.addOutputNewline(ci.getName()+"."+ep.getFeature().getName()+
+			report.addOutputNewline(ci.getName()+"."+EMV2Util.getFeature(ep).getName()+
 					(ep.getTypeSet()!=null?EMV2Util.getPrintName(ep.getTypeSet()):""));
 			} else {
 				report.addOutputNewline(ci.getName());
@@ -274,7 +274,7 @@ public class PropagateErrorFlows {
 				return;
 			} else if (ef instanceof ErrorPath){ // error path
 				ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
-				FeatureInstance fi = ci.findFeatureInstance(outp.getFeature());
+				FeatureInstance fi = ci.findFeatureInstance(EMV2Util.getFeature(outp));
 				process(incie,ef,fi);
 				EList<ConnectionInstance> connilist = Aadl2InstanceUtil.getOutgoingConnection(ci,fi);
 				for (ConnectionInstance connectionInstance : connilist) {

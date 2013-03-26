@@ -194,6 +194,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCompositeStateParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
 		private final RuleCall cErrorStateToModeMappingParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
 		private final RuleCall cSubcomponentElementParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
+		private final RuleCall cFeatureReferenceParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
 		
 		//Element returns aadl2::Element:
 		//
@@ -203,7 +204,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 		//
-		//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement;
+		//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureReference;
 		public ParserRule getRule() { return rule; }
 
 		//ElementErrorType | TypeToken | TypeTransformation | TypeMapping | ObservablePropagationConnections |
@@ -212,7 +213,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 		//
-		//OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement
+		//OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ElementErrorType
@@ -268,6 +269,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//SubcomponentElement
 		public RuleCall getSubcomponentElementParserRuleCall_17() { return cSubcomponentElementParserRuleCall_17; }
+
+		//FeatureReference
+		public RuleCall getFeatureReferenceParserRuleCall_18() { return cFeatureReferenceParserRuleCall_18; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -1436,9 +1440,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_1_0_1_0 = (RuleCall)cNameAssignment_1_0_1.eContents().get(0);
 		private final Assignment cKindAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
 		private final RuleCall cKindPropagationKindParserRuleCall_1_1_0 = (RuleCall)cKindAssignment_1_1.eContents().get(0);
-		private final Assignment cFeatureAssignment_1_2 = (Assignment)cAlternatives_1.eContents().get(2);
-		private final CrossReference cFeatureFeatureCrossReference_1_2_0 = (CrossReference)cFeatureAssignment_1_2.eContents().get(0);
-		private final RuleCall cFeatureFeatureIDTerminalRuleCall_1_2_0_1 = (RuleCall)cFeatureFeatureCrossReference_1_2_0.eContents().get(1);
+		private final Group cGroup_1_2 = (Group)cAlternatives_1.eContents().get(2);
+		private final Assignment cFeaturerefsAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
+		private final RuleCall cFeaturerefsFeatureReferenceParserRuleCall_1_2_0_0 = (RuleCall)cFeaturerefsAssignment_1_2_0.eContents().get(0);
+		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_2_1_0 = (Keyword)cGroup_1_2_1.eContents().get(0);
+		private final Assignment cFeaturerefsAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
+		private final RuleCall cFeaturerefsFeatureReferenceParserRuleCall_1_2_1_1_0 = (RuleCall)cFeaturerefsAssignment_1_2_1_1.eContents().get(0);
 		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cNotAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final Keyword cNotNotKeyword_3_0 = (Keyword)cNotAssignment_3.eContents().get(0);
@@ -1451,20 +1459,26 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorPropagation:
 		//
-		//	{ErrorPropagation} (observable?="observable" name=ID | kind=PropagationKind | feature=[aadl2::Feature]) ":"
+		//	{ErrorPropagation} (observable?="observable" name=ID | kind=PropagationKind | featurerefs+=FeatureReference ("."
 		//
-		//	not?="not"? direction=PropagationDirection "propagation" typeSet=TypeSetReference ";";
+		//	featurerefs+=FeatureReference)*) ":" not?="not"? direction=PropagationDirection "propagation"
+		//
+		//	typeSet=TypeSetReference ";";
 		public ParserRule getRule() { return rule; }
 
-		//{ErrorPropagation} (observable?="observable" name=ID | kind=PropagationKind | feature=[aadl2::Feature]) ":" not?="not"?
+		//{ErrorPropagation} (observable?="observable" name=ID | kind=PropagationKind | featurerefs+=FeatureReference ("."
 		//
-		//direction=PropagationDirection "propagation" typeSet=TypeSetReference ";"
+		//featurerefs+=FeatureReference)*) ":" not?="not"? direction=PropagationDirection "propagation" typeSet=TypeSetReference
+		//
+		//";"
 		public Group getGroup() { return cGroup; }
 
 		//{ErrorPropagation}
 		public Action getErrorPropagationAction_0() { return cErrorPropagationAction_0; }
 
-		//observable?="observable" name=ID | kind=PropagationKind | feature=[aadl2::Feature]
+		//observable?="observable" name=ID | kind=PropagationKind | featurerefs+=FeatureReference ("."
+		//
+		//featurerefs+=FeatureReference)*
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//observable?="observable" name=ID
@@ -1488,14 +1502,26 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//PropagationKind
 		public RuleCall getKindPropagationKindParserRuleCall_1_1_0() { return cKindPropagationKindParserRuleCall_1_1_0; }
 
-		//feature=[aadl2::Feature]
-		public Assignment getFeatureAssignment_1_2() { return cFeatureAssignment_1_2; }
+		//featurerefs+=FeatureReference ("." featurerefs+=FeatureReference)*
+		public Group getGroup_1_2() { return cGroup_1_2; }
 
-		//[aadl2::Feature]
-		public CrossReference getFeatureFeatureCrossReference_1_2_0() { return cFeatureFeatureCrossReference_1_2_0; }
+		//featurerefs+=FeatureReference
+		public Assignment getFeaturerefsAssignment_1_2_0() { return cFeaturerefsAssignment_1_2_0; }
 
-		//ID
-		public RuleCall getFeatureFeatureIDTerminalRuleCall_1_2_0_1() { return cFeatureFeatureIDTerminalRuleCall_1_2_0_1; }
+		//FeatureReference
+		public RuleCall getFeaturerefsFeatureReferenceParserRuleCall_1_2_0_0() { return cFeaturerefsFeatureReferenceParserRuleCall_1_2_0_0; }
+
+		//("." featurerefs+=FeatureReference)*
+		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_1_2_1_0() { return cFullStopKeyword_1_2_1_0; }
+
+		//featurerefs+=FeatureReference
+		public Assignment getFeaturerefsAssignment_1_2_1_1() { return cFeaturerefsAssignment_1_2_1_1; }
+
+		//FeatureReference
+		public RuleCall getFeaturerefsFeatureReferenceParserRuleCall_1_2_1_1_0() { return cFeaturerefsFeatureReferenceParserRuleCall_1_2_1_1_0; }
 
 		//":"
 		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
@@ -1523,6 +1549,27 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//";"
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+	}
+
+	public class FeatureReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FeatureReference");
+		private final Assignment cFeatureAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cFeatureFeatureCrossReference_0 = (CrossReference)cFeatureAssignment.eContents().get(0);
+		private final RuleCall cFeatureFeatureIDTerminalRuleCall_0_1 = (RuleCall)cFeatureFeatureCrossReference_0.eContents().get(1);
+		
+		//FeatureReference:
+		//
+		//	feature=[aadl2::Feature];
+		public ParserRule getRule() { return rule; }
+
+		//feature=[aadl2::Feature]
+		public Assignment getFeatureAssignment() { return cFeatureAssignment; }
+
+		//[aadl2::Feature]
+		public CrossReference getFeatureFeatureCrossReference_0() { return cFeatureFeatureCrossReference_0; }
+
+		//ID
+		public RuleCall getFeatureFeatureIDTerminalRuleCall_0_1() { return cFeatureFeatureIDTerminalRuleCall_0_1; }
 	}
 
 	public class PropagationDirectionElements extends AbstractParserRuleElementFinder {
@@ -1991,21 +2038,38 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ErrorPropagationPoint");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cPropagationKindParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_1_1 = (RuleCall)cGroup_1_1.eContents().get(1);
 		
-		//ErrorPropagationPoint:
+		//// reference to error propagation  
+		// ErrorPropagationPoint:
 		//
-		//	PropagationKind | ID;
+		//	PropagationKind | ID ("." ID)*;
 		public ParserRule getRule() { return rule; }
 
-		//PropagationKind | ID
+		//PropagationKind | ID ("." ID)*
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//PropagationKind
 		public RuleCall getPropagationKindParserRuleCall_0() { return cPropagationKindParserRuleCall_0; }
 
+		//ID ("." ID)*
+		public Group getGroup_1() { return cGroup_1; }
+
 		//ID
-		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
+		public RuleCall getIDTerminalRuleCall_1_0() { return cIDTerminalRuleCall_1_0; }
+
+		//("." ID)*
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_1_1_0() { return cFullStopKeyword_1_1_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_1_1_1() { return cIDTerminalRuleCall_1_1_1; }
 	}
 
 	public class ObservablePropagationConnectionsElements extends AbstractParserRuleElementFinder {
@@ -2112,14 +2176,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Assignment cObservablePointAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cObservablePointErrorPropagationCrossReference_1_0 = (CrossReference)cObservablePointAssignment_1.eContents().get(0);
-		private final RuleCall cObservablePointErrorPropagationErrorPropagationPointParserRuleCall_1_0_1 = (RuleCall)cObservablePointErrorPropagationCrossReference_1_0.eContents().get(1);
+		private final RuleCall cObservablePointErrorPropagationIDTerminalRuleCall_1_0_1 = (RuleCall)cObservablePointErrorPropagationCrossReference_1_0.eContents().get(1);
 		
 		//QualifiedObservableErrorPropagationPoint:
 		//
-		//	(subcomponent=[aadl2::Subcomponent] ".")? observablePoint=[ErrorPropagation|ErrorPropagationPoint];
+		//	(subcomponent=[aadl2::Subcomponent] ".")? observablePoint=[ErrorPropagation];
 		public ParserRule getRule() { return rule; }
 
-		//(subcomponent=[aadl2::Subcomponent] ".")? observablePoint=[ErrorPropagation|ErrorPropagationPoint]
+		//(subcomponent=[aadl2::Subcomponent] ".")? observablePoint=[ErrorPropagation]
 		public Group getGroup() { return cGroup; }
 
 		//(subcomponent=[aadl2::Subcomponent] ".")?
@@ -2137,14 +2201,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"."
 		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
 
-		//observablePoint=[ErrorPropagation|ErrorPropagationPoint]
+		//observablePoint=[ErrorPropagation]
 		public Assignment getObservablePointAssignment_1() { return cObservablePointAssignment_1; }
 
-		//[ErrorPropagation|ErrorPropagationPoint]
+		//[ErrorPropagation]
 		public CrossReference getObservablePointErrorPropagationCrossReference_1_0() { return cObservablePointErrorPropagationCrossReference_1_0; }
 
-		//ErrorPropagationPoint
-		public RuleCall getObservablePointErrorPropagationErrorPropagationPointParserRuleCall_1_0_1() { return cObservablePointErrorPropagationErrorPropagationPointParserRuleCall_1_0_1; }
+		//ID
+		public RuleCall getObservablePointErrorPropagationIDTerminalRuleCall_1_0_1() { return cObservablePointErrorPropagationIDTerminalRuleCall_1_0_1; }
 	}
 
 	public class ErrorBehaviorStateMachineElements extends AbstractParserRuleElementFinder {
@@ -4340,6 +4404,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private TypeMappingElements pTypeMapping;
 	private ErrorPropagationsElements pErrorPropagations;
 	private ErrorPropagationElements pErrorPropagation;
+	private FeatureReferenceElements pFeatureReference;
 	private PropagationDirectionElements pPropagationDirection;
 	private PropagationKindElements pPropagationKind;
 	private ErrorFlowElements pErrorFlow;
@@ -4499,7 +4564,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 	//
-	//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement;
+	//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureReference;
 	public ElementElements getElementAccess() {
 		return (pElement != null) ? pElement : (pElement = new ElementElements());
 	}
@@ -4741,15 +4806,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorPropagation:
 	//
-	//	{ErrorPropagation} (observable?="observable" name=ID | kind=PropagationKind | feature=[aadl2::Feature]) ":"
+	//	{ErrorPropagation} (observable?="observable" name=ID | kind=PropagationKind | featurerefs+=FeatureReference ("."
 	//
-	//	not?="not"? direction=PropagationDirection "propagation" typeSet=TypeSetReference ";";
+	//	featurerefs+=FeatureReference)*) ":" not?="not"? direction=PropagationDirection "propagation"
+	//
+	//	typeSet=TypeSetReference ";";
 	public ErrorPropagationElements getErrorPropagationAccess() {
 		return (pErrorPropagation != null) ? pErrorPropagation : (pErrorPropagation = new ErrorPropagationElements());
 	}
 	
 	public ParserRule getErrorPropagationRule() {
 		return getErrorPropagationAccess().getRule();
+	}
+
+	//FeatureReference:
+	//
+	//	feature=[aadl2::Feature];
+	public FeatureReferenceElements getFeatureReferenceAccess() {
+		return (pFeatureReference != null) ? pFeatureReference : (pFeatureReference = new FeatureReferenceElements());
+	}
+	
+	public ParserRule getFeatureReferenceRule() {
+		return getFeatureReferenceAccess().getRule();
 	}
 
 	//PropagationDirection returns aadl2::DirectionType:
@@ -4852,9 +4930,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorPathAccess().getRule();
 	}
 
-	//ErrorPropagationPoint:
+	//// reference to error propagation  
+	// ErrorPropagationPoint:
 	//
-	//	PropagationKind | ID;
+	//	PropagationKind | ID ("." ID)*;
 	public ErrorPropagationPointElements getErrorPropagationPointAccess() {
 		return (pErrorPropagationPoint != null) ? pErrorPropagationPoint : (pErrorPropagationPoint = new ErrorPropagationPointElements());
 	}
@@ -4889,7 +4968,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//QualifiedObservableErrorPropagationPoint:
 	//
-	//	(subcomponent=[aadl2::Subcomponent] ".")? observablePoint=[ErrorPropagation|ErrorPropagationPoint];
+	//	(subcomponent=[aadl2::Subcomponent] ".")? observablePoint=[ErrorPropagation];
 	public QualifiedObservableErrorPropagationPointElements getQualifiedObservableErrorPropagationPointAccess() {
 		return (pQualifiedObservableErrorPropagationPoint != null) ? pQualifiedObservableErrorPropagationPoint : (pQualifiedObservableErrorPropagationPoint = new QualifiedObservableErrorPropagationPointElements());
 	}

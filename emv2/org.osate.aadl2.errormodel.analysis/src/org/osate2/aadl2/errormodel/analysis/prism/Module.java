@@ -216,7 +216,7 @@ public class Module {
 				{
 					ErrorSource errorSource = (ErrorSource)ef;
 					Expression expr = null;
-					expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, errorSource.getOutgoing().getFeature()), true),
+					expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, EMV2Util.getFeature(errorSource.getOutgoing())), true),
 									  new Terminal ("0"));
 
 					if (errorSource.getFailureModeReference() instanceof ErrorBehaviorState)
@@ -227,8 +227,8 @@ public class Module {
 							TypeToken tt = errorSource.getTypeTokenConstraint().getElementType().get(0);
 							String tokenName = tt.getType().get(0).getName();
 							//OsateDebug.osateDebug("tokenName" + tokenName);
-							expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, errorSource.getOutgoing().getFeature()), true),
-									        		    new Terminal ("" + this.associatedModel.getPropagationMap().get(errorSource.getOutgoing().getFeature().getName()).get(tokenName)));
+							expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, EMV2Util.getFeature(errorSource.getOutgoing())), true),
+									        		    new Terminal ("" + this.associatedModel.getPropagationMap().get(EMV2Util.getFeature(errorSource.getOutgoing()).getName()).get(tokenName)));
 							
 						}
 					}
@@ -425,8 +425,8 @@ public class Module {
 						}
 
 					}
-					this.vars.put (ep.getFeature().getName(), errorVal - 1);
-					this.associatedModel.getPropagationMap().put(ep.getFeature().getName(), tmpMap);
+					this.vars.put (EMV2Util.getFeature(ep).getName(), errorVal - 1);
+					this.associatedModel.getPropagationMap().put(EMV2Util.getFeature(ep).getName(), tmpMap);
 				}
 			}
 		}

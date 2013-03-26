@@ -119,7 +119,7 @@ public class Util
 				boolean found 						= false;
 				ErrorPropagation ep 				= (ErrorPropagation) event;
 				
-				Feature	associatedFeature 			= (Feature) ep.getFeature();
+				Feature	associatedFeature 			= EMV2Util.getFeature(ep);
 				
 				
 				//instance.getAllEnclosingConnectionInstances()
@@ -155,7 +155,7 @@ public class Util
 								ErrorSource errorSource = (ErrorSource)flow;
 								ErrorBehaviorState state = (ErrorBehaviorState) errorSource.getFailureModeReference();
 								//OsateDebug.osateDebug("[Utils]       ErrorSource feature:" + errorSource.getOutgoing().getFeature());
-								if (errorSource.getOutgoing().getFeature() == featureSource)
+								if (EMV2Util.getFeature(errorSource.getOutgoing()) == featureSource)
 								{
 									TypeSet ts = errorSource.getTypeTokenConstraint();
 									TypeToken tt = ts.getElementType().get(0);

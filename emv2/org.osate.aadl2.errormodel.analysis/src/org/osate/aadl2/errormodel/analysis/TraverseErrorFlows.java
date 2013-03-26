@@ -165,7 +165,7 @@ public class TraverseErrorFlows {
 			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
 			for (TypeToken typeToken : result) {
 				String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
-				Feature f = ep.getFeature();
+				Feature f = EMV2Util.getFeature(ep);
 				// we also have observables, error propagations with kind, and not error propagations
 				if (f != null){
 					FeatureInstance fi = ci.findFeatureInstance(f);
@@ -351,7 +351,7 @@ public class TraverseErrorFlows {
 					return;
 				} else if (ef instanceof ErrorPath){ // error path
 					ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
-					FeatureInstance outfi = ci.findFeatureInstance(outp.getFeature());
+					FeatureInstance outfi = ci.findFeatureInstance(EMV2Util.getFeature(outp));
 					processToken(getToken(sourcei),ef,outfi);
 					traceErrorFlows(outfi,depth+1,entryText+myText+", "+generateEffectText(outfi, outp));
 					return;
@@ -413,7 +413,7 @@ public class TraverseErrorFlows {
 				return;
 			} else if (ef instanceof ErrorPath){ // error path
 				ErrorPropagation inp = ((ErrorPath)ef).getIncoming();
-				FeatureInstance infi = ci.findFeatureInstance(inp.getFeature());
+				FeatureInstance infi = ci.findFeatureInstance(EMV2Util.getFeature(inp));
 				processToken(getToken(dest),ef,infi);
 						traceErrorFlows(infi,depth+1,entryText+myText+", "+generateEffectText(infi, inp));
 				return;

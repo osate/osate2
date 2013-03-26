@@ -2,8 +2,9 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
 
 /**
@@ -16,7 +17,7 @@ import org.osate.aadl2.NamedElement;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#isObservable <em>Observable</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getKind <em>Kind</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeaturerefs <em>Featurerefs</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#isNot <em>Not</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getTypeSet <em>Type Set</em>}</li>
@@ -82,30 +83,20 @@ public interface ErrorPropagation extends NamedElement, EventOrPropagation
   void setKind(String value);
 
   /**
-	 * Returns the value of the '<em><b>Feature</b></em>' reference.
+	 * Returns the value of the '<em><b>Featurerefs</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference}.
 	 * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Feature</em>' reference isn't clear,
+   * If the meaning of the '<em>Featurerefs</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature</em>' reference.
-	 * @see #setFeature(Feature)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagation_Feature()
-	 * @model
+	 * @return the value of the '<em>Featurerefs</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagation_Featurerefs()
+	 * @model containment="true"
 	 * @generated
 	 */
-  Feature getFeature();
-
-  /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeature <em>Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature</em>' reference.
-	 * @see #getFeature()
-	 * @generated
-	 */
-  void setFeature(Feature value);
+  EList<FeatureReference> getFeaturerefs();
 
   /**
 	 * Returns the value of the '<em><b>Not</b></em>' attribute.

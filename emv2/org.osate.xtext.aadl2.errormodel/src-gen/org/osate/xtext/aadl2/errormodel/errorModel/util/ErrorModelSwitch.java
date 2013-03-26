@@ -186,6 +186,13 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ErrorModelPackage.FEATURE_REFERENCE: {
+				FeatureReference featureReference = (FeatureReference)theEObject;
+				T result = caseFeatureReference(featureReference);
+				if (result == null) result = caseElement(featureReference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ErrorModelPackage.ERROR_FLOW: {
 				ErrorFlow errorFlow = (ErrorFlow)theEObject;
 				T result = caseErrorFlow(errorFlow);
@@ -680,6 +687,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
 	 * @generated
 	 */
   public T caseErrorPropagation(ErrorPropagation object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Reference</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseFeatureReference(FeatureReference object)
   {
 		return null;
 	}

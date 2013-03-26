@@ -113,6 +113,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorPropagationsAccess().getGroup_4(), "rule__ErrorPropagations__Group_4__0");
 					put(grammarAccess.getErrorPropagationAccess().getGroup(), "rule__ErrorPropagation__Group__0");
 					put(grammarAccess.getErrorPropagationAccess().getGroup_1_0(), "rule__ErrorPropagation__Group_1_0__0");
+					put(grammarAccess.getErrorPropagationAccess().getGroup_1_2(), "rule__ErrorPropagation__Group_1_2__0");
+					put(grammarAccess.getErrorPropagationAccess().getGroup_1_2_1(), "rule__ErrorPropagation__Group_1_2_1__0");
 					put(grammarAccess.getPropagationKindAccess().getGroup_5(), "rule__PropagationKind__Group_5__0");
 					put(grammarAccess.getPropagationKindAccess().getGroup_6(), "rule__PropagationKind__Group_6__0");
 					put(grammarAccess.getErrorSourceAccess().getGroup(), "rule__ErrorSource__Group__0");
@@ -121,6 +123,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorSinkAccess().getGroup(), "rule__ErrorSink__Group__0");
 					put(grammarAccess.getErrorPathAccess().getGroup(), "rule__ErrorPath__Group__0");
 					put(grammarAccess.getErrorPathAccess().getGroup_8_1(), "rule__ErrorPath__Group_8_1__0");
+					put(grammarAccess.getErrorPropagationPointAccess().getGroup_1(), "rule__ErrorPropagationPoint__Group_1__0");
+					put(grammarAccess.getErrorPropagationPointAccess().getGroup_1_1(), "rule__ErrorPropagationPoint__Group_1_1__0");
 					put(grammarAccess.getObservablePropagationConnectionsAccess().getGroup(), "rule__ObservablePropagationConnections__Group__0");
 					put(grammarAccess.getObservablePropagationConnectionAccess().getGroup(), "rule__ObservablePropagationConnection__Group__0");
 					put(grammarAccess.getQualifiedObservableErrorPropagationPointAccess().getGroup(), "rule__QualifiedObservableErrorPropagationPoint__Group__0");
@@ -292,10 +296,12 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorPropagationAccess().getObservableAssignment_1_0_0(), "rule__ErrorPropagation__ObservableAssignment_1_0_0");
 					put(grammarAccess.getErrorPropagationAccess().getNameAssignment_1_0_1(), "rule__ErrorPropagation__NameAssignment_1_0_1");
 					put(grammarAccess.getErrorPropagationAccess().getKindAssignment_1_1(), "rule__ErrorPropagation__KindAssignment_1_1");
-					put(grammarAccess.getErrorPropagationAccess().getFeatureAssignment_1_2(), "rule__ErrorPropagation__FeatureAssignment_1_2");
+					put(grammarAccess.getErrorPropagationAccess().getFeaturerefsAssignment_1_2_0(), "rule__ErrorPropagation__FeaturerefsAssignment_1_2_0");
+					put(grammarAccess.getErrorPropagationAccess().getFeaturerefsAssignment_1_2_1_1(), "rule__ErrorPropagation__FeaturerefsAssignment_1_2_1_1");
 					put(grammarAccess.getErrorPropagationAccess().getNotAssignment_3(), "rule__ErrorPropagation__NotAssignment_3");
 					put(grammarAccess.getErrorPropagationAccess().getDirectionAssignment_4(), "rule__ErrorPropagation__DirectionAssignment_4");
 					put(grammarAccess.getErrorPropagationAccess().getTypeSetAssignment_6(), "rule__ErrorPropagation__TypeSetAssignment_6");
+					put(grammarAccess.getFeatureReferenceAccess().getFeatureAssignment(), "rule__FeatureReference__FeatureAssignment");
 					put(grammarAccess.getErrorSourceAccess().getNameAssignment_0(), "rule__ErrorSource__NameAssignment_0");
 					put(grammarAccess.getErrorSourceAccess().getOutgoingAssignment_4_0(), "rule__ErrorSource__OutgoingAssignment_4_0");
 					put(grammarAccess.getErrorSourceAccess().getAllAssignment_4_1(), "rule__ErrorSource__AllAssignment_4_1");

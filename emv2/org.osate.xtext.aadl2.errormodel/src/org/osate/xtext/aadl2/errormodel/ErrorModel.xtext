@@ -49,7 +49,7 @@ ElementErrorType|TypeToken
 |	ComponentErrorBehavior | CompositeErrorBehavior
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 |CompositeState	|ErrorStateToModeMapping
-| SubcomponentElement
+| SubcomponentElement | FeatureReference
 ;
 
 
@@ -176,11 +176,15 @@ ErrorPropagations returns ErrorPropagations:
    
 ErrorPropagation returns ErrorPropagation:
 	{ErrorPropagation}
-   ( (observable?='observable' name=ID) | kind=PropagationKind | feature=[aadl2::Feature|ID]) 
+   ( (observable?='observable' name=ID) | kind=PropagationKind | (featurerefs+=FeatureReference)("." (featurerefs+=FeatureReference))* )
    ':' (not?='not')? (direction=PropagationDirection)  
    'propagation' 
     typeSet=TypeSetReference
    ';';
+   
+FeatureReference returns FeatureReference:
+	feature=[aadl2::Feature|ID]
+;
    
 PropagationDirection returns aadl2::DirectionType: 'in' | 'out' ;
 
@@ -214,9 +218,9 @@ ErrorPath returns ErrorPath:
   ( targetToken=TypeToken | 'mapping' typeMappingSet=[TypeMappingSet|QEMREF])?
   ';';
 
-  
+// reference to error propagation  
 ErrorPropagationPoint :
-   PropagationKind | ID  
+   PropagationKind | (ID  ('.' ID)*)
    ;
 
 ObservablePropagationConnections returns ObservablePropagationConnections:
@@ -230,7 +234,7 @@ ObservablePropagationConnection returns ObservablePropagationConnection:
    ;
   
 QualifiedObservableErrorPropagationPoint returns QualifiedObservableErrorPropagationPoint:
-   (subcomponent=[aadl2::Subcomponent|ID]  '.')? observablePoint=[ErrorPropagation|ErrorPropagationPoint]
+   (subcomponent=[aadl2::Subcomponent|ID]  '.')? observablePoint=[ErrorPropagation|ID]
    ;
    
 

@@ -71,6 +71,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -393,7 +394,9 @@ public class EMV2Util {
 			for (ErrorPropagation ep : eps.getPropagations()){
 				if (ep.isNot() == isNot&& (dir == null ||ep.getDirection()== dir)){
 					// do we need to check (context instanceof QualifiedObservableErrorPropagationPoint)
-						Feature f = ep.getFeature();
+					EList<FeatureReference> refs = ep.getFeaturerefs();
+					FeatureReference fref = refs.get(refs.size()-1);
+					Feature f = fref.getFeature(); 
 						if (!Aadl2Util.isNull(f) && f.getName().equalsIgnoreCase(name)) return ep;
 						String kind = ep.getKind();
 						if (kind != null && kind.equalsIgnoreCase(name)&&
@@ -565,10 +568,10 @@ public class EMV2Util {
 				Feature f = null;
 				if (ef instanceof ErrorPath){
 					ErrorPath ep = (ErrorPath)ef;
-					 f = ep.getIncoming().getFeature();
+					 f = getFeature(ep.getIncoming());
 				} else if (ef instanceof ErrorSink){
 					ErrorSink es = (ErrorSink)ef;
-					 f = es.getIncoming().getFeature();
+					 f = getFeature(es.getIncoming());
 				}
 				if (incie instanceof FeatureInstance){
 					if (((FeatureInstance)incie).getFeature().equals(f)){
@@ -590,10 +593,10 @@ public class EMV2Util {
 				Feature f = null;
 				if (ef instanceof ErrorPath){
 					ErrorPath ep = (ErrorPath)ef;
-					 f = ep.getOutgoing().getFeature();
+					 f = getFeature(ep.getOutgoing());
 				} else if (ef instanceof ErrorSource){
 					ErrorSource es = (ErrorSource)ef;
-					 f = es.getOutgoing().getFeature();
+					 f = getFeature(es.getOutgoing());
 				}
 				if (incie instanceof FeatureInstance){
 					if (((FeatureInstance)incie).getFeature().equals(f)){
@@ -1252,7 +1255,7 @@ public class EMV2Util {
 		if (ne.getName() != null) return ne.getName();
 		if (ne instanceof ErrorPropagation){
 			ErrorPropagation ep = (ErrorPropagation)ne;
-		if (!Aadl2Util.isNull(ep.getFeature())) return ep.getFeature().getName();
+		if (!Aadl2Util.isNull(getFeature(ep))) return getFeature(ep).getName();
 		if (ep.getKind() != null) return ep.getKind();
 		}
 		return "";
@@ -1848,6 +1851,12 @@ public class EMV2Util {
 			}
 		}.processPreOrderComponentInstanceStop(ci);
 		return result ;
+	}
+	
+	public static Feature getFeature(ErrorPropagation ep){
+		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		if (frefs.isEmpty()) return null;
+		return frefs.get(frefs.size()-1).getFeature();
 	}
 
 }
