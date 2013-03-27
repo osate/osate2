@@ -40,16 +40,26 @@
 package org.osate.analysis.architecture;
 
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.UnparseText;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.contribution.sei.names.DataModel;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
@@ -103,48 +113,70 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
     	} else {
     		csvlog(","+",");
     	}
-    		RecordValue srcRate = GetProperties.getOutPutRate(srcFI);
-    		RecordValue dstRate =GetProperties.getInPutRate(dstFI);
-//    		if (srcRate > 0 && dstRate > 0){
-//    			if (srcRate != dstRate){
-//    				error(conni, "Source data rate "+srcRate+" and destination data rate "+dstRate+" differ");
-//    			}
-//        		csvlog(srcRate+","+ dstRate+",");
-//        	} else {
-//        		csvlog(","+",");
-//    		}
-//    	} else {
-//    		csvlog(","+",");
-//    	}
-//    	if (baseType != null){
-//    		NamedElement srcC =PropertyUtils.getClassifierReference(srcFI, baseType);
-//    		NamedElement dstC =PropertyUtils.getClassifierReference(dstFI, baseType);
-//    		if (srcC != null && dstC != null){
-//    			if (srcC != dstC){
-//    				error(conni, "Source base type "+srcC.getName()+" and destination base type "+dstC.getName()+" differ");
-//    			}
-//        		csvlog(srcC.getName()+","+ dstC.getName()+",");
-//        	} else {
-//        		csvlog(","+",");
-//    		}
-//    	} else {
-//    		csvlog(","+",");
-//    	}
-//    	if (measurementUnit != null){
-//    		String srcC =PropertyUtils.getStringValue(srcFI, measurementUnit);
-//    		String dstC =PropertyUtils.getStringValue(dstFI, measurementUnit);
-//    		if (srcC != null && srcC.length() > 0&& dstC != null && dstC.length() > 0){
-//    			if (!srcC.equalsIgnoreCase(dstC)){
-//    				error(conni, "Source measurement unit "+srcC+" and destination measurement unit "+dstC+" differ");
-//    			}
-//    			csvlog(srcC+","+ dstC+",");
-//    		} else {
-//    			csvlog(","+",");
-//    		}
-//    	} else {
-//    		csvlog(","+",");
-//    	}
-//    	csvlogNewline("");
+    	RecordValue srcRate = GetProperties.getOutPutRate(srcFI);
+    	RecordValue dstRate =GetProperties.getInPutRate(dstFI);
+    	if(srcRate != null&& dstRate!= null){
+    		double srcRateValue = getDataRate(srcRate);
+    		double dstRateValue = getDataRate(dstRate);
+    		if (srcRateValue > 0 && dstRateValue > 0){
+    			if (srcRateValue != dstRateValue){
+    				error(conni, "Source data rate "+srcRateValue+" and destination data rate "+dstRateValue+" differ");
+    			}
+    			csvlog(srcRateValue+","+ dstRateValue+",");
+    		} else {
+    			csvlog(","+",");
+    		}
+    	}
+    	// now try it as SAVI::Data_Rate
+		double srcRateValue = getSAVIDataRate(srcFI);
+		double dstRateValue = getSAVIDataRate(dstFI);
+		if (srcRateValue > 0 && dstRateValue > 0){
+			if (srcRateValue != dstRateValue){
+				error(conni, "Source data rate "+srcRateValue+" and destination data rate "+dstRateValue+" differ");
+			}
+			csvlog(srcRateValue+","+ dstRateValue+",");
+		} else {
+			csvlog(","+",");
+		}
+		Classifier srcC = GetProperties.getSingleBaseType(srcFI);
+    	Classifier dstC = GetProperties.getSingleBaseType(dstFI);
+    	if (srcC != null&& dstC != null){
+    		if (srcC != null && dstC != null){
+    			if (srcC != dstC){
+    				error(conni, "Source base type "+srcC.getName()+" and destination base type "+dstC.getName()+" differ");
+    			}
+    			csvlog(srcC.getName()+","+ dstC.getName()+",");
+    		} else {
+    			csvlog(","+",");
+    		}
+    	} else {
+    		csvlog(","+",");
+    	}
+    	String srcS =GetProperties.getMeasurementUnit(srcFI);
+    	String dstS =GetProperties.getMeasurementUnit(dstFI);
+    	if (srcS != null && srcS.length() > 0&& dstS != null && dstS.length() > 0){
+    		if (!srcS.equalsIgnoreCase(dstS)){
+    			error(conni, "Source measurement unit "+srcS+" and destination measurement unit "+dstS+" differ");
+    		}
+    		csvlog(srcS+","+ dstS+",");
+    	} else {
+    		csvlog(","+",");
+    	}
+    	csvlogNewline("");
+    }
+    
+    private double getDataRate(RecordValue rate){
+    	BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
+    	if (vr == null) return 0;
+		RangeValue rv = (RangeValue) vr.getOwnedValue();
+		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
+		return ((NumberValue) maximum).getScaledValue();
+    }
+    
+    private double getSAVIDataRate(NamedElement ne){
+		Property dr = GetProperties.lookupPropertyDefinition(ne,"SAVI", "Data_Rate");
+		if (dr == null) return 0;
+		return PropertyUtils.getRealValue(ne, dr,0.0);
     }
 
 	
