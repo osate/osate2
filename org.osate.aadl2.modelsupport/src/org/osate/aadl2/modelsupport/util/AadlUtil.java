@@ -100,6 +100,7 @@ import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
@@ -862,6 +863,16 @@ public final class AadlUtil {
 	public static boolean isokClassifierSubstitutionMatch(Classifier origin,
 			Classifier replacement) {
 		if (origin == null || replacement == null) return true;
+		if (replacement instanceof FeatureGroupType && origin instanceof
+				FeatureGroupType) {
+			/* Don't have to refine, could leave the type alone. Refinement
+			 * statement might be changing property values or modes.
+			 */
+			// ??? Do we allow replacement to be a subtype??
+			return isokTypeClassifierMatch((FeatureGroupType) origin, (FeatureGroupType)
+					replacement);
+
+		}
 		if (replacement instanceof ComponentType && origin instanceof
 				ComponentType) {
 			/* Don't have to refine, could leave the type alone. Refinement
@@ -904,6 +915,15 @@ public final class AadlUtil {
 	public static boolean isokClassifierSubstitutionTypeExtension(Classifier origin,
 			Classifier replacement) {
 		if (origin == null || replacement == null) return true;
+		if (replacement instanceof FeatureGroupType && origin instanceof
+				FeatureGroupType) {
+			/* Don't have to refine, could leave the type alone. Refinement
+			 * statement might be changing property values or modes.
+			 */
+			return isSameOrExtends((FeatureGroupType) origin, (FeatureGroupType)
+					replacement);
+
+		}
 		if (replacement instanceof ComponentType && origin instanceof
 				ComponentType) {
 			/* Don't have to refine, could leave the type alone. Refinement
@@ -946,6 +966,18 @@ public final class AadlUtil {
 		// an extension for the purpose of making name visible in another package
 		//or refinement with only property associations
 		ComponentType repancestor = (ComponentType) reptype.getExtended();
+		if (repancestor == origin){
+			if (reptype.getOwnedFeatures() == null ||
+					reptype.getOwnedFeatures().isEmpty()) return true;
+		}
+		return false;
+	}
+	public static boolean isokTypeClassifierMatch(FeatureGroupType origin,
+			FeatureGroupType reptype) {
+		if (reptype == origin|| reptype == null) return true;
+		// an extension for the purpose of making name visible in another package
+		//or refinement with only property associations
+		FeatureGroupType repancestor = (FeatureGroupType) reptype.getExtended();
 		if (repancestor == origin){
 			if (reptype.getOwnedFeatures() == null ||
 					reptype.getOwnedFeatures().isEmpty()) return true;
