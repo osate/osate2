@@ -65,6 +65,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -905,6 +906,18 @@ public class GetProperties {
 		return res;
 	}
 
+	public static Classifier getSingleBaseType(final NamedElement ne){
+    	Property baseType = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.BASE_TYPE);
+    	if (baseType != null){
+    		List<? extends PropertyExpression> srcpropertyValues = ne.getPropertyValueList(baseType);
+    		if (srcpropertyValues.size() == 1){
+    				PropertyExpression pv = srcpropertyValues.get(0);
+    				return ((ClassifierValueImpl) pv).getClassifier();
+    		}
+    	}
+		return null;
+	}
+
 	public static String getMeasurementUnit(final NamedElement ne) {
 		Property mUnit = lookupPropertyDefinition(ne,DataModel._NAME, DataModel.MEASUREMENT_UNIT);
 		String propertyValue = PropertyUtils.getStringValue(ne, mUnit);
@@ -913,14 +926,24 @@ public class GetProperties {
 
 	public static RecordValue getOutPutRate(final NamedElement ne) {
 		Property outputRate = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.OUTPUT_RATE);
-		 RecordValue propertyValue = (RecordValue) ne.getSimplePropertyValue(outputRate);
-		return propertyValue;
+		try {
+			RecordValue propertyValue = (RecordValue) ne.getSimplePropertyValue(outputRate);
+			if (propertyValue != null)
+				return propertyValue;
+		} catch (Exception e) {
+		}
+		return null;
 	}
 
 	public static RecordValue getInPutRate(final NamedElement ne) {
 		Property inputRate = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.OUTPUT_RATE);
-		 RecordValue propertyValue = (RecordValue) ne.getSimplePropertyValue(inputRate);
-		return propertyValue;
+		try {
+			RecordValue propertyValue = (RecordValue) ne.getSimplePropertyValue(inputRate);
+			if (propertyValue != null)
+				return propertyValue;
+		} catch (Exception e) {
+		}
+		return null;
 	}
 
 
