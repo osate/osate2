@@ -51,126 +51,132 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class DataComponentReferenceImpl extends BehaviorElementImpl implements DataComponentReference
 {
   /**
-	 * The cached value of the '{@link #getData() <em>Data</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getData() <em>Data</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getData()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getData()
+   * @generated
+   * @ordered
+   */
   protected EList<DataHolder> data;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected DataComponentReferenceImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.DATA_COMPONENT_REFERENCE;
-	}
+    return AadlBaPackage.Literals.DATA_COMPONENT_REFERENCE;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<DataHolder> getData()
   {
-		if (data == null) {
-			data = new EObjectContainmentEList<DataHolder>(DataHolder.class, this, AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA);
-		}
-		return data;
-	}
+    if (data == null)
+    {
+      data = new EObjectContainmentEList<DataHolder>(DataHolder.class, this, AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA);
+    }
+    return data;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
-				return ((InternalEList<?>)getData()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
+        return ((InternalEList<?>)getData()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
-				return getData();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
+        return getData();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
-				getData().clear();
-				getData().addAll((Collection<? extends DataHolder>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
+        getData().clear();
+        getData().addAll((Collection<? extends DataHolder>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
-				getData().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
+        getData().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
-				return data != null && !data.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DATA_COMPONENT_REFERENCE__DATA:
+        return data != null && !data.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //DataComponentReferenceImpl

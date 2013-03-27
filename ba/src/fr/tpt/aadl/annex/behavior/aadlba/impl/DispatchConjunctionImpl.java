@@ -51,146 +51,152 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class DispatchConjunctionImpl extends BehaviorElementImpl implements DispatchConjunction
 {
   /**
-	 * The cached value of the '{@link #getDispatchTriggers() <em>Dispatch Triggers</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getDispatchTriggers() <em>Dispatch Triggers</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getDispatchTriggers()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getDispatchTriggers()
+   * @generated
+   * @ordered
+   */
   protected EList<DispatchTrigger> dispatchTriggers;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected DispatchConjunctionImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.DISPATCH_CONJUNCTION;
-	}
+    return AadlBaPackage.Literals.DISPATCH_CONJUNCTION;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<DispatchTrigger> getDispatchTriggers()
   {
-		if (dispatchTriggers == null) {
-			dispatchTriggers = new EObjectContainmentEList.Unsettable<DispatchTrigger>(DispatchTrigger.class, this, AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS);
-		}
-		return dispatchTriggers;
-	}
+    if (dispatchTriggers == null)
+    {
+      dispatchTriggers = new EObjectContainmentEList.Unsettable<DispatchTrigger>(DispatchTrigger.class, this, AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS);
+    }
+    return dispatchTriggers;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void unsetDispatchTriggers()
   {
-		if (dispatchTriggers != null) ((InternalEList.Unsettable<?>)dispatchTriggers).unset();
-	}
+    if (dispatchTriggers != null) ((InternalEList.Unsettable<?>)dispatchTriggers).unset();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public boolean isSetDispatchTriggers()
   {
-		return dispatchTriggers != null && ((InternalEList.Unsettable<?>)dispatchTriggers).isSet();
-	}
+    return dispatchTriggers != null && ((InternalEList.Unsettable<?>)dispatchTriggers).isSet();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
-				return ((InternalEList<?>)getDispatchTriggers()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
+        return ((InternalEList<?>)getDispatchTriggers()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
-				return getDispatchTriggers();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
+        return getDispatchTriggers();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
-				getDispatchTriggers().clear();
-				getDispatchTriggers().addAll((Collection<? extends DispatchTrigger>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
+        getDispatchTriggers().clear();
+        getDispatchTriggers().addAll((Collection<? extends DispatchTrigger>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
-				unsetDispatchTriggers();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
+        unsetDispatchTriggers();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
-				return isSetDispatchTriggers();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.DISPATCH_CONJUNCTION__DISPATCH_TRIGGERS:
+        return isSetDispatchTriggers();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //DispatchConjunctionImpl

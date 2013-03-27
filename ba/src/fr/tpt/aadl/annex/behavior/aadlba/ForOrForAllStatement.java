@@ -41,82 +41,82 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface ForOrForAllStatement extends LoopStatement
 {
   /**
-	 * Returns the value of the '<em><b>Iterated Values</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Iterated Values</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Iterated Values</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Iterated Values</em>' containment reference.
-	 * @see #setIteratedValues(ElementValues)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_IteratedValues()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Iterated Values</em>' containment reference.
+   * @see #setIteratedValues(ElementValues)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_IteratedValues()
+   * @model containment="true" required="true"
+   * @generated
+   */
   ElementValues getIteratedValues();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getIteratedValues <em>Iterated Values</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getIteratedValues <em>Iterated Values</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Iterated Values</em>' containment reference.
-	 * @see #getIteratedValues()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Iterated Values</em>' containment reference.
+   * @see #getIteratedValues()
+   * @generated
+   */
   void setIteratedValues(ElementValues value);
 
   /**
-	 * Returns the value of the '<em><b>For All</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>For All</b></em>' attribute.
+   * The default value is <code>"false"</code>.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>For All</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>For All</em>' attribute.
-	 * @see #setForAll(boolean)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_ForAll()
-	 * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
-	 * @generated
-	 */
+   * @return the value of the '<em>For All</em>' attribute.
+   * @see #setForAll(boolean)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_ForAll()
+   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @generated
+   */
   boolean isForAll();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>For All</em>' attribute.
-	 * @see #isForAll()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>For All</em>' attribute.
+   * @see #isForAll()
+   * @generated
+   */
   void setForAll(boolean value);
 
   /**
-	 * Returns the value of the '<em><b>Iterative Variable</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Iterative Variable</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Iterative Variable</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Iterative Variable</em>' containment reference.
-	 * @see #setIterativeVariable(IterativeVariable)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_IterativeVariable()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Iterative Variable</em>' containment reference.
+   * @see #setIterativeVariable(IterativeVariable)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getForOrForAllStatement_IterativeVariable()
+   * @model containment="true" required="true"
+   * @generated
+   */
   IterativeVariable getIterativeVariable();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getIterativeVariable <em>Iterative Variable</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement#getIterativeVariable <em>Iterative Variable</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Iterative Variable</em>' containment reference.
-	 * @see #getIterativeVariable()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Iterative Variable</em>' containment reference.
+   * @see #getIterativeVariable()
+   * @generated
+   */
   void setIterativeVariable(IterativeVariable value);
 
 } // ForOrForAllStatement

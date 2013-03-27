@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class PortCountValueImpl extends ActualPortHolderImpl implements PortCountValue
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected PortCountValueImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.PORT_COUNT_VALUE;
-	}
+    return AadlBaPackage.Literals.PORT_COUNT_VALUE;
+  }
 
 } //PortCountValueImpl

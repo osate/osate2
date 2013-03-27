@@ -51,126 +51,132 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class BehaviorActionSetImpl extends BehaviorElementImpl implements BehaviorActionSet
 {
   /**
-	 * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getActions()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getActions()
+   * @generated
+   * @ordered
+   */
   protected EList<BehaviorAction> actions;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected BehaviorActionSetImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.BEHAVIOR_ACTION_SET;
-	}
+    return AadlBaPackage.Literals.BEHAVIOR_ACTION_SET;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<BehaviorAction> getActions()
   {
-		if (actions == null) {
-			actions = new EObjectContainmentEList<BehaviorAction>(BehaviorAction.class, this, AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS);
-		}
-		return actions;
-	}
+    if (actions == null)
+    {
+      actions = new EObjectContainmentEList<BehaviorAction>(BehaviorAction.class, this, AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS);
+    }
+    return actions;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
-				return ((InternalEList<?>)getActions()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
+        return ((InternalEList<?>)getActions()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
-				return getActions();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
+        return getActions();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
-				getActions().clear();
-				getActions().addAll((Collection<? extends BehaviorAction>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
+        getActions().clear();
+        getActions().addAll((Collection<? extends BehaviorAction>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
-				getActions().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
+        getActions().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
-				return actions != null && !actions.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_SET__ACTIONS:
+        return actions != null && !actions.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //BehaviorActionSetImpl

@@ -37,198 +37,204 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum UnaryNumericOperator implements Enumerator
 {
   /**
-	 * The '<em><b>None</b></em>' literal object.
-	 * <!-- begin-user-doc -->
+   * The '<em><b>None</b></em>' literal object.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #NONE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-  NONE(0, "None", "None"),
+   * @see #NONE_VALUE
+   * @generated
+   * @ordered
+   */
+  NONE(0, "None", ""),
 
   /**
-	 * The '<em><b>Abs</b></em>' literal object.
-	 * <!-- begin-user-doc -->
+   * The '<em><b>Abs</b></em>' literal object.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #ABS_VALUE
-	 * @generated
-	 * @ordered
-	 */
+   * @see #ABS_VALUE
+   * @generated
+   * @ordered
+   */
   ABS(1, "Abs", "abs");
 
   /**
-	 * The '<em><b>None</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+   * The '<em><b>None</b></em>' literal value.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @see #NONE
-	 * @model name="None"
-	 * @generated
-	 * @ordered
-	 */
+   * @see #NONE
+   * @model name="None" literal=""
+   * @generated
+   * @ordered
+   */
   public static final int NONE_VALUE = 0;
 
   /**
-	 * The '<em><b>Abs</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+   * The '<em><b>Abs</b></em>' literal value.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of '<em><b>Abs</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @see #ABS
-	 * @model name="Abs" literal="abs"
-	 * @generated
-	 * @ordered
-	 */
+   * @see #ABS
+   * @model name="Abs" literal="abs"
+   * @generated
+   * @ordered
+   */
   public static final int ABS_VALUE = 1;
 
   /**
-	 * An array of all the '<em><b>Unary Numeric Operator</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
+   * An array of all the '<em><b>Unary Numeric Operator</b></em>' enumerators.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   private static final UnaryNumericOperator[] VALUES_ARRAY =
-    new UnaryNumericOperator[] {
-			NONE,
-			ABS,
-		};
+    new UnaryNumericOperator[]
+    {
+      NONE,
+      ABS,
+    };
 
   /**
-	 * A public read-only list of all the '<em><b>Unary Numeric Operator</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
+   * A public read-only list of all the '<em><b>Unary Numeric Operator</b></em>' enumerators.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public static final List<UnaryNumericOperator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
-	 * Returns the '<em><b>Unary Numeric Operator</b></em>' literal with the specified literal value.
-	 * <!-- begin-user-doc -->
+   * Returns the '<em><b>Unary Numeric Operator</b></em>' literal with the specified literal value.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public static UnaryNumericOperator get(String literal)
   {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			UnaryNumericOperator result = VALUES_ARRAY[i];
-			if (result.toString().equals(literal)) {
-				return result;
-			}
-		}
-		return null;
-	}
+    for (int i = 0; i < VALUES_ARRAY.length; ++i)
+    {
+      UnaryNumericOperator result = VALUES_ARRAY[i];
+      if (result.toString().equals(literal))
+      {
+        return result;
+      }
+    }
+    return null;
+  }
 
   /**
-	 * Returns the '<em><b>Unary Numeric Operator</b></em>' literal with the specified name.
-	 * <!-- begin-user-doc -->
+   * Returns the '<em><b>Unary Numeric Operator</b></em>' literal with the specified name.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public static UnaryNumericOperator getByName(String name)
   {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			UnaryNumericOperator result = VALUES_ARRAY[i];
-			if (result.getName().equals(name)) {
-				return result;
-			}
-		}
-		return null;
-	}
+    for (int i = 0; i < VALUES_ARRAY.length; ++i)
+    {
+      UnaryNumericOperator result = VALUES_ARRAY[i];
+      if (result.getName().equals(name))
+      {
+        return result;
+      }
+    }
+    return null;
+  }
 
   /**
-	 * Returns the '<em><b>Unary Numeric Operator</b></em>' literal with the specified integer value.
-	 * <!-- begin-user-doc -->
+   * Returns the '<em><b>Unary Numeric Operator</b></em>' literal with the specified integer value.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public static UnaryNumericOperator get(int value)
   {
-		switch (value) {
-			case NONE_VALUE: return NONE;
-			case ABS_VALUE: return ABS;
-		}
-		return null;
-	}
+    switch (value)
+    {
+      case NONE_VALUE: return NONE;
+      case ABS_VALUE: return ABS;
+    }
+    return null;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   private final int value;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   private final String name;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   private final String literal;
 
   /**
-	 * Only this class can construct instances.
-	 * <!-- begin-user-doc -->
+   * Only this class can construct instances.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   private UnaryNumericOperator(int value, String name, String literal)
   {
-		this.value = value;
-		this.name = name;
-		this.literal = literal;
-	}
+    this.value = value;
+    this.name = name;
+    this.literal = literal;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public int getValue()
   {
-	  return value;
-	}
+    return value;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public String getName()
   {
-	  return name;
-	}
+    return name;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public String getLiteral()
   {
-	  return literal;
-	}
+    return literal;
+  }
 
   /**
-	 * Returns the literal value of the enumerator, which is its string representation.
-	 * <!-- begin-user-doc -->
+   * Returns the literal value of the enumerator, which is its string representation.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public String toString()
   {
-		return literal;
-	}
+    return literal;
+  }
   
 } //UnaryNumericOperator

@@ -52,212 +52,230 @@ import org.osate.aadl2.PrototypeBinding;
 public class PortPrototypeHolderImpl extends PortHolderImpl implements PortPrototypeHolder
 {
   /**
-	 * The cached value of the '{@link #getPrototypeBinding() <em>Prototype Binding</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getPrototypeBinding() <em>Prototype Binding</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getPrototypeBinding()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getPrototypeBinding()
+   * @generated
+   * @ordered
+   */
   protected PrototypeBinding prototypeBinding;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected PortPrototypeHolderImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.PORT_PROTOTYPE_HOLDER;
-	}
+    return AadlBaPackage.Literals.PORT_PROTOTYPE_HOLDER;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PrototypeBinding getPrototypeBinding()
   {
-		if (prototypeBinding != null && ((EObject)prototypeBinding).eIsProxy()) {
-			InternalEObject oldPrototypeBinding = (InternalEObject)prototypeBinding;
-			prototypeBinding = (PrototypeBinding)eResolveProxy(oldPrototypeBinding);
-			if (prototypeBinding != oldPrototypeBinding) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
-			}
-		}
-		return prototypeBinding;
-	}
+    if (prototypeBinding != null && ((EObject)prototypeBinding).eIsProxy())
+    {
+      InternalEObject oldPrototypeBinding = (InternalEObject)prototypeBinding;
+      prototypeBinding = (PrototypeBinding)eResolveProxy(oldPrototypeBinding);
+      if (prototypeBinding != oldPrototypeBinding)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
+      }
+    }
+    return prototypeBinding;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PrototypeBinding basicGetPrototypeBinding()
   {
-		return prototypeBinding;
-	}
+    return prototypeBinding;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setPrototypeBinding(PrototypeBinding newPrototypeBinding)
   {
-		PrototypeBinding oldPrototypeBinding = prototypeBinding;
-		prototypeBinding = newPrototypeBinding;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
-	}
+    PrototypeBinding oldPrototypeBinding = prototypeBinding;
+    prototypeBinding = newPrototypeBinding;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING, oldPrototypeBinding, prototypeBinding));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setPrototype(Prototype prototype)
   {
-		element = prototype ;
-	}
+    element = prototype ;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public Prototype getPrototype()
   {
-		return (Prototype) element;
-	}
+    return (Prototype) element;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-				if (resolve) return getPrototypeBinding();
-				return basicGetPrototypeBinding();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+        if (resolve) return getPrototypeBinding();
+        return basicGetPrototypeBinding();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-				setPrototypeBinding((PrototypeBinding)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+        setPrototypeBinding((PrototypeBinding)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-				setPrototypeBinding((PrototypeBinding)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+        setPrototypeBinding((PrototypeBinding)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
-				return prototypeBinding != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING:
+        return prototypeBinding != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-		if (baseClass == PrototypeHolder.class) {
-			switch (derivedFeatureID) {
-				case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-				default: return -1;
-			}
-		}
-		if (baseClass == ParameterLabel.class) {
-			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == Target.class) {
-			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
+    if (baseClass == PrototypeHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
+        default: return -1;
+      }
+    }
+    if (baseClass == ParameterLabel.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == Target.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-		if (baseClass == PrototypeHolder.class) {
-			switch (baseFeatureID) {
-				case AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
-				default: return -1;
-			}
-		}
-		if (baseClass == ParameterLabel.class) {
-			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == Target.class) {
-			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
+    if (baseClass == PrototypeHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.PROTOTYPE_HOLDER__PROTOTYPE_BINDING: return AadlBaPackage.PORT_PROTOTYPE_HOLDER__PROTOTYPE_BINDING;
+        default: return -1;
+      }
+    }
+    if (baseClass == ParameterLabel.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == Target.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+  }
 
 } //PortPrototypeHolderImpl

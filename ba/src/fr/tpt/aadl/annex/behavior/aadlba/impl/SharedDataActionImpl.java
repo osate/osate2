@@ -47,157 +47,164 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public abstract class SharedDataActionImpl extends BehaviorElementImpl implements SharedDataAction
 {
   /**
-	 * The cached value of the '{@link #getDataAccess() <em>Data Access</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getDataAccess() <em>Data Access</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getDataAccess()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getDataAccess()
+   * @generated
+   * @ordered
+   */
   protected DataAccessHolder dataAccess;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected SharedDataActionImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.SHARED_DATA_ACTION;
-	}
+    return AadlBaPackage.Literals.SHARED_DATA_ACTION;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public DataAccessHolder getDataAccess()
   {
-		return dataAccess;
-	}
+    return dataAccess;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetDataAccess(DataAccessHolder newDataAccess, NotificationChain msgs)
   {
-		DataAccessHolder oldDataAccess = dataAccess;
-		dataAccess = newDataAccess;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS, oldDataAccess, newDataAccess);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    DataAccessHolder oldDataAccess = dataAccess;
+    dataAccess = newDataAccess;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS, oldDataAccess, newDataAccess);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setDataAccess(DataAccessHolder newDataAccess)
   {
-		if (newDataAccess != dataAccess) {
-			NotificationChain msgs = null;
-			if (dataAccess != null)
-				msgs = ((InternalEObject)dataAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS, null, msgs);
-			if (newDataAccess != null)
-				msgs = ((InternalEObject)newDataAccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS, null, msgs);
-			msgs = basicSetDataAccess(newDataAccess, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS, newDataAccess, newDataAccess));
-	}
+    if (newDataAccess != dataAccess)
+    {
+      NotificationChain msgs = null;
+      if (dataAccess != null)
+        msgs = ((InternalEObject)dataAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS, null, msgs);
+      if (newDataAccess != null)
+        msgs = ((InternalEObject)newDataAccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS, null, msgs);
+      msgs = basicSetDataAccess(newDataAccess, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS, newDataAccess, newDataAccess));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
-				return basicSetDataAccess(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
+        return basicSetDataAccess(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
-				return getDataAccess();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
+        return getDataAccess();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
-				setDataAccess((DataAccessHolder)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
+        setDataAccess((DataAccessHolder)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
-				setDataAccess((DataAccessHolder)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
+        setDataAccess((DataAccessHolder)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
-				return dataAccess != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.SHARED_DATA_ACTION__DATA_ACCESS:
+        return dataAccess != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //SharedDataActionImpl

@@ -39,25 +39,25 @@ import org.osate.aadl2.impl.StringLiteralImpl;
 public class BehaviorStringLiteralImpl extends StringLiteralImpl implements BehaviorStringLiteral
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected BehaviorStringLiteralImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.BEHAVIOR_STRING_LITERAL;
-	}
+    return AadlBaPackage.Literals.BEHAVIOR_STRING_LITERAL;
+  }
 
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()

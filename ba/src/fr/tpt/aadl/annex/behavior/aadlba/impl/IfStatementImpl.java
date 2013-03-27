@@ -52,363 +52,374 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
 {
   /**
-	 * The cached value of the '{@link #getBehaviorActions() <em>Behavior Actions</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getBehaviorActions() <em>Behavior Actions</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getBehaviorActions()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getBehaviorActions()
+   * @generated
+   * @ordered
+   */
   protected BehaviorActions behaviorActions;
 
   /**
-	 * The cached value of the '{@link #getLogicalValueExpression() <em>Logical Value Expression</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getLogicalValueExpression() <em>Logical Value Expression</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getLogicalValueExpression()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getLogicalValueExpression()
+   * @generated
+   * @ordered
+   */
   protected ValueExpression logicalValueExpression;
 
   /**
-	 * The default value of the '{@link #isElif() <em>Elif</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #isElif() <em>Elif</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isElif()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isElif()
+   * @generated
+   * @ordered
+   */
   protected static final boolean ELIF_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isElif() <em>Elif</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #isElif() <em>Elif</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isElif()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isElif()
+   * @generated
+   * @ordered
+   */
   protected boolean elif = ELIF_EDEFAULT;
 
   /**
-	 * The cached value of the '{@link #getElseStatement() <em>Else Statement</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getElseStatement() <em>Else Statement</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getElseStatement()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getElseStatement()
+   * @generated
+   * @ordered
+   */
   protected ElseStatement elseStatement;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected IfStatementImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.IF_STATEMENT;
-	}
+    return AadlBaPackage.Literals.IF_STATEMENT;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public BehaviorActions getBehaviorActions()
   {
-		return behaviorActions;
-	}
+    return behaviorActions;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetBehaviorActions(BehaviorActions newBehaviorActions, NotificationChain msgs)
   {
-		BehaviorActions oldBehaviorActions = behaviorActions;
-		behaviorActions = newBehaviorActions;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS, oldBehaviorActions, newBehaviorActions);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    BehaviorActions oldBehaviorActions = behaviorActions;
+    behaviorActions = newBehaviorActions;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS, oldBehaviorActions, newBehaviorActions);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setBehaviorActions(BehaviorActions newBehaviorActions)
   {
-		if (newBehaviorActions != behaviorActions) {
-			NotificationChain msgs = null;
-			if (behaviorActions != null)
-				msgs = ((InternalEObject)behaviorActions).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS, null, msgs);
-			if (newBehaviorActions != null)
-				msgs = ((InternalEObject)newBehaviorActions).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS, null, msgs);
-			msgs = basicSetBehaviorActions(newBehaviorActions, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS, newBehaviorActions, newBehaviorActions));
-	}
+    if (newBehaviorActions != behaviorActions)
+    {
+      NotificationChain msgs = null;
+      if (behaviorActions != null)
+        msgs = ((InternalEObject)behaviorActions).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS, null, msgs);
+      if (newBehaviorActions != null)
+        msgs = ((InternalEObject)newBehaviorActions).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS, null, msgs);
+      msgs = basicSetBehaviorActions(newBehaviorActions, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS, newBehaviorActions, newBehaviorActions));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ValueExpression getLogicalValueExpression()
   {
-		return logicalValueExpression;
-	}
+    return logicalValueExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetLogicalValueExpression(ValueExpression newLogicalValueExpression, NotificationChain msgs)
   {
-		ValueExpression oldLogicalValueExpression = logicalValueExpression;
-		logicalValueExpression = newLogicalValueExpression;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION, oldLogicalValueExpression, newLogicalValueExpression);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    ValueExpression oldLogicalValueExpression = logicalValueExpression;
+    logicalValueExpression = newLogicalValueExpression;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION, oldLogicalValueExpression, newLogicalValueExpression);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setLogicalValueExpression(ValueExpression newLogicalValueExpression)
   {
-		if (newLogicalValueExpression != logicalValueExpression) {
-			NotificationChain msgs = null;
-			if (logicalValueExpression != null)
-				msgs = ((InternalEObject)logicalValueExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION, null, msgs);
-			if (newLogicalValueExpression != null)
-				msgs = ((InternalEObject)newLogicalValueExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION, null, msgs);
-			msgs = basicSetLogicalValueExpression(newLogicalValueExpression, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION, newLogicalValueExpression, newLogicalValueExpression));
-	}
+    if (newLogicalValueExpression != logicalValueExpression)
+    {
+      NotificationChain msgs = null;
+      if (logicalValueExpression != null)
+        msgs = ((InternalEObject)logicalValueExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION, null, msgs);
+      if (newLogicalValueExpression != null)
+        msgs = ((InternalEObject)newLogicalValueExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION, null, msgs);
+      msgs = basicSetLogicalValueExpression(newLogicalValueExpression, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION, newLogicalValueExpression, newLogicalValueExpression));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public boolean isElif()
   {
-		return elif;
-	}
+    return elif;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setElif(boolean newElif)
   {
-		boolean oldElif = elif;
-		elif = newElif;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__ELIF, oldElif, elif));
-	}
+    boolean oldElif = elif;
+    elif = newElif;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__ELIF, oldElif, elif));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ElseStatement getElseStatement()
   {
-		return elseStatement;
-	}
+    return elseStatement;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetElseStatement(ElseStatement newElseStatement, NotificationChain msgs)
   {
-		ElseStatement oldElseStatement = elseStatement;
-		elseStatement = newElseStatement;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT, oldElseStatement, newElseStatement);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    ElseStatement oldElseStatement = elseStatement;
+    elseStatement = newElseStatement;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT, oldElseStatement, newElseStatement);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setElseStatement(ElseStatement newElseStatement)
   {
-		if (newElseStatement != elseStatement) {
-			NotificationChain msgs = null;
-			if (elseStatement != null)
-				msgs = ((InternalEObject)elseStatement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT, null, msgs);
-			if (newElseStatement != null)
-				msgs = ((InternalEObject)newElseStatement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT, null, msgs);
-			msgs = basicSetElseStatement(newElseStatement, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT, newElseStatement, newElseStatement));
-	}
+    if (newElseStatement != elseStatement)
+    {
+      NotificationChain msgs = null;
+      if (elseStatement != null)
+        msgs = ((InternalEObject)elseStatement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT, null, msgs);
+      if (newElseStatement != null)
+        msgs = ((InternalEObject)newElseStatement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT, null, msgs);
+      msgs = basicSetElseStatement(newElseStatement, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT, newElseStatement, newElseStatement));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
-				return basicSetBehaviorActions(null, msgs);
-			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
-				return basicSetLogicalValueExpression(null, msgs);
-			case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
-				return basicSetElseStatement(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
+        return basicSetBehaviorActions(null, msgs);
+      case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
+        return basicSetLogicalValueExpression(null, msgs);
+      case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
+        return basicSetElseStatement(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
-				return getBehaviorActions();
-			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
-				return getLogicalValueExpression();
-			case AadlBaPackage.IF_STATEMENT__ELIF:
-				return isElif();
-			case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
-				return getElseStatement();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
+        return getBehaviorActions();
+      case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
+        return getLogicalValueExpression();
+      case AadlBaPackage.IF_STATEMENT__ELIF:
+        return isElif();
+      case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
+        return getElseStatement();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
-				setBehaviorActions((BehaviorActions)newValue);
-				return;
-			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
-				setLogicalValueExpression((ValueExpression)newValue);
-				return;
-			case AadlBaPackage.IF_STATEMENT__ELIF:
-				setElif((Boolean)newValue);
-				return;
-			case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
-				setElseStatement((ElseStatement)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
+        setBehaviorActions((BehaviorActions)newValue);
+        return;
+      case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
+        setLogicalValueExpression((ValueExpression)newValue);
+        return;
+      case AadlBaPackage.IF_STATEMENT__ELIF:
+        setElif((Boolean)newValue);
+        return;
+      case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
+        setElseStatement((ElseStatement)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
-				setBehaviorActions((BehaviorActions)null);
-				return;
-			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
-				setLogicalValueExpression((ValueExpression)null);
-				return;
-			case AadlBaPackage.IF_STATEMENT__ELIF:
-				setElif(ELIF_EDEFAULT);
-				return;
-			case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
-				setElseStatement((ElseStatement)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
+        setBehaviorActions((BehaviorActions)null);
+        return;
+      case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
+        setLogicalValueExpression((ValueExpression)null);
+        return;
+      case AadlBaPackage.IF_STATEMENT__ELIF:
+        setElif(ELIF_EDEFAULT);
+        return;
+      case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
+        setElseStatement((ElseStatement)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
-				return behaviorActions != null;
-			case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
-				return logicalValueExpression != null;
-			case AadlBaPackage.IF_STATEMENT__ELIF:
-				return elif != ELIF_EDEFAULT;
-			case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
-				return elseStatement != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.IF_STATEMENT__BEHAVIOR_ACTIONS:
+        return behaviorActions != null;
+      case AadlBaPackage.IF_STATEMENT__LOGICAL_VALUE_EXPRESSION:
+        return logicalValueExpression != null;
+      case AadlBaPackage.IF_STATEMENT__ELIF:
+        return elif != ELIF_EDEFAULT;
+      case AadlBaPackage.IF_STATEMENT__ELSE_STATEMENT:
+        return elseStatement != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public String toString()
   {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (elif: ");
-		result.append(elif);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (elif: ");
+    result.append(elif);
+    result.append(')');
+    return result.toString();
+  }
 
 } //IfStatementImpl

@@ -48,225 +48,234 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class TimedActionImpl extends BehaviorElementImpl implements TimedAction
 {
   /**
-	 * The cached value of the '{@link #getLowerTime() <em>Lower Time</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getLowerTime() <em>Lower Time</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getLowerTime()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getLowerTime()
+   * @generated
+   * @ordered
+   */
   protected BehaviorTime lowerTime;
 
   /**
-	 * The cached value of the '{@link #getUpperTime() <em>Upper Time</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getUpperTime() <em>Upper Time</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getUpperTime()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getUpperTime()
+   * @generated
+   * @ordered
+   */
   protected BehaviorTime upperTime;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected TimedActionImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.TIMED_ACTION;
-	}
+    return AadlBaPackage.Literals.TIMED_ACTION;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public BehaviorTime getLowerTime()
   {
-		return lowerTime;
-	}
+    return lowerTime;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetLowerTime(BehaviorTime newLowerTime, NotificationChain msgs)
   {
-		BehaviorTime oldLowerTime = lowerTime;
-		lowerTime = newLowerTime;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__LOWER_TIME, oldLowerTime, newLowerTime);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    BehaviorTime oldLowerTime = lowerTime;
+    lowerTime = newLowerTime;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__LOWER_TIME, oldLowerTime, newLowerTime);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setLowerTime(BehaviorTime newLowerTime)
   {
-		if (newLowerTime != lowerTime) {
-			NotificationChain msgs = null;
-			if (lowerTime != null)
-				msgs = ((InternalEObject)lowerTime).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__LOWER_TIME, null, msgs);
-			if (newLowerTime != null)
-				msgs = ((InternalEObject)newLowerTime).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__LOWER_TIME, null, msgs);
-			msgs = basicSetLowerTime(newLowerTime, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__LOWER_TIME, newLowerTime, newLowerTime));
-	}
+    if (newLowerTime != lowerTime)
+    {
+      NotificationChain msgs = null;
+      if (lowerTime != null)
+        msgs = ((InternalEObject)lowerTime).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__LOWER_TIME, null, msgs);
+      if (newLowerTime != null)
+        msgs = ((InternalEObject)newLowerTime).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__LOWER_TIME, null, msgs);
+      msgs = basicSetLowerTime(newLowerTime, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__LOWER_TIME, newLowerTime, newLowerTime));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public BehaviorTime getUpperTime()
   {
-		return upperTime;
-	}
+    return upperTime;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetUpperTime(BehaviorTime newUpperTime, NotificationChain msgs)
   {
-		BehaviorTime oldUpperTime = upperTime;
-		upperTime = newUpperTime;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__UPPER_TIME, oldUpperTime, newUpperTime);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    BehaviorTime oldUpperTime = upperTime;
+    upperTime = newUpperTime;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__UPPER_TIME, oldUpperTime, newUpperTime);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setUpperTime(BehaviorTime newUpperTime)
   {
-		if (newUpperTime != upperTime) {
-			NotificationChain msgs = null;
-			if (upperTime != null)
-				msgs = ((InternalEObject)upperTime).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__UPPER_TIME, null, msgs);
-			if (newUpperTime != null)
-				msgs = ((InternalEObject)newUpperTime).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__UPPER_TIME, null, msgs);
-			msgs = basicSetUpperTime(newUpperTime, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__UPPER_TIME, newUpperTime, newUpperTime));
-	}
+    if (newUpperTime != upperTime)
+    {
+      NotificationChain msgs = null;
+      if (upperTime != null)
+        msgs = ((InternalEObject)upperTime).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__UPPER_TIME, null, msgs);
+      if (newUpperTime != null)
+        msgs = ((InternalEObject)newUpperTime).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.TIMED_ACTION__UPPER_TIME, null, msgs);
+      msgs = basicSetUpperTime(newUpperTime, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.TIMED_ACTION__UPPER_TIME, newUpperTime, newUpperTime));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
-				return basicSetLowerTime(null, msgs);
-			case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
-				return basicSetUpperTime(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
+        return basicSetLowerTime(null, msgs);
+      case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
+        return basicSetUpperTime(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
-				return getLowerTime();
-			case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
-				return getUpperTime();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
+        return getLowerTime();
+      case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
+        return getUpperTime();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
-				setLowerTime((BehaviorTime)newValue);
-				return;
-			case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
-				setUpperTime((BehaviorTime)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
+        setLowerTime((BehaviorTime)newValue);
+        return;
+      case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
+        setUpperTime((BehaviorTime)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
-				setLowerTime((BehaviorTime)null);
-				return;
-			case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
-				setUpperTime((BehaviorTime)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
+        setLowerTime((BehaviorTime)null);
+        return;
+      case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
+        setUpperTime((BehaviorTime)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
-				return lowerTime != null;
-			case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
-				return upperTime != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.TIMED_ACTION__LOWER_TIME:
+        return lowerTime != null;
+      case AadlBaPackage.TIMED_ACTION__UPPER_TIME:
+        return upperTime != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //TimedActionImpl

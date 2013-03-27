@@ -51,152 +51,152 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
 {
   /**
-	 * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Variables</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Variables</em>' containment reference list.
-	 * @see #isSetVariables()
-	 * @see #unsetVariables()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Variables()
-	 * @model containment="true" unsettable="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Variables</em>' containment reference list.
+   * @see #isSetVariables()
+   * @see #unsetVariables()
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Variables()
+   * @model containment="true" unsettable="true"
+   * @generated
+   */
   EList<BehaviorVariable> getVariables();
 
   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getVariables <em>Variables</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getVariables <em>Variables</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isSetVariables()
-	 * @see #getVariables()
-	 * @generated
-	 */
+   * @see #isSetVariables()
+   * @see #getVariables()
+   * @generated
+   */
   void unsetVariables();
 
   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getVariables <em>Variables</em>}' containment reference list is set.
-	 * <!-- begin-user-doc -->
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getVariables <em>Variables</em>}' containment reference list is set.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Variables</em>' containment reference list is set.
-	 * @see #unsetVariables()
-	 * @see #getVariables()
-	 * @generated
-	 */
+   * @return whether the value of the '<em>Variables</em>' containment reference list is set.
+   * @see #unsetVariables()
+   * @see #getVariables()
+   * @generated
+   */
   boolean isSetVariables();
 
   /**
-	 * Returns the value of the '<em><b>States</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorState}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>States</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorState}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>States</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>States</em>' containment reference list.
-	 * @see #isSetStates()
-	 * @see #unsetStates()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_States()
-	 * @model containment="true" unsettable="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>States</em>' containment reference list.
+   * @see #isSetStates()
+   * @see #unsetStates()
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_States()
+   * @model containment="true" unsettable="true"
+   * @generated
+   */
   EList<BehaviorState> getStates();
 
   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getStates <em>States</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getStates <em>States</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isSetStates()
-	 * @see #getStates()
-	 * @generated
-	 */
+   * @see #isSetStates()
+   * @see #getStates()
+   * @generated
+   */
   void unsetStates();
 
   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getStates <em>States</em>}' containment reference list is set.
-	 * <!-- begin-user-doc -->
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getStates <em>States</em>}' containment reference list is set.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>States</em>' containment reference list is set.
-	 * @see #unsetStates()
-	 * @see #getStates()
-	 * @generated
-	 */
+   * @return whether the value of the '<em>States</em>' containment reference list is set.
+   * @see #unsetStates()
+   * @see #getStates()
+   * @generated
+   */
   boolean isSetStates();
 
   /**
-	 * Returns the value of the '<em><b>Transitions</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Transitions</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Transitions</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Transitions</em>' containment reference list.
-	 * @see #isSetTransitions()
-	 * @see #unsetTransitions()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Transitions()
-	 * @model containment="true" unsettable="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Transitions</em>' containment reference list.
+   * @see #isSetTransitions()
+   * @see #unsetTransitions()
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Transitions()
+   * @model containment="true" unsettable="true"
+   * @generated
+   */
   EList<BehaviorTransition> getTransitions();
 
   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getTransitions <em>Transitions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getTransitions <em>Transitions</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isSetTransitions()
-	 * @see #getTransitions()
-	 * @generated
-	 */
+   * @see #isSetTransitions()
+   * @see #getTransitions()
+   * @generated
+   */
   void unsetTransitions();
 
   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getTransitions <em>Transitions</em>}' containment reference list is set.
-	 * <!-- begin-user-doc -->
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getTransitions <em>Transitions</em>}' containment reference list is set.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Transitions</em>' containment reference list is set.
-	 * @see #unsetTransitions()
-	 * @see #getTransitions()
-	 * @generated
-	 */
+   * @return whether the value of the '<em>Transitions</em>' containment reference list is set.
+   * @see #unsetTransitions()
+   * @see #getTransitions()
+   * @generated
+   */
   boolean isSetTransitions();
 
   /**
-	 * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Actions</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Actions</em>' containment reference list.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Actions()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Actions</em>' containment reference list.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Actions()
+   * @model containment="true"
+   * @generated
+   */
   EList<BehaviorActionBlock> getActions();
 
   /**
-	 * Returns the value of the '<em><b>Conditions</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Conditions</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Conditions</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Conditions</em>' containment reference list.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Conditions()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Conditions</em>' containment reference list.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Conditions()
+   * @model containment="true"
+   * @generated
+   */
   EList<BehaviorCondition> getConditions();
   
   /**

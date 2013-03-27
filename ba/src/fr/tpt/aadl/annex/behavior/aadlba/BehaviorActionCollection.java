@@ -40,19 +40,19 @@ import org.eclipse.emf.common.util.EList;
 public interface BehaviorActionCollection extends BehaviorActions
 {
   /**
-	 * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Actions</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Actions</em>' containment reference list.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionCollection_Actions()
-	 * @model containment="true" lower="2"
-	 * @generated
-	 */
+   * @return the value of the '<em>Actions</em>' containment reference list.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionCollection_Actions()
+   * @model containment="true" lower="2"
+   * @generated
+   */
   EList<BehaviorAction> getActions();
 
 } // BehaviorActionCollection

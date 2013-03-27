@@ -39,29 +39,29 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface SharedDataAction extends CommunicationAction
 {
   /**
-	 * Returns the value of the '<em><b>Data Access</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Data Access</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Data Access</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data Access</em>' containment reference.
-	 * @see #setDataAccess(DataAccessHolder)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSharedDataAction_DataAccess()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Data Access</em>' containment reference.
+   * @see #setDataAccess(DataAccessHolder)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSharedDataAction_DataAccess()
+   * @model containment="true"
+   * @generated
+   */
   DataAccessHolder getDataAccess();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SharedDataAction#getDataAccess <em>Data Access</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SharedDataAction#getDataAccess <em>Data Access</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Access</em>' containment reference.
-	 * @see #getDataAccess()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Data Access</em>' containment reference.
+   * @see #getDataAccess()
+   * @generated
+   */
   void setDataAccess(DataAccessHolder value);
 
 } // SharedDataAction

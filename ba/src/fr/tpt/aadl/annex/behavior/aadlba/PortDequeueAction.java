@@ -40,55 +40,55 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface PortDequeueAction extends CommunicationAction
 {
   /**
-	 * Returns the value of the '<em><b>Port</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Port</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Port</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Port</em>' containment reference.
-	 * @see #setPort(ActualPortHolder)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortDequeueAction_Port()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Port</em>' containment reference.
+   * @see #setPort(ActualPortHolder)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortDequeueAction_Port()
+   * @model containment="true" required="true"
+   * @generated
+   */
   ActualPortHolder getPort();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getPort <em>Port</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getPort <em>Port</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Port</em>' containment reference.
-	 * @see #getPort()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Port</em>' containment reference.
+   * @see #getPort()
+   * @generated
+   */
   void setPort(ActualPortHolder value);
 
   /**
-	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Target</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target</em>' containment reference.
-	 * @see #setTarget(Target)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortDequeueAction_Target()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Target</em>' containment reference.
+   * @see #setTarget(Target)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortDequeueAction_Target()
+   * @model containment="true"
+   * @generated
+   */
   Target getTarget();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getTarget <em>Target</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getTarget <em>Target</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' containment reference.
-	 * @see #getTarget()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Target</em>' containment reference.
+   * @see #getTarget()
+   * @generated
+   */
   void setTarget(Target value);
 
 } // PortDequeueAction

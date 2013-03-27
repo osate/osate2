@@ -39,25 +39,25 @@ import org.osate.aadl2.impl.BooleanLiteralImpl;
 public class BehaviorBooleanLiteralImpl extends BooleanLiteralImpl implements BehaviorBooleanLiteral
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected BehaviorBooleanLiteralImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.BEHAVIOR_BOOLEAN_LITERAL;
-	}
+    return AadlBaPackage.Literals.BEHAVIOR_BOOLEAN_LITERAL;
+  }
 
   @Override
   public AadlBaLocationReference getAadlBaLocationReference()

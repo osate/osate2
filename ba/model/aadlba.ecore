@@ -139,12 +139,12 @@
     </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BinaryAddingOperator">
-    <eLiterals name="None" literal="None"/>
+    <eLiterals name="None" literal=""/>
     <eLiterals name="Plus" value="1" literal="+"/>
     <eLiterals name="Minus" value="2" literal="-"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BinaryNumericOperator">
-    <eLiterals name="None"/>
+    <eLiterals name="None" literal=""/>
     <eLiterals name="MultiplyMultiply" value="1" literal="**"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Boolean" instanceClassName="boolean">
@@ -435,14 +435,14 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LogicalOperator">
-    <eLiterals name="None"/>
+    <eLiterals name="None" literal=""/>
     <eLiterals name="And" value="1" literal="and"/>
     <eLiterals name="Or" value="2" literal="or"/>
     <eLiterals name="Xor" value="3" literal="xor"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LoopStatement" abstract="true" eSuperTypes="#//CondStatement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="MultiplyingOperator">
-    <eLiterals name="None"/>
+    <eLiterals name="None" literal=""/>
     <eLiterals name="Multiply" value="1" literal="*"/>
     <eLiterals name="Divide" value="2" literal="/"/>
     <eLiterals name="Mod" value="3" literal="mod"/>
@@ -514,7 +514,7 @@
         eType="#//RelationalOperator" unsettable="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RelationalOperator">
-    <eLiterals name="None"/>
+    <eLiterals name="None" literal=""/>
     <eLiterals name="Equal" value="1" literal="="/>
     <eLiterals name="NotEqual" value="2" literal="!="/>
     <eLiterals name="LessThan" value="3" literal="&lt;"/>
@@ -605,16 +605,16 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UnaryAddingOperator">
-    <eLiterals name="None"/>
+    <eLiterals name="None" literal=""/>
     <eLiterals name="Plus" value="1" literal="+"/>
     <eLiterals name="Minus" value="2" literal="-"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UnaryBooleanOperator">
-    <eLiterals name="None"/>
-    <eLiterals name="Not" value="1" literal="not"/>
+    <eLiterals name="None" literal=""/>
+    <eLiterals name="Not" value="1" literal="!"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UnaryNumericOperator">
-    <eLiterals name="None"/>
+    <eLiterals name="None" literal=""/>
     <eLiterals name="Abs" value="1" literal="abs"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnlockAction" eSuperTypes="#//SharedDataAction">

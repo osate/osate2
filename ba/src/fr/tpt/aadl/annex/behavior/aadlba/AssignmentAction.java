@@ -40,55 +40,55 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface AssignmentAction extends BasicAction
 {
   /**
-	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Target</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target</em>' containment reference.
-	 * @see #setTarget(Target)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getAssignmentAction_Target()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Target</em>' containment reference.
+   * @see #setTarget(Target)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getAssignmentAction_Target()
+   * @model containment="true" required="true"
+   * @generated
+   */
   Target getTarget();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction#getTarget <em>Target</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction#getTarget <em>Target</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' containment reference.
-	 * @see #getTarget()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Target</em>' containment reference.
+   * @see #getTarget()
+   * @generated
+   */
   void setTarget(Target value);
 
   /**
-	 * Returns the value of the '<em><b>Value Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Value Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Value Expression</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value Expression</em>' containment reference.
-	 * @see #setValueExpression(ValueExpression)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getAssignmentAction_ValueExpression()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Value Expression</em>' containment reference.
+   * @see #setValueExpression(ValueExpression)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getAssignmentAction_ValueExpression()
+   * @model containment="true" required="true"
+   * @generated
+   */
   ValueExpression getValueExpression();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction#getValueExpression <em>Value Expression</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction#getValueExpression <em>Value Expression</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value Expression</em>' containment reference.
-	 * @see #getValueExpression()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Value Expression</em>' containment reference.
+   * @see #getValueExpression()
+   * @generated
+   */
   void setValueExpression(ValueExpression value);
 
 } // AssignmentAction
