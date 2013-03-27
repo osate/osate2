@@ -132,7 +132,7 @@ public class BehaviorAnnexItemProvider
   @Override
   public Object getImage(Object object)
   {
-    String imgFile = BehaviorElementItemProvider.IMG_PATH + "ba_logo_16.gif" ;
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "ba_logo_16" ;
     return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 

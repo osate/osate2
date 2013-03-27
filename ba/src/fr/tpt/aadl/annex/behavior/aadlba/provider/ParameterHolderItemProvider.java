@@ -129,9 +129,9 @@ public class ParameterHolderItemProvider
     switch (holder.getParameter().getDirection())
     {
       default :
-      case IN : {imgFile += "InParameter.gif" ; break ;}
-      case OUT : {imgFile += "OutParameter.gif" ; break ;}
-      case IN_OUT : {imgFile += "InOutParameter.gif" ; break ;}
+      case IN : {imgFile += "InParameter" ; break ;}
+      case OUT : {imgFile += "OutParameter" ; break ;}
+      case IN_OUT : {imgFile += "InOutParameter" ; break ;}
     }
     
     return overlayImage(object, getResourceLocator().getImage(imgFile));

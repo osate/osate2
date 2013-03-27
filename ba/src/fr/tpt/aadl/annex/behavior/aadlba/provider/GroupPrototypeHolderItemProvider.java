@@ -142,11 +142,11 @@ public class GroupPrototypeHolderItemProvider
       
       switch (type)
       {
-        case FEATURE_GROUP_PROTOTYPE : {imgFile += "FeatureGroup.gif" ; break;}
-        case THREAD_GROUP_PROTOTYPE : {imgFile += "ThreadGroup.gif" ; break;}
+        case FEATURE_GROUP_PROTOTYPE : {imgFile += "FeatureGroup" ; break;}
+        case THREAD_GROUP_PROTOTYPE : {imgFile += "ThreadGroup" ; break;}
         case REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:
         case PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:  
-        case SUBPROGRAM_GROUP_PROTOTYPE : {imgFile += "Subprogram.gif" ; break;}
+        case SUBPROGRAM_GROUP_PROTOTYPE : {imgFile += "Subprogram" ; break;}
         default : imgFile = "full/obj16/IfStatement" ;
       }
     }

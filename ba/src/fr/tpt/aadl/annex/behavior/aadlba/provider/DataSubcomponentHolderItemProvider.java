@@ -124,7 +124,7 @@ public class DataSubcomponentHolderItemProvider
   public Object getImage(Object object)
   {
     String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH +
-                     "Data.gif" ;
+                     "Data" ;
     return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 

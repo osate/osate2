@@ -80,12 +80,12 @@ public class ExecutionTimeoutCatchItemProvider
    * This returns ExecutionTimeoutCatch.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/ExecutionTimeoutCatch"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "time_16" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

@@ -121,12 +121,12 @@ public class AssignmentActionItemProvider
    * This returns AssignmentAction.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/AssignmentAction"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "assignment_16" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

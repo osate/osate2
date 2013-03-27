@@ -91,9 +91,9 @@ public class DataPortHolderItemProvider
     switch (holder.getDataPort().getDirection())
     {
       default :
-      case IN : {imgFile += "InDataPort.gif" ; break ;}
-      case OUT : {imgFile += "OutDataPort.gif" ; break ;}
-      case IN_OUT : {imgFile += "InOutDataPort.gif" ; break ;}
+      case IN : {imgFile += "InDataPort" ; break ;}
+      case OUT : {imgFile += "OutDataPort" ; break ;}
+      case IN_OUT : {imgFile += "InOutDataPort" ; break ;}
     }
     
     return overlayImage(object, getResourceLocator().getImage(imgFile));

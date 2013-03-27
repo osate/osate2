@@ -91,9 +91,9 @@ public class EventPortHolderItemProvider
     switch (holder.getEventPort().getDirection())
     {
       default :
-      case IN : {imgFile += "InEventPort.gif" ; break ;}
-      case OUT : {imgFile += "OutEventPort.gif" ; break ;}
-      case IN_OUT : {imgFile += "InOutEventPort.gif" ; break ;}
+      case IN : {imgFile += "InEventPort" ; break ;}
+      case OUT : {imgFile += "OutEventPort" ; break ;}
+      case IN_OUT : {imgFile += "InOutEventPort" ; break ;}
     }
     
     return overlayImage(object, getResourceLocator().getImage(imgFile));

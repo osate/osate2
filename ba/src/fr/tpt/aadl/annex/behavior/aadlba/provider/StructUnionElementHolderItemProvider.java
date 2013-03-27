@@ -124,7 +124,7 @@ public class StructUnionElementHolderItemProvider
   @Override
   public Object getImage(Object object)
   {
-    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH + "Data.gif" ;
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH + "Data" ;
     return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 

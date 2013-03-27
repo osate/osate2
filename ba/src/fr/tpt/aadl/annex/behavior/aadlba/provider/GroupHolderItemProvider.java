@@ -159,12 +159,12 @@ public class GroupHolderItemProvider
     NamedElement group = holder.getGroup() ;
     
     if(group instanceof ThreadGroup)
-      imgFile += "ThreadGroup.gif" ;
+      imgFile += "ThreadGroup" ;
     else if (group instanceof FeatureGroup)
-      imgFile += "FeatureGroup.gif" ;
+      imgFile += "FeatureGroup" ;
     else // SubprogramGroup and SubprogramGroupAccess cases.
     {
-      imgFile += "Subprogram.gif" ;
+      imgFile += "Subprogram" ;
     }
     
     return overlayImage(object, getResourceLocator().getImage(imgFile));

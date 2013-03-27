@@ -120,13 +120,12 @@ public class PortSendActionItemProvider
   /**
    * This returns PortSendAction.gif.
    * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/PortSendAction"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "comm_action_16" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

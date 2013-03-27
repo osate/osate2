@@ -147,12 +147,12 @@ public class ForOrForAllStatementItemProvider
    * This returns ForOrForAllStatement.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/ForOrForAllStatement"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "for_16" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

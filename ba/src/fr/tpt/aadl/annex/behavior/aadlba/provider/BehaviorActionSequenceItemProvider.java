@@ -124,7 +124,7 @@ public class BehaviorActionSequenceItemProvider
   @Override
   public Object getImage(Object object)
   {
-    String imgFile = BehaviorElementItemProvider.IMG_PATH + "action_16.gif";
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "action_16";
     return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 

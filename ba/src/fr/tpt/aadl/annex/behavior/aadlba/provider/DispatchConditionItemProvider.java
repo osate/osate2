@@ -121,12 +121,12 @@ public class DispatchConditionItemProvider
    * This returns DispatchCondition.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/DispatchCondition"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "dispatch_16" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

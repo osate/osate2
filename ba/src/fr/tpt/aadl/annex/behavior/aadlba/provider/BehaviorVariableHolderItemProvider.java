@@ -124,7 +124,7 @@ public class BehaviorVariableHolderItemProvider
   @Override
   public Object getImage(Object object)
   {
-    String imgFile = BehaviorElementItemProvider.IMG_PATH + "variable_16.gif" ;
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "variable_16" ;
     return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 

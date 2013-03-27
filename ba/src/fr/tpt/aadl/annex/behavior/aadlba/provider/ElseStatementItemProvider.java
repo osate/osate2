@@ -120,12 +120,12 @@ public class ElseStatementItemProvider
    * This returns ElseStatement.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
    */
   @Override
   public Object getImage(Object object)
   {
-    return overlayImage(object, getResourceLocator().getImage("full/obj16/ElseStatement"));
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "if_16" ;
+    return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
   /**

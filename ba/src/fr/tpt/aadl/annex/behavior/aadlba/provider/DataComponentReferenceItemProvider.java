@@ -124,7 +124,7 @@ public class DataComponentReferenceItemProvider
   @Override
   public Object getImage(Object object)
   {
-    String imgFile = BehaviorElementItemProvider.IMG_PATH + "dcr_16.gif";
+    String imgFile = BehaviorElementItemProvider.IMG_PATH + "dcr_16";
     return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 

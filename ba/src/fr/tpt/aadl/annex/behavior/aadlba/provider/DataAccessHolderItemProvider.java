@@ -131,9 +131,9 @@ public class DataAccessHolderItemProvider
     
     switch(holder.getDataAccess().getKind())
     {
-      case PROVIDES : {imgFile += "ProvidesDataAccess.gif" ; break ;}
+      case PROVIDES : {imgFile += "ProvidesDataAccess" ; break ;}
       default :
-      case REQUIRES : {imgFile += "RequiresDataAccess.gif" ; break ;}
+      case REQUIRES : {imgFile += "RequiresDataAccess" ; break ;}
     }
     
     return overlayImage(object, getResourceLocator().getImage(imgFile));

@@ -135,7 +135,7 @@ public class BehaviorEnumerationLiteralItemProvider
   @Override
   public Object getImage(Object object)
   {
-    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH + "Literal.gif" ;
+    String imgFile = BehaviorElementItemProvider.OSATE_IMG_PATH + "Literal" ;
     return overlayImage(object, getResourceLocator().getImage(imgFile));
   }
 
