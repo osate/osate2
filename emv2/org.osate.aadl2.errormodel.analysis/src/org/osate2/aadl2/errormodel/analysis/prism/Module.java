@@ -318,9 +318,19 @@ public class Module {
 		
 		ErrorBehaviorStateMachine useStateMachine = null;
 		ErrorPropagations propagations = null;
-		ErrorModelSubclause errorModelSubclause = EMV2Util.getClassifierEMV2Subclause(aadlComponent.getComponentClassifier());
-		ComponentErrorBehavior errorBehavior = errorModelSubclause.getComponentBehavior();
-		ErrorBehaviorStateMachine componentStateMachine = errorModelSubclause.getUseBehavior();
+		ComponentErrorBehavior errorBehavior = null;
+		ErrorBehaviorStateMachine componentStateMachine = null;
+		ErrorModelSubclause errorModelSubclause = null;
+		
+		errorModelSubclause = EMV2Util.getClassifierEMV2Subclause (aadlComponent.getComponentClassifier());
+		
+		if (errorModelSubclause == null)
+		{
+			return this;
+		}
+		
+		errorBehavior = errorModelSubclause.getComponentBehavior();
+		componentStateMachine = errorModelSubclause.getUseBehavior();
 		CompositeErrorBehavior compositeErrorBehavior = errorModelSubclause.getCompositeBehavior();
 		OsateDebug.osateDebug("[PRISM][Module.java] errorModelSubclause=" + errorModelSubclause);
 		OsateDebug.osateDebug("[PRISM][Module.java] errorBehavior=" + errorBehavior);

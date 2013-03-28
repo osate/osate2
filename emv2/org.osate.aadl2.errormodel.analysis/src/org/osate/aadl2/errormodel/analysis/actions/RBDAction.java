@@ -178,7 +178,8 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		CompositeErrorBehavior 		ceb;
 		EList<ComponentInstance> 	componentInstances;
 		double						probabilityTemp;
-
+		double 						toRemove;
+		
 		ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(systemInstance.getComponentClassifier());
 		ceb = ems.getCompositeBehavior();
 		
@@ -187,6 +188,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		states = ceb.getStates();
 		
 		probabilityTemp  = 0;
+		toRemove		 = 0;
 		for (CompositeState state : states)
 		{
 			if (state.getState().getName().equalsIgnoreCase(ERROR_STATE_NAME))
@@ -194,8 +196,18 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 				probabilityTemp = handleCondition (state.getCondition(), componentInstances);
 			//	OsateDebug.osateDebug("temp=" + probabilityTemp);
 				finalResult = finalResult + probabilityTemp;
+				if (toRemove == 0)
+				{
+					toRemove = probabilityTemp;
+				}
+				else
+				{
+					toRemove = toRemove * probabilityTemp;
+				}
+					
 			}
 		}
+		finalResult = finalResult - toRemove;
 	}
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
