@@ -21,7 +21,7 @@ of the error probability.
 </p>
 
 <p>
-To do so, you have to associate an occurence value for each potential error/fault.
+To do so, you have to associate an occurrence value for each potential error/fault.
 In AADL terms, it consists in assigning an <em>OccurrenceDistribution</em> property
 to an error model artifact (see example below). Also, in AADL, the
 RDB is specified with an <em>error composite behavior</em> specification that
@@ -103,6 +103,35 @@ annex EMV2 {**
   end AircraftFMS.i;
   </pre>
 
+
+<h3>Algorithm</h3>
+<p>
+In this model, we have the following fault occurrence for failure:
+</p>
+<ul>
+	<li><strong>Position Sensor</strong>: 0.5</li>
+	<li><strong>Actuator1</strong>: 0.2</li>
+	<li><strong>Actuator2</strong>: 0.1</li>
+</ul>
+<p>
+The reliability figure is computed as following: <strong>Reliability = 1 - Failure</strong>.
+</p>
+<p>
+The following steps explains how we do the computation:
+</p>
+<ul>
+	<li><pre>Failure(Actuator) = Failure (Actuator1) * Failure (Actuator2) = 0.02</pre></li>
+	<li><pre>FailureProbability = 1 - Failure (PositionSensor) - Failure (Actuator) + Failure (PositionSensor) * Failure (Actuator)</pre></li>
+	<li><pre>FailureProbability = Failure(PositionSensor) + Failure (Actuator) - Failure (PositionSensor) * Failure (Actuator)</pre></li>
+	<li><pre>FailureProbability = 0.5 + 0.02 - 0.01 = 0.51</pre></li>
+</ul>
+<p>
+In particular, the following rules must be observed to compute reliability-related metrics:
+</p>
+<ul>
+	<li><strong>Faults in series</strong>: add the probabilities and substract their product</li>
+	<li><strong>Faults in parallel</strong>: multiply the probability of failure</li>
+</ul>
 
 <h3>Known issues and/or limitations</h3>
 <ul>
