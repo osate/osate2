@@ -38,6 +38,14 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
@@ -51,6 +59,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
@@ -69,7 +78,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	
 	private double 						finalResult;
 	private List<ComponentInstance> 	componentsNames;
-	
+	private static String 				ERROR_STATE_NAME = null;
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
@@ -180,7 +189,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		probabilityTemp  = 0;
 		for (CompositeState state : states)
 		{
-			if (state.getState().getName().equalsIgnoreCase("failed"))
+			if (state.getState().getName().equalsIgnoreCase(ERROR_STATE_NAME))
 			{
 				probabilityTemp = handleCondition (state.getCondition(), componentInstances);
 			//	OsateDebug.osateDebug("temp=" + probabilityTemp);
@@ -192,6 +201,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		String message;
+		
 		monitor.beginTask("RBD", IProgressMonitor.UNKNOWN);
 
 		si = null;
@@ -214,16 +224,44 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			monitor.done();
 		}
 		
-		processRootSystem (si);
-		
-		message  = "Failure probability: " + this.finalResult + "\n";
-		message += "Components involved:\n"; 
-		for (ComponentInstance ci : this.componentsNames)
-		{
-			message += "   * " + ci.getName() + " ("+ci.getCategory().toString()+")\n";
-		}
-		Dialog.showInfo("Reliability Block Diagram", message);	
+		final Display d = PlatformUI.getWorkbench().getDisplay();
+		d.syncExec(new Runnable(){
 
+			public void run() {
+				IWorkbenchWindow window;
+				Shell sh;
+				List<String> modulesList;
+				
+
+				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+				sh = window.getShell();
+				
+				InputDialog fd = new InputDialog(sh, "Error State name", "Please specify the name of the error state name", "failed", null);
+				if (fd.open() == Window.OK)
+				{
+					ERROR_STATE_NAME = fd.getValue();
+				}
+				else
+				{
+					ERROR_STATE_NAME = null;
+				}
+
+					
+			}});
+		
+		if (ERROR_STATE_NAME != null)
+		{
+			processRootSystem (si);
+			message  = "Failure probability: " + this.finalResult + "\n";
+			message += "Components involved:\n"; 
+			for (ComponentInstance ci : this.componentsNames)
+			{
+				message += "   * " + ci.getName() + " ("+ci.getCategory().toString()+")\n";
+			}
+			Dialog.showInfo("Reliability Block Diagram", message);	
+		}
+		
+		
 		
 		monitor.done();
 	}
