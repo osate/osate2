@@ -396,9 +396,12 @@ public class EMV2Util {
 					// do we need to check (context instanceof QualifiedObservableErrorPropagationPoint)
 					EList<FeatureReference> refs = ep.getFeaturerefs();
 					if (!refs.isEmpty()){
-						FeatureReference fref = refs.get(refs.size()-1);
-						Feature f = fref.getFeature(); 
-						if (!Aadl2Util.isNull(f) && f.getName().equalsIgnoreCase(name)) return ep;
+						String refname = "";
+						for (FeatureReference featureReference : refs) {
+							if (Aadl2Util.isNull(featureReference.getFeature())) return null;
+							refname = refname + (refname.isEmpty()?"":".")+featureReference.getFeature().getName();
+						}
+						if (refname.equalsIgnoreCase(name)) return ep;
 					}
 					String kind = ep.getKind();
 					if (kind != null && kind.equalsIgnoreCase(name)&&
