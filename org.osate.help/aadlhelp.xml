@@ -13,6 +13,10 @@
        </topic>
        <topic href="html/start/team.html" label="Collaborative edition">
        </topic>
+       <topic href="html/start/rules-syntax.html" label="Rules - Syntax">
+       </topic>
+       <topic href="html/start/rules-naming.html" label="Rules - Naming">
+       </topic>
     </topic>
     <topic href="html/plugins/index.html" label="Plug-ins">
        <topic href="html/plugins/imv.html" label="Instance Model Viewer">
