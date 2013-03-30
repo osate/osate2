@@ -9,7 +9,41 @@
 </head>
 
 <body>
-<h2>Naming Rules</h2>
+<h2>Syntax Rules</h2>
+<p>
+The following syntax rules are a summary for beginning using AADL. This is a mix between the syntax
+rules from the AADL standard and recommended guidelines. For a complete and formal definition of
+syntax rules, please refer to the AADL standard.
+</p>
+
+<table style="border: 1px solid black;">
+<tr>
+<td><strong>AADL entity</strong></td><td><strong>Rules</strong></td><td><strong>Examples</strong></td>
+</tr>
+<tr>
+<td>Component type</td>
+<td>
+	<ul>
+		<li>start with a letter</li>
+		<li>end with a letter or number</li>
+		<li>no space or special caracter</li>
+	</ul>
+</td>
+<td><pre>process pr_server</pre></td>
+</tr>
+<tr>
+<td>Component implemenration</td>
+<td>try to provide a hint about the purpose of the implementation</td>
+<td><pre>process pr_server.one_thread</pre> or <pre>process pr_server.multi_threads</pre></td>
+</tr>
+<tr>
+<td></td><td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td><td></td>
+</tr>
+</table>
+
 
 </body>
 </html>

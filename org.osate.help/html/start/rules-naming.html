@@ -9,7 +9,69 @@
 </head>
 
 <body>
-<h2>Syntax Rules</h2>
+<h1>Naming Rules</h1>
+<p>
+The following rules are recommended when using AADL for modeling a system. These are more modeling
+guidelines and are not mandatory. However, they are recommended in case you want
+to use a consistency naming rules and also want to share your models with other AADL users
+that might be used to them.
+</p>
 
+<table style="border: 1px solid black;">
+<tr>
+<td><strong>AADL entity</strong></td><td><strong>Rules</strong></td><td><strong>Examples</strong></td>
+</tr>
+<tr>
+<td>All</td>
+<td>
+	<ul>
+		<li>Separate words with <em>_</em></li>
+		<li>Try to provide hints about the functional operation of the entity</li>
+	</ul>
+</td>
+<td><pre>process pr_receive_http_request</pre></td>
+</tr>
+
+<tr>
+<td>Files</td>
+<td>
+	<ul>
+		<li>Name of the contained AADL public package with the _ being replace by -</li>
+	</ul>
+</td>
+<td>For a package my_package, the file name would be <pre>my-package.aadl</pre></td>
+</tr>
+
+<tr>
+<td>Component type</td>
+<td>
+	<ul>
+		<li>Start with the kind of components</li>
+		<li>Provide a hint about the function/operation</li>
+	</ul>
+</td>
+<td><pre>process pr_receive_http_request</pre></td>
+</tr>
+
+<tr>
+<td>Connections</td>
+<td>
+	<ul>
+		<li><pre>conn_[COMPONENT_SOURCE]_[COMPONENT_DESTINATION]</pre></li>
+	</ul>
+</td>
+<td><pre>conn_source_dout_dst_din : port source.dout -> dest.din</pre></td>
+</tr>
+
+<tr>
+<td></td><td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td><td></td>
+</tr>
+</table>
 </body>
 </html>
