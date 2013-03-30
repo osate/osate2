@@ -810,7 +810,7 @@ public class PropertyUtils {
   }
   
 
-	public static List<Long> getIntListValue(ProcessorSubcomponent object, String propertyName) throws Exception {
+	public static List<Long> getIntListValue(NamedElement object, String propertyName) throws Exception {
 		List<Long> res = new ArrayList<Long>();
 		PropertyAssociation pa = findProperty(propertyName, object);
 
@@ -921,7 +921,7 @@ public class PropertyUtils {
 
     return result ;
     }
-
+  
   /**
    * Returns the property association which match
    * the given propertyName if it is defined
