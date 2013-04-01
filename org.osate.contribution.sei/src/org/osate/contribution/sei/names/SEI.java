@@ -51,6 +51,8 @@ public final class SEI {
 	public static final String W_LITERAL = "W";
 	public static final String KW_LITERAL = "KW";
 	
+	public static final String DATA_RATE = "Data_Rate";
+
 	public static final String NSLOC = "nsloc";
 	public static final String VDID_INSPECT = "vdid_inspect";
 }
