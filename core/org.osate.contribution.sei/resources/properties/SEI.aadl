@@ -89,7 +89,7 @@ property set SEI is
   -- Data volume units : amount of data per second
 -- now defined in core  Data_Volume_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
   
---   Data_Rate : aadlreal applies to (port); We now have output_rate as predeclared property
+   Data_Rate: aadlreal  units (perSecond) applies to (port); -- We now have output_rate as predeclared property, but we keep this around as a simple proeprty
   
   --  The next properties are used for the Value-Driven Incremental Development plug-in
   nsloc : aadlinteger applies to (system, subprogram, abstract, thread, process); 
