@@ -479,26 +479,25 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						if (sub != null) res = sub.findNamedElement(name);
 				}
 			} else {
-				res = AadlUtil.getContainingClassifier(context)
-						.findNamedElement(name);
-				if (res == null){
-					// check about in modes in a contained property association
-					PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(context);
-					if (!Aadl2Util.isNull(pa)&&!pa.getAppliesTos().isEmpty()){
-						ContainedNamedElement path = pa.getAppliesTos().get(0);
-						EList<ContainmentPathElement> cpelist = path.getContainmentPathElements();
-						Classifier cpecl = null;
-						for (ContainmentPathElement containmentPathElement : cpelist) {
-							if (containmentPathElement.getNamedElement() instanceof Subcomponent){
-								cpecl = ((Subcomponent)containmentPathElement.getNamedElement()).getClassifier();
-							} else {
-								break;
-							}
-						}
-						if (cpecl != null){
-							res = cpecl.findNamedElement(name);
+				// check about in modes in a contained property association
+				PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(context);
+				if (pa != null &&!pa.getAppliesTos().isEmpty()){
+					ContainedNamedElement path = pa.getAppliesTos().get(0);
+					EList<ContainmentPathElement> cpelist = path.getContainmentPathElements();
+					Classifier cpecl = null;
+					for (ContainmentPathElement containmentPathElement : cpelist) {
+						if (containmentPathElement.getNamedElement() instanceof Subcomponent){
+							cpecl = ((Subcomponent)containmentPathElement.getNamedElement()).getClassifier();
+						} else {
+							break;
 						}
 					}
+					if (cpecl != null){
+						res = cpecl.findNamedElement(name);
+					}
+				} else {
+					res = AadlUtil.getContainingClassifier(context)
+							.findNamedElement(name);
 				}
 			}
 			if (res != null && res instanceof Mode) {
