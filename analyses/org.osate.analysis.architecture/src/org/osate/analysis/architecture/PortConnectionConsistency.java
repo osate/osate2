@@ -60,6 +60,7 @@ import org.osate.aadl2.modelsupport.UnparseText;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.contribution.sei.names.DataModel;
+import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
@@ -128,8 +129,8 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
     		}
     	}
     	// now try it as SAVI::Data_Rate
-		double srcRateValue = getSAVIDataRate(srcFI);
-		double dstRateValue = getSAVIDataRate(dstFI);
+		double srcRateValue = getSEIDataRate(srcFI);
+		double dstRateValue = getSEIDataRate(dstFI);
 		if (srcRateValue > 0 && dstRateValue > 0){
 			if (srcRateValue != dstRateValue){
 				error(conni, "Source data rate "+srcRateValue+" and destination data rate "+dstRateValue+" differ");
@@ -173,8 +174,8 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 		return ((NumberValue) maximum).getScaledValue();
     }
     
-    private double getSAVIDataRate(NamedElement ne){
-		Property dr = GetProperties.lookupPropertyDefinition(ne,"SAVI", "Data_Rate");
+    private double getSEIDataRate(NamedElement ne){
+		Property dr = GetProperties.lookupPropertyDefinition(ne,SEI._NAME, SEI.DATA_RATE);
 		if (dr == null) return 0;
 		return PropertyUtils.getRealValue(ne, dr,0.0);
     }
