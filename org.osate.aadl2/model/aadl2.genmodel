@@ -75,13 +75,6 @@
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/virtualBus"/>
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/virtualProcessor"/>
     </genEnums>
-    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//ConnectionKind">
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Access"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Feature"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/FeatureGroup"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Parameter"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Port"/>
-    </genEnums>
     <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//ElementNameKind">
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ElementNameKind/InternalEvent"/>
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ElementNameKind/ProcessorPort"/>

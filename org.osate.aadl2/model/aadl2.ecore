@@ -1244,13 +1244,6 @@
     <eLiterals name="virtualBus" value="12"/>
     <eLiterals name="virtualProcessor" value="13"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="ConnectionKind">
-    <eLiterals name="Access"/>
-    <eLiterals name="Feature" value="1"/>
-    <eLiterals name="FeatureGroup" value="2"/>
-    <eLiterals name="Parameter" value="3"/>
-    <eLiterals name="Port" value="4"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectedElement" eSuperTypes="#//Element #//AbstractConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
         eType="#//Context"/>
