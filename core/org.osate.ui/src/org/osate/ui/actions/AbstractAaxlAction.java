@@ -146,6 +146,13 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		csvlog = new WriteToFile(reporttype, root);
 	}
 
+	/**
+	 * sets up a CSV log in the report folder using report type as subfolder
+	 */
+	public void setTXTLog(String reporttype, EObject root) {
+		csvlog = new WriteToFile(reporttype, root,"txt");
+	}
+
 	
 	/**
 	 * Use by the property reference initialization process to keep track
@@ -665,7 +672,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void error(final Element obj, final String msg){
 		errManager.error(obj, msg);
-		logError("ERROR: "+msg);
+		logError(msg);
 	}
 	
 	/**
@@ -694,7 +701,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void warning(final Element obj, final String msg){
 		errManager.warning(obj, msg);
-		logWarning("Warning: "+msg);
+		logWarning(msg);
 	}
 
 	/**

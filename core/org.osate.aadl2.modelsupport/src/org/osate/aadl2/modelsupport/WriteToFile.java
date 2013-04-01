@@ -37,6 +37,13 @@ public class WriteToFile {
 		this.fileExtension = "csv";
 	}
 	
+	public WriteToFile(String reporttype, EObject root, String extension){
+		this.reportType = reporttype;
+		this.root = root;
+		this.textBuffer = new UnparseText();
+		this.fileExtension = extension;
+	}
+	
 	public void setFileExtension (String fe)
 	{
 		this.fileExtension = fe;
