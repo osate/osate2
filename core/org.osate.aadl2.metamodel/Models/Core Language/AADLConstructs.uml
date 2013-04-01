@@ -1040,7 +1040,8 @@ For access features, the classifier specifies the type of the shared component.<
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-Feature-refined-_lowerValue"/>
           <subsettedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_v6CzYLO0EeCzMYz5ww7glA" name="classifier" type="Components-ComponentClassifier" isReadOnly="true" isDerived="true" subsettedProperty="Features-Feature-classifier" association="_v62EoLO0EeCzMYz5ww7glA">
+        <ownedAttribute xmi:id="_v6CzYLO0EeCzMYz5ww7glA" name="classifier" isReadOnly="true" isDerived="true" subsettedProperty="Features-Feature-classifier" association="_v62EoLO0EeCzMYz5ww7glA">
+          <type xmi:type="uml:Class" href="AADLDetails.uml#NoneSupport-Classifier"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_v6CzYbO0EeCzMYz5ww7glA" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_v6CzYrO0EeCzMYz5ww7glA"/>
         </ownedAttribute>
