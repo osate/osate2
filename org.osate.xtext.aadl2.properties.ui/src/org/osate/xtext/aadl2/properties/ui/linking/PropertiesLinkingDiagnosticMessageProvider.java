@@ -34,6 +34,7 @@
  */
 package org.osate.xtext.aadl2.properties.ui.linking;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.diagnostics.Diagnostic;
@@ -45,8 +46,10 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 
 public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosticMessageProvider{
 
@@ -92,6 +95,20 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 		}
 		if (Aadl2Package.eINSTANCE.getConnectionEnd() == referenceType){
 			String msg = "Couldn't resolve feature '" + context.getLinkText() + "'. It may not match connection type.";
+			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+		}
+		if (Aadl2Package.eINSTANCE.getMode() == referenceType){
+			EObject cxt = context.getContext();
+			PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(cxt);
+			boolean iscontainedPA = (pa != null &&!pa.getAppliesTos().isEmpty());
+			String msg = "Couldn't resolve reference to mode '" + context.getLinkText() + "'";
+			if (iscontainedPA){
+				EList<ContainedNamedElement> appl = pa.getAppliesTos();
+				ContainedNamedElement path = appl.get(appl.size()-1);
+				msg = msg + " in applies to '"+Aadl2Util.getPrintablePathName(path)+"'.";
+			} else {
+				msg = msg+".";
+			}
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
 		return super.getUnresolvedProxyMessage(context);

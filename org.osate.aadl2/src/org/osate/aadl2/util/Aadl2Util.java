@@ -1,9 +1,12 @@
 package org.osate.aadl2.util;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -180,6 +183,15 @@ public class Aadl2Util {
 			return "";
 		}
 		return "In SystemMode " + somName + ": ";
+	}
+
+	public static String getPrintablePathName(ContainedNamedElement path) {
+		String pathname = "";
+		EList<ContainmentPathElement> pathelements = path.getContainmentPathElements();
+		for (ContainmentPathElement containmentPathElement : pathelements) {
+			pathname = pathname + (pathname.isEmpty()?"":".")+containmentPathElement.getNamedElement().getName();
+		}
+		return pathname;
 	}
 
 }
