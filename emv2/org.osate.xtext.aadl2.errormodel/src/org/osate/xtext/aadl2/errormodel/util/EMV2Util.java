@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -30,6 +31,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -591,19 +593,19 @@ public class EMV2Util {
 		 * @return ErrorFlow
 		 */
 		public static ErrorFlow findErrorFlowFrom(Collection<ErrorFlow> efs, ConnectionInstanceEnd incie){
+			if (!(incie instanceof FeatureInstance)) return null;
+			FeatureInstance fi = (FeatureInstance)incie;
 			for (ErrorFlow ef : efs) {
-				Feature f = null;
+				ErrorPropagation eprop = null;
 				if (ef instanceof ErrorPath){
 					ErrorPath ep = (ErrorPath)ef;
-					 f = getFeature(ep.getIncoming());
+					 eprop = ep.getIncoming();
 				} else if (ef instanceof ErrorSink){
 					ErrorSink es = (ErrorSink)ef;
-					 f = getFeature(es.getIncoming());
+					 eprop =es.getIncoming();
 				}
-				if (incie instanceof FeatureInstance){
-					if (((FeatureInstance)incie).getFeature().equals(f)){
-						return ef;
-					}
+				if (isErrorPropagationOf(eprop, fi)){
+					return ef;
 				}
 			}
 			return null;
@@ -616,19 +618,19 @@ public class EMV2Util {
 		 * @return ErrorFlow
 		 */
 		public static ErrorFlow findReverseErrorFlowFrom(Collection<ErrorFlow> efs, ConnectionInstanceEnd incie){
+			if (!(incie instanceof FeatureInstance)) return null;
+			FeatureInstance fi = (FeatureInstance)incie;
 			for (ErrorFlow ef : efs) {
-				Feature f = null;
+				ErrorPropagation eprop = null;
 				if (ef instanceof ErrorPath){
 					ErrorPath ep = (ErrorPath)ef;
-					 f = getFeature(ep.getOutgoing());
+					eprop=ep.getOutgoing();
 				} else if (ef instanceof ErrorSource){
 					ErrorSource es = (ErrorSource)ef;
-					 f = getFeature(es.getOutgoing());
+					eprop=es.getOutgoing();
 				}
-				if (incie instanceof FeatureInstance){
-					if (((FeatureInstance)incie).getFeature().equals(f)){
+					if (isErrorPropagationOf(eprop, fi)){
 						return ef;
-					}
 				}
 			}
 			return null;
@@ -1282,10 +1284,26 @@ public class EMV2Util {
 		if (ne.getName() != null) return ne.getName();
 		if (ne instanceof ErrorPropagation){
 			ErrorPropagation ep = (ErrorPropagation)ne;
-		if (!Aadl2Util.isNull(getFeature(ep))) return getFeature(ep).getName();
-		if (ep.getKind() != null) return ep.getKind();
+			String res = getPrintName(ep);
+			if (!res.isEmpty()) return res;
+			if (ep.getKind() != null) return ep.getKind();
 		}
 		return "";
+	}
+	
+	/**
+	 * get printName of Error Propagation
+	 * @param ep
+	 * @return
+	 */
+	public static String getPrintName(ErrorPropagation ep){
+		EList<FeatureReference> refs = ep.getFeaturerefs();
+		String refname = "";
+		for (FeatureReference featureReference : refs) {
+			if (Aadl2Util.isNull(featureReference.getFeature())) return null;
+			refname = refname + (refname.isEmpty()?"":".")+featureReference.getFeature().getName();
+		}
+		return refname;
 	}
 	
 	public static String getPrintName(TypeSet ts){
@@ -1880,6 +1898,54 @@ public class EMV2Util {
 		return result ;
 	}
 	
+	/**
+	 * returns the feature instance in the component instance that is referenced by the Error Propagation (or Containment)
+	 * @param ep
+	 * @param ci
+	 * @return
+	 */
+	public static FeatureInstance findFeatureInstance(ErrorPropagation ep, ComponentInstance ci){
+		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		if (frefs.isEmpty()) return null;
+		InstanceObject container = ci;
+		for (FeatureReference featureReference : frefs) {
+			FeatureInstance fi = (container instanceof ComponentInstance?
+					((ComponentInstance)container).findFeatureInstance(featureReference.getFeature()):
+						((FeatureInstance)container).findFeatureInstance(featureReference.getFeature()));
+			if (fi != null){
+				container = fi;
+			} else {
+				return null;
+			}
+		}
+		return (FeatureInstance)container;
+	}
+	
+	/**
+	 * return true if error propagation points to feature instance
+	 * @param ep Error Propagation (or Containment)
+	 * @param fi Feature Instance
+	 * @return Boolean
+	 */
+	public static boolean isErrorPropagationOf(ErrorPropagation ep, FeatureInstance fi){
+		Feature fif = fi.getFeature();
+		if (Aadl2Util.isNull(fif)) return false;
+		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		if (frefs.isEmpty()) return false;
+		for (int i = frefs.size()-1; i >0; i--) {
+			FeatureReference fref = frefs.get(i);
+			if (Aadl2Util.isNull(fref.getFeature())||fref.getFeature() != fi.getFeature()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * returns the last feature in the error propagation feature reference.
+	 * @param ep
+	 * @return feature
+	 */
 	public static Feature getFeature(ErrorPropagation ep){
 		EList<FeatureReference> frefs = ep.getFeaturerefs();
 		if (frefs.isEmpty()) return null;

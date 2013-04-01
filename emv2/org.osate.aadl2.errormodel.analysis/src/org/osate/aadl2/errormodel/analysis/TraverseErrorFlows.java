@@ -165,15 +165,11 @@ public class TraverseErrorFlows {
 			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
 			for (TypeToken typeToken : result) {
 				String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
-				Feature f = EMV2Util.getFeature(ep);
-				// we also have observables, error propagations with kind, and not error propagations
-				if (f != null){
-					FeatureInstance fi = ci.findFeatureInstance(f);
+					FeatureInstance fi = EMV2Util.findFeatureInstance(ep,ci);
 					// Call on process to attach the typeToken to the outgoing feature
 					setToken(fi,typeToken);
 					traceErrorFlows(fi,2,componentText+", "+failuremodeText+", "+generateEffectText(fi, ep));
 				}
-			}
 		}
 	}
 	
@@ -351,7 +347,7 @@ public class TraverseErrorFlows {
 					return;
 				} else if (ef instanceof ErrorPath){ // error path
 					ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
-					FeatureInstance outfi = ci.findFeatureInstance(EMV2Util.getFeature(outp));
+					FeatureInstance outfi = EMV2Util.findFeatureInstance(outp,ci);
 					processToken(getToken(sourcei),ef,outfi);
 					traceErrorFlows(outfi,depth+1,entryText+myText+", "+generateEffectText(outfi, outp));
 					return;
@@ -413,7 +409,7 @@ public class TraverseErrorFlows {
 				return;
 			} else if (ef instanceof ErrorPath){ // error path
 				ErrorPropagation inp = ((ErrorPath)ef).getIncoming();
-				FeatureInstance infi = ci.findFeatureInstance(EMV2Util.getFeature(inp));
+				FeatureInstance infi = EMV2Util.findFeatureInstance(inp,ci);
 				processToken(getToken(dest),ef,infi);
 						traceErrorFlows(infi,depth+1,entryText+myText+", "+generateEffectText(infi, inp));
 				return;

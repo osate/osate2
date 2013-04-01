@@ -117,13 +117,9 @@ public class PropagateErrorFlows {
 		 EList<EObject> nextStep =new UniqueEList<EObject>();
 		for (ErrorSource errorSource : eslist.values()) {
 			ErrorPropagation ep = errorSource.getOutgoing();
-			Feature f = EMV2Util.getFeature(ep);
-			// we also have observables, error propagations with kind, and not error propagations
-			if (f != null){
-			FeatureInstance fi = ci.findFeatureInstance(f);
+			FeatureInstance fi = EMV2Util.findFeatureInstance(ep,ci);
 			// only propagate if error propagation?
 			if (process(null,errorSource,fi)){
-			}
 			}
 		}
 	}
@@ -180,7 +176,7 @@ public class PropagateErrorFlows {
 			ErrorPath epath = (ErrorPath)path;
 			ErrorPropagation srcep = epath.getIncoming();
 			ComponentInstance ci = fi.getContainingComponentInstance();
-			FeatureInstance srcfi = ci.findFeatureInstance(EMV2Util.getFeature(srcep));
+			FeatureInstance srcfi = EMV2Util.findFeatureInstance(srcep,ci);
 			ErrorModelState srcst = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(srcfi, ErrorModelState.class);
 			TypeToken tu = srcst.getToken();
 			// map the token
@@ -223,12 +219,12 @@ public class PropagateErrorFlows {
 			TypeToken tu = st.getToken();
 			if (tu != null){
 				report.addOutputNewline(ci.getName()+
-						(ep!=null?"."+EMV2Util.getFeature(ep).getName():"")+
+						(ep!=null?"."+EMV2Util.getPrintName(ep):"")+
 						EMV2Util.getPrintName(tu));
 				return;
 			}
 			if (ep != null){
-			report.addOutputNewline(ci.getName()+"."+EMV2Util.getFeature(ep).getName()+
+			report.addOutputNewline(ci.getName()+"."+EMV2Util.getPrintName(ep)+
 					(ep.getTypeSet()!=null?EMV2Util.getPrintName(ep.getTypeSet()):""));
 			} else {
 				report.addOutputNewline(ci.getName());
@@ -274,7 +270,7 @@ public class PropagateErrorFlows {
 				return;
 			} else if (ef instanceof ErrorPath){ // error path
 				ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
-				FeatureInstance fi = ci.findFeatureInstance(EMV2Util.getFeature(outp));
+				FeatureInstance fi = EMV2Util.findFeatureInstance(outp,ci);
 				process(incie,ef,fi);
 				EList<ConnectionInstance> connilist = Aadl2InstanceUtil.getOutgoingConnection(ci,fi);
 				for (ConnectionInstance connectionInstance : connilist) {

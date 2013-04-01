@@ -69,9 +69,9 @@ public class Util
 	 * @param fe	The Feature to map
 	 * @return
 	 */
-	public static String getFeatureName (ComponentInstance ci, Feature fe)
+	public static String getFeatureName (ComponentInstance ci, String featureName)
 	{
-		return getComponentName(ci) + "_" + fe.getName().toLowerCase();
+		return getComponentName(ci) + "_" + featureName.toLowerCase();
 	}
 	
 	/**
@@ -115,11 +115,9 @@ public class Util
 			if ((event != null) && (event instanceof ErrorPropagation))
 			{
 				ComponentInstance instanceSource 	= null;
-				Feature featureSource 				= null;
 				boolean found 						= false;
 				ErrorPropagation ep 				= (ErrorPropagation) event;
 				
-				Feature	associatedFeature 			= EMV2Util.getFeature(ep);
 				
 				
 				//instance.getAllEnclosingConnectionInstances()
@@ -130,10 +128,10 @@ public class Util
 					for (ConnectionReference cr : ci.getConnectionReferences())
 					{
 						//OsateDebug.osateDebug("[Utils]       ErrorPropagation cr dest cl:" + cr.getConnection().getAllDestination());
-						if (cr.getConnection().getAllDestination() == associatedFeature)
+						// TODO deal with access connections pointing to component instances
+						if (EMV2Util.isErrorPropagationOf(ep, (FeatureInstance)cr.getDestination())  )
 						{
 							//OsateDebug.osateDebug("[Utils]       crSource:" + cr.getSource());
-							featureSource = ((FeatureInstance)cr.getSource()).getFeature();
 							instanceSource = cr.getSource().getContainingComponentInstance();
 							found = true;
 						}
@@ -155,14 +153,14 @@ public class Util
 								ErrorSource errorSource = (ErrorSource)flow;
 								ErrorBehaviorState state = (ErrorBehaviorState) errorSource.getFailureModeReference();
 								//OsateDebug.osateDebug("[Utils]       ErrorSource feature:" + errorSource.getOutgoing().getFeature());
-								if (EMV2Util.getFeature(errorSource.getOutgoing()) == featureSource)
+								if (errorSource.getOutgoing() == ep)
 								{
 									TypeSet ts = errorSource.getTypeTokenConstraint();
 									TypeToken tt = ts.getElementType().get(0);
 									ErrorType et = tt.getType().get(0);
 									//OsateDebug.osateDebug("[Utils]       ErrorSource token:" + et);
-									Expression e = new Equal (new Terminal (Util.getFeatureName(instanceSource, featureSource)),
-															  new Terminal ("" + Model.getCurrentInstance().getPropagationMap().get(featureSource.getName()).get(et.getName())));
+									Expression e = new Equal (new Terminal (Util.getFeatureName(instanceSource, EMV2Util.getPrintName(ep))),
+															  new Terminal ("" + Model.getCurrentInstance().getPropagationMap().get(EMV2Util.getPrintName(ep)).get(et.getName())));
 									exprs.add(e);
 								}
 
