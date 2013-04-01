@@ -452,6 +452,7 @@ public class EMV2Util {
 		}
 		return null;
 	}
+	
 	public static ErrorPropagation findOutgoingErrorPropagation(EList<ErrorModelSubclause> emslist, String eppName){
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,false);
@@ -474,6 +475,7 @@ public class EMV2Util {
 		}
 		return null;
 	}
+	
 	public static ErrorPropagation findOutgoingErrorContainment(EList<ErrorModelSubclause> emslist, String eppName){
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,true);
@@ -523,6 +525,26 @@ public class EMV2Util {
 	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
 		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), fi.getName());
+	}
+	
+	/**
+	 * Get outgoing error propagation associated with feature instance
+	 * @param fi feature instance
+	 * @return error propagation
+	 */
+	public static ErrorPropagation getOutgoingErrorContainment(FeatureInstance fi){
+		ComponentInstance ci = fi.getContainingComponentInstance();
+		return EMV2Util.findOutgoingErrorContainment(ci.getComponentClassifier(), fi.getName());
+	}
+	
+	/**
+	 * Get incoming error propagation associated with feature instance
+	 * @param fi feature instance
+	 * @return error propagation
+	 */
+	public static ErrorPropagation getIncomingErrorContainment(FeatureInstance fi){
+		ComponentInstance ci = fi.getContainingComponentInstance();
+		return EMV2Util.findIncomingErrorContainment(ci.getComponentClassifier(), fi.getName());
 	}
 	
 	/**

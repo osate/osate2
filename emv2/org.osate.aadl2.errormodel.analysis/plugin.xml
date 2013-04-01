@@ -122,6 +122,25 @@
                </or>
             </enablement>
          </action>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.UnhandledFaults.action"
+               label="%UnhandledFaults.label"
+               tooltip="%UnhandledFaults.toolTip"
+               icon="%UnhandledFaults.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.UnhandledFaultsAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
+         </action>
         
          <!--action
                id="org.osate.aadl2.errormodel.analysis.actions.FMEA.action"
@@ -216,6 +235,14 @@
                class="org.osate.aadl2.errormodel.analysis.actions.FaultImpactAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.UnhandledFaults.popupAction"
+               label="%UnhandledFaults.label"
+               tooltip="%UnhandledFaults.toolTip"
+               icon="%UnhandledFaults.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.UnhandledFaultsAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>
          <!--action
                id="org.osate.aadl2.errormodel.analysis.actions.FMEA.popupAction"
                label="%FMEA.label"
@@ -231,6 +258,14 @@
    <extension
          id="FaultImpactMarker"
          name="Fault Impact Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+
+   <extension
+         id="UnhandledFaultsMarker"
+         name="Unhandled Faults Marker"
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
