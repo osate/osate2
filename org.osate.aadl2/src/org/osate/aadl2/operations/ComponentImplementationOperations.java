@@ -68,10 +68,10 @@ public class ComponentImplementationOperations extends ClassifierOperations {
 		super();
 	}
 
-
 	public static EList<Subcomponent> getAllSubcomponents(
 			ComponentImplementation componentImplementation) {
-		final EList<Classifier> ancestors = componentImplementation.getSelfPlusAllExtended();
+		final EList<Classifier> ancestors = componentImplementation
+				.getSelfPlusAllExtended();
 		final BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
@@ -87,7 +87,7 @@ public class ComponentImplementationOperations extends ClassifierOperations {
 					final Subcomponent rfe = fe.getRefined();
 					if (rfe != null)
 						returnlist.remove(rfe);
-					returnlist.add(fe); 
+					returnlist.add(fe);
 				}
 			}
 		}

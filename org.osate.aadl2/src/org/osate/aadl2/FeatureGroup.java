@@ -135,13 +135,12 @@ public interface FeatureGroup extends DirectedFeature, Context,
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	Classifier getAllClassifier();
-	
+
 	/**
 	 * Get the classifier of given feature, if it has one, otherwise null.
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
 	Classifier getClassifier();
-
 
 	/*
 	 * Get the feature group type of given feature group or its refinement ancestor, if it has
