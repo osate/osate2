@@ -1196,9 +1196,6 @@ public class Aadl2Validator extends EObjectValidator {
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return validateComponentCategory((ComponentCategory) value,
 					diagnostics, context);
-		case Aadl2Package.CONNECTION_KIND:
-			return validateConnectionKind((ConnectionKind) value, diagnostics,
-					context);
 		case Aadl2Package.ELEMENT_NAME_KIND:
 			return validateElementNameKind((ElementNameKind) value,
 					diagnostics, context);
@@ -13853,16 +13850,6 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFlowKind(FlowKind flowKind,
-			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateConnectionKind(ConnectionKind connectionKind,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}

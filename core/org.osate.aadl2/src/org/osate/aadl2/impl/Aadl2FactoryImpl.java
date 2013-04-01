@@ -590,8 +590,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return createPortCategoryFromString(eDataType, initialValue);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return createComponentCategoryFromString(eDataType, initialValue);
-		case Aadl2Package.CONNECTION_KIND:
-			return createConnectionKindFromString(eDataType, initialValue);
 		case Aadl2Package.ELEMENT_NAME_KIND:
 			return createElementNameKindFromString(eDataType, initialValue);
 		case Aadl2Package.OPERATION_KIND:
@@ -630,8 +628,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return convertPortCategoryToString(eDataType, instanceValue);
 		case Aadl2Package.COMPONENT_CATEGORY:
 			return convertComponentCategoryToString(eDataType, instanceValue);
-		case Aadl2Package.CONNECTION_KIND:
-			return convertConnectionKindToString(eDataType, instanceValue);
 		case Aadl2Package.ELEMENT_NAME_KIND:
 			return convertElementNameKindToString(eDataType, instanceValue);
 		case Aadl2Package.OPERATION_KIND:
@@ -2356,31 +2352,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * @generated
 	 */
 	public String convertComponentCategoryToString(EDataType eDataType,
-			Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConnectionKind createConnectionKindFromString(EDataType eDataType,
-			String initialValue) {
-		ConnectionKind result = ConnectionKind.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertConnectionKindToString(EDataType eDataType,
 			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}

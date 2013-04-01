@@ -566,7 +566,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		for (Classifier classifier : classifiers) {
 			EList<AnnexSubclause> oas = classifier.getOwnedAnnexSubclauses();
 			for (AnnexSubclause annexSubclause : oas) {
-				if (annexSubclause.eClass().equals(eclass)){
+				if (annexSubclause.eClass().equals(eclass)) {
 					result.add(annexSubclause);
 				}
 			}

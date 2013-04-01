@@ -856,7 +856,7 @@
       <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
-        eType="#//ComponentClassifier" changeable="false" volatile="true" transient="true"
+        eType="#//Classifier" changeable="false" volatile="true" transient="true"
         derived="true">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>

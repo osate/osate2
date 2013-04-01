@@ -548,7 +548,7 @@ public interface Classifier extends Namespace, Type {
 	 * Note that each classifier can only have one 
 	 */
 	EList<AnnexSubclause> getAllAnnexSubclauses();
-	
-	EList<AnnexSubclause> getAllAnnexSubclauses(EClass eclass) ;
+
+	EList<AnnexSubclause> getAllAnnexSubclauses(EClass eclass);
 
 } // Classifier

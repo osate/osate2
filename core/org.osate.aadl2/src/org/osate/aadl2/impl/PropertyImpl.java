@@ -662,7 +662,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		if (p instanceof Property) {
 			String p1Name = this.getQualifiedName();
 			String p2Name = ((Property) p).getQualifiedName();
-			if (p1Name != null) 
+			if (p1Name != null)
 				return p1Name.equalsIgnoreCase(p2Name);
 		}
 		return false;

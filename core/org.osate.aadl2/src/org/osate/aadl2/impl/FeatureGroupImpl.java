@@ -138,24 +138,23 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FEATURE_GROUP__INVERSE, oldInverse, inverse));
 	}
-	
+
 	/**
 	 * Get the classifier of given feature or its refinement ancestor, if it has one, otherwise null.
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	public Classifier getAllClassifier(){
+	public Classifier getAllClassifier() {
 		return getAllFeatureGroupType();
 	}
-	
+
 	/**
 	 * Get the classifier of given feature, if it has one, otherwise null.
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
-	public Classifier getClassifier(){
+	public Classifier getClassifier() {
 		return getFeatureGroupType();
 	}
-
 
 	/*
 	 * Get the feature group type of given feature group or its refinement ancestor, if it has
