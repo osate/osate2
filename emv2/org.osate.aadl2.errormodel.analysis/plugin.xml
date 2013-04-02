@@ -72,6 +72,27 @@
                    <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
                </or>
             </enablement>
+         </action>
+         
+         
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.FTA.action"
+               label="%FTA.label"
+               tooltip="%FTA.toolTip"
+               icon="%FTA.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.FTAAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
          </action>         
 
          <action
@@ -209,6 +230,14 @@
                tooltip="%RBD.toolTip"
                icon="%RBD.icon"
                class="org.osate.aadl2.errormodel.analysis.actions.RBDAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.FTA.popupAction"
+               label="%FTA.label"
+               tooltip="%FTA.toolTip"
+               icon="%FTA.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.FTAAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
          <action
