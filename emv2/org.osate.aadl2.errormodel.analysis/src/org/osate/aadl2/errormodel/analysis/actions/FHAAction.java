@@ -111,10 +111,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		monitor.done();
 	}
 	
-	protected ContainedNamedElement getHazardProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
-		return result;
-	}
+
 	protected ContainedNamedElement getSeverityProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
 		ContainedNamedElement result = EMV2Util.getProperty("MILSTD882::Severity",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("ARP4761::Severity",ci,localContext,target,ts);
@@ -152,7 +149,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 							ContainedNamedElement PA = null;
 							ContainedNamedElement Sev = null;
 							ContainedNamedElement Like = null;
-							PA = getHazardProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+							PA = EMV2Util.getHazardProperty(ci, null,errorEvent,errorEvent.getTypeSet());
 							Sev = getSeverityProperty(ci, null,errorEvent,errorEvent.getTypeSet());
 							Like = getLikelihoodProperty(ci, null,errorEvent,errorEvent.getTypeSet());
 							if ((PA != null) && (Sev != null) && (Like != null))
@@ -183,7 +180,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				// state is originating hazard
 				failureMode =  (ErrorBehaviorState) fmr;
 				ts = failureMode.getTypeSet();
-				PA = getHazardProperty(ci,errorSource,failureMode,ts);
+				PA = EMV2Util.getHazardProperty(ci,errorSource,failureMode,ts);
 				Sev = getSeverityProperty(ci,errorSource,failureMode,ts);
 				Like = getLikelihoodProperty(ci,errorSource,failureMode,ts);
 				target = failureMode;
@@ -193,7 +190,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				// error propagation is originating hazard
 				ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
-				PA = getHazardProperty(ci, null,ep,ts);
+				PA = EMV2Util.getHazardProperty(ci, null,ep,ts);
 				Sev = getSeverityProperty(ci, null,ep,ts);
 				Like = getLikelihoodProperty(ci, null,ep,ts);
 				target = ep;
@@ -204,7 +201,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null) ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
-				PA = getHazardProperty(ci, null,errorSource,ts);
+				PA = EMV2Util.getHazardProperty(ci, null,errorSource,ts);
 				Sev = getSeverityProperty(ci, null,errorSource,ts);
 				Like = getLikelihoodProperty(ci, null,errorSource,ts);
 				target = errorSource;

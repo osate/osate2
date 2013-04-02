@@ -36,9 +36,9 @@ abstract public class Operator extends FTAElement {
 			sb2.append(e.toXML());
 			sb2.append("\n");
 		}
-		sb2.append("<");
+		sb2.append("</");
 		sb2.append(this.getOperatorString());
-		sb2.append("/>");
+		sb2.append(">");
 		sb2.append("\n");
 		return sb2.toString();
 	}

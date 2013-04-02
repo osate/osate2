@@ -100,7 +100,10 @@ public class EMV2Util {
 		return ci.getComponentClassifier().getAllAnnexSubclauses(EMV2subclauseEClass);
 	}
 	
-	
+	public static ContainedNamedElement getHazardProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
+		return result;
+	}
 	/**
 	 * Retrieve the value of the OccurenceDistribution property of the
 	 * EMV2 property. You can use it like this:
