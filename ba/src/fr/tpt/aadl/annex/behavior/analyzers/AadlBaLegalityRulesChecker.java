@@ -224,11 +224,12 @@ public class AadlBaLegalityRulesChecker
     * final states
     */
    @SuppressWarnings("unchecked")
+   // Suspended legality rule checking: need standard improvement.
    public boolean D_3_L4_Check (EList<BehaviorState> initialStates,
 				                EList<BehaviorState> finalStates)
    {
       boolean result = true ;
-      
+      /*
       // As the user can add component which have initialization and finalization
       // entrypoints, fetches the component list.
       
@@ -325,7 +326,7 @@ public class AadlBaLegalityRulesChecker
                       this.reportLegalityWarning(_ba, _baParentContainer.
                                                               getQualifiedName()
                             + " has no initial state : " +
-                              "Behavior Annex D.3.(L4) legality rule failed") ;
+                              "Behavior Annex D.3.(L4) legality rule warning") ;
                    }
                  
                 if(finalStates.size() == 0)
@@ -334,7 +335,7 @@ public class AadlBaLegalityRulesChecker
                    this.reportLegalityWarning(_ba,
                       _baParentContainer.getQualifiedName() + 
                          " has no final state : Behavior Annex D.3.(L4)"+
-                            " legality rules failed") ;
+                            " legality rules warning") ;
                 }
                  
                 return result ; 
@@ -375,7 +376,7 @@ public class AadlBaLegalityRulesChecker
            
           return result ;
       }
-      
+      */
       return result ;
    }
 
