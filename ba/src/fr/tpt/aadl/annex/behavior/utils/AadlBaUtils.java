@@ -545,7 +545,7 @@ public class AadlBaUtils {
    * Resolves the given prototype binding by returning the binded classifier
    * It returns {@code null} if the given prototype binding is not defined. 
    * 
-   * @param prototype the given prototype binding
+   * @param pb the given prototype binding
    * @return the binded classifier or {@code null}
    */
   public static Classifier prototypeBindingResolver(PrototypeBinding pb)
@@ -613,7 +613,7 @@ public class AadlBaUtils {
    * Target instance can be cast into ValueVariable reference.
    * <BR><BR>
    *  Notes: <BR><BR>
-   *  <BR>_ ValueVariable : {@link #getClassifier(Element, ComponentClassifier)} 
+   *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)} 
    *                                 to see the restrictions.
    *  <BR>_ ValueConstant : only BehaviorEnumerationLiteral has a data classifier.
    *  the others value constants return {@code null}.
@@ -636,7 +636,7 @@ public class AadlBaUtils {
    * Target instance can be cast into ValueVariable reference.
    * <BR><BR>
    *  Notes: <BR><BR>
-   *  <BR>_ ValueVariable : {@link #getClassifier(Element, ComponentClassifier)} 
+   *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)} 
    *                                 to see the restrictions.
    *  <BR>_ ValueConstant : only BehaviorEnumerationLiteral has a data classifier.
    *  the others value constants return {@code null}.
@@ -1112,7 +1112,7 @@ public class AadlBaUtils {
    * elements. The matching is base on behavior named element's name
    * (case insensitive).
    * 
-   * @param bne the given name
+   * @param name the given name
    * @param lbne the given list of behavior named elements
    * @return the first behavior named element form the given list which has the
    * same name as the given name. {@code null} otherwise
@@ -1259,8 +1259,7 @@ public class AadlBaUtils {
   /**
    * Analyze the given AADL Osate element and return its enumeration type.
    * 
-   * It's an improved version of Osate2 {@link
-   * org.osate.parser.AadlSemanticCheckSwitch#getFeatureType} 
+   * It's an improved version of Osate2 org.osate.parser.AadlSemanticCheckSwitch#getFeatureType 
    *  
    * @param el the given AADL Osate element
    * @return the given AADL Osate element's type
@@ -1545,7 +1544,7 @@ public class AadlBaUtils {
    * Translates the given ComponentPrototypeBinding object into a FeatureType
    * enumeration.
    * 
-   * @param fpb the given ComponentPrototypeBinding
+   * @param cpb the given ComponentPrototypeBinding
    * @return the translation in FeatureType object
    * @exception UnsupportedOperationException for the unsupported types
    */
@@ -1760,13 +1759,13 @@ public class AadlBaUtils {
    * _ Local variable.<BR></BlockQuote>
    * (see {@link #getDirectionType(org.osate.aadl2.Element)}).
    * <BR><BR>
-   * Notes:
+   * Notes:<BR><BR>
    * _  Behavior variable always returns DirectionType.IN_OUT as
    *    behavior variable is a valid Target and ValueVariable.
-   *    
+   * <BR><BR>   
    * _ Iterative variable always returns DirectionType.IN as iterative variables
    *   is a valid value variable but not a target.
-   * 
+   * <BR><BR>
    * _ Data subcomponent always returns DirectionType.IN_OUT as
    *   data subcomponent is valid Target and ValueVariable.
    * 
@@ -1802,7 +1801,7 @@ public class AadlBaUtils {
    * object, it returns the data access right or "unknown" if the default
    * data access right is not set.
    * 
-   * @see Aadl2Utils.getAccessRight
+   * @see fr.tpt.aadl.utils.Aadl2Utils#getAccessRight
    * @param tar the given Target object
    * @return the data access right or "unknown"
    */
@@ -1839,7 +1838,7 @@ public class AadlBaUtils {
    * reference or {@link fr.tpt.aadl.utils.Aadl2Utils.DataAccessRight#unknown} if the default data access
    * right is not set.
    * 
-   * @see Aadl2Utils.getAccessRight
+   * @see fr.tpt.aadl.utils.Aadl2Utils#getAccessRight
    * @param tar the given Target object
    * @return the data access right or {@link fr.tpt.aadl.utils.Aadl2Utils.DataAccessRight#unknown}
    */
