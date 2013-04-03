@@ -30,7 +30,7 @@ abstract public class Operator extends FTAElement {
 		StringBuffer sb2 = new StringBuffer ();
 		sb2.append("<");
 		sb2.append(this.getOperatorString());
-		sb2.append(">");
+		sb2.append(">\n");
 		for (FTAElement e : this.operands)
 		{
 			sb2.append(e.toXML());

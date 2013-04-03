@@ -58,6 +58,7 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.errormodel.analysis.fta.Event;
 import org.osate.aadl2.errormodel.analysis.fta.FTAElement;
+import org.osate.aadl2.errormodel.analysis.fta.FTAUtils;
 import org.osate.aadl2.errormodel.analysis.fta.Operator;
 import org.osate.aadl2.errormodel.analysis.fta.OperatorAnd;
 import org.osate.aadl2.errormodel.analysis.fta.OperatorOr;
@@ -85,7 +86,6 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 public final class FTAAction extends AaxlReadOnlyActionAsJob 
 {
 	
-	private List<ComponentInstance> 	componentsNames;
 	private static String 				ERROR_STATE_NAME = null;
 	private WriteToFile     			ftaFile;
 	private Event     					ftaEvent;
@@ -99,101 +99,19 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 	}
 
 	
-	private static ComponentInstance findInstance (EList<ComponentInstance> instances, String name)
-	{
-		for (ComponentInstance ci : instances)
-		{
-			if (ci.getName().equalsIgnoreCase(name))
-			{
-				return ci;
-			}
-		}
-		
-		return null;
-	}
-	
 
 	
-	private FTAElement handleCondition (final ConditionExpression cond, final EList<ComponentInstance> componentInstances)
-	{
-		FTAElement result;
-		
-		result = null;
-		//OsateDebug.osateDebug("cond="+cond);
-		
-		if (cond instanceof ConditionElement)
-		{
-			ConditionElement conditionElement;
-			
-			conditionElement = (ConditionElement) cond;
 
-			ErrorBehaviorState behaviorState = conditionElement.getReference();
 
-			for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
-			{
-				Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-				//OsateDebug.osateDebug("      subcomponent " + subcomponent);
-				ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
-				//OsateDebug.osateDebug("         instance " + relatedInstance);
-				
-				if (! this.componentsNames.contains(relatedInstance))
-				{
-					this.componentsNames.add (relatedInstance);
-				}
-				
-				if (behaviorState != null)
-				{
-					Event resultEvent = new Event();
-					resultEvent.setName("test1");
-					resultEvent.setDescription("desc1");
-					resultEvent.setProbability(1.2);
-					//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-					ContainedNamedElement PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
-					//OsateDebug.osateDebug("         PA " + PA);
-					result = resultEvent;
-				}
-			}
-		}
-		
-		
-		if (cond instanceof SOrExpression)
-		{
-			SOrExpression sor = (SOrExpression)cond;
-			OperatorOr resultOperand = new OperatorOr ();
-			for (ConditionExpression conditionExpression : sor.getOperands())
-			{
-				//OsateDebug.osateDebug("      operand=" + conditionExpression);
-				//result += handleCondition (conditionExpression, componentInstances);
-				resultOperand.addOperand(handleCondition(conditionExpression, componentInstances));
-			}
-			result = resultOperand;
-		}
-		
-		if (cond instanceof SAndExpression)
-		{
-			SAndExpression sae = (SAndExpression)cond;
-			OperatorAnd resultOperator;
-			resultOperator = new OperatorAnd ();
-
-			for (ConditionExpression conditionExpression : sae.getOperands())
-			{
-				resultOperator.addOperand(handleCondition(conditionExpression, componentInstances));
-
-			}
-			result = resultOperator;
-		}
-		return result;
-	}
 	
 	public Event processRootSystem (SystemInstance systemInstance)
 	{
 		EList<CompositeState> 		states;
 		CompositeErrorBehavior 		ceb;
 		EList<ComponentInstance> 	componentInstances;
-		ContainedNamedElement 		PA;
+		
 		Event						result;
 		
-		PA  = null;
 		result = null;
 		
 		ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(systemInstance.getComponentClassifier());
@@ -208,38 +126,18 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		{
 			if (state.getState().getName().equalsIgnoreCase(ERROR_STATE_NAME))
 			{
+				
 				ErrorBehaviorState ebs = (ErrorBehaviorState) state.getState();
-				TypeSet ts = ebs.getTypeSet();
-				
-				PA = EMV2Util.getHazardProperty(systemInstance,null,ebs,ts);
-				
+			
 				result = new Event();
-				for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA).getOwnedValues()) {
-					PropertyExpression val = modalPropertyValue.getOwnedValue();
-					if (val instanceof RecordValue)
-					{
-						RecordValue rv = (RecordValue)val;
-						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-						BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
-						if (xref != null){
-							PropertyExpression peVal = xref.getOwnedValue();
-							if (peVal instanceof StringLiteral){
-								String text = ((StringLiteral)peVal).getValue();
-								result.setDescription(text);
-							}
-						}
-					}
-				}
-				result.setName(state.getState().getName()); 
-				PA = EMV2Util.getOccurenceDistributionProperty(systemInstance,null,ebs,null);
-				//OsateDebug.osateDebug("         PA " + PA);
-				double prob = EMV2Util.getOccurenceValue (PA);
-				result.setProbability(prob);
-				FTAElement operator = handleCondition (state.getCondition(), componentInstances);
-				if ((operator != null) && (operator instanceof Operator))
-				{
-					result.setIncomingOperator((Operator)operator);
-				}
+				FTAUtils.fillFTAEventfromEventState (result, ebs, systemInstance, componentInstances);
+	
+			}
+			
+			FTAElement operator = FTAUtils.handleCondition (state.getCondition(), componentInstances);
+			if ((operator != null) && (operator instanceof Operator))
+			{
+				result.setIncomingOperator((Operator)operator);
 			}
 		}
 		return result;
@@ -252,8 +150,6 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		monitor.beginTask("Fault Tree Analysis", IProgressMonitor.UNKNOWN);
 
 		si = null;
-		this.componentsNames = new ArrayList<ComponentInstance>();
-
 
 		if (obj instanceof InstanceObject){
 			si = ((InstanceObject)obj).getSystemInstance();
