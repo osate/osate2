@@ -205,7 +205,7 @@ public class Aadl2Utils
    * Returns the local "Parameter_Usage" property value, if it is set. Otherwise,
    * returns the default parameter value found in Generation_Properties (home
    * made property set). If the default parameter value is not found,
-   * returns {@null}.  
+   * returns {@code null}.  
    * 
    * @param ne the given NamedElement object
    * @return local parameter usage or default parameter usage or {@code null}
