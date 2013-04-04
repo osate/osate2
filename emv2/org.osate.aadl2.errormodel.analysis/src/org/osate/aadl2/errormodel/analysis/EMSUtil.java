@@ -1,7 +1,5 @@
 package org.osate.aadl2.errormodel.analysis;
 
-import java.util.Iterator;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.TreeIterator;

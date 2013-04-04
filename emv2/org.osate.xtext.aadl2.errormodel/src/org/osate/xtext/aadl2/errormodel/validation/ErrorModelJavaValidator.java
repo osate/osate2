@@ -1,6 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.validation;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
@@ -42,7 +42,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -388,15 +387,15 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkUniquePropagationPointorConnection(NamedElement ep) {
 		// XXX TODO need to deal with inherited observable points
-		HashMap<String, PropagationPoint> tab = EMV2Util.getAllPropagationPoints(ep.getContainingClassifier());
-		for (PropagationPoint oep : tab.values()) {
+		Collection<PropagationPoint> tab = EMV2Util.getAllPropagationPoints(ep.getContainingClassifier());
+		for (PropagationPoint oep : tab) {
 			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {
 				error(ep,
 						"Propagation point "+(ep instanceof PropagationPointConnection?"connection ":"")
 								+ ep.getName()+ " conflicts with propagation point.");
 			}
 		}
-		for (PropagationPointConnection oep : EMV2Util.getAllPropagationPointConnections(ep.getContainingClassifier()).values()) {
+		for (PropagationPointConnection oep : EMV2Util.getAllPropagationPointConnections(ep.getContainingClassifier())) {
 			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {
 				error(ep,
 						"Propagation point "+(ep instanceof PropagationPointConnection?"connection ":"")+

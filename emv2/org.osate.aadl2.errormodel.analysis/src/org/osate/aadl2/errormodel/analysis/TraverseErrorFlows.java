@@ -33,15 +33,12 @@
  */
 package org.osate.aadl2.errormodel.analysis;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.Collection;
-import java.util.HashMap;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -53,11 +50,9 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
@@ -148,11 +143,11 @@ public class TraverseErrorFlows {
 	 * @param ci component instance
 	 */
 	public void startErrorFlows(ComponentInstance ci){
-		HashMap<String, ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
+		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		String componentText = generateItemText(ci);
 //		int dot = componentText.lastIndexOf(".");
 //		String newstr = componentText.substring(dot);
-		for (ErrorSource errorSource : eslist.values()) {
+		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			TypeSet ts = errorSource.getTypeTokenConstraint();
 			if (ts == null) ep.getTypeSet();
@@ -337,9 +332,9 @@ public class TraverseErrorFlows {
 			String myText=", "+generateConnectionText(sourcei, desti,getToken(sourcei));
 			ci =desti.getContainingComponentInstance();
 			// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-			HashMap<String, ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
+			Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
 			if (!efs.isEmpty()){
-				ErrorFlow ef=EMV2Util.findErrorFlowFrom(efs.values(), desti);
+				ErrorFlow ef=EMV2Util.findErrorFlowFrom(efs, desti);
 				if (ef instanceof ErrorSink){
 					// process should have returned false, but for safety we check again
 					String maskText = ", "+generateItemText(desti)+": "+EMV2Util.getPrintName(getToken(sourcei))+" Masked";
@@ -399,9 +394,9 @@ public class TraverseErrorFlows {
 //		}
 		String myText=", "+generateItemText(conni);
 		// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-		HashMap<String, ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
+		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
 		if (!efs.isEmpty()){
-			ErrorFlow ef=EMV2Util.findReverseErrorFlowFrom(efs.values(), srci);
+			ErrorFlow ef=EMV2Util.findReverseErrorFlowFrom(efs, srci);
 			if (ef instanceof ErrorSource){
 				// process should have returned false, but for safety we check again
 				String maskText = ", "+generateItemText(srci)+": "+EMV2Util.getPrintName(getToken(dest))+" Source";

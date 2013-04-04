@@ -33,64 +33,22 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.AbstractNamedValue;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.WriteToFile;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	protected String getMarkerType() {

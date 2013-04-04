@@ -3,9 +3,7 @@
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.PropertyAssociation;
 

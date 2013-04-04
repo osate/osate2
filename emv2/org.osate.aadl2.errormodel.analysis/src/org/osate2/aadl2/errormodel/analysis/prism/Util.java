@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
@@ -26,7 +25,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.Equal;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.Expression;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.Terminal;
 
 /**
  * Utility methods used for the AADL to PRISM translator

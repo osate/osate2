@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -35,7 +33,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.And;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.Equal;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.Expression;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.Or;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.Terminal;
 
 /**
  * Class that implements a PRISM module. Basically,
