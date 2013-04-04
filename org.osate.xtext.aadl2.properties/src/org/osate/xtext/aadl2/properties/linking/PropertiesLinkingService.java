@@ -494,6 +494,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					}
 					if (cpecl != null){
 						res = cpecl.findNamedElement(name);
+					} else {
+						res = AadlUtil.getContainingClassifier(context)
+								.findNamedElement(name);
 					}
 				} else {
 					res = AadlUtil.getContainingClassifier(context)
