@@ -4,65 +4,16 @@ package org.osate.xtext.aadl2.errormodel.errorModel.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.util.Switch;
+
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionTransformation;
-import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelGrammarRoot;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -391,10 +342,18 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ErrorModelPackage.CONNECTION_TRANSFORMATION: {
-				ConnectionTransformation connectionTransformation = (ConnectionTransformation)theEObject;
-				T result = caseConnectionTransformation(connectionTransformation);
-				if (result == null) result = caseElement(connectionTransformation);
+			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR: {
+				ConnectionErrorBehavior connectionErrorBehavior = (ConnectionErrorBehavior)theEObject;
+				T result = caseConnectionErrorBehavior(connectionErrorBehavior);
+				if (result == null) result = caseElement(connectionErrorBehavior);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.CONNECTION_ERROR_SOURCE: {
+				ConnectionErrorSource connectionErrorSource = (ConnectionErrorSource)theEObject;
+				T result = caseConnectionErrorSource(connectionErrorSource);
+				if (result == null) result = caseNamedElement(connectionErrorSource);
+				if (result == null) result = caseElement(connectionErrorSource);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1053,17 +1012,33 @@ public class ErrorModelSwitch<T> extends Switch<T>
 	}
 
   /**
-	 * Returns the result of interpreting the object as an instance of '<em>Connection Transformation</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Connection Error Behavior</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Connection Transformation</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Connection Error Behavior</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-  public T caseConnectionTransformation(ConnectionTransformation object)
+  public T caseConnectionErrorBehavior(ConnectionErrorBehavior object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Connection Error Source</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connection Error Source</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseConnectionErrorSource(ConnectionErrorSource object)
   {
 		return null;
 	}

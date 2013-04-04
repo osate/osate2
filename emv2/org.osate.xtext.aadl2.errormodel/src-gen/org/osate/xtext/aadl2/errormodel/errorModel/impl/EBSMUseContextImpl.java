@@ -3,6 +3,7 @@
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import org.eclipse.emf.ecore.EClass;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 

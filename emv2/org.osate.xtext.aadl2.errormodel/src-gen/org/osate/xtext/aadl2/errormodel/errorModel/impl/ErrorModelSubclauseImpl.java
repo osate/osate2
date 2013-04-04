@@ -6,18 +6,25 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.osate.aadl2.PropertyAssociation;
+
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionTransformation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -37,7 +44,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getErrorPropagations <em>Error Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getComponentBehavior <em>Component Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getCompositeBehavior <em>Composite Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnectionTransformation <em>Connection Transformation</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnectionBehavior <em>Connection Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPropagationPaths <em>Propagation Paths</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getProperties <em>Properties</em>}</li>
  * </ul>
@@ -98,14 +105,14 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   protected CompositeErrorBehavior compositeBehavior;
 
   /**
-	 * The cached value of the '{@link #getConnectionTransformation() <em>Connection Transformation</em>}' containment reference.
+	 * The cached value of the '{@link #getConnectionBehavior() <em>Connection Behavior</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getConnectionTransformation()
+	 * @see #getConnectionBehavior()
 	 * @generated
 	 * @ordered
 	 */
-  protected ConnectionTransformation connectionTransformation;
+  protected ConnectionErrorBehavior connectionBehavior;
 
   /**
 	 * The cached value of the '{@link #getPropagationPaths() <em>Propagation Paths</em>}' containment reference.
@@ -345,9 +352,9 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ConnectionTransformation getConnectionTransformation()
+  public ConnectionErrorBehavior getConnectionBehavior()
   {
-		return connectionTransformation;
+		return connectionBehavior;
 	}
 
   /**
@@ -355,12 +362,12 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public NotificationChain basicSetConnectionTransformation(ConnectionTransformation newConnectionTransformation, NotificationChain msgs)
+  public NotificationChain basicSetConnectionBehavior(ConnectionErrorBehavior newConnectionBehavior, NotificationChain msgs)
   {
-		ConnectionTransformation oldConnectionTransformation = connectionTransformation;
-		connectionTransformation = newConnectionTransformation;
+		ConnectionErrorBehavior oldConnectionBehavior = connectionBehavior;
+		connectionBehavior = newConnectionBehavior;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION, oldConnectionTransformation, newConnectionTransformation);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR, oldConnectionBehavior, newConnectionBehavior);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -371,19 +378,19 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setConnectionTransformation(ConnectionTransformation newConnectionTransformation)
+  public void setConnectionBehavior(ConnectionErrorBehavior newConnectionBehavior)
   {
-		if (newConnectionTransformation != connectionTransformation) {
+		if (newConnectionBehavior != connectionBehavior) {
 			NotificationChain msgs = null;
-			if (connectionTransformation != null)
-				msgs = ((InternalEObject)connectionTransformation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION, null, msgs);
-			if (newConnectionTransformation != null)
-				msgs = ((InternalEObject)newConnectionTransformation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION, null, msgs);
-			msgs = basicSetConnectionTransformation(newConnectionTransformation, msgs);
+			if (connectionBehavior != null)
+				msgs = ((InternalEObject)connectionBehavior).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR, null, msgs);
+			if (newConnectionBehavior != null)
+				msgs = ((InternalEObject)newConnectionBehavior).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR, null, msgs);
+			msgs = basicSetConnectionBehavior(newConnectionBehavior, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION, newConnectionTransformation, newConnectionTransformation));
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR, newConnectionBehavior, newConnectionBehavior));
 	}
 
   /**
@@ -460,8 +467,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 				return basicSetComponentBehavior(null, msgs);
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
 				return basicSetCompositeBehavior(null, msgs);
-			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
-				return basicSetConnectionTransformation(null, msgs);
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
+				return basicSetConnectionBehavior(null, msgs);
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
 				return basicSetPropagationPaths(null, msgs);
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
@@ -490,8 +497,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 				return getComponentBehavior();
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
 				return getCompositeBehavior();
-			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
-				return getConnectionTransformation();
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
+				return getConnectionBehavior();
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
 				return getPropagationPaths();
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
@@ -526,8 +533,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
 				setCompositeBehavior((CompositeErrorBehavior)newValue);
 				return;
-			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
-				setConnectionTransformation((ConnectionTransformation)newValue);
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
+				setConnectionBehavior((ConnectionErrorBehavior)newValue);
 				return;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
 				setPropagationPaths((PropagationPaths)newValue);
@@ -564,8 +571,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
 				setCompositeBehavior((CompositeErrorBehavior)null);
 				return;
-			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
-				setConnectionTransformation((ConnectionTransformation)null);
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
+				setConnectionBehavior((ConnectionErrorBehavior)null);
 				return;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
 				setPropagationPaths((PropagationPaths)null);
@@ -596,8 +603,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 				return componentBehavior != null;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
 				return compositeBehavior != null;
-			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
-				return connectionTransformation != null;
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
+				return connectionBehavior != null;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
 				return propagationPaths != null;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:

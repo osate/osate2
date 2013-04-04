@@ -59,6 +59,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getAlternatives_5_0(), "rule__ErrorBehaviorTransition__Alternatives_5_0");
 					put(grammarAccess.getTransitionBranchAccess().getAlternatives_0(), "rule__TransitionBranch__Alternatives_0");
 					put(grammarAccess.getBranchValueAccess().getAlternatives_1(), "rule__BranchValue__Alternatives_1");
+					put(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_4(), "rule__ConnectionErrorSource__Alternatives_4");
 					put(grammarAccess.getTypeUseContextAccess().getAlternatives(), "rule__TypeUseContext__Alternatives");
 					put(grammarAccess.getConditionTermAccess().getAlternatives(), "rule__ConditionTerm__Alternatives");
 					put(grammarAccess.getEventOrPropagationAccess().getAlternatives(), "rule__EventOrPropagation__Alternatives");
@@ -155,7 +156,10 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTransitionBranchAccess().getGroup(), "rule__TransitionBranch__Group__0");
 					put(grammarAccess.getTransitionBranchAccess().getGroup_0_0(), "rule__TransitionBranch__Group_0_0__0");
 					put(grammarAccess.getBranchValueAccess().getGroup(), "rule__BranchValue__Group__0");
-					put(grammarAccess.getConnectionTransformationAccess().getGroup(), "rule__ConnectionTransformation__Group__0");
+					put(grammarAccess.getConnectionErrorBehaviorAccess().getGroup(), "rule__ConnectionErrorBehavior__Group__0");
+					put(grammarAccess.getConnectionErrorBehaviorAccess().getGroup_4(), "rule__ConnectionErrorBehavior__Group_4__0");
+					put(grammarAccess.getConnectionErrorSourceAccess().getGroup(), "rule__ConnectionErrorSource__Group__0");
+					put(grammarAccess.getConnectionErrorSourceAccess().getGroup_6(), "rule__ConnectionErrorSource__Group_6__0");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getGroup(), "rule__ComponentErrorBehavior__Group__0");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getGroup_4(), "rule__ComponentErrorBehavior__Group_4__0");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getGroup_5(), "rule__ComponentErrorBehavior__Group_5__0");
@@ -253,7 +257,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorModelSubclauseAccess().getErrorPropagationsAssignment_3(), "rule__ErrorModelSubclause__ErrorPropagationsAssignment_3");
 					put(grammarAccess.getErrorModelSubclauseAccess().getComponentBehaviorAssignment_4(), "rule__ErrorModelSubclause__ComponentBehaviorAssignment_4");
 					put(grammarAccess.getErrorModelSubclauseAccess().getCompositeBehaviorAssignment_5(), "rule__ErrorModelSubclause__CompositeBehaviorAssignment_5");
-					put(grammarAccess.getErrorModelSubclauseAccess().getConnectionTransformationAssignment_6(), "rule__ErrorModelSubclause__ConnectionTransformationAssignment_6");
+					put(grammarAccess.getErrorModelSubclauseAccess().getConnectionBehaviorAssignment_6(), "rule__ErrorModelSubclause__ConnectionBehaviorAssignment_6");
 					put(grammarAccess.getErrorModelSubclauseAccess().getPropagationPathsAssignment_7(), "rule__ErrorModelSubclause__PropagationPathsAssignment_7");
 					put(grammarAccess.getErrorModelSubclauseAccess().getPropertiesAssignment_8_1(), "rule__ErrorModelSubclause__PropertiesAssignment_8_1");
 					put(grammarAccess.getErrorModelLibraryAccess().getExtendsAssignment_1_2_1(), "rule__ErrorModelLibrary__ExtendsAssignment_1_2_1");
@@ -362,7 +366,13 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBranchValueAccess().getRealvalueAssignment_1_0(), "rule__BranchValue__RealvalueAssignment_1_0");
 					put(grammarAccess.getBranchValueAccess().getSymboliclabelAssignment_1_1(), "rule__BranchValue__SymboliclabelAssignment_1_1");
 					put(grammarAccess.getBranchValueAccess().getOthersAssignment_1_2(), "rule__BranchValue__OthersAssignment_1_2");
-					put(grammarAccess.getConnectionTransformationAccess().getTypeTransformationSetAssignment_3(), "rule__ConnectionTransformation__TypeTransformationSetAssignment_3");
+					put(grammarAccess.getConnectionErrorBehaviorAccess().getTypeTransformationSetAssignment_4_2(), "rule__ConnectionErrorBehavior__TypeTransformationSetAssignment_4_2");
+					put(grammarAccess.getConnectionErrorBehaviorAccess().getConnectionErrorSourcesAssignment_5(), "rule__ConnectionErrorBehavior__ConnectionErrorSourcesAssignment_5");
+					put(grammarAccess.getConnectionErrorSourceAccess().getNameAssignment_0(), "rule__ConnectionErrorSource__NameAssignment_0");
+					put(grammarAccess.getConnectionErrorSourceAccess().getConnectionAssignment_4_0(), "rule__ConnectionErrorSource__ConnectionAssignment_4_0");
+					put(grammarAccess.getConnectionErrorSourceAccess().getAllAssignment_4_1(), "rule__ConnectionErrorSource__AllAssignment_4_1");
+					put(grammarAccess.getConnectionErrorSourceAccess().getTypeTokenConstraintAssignment_5(), "rule__ConnectionErrorSource__TypeTokenConstraintAssignment_5");
+					put(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeAssignment_6_1(), "rule__ConnectionErrorSource__FailureModeTypeAssignment_6_1");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getUseTransformationAssignment_4_2(), "rule__ComponentErrorBehavior__UseTransformationAssignment_4_2");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getEventsAssignment_5_1(), "rule__ComponentErrorBehavior__EventsAssignment_5_1");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getTransitionsAssignment_6_1(), "rule__ComponentErrorBehavior__TransitionsAssignment_6_1");

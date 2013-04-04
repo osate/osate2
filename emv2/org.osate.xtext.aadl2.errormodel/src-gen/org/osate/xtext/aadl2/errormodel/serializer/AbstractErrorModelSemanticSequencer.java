@@ -1,6 +1,14 @@
 package org.osate.xtext.aadl2.errormodel.serializer;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -27,7 +35,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionTransformation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -68,8 +77,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
-
-import com.google.inject.Inject;
 
 @SuppressWarnings("all")
 public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSemanticSequencer {
@@ -294,10 +301,17 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
-			case ErrorModelPackage.CONNECTION_TRANSFORMATION:
-				if(context == grammarAccess.getConnectionTransformationRule() ||
+			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR:
+				if(context == grammarAccess.getConnectionErrorBehaviorRule() ||
 				   context == grammarAccess.getElementRule()) {
-					sequence_ConnectionTransformation(context, (ConnectionTransformation) semanticObject); 
+					sequence_ConnectionErrorBehavior(context, (ConnectionErrorBehavior) semanticObject); 
+					return; 
+				}
+				else break;
+			case ErrorModelPackage.CONNECTION_ERROR_SOURCE:
+				if(context == grammarAccess.getConnectionErrorSourceRule() ||
+				   context == grammarAccess.getNamedElementRule()) {
+					sequence_ConnectionErrorSource(context, (ConnectionErrorSource) semanticObject); 
 					return; 
 				}
 				else break;
@@ -725,9 +739,18 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     typeTransformationSet=[TypeTransformationSet|QEMREF]
+	 *     (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)
 	 */
-	protected void sequence_ConnectionTransformation(EObject context, ConnectionTransformation semanticObject) {
+	protected void sequence_ConnectionErrorBehavior(EObject context, ConnectionErrorBehavior semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID (connection=[Connection|ID] | all?='all') typeTokenConstraint=TypeTokenConstraint? failureModeType=TypeSetConstructor?)
+	 */
+	protected void sequence_ConnectionErrorSource(EObject context, ConnectionErrorSource semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -858,7 +881,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         errorPropagations=ErrorPropagations? 
 	 *         componentBehavior=ComponentErrorBehavior? 
 	 *         compositeBehavior=CompositeErrorBehavior? 
-	 *         connectionTransformation=ConnectionTransformation? 
+	 *         connectionBehavior=ConnectionErrorBehavior? 
 	 *         propagationPaths=PropagationPaths? 
 	 *         properties+=ContainedPropertyAssociation*
 	 *     )

@@ -3,6 +3,7 @@
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.PropertyAssociation;
 
@@ -19,7 +20,7 @@ import org.osate.aadl2.PropertyAssociation;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorPropagations <em>Error Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getComponentBehavior <em>Component Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getCompositeBehavior <em>Composite Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionTransformation <em>Connection Transformation</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionBehavior <em>Connection Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagationPaths <em>Propagation Paths</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getProperties <em>Properties</em>}</li>
  * </ul>
@@ -152,30 +153,30 @@ public interface ErrorModelSubclause extends AnnexSubclause, EBSMUseContext
   void setCompositeBehavior(CompositeErrorBehavior value);
 
   /**
-	 * Returns the value of the '<em><b>Connection Transformation</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Connection Behavior</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Connection Transformation</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Connection Behavior</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Connection Transformation</em>' containment reference.
-	 * @see #setConnectionTransformation(ConnectionTransformation)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ConnectionTransformation()
+	 * @return the value of the '<em>Connection Behavior</em>' containment reference.
+	 * @see #setConnectionBehavior(ConnectionErrorBehavior)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ConnectionBehavior()
 	 * @model containment="true"
 	 * @generated
 	 */
-  ConnectionTransformation getConnectionTransformation();
+  ConnectionErrorBehavior getConnectionBehavior();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionTransformation <em>Connection Transformation</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionBehavior <em>Connection Behavior</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Connection Transformation</em>' containment reference.
-	 * @see #getConnectionTransformation()
+	 * @param value the new value of the '<em>Connection Behavior</em>' containment reference.
+	 * @see #getConnectionBehavior()
 	 * @generated
 	 */
-  void setConnectionTransformation(ConnectionTransformation value);
+  void setConnectionBehavior(ConnectionErrorBehavior value);
 
   /**
 	 * Returns the value of the '<em><b>Propagation Paths</b></em>' containment reference.

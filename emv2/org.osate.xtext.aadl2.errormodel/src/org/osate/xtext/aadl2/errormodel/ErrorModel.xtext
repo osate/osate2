@@ -8,6 +8,14 @@ import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
+/*
+ * Note about symbolic labels as values for occurrence probability:
+ * Use property constant. The core allows it instead of an actual number.
+ * The tools generating stochastic models from such specification can interpret the constant name as the desired label.
+ */
+
+// allow either of the two to be the root. Needed dummy 'library' keyword
+
 ErrorModelGrammarRoot : 	 'library' eml=ErrorModelLibrary  
 	| emsc=ErrorModelSubclause
 ;
@@ -27,7 +35,7 @@ ErrorTypes| ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
 	   | ErrorFlow| ErrorPropagation
 |PropagationPointConnection | PropagationPoint
 	|TypeTransformationSet | TypeMappingSet  | ErrorBehaviorStateMachine
-|ErrorDetection	| ErrorPropagations 	
+|ErrorDetection	| ErrorPropagations | ConnectionErrorSource
 ;
 
 ModalElement returns aadl2::ModalElement:
@@ -38,7 +46,7 @@ Element returns aadl2::Element:
 ElementErrorType|TypeToken
 |TypeTransformation|TypeMapping|PropagationPaths
 |QualifiedPropagationPoint|TransitionBranch
-|ConditionElement|ConnectionTransformation
+|ConditionElement|ConnectionErrorBehavior
 |	ComponentErrorBehavior | CompositeErrorBehavior
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 |CompositeState	|ErrorStateToModeMapping
@@ -53,7 +61,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
 	    ( errorPropagations=ErrorPropagations)?
 	    (componentBehavior=ComponentErrorBehavior)?
 		(compositeBehavior=CompositeErrorBehavior )?
-		( connectionTransformation=ConnectionTransformation	)?
+		( connectionBehavior=ConnectionErrorBehavior	)?
 		( propagationPaths=PropagationPaths)?
     ('properties'
  	(properties+=ContainedPropertyAssociation )+)?
@@ -294,8 +302,21 @@ BranchValue returns BranchValue:
    ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::PropertyConstant|QEMREF]) | (others?='others'));
 
 
-ConnectionTransformation returns ConnectionTransformation:
-	'connections' 'use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF] ';'
+ConnectionErrorBehavior returns ConnectionErrorBehavior:
+	'connection' 'error' 'behavior'
+	{ConnectionErrorBehavior}
+	('use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+	( connectionErrorSources+= ConnectionErrorSource )*
+	'end' 'connection' ';'
+;
+
+ConnectionErrorSource returns ConnectionErrorSource:
+	name=ID ':' 'error' 'source' 
+	(connection=[aadl2::Connection|ID]|all?='all')
+	(typeTokenConstraint=TypeTokenConstraint)?
+  	('when'  (  failureModeType = TypeSetConstructor )
+  	)?
+  	';'
 ;
 
 EBSMUseContext returns EBSMUseContext:
@@ -352,6 +373,7 @@ ConditionTerm returns ConditionExpression:
   ;
   
 ConditionElement returns ConditionElement:
+	// ( subcomponent=[Subcomponent|ID] '.' )* or ?
   incoming=[EventOrPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?
   ;
 
