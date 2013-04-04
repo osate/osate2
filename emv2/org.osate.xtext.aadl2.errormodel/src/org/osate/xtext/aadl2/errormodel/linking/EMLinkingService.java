@@ -1,7 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.linking;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -14,7 +13,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DirectionType;
@@ -26,33 +24,23 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
-import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
-import org.osate.xtext.aadl2.errormodel.errorModel.impl.SubcomponentElementImpl;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
@@ -125,12 +113,15 @@ public class EMLinkingService extends PropertiesLinkingService {
 			} else if (context instanceof RecoverEvent){
 				Classifier ns = AadlUtil.getContainingClassifier(context);
 				searchResult = ns.findNamedElement(name);
-			}
-		} else if (Aadl2Package.eINSTANCE.getFeature() == requiredType) {
-			if (context instanceof FeatureReference){
+			} else if (context instanceof FeatureReference){
 				Classifier cl = AadlUtil.getContainingClassifier(context);
 				NamedElement ne = cl.findNamedElement(name);
-				if (ne instanceof Feature)searchResult = ne; 
+				if (ne instanceof Feature){
+					searchResult = ne; 
+				} else {
+					// find propagation point
+					searchResult = EMV2Util.findPropagationPoint(cl,name);
+				}
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType) {
 			searchResult = findErrorType(cxt, name);

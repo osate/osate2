@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.validation;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
@@ -39,8 +40,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnection;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -51,452 +53,464 @@ import org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
- 
-
 public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Override
-		protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {
+	protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {
 		return (eObject.eClass().getEPackage() == ErrorModelPackageImpl.eINSTANCE
 				|| eObject instanceof Connection || eObject instanceof PropertyAssociation);
 	}
-	
+
 	@Check(CheckType.FAST)
-	public void caseErrorPropagation(
-			ErrorPropagation errorPropagation) {
+	public void caseErrorPropagation(ErrorPropagation errorPropagation) {
 		checkDirectionType(errorPropagation);
-		checkUniqueObservablePropagationPoint(errorPropagation);
 	}
-	
+
 	@Check(CheckType.FAST)
-	public void casePropertyAssociation(
-			PropertyAssociation propertyAssociation) {
+	public void casePropagationPoint(PropagationPoint propagationPoint) {
+		checkUniquePropagationPointorConnection(propagationPoint);
+	}
+
+	@Check(CheckType.FAST)
+	public void casePropertyAssociation(PropertyAssociation propertyAssociation) {
 		// check that error type is contained in type set of target element
 		EList<ContainedNamedElement> apto = propertyAssociation.getAppliesTos();
 		for (ContainedNamedElement containedNamedElement : apto) {
-			EList<ContainmentPathElement> cpe = containedNamedElement.getContainmentPathElements();
-			if (cpe.size() > 1){
-				 ContainmentPathElement obj = cpe.get(cpe.size()-1);
-				if (obj.getNamedElement() instanceof ErrorType){
+			EList<ContainmentPathElement> cpe = containedNamedElement
+					.getContainmentPathElements();
+			if (cpe.size() > 1) {
+				ContainmentPathElement obj = cpe.get(cpe.size() - 1);
+				if (obj.getNamedElement() instanceof ErrorType) {
 					ErrorType et = (ErrorType) obj.getNamedElement();
-					ContainmentPathElement target = cpe.get(cpe.size()-2);
+					ContainmentPathElement target = cpe.get(cpe.size() - 2);
 					NamedElement ne = target.getNamedElement();
 					TypeSet tts = null;
-					if (ne instanceof ErrorBehaviorState){
-						tts = ((ErrorBehaviorState)ne).getTypeSet();
-					} else if (ne instanceof ErrorPropagation){
-						tts = ((ErrorPropagation)ne).getTypeSet();
-					} else if (ne instanceof ErrorEvent){
-						tts = ((ErrorEvent)ne).getTypeSet();
+					if (ne instanceof ErrorBehaviorState) {
+						tts = ((ErrorBehaviorState) ne).getTypeSet();
+					} else if (ne instanceof ErrorPropagation) {
+						tts = ((ErrorPropagation) ne).getTypeSet();
+					} else if (ne instanceof ErrorEvent) {
+						tts = ((ErrorEvent) ne).getTypeSet();
 					}
-					TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
+					TypeToken tt = ErrorModelFactory.eINSTANCE
+							.createTypeToken();
 					tt.getType().add(et);
-					if (EM2TypeSetUtil.contains(tts, tt)){
-						
+					if (EM2TypeSetUtil.contains(tts, tt)) {
+
 					}
 				}
 			}
 		}
 	}
-	
+
 	@Check(CheckType.FAST)
-	public void caseObservablePropagationConnection(ObservablePropagationConnection opc){
-		checkObservableConnectionDirection(opc);
+	public void casePropagationPointConnection(PropagationPointConnection opc) {
+		checkUniquePropagationPointorConnection(opc);
 	}
 
-	
 	@Check(CheckType.FAST)
-	public void caseErrorType(
-			ErrorType et) {
+	public void caseErrorType(ErrorType et) {
 		checkCyclicExtends(et);
 	}
-	
+
 	@Check(CheckType.FAST)
-	public void caseTypeSet(
-			TypeSet ts) {
+	public void caseTypeSet(TypeSet ts) {
 		checkTypeSetUniqueTypes(ts);
 	}
-	
+
 	@Check(CheckType.FAST)
-	public void caseTypeToken(
-			TypeToken tt) {
+	public void caseTypeToken(TypeToken tt) {
 		checkTypeTokenUniqueTypes(tt);
 	}
-	
-	
+
 	@Check(CheckType.FAST)
-	public void caseRecoverEvent(
-			RecoverEvent recoverEvent) {
+	public void caseRecoverEvent(RecoverEvent recoverEvent) {
 		checkRecoverEventTriggerType(recoverEvent);
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void caseErrorModelSubclause(
-			ErrorModelSubclause subclause) {
+	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void caseErrorPropagations(
-			ErrorPropagations errorPropagations) {
+	public void caseErrorPropagations(ErrorPropagations errorPropagations) {
 		checkOnePropagationAndContainmentPoint(errorPropagations);
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void caseTypeMappingSet(
-			TypeMappingSet tms) {
-//		checkElementRuleConsistency(tms);
+	public void caseTypeMappingSet(TypeMappingSet tms) {
+		// checkElementRuleConsistency(tms);
 	}
-	
+
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelLibrary(ErrorModelLibrary errorModelLibrary) {
 		if (errorModelLibrary.getName() == null)
 			errorModelLibrary.setName("emv2");
 		boolean cyclicextends = checkCyclicExtends(errorModelLibrary);
-		checkUniqueDefiningIdentifiers(errorModelLibrary,cyclicextends);
+		checkUniqueDefiningIdentifiers(errorModelLibrary, cyclicextends);
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void ErrorBehaviorStateMachine(
-			ErrorBehaviorStateMachine ebsm) {
-//		checkCyclicExtends(ebsm);
-// TODO:		checkUniqueIdentifiers(ebsm);
+	public void ErrorBehaviorStateMachine(ErrorBehaviorStateMachine ebsm) {
+		// checkCyclicExtends(ebsm);
+		// TODO: checkUniqueIdentifiers(ebsm);
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void caseTypeUseContext(
-			TypeUseContext typeUseContext) {
+	public void caseTypeUseContext(TypeUseContext typeUseContext) {
 		checkMultipleUses(typeUseContext);
 		checkMultipleErrorTypesInUsesTypes(typeUseContext);
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void caseErrorSource(
-			ErrorSource ef) {
+	public void caseErrorSource(ErrorSource ef) {
 		checkErrorSourceTypes(ef);
 		checkFlowDirection(ef);
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void caseErrorSink(
-			ErrorSink ef) {
+	public void caseErrorSink(ErrorSink ef) {
 		checkErrorSinkTypes(ef);
 		checkFlowDirection(ef);
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void caseErrorPath(
-			ErrorPath ef) {
+	public void caseErrorPath(ErrorPath ef) {
 		checkErrorPathTypes(ef);
 		checkFlowDirection(ef);
 	}
-	
+
 	@Check(CheckType.NORMAL)
-	public void caseConnection(
-			Connection conn) {
+	public void caseConnection(Connection conn) {
 		checkConnectionErrorTypes(conn);
 	}
-	
-	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent){
+
+	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent) {
 		EList<NamedElement> cl = recoverEvent.getCondition();
 		for (NamedElement namedElement : cl) {
-			if (!(namedElement instanceof Port || namedElement instanceof ModeTransition)){
-				error(recoverEvent,
-						"Recover event trigger reference '"+namedElement.getName()+"' is not a port or mode transition.");
+			if (!(namedElement instanceof Port || namedElement instanceof ModeTransition)) {
+				error(recoverEvent, "Recover event trigger reference '"
+						+ namedElement.getName()
+						+ "' is not a port or mode transition.");
 			}
 		}
 	}
-	
-	
-	
-	private void checkDirectionType(ErrorPropagation errorPropagation){
+
+	private void checkDirectionType(ErrorPropagation errorPropagation) {
 		DirectionType pd = errorPropagation.getDirection();
 		Feature f = EMV2Util.getFeature(errorPropagation);
-		if (!Aadl2Util.isNull(f) && f instanceof Port){
-			DirectionType portd = ((Port)f).getDirection();
+		if (!Aadl2Util.isNull(f) && f instanceof Port) {
+			DirectionType portd = ((Port) f).getDirection();
 			if (!(pd.getName().equalsIgnoreCase(portd.getName()) || portd == DirectionType.IN_OUT))
 				error(errorPropagation,
-					"Propagation direction does not match port direction.");
+						"Propagation direction does not match port direction.");
 		}
 	}
-	
-	private void checkOnePropagationAndContainmentPoint(ErrorPropagations errorPropagations){
+
+	private void checkOnePropagationAndContainmentPoint(
+			ErrorPropagations errorPropagations) {
 		EList<ErrorPropagation> eps = errorPropagations.getPropagations();
 		int epssize = eps.size();
-		for (int i=0;i<epssize-1;i++){
+		for (int i = 0; i < epssize - 1; i++) {
 			ErrorPropagation ep1 = eps.get(i);
-			for (int k=i+1;k<epssize;k++){
+			for (int k = i + 1; k < epssize; k++) {
 				ErrorPropagation ep2 = eps.get(k);
-				if (EMV2Util.getFeature(ep1) == EMV2Util.getFeature(ep2)){
-					if (ep1.isNot() && ep2.isNot() || !ep1.isNot() && ! ep2.isNot()){
-						error(ep2, (ep1.isNot()?"Error containment ":"Error propagation ")+EMV2Util.getPrintName(ep2)+" already defined.");
+				if (EMV2Util.getFeature(ep1) == EMV2Util.getFeature(ep2)) {
+					if (ep1.isNot() && ep2.isNot() || !ep1.isNot()
+							&& !ep2.isNot()) {
+						error(ep2,
+								(ep1.isNot() ? "Error containment "
+										: "Error propagation ")
+										+ EMV2Util.getPrintName(ep2)
+										+ " already defined.");
 					}
 				}
 			}
 		}
 	}
-	
-	private void checkFlowDirection(ErrorSource errorSource){
+
+	private void checkFlowDirection(ErrorSource errorSource) {
 		ErrorPropagation ep = errorSource.getOutgoing();
-		if (!Aadl2Util.isNull(ep)){
+		if (!Aadl2Util.isNull(ep)) {
 			DirectionType epd = ep.getDirection();
-			if (!(epd.equals(DirectionType.OUT))){
+			if (!(epd.equals(DirectionType.OUT))) {
 				error(errorSource,
-						EMV2Util.getPrintName(ep)+" of error source is not an outgoing propagation point.");
+						EMV2Util.getPrintName(ep)
+								+ " of error source is not an outgoing propagation point.");
 			}
 		}
 	}
-	
-	private void checkFlowDirection(ErrorSink errorSink){
+
+	private void checkFlowDirection(ErrorSink errorSink) {
 		ErrorPropagation ep = errorSink.getIncoming();
-		if (!Aadl2Util.isNull(ep)){
+		if (!Aadl2Util.isNull(ep)) {
 			DirectionType epd = ep.getDirection();
-			if (!(epd.equals(DirectionType.IN))){
+			if (!(epd.equals(DirectionType.IN))) {
 				error(errorSink,
-						EMV2Util.getPrintName(ep)+" of error sink is not an incoming propagation point.");
+						EMV2Util.getPrintName(ep)
+								+ " of error sink is not an incoming propagation point.");
 			}
 		}
 	}
-	
-	private void checkFlowDirection(ErrorPath errorPath){
+
+	private void checkFlowDirection(ErrorPath errorPath) {
 		ErrorPropagation ep = errorPath.getIncoming();
-		if (!Aadl2Util.isNull(ep)){
+		if (!Aadl2Util.isNull(ep)) {
 			DirectionType epd = ep.getDirection();
-			if (!(epd.equals(DirectionType.IN))){
+			if (!(epd.equals(DirectionType.IN))) {
 				error(errorPath,
-					"Source "+EMV2Util.getPrintName(ep)+" of error path is not an incoming propagation point.");
+						"Source "
+								+ EMV2Util.getPrintName(ep)
+								+ " of error path is not an incoming propagation point.");
 			}
 		}
 		ep = errorPath.getOutgoing();
-		if (!Aadl2Util.isNull(ep)){
+		if (!Aadl2Util.isNull(ep)) {
 			DirectionType epd = ep.getDirection();
-			if (!(epd.equals(DirectionType.OUT))){
+			if (!(epd.equals(DirectionType.OUT))) {
 				error(errorPath,
-						"Target "+EMV2Util.getPrintName(ep)+" of error path is not an outgoing propagation point.");
+						"Target "
+								+ EMV2Util.getPrintName(ep)
+								+ " of error path is not an outgoing propagation point.");
 			}
 		}
 	}
-	
-	
-//	private void checkElementMappingTypeConsistency(ElementTypeMapping etMapping){
-//		ErrorType srcET = etMapping.getSource();
-//		ErrorType tgtET = etMapping.getTarget();
-//		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(tgtET)){
-//			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, tgtET)){
-//				error(etMapping,
-//				"Source and target error types are not in same type hierarchy");
-//			}
-//		}
-//	}
-//	
-//	private void checkElementTransformTypeConsistency(ElementTypeTransformation etXform){
-//		ErrorType srcET = etXform.getSource();
-//		ErrorType conET = etXform.getContributor();
-//		ErrorType tgtET = etXform.getTarget();
-//		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(tgtET)){
-//			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, tgtET)){
-//				error(etXform,
-//				"Source type "+srcET.getName()+" and target type "+tgtET.getName()+" are not in same type hierarchy");
-//			}
-//		}
-//		if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(conET)){
-//			if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, conET)){
-//				error(etXform,
-//				"Source type "+srcET.getName()+" and contributor type "+conET.getName()+" are not in same type hierarchy");
-//			}
-//		}
-//	}
-//	
-//	private void checkElementRuleConsistency(TypeMappingSet tms){
-//		HashSet<ErrorType> sourceTypes = new HashSet<ErrorType>();
-//		for (TypeMapping tm : tms.getMapping()){
-//			if (tm instanceof ElementTypeMapping){
-//				ErrorType et = ((ElementTypeMapping) tm).getSource();
-//				if (sourceTypes.contains(et)){
-//					error(tm,
-//					"Type "+et.getName()+" already being mapped");
-//				} else {
-//					sourceTypes.add(et);
-//				}
-//			}
-//		}
-//	}
-	
-	private void checkTypeSetUniqueTypes(TypeSet ts){
+
+	// private void checkElementMappingTypeConsistency(ElementTypeMapping
+	// etMapping){
+	// ErrorType srcET = etMapping.getSource();
+	// ErrorType tgtET = etMapping.getTarget();
+	// if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(tgtET)){
+	// if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, tgtET)){
+	// error(etMapping,
+	// "Source and target error types are not in same type hierarchy");
+	// }
+	// }
+	// }
+	//
+	// private void
+	// checkElementTransformTypeConsistency(ElementTypeTransformation etXform){
+	// ErrorType srcET = etXform.getSource();
+	// ErrorType conET = etXform.getContributor();
+	// ErrorType tgtET = etXform.getTarget();
+	// if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(tgtET)){
+	// if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, tgtET)){
+	// error(etXform,
+	// "Source type "+srcET.getName()+" and target type "+tgtET.getName()+" are not in same type hierarchy");
+	// }
+	// }
+	// if (!Aadl2Util.isNull(srcET) && !Aadl2Util.isNull(conET)){
+	// if (!EM2TypeSetUtil.inSameTypeHierarchy(srcET, conET)){
+	// error(etXform,
+	// "Source type "+srcET.getName()+" and contributor type "+conET.getName()+" are not in same type hierarchy");
+	// }
+	// }
+	// }
+	//
+	// private void checkElementRuleConsistency(TypeMappingSet tms){
+	// HashSet<ErrorType> sourceTypes = new HashSet<ErrorType>();
+	// for (TypeMapping tm : tms.getMapping()){
+	// if (tm instanceof ElementTypeMapping){
+	// ErrorType et = ((ElementTypeMapping) tm).getSource();
+	// if (sourceTypes.contains(et)){
+	// error(tm,
+	// "Type "+et.getName()+" already being mapped");
+	// } else {
+	// sourceTypes.add(et);
+	// }
+	// }
+	// }
+	// }
+
+	private void checkTypeSetUniqueTypes(TypeSet ts) {
 		EList<TypeToken> etlist = ts.getElementType();
 		int size = etlist.size();
-		for (int i = 0; i < size-1; i++) {
+		for (int i = 0; i < size - 1; i++) {
 			TypeToken tok = etlist.get(i);
-			for (int k = i+1; k < size; k++){
+			for (int k = i + 1; k < size; k++) {
 				TypeToken tok2 = etlist.get(k);
-				if (EM2TypeSetUtil.contains(tok, tok2)||EM2TypeSetUtil.contains(tok2,tok)){
-					error(ts,
-							"Typeset elements "+EMV2Util.getPrintName(tok)+" and "+EMV2Util.getPrintName(tok2)+" are not disjoint.");
+				if (EM2TypeSetUtil.contains(tok, tok2)
+						|| EM2TypeSetUtil.contains(tok2, tok)) {
+					error(ts, "Typeset elements " + EMV2Util.getPrintName(tok)
+							+ " and " + EMV2Util.getPrintName(tok2)
+							+ " are not disjoint.");
 				}
 			}
 		}
 	}
-	
 
-	private void checkTypeTokenUniqueTypes(TypeToken ts){
+	private void checkTypeTokenUniqueTypes(TypeToken ts) {
 		HashSet<ErrorType> sourceTypes = new HashSet<ErrorType>();
-		for (ErrorType et : ts.getType()){
+		for (ErrorType et : ts.getType()) {
 			ErrorType root = EM2TypeSetUtil.rootType(et);
-			if (sourceTypes.contains(root)){
+			if (sourceTypes.contains(root)) {
 				error(et,
-						"Another element type has same root type "+root.getName()+" as "+et.getName());
+						"Another element type has same root type "
+								+ root.getName() + " as " + et.getName());
 			} else {
 				sourceTypes.add(et);
 			}
 		}
 	}
 
-	private void checkMultipleUses(TypeUseContext tuc){
+	private void checkMultipleUses(TypeUseContext tuc) {
 		HashSet<ErrorModelLibrary> etlset = new HashSet<ErrorModelLibrary>();
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)){
-			if (etlset.contains(etl)){
-				error(tuc,
-						"Error type library "+EMV2Util.getPrintName(etl)+" exists more than once in 'uses types' clause");
+		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
+			if (etlset.contains(etl)) {
+				error(tuc, "Error type library " + EMV2Util.getPrintName(etl)
+						+ " exists more than once in 'uses types' clause");
 			} else {
 				etlset.add(etl);
 			}
 		}
 	}
 
-	private void checkMultipleErrorTypesInUsesTypes(TypeUseContext tuc){
-		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10,10);
-		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)){
+	private void checkMultipleErrorTypesInUsesTypes(TypeUseContext tuc) {
+		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10,
+				10);
+		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
 			EList<ErrorTypes> typeslist = etl.getTypes();
 			for (ErrorTypes errorTypes : typeslist) {
-				if (etlset.containsKey(errorTypes.getName())){
-					ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary((Element)etlset.get(errorTypes.getName()));
-					error(tuc,
-							"Error type or type set "+errorTypes.getName()+" in library "+EMV2Util.getPrintName(etl)+" already exists in error type library "+EMV2Util.getPrintName(eml));
+				if (etlset.containsKey(errorTypes.getName())) {
+					ErrorModelLibrary eml = EMV2Util
+							.getContainingErrorModelLibrary((Element) etlset
+									.get(errorTypes.getName()));
+					error(tuc, "Error type or type set " + errorTypes.getName()
+							+ " in library " + EMV2Util.getPrintName(etl)
+							+ " already exists in error type library "
+							+ EMV2Util.getPrintName(eml));
 				} else {
-					etlset.put(errorTypes.getName(),errorTypes);
+					etlset.put(errorTypes.getName(), errorTypes);
 				}
 			}
 		}
 	}
 
-	private void checkUniqueObservablePropagationPoint(ErrorPropagation ep){
-		if (!ep.isObservable()) return;
+	private void checkUniquePropagationPointorConnection(NamedElement ep) {
 		// XXX TODO need to deal with inherited observable points
-		for (ErrorPropagation oep : EMV2Util.getContainingErrorPropagations(ep).getPropagations()){
-			if (oep.isObservable() && oep != ep && oep.getName().equalsIgnoreCase(ep.getName())){
+		HashMap<String, PropagationPoint> tab = EMV2Util.getAllPropagationPoints(ep.getContainingClassifier());
+		for (PropagationPoint oep : tab.values()) {
+			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {
 				error(ep,
-						"Observable propagation point "+ep.getName()+" defined more than once in error propagations clause.");
+						"Propagation point "+(ep instanceof PropagationPointConnection?"connection ":"")
+								+ ep.getName()+ " conflicts with propagation point.");
+			}
+		}
+		for (PropagationPointConnection oep : EMV2Util.getAllPropagationPointConnections(ep.getContainingClassifier()).values()) {
+			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {
+				error(ep,
+						"Propagation point "+(ep instanceof PropagationPointConnection?"connection ":"")+
+				ep.getName()+ "' conflicts with propagation point connection.");
 			}
 		}
 		EObject searchResult = null;
 		Classifier cl = AadlUtil.getContainingClassifier(ep);
-		if (cl instanceof ComponentImplementation){
-			searchResult = ((ComponentImplementation)cl).getType().findNamedElement(ep.getName());
+		if (cl instanceof ComponentImplementation) {
+			searchResult = ((ComponentImplementation) cl).getType()
+					.findNamedElement(ep.getName());
 		} else {
-			searchResult = AadlUtil.getContainingClassifier(ep).findNamedElement(ep.getName());
+			searchResult = AadlUtil.getContainingClassifier(ep)
+					.findNamedElement(ep.getName());
 		}
-		if (searchResult != null){
+		if (searchResult != null) {
 			error(ep,
-					"Observable propagation point "+ep.getName()+" conflicts with feature in component type "+cl.getName());
-		}
-	}
-	
-	private void checkObservableConnectionDirection(ObservablePropagationConnection opc){
-		QualifiedObservableErrorPropagationPoint src = opc.getSource();
-		QualifiedObservableErrorPropagationPoint dst = opc.getTarget();
-		ErrorPropagation srcPoint = src.getObservablePoint();
-		ErrorPropagation dstPoint = dst.getObservablePoint();
-		if (srcPoint == null || dstPoint == null) return;
-		if (!Aadl2Util.isNull(src.getSubcomponent()) && !Aadl2Util.isNull(dst.getSubcomponent())){
-			if (!DirectionType.OUT.equals(srcPoint.getDirection())){
-				error(opc, "Source "+srcPoint.getName()+" of observable connection must be outgoing");
-			}
-			if (!DirectionType.IN.equals(dstPoint.getDirection())){
-				error(opc, "Destination "+dstPoint.getName()+" of observable connection must be incoming");
-			}
-		} else if (!Aadl2Util.isNull(src.getSubcomponent()) && Aadl2Util.isNull(dst.getSubcomponent())){
-			if (!DirectionType.OUT.equals(srcPoint.getDirection())){
-				error(opc, "Source "+srcPoint.getName()+" of observable connection must be outgoing");
-			}
-			if (!DirectionType.OUT.equals(dstPoint.getDirection())){
-				error(opc, "Destination "+dstPoint.getName()+" of observable connection must be outgoing");
-			}
-		} else if (Aadl2Util.isNull(src.getSubcomponent()) && !Aadl2Util.isNull(dst.getSubcomponent())){
-			if (!DirectionType.IN.equals(srcPoint.getDirection())){
-				error(opc, "Source "+srcPoint.getName()+" of observable connection must be incoming");
-			}
-			if (!DirectionType.IN.equals(dstPoint.getDirection())){
-				error(opc, "Destination "+dstPoint.getName()+" of observable connection must be incoming");
-			}
+					"Propagation point " + ep.getName()
+							+ " conflicts with feature in component type "
+							+ cl.getName());
 		}
 	}
 
-	private void checkUniqueDefiningIdentifiers(ErrorModelLibrary etl, boolean cyclicextends){
-		Hashtable<String, EObject> types = new Hashtable<String, EObject>(10,10);
+
+	private void checkUniqueDefiningIdentifiers(ErrorModelLibrary etl,
+			boolean cyclicextends) {
+		Hashtable<String, EObject> types = new Hashtable<String, EObject>(10,
+				10);
 		checkUniqueDefiningEBSMMappingsTransformations(etl, types);
-		if (cyclicextends) return;
-		for (ErrorModelLibrary xetl : etl.getExtends()){
+		if (cyclicextends)
+			return;
+		for (ErrorModelLibrary xetl : etl.getExtends()) {
 			checkUniqueInheritedDefiningErrorTypes(xetl, types);
 		}
 	}
 
-
-	private void checkUniqueDefiningEBSMMappingsTransformations(ErrorModelLibrary etl, Hashtable<String, EObject> types){
-		for (ErrorBehaviorStateMachine ebsm : etl.getBehaviors()){
-			if (types.containsKey(ebsm.getName())){
-					error(ebsm, "Error behavior state machine identifier "+ebsm.getName()+" is not unique in error model library");
-			} 
-			types.put(ebsm.getName(),ebsm);
+	private void checkUniqueDefiningEBSMMappingsTransformations(
+			ErrorModelLibrary etl, Hashtable<String, EObject> types) {
+		for (ErrorBehaviorStateMachine ebsm : etl.getBehaviors()) {
+			if (types.containsKey(ebsm.getName())) {
+				error(ebsm,
+						"Error behavior state machine identifier "
+								+ ebsm.getName()
+								+ " is not unique in error model library");
+			}
+			types.put(ebsm.getName(), ebsm);
 		}
-		for (TypeMappingSet tms : etl.getMappings()){
-			if (types.containsKey(tms.getName())){
-					error(tms, "Type mapping set identifier "+tms.getName()+" is not unique in error model library");
-			} 
-			types.put(tms.getName(),tms);
+		for (TypeMappingSet tms : etl.getMappings()) {
+			if (types.containsKey(tms.getName())) {
+				error(tms, "Type mapping set identifier " + tms.getName()
+						+ " is not unique in error model library");
+			}
+			types.put(tms.getName(), tms);
 		}
-		for (TypeTransformationSet tts : etl.getTransformations()){
-			if (types.containsKey(tts.getName())){
-					error(tts, "Type transformation set identifier "+tts.getName()+" is not unique in error model library");
-			} 
-			types.put(tts.getName(),tts);
+		for (TypeTransformationSet tts : etl.getTransformations()) {
+			if (types.containsKey(tts.getName())) {
+				error(tts,
+						"Type transformation set identifier " + tts.getName()
+								+ " is not unique in error model library");
+			}
+			types.put(tts.getName(), tts);
 		}
-		for (ErrorTypes ets : etl.getTypes()){
-			if (types.containsKey(ets.getName())){
-					error(ets, "Error type or type set (alias) identifier "+ets.getName()+" is not unique in error model library");
-			} 
-			types.put(ets.getName(),ets);
+		for (ErrorTypes ets : etl.getTypes()) {
+			if (types.containsKey(ets.getName())) {
+				error(ets,
+						"Error type or type set (alias) identifier "
+								+ ets.getName()
+								+ " is not unique in error model library");
+			}
+			types.put(ets.getName(), ets);
 		}
 	}
 
-	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary etl, Hashtable<String, EObject> types){
-		for (ErrorTypes et : etl.getTypes()){
-			if (types.containsKey(et.getName())){
-				ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(et);
-				error(et, "Error type or type set (alias) "+et.getName()+" inherited from "+EMV2Util.getPrintName(eml)+" conflicts with another defining identifier in error type library");
-			} 
-			types.put(et.getName(),et);
+	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary etl,
+			Hashtable<String, EObject> types) {
+		for (ErrorTypes et : etl.getTypes()) {
+			if (types.containsKey(et.getName())) {
+				ErrorModelLibrary eml = EMV2Util
+						.getContainingErrorModelLibrary(et);
+				error(et,
+						"Error type or type set (alias) "
+								+ et.getName()
+								+ " inherited from "
+								+ EMV2Util.getPrintName(eml)
+								+ " conflicts with another defining identifier in error type library");
+			}
+			types.put(et.getName(), et);
 		}
-		for (ErrorModelLibrary xetl : etl.getExtends()){
+		for (ErrorModelLibrary xetl : etl.getExtends()) {
 			checkUniqueInheritedDefiningErrorTypes(xetl, types);
 		}
 	}
 
-	private boolean checkCyclicExtends(ErrorModelLibrary etl){
-		if (etl.getExtends() == null) return false;
+	private boolean checkCyclicExtends(ErrorModelLibrary etl) {
+		if (etl.getExtends() == null)
+			return false;
 		HashSet<ErrorModelLibrary> result = new HashSet<ErrorModelLibrary>();
-		return recursiveCheckCyclicExtends(etl,result);
+		return recursiveCheckCyclicExtends(etl, result);
 	}
-	
-	private boolean recursiveCheckCyclicExtends(ErrorModelLibrary etl, HashSet<ErrorModelLibrary> shetl){
+
+	private boolean recursiveCheckCyclicExtends(ErrorModelLibrary etl,
+			HashSet<ErrorModelLibrary> shetl) {
 		boolean result = false;
-		if (etl.getExtends() != null){
+		if (etl.getExtends() != null) {
 			shetl.add(etl);
 			EList<ErrorModelLibrary> etllist = etl.getExtends();
-			for (ErrorModelLibrary  xetl : etllist){
-				if (shetl.contains(xetl)){
-					error(xetl, "Cycle in extends of error type library "+etl.getName());
+			for (ErrorModelLibrary xetl : etllist) {
+				if (shetl.contains(xetl)) {
+					error(xetl,
+							"Cycle in extends of error type library "
+									+ etl.getName());
 					result = true;
 				} else {
-					result = result || recursiveCheckCyclicExtends(xetl,shetl);
+					result = result || recursiveCheckCyclicExtends(xetl, shetl);
 				}
 			}
 			shetl.remove(etl);
@@ -504,162 +518,273 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		return result;
 	}
 
-	private void checkCyclicExtends(ErrorType origet){
+	private void checkCyclicExtends(ErrorType origet) {
 		ErrorType et = origet;
-		if (et.getSuperType() == null) return;
+		if (et.getSuperType() == null)
+			return;
 		HashSet<ErrorType> result = new HashSet<ErrorType>();
-		while (et.getSuperType() != null){
+		while (et.getSuperType() != null) {
 			result.add(et);
 			et = et.getSuperType();
-			if (result.contains(et)){
-				error(origet, "Cycle in supertype hierarchy of error type "+origet.getName()+" at type "+et.getName());
+			if (result.contains(et)) {
+				error(origet, "Cycle in supertype hierarchy of error type "
+						+ origet.getName() + " at type " + et.getName());
 				return;
 			}
 		}
 	}
 
-//	private void checkCyclicExtends(ErrorBehaviorStateMachine origebsm){
-//		ErrorBehaviorStateMachine ebsm = origebsm;
-//		if (ebsm.getExtends() == null) return;
-//		HashSet<ErrorBehaviorStateMachine> result = new HashSet<ErrorBehaviorStateMachine>();
-//		while (ebsm.getExtends() != null){
-//			result.add(ebsm);
-//			ebsm = ebsm.getExtends();
-//			if (result.contains(ebsm)){
-//				error(origebsm, "Cycle in extends of error behavior state machine "+origebsm.getName());
-//				return;
-//			}
-//		}
-//	}
-	
-	private void checkErrorSourceTypes(ErrorSource ef){
+	// private void checkCyclicExtends(ErrorBehaviorStateMachine origebsm){
+	// ErrorBehaviorStateMachine ebsm = origebsm;
+	// if (ebsm.getExtends() == null) return;
+	// HashSet<ErrorBehaviorStateMachine> result = new
+	// HashSet<ErrorBehaviorStateMachine>();
+	// while (ebsm.getExtends() != null){
+	// result.add(ebsm);
+	// ebsm = ebsm.getExtends();
+	// if (result.contains(ebsm)){
+	// error(origebsm,
+	// "Cycle in extends of error behavior state machine "+origebsm.getName());
+	// return;
+	// }
+	// }
+	// }
+
+	private void checkErrorSourceTypes(ErrorSource ef) {
 		ErrorPropagation ep = ef.getOutgoing();
-		if ( !EM2TypeSetUtil.contains(ep.getTypeSet(),ef.getTypeTokenConstraint())){
-			error(ef,"Type token constraint "+EMV2Util.getPrintName(ef.getTypeTokenConstraint())+" is not contained in type set of outgoing propagation "+EMV2Util.getPrintName(ep)+EMV2Util.getPrintName(ep.getTypeSet()));
+		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
+				ef.getTypeTokenConstraint())) {
+			error(ef,
+					"Type token constraint "
+							+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
+							+ " is not contained in type set of outgoing propagation "
+							+ EMV2Util.getPrintName(ep)
+							+ EMV2Util.getPrintName(ep.getTypeSet()));
 		}
 	}
 
-	private void checkErrorSinkTypes(ErrorSink ef){
+	private void checkErrorSinkTypes(ErrorSink ef) {
 		ErrorPropagation ep = ef.getIncoming();
-		if ( !EM2TypeSetUtil.contains(ep.getTypeSet(),ef.getTypeTokenConstraint())){
-			error(ef,"Type token constraint is not contained in type set of incoming propagation \""+EMV2Util.getPrintName(ep)+"\"");
+		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
+				ef.getTypeTokenConstraint())) {
+			error(ef,
+					"Type token constraint is not contained in type set of incoming propagation \""
+							+ EMV2Util.getPrintName(ep) + "\"");
 		}
 	}
 
-	private void checkErrorPathTypes(ErrorPath ef){
-		if (ef.getTypeTokenConstraint() != null){
+	private void checkErrorPathTypes(ErrorPath ef) {
+		if (ef.getTypeTokenConstraint() != null) {
 			ErrorPropagation epin = ef.getIncoming();
-			if ( !EM2TypeSetUtil.contains(epin.getTypeSet(),ef.getTypeTokenConstraint())){
-				error(ef,"Type token constraint is not contained in type set of incoming propagation \""+EMV2Util.getPrintName(epin)+"\"");
+			if (!EM2TypeSetUtil.contains(epin.getTypeSet(),
+					ef.getTypeTokenConstraint())) {
+				error(ef,
+						"Type token constraint is not contained in type set of incoming propagation \""
+								+ EMV2Util.getPrintName(epin) + "\"");
 			}
 		}
-		if (ef.getTargetToken() != null){
+		if (ef.getTargetToken() != null) {
 			ErrorPropagation epout = ef.getOutgoing();
-			if ( !EM2TypeSetUtil.contains(epout.getTypeSet(),ef.getTargetToken())){
-				error(ef,"Target token is not contained in type set of outgoing propagation "+EMV2Util.getPrintName(epout));
+			if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
+					ef.getTargetToken())) {
+				error(ef,
+						"Target token is not contained in type set of outgoing propagation "
+								+ EMV2Util.getPrintName(epout));
 			}
 		}
 	}
 
-	private void checkConnectionErrorTypes(Connection conn){
+	private void checkConnectionErrorTypes(Connection conn) {
 		ComponentImplementation cimpl = conn.getContainingComponentImpl();
 		ConnectionEnd src = conn.getAllSource();
 		Context srcCxt = conn.getAllSourceContext();
 		ErrorPropagation srcprop = null;
 		ErrorPropagation srccontain = null;
 		ErrorModelSubclause srcems = null;
-		if (srcCxt instanceof Subcomponent){
-			ComponentClassifier cl = ((Subcomponent)srcCxt).getClassifier();
+		if (srcCxt instanceof Subcomponent) {
+			ComponentClassifier cl = ((Subcomponent) srcCxt).getClassifier();
 			srcems = EMV2Util.getClassifierEMV2Subclause(cl);
 		} else {
 			srcems = EMV2Util.getClassifierEMV2Subclause(cimpl);
 		}
-			srcprop = EMV2Util.findOutgoingErrorPropagation(srcems, src.getName());
-			srccontain = EMV2Util.findOutgoingErrorContainment(srcems, src.getName());
-		
+		srcprop = EMV2Util.findOutgoingErrorPropagation(srcems, src.getName());
+		srccontain = EMV2Util.findOutgoingErrorContainment(srcems,
+				src.getName());
+
 		ConnectionEnd dst = conn.getAllDestination();
 		Context dstCxt = conn.getAllDestinationContext();
 		ErrorModelSubclause dstems = null;
 		ErrorPropagation dstprop = null;
 		ErrorPropagation dstcontain = null;
-		if (dstCxt instanceof Subcomponent){
-			ComponentClassifier cl = ((Subcomponent)dstCxt).getClassifier();
+		if (dstCxt instanceof Subcomponent) {
+			ComponentClassifier cl = ((Subcomponent) dstCxt).getClassifier();
 			dstems = EMV2Util.getClassifierEMV2Subclause(cl);
 		} else {
 			dstems = EMV2Util.getClassifierEMV2Subclause(cimpl);
 		}
-			dstprop = EMV2Util.findIncomingErrorPropagation(dstems, dst.getName());
-			dstcontain = EMV2Util.findIncomingErrorContainment(dstems, dst.getName());
+		dstprop = EMV2Util.findIncomingErrorPropagation(dstems, dst.getName());
+		dstcontain = EMV2Util.findIncomingErrorContainment(dstems,
+				dst.getName());
 
-		if (srcprop != null && dstprop != null){
-			if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
-				error(conn,"Outgoing propagation  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+		if (srcprop != null && dstprop != null) {
+			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(),
+					srcprop.getTypeSet())) {
+				error(conn,
+						"Outgoing propagation  "
+								+ EMV2Util.getPrintName(srcprop)
+								+ EMV2Util.getPrintName(srcprop.getTypeSet())
+								+ " has error types not handled by incoming propagation "
+								+ EMV2Util.getPrintName(dstprop)
+								+ EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		if (srccontain != null && dstcontain != null){
-			if(! EM2TypeSetUtil.contains(srccontain.getTypeSet(),dstcontain.getTypeSet())){
-				error(conn,"Outgoing containment  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" does not contain error types listed by incoming containment "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+		if (srccontain != null && dstcontain != null) {
+			if (!EM2TypeSetUtil.contains(srccontain.getTypeSet(),
+					dstcontain.getTypeSet())) {
+				error(conn,
+						"Outgoing containment  "
+								+ EMV2Util.getPrintName(srcprop)
+								+ EMV2Util.getPrintName(srcprop.getTypeSet())
+								+ " does not contain error types listed by incoming containment "
+								+ EMV2Util.getPrintName(dstprop)
+								+ EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		if (srcCxt instanceof Subcomponent && srcprop == null&&srccontain == null &&dstCxt instanceof Subcomponent&& (dstprop != null||dstcontain != null)){
-			if (srcems != null){
-				// has an EMV2 subclause but no propagation specification for the feature
-				warning(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EMV2Util.getPrintName(dstprop):EMV2Util.getPrintName(dstcontain)));
+		if (srcCxt instanceof Subcomponent && srcprop == null
+				&& srccontain == null && dstCxt instanceof Subcomponent
+				&& (dstprop != null || dstcontain != null)) {
+			if (srcems != null) {
+				// has an EMV2 subclause but no propagation specification for
+				// the feature
+				warning(conn,
+						"Connection source has no error propagation/containment but target does: "
+								+ (dstprop != null ? EMV2Util
+										.getPrintName(dstprop) : EMV2Util
+										.getPrintName(dstcontain)));
 			} else {
-				// TODO check in instance model for connection end point if no error model subclause
-				info(conn,"Connection source has no error model subclause but target does: "+(dstprop!=null?EMV2Util.getPrintName(dstprop):EMV2Util.getPrintName(dstcontain))+". Please add error model to source or validate against error model of source subcomponents in instance model");
+				// TODO check in instance model for connection end point if no
+				// error model subclause
+				info(conn,
+						"Connection source has no error model subclause but target does: "
+								+ (dstprop != null ? EMV2Util
+										.getPrintName(dstprop) : EMV2Util
+										.getPrintName(dstcontain))
+								+ ". Please add error model to source or validate against error model of source subcomponents in instance model");
 			}
 		}
-		if (dstCxt instanceof Subcomponent && dstprop == null  &&dstCxt instanceof Subcomponent&& dstcontain == null && (srcprop != null||srccontain != null)){
-			if (dstems != null){
-				// has an EMV2 subclause but no propagation specification for the feature
-				error(conn,"Connection target has no error propagation/containment but source does: "+(srcprop!=null?EMV2Util.getPrintName(srcprop):EMV2Util.getPrintName(srccontain)));
+		if (dstCxt instanceof Subcomponent && dstprop == null
+				&& dstCxt instanceof Subcomponent && dstcontain == null
+				&& (srcprop != null || srccontain != null)) {
+			if (dstems != null) {
+				// has an EMV2 subclause but no propagation specification for
+				// the feature
+				error(conn,
+						"Connection target has no error propagation/containment but source does: "
+								+ (srcprop != null ? EMV2Util
+										.getPrintName(srcprop) : EMV2Util
+										.getPrintName(srccontain)));
 			} else {
-				// TODO check in instance model for connection end point if no error model subclause
-				error(conn,"Connection target has no error model subclause but source does: "+(srcprop!=null?EMV2Util.getPrintName(srcprop):EMV2Util.getPrintName(srccontain))+". Please add error model to target or validate against error model of target subcomponents in instance model");
+				// TODO check in instance model for connection end point if no
+				// error model subclause
+				error(conn,
+						"Connection target has no error model subclause but source does: "
+								+ (srcprop != null ? EMV2Util
+										.getPrintName(srcprop) : EMV2Util
+										.getPrintName(srccontain))
+								+ ". Please add error model to target or validate against error model of target subcomponents in instance model");
 			}
 		}
-		
-		if (conn.isBidirectional()){
+
+		if (conn.isBidirectional()) {
 			// check for error flow in the opposite direction
 			if (srcems != null) {
-				dstprop = EMV2Util.findIncomingErrorPropagation(srcems, src.getName());
-				dstcontain = EMV2Util.findIncomingErrorContainment(srcems, src.getName());
+				dstprop = EMV2Util.findIncomingErrorPropagation(srcems,
+						src.getName());
+				dstcontain = EMV2Util.findIncomingErrorContainment(srcems,
+						src.getName());
 			}
 			if (dstems != null) {
-				srcprop = EMV2Util.findOutgoingErrorPropagation(dstems, dst.getName());
-				srccontain = EMV2Util.findOutgoingErrorContainment(dstems, dst.getName());
+				srcprop = EMV2Util.findOutgoingErrorPropagation(dstems,
+						dst.getName());
+				srccontain = EMV2Util.findOutgoingErrorContainment(dstems,
+						dst.getName());
 			}
 
-			if (srcprop != null && dstprop != null){
-				if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
-					error(conn,"Outgoing propagation  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+			if (srcprop != null && dstprop != null) {
+				if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(),
+						srcprop.getTypeSet())) {
+					error(conn,
+							"Outgoing propagation  "
+									+ EMV2Util.getPrintName(srcprop)
+									+ EMV2Util.getPrintName(srcprop
+											.getTypeSet())
+									+ " has error types not handled by incoming propagation "
+									+ EMV2Util.getPrintName(dstprop)
+									+ EMV2Util.getPrintName(dstprop
+											.getTypeSet()));
 				}
 			}
-			if (srccontain != null && dstcontain != null){
-				if(! EM2TypeSetUtil.contains(srccontain.getTypeSet(),dstcontain.getTypeSet())){
-					error(conn,"Outgoing containment  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" does not contain error types listed by incoming containment "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+			if (srccontain != null && dstcontain != null) {
+				if (!EM2TypeSetUtil.contains(srccontain.getTypeSet(),
+						dstcontain.getTypeSet())) {
+					error(conn,
+							"Outgoing containment  "
+									+ EMV2Util.getPrintName(srcprop)
+									+ EMV2Util.getPrintName(srcprop
+											.getTypeSet())
+									+ " does not contain error types listed by incoming containment "
+									+ EMV2Util.getPrintName(dstprop)
+									+ EMV2Util.getPrintName(dstprop
+											.getTypeSet()));
 				}
 			}
-			if (srcCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent&& srcprop == null&&srccontain == null && (dstprop != null||dstcontain != null)){
-				if (dstems != null){ // we are doing opposite direction
-					// has an EMV2 subclause but no propagation specification for the feature
-					warning(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EMV2Util.getPrintName(dstprop):EMV2Util.getPrintName(dstcontain)));
+			if (srcCxt instanceof Subcomponent
+					&& dstCxt instanceof Subcomponent && srcprop == null
+					&& srccontain == null
+					&& (dstprop != null || dstcontain != null)) {
+				if (dstems != null) { // we are doing opposite direction
+					// has an EMV2 subclause but no propagation specification
+					// for the feature
+					warning(conn,
+							"Connection source has no error propagation/containment but target does: "
+									+ (dstprop != null ? EMV2Util
+											.getPrintName(dstprop) : EMV2Util
+											.getPrintName(dstcontain)));
 				} else {
-					// TODO check in instance model for connection end point if no error model subclause
-					info(conn,"Connection source has no error model subclause but target does: "+(dstprop!=null?EMV2Util.getPrintName(dstprop):EMV2Util.getPrintName(dstcontain))+". Please validate propagations in instance model");
+					// TODO check in instance model for connection end point if
+					// no error model subclause
+					info(conn,
+							"Connection source has no error model subclause but target does: "
+									+ (dstprop != null ? EMV2Util
+											.getPrintName(dstprop) : EMV2Util
+											.getPrintName(dstcontain))
+									+ ". Please validate propagations in instance model");
 				}
 			}
-			if (dstCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent&& dstprop == null && dstcontain == null && (srcprop != null||srccontain != null)){
-				if (dstems != null){
-					// has an EMV2 subclause but no propagation specification for the feature
-				error(conn,"Connection target has no error propagation/containment but source does: "+(srcprop!=null?EMV2Util.getPrintName(srcprop):EMV2Util.getPrintName(srccontain)));
+			if (dstCxt instanceof Subcomponent
+					&& dstCxt instanceof Subcomponent && dstprop == null
+					&& dstcontain == null
+					&& (srcprop != null || srccontain != null)) {
+				if (dstems != null) {
+					// has an EMV2 subclause but no propagation specification
+					// for the feature
+					error(conn,
+							"Connection target has no error propagation/containment but source does: "
+									+ (srcprop != null ? EMV2Util
+											.getPrintName(srcprop) : EMV2Util
+											.getPrintName(srccontain)));
 				} else {
-					// TODO check in instance model for connection end point if no error model subclause
-					error(conn,"Connection target has no error model subclause but source does: "+(srcprop!=null?EMV2Util.getPrintName(srcprop):EMV2Util.getPrintName(srccontain))+". Please validate propagations in instance model");
+					// TODO check in instance model for connection end point if
+					// no error model subclause
+					error(conn,
+							"Connection target has no error model subclause but source does: "
+									+ (srcprop != null ? EMV2Util
+											.getPrintName(srcprop) : EMV2Util
+											.getPrintName(srccontain))
+									+ ". Please validate propagations in instance model");
 				}
 			}
-			
+
 		}
 	}
 

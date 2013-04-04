@@ -2,24 +2,16 @@ package org.osate.xtext.aadl2.errormodel.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
@@ -31,29 +23,23 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.impl.Aadl2PackageImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
@@ -64,7 +50,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -75,15 +60,16 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
-import org.osate.xtext.aadl2.errormodel.serializer.EMV2TransientValueService;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class EMV2Util {
 	
@@ -100,7 +86,7 @@ public class EMV2Util {
 		return ci.getComponentClassifier().getAllAnnexSubclauses(EMV2subclauseEClass);
 	}
 	
-	public static ContainedNamedElement getHazardProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+	public static ContainedNamedElement getHazardProperty(ComponentInstance ci, Element localContext,Element target, TypeSet ts){
 		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
 		return result;
 	}
@@ -360,6 +346,28 @@ public class EMV2Util {
 		return null;
 	}
 	
+	
+	/**
+	 * find propagation point including those inherited from classifiers being extended
+	 * @param element context
+	 * @param name String
+	 * @return PropagationPoint propagation point
+	 */
+	public static PropagationPoint findPropagationPoint(Element element, String name){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			PropagationPaths eps = errorModelSubclause.getPropagationPaths();
+			if (eps!= null){
+				EList<PropagationPoint> eflist = eps.getPoints();
+				for (PropagationPoint propPoint : eflist) {
+					if ( name.equalsIgnoreCase(propPoint.getName())){
+						return propPoint;
+					}
+				}
+			}
+		}
+		return null;
+	}
 
 	
 	/**
@@ -372,14 +380,14 @@ public class EMV2Util {
 	 */
 	public static ErrorPropagation findErrorPropagationPoint(Element context, String name, DirectionType dir, boolean isNot){
 		EList<ErrorModelSubclause> emslist =null;
-		if (context instanceof QualifiedObservableErrorPropagationPoint){
-			Subcomponent sub = ((QualifiedObservableErrorPropagationPoint)context).getSubcomponent();
+		if (context instanceof QualifiedPropagationPoint){
+			Subcomponent sub = ((QualifiedPropagationPoint)context).getSubcomponent();
 			emslist =  getAllContainingClassifierEMV2Subclauses(sub.getAllClassifier());
 		} else {
 			emslist = getAllContainingClassifierEMV2Subclauses(context);
 		}
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, name, dir, isNot);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, name, dir, isNot);
 			if (res != null) return res;
 		}
 		return null;
@@ -393,8 +401,8 @@ public class EMV2Util {
 	 * @param isNot
 	 * @return
 	 */
-	public static ErrorPropagation findErrorPropagationPoint(ErrorModelSubclause ems, String name, DirectionType dir, boolean isNot){
-		ErrorPropagations eps = ems.getPropagation();
+	public static ErrorPropagation findErrorPropagation(ErrorModelSubclause ems, String name, DirectionType dir, boolean isNot){
+		ErrorPropagations eps = ems.getErrorPropagations();
 		if (eps != null){
 			for (ErrorPropagation ep : eps.getPropagations()){
 				if (ep.isNot() == isNot&& (dir == null ||ep.getDirection()== dir)){
@@ -411,8 +419,6 @@ public class EMV2Util {
 					String kind = ep.getKind();
 					if (kind != null && kind.equalsIgnoreCase(name)&&
 							(dir == null||dir.equals(ep.getDirection()))) return ep;
-					String observe = ep.getName();
-					if (ep.isObservable() && observe != null &&  observe.equalsIgnoreCase(name)) return ep;
 				}
 			}
 		}
@@ -429,14 +435,14 @@ public class EMV2Util {
 	public static ErrorPropagation findIncomingErrorPropagation(Element element, String eppName){
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.IN,false);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.IN,false);
 			if (res != null) return res;
 		}
 		return null;
 	}
 	public static ErrorPropagation findIncomingErrorPropagation(EList<ErrorModelSubclause> emslist, String eppName){
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.IN,false);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.IN,false);
 			if (res != null) return res;
 		}
 		return null;
@@ -452,7 +458,7 @@ public class EMV2Util {
 	public static ErrorPropagation findOutgoingErrorPropagation(Element element, String eppName){
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,false);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.OUT,false);
 			if (res != null) return res;
 		}
 		return null;
@@ -460,7 +466,7 @@ public class EMV2Util {
 	
 	public static ErrorPropagation findOutgoingErrorPropagation(EList<ErrorModelSubclause> emslist, String eppName){
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,false);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.OUT,false);
 			if (res != null) return res;
 		}
 		return null;
@@ -475,7 +481,7 @@ public class EMV2Util {
 	public static ErrorPropagation findOutgoingErrorContainment(Element element, String eppName){
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,true);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.OUT,true);
 			if (res != null) return res;
 		}
 		return null;
@@ -483,7 +489,7 @@ public class EMV2Util {
 	
 	public static ErrorPropagation findOutgoingErrorContainment(EList<ErrorModelSubclause> emslist, String eppName){
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.OUT,true);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.OUT,true);
 			if (res != null) return res;
 		}
 		return null;
@@ -499,14 +505,14 @@ public class EMV2Util {
 	public static ErrorPropagation findIncomingErrorContainment(Element element, String eppName){
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.IN,true);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.IN,true);
 			if (res != null) return res;
 		}
 		return null;
 	}
 	public static ErrorPropagation findIncomingErrorContainment(EList<ErrorModelSubclause> emslist, String eppName){
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagationPoint(errorModelSubclause, eppName, DirectionType.IN,true);
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.IN,true);
 			if (res != null) return res;
 		}
 		return null;
@@ -1082,23 +1088,97 @@ public class EMV2Util {
 		return null;
 	}
 
-
 	
 	/**
-	 * return list of error flow including those inherited from classifiers being extended
-	 * @param eps error propagations
-	 * @return Collection<ErrorFlow> list of error flow
+	 * return list of error propagations including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return HashMap<String,ErrorPropagation> list of ErrorPropagations excluding duplicates
 	 */
-	public static HashMap<String,ErrorFlow> getAllErrorFlows(Classifier cl){
-		HashMap<String,ErrorFlow> result = new HashMap<String,ErrorFlow>();
+	public static HashMap<String,ErrorPropagation> getAllErrorPropagations(Classifier cl){
+		return getAllErrorPropagations(cl, null);
+	}
+	
+	/**
+	 * return list of outgoing error propagations including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return HashMap<String,ErrorPropagation> list of ErrorPropagations excluding duplicates
+	 */
+	public static Collection<ErrorPropagation> getAllOutgoingErrorPropagations(Classifier cl){
+		Collection<ErrorPropagation> props = getAllErrorPropagations(cl, null).values();
+		BasicEList<ErrorPropagation> result = new BasicEList<ErrorPropagation>();
+		for (ErrorPropagation errorPropagation : props) {
+			if (errorPropagation.getDirection().equals(DirectionType.OUT)){
+				result.add(errorPropagation);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * return list of error propagations including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return HashMap<String,ErrorPropagation> list of ErrorPropagations excluding duplicates
+	 */
+	public static Collection<ErrorPropagation> getAllIncomingErrorPropagations(Classifier cl){
+		Collection<ErrorPropagation> props = getAllErrorPropagations(cl, null).values();
+		BasicEList<ErrorPropagation> result = new BasicEList<ErrorPropagation>();
+		for (ErrorPropagation errorPropagation : props) {
+			if (errorPropagation.getDirection().equals(DirectionType.IN)){
+				result.add(errorPropagation);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * return list of error propagations including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @param dup Collection (ArrayList) <ErrorPropagation> will contain found duplicates
+	 * @return HashMap<String,ErrorPropagation> list of ErrorPropagation excluding duplicates
+	 */
+	public static HashMap<String,ErrorPropagation> getAllErrorPropagations(Classifier cl, Collection<ErrorPropagation> dup){
+		HashMap<String,ErrorPropagation> result = new HashMap<String,ErrorPropagation>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagations eps = errorModelSubclause.getPropagation();
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
 			if (eps!= null){
-				EList<ErrorFlow> eflist = eps.getFlows();
-				for (ErrorFlow errorFlow : eflist) {
-					if (!result.containsKey(errorFlow.getName())){
-						result.put(errorFlow.getName(),errorFlow);
+				EList<ErrorPropagation> eflist = eps.getPropagations();
+				for (ErrorPropagation errorProp : eflist) {
+					if (!errorProp.isNot()){
+						String epname = EMV2Util.getPrintName(errorProp);
+						if (!result.containsKey(epname)){
+							result.put(epname,errorProp);
+						} else {
+							if (dup != null) dup.add(errorProp);
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * return list of error containments including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @param dup Collection (ArrayList) <ErrorPropagation> will contain found duplicates
+	 * @return HashMap<String,ErrorPropagation> list of ErrorPropagation containments excluding duplicates
+	 */
+	public static HashMap<String,ErrorPropagation> getAllErrorContainments(Classifier cl, Collection<ErrorPropagation> dup){
+		HashMap<String,ErrorPropagation> result = new HashMap<String,ErrorPropagation>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
+			if (eps!= null){
+				EList<ErrorPropagation> eflist = eps.getPropagations();
+				for (ErrorPropagation errorProp : eflist) {
+					if (!errorProp.isNot()){
+						String epname = EMV2Util.getPrintName(errorProp);
+						if (!result.containsKey(epname)){
+							result.put(epname,errorProp);
+						} else {
+							if (dup != null) dup.add(errorProp);
+						}
 					}
 				}
 			}
@@ -1108,28 +1188,73 @@ public class EMV2Util {
 
 	
 	/**
-	 * return list of error flow duplicates
-	 * @param eps error propagations
+	 * return list of error flow including those inherited from classifiers being extended
+	 * @param cl Classifier
 	 * @return Collection<ErrorFlow> list of error flow
 	 */
-	public static HashMap<String,ErrorFlow> duplicateErrorFlows(Classifier cl){
-		HashMap<String,ErrorFlow> result = new HashMap<String,ErrorFlow>();
+	public static HashMap<String,ErrorFlow> getAllErrorFlows(Classifier cl){
+		return getAllErrorFlows(cl, null);
+	}
+
+	
+	/**
+	 * return list of error flow including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ErrorFlow> list of error flow
+	 */
+	public static Collection<ErrorFlow> getDuplicateErrorFlows(Classifier cl){
 		Collection<ErrorFlow> dup = new ArrayList<ErrorFlow>();
+		getAllErrorFlows(cl, dup);
+		return dup;
+	}
+
+	
+	/**
+	 * return list of error flows including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @param dup Collection (ArrayList) <ErrorFlow> will contain found duplicates
+	 * @return HashMap<String,ErrorFlow> list of error flows excluding duplicates
+	 */
+	public static HashMap<String,ErrorFlow> getAllErrorFlows(Classifier cl, Collection<ErrorFlow> dup){
+		HashMap<String,ErrorFlow> result = new HashMap<String,ErrorFlow>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagations eps = errorModelSubclause.getPropagation();
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
 			if (eps!= null){
 				EList<ErrorFlow> eflist = eps.getFlows();
 				for (ErrorFlow errorFlow : eflist) {
 					if (!result.containsKey(errorFlow.getName())){
 						result.put(errorFlow.getName(),errorFlow);
 					} else {
-						dup.add(errorFlow);
+						if (dup != null) dup.add(errorFlow);
 					}
 				}
 			}
 		}
 		return result;
+	}
+
+	
+	
+	/**
+	 * return list of error sources including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ErrorFlow> list of error flow
+	 */
+	public static HashMap<String,ErrorSource> getAllErrorSources(Classifier cl){
+		return getAllErrorSources(cl, null);
+	}
+
+	
+	/**
+	 * return list of error sources including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ErrorSource> list of error sources
+	 */
+	public static Collection<ErrorSource> getDuplicateErrorSources(Classifier cl){
+		Collection<ErrorSource> dup = new ArrayList<ErrorSource>();
+		getAllErrorSources(cl, dup);
+		return dup;
 	}
 	
 	/**
@@ -1137,16 +1262,20 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @return HashMap<String,ErrorFlow> list of error flow as HashMap for quick lookup of names
 	 */
-	public static HashMap<String,ErrorSource> getAllErrorSources(Classifier cl){
+	public static HashMap<String,ErrorSource> getAllErrorSources(Classifier cl, Collection<ErrorSource> dup){
 		HashMap<String,ErrorSource> result = new HashMap<String,ErrorSource>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagations eps = errorModelSubclause.getPropagation();
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
 			if (eps!= null){
 				EList<ErrorFlow> eflist = eps.getFlows();
 				for (ErrorFlow errorFlow : eflist) {
-					if (errorFlow instanceof ErrorSource && !result.containsKey(errorFlow.getName())){
-						result.put(errorFlow.getName(),(ErrorSource)errorFlow);
+					if (errorFlow instanceof ErrorSource){
+						if( !result.containsKey(errorFlow.getName())){
+							result.put(errorFlow.getName(),(ErrorSource)errorFlow);
+						} else {
+							if (dup != null) dup.add((ErrorSource)errorFlow);
+						}
 					}
 				}
 			}
@@ -1154,52 +1283,112 @@ public class EMV2Util {
 		return result;
 	}
 
+	
+	/**
+	 * return list of propagation points including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return HashMap<String,PropagationPoint> list of propagation points as HashMap for quick lookup of names
+	 */
+	public static HashMap<String,PropagationPoint> getAllPropagationPoints(Classifier cl){
+		HashMap<String,PropagationPoint> result = new HashMap<String,PropagationPoint>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			PropagationPaths eps = errorModelSubclause.getPropagationPaths();
+			if (eps!= null){
+				EList<PropagationPoint> eflist = eps.getPoints();
+				for (PropagationPoint propPoint : eflist) {
+					if ( !result.containsKey(propPoint.getName())){
+						result.put(propPoint.getName(),propPoint);
+					}
+				}
+			}
+		}
+		return result;
+	}
 
 	
-//	
-//	/**
-//	 * return list of error behavior event including those inherited from classifiers being extended
-//	 * @param cl classifier
-//	 * @return EList<ErrorBehaviorEvent> list of error behavior events
-//	 */
-//	public static EList<ErrorBehaviorEvent> getAllErrorBehaviorEvents(Classifier cl){
-//		ErrorModelSubclause ems = getContainingClassifierEMV2Subclause(cl);
-//		return getAllErrorBehaviorEvents(ems);
-//	}
-//
-//	
-//	/**
-//	 * return list of error behavior event including those inherited from classifiers being extended
-//	 * @param ems error model subclause
-//	 * @return EList<ErrorBehaviorEvent> list of error behavior events
-//	 */
-//	public static EList<ErrorBehaviorEvent> getAllErrorBehaviorEvents(ErrorModelSubclause ems){
-//		EList<ErrorBehaviorEvent> result = new UniqueEList<ErrorBehaviorEvent>();
-//		while (ems != null){
-//			result.addAll(getErrorBehaviorEvents(ems));
-//			ems = getContainingExtendsClassifierEMV2Subclause(ems);
-//		}
-//		ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-//		result.addAll(ebsm.getEvents());
-//		return result;
-//	}
-//
-//	
-//	@SuppressWarnings("unchecked")
-//	/**
-//	 * get error behavior events of the local ems only
-//	 * @param ems Error Model Subclause
-//	 * @return
-//	 */
-//	public static EList<ErrorBehaviorEvent> getErrorBehaviorEvents(ErrorModelSubclause ems){
-//		if (ems != null ){
-//			ComponentErrorBehavior ceb = ems.getComponentBehavior();
-//			if (ceb != null){
-//			return ceb.getEvents();
-//			}
-//		}
-//		return (EList<ErrorBehaviorEvent>) ECollections.EMPTY_ELIST;
-//	}
+	/**
+	 * return list of PropagationPointConnections including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return HashMap<String,PropagationPointConnection> list of PropagationPointConnections as HashMap for quick lookup of names
+	 */
+	public static HashMap<String,PropagationPointConnection> getAllPropagationPointConnections(Classifier cl){
+		HashMap<String,PropagationPointConnection> result = new HashMap<String,PropagationPointConnection>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			PropagationPaths eps = errorModelSubclause.getPropagationPaths();
+			if (eps!= null){
+				EList<PropagationPointConnection> eflist = eps.getConnections();
+				for (PropagationPointConnection propPointConn : eflist) {
+					if ( !result.containsKey(propPointConn.getName())){
+						result.put(propPointConn.getName(),propPointConn);
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+
+	
+	/**
+	 * return list of ErrorBehaviorEvents including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return HashMap<String,ErrorBehaviorEvent> list of ErrorBehaviorEvents as HashMap for quick lookup of names
+	 */
+	public static HashMap<String,ErrorBehaviorEvent> getAllErrorBehaviorEvents(Classifier cl){
+		HashMap<String,ErrorBehaviorEvent> result = new HashMap<String,ErrorBehaviorEvent>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		boolean foundEBSM = false;
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			ComponentErrorBehavior ceb = errorModelSubclause.getComponentBehavior();
+			if (ceb!= null){
+				EList<ErrorBehaviorEvent> eflist = ceb.getEvents();
+				for (ErrorBehaviorEvent ebe : eflist) {
+					if ( !result.containsKey(ebe.getName())){
+						result.put(ebe.getName(),ebe);
+					}
+				}
+			}
+			if (!foundEBSM && ebsm!= null){
+				foundEBSM = true;
+				EList<ErrorBehaviorEvent> eflist = ebsm.getEvents();
+				for (ErrorBehaviorEvent ebe : eflist) {
+					if ( !result.containsKey(ebe.getName())){
+						result.put(ebe.getName(),ebe);
+					}
+				}
+			}
+
+		}
+		return result;
+	}
+
+	
+	/**
+	 * return list of ErrorBehaviorStates including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return HashMap<String,ErrorBehaviorState> list of ErrorBehaviorStates as HashMap for quick lookup of names
+	 */
+	public static HashMap<String,ErrorBehaviorState> getAllErrorBehaviorStates(Classifier cl){
+		HashMap<String,ErrorBehaviorState> result = new HashMap<String,ErrorBehaviorState>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			if ( ebsm!= null){
+				EList<ErrorBehaviorState> eflist = ebsm.getStates();
+				for (ErrorBehaviorState ebs : eflist) {
+					if ( !result.containsKey(ebs.getName())){
+						result.put(ebs.getName(),ebs);
+					}
+				}
+				return result;
+			}
+
+		}
+		return result;
+	}
 	
 
 	/**
@@ -1283,10 +1472,13 @@ public class EMV2Util {
 		return null;
 	}
 	
-	public static String getPrintName(NamedElement ne){
-		if (ne.getName() != null) return ne.getName();
-		if (ne instanceof ErrorPropagation){
-			ErrorPropagation ep = (ErrorPropagation)ne;
+	public static String getPrintName(Element el){
+		if (el instanceof NamedElement){
+			NamedElement ne = (NamedElement)el;
+			if(ne.getName() != null) return ne.getName();
+		}
+		if (el instanceof ErrorPropagation){
+			ErrorPropagation ep = (ErrorPropagation)el;
 			String res = getPrintName(ep);
 			if (!res.isEmpty()) return res;
 			if (ep.getKind() != null) return ep.getKind();
@@ -1494,7 +1686,7 @@ public class EMV2Util {
 	 * @param target Element the target object in the error model whose property we retrieve
 	 * @return
 	 */
-	public static ContainedNamedElement getProperty(String propertyName, ComponentInstance ci,NamedElement localContext,NamedElement target, TypeSet ts){
+	public static ContainedNamedElement getProperty(String propertyName, ComponentInstance ci,Element localContext,Element target, TypeSet ts){
 		ContainedNamedElement result = getPropertyInInstanceHierarchy(propertyName,ci,target,localContext, ts);
 		if (result==null&& localContext != null){
 			// look up in local context of target reference
@@ -1523,17 +1715,17 @@ public class EMV2Util {
 	 * in the properties section of the annex subclauses. Those are the ones that can override down the component hierarchy.
 	 * @param props list of property associations from the properties section in the error model
 	 * @param propertyName name of property we are looking for
-	 * @param target the error model element (first item in teh containment path)
+	 * @param target the error model element (first item in the containment path)
 	 * @return property association
 	 */
-	public static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,NamedElement target, 
-			NamedElement localContext, TypeSet ts){
+	public static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
+			Element localContext, TypeSet ts){
 		Stack<ComponentInstance> ciStack = new Stack<ComponentInstance>();
 		return getPropertyInInstanceHierarchy(propertyName,ci,target,localContext,ciStack, ts);
 	}
 
-	private static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,NamedElement target, 
-			NamedElement localContext,Stack<ComponentInstance> ciStack, TypeSet ts){
+	private static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
+			Element localContext,Stack<ComponentInstance> ciStack, TypeSet ts){
 		ContainedNamedElement result = null;
 
 		if (ci.getContainingComponentInstance() != null) {
@@ -1561,8 +1753,8 @@ public class EMV2Util {
 	 * @param ciStack stack of nested CI
 	 * @return property association
 	 */
-	public static ContainedNamedElement getProperty(EList<PropertyAssociation> props,String propertyName, NamedElement target,
-			NamedElement localContext, Stack<ComponentInstance> ciStack, TypeSet ts){
+	public static ContainedNamedElement getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
+			Element localContext, Stack<ComponentInstance> ciStack, TypeSet ts){
 		if (props == null) return null;
 		ContainedNamedElement result = null;
 		for (PropertyAssociation propertyAssociation : props) {
@@ -1585,8 +1777,8 @@ public class EMV2Util {
 	 * @param ciStack stack of nested CI
 	 * @return property association
 	 */
-	public static ContainedNamedElement getProperty(EList<PropertyAssociation> props,String propertyName, NamedElement target,
-			NamedElement localContext, TypeSet ts){
+	public static ContainedNamedElement getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
+			Element localContext, TypeSet ts){
 		if (props == null) return null;
 		ContainedNamedElement result = null;
 		for (PropertyAssociation propertyAssociation : props) {
@@ -1612,8 +1804,8 @@ public class EMV2Util {
 	 * @param target Element the target object in the error model whose property we retrieve
 	 * @return ContainedNamedElement the containment path that matches
 	 */
-	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, NamedElement target, 
-			NamedElement localContext,Stack<ComponentInstance> ciStack, TypeSet ts ){
+	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, Element target, 
+			Element localContext,Stack<ComponentInstance> ciStack, TypeSet ts ){
 		if (ciStack == null)
 		{
 			return null;
@@ -1703,7 +1895,7 @@ public class EMV2Util {
 
 	public static boolean hasErrorPropagations(ComponentClassifier cl){
 		ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
-		return ems != null && ems.getPropagation() != null;
+		return ems != null && ems.getErrorPropagations() != null;
 	}
 	
 	public static boolean hasComponentErrorBehavior(ComponentInstance ci){
@@ -1912,11 +2104,17 @@ public class EMV2Util {
 		if (frefs.isEmpty()) return null;
 		InstanceObject container = ci;
 		for (FeatureReference featureReference : frefs) {
+			NamedElement ne = featureReference.getFeature();
+			if (ne instanceof Feature){
+				Feature fe = (Feature)ne;
 			FeatureInstance fi = (container instanceof ComponentInstance?
-					((ComponentInstance)container).findFeatureInstance(featureReference.getFeature()):
-						((FeatureInstance)container).findFeatureInstance(featureReference.getFeature()));
+					((ComponentInstance)container).findFeatureInstance(fe):
+						((FeatureInstance)container).findFeatureInstance(fe));
 			if (fi != null){
 				container = fi;
+			} else {
+				return null;
+			}
 			} else {
 				return null;
 			}
@@ -1952,7 +2150,9 @@ public class EMV2Util {
 	public static Feature getFeature(ErrorPropagation ep){
 		EList<FeatureReference> frefs = ep.getFeaturerefs();
 		if (frefs.isEmpty()) return null;
-		return frefs.get(frefs.size()-1).getFeature();
+		NamedElement res = frefs.get(frefs.size()-1).getFeature();
+		if (res instanceof Feature) return (Feature)res;
+		return null;
 	}
 
 }

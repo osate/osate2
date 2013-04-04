@@ -5,7 +5,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,12 +34,12 @@ public interface FeatureReference extends EObject, Element
    * </p>
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Feature</em>' reference.
-	 * @see #setFeature(Feature)
+	 * @see #setFeature(NamedElement)
 	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getFeatureReference_Feature()
 	 * @model
 	 * @generated
 	 */
-  Feature getFeature();
+  NamedElement getFeature();
 
   /**
 	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference#getFeature <em>Feature</em>}' reference.
@@ -49,6 +49,6 @@ public interface FeatureReference extends EObject, Element
 	 * @see #getFeature()
 	 * @generated
 	 */
-  void setFeature(Feature value);
+  void setFeature(NamedElement value);
 
 } // FeatureReference

@@ -12,16 +12,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
         upperBound="-1" eType="#//ErrorModelLibrary"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useBehavior" eType="#//ErrorBehaviorStateMachine"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propagation" eType="#//ErrorPropagations"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorPropagations" eType="#//ErrorPropagations"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentBehavior" eType="#//ComponentErrorBehavior"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compositeBehavior" eType="#//CompositeErrorBehavior"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="observablePropagationConnections"
-        eType="#//ObservablePropagationConnections" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionTransformation"
         eType="#//ConnectionTransformation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPaths" eType="#//PropagationPaths"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
         eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
         containment="true"/>
@@ -92,7 +92,6 @@
         eType="#//ErrorFlow" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagation" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//EventOrPropagation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="observable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featurerefs" upperBound="-1"
         eType="#//FeatureReference" containment="true"/>
@@ -102,7 +101,7 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureReference" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorFlow" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTokenConstraint" eType="#//TypeSet"
@@ -127,20 +126,22 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeMappingSet" eType="#//TypeMappingSet"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ObservablePropagationConnections" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" upperBound="-1"
-        eType="#//ObservablePropagationConnection" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationPaths" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="points" upperBound="-1"
+        eType="#//PropagationPoint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connections" upperBound="-1"
+        eType="#//PropagationPointConnection" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ObservablePropagationConnection" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//QualifiedObservableErrorPropagationPoint"
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationPoint" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationPointConnection" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//QualifiedPropagationPoint"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//QualifiedObservableErrorPropagationPoint"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//QualifiedPropagationPoint"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="QualifiedObservableErrorPropagationPoint"
-      eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedPropagationPoint" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponent" eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Subcomponent"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="observablePoint" eType="#//ErrorPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoint" eType="#//PropagationPoint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorStateMachine" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//TypeUseContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"

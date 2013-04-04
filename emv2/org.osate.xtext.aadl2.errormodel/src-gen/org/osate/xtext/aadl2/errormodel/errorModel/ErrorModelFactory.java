@@ -194,31 +194,40 @@ public interface ErrorModelFactory extends EFactory
   ErrorPath createErrorPath();
 
   /**
-	 * Returns a new object of class '<em>Observable Propagation Connections</em>'.
+	 * Returns a new object of class '<em>Propagation Paths</em>'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Observable Propagation Connections</em>'.
+	 * @return a new object of class '<em>Propagation Paths</em>'.
 	 * @generated
 	 */
-  ObservablePropagationConnections createObservablePropagationConnections();
+  PropagationPaths createPropagationPaths();
 
   /**
-	 * Returns a new object of class '<em>Observable Propagation Connection</em>'.
+	 * Returns a new object of class '<em>Propagation Point</em>'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Observable Propagation Connection</em>'.
+	 * @return a new object of class '<em>Propagation Point</em>'.
 	 * @generated
 	 */
-  ObservablePropagationConnection createObservablePropagationConnection();
+  PropagationPoint createPropagationPoint();
 
   /**
-	 * Returns a new object of class '<em>Qualified Observable Error Propagation Point</em>'.
+	 * Returns a new object of class '<em>Propagation Point Connection</em>'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Qualified Observable Error Propagation Point</em>'.
+	 * @return a new object of class '<em>Propagation Point Connection</em>'.
 	 * @generated
 	 */
-  QualifiedObservableErrorPropagationPoint createQualifiedObservableErrorPropagationPoint();
+  PropagationPointConnection createPropagationPointConnection();
+
+  /**
+	 * Returns a new object of class '<em>Qualified Propagation Point</em>'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Qualified Propagation Point</em>'.
+	 * @generated
+	 */
+  QualifiedPropagationPoint createQualifiedPropagationPoint();
 
   /**
 	 * Returns a new object of class '<em>Error Behavior State Machine</em>'.

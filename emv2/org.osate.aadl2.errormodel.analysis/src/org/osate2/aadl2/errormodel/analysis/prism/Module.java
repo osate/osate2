@@ -208,9 +208,9 @@ public class Module {
 		
 		ErrorModelSubclause errorModelSubclause = EMV2Util.getClassifierEMV2Subclause(aadlComponent.getComponentClassifier());
 
-		if (errorModelSubclause.getPropagation() != null)
+		if (errorModelSubclause.getErrorPropagations() != null)
 		{
-			for (ErrorFlow ef : errorModelSubclause.getPropagation().getFlows())
+			for (ErrorFlow ef : errorModelSubclause.getErrorPropagations().getFlows())
 			{
 				if (ef instanceof ErrorSource)
 				{
@@ -414,9 +414,9 @@ public class Module {
 		 * error types propagated. The variable has a value 0 if no error
 		 * is propagated.
 		 */
-		if ((errorModelSubclause != null) && (errorModelSubclause.getPropagation() != null))
+		if ((errorModelSubclause != null) && (errorModelSubclause.getErrorPropagations() != null))
 		{
-			propagations = errorModelSubclause.getPropagation();
+			propagations = errorModelSubclause.getErrorPropagations();
 			for (ErrorPropagation ep : propagations.getPropagations())
 			{
 				OsateDebug.osateDebug("[PRISM][Module.java] Process propagation " + ep);

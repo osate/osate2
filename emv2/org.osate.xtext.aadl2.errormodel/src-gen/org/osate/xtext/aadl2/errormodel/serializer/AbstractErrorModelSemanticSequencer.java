@@ -54,13 +54,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
-import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnection;
-import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnections;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
@@ -443,20 +444,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
-			case ErrorModelPackage.OBSERVABLE_PROPAGATION_CONNECTION:
-				if(context == grammarAccess.getNamedElementRule() ||
-				   context == grammarAccess.getObservablePropagationConnectionRule()) {
-					sequence_ObservablePropagationConnection(context, (ObservablePropagationConnection) semanticObject); 
-					return; 
-				}
-				else break;
-			case ErrorModelPackage.OBSERVABLE_PROPAGATION_CONNECTIONS:
-				if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getObservablePropagationConnectionsRule()) {
-					sequence_ObservablePropagationConnections(context, (ObservablePropagationConnections) semanticObject); 
-					return; 
-				}
-				else break;
 			case ErrorModelPackage.OR_EXPRESSION:
 				if(context == grammarAccess.getAndExpressionRule() ||
 				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
@@ -517,10 +504,31 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
-			case ErrorModelPackage.QUALIFIED_OBSERVABLE_ERROR_PROPAGATION_POINT:
+			case ErrorModelPackage.PROPAGATION_PATHS:
 				if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getQualifiedObservableErrorPropagationPointRule()) {
-					sequence_QualifiedObservableErrorPropagationPoint(context, (QualifiedObservableErrorPropagationPoint) semanticObject); 
+				   context == grammarAccess.getPropagationPathsRule()) {
+					sequence_PropagationPaths(context, (PropagationPaths) semanticObject); 
+					return; 
+				}
+				else break;
+			case ErrorModelPackage.PROPAGATION_POINT:
+				if(context == grammarAccess.getNamedElementRule() ||
+				   context == grammarAccess.getPropagationPointRule()) {
+					sequence_PropagationPoint(context, (PropagationPoint) semanticObject); 
+					return; 
+				}
+				else break;
+			case ErrorModelPackage.PROPAGATION_POINT_CONNECTION:
+				if(context == grammarAccess.getNamedElementRule() ||
+				   context == grammarAccess.getPropagationPointConnectionRule()) {
+					sequence_PropagationPointConnection(context, (PropagationPointConnection) semanticObject); 
+					return; 
+				}
+				else break;
+			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT:
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getQualifiedPropagationPointRule()) {
+					sequence_QualifiedPropagationPoint(context, (QualifiedPropagationPoint) semanticObject); 
 					return; 
 				}
 				else break;
@@ -853,11 +861,11 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
-	 *         propagation=ErrorPropagations? 
+	 *         errorPropagations=ErrorPropagations? 
 	 *         componentBehavior=ComponentErrorBehavior? 
 	 *         compositeBehavior=CompositeErrorBehavior? 
-	 *         observablePropagationConnections=ObservablePropagationConnections? 
 	 *         connectionTransformation=ConnectionTransformation? 
+	 *         propagationPaths=PropagationPaths? 
 	 *         properties+=ContainedPropertyAssociation*
 	 *     )
 	 */
@@ -884,7 +892,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
-	 *         ((observable?='observable' name=ID) | kind=PropagationKind | (featurerefs+=FeatureReference featurerefs+=FeatureReference*)) 
+	 *         (kind=PropagationKind | (featurerefs+=FeatureReference featurerefs+=FeatureReference*)) 
 	 *         not?='not'? 
 	 *         direction=PropagationDirection 
 	 *         typeSet=TypeSetReference
@@ -956,7 +964,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     feature=[Feature|ID]
+	 *     feature=[NamedElement|ID]
 	 */
 	protected void sequence_FeatureReference(EObject context, FeatureReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -977,24 +985,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     {TypeSet}
 	 */
 	protected void sequence_NoError(EObject context, TypeSet semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID source=QualifiedObservableErrorPropagationPoint target=QualifiedObservableErrorPropagationPoint)
-	 */
-	protected void sequence_ObservablePropagationConnection(EObject context, ObservablePropagationConnection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     connection+=ObservablePropagationConnection+
-	 */
-	protected void sequence_ObservablePropagationConnections(EObject context, ObservablePropagationConnections semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1033,9 +1023,36 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (subcomponent=[Subcomponent|ID]? observablePoint=[ErrorPropagation|ID])
+	 *     (points+=PropagationPoint+ connections+=PropagationPointConnection*)
 	 */
-	protected void sequence_QualifiedObservableErrorPropagationPoint(EObject context, QualifiedObservableErrorPropagationPoint semanticObject) {
+	protected void sequence_PropagationPaths(EObject context, PropagationPaths semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID source=QualifiedPropagationPoint target=QualifiedPropagationPoint)
+	 */
+	protected void sequence_PropagationPointConnection(EObject context, PropagationPointConnection semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_PropagationPoint(EObject context, PropagationPoint semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (subcomponent=[Subcomponent|ID]? propagationPoint=[PropagationPoint|ID])
+	 */
+	protected void sequence_QualifiedPropagationPoint(EObject context, QualifiedPropagationPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

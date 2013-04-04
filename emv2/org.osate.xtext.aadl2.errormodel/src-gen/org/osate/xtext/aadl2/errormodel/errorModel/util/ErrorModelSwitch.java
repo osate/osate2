@@ -234,25 +234,33 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ErrorModelPackage.OBSERVABLE_PROPAGATION_CONNECTIONS: {
-				ObservablePropagationConnections observablePropagationConnections = (ObservablePropagationConnections)theEObject;
-				T result = caseObservablePropagationConnections(observablePropagationConnections);
-				if (result == null) result = caseElement(observablePropagationConnections);
+			case ErrorModelPackage.PROPAGATION_PATHS: {
+				PropagationPaths propagationPaths = (PropagationPaths)theEObject;
+				T result = casePropagationPaths(propagationPaths);
+				if (result == null) result = caseElement(propagationPaths);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ErrorModelPackage.OBSERVABLE_PROPAGATION_CONNECTION: {
-				ObservablePropagationConnection observablePropagationConnection = (ObservablePropagationConnection)theEObject;
-				T result = caseObservablePropagationConnection(observablePropagationConnection);
-				if (result == null) result = caseNamedElement(observablePropagationConnection);
-				if (result == null) result = caseElement(observablePropagationConnection);
+			case ErrorModelPackage.PROPAGATION_POINT: {
+				PropagationPoint propagationPoint = (PropagationPoint)theEObject;
+				T result = casePropagationPoint(propagationPoint);
+				if (result == null) result = caseNamedElement(propagationPoint);
+				if (result == null) result = caseElement(propagationPoint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ErrorModelPackage.QUALIFIED_OBSERVABLE_ERROR_PROPAGATION_POINT: {
-				QualifiedObservableErrorPropagationPoint qualifiedObservableErrorPropagationPoint = (QualifiedObservableErrorPropagationPoint)theEObject;
-				T result = caseQualifiedObservableErrorPropagationPoint(qualifiedObservableErrorPropagationPoint);
-				if (result == null) result = caseElement(qualifiedObservableErrorPropagationPoint);
+			case ErrorModelPackage.PROPAGATION_POINT_CONNECTION: {
+				PropagationPointConnection propagationPointConnection = (PropagationPointConnection)theEObject;
+				T result = casePropagationPointConnection(propagationPointConnection);
+				if (result == null) result = caseNamedElement(propagationPointConnection);
+				if (result == null) result = caseElement(propagationPointConnection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT: {
+				QualifiedPropagationPoint qualifiedPropagationPoint = (QualifiedPropagationPoint)theEObject;
+				T result = caseQualifiedPropagationPoint(qualifiedPropagationPoint);
+				if (result == null) result = caseElement(qualifiedPropagationPoint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -788,49 +796,65 @@ public class ErrorModelSwitch<T> extends Switch<T>
 	}
 
   /**
-	 * Returns the result of interpreting the object as an instance of '<em>Observable Propagation Connections</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Propagation Paths</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Observable Propagation Connections</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Propagation Paths</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-  public T caseObservablePropagationConnections(ObservablePropagationConnections object)
+  public T casePropagationPaths(PropagationPaths object)
   {
 		return null;
 	}
 
   /**
-	 * Returns the result of interpreting the object as an instance of '<em>Observable Propagation Connection</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Propagation Point</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Observable Propagation Connection</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Propagation Point</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-  public T caseObservablePropagationConnection(ObservablePropagationConnection object)
+  public T casePropagationPoint(PropagationPoint object)
   {
 		return null;
 	}
 
   /**
-	 * Returns the result of interpreting the object as an instance of '<em>Qualified Observable Error Propagation Point</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Propagation Point Connection</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Qualified Observable Error Propagation Point</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Propagation Point Connection</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-  public T caseQualifiedObservableErrorPropagationPoint(QualifiedObservableErrorPropagationPoint object)
+  public T casePropagationPointConnection(PropagationPointConnection object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Qualified Propagation Point</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Qualified Propagation Point</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseQualifiedPropagationPoint(QualifiedPropagationPoint object)
   {
 		return null;
 	}

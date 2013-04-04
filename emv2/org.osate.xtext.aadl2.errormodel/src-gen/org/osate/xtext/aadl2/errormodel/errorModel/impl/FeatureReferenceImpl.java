@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
 
 import org.osate.aadl2.impl.ElementImpl;
 
@@ -40,7 +40,7 @@ public class FeatureReferenceImpl extends ElementImpl implements FeatureReferenc
 	 * @generated
 	 * @ordered
 	 */
-  protected Feature feature;
+  protected NamedElement feature;
 
   /**
 	 * <!-- begin-user-doc -->
@@ -68,11 +68,11 @@ public class FeatureReferenceImpl extends ElementImpl implements FeatureReferenc
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Feature getFeature()
+  public NamedElement getFeature()
   {
 		if (feature != null && ((EObject)feature).eIsProxy()) {
 			InternalEObject oldFeature = (InternalEObject)feature;
-			feature = (Feature)eResolveProxy(oldFeature);
+			feature = (NamedElement)eResolveProxy(oldFeature);
 			if (feature != oldFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.FEATURE_REFERENCE__FEATURE, oldFeature, feature));
@@ -86,7 +86,7 @@ public class FeatureReferenceImpl extends ElementImpl implements FeatureReferenc
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Feature basicGetFeature()
+  public NamedElement basicGetFeature()
   {
 		return feature;
 	}
@@ -96,9 +96,9 @@ public class FeatureReferenceImpl extends ElementImpl implements FeatureReferenc
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setFeature(Feature newFeature)
+  public void setFeature(NamedElement newFeature)
   {
-		Feature oldFeature = feature;
+		NamedElement oldFeature = feature;
 		feature = newFeature;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.FEATURE_REFERENCE__FEATURE, oldFeature, feature));
@@ -130,7 +130,7 @@ public class FeatureReferenceImpl extends ElementImpl implements FeatureReferenc
   {
 		switch (featureID) {
 			case ErrorModelPackage.FEATURE_REFERENCE__FEATURE:
-				setFeature((Feature)newValue);
+				setFeature((NamedElement)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -146,7 +146,7 @@ public class FeatureReferenceImpl extends ElementImpl implements FeatureReferenc
   {
 		switch (featureID) {
 			case ErrorModelPackage.FEATURE_REFERENCE__FEATURE:
-				setFeature((Feature)null);
+				setFeature((NamedElement)null);
 				return;
 		}
 		super.eUnset(featureID);

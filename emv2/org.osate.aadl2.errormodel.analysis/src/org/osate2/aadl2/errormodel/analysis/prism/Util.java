@@ -144,7 +144,7 @@ public class Util
 
 						ErrorModelSubclause sourceSubclause = EMV2Util.getClassifierEMV2Subclause(instanceSource.getComponentClassifier());
 						//OsateDebug.osateDebug("[Utils]       ErrorPropagation src:" + sourceSubclause);
-						for (ErrorFlow flow : sourceSubclause.getPropagation().getFlows())
+						for (ErrorFlow flow : sourceSubclause.getErrorPropagations().getFlows())
 						{
 							//OsateDebug.osateDebug("[Utils]       Flow:" + flow);
 

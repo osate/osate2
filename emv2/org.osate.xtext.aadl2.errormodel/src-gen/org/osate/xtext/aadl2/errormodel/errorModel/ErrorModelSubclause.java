@@ -17,11 +17,11 @@ import org.osate.aadl2.PropertyAssociation;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagation <em>Propagation</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorPropagations <em>Error Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getComponentBehavior <em>Component Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getCompositeBehavior <em>Composite Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getObservablePropagationConnections <em>Observable Propagation Connections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionTransformation <em>Connection Transformation</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagationPaths <em>Propagation Paths</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
@@ -75,30 +75,30 @@ public interface ErrorModelSubclause extends AnnexSubclause, EBSMUseContext
   void setUseBehavior(ErrorBehaviorStateMachine value);
 
   /**
-	 * Returns the value of the '<em><b>Propagation</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Error Propagations</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Propagation</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Error Propagations</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Propagation</em>' containment reference.
-	 * @see #setPropagation(ErrorPropagations)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Propagation()
+	 * @return the value of the '<em>Error Propagations</em>' containment reference.
+	 * @see #setErrorPropagations(ErrorPropagations)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ErrorPropagations()
 	 * @model containment="true"
 	 * @generated
 	 */
-  ErrorPropagations getPropagation();
+  ErrorPropagations getErrorPropagations();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagation <em>Propagation</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorPropagations <em>Error Propagations</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Propagation</em>' containment reference.
-	 * @see #getPropagation()
+	 * @param value the new value of the '<em>Error Propagations</em>' containment reference.
+	 * @see #getErrorPropagations()
 	 * @generated
 	 */
-  void setPropagation(ErrorPropagations value);
+  void setErrorPropagations(ErrorPropagations value);
 
   /**
 	 * Returns the value of the '<em><b>Component Behavior</b></em>' containment reference.
@@ -153,32 +153,6 @@ public interface ErrorModelSubclause extends AnnexSubclause, EBSMUseContext
   void setCompositeBehavior(CompositeErrorBehavior value);
 
   /**
-	 * Returns the value of the '<em><b>Observable Propagation Connections</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Observable Propagation Connections</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-	 * @return the value of the '<em>Observable Propagation Connections</em>' containment reference.
-	 * @see #setObservablePropagationConnections(ObservablePropagationConnections)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ObservablePropagationConnections()
-	 * @model containment="true"
-	 * @generated
-	 */
-  ObservablePropagationConnections getObservablePropagationConnections();
-
-  /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getObservablePropagationConnections <em>Observable Propagation Connections</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Observable Propagation Connections</em>' containment reference.
-	 * @see #getObservablePropagationConnections()
-	 * @generated
-	 */
-  void setObservablePropagationConnections(ObservablePropagationConnections value);
-
-  /**
 	 * Returns the value of the '<em><b>Connection Transformation</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <p>
@@ -203,6 +177,32 @@ public interface ErrorModelSubclause extends AnnexSubclause, EBSMUseContext
 	 * @generated
 	 */
   void setConnectionTransformation(ConnectionTransformation value);
+
+  /**
+	 * Returns the value of the '<em><b>Propagation Paths</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Propagation Paths</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+	 * @return the value of the '<em>Propagation Paths</em>' containment reference.
+	 * @see #setPropagationPaths(PropagationPaths)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_PropagationPaths()
+	 * @model containment="true"
+	 * @generated
+	 */
+  PropagationPaths getPropagationPaths();
+
+  /**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagationPaths <em>Propagation Paths</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Propagation Paths</em>' containment reference.
+	 * @see #getPropagationPaths()
+	 * @generated
+	 */
+  void setPropagationPaths(PropagationPaths value);
 
   /**
 	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.

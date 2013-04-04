@@ -79,9 +79,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
 			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET: return createErrorBehaviorStateOrTypeSet();
 			case ErrorModelPackage.ERROR_SINK: return createErrorSink();
 			case ErrorModelPackage.ERROR_PATH: return createErrorPath();
-			case ErrorModelPackage.OBSERVABLE_PROPAGATION_CONNECTIONS: return createObservablePropagationConnections();
-			case ErrorModelPackage.OBSERVABLE_PROPAGATION_CONNECTION: return createObservablePropagationConnection();
-			case ErrorModelPackage.QUALIFIED_OBSERVABLE_ERROR_PROPAGATION_POINT: return createQualifiedObservableErrorPropagationPoint();
+			case ErrorModelPackage.PROPAGATION_PATHS: return createPropagationPaths();
+			case ErrorModelPackage.PROPAGATION_POINT: return createPropagationPoint();
+			case ErrorModelPackage.PROPAGATION_POINT_CONNECTION: return createPropagationPointConnection();
+			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT: return createQualifiedPropagationPoint();
 			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE: return createErrorBehaviorStateMachine();
 			case ErrorModelPackage.ERROR_BEHAVIOR_EVENT: return createErrorBehaviorEvent();
 			case ErrorModelPackage.ERROR_EVENT: return createErrorEvent();
@@ -330,10 +331,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ObservablePropagationConnections createObservablePropagationConnections()
+  public PropagationPaths createPropagationPaths()
   {
-		ObservablePropagationConnectionsImpl observablePropagationConnections = new ObservablePropagationConnectionsImpl();
-		return observablePropagationConnections;
+		PropagationPathsImpl propagationPaths = new PropagationPathsImpl();
+		return propagationPaths;
 	}
 
   /**
@@ -341,10 +342,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ObservablePropagationConnection createObservablePropagationConnection()
+  public PropagationPoint createPropagationPoint()
   {
-		ObservablePropagationConnectionImpl observablePropagationConnection = new ObservablePropagationConnectionImpl();
-		return observablePropagationConnection;
+		PropagationPointImpl propagationPoint = new PropagationPointImpl();
+		return propagationPoint;
 	}
 
   /**
@@ -352,10 +353,21 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public QualifiedObservableErrorPropagationPoint createQualifiedObservableErrorPropagationPoint()
+  public PropagationPointConnection createPropagationPointConnection()
   {
-		QualifiedObservableErrorPropagationPointImpl qualifiedObservableErrorPropagationPoint = new QualifiedObservableErrorPropagationPointImpl();
-		return qualifiedObservableErrorPropagationPoint;
+		PropagationPointConnectionImpl propagationPointConnection = new PropagationPointConnectionImpl();
+		return propagationPointConnection;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public QualifiedPropagationPoint createQualifiedPropagationPoint()
+  {
+		QualifiedPropagationPointImpl qualifiedPropagationPoint = new QualifiedPropagationPointImpl();
+		return qualifiedPropagationPoint;
 	}
 
   /**

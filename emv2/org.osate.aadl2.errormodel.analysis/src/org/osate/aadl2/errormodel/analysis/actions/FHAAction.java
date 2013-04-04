@@ -112,14 +112,14 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 
-	protected ContainedNamedElement getSeverityProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+	protected ContainedNamedElement getSeverityProperty(ComponentInstance ci, Element localContext,Element target, TypeSet ts){
 		ContainedNamedElement result = EMV2Util.getProperty("MILSTD882::Severity",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("ARP4761::Severity",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("EMV2::Severity",ci,localContext,target,ts);
 		return result;
 	}
 	
-	protected ContainedNamedElement getLikelihoodProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+	protected ContainedNamedElement getLikelihoodProperty(ComponentInstance ci, NamedElement localContext,Element target, TypeSet ts){
 		ContainedNamedElement result = EMV2Util.getProperty("MILSTD882::Likelihood",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("ARP4761::Likelihood",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("EMV2::Likelihood",ci,localContext,target,ts);
@@ -173,8 +173,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			ContainedNamedElement Like = null;
 			TypeSet ts = null;
 			ErrorBehaviorState failureMode = null;
-			NamedElement target =null;
-			NamedElement localContext = null;
+			Element target =null;
+			Element localContext = null;
 			// not dealing with type set as failure mode
 			if (fmr instanceof ErrorBehaviorState){
 				// state is originating hazard
@@ -235,7 +235,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	
 	protected void reportHazardProperty(ComponentInstance ci,ContainedNamedElement PAContainmentPath, 
 			ContainedNamedElement SevContainmentPath,ContainedNamedElement LikeContainmentPath,
-			NamedElement target, TypeSet ts, NamedElement localContext,WriteToFile report){
+			Element target, TypeSet ts, Element localContext,WriteToFile report){
 		
 		ErrorType targetType = EMV2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {

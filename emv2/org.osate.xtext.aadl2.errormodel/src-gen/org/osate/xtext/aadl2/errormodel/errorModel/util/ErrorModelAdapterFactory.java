@@ -153,16 +153,20 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
 				return createErrorPathAdapter();
 			}
 			@Override
-			public Adapter caseObservablePropagationConnections(ObservablePropagationConnections object) {
-				return createObservablePropagationConnectionsAdapter();
+			public Adapter casePropagationPaths(PropagationPaths object) {
+				return createPropagationPathsAdapter();
 			}
 			@Override
-			public Adapter caseObservablePropagationConnection(ObservablePropagationConnection object) {
-				return createObservablePropagationConnectionAdapter();
+			public Adapter casePropagationPoint(PropagationPoint object) {
+				return createPropagationPointAdapter();
 			}
 			@Override
-			public Adapter caseQualifiedObservableErrorPropagationPoint(QualifiedObservableErrorPropagationPoint object) {
-				return createQualifiedObservableErrorPropagationPointAdapter();
+			public Adapter casePropagationPointConnection(PropagationPointConnection object) {
+				return createPropagationPointConnectionAdapter();
+			}
+			@Override
+			public Adapter caseQualifiedPropagationPoint(QualifiedPropagationPoint object) {
+				return createQualifiedPropagationPointAdapter();
 			}
 			@Override
 			public Adapter caseErrorBehaviorStateMachine(ErrorBehaviorStateMachine object) {
@@ -607,46 +611,61 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
 	}
 
   /**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnections <em>Observable Propagation Connections</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths <em>Propagation Paths</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnections
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths
 	 * @generated
 	 */
-  public Adapter createObservablePropagationConnectionsAdapter()
+  public Adapter createPropagationPathsAdapter()
   {
 		return null;
 	}
 
   /**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnection <em>Observable Propagation Connection</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint <em>Propagation Point</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnection
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint
 	 * @generated
 	 */
-  public Adapter createObservablePropagationConnectionAdapter()
+  public Adapter createPropagationPointAdapter()
   {
 		return null;
 	}
 
   /**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint <em>Qualified Observable Error Propagation Point</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection <em>Propagation Point Connection</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection
 	 * @generated
 	 */
-  public Adapter createQualifiedObservableErrorPropagationPointAdapter()
+  public Adapter createPropagationPointConnectionAdapter()
+  {
+		return null;
+	}
+
+  /**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint <em>Qualified Propagation Point</em>}'.
+	 * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
+	 * @generated
+	 */
+  public Adapter createQualifiedPropagationPointAdapter()
   {
 		return null;
 	}

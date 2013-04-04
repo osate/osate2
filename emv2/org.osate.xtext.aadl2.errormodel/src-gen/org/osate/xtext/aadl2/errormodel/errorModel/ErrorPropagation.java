@@ -15,7 +15,6 @@ import org.osate.aadl2.NamedElement;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#isObservable <em>Observable</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeaturerefs <em>Featurerefs</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#isNot <em>Not</em>}</li>
@@ -30,32 +29,6 @@ import org.osate.aadl2.NamedElement;
  */
 public interface ErrorPropagation extends NamedElement, EventOrPropagation
 {
-  /**
-	 * Returns the value of the '<em><b>Observable</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Observable</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-	 * @return the value of the '<em>Observable</em>' attribute.
-	 * @see #setObservable(boolean)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagation_Observable()
-	 * @model
-	 * @generated
-	 */
-  boolean isObservable();
-
-  /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#isObservable <em>Observable</em>}' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Observable</em>' attribute.
-	 * @see #isObservable()
-	 * @generated
-	 */
-  void setObservable(boolean value);
-
   /**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
 	 * <!-- begin-user-doc -->

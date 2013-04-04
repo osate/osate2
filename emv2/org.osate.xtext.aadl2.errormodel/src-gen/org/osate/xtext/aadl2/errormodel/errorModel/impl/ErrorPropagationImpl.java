@@ -33,7 +33,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#isObservable <em>Observable</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#getFeaturerefs <em>Featurerefs</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl#isNot <em>Not</em>}</li>
@@ -46,26 +45,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  */
 public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropagation
 {
-  /**
-	 * The default value of the '{@link #isObservable() <em>Observable</em>}' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #isObservable()
-	 * @generated
-	 * @ordered
-	 */
-  protected static final boolean OBSERVABLE_EDEFAULT = false;
-
-  /**
-	 * The cached value of the '{@link #isObservable() <em>Observable</em>}' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #isObservable()
-	 * @generated
-	 * @ordered
-	 */
-  protected boolean observable = OBSERVABLE_EDEFAULT;
-
   /**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -165,29 +144,6 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
   protected EClass eStaticClass()
   {
 		return ErrorModelPackage.Literals.ERROR_PROPAGATION;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public boolean isObservable()
-  {
-		return observable;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public void setObservable(boolean newObservable)
-  {
-		boolean oldObservable = observable;
-		observable = newObservable;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PROPAGATION__OBSERVABLE, oldObservable, observable));
 	}
 
   /**
@@ -344,8 +300,6 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
 		switch (featureID) {
-			case ErrorModelPackage.ERROR_PROPAGATION__OBSERVABLE:
-				return isObservable();
 			case ErrorModelPackage.ERROR_PROPAGATION__KIND:
 				return getKind();
 			case ErrorModelPackage.ERROR_PROPAGATION__FEATUREREFS:
@@ -370,9 +324,6 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
   public void eSet(int featureID, Object newValue)
   {
 		switch (featureID) {
-			case ErrorModelPackage.ERROR_PROPAGATION__OBSERVABLE:
-				setObservable((Boolean)newValue);
-				return;
 			case ErrorModelPackage.ERROR_PROPAGATION__KIND:
 				setKind((String)newValue);
 				return;
@@ -402,9 +353,6 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
   public void eUnset(int featureID)
   {
 		switch (featureID) {
-			case ErrorModelPackage.ERROR_PROPAGATION__OBSERVABLE:
-				setObservable(OBSERVABLE_EDEFAULT);
-				return;
 			case ErrorModelPackage.ERROR_PROPAGATION__KIND:
 				setKind(KIND_EDEFAULT);
 				return;
@@ -433,8 +381,6 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
   public boolean eIsSet(int featureID)
   {
 		switch (featureID) {
-			case ErrorModelPackage.ERROR_PROPAGATION__OBSERVABLE:
-				return observable != OBSERVABLE_EDEFAULT;
 			case ErrorModelPackage.ERROR_PROPAGATION__KIND:
 				return KIND_EDEFAULT == null ? kind != null : !KIND_EDEFAULT.equals(kind);
 			case ErrorModelPackage.ERROR_PROPAGATION__FEATUREREFS:
@@ -460,9 +406,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (observable: ");
-		result.append(observable);
-		result.append(", kind: ");
+		result.append(" (kind: ");
 		result.append(kind);
 		result.append(", not: ");
 		result.append(not);
