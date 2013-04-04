@@ -119,27 +119,8 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		
 		componentInstances = EMV2Util.getComponentInstancesWithErrorPropagations (systemInstance);
 		// TODO may need to be updated to handle inherits from classifier extensions
-		states = ceb.getStates();
-		
-
-		for (CompositeState state : states)
-		{
-			if (state.getState().getName().equalsIgnoreCase(ERROR_STATE_NAME))
-			{
-				
-				ErrorBehaviorState ebs = (ErrorBehaviorState) state.getState();
-			
-				result = new Event();
-				FTAUtils.fillFTAEventfromEventState (result, ebs, systemInstance, componentInstances);
-	
-			}
-			
-			FTAElement operator = FTAUtils.handleCondition (state.getCondition(), componentInstances);
-			if ((operator != null) && (operator instanceof Operator))
-			{
-				result.setIncomingOperator((Operator)operator);
-			}
-		}
+		result = new Event ();
+		FTAUtils.fillCompositeBehavior (result, ceb, ERROR_STATE_NAME, systemInstance, componentInstances);
 		return result;
 	}
 	

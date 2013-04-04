@@ -7,6 +7,7 @@ public class Event extends FTAElement
 	private double probability;
 	private Operator outgoingOperator;
 	private Operator incomingOperator;
+	private boolean showProbability;
 	
 	public Event ()
 	{
@@ -15,11 +16,17 @@ public class Event extends FTAElement
 		this.probability = 0.0;
 		this.outgoingOperator = null;
 		this.incomingOperator = null;
+		this.showProbability = true;
 	}
 	
 	public String getName ()
 	{
 		return this.name;
+	}
+	
+	public void showProbability (boolean b)
+	{
+		this.showProbability = b;
 	}
 	
 	public String getDescription ()
@@ -70,7 +77,14 @@ public class Event extends FTAElement
 	public String toXML()
 	{
 		StringBuffer sb = new StringBuffer ();
-		sb.append ("<event name=\""+this.name+"\" description=\""+this.description+"\" probability=\""+this.probability+"\">");
+		sb.append ("<event name=\""+this.name+"\" description=\""+this.description+"\"");
+		if (this.showProbability)
+		{
+			sb.append (" probability=\""+this.probability+"\"");
+		}
+		sb.append (">");
+
+		
 		sb.append ("\n");
 		if (incomingOperator != null)
 		{

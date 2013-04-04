@@ -11,6 +11,8 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -102,6 +104,79 @@ public class FTAUtils
 	}
 	
 	
+	public static void fillCompositeBehavior (Event ftaEvent, CompositeErrorBehavior compositeErrorBehavior, String stateName, ComponentInstance relatedInstance, final EList<ComponentInstance> componentInstances)
+	{
+		EList<CompositeState> 		states;
+		int 						nBranches;
+		OperatorOr					branch;
+		
+		branch = null;
+		nBranches = 0;
+		states = compositeErrorBehavior.getStates();
+		
+		for (CompositeState state : states)
+		{
+			if (state.getState().getName().equalsIgnoreCase(stateName))
+			{
+				nBranches++;
+			}
+		}
+		
+		if (nBranches > 1)
+		{
+			branch = new OperatorOr();
+			ftaEvent.setIncomingOperator(branch);
+		}
+		
+		for (CompositeState state : states)
+		{
+			if (state.getState().getName().equalsIgnoreCase(stateName))
+			{
+				
+				ErrorBehaviorState ebs = (ErrorBehaviorState) state.getState();
+			
+				FTAUtils.fillFTAEventfromEventState (ftaEvent, ebs, relatedInstance, componentInstances);
+				FTAElement tmp = FTAUtils.handleCondition (state.getCondition(), componentInstances);
+				
+				if (nBranches == 1)
+				{
+					if ((tmp != null) && (tmp instanceof Operator))
+					{
+						ftaEvent.setIncomingOperator((Operator)tmp);
+					}
+
+				}
+				else
+				{
+					if (tmp instanceof Operator)
+					{
+						String desc = "errors";
+						Event tmpEvent = new Event();
+						tmpEvent.setName("");
+						for (FTAElement e : ((Operator) tmp).getOperands())
+						{
+							if (e instanceof Event)
+							{
+								desc += " " + ((Event)e).getName();
+							}
+						}
+						tmpEvent.setDescription(desc);
+						tmpEvent.showProbability (false);
+						tmpEvent.setIncomingOperator((Operator) tmp);
+						branch.addOperand(tmpEvent);
+					}
+					if (tmp instanceof Event)
+					{
+						branch.addOperand(tmp);
+					}
+				}
+			}
+			
+
+		}
+	}
+	
+	
 	public static void fillFTAEventfromEventState (Event event, ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance, final EList<ComponentInstance> componentInstances)
 	{
 		TypeSet ts;
@@ -126,6 +201,11 @@ public class FTAUtils
 		
 		PA = EMV2Util.getHazardProperty(relatedComponentInstance,null,behaviorState,ts);
 		
+		if (PA == null)
+		{
+			return;
+		}
+		
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue)
@@ -142,7 +222,7 @@ public class FTAUtils
 				} 
 			}
 		}
-		event.setName(behaviorState.getName()); 
+		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
 		PA = EMV2Util.getOccurenceDistributionProperty(relatedComponentInstance,null,behaviorState,null);
 		//OsateDebug.osateDebug("         PA " + PA);
 		double prob = EMV2Util.getOccurenceValue (PA);
