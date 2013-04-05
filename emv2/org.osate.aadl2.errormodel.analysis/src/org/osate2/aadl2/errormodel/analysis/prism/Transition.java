@@ -3,7 +3,7 @@ package org.osate2.aadl2.errormodel.analysis.prism;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osate2.aadl2.errormodel.analysis.prism.expression.*;
+import org.osate2.aadl2.errormodel.analysis.prism.expression.Expression;
 
 public class Transition {
 	private double probability;

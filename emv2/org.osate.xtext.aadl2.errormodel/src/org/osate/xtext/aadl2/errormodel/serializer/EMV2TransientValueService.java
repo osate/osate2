@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.parsetree.reconstr.impl.DefaultTransientValueService;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 public class EMV2TransientValueService  extends DefaultTransientValueService {
 

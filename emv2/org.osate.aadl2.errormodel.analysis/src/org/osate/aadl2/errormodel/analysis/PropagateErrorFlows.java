@@ -37,12 +37,11 @@ package org.osate.aadl2.errormodel.analysis;
  * It does so by propagating a token one level at a time, taking fan-out into account, i.e.,
  * does so for the resulting token replicates.
  */
-import java.util.HashMap;
+import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -54,7 +53,6 @@ import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
@@ -113,9 +111,9 @@ public class PropagateErrorFlows {
 	 * @param ci component instance
 	 */
 	public void startErrorFlows(ComponentInstance ci){
-		HashMap<String, ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
+		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		 EList<EObject> nextStep =new UniqueEList<EObject>();
-		for (ErrorSource errorSource : eslist.values()) {
+		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			FeatureInstance fi = EMV2Util.findFeatureInstance(ep,ci);
 			// only propagate if error propagation?
@@ -262,9 +260,9 @@ public class PropagateErrorFlows {
 			// component instance
 			if (!process(source,conni,(ComponentInstance)incie)) {return;}
 		}
-		HashMap<String, ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
+		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
 		if (efs != null){
-			ErrorFlow ef=EMV2Util.findErrorFlowFrom(efs.values(), incie);
+			ErrorFlow ef=EMV2Util.findErrorFlowFrom(efs, incie);
 			if (ef instanceof ErrorSink){
 				// process should have returned false, but for safety we check again
 				return;

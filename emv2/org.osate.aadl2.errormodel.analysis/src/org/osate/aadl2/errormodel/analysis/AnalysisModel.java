@@ -2,7 +2,6 @@ package org.osate.aadl2.errormodel.analysis;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.osate.aadl2.Connection;

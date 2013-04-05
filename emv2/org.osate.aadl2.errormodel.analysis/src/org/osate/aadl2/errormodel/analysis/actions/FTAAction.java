@@ -33,55 +33,29 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.errormodel.analysis.fta.Event;
-import org.osate.aadl2.errormodel.analysis.fta.FTAElement;
 import org.osate.aadl2.errormodel.analysis.fta.FTAUtils;
-import org.osate.aadl2.errormodel.analysis.fta.Operator;
-import org.osate.aadl2.errormodel.analysis.fta.OperatorAnd;
-import org.osate.aadl2.errormodel.analysis.fta.OperatorOr;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
-
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public final class FTAAction extends AaxlReadOnlyActionAsJob 
 {

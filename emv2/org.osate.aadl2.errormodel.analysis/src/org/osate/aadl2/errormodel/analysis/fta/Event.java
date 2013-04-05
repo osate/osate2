@@ -9,14 +9,17 @@ public class Event extends FTAElement
 	private Operator incomingOperator;
 	private boolean showProbability;
 	
+	private static int generalId = 1;
+	
 	public Event ()
 	{
-		this.name = "unknown event";
+		this.name = "event" + generalId;
 		this.description = "unknown description";
 		this.probability = 0.0;
 		this.outgoingOperator = null;
 		this.incomingOperator = null;
 		this.showProbability = true;
+		generalId++;
 	}
 	
 	public String getName ()
@@ -77,7 +80,7 @@ public class Event extends FTAElement
 	public String toXML()
 	{
 		StringBuffer sb = new StringBuffer ();
-		sb.append ("<event name=\""+this.name+"\" description=\""+this.description+"\"");
+		sb.append ("<event id=\""+this.name+"\" description=\""+this.description+"\"");
 		if (this.showProbability)
 		{
 			sb.append (" probability=\""+this.probability+"\"");

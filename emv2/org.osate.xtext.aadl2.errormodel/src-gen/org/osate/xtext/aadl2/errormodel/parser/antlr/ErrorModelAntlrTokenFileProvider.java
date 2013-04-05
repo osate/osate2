@@ -4,6 +4,7 @@
 package org.osate.xtext.aadl2.errormodel.parser.antlr;
 
 import java.io.InputStream;
+
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class ErrorModelAntlrTokenFileProvider implements IAntlrTokenFileProvider {
