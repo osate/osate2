@@ -1,5 +1,8 @@
 package org.osate.aadl2.errormodel.analysis.fta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ContainedNamedElement;
@@ -25,6 +28,9 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FTAUtils 
 {
+	private static ConditionExpression currentCondition  = null;
+	private static FTAElement          currentFTAElement = null;
+	private static List<String>        currentHandledStates;
 	
 	private static ComponentInstance findInstance (EList<ComponentInstance> instances, String name)
 	{
@@ -37,6 +43,12 @@ public class FTAUtils
 		}
 		
 		return null;
+	}
+	
+	
+	public static String getStateHash (ComponentInstance ci,ErrorBehaviorState ebs )
+	{
+		return ("##" + ci.getName() + ebs.getName()+ "##");
 	}
 	
 	public static FTAElement handleCondition (final ConditionExpression cond, final EList<ComponentInstance> componentInstances)
@@ -65,6 +77,12 @@ public class FTAUtils
 				
 				if (behaviorState != null)
 				{
+					if ((currentHandledStates != null) && (currentHandledStates.contains(getStateHash(relatedInstance, behaviorState))))
+					{
+						return null;
+					}
+					currentHandledStates.add(getStateHash(relatedInstance, behaviorState));
+					OsateDebug.osateDebug("[FTAUtils] adding hash" + getStateHash(relatedInstance, behaviorState));
 					Event resultEvent = new Event();
 					fillFTAEventfromEventState(resultEvent, behaviorState, relatedInstance, componentInstances);
 
@@ -89,16 +107,34 @@ public class FTAUtils
 		
 		if (cond instanceof SAndExpression)
 		{
-			SAndExpression sae = (SAndExpression)cond;
+			SAndExpression sae;
 			OperatorAnd resultOperator;
-			resultOperator = new OperatorAnd ();
-
-			for (ConditionExpression conditionExpression : sae.getOperands())
+			sae = (SAndExpression)cond;
+			
+			if ((currentFTAElement == null) || ( ! (currentFTAElement instanceof OperatorAnd)))
 			{
-				resultOperator.addOperand(handleCondition(conditionExpression, componentInstances));
+				resultOperator = new OperatorAnd ();
+				currentFTAElement = resultOperator;
+				currentHandledStates = new ArrayList<String>();
+				for (ConditionExpression conditionExpression : sae.getOperands())
+				{
+					resultOperator.addOperand(handleCondition(conditionExpression, componentInstances));
 
+				}
+				result = resultOperator;
 			}
-			result = resultOperator;
+			else
+			{
+				resultOperator = (OperatorAnd) currentFTAElement;
+				for (ConditionExpression conditionExpression : sae.getOperands())
+				{
+					result = handleCondition(conditionExpression, componentInstances);
+					resultOperator.addOperand(result);
+				}
+			}
+			
+
+			return result;
 		}
 		return result;
 	}
@@ -134,7 +170,8 @@ public class FTAUtils
 			{
 				
 				ErrorBehaviorState ebs = (ErrorBehaviorState) state.getState();
-			
+				currentCondition = null;
+				currentFTAElement = null;
 				FTAUtils.fillFTAEventfromEventState (ftaEvent, ebs, relatedInstance, componentInstances);
 				FTAElement tmp = FTAUtils.handleCondition (state.getCondition(), componentInstances);
 				

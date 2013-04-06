@@ -14,6 +14,16 @@ abstract public class Operator extends FTAElement {
 	
 	public void addOperand (FTAElement e)
 	{
+		for (FTAElement el : this.operands)
+		{
+			if ((e instanceof Event) && (el instanceof Event))
+			{
+				if (((Event)e).getName() == ((Event)el).getName())
+				{
+					return;
+				}
+			}
+		}
 		this.operands.add(e);
 	}
 	
