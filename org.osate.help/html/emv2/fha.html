@@ -11,8 +11,8 @@
 <body>
 <h2>Error-Model Annex v2 - Fault and Hazard Analysis - FHA</h2>
 <p>
-A technique known as Functional Hazard Assessment (FHA) – not to be 
-confused with Fault Hazard Analysis (see FAA System Safety Handbook) – 
+A technique known as Functional Hazard Assessment (FHA) - not to be 
+confused with Fault Hazard Analysis (see FAA System Safety Handbook) - 
 is defined as part of SAE ARP4761. It is a systematic examination of 
 systems and subsystem functions to identify and classify failure 
 conditions of those functions according to their severity.
@@ -54,7 +54,7 @@ Or they can be declared for specific subcomponents; in this case the hazard
 <p>
 The path in the applies to clause of the property association is used to 
 identify the specific target of the hazard description. 
-The path is a <dot> (“.”) separated list of identifiers. 
+The path is a <dot> (.) separated list of identifiers. 
 The path may start with zero or more subcomponent identifiers 
 starting with a subcomponent in the component whose error annex 
 subclause contains the property association. 
@@ -145,13 +145,34 @@ EMV2 and consists of the following record fields:
 </ul>
 
 
+<h3>Processed modeling patterns</h3>
+<p>
+The following modeling patterns are considered when
+generating the FHA:
+</p>
+<ul>
+<li>ErrorEvent referenced/used in an Error State Machine</li>
+<li>ErrorSource specified in the error propagations sections</li>
+</ul>
+
+<p>
+Each processed artifact must have the following properties attached:
+</p>
+<ul>
+<li>EMV2::Severity or ARP4761::Severity or MILSTD882::Severity</li>
+<li>EMV2::Likelihood or ARP4761::Likelihood or MILSTD882::Likelihood</li>
+<li>EMV2::Hazard</li>
+</ul>
+
 
 <h3>Example model</h3>
 <p>
 The following model illustrates an example hazard specification. 
 The Hazard property is associated with the error behavior state 
 that is the error source. Such hazard specifications are characterized 
-with severity and criticality. 
+with severity and criticality. Other models can be found
+on our github public example repository:
+<a href="https://github.com/osate/examples">https://github.com/osate/examples</a>.
 </p>
 <pre>
   device PositionSensor
