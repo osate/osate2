@@ -28,9 +28,12 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class FTAUtils 
 {
-	private static ConditionExpression currentCondition  = null;
-	private static FTAElement          currentFTAElement = null;
 	private static List<String>        currentHandledStates;
+	
+	public static void init ()
+	{
+		currentHandledStates = new ArrayList<String>();
+	}
 	
 	private static ComponentInstance findInstance (EList<ComponentInstance> instances, String name)
 	{
@@ -51,13 +54,8 @@ public class FTAUtils
 		return ("##" + ci.getName() + ebs.getName()+ "##");
 	}
 	
-	public static FTAElement handleCondition (final ConditionExpression cond, final EList<ComponentInstance> componentInstances)
+	public static void handleCondition (Event event, final ConditionExpression cond, final EList<ComponentInstance> componentInstances)
 	{
-		FTAElement result;
-		
-		result = null;
-		//OsateDebug.osateDebug("cond="+cond);
-		
 		if (cond instanceof ConditionElement)
 		{
 			ConditionElement conditionElement;
@@ -73,21 +71,27 @@ public class FTAUtils
 				ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
 				//OsateDebug.osateDebug("         instance " + relatedInstance);
 				
-
-				
 				if (behaviorState != null)
 				{
 					if ((currentHandledStates != null) && (currentHandledStates.contains(getStateHash(relatedInstance, behaviorState))))
 					{
-						return null;
+						continue;
 					}
 					currentHandledStates.add(getStateHash(relatedInstance, behaviorState));
 					OsateDebug.osateDebug("[FTAUtils] adding hash" + getStateHash(relatedInstance, behaviorState));
-					Event resultEvent = new Event();
-					fillFTAEventfromEventState(resultEvent, behaviorState, relatedInstance, componentInstances);
-
-					result = resultEvent;
-				}
+					if (event.getEventType() != EventType.NORMAL)
+					{
+						Event resultEvent = new Event();
+						resultEvent.setEventType(EventType.NORMAL);
+						fillFTAEventfromEventState(resultEvent, behaviorState, relatedInstance, componentInstances);
+						
+						event.addSubEvent(resultEvent);
+					}
+					else
+					{
+						fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
+					}
+					}
 			}
 		}
 		
@@ -95,48 +99,38 @@ public class FTAUtils
 		if (cond instanceof SOrExpression)
 		{
 			SOrExpression sor = (SOrExpression)cond;
-			OperatorOr resultOperand = new OperatorOr ();
+			if ((event.getEventType() != EventType.NORMAL) && (event.getEventType() != EventType.OR))
+			{
+				OsateDebug.osateDebug("[FTAUtils] Inconsistent composite behavior, expecting an OR condition");
+			}
+			event.setEventType(EventType.OR);
 			for (ConditionExpression conditionExpression : sor.getOperands())
 			{
 				//OsateDebug.osateDebug("      operand=" + conditionExpression);
 				//result += handleCondition (conditionExpression, componentInstances);
-				resultOperand.addOperand(handleCondition(conditionExpression, componentInstances));
+				Event resultEvent = new Event ();
+				handleCondition(resultEvent, conditionExpression, componentInstances);
+				event.addSubEvent(resultEvent);
 			}
-			result = resultOperand;
 		}
 		
 		if (cond instanceof SAndExpression)
 		{
-			SAndExpression sae;
-			OperatorAnd resultOperator;
-			sae = (SAndExpression)cond;
-			
-			if ((currentFTAElement == null) || ( ! (currentFTAElement instanceof OperatorAnd)))
+			SAndExpression sae = (SAndExpression) cond;
+			if ((event.getEventType() != EventType.NORMAL) && (event.getEventType() != EventType.AND))
 			{
-				resultOperator = new OperatorAnd ();
-				currentFTAElement = resultOperator;
-				currentHandledStates = new ArrayList<String>();
-				for (ConditionExpression conditionExpression : sae.getOperands())
-				{
-					resultOperator.addOperand(handleCondition(conditionExpression, componentInstances));
-
-				}
-				result = resultOperator;
+				OsateDebug.osateDebug("[FTAUtils] Inconsistent composite behavior, expecting an AND condition");
 			}
-			else
+			event.setEventType(EventType.AND);
+			for (ConditionExpression conditionExpression : sae.getOperands())
 			{
-				resultOperator = (OperatorAnd) currentFTAElement;
-				for (ConditionExpression conditionExpression : sae.getOperands())
-				{
-					result = handleCondition(conditionExpression, componentInstances);
-					resultOperator.addOperand(result);
-				}
+				//OsateDebug.osateDebug("      operand=" + conditionExpression);
+				//result += handleCondition (conditionExpression, componentInstances);
+				Event resultEvent = new Event ();
+				handleCondition(resultEvent, conditionExpression, componentInstances);
+				event.addSubEvent(resultEvent);
 			}
-			
-
-			return result;
 		}
-		return result;
 	}
 	
 	
@@ -144,7 +138,7 @@ public class FTAUtils
 	{
 		EList<CompositeState> 		states;
 		int 						nBranches;
-		OperatorOr					branch;
+		Event						branch;
 		
 		branch = null;
 		nBranches = 0;
@@ -160,8 +154,8 @@ public class FTAUtils
 		
 		if (nBranches > 1)
 		{
-			branch = new OperatorOr();
-			ftaEvent.setIncomingOperator(branch);
+			branch = new Event();
+			branch.setEventType(EventType.OR);
 		}
 		
 		for (CompositeState state : states)
@@ -170,43 +164,9 @@ public class FTAUtils
 			{
 				
 				ErrorBehaviorState ebs = (ErrorBehaviorState) state.getState();
-				currentCondition = null;
-				currentFTAElement = null;
-				FTAUtils.fillFTAEventfromEventState (ftaEvent, ebs, relatedInstance, componentInstances);
-				FTAElement tmp = FTAUtils.handleCondition (state.getCondition(), componentInstances);
-				
-				if (nBranches == 1)
-				{
-					if ((tmp != null) && (tmp instanceof Operator))
-					{
-						ftaEvent.setIncomingOperator((Operator)tmp);
-					}
 
-				}
-				else
-				{
-					if (tmp instanceof Operator)
-					{
-						String desc = "errors";
-						Event tmpEvent = new Event();
-						tmpEvent.setName("");
-						for (FTAElement e : ((Operator) tmp).getOperands())
-						{
-							if (e instanceof Event)
-							{
-								desc += " " + ((Event)e).getName();
-							}
-						}
-						tmpEvent.setDescription(desc);
-						tmpEvent.showProbability (false);
-						tmpEvent.setIncomingOperator((Operator) tmp);
-						branch.addOperand(tmpEvent);
-					}
-					if (tmp instanceof Event)
-					{
-						branch.addOperand(tmp);
-					}
-				}
+				FTAUtils.fillFTAEventfromEventState (ftaEvent, ebs, relatedInstance, componentInstances);
+				FTAUtils.handleCondition (ftaEvent, state.getCondition(), componentInstances);
 			}
 			
 

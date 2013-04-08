@@ -1,25 +1,42 @@
 package org.osate.aadl2.errormodel.analysis.fta;
 
-public class Event extends FTAElement
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class Event
 {
-	private String name;
-	private String description;
-	private double probability;
-	private Operator outgoingOperator;
-	private Operator incomingOperator;
-	private boolean showProbability;
+	private String 		name;
+	private String 		description;
+	private double 		probability;
+	private List<Event> subEvents;
+	private boolean 	showProbability;
+	private EventType 	type;
+	private static int 	generalId = 1;
+
 	
-	private static int generalId = 1;
 	
 	public Event ()
 	{
-		this.name = "event" + generalId;
-		this.description = "unknown description";
-		this.probability = 0.0;
-		this.outgoingOperator = null;
-		this.incomingOperator = null;
-		this.showProbability = true;
+		this.name 				= "event" + generalId;
+		this.description 		= null;
+		this.probability 		= 0.0;
+		this.showProbability 	= false;
+		this.type				= EventType.NORMAL;
+		this.subEvents 			= new ArrayList<Event>();
 		generalId++;
+	}
+	
+	
+	public EventType getEventType ()
+	{
+		return this.type;
+	}
+	
+	public void setEventType (EventType et)
+	{
+		this.type = et;
 	}
 	
 	public String getName ()
@@ -57,41 +74,39 @@ public class Event extends FTAElement
 		this.probability = p;
 	}
 	
-	public void setIncomingOperator (Operator i)
+	public List<Event> getSubEvents ()
 	{
-		this.incomingOperator = i;
+		return this.subEvents;
 	}
 	
-	public void setOutgoingOperator (Operator o)
+	public void addSubEvent (Event e)
 	{
-		this.outgoingOperator = o;
-	}
-	
-	public Operator getIncomingOperator ()
-	{
-		return this.incomingOperator;
-	}
-	
-	public Operator getOutgoingOperator ()
-	{
-		return this.outgoingOperator;
+		this.subEvents.add (e);
 	}
 	
 	public String toXML()
 	{
 		StringBuffer sb = new StringBuffer ();
-		sb.append ("<event id=\""+this.name+"\" description=\""+this.description+"\"");
+		sb.append ("<event id=\""+this.name+"\" ");
 		if (this.showProbability)
 		{
 			sb.append (" probability=\""+this.probability+"\"");
+		}
+		if (this.type != EventType.NORMAL)
+		{
+			sb.append (" type=\""+EventType.toString(this.type)+"\"");
+		}
+		if (this.description != null)
+		{
+			sb.append (" description=\""+this.description+"\"");
 		}
 		sb.append (">");
 
 		
 		sb.append ("\n");
-		if (incomingOperator != null)
+		for (Event e : this.subEvents)
 		{
-			sb.append(incomingOperator.toXML());
+			sb.append(e.toXML());
 		}
 		sb.append ("</event>");
 		sb.append ("\n");

@@ -87,7 +87,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		Event						result;
 		
 		result = null;
-		
+		FTAUtils.init();
 		ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(systemInstance.getComponentClassifier());
 		ceb = ems.getCompositeBehavior();
 		
