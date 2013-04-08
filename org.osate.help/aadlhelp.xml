@@ -15,7 +15,7 @@
        </topic>
        <topic href="html/start/rules-syntax.html" label="Rules - Syntax">
        </topic>
-       <topic href="html/start/rules-naming.html" label="Rules - Naming">
+       <topic href="html/start/rules-naming.html" label="Style Guide">
        </topic>
     </topic>
     <topic href="html/plugins/index.html" label="Plug-ins">
@@ -184,6 +184,8 @@
        <topic href="html/emv2/imv.html" label="Error Support within IMV">
        </topic>
        <topic href="html/emv2/fha.html" label="Fault and Hazard Analysis">
+       </topic>
+       <topic href="html/emv2/fta.html" label="Fault-Tree Analysis">
        </topic>
        <topic href="html/emv2/rbd.html" label="Reliability Block Diagram">
        </topic>
