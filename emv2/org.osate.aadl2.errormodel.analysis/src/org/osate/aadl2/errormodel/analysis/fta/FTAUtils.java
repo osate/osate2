@@ -138,9 +138,7 @@ public class FTAUtils
 	{
 		EList<CompositeState> 		states;
 		int 						nBranches;
-		Event						branch;
-		
-		branch = null;
+
 		nBranches = 0;
 		states = compositeErrorBehavior.getStates();
 		
@@ -154,8 +152,8 @@ public class FTAUtils
 		
 		if (nBranches > 1)
 		{
-			branch = new Event();
-			branch.setEventType(EventType.OR);
+			ftaEvent.setEventType(EventType.OR);
+			ftaEvent.setName("State to " + stateName);
 		}
 		
 		for (CompositeState state : states)
@@ -165,8 +163,21 @@ public class FTAUtils
 				
 				ErrorBehaviorState ebs = (ErrorBehaviorState) state.getState();
 
-				FTAUtils.fillFTAEventfromEventState (ftaEvent, ebs, relatedInstance, componentInstances);
-				FTAUtils.handleCondition (ftaEvent, state.getCondition(), componentInstances);
+				Event targetEvent;
+				if (nBranches > 1)
+				{
+					targetEvent = new Event();
+				}
+				else
+				{
+					targetEvent = ftaEvent;
+				}
+				FTAUtils.fillFTAEventfromEventState (targetEvent, ebs, relatedInstance, componentInstances);
+				FTAUtils.handleCondition (targetEvent, state.getCondition(), componentInstances);
+				if (nBranches > 1)
+				{
+					ftaEvent.addSubEvent(targetEvent);
+				}
 			}
 			
 
