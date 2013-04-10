@@ -67,18 +67,13 @@ public class FTAUtils
 			for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
 			{
 				Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-				//OsateDebug.osateDebug("      subcomponent " + subcomponent);
+				OsateDebug.osateDebug("cond = " + cond + "      subcomponent=" + subcomponent);
 				ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
 				//OsateDebug.osateDebug("         instance " + relatedInstance);
 				
 				if (behaviorState != null)
 				{
-					if ((currentHandledStates != null) && (currentHandledStates.contains(getStateHash(relatedInstance, behaviorState))))
-					{
-						continue;
-					}
-					currentHandledStates.add(getStateHash(relatedInstance, behaviorState));
-					OsateDebug.osateDebug("[FTAUtils] adding hash" + getStateHash(relatedInstance, behaviorState));
+
 					if (event.getEventType() != EventType.NORMAL)
 					{
 						Event resultEvent = new Event();
@@ -91,7 +86,7 @@ public class FTAUtils
 					{
 						fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
 					}
-					}
+				}
 			}
 		}
 		
