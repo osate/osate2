@@ -1859,53 +1859,53 @@ public class EMV2Util {
 		for (ContainedNamedElement containedNamedElement : applies) {
 			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
 			int targetsize = (ciStack.size()+1+(localContext==null?0:1));
-			boolean nomatch = false;
+			boolean match = true;
 			if (cpes.size() == targetsize || cpes.size()== targetsize+1){
 				for (int i = 0; i< ciStack.size(); i++){
 					if (ciStack.get(i).getSubcomponent() != cpes.get(i).getNamedElement()){
-						nomatch = true;
+						match = false;
 						break;
 					}
 				}
-				if (nomatch) break;
+				if (match) {
 				// we are past the component portion of the path
 				NamedElement targetel = cpes.get(cpes.size()-1).getNamedElement();
 				// check on the last element
+				boolean typematch = true;
 				if (targetel instanceof ErrorTypes){
 					// it points to an error type or type set
 					if (ts !=null){
 						if (targetel instanceof ErrorType){
 							// we refer to a type
 							if (!EM2TypeSetUtil.contains(ts, (ErrorType)targetel)){
-								break;
+								typematch = false;
 							}
 						} else if (targetel instanceof TypeSet){
 							// we refer to a type
 							if (!EM2TypeSetUtil.contains(ts, (TypeSet)targetel)){
-								break;
+								typematch = false;
 							}
 						}
 					}
-					targetel = cpes.get(cpes.size()-2).getNamedElement();
-					if (targetel == target)
-						return containedNamedElement;
+					if (typematch){
+						targetel = cpes.get(cpes.size()-2).getNamedElement();
+						if (targetel == target)
+							return containedNamedElement;
+					}
 				} else {
 					// last element should be target element
 					if ( target == targetel){
 						if (localContext != null){
 							// make sure the local context matches the previous element in the path
 							NamedElement localContextme = cpes.get(cpes.size()-2).getNamedElement();
-							if ( localContext != localContextme){
-								break;
-							} else {
+							if ( localContext == localContextme){
 								return containedNamedElement;
 							}
 						} else {
 							return containedNamedElement;
 						}
-					} else {
-						break;
 					}
+				}
 				}
 			}
 		}
