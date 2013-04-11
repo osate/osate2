@@ -206,7 +206,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 	
-	protected String getEnumNumericPropertyValue(ContainedNamedElement ContainmentPath){
+	protected String getEnumerationorIntegerPropertyValue(ContainedNamedElement ContainmentPath){
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(ContainmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof NamedValue){
@@ -234,8 +234,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue){
-				String Severity = getEnumNumericPropertyValue(SevContainmentPath);
-				String Likelihood = getEnumNumericPropertyValue(LikeContainmentPath);
+				String Severity = getEnumerationorIntegerPropertyValue(SevContainmentPath);
+				String Likelihood = getEnumerationorIntegerPropertyValue(LikeContainmentPath);
 				RecordValue rv = (RecordValue)val;
 				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
 				// for all error types/aliases in type set or the element identified in the containment clause 
