@@ -61,6 +61,8 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
@@ -80,6 +82,7 @@ import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -334,6 +337,19 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		int poppedIdx = -1;
 		int downedIdx = -1;
 
+		/*
+		 * FIX JD
+		 * If we have a data component directly connected
+		 * to a subprogram parameter, we do not handle it because
+		 * we do not deal with parameter connection within the instance
+		 * model.
+		 * See bug #220
+		 */
+		if ((toEnd instanceof ParameterImpl) && 
+			((fromEnd instanceof DataSubcomponent) || (fromEnd instanceof DataAccess)))
+		{
+			return;
+		}
 		
 		if (toCtx instanceof Subcomponent && toCi == null) {
 			if (!(toCtx instanceof SubprogramSubcomponent)) {
