@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
+import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -13,10 +14,13 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IActionBars;
@@ -24,16 +28,20 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser;
 import org.osate.xtext.aadl2.ui.MyAadl2Activator;
+import org.osate.xtext.aadl2.ui.propertyview.associationwizard.PropertyAssociationWizard;
 
 import com.google.inject.Inject;
 
@@ -73,6 +81,12 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	private Action showUndefinedAction = null;
 	
 	/**
+	 * Action for creating a new Property Association without using any information
+	 * from this view's selection
+	 */
+	private Action addNewPropertyAssociationToolbarAction = null;
+	
+	/**
 	 * Model
 	 */
 	private PropertyViewModel model = null;
@@ -90,8 +104,16 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	 */
 	private EditingDomain editingDomain = null;
 	
+	private IXtextDocument xtextDocument = null;
+	
 	@Inject
 	private ISerializer serializer;
+	
+	@Inject
+	private Aadl2Parser aadl2Parser;
+	
+	@Inject
+	private ILinker linker;
 	
 	@Override
 	public void createPartControl(final Composite parent) {
@@ -143,8 +165,20 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 				buildNewModel(getCurrentElement());
 			}
 		};
-//		showUndefinedAction.setImageDescriptor(OsateUiPlugin.getImageDescriptor("icons/nonexistent_property.gif"));
 		showUndefinedAction.setImageDescriptor(MyAadl2Activator.getImageDescriptor("icons/propertyview/nonexistent_property.gif"));
+		
+		addNewPropertyAssociationToolbarAction = new Action() {
+			@Override
+			public void run() {
+				PropertyAssociationWizard wizard = new PropertyAssociationWizard(xtextDocument, getCommandStack(), currentSelectionUri, serializer, aadl2Parser, linker);
+				WizardDialog dialog = new WizardDialog(getShell(), wizard);
+				if (dialog.open() == Window.OK)
+					updateView();
+			}
+		};
+		addNewPropertyAssociationToolbarAction.setToolTipText("New Property Association");
+		addNewPropertyAssociationToolbarAction.setImageDescriptor(MyAadl2Activator.getImageDescriptor("icons/propertyview/new_pa.gif"));
+		addNewPropertyAssociationToolbarAction.setEnabled(true);
 		
 		updateActionStates();
 	}
@@ -159,7 +193,7 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		IActionBars bars = getViewSite().getActionBars();
 		IToolBarManager manager = bars.getToolBarManager();
 		manager.add(showUndefinedAction);
-//		manager.add(addNewPropertyAssociationToolbarAction);
+		manager.add(addNewPropertyAssociationToolbarAction);
 	}
 
 	@Override
@@ -175,8 +209,9 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		EObject currentSelection = null;
 		if (!selection.isEmpty()) {
 			if (part instanceof XtextEditor && selection instanceof ITextSelection) {
+				xtextDocument = ((XtextEditor)part).getDocument();
 				final ITextSelection textSelection = (ITextSelection)selection;
-				currentSelection = ((XtextEditor)part).getDocument().readOnly(new IUnitOfWork<EObject, XtextResource>() {
+				currentSelection = xtextDocument.readOnly(new IUnitOfWork<EObject, XtextResource>() {
 					@Override
 					public EObject exec(XtextResource state) throws Exception {
 						return new EObjectAtOffsetHelper().resolveContainedElementAt(state, textSelection.getOffset());
@@ -185,9 +220,12 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 			}
 			else if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) {
 				Object selectedObject = ((IStructuredSelection)selection).getFirstElement();
-				if (selectedObject instanceof EObject)
+				if (selectedObject instanceof EObject) {
+					xtextDocument = null;
 					currentSelection = (EObject)selectedObject;
+				}
 				else if (selectedObject instanceof EObjectNode) {
+					xtextDocument = ((EObjectNode)selectedObject).getDocument();
 					currentSelection = ((EObjectNode)selectedObject).readOnly(new IUnitOfWork<EObject, EObject>() {
 						@Override
 						public EObject exec(EObject state) throws Exception {
@@ -230,11 +268,11 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		if (currentSelectionUri != null) {
 			buildNewModel(getCurrentElement());
 			showTree();
-//			addNewPropertyAssociationToolbarAction.setEnabled(true);
+			addNewPropertyAssociationToolbarAction.setEnabled(true);
 		}
 		else {
 			showNoProperties();
-//			addNewPropertyAssociationToolbarAction.setEnabled(false);
+			addNewPropertyAssociationToolbarAction.setEnabled(false);
 		}
 	}
 	
@@ -249,5 +287,13 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 				}
 			});
 		}
+	}
+	
+	private Shell getShell() {
+		return getViewSite().getWorkbenchWindow().getShell();
+	}
+	
+	private CommandStack getCommandStack() {
+		return (editingDomain == null) ? null : editingDomain.getCommandStack();
 	}
 }
