@@ -588,8 +588,8 @@ public class EMV2Util {
 	public static ErrorFlow findErrorFlow(Element el, String name){
 		Classifier cl= el.getContainingClassifier();
 		if (cl != null){
-			HashMap<String, ErrorFlow> efhashtab = getAllErrorFlows(cl,null);
-			return efhashtab.get(name);
+			Collection<ErrorFlow> eflist = getAllErrorFlows(cl);
+			return (ErrorFlow) AadlUtil.findNamedElementInList(eflist, name);
 		}
 		return null;
 	}
@@ -1091,21 +1091,12 @@ public class EMV2Util {
 
 	
 	/**
-	 * return list of error propagations including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @return Collection<ErrorPropagation> list of ErrorPropagations excluding duplicates
-	 */
-	public static Collection<ErrorPropagation> getAllErrorPropagations(Classifier cl){
-		return getAllErrorPropagations(cl, null).values();
-	}
-	
-	/**
 	 * return list of outgoing error propagations including those inherited from classifiers being extended
 	 * @param cl Classifier
 	 * @return Collection<ErrorPropagation> list of ErrorPropagations excluding duplicates
 	 */
 	public static Collection<ErrorPropagation> getAllOutgoingErrorPropagations(Classifier cl){
-		Collection<ErrorPropagation> props = getAllErrorPropagations(cl, null).values();
+		Collection<ErrorPropagation> props = getAllErrorPropagations(cl);
 		BasicEList<ErrorPropagation> result = new BasicEList<ErrorPropagation>();
 		for (ErrorPropagation errorPropagation : props) {
 			if (errorPropagation.getDirection().equals(DirectionType.OUT)){
@@ -1121,7 +1112,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorPropagation> list of ErrorPropagations excluding duplicates
 	 */
 	public static Collection<ErrorPropagation> getAllIncomingErrorPropagations(Classifier cl){
-		Collection<ErrorPropagation> props = getAllErrorPropagations(cl, null).values();
+		Collection<ErrorPropagation> props = getAllErrorPropagations(cl);
 		BasicEList<ErrorPropagation> result = new BasicEList<ErrorPropagation>();
 		for (ErrorPropagation errorPropagation : props) {
 			if (errorPropagation.getDirection().equals(DirectionType.IN)){
@@ -1134,10 +1125,9 @@ public class EMV2Util {
 	/**
 	 * return list of error propagations including those inherited from classifiers being extended
 	 * @param cl Classifier
-	 * @param dup Collection (ArrayList) <ErrorPropagation> will contain found duplicates
-	 * @return HashMap<String,ErrorPropagation> list of ErrorPropagation excluding duplicates
+	 * @return Collection<ErrorPropagation> list of ErrorPropagation excluding duplicates
 	 */
-	public static HashMap<String,ErrorPropagation> getAllErrorPropagations(Classifier cl, Collection<ErrorPropagation> dup){
+	public static Collection<ErrorPropagation> getAllErrorPropagations(Classifier cl){
 		HashMap<String,ErrorPropagation> result = new HashMap<String,ErrorPropagation>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1149,14 +1139,12 @@ public class EMV2Util {
 						String epname = EMV2Util.getPrintName(errorProp);
 						if (!result.containsKey(epname)){
 							result.put(epname,errorProp);
-						} else {
-							if (dup != null) dup.add(errorProp);
 						}
 					}
 				}
 			}
 		}
-		return result;
+		return result.values();
 	}
 	
 	/**
@@ -1165,16 +1153,6 @@ public class EMV2Util {
 	 * @return Collection<ErrorPropagation> list of ErrorPropagations excluding duplicates
 	 */
 	public static Collection<ErrorPropagation> getAllErrorContainments(Classifier cl){
-		return getAllErrorPropagations(cl, null).values();
-	}
-	
-	/**
-	 * return list of error containments including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @param dup Collection (ArrayList) <ErrorPropagation> will contain found duplicates
-	 * @return HashMap<String,ErrorPropagation> list of ErrorPropagation containments excluding duplicates
-	 */
-	public static HashMap<String,ErrorPropagation> getAllErrorContainments(Classifier cl, Collection<ErrorPropagation> dup){
 		HashMap<String,ErrorPropagation> result = new HashMap<String,ErrorPropagation>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1186,14 +1164,12 @@ public class EMV2Util {
 						String epname = EMV2Util.getPrintName(errorProp);
 						if (!result.containsKey(epname)){
 							result.put(epname,errorProp);
-						} else {
-							if (dup != null) dup.add(errorProp);
 						}
 					}
 				}
 			}
 		}
-		return result;
+		return result.values();
 	}
 
 	
@@ -1203,29 +1179,6 @@ public class EMV2Util {
 	 * @return Collection<ErrorFlow> list of error flow
 	 */
 	public static Collection<ErrorFlow> getAllErrorFlows(Classifier cl){
-		return getAllErrorFlows(cl, null).values();
-	}
-
-	
-	/**
-	 * return list of error flow including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @return Collection<ErrorFlow> list of error flow
-	 */
-	public static Collection<ErrorFlow> getDuplicateErrorFlows(Classifier cl){
-		Collection<ErrorFlow> dup = new ArrayList<ErrorFlow>();
-		getAllErrorFlows(cl, dup);
-		return dup;
-	}
-
-	
-	/**
-	 * return list of error flows including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @param dup Collection (ArrayList) <ErrorFlow> will contain found duplicates
-	 * @return Collection<ErrorFlow> list of error flows excluding duplicates
-	 */
-	public static HashMap<String,ErrorFlow> getAllErrorFlows(Classifier cl, Collection<ErrorFlow> dup){
 		HashMap<String,ErrorFlow> result = new HashMap<String,ErrorFlow>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1235,13 +1188,11 @@ public class EMV2Util {
 				for (ErrorFlow errorFlow : eflist) {
 					if (!result.containsKey(errorFlow.getName())){
 						result.put(errorFlow.getName(),errorFlow);
-					} else {
-						if (dup != null) dup.add(errorFlow);
 					}
 				}
 			}
 		}
-		return result;
+		return result.values();
 	}
 
 	
@@ -1252,27 +1203,6 @@ public class EMV2Util {
 	 * @return Collection<ErrorSource> list of error flow
 	 */
 	public static Collection<ErrorSource> getAllErrorSources(Classifier cl){
-		return getAllErrorSources(cl, null);
-	}
-
-	
-	/**
-	 * return list of error sources including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @return Collection<ErrorSource> list of error sources
-	 */
-	public static Collection<ErrorSource> getDuplicateErrorSources(Classifier cl){
-		Collection<ErrorSource> dup = new ArrayList<ErrorSource>();
-		getAllErrorSources(cl, dup);
-		return dup;
-	}
-	
-	/**
-	 * return list of error sources including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @return Collection<ErrorFlow> list of error flow as HashMap for quick lookup of names
-	 */
-	public static Collection<ErrorSource> getAllErrorSources(Classifier cl, Collection<ErrorSource> dup){
 		HashMap<String,ErrorSource> result = new HashMap<String,ErrorSource>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1283,8 +1213,6 @@ public class EMV2Util {
 					if (errorFlow instanceof ErrorSource){
 						if( !result.containsKey(errorFlow.getName())){
 							result.put(errorFlow.getName(),(ErrorSource)errorFlow);
-						} else {
-							if (dup != null) dup.add((ErrorSource)errorFlow);
 						}
 					}
 				}
@@ -1300,15 +1228,6 @@ public class EMV2Util {
 	 * @return Collection<PropagationPoint> list of propagation points as HashMap for quick lookup of names
 	 */
 	public static Collection<PropagationPoint> getAllPropagationPoints(Classifier cl){
-		return getAllPropagationPoints(cl, null).values();
-	}
-	
-	/**
-	 * return list of propagation points including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @return HashMap<String,PropagationPoint> list of propagation points as HashMap for quick lookup of names
-	 */
-	public static HashMap<String,PropagationPoint> getAllPropagationPoints(Classifier cl, Collection<PropagationPoint> dup){
 		HashMap<String,PropagationPoint> result = new HashMap<String,PropagationPoint>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1318,22 +1237,21 @@ public class EMV2Util {
 				for (PropagationPoint propPoint : eflist) {
 					if ( !result.containsKey(propPoint.getName())){
 						result.put(propPoint.getName(),propPoint);
-					} else {
-						if (dup != null) dup.add(propPoint);
 					}
 				}
 			}
 		}
-		return result;
+		return result.values();
 	}
 
+	
 	
 	/**
 	 * return list of PropagationPointConnections including those inherited from classifiers being extended
 	 * @param cl Classifier
-	 * @return HashMap<String,PropagationPointConnection> list of PropagationPointConnections as HashMap for quick lookup of names
+	 * @return Collection<PropagationPointConnection> list of PropagationPointConnections as HashMap for quick lookup of names
 	 */
-	public static HashMap<String,PropagationPointConnection> getAllPropagationPointConnections(Classifier cl,Collection<PropagationPointConnection> dup){
+	public static Collection<PropagationPointConnection> getAllPropagationPointConnections(Classifier cl){
 		HashMap<String,PropagationPointConnection> result = new HashMap<String,PropagationPointConnection>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1343,22 +1261,11 @@ public class EMV2Util {
 				for (PropagationPointConnection propPointConn : eflist) {
 					if ( !result.containsKey(propPointConn.getName())){
 						result.put(propPointConn.getName(),propPointConn);
-					} else {
-						if (dup != null) dup.add(propPointConn);
 					}
 				}
 			}
 		}
-		return result;
-	}
-	
-	/**
-	 * return list of PropagationPointConnections including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @return Collection<PropagationPointConnection> list of PropagationPointConnections as HashMap for quick lookup of names
-	 */
-	public static Collection<PropagationPointConnection> getAllPropagationPointConnections(Classifier cl){
-		return getAllPropagationPointConnections(cl, null).values();
+		return result.values();
 	}
 	
 
@@ -1369,15 +1276,6 @@ public class EMV2Util {
 	 * @return Collection<ErrorBehaviorEvent> list of ErrorBehaviorEvents as HashMap for quick lookup of names
 	 */
 	public static Collection<ErrorBehaviorEvent> getAllErrorBehaviorEvents(Classifier cl){
-		return getAllErrorBehaviorEvents(cl, null).values();
-	}
-	
-	/**
-	 * return list of ErrorBehaviorEvents including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @return Collection<ErrorBehaviorEvent> list of ErrorBehaviorEvents as HashMap for quick lookup of names
-	 */
-	public static HashMap<String,ErrorBehaviorEvent>  getAllErrorBehaviorEvents(Classifier cl,Collection<ErrorBehaviorEvent> dup){
 		HashMap<String,ErrorBehaviorEvent> result = new HashMap<String,ErrorBehaviorEvent>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
@@ -1389,8 +1287,6 @@ public class EMV2Util {
 				for (ErrorBehaviorEvent ebe : eflist) {
 					if ( !result.containsKey(ebe.getName())){
 						result.put(ebe.getName(),ebe);
-					} else {
-						if (dup != null) dup.add(ebe);
 					}
 				}
 			}
@@ -1400,14 +1296,12 @@ public class EMV2Util {
 				for (ErrorBehaviorEvent ebe : eflist) {
 					if ( !result.containsKey(ebe.getName())){
 						result.put(ebe.getName(),ebe);
-					} else {
-						if (dup != null) dup.add(ebe);
 					}
 				}
 			}
 
 		}
-		return result;
+		return result.values();
 	}
 
 	
@@ -1434,7 +1328,142 @@ public class EMV2Util {
 		}
 		return Collections.EMPTY_LIST;
 	}
+
 	
+	/**
+	 * return list of ErrorBehaviorEvents including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ErrorBehaviorEvent> list of ErrorBehaviorEvents as HashMap for quick lookup of names
+	 */
+	public static Collection<ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl){
+		BasicEList<ErrorBehaviorTransition> unlist = new BasicEList<ErrorBehaviorTransition>();
+		Collection<ErrorBehaviorTransition> res = getAllErrorBehaviorTransitions(cl, unlist).values();
+		res.addAll(unlist);
+		return res;
+	}
+	
+	/**
+	 * return list of ErrorBehaviorTransition including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @param unnamed Collection of unnamed ErrorBehaviorTransition
+	 * @return Collection<ErrorBehaviorTransition> list of ErrorBehaviorTransition as HashMap for quick lookup of names
+	 */
+	public static HashMap<String,ErrorBehaviorTransition>  getAllErrorBehaviorTransitions(Classifier cl,Collection<ErrorBehaviorTransition> unnamed){
+		HashMap<String,ErrorBehaviorTransition> result = new HashMap<String,ErrorBehaviorTransition>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		boolean foundEBSM = false;
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			ComponentErrorBehavior ceb = errorModelSubclause.getComponentBehavior();
+			if (ceb!= null){
+				EList<ErrorBehaviorTransition> eflist = ceb.getTransitions();
+				for (ErrorBehaviorTransition ebt : eflist) {
+					if (ebt.getName() == null){
+						unnamed.add(ebt);
+					} else{
+						if ( !result.containsKey(ebt.getName())){
+							result.put(ebt.getName(),ebt);
+						}
+					}
+				}
+			}
+			if (!foundEBSM && ebsm!= null){
+				foundEBSM = true;
+				EList<ErrorBehaviorTransition> eflist = ebsm.getTransitions();
+				for (ErrorBehaviorTransition ebt : eflist) {
+					if (ebt.getName() == null){
+						unnamed.add(ebt);
+					} else{
+						if ( !result.containsKey(ebt.getName())){
+							result.put(ebt.getName(),ebt);
+						}
+					}
+				}
+			}
+
+		}
+		return result;
+	}
+	
+	/**
+	 * return list of OutgoingPropagationCondition including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<OutgoingPropagationCondition> list of OutgoingPropagationCondition 
+	 */
+	public static Collection<OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl){
+		BasicEList<OutgoingPropagationCondition> unlist = new BasicEList<OutgoingPropagationCondition>();
+		Collection<OutgoingPropagationCondition> res = getAllOutgoingPropagationConditions(cl, unlist).values();
+		res.addAll(unlist);
+		return res;
+	}
+	
+	/**
+	 * return list of OutgoingPropagationCondition including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
+	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
+	 */
+	public static HashMap<String,OutgoingPropagationCondition>  getAllOutgoingPropagationConditions(Classifier cl,Collection<OutgoingPropagationCondition> unnamed){
+		HashMap<String,OutgoingPropagationCondition> result = new HashMap<String,OutgoingPropagationCondition>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ComponentErrorBehavior ceb = errorModelSubclause.getComponentBehavior();
+			if (ceb!= null){
+				EList<OutgoingPropagationCondition> eflist = ceb.getOutgoingPropagationConditions();
+				for (OutgoingPropagationCondition ebt : eflist) {
+					if (ebt.getName() == null){
+						unnamed.add(ebt);
+					} else{
+						if ( !result.containsKey(ebt.getName())){
+							result.put(ebt.getName(),ebt);
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	
+	/**
+	 * return list of OutgoingPropagationCondition including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<OutgoingPropagationCondition> list of OutgoingPropagationCondition 
+	 */
+	public static Collection<ErrorDetection> getAllErrorDetections(Classifier cl){
+		BasicEList<ErrorDetection> unlist = new BasicEList<ErrorDetection>();
+		Collection<ErrorDetection> res = getAllErrorDetections(cl, unlist).values();
+		res.addAll(unlist);
+		return res;
+	}
+	
+	/**
+	 * return list of OutgoingPropagationCondition including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
+	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
+	 */
+	public static HashMap<String,ErrorDetection>  getAllErrorDetections(Classifier cl,Collection<ErrorDetection> unnamed){
+		HashMap<String,ErrorDetection> result = new HashMap<String,ErrorDetection>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ComponentErrorBehavior ceb = errorModelSubclause.getComponentBehavior();
+			if (ceb!= null){
+				EList<ErrorDetection> eflist = ceb.getErrorDetections();
+				for (ErrorDetection ebt : eflist) {
+					if (ebt.getName() == null){
+						unnamed.add(ebt);
+					} else{
+						if ( !result.containsKey(ebt.getName())){
+							result.put(ebt.getName(),ebt);
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+
 
 	/**
 	 * get the EM object that contains the condition expression.
