@@ -85,7 +85,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//TypeToken"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagations" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagations" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagations" upperBound="-1"
         eType="#//ErrorPropagation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="flows" upperBound="-1"
@@ -252,8 +252,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//ErrorBehaviorState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventOrPropagation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OutgoingPropagationCondition" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OutgoingPropagationCondition" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTokenConstraint" eType="#//TypeSet"
         containment="true"/>

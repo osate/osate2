@@ -1986,19 +1986,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getOutgoingPropagationCondition_Name()
-  {
-		return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(0);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
   public EReference getOutgoingPropagationCondition_State()
   {
-		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(1);
+		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(0);
 	}
 
   /**
@@ -2008,7 +1998,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 */
   public EReference getOutgoingPropagationCondition_TypeTokenConstraint()
   {
-		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(2);
+		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(1);
 	}
 
   /**
@@ -2018,7 +2008,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 */
   public EAttribute getOutgoingPropagationCondition_All()
   {
-		return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(2);
 	}
 
   /**
@@ -2028,7 +2018,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 */
   public EReference getOutgoingPropagationCondition_Condition()
   {
-		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(4);
+		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(3);
 	}
 
   /**
@@ -2038,7 +2028,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 */
   public EReference getOutgoingPropagationCondition_Outgoing()
   {
-		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(5);
+		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(4);
 	}
 
   /**
@@ -2048,7 +2038,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 */
   public EReference getOutgoingPropagationCondition_TypeToken()
   {
-		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(6);
+		return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(5);
 	}
 
   /**
@@ -2058,7 +2048,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 */
   public EAttribute getOutgoingPropagationCondition_Mask()
   {
-		return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(6);
 	}
 
   /**
@@ -2600,7 +2590,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		eventOrPropagationEClass = createEClass(EVENT_OR_PROPAGATION);
 
 		outgoingPropagationConditionEClass = createEClass(OUTGOING_PROPAGATION_CONDITION);
-		createEAttribute(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__NAME);
 		createEReference(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__STATE);
 		createEReference(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT);
 		createEAttribute(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__ALL);
@@ -2698,7 +2687,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		typeMappingSetEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		typeMappingSetEClass.getESuperTypes().add(this.getTypeUseContext());
 		typeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
-		errorPropagationsEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
+		errorPropagationsEClass.getESuperTypes().add(theAadl2Package.getElement());
 		errorPropagationEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorPropagationEClass.getESuperTypes().add(this.getEventOrPropagation());
 		featureReferenceEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2732,7 +2721,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		orlessExpressionEClass.getESuperTypes().add(this.getConditionExpression());
 		conditionElementEClass.getESuperTypes().add(theAadl2Package.getElement());
 		conditionElementEClass.getESuperTypes().add(this.getConditionExpression());
-		outgoingPropagationConditionEClass.getESuperTypes().add(theAadl2Package.getElement());
+		outgoingPropagationConditionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorDetectionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorStateToModeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
 		compositeErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2933,7 +2922,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		initEClass(eventOrPropagationEClass, EventOrPropagation.class, "EventOrPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(outgoingPropagationConditionEClass, OutgoingPropagationCondition.class, "OutgoingPropagationCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOutgoingPropagationCondition_Name(), ecorePackage.getEString(), "name", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOutgoingPropagationCondition_State(), this.getErrorBehaviorState(), null, "state", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOutgoingPropagationCondition_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOutgoingPropagationCondition_All(), ecorePackage.getEBoolean(), "all", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -172,7 +172,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
 			case ErrorModelPackage.ERROR_PROPAGATIONS: {
 				ErrorPropagations errorPropagations = (ErrorPropagations)theEObject;
 				T result = caseErrorPropagations(errorPropagations);
-				if (result == null) result = caseNamedElement(errorPropagations);
 				if (result == null) result = caseElement(errorPropagations);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -417,6 +416,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION: {
 				OutgoingPropagationCondition outgoingPropagationCondition = (OutgoingPropagationCondition)theEObject;
 				T result = caseOutgoingPropagationCondition(outgoingPropagationCondition);
+				if (result == null) result = caseNamedElement(outgoingPropagationCondition);
 				if (result == null) result = caseElement(outgoingPropagationCondition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

@@ -32,10 +32,10 @@ AnnexSubclause returns aadl2::AnnexSubclause:
 NamedElement returns aadl2::NamedElement:
 ErrorModelLibrary| 
 ErrorTypes| ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
-	   | ErrorFlow| ErrorPropagation
+	   | ErrorFlow| ErrorPropagation |OutgoingPropagationCondition
 |PropagationPointConnection | PropagationPoint
 	|TypeTransformationSet | TypeMappingSet  | ErrorBehaviorStateMachine
-|ErrorDetection	| ErrorPropagations | ConnectionErrorSource
+|ErrorDetection	|  ConnectionErrorSource
 ;
 
 ModalElement returns aadl2::ModalElement:
@@ -43,10 +43,10 @@ ErrorModelSubclause
 ;
 
 Element returns aadl2::Element:
-ElementErrorType|TypeToken
+ElementErrorType|TypeToken 
 |TypeTransformation|TypeMapping|PropagationPaths
 |QualifiedPropagationPoint|TransitionBranch
-|ConditionElement|ConnectionErrorBehavior
+|ConditionElement|ConnectionErrorBehavior |ErrorPropagations 
 |	ComponentErrorBehavior | CompositeErrorBehavior
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 |CompositeState	|ErrorStateToModeMapping

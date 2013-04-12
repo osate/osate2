@@ -27,8 +27,10 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
@@ -129,6 +131,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
+		Collection<NamedElement> names = EMV2Util.getAllNamedElements(subclause);
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(names);
+		for (NamedElement namedElement : doubles) {
+			error(namedElement, namedElement.getName()+" has duplicate definitions.");
+		}
 	}
 
 	@Check(CheckType.NORMAL)
@@ -150,9 +157,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	@Check(CheckType.NORMAL)
-	public void ErrorBehaviorStateMachine(ErrorBehaviorStateMachine ebsm) {
+	public void caseErrorBehaviorStateMachine(ErrorBehaviorStateMachine ebsm) {
 		// checkCyclicExtends(ebsm);
-		// TODO: checkUniqueIdentifiers(ebsm);
+		checkUniqueEBSMElements(ebsm);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -385,8 +392,32 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
+	private void checkUniqueEBSMElements(ErrorBehaviorStateMachine ebsm) {
+		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10,10);
+		for (ErrorBehaviorEvent oep : ebsm.getEvents()) {
+			if (etlset.containsKey(oep.getName())) {
+				error(oep, "error behavior event "+oep.getName()+ " defined more than once");
+			} else {
+				etlset.put(oep.getName(), oep);
+			}
+		}
+		for (ErrorBehaviorState oep : ebsm.getStates()) {
+			if (etlset.containsKey(oep.getName())) {
+				error(oep, "error behavior state "+oep.getName()+ " previously defined as "+etlset.get(oep.getName()).eClass().getName());
+			} else {
+				etlset.put(oep.getName(), oep);
+			}
+		}
+		for (ErrorBehaviorTransition oep : ebsm.getTransitions()) {
+			if (etlset.containsKey(oep.getName())) {
+				error(oep, "error behavior transition "+oep.getName()+ " previously defined as "+etlset.get(oep.getName()).eClass().getName());
+			} else {
+				etlset.put(oep.getName(), oep);
+			}
+		}
+	}
+
 	private void checkUniquePropagationPointorConnection(NamedElement ep) {
-		// XXX TODO need to deal with inherited observable points
 		Collection<PropagationPoint> tab = EMV2Util.getAllPropagationPoints(ep.getContainingClassifier());
 		for (PropagationPoint oep : tab) {
 			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {

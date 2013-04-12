@@ -401,8 +401,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.ERROR_PROPAGATIONS:
-				if(context == grammarAccess.getErrorPropagationsRule() ||
-				   context == grammarAccess.getNamedElementRule()) {
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getErrorPropagationsRule()) {
 					sequence_ErrorPropagations(context, (ErrorPropagations) semanticObject); 
 					return; 
 				}
@@ -507,6 +507,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				else break;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION:
 				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getNamedElementRule() ||
 				   context == grammarAccess.getOutgoingPropagationConditionRule()) {
 					sequence_OutgoingPropagationCondition(context, (OutgoingPropagationCondition) semanticObject); 
 					return; 

@@ -1464,6 +1464,43 @@ public class EMV2Util {
 		return result;
 	}
 
+	
+	/**
+	 * return list of NamedElements in error model subclause
+	 * @param ems error model subclause
+	 * @return Collection<NamedElement> list of defined named elements
+	 */
+	public static Collection<NamedElement> getAllNamedElements(ErrorModelSubclause ems){
+		Collection<NamedElement> result = new BasicEList<NamedElement>();
+		ErrorPropagations props = ems.getErrorPropagations();
+		getAllNamedElements(props, result);
+		ComponentErrorBehavior ceb = ems.getComponentBehavior();
+		getAllNamedElements(ceb, result);
+		return result;
+	}
+
+	
+	public static void getAllNamedElements(ErrorPropagations props, Collection<NamedElement> result){
+		if (props == null) return;
+		result.addAll(props.getPropagations());
+			result.addAll( props.getFlows());
+	}
+	
+	public static void getAllNamedElements(ComponentErrorBehavior ceb, Collection<NamedElement> result){
+		if (ceb == null) return;
+		result.addAll(ceb.getEvents());
+		result.addAll( ceb.getTransitions());
+		result.addAll( ceb.getOutgoingPropagationConditions());
+		result.addAll( ceb.getErrorDetections());
+	}
+	
+	public static void getAllNamedElements(ErrorBehaviorStateMachine ebsm, Collection<NamedElement> result){
+		if (ebsm == null) return;
+		result.addAll(ebsm.getEvents());
+		result.addAll( ebsm.getStates());
+		result.addAll( ebsm.getTransitions());
+	}
+
 
 	/**
 	 * get the EM object that contains the condition expression.

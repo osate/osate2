@@ -50,13 +50,13 @@
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.45"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.29"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.60"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.37"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.36"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.61"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.49"/>
       </alternatives>
     </rules>
@@ -80,6 +80,7 @@
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.46"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.48"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.52"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.65"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.53"/>

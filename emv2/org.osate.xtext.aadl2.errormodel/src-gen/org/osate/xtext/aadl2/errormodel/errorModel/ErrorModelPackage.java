@@ -950,7 +950,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PROPAGATIONS__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
+  int ERROR_PROPAGATIONS__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
 
   /**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -959,34 +959,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PROPAGATIONS__OWNED_COMMENT = Aadl2Package.NAMED_ELEMENT__OWNED_COMMENT;
-
-  /**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ERROR_PROPAGATIONS__NAME = Aadl2Package.NAMED_ELEMENT__NAME;
-
-  /**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ERROR_PROPAGATIONS__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
-
-  /**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ERROR_PROPAGATIONS__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+  int ERROR_PROPAGATIONS__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
 	 * The feature id for the '<em><b>Propagations</b></em>' containment reference list.
@@ -995,7 +968,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PROPAGATIONS__PROPAGATIONS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
+  int ERROR_PROPAGATIONS__PROPAGATIONS = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The feature id for the '<em><b>Flows</b></em>' containment reference list.
@@ -1004,7 +977,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PROPAGATIONS__FLOWS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int ERROR_PROPAGATIONS__FLOWS = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
 	 * The number of structural features of the '<em>Error Propagations</em>' class.
@@ -1013,7 +986,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PROPAGATIONS_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int ERROR_PROPAGATIONS_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl <em>Error Propagation</em>}' class.
@@ -3114,7 +3087,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+  int OUTGOING_PROPAGATION_CONDITION__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
 
   /**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -3123,7 +3096,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+  int OUTGOING_PROPAGATION_CONDITION__OWNED_COMMENT = Aadl2Package.NAMED_ELEMENT__OWNED_COMMENT;
 
   /**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3132,7 +3105,25 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__NAME = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int OUTGOING_PROPAGATION_CONDITION__NAME = Aadl2Package.NAMED_ELEMENT__NAME;
+
+  /**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int OUTGOING_PROPAGATION_CONDITION__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
+
+  /**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int OUTGOING_PROPAGATION_CONDITION__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
 	 * The feature id for the '<em><b>State</b></em>' reference.
@@ -3141,7 +3132,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int OUTGOING_PROPAGATION_CONDITION__STATE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The feature id for the '<em><b>Type Token Constraint</b></em>' containment reference.
@@ -3150,7 +3141,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
 	 * The feature id for the '<em><b>All</b></em>' attribute.
@@ -3159,7 +3150,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__ALL = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int OUTGOING_PROPAGATION_CONDITION__ALL = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -3168,7 +3159,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__CONDITION = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
+  int OUTGOING_PROPAGATION_CONDITION__CONDITION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
@@ -3177,7 +3168,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__OUTGOING = Aadl2Package.ELEMENT_FEATURE_COUNT + 5;
+  int OUTGOING_PROPAGATION_CONDITION__OUTGOING = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
 	 * The feature id for the '<em><b>Type Token</b></em>' containment reference.
@@ -3186,7 +3177,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = Aadl2Package.ELEMENT_FEATURE_COUNT + 6;
+  int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
 	 * The feature id for the '<em><b>Mask</b></em>' attribute.
@@ -3195,7 +3186,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__MASK = Aadl2Package.ELEMENT_FEATURE_COUNT + 7;
+  int OUTGOING_PROPAGATION_CONDITION__MASK = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
 	 * The number of structural features of the '<em>Outgoing Propagation Condition</em>' class.
@@ -3204,7 +3195,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 8;
+  int OUTGOING_PROPAGATION_CONDITION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl <em>Error Detection</em>}' class.
@@ -5359,17 +5350,6 @@ public interface ErrorModelPackage extends EPackage
   EClass getOutgoingPropagationCondition();
 
   /**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getName()
-	 * @see #getOutgoingPropagationCondition()
-	 * @generated
-	 */
-  EAttribute getOutgoingPropagationCondition_Name();
-
-  /**
 	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getState <em>State</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -7072,14 +7052,6 @@ public interface ErrorModelPackage extends EPackage
 		 * @generated
 		 */
     EClass OUTGOING_PROPAGATION_CONDITION = eINSTANCE.getOutgoingPropagationCondition();
-
-    /**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EAttribute OUTGOING_PROPAGATION_CONDITION__NAME = eINSTANCE.getOutgoingPropagationCondition_Name();
 
     /**
 		 * The meta object literal for the '<em><b>State</b></em>' reference feature.

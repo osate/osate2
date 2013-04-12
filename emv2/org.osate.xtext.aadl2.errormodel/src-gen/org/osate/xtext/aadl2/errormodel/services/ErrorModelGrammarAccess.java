@@ -99,29 +99,29 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorBehaviorTransitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cErrorFlowParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cErrorPropagationParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cPropagationPointConnectionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cPropagationPointParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cTypeTransformationSetParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cTypeMappingSetParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
-		private final RuleCall cErrorBehaviorStateMachineParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
-		private final RuleCall cErrorDetectionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
-		private final RuleCall cErrorPropagationsParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
+		private final RuleCall cOutgoingPropagationConditionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cPropagationPointConnectionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cPropagationPointParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cTypeTransformationSetParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cTypeMappingSetParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		private final RuleCall cErrorBehaviorStateMachineParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
+		private final RuleCall cErrorDetectionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
 		private final RuleCall cConnectionErrorSourceParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
 		
 		//NamedElement returns aadl2::NamedElement:
 		//
 		//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
 		//
-		//	ErrorPropagation | PropagationPointConnection | PropagationPoint | TypeTransformationSet | TypeMappingSet |
+		//	ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint |
 		//
-		//	ErrorBehaviorStateMachine | ErrorDetection | ErrorPropagations | ConnectionErrorSource;
+		//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource;
 		public ParserRule getRule() { return rule; }
 
 		//ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
 		//
-		//ErrorPropagation | PropagationPointConnection | PropagationPoint | TypeTransformationSet | TypeMappingSet |
+		//ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint |
 		//
-		//ErrorBehaviorStateMachine | ErrorDetection | ErrorPropagations | ConnectionErrorSource
+		//TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ErrorModelLibrary
@@ -145,26 +145,26 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ErrorPropagation
 		public RuleCall getErrorPropagationParserRuleCall_6() { return cErrorPropagationParserRuleCall_6; }
 
+		//OutgoingPropagationCondition
+		public RuleCall getOutgoingPropagationConditionParserRuleCall_7() { return cOutgoingPropagationConditionParserRuleCall_7; }
+
 		//PropagationPointConnection
-		public RuleCall getPropagationPointConnectionParserRuleCall_7() { return cPropagationPointConnectionParserRuleCall_7; }
+		public RuleCall getPropagationPointConnectionParserRuleCall_8() { return cPropagationPointConnectionParserRuleCall_8; }
 
 		//PropagationPoint
-		public RuleCall getPropagationPointParserRuleCall_8() { return cPropagationPointParserRuleCall_8; }
+		public RuleCall getPropagationPointParserRuleCall_9() { return cPropagationPointParserRuleCall_9; }
 
 		//TypeTransformationSet
-		public RuleCall getTypeTransformationSetParserRuleCall_9() { return cTypeTransformationSetParserRuleCall_9; }
+		public RuleCall getTypeTransformationSetParserRuleCall_10() { return cTypeTransformationSetParserRuleCall_10; }
 
 		//TypeMappingSet
-		public RuleCall getTypeMappingSetParserRuleCall_10() { return cTypeMappingSetParserRuleCall_10; }
+		public RuleCall getTypeMappingSetParserRuleCall_11() { return cTypeMappingSetParserRuleCall_11; }
 
 		//ErrorBehaviorStateMachine
-		public RuleCall getErrorBehaviorStateMachineParserRuleCall_11() { return cErrorBehaviorStateMachineParserRuleCall_11; }
+		public RuleCall getErrorBehaviorStateMachineParserRuleCall_12() { return cErrorBehaviorStateMachineParserRuleCall_12; }
 
 		//ErrorDetection
-		public RuleCall getErrorDetectionParserRuleCall_12() { return cErrorDetectionParserRuleCall_12; }
-
-		//ErrorPropagations
-		public RuleCall getErrorPropagationsParserRuleCall_13() { return cErrorPropagationsParserRuleCall_13; }
+		public RuleCall getErrorDetectionParserRuleCall_13() { return cErrorDetectionParserRuleCall_13; }
 
 		//ConnectionErrorSource
 		public RuleCall getConnectionErrorSourceParserRuleCall_14() { return cConnectionErrorSourceParserRuleCall_14; }
@@ -195,35 +195,36 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTransitionBranchParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cConditionElementParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
 		private final RuleCall cConnectionErrorBehaviorParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cComponentErrorBehaviorParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cCompositeErrorBehaviorParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
-		private final RuleCall cConditionExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
-		private final RuleCall cOrmoreExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
-		private final RuleCall cOrlessExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
-		private final RuleCall cOutgoingPropagationConditionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
-		private final RuleCall cCompositeStateParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
-		private final RuleCall cErrorStateToModeMappingParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
-		private final RuleCall cSubcomponentElementParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
-		private final RuleCall cFeatureReferenceParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
+		private final RuleCall cErrorPropagationsParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cComponentErrorBehaviorParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cCompositeErrorBehaviorParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		private final RuleCall cConditionExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
+		private final RuleCall cOrmoreExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
+		private final RuleCall cOrlessExpressionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
+		private final RuleCall cOutgoingPropagationConditionParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
+		private final RuleCall cCompositeStateParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
+		private final RuleCall cErrorStateToModeMappingParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
+		private final RuleCall cSubcomponentElementParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
+		private final RuleCall cFeatureReferenceParserRuleCall_19 = (RuleCall)cAlternatives.eContents().get(19);
 		
 		//Element returns aadl2::Element:
 		//
 		//	ElementErrorType | TypeToken | TypeTransformation | TypeMapping | PropagationPaths | QualifiedPropagationPoint |
 		//
-		//	TransitionBranch | ConditionElement | ConnectionErrorBehavior | ComponentErrorBehavior | CompositeErrorBehavior |
+		//	TransitionBranch | ConditionElement | ConnectionErrorBehavior | ErrorPropagations | ComponentErrorBehavior |
 		//
-		//	ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | CompositeState |
+		//	CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
 		//
-		//	ErrorStateToModeMapping | SubcomponentElement | FeatureReference;
+		//	CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureReference;
 		public ParserRule getRule() { return rule; }
 
 		//ElementErrorType | TypeToken | TypeTransformation | TypeMapping | PropagationPaths | QualifiedPropagationPoint |
 		//
-		//TransitionBranch | ConditionElement | ConnectionErrorBehavior | ComponentErrorBehavior | CompositeErrorBehavior |
+		//TransitionBranch | ConditionElement | ConnectionErrorBehavior | ErrorPropagations | ComponentErrorBehavior |
 		//
-		//ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | CompositeState |
+		//CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
 		//
-		//ErrorStateToModeMapping | SubcomponentElement | FeatureReference
+		//CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ElementErrorType
@@ -253,35 +254,38 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ConnectionErrorBehavior
 		public RuleCall getConnectionErrorBehaviorParserRuleCall_8() { return cConnectionErrorBehaviorParserRuleCall_8; }
 
+		//ErrorPropagations
+		public RuleCall getErrorPropagationsParserRuleCall_9() { return cErrorPropagationsParserRuleCall_9; }
+
 		//ComponentErrorBehavior
-		public RuleCall getComponentErrorBehaviorParserRuleCall_9() { return cComponentErrorBehaviorParserRuleCall_9; }
+		public RuleCall getComponentErrorBehaviorParserRuleCall_10() { return cComponentErrorBehaviorParserRuleCall_10; }
 
 		//CompositeErrorBehavior
-		public RuleCall getCompositeErrorBehaviorParserRuleCall_10() { return cCompositeErrorBehaviorParserRuleCall_10; }
+		public RuleCall getCompositeErrorBehaviorParserRuleCall_11() { return cCompositeErrorBehaviorParserRuleCall_11; }
 
 		//ConditionExpression
-		public RuleCall getConditionExpressionParserRuleCall_11() { return cConditionExpressionParserRuleCall_11; }
+		public RuleCall getConditionExpressionParserRuleCall_12() { return cConditionExpressionParserRuleCall_12; }
 
 		//OrmoreExpression
-		public RuleCall getOrmoreExpressionParserRuleCall_12() { return cOrmoreExpressionParserRuleCall_12; }
+		public RuleCall getOrmoreExpressionParserRuleCall_13() { return cOrmoreExpressionParserRuleCall_13; }
 
 		//OrlessExpression
-		public RuleCall getOrlessExpressionParserRuleCall_13() { return cOrlessExpressionParserRuleCall_13; }
+		public RuleCall getOrlessExpressionParserRuleCall_14() { return cOrlessExpressionParserRuleCall_14; }
 
 		//OutgoingPropagationCondition
-		public RuleCall getOutgoingPropagationConditionParserRuleCall_14() { return cOutgoingPropagationConditionParserRuleCall_14; }
+		public RuleCall getOutgoingPropagationConditionParserRuleCall_15() { return cOutgoingPropagationConditionParserRuleCall_15; }
 
 		//CompositeState
-		public RuleCall getCompositeStateParserRuleCall_15() { return cCompositeStateParserRuleCall_15; }
+		public RuleCall getCompositeStateParserRuleCall_16() { return cCompositeStateParserRuleCall_16; }
 
 		//ErrorStateToModeMapping
-		public RuleCall getErrorStateToModeMappingParserRuleCall_16() { return cErrorStateToModeMappingParserRuleCall_16; }
+		public RuleCall getErrorStateToModeMappingParserRuleCall_17() { return cErrorStateToModeMappingParserRuleCall_17; }
 
 		//SubcomponentElement
-		public RuleCall getSubcomponentElementParserRuleCall_17() { return cSubcomponentElementParserRuleCall_17; }
+		public RuleCall getSubcomponentElementParserRuleCall_18() { return cSubcomponentElementParserRuleCall_18; }
 
 		//FeatureReference
-		public RuleCall getFeatureReferenceParserRuleCall_18() { return cFeatureReferenceParserRuleCall_18; }
+		public RuleCall getFeatureReferenceParserRuleCall_19() { return cFeatureReferenceParserRuleCall_19; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -4717,9 +4721,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
 	//
-	//	ErrorPropagation | PropagationPointConnection | PropagationPoint | TypeTransformationSet | TypeMappingSet |
+	//	ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint |
 	//
-	//	ErrorBehaviorStateMachine | ErrorDetection | ErrorPropagations | ConnectionErrorSource;
+	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource;
 	public NamedElementElements getNamedElementAccess() {
 		return (pNamedElement != null) ? pNamedElement : (pNamedElement = new NamedElementElements());
 	}
@@ -4743,11 +4747,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	ElementErrorType | TypeToken | TypeTransformation | TypeMapping | PropagationPaths | QualifiedPropagationPoint |
 	//
-	//	TransitionBranch | ConditionElement | ConnectionErrorBehavior | ComponentErrorBehavior | CompositeErrorBehavior |
+	//	TransitionBranch | ConditionElement | ConnectionErrorBehavior | ErrorPropagations | ComponentErrorBehavior |
 	//
-	//	ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition | CompositeState |
+	//	CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
 	//
-	//	ErrorStateToModeMapping | SubcomponentElement | FeatureReference;
+	//	CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureReference;
 	public ElementElements getElementAccess() {
 		return (pElement != null) ? pElement : (pElement = new ElementElements());
 	}

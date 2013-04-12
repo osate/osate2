@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.impl.NamedElementImpl;
+import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -35,7 +35,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
  *
  * @generated
  */
-public class ErrorPropagationsImpl extends NamedElementImpl implements ErrorPropagations
+public class ErrorPropagationsImpl extends ElementImpl implements ErrorPropagations
 {
   /**
 	 * The cached value of the '{@link #getPropagations() <em>Propagations</em>}' containment reference list.
