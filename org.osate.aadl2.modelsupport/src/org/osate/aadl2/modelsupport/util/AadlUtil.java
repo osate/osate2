@@ -198,11 +198,11 @@ public final class AadlUtil {
 	 * find (first) Named Element matching name in the Elist; any elements that
 	 * are not NamedElements are skipped.
 	 * 
-	 * @param el Elist of NamedElements
+	 * @param el Collection of NamedElements
 	 * @param name String
 	 * @return NamedElement
 	 */
-	public static NamedElement findNamedElementInList(List<?> el, String name) {
+	public static NamedElement findNamedElementInList(Collection<?> el, String name) {
 		if (el != null) {
 			Iterator<?> it = el.iterator();
 
@@ -256,7 +256,7 @@ public final class AadlUtil {
 	 * @param el EList or NamedElements or other objects
 	 * @return EList of NameElements that are defining a previously defined name
 	 */
-	public static EList<NamedElement> findDoubleNamedElementsInList(List<?> el) {
+	public static EList<NamedElement> findDoubleNamedElementsInList(Collection<?> el) {
 		EList<NamedElement> result = new BasicEList<NamedElement>();
 		final Set<String> seen = new HashSet<String>();
 
