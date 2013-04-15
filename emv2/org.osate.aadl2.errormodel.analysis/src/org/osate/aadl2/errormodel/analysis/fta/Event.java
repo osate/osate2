@@ -72,6 +72,7 @@ public class Event
 	public void setProbability (double p)
 	{
 		this.probability = p;
+		this.showProbability = true;
 	}
 	
 	public List<Event> getSubEvents ()
@@ -98,7 +99,7 @@ public class Event
 		}
 		if (this.description != null)
 		{
-			sb.append (" description=\""+this.description+"\"");
+			sb.append (" description="+this.description);
 		}
 		sb.append (">");
 
