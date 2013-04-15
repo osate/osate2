@@ -89,7 +89,7 @@ public class Event
 	{
 		StringBuffer sb = new StringBuffer ();
 		sb.append ("<event id=\""+this.name+"\" ");
-		if (this.showProbability)
+		if ((this.showProbability) && (this.type == EventType.NORMAL))
 		{
 			sb.append (" probability=\""+this.probability+"\"");
 		}
