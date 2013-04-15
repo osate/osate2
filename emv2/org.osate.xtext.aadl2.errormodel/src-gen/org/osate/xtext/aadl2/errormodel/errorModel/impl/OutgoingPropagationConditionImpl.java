@@ -4,10 +4,14 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.osate.aadl2.impl.ElementImpl;
+
+import org.osate.aadl2.impl.NamedElementImpl;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -23,7 +27,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#isAll <em>All</em>}</li>
@@ -36,28 +39,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *
  * @generated
  */
-public class OutgoingPropagationConditionImpl extends ElementImpl implements OutgoingPropagationCondition
+public class OutgoingPropagationConditionImpl extends NamedElementImpl implements OutgoingPropagationCondition
 {
-  /**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-  protected String name = NAME_EDEFAULT;
-
   /**
 	 * The cached value of the '{@link #getState() <em>State</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -167,29 +150,6 @@ public class OutgoingPropagationConditionImpl extends ElementImpl implements Out
   protected EClass eStaticClass()
   {
 		return ErrorModelPackage.Literals.OUTGOING_PROPAGATION_CONDITION;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public String getName()
-  {
-		return name;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public void setName(String newName)
-  {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__NAME, oldName, name));
 	}
 
   /**
@@ -486,8 +446,6 @@ public class OutgoingPropagationConditionImpl extends ElementImpl implements Out
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
 		switch (featureID) {
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__NAME:
-				return getName();
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__STATE:
 				if (resolve) return getState();
 				return basicGetState();
@@ -517,9 +475,6 @@ public class OutgoingPropagationConditionImpl extends ElementImpl implements Out
   public void eSet(int featureID, Object newValue)
   {
 		switch (featureID) {
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__NAME:
-				setName((String)newValue);
-				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__STATE:
 				setState((ErrorBehaviorState)newValue);
 				return;
@@ -554,9 +509,6 @@ public class OutgoingPropagationConditionImpl extends ElementImpl implements Out
   public void eUnset(int featureID)
   {
 		switch (featureID) {
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__NAME:
-				setName(NAME_EDEFAULT);
-				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__STATE:
 				setState((ErrorBehaviorState)null);
 				return;
@@ -591,8 +543,6 @@ public class OutgoingPropagationConditionImpl extends ElementImpl implements Out
   public boolean eIsSet(int featureID)
   {
 		switch (featureID) {
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__STATE:
 				return state != null;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT:
@@ -622,9 +572,7 @@ public class OutgoingPropagationConditionImpl extends ElementImpl implements Out
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", all: ");
+		result.append(" (all: ");
 		result.append(all);
 		result.append(", mask: ");
 		result.append(mask);

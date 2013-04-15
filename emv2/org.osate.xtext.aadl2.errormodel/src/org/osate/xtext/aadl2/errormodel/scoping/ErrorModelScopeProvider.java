@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -32,6 +33,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
  * This class contains custom scoping description.
@@ -42,10 +44,30 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
  */
 public class ErrorModelScopeProvider extends AbstractDeclarativeScopeProvider {
 
-	public IScope scope_ErrorBehaviorState(ErrorBehaviorStateMachine context,
-			EReference reference) {
+//	public IScope scope_ErrorBehaviorState(ErrorBehaviorStateMachine context,
+//			EReference reference) {
+//				return Scopes.scopeFor(context.getStates());
+//	}
 
-		return Scopes.scopeFor(getAllStates(context));
+	public IScope scope_ErrorBehaviorState(ErrorBehaviorTransition context,
+			EReference reference) {
+		EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(context);
+		if (emslist.isEmpty()){
+			// we are in an EMV2 library 
+			ErrorBehaviorStateMachine ebsm = EMV2Util.getContainingErrorBehaviorStateMachine(context);
+			if (ebsm != null){
+				return Scopes.scopeFor(ebsm.getStates());
+			} else {
+				return IScope.NULLSCOPE;
+			}
+		}
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			if (ebsm!= null){
+				return Scopes.scopeFor(ebsm.getStates());
+			}
+		}
+		return IScope.NULLSCOPE;
 	}
 
 	public IScope scope_ErrorType(ErrorType context,
@@ -70,28 +92,27 @@ public class ErrorModelScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	public IScope scope_ErrorBehaviorEvent(ErrorBehaviorTransition context,
 			EReference reference) {
-		ErrorBehaviorStateMachine owner = org.eclipse.xtext.EcoreUtil2.getContainerOfType(context,
-				ErrorBehaviorStateMachine.class);
-			IScope result =  Scopes.scopeFor(getAllEvents(owner));
-			return result;
+		IScope result = IScope.NULLSCOPE;
+		EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(context);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			if (ebsm!= null){
+				result = Scopes.scopeFor(ebsm.getEvents());
+				break;
 			}
-
-
-	public EList<ErrorBehaviorState> getAllStates(ErrorBehaviorStateMachine context){
-		EList<ErrorBehaviorState> result = context.getStates();
-//		if (context.getExtends() != null){
-//			result.addAll(context.getExtends().getStates());
-//		}
+		}
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ComponentErrorBehavior ceb = errorModelSubclause.getComponentBehavior();
+			if (ceb!= null){
+				EList<ErrorBehaviorEvent> eflist = ceb.getEvents();
+				if (!eflist.isEmpty()){
+					result = Scopes.scopeFor(eflist, result);
+				}
+			}
+		}
 		return result;
 	}
 
-	public EList<ErrorBehaviorEvent> getAllEvents(ErrorBehaviorStateMachine context){
-		EList<ErrorBehaviorEvent> result = context.getEvents();
-//		if (context.getExtends() != null){
-//			result.addAll(context.getExtends().getEvents());
-//		}
-		return result;
-	}
 
 	public EList<ErrorTypes> getAllTypes(ErrorModelLibrary context){
 		EList<ErrorTypes> result = context.getTypes();

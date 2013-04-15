@@ -124,6 +124,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	{
 
 		ErrorModelSubclause errorModelSubclause = EMV2Util.getClassifierEMV2Subclause(ci.getComponentClassifier());
+		// find error events listed as condition elements in transitions and report them as hazard if they have the hazard property
 		if (errorModelSubclause != null)
 		{
 			ErrorBehaviorStateMachine errorBehavior = errorModelSubclause.getUseBehavior();
@@ -157,11 +158,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			}
 		}
 
+		// report all error sources as hazards if they have the property
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-			ContainedNamedElement PA = null;
+			ContainedNamedElement HazardPA = null;
 			ContainedNamedElement Sev = null;
 			ContainedNamedElement Like = null;
 			TypeSet ts = null;
@@ -170,44 +172,47 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			Element localContext = null;
 			// not dealing with type set as failure mode
 			if (fmr instanceof ErrorBehaviorState){
-				// state is originating hazard
+				// state is originating hazard, possibly with a type set
 				failureMode =  (ErrorBehaviorState) fmr;
 				ts = failureMode.getTypeSet();
-				PA = EMV2Util.getHazardProperty(ci,errorSource,failureMode,ts);
+				HazardPA = EMV2Util.getHazardProperty(ci,errorSource,failureMode,ts);
 				Sev = getSeverityProperty(ci,errorSource,failureMode,ts);
 				Like = getLikelihoodProperty(ci,errorSource,failureMode,ts);
 				target = failureMode;
 				localContext = errorSource;
 			}
-			if (PA==null) {
+			if (HazardPA==null) {
 				// error propagation is originating hazard
 				ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
-				PA = EMV2Util.getHazardProperty(ci, null,ep,ts);
+				HazardPA = EMV2Util.getHazardProperty(ci, null,ep,ts);
 				Sev = getSeverityProperty(ci, null,ep,ts);
 				Like = getLikelihoodProperty(ci, null,ep,ts);
 				target = ep;
 				localContext = null;
 			}
-			if (PA==null) {
+			if (HazardPA==null) {
 				// error source is originating hazard
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null) ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
-				PA = EMV2Util.getHazardProperty(ci, null,errorSource,ts);
+				HazardPA = EMV2Util.getHazardProperty(ci, null,errorSource,ts);
 				Sev = getSeverityProperty(ci, null,errorSource,ts);
 				Like = getLikelihoodProperty(ci, null,errorSource,ts);
 				target = errorSource;
 				localContext = null;
 			}
-			if (PA==null) return;
-			reportHazardProperty(ci, PA, Sev, Like, target, ts, localContext,report);
+			if (HazardPA==null) return;
+			reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext,report);
 		}
 	}
 	
 	
-	protected String getEnumNumericPropertyValue(ContainedNamedElement ContainmentPath){
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(ContainmentPath).getOwnedValues()) {
+	protected String getEnumerationorIntegerPropertyValue(ContainedNamedElement containmentPath){
+		if (containmentPath == null){
+			return "";
+		}
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof NamedValue){
 				AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
@@ -234,8 +239,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue){
-				String Severity = getEnumNumericPropertyValue(SevContainmentPath);
-				String Likelihood = getEnumNumericPropertyValue(LikeContainmentPath);
+				String Severity = getEnumerationorIntegerPropertyValue(SevContainmentPath);
+				String Likelihood = getEnumerationorIntegerPropertyValue(LikeContainmentPath);
 				RecordValue rv = (RecordValue)val;
 				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
 				// for all error types/aliases in type set or the element identified in the containment clause 

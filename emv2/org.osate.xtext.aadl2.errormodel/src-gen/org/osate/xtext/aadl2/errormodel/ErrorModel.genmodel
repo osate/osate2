@@ -18,7 +18,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/errorPropagations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/componentBehavior"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/compositeBehavior"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/connectionTransformation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/connectionBehavior"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/propagationPaths"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/properties"/>
     </genClasses>
@@ -151,8 +151,15 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//BranchValue/symboliclabel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//BranchValue/others"/>
     </genClasses>
-    <genClasses ecoreClass="ErrorModel.ecore#//ConnectionTransformation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionTransformation/typeTransformationSet"/>
+    <genClasses ecoreClass="ErrorModel.ecore#//ConnectionErrorBehavior">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorBehavior/typeTransformationSet"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorBehavior/connectionErrorSources"/>
+    </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//ConnectionErrorSource">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorSource/connection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ConnectionErrorSource/all"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorSource/typeTokenConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConnectionErrorSource/failureModeType"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//EBSMUseContext"/>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeUseContext"/>
@@ -181,7 +188,6 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//EventOrPropagation"/>
     <genClasses ecoreClass="ErrorModel.ecore#//OutgoingPropagationCondition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//OutgoingPropagationCondition/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//OutgoingPropagationCondition/state"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//OutgoingPropagationCondition/typeTokenConstraint"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//OutgoingPropagationCondition/all"/>

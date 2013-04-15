@@ -311,13 +311,22 @@ public interface ErrorModelFactory extends EFactory
   BranchValue createBranchValue();
 
   /**
-	 * Returns a new object of class '<em>Connection Transformation</em>'.
+	 * Returns a new object of class '<em>Connection Error Behavior</em>'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Connection Transformation</em>'.
+	 * @return a new object of class '<em>Connection Error Behavior</em>'.
 	 * @generated
 	 */
-  ConnectionTransformation createConnectionTransformation();
+  ConnectionErrorBehavior createConnectionErrorBehavior();
+
+  /**
+	 * Returns a new object of class '<em>Connection Error Source</em>'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connection Error Source</em>'.
+	 * @generated
+	 */
+  ConnectionErrorSource createConnectionErrorSource();
 
   /**
 	 * Returns a new object of class '<em>EBSM Use Context</em>'.
