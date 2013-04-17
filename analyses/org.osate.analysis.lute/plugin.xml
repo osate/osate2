@@ -40,8 +40,15 @@
                menubarPath="menu.analyses/menu.lute/stuff.grp"
                enablesFor="1">
 				<enablement>
-					<objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
-				</enablement>
+				<or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+                 <objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
+               </or>
+			   </enablement>
          </action>			
          <action
                id="org.osate.validation.lute.BuiltinLuteAction.action"
@@ -51,8 +58,15 @@
                menubarPath="menu.analyses/menu.lute/stuff.grp"
                enablesFor="1">
 				<enablement>
-					<objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
-				</enablement>
+				<or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+                 <objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
+               </or>
+			   </enablement>
          </action>
          <action
                id="org.osate.validation.lute.ConsoleLuteAction.action"
@@ -61,15 +75,16 @@
                class="org.osate.analysis.lute.RunConsoleAction"
                menubarPath="menu.analyses/menu.lute/stuff.grp"
                enablesFor="1">
-            <enablement>
-               <or>
+				<enablement>
+				<or>
                   <and>
                      <objectClass name="org.eclipse.core.resources.IFile"/>
                      <objectState name="extension" value="aaxl2"/>
                   </and>
                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+                 <objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
                </or>
-            </enablement>
+			   </enablement>
          </action>					
 
 

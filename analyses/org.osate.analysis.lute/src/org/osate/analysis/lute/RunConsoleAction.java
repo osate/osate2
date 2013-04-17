@@ -38,19 +38,28 @@
 package org.osate.analysis.lute;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.lute.utils.Logger;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
 
-public class RunConsoleAction extends AaxlReadOnlyActionAsJob {
+public class RunConsoleAction extends AadlAction {
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
@@ -58,25 +67,49 @@ public class RunConsoleAction extends AaxlReadOnlyActionAsJob {
 	protected String getActionName() {
 		return "Run LUTE console";
 	}
-	
-	public void doAaxlAction(IProgressMonitor monitor, Element obj) 
+
+	protected IStatus runJob(Element obj, IProgressMonitor monitor, Logger log) 
 	{
+
 		final SystemInstance si;
 		
-		if (obj instanceof InstanceObject)
+		OsateDebug.osateDebug("obj=" + obj); 
+		if (obj instanceof SystemImplementation) 
 		{
-			si = ((InstanceObject)obj).getSystemInstance();
+			OsateDebug.osateDebug("system implementation" + obj); 
+			SystemImplementation sysimpl = (SystemImplementation) obj;
+			InstantiateModel im = new InstantiateModel(
+					new NullProgressMonitor(), getErrorManager());
+			URI uri = OsateResourceUtil.getInstanceModelURI(sysimpl);
+			Resource resource = OsateResourceUtil.getEmptyAaxl2Resource(uri);
+			try {
+				si = im.createSystemInstance(sysimpl, resource);
+			} catch (Exception e) {
+				Dialog.showError(
+						"Model Instantiate",
+						"Error while re-instantiating the model: "
+								+ e.getMessage());
+				return Status.CANCEL_STATUS;
+			}
 		}
 		else
 		{
-			si = null;
+		
+			if (obj instanceof InstanceObject)
+			{
+				si = ((InstanceObject)obj).getSystemInstance();
+			}
+			else
+			{
+				si = null;
+			}
 		}
 		
 		
 		if (si == null)
 		{
 			Dialog.showError("LUTE console", "Invalid System Instance");
-			return;
+			return Status.CANCEL_STATUS;
 		}
 
 		 PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable(){
@@ -91,6 +124,9 @@ public class RunConsoleAction extends AaxlReadOnlyActionAsJob {
 				DialogConsole dialog = new DialogConsole (sh, si, logger);
 				dialog.open();
 			}});
-		
+		 return Status.OK_STATUS;
 	}
+
+
+
 }
