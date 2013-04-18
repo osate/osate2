@@ -14,12 +14,13 @@ public class Event
 	private boolean 	showProbability;
 	private EventType 	type;
 	private static int 	generalId = 1;
-
+	private String		identifier;
 	
 	
 	public Event ()
 	{
-		this.name 				= "event" + generalId;
+		this.identifier 		= "event" + generalId;
+		this.name				= this.identifier;
 		this.description 		= null;
 		this.probability 		= 0.0;
 		this.showProbability 	= false;
@@ -88,7 +89,7 @@ public class Event
 	public String toXML()
 	{
 		StringBuffer sb = new StringBuffer ();
-		sb.append ("<event id=\""+this.name+"\" ");
+		sb.append ("<event id=\""+this.identifier+"\" ");
 		if ((this.showProbability) && (this.type == EventType.NORMAL))
 		{
 			sb.append (" probability=\""+this.probability+"\"");

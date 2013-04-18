@@ -54,7 +54,66 @@ public class FTAUtils
 		return ("##" + ci.getName() + ebs.getName()+ "##");
 	}
 	
-	public static void handleCondition (Event event, final ConditionExpression cond, final EList<ComponentInstance> componentInstances)
+	
+	private static List<String> getInvolvedSubcomponents (final ConditionExpression cond,  final EList<ComponentInstance> componentInstances)
+	{
+		List<String> result = new ArrayList<String>();
+		if (cond instanceof SOrExpression)
+		{
+			SOrExpression sor = (SOrExpression) cond;
+			
+			for (ConditionExpression conditionExpression : sor.getOperands())
+			{
+				if (conditionExpression instanceof ConditionElement)
+				{
+					ConditionElement conditionElement;
+					
+					conditionElement = (ConditionElement) conditionExpression;
+					for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
+					{
+						Subcomponent subcomponent = subcomponentElement.getSubcomponent();
+						OsateDebug.osateDebug("cond = " + cond + "      subcomponent=" + subcomponent);
+						ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
+						if (relatedInstance != null)
+						{
+							result.add (relatedInstance.getName());
+						}
+					}
+				}
+			}
+		}
+		if (cond instanceof SAndExpression)
+		{
+			SAndExpression sae = (SAndExpression) cond;
+	
+			for (ConditionExpression conditionExpression : sae.getOperands())
+			{
+				if (conditionExpression instanceof ConditionElement)
+				{
+					ConditionElement conditionElement;
+					
+					conditionElement = (ConditionElement) conditionExpression;
+					for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
+					{
+						Subcomponent subcomponent = subcomponentElement.getSubcomponent();
+						OsateDebug.osateDebug("cond = " + cond + "      subcomponent=" + subcomponent);
+						ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
+						if (relatedInstance != null)
+						{
+							result.add (relatedInstance.getName());
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	public static void handleCondition (Event event, 
+			                            final ErrorBehaviorState resultingBehaviorState, 
+			                            final ComponentInstance relatedComponentInstance,
+			                            final ConditionExpression cond, 
+			                            final EList<ComponentInstance> componentInstances)
 	{
 		if (cond instanceof ConditionElement)
 		{
@@ -94,17 +153,41 @@ public class FTAUtils
 		if (cond instanceof SOrExpression)
 		{
 			SOrExpression sor = (SOrExpression)cond;
+			
 			if ((event.getEventType() != EventType.NORMAL) && (event.getEventType() != EventType.OR))
 			{
 				OsateDebug.osateDebug("[FTAUtils] Inconsistent composite behavior, expecting an OR condition");
 			}
 			event.setEventType(EventType.OR);
+			
+			String desc;
+			desc = "\"occurrence of one event";
+			if(getInvolvedSubcomponents (cond, componentInstances).size() > 0)
+			{
+				boolean first = true;
+				desc += " (from ";
+				for (String s : getInvolvedSubcomponents (cond, componentInstances))
+				{
+					
+					if (first == false)
+					{
+						desc += ", ";
+					}
+					desc += s;
+					first = false;
+				}
+				desc += ")";
+			}
+			desc += "\"";
+
+			event.setDescription(desc);
+						
 			for (ConditionExpression conditionExpression : sor.getOperands())
 			{
 				//OsateDebug.osateDebug("      operand=" + conditionExpression);
 				//result += handleCondition (conditionExpression, componentInstances);
 				Event resultEvent = new Event ();
-				handleCondition(resultEvent, conditionExpression, componentInstances);
+				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances);
 				event.addSubEvent(resultEvent);
 			}
 		}
@@ -117,12 +200,33 @@ public class FTAUtils
 				OsateDebug.osateDebug("[FTAUtils] Inconsistent composite behavior, expecting an AND condition");
 			}
 			event.setEventType(EventType.AND);
+			String desc;
+			desc = "\"combination of events";
+			if(getInvolvedSubcomponents (cond, componentInstances).size() > 0)
+			{
+				boolean first = true;
+				desc += " (from ";
+				for (String s : getInvolvedSubcomponents (cond, componentInstances))
+				{
+					
+					if (first == false)
+					{
+						desc += ", ";
+					}
+					desc += s;
+					first = false;
+				}
+				desc += ")";
+			}
+			desc += "\"";
+			event.setDescription(desc);
+						
 			for (ConditionExpression conditionExpression : sae.getOperands())
 			{
 				//OsateDebug.osateDebug("      operand=" + conditionExpression);
 				//result += handleCondition (conditionExpression, componentInstances);
 				Event resultEvent = new Event ();
-				handleCondition(resultEvent, conditionExpression, componentInstances);
+				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances);
 				event.addSubEvent(resultEvent);
 			}
 		}
@@ -168,7 +272,7 @@ public class FTAUtils
 					targetEvent = ftaEvent;
 				}
 				FTAUtils.fillFTAEventfromEventState (targetEvent, ebs, relatedInstance, componentInstances);
-				FTAUtils.handleCondition (targetEvent, state.getCondition(), componentInstances);
+				FTAUtils.handleCondition (targetEvent, ebs, relatedInstance, state.getCondition(), componentInstances);
 				if (nBranches > 1)
 				{
 					ftaEvent.addSubEvent(targetEvent);
@@ -177,6 +281,42 @@ public class FTAUtils
 			
 
 		}
+	}
+	
+	public static String getDescription (ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance)
+	{
+		TypeSet ts;
+		ContainedNamedElement 		PA;
+		ts = null;
+		PA = null;
+		
+		ts = behaviorState.getTypeSet();
+		
+		PA = EMV2Util.getHazardProperty(relatedComponentInstance,null,behaviorState,ts);
+		
+		if (PA == null)
+		{
+			return null;
+		}
+		
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA).getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+			if (val instanceof RecordValue)
+			{
+				RecordValue rv = (RecordValue)val;
+				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+				BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
+				if (xref != null){
+					PropertyExpression peVal = xref.getOwnedValue();
+					if (peVal instanceof StringLiteral){
+						String text = ((StringLiteral)peVal).getValue();
+						text = text.replace('\"', ' ');
+						return text;
+					}
+				} 
+			}
+		}
+		return null;
 	}
 	
 	
@@ -199,32 +339,12 @@ public class FTAUtils
 			return;
 		}
 		
-		
-		ts = behaviorState.getTypeSet();
-		
-		PA = EMV2Util.getHazardProperty(relatedComponentInstance,null,behaviorState,ts);
-		
-		if (PA == null)
+
+		if (getDescription (behaviorState, relatedComponentInstance) != null)
 		{
-			return;
+			event.setDescription("\"" + getDescription (behaviorState, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
 		}
 		
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA).getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof RecordValue)
-			{
-				RecordValue rv = (RecordValue)val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
-				if (xref != null){
-					PropertyExpression peVal = xref.getOwnedValue();
-					if (peVal instanceof StringLiteral){
-						String text = ((StringLiteral)peVal).getValue();
-						event.setDescription(text);
-					}
-				} 
-			}
-		}
 		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
 		PA = EMV2Util.getOccurenceDistributionProperty(relatedComponentInstance,null,behaviorState,null);
 		//OsateDebug.osateDebug("         PA " + PA);
