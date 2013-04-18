@@ -79,6 +79,7 @@ import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
@@ -100,6 +101,7 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * This class adds all connection instances to an instance model.
@@ -347,6 +349,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		 */
 		if ((toEnd instanceof ParameterImpl) && 
 			((fromEnd instanceof DataSubcomponent) || (fromEnd instanceof DataAccess)))
+		{
+			return;
+		}
+		
+		/*
+		 * Fix JD bug #222
+		 */
+		if ((toEnd instanceof DataAccess) && (toEnd.getContainingClassifier() != null ) && (toEnd.getContainingClassifier() instanceof SubprogramType))
 		{
 			return;
 		}
