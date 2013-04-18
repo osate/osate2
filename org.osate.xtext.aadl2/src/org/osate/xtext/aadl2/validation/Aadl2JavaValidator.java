@@ -341,6 +341,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			checkOutFeatureIdentifier(flow);
 		if (flow.getKind().equals(FlowKind.SINK) || flow.getKind().equals(FlowKind.PATH))
 			checkInFeatureIdentifier(flow);
+		checkConsistentFlowKind(flow);
 		checkFlowConnectionOrder(flow);
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
@@ -666,6 +667,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							+ "' does not match the in flow feature identifier '"
 							+ (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName()
 							+ "' in the flow specification.");
+		}
+	}
+	
+	private void checkConsistentFlowKind(FlowImplementation flowimpl){
+		FlowKind implkind = flowimpl.getKind();
+		FlowSpecification spec = flowimpl.getSpecification();
+		if (spec != null){
+		FlowKind speckind = spec.getKind();
+		if (implkind != speckind){
+			error(flowimpl,"Flow implementation "+spec.getName()+" must be a flow "+ speckind.getName()+" (same as its flow spec)");
+		}
 		}
 	}
 	
