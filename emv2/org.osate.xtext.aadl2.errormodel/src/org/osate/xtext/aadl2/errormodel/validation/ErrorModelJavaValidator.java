@@ -222,6 +222,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			for (int k = i + 1; k < epssize; k++) {
 				ErrorPropagation ep2 = eps.get(k);
 				if (EMV2Util.getFeature(ep1) == EMV2Util.getFeature(ep2)) {
+					// uniqueness needs to take into account direction
 					if ((ep1.isNot() && ep2.isNot() || !ep1.isNot()
 							&& !ep2.isNot()) && ep1.getDirection() == ep2.getDirection()) {
 						error(ep2,
