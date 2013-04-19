@@ -60,6 +60,11 @@ public class Event
 		return this.probability;
 	}
 	
+	public void setIdentifier (String n)
+	{
+		this.identifier = n;
+	}
+	
 	public void setName (String n)
 	{
 		this.name = n;
@@ -89,7 +94,15 @@ public class Event
 	public String toXML()
 	{
 		StringBuffer sb = new StringBuffer ();
-		sb.append ("<event id=\""+this.identifier+"\" ");
+		sb.append ("<event");
+		if (this.type == EventType.NORMAL)
+		{
+			sb.append (" id=\""+this.name+"\" ");
+		}
+		else
+		{
+			sb.append (" id=\""+this.identifier+"\" ");
+		}
 		if ((this.showProbability) && (this.type == EventType.NORMAL))
 		{
 			sb.append (" probability=\""+this.probability+"\"");

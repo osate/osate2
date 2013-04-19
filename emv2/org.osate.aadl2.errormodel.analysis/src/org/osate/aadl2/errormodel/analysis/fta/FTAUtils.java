@@ -253,6 +253,7 @@ public class FTAUtils
 		{
 			ftaEvent.setEventType(EventType.OR);
 			ftaEvent.setName("State to " + stateName);
+			ftaEvent.setIdentifier("State to " + stateName);
 		}
 		
 		for (CompositeState state : states)
