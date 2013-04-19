@@ -62,7 +62,32 @@ public class Event
 	
 	public void setIdentifier (String n)
 	{
-		this.identifier = n;
+		this.identifier = n.replace(' ', '_');
+	}
+	
+	public String getIdentifier ()
+	{
+		String suffix;
+		switch (this.type)
+		{
+			case AND:
+				{
+					suffix = "_a";
+					break;
+				}
+			case OR:
+			{
+				suffix = "_o";
+				break;
+			}
+			default:
+			{
+				suffix = "_d";
+				break;
+			}
+		}
+		return this.identifier + suffix;
+
 	}
 	
 	public void setName (String n)
@@ -101,7 +126,7 @@ public class Event
 		}
 		else
 		{
-			sb.append (" id=\""+this.identifier+"\" ");
+			sb.append (" id=\""+this.getIdentifier()+"\" ");
 		}
 		if ((this.showProbability) && (this.type == EventType.NORMAL))
 		{
@@ -128,4 +153,47 @@ public class Event
 
 		return sb.toString();
 	}
+	
+	public String toFTA()
+	{
+		StringBuffer sb = new StringBuffer ();
+		sb.append ("M " + this.identifier);
+		
+		if (this.type == EventType.NORMAL)
+		{
+			sb.append (" 0\n");
+		}
+		else
+		{
+			sb.append (" 1\n");
+		}
+		
+		sb.append ("" + this.name.length() + " " + this.name + "\n");
+		switch (this.type)
+		{
+		
+			case AND:
+			{
+				sb.append ("A " + this.identifier + " " + this.subEvents.size()+"\n");
+				break;
+			}
+			case OR:
+			{
+				sb.append ("O " + this.identifier + " " + this.subEvents.size()+"\n");
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		
+		}
+		for (Event e : this.subEvents)
+		{
+			sb.append(e.toFTA());
+		}
+		return sb.toString();
+	}
+	
+	
 }
