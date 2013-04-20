@@ -32,6 +32,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
@@ -168,6 +169,18 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	public void caseErrorBehaviorStateMachine(ErrorBehaviorStateMachine ebsm) {
 		// checkCyclicExtends(ebsm);
 		checkUniqueEBSMElements(ebsm);
+	}
+
+
+	@Check(CheckType.NORMAL)
+	public void caseErrorBehaviorTransition(ErrorBehaviorTransition ebt) {
+		checkTransitionSourceTypes(ebt);
+		checkTransitionTargetTypes(ebt);
+	}
+
+	@Check(CheckType.NORMAL)
+	public void caseErrorDetection(ErrorDetection ebt) {
+		checkDetectionSourceTypes(ebt);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -635,8 +648,64 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
 				opc.getTypeToken())) {
 			error(opc,
-					"Outgoing error type "+EMV2Util.getPrintName(opc.getTypeToken())+"is not contained in type set of outgoing error propagation specification \'"
+					"Outgoing error type "+EMV2Util.getPrintName(opc.getTypeToken())+" is not contained in type set of outgoing error propagation specification \'"
 							+ EMV2Util.getPrintName(ep) + "\'");
+		}
+	}
+
+	private void checkTransitionTargetTypes(ErrorBehaviorTransition ebt) {
+		ErrorBehaviorState ebs = ebt.getTarget();
+		TypeSet ebsTS = ebs.getTypeSet();
+		TypeToken ebtargetTS = ebt.getTargetToken();
+		if (ebsTS == null && ebtargetTS == null) return;
+		if (ebsTS == null && ebtargetTS != null) {
+			error(ebt,
+					"Target state "+ebs.getName()+" does not have a type set declared but the transition target specifies "
+							+ EMV2Util.getPrintName(ebtargetTS) );
+		} else
+		if (!EM2TypeSetUtil.contains(ebsTS,
+				ebtargetTS)) {
+			error(ebt,
+					"Target type "+EMV2Util.getPrintName(ebt.getTargetToken())+" is not contained in type set of error behavior state \'"
+							+ ebs.getName() + "\'");
+		}
+	}
+
+	private void checkDetectionSourceTypes(ErrorDetection ebt) {
+		ErrorBehaviorState ebs = ebt.getState();
+		if (ebs == null) return;
+		TypeSet ebsTS = ebs.getTypeSet();
+		TypeSet srcTS = ebt.getTypeTokenConstraint();
+		if (ebsTS == null && srcTS == null) return;
+		if (ebsTS == null && srcTS != null) {
+			error(ebt,
+					"Source state "+ebs.getName()+" does not have a type set declared but the detection source specifies "
+							+ EMV2Util.getPrintName(srcTS) );
+		} else
+		if (!EM2TypeSetUtil.contains(ebsTS,
+				srcTS)) {
+			error(ebt,
+					"Source type "+EMV2Util.getPrintName(srcTS)+" is not contained in type set of error behavior state \'"
+							+ ebs.getName() + "\'");
+		}
+	}
+
+	private void checkTransitionSourceTypes(ErrorBehaviorTransition ebt) {
+		ErrorBehaviorState ebs = ebt.getSource();
+		if (ebs == null) return;
+		TypeSet ebsTS = ebs.getTypeSet();
+		TypeSet srcTS = ebt.getTypeTokenConstraint();
+		if (ebsTS == null && srcTS == null) return;
+		if (ebsTS == null && srcTS != null) {
+			error(ebt,
+					"Source state "+ebs.getName()+" does not have a type set declared but the transition source specifies "
+							+ EMV2Util.getPrintName(srcTS) );
+		} else
+		if (!EM2TypeSetUtil.contains(ebsTS,
+				srcTS)) {
+			error(ebt,
+					"Source type "+EMV2Util.getPrintName(srcTS)+" is not contained in type set of error behavior state \'"
+							+ ebs.getName() + "\'");
 		}
 	}
 
