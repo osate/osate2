@@ -27,6 +27,7 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -42,6 +43,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
@@ -130,6 +133,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	@Check(CheckType.NORMAL)
+	public void caseConditionElement(ConditionElement conditionElement) {
+		checkConditionElementType(conditionElement);
+	}
+
+	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
 		Collection<NamedElement> names = EMV2Util.getAllNamedElements(subclause);
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(names);
@@ -175,6 +183,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	@Check(CheckType.NORMAL)
+	public void caseOutgoingPropagationCondition(OutgoingPropagationCondition ef) {
+		checkOutgoingTypes(ef);
+	}
+
+	@Check(CheckType.NORMAL)
 	public void caseErrorSink(ErrorSink ef) {
 		checkErrorSinkTypes(ef);
 		checkFlowDirection(ef);
@@ -199,6 +212,29 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						+ namedElement.getName()
 						+ "' is not a port or mode transition.");
 			}
+		}
+	}
+
+	private void checkConditionElementType(ConditionElement conditionElement) {
+		EventOrPropagation ep = conditionElement.getIncoming();
+		TypeSet triggerTS = null;
+		String triggerName = "";
+		if (ep instanceof ErrorPropagation){
+			triggerTS = ((ErrorPropagation)ep).getTypeSet();
+			triggerName = "propagation "+EMV2Util.getPrintName((ErrorPropagation)ep);
+		} else if (ep instanceof ErrorEvent){
+			triggerTS = ((ErrorEvent)ep).getTypeSet();
+			triggerName = "event "+((ErrorBehaviorEvent)ep).getName();
+		}
+		TypeSet condTS = conditionElement.getConstraint();
+		if (triggerTS == null&&condTS == null) return;
+		if (triggerTS == null && condTS != null){
+			error(conditionElement,"Condition has type contraint but referenced "+triggerName+" does not.");
+		} else 
+		if (!EM2TypeSetUtil.contains(triggerTS,
+				condTS)) {
+			error(conditionElement,
+					"Condition type constraint "+EMV2Util.getPrintName(condTS)+"is not contained in type set "+EMV2Util.getPrintName(triggerTS)+"of referenced "+triggerName);
 		}
 	}
 
@@ -591,6 +627,16 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 							+ " is not contained in type set of outgoing propagation "
 							+ EMV2Util.getPrintName(ep)
 							+ EMV2Util.getPrintName(ep.getTypeSet()));
+		}
+	}
+
+	private void checkOutgoingTypes(OutgoingPropagationCondition opc) {
+		ErrorPropagation ep = opc.getOutgoing();
+		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
+				opc.getTypeToken())) {
+			error(opc,
+					"Outgoing error type "+EMV2Util.getPrintName(opc.getTypeToken())+"is not contained in type set of outgoing error propagation specification \'"
+							+ EMV2Util.getPrintName(ep) + "\'");
 		}
 	}
 
