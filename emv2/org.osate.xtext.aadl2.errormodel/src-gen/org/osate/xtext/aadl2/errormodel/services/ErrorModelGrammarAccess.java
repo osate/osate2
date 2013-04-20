@@ -107,6 +107,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorBehaviorStateMachineParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
 		private final RuleCall cErrorDetectionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
 		private final RuleCall cConnectionErrorSourceParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
+		private final RuleCall cEventOrPropagationParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
 		
 		//NamedElement returns aadl2::NamedElement:
 		//
@@ -114,14 +115,18 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint |
 		//
-		//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource;
+		//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource |
+		//
+		//	EventOrPropagation;
 		public ParserRule getRule() { return rule; }
 
 		//ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
 		//
 		//ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint |
 		//
-		//TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource
+		//TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource |
+		//
+		//EventOrPropagation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ErrorModelLibrary
@@ -168,6 +173,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ConnectionErrorSource
 		public RuleCall getConnectionErrorSourceParserRuleCall_14() { return cConnectionErrorSourceParserRuleCall_14; }
+
+		//EventOrPropagation
+		public RuleCall getEventOrPropagationParserRuleCall_15() { return cEventOrPropagationParserRuleCall_15; }
 	}
 
 	public class ModalElementElements extends AbstractParserRuleElementFinder {
@@ -4723,7 +4731,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint |
 	//
-	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource;
+	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource |
+	//
+	//	EventOrPropagation;
 	public NamedElementElements getNamedElementAccess() {
 		return (pNamedElement != null) ? pNamedElement : (pNamedElement = new NamedElementElements());
 	}

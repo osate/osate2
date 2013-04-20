@@ -35,7 +35,7 @@ ErrorTypes| ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
 	   | ErrorFlow| ErrorPropagation |OutgoingPropagationCondition
 |PropagationPointConnection | PropagationPoint
 	|TypeTransformationSet | TypeMappingSet  | ErrorBehaviorStateMachine
-|ErrorDetection	|  ConnectionErrorSource
+|ErrorDetection	|  ConnectionErrorSource | EventOrPropagation
 ;
 
 ModalElement returns aadl2::ModalElement:

@@ -1618,6 +1618,32 @@ finally {
 
 
 
+// Entry rule entryRuleEventOrPropagation
+entryRuleEventOrPropagation 
+:
+{ before(grammarAccess.getEventOrPropagationRule()); }
+	 ruleEventOrPropagation
+{ after(grammarAccess.getEventOrPropagationRule()); } 
+	 EOF 
+;
+
+// Rule EventOrPropagation
+ruleEventOrPropagation 
+    @init {
+		int stackSize = keepStackSize();
+    }
+    :
+(
+{ before(grammarAccess.getEventOrPropagationAccess().getAlternatives()); }
+(rule__EventOrPropagation__Alternatives)
+{ after(grammarAccess.getEventOrPropagationAccess().getAlternatives()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 
 
 // Entry rule entryRuleOutgoingPropagationCondition
@@ -3471,6 +3497,27 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__EventOrPropagation__Alternatives
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEventOrPropagationAccess().getErrorBehaviorEventParserRuleCall_0()); }
+	ruleErrorBehaviorEvent
+{ after(grammarAccess.getEventOrPropagationAccess().getErrorBehaviorEventParserRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getEventOrPropagationAccess().getErrorPropagationParserRuleCall_1()); }
+	ruleErrorPropagation
+{ after(grammarAccess.getEventOrPropagationAccess().getErrorPropagationParserRuleCall_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 rule__OutgoingPropagationCondition__Alternatives_1
     @init {

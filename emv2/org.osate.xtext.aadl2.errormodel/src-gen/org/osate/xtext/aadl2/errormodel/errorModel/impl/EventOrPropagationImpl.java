@@ -4,7 +4,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.osate.aadl2.impl.NamedElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
@@ -18,7 +18,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
  *
  * @generated
  */
-public class EventOrPropagationImpl extends MinimalEObjectImpl.Container implements EventOrPropagation
+public class EventOrPropagationImpl extends NamedElementImpl implements EventOrPropagation
 {
   /**
 	 * <!-- begin-user-doc -->

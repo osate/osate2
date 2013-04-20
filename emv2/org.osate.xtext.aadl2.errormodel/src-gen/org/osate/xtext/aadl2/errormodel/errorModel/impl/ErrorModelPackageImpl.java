@@ -2721,6 +2721,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		orlessExpressionEClass.getESuperTypes().add(this.getConditionExpression());
 		conditionElementEClass.getESuperTypes().add(theAadl2Package.getElement());
 		conditionElementEClass.getESuperTypes().add(this.getConditionExpression());
+		eventOrPropagationEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		outgoingPropagationConditionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorDetectionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorStateToModeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());

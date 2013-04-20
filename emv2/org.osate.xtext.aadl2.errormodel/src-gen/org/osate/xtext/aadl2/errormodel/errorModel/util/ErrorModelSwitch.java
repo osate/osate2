@@ -179,8 +179,8 @@ public class ErrorModelSwitch<T> extends Switch<T>
 			case ErrorModelPackage.ERROR_PROPAGATION: {
 				ErrorPropagation errorPropagation = (ErrorPropagation)theEObject;
 				T result = caseErrorPropagation(errorPropagation);
-				if (result == null) result = caseNamedElement(errorPropagation);
 				if (result == null) result = caseEventOrPropagation(errorPropagation);
+				if (result == null) result = caseNamedElement(errorPropagation);
 				if (result == null) result = caseElement(errorPropagation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -275,8 +275,8 @@ public class ErrorModelSwitch<T> extends Switch<T>
 			case ErrorModelPackage.ERROR_BEHAVIOR_EVENT: {
 				ErrorBehaviorEvent errorBehaviorEvent = (ErrorBehaviorEvent)theEObject;
 				T result = caseErrorBehaviorEvent(errorBehaviorEvent);
-				if (result == null) result = caseNamedElement(errorBehaviorEvent);
 				if (result == null) result = caseEventOrPropagation(errorBehaviorEvent);
+				if (result == null) result = caseNamedElement(errorBehaviorEvent);
 				if (result == null) result = caseElement(errorBehaviorEvent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -285,8 +285,8 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				ErrorEvent errorEvent = (ErrorEvent)theEObject;
 				T result = caseErrorEvent(errorEvent);
 				if (result == null) result = caseErrorBehaviorEvent(errorEvent);
-				if (result == null) result = caseNamedElement(errorEvent);
 				if (result == null) result = caseEventOrPropagation(errorEvent);
+				if (result == null) result = caseNamedElement(errorEvent);
 				if (result == null) result = caseElement(errorEvent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -295,8 +295,8 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				RepairEvent repairEvent = (RepairEvent)theEObject;
 				T result = caseRepairEvent(repairEvent);
 				if (result == null) result = caseErrorBehaviorEvent(repairEvent);
-				if (result == null) result = caseNamedElement(repairEvent);
 				if (result == null) result = caseEventOrPropagation(repairEvent);
+				if (result == null) result = caseNamedElement(repairEvent);
 				if (result == null) result = caseElement(repairEvent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -305,8 +305,8 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				RecoverEvent recoverEvent = (RecoverEvent)theEObject;
 				T result = caseRecoverEvent(recoverEvent);
 				if (result == null) result = caseErrorBehaviorEvent(recoverEvent);
-				if (result == null) result = caseNamedElement(recoverEvent);
 				if (result == null) result = caseEventOrPropagation(recoverEvent);
+				if (result == null) result = caseNamedElement(recoverEvent);
 				if (result == null) result = caseElement(recoverEvent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -410,6 +410,8 @@ public class ErrorModelSwitch<T> extends Switch<T>
 			case ErrorModelPackage.EVENT_OR_PROPAGATION: {
 				EventOrPropagation eventOrPropagation = (EventOrPropagation)theEObject;
 				T result = caseEventOrPropagation(eventOrPropagation);
+				if (result == null) result = caseNamedElement(eventOrPropagation);
+				if (result == null) result = caseElement(eventOrPropagation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

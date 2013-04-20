@@ -4902,6 +4902,44 @@ ruleConditionElement returns [EObject current=null]
 
 
 
+// Entry rule entryRuleEventOrPropagation
+entryRuleEventOrPropagation returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getEventOrPropagationRule()); }
+	 iv_ruleEventOrPropagation=ruleEventOrPropagation 
+	 { $current=$iv_ruleEventOrPropagation.current; } 
+	 EOF 
+;
+
+// Rule EventOrPropagation
+ruleEventOrPropagation returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getEventOrPropagationAccess().getErrorBehaviorEventParserRuleCall_0()); 
+    }
+    this_ErrorBehaviorEvent_0=ruleErrorBehaviorEvent
+    {
+        $current = $this_ErrorBehaviorEvent_0.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getEventOrPropagationAccess().getErrorPropagationParserRuleCall_1()); 
+    }
+    this_ErrorPropagation_1=ruleErrorPropagation
+    {
+        $current = $this_ErrorPropagation_1.current;
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
 
 
 // Entry rule entryRuleOutgoingPropagationCondition

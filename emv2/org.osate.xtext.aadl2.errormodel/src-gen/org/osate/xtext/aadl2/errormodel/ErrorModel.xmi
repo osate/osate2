@@ -58,6 +58,7 @@
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.61"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.49"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ModalElement">
