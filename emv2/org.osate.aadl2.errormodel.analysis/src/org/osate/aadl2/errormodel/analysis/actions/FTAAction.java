@@ -91,7 +91,8 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(systemInstance.getComponentClassifier());
 		ceb = ems.getCompositeBehavior();
 		
-		componentInstances = EMV2Util.getComponentInstancesWithErrorPropagations (systemInstance);
+		componentInstances = EMV2Util.getComponentInstancesWithComponentErrorBehavior (systemInstance);
+		componentInstances.addAll(EMV2Util.getComponentInstancesWithErrorPropagations(systemInstance));
 		// TODO may need to be updated to handle inherits from classifier extensions
 		result = new Event ();
 		FTAUtils.fillCompositeBehavior (result, ceb, ERROR_STATE_NAME, systemInstance, componentInstances);

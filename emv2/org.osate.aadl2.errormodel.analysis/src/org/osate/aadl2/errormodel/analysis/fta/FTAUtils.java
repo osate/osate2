@@ -1,10 +1,12 @@
 package org.osate.aadl2.errormodel.analysis.fta;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.PropertyExpression;
@@ -19,10 +21,17 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -44,7 +53,7 @@ public class FTAUtils
 				return ci;
 			}
 		}
-		
+		OsateDebug.osateDebug("[FTAUtils] Did not find the instance " + name);
 		return null;
 	}
 	
@@ -109,6 +118,69 @@ public class FTAUtils
 		return result;
 	}
 	
+	public static List<Event> findIncomingPropagations (ComponentInstance relatedInstance, ConditionElement conditionElement)
+	{
+		List<Event> propagations;
+		Classifier cl;
+		
+		propagations = new ArrayList<Event>();
+		cl = relatedInstance.getComponentClassifier();
+
+		OsateDebug.osateDebug("relatedInstance" + relatedInstance);
+		OsateDebug.osateDebug("condition ref" + conditionElement.getReference());
+		OsateDebug.osateDebug("Classifier=" + cl);
+		
+		if (EMV2Util.hasComponentErrorBehavior(relatedInstance))
+		{
+			Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(cl);
+			for (ErrorBehaviorTransition t : transitions)
+			{
+				OsateDebug.osateDebug( " trans = " + t);
+				OsateDebug.osateDebug("target="  + t.getTarget().getName());
+				OsateDebug.osateDebug("condition="  + t.getCondition());
+				if (t.getCondition() instanceof ConditionElement)
+				{
+					ConditionElement ce = (ConditionElement) t.getCondition();
+					if (ce.getIncoming() != null)
+					{
+						EventOrPropagation eop = ce.getIncoming();
+						if (eop instanceof ErrorPropagation)
+						{
+							ErrorPropagation ep = (ErrorPropagation) ce.getIncoming();
+							Event newEvent = new Event ();
+							String newEventName = "propagation from";
+							TypeSet ts = ep.getTypeSet();
+							List<FeatureReference> features = ep.getFeaturerefs();
+							for (FeatureReference fe : features)
+							{
+								OsateDebug.osateDebug("fe="  + fe.getFeature());
+								newEventName += " " + fe.getFeature().getName();
+							}
+							for (TypeToken tt : ts.getElementType())
+							{
+								OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
+								newEventName += " (type " +tt.getType().get(0).getName() +")";
+							}
+							newEvent.setName (newEventName);
+							newEvent.setEventType(EventType.EVENT);
+							propagations.add(newEvent);
+							OsateDebug.osateDebug("ep="  + ep);
+						}
+						if (eop instanceof ErrorEvent)
+						{
+							
+							ErrorEvent ev = (ErrorEvent) ce.getIncoming();
+							OsateDebug.osateDebug("ev="  + ev);
+						}
+
+					}
+				}
+			}
+		}
+		return propagations;
+	}
+
+	
 	public static void handleCondition (Event event, 
 			                            final ErrorBehaviorState resultingBehaviorState, 
 			                            final ComponentInstance relatedComponentInstance,
@@ -132,7 +204,7 @@ public class FTAUtils
 				
 				if (behaviorState != null)
 				{
-
+					
 					if (event.getEventType() != EventType.NORMAL)
 					{
 						Event resultEvent = new Event();
@@ -140,10 +212,16 @@ public class FTAUtils
 						fillFTAEventfromEventState(resultEvent, behaviorState, relatedInstance, componentInstances);
 						
 						event.addSubEvent(resultEvent);
+						
 					}
 					else
 					{
 						fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
+						List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement);
+						for (Event tmpEvent : propagations)
+						{
+							event.addSubEvent(tmpEvent);
+						}
 					}
 				}
 			}
@@ -335,6 +413,12 @@ public class FTAUtils
 		}
 		
 		if (behaviorState == null)
+		{
+			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
+			return;
+		}
+		
+		if (relatedComponentInstance == null)
 		{
 			OsateDebug.osateDebug("[FTAUtils] fillFTAEventfromEventState null event");
 			return;

@@ -157,11 +157,18 @@ public class Event
 	public String toFTA()
 	{
 		StringBuffer sb = new StringBuffer ();
+		
+		if (this.type == EventType.EVENT)
+		{
+			sb.append ("B " + this.identifier + " 0\n");
+			return sb.toString();
+		}
+		
 		sb.append ("M " + this.identifier);
 		
 		if (this.type == EventType.NORMAL)
 		{
-			sb.append (" 0\n");
+			sb.append (" "+subEvents.size() +"\n");
 		}
 		else
 		{
