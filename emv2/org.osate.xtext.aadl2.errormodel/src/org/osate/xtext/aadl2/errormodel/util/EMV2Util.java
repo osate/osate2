@@ -1338,7 +1338,7 @@ public class EMV2Util {
 	public static Collection<ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl){
 		BasicEList<ErrorBehaviorTransition> unlist = new BasicEList<ErrorBehaviorTransition>();
 		Collection<ErrorBehaviorTransition> res = getAllErrorBehaviorTransitions(cl, unlist).values();
-		res.addAll(unlist);
+		//res.addAll(unlist);
 		return res;
 	}
 	
@@ -1839,12 +1839,14 @@ public class EMV2Util {
 			Element localContext,Stack<ComponentInstance> ciStack, TypeSet ts){
 		ContainedNamedElement result = null;
 
-		if (ci.getContainingComponentInstance() != null) {
+		if ((ci != null ) && (ci.getContainingComponentInstance() != null)) 
+		{
 			ciStack.push(ci);
 			result = getPropertyInInstanceHierarchy(propertyName, ci.getContainingComponentInstance(), target,localContext,ciStack,ts);
 			ciStack.pop();
 		}
-		if (result==null){
+		if ((ci != null) && (result==null))
+		{
 			ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(ci.getComponentClassifier());
 			if (ems != null) {
 				EList<PropertyAssociation> props = ems.getProperties();
