@@ -614,7 +614,7 @@ public class EMV2Util {
 					ErrorSink es = (ErrorSink)ef;
 					 eprop =es.getIncoming();
 				}
-				if (isErrorPropagationOf(eprop, fi)){
+				if (eprop != null &&isErrorPropagationOf(eprop, fi)){
 					return ef;
 				}
 			}
@@ -639,7 +639,7 @@ public class EMV2Util {
 					ErrorSource es = (ErrorSource)ef;
 					eprop=es.getOutgoing();
 				}
-					if (isErrorPropagationOf(eprop, fi)){
+					if (eprop != null&&isErrorPropagationOf(eprop, fi)){
 						return ef;
 				}
 			}
@@ -2220,19 +2220,40 @@ public class EMV2Util {
 			NamedElement ne = featureReference.getFeature();
 			if (ne instanceof Feature){
 				Feature fe = (Feature)ne;
-			FeatureInstance fi = (container instanceof ComponentInstance?
-					((ComponentInstance)container).findFeatureInstance(fe):
-						((FeatureInstance)container).findFeatureInstance(fe));
-			if (fi != null){
-				container = fi;
-			} else {
-				return null;
-			}
+				FeatureInstance fi = (container instanceof ComponentInstance?
+						((ComponentInstance)container).findFeatureInstance(fe):
+							((FeatureInstance)container).findFeatureInstance(fe));
+				if (fi != null){
+					container = fi;
+				} else {
+					return null;
+				}
 			} else {
 				return null;
 			}
 		}
 		return (FeatureInstance)container;
+	}
+	
+	/**
+	 * returns the feature instance in the component instance that is referenced by the Error Propagation (or Containment)
+	 * @param ep
+	 * @param ci
+	 * @return
+	 */
+	public static PropagationPoint getPropagationPoint(ErrorPropagation ep, ComponentInstance ci){
+		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		if (frefs.isEmpty()) return null;
+		InstanceObject container = ci;
+		for (FeatureReference featureReference : frefs) {
+			NamedElement ne = featureReference.getFeature();
+			if (ne instanceof PropagationPoint){
+				return (PropagationPoint)ne;
+			} else {
+				return null;
+			}
+		}
+		return null;
 	}
 	
 	/**

@@ -55,6 +55,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
@@ -158,12 +159,18 @@ public class TraverseErrorFlows {
 				failureMode = (ErrorBehaviorState) fmr;
 			}
 			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
-			for (TypeToken typeToken : result) {
-				String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
-					FeatureInstance fi = EMV2Util.findFeatureInstance(ep,ci);
+			FeatureInstance fi = EMV2Util.findFeatureInstance(ep,ci);
+				for (TypeToken typeToken : result) {
+					String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
 					// Call on process to attach the typeToken to the outgoing feature
+					if (fi != null){
 					setToken(fi,typeToken);
 					traceErrorFlows(fi,2,componentText+", "+failuremodeText+", "+generateEffectText(fi, ep));
+					} else {
+						// propagation point
+						PropagationPoint pp = EMV2Util.getPropagationPoint(ep, ci);
+						tracePropagationPoint(pp, 1, componentText+", "+failuremodeText+", "+generateEffectText(ci,pp,ep));
+					}
 				}
 		}
 	}
@@ -261,6 +268,16 @@ public class TraverseErrorFlows {
 		} else {
 			return(generateItemText(io));
 		}
+	}
+	
+	/**
+	 * report on error propagation plus type set.
+	 * @param ep Error Propagation
+	 * @return ep + type set as string
+	 */
+	public String generateEffectText(ComponentInstance io,PropagationPoint pp, ErrorPropagation ep){
+			return(generateItemText(io)+"."+EMV2Util.getPrintName(ep)+
+					(ep.getTypeSet()!=null?":"+EMV2Util.getTableName(ep.getTypeSet()):""));
 	}
 	
 	/**
@@ -378,6 +395,14 @@ public class TraverseErrorFlows {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * traverse through the destination of the connection instance 
+	 * @param conni
+	 */
+	protected void tracePropagationPoint(PropagationPoint pp, int depth, String entryText){
+		reportEntry(entryText, depth);
 	}
 
 	/**
