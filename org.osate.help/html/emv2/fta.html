@@ -23,7 +23,49 @@ A complete wikipedia article <a href="https://en.wikipedia.org/wiki/Fault_tree_a
 explains the representation format for FTA</a>.
 </p>
 
-<h3>Mapping to XML file</h3>
+
+<h3>Using the FTA generator</h3>
+<p>
+To use the FTA generator, you have to select a system instance
+and invoke the FTA tool on the root system. A dialog box will ask
+the error state (in terms of component behavior state)
+that corresponds to the error, as shown below.
+</p>
+<img src="fta-choosestate.png"/>
+
+<p>
+The file is then produced into the <em>reports/</em> sub-directory,
+as shown below.
+</p>
+
+<img src="fta-files.png"/>
+
+<p>
+Two types of files are generated:
+</p>
+<ol>
+	<li>OpenFTA format, suitable to be used directly in 
+		<a href="http://www.openfta.com/" target="blank">OpenFTA</a>
+	</li>
+	<li>
+		A generic XML format that can be exported to other notation
+		suitable for commercial tools.
+	</li>
+</ol>
+
+<h3>Mapping to OpenFTA format file</h3>
+<p>
+The mapping into <a href="http://www.openfta.com/" target="blank">OpenFTA</a> provides a solution to use directly
+the FTA in a tool available to everyone at no-cost. Even if this tool has
+some limitation, it is a convenient way to visualize the fault-tree
+of your system. Once the report is generated it can be used directly
+within <a href="http://www.openfta.com/" target="blank">OpenFTA</a>. The figure below shows one example of an exported model.
+</p>
+
+<img src="openfta.png"/>
+
+
+<h3>Mapping to generic XML format</h3>
 <p>
 Most of Fault-Tree Analysis tools are proprietary and use a specific
 format. Thus, exporting the AADL notation into a tool requires
@@ -56,23 +98,7 @@ node may have the following attributes:
 An example of such an XML file is shown below.
 </p>
 
-<h3>Using the FTA generator</h3>
-<p>
-To use the FTA generator, you have to select a system instance
-and invoke the FTA tool on the root system. A dialog box will ask
-the error state (in terms of component behavior state)
-that corresponds to the error, as shown below.
-</p>
-<img src="fta-choosestate.png"/>
-
-<p>
-The file is then produced into the <em>reports/</em> sub-directory,
-as shown below.
-</p>
-
-<img src="fta-files.png"/>
-
-<h3>AADL and PRISM mapping rules</h3>
+<h3>AADL and FTA mapping rules</h3>
 <p>
 To generate an FTA, we used the <em>composite error behavior</em>, as for the RDB.
 As a consequence, in order to generate a complete FTA, we need first
@@ -86,6 +112,10 @@ to define the composite error behavior of the main system instance.
 
 <h3>Issues and known limitations</h3>
 <ul>
+	<li>When installing OpenFTA, you may have an error. On Windows 7, you have
+	    to right-click on the installer and change the compatibility options and check,
+	    make sure to execute the software under the Windows 2000 compatibility mode.
+	 </li>
 	<li>Draft function under development</li>
 	<li>Need to be experienced on large models</li>
 </ul>
