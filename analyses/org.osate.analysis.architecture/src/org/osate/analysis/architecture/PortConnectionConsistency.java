@@ -45,6 +45,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
@@ -117,18 +118,28 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
     	RecordValue srcRate = GetProperties.getOutPutRate(srcFI);
     	RecordValue dstRate =GetProperties.getInPutRate(dstFI);
     	if(srcRate != null&& dstRate!= null){
-    		double srcRateValue = getDataRate(srcRate);
-    		double dstRateValue = getDataRate(dstRate);
-    		if (srcRateValue > 0 && dstRateValue > 0){
-    			if (srcRateValue != dstRateValue){
-    				error(conni, "Source data rate "+srcRateValue+" and destination data rate "+dstRateValue+" differ");
+    		EnumerationLiteral srcRU = GetProperties.getRateUnit(srcRate);
+    		EnumerationLiteral dstRU = GetProperties.getRateUnit(dstRate);
+    		if (srcRU != dstRU){
+				error(conni, "Source rate unit "+srcRU.getName()+" and destination rate unit "+dstRU.getName()+" differ");
+    		}
+    		double srcMaxRateValue = getMaxDataRate(srcRate);
+    		double dstMaxRateValue = getMaxDataRate(dstRate);
+    		double srcMinRateValue = getMinDataRate(srcRate);
+    		double dstMinRateValue = getMinDataRate(dstRate);
+    		if (srcMaxRateValue > 0 && dstMaxRateValue > 0){
+    			if (srcMaxRateValue > dstMaxRateValue){
+    				error(conni, "Maximum source data rate "+srcMaxRateValue+" is greater than maximum destination data rate "+dstMaxRateValue);
     			}
-    			csvlog(srcRateValue+","+ dstRateValue+",");
+    			if (srcMinRateValue < dstMinRateValue){
+    				error(conni, "Minimum source data rate "+srcMinRateValue+" is less than minimum destination data rate "+dstMinRateValue);
+    			}
+    			csvlog(srcMinRateValue+".."+srcMaxRateValue+" "+srcRU.getName()+","+ dstMinRateValue+".."+dstMaxRateValue+" "+dstRU.getName()+",");
     		} else {
     			csvlog(","+",");
     		}
     	}
-    	// now try it as SAVI::Data_Rate
+    	// now try it as SEI::Data_Rate
 		double srcRateValue = getSEIDataRate(srcFI);
 		double dstRateValue = getSEIDataRate(dstFI);
 		if (srcRateValue > 0 && dstRateValue > 0){
@@ -166,12 +177,20 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
     	csvlogNewline("");
     }
     
-    private double getDataRate(RecordValue rate){
+    private double getMaxDataRate(RecordValue rate){
     	BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
     	if (vr == null) return 0;
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
 		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
 		return ((NumberValue) maximum).getScaledValue();
+    }
+    
+    private double getMinDataRate(RecordValue rate){
+    	BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
+    	if (vr == null) return 0;
+		RangeValue rv = (RangeValue) vr.getOwnedValue();
+		PropertyExpression minimum = rv.getMinimum().evaluate(null).first().getValue();
+		return ((NumberValue) minimum).getScaledValue();
     }
     
     private double getSEIDataRate(NamedElement ne){
