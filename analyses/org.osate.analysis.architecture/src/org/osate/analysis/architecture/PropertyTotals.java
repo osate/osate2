@@ -70,6 +70,7 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 	
 	public PropertyTotals(final IProgressMonitor monitor, AbstractAaxlAction action) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
+		this.action = action;
 	}
 
 	protected final void initSwitches() {
