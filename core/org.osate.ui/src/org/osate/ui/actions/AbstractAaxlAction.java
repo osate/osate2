@@ -708,6 +708,15 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * log an informative  message on object as result of action.
 	 * @param msg The informative message
 	 */
+	public final void logInfoNoNewLine(final String msg){
+		if (csvlog != null)
+		csvlog.addOutput(msg);
+	}
+
+	/**
+	 * log an informative  message on object as result of action.
+	 * @param msg The informative message
+	 */
 	public final void logInfo(final String msg){
 		if (csvlog != null)
 		csvlog.addOutputNewline(msg);
