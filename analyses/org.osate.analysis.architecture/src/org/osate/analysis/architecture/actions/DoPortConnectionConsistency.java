@@ -42,6 +42,7 @@ package org.osate.analysis.architecture.actions;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.parsesupport.AObject;
@@ -63,6 +64,12 @@ public final class DoPortConnectionConsistency extends AaxlReadOnlyActionAsJob {
 	protected String getActionName() {
 		return "Check port connection consistency";
 	}
+
+	@Override
+	protected boolean initializeAction(NamedElement obj) {
+	    	setCSVLog("ConnectionConsistency", obj);
+			return true;
+	}
 	
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
@@ -74,12 +81,12 @@ public final class DoPortConnectionConsistency extends AaxlReadOnlyActionAsJob {
 		final Element root = obj.getElementRoot();
 
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		PortConnectionConsistency pcc = new PortConnectionConsistency(monitor, getErrorManager());
+		PortConnectionConsistency pcc = new PortConnectionConsistency(monitor, this);
+		pcc.doHeaders();
 		pcc.processPreOrderAll(root);
 		if(pcc.cancelled()) {
 			throw new OperationCanceledException();
 		}
-//XXX TODO		WriteToFile.WriteCSVReport("PortConnection",root, pcc.getCSVContent());
 		monitor.done();
 		AnalysisErrorReporterManager em = getErrorManager();
 		if (em.getNumErrors()==0 && em.getNumWarnings()==0 && em.getNumInfos()==0){
