@@ -949,15 +949,15 @@ public class GetProperties {
 
 	public static RangeValue getValueRange(final RecordValue ne) {
 		EList<BasicPropertyAssociation> fields = ne.getOwnedFieldValues();
-		 BasicPropertyAssociation valueRange = getRecordField(fields, "Value_Range");
-		return (RangeValue) valueRange.getValue();
+		BasicPropertyAssociation valueRange = getRecordField(fields, "Value_Range");
+		return valueRange!=null?(RangeValue) valueRange.getValue():null;
 	}
 
 
 	public static EnumerationLiteral getRateUnit(final RecordValue ne) {
 		EList<BasicPropertyAssociation> fields = ne.getOwnedFieldValues();
 		 BasicPropertyAssociation rateUnit = getRecordField(fields, "Rate_Unit");
-		return (EnumerationLiteral) rateUnit.getValue();
+		return rateUnit!=null?(EnumerationLiteral) rateUnit.getValue():null;
 	}
 
 	public static BasicPropertyAssociation getRecordField(EList<BasicPropertyAssociation> props,String fieldName){
