@@ -42,8 +42,10 @@ package org.osate.analysis.architecture;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.WriteToFile;
@@ -72,92 +74,93 @@ public class ARINC429ConnectionConsistency extends AadlProcessingSwitchWithProgr
     
     public final void initSwitches(){
 		/* here we are creating the connection checking switches */
-		String header = "connection,source,destination,source Word ID,destination Word ID, source Start Bit, destination Start Bit, source Numner Bits, destination Number Bits, \n\r";
-    	csvlog(header);
-
-		/* here we are creating the connection checking switches */
     	instanceSwitch = new InstanceSwitch() {
 			/**
 			 * check port properties for connection end points
 			 */
     		public Object caseConnectionInstance(ConnectionInstance conni)  {
-    			initcsvlog(conni);
-    			FeatureInstance srcFI = (FeatureInstance) conni.getSource();
-    			FeatureInstance dstFI = (FeatureInstance) conni.getDestination();
+    			ConnectionInstanceEnd srcFI = conni.getSource();
+    			ConnectionInstanceEnd dstFI = conni.getDestination();
     			if ( srcFI == null || dstFI == null) {
     				error(conni, "Connection source or destination is null");
     				return DONE;
     			}
-    			checkPortConsistency(srcFI,dstFI, conni);
+    			if (srcFI instanceof FeatureInstance && dstFI instanceof FeatureInstance){
+    			checkPortConsistency((FeatureInstance)srcFI,(FeatureInstance)dstFI, conni);
+    			}
     			return DONE;
     		}
 		};
+    }
+    
+    public void doHeaders(){
+		String header = "connection,source,destination,source Word ID,destination Word ID, source First Bit, destination First Bit, source Number Bits, destination Number Bits, \n\r";
+    	csvlog(header);
     }
 
 	
     public void checkPortConsistency(FeatureInstance srcFI, FeatureInstance dstFI, ConnectionInstance conni){
     	Property WordID = GetProperties.lookupPropertyDefinition(conni,"ARINC429","WordID");
-    	Property StartBit = GetProperties.lookupPropertyDefinition(conni,"ARINC429","StartBit");
+    	Property StartBit = GetProperties.lookupPropertyDefinition(conni,"ARINC429","FirstBit");
     	Property NumberBits = GetProperties.lookupPropertyDefinition(conni,"ARINC429","NumberBits");
     	
-    	if (WordID != null){
     		csvlog(conni.getName()+","+srcFI.getContainingComponentInstance().getName()+"."+srcFI.getName()+","+ dstFI.getContainingComponentInstance().getName()+"."+dstFI.getName()+",");
     		long srcWordID =PropertyUtils.getIntegerValue(srcFI,WordID,0);
     		long dstWordID =PropertyUtils.getIntegerValue(dstFI,WordID,0);
-    		if (srcWordID > 0 && dstWordID > 0){
-    			if (srcWordID != dstWordID){
-    				error(conni, "Source Word ID "+srcWordID+" and Word ID "+dstWordID+" differ");
-    			}
+    		if (srcWordID > 0 || dstWordID > 0){
     			csvlog(srcWordID+","+ dstWordID+",");
     		} else {
     			csvlog(","+",");
     		}
-    	}
-    	if (StartBit != null){
     		long srcStartBit =PropertyUtils.getIntegerValue(srcFI, StartBit,-1);
     		long dstStartBit =PropertyUtils.getIntegerValue(dstFI, StartBit,-1);
-    		if (srcStartBit > -1 && dstStartBit > -1){
-    			if (srcStartBit != dstStartBit){
-    				error(conni, "Source Start Bit "+srcStartBit+" and destination Start Bit "+dstStartBit+" differ");
-    			}
+    		if (srcStartBit > -1 || dstStartBit > -1){
         		csvlog(srcStartBit+","+ dstStartBit+",");
         	} else {
         		csvlog(","+",");
     		}
-    	} else {
-    		csvlog(","+",");
-    	}
-    	if (NumberBits != null){
     		long srcC =PropertyUtils.getIntegerValue(srcFI, NumberBits,0);
     		long dstC =PropertyUtils.getIntegerValue(dstFI, NumberBits,0);
-    		if (srcC >0 && dstC > 0){
-    			if (srcC != dstC){
-    				error(conni, "Source number bits "+srcC+" and destination number bits "+dstC+" differ");
-    			}
+    		if (srcC >0 || dstC > 0){
         		csvlog(srcC+","+ dstC+",");
         	} else {
         		csvlog(","+",");
     		}
-    	} else {
-    		csvlog(","+",");
-    	}
+
+    	// error logging
+    	
+    		if (srcWordID > 0 && dstWordID > 0){
+    			if (srcWordID != dstWordID){
+    				error(conni, "Source Word ID "+srcWordID+" and Word ID "+dstWordID+" differ");
+    			}
+    		}
+    		if (srcStartBit > -1 && dstStartBit > -1){
+    			if (srcStartBit != dstStartBit){
+    				error(conni, "Source Start Bit "+srcStartBit+" and destination Start Bit "+dstStartBit+" differ");
+    			}
+    		}
+    		if (srcC >0 && dstC > 0){
+    			if (srcC != dstC){
+    				error(conni, "Source number bits "+srcC+" and destination number bits "+dstC+" differ");
+    			}
+    		}
+ 
+    	
     	csvlogNewline("");
     }
 
-
-	private void initcsvlog(Element e){
-	   	action.setCSVLog("ARINC429Consistency", e);
-	}
-	
-	private String buffer = "";
-	
 	private void csvlog(String s){
-		buffer = buffer+s;
-	}
-	private void csvlogNewline(String s){
-		action.logInfo(buffer+s);
-		buffer = "";
+		action.logInfoNoNewLine(s);
 	}
 
+	private void csvlogNewline(String s){
+		action.logInfo(s);
+	}
+
+
+	private void error(NamedElement el,String s){
+		super.error(el, s);
+		action.logInfoNoNewLine(s+",");
+	}
 
 }

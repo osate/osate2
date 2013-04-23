@@ -55,6 +55,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.UnparseText;
@@ -90,14 +91,16 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 			/**
 			 * check port properties for connection end points
 			 */
-    		public Object casePortConnectionInstance(ConnectionInstance conni)  {
-    			FeatureInstance srcFI = (FeatureInstance) conni.getSource();
-    			FeatureInstance dstFI = (FeatureInstance) conni.getDestination();
+    		public Object caseConnectionInstance(ConnectionInstance conni)  {
+    			ConnectionInstanceEnd srcFI = conni.getSource();
+    			ConnectionInstanceEnd dstFI = conni.getDestination();
     			if ( srcFI == null || dstFI == null) {
     				error(conni, "Connection source or destination is null");
     				return DONE;
     			}
-    			checkPortConsistency(srcFI,dstFI, conni);
+    			if (srcFI instanceof FeatureInstance && dstFI instanceof FeatureInstance){
+    				checkPortConsistency((FeatureInstance)srcFI,(FeatureInstance)dstFI, conni);
+    			}
     			return DONE;
     		}
 		};
@@ -105,7 +108,7 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
     
     public void doHeaders(){
 		/* here we are creating the connection checking switches */
-		String header = "connection,source,destination,source Data Size,destination Data Size, source Rate, destination Rate, source Base Type, destination Base Type, source Measurement Unit, destination Measurement Unit, \n\r";
+		String header = "connection,source,destination,source Data Size,destination Data Size,source Output Rate, destination Input Rate, source Data Rate, destination Data Rate, source Base Type, destination Base Type, source Measurement Unit, destination Measurement Unit, \n\r";
     	csvlog(header);
 
     }

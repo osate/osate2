@@ -58,7 +58,7 @@ public final class DoPortConnectionConsistency extends AaxlReadOnlyActionAsJob {
 	}
 	
 	protected String getMarkerType() {
-		return "edu.cmu.sei.aadl.architecture.PortConnectionConsistencyObjectMarker";
+		return "org.osate.analysis.architecture.PortConnectionConsistencyObjectMarker";
 	}
 
 	protected String getActionName() {
@@ -88,15 +88,6 @@ public final class DoPortConnectionConsistency extends AaxlReadOnlyActionAsJob {
 			throw new OperationCanceledException();
 		}
 		monitor.done();
-		AnalysisErrorReporterManager em = getErrorManager();
-		if (em.getNumErrors()==0 && em.getNumWarnings()==0 && em.getNumInfos()==0){
-			info(root, "All connection ports are consistent");
-
-			Dialog.showInfo("Port Connection Consistency Checking ", "Found no inconsistencies.");
-		} else {
-
-			Dialog.showInfo("Port Connection Consistency Checking ", "For warnings and errors see Problem View");
-		}
 	}
 }
 

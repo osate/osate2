@@ -127,7 +127,7 @@
                tooltip="%A429ConnectionConsistency.toolTip"
                icon="%A429ConnectionConsistency.icon"
                class="org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency"
-               menubarPath="menu.analyses/menu.semantic/stuff.grp"
+               menubarPath="menu.analyses/menu.arch/stuff.grp"
                toolbarPath="arch.toolbar"
                enablesFor="1">
             <enablement>
@@ -269,7 +269,7 @@
                tooltip="%A429ConnectionConsistency.toolTip"
                icon="%A429ConnectionConsistency.icon"
                class="org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Semantic/anal.grp"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Arch/anal.grp"
                enablesFor="1"/>
          
          <action
@@ -366,6 +366,14 @@
    <extension
          id="A429ConnectionConsistencyObjectMarker"
          name="A429 Connection Consistency Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension
+         id="PortConnectionConsistencyObjectMarker"
+         name="Port Connection Consistency Marker"
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>

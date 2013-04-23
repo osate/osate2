@@ -42,6 +42,7 @@ package org.osate.analysis.architecture.actions;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.architecture.ARINC429ConnectionConsistency;
@@ -58,7 +59,7 @@ public final class CheckA429PortConnectionConsistency extends AaxlReadOnlyAction
 	}
 	
 	protected String getMarkerType() {
-		return "edu.cmu.sei.aadl.architecture.A429ConnectionConsistencyObjectMarker";
+		return "org.osate.analysis.architecture.A429ConnectionConsistencyObjectMarker";
 	}
 	
 	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
@@ -73,6 +74,7 @@ public final class CheckA429PortConnectionConsistency extends AaxlReadOnlyAction
 
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 		ARINC429ConnectionConsistency pcc = new ARINC429ConnectionConsistency(monitor, this);
+		pcc.doHeaders();
 		pcc.processPreOrderAll(si);
 		if(pcc.cancelled()) {
 			throw new OperationCanceledException();
@@ -83,4 +85,12 @@ public final class CheckA429PortConnectionConsistency extends AaxlReadOnlyAction
 	protected String getActionName() {
 		return "Check ARINC429 connection consistency";
 	}
+	
+
+	@Override
+	protected boolean initializeAction(NamedElement obj) {
+	    	setCSVLog("ARINC429Consistency", obj);
+			return true;
+	}
+
 }
