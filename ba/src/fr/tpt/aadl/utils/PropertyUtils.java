@@ -950,6 +950,22 @@ public class PropertyUtils {
     }
     return null ;
   }
+  
+  public static PropertyAssociation getPropertyAssociation(NamedElement c,
+		  												   String propertyName)
+  {
+	Property p = null ;
+	  
+    for(PropertyAssociation pa : c.getOwnedPropertyAssociations())
+    {
+      p = pa.getProperty();
+      if(p.getName().equalsIgnoreCase(propertyName))
+      {
+        return pa ;
+      }
+    }
+    return null;
+  }
 
   /**
    * Returns the list of property association which match
