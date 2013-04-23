@@ -21,38 +21,50 @@
 
 package fr.tpt.aadl.utils;
 
-import java.io.File ;
-import java.net.URL ;
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.FileLocator ;
-import org.eclipse.core.runtime.Platform ;
-import org.eclipse.xtext.nodemodel.ICompositeNode ;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.BehavioredImplementation;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.Element ;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.parsesupport.LocationReference ;
+import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osgi.framework.Bundle ;
+import org.osgi.framework.Bundle;
 
 public class Aadl2Utils
 {
@@ -67,12 +79,104 @@ public class Aadl2Utils
    */
   public static List<Feature> orderFeatures(ComponentType cpt)
   {
-    List<Feature> res = new ArrayList<Feature>() ;
-    res.addAll(cpt.getAllFeatures()) ;
+	  List<PrototypeBinding> inheritedBindings = Collections.emptyList();
+	  return orderFeatures(cpt, inheritedBindings);
+  }
+  
+  /**
+   * Returns the sorted (see FeaturePositionComparator) list of features (included
+   * inherited features) owned by the given ComponentType object.
+   * 
+   * @param cpt the given ComponentType object
+   * @param inheritedBindings inherited prototype bindings
+   * @return the sorted list of features owned by the given Component object
+   */
+  public static List<Feature> orderFeatures(ComponentType cpt, List<PrototypeBinding> inheritedBindings)
+  {
+    
+	//List<PrototypeBinding> bindings = cpt.getOwnedPrototypeBindings();
+	List<PrototypeBinding> bindings = new ArrayList<PrototypeBinding>();
+    bindings.addAll(cpt.getOwnedPrototypeBindings());
+    bindings.addAll(inheritedBindings);
+	  
+	List<Feature> res = new ArrayList<Feature>() ;
+    for(Feature f : cpt.getAllFeatures())
+    {
+    	res.add(getBindedFeature(bindings, f));
+    }
+    
+    //res.addAll(cpt.getAllFeatures()) ;
     FeaturePositionComparator comparator = new FeaturePositionComparator() ;
     Collections.sort(res, comparator) ;
     return res ;
   }
+  
+  private static Feature getBindedFeature(List<PrototypeBinding> bindings, Feature f)
+  {
+	  FeatureClassifier cl = f.getFeatureClassifier();
+	  if ((! (cl instanceof DataPrototype)) || bindings==null || bindings.isEmpty())
+	  {
+		  return f;
+	  }
+	  if ((f instanceof EventPort) || (f instanceof AbstractFeature))
+	  {
+		  return f;
+	  }
+	  
+	  DataPrototype proto = (DataPrototype) cl;
+	  
+	  for(PrototypeBinding b : bindings)
+	  {
+		  if (!(b instanceof ComponentPrototypeBinding))
+		  {
+			  continue;
+		  }
+		  
+		  ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) b;
+		  Prototype p = b.getFormal();
+		  if (p.getName().equals(proto.getName()))
+		  {
+			  List<ComponentPrototypeActual> actuals = cpb.getActuals();
+			  if (actuals!=null && !actuals.isEmpty())
+			  {
+				  ComponentPrototypeActual actual = actuals.get(0);
+				  SubcomponentType st = actual.getSubcomponentType();
+				  if (!(st instanceof DataClassifier))
+				  {
+					  continue;
+				  }
+				  DataClassifier dc = (DataClassifier) st;
+				  return setFeatureClassifier(f, dc);
+			  }
+		  }
+	  }
+	  
+	  return f;
+  }
+  
+  private static Feature setFeatureClassifier(Feature f, DataClassifier dc)
+  {
+	  System.out.println("feature " + f.getName() + "("+f+")  classifier is set to " + dc.getName());
+	  
+	  if (f instanceof Parameter)
+	  {
+		  ((Parameter) f).setDataFeatureClassifier(dc);
+	  }
+	  else if (f instanceof DataAccess)
+	  {
+		  ((DataAccess) f).setDataFeatureClassifier(dc);
+	  }
+	  else if (f instanceof DataPort)
+	  {
+		  ((DataPort) f).setDataFeatureClassifier(dc);
+	  }
+	  else if (f instanceof EventDataPort)
+	  {
+		  ((EventDataPort) f).setDataFeatureClassifier(dc);
+	  }
+	  return f;
+  }
+  
   /*
   public static List<StructuralFeature> orderFeaturesAndFeaturesPrototype(ComponentType cpt)
   {
