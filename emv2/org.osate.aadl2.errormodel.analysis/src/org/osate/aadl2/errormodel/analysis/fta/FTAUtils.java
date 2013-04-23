@@ -8,7 +8,9 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
@@ -118,7 +120,23 @@ public class FTAUtils
 		return result;
 	}
 	
-	public static List<Event> findIncomingPropagations (ComponentInstance relatedInstance, ConditionElement conditionElement)
+	public static void findPropagationSource (NamedElement feature, List<ComponentInstance> componentInstances)
+	{
+		for (ComponentInstance ci : componentInstances)
+		{
+//			for (Feature f : ci.getComponentClassifier().getAllFeatures())
+//			{
+
+				for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(ci.getComponentClassifier()))
+				{
+						OsateDebug.osateDebug("debug on " + ci);
+				}
+		//	}
+		}
+	}
+	
+	
+	public static List<Event> findIncomingPropagations (ComponentInstance relatedInstance, ConditionElement conditionElement, List<ComponentInstance> componentInstances)
 	{
 		List<Event> propagations;
 		Classifier cl;
@@ -159,7 +177,7 @@ public class FTAUtils
 							for (TypeToken tt : ts.getElementType())
 							{
 								OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
-								newEventName += " (type " +tt.getType().get(0).getName() +")";
+								newEventName += "(type " +tt.getType().get(0).getName() +")";
 							}
 							newEvent.setName (newEventName);
 							newEvent.setEventType(EventType.EVENT);
@@ -217,7 +235,7 @@ public class FTAUtils
 					else
 					{
 						fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
-						List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement);
+						List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement, componentInstances);
 						for (Event tmpEvent : propagations)
 						{
 							event.addSubEvent(tmpEvent);
