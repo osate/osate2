@@ -160,7 +160,15 @@ public class Event
 		
 		if (this.type == EventType.EVENT)
 		{
-			sb.append ("B " + this.identifier + " 0\n");
+			String tmp = this.name;
+			tmp = tmp.replace(' ', '_');
+			tmp = tmp.replace('/', '-');
+			tmp = tmp.replace('(', '-');
+			tmp = tmp.replace(')', '-');
+			tmp = tmp.replace("__", "_");
+			
+			tmp = tmp.toLowerCase();
+			sb.append ("B " + tmp  + this.identifier + " 0\n");
 			return sb.toString();
 		}
 		
