@@ -41,6 +41,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
@@ -957,7 +958,11 @@ public class GetProperties {
 	public static EnumerationLiteral getRateUnit(final RecordValue ne) {
 		EList<BasicPropertyAssociation> fields = ne.getOwnedFieldValues();
 		 BasicPropertyAssociation rateUnit = getRecordField(fields, "Rate_Unit");
-		return rateUnit!=null?(EnumerationLiteral) rateUnit.getValue():null;
+		 PropertyExpression res = rateUnit.getValue();
+		 if (res instanceof NamedValue){
+			 return (EnumerationLiteral) ((NamedValue)res).getNamedValue();
+		 }
+		return null;
 	}
 
 	public static BasicPropertyAssociation getRecordField(EList<BasicPropertyAssociation> props,String fieldName){
