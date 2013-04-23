@@ -1338,7 +1338,7 @@ public class EMV2Util {
 	public static Collection<ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl){
 		BasicEList<ErrorBehaviorTransition> unlist = new BasicEList<ErrorBehaviorTransition>();
 		Collection<ErrorBehaviorTransition> res = getAllErrorBehaviorTransitions(cl, unlist).values();
-		//res.addAll(unlist);
+		res.addAll(unlist);
 		return res;
 	}
 	
