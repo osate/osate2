@@ -311,11 +311,6 @@
                label="ARINC653"
                path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
-             <visibleWhen checkEnabled="false">
-            <with variable="activeWorkbenchWindow.activePerspective">
-                <equals value="AADL"/>
-            </with>
-         </visibleWhen>
          </menu>
         
          <action

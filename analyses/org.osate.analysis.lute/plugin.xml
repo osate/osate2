@@ -6,7 +6,7 @@
 		<actionSet
 			id="org.osate.validation.lute.actionSet"
 			label="Lute Set"
-			visible="true">
+			visible="false">
 
          <menu
                id="menu.osate"
@@ -30,6 +30,11 @@
                label="Lute"
                path="menu.analyses/top.grp">
             <groupMarker name="stuff.grp"/>
+             <visibleWhen checkEnabled="false">
+            <with variable="activeWorkbenchWindow.activePerspective">
+                <equals value="AADL"/>
+            </with>
+         </visibleWhen>
          </menu>
          
          <action
