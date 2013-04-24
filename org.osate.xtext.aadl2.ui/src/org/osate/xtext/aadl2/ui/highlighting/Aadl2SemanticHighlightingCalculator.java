@@ -83,14 +83,15 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 
 			for(AnnexLibrary library : EcoreUtil2.eAllOfType(obj, AnnexLibrary.class)) {
 				AnnexHighlighterPositionAcceptor annexAcceptor = createAcceptor(library, acceptor);
+				
 				if(annexAcceptor != null) {
-					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(library);
-					if (apr != null){
-						addHighlight(apr, annexAcceptor);
+					AnnexHighlighter highlighter = registry.getAnnexHighlighter(library.getName());
+					if(highlighter != null)	{
+						highlighter.highlightAnnexLibrary(library, annexAcceptor);
 					} else {
-						AnnexHighlighter highlighter = registry.getAnnexHighlighter(library.getName());
-						if(highlighter != null)	{
-							highlighter.highlightAnnexLibrary(library, annexAcceptor);
+						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(library);
+						if (apr != null){
+							addHighlight(apr, annexAcceptor);
 						}
 					}
 				}
