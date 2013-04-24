@@ -51,6 +51,8 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
@@ -318,8 +320,8 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 				List<ModeTransitionTableRow> modeTransitionList = new ArrayList<ModeTransitionTableRow>();
 				if(inputElement instanceof Mode) {
 					Mode mode = (Mode)inputElement;
-
-					for(Iterator<ModeTransition> transitionInstanceIt = mode.getContainingComponentImpl().getAllModeTransitions().iterator(); transitionInstanceIt.hasNext();){
+					ComponentClassifier cl = (ComponentClassifier) mode.getContainingClassifier();
+					for(Iterator<ModeTransition> transitionInstanceIt = cl.getAllModeTransitions().iterator(); transitionInstanceIt.hasNext();){
 						ModeTransition transition = transitionInstanceIt.next();
 						Mode source = transition.getSource();
 						Mode destination = transition.getDestination();
@@ -364,7 +366,7 @@ public class ModesView extends ViewPart implements PropertyChangeListener, IPart
 			return;
 
 		Mode selectedMode = ModeManager.NO_MODES;
-		if(selectedElement instanceof ModeInstance) {
+		if(selectedElement instanceof Mode) {
 			selectedMode = (Mode)selectedElement;
 		}else if(selectedElement instanceof ModeTransitionTableRow) {
 			selectedMode = ((ModeTransitionTableRow)selectedElement).getDestination();
