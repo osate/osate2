@@ -2,12 +2,14 @@
 <?eclipse version="3.0"?>
 <plugin>
 
+
+       
      <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
             id="org.osate.analysis.fault.actionSet"
             label="%actionSet.label"
-            visible="true">
+            visible="false">
 
          <menu
                id="menu.osate"
@@ -24,6 +26,7 @@
                path="menu.osate">
             <groupMarker name="top.grp"/>
             <groupMarker name="bottom.grp"/>
+
          </menu>
 
          <menu
@@ -31,6 +34,7 @@
                label="%menu.fault.label"
                path="menu.analyses/top.grp">
             <groupMarker name="stuff.grp"/>
+
          </menu>
 
          
@@ -186,12 +190,25 @@
       </actionSet>
    </extension>
 
+
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="org.osate.analysis.fault.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+   
+   
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             id="org.osate.analysis.architecture.oc1"
             objectClass="java.lang.Object">
+            
          <visibility>
+         
             <or>
                <and>
                   <objectClass name="org.eclipse.core.resources.IFile"/>
@@ -207,6 +224,7 @@
                path="additions">
             <groupMarker name="anal.grp"/>
             <groupMarker name="subMenus.grp"/>
+
          </menu>
 
          <menu
@@ -214,6 +232,7 @@
                label="%popupMenu.Fault.label"
                path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
+
          </menu>
         
          <action
