@@ -14,6 +14,7 @@ package org.osate.imv.osate.filters;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.osate.aadl2.Mode;
@@ -65,7 +66,7 @@ public class ModeFilter extends ViewerFilter {
 				// For each SOM, get the mode list and check if the current mode is present.
 				for(Iterator<SystemOperationMode> it = opModeList.iterator(); it.hasNext(); ){
 					// Current modes list will never be null.
-					if(it.next().getCurrentModes().contains(currentMode)){
+					if(containsMode(it.next().getCurrentModes(),currentMode)){
 						existsInMode = true;
 						break;
 					}
@@ -74,6 +75,13 @@ public class ModeFilter extends ViewerFilter {
 		}
 
 		return existsInMode;
+	}
+	
+	protected boolean containsMode(EList<ModeInstance> ml, Mode m){
+		for (ModeInstance modeInstance : ml) {
+			if (modeInstance.getMode() == m) return true;
+		}
+		return false;
 	}
 
 	public Mode getCurrentMode() {
