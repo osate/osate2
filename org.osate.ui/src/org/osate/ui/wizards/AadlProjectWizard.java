@@ -82,6 +82,12 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  */
 public class AadlProjectWizard extends BasicNewResourceWizard implements IExecutableExtension {
 
+	
+	public WizardNewProjectReferencePage getReferencePage ()
+	{
+		return (this.referencePage);
+	}
+	
 	protected WizardNewProjectReferencePage referencePage;
 
 	/**
@@ -125,6 +131,8 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 	//cache of newly-created project
 	protected IProject newProject;
 
+
+	
 	/**
 	 * This is the project creation page.
 	 */
@@ -162,7 +170,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		newProjectCreationPage.setDescription("Create a new Aadl project resource."); //$NON-NLS-1$
 		this.addPage(newProjectCreationPage);
 
-		referencePage = new AADLWizardReferencePage("projectReferencePage");
+		referencePage = new AadlWizardReferencePage("projectReferencePage");
 		referencePage.setTitle("AADL Settings");
 		referencePage.setDescription("Define the AADL Settings");
 
@@ -396,48 +404,4 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		BasicNewProjectResourceWizard.updatePerspective(configElement);
 	}
 
-	protected class AADLWizardReferencePage extends WizardNewProjectReferencePage {
-
-		public AADLWizardReferencePage(String pageName) {
-			super(pageName);
-		}
-
-		@Override
-		protected IStructuredContentProvider getContentProvider() {
-
-			return new WorkbenchContentProvider() {
-				public Object[] getChildren(Object element) {
-					if (!(element instanceof IWorkspace)) {
-						return new Object[0];
-					}
-					IProject[] projects = ((IWorkspace) element).getRoot().getProjects();
-
-					IProject project;
-					ArrayList<IProject> projectsWithNatures = new ArrayList<IProject>();
-					for (int i = 0; i < projects.length; i++) {
-						project = projects[i];
-						try {
-							if( project.isOpen() )
-							{
-								if (project.hasNature(XtextProjectHelper.NATURE_ID)) {
-									projectsWithNatures.add(project);
-								}
-							}
-						} catch (CoreException e) {
-							MessageDialog
-							.openError(getShell(),
-									"Project Problems", //$NON-NLS-1$
-									MessageFormat
-											.format("Project does not exist or is not open", e.getStackTrace().toString() ));
-						} 
-					}
-
-					return projectsWithNatures.toArray();
-
-					// return projects == null ? new Object[0] : projects;
-				}
-			};
-		}
-
-	}
 }
