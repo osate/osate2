@@ -18,9 +18,11 @@ import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.DelegatingLayout;
+import org.eclipse.draw2d.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
+import org.osate.aadl2.NamedElement;
 import org.osate.imv.aadldiagram.aadlfigures.components.AbstractFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.BusFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.ComponentFigure;
@@ -218,6 +220,14 @@ public class AadlFigureFactory {
 
 		figure.setConnectionRouter(new BendpointConnectionRouter());
 		figure.setLayoutManager(new DelegatingLayout());
+		Object ele = adapter.getModelElement();
+		if (ele instanceof NamedElement){
+			String name = ((NamedElement)ele).getName();
+			if (name != null && name.length() > 0){
+				figure.setToolTip(new Label(name));
+			}
+		}
+		
 
 		BendpointHelper.setDefaultBendpoints(figure);
 
