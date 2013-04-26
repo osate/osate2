@@ -14,6 +14,8 @@ import org.eclipse.core.runtime.IStatus ;
 import org.eclipse.core.runtime.MultiStatus ;
 import org.eclipse.core.runtime.Status ;
 import org.eclipse.jface.dialogs.ErrorDialog ;
+import org.eclipse.jface.layout.TreeColumnLayout ;
+import org.eclipse.jface.viewers.ColumnWeightData ;
 import org.eclipse.jface.viewers.DoubleClickEvent ;
 import org.eclipse.jface.viewers.IDoubleClickListener ;
 import org.eclipse.jface.viewers.IStructuredSelection ;
@@ -201,7 +203,6 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
       // Creates examples choice panel.
       
       Composite inheritePanel = (Composite) super.getControl() ;
-      
       Composite panelChoice = new Composite(inheritePanel, SWT.NULL); 
       
       GridLayout layout = new GridLayout();
@@ -209,6 +210,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
       
       panelChoice.setLayout(layout);
       panelChoice.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+      panelChoice.setFont(inheritePanel.getFont()) ;
       
       Label labelLeft = new Label(panelChoice, SWT.LEFT);
       labelLeft.setText("Available examples:") ;
@@ -417,19 +419,30 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
     
     protected TreeViewer createTree(Composite parent)
     {
+      GridData compLayout = new GridData(GridData.FILL_BOTH) ;
+      compLayout.heightHint = 200 ;
+      compLayout.widthHint = 200 ;
+      
+      Composite treeComposite = new Composite(parent, SWT.NONE) ;
+      treeComposite.setLayoutData(compLayout);
+      
       GridData dataLayout = new GridData(GridData.FILL_BOTH) ;
-      dataLayout.heightHint=200 ;
+      dataLayout.heightHint = compLayout.heightHint ;
+      dataLayout.widthHint = compLayout.widthHint ;
       
       int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL ;
-      Tree tree = new Tree(parent, style) ;
+      Tree tree = new Tree(treeComposite, style) ;
       tree.setLayoutData(dataLayout) ;
       tree.setLinesVisible(true) ;
       tree.setHeaderVisible(false) ;
+      tree.setFont(parent.getFont()) ;
       
       TreeColumn col = new TreeColumn (tree, SWT.LEFT);
-      col.setResizable(true) ;
-      col.setWidth(1) ;
       
+      TreeColumnLayout treeLayout = new TreeColumnLayout() ;
+      treeLayout.setColumnData(col, new ColumnWeightData(dataLayout.widthHint)) ;
+      treeComposite.setLayout(treeLayout) ;
+
       return new TreeViewer(tree) ;
     }
   }
