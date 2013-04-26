@@ -289,6 +289,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 
 			// Set input to viewer.
 			viewer.setInput(si);
+			this.isDirty = false;
 		}
 
 		createPopupMenu();
@@ -408,7 +409,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 	}
 
 	protected void editorIsDirty(boolean isDirty) {
-		this.isDirty = true;
+		this.isDirty = isDirty;
 		this.firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 
