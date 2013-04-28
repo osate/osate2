@@ -72,9 +72,9 @@ property set SEI is
   -- power supply by a component
   PowerSupply: aadlreal  units SEI::Power_Units applies to (bus access);
   -- capacity of a bus component for transfer of data
-  BandWidthCapacity: aadlreal  units Data_Volume_Units applies to (bus, system);
+  BandWidthCapacity: aadlreal  units Data_Rate_Units applies to (bus, system);
   -- demand for data transfer by a connection
-  BandWidthBudget: aadlreal  units Data_Volume_Units applies to (connection, virtual bus);
+  BandWidthBudget: aadlreal  units Data_Rate_Units applies to (connection, virtual bus);
   -- actual RAM requirement by application component
   -- This number may be supplied from a compiler when compiling the source
   -- This number is related to the Source_Code_Size and Source_Data_Size properties
@@ -86,8 +86,8 @@ property set SEI is
   Processor_Speed_Units: type units (KIPS, MIPS => KIPS * 1000, GIPS => MIPS * 1000);
   -- Power units
   Power_Units: type units (mW, W => mW * 1000, KW => W * 1000);
-  -- Data volume units : amount of data per second
--- now defined in core  Data_Volume_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
+  -- Data rate units : amount of data per second
+-- now defined in core  Data_Rate_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
   
   -- Data_Rate in the SAVI context. From the original POC demo
    Data_Rate: aadlreal  units (perSecond) applies to (port); -- We now have output_rate as predeclared property, but we keep this around as a simple proeprty
