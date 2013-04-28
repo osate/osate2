@@ -72,4 +72,8 @@ property set Communication_Properties is
 	
 	Latency: Time_Range
 		applies to (flow, connection, bus, processor, device, port);
+		
+	Data_Rate : aadlinteger 0 bitsps .. Max_Aadlinteger 
+                              units Data_Rate_Units applies to (feature);
+
 end Communication_Properties;
