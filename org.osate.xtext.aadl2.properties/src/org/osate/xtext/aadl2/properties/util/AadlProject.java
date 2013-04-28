@@ -113,6 +113,8 @@ public final class AadlProject {
 	public static final String MB_LITERAL = "MByte";
 	public static final String GB_LITERAL = "GByte";
 	
+	public static final String DATA_RATE_UNITS = "Data_Rate_Units";
+	
 	public static final String DATA_VOLUME_UNITS = "Data_Volume_Units";
 	public static final String BITSPS_LITERAL = "bitsps";
 	public static final String BPS_LITERAL = "Bytesps";
