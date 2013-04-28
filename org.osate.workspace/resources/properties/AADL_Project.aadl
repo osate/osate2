@@ -72,7 +72,4 @@ property set AADL_Project is
 
 	Data_Rate_Units: type	units (bitsps, Bytesps => bitsps * 8, KBytesps => Bytesps * 1000, MBytesps => KBytesps * 1000, GBytesps => MBytesps * 1000);
 
-	-- replaced by Data_Rate_Units
-	Data_Volume_Units: type	units (bitsps, Bytesps => bitsps * 8, KBytesps => Bytesps * 1000, MBytesps => KBytesps * 1000, GBytesps => MBytesps * 1000);
-
 end AADL_Project;
