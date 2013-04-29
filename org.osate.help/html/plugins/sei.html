@@ -32,13 +32,13 @@ shown in the following picture.
 <img src="activate-problem-view.png"/>
 
 <p>
-Eclipse classifies information into different categories: errors, warning and
-information. On some Eclipse installation, the problem view sometimes does not report
-all informations but the plug-ins use these different report categories.
-To be sure to enable all potential information from the plugin, make sure the problem
-view show all information, as shown below.
+Eclipse classifies Marker information into different categories: errors, warning and
+information. By default the Eclipse problem view only shows errors, so you may not see the results of an analysis if no errors are involved.
 </p>
-<img src="problem-view.png"/>
+<p>
+You can change the default setting by following the instructions at
+<strong><a href="../start/eclipse-basics.html">Eclipse Basics</a></strong>.
+</p>
 
 
 <h3>Statistics plug-in</h3>
@@ -511,6 +511,43 @@ The ARINC429 consistency checker is invoked on an instance model using the toolb
 </p>
 <p>
 Note that the numberbits property is redundant with the Source_Data_Size property. We chose to provide the numberbits property as separate property in order to support a development process where a team member, who is responsible for the mapping to the ARINC429 protocol, can work independently. We can extend the consistency checker to ensure that the numberbits property and the Source_Data_Size property have consistent values, or the Source_Data_Size property is used when the numberbits property value is not present.
+</p>
+
+<h3>Port Connection Consistency Checking</h3>
+<p>
+For every port connection instance the checker retrieves properties from the source port and the destination port and compares them. Port connection instances are always created between port instances of the lowest level component instances in the instance model. This means that for a model with processes or systems as the lowest components the connection instances start with and end with process or system ports. When the model is refined to the thread level the port connection instances are created between thread instance ports.
+</p>
+<p>
+When feature groups are defined and they contain ports, then the instance contains a separate port connection instance for each port.  In other words, the port connection checker validates the consistency for each port in the feature group.
+</p>
+<p>
+The following properties are currently compared:</p>
+
+<ul>
+<li>Source_Data_Size: this property indicates the size of the data communicated through the port.  The property may be associated 1) with the data type (data component classifier) referenced by the port, or 2) with the port itself.  The size is expected to be equal. This check is performed if both ports have a property value specified.
+</li>
+<li>
+Input_Rate and Output_Rate: this property indicates the expected input/output rate. It is a record value specifying a Value_range of real values and a Rate_Unit (PerDispatch or PerSecond). The Rate_Unit is expected to be equal and the source value range is expected to be contained in the destination value range. This check is performed if the source port has an output rate and the destination port has an input rate specified.
+</li>
+<li>
+SEI::Data_Rate: real value representing the rate without unit (assumed to be transfers per second); must be same value. Note: this property is provided as an alternative to using Input_Rate and OutPut_Rate. This check is performed if both ports have a property value specified.
+</li>
+<li>
+Data_Model::Base_Type: (reference to data classifier); must refer to same classifier. This check is performed if both ports have a property value specified.
+</li>
+</ul>
+<li>
+Data_Model::Measurement_Unit: (string); must be equal. This check is performed if both ports have a property value specified.
+</li>
+</ul>
+<p>
+These properties are associated with the ports, with data component types that are the port classifiers, or with the port features of feature group types.
+</p>
+<p>
+If a property value is missing for one or both ports no comparison is made and a message is reported.  
+</p>
+<p>
+For all port connection instances the source and destination port property values are recorded in a CSV file for processing by MS Excel. The resulting file can be found in the reports folder.
 </p>
 
 
