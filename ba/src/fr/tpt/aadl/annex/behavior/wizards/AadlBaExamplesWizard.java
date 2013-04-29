@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Label ;
 import org.eclipse.swt.widgets.Tree ;
 import org.eclipse.swt.widgets.TreeColumn ;
 import org.osate.ui.wizards.AadlProjectWizard ;
+import org.osate.ui.wizards.AadlWizardReferencePage ;
 import org.osate.workspace.WorkspacePlugin ;
 
 import com.google.common.io.Files ;
@@ -455,7 +456,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
     newProjectCreationPage.setDescription("Create a new Aadl Behaviort Annex project resource.");
     this.addPage(newProjectCreationPage);
     
-    referencePage = new AADLWizardReferencePage("projectReferencePage");
+    referencePage = new AadlWizardReferencePage("projectReferencePage");
     referencePage.setTitle("AADL Settings");
     referencePage.setDescription("Define the AADL Settings");
 
