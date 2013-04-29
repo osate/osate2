@@ -973,17 +973,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	}
 
 	public AnnexSubclause createAnnexSubclause() {
-		AnnexSubclauseImpl annex = new AnnexSubclauseImpl() {
-				private String annexContent;
-				public String getAnnexContent ()
-				{
-					return this.annexContent;
-				}
-				public void setAnnexContent (String s)
-				{
-					this.annexContent = s;
-				}
-		};
+		AnnexSubclauseImpl annex = new AnnexSubclauseImpl();
 		return annex;
 	}
 	
