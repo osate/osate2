@@ -26,6 +26,7 @@ import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
@@ -37,6 +38,7 @@ import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Property;
@@ -418,6 +420,54 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		}
 	}
 
+	public void addFlowPathsToComponent(AadlComponentAdapter componentAdapter) 
+	{
+		Object me = componentAdapter.getModelElement();
+		List<ConnectionItem> connectionList = this.getConnections(componentAdapter.getModelElement());
+		for(Iterator<ConnectionItem> it = connectionList.iterator(); it.hasNext();){
+			ConnectionItem connectionItem = it.next();
+			Connection connectionRef = (Connection)connectionItem.getModelElement();
+			IAadlElementAdapter srcAdapter = null;
+			IAadlElementAdapter dstAdapter = null;
+			if (me instanceof InstanceObject){
+				srcAdapter = this.modelElementToAdapterMap.get(connectionItem.getSrc());
+				dstAdapter = this.modelElementToAdapterMap.get(connectionItem.getDest());
+			} else {
+				Context dstCxt = connectionRef.getAllDestinationContext();
+				Context srcCxt = connectionRef.getAllSourceContext();
+				if (srcCxt instanceof Subcomponent){
+//					srcAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, srcCxt), (NamedElement)connectionItem.getSrc());
+					srcAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( srcCxt), (NamedElement)connectionItem.getSrc());
+				} else	if (srcCxt instanceof FeatureGroup){
+					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
+				} else	if (connectionItem.getSrc() instanceof Subcomponent){
+//					srcAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+					srcAdapter = this.modelElementToAdapterMap.get((NamedElement)connectionItem.getSrc());
+				} else {
+					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+				}
+				if (dstCxt instanceof Subcomponent){
+//					dstAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, dstCxt), (NamedElement)connectionItem.getDest());
+					dstAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( dstCxt), (NamedElement)connectionItem.getDest());
+				} else	if (dstCxt instanceof FeatureGroup){
+					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
+				} else if (connectionItem.getDest() instanceof Subcomponent){
+//					dstAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
+					dstAdapter = this.modelElementToAdapterMap.get( (NamedElement)connectionItem.getDest());
+				} else {
+					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
+				}
+			}
+
+			if(srcAdapter != null && dstAdapter != null) {
+				// Create connection adapter for this connection.
+				AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connectionRef, this.getConnectionDecorationType(connectionRef), this.labelProvider, srcAdapter, dstAdapter);
+				// Add to component.
+				componentAdapter.addChild(connectionAdapter);
+			}
+		}
+	}
+
 
 	public AadlFeatureAdapter findFeatureAdapter(AadlComponentAdapter componentAdapter, NamedElement feature){
 		Iterator<AadlFeatureAdapter> collection = componentAdapter.getChildFeatures();
@@ -594,6 +644,88 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				}
 			}
 		}
+
+		return connectionList;
+	}
+
+
+	
+	public List<ConnectionItem> getFlowPaths(Object element) {
+		List<ConnectionItem> connectionList = new ArrayList<ConnectionItem>();
+////		List<FeatureGroupConnection> featureGroupConnections = new ArrayList<FeatureGroupConnection>();
+//		ComponentType ctype = null;
+//		if(element instanceof ComponentInstance){
+//			if (element instanceof SystemInstance){
+//				ctype = ((SystemInstance)element).getSystemImplementation().getType();
+//			} else {
+//				ComponentClassifier cl = ((ComponentInstance)element).getComponentClassifier();
+//				if (cl instanceof ComponentImplementation){
+//					ctype = ((ComponentImplementation)cl).getType();
+//				} else {
+//					ctype = (ComponentType)cl;
+//				}
+//			}
+//			List<FlowSpecification> flowspecs = ctype.getAllFlowSpecifications();
+//			for(Iterator<FlowSpecification> it = flowspecs.iterator(); it.hasNext();){
+//				FlowSpecification fs = it.next();
+//				ConnectionInstanceEnd srcConnectionInstanceEnd = null;
+//				ConnectionInstanceEnd dstConnectionInstanceEnd = null;
+//				ComponentInstance context = (ComponentInstance)element;
+//
+//				// Get connection source.
+//				ConnectionEnd srcEnd = fs.getAllSource();
+//				NamedElement componentCntxt = fs.getAllSrcContextComponent();
+//				NamedElement srcCxt = fs.getAllSourceContext();
+//				if (srcCxt instanceof FeatureGroup){
+//					// connect to feature group
+//					srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcCxt);
+//				} else {
+//					srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcEnd);
+//				}
+//
+//				// Get connection destination.
+//				ConnectionEnd dstEnd = conn.getAllDestination();
+//				componentCntxt = conn.getAllDstContextComponent();
+//				NamedElement dstCxt = conn.getAllDestinationContext();
+//				if (dstCxt instanceof FeatureGroup){
+//					// connect to feature group
+//					dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstCxt);
+//				} else {
+//					dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstEnd);
+//				}
+//
+//				if(srcEnd != null && dstEnd != null) {
+//					// We need to check for duplicate feature group connections (i.e. only one connection should be returned
+//					// for feature group connections.
+//					if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
+//						connectionList.add(new ConnectionItem(srcConnectionInstanceEnd, dstConnectionInstanceEnd, conn));
+//					}
+//				}
+//
+////				break;
+//			}
+//		}
+//		// Only component implementations have connections.
+//		if(element instanceof ComponentImplementation){
+//			cimpl = (ComponentImplementation)element;
+//			// Get connection .
+//			List<Connection> connections = cimpl.getAllConnections();
+//			for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
+//				Connection conn = it.next();
+//
+//				// Get connection source.
+//				ConnectionEnd srcEnd = conn.getAllSource();
+//
+//				// Get connection destination.
+//				ConnectionEnd dstEnd = conn.getAllDestination();
+//
+//				if(srcEnd != null && dstEnd != null) {
+//					// We need to check for duplicate feature group connections (i.e. only one connection should be returned
+//					// for feature group connections.
+//					connectionList.add(new ConnectionItem(srcEnd, dstEnd, conn));
+//				}
+//			}
+//		}
 
 		return connectionList;
 	}

@@ -16,6 +16,7 @@ import org.osate.imv.aadldiagram.adapters.AadlBindingAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
+import org.osate.imv.aadldiagram.adapters.AadlFlowPathAdapter;
 
 public class AadlAdapterVisitor {
 
@@ -35,6 +36,10 @@ public class AadlAdapterVisitor {
 	}
 
 	public void visitAadlConnectionAdapter(AadlConnectionAdapter adapter) {
+		// Explicitly do nothing - this is a default implementation.
+	}
+
+	public void visitAadlFlowPathAdapter(AadlFlowPathAdapter adapter) {
 		// Explicitly do nothing - this is a default implementation.
 	}
 	

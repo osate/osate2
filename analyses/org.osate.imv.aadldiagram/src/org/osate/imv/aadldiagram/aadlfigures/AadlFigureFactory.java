@@ -19,6 +19,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.Label;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
@@ -50,6 +51,7 @@ import org.osate.imv.aadldiagram.adapters.AadlBindingAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
+import org.osate.imv.aadldiagram.adapters.AadlFlowPathAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.bindingdecorations.BindingDecoration;
 import org.osate.imv.aadldiagram.bindingdecorations.BindingDecorationType;
@@ -221,10 +223,12 @@ public class AadlFigureFactory {
 		figure.setConnectionRouter(new BendpointConnectionRouter());
 		figure.setLayoutManager(new DelegatingLayout());
 		Object ele = adapter.getModelElement();
+		ILabelProvider lp = adapter.getLabelProvider();
+		String s2=lp.getText(ele);
 		if (ele instanceof NamedElement){
 			String name = ((NamedElement)ele).getName();
 			if (name != null && name.length() > 0){
-				figure.setToolTip(new Label(name));
+				figure.setToolTip(new Label(s2));
 			}
 		}
 		
@@ -248,6 +252,52 @@ public class AadlFigureFactory {
 				break;
 			}
 		}
+
+		return figure;
+	}
+
+	public SelectableMevConnectionFigure buildFigure(AadlFlowPathAdapter adapter) {
+		SelectableMevConnectionFigure figure = null;
+		IAadlElementAdapter srcAdapter = adapter.getSourceAdapter();
+		IAadlElementAdapter dstAdapter = adapter.getDestinationAdapter();
+
+		// Create figure.
+		figure = new SelectableMevConnectionFigure();
+
+		// Set connection anchors.
+		figure.setSourceAnchor(srcAdapter.getConnectionAnchor(figure));
+		figure.setTargetAnchor(dstAdapter.getConnectionAnchor(figure));
+
+		figure.setConnectionRouter(new BendpointConnectionRouter());
+		figure.setLayoutManager(new DelegatingLayout());
+		Object ele = adapter.getModelElement();
+		if (ele instanceof NamedElement){
+			String name = ((NamedElement)ele).getName();
+			if (name != null && name.length() > 0){
+				figure.setToolTip(new Label(name));
+			}
+		}
+		
+
+		BendpointHelper.setDefaultBendpoints(figure);
+
+//		// Configure connection figure.
+//		figure.setAntialias(SWT.ON);
+//
+//		// Set decoration.
+//		switch(adapter.getDecorationType()) 
+//		{
+//			case IMMEDIATE:
+//			{
+//				figure.add(new PortConnectionDecoration(DecorationType.IMMEDIATE), new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+//				break;
+//			}
+//			case DELAYED:
+//			{
+//				figure.add(new PortConnectionDecoration(DecorationType.DELAYED), new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+//				break;
+//			}
+//		}
 
 		return figure;
 	}

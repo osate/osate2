@@ -41,6 +41,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	private List<AadlFeatureAdapter> childFeatures;
 	private List<AadlBindingAdapter> childBindings;
 	private List<AadlConnectionAdapter> childConnections;
+	private List<AadlFlowPathAdapter> childFlowPaths;
 
 	/**
 	 * Delegate for handling figure movement.
@@ -131,6 +132,11 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		this.addChildFigure(adapter);
 	}
 
+	public void addChild(AadlFlowPathAdapter adapter) {
+		this.childFlowPaths.add(adapter);
+		this.addChildFigure(adapter);
+	}
+
 	public Iterator<AadlComponentAdapter> getChildComponents() {
 		return this.childComponents.iterator();
 	}
@@ -143,6 +149,10 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		return this.childConnections.iterator();
 	}
 
+	public Iterator<AadlFlowPathAdapter> getChildFlowPaths() {
+		return this.childFlowPaths.iterator();
+	}
+
 	public Iterator<IAadlElementAdapter> getAllChildren() {
 		List<IAadlElementAdapter> retList = new ArrayList<IAadlElementAdapter>();
 
@@ -150,6 +160,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		retList.addAll(this.childFeatures);
 		retList.addAll(this.childConnections);
 		retList.addAll(this.childBindings);
+		retList.addAll(this.childFlowPaths);
 		// phf:  recurse on subcomponent adapters
 		for(AadlComponentAdapter comp : this.childComponents) {
 			for(Iterator<IAadlElementAdapter> it = comp.getAllChildren(); it.hasNext();)
@@ -163,6 +174,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		this.childComponents = new ArrayList<AadlComponentAdapter>();
 		this.childFeatures = new ArrayList<AadlFeatureAdapter>();
 		this.childConnections = new ArrayList<AadlConnectionAdapter>();
+		this.childFlowPaths = new ArrayList<AadlFlowPathAdapter>();
 		this.childBindings = new ArrayList<AadlBindingAdapter>();
 	}
 
@@ -195,7 +207,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 			this.figureMoverDelegate.mouseReleased(me);
 	}
 
-
+	// TODO XXX do we need FlowAnchor or can we use Connection anchors?
 	public ConnectionAnchor getConnectionAnchor(Connection connection) {
 		return new ComponentConnectionAnchor(this.getFigure(), connection);
 	}

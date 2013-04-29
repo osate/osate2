@@ -38,6 +38,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.imv.aadldiagram.aadlfigures.components.ComponentFigure;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
+import org.osate.imv.aadldiagram.adapters.AadlFlowPathAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.draw2d.BendpointHelper;
 
@@ -156,18 +157,28 @@ public class AadlDiagram extends FigureCanvas {
 		Point max = Point.SINGLETON;
 		max.setLocation(0, 0);
 		for(Iterator<AadlComponentAdapter> it = this.rootAdapter.getChildComponents(); it.hasNext();) {
-			Rectangle rect = it.next().getFigure().getBounds();
+			AadlComponentAdapter compAdapter = it.next();
+			Rectangle rect = compAdapter.getFigure().getBounds();
 			Point rectBottomRight = rect.getBottomRight();
 			Dimension dif = max.getDifference(rectBottomRight);
 			if(dif.width < 0) max.x = rectBottomRight.x;
 			if(dif.height < 0) max.y = rectBottomRight.y;
+			// XXX TODO add flowpaths
+//			for (Iterator<AadlFlowPathAdapter> itt = compAdapter.getChildFlowPaths(); it.hasNext();){
+//				AadlFlowPathAdapter flowAdapter = itt.next();
+//				if(flowAdapter.getSourceAdapter().getParentAdapter().isContainer() || flowAdapter.getDestinationAdapter().getParentAdapter().isContainer())
+//					continue;
+//				Rectangle flowrect = flowAdapter.getFigure().getBounds();
+//				Point flowrectBottomRight = flowrect.getBottomRight();
+//				Dimension flowdif = max.getDifference(flowrectBottomRight);
+//				if(flowdif.width < 0) max.x = flowrectBottomRight.x;
+//				if(flowdif.height < 0) max.y = flowrectBottomRight.y;
+//			}
 		}
 		for(Iterator<AadlConnectionAdapter> it = this.rootAdapter.getChildConnections(); it.hasNext();) {
 			AadlConnectionAdapter connAdapter = it.next();
-
 			if(connAdapter.getSourceAdapter().getParentAdapter().isContainer() || connAdapter.getDestinationAdapter().getParentAdapter().isContainer())
 				continue;
-
 			Rectangle rect = connAdapter.getFigure().getBounds();
 			Point rectBottomRight = rect.getBottomRight();
 			Dimension dif = max.getDifference(rectBottomRight);
@@ -230,6 +241,7 @@ public class AadlDiagram extends FigureCanvas {
 					connectionsToLayout.add(connAdapter.getLayoutItem());
 				}
 			}
+			// TODO XXX FlowPath processing
 
 			try {
 				Point location = new Point(0, 0);
