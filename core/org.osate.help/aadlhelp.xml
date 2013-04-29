@@ -5,9 +5,13 @@
     <topic href="html/overview.html" label="Overview">
     </topic>
     <topic href="html/start/index.html" label="Getting started">
+       <topic href="html/start/eclipse-basics.html" label="Eclipse basics">
+       </topic>
        <topic href="html/start/create-project.html" label="Create a project">
        </topic>
        <topic href="html/start/add-models.html" label="Adding models">
+       </topic>
+       <topic href="html/start/navigation-support.html" label="Navigating models">
        </topic>
        <topic href="html/start/instantiate.html" label="Instantiating models">
        </topic>
@@ -19,7 +23,7 @@
        </topic>
     </topic>
     <topic href="html/plugins/index.html" label="Plug-ins">
-       <topic href="html/plugins/imv.html" label="Instance Model Viewer">
+       <topic href="html/plugins/imv.html" label="Graphical Model Viewer (IMV)">
        </topic>
        <topic href="html/plugins/lute.html" label="LUTE">
        </topic>
