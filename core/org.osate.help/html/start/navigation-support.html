@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<H2>Getting started: navigation support</H2>
+<p>
+You can navigate AADL text models in several ways.
+</p>
+
+<p>
+<b>Outline</b> The outline view shows the model in the text editor as a tree structure. Selecting an element in the outline view causes the editor to move to that object in the text. You can disable this synchronization between the outline and the text with the double arrow button at the top of the Outline view. 
+You can also have to outline view sorted alphabetically instead of the order in the text. </p>
+<img src="outlinesort.png"/>
+<p>
+<b>Search</b>: You can use the Eclipse search facility under the Search menu to find things in AADL files. The results will be shown in a Search view.
+</p>
+<img src="searchresult.png"/>
+<p>
+Double click on one of the result entries and the AADL text editor will open this location.
+</p>
+<p>
+You can also use the find/replace capability within the AADL text editor. The commands are available under the <em>Edit</em> menu and can be invoked by short cut commands. The short cut keys are shown in the Edit menu. For example, <ctrl>f invokes the <em>Find</em> command.
+</p>
+
+<p>
+<b>Hyperlinks</b>: All references in an AADL model are hyperlinked to the model element the reference points to. 
+Hold down the <Ctrl> key while moving the cursor over a name that represents a reference, e.g., the classifier name in a subcomponent declaration. 
+This will underline the name do indicate that it is a reference. Clicking on the hyperlink will get you to the referenced model element, e.g., the classifier. Example: 
+</p>
+<img src="hyperlink.png"/>
+<p>  
+Note: The context menu command <em>Open Declaration (F3)</em> also gets you to the model element that is being referenced.
+</p>
+<p>
+<b>Find Classifiers and Properties</b>: The AADL text editor lets you find component types, component implementations, feature group types, property definitions, types, and constants.
+You locate them with the <em>Open Model Element (ctrl-shift-F3)</em> command in the <em>Navigate</em> menu. A dialog box will list all that can be referenced from the current AADL text editor location. You can narrow the list by typing the first few characters of the model element you are looking for.
+You then select the element by double clicking.
+</p>
+
+<p>
+<b>Annotations (Markers) and Problem View</b>: The model may be annotated with Markers from the AADL compiler and various analysis tools.
+You can navigate to the model location identified by the marker by double clicking on the marker in the <em>Problem</em> view.
+</p>
+<p>
+You can also navigate to the next or previous annotation with the tool bar commands in the AADL text editor.
+</p>
+<img src="navannotations.png"/>
+
+<p>
+<b>Quick Outline</b>: When in the text editor, you can type <em><Ctrl>o (the letter O)</em> for the <em>Quick Outline View</em>. This will pop up the outline in a little window. 
+You can then type the first few letters of a model element you want to go to. The outline will filter down to all matching model elements and let you select the one you want to go to.
+</p>
+<img src="quickoutline.png"/>
+<p>
+<b>Navigation History</b>: When you navigate to different locations within a file, follow references/links to other files, go to the location of a Marker, or the result of a search, Eclipse keeps a history. 
+Yellow navigation tool buttons let you move through the history and go back to a location you navigated from.
+</p>
+<img src="navhistory.png"/>
+<p>
+<b> From Instance model to AADL Text</b>: The instance model can be viewed in an instance model editor by double clicking on the appropriate aaxl2 file in the <em>instances</em> folder. 
+You can go to the model element in the AADL text corresponding to the selected instance model element using the <em> Goto Instance Object Source</em> command in the context menu.
+</p>
+<img src="instancetotext.png"/>
+</body>
+</html>
