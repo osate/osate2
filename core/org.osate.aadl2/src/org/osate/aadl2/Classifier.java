@@ -479,7 +479,7 @@ public interface Classifier extends Namespace, Type {
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
-	EList<Classifier> getAllExtendPlusSelf();
+	EList<Classifier> getSelfPlusAllExtended();
 
 	/**
 	 * returns the reference to the classifier being extended
@@ -548,5 +548,7 @@ public interface Classifier extends Namespace, Type {
 	 * Note that each classifier can only have one 
 	 */
 	EList<AnnexSubclause> getAllAnnexSubclauses();
+
+	EList<AnnexSubclause> getAllAnnexSubclauses(EClass eclass);
 
 } // Classifier

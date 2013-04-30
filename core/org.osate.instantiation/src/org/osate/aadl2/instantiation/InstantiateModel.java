@@ -88,6 +88,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
@@ -250,7 +251,7 @@ public class InstantiateModel {
 		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
 		if (root == null)
 		{
-			errorMessage = instantiateModel.getErrorMessage();
+			errorMessage = InstantiateModel.getErrorMessage();
 		}
 		return root;
 	}
@@ -265,7 +266,9 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance rebuildInstanceModelFile(final Resource res) throws Exception {
+	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
+		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
+		Resource res = OsateResourceUtil.getResource(ires);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		SystemImplementation si = target.getSystemImplementation();
 		URI uri = EcoreUtil.getURI(si);
@@ -286,7 +289,9 @@ public class InstantiateModel {
 	public static void rebuildAllInstanceModelFiles() throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile iFile : files) {
-			Resource res = OsateResourceUtil.getResource((IResource) iFile);
+			IResource ires = (IResource) iFile;
+			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
+			Resource res = OsateResourceUtil.getResource(ires);
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
 			SystemImplementation si = target.getSystemImplementation();
 			URI uri = EcoreUtil.getURI(si);
@@ -367,7 +372,7 @@ public class InstantiateModel {
 			try {
 				fillSystemInstance(root);
 			} catch (Exception e) {
-				this.setErrorMessage (e.getMessage());
+				InstantiateModel.setErrorMessage (e.getMessage());
 				e.printStackTrace();
 				return null;
 			}
@@ -674,17 +679,13 @@ public class InstantiateModel {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
+
 		newInstance.setSubcomponent(sub);
 		newInstance.setCategory(sub.getCategory());
 		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
-		//OsateDebug.osateDebug ("instantiate sub " + sub.getName());
-		//OsateDebug.osateDebug ("   stack " + indexStack);
-		//OsateDebug.osateDebug ("   index " + index);
-		//OsateDebug.osateDebug ("   modalelem " + mm);
-
 		ic = getInstantiatedClassifier(newInstance, 0);
 		if (ic == null) {
 			cc = null;
@@ -693,12 +694,19 @@ public class InstantiateModel {
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
-		} else if (cc instanceof ComponentType) {
-			if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
-					|| sub instanceof ThreadGroupSubcomponent) {
-				errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
+		} else {
+			if (cc instanceof ComponentType) {
+				if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
+						|| sub instanceof ThreadGroupSubcomponent) {
+					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
+				}
 			}
+			newInstance.setCategory(cc.getCategory());
 		}
+		//OsateDebug.osateDebug ("instantiate sub " + sub.getName());
+		//OsateDebug.osateDebug ("   stack " + indexStack);
+		//OsateDebug.osateDebug ("   index " + index);
+		//OsateDebug.osateDebug ("   modalelem " + mm);
 
 		for (Mode mode : mm.getAllInModes()) {
 			ModeInstance mi = parent.findModeInstance(mode);
@@ -710,12 +718,50 @@ public class InstantiateModel {
 		populateComponentInstance(newInstance, index);
 	}
 
+	/**
+	 * same method but with different name exists in createEndToEndFlowSwitch.
+	 * It adds the flow instances on demand when ETEF is created
+	 * @param ci
+	 */
 	private void instantiateFlowSpecs(ComponentInstance ci) {
 		for (FlowSpecification spec : InstanceUtil.getComponentType(ci, 0, classifierCache).getAllFlowSpecifications()) {
 			FlowSpecificationInstance speci = ci.createFlowSpecification();
 			speci.setName(spec.getName());
 			speci.setFlowSpecification(spec);
-
+			FlowEnd inend = spec.getAllInEnd();
+			if (inend != null) {
+				Feature srcfp = inend.getFeature();
+				Context srcpg = inend.getContext();
+				if (srcpg == null) {
+					FeatureInstance fi = ci.findFeatureInstance(srcfp);
+					if (fi != null)
+						speci.setSource(fi);
+				} else if (srcpg instanceof FeatureGroup) {
+					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
+					if (pgi != null) {
+						FeatureInstance fi = pgi.findFeatureInstance(srcfp);
+						if (fi != null)
+							speci.setSource(fi);
+					}
+				}
+			}
+			FlowEnd outend = spec.getAllOutEnd();
+			if (outend != null) {
+				Feature dstfp = outend.getFeature();
+				Context dstpg = outend.getContext();
+				if (dstpg == null) {
+					FeatureInstance fi = ci.findFeatureInstance(dstfp);
+					if (fi != null)
+						speci.setDestination(fi);
+				} else if (dstpg instanceof FeatureGroup) {
+					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
+					if (pgi != null) {
+						FeatureInstance fi = pgi.findFeatureInstance(dstfp);
+						if (fi != null)
+							speci.setDestination(fi);
+					}
+				}
+			}
 			for (Mode mode : spec.getAllInModes()) {
 				ModeInstance mi = ci.findModeInstance(mode);
 				if (mi != null) {
@@ -1403,8 +1449,8 @@ public class InstantiateModel {
 			{
 				InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier((ComponentInstance) elem, 0,
 						classifierCache);
-
-				addUsedProperties(ic.classifier, result);
+				if (ic != null)
+					addUsedProperties(ic.classifier, result);
 			} else if (elem instanceof FeatureInstance) {
 				FeatureInstance fi = (FeatureInstance) elem;
 				if (fi.getFeature() instanceof FeatureGroup) {

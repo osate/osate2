@@ -660,8 +660,9 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl
 	 * @generated NOT
 	 */
 	public AbstractType basicGetType() {
-		// DONE: implement this method to return the 'Type' reference
-		return (AbstractType) super.basicGetType();
+		// DB: Avoid stack trace overflow
+		ComponentType ct = super.basicGetType();
+		return ct instanceof AbstractType ? (AbstractType) ct : null;
 	}
 
 	/**

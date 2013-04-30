@@ -1268,7 +1268,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	}
 
 	public EList<Prototype> getAllPrototypes() {
-		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors

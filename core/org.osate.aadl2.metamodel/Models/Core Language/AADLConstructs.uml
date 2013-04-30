@@ -260,6 +260,12 @@
           <subsettedProperty href="AADLInfrastructure.uml#Classifier-classifierFeature"/>
           <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
+        <ownedOperation xmi:id="_JRMUAHa9EeKJupUQiGe8EA" name="getAllSubcomponents">
+          <ownedParameter xmi:id="_NKoDsHa9EeKJupUQiGe8EA" name="return" type="Components-Subcomponent" direction="return">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZKBN4Ha9EeKJupUQiGe8EA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YJWbEHa9EeKJupUQiGe8EA"/>
+          </ownedParameter>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Components-A_componentImplementation_ownedExtension" name="A_componentImplementation_ownedExtension" memberEnd="Components-A_componentImplementation_ownedExtension-owner Components-ComponentImplementation-ownedExtension">
         <ownedEnd xmi:id="Components-A_componentImplementation_ownedExtension-owner" name="owner" type="Components-ComponentImplementation" association="Components-A_componentImplementation_ownedExtension">
@@ -1034,7 +1040,8 @@ For access features, the classifier specifies the type of the shared component.<
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-Feature-refined-_lowerValue"/>
           <subsettedProperty href="AADLInfrastructure.uml#RefinableElement-refinedElement"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_v6CzYLO0EeCzMYz5ww7glA" name="classifier" type="Components-ComponentClassifier" isReadOnly="true" isDerived="true" subsettedProperty="Features-Feature-classifier" association="_v62EoLO0EeCzMYz5ww7glA">
+        <ownedAttribute xmi:id="_v6CzYLO0EeCzMYz5ww7glA" name="classifier" isReadOnly="true" isDerived="true" subsettedProperty="Features-Feature-classifier" association="_v62EoLO0EeCzMYz5ww7glA">
+          <type xmi:type="uml:Class" href="AADLDetails.uml#NoneSupport-Classifier"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_v6CzYbO0EeCzMYz5ww7glA" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_v6CzYrO0EeCzMYz5ww7glA"/>
         </ownedAttribute>
@@ -1733,36 +1740,6 @@ For access features, the classifier specifies the type of the shared component.<
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-A_connection_source-connection-_upperValue" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-A_connection_source-connection-_lowerValue"/>
         </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Enumeration" xmi:id="Connections-ConnectionKind" name="ConnectionKind">
-        <ownedComment xmi:id="Connections-ConnectionKind-_ownedComment.0">
-          <body>All connection kinds in AADL.</body>
-        </ownedComment>
-        <ownedLiteral xmi:id="Connections-ConnectionKind-Access" name="Access">
-          <ownedComment xmi:id="Connections-ConnectionKind-Access-_ownedComment.0">
-            <body>For access connections.</body>
-          </ownedComment>
-        </ownedLiteral>
-        <ownedLiteral xmi:id="Connections-ConnectionKind-Feature" name="Feature">
-          <ownedComment xmi:id="Connections-ConnectionKind-Feature-_ownedComment.0">
-            <body>For feature connections.</body>
-          </ownedComment>
-        </ownedLiteral>
-        <ownedLiteral xmi:id="Connections-ConnectionKind-FeatureGroup" name="FeatureGroup">
-          <ownedComment xmi:id="Connections-ConnectionKind-FeatureGroup-_ownedComment.0">
-            <body>For feature group connections.</body>
-          </ownedComment>
-        </ownedLiteral>
-        <ownedLiteral xmi:id="Connections-ConnectionKind-Parameter" name="Parameter">
-          <ownedComment xmi:id="Connections-ConnectionKind-Parameter-_ownedComment.0">
-            <body>For parameter connections.</body>
-          </ownedComment>
-        </ownedLiteral>
-        <ownedLiteral xmi:id="Connections-ConnectionKind-Port" name="Port">
-          <ownedComment xmi:id="Connections-ConnectionKind-Port-_ownedComment.0">
-            <body>For port connections.</body>
-          </ownedComment>
-        </ownedLiteral>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Connections-ConnectionEnd" name="ConnectionEnd" isAbstract="true">
         <ownedComment xmi:id="Connections-ConnectionEnd-_ownedComment.0">

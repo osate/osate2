@@ -42,7 +42,6 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
@@ -233,24 +232,26 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 
 	/* (non-Javadoc)
 	 * @see org.osate.aadl2.NumberValue#getScaledValue()
+	 * DB: Moved to NumberValueOperations
 	 */
-	public final double getScaledValue() {
-		final double value = getValue();
-		final UnitLiteral unit = getUnit();
-		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
-		return value * factor;
-	}
+	//	public final double getScaledValue() {
+	//		final double value = getValue();
+	//		final UnitLiteral unit = getUnit();
+	//		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
+	//		return value * factor;
+	//	}
 
 	/* (non-Javadoc)
 	 * @see org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral)
+	 * DB: Moved to NumberValueOperations
 	 */
-	public double getScaledValue(UnitLiteral target) {
-		final double value = getValue();
-		final UnitLiteral unit = getUnit();
-		final double factor = (unit == null) ? 1.0 : unit
-				.getAbsoluteFactor(target);
-		return value * factor;
-	}
+	//	public double getScaledValue(UnitLiteral target) {
+	//		final double value = getValue();
+	//		final UnitLiteral unit = getUnit();
+	//		final double factor = (unit == null) ? 1.0 : unit
+	//				.getAbsoluteFactor(target);
+	//		return value * factor;
+	//	}
 
 	@Override
 	public boolean equals(Object obj) {

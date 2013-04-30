@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Error-Model Annex v2 support in the Instance Model Viewer</h2>
+<h3>Usage</h3>
+<p>
+The Instance Model Viewer includes a functionality to view the errors
+risen from a component and their associated propagation. To use
+this functionality, you need to open the instance model in IMV.
+Then, to activate the view of an error propagation from a component,
+select the component that is the error source and click on the error
+button on the IMV toolbar, highlighted in red in the following picture.
+</p>
+<img src="imv-error3.png"/>
+
+<p>
+The component source is highlighted in light red while the
+components impacted have a background color with dark red. In this
+example, the <em>temperature_sensor</em> is the error source
+and we see that it might impact the <em>thermostat</em> component.
+</p>
+
+<p>
+The other example is shown below with the same example. Now, the error
+source is the <em>thermostat</em> example, the <em>heat_source</em>
+and <em>operator_interface</em> are the impacted components.
+</p>
+
+<img src="imv-error2.png"/>
+
+<h3>Known limitations</h3>
+<p>
+While being a prototype, the tool has the following limitations:
+</p>
+<ul>
+	<li>Support only one color for all error types</li>
+	<li>Does not take into account the probability and/or adapt the color brightness accordingly</li>
+	<li>Does not follow the path of error propagation</li>
+	<li>Cannot select/filter the display of error flows for a particular error type</li>
+</ul>
+</body>
+</html>

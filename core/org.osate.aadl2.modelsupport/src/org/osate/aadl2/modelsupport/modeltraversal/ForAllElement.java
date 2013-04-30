@@ -268,7 +268,8 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #suchThat(Element)
 	 */
 	protected void process(final Element theElement) {
-		action(theElement);
+		if(suchThat(theElement))
+			action(theElement);
 	}
 	
 

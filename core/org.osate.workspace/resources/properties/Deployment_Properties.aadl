@@ -94,7 +94,7 @@ property set Deployment_Properties is
    		applies to (processor, virtual processor);
 
 	Scheduling_Protocol: inherit list of Supported_Scheduling_Protocols
-		applies to (virtual processor, processor);
+		applies to (virtual processor, processor, system);
 	
 	Preemptive_Scheduler: aadlboolean
 		applies to (processor);

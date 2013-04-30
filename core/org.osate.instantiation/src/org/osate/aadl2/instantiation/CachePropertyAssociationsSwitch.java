@@ -68,6 +68,7 @@ import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluatedProperty.MpvProxy;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * TODO: Add comment
@@ -192,13 +193,13 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		catch (IllegalStateException e) {
 			// circular dependency
 			// xxx: this is a misleading place to put the marker
-			System.out.println ("IllegalStateException raised in cachePropertyAssociations");
+			OsateDebug.osateDebug ("IllegalStateException raised in cachePropertyAssociations");
 			error(io, e.getMessage());
 			return;
 		} 
 		catch (InvalidModelException e) 
 		{
-			System.out.println ("InvalidModelException raised in cachePropertyAssociations");
+			OsateDebug.osateDebug ("InvalidModelException raised in cachePropertyAssociations");
 			error(e.getElement(), e.getMessage());
 			return;
 		}

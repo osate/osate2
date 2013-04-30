@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Syntax Rules</h2>
+<p>
+The following are some basic syntax rules for AADL. 
+</p>
+<p>
+A syntax summary is provided on a <a href="http://www.aadl.info/aadl/documents/AADL%20V2.1%20Syntax%20Card.pdf">AADL V2.1 syntax
+ card</a>
+</p>
+<p>
+For a complete and formal definition of
+syntax rules, please refer to the AADL standard or the AADL book <a href="http://www.informit.com/store/product.aspx?isbn=0321888944">"Model-Based Engineering with AADL: An Introduction to the SAE Architecture Analysis &eacute; Design Language"</a>.
+</p>
+
+<table style="border: 1px solid black;">
+<tr>
+<td><strong>AADL entity</strong></td><td><strong>Rules</strong></td><td><strong>Examples</strong></td>
+</tr>
+<tr><td>
+	<ul>
+		<li>start with a letter</li>
+		<li>end with a letter or number</li>
+		<li>no space or special character</li>
+	</ul>
+</td>
+<td><pre><b>process</b> pr_server</pre></td>
+</tr>
+<tr>
+<td>Component implementation name</td>
+<td><ul> <li>component type identifier</li>
+<li><dot> (".")</li>
+<li>implementation identifier</li></td>
+<td><pre><b>process implementation</b> pr_server.one_thread</pre> or <pre><b>process implementation</b> pr_server.multi_threads</pre></td>
+</tr>
+<tr>
+<td>Qualified classifier name</td>
+<td>Component types, component implementations, and feature group types are referenced by the qualified name. They are qualified with the package name followed by "::"</li>
+</td>
+<td><pre>aircraft::hardware::PowerPC.Mhz900</pre> or <pre>DataDictionaries::GlobalDictionary</pre></td>
+</tr>
+<tr>
+<td>Nested package names</td>
+<td>Package names can be nested, i.e., they can be a sequence of identifiers separated by "::"
+</td>
+<td><pre>aircraft::hardware</pre></td>
+</tr>
+<tr>
+<td>Property sets</td>
+<td>Property set names are single identifiers
+</td>
+<td><pre>aircraft::hardware</pre></td>
+</tr>
+<tr>
+<td>Matching end</td>
+<td>Component types, component implementations, feature group types, packages, and property sets end with the keyword <b>end</b> followed by their name.
+<td><pre><b>end</b> aircraft::hardware::PowerPC.Mhz900</pre></td>
+</tr>
+<tr>
+<td>Case sensitivity</td><td>AADL is case insensitive for both keywords and identifiers.</td><td>Identifiers <em>MyHouse</em> and <em>myhouse</em> are the same</td>
+</tr>
+<tr>
+<td>White space</td><td>space, tab, and newline are considered white space</td><td></td>
+</tr>
+<tr>
+<td>Comments</td><td>Comments start with "--" and go to the end of the line. You can comment or uncomment multiple lines with the keyboard shortcut <em>"ctrl""/"</td><td><pre>ecu: system HardwarePlatform::cc_mcu; -- processor</pre></td>
+</tr>
+<tr>
+<td>Semicolon</td><td>Semicolons (";") are used as the last symbol (terminator) in a declaration, such as a classifier declaration, a feature declaration, subcomponent declaration, or property assignment.</td>
+<td<pre>inport: <b>in event port ;</b></pre></td>
+</tr>
+<tr>
+<td>Lists and commas</td><td>Parentheses ‘(‘ and ‘)’ are used to bracket lists. Commas are used as separators between list elements.</td>
+<td<pre>t1:<b> thread</b> t <b>in modes</b> ( m1 , m2 ); </pre></td>
+</tr>
+<tr>
+<td>Comments</td><td>Comments start with "--" and go to the end of the line</td><td><pre>ecu: system HardwarePlatform::cc_mcu; -- processor</pre></td>
+</tr>
+</table>
+
+
+</body>
+</html>

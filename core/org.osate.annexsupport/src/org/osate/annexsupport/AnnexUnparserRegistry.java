@@ -45,7 +45,8 @@ public class AnnexUnparserRegistry extends AnnexRegistry {
 		initialize(ANNEX_UNPARSER_EXT_ID);
 	}
 	
-	public AnnexUnparser getAnnexUnparser(String annexName) {
+	public AnnexUnparser getAnnexUnparser(String annexName)
+	{
 		AnnexUnparser unparser = (AnnexUnparser) extensions.get(annexName.toLowerCase());
 		
 		if (unparser == null) {

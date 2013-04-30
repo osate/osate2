@@ -93,12 +93,14 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
@@ -196,11 +198,11 @@ public final class AadlUtil {
 	 * find (first) Named Element matching name in the Elist; any elements that
 	 * are not NamedElements are skipped.
 	 * 
-	 * @param el Elist of NamedElements
+	 * @param el Collection of NamedElements
 	 * @param name String
 	 * @return NamedElement
 	 */
-	public static NamedElement findNamedElementInList(List<?> el, String name) {
+	public static NamedElement findNamedElementInList(Collection<?> el, String name) {
 		if (el != null) {
 			Iterator<?> it = el.iterator();
 
@@ -254,7 +256,7 @@ public final class AadlUtil {
 	 * @param el EList or NamedElements or other objects
 	 * @return EList of NameElements that are defining a previously defined name
 	 */
-	public static EList<NamedElement> findDoubleNamedElementsInList(List<?> el) {
+	public static EList<NamedElement> findDoubleNamedElementsInList(Collection<?> el) {
 		EList<NamedElement> result = new BasicEList<NamedElement>();
 		final Set<String> seen = new HashSet<String>();
 
@@ -861,6 +863,16 @@ public final class AadlUtil {
 	public static boolean isokClassifierSubstitutionMatch(Classifier origin,
 			Classifier replacement) {
 		if (origin == null || replacement == null) return true;
+		if (replacement instanceof FeatureGroupType && origin instanceof
+				FeatureGroupType) {
+			/* Don't have to refine, could leave the type alone. Refinement
+			 * statement might be changing property values or modes.
+			 */
+			// ??? Do we allow replacement to be a subtype??
+			return isokTypeClassifierMatch((FeatureGroupType) origin, (FeatureGroupType)
+					replacement);
+
+		}
 		if (replacement instanceof ComponentType && origin instanceof
 				ComponentType) {
 			/* Don't have to refine, could leave the type alone. Refinement
@@ -903,6 +915,15 @@ public final class AadlUtil {
 	public static boolean isokClassifierSubstitutionTypeExtension(Classifier origin,
 			Classifier replacement) {
 		if (origin == null || replacement == null) return true;
+		if (replacement instanceof FeatureGroupType && origin instanceof
+				FeatureGroupType) {
+			/* Don't have to refine, could leave the type alone. Refinement
+			 * statement might be changing property values or modes.
+			 */
+			return isSameOrExtends((FeatureGroupType) origin, (FeatureGroupType)
+					replacement);
+
+		}
 		if (replacement instanceof ComponentType && origin instanceof
 				ComponentType) {
 			/* Don't have to refine, could leave the type alone. Refinement
@@ -945,6 +966,18 @@ public final class AadlUtil {
 		// an extension for the purpose of making name visible in another package
 		//or refinement with only property associations
 		ComponentType repancestor = (ComponentType) reptype.getExtended();
+		if (repancestor == origin){
+			if (reptype.getOwnedFeatures() == null ||
+					reptype.getOwnedFeatures().isEmpty()) return true;
+		}
+		return false;
+	}
+	public static boolean isokTypeClassifierMatch(FeatureGroupType origin,
+			FeatureGroupType reptype) {
+		if (reptype == origin|| reptype == null) return true;
+		// an extension for the purpose of making name visible in another package
+		//or refinement with only property associations
+		FeatureGroupType repancestor = (FeatureGroupType) reptype.getExtended();
 		if (repancestor == origin){
 			if (reptype.getOwnedFeatures() == null ||
 					reptype.getOwnedFeatures().isEmpty()) return true;
@@ -1474,46 +1507,6 @@ public final class AadlUtil {
 	private static final String PropertySetLabel = "propertySet[@name=";
 	private static final String PackageLabel = "aadlPackage[@name=";
 
-	// TODO: [SPECIFICATION] Consider removing or modifying.
-	// /**
-	// * add classifier to the name space. A name space is either an AadlSpec or
-	// an AadlPackageSection or a property set
-	// * @param nameSpace an AadlSpec, AadlPackageSection
-	// * @param classifier
-	// */
-	// public static boolean addClassifier(AObject nameSpace, Classifier
-	// classifier){
-	// if (nameSpace instanceof AadlSpec){
-	// ((AadlSpec)nameSpace).addClassifier(classifier);
-	// return true;
-	// }
-	// if (nameSpace instanceof AadlPackageSection){
-	// ((AadlPackageSection)nameSpace).addClassifier(classifier);
-	// return true;
-	// }
-	// return false;
-	// }
-
-	// TODO: [INSTANCE] Uncomment after instances are created.
-	// /**
-	// * find the connection instance with src as its source and dst as its
-	// destination
-	// * @param src InstanceObject
-	// * @param dst InstanceObject
-	// * @return ConnectionInstance or null if not found
-	// */
-	// public static ConnectionInstance findConnectionInstance(InstanceObject
-	// src, InstanceObject dst){
-	// SystemInstance si = src.getSystemInstance();
-	// EList cilist = si.getConnectionInstance();
-	// for (Iterator it = cilist.iterator();it.hasNext();){
-	// ConnectionInstance conni = (ConnectionInstance)it.next();
-	// if (src == conni.getXSrc() && dst == conni.getXDst()){
-	// return conni;
-	// }
-	// }
-	// return null;
-	// }
 
 	public static Element getInstanceOrigin(InstanceObject io) {
 		List<? extends NamedElement> el = io.getInstantiatedObjects();
@@ -1541,27 +1534,6 @@ public final class AadlUtil {
 		return target;
 	}
 
-	// TODO: [MODEL] This method is only used to support some of the ui goto
-	// actions. It is used in conjunction with
-	// AObject.getReferencedObject() by the CoreEditor's
-	// CoreActionBarContributor. This needs to be rethought and
-	// rewritten after the model is complete. I don't like it that we have ui
-	// support code in the model. However, even
-	// if we don't rethink this method, it will still need to be rewritten to
-	// reflect the new Aadl2 meta-model.
-	// /**
-	// * Does the object have a classifier reference
-	// * @param obj AObject
-	// * @return true of it has a classifier reference. This reference will be
-	// returned by getReferencedObject
-	// */
-	// public static boolean hasClassifier(AObject obj){
-	// return (obj instanceof Subcomponent
-	// || obj instanceof DataPort || obj instanceof EventDataPort
-	// || obj instanceof Parameter || obj instanceof FeatureGroup
-	// || obj instanceof BusAccess || obj instanceof DataAccess
-	// || obj instanceof ComponentImplementation || obj instanceof Subprogram);
-	// }
 
 	/*
 	 * ================================================================ Methods
@@ -1665,6 +1637,28 @@ public final class AadlUtil {
 	}
 
 	/**
+	 * determine whether a feature instance has outgoing features
+	 * will examine feature groups recursively
+	 * 
+	 * @param fi FeatureInstance of a feature or feature group
+	 */
+	public static boolean hasOutgoingFeatures(FeatureInstance fi) {
+		EList<FeatureInstance> filist = fi.getFeatureInstances();
+		if (filist.isEmpty()){
+			// feature or feature group without features
+			if (!fi.getDirection().equals(DirectionType.IN))
+				return true;
+		} else {
+			for (Iterator<FeatureInstance> fit = filist.iterator(); fit.hasNext();) {
+				FeatureInstance subfi = fit.next();
+				if (hasOutgoingFeatures(subfi))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * get ingoing connections to subcomponents from a specified feature of the
 	 * component impl
 	 * 
@@ -1733,6 +1727,17 @@ public final class AadlUtil {
 	 */
 	public static boolean isOutgoingFeature(Feature f) {
 		return (f instanceof Port && ((Port) f).getDirection().outgoing()) || (f instanceof Access)//&& ((Access) f).getKind() == AccessType.REQUIRED)
+				|| (f instanceof FeatureGroup);
+	}
+	
+	/**
+	 * determine whether the feature is an outgoing port or feature group
+	 * 
+	 * @param f Feature
+	 * @return boolean true if incoming
+	 */
+	public static boolean isIncomingFeature(Feature f) {
+		return (f instanceof Port && ((Port) f).getDirection().incoming()) || (f instanceof Access)//&& ((Access) f).getKind() == AccessType.REQUIRED)
 				|| (f instanceof FeatureGroup);
 	}
 
@@ -2135,7 +2140,7 @@ public final class AadlUtil {
 	 */
 	public static EList<AnnexSubclause> getAllAnnexSubclauses(Classifier cl, String annexName) {
 		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
-		final EList<Classifier> classifiers = cl.getAllExtendPlusSelf();
+		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
 		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
 			final Classifier current = i.previous();
 			EList<AnnexSubclause> asclist = AadlUtil.findAnnexSubclause(current, annexName);

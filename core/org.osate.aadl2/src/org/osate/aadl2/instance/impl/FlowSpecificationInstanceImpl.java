@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -539,6 +540,24 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl
 			if (som.getCurrentModes().contains(m)) {
 				return getContainingComponentInstance().isActive(som);
 			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean matchesIndex(List<ArrayRange> ranges) 
+	{
+		/**
+		 * FIX JD
+		 * Hack to return the appropriate value in InstanceObject.findInstanceObjectsHelper
+		 * This return the appropriate value to add the flow specifications
+		 * in the list of the elements to add properties.
+		 * Can create side effects, to be double checked.
+		 * 
+		 * FIX bug #205
+		 */
+		if (ranges.size() == 0) {
+			return true;
 		}
 		return false;
 	}

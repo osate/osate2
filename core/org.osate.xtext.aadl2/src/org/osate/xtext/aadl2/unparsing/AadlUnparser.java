@@ -38,6 +38,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
@@ -57,6 +59,7 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.CompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.*;
+import org.osate.aadl2.impl.AnnexSubclauseImpl;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
@@ -354,7 +357,9 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseAnnexSubclause(AnnexSubclause as) {
 				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
 						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
+
 				String annexName = as.getName();
+								
 				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
 
 				if (unparser != null) {
@@ -366,6 +371,32 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					aadlText.decrementIndent();
 					aadlText.addOutputNewline("**};");
 				}
+				else
+				{
+					/**
+					 * JD
+					 * Workaround for implementing annex unparsing
+					 * without registering them. Required for META toolset.
+					 * 
+					 * The behavior is that if the class has a method called
+					 * getAnnexContent, then, we get the content
+					 * of the annex and put it directly into the component.
+					 */
+					if (as instanceof AnnexSubclauseImpl)
+					{
+						AnnexSubclauseImpl asi = (AnnexSubclauseImpl)as;
+						if (asi.getAnnexContent().length() > 0)
+						{
+							aadlText.addOutputNewline("annex " + annexName + " {**");
+							aadlText.incrementIndent();
+							aadlText.addOutput(asi.getAnnexContent());
+							aadlText.decrementIndent();
+							aadlText.addOutputNewline("**};");
+							return DONE;
+						}
+					}
+				}
+				
 				return DONE;
 			}
 
@@ -375,13 +406,16 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 * @param das
 			 *            DefaultAnnexSubclause object
 			 */
-			public String caseDefaultAnnexSubclause(DefaultAnnexSubclause das) {
+			public String caseDefaultAnnexSubclause(DefaultAnnexSubclause das)
+			{
+
 				AnnexUnparserRegistry registry = (AnnexUnparserRegistry) AnnexRegistry
 						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
 				String annexName = das.getName();
 				AnnexUnparser unparser = registry.getAnnexUnparser("*");
 
-				if (unparser != null) {
+				if (unparser != null)
+				{
 					processComments(das);
 					aadlText.addOutputNewline("annex " + annexName + " {**");
 					aadlText.incrementIndent();

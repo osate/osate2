@@ -185,7 +185,7 @@ public class NamespaceOperations extends NamedElementOperations {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(),
 					Aadl2Package.eINSTANCE.getNamespace().getEAllOperations()
-							.get(13));
+							.get(14));
 			try {
 				GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_QRY = helper
 						.createQuery(GET_NAMES_OF_MEMBER__NAMED_ELEMENT__EOCL_EXP);
@@ -240,7 +240,7 @@ public class NamespaceOperations extends NamedElementOperations {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamespace(),
 					Aadl2Package.eINSTANCE.getNamespace().getEAllOperations()
-							.get(14));
+							.get(15));
 			try {
 				MEMBERS_ARE_DISTINGUISHABLE__EOCL_QRY = helper
 						.createQuery(MEMBERS_ARE_DISTINGUISHABLE__EOCL_EXP);

@@ -33647,16 +33647,6 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_CATEGORY = 265;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.ConnectionKind <em>Connection Kind</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.ConnectionKind
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectionKind()
-	 * @generated
-	 */
-	int CONNECTION_KIND = 266;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ElementNameKind <em>Element Name Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -33664,7 +33654,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getElementNameKind()
 	 * @generated
 	 */
-	int ELEMENT_NAME_KIND = 267;
+	int ELEMENT_NAME_KIND = 266;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.OperationKind <em>Operation Kind</em>}' enum.
@@ -33674,7 +33664,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperationKind()
 	 * @generated
 	 */
-	int OPERATION_KIND = 268;
+	int OPERATION_KIND = 267;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -33684,7 +33674,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 269;
+	int STRING = 268;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -33693,7 +33683,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 270;
+	int BOOLEAN = 269;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -33702,7 +33692,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 271;
+	int INTEGER = 270;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -33711,7 +33701,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 272;
+	int REAL = 271;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Element <em>Element</em>}'.
@@ -40728,16 +40718,6 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EEnum getComponentCategory();
-
-	/**
-	 * Returns the meta object for enum '{@link org.osate.aadl2.ConnectionKind <em>Connection Kind</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Connection Kind</em>'.
-	 * @see org.osate.aadl2.ConnectionKind
-	 * @generated
-	 */
-	EEnum getConnectionKind();
 
 	/**
 	 * Returns the meta object for enum '{@link org.osate.aadl2.ElementNameKind <em>Element Name Kind</em>}'.

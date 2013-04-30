@@ -5,15 +5,25 @@
     <topic href="html/overview.html" label="Overview">
     </topic>
     <topic href="html/start/index.html" label="Getting started">
+       <topic href="html/start/eclipse-basics.html" label="Eclipse basics">
+       </topic>
        <topic href="html/start/create-project.html" label="Create a project">
        </topic>
        <topic href="html/start/add-models.html" label="Adding models">
        </topic>
+       <topic href="html/start/navigation-support.html" label="Navigating models">
+       </topic>
        <topic href="html/start/instantiate.html" label="Instantiating models">
+       </topic>
+       <topic href="html/start/team.html" label="Collaborative edition">
+       </topic>
+       <topic href="html/start/rules-syntax.html" label="Rules - Syntax">
+       </topic>
+       <topic href="html/start/rules-naming.html" label="Style Guide">
        </topic>
     </topic>
     <topic href="html/plugins/index.html" label="Plug-ins">
-       <topic href="html/plugins/imv.html" label="Instance Model Viewer">
+       <topic href="html/plugins/imv.html" label="Graphical Model Viewer (IMV)">
        </topic>
        <topic href="html/plugins/lute.html" label="LUTE">
        </topic>
@@ -173,5 +183,21 @@
     <topic href="html/faq.html" label="Frequently Asked Questions">
     </topic>
     <topic href="html/about.html" label="Copyright, links &amp; contact">
+    </topic>
+    <topic href="html/emv2/index.html" label="Error-Model Annex v2">
+       <topic href="html/emv2/imv.html" label="Error Support within IMV">
+       </topic>
+       <topic href="html/emv2/fha.html" label="Fault and Hazard Analysis">
+       </topic>
+       <topic href="html/emv2/fta.html" label="Fault-Tree Analysis">
+       </topic>
+       <topic href="html/emv2/rbd.html" label="Reliability Block Diagram">
+       </topic>
+       <topic href="html/emv2/prism.html" label="Export to PRISM">
+       </topic>
+       <topic href="html/emv2/prism-dtmc.html" label="Export to PRISM - Example with DTMC">
+       </topic>
+       <topic href="html/emv2/prism-ctmc.html" label="Export to PRISM - Example with CTMC">
+       </topic>
     </topic>
 </toc>

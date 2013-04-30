@@ -77,13 +77,13 @@ property set Timing_Properties is
 		applies to (virtual processor, processor, process, system);
 	
 	Clock_Jitter: Time
-		applies to (processor, system);
+		applies to (processor, device, system);
 	
 	Clock_Period: Time
-		applies to (processor, system);
+		applies to (processor, device, system);
 	
 	Clock_Period_Range: Time_Range
-		applies to (processor, system);
+		applies to (processor, device, system);
 	
 	Process_Swap_Execution_Time: Time_Range
 		applies to (processor);

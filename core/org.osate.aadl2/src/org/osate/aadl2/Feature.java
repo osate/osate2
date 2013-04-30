@@ -114,7 +114,7 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd,
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	ComponentClassifier getClassifier();
+	Classifier getClassifier();
 
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
@@ -161,6 +161,6 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd,
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	ComponentClassifier getAllClassifier();
+	Classifier getAllClassifier();
 
 } // Feature

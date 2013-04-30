@@ -39,6 +39,8 @@ import static com.google.inject.Guice.createInjector;
 import static com.google.inject.util.Modules.override;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
@@ -63,6 +65,10 @@ public class MyAadl2Activator extends Aadl2Activator {
 	@Override
 	public Injector getInjector(String languageName) {
 		return OsateCorePlugin.getDefault().getInjector(languageName);
+	}
+	
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return AbstractUIPlugin.imageDescriptorFromPlugin("org.osate.xtext.aadl2.ui", path);
 	}
 	
 	protected void registerInjectorFor(String language) throws Exception {

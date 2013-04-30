@@ -45,5 +45,8 @@ public final class CommunicationProperties {
 	public static final String REQUIRED_CONNECTION = "Required_Connection";
 	public static final String TIMING = "Timing";
 	public static final String DELAYED = "delayed";
+	public static final String SAMPLED = "sampled";
 	public static final String IMMEDIATE = "immediate";
+	public static final String OUTPUT_RATE = "Output_Rate";
+	public static final String INPUT_RATE = "Input_Rate";
 }

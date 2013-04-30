@@ -245,7 +245,7 @@
 	<extension
 		point="org.eclipse.ui.commands">
 		<command
-			description="Instantiate the model."
+			description="Instantiate the system"
 			id="org.osate.xtext.aadl2.ui.instantiate"
 			name="Instantiate System">
 		</command>
@@ -280,8 +280,8 @@
             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
 		commandId="org.osate.xtext.aadl2.ui.instantiate"
-               label="Reinstantiate existing instance"
-		tooltip="Do (re)Instantiate" 
+               label="Reinstantiate selected instance"
+		tooltip="Do Reinstantiate" 
                style="push">
          </command>
       </menuContribution>
@@ -453,8 +453,16 @@
       <menuContribution
             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
-               commandId="org.osate.xtext.aadl2.ui.predeclaredproperties"
-               label="Create/update Predeclared and Annex Properties"
+               commandId="org.osate.xtext.aadl2.ui.updatepredeclaredproperties"
+               label="Update unmodified Predeclared and Annex Properties"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+         <command
+               commandId="org.osate.xtext.aadl2.ui.resetpredeclaredproperties"
+               label="Reset/create all Predeclared and Annex Properties"
                style="push">
          </command>
       </menuContribution>
@@ -462,17 +470,49 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            id="org.osate.xtext.aadl2.ui.predeclaredproperties"
-            name="Create/update Predeclared and Annex Properties project">
+            id="org.osate.xtext.aadl2.ui.updatepredeclaredproperties"
+            name="Update unmodified Predeclared and Annex Properties">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.osate.xtext.aadl2.ui.resetpredeclaredproperties"
+            name="Reset/create all Predeclared and Annex Properties">
       </command>
    </extension>
    	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.handlers.CreatePredeclaredPropertiesHandler"
-			commandId="org.osate.xtext.aadl2.ui.predeclaredproperties">
+			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.handlers.UpdatePredeclaredPropertiesHandler"
+			commandId="org.osate.xtext.aadl2.ui.updatepredeclaredproperties">
 		</handler>
 	</extension>
+   	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.handlers.ResetPredeclaredPropertiesHandler"
+			commandId="org.osate.xtext.aadl2.ui.resetpredeclaredproperties">
+		</handler>
+	</extension>
+    <extension
+          point="org.eclipse.ui.views">
+       <category
+             id="aadl.view_category"
+             name="AADL">
+       </category>
+       <view
+             category="aadl.view_category"
+             class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView"
+             icon="icons/propertyview/pview.gif"
+             id="org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView"
+             name="AADL Property Values"
+             restorable="true">
+          <description>
+             Shows all the AADL property associations for the selected AADL element.
+          </description>
+       </view>
+    </extension>
 	
 
 </plugin>

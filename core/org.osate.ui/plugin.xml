@@ -218,6 +218,11 @@
             id="org.osate.Wizard.category.ID"
             name="%_Aadl_Wizard_category">
       </category>
+      <category
+            id="org.osate.Wizard.category.examples"
+            name="Aadl Examples"
+            parentCategory="org.eclipse.ui.Examples">
+      </category>
       <wizard
             id="org.osate.ui.wizards.AadlProjectWizardID"
             name="%_UI_AadlProjectWizard_label"
@@ -229,6 +234,22 @@
             project="true">
          <description>
             %_UI_AadlProjectWizard_description
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+       <wizard
+            id="org.osate.ui.wizards.NewModelWizardID"
+            name="%_UI_CoreModelWizard_label"
+            icon="icons/aadl.gif"
+            category="org.osate.Wizard.category.ID"
+            class="org.osate.ui.wizards.NewModelWizard"
+                   preferredPerspeves="org.osate.ui.perspective.AadlPerspective"
+            finalPerspective="org.osate.ui.perspective.AadlPerspective"
+            >
+         <description>
+            %_UI_CoreModelWizard_description
          </description>
          <selection
                class="org.eclipse.core.resources.IResource">
@@ -318,23 +339,6 @@
             icon="icons/aadl.gif"
             id="org.osate.ui.logger_view"
             name="%osate_logger_view.label">
-      </view>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views">
-      <category
-            id="aadl.view_category"
-            name="%aadl_view_category.label">
-      </category>
-      <view
-            category="aadl.view_category"
-            class="org.osate.ui.propertyview.AadlPropertyView"
-            icon="%aadl_property_view.icon"
-            id="org.osate.ui.propertyview.AadlPropertyView"
-            name="%aadl_property_view.label">
-         <description>
-            Shows all the AADL property associations for the selected AADL element.
-         </description>
       </view>
    </extension>
    

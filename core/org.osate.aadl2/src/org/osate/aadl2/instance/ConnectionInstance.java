@@ -58,6 +58,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getConnectionReferences <em>Connection Reference</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#isBidirectional <em>Bidirectional</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getSource <em>Source</em>}</li>
  * </ul>
  * </p>
@@ -207,6 +208,32 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * @generated
 	 */
 	ConnectionReference createConnectionReference();
+
+	/**
+	 * Returns the value of the '<em><b>Bidirectional</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Bidirectional</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bidirectional</em>' attribute.
+	 * @see #setBidirectional(boolean)
+	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstance_Bidirectional()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isBidirectional();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.instance.ConnectionInstance#isBidirectional <em>Bidirectional</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bidirectional</em>' attribute.
+	 * @see #isBidirectional()
+	 * @generated
+	 */
+	void setBidirectional(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' reference.

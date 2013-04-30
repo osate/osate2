@@ -34,7 +34,7 @@ import org.osate.aadl2.util.OsateDebug;
 class ConnectionInfo {
 	private ConnectionKind kind;
 	final List<Connection> connections;
-	private final List<Boolean> opposites;
+	final List<Boolean> opposites;
 	private final List<ComponentInstance> contexts;
 	private final List<ConnectionInstanceEnd> sources;
 	private final List<ConnectionInstanceEnd> destinations;
@@ -69,18 +69,7 @@ class ConnectionInfo {
 		opposites = new ArrayList<Boolean>();
 		contexts = new ArrayList<ComponentInstance>();
 		sources = new ArrayList<ConnectionInstanceEnd>();
-		sources.add(s);
 		destinations = new ArrayList<ConnectionInstanceEnd>();
-	}
-
-	private ConnectionInfo(final ConnectionInfo base, final ConnectionInstanceEnd s) {
-		connections = base.connections;
-		opposites = base.opposites;
-		contexts = base.contexts;
-		sources = base.sources;
-		sources.add(s);
-		destinations = base.destinations;
-		src = s;
 	}
 
 	public static ConnectionInfo newConnectionInfo(final ConnectionInstanceEnd s) {
@@ -102,7 +91,7 @@ class ConnectionInfo {
 	 * @return if the new segment is a valid continuation of the connection
 	 *         instance
 	 */
-	public boolean addSegment(final Connection newSeg, final FeatureInstance srcFi, final FeatureInstance dstFi,
+	public boolean addSegment(final Connection newSeg, final ConnectionInstanceEnd srcFi, final ConnectionInstanceEnd dstFi,
 			final ComponentInstance ci, boolean opposite) {
 		boolean valid = true;
 		final Context srcCtx = opposite ? newSeg.getAllDestinationContext() : newSeg.getAllSourceContext();
@@ -114,29 +103,33 @@ class ConnectionInfo {
 
 		if (srcFi != null) {
 			sources.add(srcFi);
-			DirectionType dir = srcFi.getDirection();
+			if (srcFi instanceof FeatureInstance){
+				DirectionType dir = ((FeatureInstance)srcFi).getDirection();
 
-			bidirectional &= (dir == DirectionType.IN_OUT);
-			if (goingUp) {
-				valid &= (dir != DirectionType.IN);
-			} else if (goingDown) {
-				valid &= (dir != DirectionType.OUT);
-			} else {
-				valid &= (dir != DirectionType.IN);
+				bidirectional &= (dir == DirectionType.IN_OUT);
+				if (goingUp) {
+					valid &= (dir != DirectionType.IN);
+				} else if (goingDown) {
+					valid &= (dir != DirectionType.OUT);
+				} else {
+					valid &= (dir != DirectionType.IN);
+				}
 			}
 		}
 		bidirectional &= newSeg.isBidirectional();
 		if (dstFi != null) {
 			destinations.add(dstFi);
-			DirectionType dir = dstFi.getDirection();
+			if (dstFi instanceof FeatureInstance){
+				DirectionType dir = ((FeatureInstance)dstFi).getDirection();
 
-			bidirectional &= (dir == DirectionType.IN_OUT);
-			if (goingUp) {
-				valid &= (dir != DirectionType.IN);
-			} else if (goingDown) {
-				valid &= (dir != DirectionType.OUT);
-			} else {
-				valid &= (dir != DirectionType.OUT);
+				bidirectional &= (dir == DirectionType.IN_OUT);
+				if (goingUp) {
+					valid &= (dir != DirectionType.IN);
+				} else if (goingDown) {
+					valid &= (dir != DirectionType.OUT);
+				} else {
+					valid &= (dir != DirectionType.OUT);
+				}
 			}
 		}
 		across |= (srcCtx instanceof Subcomponent) && (dstCtx instanceof Subcomponent)
@@ -173,7 +166,7 @@ class ConnectionInfo {
 		//OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
 		kind = getKind(dst);
 		// TODO-LW: complete = ...;
-		destinations.add(dst);
+//		destinations.add(dst);
 		conni = InstanceFactory.eINSTANCE.createConnectionInstance();
 		conni.setName(name);
 		Iterator<Connection> connIter = connections.iterator();

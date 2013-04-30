@@ -1,4 +1,4 @@
-package org.osate.ui.propertyview;
+package org.osate.xtext.aadl2.ui.propertyview;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,11 +15,14 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -27,13 +30,12 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.properties.PropertyAcc;
-import org.osate.core.OsateCorePlugin;
-import org.osate.ui.OsateUiPlugin;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
-
-import com.google.inject.Inject;
+import org.osate.xtext.aadl2.ui.MyAadl2Activator;
 
 /**
  * Model for the AADL Property View.
@@ -41,13 +43,14 @@ import com.google.inject.Inject;
  * @author aarong
  */
 public class PropertyViewModel extends LabelProvider implements IColorProvider, ITreeContentProvider, ITableLabelProvider {
-	private static final String MODE_ICON = "icons/mode.gif";
-	private static final String SCALAR_ICON = "icons/scalar.gif";
-	private static final String LIST_ICON = "icons/list.gif";
-	private static final String PROPERTY_SET_ICON = "icons/property_set.gif";
+	private static final String MODE_ICON = "icons/propertyview/mode.gif";
+	private static final String SCALAR_ICON = "icons/propertyview/scalar.gif";
+	private static final String LIST_ICON = "icons/propertyview/list.gif";
+	private static final String PROPERTY_SET_ICON = "icons/propertyview/property_set.gif";
 	
 	// Constants
 	
+	private static final String UNDEFINED = "undefined";
 	private static final String EQUALS = " => ";
 	private static final String EMPTY = "";
 	
@@ -77,8 +80,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	/** Immutable wrapped root list for external use */
 	final List<PropSet> inputLeaked = Collections.unmodifiableList(input);
 	
-	@Inject
-	private ISerializer serializer;
+	private final ISerializer serializer;
 	
 	// Inner Classes
 	
@@ -124,6 +126,22 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		public abstract Color getColor();
 	}
 	
+	private class UndefinedMode extends InMode {
+		public UndefinedMode(final ModedProperty mp, final List<Mode> modes) {
+			super(mp, modes);
+		}
+		
+		@Override
+		public String getValue() {
+			return UNDEFINED;
+		}
+		
+		@Override
+		public Color getColor() {
+			return Display.getDefault().getSystemColor(SWT.COLOR_RED);
+		}
+	}
+	
 	private class ValuedMode extends InMode {
 		final String value;
 		
@@ -134,6 +152,25 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		
 		public ValuedMode(ModedProperty prop, ModalPropertyValue mpv) {
 			this(prop, mpv.getOwnedValue(), mpv.getAllInModes());
+		}
+		
+		@Override
+		public String getValue() {
+			return value;
+		}
+		
+		@Override
+		public Color getColor() {
+			return null;
+		}
+	}
+	
+	private class DefaultMode extends InMode {
+		final String value;
+		
+		public DefaultMode(final ModedProperty prop, final List<Mode> modes) {
+			super(prop, modes);
+			value = getValueAsString(prop.definition.getDefaultValue());
 		}
 		
 		@Override
@@ -192,6 +229,22 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		}
 	}
 	
+	private class UndefinedProperty extends AbstractModelProperty {
+		public UndefinedProperty(final PropSet ps, final Property pn) {
+			super(ps, pn);
+		}
+		
+		@Override
+		public String getValue() {
+			return UNDEFINED;
+		}
+		
+		@Override
+		public Color getColor() {
+			return Display.getDefault().getSystemColor(SWT.COLOR_RED);
+		}
+	}
+	
 	private class ValuedProperty extends AbstractModelProperty {
 		final String value;
 		final PropertyAssociation pa;
@@ -232,15 +285,66 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		}
 	}
 	
-	public PropertyViewModel()
-	{
-		OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.Aadl2").injectMembers(this);
+	public PropertyViewModel(final ISerializer serializer) {
+		this.serializer = serializer;
 	}
 	
 	private String getValueAsString(PropertyExpression expression) {
-		String value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
-		//TODO: Test this to see what cleanup is truly necessary.
-		return value;
+		if (expression instanceof InstanceReferenceValue) {
+			InstanceObject referencedObject = ((InstanceReferenceValue)expression).getReferencedInstanceObject();
+			if (referencedObject != null) {
+				return referencedObject.getInstanceObjectPath();
+			}
+			else {
+				return "null";
+			}
+		}
+		else if (expression instanceof ListValue && hasInstanceReferenceValue((ListValue)expression)) {
+			return serializeListWithInstanceReferenceValue((ListValue)expression);
+		}
+		else {
+			String value = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\t", "");
+			//TODO: Test this to see what cleanup is truly necessary.
+			return value;
+		}
+	}
+	
+	private boolean hasInstanceReferenceValue(ListValue topList) {
+		for (PropertyExpression subExpression : topList.getOwnedListElements()) {
+			if (subExpression instanceof InstanceReferenceValue) {
+				return true;
+			}
+			else if (subExpression instanceof ListValue && hasInstanceReferenceValue((ListValue)subExpression)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private String serializeListWithInstanceReferenceValue(ListValue topList) {
+		StringBuilder result = new StringBuilder("(");
+		for (Iterator<PropertyExpression> iter = topList.getOwnedListElements().iterator(); iter.hasNext();) {
+			PropertyExpression subExpression = iter.next();
+			if (subExpression instanceof InstanceReferenceValue) {
+				InstanceObject referencedObject = ((InstanceReferenceValue)subExpression).getReferencedInstanceObject();
+				if (referencedObject != null) {
+					result.append(referencedObject.getInstanceObjectPath());
+				}
+				else
+					result.append("null");
+			}
+			else if (subExpression instanceof ListValue) {
+				result.append(serializeListWithInstanceReferenceValue((ListValue)subExpression));
+			}
+			else {
+				result.append(serializer.serialize(subExpression).replaceAll("\n", "").replaceAll("\t", ""));
+			}
+			if (iter.hasNext()) {
+				result.append(", ");
+			}
+		}
+		result.append(")");
+		return result.toString();
 	}
 	
 	// Label Provider Methods
@@ -249,7 +353,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 	public Image getImage(Object element) {
 		if (element instanceof PropSet) {
 			if (propSetImage == null) {
-				ImageDescriptor descriptor = OsateUiPlugin.getImageDescriptor(PROPERTY_SET_ICON);
+				ImageDescriptor descriptor = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON);
 				propSetImage = descriptor.createImage();
 			}
 			return propSetImage;
@@ -257,14 +361,14 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		else if (element instanceof AbstractModelProperty) {
 			if (((AbstractModelProperty)element).isList) {
 				if (listImage == null) {
-					ImageDescriptor descriptor = OsateUiPlugin.getImageDescriptor(LIST_ICON);
+					ImageDescriptor descriptor = MyAadl2Activator.getImageDescriptor(LIST_ICON);
 					listImage = descriptor.createImage();
 				}
 				return listImage;
 			}
 			else {
 				if (scalarImage == null) {
-					ImageDescriptor descriptor = OsateUiPlugin.getImageDescriptor(SCALAR_ICON);
+					ImageDescriptor descriptor = MyAadl2Activator.getImageDescriptor(SCALAR_ICON);
 					scalarImage = descriptor.createImage();
 				}
 				return scalarImage;
@@ -272,7 +376,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		}
 		else if (element instanceof InMode) {
 			if (modeImage == null) {
-				ImageDescriptor descriptor = OsateUiPlugin.getImageDescriptor(MODE_ICON);
+				ImageDescriptor descriptor = MyAadl2Activator.getImageDescriptor(MODE_ICON);
 				modeImage = descriptor.createImage();
 			}
 			return modeImage;
@@ -324,13 +428,12 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			if (element instanceof ValuedProperty || element instanceof ValuedMode) {
 				return "Property exists locally.";
 			}
-			else if (element instanceof DefaultProperty) {
+			else if (element instanceof DefaultProperty || element instanceof DefaultMode) {
 				return "Property taking default value.";
 			}
-//					/* || (element instanceof ValuedMode) || (element instanceof UndefinedProperty) || (element instanceof UndefinedMode)*/) {
-//				//TODO: figure this out.
-//				return "Need to figure out status.";
-//			}
+			else if (element instanceof UndefinedProperty || element instanceof UndefinedMode) {
+				return "No property value is defined.";
+			}
 			else
 				return null;
 		}
@@ -434,6 +537,14 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		showUndefined = flag;
 	}
 	
+	public void toggleShowUndefined() {
+		showUndefined = !showUndefined;
+	}
+	
+	public boolean getShowUndefined() {
+		return showUndefined;
+	}
+	
 	/**
 	 * Rebuild list of property values.
 	 * @param element
@@ -480,6 +591,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 										for (ModalPropertyValue mpv : firstAssociation.getOwnedValues()) {
 											if (mpv.getAllInModes().size() == 0) {
 												new ValuedMode(prop, mpv.getOwnedValue(), elementModes);
+												elementModes.clear();
 											}
 											else {
 												new ValuedMode(prop, mpv);
@@ -494,6 +606,14 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 										if (prop.getModes().length == 0) {
 											propSet.removeProperty(prop);
 										}
+										else if (!elementModes.isEmpty()) {
+											if (pn.getDefaultValue() != null) {
+												new DefaultMode(prop, elementModes);
+											}
+											else if (showUndefined) {
+												new UndefinedMode(prop, elementModes);
+											}
+										}
 									}
 									else {
 										new ValuedProperty(propSet, pn, firstAssociation);
@@ -503,7 +623,9 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 									if (pn.getDefaultValue() != null) {
 										new DefaultProperty(propSet, pn);
 									}
-									//TODO: figure this out: show undefined
+									else if (showUndefined) {
+										new UndefinedProperty(propSet, pn);
+									}
 								}
 //							}
 						}

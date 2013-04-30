@@ -39,11 +39,11 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 
-public class CreatePredeclaredPropertiesHandler extends AbstractHandler {
+public class ResetPredeclaredPropertiesHandler extends AbstractHandler {
 
 
 		public Object execute(ExecutionEvent event) throws ExecutionException {
-			PredeclaredProperties.createUpdatePluginContributedAadl();
+			PredeclaredProperties.resetPluginContributedAadl();
 			return null;
 		}
 
