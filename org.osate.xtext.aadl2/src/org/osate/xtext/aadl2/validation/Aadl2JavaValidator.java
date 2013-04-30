@@ -3118,7 +3118,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		) {
 			if (srcDirection == DirectionType.IN && dstDirection == DirectionType.IN
 					|| srcDirection == DirectionType.OUT && dstDirection == DirectionType.OUT) {
-				error(connection, "Source and destination directions do not allow any flow.");
+				error(connection, "Source and destination directions do not match up.");
 			}
 		} else if ((srcContext instanceof Subcomponent || dstContext instanceof Subcomponent)||
 			       (srcContext instanceof SubprogramCall || dstContext instanceof SubprogramCall)) {
