@@ -832,7 +832,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			if (dstems != null) {
 				// has an EMV2 subclause but no propagation specification for
 				// the feature
-				error(conn,
+				warning(conn,
 						"Connection target has no error propagation/containment but source does: "
 								+ (srcprop != null ? EMV2Util
 										.getPrintName(srcprop) : EMV2Util
@@ -840,7 +840,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			} else {
 				// TODO check in instance model for connection end point if no
 				// error model subclause
-				error(conn,
+				warning(conn,
 						"Connection target has no error model subclause but source does: "
 								+ (srcprop != null ? EMV2Util
 										.getPrintName(srcprop) : EMV2Util
@@ -856,12 +856,18 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						srcname);
 				dstcontain = EMV2Util.findIncomingErrorContainment(srcems,
 						srcname);
+			} else {
+				dstprop = null;
+				dstcontain = null;
 			}
 			if (dstems != null) {
 				srcprop = EMV2Util.findOutgoingErrorPropagation(dstems,
 						dstname);
 				srccontain = EMV2Util.findOutgoingErrorContainment(dstems,
 						dstname);
+			} else {
+				srcprop = null;
+				srccontain = null;
 			}
 
 			if (srcprop != null && dstprop != null) {
@@ -922,7 +928,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				if (dstems != null) {
 					// has an EMV2 subclause but no propagation specification
 					// for the feature
-					error(conn,
+					warning(conn,
 							"Connection target has no error propagation/containment but source does: "
 									+ (srcprop != null ? EMV2Util
 											.getPrintName(srcprop) : EMV2Util
@@ -930,7 +936,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				} else {
 					// TODO check in instance model for connection end point if
 					// no error model subclause
-					error(conn,
+					warning(conn,
 							"Connection target has no error model subclause but source does: "
 									+ (srcprop != null ? EMV2Util
 											.getPrintName(srcprop) : EMV2Util
