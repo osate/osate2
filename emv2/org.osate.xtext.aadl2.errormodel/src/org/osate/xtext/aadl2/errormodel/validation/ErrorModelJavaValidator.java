@@ -747,31 +747,39 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		ErrorPropagation srcprop = null;
 		ErrorPropagation srccontain = null;
 		ErrorModelSubclause srcems = null;
+		String srcname = (src instanceof Subcomponent)?"access":src.getName();
 		if (srcCxt instanceof Subcomponent) {
 			ComponentClassifier cl = ((Subcomponent) srcCxt).getClassifier();
+			srcems = EMV2Util.getClassifierEMV2Subclause(cl);
+		} else if (src instanceof Subcomponent) {
+			ComponentClassifier cl = ((Subcomponent) src).getClassifier();
 			srcems = EMV2Util.getClassifierEMV2Subclause(cl);
 		} else {
 			srcems = EMV2Util.getClassifierEMV2Subclause(cimpl);
 		}
-		srcprop = EMV2Util.findOutgoingErrorPropagation(srcems, src.getName());
-		srccontain = EMV2Util.findOutgoingErrorContainment(srcems,
-				src.getName());
-
+		if (srcems != null){
+			srcprop = EMV2Util.findOutgoingErrorPropagation(srcems, srcname);
+			srccontain = EMV2Util.findOutgoingErrorContainment(srcems,srcname);
+		}
 		ConnectionEnd dst = conn.getAllDestination();
 		Context dstCxt = conn.getAllDestinationContext();
 		ErrorModelSubclause dstems = null;
 		ErrorPropagation dstprop = null;
 		ErrorPropagation dstcontain = null;
+		String dstname = (dst instanceof Subcomponent)?"access":dst.getName();
 		if (dstCxt instanceof Subcomponent) {
 			ComponentClassifier cl = ((Subcomponent) dstCxt).getClassifier();
 			dstems = EMV2Util.getClassifierEMV2Subclause(cl);
+		} else if (dst instanceof Subcomponent) {
+				ComponentClassifier cl = ((Subcomponent) dst).getClassifier();
+				dstems = EMV2Util.getClassifierEMV2Subclause(cl);
 		} else {
 			dstems = EMV2Util.getClassifierEMV2Subclause(cimpl);
 		}
-		dstprop = EMV2Util.findIncomingErrorPropagation(dstems, dst.getName());
-		dstcontain = EMV2Util.findIncomingErrorContainment(dstems,
-				dst.getName());
-
+		if (dstems != null){
+			dstprop = EMV2Util.findIncomingErrorPropagation(dstems, dstname);
+			dstcontain = EMV2Util.findIncomingErrorContainment(dstems,dstname);
+		}
 		if (srcprop != null && dstprop != null) {
 			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(),
 					srcprop.getTypeSet())) {
