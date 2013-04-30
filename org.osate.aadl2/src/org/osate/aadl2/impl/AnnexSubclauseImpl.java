@@ -48,15 +48,28 @@ import org.osate.aadl2.AnnexSubclause;
  *
  * @generated
  */
-public abstract class AnnexSubclauseImpl extends ModalElementImpl implements
+public class AnnexSubclauseImpl extends ModalElementImpl implements
 		AnnexSubclause {
+	private String annexContent;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AnnexSubclauseImpl() {
+	protected AnnexSubclauseImpl()
+	{
 		super();
+		annexContent = "";
+	}
+	
+	public String getAnnexContent ()
+	{
+		return this.annexContent;
+	}
+	
+	public void setAnnexContent (String s)
+	{
+		this.annexContent = s;
 	}
 
 	/**

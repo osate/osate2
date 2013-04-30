@@ -38,6 +38,8 @@
         lowerBound="1" eType="#//ConnectionInstanceEnd" eOpposite="#//ConnectionInstanceEnd/dstConnectionInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionReference" lowerBound="1"
         upperBound="-1" eType="#//ConnectionReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bidirectional" ordered="false"
+        lowerBound="1" eType="ecore:EDataType aadl2.ecore#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
         lowerBound="1" eType="#//ConnectionInstanceEnd" eOpposite="#//ConnectionInstanceEnd/srcConnectionInstance"/>
   </eClassifiers>

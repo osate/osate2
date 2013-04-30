@@ -13,12 +13,12 @@ import org.osate.aadl2.instance.ConnectionReference;
 
 
 public class ConnectionGroupIterator {
-	EList done =null;
-	Iterator internalit = null;
+	EList<Connection> done =null;
+	Iterator<ConnectionInstance> internalit = null;
 	ConnectionInstance nextObject = null;
 	
-	public ConnectionGroupIterator(EList list){
-		done = new UniqueEList();
+	public ConnectionGroupIterator(EList<ConnectionInstance> list){
+		done = new UniqueEList<Connection>();
 		internalit = list.iterator();
 	}
 	
@@ -43,7 +43,6 @@ public class ConnectionGroupIterator {
 	protected ConnectionInstance doNext(){
 		while (internalit.hasNext()){
 			ConnectionInstance conni = (ConnectionInstance)internalit.next();
-			if (conni.getKind() == ConnectionKind.PORT_CONNECTION){
 				Connection top = getActualConnection(conni);
 				if (top instanceof FeatureGroupConnection){
 					if (!done.contains(top)){
@@ -53,7 +52,6 @@ public class ConnectionGroupIterator {
 				} else {
 					return conni;
 				}
-			}
 		}
 		return null;
 	}

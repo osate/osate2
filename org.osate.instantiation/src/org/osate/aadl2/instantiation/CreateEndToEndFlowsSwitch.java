@@ -66,6 +66,7 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -79,6 +80,7 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -821,9 +823,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		EList<FlowSpecification> flowspecs = InstanceUtil.getComponentType(ci, 0, null).getAllFlowSpecifications();
 		for (Iterator<FlowSpecification> it = flowspecs.iterator(); it.hasNext();) {
 			FlowSpecification f = it.next();
-			FlowSpecificationInstance pi = InstanceFactory.eINSTANCE.createFlowSpecificationInstance();
-			pi.setFlowSpecification(f);
-			pi.setName(f.getName());
+			FlowSpecificationInstance speci = InstanceFactory.eINSTANCE.createFlowSpecificationInstance();
+			speci.setFlowSpecification(f);
+			speci.setName(f.getName());
 			FlowEnd inend = f.getAllInEnd();
 			if (inend != null) {
 				Feature srcfp = inend.getFeature();
@@ -831,13 +833,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				if (srcpg == null) {
 					FeatureInstance fi = ci.findFeatureInstance(srcfp);
 					if (fi != null)
-						pi.setSource(fi);
+						speci.setSource(fi);
 				} else if (srcpg instanceof FeatureGroup) {
 					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
 					if (pgi != null) {
 						FeatureInstance fi = pgi.findFeatureInstance(srcfp);
 						if (fi != null)
-							pi.setSource(fi);
+							speci.setSource(fi);
 					}
 				}
 			}
@@ -848,17 +850,31 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				if (dstpg == null) {
 					FeatureInstance fi = ci.findFeatureInstance(dstfp);
 					if (fi != null)
-						pi.setDestination(fi);
+						speci.setDestination(fi);
 				} else if (dstpg instanceof FeatureGroup) {
 					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
 					if (pgi != null) {
 						FeatureInstance fi = pgi.findFeatureInstance(dstfp);
 						if (fi != null)
-							pi.setDestination(fi);
+							speci.setDestination(fi);
 					}
 				}
 			}
-			ci.getFlowSpecifications().add(pi);
+			ci.getFlowSpecifications().add(speci);
+			for (Mode mode : f.getAllInModes()) {
+				ModeInstance mi = ci.findModeInstance(mode);
+				if (mi != null) {
+					speci.getInModes().add(mi);
+				}
+			}
+
+			for (ModeTransition mt : f.getInModeTransitions()) {
+				ModeTransitionInstance ti = ci.findModeTransitionInstance(mt);
+
+				if (ti != null) {
+					speci.getInModeTransitions().add(ti);
+				}
+			}
 		}
 	}
 

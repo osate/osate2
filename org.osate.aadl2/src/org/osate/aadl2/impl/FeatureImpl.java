@@ -173,7 +173,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public ComponentClassifier getClassifier() {
+	public Classifier getClassifier() {
 		EObject classifier = getFeatureClassifier();
 		return (ComponentClassifier) (classifier instanceof ComponentClassifier
 				&& !classifier.eIsProxy() ? classifier : null);
@@ -490,8 +490,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	public ComponentClassifier getAllClassifier() {
-		ComponentClassifier cc = getClassifier();
+	public Classifier getAllClassifier() {
+		Classifier cc = getClassifier();
 		Feature f = this;
 		while (cc == null && f.getRefined() != null) {
 			f = f.getRefined();
@@ -539,7 +539,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements
 			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
 			throws InvalidModelException {
 		// values from classifier
-		ComponentClassifier c = getClassifier();
+		Classifier c = getClassifier();
 		// TODO: Check if the property applies to the classifier? (->
 		// property.checkAppliesTo(NamedElement)?)
 		if (c != null) {
@@ -582,7 +582,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements
 	public void getPropertyValueHelper(final Property prop,
 			final PropertyAcc pas, Classifier cl) throws InvalidModelException {
 		// values from classifier
-		ComponentClassifier c = getClassifier();
+		Classifier c = getClassifier();
 		// TODO: Check if the property applies to the classifier? (->
 		// property.checkAppliesTo(NamedElement)?)
 		if (c != null) {

@@ -4,6 +4,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
@@ -134,17 +135,6 @@ public class Aadl2InstanceUtil {
 		return false;
 	}
 
-	public static AnnexSubclause getAnnexSubclause(ComponentInstance ci, String annexName) {
-		ComponentClassifier cl = ci.getComponentClassifier();
-		EList<AnnexSubclause> asclist = cl.getAllAnnexSubclauses();
-		for (AnnexSubclause annexSubclause : asclist) {
-			if (annexSubclause.getName().equalsIgnoreCase(annexName)) {
-				return annexSubclause;
-			}
-		}
-		return null;
-	}
-
 	/**
 	 * Find the source endpoint of the connection in the specified component instance
 	 * the endpoint can be a feature instance or a component instance
@@ -189,5 +179,6 @@ public class Aadl2InstanceUtil {
 		}
 		return null;
 	}
+	
 
 }

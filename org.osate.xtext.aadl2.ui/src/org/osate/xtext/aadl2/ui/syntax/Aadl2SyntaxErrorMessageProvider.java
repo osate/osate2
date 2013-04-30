@@ -34,6 +34,7 @@
  */
 package org.osate.xtext.aadl2.ui.syntax;
 
+import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.MissingTokenException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
@@ -60,6 +61,14 @@ public class Aadl2SyntaxErrorMessageProvider extends SyntaxErrorMessageProvider{
 		 }
 		 if (ex instanceof MissingTokenException){
 			 msg = msg.replaceFirst("RULE_ID at", "identifier before");
+		 }
+		 if (ex instanceof MismatchedTokenException){
+			 // mismatched input 'xxx' expecting 'end'
+			 msg = msg.replaceFirst("mismatched input", "Not allowed: ");
+		 }
+		 if (ex instanceof NoViableAltException){
+			 // no viable alternative at input 'xxx'
+			 msg = msg.replaceFirst("no viable alternative at input", "Not allowed: ")+". Earlier keyword may be out of place.";
 		 }
 		if (contextobj == null){
 			msg = "Incomplete package or property set declaration";

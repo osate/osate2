@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Error-Model Annex v2 - Reliability Block Diagram</h2>
+<p>
+A Reliability Block Diagram (RDB) is a simple representation
+of a system with reliability/safety-related information.
+You can learn more about this representation on 
+<a href="http://en.wikipedia.org/wiki/Reliability_block_diagram" target="blank">wikipedia</a>.
+While being first a graphical representation, the RDB
+is also helpful to have a first gross estimation 
+of the error probability.
+</p>
+
+<p>
+To do so, you have to associate an occurrence value for each potential error/fault.
+In AADL terms, it consists in assigning an <em>OccurrenceDistribution</em> property
+to an error model artifact (see example below). Also, in AADL, the
+RDB is specified with an <em>error composite behavior</em> specification that
+details the dependence between each state. In the example below, 
+the main system is Operational if:
+</p>
+<ol>
+	<li>the sensor is Operational</li>
+	<li>at least one actuator is Operational</li>
+</ol> 
+
+<h3>Example</h3>
+<p>
+The following example is composed of three devices: a sensor and
+two actuators. The system is operational as long as a sensor is
+operational and at least one actuator is operational. All
+devices are associated to the same processor. The following
+picture show the graphical instance model.
+</p>
+<img src="rdb2.png"/>
+
+<p>
+Then, using the RDB function from the tool framework, we can
+compute metrics that show the probability of having (or not)
+failures. The following figure show the result of our plug-in
+on the following example (see below). The result show the metrics
+but also which components are used to produce this metrics
+so that the user can also check that all components
+are correctly being processed.
+</p>
+<img src="rdb1.png"/>
+
+<p>
+The following AADL textual model gives an overview of the
+definition of the main system instance.
+</p>
+
+<pre>
+  system implementation AircraftFMS.i
+    subcomponents
+      PositionSensor: device sensor;
+      Actuator1: device Actuator ;
+      Actuator2: device actuator ;
+      FMSProcessor: processor ppc;
+    connections
+      sensedPosition: port PositionSensor.PositionReading  
+      					-> Actuator1.ActCmd;
+      Actuator2Cmd: port PositionSensor.PositionReading 
+      					-> Actuator2.ActCmd;
+	properties 
+		Actual_Processor_Binding =>
+					 (reference (FMSProcessor)) 
+					 applies to PositionSensor;
+		Actual_Processor_Binding => 
+					(reference (FMSProcessor)) 
+					applies to Actuator1;
+		Actual_Processor_Binding => 
+					(reference (FMSProcessor)) 
+					applies to Actuator2;
+annex EMV2 {** 
+	use behavior ErrorModelLibrary::Simple;
+	composite error behavior
+		states
+			[PositionSensor.Operational and (Actuator1.Operational or Actuator2.Operational)]-> Operational;
+			[Actuator1.Failed and Actuator2.Failed]-> Failed;
+			[PositionSensor.Failed]-> Failed;
+		end composite;
+	properties
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.1 ; Distribution => Fixed;]
+										applies to Actuator2.Failed;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.2 ; Distribution => Fixed;] 
+										applies to Actuator1.Failed;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.5 ; Distribution => Fixed;] 
+										applies to PositionSensor.Failed;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.3 ; Distribution => Fixed;] 
+										applies to FMSProcessor.Failed;
+		
+	**};
+  end AircraftFMS.i;
+  </pre>
+
+
+<h3>Algorithm</h3>
+<p>
+In this model, we have the following fault occurrence for failure:
+</p>
+<ul>
+	<li><strong>Position Sensor</strong>: 0.5</li>
+	<li><strong>Actuator1</strong>: 0.2</li>
+	<li><strong>Actuator2</strong>: 0.1</li>
+</ul>
+<p>
+The reliability figure is computed as following: <strong>Reliability = 1 - Failure</strong>.
+</p>
+<p>
+The following steps explains how we do the computation:
+</p>
+<ul>
+	<li><pre>Failure(Actuator) = Failure (Actuator1) * Failure (Actuator2) = 0.02</pre></li>
+	<li><pre>FailureProbability = 1 - Failure (PositionSensor) - Failure (Actuator) + Failure (PositionSensor) * Failure (Actuator)</pre></li>
+	<li><pre>FailureProbability = Failure(PositionSensor) + Failure (Actuator) - Failure (PositionSensor) * Failure (Actuator)</pre></li>
+	<li><pre>FailureProbability = 0.5 + 0.02 - 0.01 = 0.51</pre></li>
+</ul>
+<p>
+In particular, the following rules must be observed to compute reliability-related metrics:
+</p>
+<ul>
+	<li><strong>Faults in series</strong>: add the probabilities and substract their product</li>
+	<li><strong>Faults in parallel</strong>: multiply the probability of failure</li>
+</ul>
+
+<h3>Known issues and/or limitations</h3>
+<ul>
+	<li>Work with fixed probability only</li>
+	<li>Does not work with error propagations</li>
+	<li>Computation only with occurrences values associated with states</li>
+</ul>
+
+</body>
+</html>

@@ -16,10 +16,10 @@ property set SEI is
   -- delta based information is communicated with guaranteed delivery
 
   -- state data representation
-  DataRepresentation: SEI::DataRepresentationType applies to (data, port);
+  StateRepresentation: SEI::StateRepresentationType applies to (data, port);
   
-  -- Data Representation types 
-  DataRepresentationType: type enumeration (State, StateDelta);
+  -- State Representation types 
+  StateRepresentationType: type enumeration (State, StateDelta);
   
   -- types of protocol characteristics
   ProtocolQoSType : type enumeration (GuaranteedDelivery, SecureDelivery, OrderedDelivery);
@@ -29,7 +29,7 @@ property set SEI is
   ProtocolQoS: list of SEI::ProtocolQoSType applies to (system, bus, connection);
 
   -- manual priority assignment for threeads
-  Priority: aadlinteger  applies to (thread);
+--  Priority: aadlinteger  applies to (thread); now provided in the core standard
 
 
   -- properties to support specification of partitions and latency analysis
@@ -37,21 +37,26 @@ property set SEI is
   -- contributes to flow latency on cross-partition communication
   Partition_Latency: Time => 50 Ms applies to (system, process);
   Is_Partition: aadlboolean  => false applies to (system, process);
+  
   -- properties to support adjustment of execution time according to processor speed
   -- time to execute one processor cycle
   -- Used to convert execution time into processor cycles
-  -- default cycle time of a 1 GHz processor
-  cycle_time: Time => 1000 ps applies to (processor);
-  -- conversion factor from cycle time to instruction time (default is assumed to be 1
-  cycles_per_instruction : aadlreal applies to (processor, system);
+--   cycle_time: Time applies to (processor); Removed.
+-- XXX: MIPSCapacity provides speed in terms of instructions. 
+-- methods getInstructionExecutionTimeinUS(processor instance) [1/MIPSCapacity] and
+-- getInstructionExecutionTimeinSec(processor instance) [1/(MIPSCapacity*1e6)] provide the equivalent of cycle time
+-- people need distinction between instruction execution time and cycle time we can reintroduce the cycleperinstruction property
+
+  InstructionsPerDispatch: range of aadlreal  units SEI::InstructionVolumeUnits applies to (thread);
+  InstructionVolumeUnits: type units (IPD, KIPD => IPD * 1000,MIPD => KIPD * 1000);
 
   -- The next set of properties are used in the resource budgeting plug-in
   
   -- number of instructions that can be executed on a processor (KIPS, MIPS, GIPS)
-  MIPSCapacity: aadlreal  units SEI::Processor_Speed_Units => 1.0 GIPS applies to (processor, system);
+  MIPSCapacity: aadlreal units SEI::Processor_Speed_Units applies to (processor, system);
   -- number of instructions allocatetd to an application component as budget
   -- devices may have need for execution of instructions to handle their drivers
-  MIPSBudget: aadlreal  units SEI::Processor_Speed_Units applies to (thread, thread group, process, system, device);
+  MIPSBudget: aadlreal  units SEI::Processor_Speed_Units applies to (thread, thread group, process, system, device, virtual processor);
   -- RAM capacity of a platform component
   RAMCapacity: aadlreal  units Size_Units applies to (memory, system);
   -- RAM budget of an application component.  Devices may have RAM need
@@ -67,9 +72,9 @@ property set SEI is
   -- power supply by a component
   PowerSupply: aadlreal  units SEI::Power_Units applies to (bus access);
   -- capacity of a bus component for transfer of data
-  BandWidthCapacity: aadlreal  units Data_Volume_Units applies to (bus, system);
+  BandWidthCapacity: aadlreal  units Data_Rate_Units applies to (bus, system);
   -- demand for data transfer by a connection
-  BandWidthBudget: aadlreal  units Data_Volume_Units applies to (connection);
+  BandWidthBudget: aadlreal  units Data_Rate_Units applies to (connection, virtual bus);
   -- actual RAM requirement by application component
   -- This number may be supplied from a compiler when compiling the source
   -- This number is related to the Source_Code_Size and Source_Data_Size properties
@@ -81,10 +86,11 @@ property set SEI is
   Processor_Speed_Units: type units (KIPS, MIPS => KIPS * 1000, GIPS => MIPS * 1000);
   -- Power units
   Power_Units: type units (mW, W => mW * 1000, KW => W * 1000);
-  -- Data volume units : amount of data per second
--- now defined in core  Data_Volume_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
+  -- Data rate units : amount of data per second
+-- now defined in core  Data_Rate_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
   
-  Data_Rate : aadlreal applies to (port);
+  -- Data_Rate in the SAVI context. From the original POC demo
+   Data_Rate: aadlreal  units (perSecond) applies to (port); -- We now have output_rate as predeclared property, but we keep this around as a simple proeprty
   
   --  The next properties are used for the Value-Driven Incremental Development plug-in
   nsloc : aadlinteger applies to (system, subprogram, abstract, thread, process); 

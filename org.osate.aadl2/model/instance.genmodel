@@ -82,6 +82,7 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionInstance/destination"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionInstance/connectionReference"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute instance.ecore#//ConnectionInstance/bidirectional"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionInstance/source"/>
     </genClasses>

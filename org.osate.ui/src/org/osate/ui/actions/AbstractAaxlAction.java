@@ -50,6 +50,7 @@ import java.util.List;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -61,12 +62,14 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.AadlConstants;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
@@ -133,8 +136,26 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	private AnalysisErrorReporterManager errManager;
 	
+	protected WriteToFile csvlog = null;
+	
+
 	/**
-	 * Use by the property refernece initialization process to keep track
+	 * sets up a CSV log in the report folder using report type as subfolder
+	 */
+	public void setCSVLog(String reporttype, EObject root) {
+		csvlog = new WriteToFile(reporttype, root);
+	}
+
+	/**
+	 * sets up a CSV log in the report folder using report type as subfolder
+	 */
+	public void setTXTLog(String reporttype, EObject root) {
+		csvlog = new WriteToFile(reporttype, root,"txt");
+	}
+
+	
+	/**
+	 * Use by the property reference initialization process to keep track
 	 * of the property references that could not be found.
 	 */
 	private final List notFound = new LinkedList();
@@ -199,10 +220,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		// Init the properties
 		notFound.clear();
 		initPropertyReferences();
+		initializeAction((NamedElement)root);
 		if (suppressErrorMessages() || !reportPropertyLookupErrors()) {
 			// Run the command (indirectly)
 			processAaxlAction(monitor, resource, root);
 		}
+		finalizeAction();
 	}
 
 	protected abstract Job createJob(Element root);
@@ -635,30 +658,78 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	}
 	
 	/**
-	 * Report error message on object as result of action.
-	 * @param obj Aobject that has been processed by the action
-	 * @param msg The error message
+	 * Get the error manager used by the action.  
+	 * @return Error Reporter
 	 */
-	protected final void error(final Element obj, final String msg){
-		errManager.error(obj, msg);
-	}
-
-	/**
-	 * Report warning message on object as result of action.
-	 * @param obj Aobject that has been processed by the action
-	 * @param msg The warning message
-	 */
-	protected final void warning(final Element obj, final String msg){
-		errManager.warning(obj, msg);
+	protected final WriteToFile getCSVLog(){
+			return csvlog;
 	}
 	
 	/**
-	 * Report an informative  message on object as result of action.
+	 * Report error message on object as result of action as marker and in csv log.
 	 * @param obj Aobject that has been processed by the action
+	 * @param msg The error message
+	 */
+	public final void error(final Element obj, final String msg){
+		errManager.error(obj, msg);
+		logError(msg);
+	}
+	
+	/**
+	 * log error message on object as result of action.
+	 * @param msg The error message
+	 */
+	public final void logError( final String msg){
+		if (csvlog != null)
+		csvlog.addOutputNewline("ERROR: "+msg);
+	}
+
+	/**
+	 * Log warning message on object as result of action.
+	 * @param msg The warning message
+	 */
+	public final void logWarning( final String msg){
+		if (csvlog != null)
+		csvlog.addOutputNewline("Warning: "+msg);
+	}
+
+
+	/**
+	 * Record warning message on object as result of action as marker and in csv log
+	 * @param obj Aobject that has been processed by the action
+	 * @param msg The warning message
+	 */
+	public final void warning(final Element obj, final String msg){
+		errManager.warning(obj, msg);
+		logWarning(msg);
+	}
+
+	/**
+	 * log an informative  message on object as result of action.
 	 * @param msg The informative message
 	 */
-	protected final void info(final Element obj, final String msg){
+	public final void logInfoNoNewLine(final String msg){
+		if (csvlog != null)
+		csvlog.addOutput(msg);
+	}
+
+	/**
+	 * log an informative  message on object as result of action.
+	 * @param msg The informative message
+	 */
+	public final void logInfo(final String msg){
+		if (csvlog != null)
+		csvlog.addOutputNewline(msg);
+	}
+	
+	/**
+	 * Record an informative  message on object as result of action as Marker and in CSV log
+	 * @param obj Element that has been processed by the action
+	 * @param msg The informative message
+	 */
+	public final void info(final Element obj, final String msg){
 		errManager.info(obj, msg);
+		logInfo(msg);
 	}
 	
 	/**
@@ -674,4 +745,70 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final void internalError(final Exception e) {
 		errManager.internalError(e);
 	}
+	
+
+	/**
+	 * Initialize the state of analysis.  For example,
+	 * this can open a dialog box to get additional parameters to the
+	 * analysis.  The analysis state should be initialized by setting
+	 * fields that are then used by {@link #analyzeDeclarativeModel}
+	 * and {@link #analyzeInstanceModel}.
+	 * 
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 * 
+	 * @return <code>true</code> if the analysis should proceed or 
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean initializeAnalysis(NamedElement object) {
+		return true;
+	}
+
+	/**
+	 * Initialize the state of the action.  For example,
+	 * this can open a dialog box to get additional parameters to the
+	 * analysis.  The analysis state should be initialized by setting
+	 * fields that are then used by {@link #analyzeDeclarativeModel}
+	 * and {@link #analyzeInstanceModel}.
+	 * 
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 * 
+	 * @return <code>true</code> if the analysis should proceed or 
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean initializeAction(NamedElement object) {
+		return true;
+	}
+	
+
+	/**
+	 * finalize the state of analysis.  For example,
+	 * this can close a report being generated.
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 * 
+	 * @return <code>true</code> if the analysis should proceed or 
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean finalizeAnalysis() {
+		return true;
+	}
+
+	/**
+	 * finalize the state of analysis.  For example,
+	 * this can close a report being generated.
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 * 
+	 * @return <code>true</code> if the analysis should proceed or 
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean finalizeAction() {
+		if (csvlog != null){
+			csvlog.saveToFile();
+		}
+		return true;
+	}
+
 }

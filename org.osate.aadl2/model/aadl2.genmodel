@@ -75,13 +75,6 @@
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/virtualBus"/>
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/virtualProcessor"/>
     </genEnums>
-    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//ConnectionKind">
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Access"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Feature"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/FeatureGroup"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Parameter"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Port"/>
-    </genEnums>
     <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//ElementNameKind">
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ElementNameKind/InternalEvent"/>
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//ElementNameKind/ProcessorPort"/>
@@ -145,6 +138,10 @@
       </genOperations>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/separator"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/qualifiedName"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NamedElement/getPropertyValues">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/getPropertyValues/propertySetName"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NamedElement/getPropertyValues/propertyName"/>
+      </genOperations>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PropertyAssociation">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -367,6 +364,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noSubcomponents"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noConnections"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noCalls"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ComponentImplementation/getAllSubcomponents"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ComponentClassifier">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
@@ -1204,12 +1202,22 @@
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//NumberValue">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberValue/unit"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NumberValue/getScaledValue">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NumberValue/getScaledValue/target"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NumberValue/getScaledValue.1"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//NumberValue/getScaledValue.2">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//NumberValue/getScaledValue.2/target"/>
+      </genOperations>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//UnitLiteral">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//UnitLiteral/baseUnit"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//UnitLiteral/factor"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//UnitLiteral/getAbsoluteFactor">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="aadl2.ecore#//UnitLiteral/getAbsoluteFactor/target"/>
+      </genOperations>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EnumerationLiteral"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ClassifierValue">

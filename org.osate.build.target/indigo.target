@@ -35,6 +35,10 @@
 <unit id="org.eclipse.uml2.sdk.feature.group" version="3.2.1.v201109082252"/>
 <unit id="org.eclipse.xsd.sdk.feature.group" version="2.7.1.v20120130-0943"/>
 <unit id="org.eclipse.jdt.feature.group" version="3.7.2.v20120120-1414-7z8gFcuFMP7BW5XTz0jLTnz0l9B1"/>
+<<<<<<< HEAD
+=======
+<unit id="org.eclipse.zest.sdk.feature.group" version="1.3.0.v20110425-2050-67C18COMPIAKSVKGQaRTQTiSN8WP"/>
+>>>>>>> develop
 <repository location="http://download.eclipse.org/releases/indigo"/>
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="false" type="InstallableUnit">
@@ -51,7 +55,11 @@
 <unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.0.1.v20110906-1605-8290FZ9FVKHVRKtmx3fpNuo02129"/>
 <unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.1.2.R37x_v20110815-1155-6-Bk8pYWZz0qUTX5I15GZWwbXkrl"/>
 <unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.0.1.v20110906-1605-782EqBqNKGVkiV-PUsgz-uny4gqO"/>
+<<<<<<< HEAD
 <repository location="jar:file:/home/osate/Downloads/org.eclipse.platform-3.7.2.zip!/"/>
+=======
+<repository location="jar:file:/tmp/org.eclipse.platform-3.7.2.zip!/"/>
+>>>>>>> develop
 </location>
 </locations>
 </target>
