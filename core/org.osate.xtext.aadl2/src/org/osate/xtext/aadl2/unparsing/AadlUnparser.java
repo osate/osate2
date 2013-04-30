@@ -359,7 +359,30 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
 
 				String annexName = as.getName();
-								
+
+				/**
+				 * JD
+				 * Workaround for implementing annex unparsing
+				 * without registering them. Required for META toolset.
+				 * 
+				 * The behavior is that if the class has a method called
+				 * getAnnexContent, then, we get the content
+				 * of the annex and put it directly into the component.
+				 */
+				if (as instanceof AnnexSubclauseImpl)
+				{
+					AnnexSubclauseImpl asi = (AnnexSubclauseImpl)as;
+					if ((asi.bypassUnparser()) && (asi.getAnnexContent().length() > 0))
+					{
+						aadlText.addOutputNewline("annex " + annexName + " {**");
+						aadlText.incrementIndent();
+						aadlText.addOutput(asi.getAnnexContent());
+						aadlText.decrementIndent();
+						aadlText.addOutputNewline("**};");
+						return DONE;
+					}
+				}
+				
 				AnnexUnparser unparser = registry.getAnnexUnparser(annexName);
 
 				if (unparser != null) {
@@ -370,31 +393,6 @@ public class AadlUnparser extends AadlProcessingSwitch {
 							aadlText.getIndentString()));
 					aadlText.decrementIndent();
 					aadlText.addOutputNewline("**};");
-				}
-				else
-				{
-					/**
-					 * JD
-					 * Workaround for implementing annex unparsing
-					 * without registering them. Required for META toolset.
-					 * 
-					 * The behavior is that if the class has a method called
-					 * getAnnexContent, then, we get the content
-					 * of the annex and put it directly into the component.
-					 */
-					if (as instanceof AnnexSubclauseImpl)
-					{
-						AnnexSubclauseImpl asi = (AnnexSubclauseImpl)as;
-						if (asi.getAnnexContent().length() > 0)
-						{
-							aadlText.addOutputNewline("annex " + annexName + " {**");
-							aadlText.incrementIndent();
-							aadlText.addOutput(asi.getAnnexContent());
-							aadlText.decrementIndent();
-							aadlText.addOutputNewline("**};");
-							return DONE;
-						}
-					}
 				}
 				
 				return DONE;
