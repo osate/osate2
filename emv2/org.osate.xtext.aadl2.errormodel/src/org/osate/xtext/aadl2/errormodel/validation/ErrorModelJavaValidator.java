@@ -818,7 +818,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			} else {
 				// TODO check in instance model for connection end point if no
 				// error model subclause
-				info(conn,
+				warning(conn,
 						"Connection source has no error model subclause but target does: "
 								+ (dstprop != null ? EMV2Util
 										.getPrintName(dstprop) : EMV2Util
@@ -853,15 +853,15 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			// check for error flow in the opposite direction
 			if (srcems != null) {
 				dstprop = EMV2Util.findIncomingErrorPropagation(srcems,
-						src.getName());
+						srcname);
 				dstcontain = EMV2Util.findIncomingErrorContainment(srcems,
-						src.getName());
+						srcname);
 			}
 			if (dstems != null) {
 				srcprop = EMV2Util.findOutgoingErrorPropagation(dstems,
-						dst.getName());
+						dstname);
 				srccontain = EMV2Util.findOutgoingErrorContainment(dstems,
-						dst.getName());
+						dstname);
 			}
 
 			if (srcprop != null && dstprop != null) {
@@ -907,7 +907,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				} else {
 					// TODO check in instance model for connection end point if
 					// no error model subclause
-					info(conn,
+					warning(conn,
 							"Connection source has no error model subclause but target does: "
 									+ (dstprop != null ? EMV2Util
 											.getPrintName(dstprop) : EMV2Util
