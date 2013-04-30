@@ -76,7 +76,7 @@ public class EMV2Util {
 	
 	public final static String ErrorModelAnnexName = "EMV2";
 	private static EClass EMV2subclauseEClass = Aadl2Package.eINSTANCE.getAnnexSubclause();
-
+	public static final String INVALID_OCCURRENCE_TYPE = "unknown_distribution";
 	/**
 	 * Get the error-annex subclause for a given Component Instance
 	 * @param ci	The component instance that contains the error model subclause
@@ -1338,8 +1338,11 @@ public class EMV2Util {
 	public static Collection<ErrorBehaviorTransition> getAllErrorBehaviorTransitions(Classifier cl){
 		BasicEList<ErrorBehaviorTransition> unlist = new BasicEList<ErrorBehaviorTransition>();
 		Collection<ErrorBehaviorTransition> res = getAllErrorBehaviorTransitions(cl, unlist).values();
-		res.addAll(unlist);
-		return res;
+		
+		BasicEList<ErrorBehaviorTransition> result = new BasicEList<ErrorBehaviorTransition>();
+		result.addAll(res);
+		result.addAll(unlist);
+		return result;
 	}
 	
 	/**
