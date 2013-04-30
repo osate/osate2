@@ -1,4 +1,4 @@
-// $ANTLR 3.4 AadlBa.g 2013-02-27 10:03:47
+// $ANTLR 3.4 AadlBa.g 2013-04-30 11:28:23
  
   package fr.tpt.aadl.annex.behavior.parser;
   
@@ -5421,6 +5421,11 @@ public class AadlBaParser extends Parser {
                reportError("unexpected value", null) ;
 
         }
+        catch (NullPointerException ex) {
+
+               reportError("unexpected value", null) ;
+
+        }
         catch (RecognitionException ex) {
 
               reportError(ex);
@@ -5439,7 +5444,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "logical_operator"
-    // AadlBa.g:2007:1: logical_operator returns [LogicalOperator LogicalOp] : (identifier_and= AND |identifier_or= OR |identifier_xor= XOR ) ;
+    // AadlBa.g:2012:1: logical_operator returns [LogicalOperator LogicalOp] : (identifier_and= AND |identifier_or= OR |identifier_xor= XOR ) ;
     public final LogicalOperator logical_operator() throws RecognitionException {
         LogicalOperator LogicalOp = null;
 
@@ -5453,10 +5458,10 @@ public class AadlBaParser extends Parser {
            LogicalOp = null;
          
         try {
-            // AadlBa.g:2012:3: ( (identifier_and= AND |identifier_or= OR |identifier_xor= XOR ) )
-            // AadlBa.g:2013:4: (identifier_and= AND |identifier_or= OR |identifier_xor= XOR )
+            // AadlBa.g:2017:3: ( (identifier_and= AND |identifier_or= OR |identifier_xor= XOR ) )
+            // AadlBa.g:2018:4: (identifier_and= AND |identifier_or= OR |identifier_xor= XOR )
             {
-            // AadlBa.g:2013:4: (identifier_and= AND |identifier_or= OR |identifier_xor= XOR )
+            // AadlBa.g:2018:4: (identifier_and= AND |identifier_or= OR |identifier_xor= XOR )
             int alt63=3;
             switch ( input.LA(1) ) {
             case AND:
@@ -5485,27 +5490,27 @@ public class AadlBaParser extends Parser {
 
             switch (alt63) {
                 case 1 :
-                    // AadlBa.g:2014:6: identifier_and= AND
+                    // AadlBa.g:2019:6: identifier_and= AND
                     {
-                    identifier_and=(Token)match(input,AND,FOLLOW_AND_in_logical_operator6588); if (state.failed) return LogicalOp;
+                    identifier_and=(Token)match(input,AND,FOLLOW_AND_in_logical_operator6595); if (state.failed) return LogicalOp;
 
                     if ( state.backtracking==0 ) { LogicalOp=LogicalOperator.AND; highlight(identifier_and, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2016:6: identifier_or= OR
+                    // AadlBa.g:2021:6: identifier_or= OR
                     {
-                    identifier_or=(Token)match(input,OR,FOLLOW_OR_in_logical_operator6604); if (state.failed) return LogicalOp;
+                    identifier_or=(Token)match(input,OR,FOLLOW_OR_in_logical_operator6611); if (state.failed) return LogicalOp;
 
                     if ( state.backtracking==0 ) { LogicalOp=LogicalOperator.OR; highlight(identifier_or, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:2018:6: identifier_xor= XOR
+                    // AadlBa.g:2023:6: identifier_xor= XOR
                     {
-                    identifier_xor=(Token)match(input,XOR,FOLLOW_XOR_in_logical_operator6620); if (state.failed) return LogicalOp;
+                    identifier_xor=(Token)match(input,XOR,FOLLOW_XOR_in_logical_operator6627); if (state.failed) return LogicalOp;
 
                     if ( state.backtracking==0 ) { LogicalOp=LogicalOperator.XOR; highlight(identifier_xor, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 
@@ -5536,7 +5541,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "relational_operator"
-    // AadlBa.g:2029:1: relational_operator returns [RelationalOperator RelationalOp] : ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL ) ;
+    // AadlBa.g:2034:1: relational_operator returns [RelationalOperator RelationalOp] : ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL ) ;
     public final RelationalOperator relational_operator() throws RecognitionException {
         RelationalOperator RelationalOp = null;
 
@@ -5546,10 +5551,10 @@ public class AadlBaParser extends Parser {
            RelationalOp = null;
          
         try {
-            // AadlBa.g:2034:3: ( ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL ) )
-            // AadlBa.g:2035:4: ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL )
+            // AadlBa.g:2039:3: ( ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL ) )
+            // AadlBa.g:2040:4: ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL )
             {
-            // AadlBa.g:2035:4: ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL )
+            // AadlBa.g:2040:4: ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL )
             int alt64=6;
             switch ( input.LA(1) ) {
             case EQUAL:
@@ -5593,54 +5598,54 @@ public class AadlBaParser extends Parser {
 
             switch (alt64) {
                 case 1 :
-                    // AadlBa.g:2036:6: EQUAL
+                    // AadlBa.g:2041:6: EQUAL
                     {
-                    match(input,EQUAL,FOLLOW_EQUAL_in_relational_operator6665); if (state.failed) return RelationalOp;
+                    match(input,EQUAL,FOLLOW_EQUAL_in_relational_operator6672); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.EQUAL; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2038:6: NOTEQUAL
+                    // AadlBa.g:2043:6: NOTEQUAL
                     {
-                    match(input,NOTEQUAL,FOLLOW_NOTEQUAL_in_relational_operator6679); if (state.failed) return RelationalOp;
+                    match(input,NOTEQUAL,FOLLOW_NOTEQUAL_in_relational_operator6686); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.NOT_EQUAL; }
 
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:2040:6: LESSTHAN
+                    // AadlBa.g:2045:6: LESSTHAN
                     {
-                    match(input,LESSTHAN,FOLLOW_LESSTHAN_in_relational_operator6693); if (state.failed) return RelationalOp;
+                    match(input,LESSTHAN,FOLLOW_LESSTHAN_in_relational_operator6700); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.LESS_THAN; }
 
                     }
                     break;
                 case 4 :
-                    // AadlBa.g:2042:6: LESSOREQUAL
+                    // AadlBa.g:2047:6: LESSOREQUAL
                     {
-                    match(input,LESSOREQUAL,FOLLOW_LESSOREQUAL_in_relational_operator6707); if (state.failed) return RelationalOp;
+                    match(input,LESSOREQUAL,FOLLOW_LESSOREQUAL_in_relational_operator6714); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.LESS_OR_EQUAL_THAN; }
 
                     }
                     break;
                 case 5 :
-                    // AadlBa.g:2044:6: GREATERTHAN
+                    // AadlBa.g:2049:6: GREATERTHAN
                     {
-                    match(input,GREATERTHAN,FOLLOW_GREATERTHAN_in_relational_operator6721); if (state.failed) return RelationalOp;
+                    match(input,GREATERTHAN,FOLLOW_GREATERTHAN_in_relational_operator6728); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.GREATER_THAN; }
 
                     }
                     break;
                 case 6 :
-                    // AadlBa.g:2046:6: GREATEROREQUAL
+                    // AadlBa.g:2051:6: GREATEROREQUAL
                     {
-                    match(input,GREATEROREQUAL,FOLLOW_GREATEROREQUAL_in_relational_operator6735); if (state.failed) return RelationalOp;
+                    match(input,GREATEROREQUAL,FOLLOW_GREATEROREQUAL_in_relational_operator6742); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.GREATER_OR_EQUAL_THAN; }
 
@@ -5671,7 +5676,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "binary_adding_operator"
-    // AadlBa.g:2057:1: binary_adding_operator returns [BinaryAddingOperator BinaryAddOp] : ( PLUS | MINUS ) ;
+    // AadlBa.g:2062:1: binary_adding_operator returns [BinaryAddingOperator BinaryAddOp] : ( PLUS | MINUS ) ;
     public final BinaryAddingOperator binary_adding_operator() throws RecognitionException {
         BinaryAddingOperator BinaryAddOp = null;
 
@@ -5681,10 +5686,10 @@ public class AadlBaParser extends Parser {
            //BinaryAddOp = _fact.createBinaryAddingOperator();
          
         try {
-            // AadlBa.g:2062:3: ( ( PLUS | MINUS ) )
-            // AadlBa.g:2063:4: ( PLUS | MINUS )
+            // AadlBa.g:2067:3: ( ( PLUS | MINUS ) )
+            // AadlBa.g:2068:4: ( PLUS | MINUS )
             {
-            // AadlBa.g:2063:4: ( PLUS | MINUS )
+            // AadlBa.g:2068:4: ( PLUS | MINUS )
             int alt65=2;
             int LA65_0 = input.LA(1);
 
@@ -5704,18 +5709,18 @@ public class AadlBaParser extends Parser {
             }
             switch (alt65) {
                 case 1 :
-                    // AadlBa.g:2064:6: PLUS
+                    // AadlBa.g:2069:6: PLUS
                     {
-                    match(input,PLUS,FOLLOW_PLUS_in_binary_adding_operator6782); if (state.failed) return BinaryAddOp;
+                    match(input,PLUS,FOLLOW_PLUS_in_binary_adding_operator6789); if (state.failed) return BinaryAddOp;
 
                     if ( state.backtracking==0 ) { BinaryAddOp = BinaryAddingOperator.PLUS; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2066:6: MINUS
+                    // AadlBa.g:2071:6: MINUS
                     {
-                    match(input,MINUS,FOLLOW_MINUS_in_binary_adding_operator6796); if (state.failed) return BinaryAddOp;
+                    match(input,MINUS,FOLLOW_MINUS_in_binary_adding_operator6803); if (state.failed) return BinaryAddOp;
 
                     if ( state.backtracking==0 ) { BinaryAddOp = BinaryAddingOperator.MINUS; }
 
@@ -5746,7 +5751,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "unary_adding_operator"
-    // AadlBa.g:2077:1: unary_adding_operator returns [UnaryAddingOperator UnaryAddOp] : ( PLUS | MINUS ) ;
+    // AadlBa.g:2082:1: unary_adding_operator returns [UnaryAddingOperator UnaryAddOp] : ( PLUS | MINUS ) ;
     public final UnaryAddingOperator unary_adding_operator() throws RecognitionException {
         UnaryAddingOperator UnaryAddOp = null;
 
@@ -5755,10 +5760,10 @@ public class AadlBaParser extends Parser {
          // TODO location reference
          
         try {
-            // AadlBa.g:2081:3: ( ( PLUS | MINUS ) )
-            // AadlBa.g:2082:4: ( PLUS | MINUS )
+            // AadlBa.g:2086:3: ( ( PLUS | MINUS ) )
+            // AadlBa.g:2087:4: ( PLUS | MINUS )
             {
-            // AadlBa.g:2082:4: ( PLUS | MINUS )
+            // AadlBa.g:2087:4: ( PLUS | MINUS )
             int alt66=2;
             int LA66_0 = input.LA(1);
 
@@ -5778,18 +5783,18 @@ public class AadlBaParser extends Parser {
             }
             switch (alt66) {
                 case 1 :
-                    // AadlBa.g:2083:6: PLUS
+                    // AadlBa.g:2088:6: PLUS
                     {
-                    match(input,PLUS,FOLLOW_PLUS_in_unary_adding_operator6841); if (state.failed) return UnaryAddOp;
+                    match(input,PLUS,FOLLOW_PLUS_in_unary_adding_operator6848); if (state.failed) return UnaryAddOp;
 
                     if ( state.backtracking==0 ) { UnaryAddOp = UnaryAddingOperator.PLUS; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2085:6: MINUS
+                    // AadlBa.g:2090:6: MINUS
                     {
-                    match(input,MINUS,FOLLOW_MINUS_in_unary_adding_operator6855); if (state.failed) return UnaryAddOp;
+                    match(input,MINUS,FOLLOW_MINUS_in_unary_adding_operator6862); if (state.failed) return UnaryAddOp;
 
                     if ( state.backtracking==0 ) { UnaryAddOp = UnaryAddingOperator.MINUS; }
 
@@ -5820,7 +5825,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "multiplying_operator"
-    // AadlBa.g:2096:1: multiplying_operator returns [MultiplyingOperator MultiplyingOp] : ( STAR | DIVIDE |identifier_mod= MOD |identifier_rem= REM ) ;
+    // AadlBa.g:2101:1: multiplying_operator returns [MultiplyingOperator MultiplyingOp] : ( STAR | DIVIDE |identifier_mod= MOD |identifier_rem= REM ) ;
     public final MultiplyingOperator multiplying_operator() throws RecognitionException {
         MultiplyingOperator MultiplyingOp = null;
 
@@ -5833,10 +5838,10 @@ public class AadlBaParser extends Parser {
           // MultiplyingOperator MultiplyingOp = null;
          
         try {
-            // AadlBa.g:2101:3: ( ( STAR | DIVIDE |identifier_mod= MOD |identifier_rem= REM ) )
-            // AadlBa.g:2102:4: ( STAR | DIVIDE |identifier_mod= MOD |identifier_rem= REM )
+            // AadlBa.g:2106:3: ( ( STAR | DIVIDE |identifier_mod= MOD |identifier_rem= REM ) )
+            // AadlBa.g:2107:4: ( STAR | DIVIDE |identifier_mod= MOD |identifier_rem= REM )
             {
-            // AadlBa.g:2102:4: ( STAR | DIVIDE |identifier_mod= MOD |identifier_rem= REM )
+            // AadlBa.g:2107:4: ( STAR | DIVIDE |identifier_mod= MOD |identifier_rem= REM )
             int alt67=4;
             switch ( input.LA(1) ) {
             case STAR:
@@ -5870,36 +5875,36 @@ public class AadlBaParser extends Parser {
 
             switch (alt67) {
                 case 1 :
-                    // AadlBa.g:2103:6: STAR
+                    // AadlBa.g:2108:6: STAR
                     {
-                    match(input,STAR,FOLLOW_STAR_in_multiplying_operator6900); if (state.failed) return MultiplyingOp;
+                    match(input,STAR,FOLLOW_STAR_in_multiplying_operator6907); if (state.failed) return MultiplyingOp;
 
                     if ( state.backtracking==0 ) { MultiplyingOp = MultiplyingOperator.MULTIPLY; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2105:6: DIVIDE
+                    // AadlBa.g:2110:6: DIVIDE
                     {
-                    match(input,DIVIDE,FOLLOW_DIVIDE_in_multiplying_operator6914); if (state.failed) return MultiplyingOp;
+                    match(input,DIVIDE,FOLLOW_DIVIDE_in_multiplying_operator6921); if (state.failed) return MultiplyingOp;
 
                     if ( state.backtracking==0 ) { MultiplyingOp = MultiplyingOperator.DIVIDE; }
 
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:2107:6: identifier_mod= MOD
+                    // AadlBa.g:2112:6: identifier_mod= MOD
                     {
-                    identifier_mod=(Token)match(input,MOD,FOLLOW_MOD_in_multiplying_operator6930); if (state.failed) return MultiplyingOp;
+                    identifier_mod=(Token)match(input,MOD,FOLLOW_MOD_in_multiplying_operator6937); if (state.failed) return MultiplyingOp;
 
                     if ( state.backtracking==0 ) { MultiplyingOp = MultiplyingOperator.MOD; highlight(identifier_mod, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 
                     }
                     break;
                 case 4 :
-                    // AadlBa.g:2109:6: identifier_rem= REM
+                    // AadlBa.g:2114:6: identifier_rem= REM
                     {
-                    identifier_rem=(Token)match(input,REM,FOLLOW_REM_in_multiplying_operator6946); if (state.failed) return MultiplyingOp;
+                    identifier_rem=(Token)match(input,REM,FOLLOW_REM_in_multiplying_operator6953); if (state.failed) return MultiplyingOp;
 
                     if ( state.backtracking==0 ) { MultiplyingOp = MultiplyingOperator.REM; highlight(identifier_rem, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 
@@ -5930,7 +5935,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "binary_numeric_operator"
-    // AadlBa.g:2120:1: binary_numeric_operator returns [BinaryNumericOperator BinaryNumOp] : STARSTAR ;
+    // AadlBa.g:2125:1: binary_numeric_operator returns [BinaryNumericOperator BinaryNumOp] : STARSTAR ;
     public final BinaryNumericOperator binary_numeric_operator() throws RecognitionException {
         BinaryNumericOperator BinaryNumOp = null;
 
@@ -5940,10 +5945,10 @@ public class AadlBaParser extends Parser {
            //BinaryNumericOperator BinaryNumOp = null;
          
         try {
-            // AadlBa.g:2125:3: ( STARSTAR )
-            // AadlBa.g:2126:4: STARSTAR
+            // AadlBa.g:2130:3: ( STARSTAR )
+            // AadlBa.g:2131:4: STARSTAR
             {
-            match(input,STARSTAR,FOLLOW_STARSTAR_in_binary_numeric_operator6984); if (state.failed) return BinaryNumOp;
+            match(input,STARSTAR,FOLLOW_STARSTAR_in_binary_numeric_operator6991); if (state.failed) return BinaryNumOp;
 
             if ( state.backtracking==0 ) { BinaryNumOp = BinaryNumericOperator.MULTIPLY_MULTIPLY; }
 
@@ -5968,7 +5973,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "unary_numeric_operator"
-    // AadlBa.g:2136:1: unary_numeric_operator returns [UnaryNumericOperator UnaryNumOp] : keyword_abs= ABS ;
+    // AadlBa.g:2141:1: unary_numeric_operator returns [UnaryNumericOperator UnaryNumOp] : keyword_abs= ABS ;
     public final UnaryNumericOperator unary_numeric_operator() throws RecognitionException {
         UnaryNumericOperator UnaryNumOp = null;
 
@@ -5980,10 +5985,10 @@ public class AadlBaParser extends Parser {
            //UnaryNumericOperator UnaryNumOp = null;
          
         try {
-            // AadlBa.g:2141:3: (keyword_abs= ABS )
-            // AadlBa.g:2142:4: keyword_abs= ABS
+            // AadlBa.g:2146:3: (keyword_abs= ABS )
+            // AadlBa.g:2147:4: keyword_abs= ABS
             {
-            keyword_abs=(Token)match(input,ABS,FOLLOW_ABS_in_unary_numeric_operator7019); if (state.failed) return UnaryNumOp;
+            keyword_abs=(Token)match(input,ABS,FOLLOW_ABS_in_unary_numeric_operator7026); if (state.failed) return UnaryNumOp;
 
             if ( state.backtracking==0 ) { UnaryNumOp = UnaryNumericOperator.ABS; highlight(keyword_abs, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 
@@ -6008,7 +6013,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "unary_boolean_operator"
-    // AadlBa.g:2152:1: unary_boolean_operator returns [UnaryBooleanOperator UnaryBoolOp] : identifier_not= NOT ;
+    // AadlBa.g:2157:1: unary_boolean_operator returns [UnaryBooleanOperator UnaryBoolOp] : identifier_not= NOT ;
     public final UnaryBooleanOperator unary_boolean_operator() throws RecognitionException {
         UnaryBooleanOperator UnaryBoolOp = null;
 
@@ -6020,10 +6025,10 @@ public class AadlBaParser extends Parser {
            //UnaryBooleanOperator UnaryBoolOp = null;
          
         try {
-            // AadlBa.g:2157:3: (identifier_not= NOT )
-            // AadlBa.g:2158:4: identifier_not= NOT
+            // AadlBa.g:2162:3: (identifier_not= NOT )
+            // AadlBa.g:2163:4: identifier_not= NOT
             {
-            identifier_not=(Token)match(input,NOT,FOLLOW_NOT_in_unary_boolean_operator7054); if (state.failed) return UnaryBoolOp;
+            identifier_not=(Token)match(input,NOT,FOLLOW_NOT_in_unary_boolean_operator7061); if (state.failed) return UnaryBoolOp;
 
             if ( state.backtracking==0 ) { UnaryBoolOp = UnaryBooleanOperator.NOT; highlight(identifier_not, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 
@@ -6048,7 +6053,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "boolean_literal"
-    // AadlBa.g:2167:1: boolean_literal returns [BehaviorBooleanLiteral BoolLit] : (identifier_true= TRUE |identifier_false= FALSE ) ;
+    // AadlBa.g:2172:1: boolean_literal returns [BehaviorBooleanLiteral BoolLit] : (identifier_true= TRUE |identifier_false= FALSE ) ;
     public final BehaviorBooleanLiteral boolean_literal() throws RecognitionException {
         BehaviorBooleanLiteral BoolLit = null;
 
@@ -6060,10 +6065,10 @@ public class AadlBaParser extends Parser {
            BoolLit = _fact.createBehaviorBooleanLiteral();
          
         try {
-            // AadlBa.g:2171:3: ( (identifier_true= TRUE |identifier_false= FALSE ) )
-            // AadlBa.g:2172:4: (identifier_true= TRUE |identifier_false= FALSE )
+            // AadlBa.g:2176:3: ( (identifier_true= TRUE |identifier_false= FALSE ) )
+            // AadlBa.g:2177:4: (identifier_true= TRUE |identifier_false= FALSE )
             {
-            // AadlBa.g:2172:4: (identifier_true= TRUE |identifier_false= FALSE )
+            // AadlBa.g:2177:4: (identifier_true= TRUE |identifier_false= FALSE )
             int alt68=2;
             int LA68_0 = input.LA(1);
 
@@ -6083,9 +6088,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt68) {
                 case 1 :
-                    // AadlBa.g:2173:8: identifier_true= TRUE
+                    // AadlBa.g:2178:8: identifier_true= TRUE
                     {
-                    identifier_true=(Token)match(input,TRUE,FOLLOW_TRUE_in_boolean_literal7097); if (state.failed) return BoolLit;
+                    identifier_true=(Token)match(input,TRUE,FOLLOW_TRUE_in_boolean_literal7104); if (state.failed) return BoolLit;
 
                     if ( state.backtracking==0 ) { BoolLit.setValue(true); highlight(identifier_true, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
                            setLocationReference(BoolLit, identifier_true) ;}
@@ -6093,9 +6098,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2176:8: identifier_false= FALSE
+                    // AadlBa.g:2181:8: identifier_false= FALSE
                     {
-                    identifier_false=(Token)match(input,FALSE,FOLLOW_FALSE_in_boolean_literal7117); if (state.failed) return BoolLit;
+                    identifier_false=(Token)match(input,FALSE,FOLLOW_FALSE_in_boolean_literal7124); if (state.failed) return BoolLit;
 
                     if ( state.backtracking==0 ) { BoolLit.setValue(false); highlight(identifier_false, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
                            setLocationReference(BoolLit, identifier_false) ;}
@@ -6127,7 +6132,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "integer_range"
-    // AadlBa.g:2187:1: integer_range returns [IntegerRange IntRange] : (IntValue= integer_value DOTDOT IntValue2= integer_value ) ;
+    // AadlBa.g:2192:1: integer_range returns [IntegerRange IntRange] : (IntValue= integer_value DOTDOT IntValue2= integer_value ) ;
     public final IntegerRange integer_range() throws RecognitionException {
         IntegerRange IntRange = null;
 
@@ -6141,21 +6146,21 @@ public class AadlBaParser extends Parser {
            IntRange = _fact.createIntegerRange();
          
         try {
-            // AadlBa.g:2191:3: ( (IntValue= integer_value DOTDOT IntValue2= integer_value ) )
-            // AadlBa.g:2192:4: (IntValue= integer_value DOTDOT IntValue2= integer_value )
+            // AadlBa.g:2196:3: ( (IntValue= integer_value DOTDOT IntValue2= integer_value ) )
+            // AadlBa.g:2197:4: (IntValue= integer_value DOTDOT IntValue2= integer_value )
             {
-            // AadlBa.g:2192:4: (IntValue= integer_value DOTDOT IntValue2= integer_value )
-            // AadlBa.g:2193:6: IntValue= integer_value DOTDOT IntValue2= integer_value
+            // AadlBa.g:2197:4: (IntValue= integer_value DOTDOT IntValue2= integer_value )
+            // AadlBa.g:2198:6: IntValue= integer_value DOTDOT IntValue2= integer_value
             {
-            pushFollow(FOLLOW_integer_value_in_integer_range7164);
+            pushFollow(FOLLOW_integer_value_in_integer_range7171);
             IntValue=integer_value();
 
             state._fsp--;
             if (state.failed) return IntRange;
 
-            match(input,DOTDOT,FOLLOW_DOTDOT_in_integer_range7166); if (state.failed) return IntRange;
+            match(input,DOTDOT,FOLLOW_DOTDOT_in_integer_range7173); if (state.failed) return IntRange;
 
-            pushFollow(FOLLOW_integer_value_in_integer_range7170);
+            pushFollow(FOLLOW_integer_value_in_integer_range7177);
             IntValue2=integer_value();
 
             state._fsp--;
@@ -6191,7 +6196,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "integer_value"
-    // AadlBa.g:2210:1: integer_value returns [IntegerValue IntVal] : (ValTmp= fact_value ) ;
+    // AadlBa.g:2215:1: integer_value returns [IntegerValue IntVal] : (ValTmp= fact_value ) ;
     public final IntegerValue integer_value() throws RecognitionException {
         IntegerValue IntVal = null;
 
@@ -6202,13 +6207,13 @@ public class AadlBaParser extends Parser {
 
          
         try {
-            // AadlBa.g:2213:3: ( (ValTmp= fact_value ) )
-            // AadlBa.g:2215:4: (ValTmp= fact_value )
+            // AadlBa.g:2218:3: ( (ValTmp= fact_value ) )
+            // AadlBa.g:2220:4: (ValTmp= fact_value )
             {
-            // AadlBa.g:2215:4: (ValTmp= fact_value )
-            // AadlBa.g:2216:6: ValTmp= fact_value
+            // AadlBa.g:2220:4: (ValTmp= fact_value )
+            // AadlBa.g:2221:6: ValTmp= fact_value
             {
-            pushFollow(FOLLOW_fact_value_in_integer_value7229);
+            pushFollow(FOLLOW_fact_value_in_integer_value7236);
             ValTmp=fact_value();
 
             state._fsp--;
@@ -6238,7 +6243,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_time"
-    // AadlBa.g:2225:1: behavior_time returns [DeclarativeTime BehTime] : (IntValue= integer_value UnitIdent= IDENT ) ;
+    // AadlBa.g:2230:1: behavior_time returns [DeclarativeTime BehTime] : (IntValue= integer_value UnitIdent= IDENT ) ;
     public final DeclarativeTime behavior_time() throws RecognitionException {
         DeclarativeTime BehTime = null;
 
@@ -6251,19 +6256,19 @@ public class AadlBaParser extends Parser {
            BehTime = _decl.createDeclarativeTime() ;
          
         try {
-            // AadlBa.g:2229:3: ( (IntValue= integer_value UnitIdent= IDENT ) )
-            // AadlBa.g:2230:4: (IntValue= integer_value UnitIdent= IDENT )
+            // AadlBa.g:2234:3: ( (IntValue= integer_value UnitIdent= IDENT ) )
+            // AadlBa.g:2235:4: (IntValue= integer_value UnitIdent= IDENT )
             {
-            // AadlBa.g:2230:4: (IntValue= integer_value UnitIdent= IDENT )
-            // AadlBa.g:2231:6: IntValue= integer_value UnitIdent= IDENT
+            // AadlBa.g:2235:4: (IntValue= integer_value UnitIdent= IDENT )
+            // AadlBa.g:2236:6: IntValue= integer_value UnitIdent= IDENT
             {
-            pushFollow(FOLLOW_integer_value_in_behavior_time7293);
+            pushFollow(FOLLOW_integer_value_in_behavior_time7300);
             IntValue=integer_value();
 
             state._fsp--;
             if (state.failed) return BehTime;
 
-            UnitIdent=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_time7297); if (state.failed) return BehTime;
+            UnitIdent=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_time7304); if (state.failed) return BehTime;
 
             if ( state.backtracking==0 ) {
                    BehTime.setIntegerValue(IntValue);
@@ -6299,7 +6304,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "property"
-    // AadlBa.g:2262:1: property returns [QualifiedNamedElement property] : ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT ) ;
+    // AadlBa.g:2267:1: property returns [QualifiedNamedElement property] : ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT ) ;
     public final QualifiedNamedElement property() throws RecognitionException {
         QualifiedNamedElement property = null;
 
@@ -6311,13 +6316,13 @@ public class AadlBaParser extends Parser {
            property = _decl.createQualifiedNamedElement();
          
         try {
-            // AadlBa.g:2266:3: ( ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT ) )
-            // AadlBa.g:2267:4: ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT )
+            // AadlBa.g:2271:3: ( ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT ) )
+            // AadlBa.g:2272:4: ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT )
             {
-            // AadlBa.g:2267:4: ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT )
-            // AadlBa.g:2268:6: (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT
+            // AadlBa.g:2272:4: ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT )
+            // AadlBa.g:2273:6: (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT
             {
-            // AadlBa.g:2268:6: (PropertySetId= IDENT DOUBLECOLON )?
+            // AadlBa.g:2273:6: (PropertySetId= IDENT DOUBLECOLON )?
             int alt69=2;
             int LA69_0 = input.LA(1);
 
@@ -6330,11 +6335,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt69) {
                 case 1 :
-                    // AadlBa.g:2268:8: PropertySetId= IDENT DOUBLECOLON
+                    // AadlBa.g:2273:8: PropertySetId= IDENT DOUBLECOLON
                     {
-                    PropertySetId=(Token)match(input,IDENT,FOLLOW_IDENT_in_property7362); if (state.failed) return property;
+                    PropertySetId=(Token)match(input,IDENT,FOLLOW_IDENT_in_property7369); if (state.failed) return property;
 
-                    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_property7364); if (state.failed) return property;
+                    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_property7371); if (state.failed) return property;
 
                     if ( state.backtracking==0 ) {
                              Identifier nameSpaceId = _decl.createIdentifier();
@@ -6350,7 +6355,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            PropertyId=(Token)match(input,IDENT,FOLLOW_IDENT_in_property7398); if (state.failed) return property;
+            PropertyId=(Token)match(input,IDENT,FOLLOW_IDENT_in_property7405); if (state.failed) return property;
 
             if ( state.backtracking==0 ) { 
                    Identifier nameId = _decl.createIdentifier();
@@ -6388,7 +6393,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_enumeration_literal"
-    // AadlBa.g:2302:1: behavior_enumeration_literal returns [Enumeration enumeration] : ( qualifiable_named_element[enumeration] HASH id2= IDENT ) ;
+    // AadlBa.g:2307:1: behavior_enumeration_literal returns [Enumeration enumeration] : ( qualifiable_named_element[enumeration] HASH id2= IDENT ) ;
     public final Enumeration behavior_enumeration_literal() throws RecognitionException {
         Enumeration enumeration = null;
 
@@ -6399,21 +6404,21 @@ public class AadlBaParser extends Parser {
                   enumeration = _decl.createEnumeration() ;
                 
         try {
-            // AadlBa.g:2306:3: ( ( qualifiable_named_element[enumeration] HASH id2= IDENT ) )
-            // AadlBa.g:2307:3: ( qualifiable_named_element[enumeration] HASH id2= IDENT )
+            // AadlBa.g:2311:3: ( ( qualifiable_named_element[enumeration] HASH id2= IDENT ) )
+            // AadlBa.g:2312:3: ( qualifiable_named_element[enumeration] HASH id2= IDENT )
             {
-            // AadlBa.g:2307:3: ( qualifiable_named_element[enumeration] HASH id2= IDENT )
-            // AadlBa.g:2308:6: qualifiable_named_element[enumeration] HASH id2= IDENT
+            // AadlBa.g:2312:3: ( qualifiable_named_element[enumeration] HASH id2= IDENT )
+            // AadlBa.g:2313:6: qualifiable_named_element[enumeration] HASH id2= IDENT
             {
-            pushFollow(FOLLOW_qualifiable_named_element_in_behavior_enumeration_literal7451);
+            pushFollow(FOLLOW_qualifiable_named_element_in_behavior_enumeration_literal7458);
             qualifiable_named_element(enumeration);
 
             state._fsp--;
             if (state.failed) return enumeration;
 
-            match(input,HASH,FOLLOW_HASH_in_behavior_enumeration_literal7465); if (state.failed) return enumeration;
+            match(input,HASH,FOLLOW_HASH_in_behavior_enumeration_literal7472); if (state.failed) return enumeration;
 
-            id2=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_enumeration_literal7469); if (state.failed) return enumeration;
+            id2=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_enumeration_literal7476); if (state.failed) return enumeration;
 
             if ( state.backtracking==0 ) {
                    Identifier lit = _decl.createIdentifier() ;
@@ -6449,7 +6454,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "numeric_literal"
-    // AadlBa.g:2330:1: numeric_literal returns [NumericLiteral nl] : (realval= REAL_LIT |intLit= integer_literal ) ;
+    // AadlBa.g:2335:1: numeric_literal returns [NumericLiteral nl] : (realval= REAL_LIT |intLit= integer_literal ) ;
     public final NumericLiteral numeric_literal() throws RecognitionException {
         NumericLiteral nl = null;
 
@@ -6463,10 +6468,10 @@ public class AadlBaParser extends Parser {
             char sign = ' '; 
           
         try {
-            // AadlBa.g:2335:3: ( (realval= REAL_LIT |intLit= integer_literal ) )
-            // AadlBa.g:2336:3: (realval= REAL_LIT |intLit= integer_literal )
+            // AadlBa.g:2340:3: ( (realval= REAL_LIT |intLit= integer_literal ) )
+            // AadlBa.g:2341:3: (realval= REAL_LIT |intLit= integer_literal )
             {
-            // AadlBa.g:2336:3: (realval= REAL_LIT |intLit= integer_literal )
+            // AadlBa.g:2341:3: (realval= REAL_LIT |intLit= integer_literal )
             int alt70=2;
             int LA70_0 = input.LA(1);
 
@@ -6486,9 +6491,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt70) {
                 case 1 :
-                    // AadlBa.g:2337:7: realval= REAL_LIT
+                    // AadlBa.g:2342:7: realval= REAL_LIT
                     {
-                    realval=(Token)match(input,REAL_LIT,FOLLOW_REAL_LIT_in_numeric_literal7529); if (state.failed) return nl;
+                    realval=(Token)match(input,REAL_LIT,FOLLOW_REAL_LIT_in_numeric_literal7536); if (state.failed) return nl;
 
                     if ( state.backtracking==0 ) {
                             String str = realval.getText();
@@ -6503,9 +6508,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2348:7: intLit= integer_literal
+                    // AadlBa.g:2353:7: intLit= integer_literal
                     {
-                    pushFollow(FOLLOW_integer_literal_in_numeric_literal7555);
+                    pushFollow(FOLLOW_integer_literal_in_numeric_literal7562);
                     intLit=integer_literal();
 
                     state._fsp--;
@@ -6542,7 +6547,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "integer_literal"
-    // AadlBa.g:2360:1: integer_literal returns [BehaviorIntegerLiteral bil] : integerval= INTEGER_LIT ;
+    // AadlBa.g:2365:1: integer_literal returns [BehaviorIntegerLiteral bil] : integerval= INTEGER_LIT ;
     public final BehaviorIntegerLiteral integer_literal() throws RecognitionException {
         BehaviorIntegerLiteral bil = null;
 
@@ -6550,10 +6555,10 @@ public class AadlBaParser extends Parser {
         Token integerval=null;
 
         try {
-            // AadlBa.g:2362:2: (integerval= INTEGER_LIT )
-            // AadlBa.g:2363:5: integerval= INTEGER_LIT
+            // AadlBa.g:2367:2: (integerval= INTEGER_LIT )
+            // AadlBa.g:2368:5: integerval= INTEGER_LIT
             {
-            integerval=(Token)match(input,INTEGER_LIT,FOLLOW_INTEGER_LIT_in_integer_literal7595); if (state.failed) return bil;
+            integerval=(Token)match(input,INTEGER_LIT,FOLLOW_INTEGER_LIT_in_integer_literal7602); if (state.failed) return bil;
 
             if ( state.backtracking==0 ) {
                   try
@@ -6603,7 +6608,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "string_literal"
-    // AadlBa.g:2399:1: string_literal returns [BehaviorStringLiteral StringLit] : (sl= STRING_LITERAL ) ;
+    // AadlBa.g:2404:1: string_literal returns [BehaviorStringLiteral StringLit] : (sl= STRING_LITERAL ) ;
     public final BehaviorStringLiteral string_literal() throws RecognitionException {
         BehaviorStringLiteral StringLit = null;
 
@@ -6614,13 +6619,13 @@ public class AadlBaParser extends Parser {
            StringLit = _fact.createBehaviorStringLiteral();
          
         try {
-            // AadlBa.g:2403:3: ( (sl= STRING_LITERAL ) )
-            // AadlBa.g:2404:4: (sl= STRING_LITERAL )
+            // AadlBa.g:2408:3: ( (sl= STRING_LITERAL ) )
+            // AadlBa.g:2409:4: (sl= STRING_LITERAL )
             {
-            // AadlBa.g:2404:4: (sl= STRING_LITERAL )
-            // AadlBa.g:2405:6: sl= STRING_LITERAL
+            // AadlBa.g:2409:4: (sl= STRING_LITERAL )
+            // AadlBa.g:2410:6: sl= STRING_LITERAL
             {
-            sl=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_string_literal7641); if (state.failed) return StringLit;
+            sl=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_string_literal7648); if (state.failed) return StringLit;
 
             if ( state.backtracking==0 ) {
                     String str = sl.getText();
@@ -6655,7 +6660,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "numeral"
-    // AadlBa.g:2424:1: numeral returns [Integer Num] : (NumVal= INTEGER_LIT ) ;
+    // AadlBa.g:2429:1: numeral returns [Integer Num] : (NumVal= INTEGER_LIT ) ;
     public final Integer numeral() throws RecognitionException {
         Integer Num = null;
 
@@ -6663,13 +6668,13 @@ public class AadlBaParser extends Parser {
         Token NumVal=null;
 
         try {
-            // AadlBa.g:2426:3: ( (NumVal= INTEGER_LIT ) )
-            // AadlBa.g:2427:4: (NumVal= INTEGER_LIT )
+            // AadlBa.g:2431:3: ( (NumVal= INTEGER_LIT ) )
+            // AadlBa.g:2432:4: (NumVal= INTEGER_LIT )
             {
-            // AadlBa.g:2427:4: (NumVal= INTEGER_LIT )
-            // AadlBa.g:2428:6: NumVal= INTEGER_LIT
+            // AadlBa.g:2432:4: (NumVal= INTEGER_LIT )
+            // AadlBa.g:2433:6: NumVal= INTEGER_LIT
             {
-            NumVal=(Token)match(input,INTEGER_LIT,FOLLOW_INTEGER_LIT_in_numeral7691); if (state.failed) return Num;
+            NumVal=(Token)match(input,INTEGER_LIT,FOLLOW_INTEGER_LIT_in_numeral7698); if (state.failed) return Num;
 
             if ( state.backtracking==0 ) { 
                    String tmp = NumVal.getText().replaceAll("_", "");
@@ -7100,45 +7105,45 @@ public class AadlBaParser extends Parser {
     public static final BitSet FOLLOW_value_in_factor6488 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_unary_boolean_operator_in_factor6517 = new BitSet(new long[]{0x0101100200000000L,0x0000000000088010L});
     public static final BitSet FOLLOW_value_in_factor6521 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AND_in_logical_operator6588 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OR_in_logical_operator6604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_XOR_in_logical_operator6620 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUAL_in_relational_operator6665 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOTEQUAL_in_relational_operator6679 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LESSTHAN_in_relational_operator6693 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LESSOREQUAL_in_relational_operator6707 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GREATERTHAN_in_relational_operator6721 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GREATEROREQUAL_in_relational_operator6735 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PLUS_in_binary_adding_operator6782 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_binary_adding_operator6796 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PLUS_in_unary_adding_operator6841 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_unary_adding_operator6855 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STAR_in_multiplying_operator6900 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DIVIDE_in_multiplying_operator6914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MOD_in_multiplying_operator6930 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_REM_in_multiplying_operator6946 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STARSTAR_in_binary_numeric_operator6984 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ABS_in_unary_numeric_operator7019 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_unary_boolean_operator7054 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_boolean_literal7097 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_boolean_literal7117 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integer_value_in_integer_range7164 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_DOTDOT_in_integer_range7166 = new BitSet(new long[]{0x0001100200000000L,0x0000000000088010L});
-    public static final BitSet FOLLOW_integer_value_in_integer_range7170 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_fact_value_in_integer_value7229 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integer_value_in_behavior_time7293 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_time7297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_property7362 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_DOUBLECOLON_in_property7364 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_IDENT_in_property7398 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualifiable_named_element_in_behavior_enumeration_literal7451 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_HASH_in_behavior_enumeration_literal7465 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_enumeration_literal7469 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_REAL_LIT_in_numeric_literal7529 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integer_literal_in_numeric_literal7555 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGER_LIT_in_integer_literal7595 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_string_literal7641 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGER_LIT_in_numeral7691 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AND_in_logical_operator6595 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OR_in_logical_operator6611 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_XOR_in_logical_operator6627 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EQUAL_in_relational_operator6672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOTEQUAL_in_relational_operator6686 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LESSTHAN_in_relational_operator6700 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LESSOREQUAL_in_relational_operator6714 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GREATERTHAN_in_relational_operator6728 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GREATEROREQUAL_in_relational_operator6742 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PLUS_in_binary_adding_operator6789 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_binary_adding_operator6803 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PLUS_in_unary_adding_operator6848 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_unary_adding_operator6862 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STAR_in_multiplying_operator6907 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DIVIDE_in_multiplying_operator6921 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MOD_in_multiplying_operator6937 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_REM_in_multiplying_operator6953 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STARSTAR_in_binary_numeric_operator6991 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ABS_in_unary_numeric_operator7026 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_unary_boolean_operator7061 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_boolean_literal7104 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_boolean_literal7124 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integer_value_in_integer_range7171 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_DOTDOT_in_integer_range7173 = new BitSet(new long[]{0x0001100200000000L,0x0000000000088010L});
+    public static final BitSet FOLLOW_integer_value_in_integer_range7177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_fact_value_in_integer_value7236 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integer_value_in_behavior_time7300 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_time7304 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_property7369 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_DOUBLECOLON_in_property7371 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_IDENT_in_property7405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualifiable_named_element_in_behavior_enumeration_literal7458 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_HASH_in_behavior_enumeration_literal7472 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_enumeration_literal7476 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_REAL_LIT_in_numeric_literal7536 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integer_literal_in_numeric_literal7562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGER_LIT_in_integer_literal7602 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_string_literal7648 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGER_LIT_in_numeral7698 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_SEMICOLON_in_synpred34_AadlBa2940 = new BitSet(new long[]{0x0010301800082000L,0x0000000000400400L});
     public static final BitSet FOLLOW_behavior_action_in_synpred34_AadlBa2944 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
     public static final BitSet FOLLOW_integer_range_in_synpred44_AadlBa3772 = new BitSet(new long[]{0x0000000000000002L});

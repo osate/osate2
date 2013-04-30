@@ -1997,6 +1997,11 @@ catch [NoViableAltException ex]
    reportError("unexpected value", null) ;
 }
 
+catch [NullPointerException ex]
+{
+   reportError("unexpected value", null) ;
+}
+
 catch [RecognitionException ex] {
   reportError(ex);
   consumeUntil(input,SEMICOLON);
