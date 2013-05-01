@@ -38,6 +38,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.parser.IParseResult;
@@ -153,6 +154,10 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 		INode root = parseResult.getRootNode();
 		for (INode node : root.getAsTreeIterable()) {
 			EObject ge = node.getGrammarElement();
+			if (ge instanceof RuleCall) {
+				ge = ((RuleCall) ge).getRule();
+			}
+			
 			if (ge instanceof Keyword)
 			{
 				String keywordValue = ((Keyword) ge).getValue();
@@ -182,6 +187,4 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 			} 
 		}
 	}
-
-
 }
