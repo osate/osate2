@@ -1,4 +1,4 @@
-package org.osate.aadl2.errormodel.analysis;
+package org.osate.xtext.aadl2.errormodel.util;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;

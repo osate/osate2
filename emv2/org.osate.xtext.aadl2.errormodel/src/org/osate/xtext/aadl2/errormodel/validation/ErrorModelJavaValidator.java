@@ -253,7 +253,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkDirectionType(ErrorPropagation errorPropagation) {
 		DirectionType pd = errorPropagation.getDirection();
-		Feature f = EMV2Util.getFeature(errorPropagation);
+		NamedElement f = EMV2Util.getErrorPropagationPoint(errorPropagation,null);
 		if (!Aadl2Util.isNull(f) && f instanceof Port) {
 			DirectionType portd = ((Port) f).getDirection();
 			if (!(pd.getName().equalsIgnoreCase(portd.getName()) || portd == DirectionType.IN_OUT))
@@ -270,7 +270,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			ErrorPropagation ep1 = eps.get(i);
 			for (int k = i + 1; k < epssize; k++) {
 				ErrorPropagation ep2 = eps.get(k);
-				if (EMV2Util.getFeature(ep1) == EMV2Util.getFeature(ep2)) {
+				if (EMV2Util.getErrorPropagationPoint(ep1,null) == EMV2Util.getErrorPropagationPoint(ep2,null)) {
 					// uniqueness needs to take into account direction
 					if ((ep1.isNot() && ep2.isNot() || !ep1.isNot()
 							&& !ep2.isNot()) && ep1.getDirection() == ep2.getDirection()) {

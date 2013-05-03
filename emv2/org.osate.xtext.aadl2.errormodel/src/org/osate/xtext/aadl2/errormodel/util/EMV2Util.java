@@ -34,8 +34,10 @@ import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -577,6 +579,23 @@ public class EMV2Util {
 		return EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), "access");
 	}
 
+	/**
+	 * Get incoming error Containment associated with component instance access
+	 * @param ci component instance
+	 * @return error propagation
+	 */
+	public static ErrorPropagation getIncomingAccessErrorContainment(ComponentInstance ci){
+		return EMV2Util.findIncomingErrorContainment(ci.getComponentClassifier(), "access");
+	}
+	
+	/**
+	 * Get outgoing error Containment associated with component instance access
+	 * @param ci component instance
+	 * @return error propagation
+	 */
+	public static ErrorPropagation getOutgoingAccessErrorContainment(ComponentInstance ci){
+		return EMV2Util.findOutgoingErrorContainment(ci.getComponentClassifier(), "access");
+	}
 
 
 	/**
@@ -596,55 +615,53 @@ public class EMV2Util {
 
 	
 
-		/**
-		 * find the error flow whose incoming error propagation point is incie
-		 * @param eps List of error propagations
-		 * @param incie connection instance end, which can be a component instance or feature instance
-		 * @return ErrorFlow
-		 */
-		public static ErrorFlow findErrorFlowFrom(Collection<ErrorFlow> efs, ConnectionInstanceEnd incie){
-			if (!(incie instanceof FeatureInstance)) return null;
-			FeatureInstance fi = (FeatureInstance)incie;
-			for (ErrorFlow ef : efs) {
-				ErrorPropagation eprop = null;
-				if (ef instanceof ErrorPath){
-					ErrorPath ep = (ErrorPath)ef;
-					 eprop = ep.getIncoming();
-				} else if (ef instanceof ErrorSink){
-					ErrorSink es = (ErrorSink)ef;
-					 eprop =es.getIncoming();
-				}
-				if (eprop != null &&isErrorPropagationOf(eprop, fi)){
-					return ef;
-				}
+	/**
+	 * find the error flow whose incoming error propagation point is flowSource
+	 * @param eps List of error propagations
+	 * @param flowSource ErrorPropagation
+	 * @return ErrorFlow list
+	 */
+	public static EList<ErrorFlow> findErrorFlowFrom(Collection<ErrorFlow> efs, ErrorPropagation flowSource){
+		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();
+		for (ErrorFlow ef : efs) {
+			ErrorPropagation eprop = null;
+			if (ef instanceof ErrorPath){
+				ErrorPath ep = (ErrorPath)ef;
+				 eprop = ep.getIncoming();
+			} else if (ef instanceof ErrorSink){
+				ErrorSink es = (ErrorSink)ef;
+				 eprop =es.getIncoming();
 			}
-			return null;
-		}
-	
-		/**
-		 * find the error flow whose outgoing error propagation point is incie
-		 * @param eps List of error propagations
-		 * @param incie connection instance end, which can be a component instance or feature instance
-		 * @return ErrorFlow
-		 */
-		public static ErrorFlow findReverseErrorFlowFrom(Collection<ErrorFlow> efs, ConnectionInstanceEnd incie){
-			if (!(incie instanceof FeatureInstance)) return null;
-			FeatureInstance fi = (FeatureInstance)incie;
-			for (ErrorFlow ef : efs) {
-				ErrorPropagation eprop = null;
-				if (ef instanceof ErrorPath){
-					ErrorPath ep = (ErrorPath)ef;
-					eprop=ep.getOutgoing();
-				} else if (ef instanceof ErrorSource){
-					ErrorSource es = (ErrorSource)ef;
-					eprop=es.getOutgoing();
-				}
-					if (eprop != null&&isErrorPropagationOf(eprop, fi)){
-						return ef;
-				}
+			if (eprop != null && eprop == flowSource){
+				result.add(ef);
 			}
-			return null;
 		}
+		return result;
+	}
+
+		/**
+		 * find the error flow whose outgoing error propagation point is flowSource
+	 * @param eps List of error propagations
+	 * @param flowSource ErrorPropagation
+	 * @return ErrorFlow list
+		 */
+	public static EList<ErrorFlow> findReverseErrorFlowFrom(Collection<ErrorFlow> efs, ErrorPropagation flowSource){
+		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();
+		for (ErrorFlow ef : efs) {
+			ErrorPropagation eprop = null;
+			if (ef instanceof ErrorPath){
+				ErrorPath ep = (ErrorPath)ef;
+				eprop=ep.getOutgoing();
+			} else if (ef instanceof ErrorSource){
+				ErrorSource es = (ErrorSource)ef;
+				eprop=es.getOutgoing();
+			}
+			if (eprop != null && eprop == flowSource){
+				result.add(ef);
+			}
+		}
+		return result;
+	}
 	
 	
 	public static ErrorBehaviorState findErrorBehaviorState(Element context, String name){
@@ -1593,9 +1610,7 @@ public class EMV2Util {
 		}
 		if (el instanceof ErrorPropagation){
 			ErrorPropagation ep = (ErrorPropagation)el;
-			String res = getPrintName(ep);
-			if (!res.isEmpty()) return res;
-			if (ep.getKind() != null) return ep.getKind();
+			return getPrintName(ep);
 		}
 		return "";
 	}
@@ -1608,9 +1623,13 @@ public class EMV2Util {
 	public static String getPrintName(ErrorPropagation ep){
 		EList<FeatureReference> refs = ep.getFeaturerefs();
 		String refname = "";
+		if (refs.isEmpty()){
+			if (ep.getKind() != null) return ep.getKind();
+		} else {
 		for (FeatureReference featureReference : refs) {
 			if (Aadl2Util.isNull(featureReference.getFeature())) return null;
 			refname = refname + (refname.isEmpty()?"":".")+featureReference.getFeature().getName();
+		}
 		}
 		return refname;
 	}
@@ -1729,6 +1748,38 @@ public class EMV2Util {
 		if (Aadl2Util.isNull(et)) return null;
 		return (et instanceof ErrorType)?EMV2Util.resolveAlias((ErrorType)et):EMV2Util.resolveAlias((TypeSet)et);
 	}
+	
+
+	/**
+	 *  figure out the target typetoken based on the source and type mappings
+	 * Path can be a connection instance, a flow spec instance, or an error flow
+	 * @param path connection instance, flow spec instance, error flow
+	 * @param path path of mapping
+	 * @return TypeToken
+	 */
+	public static TypeToken mapToken(TypeToken sourceToken,EObject path){
+		TypeToken result = sourceToken;
+		if (path instanceof ConnectionInstance){
+			if (sourceToken != null){
+				// TODO lookup type transformations for connections and use them to determine target type
+			}
+		} else if (path instanceof ErrorPath){
+			ErrorPath epath = (ErrorPath)path;
+			// map the token
+			TypeToken ttup = epath.getTargetToken();
+			if (ttup == null){
+				// map token via tms
+				TypeMappingSet tms = epath.getTypeMappingSet();
+				if (tms != null){
+					result = EM2TypeSetUtil.mapTypeToken(sourceToken, tms);
+				}
+			}
+		} else if (path instanceof FlowSpecificationInstance){
+			// pass on source token
+		}
+		return result;
+	}
+
 	
 	/**
 	 * get UseBehavior, i.e., the referenced error behavior state machine
@@ -2244,19 +2295,10 @@ public class EMV2Util {
 	 * @param ci
 	 * @return
 	 */
-	public static PropagationPoint getPropagationPoint(ErrorPropagation ep, ComponentInstance ci){
+	public static NamedElement getErrorPropagationPoint(ErrorPropagation ep, ComponentInstance ci){
 		EList<FeatureReference> frefs = ep.getFeaturerefs();
-		if (frefs.isEmpty()) return null;
-		InstanceObject container = ci;
-		for (FeatureReference featureReference : frefs) {
-			NamedElement ne = featureReference.getFeature();
-			if (ne instanceof PropagationPoint){
-				return (PropagationPoint)ne;
-			} else {
-				return null;
-			}
-		}
-		return null;
+		if (frefs.isEmpty()) return ci;
+		return frefs.get(frefs.size()-1).getFeature();
 	}
 	
 	/**
@@ -2279,17 +2321,5 @@ public class EMV2Util {
 		return true;
 	}
 	
-	/**
-	 * returns the last feature in the error propagation feature reference.
-	 * @param ep
-	 * @return feature
-	 */
-	public static Feature getFeature(ErrorPropagation ep){
-		EList<FeatureReference> frefs = ep.getFeaturerefs();
-		if (frefs.isEmpty()) return null;
-		NamedElement res = frefs.get(frefs.size()-1).getFeature();
-		if (res instanceof Feature) return (Feature)res;
-		return null;
-	}
 
 }

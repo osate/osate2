@@ -38,7 +38,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.errormodel.analysis.TraverseErrorFlows;
+import org.osate.aadl2.errormodel.analysis.PropagateErrorSources;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -64,7 +64,7 @@ public final class FMEAAction extends AaxlReadOnlyActionAsJob {
 		else return;
 
 		
-		TraverseErrorFlows faultimpact = new TraverseErrorFlows("FMEA", si);
+		PropagateErrorSources faultimpact = new PropagateErrorSources("FMEA", si);
 		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
 		for (ComponentInstance componentInstance : cilist) {
 			faultimpact.startErrorFlows(componentInstance);

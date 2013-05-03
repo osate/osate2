@@ -37,7 +37,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.errormodel.analysis.TraverseErrorFlows;
+import org.osate.aadl2.errormodel.analysis.PropagateErrorSources;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -67,9 +67,9 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 		 * Create a new model statistics analysis object and run it over the
 		 * declarative model. If an instance model exists, run it over that too.
 		 */
-		TraverseErrorFlows faultimpact = new TraverseErrorFlows("FaultImpact", si); // optional third parameter maxLevel
+		PropagateErrorSources faultimpact = new PropagateErrorSources("FaultImpact", si); // optional third parameter maxLevel
 		faultimpact.reportHeading();
-		List<ComponentInstance> cilist = faultimpact.getModelSubcomponents();//EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
+		List<ComponentInstance> cilist = faultimpact.getSubcomponents();
 		for (ComponentInstance componentInstance : cilist) {
 			faultimpact.startErrorFlows(componentInstance);
 		}

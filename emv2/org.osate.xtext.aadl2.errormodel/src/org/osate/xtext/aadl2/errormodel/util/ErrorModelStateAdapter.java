@@ -1,4 +1,4 @@
-package org.osate.aadl2.errormodel.analysis;
+package org.osate.xtext.aadl2.errormodel.util;
 
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
