@@ -2387,12 +2387,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (!feature.getArrayDimensions().isEmpty()) {
 					error(feature,
 							"Feature arrays can only be declared for abstract, thread, device, bus, data, memory, and processor classifiers.");
-				} else if (feature instanceof FeatureGroup){
-					FeatureGroup fg = (FeatureGroup) feature;
+					return;
+				} 
+			}
+			if (feature instanceof FeatureGroup){
+				// feature array can either be on the feature group declaration or on
+				// on features inside the feature group type of the feature group.
+				// Having it on both would lead to a multi-dimensional feature array.
+				FeatureGroup fg = (FeatureGroup) feature;
+				if (!fg.getArrayDimensions().isEmpty()){
 					FeatureGroupType fgt = fg.getAllFeatureGroupType();
 					if (containsFeatureArrays(fgt)){
 						error(feature,
-								"Feature group contains feature arrays. They are can only be declared for abstract, thread, device, bus, data, memory, and processor classifiers.");
+								"Feature group declared as array contains feature arrays. The resulting feature array would be multi-dimensional.");
 					}
 				}
 			}
