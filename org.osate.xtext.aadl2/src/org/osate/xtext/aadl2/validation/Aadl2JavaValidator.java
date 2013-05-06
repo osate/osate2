@@ -2382,11 +2382,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Element e = feature.getOwner();
 		if (e instanceof ComponentType){
 			ComponentType componentType = (ComponentType) e;
-			if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType) && !(componentType instanceof DataType)&& !(componentType instanceof MemoryType)
-					&& !(componentType instanceof BusType)&& !(componentType instanceof DeviceType) && !(componentType instanceof ProcessorType)) {
+			if (!(componentType instanceof AbstractType) && 
+			    !(componentType instanceof ThreadType) && 
+			    !(componentType instanceof DataType)&& 
+			    !(componentType instanceof MemoryType) && 
+			    !(componentType instanceof BusType)&&
+			    // JD : allow for system type as well
+			    !(componentType instanceof SystemType) && 
+			    !(componentType instanceof DeviceType) && 
+			    !(componentType instanceof ProcessorType)) {
 				if (!feature.getArrayDimensions().isEmpty()) {
 					error(feature,
-							"Feature arrays can only be declared for abstract, thread, device, bus, data, memory, and processor classifiers.");
+							"Feature arrays can only be declared for abstract, thread, device, bus, data, memory, system and processor classifiers.");
 					return;
 				} 
 			}
