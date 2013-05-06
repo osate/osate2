@@ -241,7 +241,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (eml != null){
 			EList<TypeMappingSet> tmsl= eml.getMappings();
 			for (TypeMappingSet tms : tmsl){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(tms.getName())) return tms;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName())) return tms;
 			}
 		}
 		return null;
@@ -252,7 +252,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (eml != null){
 			EList<TypeTransformationSet> tmsl= eml.getTransformations();
 			for (TypeTransformationSet tms : tmsl){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(tms.getName())) return tms;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName())) return tms;
 			}
 		}
 		return null;
@@ -263,7 +263,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (eml != null){
 			EList<ErrorBehaviorStateMachine> ebsml= eml.getBehaviors();
 			for (ErrorBehaviorStateMachine ebsm : ebsml){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebsm.getName())) return ebsm;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebsm.getName())) return ebsm;
 			}
 		}
 		return null;
@@ -286,7 +286,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 	
 	public EObject findEMLNamedTypeElement(Element context, String qualTypeName, EClass eclass){
 		String packName = EMV2Util.getPackageName(qualTypeName);
-		String typeName = EMV2Util.getItemName(qualTypeName);
+		String typeName = EMV2Util.getItemNameWithoutQualification(qualTypeName);
 		if (packName != null){
 			// qualified reference; look there only
 			ErrorModelLibrary eml = findErrorModelLibrary(context, packName);

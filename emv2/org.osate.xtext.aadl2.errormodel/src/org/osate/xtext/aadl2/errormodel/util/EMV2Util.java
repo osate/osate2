@@ -712,7 +712,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorState> ebsl= ebsm.getStates();
 			for (ErrorBehaviorState ebs : ebsl){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we support extends on EBSM
 //			if (ebsm.getExtends() != null){
@@ -865,7 +865,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorTransition> ebsl= ebsm.getTransitions();
 			for (ErrorBehaviorTransition ebs : ebsl){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we introduce extends of EBSM
 //			if (ebsm.getExtends() != null){
@@ -989,7 +989,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorEvent> ebsl= ebsm.getEvents();
 			for (ErrorBehaviorEvent ebs : ebsl){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we support extends of EBSM
 //			if (ebsm.getExtends() != null){
@@ -1576,13 +1576,40 @@ public class EMV2Util {
 		return (TypeUseContext) container;
 	}
 	
+	/**
+	 * return the feature the error propagation is pointing to or null
+	 * @param ep
+	 * @return Feature
+	 */
+	public static Feature getFeature(ErrorPropagation ep){
+		EList<FeatureReference> freflist = ep.getFeaturerefs();
+		if (!freflist.isEmpty()){
+			FeatureReference fref = freflist.get(freflist.size()-1);
+			NamedElement f = fref.getFeature();
+			if (f instanceof Feature){
+				return (Feature) f;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * return true if error propagation points to an access point
+	 * @param ep
+	 * @return Feature
+	 */
+	public static boolean isAccess(ErrorPropagation ep){
+		String s = ep.getKind();
+		return s.equalsIgnoreCase("access");
+	}
+	
 
 	/**
 	 * extract the item name from a qualified name, the identifier after the last ::
 	 * @param qualname String Qualified name
 	 * @return String item name 
 	 */
-	public static String getItemName(String qualname){
+	public static String getItemNameWithoutQualification(String qualname){
 		final int idx = qualname.lastIndexOf("::");
 		if (idx != -1) {
 			return qualname.substring(idx + 2);

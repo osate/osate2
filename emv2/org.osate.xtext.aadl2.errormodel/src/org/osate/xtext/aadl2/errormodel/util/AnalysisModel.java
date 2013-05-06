@@ -10,6 +10,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -20,6 +21,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -221,5 +223,63 @@ public class AnalysisModel {
 		}
 		return result;
 	}
+	
+	
+	/**
+	 * return all feature (or for access component) instances that are the connection destination of the given feature instance
+	 * The soruce and destinations are assumed to be components with error models
+	 * @param fi
+	 * @return list of ConnectionInstanceEnd
+	 */
+	public EList<ConnectionInstanceEnd> getAllConnectionDestinations(ConnectionInstanceEnd fi){
+		EList<ConnectionInstanceEnd> result= new BasicEList<ConnectionInstanceEnd>();
+		ComponentInstance ci = fi.getContainingComponentInstance();
+		NamedElement f = null;
+		if (fi instanceof FeatureInstance){
+		f = ((FeatureInstance)fi).getFeature();
+		} else {
+			f = ((ComponentInstance)f).getSubcomponent();
+		}
+		for (PropagationPath propagationPathRecord : propagationPaths) {
+			PropagationPathEnd src = propagationPathRecord.getPathSrc();
+			ErrorPropagation ep = src.getErrorPropagation();
+			Feature srcf = EMV2Util.getFeature(ep);
+			if (srcf != null && srcf == f){
+				PropagationPathEnd dst = propagationPathRecord.pathDst;
+				ErrorPropagation dstep = dst.getErrorPropagation();
+				if (dstep != null){
+					Feature dstf = EMV2Util.getFeature(dstep);
+					ComponentInstance dstCI = dst.getComponentInstance();
+					if (dstf != null){
+						FeatureInstance dstfi = dstCI.findFeatureInstance(dstf);
+						result.add(dstfi);
+					} else if (EMV2Util.isAccess(dstep)){
+						result.add(dstCI);
+					}
+				}
+			}
+			if (propagationPathRecord.getConni().isBidirectional()){
+				src = propagationPathRecord.getPathDst();
+				ep = src.getErrorPropagation();
+				srcf = EMV2Util.getFeature(ep);
+				if (srcf != null && srcf == f){
+					PropagationPathEnd dst = propagationPathRecord.pathSrc;
+					ErrorPropagation dstep = dst.getErrorPropagation();
+					if (dstep != null){
+						Feature dstf = EMV2Util.getFeature(dstep);
+						ComponentInstance dstCI = dst.getComponentInstance();
+						if (dstf != null){
+							FeatureInstance dstfi = dstCI.findFeatureInstance(dstf);
+							result.add(dstfi);
+						} else if (EMV2Util.isAccess(dstep)){
+							result.add(dstCI);
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
 
 }
