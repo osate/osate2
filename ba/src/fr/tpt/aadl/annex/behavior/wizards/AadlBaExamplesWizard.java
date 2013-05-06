@@ -1,8 +1,6 @@
 package fr.tpt.aadl.annex.behavior.wizards;
 
 import java.io.File ;
-import java.io.FileFilter ;
-import java.io.IOException ;
 import java.util.ArrayList ;
 import java.util.Collection ;
 import java.util.HashMap ;
@@ -35,19 +33,19 @@ import org.eclipse.swt.widgets.Tree ;
 import org.eclipse.swt.widgets.TreeColumn ;
 import org.osate.ui.wizards.AadlProjectWizard ;
 import org.osate.ui.wizards.AadlWizardReferencePage ;
-import org.osate.workspace.WorkspacePlugin ;
-
-import com.google.common.io.Files ;
 
 import fr.tpt.aadl.annex.behavior.utils.AadlBaNames ;
 import fr.tpt.aadl.utils.Aadl2Utils ;
+import fr.tpt.aadl.utils.FileUtils ;
+import fr.tpt.aadl.utils.FileUtils.AadlFileFilter; ;
 
 public class AadlBaExamplesWizard extends AadlProjectWizard
 {
-  protected final static String _EXAMPLE_ROOT_PATH = "examples" ;
-  protected final static String _ADD_IMG_FILE_PATH = "resources/img/file_add_16.png" ;
-  protected final static String _REMOVE_IMG_FILE_PATH = "resources/img/file_remove_16.png" ;
-  protected final static String _CAT_IMG_FILE_PATH = "resources/img/folder_16.png" ;
+  protected static String _EXAMPLE_ROOT_PATH = "examples" ;
+  protected static String _ADD_IMG_FILE_PATH = "resources/img/file_add_16.png" ;
+  protected static String _REMOVE_IMG_FILE_PATH = "resources/img/file_remove_16.png" ;
+  protected static String _CAT_IMG_FILE_PATH = "resources/img/folder_16.png" ;
+  protected static String _NAME_SEPARATOR = "_" ;
   
   protected Map<String, List<Integer>> _SelectedExamplesTreeContent = 
                                           new HashMap<String, List<Integer>>() ;
@@ -58,6 +56,11 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
   {
     // Gives the category for a given file index.
     protected List<String> _fileMapping = new ArrayList<String>() ;
+    
+    public AadlBaExamplesWizardPage(String pageId)
+    {
+      super(pageId) ;      
+    }
     
     public class TreeContentProvider implements ITreeContentProvider
     {
@@ -191,11 +194,6 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
       }
     }
 
-    public AadlBaExamplesWizardPage(String pageId)
-    {
-      super(pageId) ;
-    }
-    
     @Override
     public void createControl(Composite parent)
     {
@@ -359,7 +357,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
                                                examplesPath) ;
       if (rootPath.isDirectory())
       {
-        Map<String, List<Integer>> treeContent = new HashMap<String, List<Integer>>();
+        Map<String, List<Integer>> result = new HashMap<String, List<Integer>>();
         int count = 0 ;
         
         for(File f : rootPath.listFiles())
@@ -367,23 +365,9 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
           if (f.isDirectory())
           {
             String key = f.getName() ;
-            key = key.replaceAll("_", " ") ;
+            key = key.replaceAll(_NAME_SEPARATOR, " ") ;
             
-            File[] files = f.listFiles(new FileFilter()
-            {
-              @Override
-              public boolean accept(File pathname)
-              {
-                String fileName = pathname.getName() ;
-                
-                int i = fileName.lastIndexOf('.') ;
-                
-                String extension = fileName.substring(i+1, fileName.length()) ;
-                
-                return WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(extension) ||
-                       WorkspacePlugin.SOURCE_FILE_EXT2.equalsIgnoreCase(extension) ;
-              }
-            }) ;
+            File[] files = f.listFiles(new AadlFileFilter()) ;
             
             if(files.length > 0)
             {
@@ -397,7 +381,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
                 count++ ;
               }
               
-              treeContent.put(key, index) ;
+              result.put(key, index) ;
             }
             else
             {
@@ -410,7 +394,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
           }
         }
         
-        return treeContent ;
+        return result ;
       }
       else
       {
@@ -448,18 +432,22 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
     }
   }
   
-  @Override
-  public void addPages()
+  public AadlBaExamplesWizard ()
   {
+    super() ;
     newProjectCreationPage = new AadlBaExamplesWizardPage("basicNewProjectPage");
     newProjectCreationPage.setTitle("Aadl Behavior Annex Project");
     newProjectCreationPage.setDescription("Create a new Aadl Behaviort Annex project resource.");
-    this.addPage(newProjectCreationPage);
     
     referencePage = new AadlWizardReferencePage("projectReferencePage");
     referencePage.setTitle("AADL Settings");
     referencePage.setDescription("Define the AADL Settings");
-
+  }
+  
+  @Override
+  public void addPages()
+  {
+    this.addPage(newProjectCreationPage);
     this.addPage(referencePage);
   }
 
@@ -482,8 +470,8 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
                 new File(projectPath.toString() + IPath.SEPARATOR +
                       _EXAMPLE_ROOT_PATH) ;
           destFolder.mkdir() ;
-
-          copyFiles(selectedExamples, destFolder) ;
+          
+          FileUtils.copyFiles(selectedExamples, destFolder) ;
           
           this.newProject.refreshLocal(2, null) ;
         }
@@ -534,17 +522,5 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
     }
     
     return result ;
-  }
-  
-  protected void copyFiles(List<File> files, File destFolder) throws IOException
-  {
-    File newFile = null ;
-    
-    for(File f : files)
-    {
-      newFile = new File(destFolder.getPath() + File.separatorChar + 
-                         f.getName()) ;
-      Files.copy(f, newFile) ;
-    }
   }
 }
