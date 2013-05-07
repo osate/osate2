@@ -46,6 +46,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
   protected static String _REMOVE_IMG_FILE_PATH = "resources/img/file_remove_16.png" ;
   protected static String _CAT_IMG_FILE_PATH = "resources/img/folder_16.png" ;
   protected static String _NAME_SEPARATOR = "_" ;
+  protected static List<String> _EXCLUDED_DIRECTORIES = new ArrayList<String>();
   
   protected Map<String, List<Integer>> _SelectedExamplesTreeContent = 
                                           new HashMap<String, List<Integer>>() ;
@@ -59,7 +60,9 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
     
     public AadlBaExamplesWizardPage(String pageId)
     {
-      super(pageId) ;      
+      super(pageId) ;
+      _EXCLUDED_DIRECTORIES.add(".svn") ;
+      _EXCLUDED_DIRECTORIES.add("output_ref") ;
     }
     
     public class TreeContentProvider implements ITreeContentProvider
@@ -362,9 +365,11 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
         
         for(File f : rootPath.listFiles())
         {
-          if (f.isDirectory())
+          if (f.isDirectory() &&
+              ! Aadl2Utils.contains(f.getName(), _EXCLUDED_DIRECTORIES))
           {
             String key = f.getName() ;
+            
             key = key.replaceAll(_NAME_SEPARATOR, " ") ;
             
             File[] files = f.listFiles(new AadlFileFilter()) ;
@@ -461,7 +466,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
       try
       {
         List<File> selectedExamples =
-                      this.fetchSelectedExampels(_SelectedExamplesTreeContent) ;
+                      this.fetchSelectedExamples(_SelectedExamplesTreeContent) ;
         if(!selectedExamples.isEmpty())
         {
           IPath projectPath = this.newProject.getLocation() ;
@@ -471,7 +476,8 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
                       _EXAMPLE_ROOT_PATH) ;
           destFolder.mkdir() ;
           
-          FileUtils.copyFiles(selectedExamples, destFolder) ;
+          FileUtils.copyFiles(selectedExamples, destFolder,
+                              _EXCLUDED_DIRECTORIES) ;
           
           this.newProject.refreshLocal(2, null) ;
         }
@@ -507,7 +513,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
     
   }
   
-  protected List<File> fetchSelectedExampels(Map<String,
+  protected List<File> fetchSelectedExamples(Map<String,
                                              List<Integer>> treeContent)
   {
     Collection<List<Integer>> content = treeContent.values() ;
