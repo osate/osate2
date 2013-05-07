@@ -75,7 +75,7 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
 import fr.tpt.aadl.utils.PropertyUtils ;
 import fr.tpt.aadl.utils.names.DispatchTriggerProperties ;
-
+@SuppressWarnings("unused")
 public class AadlBaLegalityRulesChecker
 {
    private BehaviorAnnex _ba ;
@@ -223,7 +223,6 @@ public class AadlBaLegalityRulesChecker
     * Keys : threads, components initialization finalization entrypoints initial
     * final states
     */
-   @SuppressWarnings("unchecked")
    // Suspended legality rule checking: need standard improvement.
    public boolean D_3_L4_Check (EList<BehaviorState> initialStates,
 				                EList<BehaviorState> finalStates)
