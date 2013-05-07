@@ -54,16 +54,26 @@ public class FileUtils
   /**
    * Recursive copy the given source node to the given destination directory.<BR>
    * Create destination directory if it doesn't exist.<BR>
-   * Overwriting destination is not permitted.
+   * Overwriting destination is not permitted. If the given list of node's name 
+   * (just file or directory name, not absolute path) is not {@code null}, 
+   * The nodes from the given source directory, which name appears in the given
+   * list (case not sensitive), will not be copied.
    * 
    * @param srcFile the given source node
    * @param destFolder the given destination directory
+   * @param excludedNodeNames list of node's names not copied or {@code null}.
    * @throws IOException for any read or write errors
    */
-  public static void copyFiles(File srcFile, File destFolder) throws IOException
+  public static void copyFiles(File srcFile, File destFolder,
+                               List<String> excludedNodeNames) throws IOException
   {
     // Verifications
     byte errorCode = 0 ;
+    
+    if(Aadl2Utils.contains(srcFile.getName(), excludedNodeNames))
+    {
+      return ;
+    }
     
     if(! srcFile.exists())
     {
@@ -102,7 +112,7 @@ public class FileUtils
                                       srcFile.getName()) ;
         newDestFolder.mkdir() ;
         
-        FileUtils.copyFiles(inside, newDestFolder) ;
+        FileUtils.copyFiles(inside, newDestFolder, excludedNodeNames) ;
       }
     }
     else
@@ -118,17 +128,22 @@ public class FileUtils
    * Recursive copy the given list of source nodes to the given destination
    * directory.<BR>
    * Create destination directory if it doesn't exist.<BR>
-   * Overwriting destination is not permitted.
+   * Overwriting destination is not permitted. If the given list of node's name 
+   * (just file or directory name, not absolute path) is not {@code null}, 
+   * The nodes from the given source directory, which name appears in the given
+   * list (case not sensitive), will not be copied.
    * 
    * @param srcFiles the given list of source nodes
    * @param destFolder the given destination directory
+   * @param excludedNodeNames list of node's names not copied or {@code null}.
    * @throws IOException for any read or write errors
    */
-  public static void copyFiles(List<File> srcFiles, File destFolder) throws IOException
+  public static void copyFiles(List<File> srcFiles, File destFolder,
+                               List<String> excludedNodeNames) throws IOException
   {
     for(File f : srcFiles)
     {
-      FileUtils.copyFiles(f, destFolder) ;
+      FileUtils.copyFiles(f, destFolder, excludedNodeNames) ;
     }
   }
 }
