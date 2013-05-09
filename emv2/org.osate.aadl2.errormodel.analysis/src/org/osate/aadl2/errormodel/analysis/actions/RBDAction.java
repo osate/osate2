@@ -196,7 +196,11 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 					
 			}
 		}
-		finalResult = finalResult - toRemove;
+		// seems to reset the fa
+		if (finalResult > toRemove)
+		{
+			finalResult = finalResult - toRemove;
+		}
 	}
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
