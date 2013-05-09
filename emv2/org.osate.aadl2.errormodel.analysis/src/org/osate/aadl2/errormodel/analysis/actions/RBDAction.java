@@ -103,7 +103,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
 			//OsateDebug.osateDebug("         instance " + relatedInstance);
 			
-			if (! this.componentsNames.contains(relatedInstance))
+			if (relatedInstance != null && ! this.componentsNames.contains(relatedInstance))
 			{
 				this.componentsNames.add (relatedInstance);
 			}
