@@ -169,10 +169,10 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		double						probabilityTemp;
 		double 						toRemove;
 		
-		ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(systemInstance.getComponentClassifier());
+		ErrorModelSubclause ems = EMV2Util.getFirstEMV2Subclause(systemInstance.getComponentClassifier());
 		ceb = ems.getCompositeBehavior();
 		
-		componentInstances = EMV2Util.getComponentInstancesWithErrorPropagations (systemInstance);
+		componentInstances = EMV2Util.getComponentInstancesWithEMV2Subclause(systemInstance);
 		// TODO may need to be updated to handle inherits from classifier extensions
 		states = ceb.getStates();
 		
