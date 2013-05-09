@@ -31,6 +31,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
@@ -113,13 +114,27 @@ public class EMLinkingService extends PropertiesLinkingService {
 				Classifier ns = AadlUtil.getContainingClassifier(context);
 				searchResult = ns.findNamedElement(name);
 			} else if (context instanceof FeatureReference){
-				Classifier cl = AadlUtil.getContainingClassifier(context);
-				NamedElement ne = cl.findNamedElement(name);
-				if (ne instanceof Feature){
-					searchResult = ne; 
+				ErrorPropagation ep = (ErrorPropagation) context.eContainer();
+				EList<FeatureReference> frefs = ep.getFeaturerefs();
+				int idx = frefs.indexOf(context);
+				Classifier cl=null;
+				if (idx > 0){
+					FeatureReference enclosingfg = frefs.get(idx-1);
+					NamedElement fg = enclosingfg.getFeature();
+					if (fg instanceof FeatureGroup){
+						cl = ((FeatureGroup)fg).getFeatureGroupType();
+					}
 				} else {
-					// find propagation point
-					searchResult = EMV2Util.findPropagationPoint(cl,name);
+					cl = AadlUtil.getContainingClassifier(context);
+				}
+				if (cl != null){
+					NamedElement ne = cl.findNamedElement(name);
+					if (ne instanceof Feature){
+						searchResult = ne; 
+					} else {
+						// find propagation point
+						searchResult = EMV2Util.findPropagationPoint(cl,name);
+					}
 				}
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType) {
