@@ -119,14 +119,12 @@ public class AnnexUtil {
 		if (packsec != null){
 			EList<Classifier> classifiers = packsec.getOwnedClassifiers();
 			for (Classifier cl : classifiers) {
-				if (cl instanceof ComponentClassifier){
-					addSubclauses((ComponentClassifier)cl,result);
-				}
+					addSubclauses(cl,result);
 			}
 		}
 	}
 	
-	public static void addSubclauses(ComponentClassifier cl, List<DefaultAnnexSubclause> result){
+	public static void addSubclauses(Classifier cl, List<DefaultAnnexSubclause> result){
 		EList<AnnexSubclause> subcs = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause annexSubclause : subcs) {
 			if (annexSubclause instanceof DefaultAnnexSubclause)
