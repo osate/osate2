@@ -48,7 +48,7 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
                     XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
                     String sp = file.getFullPath().toString();
                     Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(sp,false),true);
-                    if (resource.getContents().size() > 1)
+                    if (resource.getContents().size() > 0)
                     {
                     	model = (ModelUnit) resource.getContents().get(0);
                     }
@@ -64,7 +64,7 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
                     String sp = file.getFullPath().toString();
                     Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(sp,false),true);
                     
-                    if (resource.getContents().size() > 1)
+                    if (resource.getContents().size() > 0)
                     {
                     	model = (SystemInstance) resource.getContents().get(0);
                     }
