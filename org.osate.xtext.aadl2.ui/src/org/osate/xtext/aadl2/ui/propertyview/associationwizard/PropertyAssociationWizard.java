@@ -98,6 +98,8 @@ public class PropertyAssociationWizard extends Wizard {
 			newAssociation.setAppend(activePropertyValueWizardPage.isAppendSelected());
 			newAssociation.setConstant(activePropertyValueWizardPage.isConstantSelected());
 		}
+		if (activePropertyValueWizardPage instanceof PropertyValueWizardPage)
+			propertyValueWizardPage.recordDialogSettings();
 		return true;
 	}
 	
