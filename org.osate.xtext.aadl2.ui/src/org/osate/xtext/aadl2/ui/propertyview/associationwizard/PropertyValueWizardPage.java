@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -267,9 +268,16 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 				setPageComplete(false);
 			}
 			else {
-				this.propertyExpression = propertyExpression;
-				setErrorMessage(null);
-				setPageComplete(true);
+				org.eclipse.emf.common.util.Diagnostic validatorDiagnostic = Diagnostician.INSTANCE.validate(parsedAssociation);
+				if (validatorDiagnostic.getSeverity() == org.eclipse.emf.common.util.Diagnostic.ERROR) {
+					setErrorMessage(validatorDiagnostic.getChildren().get(0).getMessage());
+					setPageComplete(false);
+				}
+				else {
+					this.propertyExpression = propertyExpression;
+					setErrorMessage(null);
+					setPageComplete(true);
+				}
 			}
 		}
 		holder.getOwnedPropertyAssociations().remove(parsedAssociation);
