@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -33,6 +35,9 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser;
 import org.osate.xtext.aadl2.ui.MyAadl2Activator;
+import org.osate.xtext.aadl2.ui.propertyview.associationwizard.assistant.AbstractAssistant;
+import org.osate.xtext.aadl2.ui.propertyview.associationwizard.assistant.AssistantFactory;
+import org.osate.xtext.aadl2.ui.propertyview.associationwizard.assistant.AssistantValueChangedListener;
 
 public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 	private final IXtextDocument xtextDocument;
@@ -45,12 +50,17 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 	private PropertyExpression propertyExpression = null;
 	
 	private Label typeLabel = null;
+	private Button useAssistant = null;
+	private Group assistantGroup = null;
+	private Button enterTextualValue = null;
 	private Group valueTextFieldGroup = null;
 	private Label valueLabel = null;
 	private Text value = null;
 	private Button assign = null;
 	private Button append = null;
 	private Button constant = null;
+	
+	private AbstractAssistant assistant = null;
 	
 	public PropertyValueWizardPage(IXtextDocument xtextDocument, NamedElement holder, ISerializer serializer, Aadl2Parser aadl2Parser, ILinker linker) {
 		super("Property Value Wizard Page");
@@ -92,32 +102,42 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 			assign.setEnabled(false);
 			append.setEnabled(false);
 		}
-//		if (assistantGroup.getChildren().length == 1)
-//			assistantGroup.getChildren()[0].dispose();
-//		AssistantValueChangedListener listener = new AssistantValueChangedListener() {
-//			@Override
-//			public void assistantValueChanged() {
-//				updatePageComplete();
-//			}
-//		};
+		if (assistantGroup.getChildren().length == 1)
+			assistantGroup.getChildren()[0].dispose();
+		AssistantValueChangedListener listener = new AssistantValueChangedListener() {
+			@Override
+			public void assistantValueChanged() {
+				updatePageComplete();
+			}
+		};
 //		if (definition.isList())
 //			assistant = new ListAssistant(assistantGroup, definition.getPropertyType(), holder, listener);
 //		else
-//			assistant = AssistantFactory.getAssistantForType(assistantGroup, definition.getPropertyType(), holder, listener);
-//		assistant.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		/* true - enterTextualValue
-		 * false - useAssistant
-		 * DialogSettings.getBoolean() returns false if no value has been set.  The default case is to use the assistant.
-		 */
-//		if (MyAadl2Activator.getInstance().getDialogSettings().getBoolean(assistant.getClass().getName())) {
-//			enterTextualValue.setSelection(true);
-//			useAssistant.setSelection(false);
-//		}
-//		else {
-//			useAssistant.setSelection(true);
-//			enterTextualValue.setSelection(false);
-//		}
-//		updateAssistantAndValueFieldEnabled();
+			assistant = AssistantFactory.getAssistantForType(assistantGroup, definition.getPropertyType(), holder, listener);
+		if (assistant != null) {
+			useAssistant.setEnabled(true);
+			enterTextualValue.setEnabled(true);
+			assistant.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+			/* true - enterTextualValue
+			 * false - useAssistant
+			 * DialogSettings.getBoolean() returns false if no value has been set.  The default case is to use the assistant.
+			 */
+			if (MyAadl2Activator.getInstance().getDialogSettings().getBoolean(assistant.getClass().getName())) {
+				enterTextualValue.setSelection(true);
+				useAssistant.setSelection(false);
+			}
+			else {
+				useAssistant.setSelection(true);
+				enterTextualValue.setSelection(false);
+			}
+		}
+		else {
+			useAssistant.setSelection(false);
+			enterTextualValue.setSelection(true);
+			useAssistant.setEnabled(false);
+			enterTextualValue.setEnabled(false);
+		}
+		updateAssistantAndValueFieldEnabled();
 		updatePageComplete();
 		getShell().layout(true, true);
 	}
@@ -130,28 +150,28 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 		typeLabel = new Label(composite, SWT.WRAP);
 		typeLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		
-//		useAssistant = new Button(composite, SWT.RADIO);
-//		useAssistant.setText("Use Ass&istant");
-//		useAssistant.setSelection(true);
-//		useAssistant.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+		useAssistant = new Button(composite, SWT.RADIO);
+		useAssistant.setText("Use Ass&istant");
+		useAssistant.setSelection(true);
+		useAssistant.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 		
-//		assistantGroup = new Group(composite, SWT.NONE);
-//		assistantGroup.setText("Assistant");
-//		assistantGroup.setLayout(new GridLayout(1, false));
-//		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
-//		layoutData.horizontalIndent = 20;
-//		layoutData.widthHint = 900;
-//		layoutData.heightHint = 300;
-//		assistantGroup.setLayoutData(layoutData);
+		assistantGroup = new Group(composite, SWT.NONE);
+		assistantGroup.setText("Assistant");
+		assistantGroup.setLayout(new GridLayout(1, false));
+		GridData layoutData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		layoutData.horizontalIndent = 20;
+		layoutData.widthHint = 900;
+		layoutData.heightHint = 300;
+		assistantGroup.setLayoutData(layoutData);
 		
-//		enterTextualValue = new Button(composite, SWT.RADIO);
-//		enterTextualValue.setText("&Enter Value as Text (This behaves as if the property were being typed into a .aadl file)");
-//		enterTextualValue.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+		enterTextualValue = new Button(composite, SWT.RADIO);
+		enterTextualValue.setText("&Enter Value as Text (This behaves as if the property were being typed into a .aadl file)");
+		enterTextualValue.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 		
 		valueTextFieldGroup = new Group(composite, SWT.NONE);
 		valueTextFieldGroup.setText("Textual Entry");
 		valueTextFieldGroup.setLayout(new GridLayout(2, false));
-		GridData layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false);
+		layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false);
 		layoutData.horizontalIndent = 20;
 		valueTextFieldGroup.setLayoutData(layoutData);
 		
@@ -184,6 +204,14 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 		setControl(composite);
 	}
 	
+	public void recordDialogSettings() {
+		/* true - enterTextualValue
+		 * false - useAssistant
+		 */
+		if (assistant != null)
+			MyAadl2Activator.getInstance().getDialogSettings().put(assistant.getClass().getName(), enterTextualValue.getSelection());
+	}
+	
 	private void addListeners() {
 		value.addModifyListener(new ModifyListener() {
 			@Override
@@ -191,32 +219,32 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 				updatePageComplete();
 			}
 		});
-//		useAssistant.addSelectionListener(new SelectionAdapter() {
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				updateAssistantAndValueFieldEnabled();
-//				updatePageComplete();
-//			}
-//		});
-//		enterTextualValue.addSelectionListener(new SelectionAdapter() {
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				updateAssistantAndValueFieldEnabled();
-//				updatePageComplete();
-//			}
-//		});
+		useAssistant.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				updateAssistantAndValueFieldEnabled();
+				updatePageComplete();
+			}
+		});
+		enterTextualValue.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				updateAssistantAndValueFieldEnabled();
+				updatePageComplete();
+			}
+		});
 	}
 	
 	private void updatePageComplete() {
-//		if (useAssistant.getSelection()) {
-//			if (assistant.isComplete())
-//				attemptToParseValueText(assistant.getValueText());
-//			else {
-//				setErrorMessage(null);
-//				setPageComplete(false);
-//			}
-//		}
-//		else
+		if (useAssistant.getSelection()) {
+			if (assistant.isComplete())
+				attemptToParseValueText(assistant.getValueText());
+			else {
+				setErrorMessage(null);
+				setPageComplete(false);
+			}
+		}
+		else
 			attemptToParseValueText(value.getText());
 	}
 	
@@ -281,5 +309,23 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 			}
 		}
 		holder.getOwnedPropertyAssociations().remove(parsedAssociation);
+	}
+	
+	private void updateAssistantAndValueFieldEnabled() {
+		if (useAssistant.getSelection()) {
+			assistantGroup.setEnabled(true);
+			assistant.setAssistantEnabled(true);
+			valueTextFieldGroup.setEnabled(false);
+			valueLabel.setEnabled(false);
+			value.setEnabled(false);
+		}
+		else {
+			assistantGroup.setEnabled(false);
+			if (assistant != null)
+				assistant.setAssistantEnabled(false);
+			valueTextFieldGroup.setEnabled(true);
+			valueLabel.setEnabled(true);
+			value.setEnabled(true);
+		}
 	}
 }
