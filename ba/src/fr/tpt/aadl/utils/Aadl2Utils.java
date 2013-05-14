@@ -156,8 +156,6 @@ public class Aadl2Utils
   
   private static Feature setFeatureClassifier(Feature f, DataClassifier dc)
   {
-	  System.out.println("feature " + f.getName() + "("+f+")  classifier is set to " + dc.getName());
-	  
 	  if (f instanceof Parameter)
 	  {
 		  ((Parameter) f).setDataFeatureClassifier(dc);
