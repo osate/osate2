@@ -4,6 +4,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -28,11 +29,16 @@ import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser;
 import org.osate.xtext.aadl2.ui.MyAadl2Activator;
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.assistant.AbstractAssistant;
@@ -279,6 +285,20 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 		PropertyAssociation parsedAssociation = holder.createOwnedPropertyAssociation();
 		parsedAssociation.setProperty(definition);
 		parsedAssociation.createOwnedValue().setOwnedValue(propertyExpression);
+		
+		boolean addedWithClause = false;
+		PropertySet propertySet = (PropertySet)definition.getElementRoot();
+		EList<ModelUnit> importedUnits = null;
+		if (!AadlUtil.isImportedPropertySet(propertySet, holder)) {
+			addedWithClause = true;
+			Namespace context = AadlUtil.getContainingTopLevelNamespace(holder);
+			if (context instanceof PropertySet)
+				importedUnits = ((PropertySet)context).getImportedUnits();
+			else
+				importedUnits = ((PackageSection)context).getImportedUnits();
+			importedUnits.add(propertySet);
+		}
+		
 		ListBasedDiagnosticConsumer diagnosticsConsumer = new ListBasedDiagnosticConsumer();
 		linker.linkModel(propertyExpression, diagnosticsConsumer);
 		List<Diagnostic> diagnostics = diagnosticsConsumer.getResult(Severity.ERROR);
@@ -308,6 +328,8 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 				}
 			}
 		}
+		if (addedWithClause)
+			importedUnits.remove(propertySet);
 		holder.getOwnedPropertyAssociations().remove(parsedAssociation);
 	}
 	
