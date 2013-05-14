@@ -88,7 +88,7 @@ public class Model
 	{
 		List<ComponentInstance> instances;
 		instances = EMV2Util.getComponentInstancesWithComponentErrorBehavior(rootInstance);
-		instances.addAll (EMV2Util.getComponentInstancesWithhasCompositeErrorBehaviorOnly(rootInstance));
+		instances.addAll (EMV2Util.getComponentInstancesWithCompositeErrorBehavior(rootInstance));
 
 		for (ComponentInstance instance : instances)
 		{

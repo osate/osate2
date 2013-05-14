@@ -750,12 +750,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		String srcname = (src instanceof Subcomponent)?"access":src.getName();
 		if (srcCxt instanceof Subcomponent) {
 			ComponentClassifier cl = ((Subcomponent) srcCxt).getClassifier();
-			srcems = EMV2Util.getClassifierEMV2Subclause(cl);
+			srcems = EMV2Util.getFirstEMV2Subclause(cl);
 		} else if (src instanceof Subcomponent) {
 			ComponentClassifier cl = ((Subcomponent) src).getClassifier();
-			srcems = EMV2Util.getClassifierEMV2Subclause(cl);
+			srcems = EMV2Util.getFirstEMV2Subclause(cl);
 		} else {
-			srcems = EMV2Util.getClassifierEMV2Subclause(cimpl);
+			srcems = EMV2Util.getFirstEMV2Subclause(cimpl);
 		}
 		if (srcems != null){
 			srcprop = EMV2Util.findOutgoingErrorPropagation(srcems, srcname);
@@ -769,12 +769,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		String dstname = (dst instanceof Subcomponent)?"access":dst.getName();
 		if (dstCxt instanceof Subcomponent) {
 			ComponentClassifier cl = ((Subcomponent) dstCxt).getClassifier();
-			dstems = EMV2Util.getClassifierEMV2Subclause(cl);
+			dstems = EMV2Util.getFirstEMV2Subclause(cl);
 		} else if (dst instanceof Subcomponent) {
 				ComponentClassifier cl = ((Subcomponent) dst).getClassifier();
-				dstems = EMV2Util.getClassifierEMV2Subclause(cl);
+				dstems = EMV2Util.getFirstEMV2Subclause(cl);
 		} else {
-			dstems = EMV2Util.getClassifierEMV2Subclause(cimpl);
+			dstems = EMV2Util.getFirstEMV2Subclause(cimpl);
 		}
 		if (dstems != null){
 			dstprop = EMV2Util.findIncomingErrorPropagation(dstems, dstname);

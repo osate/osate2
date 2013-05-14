@@ -43,6 +43,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
@@ -272,12 +273,18 @@ public class EMV2Util {
 	/**
 	 * return the list of EMV2 subclauses of the classifier and 
 	 * The extends hierarchy and the type in the case of an implementation are searched for the ErrorModelSubcany of its extends ancestors
-	 * @param element declarative model element or error annex element
+	 * @param element declarative model element or error annex element or instance object
 	 * @return ErrorModelSubclause
 	 */
 	public static EList<ErrorModelSubclause> getAllContainingClassifierEMV2Subclauses(Element element) {
+		Classifier cl;
+		if (element instanceof InstanceObject){
+			ComponentInstance ci = ((InstanceObject)element).getComponentInstance();
+			cl =ci.getComponentClassifier();
+		} else {
+			cl = element.getContainingClassifier();
+		}
 		EList<ErrorModelSubclause> result = new BasicEList<ErrorModelSubclause>();
-		Classifier cl = element.getContainingClassifier();
 		if (cl instanceof ComponentImplementation){
 			getAllClassifierEMV2Subclause(cl, result);
 			getAllClassifierEMV2Subclause(((ComponentImplementation)cl).getType(),result);
@@ -315,7 +322,7 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @return
 	 */
-	public static ErrorModelSubclause getClassifierEMV2Subclause(Classifier cl){
+	public static ErrorModelSubclause getFirstEMV2Subclause(Classifier cl){
 		if (cl == null) return null;
 		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
 		if (ems != null) return ems;
@@ -332,8 +339,8 @@ public class EMV2Util {
 	}
 	
 	/**
-	 * find the first subclause on the classifier or its extends hierachy.
-	 * When used on a component implementation this method does not go from an implemetnation to a type.
+	 * find the first subclause on the classifier or its extends hierarchy.
+	 * When used on a component implementation this method does not go from an implementation to a type.
 	 * 
 	 * @param cl
 	 * @return
@@ -349,6 +356,58 @@ public class EMV2Util {
 		return null;
 	}
 	
+	
+	/**
+	 * return list of error propagations including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ErrorPropagation> list of ErrorPropagation excluding duplicates
+	 */
+	public static Collection<ErrorPropagations> getAllErrorPropagationComposites(Classifier cl){
+		EList<ErrorPropagations> result = new BasicEList<ErrorPropagations>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
+			if (eps!= null){
+				result.add(eps);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * return list of component error behaviors including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ComponentErrorBehavior> list of ComponentErrorBehavior 
+	 */
+	public static Collection<ComponentErrorBehavior> getAllComponentErrorBehaviors(Classifier cl){
+		EList<ComponentErrorBehavior> result = new BasicEList<ComponentErrorBehavior>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ComponentErrorBehavior ceb = errorModelSubclause.getComponentBehavior();
+			if (ceb!= null){
+				result.add(ceb);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * return list of Composite error behaviors including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<CompositeErrorBehavior> list of CompositeErrorBehavior 
+	 */
+	public static Collection<CompositeErrorBehavior> getAllCompositeErrorBehaviors(Classifier cl){
+		EList<CompositeErrorBehavior> result = new BasicEList<CompositeErrorBehavior>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			CompositeErrorBehavior ceb = errorModelSubclause.getCompositeBehavior();
+			if (ceb!= null){
+				result.add(ceb);
+			}
+		}
+		return result;
+	}
+
 	
 	/**
 	 * find propagation point including those inherited from classifiers being extended
@@ -694,7 +753,7 @@ public class EMV2Util {
 		if (cl == null) return null;
 		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
 		// and then do a find on it.
-			ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
+			ErrorModelSubclause ems = getFirstEMV2Subclause(cl);
 			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
 			if (ebsm != null){
 				return findErrorBehaviorStateInEBSM(ebsm, name);
@@ -712,7 +771,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorState> ebsl= ebsm.getStates();
 			for (ErrorBehaviorState ebs : ebsl){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we support extends on EBSM
 //			if (ebsm.getExtends() != null){
@@ -750,7 +809,7 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @return
 	 */
-	public static ErrorBehaviorStateMachine getClassifierUseBehavior(Classifier cl){
+	public static ErrorBehaviorStateMachine getFirstUseBehavior(Classifier cl){
 		if (cl == null) return null;
 		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
 		if (ems != null) {
@@ -845,7 +904,7 @@ public class EMV2Util {
 		if (cl == null) return null;
 		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
 		// and then do a find on it.
-			ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
+			ErrorModelSubclause ems = getFirstEMV2Subclause(cl);
 			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
 			if (ebsm != null){
 				return findErrorBehaviorTransitionInEBSM(ebsm, name);
@@ -865,7 +924,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorTransition> ebsl= ebsm.getTransitions();
 			for (ErrorBehaviorTransition ebs : ebsl){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we introduce extends of EBSM
 //			if (ebsm.getExtends() != null){
@@ -976,7 +1035,7 @@ public class EMV2Util {
 		if (cl == null) return null;
 		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
 		// and then do a find on it.
-			ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
+			ErrorModelSubclause ems = getFirstEMV2Subclause(cl);
 			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
 			if (ebsm != null){
 				return findErrorBehaviorEventInEBSM(ebsm, name);
@@ -989,7 +1048,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorEvent> ebsl= ebsm.getEvents();
 			for (ErrorBehaviorEvent ebs : ebsl){
-				if (EMV2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we support extends of EBSM
 //			if (ebsm.getExtends() != null){
@@ -1576,13 +1635,40 @@ public class EMV2Util {
 		return (TypeUseContext) container;
 	}
 	
+	/**
+	 * return the feature the error propagation is pointing to or null
+	 * @param ep
+	 * @return Feature
+	 */
+	public static Feature getFeature(ErrorPropagation ep){
+		EList<FeatureReference> freflist = ep.getFeaturerefs();
+		if (!freflist.isEmpty()){
+			FeatureReference fref = freflist.get(freflist.size()-1);
+			NamedElement f = fref.getFeature();
+			if (f instanceof Feature){
+				return (Feature) f;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * return true if error propagation points to an access point
+	 * @param ep
+	 * @return Feature
+	 */
+	public static boolean isAccess(ErrorPropagation ep){
+		String s = ep.getKind();
+		return s.equalsIgnoreCase("access");
+	}
+	
 
 	/**
 	 * extract the item name from a qualified name, the identifier after the last ::
 	 * @param qualname String Qualified name
 	 * @return String item name 
 	 */
-	public static String getItemName(String qualname){
+	public static String getItemNameWithoutQualification(String qualname){
 		final int idx = qualname.lastIndexOf("::");
 		if (idx != -1) {
 			return qualname.substring(idx + 2);
@@ -1701,7 +1787,7 @@ public class EMV2Util {
 	public static ErrorBehaviorStateMachine getUsedErrorBehaviorStateMachine(EObject element) {
 		if (element instanceof Classifier){
 			Classifier cl = (Classifier)element;
-			 return EMV2Util.getClassifierUseBehavior(cl);
+			 return EMV2Util.getFirstUseBehavior(cl);
 		}
 		EObject container = element;
 		while (container != null && !(container instanceof EBSMUseContext))
@@ -1901,7 +1987,7 @@ public class EMV2Util {
 		}
 		if ((ci != null) && (result==null))
 		{
-			ErrorModelSubclause ems = EMV2Util.getClassifierEMV2Subclause(ci.getComponentClassifier());
+			ErrorModelSubclause ems = EMV2Util.getFirstEMV2Subclause(ci.getComponentClassifier());
 			if (ems != null) {
 				EList<PropertyAssociation> props = ems.getProperties();
 				result = getProperty(props, propertyName, target, localContext,ciStack,ts);
@@ -2052,21 +2138,20 @@ public class EMV2Util {
 	}
 	
 	/**
-	 * test only current classifier, not inherited
+	 * take inheritance into account
 	 * @param ci
 	 * @return
 	 */
+	public static boolean hasEMV2Subclause(ComponentInstance ci){
+		return hasEMV2Subclause(ci.getComponentClassifier());
+	}
+
 	public static boolean hasErrorPropagations(ComponentInstance ci){
-		return hasErrorPropagations(ci.getComponentClassifier());
+		return !getAllErrorPropagations(ci.getComponentClassifier()).isEmpty();
 	}
 
 	public static boolean hasErrorPropagations(ComponentClassifier cl){
-		ErrorModelSubclause ems = getClassifierEMV2Subclause(cl);
-		return ems != null && ems.getErrorPropagations() != null;
-	}
-	
-	public static boolean hasComponentErrorBehavior(ComponentInstance ci){
-		return hasComponentErrorBehavior(ci.getComponentClassifier());
+		return !getAllErrorPropagations(cl).isEmpty();
 	}
 	
 	/**
@@ -2076,9 +2161,40 @@ public class EMV2Util {
 	 * @return		True is the component classifier has an error annex
 	 * 				subclause. False otherwise.
 	 */
+	public static boolean hasEMV2Subclause(ComponentClassifier cl){
+		ErrorModelSubclause emsc = getFirstEMV2Subclause(cl);
+		return (emsc != null);
+	}
+	
+	public static boolean hasErrorPropagationsSection(ComponentInstance ci){
+		return hasErrorPropagationsSection(ci.getComponentClassifier());
+	}
+	
+	public static boolean hasErrorPropagationsSection(ComponentClassifier cl){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
+			if (eps!= null){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	
+	public static boolean hasComponentErrorBehavior(ComponentInstance ci){
+		return hasComponentErrorBehavior(ci.getComponentClassifier());
+	}
+	
 	public static boolean hasComponentErrorBehavior(ComponentClassifier cl){
-		ErrorModelSubclause emsc = getClassifierEMV2Subclause(cl);
-		return (emsc != null&& emsc.getComponentBehavior() != null);
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ComponentErrorBehavior ceb = errorModelSubclause.getComponentBehavior();
+			if (ceb!= null){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static boolean hasCompositeErrorBehavior(ComponentInstance ci){
@@ -2086,16 +2202,52 @@ public class EMV2Util {
 	}
 	
 	public static boolean hasCompositeErrorBehavior(ComponentClassifier cl){
-		ErrorModelSubclause emsc = getClassifierEMV2Subclause(cl);
-		return emsc != null&&emsc.getCompositeBehavior() != null;
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			CompositeErrorBehavior ceb = errorModelSubclause.getCompositeBehavior();
+			if (ceb!= null){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
 	 * retrieve list of component instances that have error propagations specified
-	 * For process component instances do not recurse below and include the component instance
-	 * even if no error propagation is attached.
-	 * For other component instances include the component instance if it does not have children even if it does not include
-	 * error propagations
+	 * @param ci ComponentInstance
+	 * @return EList of leaf component instances
+	 */
+	public static EList<ComponentInstance> getComponentInstancesWithEMV2Subclause(ComponentInstance ci){
+		EList result = new ForAllElement(){
+			@Override
+			protected boolean suchThat(Element obj) {
+				return (obj instanceof ComponentInstance&&
+					(EMV2Util.hasEMV2Subclause((ComponentInstance)obj)
+							));
+			}
+		}.processPreOrderComponentInstance(ci);
+		return result ;
+	}
+	
+	/**
+	 * retrieve list of component instances that has an error propagations section
+	 * @param ci ComponentInstance
+	 * @return EList of leaf component instances
+	 */
+	public static EList<ComponentInstance> getComponentInstancesWithErrorPropagationsSection(ComponentInstance ci){
+		EList result = new ForAllElement(){
+			@Override
+			protected boolean suchThat(Element obj) {
+				return (obj instanceof ComponentInstance&&
+					(EMV2Util.hasErrorPropagationsSection((ComponentInstance)obj)
+							));
+			}
+		}.processPreOrderComponentInstance(ci);
+		return result ;
+	}
+	
+	/**
+	 * retrieve list of component instances that have error propagations specified
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */
@@ -2105,53 +2257,14 @@ public class EMV2Util {
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance&&
 					(EMV2Util.hasErrorPropagations((ComponentInstance)obj)
-							|| ((ComponentInstance)obj).getComponentInstances().isEmpty()
-							|| ((ComponentInstance)obj).getCategory() == ComponentCategory.PROCESS
 							));
 			}
-		}.processPreOrderComponentInstanceStop(ci);
-		return result ;
-	}
-	
-	/**
-	 * retrieve list of component instances that have error propagations specified
-	 * For process component instances or component instance without children, do not recurse below and do not include the component instance
-	 * @param ci ComponentInstance
-	 * @return EList of leaf component instances
-	 */
-	public static EList<ComponentInstance> getComponentInstancesWithErrorPropagationsOnly(ComponentInstance ci){
-		EList result = new ForAllElement(){
-			@Override
-			protected boolean suchThat(Element obj) {
-				return (obj instanceof ComponentInstance&&
-					(EMV2Util.hasErrorPropagations((ComponentInstance)obj)
-							));
-			}
-			@Override
-			protected boolean processStop (Element theElement) {
-				if (suchThat((Element) theElement)) {
-					if (theElement instanceof NamedElement){
-						//{ System.out.println(((NamedElement) theElement).getName());}
-						action((Element) theElement);
-						return true;
-					}
-				}
-				if (((ComponentInstance)theElement).getCategory() == ComponentCategory.PROCESS)	{
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}.processPreOrderComponentInstanceStop(ci);
+		}.processPreOrderComponentInstance(ci);
 		return result ;
 	}
 	
 	/**
 	 * retrieve list of component instances that have component error behavior specified
-	 * For process component instances do not recurse below and include the component instance
-	 * even if no error propagation is attached.
-	 * Foe other component instances include the component instance if it does not have children even if it does not include
-	 * error propagations
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */
@@ -2161,79 +2274,20 @@ public class EMV2Util {
 			protected boolean suchThat(Element obj) {
 				return (obj instanceof ComponentInstance&&
 					(EMV2Util.hasComponentErrorBehavior((ComponentInstance)obj)
-							|| ((ComponentInstance)obj).getComponentInstances().isEmpty()
-							|| ((ComponentInstance)obj).getCategory() == ComponentCategory.PROCESS
 							));
 			}
-		}.processPreOrderComponentInstanceStop(ci);
+		}.processPreOrderComponentInstance(ci);
 		return result ;
 	}
 	
 	
-	/**
-	 * retrieve list of component instances that have component error behavior specified
-	 * For process component instances or component instance without children, do not recurse below and do not include the component instance
-	 * @param ci ComponentInstance
-	 * @return EList of leaf component instances
-	 */
-	public static EList<ComponentInstance> getComponentInstancesWithComponentErrorBehaviorOnly(ComponentInstance ci){
-		EList result = new ForAllElement(){
-			@Override
-			protected boolean suchThat(Element obj) {
-				return (obj instanceof ComponentInstance&&
-					(EMV2Util.hasComponentErrorBehavior((ComponentInstance)obj)
-							));
-			}
-			@Override
-			protected boolean processStop (Element theElement) {
-				if (suchThat((Element) theElement)) {
-					if (theElement instanceof NamedElement){
-						//{ System.out.println(((NamedElement) theElement).getName());}
-						action((Element) theElement);
-						return true;
-					}
-				}
-				if (((ComponentInstance)theElement).getCategory() == ComponentCategory.PROCESS)	{
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}.processPreOrderComponentInstanceStop(ci);
-		return result ;
-	}
-
 	
 	/**
 	 * retrieve list of component instances that have composite error behavior specified
-	 * For process component instances do not recurse below and include the component instance
-	 * even if no error propagation is attached.
-	 * Foe other component instances include the component instance if it does not have children even if it does not include
-	 * error propagations
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */
-	public static EList<ComponentInstance> getCompositeInstancesWithComponentErrorBehavior(ComponentInstance ci){
-		EList result = new ForAllElement(){
-			@Override
-			protected boolean suchThat(Element obj) {
-				return (obj instanceof ComponentInstance&&
-					(EMV2Util.hasCompositeErrorBehavior((ComponentInstance)obj)
-							|| ((ComponentInstance)obj).getComponentInstances().isEmpty()
-							|| ((ComponentInstance)obj).getCategory() == ComponentCategory.PROCESS
-							));
-			}
-		}.processPreOrderComponentInstanceStop(ci);
-		return result ;
-	}
-	
-	/**
-	 * retrieve list of component instances that have composite error behavior specified
-	 * For process component instances or component instance without children, do not recurse below and do not include the component instance
-	 * @param ci ComponentInstance
-	 * @return EList of leaf component instances
-	 */
-	public static EList<ComponentInstance> getComponentInstancesWithhasCompositeErrorBehaviorOnly(ComponentInstance ci){
+	public static EList<ComponentInstance> getComponentInstancesWithCompositeErrorBehavior(ComponentInstance ci){
 		EList result = new ForAllElement(){
 			@Override
 			protected boolean suchThat(Element obj) {
@@ -2241,22 +2295,7 @@ public class EMV2Util {
 					(EMV2Util.hasCompositeErrorBehavior((ComponentInstance)obj)
 							));
 			}
-			@Override
-			protected boolean processStop (Element theElement) {
-				if (suchThat((Element) theElement)) {
-					if (theElement instanceof NamedElement){
-						//{ System.out.println(((NamedElement) theElement).getName());}
-						action((Element) theElement);
-						return true;
-					}
-				}
-				if (((ComponentInstance)theElement).getCategory() == ComponentCategory.PROCESS)	{
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}.processPreOrderComponentInstanceStop(ci);
+		}.processPreOrderComponentInstance(ci);
 		return result ;
 	}
 	

@@ -220,7 +220,7 @@ public class Module {
 	{
 		List<Expression> exprs = new ArrayList<Expression>();
 		
-		ErrorModelSubclause errorModelSubclause = EMV2Util.getClassifierEMV2Subclause(aadlComponent.getComponentClassifier());
+		ErrorModelSubclause errorModelSubclause = EMV2Util.getFirstEMV2Subclause(aadlComponent.getComponentClassifier());
 
 		if (errorModelSubclause.getErrorPropagations() != null)
 		{
@@ -336,7 +336,7 @@ public class Module {
 		ErrorBehaviorStateMachine componentStateMachine = null;
 		ErrorModelSubclause errorModelSubclause = null;
 		
-		errorModelSubclause = EMV2Util.getClassifierEMV2Subclause (aadlComponent.getComponentClassifier());
+		errorModelSubclause = EMV2Util.getFirstEMV2Subclause (aadlComponent.getComponentClassifier());
 		
 		if (errorModelSubclause == null)
 		{

@@ -123,7 +123,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	protected void processHazards(ComponentInstance ci, WriteToFile report)
 	{
 
-		ErrorModelSubclause errorModelSubclause = EMV2Util.getClassifierEMV2Subclause(ci.getComponentClassifier());
+		ErrorModelSubclause errorModelSubclause = EMV2Util.getFirstEMV2Subclause(ci.getComponentClassifier());
 		// find error events listed as condition elements in transitions and report them as hazard if they have the hazard property
 		if (errorModelSubclause != null)
 		{

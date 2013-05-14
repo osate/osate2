@@ -155,7 +155,7 @@ public class Util
 						//OsateDebug.osateDebug("[Utils]       Instance src:" + instanceSource);
 						//OsateDebug.osateDebug("[Utils]       Feature src:" + featureSource);
 
-						ErrorModelSubclause sourceSubclause = EMV2Util.getClassifierEMV2Subclause(instanceSource.getComponentClassifier());
+						ErrorModelSubclause sourceSubclause = EMV2Util.getFirstEMV2Subclause(instanceSource.getComponentClassifier());
 						//OsateDebug.osateDebug("[Utils]       ErrorPropagation src:" + sourceSubclause);
 						if (sourceSubclause.getErrorPropagations() == null)
 						{
