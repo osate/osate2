@@ -119,7 +119,7 @@ public class PropertyValueWizardPage extends AbstractPropertyValueWizardPage {
 //		if (definition.isList())
 //			assistant = new ListAssistant(assistantGroup, definition.getPropertyType(), holder, listener);
 //		else
-			assistant = AssistantFactory.getAssistantForType(assistantGroup, definition.getPropertyType(), holder, listener);
+			assistant = AssistantFactory.getAssistantForType(assistantGroup, definition.getPropertyType(), serializer, holder, listener);
 		if (assistant != null) {
 			useAssistant.setEnabled(true);
 			enterTextualValue.setEnabled(true);
