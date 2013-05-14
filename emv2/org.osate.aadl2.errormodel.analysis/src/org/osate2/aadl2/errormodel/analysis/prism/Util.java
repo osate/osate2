@@ -88,6 +88,18 @@ public class Util
 	}
 	
 	/**
+	 * Each AADL IN propagation point is mapped into a variable
+	 * @param ci	The AADL ComponentInstance that contains
+	 *              the incoming propagation point
+	 * @param n     The name of the incoming propagation point
+	 * @return		The name of the state variable identifier
+	 */
+	public static String getComponentIncomingPropagationVariableName (ComponentInstance ci, String n)
+	{
+		return getComponentName(ci)+"_incoming_propagation_" + n.toLowerCase();
+	}
+	
+	/**
 	 * Find other conditions required to switch from a state to another.
 	 * That might be due to the content of the transition itself 
 	 * (for example, when a transition is triggered from an 
@@ -145,9 +157,14 @@ public class Util
 
 						ErrorModelSubclause sourceSubclause = EMV2Util.getClassifierEMV2Subclause(instanceSource.getComponentClassifier());
 						//OsateDebug.osateDebug("[Utils]       ErrorPropagation src:" + sourceSubclause);
+						if (sourceSubclause.getErrorPropagations() == null)
+						{
+							OsateDebug.osateDebug("[Util] No source propagation on " + sourceSubclause);
+							break;
+						}
 						for (ErrorFlow flow : sourceSubclause.getErrorPropagations().getFlows())
 						{
-							//OsateDebug.osateDebug("[Utils]       Flow:" + flow);
+							OsateDebug.osateDebug("[Utils]       Flow:" + flow);
 
 							if (flow instanceof ErrorSource)
 							{
@@ -242,18 +259,19 @@ public class Util
 					/**
 					 * Have to find out why the reportWarning does not work right now.
 					 */
-					OsateDebug.osateDebug("WRONG TYPE on " + instance);
+					OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance);
 					PRISMAction.reportWarning(instance, "Distribution occurence should be set to fixed for DTMC generation");
 				}
 				
 				if ((Model.getCurrentInstance().getType() == ModelType.CTMC) &&
-						(! EMV2Util.getOccurenceType(PA).equals("poisson")))
+					(! EMV2Util.getOccurenceType(PA).equals("poisson")) &&
+					(! EMV2Util.getOccurenceType(PA).equals(EMV2Util.INVALID_OCCURRENCE_TYPE)))
 				{
 					/**
 					 * Have to find out why the reportWarning does not work right now.
 					 */
-					OsateDebug.osateDebug("WRONG TYPE on " + instance);
-					PRISMAction.reportWarning(instance.getComponentInstance(), "Distribution occurence should be set to poisson for CTMC generation");
+					OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance + " found=" + EMV2Util.getOccurenceType(PA));
+					PRISMAction.reportWarning(instance, "Distribution occurence should be set to poisson for CTMC generation");
 				}
 
 				res = EMV2Util.getOccurenceValue (PA);

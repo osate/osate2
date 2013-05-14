@@ -36,6 +36,7 @@ package org.osate.aadl2.errormodel.analysis.actions;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -106,6 +107,7 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 		
 		try
 		{
+
 			Model prismModel = new Model (si);
 			prismModel.process ();
 			prismModel.saveFile();

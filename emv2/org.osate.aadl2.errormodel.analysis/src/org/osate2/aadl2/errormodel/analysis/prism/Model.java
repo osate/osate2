@@ -23,6 +23,15 @@ public class Model
 	private WriteToFile     prismFile;
 	private ModelType		type;
 	
+	/**
+	 * The errorTypes HashMap contains all error types
+	 * used in the PRISM model.
+	 */
+	private HashMap<String,Integer> errorTypes;
+	
+	private static int errorTypeIdentifier;
+	
+	
 	private ComponentInstance rootInstance;
 	/**
 	 * The propagationsMap variable contains for each outport identifier
@@ -47,11 +56,22 @@ public class Model
 		this.formulas 			= new ArrayList<Formula> ();
 		this.rootInstance 		= rootSystem;
 		this.propagationsMap	= new HashMap<String,Map<String,Integer>>();
+		this.errorTypes			= new HashMap<String,Integer>();
 		this.type 				= Options.getModelType();
 		this.prismFile.setFileExtension("pm");
 		currentInstance = this;
+		errorTypeIdentifier = 0;
 	}
 	
+	
+	public void addErrorType (String errorTypeName)
+	{
+		if(this.errorTypes.containsKey(errorTypeName))
+		{
+			return;
+		}
+		this.errorTypes.put(errorTypeName, errorTypeIdentifier++);
+	}
 	
 	public static Model getCurrentInstance ()
 	{
@@ -99,6 +119,7 @@ public class Model
 			this.prismFile.addOutputNewline("\n");
 		}
 		
+		
 		if (this.type == ModelType.DTMC)
 		{
 			/**
@@ -107,6 +128,12 @@ public class Model
 			 */
 			this.prismFile.addOutput("\nrewards \"steps\"\n   true : 1;\nendrewards\n");
 		}
+		
+		for (String t : this.errorTypes.keySet())
+		{
+			this.prismFile.addOutputNewline("formula " + t + " = " + this.errorTypes.get(t) + ";");
+		}
+		
 		this.prismFile.saveToFile();
 	}
 	

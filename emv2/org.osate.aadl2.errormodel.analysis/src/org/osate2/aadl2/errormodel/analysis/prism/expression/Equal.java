@@ -25,4 +25,17 @@ public class Equal implements Expression
 	{
 		return this.right;
 	}
+	
+	public boolean equalsTo (Expression e)
+	{
+		
+		if (! (e instanceof Equal))
+		{
+			return false;
+		}
+		
+		return (e.toString() == this.toString());
+		
+		
+	}
 }

@@ -21,11 +21,23 @@ public class Command
 {
 	private Expression condition;
 	private List<Transition> transitions;
+	private CommandType commandType;
 	
 	public Command ()
 	{
 		this.condition 		= new Terminal ("unknown_condition");
 		this.transitions 	= new ArrayList<Transition> ();
+		this.commandType    = CommandType.TRANSITION;
+	}
+	
+	public CommandType getCommandType ()
+	{
+		return this.commandType;
+	}
+	
+	public void setCommandType (CommandType ct)
+	{
+		this.commandType = ct;
 	}
 	
 	public void setCondition (Expression e)
