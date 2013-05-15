@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
@@ -87,11 +88,13 @@ public class Model
 	public void process ()
 	{
 		List<ComponentInstance> instances;
-		instances = EMV2Util.getComponentInstancesWithComponentErrorBehavior(rootInstance);
-		instances.addAll (EMV2Util.getComponentInstancesWithCompositeErrorBehavior(rootInstance));
+		instances = EMV2Util.getComponentInstancesWithEMV2Subclause(rootInstance);
+//		instances = EMV2Util.getComponentInstancesWithComponentErrorBehavior(rootInstance);
+//		instances.addAll (EMV2Util.getComponentInstancesWithCompositeErrorBehavior(rootInstance));
 
 		for (ComponentInstance instance : instances)
 		{
+			OsateDebug.osateDebug("[PRISM][Model.java] Handle component " + instance);
 			addModule ( (new Module(instance, this)).process());
 		}
 		

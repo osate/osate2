@@ -336,13 +336,16 @@ public class Module {
 		ErrorBehaviorStateMachine componentStateMachine = null;
 		ErrorModelSubclause errorModelSubclause = null;
 		
+	
 		errorModelSubclause = EMV2Util.getFirstEMV2Subclause (aadlComponent.getComponentClassifier());
 		
 		if (errorModelSubclause == null)
 		{
+			OsateDebug.osateDebug("[PRISM][Module.java] No Error Model Subclause for " + aadlComponent.getName());
+
 			return this;
 		}
-		
+
 		errorBehavior = errorModelSubclause.getComponentBehavior();
 		componentStateMachine = errorModelSubclause.getUseBehavior();
 		CompositeErrorBehavior compositeErrorBehavior = errorModelSubclause.getCompositeBehavior();
@@ -352,28 +355,27 @@ public class Module {
 
 		OsateDebug.osateDebug("[PRISM][Module.java] compositeErrorBehavior=" + compositeErrorBehavior);
 
-		if (errorModelSubclause != null)
-		{
-			if (errorModelSubclause.getPropagationPaths() != null)
-			{
-				for ( PropagationPoint pp : errorModelSubclause.getPropagationPaths().getPoints())
-				{
-					OsateDebug.osateDebug("[PRISM][Module.java] pp=" + pp);
-	
-				}
-			}
-	
-			useStateMachine = errorModelSubclause.getUseBehavior();
-			OsateDebug.osateDebug("[PRISM][Module.java] Process error model annex subclause of " + aadlComponent.getName());
 
-			if (useStateMachine != null)
+		if (errorModelSubclause.getPropagationPaths() != null)
+		{
+			for ( PropagationPoint pp : errorModelSubclause.getPropagationPaths().getPoints())
 			{
-				for (ErrorBehaviorState behaviorState : errorModelSubclause.getUseBehavior().getStates())
-				{
-					OsateDebug.osateDebug("[PRISM][Module.java]    Use Behavior state " + behaviorState.getName());
-				}
+				OsateDebug.osateDebug("[PRISM][Module.java] pp=" + pp);
+
 			}
 		}
+
+		useStateMachine = errorModelSubclause.getUseBehavior();
+		OsateDebug.osateDebug("[PRISM][Module.java] Process error model annex subclause of " + aadlComponent.getName());
+
+		if (useStateMachine != null)
+		{
+			for (ErrorBehaviorState behaviorState : errorModelSubclause.getUseBehavior().getStates())
+			{
+				OsateDebug.osateDebug("[PRISM][Module.java]    Use Behavior state " + behaviorState.getName());
+			}
+		}
+		
 		
 		if ((useStateMachine == null) && (componentStateMachine == null))
 		{
@@ -437,72 +439,72 @@ public class Module {
 		 * error types propagated. The variable has a value 0 if no error
 		 * is propagated.
 		 */
-		if ((errorModelSubclause != null) && (errorModelSubclause.getErrorPropagations() != null))
-		{
-			propagations = errorModelSubclause.getErrorPropagations();
-			for (ErrorPropagation ep : propagations.getPropagations())
-			{
-				OsateDebug.osateDebug("[PRISM][Module.java] Process propagation " + ep);
-				
-				/**
-				 * For each incoming propagation point, we add a variable for the component.
-				 * This variable might be updated/changed by other components connected
-				 * to this incoming propagation.
-				 */
-				if (ep.getDirection().incoming())
-				{
-					OsateDebug.osateDebug("[PRISM][Module.java] incoming error propagation" + ep);
-					for (FeatureReference fr : ep.getFeaturerefs())
-					{
-						NamedElement feature;
-						feature = fr.getFeature();
-						
-						OsateDebug.osateDebug("[PRISM][Module.java]    " + feature.getName());
-						int errorVal = 1;
-						TypeSet ts = ep.getTypeSet();
-						OsateDebug.osateDebug("[PRISM][Module.java] typeset " + ts);
-						for (TypeToken tt : ts.getElementType())
-						{
-							for (ErrorType et : tt.getType())
-							{
-								OsateDebug.osateDebug("[PRISM][Module.java] typetoken " + et);
-
-								this.associatedModel.addErrorType (et.getName());
-								Expression e  = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())),
-										        new Terminal (""+errorVal++));
-								
-								Formula f = new Formula (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())+"_get_" + et.getName().toLowerCase() , e);
-								this.formulas.add (f);
-							}
-
-						}
-						this.vars.put (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName()), errorVal - 1);
-					}
-				}
-				
-				
-				if (ep.getDirection().outgoing())
-				{
-					Map<String,Integer> tmpMap = new HashMap<String,Integer>();
-					int errorVal = 1;
-					TypeSet ts = ep.getTypeSet();
-					OsateDebug.osateDebug("[PRISM][Module.java] typeset " + ts);
-					for (TypeToken tt : ts.getElementType())
-					{
-						for (ErrorType et : tt.getType())
-						{
-							OsateDebug.osateDebug("[PRISM][Module.java] typetoken " + et);
-
-							this.associatedModel.addErrorType (et.getName());
-							tmpMap.put(et.getName(), errorVal++);
-						}
-
-					}
-					//this.vars.put (EMV2Util.getPrintName(ep), errorVal - 1);
-					this.associatedModel.getPropagationMap().put(EMV2Util.getPrintName(ep), tmpMap);
-				}
-			}
-		}
+//		if ((errorModelSubclause != null) && (errorModelSubclause.getErrorPropagations() != null))
+//		{
+//			propagations = errorModelSubclause.getErrorPropagations();
+//			for (ErrorPropagation ep : propagations.getPropagations())
+//			{
+//				OsateDebug.osateDebug("[PRISM][Module.java] Process propagation " + ep);
+//				
+//				/**
+//				 * For each incoming propagation point, we add a variable for the component.
+//				 * This variable might be updated/changed by other components connected
+//				 * to this incoming propagation.
+//				 */
+//				if (ep.getDirection().incoming())
+//				{
+//					OsateDebug.osateDebug("[PRISM][Module.java] incoming error propagation" + ep);
+//					for (FeatureReference fr : ep.getFeaturerefs())
+//					{
+//						NamedElement feature;
+//						feature = fr.getFeature();
+//						
+//						OsateDebug.osateDebug("[PRISM][Module.java]    " + feature.getName());
+//						int errorVal = 1;
+//						TypeSet ts = ep.getTypeSet();
+//						OsateDebug.osateDebug("[PRISM][Module.java] typeset " + ts);
+//						for (TypeToken tt : ts.getElementType())
+//						{
+//							for (ErrorType et : tt.getType())
+//							{
+//								OsateDebug.osateDebug("[PRISM][Module.java] typetoken " + et);
+//
+//								this.associatedModel.addErrorType (et.getName());
+//								Expression e  = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())),
+//										        new Terminal (""+errorVal++));
+//								
+//								Formula f = new Formula (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())+"_get_" + et.getName().toLowerCase() , e);
+//								this.formulas.add (f);
+//							}
+//
+//						}
+//						this.vars.put (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName()), errorVal - 1);
+//					}
+//				}
+//				
+//				
+//				if (ep.getDirection().outgoing())
+//				{
+//					Map<String,Integer> tmpMap = new HashMap<String,Integer>();
+//					int errorVal = 1;
+//					TypeSet ts = ep.getTypeSet();
+//					OsateDebug.osateDebug("[PRISM][Module.java] typeset " + ts);
+//					for (TypeToken tt : ts.getElementType())
+//					{
+//						for (ErrorType et : tt.getType())
+//						{
+//							OsateDebug.osateDebug("[PRISM][Module.java] typetoken " + et);
+//
+//							this.associatedModel.addErrorType (et.getName());
+//							tmpMap.put(et.getName(), errorVal++);
+//						}
+//
+//					}
+//					//this.vars.put (EMV2Util.getPrintName(ep), errorVal - 1);
+//					this.associatedModel.getPropagationMap().put(EMV2Util.getPrintName(ep), tmpMap);
+//				}
+//			}
+//		}
 		
 		
 		/**
@@ -527,7 +529,32 @@ public class Module {
 			}
 		}
 		
-		handleComponentBehavior (errorBehavior);
+		//handleComponentBehavior (errorBehavior);
+		if (errorBehavior != null)
+		{
+			OsateDebug.osateDebug("[PRISM][Module.java] Process error behavior of " + aadlComponent.getName());
+	
+			for (ErrorDetection ed : EMV2Util.getAllErrorDetections(aadlComponent.getComponentClassifier()))
+			{
+				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorDerection " + ed);
+			}
+			
+			for (ErrorBehaviorEvent ed : EMV2Util.getAllErrorBehaviorEvents (aadlComponent.getComponentClassifier()))
+			{
+				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorEvent " + ed);
+			}
+			
+			for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions (aadlComponent.getComponentClassifier()))
+			{
+				handleTransition (trans);
+			}
+			for (OutgoingPropagationCondition opc : errorBehavior.getOutgoingPropagationConditions())
+			{
+
+				handleOutgoingPropagationCondition (opc);
+			}
+			
+		}	
 		
 		if ( (errorBehavior == null) && (errorModelSubclause != null ) && (errorModelSubclause.getUseBehavior() != null))
 		{
@@ -607,6 +634,7 @@ public class Module {
 		
 		incomingPropagation = null;
 		command = new Command();
+		//FIXME Julien : FIND THE CORRESPONDING INSTANCE
 		correspondingFeatureInstance = EMV2Util.findFeatureInstance(outgoingPropagation.getOutgoing(), this.aadlComponent);
 		for (ConnectionInstance ci : correspondingFeatureInstance.getDstConnectionInstances())
 		{
@@ -625,21 +653,23 @@ public class Module {
 			OsateDebug.osateDebug("[PRISM][Module.java] incoming propagation " + correspondingFeatureInstance);
 			incomingPropagation = founddst;
 		}
-			
-		
-		if (incomingPropagation == null)
+		else
 		{
+			OsateDebug.osateDebug("[PRISM][Module.java] incoming propagation NOT FOUND " + correspondingFeatureInstance);
 			return;
 		}
+	
 		Feature incomingFeature = (Feature) incomingPropagation.getFeaturerefs().get(0).getFeature();
 		
-		incomingPropagationName = incomingPropagation.getFeaturerefs().get(0).getFeature().getName();
-		
+		incomingPropagationName = incomingFeature.getName();
+		OsateDebug.osateDebug("[PRISM][Module.java] incoming propagation name " + incomingPropagationName);
+
 		tmpState = statesMap.get(outgoingPropagation.getState().getName());
 		
 		before = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent)),
 				   new Terminal (""+tmpState));
-		
+		// FIXME: Wront instance name, get the name of the instance component attached to the outgoing/incoming destination
+		// error propagation
 		after = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(correspondingFeatureInstance.getContainingComponentInstance(), incomingPropagationName), true),
 				   new Terminal (""+tmpState));
 		transaction = new Transition (after);

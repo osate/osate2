@@ -119,7 +119,8 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 			e.printStackTrace();
 			Dialog.showInfo("Generating PRISM model", message);	
 		}
-	
+		OsateDebug.osateDebug("[PRISMAction] DONE");
+
 		monitor.done();
 	}
 
