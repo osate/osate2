@@ -7,6 +7,7 @@ import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.RangeType;
 
 public class AssistantFactory
 {
@@ -23,6 +24,13 @@ public class AssistantFactory
 				return new SingleNumberTypeAssistant(parent, numType, serializer, listener);
 			else
 				return new SingleNumberTypeWithUnitsAssistant(parent, numType, serializer, listener);
+		}
+		else if (type instanceof RangeType) {
+			NumberType numType = ((RangeType)type).getNumberType();
+			if (numType.getUnitsType() == null)
+				return new NumberTypeRangeAssistant(parent, numType, serializer, listener);
+			else
+				return new NumberTypeRangeWithUnitsAssistant(parent, numType, serializer, listener);
 		}
 		else
 			return null;
