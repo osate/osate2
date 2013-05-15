@@ -86,7 +86,7 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		String message;
-		monitor.beginTask("RBD", IProgressMonitor.UNKNOWN);
+		monitor.beginTask("PRISM", IProgressMonitor.UNKNOWN);
 		
 		errorManager = this.getErrorManager();
 		

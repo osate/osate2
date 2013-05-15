@@ -8,6 +8,7 @@ import java.util.Map;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
@@ -47,8 +48,8 @@ public class Model
 
 	
 
-	private static Model currentInstance;
-	
+	private static Model 	currentInstance;
+	private AnalysisModel 	analysisModel;
 	
 	public Model (ComponentInstance rootSystem)
 	{
@@ -59,6 +60,7 @@ public class Model
 		this.propagationsMap	= new HashMap<String,Map<String,Integer>>();
 		this.errorTypes			= new HashMap<String,Integer>();
 		this.type 				= Options.getModelType();
+		this.analysisModel      = new AnalysisModel (rootSystem);
 		this.prismFile.setFileExtension("pm");
 		currentInstance = this;
 		errorTypeIdentifier = 0;
@@ -163,5 +165,10 @@ public class Model
 	public Map<String,Map<String,Integer>> getPropagationMap ()
 	{
 		return this.propagationsMap;
+	}
+	
+	public AnalysisModel getAnalysisModel ()
+	{
+		return this.analysisModel;
 	}
 }
