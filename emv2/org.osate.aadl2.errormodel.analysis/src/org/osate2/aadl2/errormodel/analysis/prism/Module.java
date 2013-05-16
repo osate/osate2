@@ -24,12 +24,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
@@ -116,7 +118,7 @@ public class Module {
 			for (String s : this.vars.keySet())
 			{
 				int size = this.vars.get(s);
-				sb.append ("\t" + Util.getComponentName (aadlComponent) + "_"+s.toLowerCase()+": [ 0 .. "+ size +"] init 0;\n");
+				sb.append ("\t" + s.toLowerCase()+": [ 0 .. "+ size +"] init 0;\n");
 			}
 		}
 		
@@ -231,8 +233,10 @@ public class Module {
 				{
 					ErrorSource errorSource = (ErrorSource)ef;
 					Expression expr = null;
-					expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, EMV2Util.getPrintName(errorSource.getOutgoing())), true),
-									  new Terminal ("0"));
+//					expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, EMV2Util.getPrintName(errorSource.getOutgoing())), true),
+//									  new Terminal ("0"));
+					expr = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName (aadlComponent, EMV2Util.getPrintName(errorSource.getOutgoing())), true),
+		        		    new Terminal ("0" ));
 
 					if (errorSource.getFailureModeReference() instanceof ErrorBehaviorState)
 					{
@@ -246,10 +250,13 @@ public class Module {
 							{
 								OsateDebug.osateDebug("[PRISM][Module] getAdditionalAssignments(), map not set");
 							}
-							
-							expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, EMV2Util.getPrintName(errorSource.getOutgoing())), true),
+							expr = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName (aadlComponent, EMV2Util.getPrintName(errorSource.getOutgoing())), true),
 									        		    new Terminal ("" + this.associatedModel.getPropagationMap().get(EMV2Util.getPrintName(errorSource.getOutgoing())).get(tokenName)));
-							
+	
+//							OLD CODE
+//							expr = new Equal (new Terminal (Util.getFeatureName (aadlComponent, EMV2Util.getPrintName(errorSource.getOutgoing())), true),
+//									        		    new Terminal ("" + this.associatedModel.getPropagationMap().get(EMV2Util.getPrintName(errorSource.getOutgoing())).get(tokenName)));
+//							
 						}
 					}
 					exprs.add(expr);
@@ -458,7 +465,11 @@ public class Module {
 							}
 
 						}
-						this.vars.put (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName()), errorVal - 1);
+						/*
+						 * For each incoming propagation, we use
+						 * a global variable that may be accessed by the other modules.
+						 */
+						this.associatedModel.getGlobals().put (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName()), errorVal - 1);
 					}
 				}
 				
@@ -692,6 +703,21 @@ public class Module {
 			
 			if (probability == 0)
 			{
+				if (trans.getCondition() instanceof ConditionElement)
+				{
+					ConditionElement conditionElement 	= (ConditionElement) trans.getCondition();
+					EventOrPropagation event   		  	= (EventOrPropagation) conditionElement.getIncoming();
+					//OsateDebug.osateDebug("[Utils]    incoming :" + event);
+					if ((event != null) && (event instanceof ErrorEvent))
+					{
+						/* 
+						 * If the probability is 0 and this is just an event, we should not generate anything.
+						 * We just return and do not add any new command.
+						 * */
+						return;
+					}
+				}
+			
 				OsateDebug.osateDebug("[PRISM][Module.java] Probability null, transition condition=" + trans.getCondition());
 				if (trans.getCondition() instanceof ConditionElement)
 				{
@@ -699,11 +725,11 @@ public class Module {
 					OsateDebug.osateDebug("incoming=" + ce.getIncoming());
 					if (ce.getIncoming() instanceof ErrorPropagation)
 					{
-						//FIXME Julien: Find the appropriate state id
+						//FIXME Julien: Find the appropriate id that correspond to the propagation code
 						ErrorPropagation incomingErrorPropagation = (ErrorPropagation) ce.getIncoming();
 						before = new And (before, 
 								  new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(aadlComponent, incomingErrorPropagation.getFeaturerefs().get(0).getFeature().getName())),
-					              new Terminal ("state-id-to-find")));
+					              new Terminal ("1")));
 					}
 					
 				}

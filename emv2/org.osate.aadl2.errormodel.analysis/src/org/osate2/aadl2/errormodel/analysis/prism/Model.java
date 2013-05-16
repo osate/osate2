@@ -20,10 +20,11 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
  */
 public class Model 
 {
-	private List<Module> 	modules;
-	private List<Formula> 	formulas;
-	private WriteToFile     prismFile;
-	private ModelType		type;
+	private List<Module> 			modules;
+	private List<Formula> 			formulas;
+	private WriteToFile     		prismFile;
+	private ModelType				type;
+	private Map<String,Integer>		globals;
 	
 	/**
 	 * The errorTypes HashMap contains all error types
@@ -61,11 +62,16 @@ public class Model
 		this.errorTypes			= new HashMap<String,Integer>();
 		this.type 				= Options.getModelType();
 		this.analysisModel      = new AnalysisModel (rootSystem);
+		this.globals    		= new HashMap<String,Integer>();
 		this.prismFile.setFileExtension("pm");
 		currentInstance = this;
 		errorTypeIdentifier = 0;
 	}
 	
+	public Map<String,Integer> getGlobals()
+	{
+		return this.globals;
+	}
 	
 	public void addErrorType (String errorTypeName)
 	{
@@ -118,6 +124,17 @@ public class Model
 		{
 			this.prismFile.addOutput("ctmc\n\n");
 		}
+		
+		if (this.globals.size() > 0)
+		{
+			for (String s : this.globals.keySet())
+			{
+				int size = this.globals.get(s);
+				this.prismFile.addOutput ("global " + s.toLowerCase()+": [ 0 .. "+ size +"] init 0;\n");
+			}
+			this.prismFile.addOutput ("\n");
+		}
+		
 		for (Module m : this.modules)
 		{
 			this.prismFile.addOutput(m.getPrismCode());
