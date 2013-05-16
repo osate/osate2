@@ -294,7 +294,12 @@ public class Util
 			 * may trigger a switch. This might be changed when improving
 			 * the generator.
 			 */
-			if ((event != null) && (event instanceof ErrorPropagation))
+			/*
+			 * FIXME Julien: has to check if this logic really make sense
+			 * spent two hours to figure out why we have a probability
+			 * of 1.0 in CTMC !
+			 */
+			if ((event != null) && (event instanceof ErrorPropagation) && (Model.getCurrentInstance().getType() == ModelType.DTMC))
 			{
 				res = 1.0;
 			}

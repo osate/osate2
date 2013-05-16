@@ -329,10 +329,7 @@ public class Module {
 	 */
 	public Module process ()
 	{
-		Command command;
-		Expression after = null;
-		double probability;
-		int tmpState;
+
 		
 		OsateDebug.osateDebug("[PRISM][Module.java] Process " + aadlComponent.getName());
 		
@@ -361,33 +358,10 @@ public class Module {
 
 		OsateDebug.osateDebug("[PRISM][Module.java] compositeErrorBehavior=" + compositeErrorBehavior);
 
-
-		if (errorModelSubclause.getPropagationPaths() != null)
-		{
-			for ( PropagationPoint pp : errorModelSubclause.getPropagationPaths().getPoints())
-			{
-				OsateDebug.osateDebug("[PRISM][Module.java] pp=" + pp);
-
-			}
-		}
-
 		useStateMachine = errorModelSubclause.getUseBehavior();
 		OsateDebug.osateDebug("[PRISM][Module.java] Process error model annex subclause of " + aadlComponent.getName());
 
-		if (useStateMachine != null)
-		{
-			for (ErrorBehaviorState behaviorState : errorModelSubclause.getUseBehavior().getStates())
-			{
-				OsateDebug.osateDebug("[PRISM][Module.java]    Use Behavior state " + behaviorState.getName());
-			}
-		}
 		
-		
-		if ((useStateMachine == null) && (componentStateMachine == null))
-		{
-			PRISMAction.reportWarning(aadlComponent,
-					"Component " + aadlComponent.getName() + " should have an associated state machine");
-		}
 		
 		/**
 		 * Here, we map the states of the error state machine
@@ -539,16 +513,6 @@ public class Module {
 		if (errorBehavior != null)
 		{
 			OsateDebug.osateDebug("[PRISM][Module.java] Process error behavior of " + aadlComponent.getName());
-	
-			for (ErrorDetection ed : EMV2Util.getAllErrorDetections(aadlComponent.getComponentClassifier()))
-			{
-				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorDerection " + ed);
-			}
-			
-			for (ErrorBehaviorEvent ed : EMV2Util.getAllErrorBehaviorEvents (aadlComponent.getComponentClassifier()))
-			{
-				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorEvent " + ed);
-			}
 			
 			for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions (aadlComponent.getComponentClassifier()))
 			{
@@ -557,50 +521,49 @@ public class Module {
 	
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(aadlComponent.getComponentClassifier()))
 			{
-
 				handleOutgoingPropagationCondition (opc);
 			}
 			
-			for ( ComponentErrorBehavior ceb : EMV2Util.getAllComponentErrorBehaviors(aadlComponent.getComponentClassifier()))
-			{
-				for (ErrorBehaviorTransition trans : ceb.getTransitions())
-				{
-					handleTransition (trans);
-				}	
-			}
+//			for ( ComponentErrorBehavior ceb : EMV2Util.getAllComponentErrorBehaviors(aadlComponent.getComponentClassifier()))
+//			{
+//				for (ErrorBehaviorTransition trans : ceb.getTransitions())
+//				{
+//					handleTransition (trans);
+//				}	
+//			}
 		}	
 		
-		if ( (errorBehavior == null) && (errorModelSubclause != null ) && (errorModelSubclause.getUseBehavior() != null))
-		{
-			OsateDebug.osateDebug("[Module] process state machine from errormodel subclause");
-			handleBehavior (errorModelSubclause.getUseBehavior());
-		}
+//		if ( (errorBehavior == null) && (errorModelSubclause != null ) && (errorModelSubclause.getUseBehavior() != null))
+//		{
+//			OsateDebug.osateDebug("[Module] process state machine from errormodel subclause");
+//			handleBehavior (errorModelSubclause.getUseBehavior());
+//		}
 		
 		return this;
 	}
 	
 
-	private void handleBehavior (ErrorBehaviorStateMachine errorBehavior)
-	{
-		if (errorBehavior != null)
-		{
-			OsateDebug.osateDebug("[PRISM][Module.java] Process error behavior of " + aadlComponent.getName());
-
-			
-			for (ErrorBehaviorEvent ed : errorBehavior.getEvents())
-			{
-				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorEvent " + ed);
-			}
-			
-			for (ErrorBehaviorTransition trans : errorBehavior.getTransitions())
-			{
-				handleTransition (trans);
-			}
-			
-			
-			
-		}		
-	}
+//	private void handleBehavior (ErrorBehaviorStateMachine errorBehavior)
+//	{
+//		if (errorBehavior != null)
+//		{
+//			OsateDebug.osateDebug("[PRISM][Module.java] Process error behavior of " + aadlComponent.getName());
+//
+//			
+//			for (ErrorBehaviorEvent ed : errorBehavior.getEvents())
+//			{
+//				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorEvent " + ed);
+//			}
+//			
+//			for (ErrorBehaviorTransition trans : errorBehavior.getTransitions())
+//			{
+//				handleTransition (trans);
+//			}
+//			
+//			
+//			
+//		}		
+//	}
 	
 	// Old code, replaced by methods in process() in Module.java
 //	private void handleComponentBehavior (ComponentErrorBehavior errorBehavior)
@@ -685,7 +648,7 @@ public class Module {
 					}
 				}
 			}
-			
+		
 			command.setCommandType(CommandType.PROPAGATION);
 			command.setCondition (before);
 			command.addTransition(transaction);
@@ -700,7 +663,7 @@ public class Module {
 		double probability;
 		int tmpState;
 		
-		OsateDebug.osateDebug("[PRISM][Module.java]    ErrorTransition " + trans);
+		OsateDebug.osateDebug("[PRISM][Module.java] ErrorTransition name=" + trans.getName());
 		OsateDebug.osateDebug("[PRISM][Module.java]       src= " + trans.getSource().getName());
 		OsateDebug.osateDebug("[PRISM][Module.java]       target= " + trans.getTarget());
 		OsateDebug.osateDebug("[PRISM][Module.java]       cond= " + trans.getCondition());
@@ -730,8 +693,21 @@ public class Module {
 			if (probability == 0)
 			{
 				OsateDebug.osateDebug("[PRISM][Module.java] Probability null, transition condition=" + trans.getCondition());
-				OsateDebug.osateDebug("[PRISM][Module.java] not null");
-
+				if (trans.getCondition() instanceof ConditionElement)
+				{
+					ConditionElement ce = (ConditionElement) trans.getCondition();
+					OsateDebug.osateDebug("incoming=" + ce.getIncoming());
+					if (ce.getIncoming() instanceof ErrorPropagation)
+					{
+						//FIXME Julien: Find the appropriate state id
+						ErrorPropagation incomingErrorPropagation = (ErrorPropagation) ce.getIncoming();
+						before = new And (before, 
+								  new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(aadlComponent, incomingErrorPropagation.getFeaturerefs().get(0).getFeature().getName())),
+					              new Terminal ("state-id-to-find")));
+					}
+					
+				}
+				
 				tmpState = statesMap.get(trans.getTarget().getName());
 				after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
 								   new Terminal (""+tmpState));
@@ -754,8 +730,7 @@ public class Module {
 			}
 			else
 			{
-				OsateDebug.osateDebug("[PRISM][Module.java] not null");
-
+				
 				tmpState = statesMap.get(trans.getTarget().getName());
 				after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
 								   new Terminal (""+tmpState));
