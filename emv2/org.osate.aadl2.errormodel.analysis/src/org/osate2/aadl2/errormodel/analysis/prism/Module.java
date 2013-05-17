@@ -529,6 +529,7 @@ public class Module {
 			{
 				handleTransition (trans);
 			}
+			
 	
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(aadlComponent.getComponentClassifier()))
 			{
@@ -548,6 +549,27 @@ public class Module {
 //		{
 //			OsateDebug.osateDebug("[Module] process state machine from errormodel subclause");
 //			handleBehavior (errorModelSubclause.getUseBehavior());
+//			for (ErrorBehaviorEvent ed : errorBehavior.getEvents())
+//			{
+//				OsateDebug.osateDebug("[PRISM][Module.java]    ErrorEvent " + ed);
+//			}
+//		}
+		
+		
+// TO CHECK: inclusion in getAllErrorBehaviorTransitions
+//		if (errorModelSubclause != null)
+//		{
+//			if (errorModelSubclause.getUseBehavior() != null)
+//			{
+//				for (ErrorBehaviorEvent ed : errorModelSubclause.getUseBehavior().getEvents())
+//				{
+//					OsateDebug.osateDebug("[PRISM][Module.java]    ErrorEvent " + ed);
+//				}
+//				for (ErrorBehaviorTransition trans : errorModelSubclause.getUseBehavior().getTransitions())
+//				{
+//					handleTransition (trans);
+//				}
+//			}
 //		}
 		
 		return this;
@@ -708,7 +730,7 @@ public class Module {
 					ConditionElement conditionElement 	= (ConditionElement) trans.getCondition();
 					EventOrPropagation event   		  	= (EventOrPropagation) conditionElement.getIncoming();
 					//OsateDebug.osateDebug("[Utils]    incoming :" + event);
-					if ((event != null) && (event instanceof ErrorEvent))
+					if ((event != null) && ( event instanceof ErrorEvent))
 					{
 						/* 
 						 * If the probability is 0 and this is just an event, we should not generate anything.
