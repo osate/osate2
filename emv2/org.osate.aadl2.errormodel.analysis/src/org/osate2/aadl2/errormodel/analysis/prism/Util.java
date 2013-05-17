@@ -25,6 +25,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.Equal;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.Expression;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.Terminal;
@@ -159,16 +160,17 @@ public class Util
 						//OsateDebug.osateDebug("[Utils]       ErrorPropagation src:" + sourceSubclause);
 						if (sourceSubclause.getErrorPropagations() == null)
 						{
-							OsateDebug.osateDebug("[Util] No source propagation on " + sourceSubclause);
 							break;
 						}
 						for (ErrorFlow flow : sourceSubclause.getErrorPropagations().getFlows())
 						{
-							OsateDebug.osateDebug("[Utils]       Flow:" + flow);
 
 							if (flow instanceof ErrorSource)
 							{
 								ErrorSource errorSource = (ErrorSource)flow;
+								List<PropagationPathEnd> propagationEnds;
+								propagationEnds = Model.getCurrentInstance().getAnalysisModel().getAllPropagationDestinationEnds(instance, errorSource.getOutgoing());
+								PropagationPathEnd ppe = propagationEnds.get(0);
 								ErrorBehaviorState state = (ErrorBehaviorState) errorSource.getFailureModeReference();
 								//OsateDebug.osateDebug("[Utils]       ErrorSource feature:" + errorSource.getOutgoing().getFeature());
 								if (errorSource.getOutgoing() == ep)
@@ -178,7 +180,8 @@ public class Util
 									ErrorType et = tt.getType().get(0);
 									//OsateDebug.osateDebug("[Utils]       ErrorSource token:" + et);
 									Expression e = new Equal (new Terminal (Util.getFeatureName(instanceSource, EMV2Util.getPrintName(ep))),
-															  new Terminal ("" + Model.getCurrentInstance().getPropagationMap().get(EMV2Util.getPrintName(ep)).get(et.getName())));
+						        		    				  new Terminal ("" + Model.getCurrentInstance().getErrorTypeCode(ppe, errorSource.getTypeTokenConstraint().getElementType().get(0).getType().get(0))));
+
 									exprs.add(e);
 								}
 
@@ -228,7 +231,6 @@ public class Util
 	public static double translateConditionToProbability (ComponentInstance instance, ConditionExpression condition)
 	{
 		double res = 0.0;
-		OsateDebug.osateDebug("[Utils] translateConditionToProbability:" + condition);
 		if (condition instanceof ConditionElement)
 		{
 			ConditionElement conditionElement 	= (ConditionElement) condition;

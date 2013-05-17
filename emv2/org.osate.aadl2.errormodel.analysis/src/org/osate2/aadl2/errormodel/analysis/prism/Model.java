@@ -8,8 +8,12 @@ import java.util.Map;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 /**
  * Class that implement a full PRISM model containing
@@ -45,7 +49,7 @@ public class Model
 	 * OUTPORTNAME2 => PROPAGATION1 => 1,
 	 *                 PROPAGATION2 => 2                 
 	 */
-	private Map<String,Map<String,Integer>>		propagationsMap;
+	private Map<String,Integer>		propagationsMap;
 
 	
 
@@ -58,7 +62,7 @@ public class Model
 		this.modules 			= new ArrayList<Module> ();
 		this.formulas 			= new ArrayList<Formula> ();
 		this.rootInstance 		= rootSystem;
-		this.propagationsMap	= new HashMap<String,Map<String,Integer>>();
+		this.propagationsMap	= new HashMap<String,Integer>();
 		this.errorTypes			= new HashMap<String,Integer>();
 		this.type 				= Options.getModelType();
 		this.analysisModel      = new AnalysisModel (rootSystem);
@@ -159,6 +163,55 @@ public class Model
 		this.prismFile.saveToFile();
 	}
 	
+	/**
+	 * This interface is used to give a unique error code from an error propagation
+	 * and an error type. Thus, each error propagation end point has a unique
+	 * code for each error type.
+	 * 
+	 * @param ppe The propagationPathEnd from the propagation path
+	 * @et        The corresponding error type that must be mapped.
+	 */
+	public int getErrorTypeCode (PropagationPathEnd ppe, ErrorType et)
+	{
+		String errorTypeKey;
+		String propagationKey;
+		propagationKey = ppe.getComponentInstance().getName() + "_" + 
+				   		 ppe.getErrorPropagation().getFeaturerefs().get(0).getFeature().getName();
+		errorTypeKey = ppe.getComponentInstance().getName() + "_" + 
+					   ppe.getErrorPropagation().getFeaturerefs().get(0).getFeature().getName() + "_" +
+		               et.getName();
+		
+		int newErrorValue;
+		
+		/**
+		 * If this propagation point does not have any error code
+		 * associated, then, we just assign a default value.
+		 */
+		if (propagationsMap.get(propagationKey) == null)
+		{
+			propagationsMap.put(propagationKey, 1);
+		}
+		
+		
+		newErrorValue = propagationsMap.get(propagationKey);
+		
+		/**
+		 * If the error type is not associated with a code
+		 * then, we assign one.
+		 */
+		if (propagationsMap.get(errorTypeKey) == null)
+		{
+			propagationsMap.put(errorTypeKey, newErrorValue);
+			propagationsMap.put(propagationKey, newErrorValue + 1);
+		}
+		OsateDebug.osateDebug("propagationKey = " + propagationKey);
+
+		OsateDebug.osateDebug("errorTypeKey   = " + errorTypeKey);
+		OsateDebug.osateDebug("return         = " + propagationsMap.get(errorTypeKey));
+
+		return propagationsMap.get(errorTypeKey);
+	}
+	
 	public void addModule (Module m)
 	{
 		this.modules.add (m);
@@ -179,10 +232,7 @@ public class Model
 		this.type = t;
 	}
 	
-	public Map<String,Map<String,Integer>> getPropagationMap ()
-	{
-		return this.propagationsMap;
-	}
+
 	
 	public AnalysisModel getAnalysisModel ()
 	{
