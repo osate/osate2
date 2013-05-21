@@ -17,6 +17,8 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.InstanceObject;
@@ -44,15 +46,32 @@ public class ModeFilter extends ViewerFilter {
 		if(currentMode == null || currentMode.equals(ModeManager.ALL_MODES))
 			return true;
 
+		if(element instanceof Feature){
+			return true;
+		}
+
 		if(element instanceof Subcomponent){
 			// Get the mode that the subcomponent exists in.
 			List<Mode> opModeList = ((Subcomponent)element).getInModes();
-			if(opModeList == null){
+			if(opModeList.isEmpty()){
 				// null indicates that the element exists in all modes.
 				return true;
 			}else if(opModeList.contains(currentMode)){
 				return true;
 			}
+			return false;
+		}
+
+		if(element instanceof Connection){
+			// Get the mode that the subcomponent exists in.
+			List<Mode> opModeList = ((Connection)element).getInModes();
+			if(opModeList.isEmpty()){
+				// null indicates that the element exists in all modes.
+				return true;
+			}else if(opModeList.contains(currentMode)){
+				return true;
+			}
+			return false;
 		}
 
 		if(element instanceof InstanceObject){
@@ -70,6 +89,7 @@ public class ModeFilter extends ViewerFilter {
 					}
 				}
 			}
+			return false;
 		}
 
 		return false;
