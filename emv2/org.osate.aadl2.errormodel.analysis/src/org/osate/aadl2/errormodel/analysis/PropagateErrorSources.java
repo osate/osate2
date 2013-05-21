@@ -150,8 +150,6 @@ public class PropagateErrorSources {
 	public void startErrorFlows(ComponentInstance ci){
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		String componentText = generateItemText(ci);
-//		int dot = componentText.lastIndexOf(".");
-//		String newstr = componentText.substring(dot);
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			TypeSet ts = errorSource.getTypeTokenConstraint();
