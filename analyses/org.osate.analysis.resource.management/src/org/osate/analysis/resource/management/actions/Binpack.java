@@ -824,9 +824,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			searchRoots.add(thread.getSystemInstance());
 		} else {
 			for (final Iterator i = allowedBindingsVals.iterator(); i.hasNext();) {
-				final InstanceReferenceValue rv = (InstanceReferenceValue) i
-						.next();
-				searchRoots.add(rv.getReferencedInstanceObject());
+				final ComponentInstance rv = (ComponentInstance) i.next();
+				searchRoots.add(rv);
 			}
 		}
 		final Set allowedSystemClassifiers = new HashSet();
