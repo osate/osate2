@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.sphinx.emf.metaModelDescriptors">
+      <descriptor
+            class="org.osate.aadl2.ide.metamodeldescriptor.AadlMMDescriptor"
+            id="org.osate.aadl2.metamodel.descriptor">
+      </descriptor>
+      <descriptor
+            class="org.osate.aadl2.ide.metamodeldescriptor.AaxlMMDescriptor"
+            id="org.osate.aadl2.aaxl.metamodel.descriptor">
+      </descriptor>
+   </extension>
+
+</plugin>
