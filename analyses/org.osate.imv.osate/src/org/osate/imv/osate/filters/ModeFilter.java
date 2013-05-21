@@ -39,7 +39,6 @@ public class ModeFilter extends ViewerFilter {
 
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
-		boolean existsInMode = false; // Indicates if the element exists in the current mode.
 
 		// All elements will be visible if no mode is set or mode is set to ALL_MODES.
 		if(currentMode == null || currentMode.equals(ModeManager.ALL_MODES))
@@ -50,9 +49,9 @@ public class ModeFilter extends ViewerFilter {
 			List<Mode> opModeList = ((Subcomponent)element).getInModes();
 			if(opModeList == null){
 				// null indicates that the element exists in all modes.
-				existsInMode = true;
+				return true;
 			}else if(opModeList.contains(currentMode)){
-				existsInMode = true;
+				return true;
 			}
 		}
 
@@ -61,20 +60,19 @@ public class ModeFilter extends ViewerFilter {
 			List<SystemOperationMode> opModeList = ((InstanceObject)element).getExistsInModes();
 			if(opModeList == null){
 				// null indicates that the element exists in all modes.
-				existsInMode = true;
+				return true;
 			}else{
 				// For each SOM, get the mode list and check if the current mode is present.
 				for(Iterator<SystemOperationMode> it = opModeList.iterator(); it.hasNext(); ){
 					// Current modes list will never be null.
 					if(containsMode(it.next().getCurrentModes(),currentMode)){
-						existsInMode = true;
-						break;
+						return true;
 					}
 				}
 			}
 		}
 
-		return existsInMode;
+		return false;
 	}
 	
 	protected boolean containsMode(EList<ModeInstance> ml, Mode m){
