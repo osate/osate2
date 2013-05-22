@@ -222,36 +222,43 @@ public class FlowLatencyUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
-	protected static List doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW, EList visitedBuses){
+	protected static List<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW, EList<ComponentInstance> visitedBuses){
 		if (srcHW ==null || dstHW == null) return null;
 		if (srcHW == dstHW ) return Collections.EMPTY_LIST;
-		EList busaccesslist = srcHW.getFeatureInstances();
-		for (Iterator it = busaccesslist.iterator();it.hasNext();){
-			FeatureInstance fi = (FeatureInstance) it.next();
+		EList<FeatureInstance> busaccesslist = srcHW.getFeatureInstances();
+		for (FeatureInstance fi : busaccesslist) {
 			if (fi.getCategory() == FeatureCategory.BUS_ACCESS){
-				EList acl = fi.getDstConnectionInstances();
-				for (Iterator itt = acl.iterator();itt.hasNext();){
-					ConnectionInstance aci = (ConnectionInstance) itt.next();
-					ComponentInstance curBus = (ComponentInstance)aci.getSource();
+				EList<ConnectionInstance> acl = fi.getDstConnectionInstances();
+				boolean opposite = false;
+				if (acl.isEmpty()){
+					acl = fi.getSrcConnectionInstances();
+					opposite = true;
+				}
+				for (ConnectionInstance aci : acl) {
+					ComponentInstance curBus = opposite?(ComponentInstance)aci.getDestination():(ComponentInstance)aci.getSource();
 					if (!visitedBuses.contains(curBus)){
 						if ( connectedToBus(dstHW, curBus)){
-							EList res = new BasicEList<ComponentInstance>();
+							BasicEList<ComponentInstance> res = new BasicEList<ComponentInstance>();
 							res.add(curBus);
 							return res ;
 						} else {
 							// first check if there is a bus this bus is connected to
 							visitedBuses.add(curBus);
-							List res = doConnectedByBus(curBus,dstHW,visitedBuses);
+							List<ComponentInstance> res = doConnectedByBus(curBus,dstHW,visitedBuses);
 							if (res != null){
 								res.add(0,curBus);
 								return res;
 							} else {
 								// check for buses that are connected to this bus
-								EList bcl = curBus.getSrcConnectionInstances();
-								for (Iterator ittt = bcl.iterator(); ittt.hasNext();)
-								{
-									ConnectionInstance srcaci = (ConnectionInstance)ittt.next();
-									ComponentInstance bi = srcaci.getDestination().getContainingComponentInstance() ;
+								EList<ConnectionInstance> bcl = curBus.getSrcConnectionInstances();
+								boolean cbOpposite = false;
+								if (bcl.isEmpty()){
+									bcl = curBus.getDstConnectionInstances();
+									cbOpposite = true;
+								}
+								for (ConnectionInstance srcaci : bcl) {
+									ComponentInstance bi = cbOpposite?srcaci.getSource().getContainingComponentInstance()
+											:srcaci.getDestination().getContainingComponentInstance() ;
 									if (bi.getCategory() == ComponentCategory.BUS){
 										if (connectedToBus(dstHW,bi)){
 											res = new BasicEList<ComponentInstance>();
@@ -286,10 +293,8 @@ public class FlowLatencyUtil {
 	 */
 	public static boolean connectedToBus(ComponentInstance HWcomp, ComponentInstance bus)
 	{
-			EList acl = bus.getSrcConnectionInstances();
-			for (Iterator it = acl.iterator(); it.hasNext();)
-			{
-				ConnectionInstance srcaci = (ConnectionInstance)it.next();
+			EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
+			for (ConnectionInstance srcaci : acl) {
 				if (srcaci.getDestination().getContainingComponentInstance() == HWcomp)
 				{
 							return true;
@@ -307,10 +312,8 @@ public class FlowLatencyUtil {
 	 */
 	public static ConnectionInstance getBusAccessConnection(ComponentInstance HWcomp, ComponentInstance bus)
 	{
-		EList acl = bus.getSrcConnectionInstances();
-		for (Iterator it = acl.iterator(); it.hasNext();)
-		{
-			ConnectionInstance srcaci = (ConnectionInstance)it.next();
+		EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
+		for (ConnectionInstance srcaci : acl) {
 			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp)
 			{
 				return srcaci;
@@ -319,9 +322,7 @@ public class FlowLatencyUtil {
 		if (HWcomp.getCategory() == ComponentCategory.BUS){
 			// check the other way
 			acl = HWcomp.getSrcConnectionInstances();
-			for (Iterator it = acl.iterator(); it.hasNext();)
-			{
-				ConnectionInstance srcaci = (ConnectionInstance)it.next();
+			for (ConnectionInstance srcaci : acl) {
 				if (srcaci.getDestination().getContainingComponentInstance() == bus)
 				{
 					return srcaci;
