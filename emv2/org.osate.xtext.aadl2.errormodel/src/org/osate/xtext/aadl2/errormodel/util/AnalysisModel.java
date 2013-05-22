@@ -71,14 +71,21 @@ public class AnalysisModel {
 	 * @param connectionInstance
 	 */
 	protected void populateConnectionPropagationPaths(ConnectionInstance connectionInstance){
+		addPropagationPath(connectionInstance, false);
+		if (connectionInstance.isBidirectional()){
+			addPropagationPath(connectionInstance, true);
+		}
+	}
+	
+	protected void addPropagationPath(ConnectionInstance connectionInstance, boolean opposite){
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
 		ErrorPropagation srcprop = null;
 		ComponentInstance srcCI = null;
 		ErrorPropagation dstprop = null;
 		ComponentInstance dstCI = null;
 		for (ConnectionReference connectionReference : connrefs) {
-			ConnectionInstanceEnd src = connectionReference.getSource();
-			ConnectionInstanceEnd dst = connectionReference.getDestination();
+			ConnectionInstanceEnd src = opposite?connectionReference.getDestination():connectionReference.getSource();
+			ConnectionInstanceEnd dst = opposite?connectionReference.getSource():connectionReference.getDestination();
 			if (srcprop == null){ 
 				if( src instanceof FeatureInstance){
 					// remember the first src with EP
@@ -106,9 +113,12 @@ public class AnalysisModel {
 				}
 			}
 		}
-		propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance));
-		subcomponents.add(srcCI);
-		subcomponents.add(dstCI);
+		if (srcprop!= null && dstprop != null){
+			propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance));
+			subcomponents.add(srcCI);
+			subcomponents.add(dstCI);
+		}
+
 	}
 	
 	/**
