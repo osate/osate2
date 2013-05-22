@@ -588,8 +588,15 @@ public class Module {
 
 					ErrorType et = incomingErrorPropagation.getTypeSet().getElementType().get(0).getType().get(0);
 
-					errorTypeValue = this.associatedModel.getErrorTypeCode(ppe, et);
-					
+					if ((conditionElement.getConstraint().getReference() == null) &&
+					    conditionElement.getConstraint().getElementType().isEmpty())
+					{
+						errorTypeValue = 0;
+					}
+					else
+					{
+						errorTypeValue = this.associatedModel.getErrorTypeCode(ppe, et);
+					}
 				}
 				result = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(aadlComponent, incomingErrorPropagation.getFeaturerefs().get(0).getFeature().getName())),
 			              new Terminal ("" + errorTypeValue));
