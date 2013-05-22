@@ -87,6 +87,7 @@ import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -146,14 +147,18 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		this.classifierCache = classifierCache;
 	}
 
-	private boolean isOpposite (Feature feature, Connection connection) 
+	private boolean isOpposite (Feature feature, Subcomponent sub,Connection connection) 
 	{
 		List<Feature> 	features= feature.getAllFeatureRefinements();
-		if (features.contains(connection.getAllSource())){
+		EList<Subcomponent> subs = sub.getAllSubcomponentRefinements();
+		if (features.contains(connection.getAllSource())&& subs.contains(connection.getAllSourceContext())){
 			return false;
-		} else if (connection.isBidirectional()&& features.contains(connection.getAllDestination())){
+		} else {
+			if (connection.isBidirectional()&& features.contains(connection.getAllDestination())&&
+				subs.contains(connection.getAllDestinationContext()) ){
 			// we are going the other way on a bi-directional connection
 			return true;
+			}
 		}
 		
 		return false;
@@ -281,7 +286,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						{
 							// TODO-LW: check if this logic is correct
 							
-							boolean opposite = isOpposite (feature, conn);
+							boolean opposite = isOpposite (feature, sub, conn);
 //								if (outcomingConns.isEmpty() && !outgoingConns.isEmpty()) {
 //									if (f instanceof FeatureGroup) {
 //										warning(featurei,
@@ -728,11 +733,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (connInfo.src == test.getSource() && dstI == test.getDestination()){
 				return null;
 			}
-			// XXX the next lines determine whether a conenction is bi-directional and set a flag rather than creating a second connection instance
-//			if (connInfo.src == test.getDestination() && dstI == test.getSource()){
-//				test.setBidirectional(true);
-//				return test;
-//			}
+			// the next lines determine whether a connection is bi-directional and set a flag rather than creating a second connection instance
+			if (connInfo.src == test.getDestination() && dstI == test.getSource()&& test.getKind() == ConnectionKind.ACCESS_CONNECTION){
+				test.setBidirectional(true);
+				return test;
+			}
 		}
 		// Generate a name for the connection
 		String containerPath = (connInfo.container != null) ? connInfo.container.getInstanceObjectPath() : systemInstance.getName();
@@ -781,14 +786,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		// this.checkSemanticConnection((PortConnectionInstance) conni);
 		// }
 		return conni;
-	}
-	
-	private FeatureInstance getTopFeatureInstance(FeatureInstance fi){
-		FeatureInstance topfi = fi;
-		while (topfi.getOwner() instanceof FeatureInstance){
-			topfi = (FeatureInstance)topfi.getOwner();
-		}
-		return topfi;
 	}
 
 	/**
