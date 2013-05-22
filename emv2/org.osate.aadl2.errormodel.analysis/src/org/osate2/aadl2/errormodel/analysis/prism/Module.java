@@ -14,6 +14,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -510,29 +511,6 @@ public class Module {
 			handleOutgoingPropagationCondition (opc);
 		}
 
-		
-		/**
-		 * It seems that the EMV2Util.getAllErrorBehaviorTransitions does not return
-		 * the transitions for the error behavior or only when the component
-		 * also has a component error behavior.
-		 * 
-		 * The following code get the transitions in case there is no component
-		 * error behavior.
-		 */
-		if ((errorModelSubclause != null)&& ( EMV2Util.hasComponentErrorBehavior(aadlComponent) == false))
-		{
-			if (errorModelSubclause.getUseBehavior() != null)
-			{
-
-				for (ErrorBehaviorTransition trans : errorModelSubclause.getUseBehavior().getTransitions())
-				{
-
-					handleTransition (trans);
-					
-				}
-			}
-		}
-		
 		return this;
 	}
 	
@@ -589,6 +567,44 @@ public class Module {
 		}
 	}
 	
+	private Expression handleTransitionCondition (ConditionExpression condition)
+	{
+		Expression result = null;
+		
+		if (condition instanceof ConditionElement)
+		{
+			ConditionElement conditionElement 	= (ConditionElement) condition;
+			if (conditionElement.getIncoming() instanceof ErrorPropagation)
+			{
+				int errorTypeValue = 0;
+				//FIXME Julien: Find the appropriate id that correspond to the propagation code
+				ErrorPropagation incomingErrorPropagation = (ErrorPropagation) conditionElement.getIncoming();
+				List<PropagationPathEnd>propagationEnds = this.associatedModel.getAnalysisModel().getAllPropagationSourceEnds (this.aadlComponent, incomingErrorPropagation);
+
+				for (PropagationPathEnd ppe : propagationEnds)
+				{
+					Feature connectedFeature = (Feature) ppe.getErrorPropagation().getFeaturerefs().get(0).getFeature();
+
+
+					ErrorType et = incomingErrorPropagation.getTypeSet().getElementType().get(0).getType().get(0);
+
+					errorTypeValue = this.associatedModel.getErrorTypeCode(ppe, et);
+					
+				}
+				result = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(aadlComponent, incomingErrorPropagation.getFeaturerefs().get(0).getFeature().getName())),
+			              new Terminal ("" + errorTypeValue));
+			}
+		}
+		if (condition instanceof AndExpression)
+		{
+			AndExpression andExpression = (AndExpression) condition;
+			result = new And (handleTransitionCondition (andExpression.getOperands().get(0)), handleTransitionCondition(andExpression.getOperands().get(1)));
+		}
+		
+		return result;
+	}
+	
+	
 	private void handleTransition (ErrorBehaviorTransition trans)
 	{
 		Command command;
@@ -630,22 +646,15 @@ public class Module {
 						 * We just return and do not add any new command.
 						 * */
 						return;
-					}
+					}	
 				}
-			
-				if (trans.getCondition() instanceof ConditionElement)
+				
+				Expression conditionExpression = handleTransitionCondition (trans.getCondition());
+				if (conditionExpression != null)
 				{
-					ConditionElement ce = (ConditionElement) trans.getCondition();
-					if (ce.getIncoming() instanceof ErrorPropagation)
-					{
-						//FIXME Julien: Find the appropriate id that correspond to the propagation code
-						ErrorPropagation incomingErrorPropagation = (ErrorPropagation) ce.getIncoming();
-						before = new And (before, 
-								  new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(aadlComponent, incomingErrorPropagation.getFeaturerefs().get(0).getFeature().getName())),
-					              new Terminal ("1")));
-					}
-					
-				}
+					before = new And (before, conditionExpression);
+				}		
+				
 				
 				tmpState = statesMap.get(trans.getTarget().getName());
 				after = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent), true),
