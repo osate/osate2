@@ -160,7 +160,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			return true;
 			}
 		}
-		
 		return false;
 	}
 		
@@ -720,25 +719,27 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected ConnectionInstance addConnectionInstance(final SystemInstance systemInstance,
 			final ConnectionInfo connInfo, final ConnectionInstanceEnd dstI) {
-		// check for duplicate connection instance
+//		// check for duplicate connection instance
+//
+//		// with arrays we can get duplicates that we don't need
+//		ComponentInstance container = connInfo.container;
+//
+//		if (container == null) {
+//			container = systemInstance;
+//		}
+//		for (ConnectionInstance test : container.getConnectionInstances()) {
+//			// check for duplicates and do not create
+//			if (connInfo.src == test.getSource() && dstI == test.getDestination()){
+//				return null;
+//			}
+//			// the next lines determine whether a connection is bi-directional and set a flag rather than creating a second connection instance
+//			if (connInfo.src == test.getDestination() && dstI == test.getSource()&& test.getKind() == ConnectionKind.ACCESS_CONNECTION){
+//				test.setBidirectional(true);
+//				return test;
+//			}
+//		}
+//		boolean duplicate = false;
 
-		// with arrays we can get duplicates that we don't need
-		ComponentInstance container = connInfo.container;
-
-		if (container == null) {
-			container = systemInstance;
-		}
-		for (ConnectionInstance test : container.getConnectionInstances()) {
-			// check for duplicates and do not create
-			if (connInfo.src == test.getSource() && dstI == test.getDestination()){
-				return null;
-			}
-			// the next lines determine whether a connection is bi-directional and set a flag rather than creating a second connection instance
-			if (connInfo.src == test.getDestination() && dstI == test.getSource()&& test.getKind() == ConnectionKind.ACCESS_CONNECTION){
-				test.setBidirectional(true);
-				return test;
-			}
-		}
 		// Generate a name for the connection
 		String containerPath = (connInfo.container != null) ? connInfo.container.getInstanceObjectPath() : systemInstance.getName();
 		int len =  containerPath.length() + 1 ;
@@ -755,37 +756,123 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			dstPath = dstPath.substring(i);
 			sb.append(dstPath);
 		}
-		ConnectionInstance conni = null;
-		conni = connInfo.createConnectionInstance(sb.toString(), dstI);
 
-		if (conni == null) {
-			warning(container,
-					"Connection sequence from " + srcPath + " to "
-							+ dstPath
-							+ " is only outgoing. No connection instance created.");
-			return null;
-		} else {
-			container.getConnectionInstances().add(conni);
+		// with arrays we can get duplicates that we don't need
+		boolean duplicate = false;
+		ComponentInstance container = connInfo.container;
+
+		if (container == null) {
+			container = systemInstance;
 		}
+		for (ConnectionInstance test : container.getConnectionInstances()) {
+			int connssize = connInfo.connections.size();
+			if (connssize == test.getConnectionReferences().size()) {
+				Iterator<Connection> conns = connInfo.connections.iterator();
+				Iterator<Boolean> oppos = connInfo.opposites.iterator();
+				Iterator<ConnectionReference> testRefs = test.getConnectionReferences().iterator();
 
-		// determine whether connection is delayed
-		// TODO-LW: restore functionality
-		// if (conni instanceof PortConnectionInstance) {
-		// PortConnectionInstance pci = (PortConnectionInstance) conni;
-		// pci.setTiming(pci.computeConnectionTiming());
-		// }
+				duplicate = true;
+				while (conns.hasNext()) {
+					Connection t = testRefs.next().getConnection();
+					Connection conn = conns.next();
+					boolean oppo = oppos.next();
+					if (t != conn) {
+						duplicate = false;
+						break;
+					} else {
+						// if it is only one connection and it is the same
+						// check whether we are going in opposite directions
+						if (connssize == 1){
+							if (oppo){
+								// non-matching src/dst
+								ConnectionInstanceEnd tsrc = test.getSource();
+								if (tsrc instanceof FeatureInstance){
+									// does the top feature (FG) match the source
+									// then we are ok since the new one goes the other way
+//									tsrc = getTopFeatureInstance((FeatureInstance)tsrc);
+									Feature srcf = ((FeatureInstance)tsrc).getFeature();
+									if (t.getAllSource() == srcf){
+										duplicate = false;
+										break;
+									}
+								} else if (tsrc instanceof ComponentInstance){
+									// does the top feature (FG) match the source
+									// then we are ok since the new one goes the other way
+									Subcomponent srcsub = ((ComponentInstance)tsrc).getSubcomponent();
+									if (t.getAllSource() == srcsub){
+										duplicate = false;
+										break;
+									}
+								}
+							} else {
+								// non-matching src/src
+								ConnectionInstanceEnd tsrc = test.getSource();
+								if (tsrc instanceof FeatureInstance){
+									// do the sources not match. the original must be opposite, so we are ok
+//									tsrc = getTopFeatureInstance((FeatureInstance)tsrc);
+									Feature srcf = ((FeatureInstance)tsrc).getFeature();
+									if (t.getAllSource() != srcf){
+										duplicate = false;
+										break;
+									}
+								} else if (tsrc instanceof ComponentInstance){
+									// does the top feature (FG) match the source
+									// then we are ok since the new one goes the other way
+									Subcomponent srcsub = ((ComponentInstance)tsrc).getSubcomponent();
+									if (t.getAllSource() != srcsub){
+										duplicate = false;
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			if (duplicate)
+				break;
+		}
+		ConnectionInstance conni = null;
+		if (!duplicate) {
+			conni = connInfo.createConnectionInstance(sb.toString(), dstI);
 
-		// set in modes for connection instance. those modes where both src and
-		// dest are active.
-		fillInModes(conni);
-		fillInModeTransitions(conni);
-		// perform checking on matching src and dst ports
-		// we need to do this since the wrong element from a port group may have
-		// been picked
-		// if (conni instanceof PortConnectionInstance) {
-		// this.checkSemanticConnection((PortConnectionInstance) conni);
-		// }
+			if (conni == null) {
+				warning(container,
+						"Connection sequence from " + srcPath + " to "
+								+ dstPath
+								+ " is only outgoing. No connection instance created.");
+				return null;
+			} else {
+				container.getConnectionInstances().add(conni);
+			}
+
+			// determine whether connection is delayed
+			// TODO-LW: restore functionality
+			// if (conni instanceof PortConnectionInstance) {
+			// PortConnectionInstance pci = (PortConnectionInstance) conni;
+			// pci.setTiming(pci.computeConnectionTiming());
+			// }
+
+			// set in modes for connection instance. those modes where both src and
+			// dest are active.
+			fillInModes(conni);
+			fillInModeTransitions(conni);
+			// perform checking on matching src and dst ports
+			// we need to do this since the wrong element from a port group may have
+			// been picked
+			// if (conni instanceof PortConnectionInstance) {
+			// this.checkSemanticConnection((PortConnectionInstance) conni);
+			// }
+		}
 		return conni;
+	}
+	
+	private FeatureInstance getTopFeatureInstance(FeatureInstance fi){
+		FeatureInstance topfi = fi;
+		while (topfi.getOwner() instanceof FeatureInstance){
+			topfi = (FeatureInstance)topfi.getOwner();
+		}
+		return topfi;
 	}
 
 	/**
