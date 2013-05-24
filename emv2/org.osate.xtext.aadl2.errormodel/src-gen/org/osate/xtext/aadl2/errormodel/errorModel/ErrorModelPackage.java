@@ -2366,13 +2366,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_TRANSITION__TYPE_TOKEN_CONSTRAINT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-	 * The feature id for the '<em><b>All</b></em>' attribute.
+	 * The feature id for the '<em><b>All States</b></em>' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_TRANSITION__ALL = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int ERROR_BEHAVIOR_TRANSITION__ALL_STATES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -3189,13 +3189,13 @@ public interface ErrorModelPackage extends EPackage
   int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-	 * The feature id for the '<em><b>All</b></em>' attribute.
+	 * The feature id for the '<em><b>All States</b></em>' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__ALL = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int OUTGOING_PROPAGATION_CONDITION__ALL_STATES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -3216,22 +3216,22 @@ public interface ErrorModelPackage extends EPackage
   int OUTGOING_PROPAGATION_CONDITION__OUTGOING = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
+	 * The feature id for the '<em><b>All Propagations</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
+
+  /**
 	 * The feature id for the '<em><b>Type Token</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-  /**
-	 * The feature id for the '<em><b>Mask</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int OUTGOING_PROPAGATION_CONDITION__MASK = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
+  int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
 	 * The number of structural features of the '<em>Outgoing Propagation Condition</em>' class.
@@ -3316,13 +3316,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_DETECTION__TYPE_TOKEN_CONSTRAINT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-	 * The feature id for the '<em><b>All</b></em>' attribute.
+	 * The feature id for the '<em><b>All States</b></em>' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_DETECTION__ALL = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int ERROR_DETECTION__ALL_STATES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -4902,15 +4902,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorBehaviorTransition_TypeTokenConstraint();
 
   /**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isAll <em>All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isAllStates <em>All States</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>All</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isAll()
+	 * @return the meta object for the attribute '<em>All States</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isAllStates()
 	 * @see #getErrorBehaviorTransition()
 	 * @generated
 	 */
-  EAttribute getErrorBehaviorTransition_All();
+  EAttribute getErrorBehaviorTransition_AllStates();
 
   /**
 	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#getCondition <em>Condition</em>}'.
@@ -5417,15 +5417,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getOutgoingPropagationCondition_TypeTokenConstraint();
 
   /**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isAll <em>All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isAllStates <em>All States</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>All</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isAll()
+	 * @return the meta object for the attribute '<em>All States</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isAllStates()
 	 * @see #getOutgoingPropagationCondition()
 	 * @generated
 	 */
-  EAttribute getOutgoingPropagationCondition_All();
+  EAttribute getOutgoingPropagationCondition_AllStates();
 
   /**
 	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getCondition <em>Condition</em>}'.
@@ -5450,6 +5450,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getOutgoingPropagationCondition_Outgoing();
 
   /**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isAllPropagations <em>All Propagations</em>}'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>All Propagations</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isAllPropagations()
+	 * @see #getOutgoingPropagationCondition()
+	 * @generated
+	 */
+  EAttribute getOutgoingPropagationCondition_AllPropagations();
+
+  /**
 	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getTypeToken <em>Type Token</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5459,17 +5470,6 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 */
   EReference getOutgoingPropagationCondition_TypeToken();
-
-  /**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isMask <em>Mask</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Mask</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isMask()
-	 * @see #getOutgoingPropagationCondition()
-	 * @generated
-	 */
-  EAttribute getOutgoingPropagationCondition_Mask();
 
   /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection <em>Error Detection</em>}'.
@@ -5504,15 +5504,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorDetection_TypeTokenConstraint();
 
   /**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAll <em>All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAllStates <em>All States</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>All</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAll()
+	 * @return the meta object for the attribute '<em>All States</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAllStates()
 	 * @see #getErrorDetection()
 	 * @generated
 	 */
-  EAttribute getErrorDetection_All();
+  EAttribute getErrorDetection_AllStates();
 
   /**
 	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getCondition <em>Condition</em>}'.
@@ -6705,12 +6705,12 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_BEHAVIOR_TRANSITION__TYPE_TOKEN_CONSTRAINT = eINSTANCE.getErrorBehaviorTransition_TypeTokenConstraint();
 
     /**
-		 * The meta object literal for the '<em><b>All</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>All States</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EAttribute ERROR_BEHAVIOR_TRANSITION__ALL = eINSTANCE.getErrorBehaviorTransition_All();
+    EAttribute ERROR_BEHAVIOR_TRANSITION__ALL_STATES = eINSTANCE.getErrorBehaviorTransition_AllStates();
 
     /**
 		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
@@ -7115,12 +7115,12 @@ public interface ErrorModelPackage extends EPackage
     EReference OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT = eINSTANCE.getOutgoingPropagationCondition_TypeTokenConstraint();
 
     /**
-		 * The meta object literal for the '<em><b>All</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>All States</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EAttribute OUTGOING_PROPAGATION_CONDITION__ALL = eINSTANCE.getOutgoingPropagationCondition_All();
+    EAttribute OUTGOING_PROPAGATION_CONDITION__ALL_STATES = eINSTANCE.getOutgoingPropagationCondition_AllStates();
 
     /**
 		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
@@ -7139,20 +7139,20 @@ public interface ErrorModelPackage extends EPackage
     EReference OUTGOING_PROPAGATION_CONDITION__OUTGOING = eINSTANCE.getOutgoingPropagationCondition_Outgoing();
 
     /**
+		 * The meta object literal for the '<em><b>All Propagations</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+		 * @generated
+		 */
+    EAttribute OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS = eINSTANCE.getOutgoingPropagationCondition_AllPropagations();
+
+    /**
 		 * The meta object literal for the '<em><b>Type Token</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
     EReference OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = eINSTANCE.getOutgoingPropagationCondition_TypeToken();
-
-    /**
-		 * The meta object literal for the '<em><b>Mask</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EAttribute OUTGOING_PROPAGATION_CONDITION__MASK = eINSTANCE.getOutgoingPropagationCondition_Mask();
 
     /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl <em>Error Detection</em>}' class.
@@ -7181,12 +7181,12 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_DETECTION__TYPE_TOKEN_CONSTRAINT = eINSTANCE.getErrorDetection_TypeTokenConstraint();
 
     /**
-		 * The meta object literal for the '<em><b>All</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>All States</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EAttribute ERROR_DETECTION__ALL = eINSTANCE.getErrorDetection_All();
+    EAttribute ERROR_DETECTION__ALL_STATES = eINSTANCE.getErrorDetection_AllStates();
 
     /**
 		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.

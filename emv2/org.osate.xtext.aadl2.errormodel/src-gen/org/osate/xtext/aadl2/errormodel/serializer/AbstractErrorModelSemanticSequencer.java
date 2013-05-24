@@ -644,6 +644,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_Element_ElementErrorType_TypeToken(context, (TypeToken) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getTypeTokenOrNoErrorRule()) {
+					sequence_TypeTokenOrNoError(context, (TypeToken) semanticObject); 
+					return; 
+				}
 				else if(context == grammarAccess.getTypeTokenRule()) {
 					sequence_TypeToken(context, (TypeToken) semanticObject); 
 					return; 
@@ -804,12 +808,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID? 
-	 *         ((source=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | all?='all') 
+	 *         ((source=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
 	 *         condition=ConditionExpression 
 	 *         (
 	 *             (target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | 
 	 *             mask?='mask' | 
-	 *             (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+)
+	 *             (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+) | 
+	 *             mask?=']'
 	 *         )
 	 *     )
 	 */
@@ -831,7 +836,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID? 
-	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | all?='all') 
+	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
 	 *         condition=ConditionExpression? 
 	 *         (internalDetectionPort=InternalPort | detectionReportingPort=[Port|ID]) 
 	 *         errorCode=ErrorCodeValue?
@@ -1029,9 +1034,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID? 
-	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | all?='all') 
+	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
 	 *         condition=ConditionExpression? 
-	 *         ((outgoing=[ErrorPropagation|ErrorPropagationPoint] typeToken=TypeToken?) | (outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?='mask'))
+	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?='all') 
+	 *         typeToken=TypeTokenOrNoError?
 	 *     )
 	 */
 	protected void sequence_OutgoingPropagationCondition(EObject context, OutgoingPropagationCondition semanticObject) {
@@ -1215,6 +1221,15 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (name=ID elementType+=ElementErrorType elementType+=ElementErrorType*)
 	 */
 	protected void sequence_TypeSetDefinition(EObject context, TypeSet semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*)
+	 */
+	protected void sequence_TypeTokenOrNoError(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
