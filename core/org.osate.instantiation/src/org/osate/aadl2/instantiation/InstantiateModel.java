@@ -52,6 +52,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.debug.internal.ui.contextlaunching.ContextRunner;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -1301,13 +1302,13 @@ public class InstantiateModel {
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
 		InstanceObject src = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, srcIndices,
-				newConn);
+				newConn,true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
 		InstanceObject dst = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, dstIndices,
-				newConn);
+				newConn,false);
 
 		if (src == null) {
 			errManager.error(newConn, "Connection source not found");
@@ -1337,18 +1338,65 @@ public class InstantiateModel {
 		newConn.setName(sb.toString());
 
 	}
+	
+	private ConnectionReference findConnectionReference(ComponentInstance context, ConnectionInstance conni){
+		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
+		for (ConnectionReference connectionReference : connrefs) {
+			if (connectionReference.getContext().getName().equalsIgnoreCase(context.getName())){
+				return connectionReference;
+			}
+		}
+		return null;
+	}
+	
+	private void resolveConnectionReference(ConnectionReference contextConnRef, InstanceObject result, String name, boolean doSource){
+		ConnectionInstanceEnd src = contextConnRef.getSource();
+		ConnectionInstanceEnd dst = contextConnRef.getDestination();
+		String contextName = contextConnRef.getContext().getName();
+		if (doSource){
+			if (name.equalsIgnoreCase(src.getName())){
+				contextConnRef.setSource((ConnectionInstanceEnd)result);
+			} else if (src instanceof FeatureInstance&& name.equalsIgnoreCase(src.getContainingComponentInstance().getName())){
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd)resolveContainingPath(src, (ComponentInstance)result);
+				if (found != null) 
+					contextConnRef.setSource(found);
+			} else if (src instanceof FeatureInstance&& contextName.equalsIgnoreCase(src.getContainingComponentInstance().getName())){
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd)resolveContainingPath(src, contextConnRef.getContext());
+				if (found != null) 
+					contextConnRef.setSource(found);
+			} 
+		}else {
+
+			if (name.equalsIgnoreCase(dst.getName())){
+				contextConnRef.setDestination((ConnectionInstanceEnd)result);
+			} else if (dst instanceof FeatureInstance&& name.equalsIgnoreCase(dst.getContainingComponentInstance().getName())){
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd)resolveContainingPath(dst, (ComponentInstance)result);
+				if (found != null) 
+					contextConnRef.setDestination(found);
+			} else if (dst instanceof FeatureInstance&& contextName.equalsIgnoreCase(dst.getContainingComponentInstance().getName())){
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd)resolveContainingPath(dst, contextConnRef.getContext());
+				if (found != null)
+					contextConnRef.setDestination(found);
+			} 
+		}
+	}
 
 	private InstanceObject findInstanceObject(ComponentInstance container, List<String> names, List<Integer> dims,
-			List<Integer> sizes, List<Long> indices, InstanceObject errorHolder) {
+			List<Integer> sizes, List<Long> indices, ConnectionInstance newconn,boolean doSource) {
 		InstanceObject result = container;
+		
 		int offset = 0;
 		int count = 0;
+		ConnectionReference contextConnRef = null;
 
 		for (String name : names) {
 			List<InstanceObject> owned = new ArrayList<InstanceObject>();
 			int dim = dims.get(count);
-
 			if (result instanceof ComponentInstance) {
+				contextConnRef = findConnectionReference((ComponentInstance)result, newconn);
+				if (contextConnRef != null&& contextConnRef.getContext() != result){
+					contextConnRef.setContext((ComponentInstance)result);
+				}
 				owned.addAll(((ComponentInstance) result).getComponentInstances());
 				owned.addAll(((ComponentInstance) result).getFeatureInstances());
 			} else if (result instanceof FeatureInstance) {
@@ -1358,6 +1406,8 @@ public class InstantiateModel {
 
 			if (dim == 0) {
 				result = (InstanceObject) AadlUtil.findNamedElementInList(owned, name);
+				if (contextConnRef != null)
+					resolveConnectionReference(contextConnRef, result, name,doSource) ;
 			} else {
 				outer: for (InstanceObject io : owned) {
 					if (io.getName().equalsIgnoreCase(name)) {
@@ -1374,21 +1424,36 @@ public class InstantiateModel {
 									continue outer;
 							}
 						} catch (IndexOutOfBoundsException e) {
-							errManager.warning(errorHolder,
+							errManager.warning(newconn,
 									"Too few indices for connection end, using fist array element");
 						}
 						result = io;
 						break;
 					}
 				}
+
 			}
 			if (result == null) {
 				return null;
 			}
 			offset += dim;
 			count++;
+			if (contextConnRef!=null)
+				resolveConnectionReference(contextConnRef, result, name,doSource) ;
 		}
 		return result;
+	}
+	
+	private InstanceObject resolveContainingPath(ConnectionInstanceEnd ciend, ComponentInstance top){
+		Element container = ciend.getOwner();
+		if (!(container instanceof ComponentInstance)){
+			 InstanceObject newcontainer = resolveContainingPath((ConnectionInstanceEnd)container, top);
+			return (InstanceObject) AadlUtil.findNamedElementInList(
+					newcontainer instanceof FeatureInstance? ((FeatureInstance)newcontainer).getFeatureInstances():((ComponentInstance)newcontainer).getFeatureInstances(), 
+					ciend.getName());
+		} else{
+			return (InstanceObject) AadlUtil.findNamedElementInList(top.getFeatureInstances(), ciend.getName());
+		}
 	}
 
 	// --------------------------------------------------------------------------------------------
