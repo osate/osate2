@@ -1393,9 +1393,13 @@ public class InstantiateModel {
 			List<InstanceObject> owned = new ArrayList<InstanceObject>();
 			int dim = dims.get(count);
 			if (result instanceof ComponentInstance) {
-				contextConnRef = findConnectionReference((ComponentInstance)result, newconn);
-				if (contextConnRef != null&& contextConnRef.getContext() != result){
-					contextConnRef.setContext((ComponentInstance)result);
+				ConnectionReference nextConnRef = findConnectionReference((ComponentInstance)result, newconn);
+				// if nextConnRef is null it is because we are going to look up feature instances inside the last ocmponent instance
+				if (nextConnRef != null) {
+					contextConnRef = nextConnRef;
+					if (contextConnRef != null&& contextConnRef.getContext() != result){
+						contextConnRef.setContext((ComponentInstance)result);
+					}
 				}
 				owned.addAll(((ComponentInstance) result).getComponentInstances());
 				owned.addAll(((ComponentInstance) result).getFeatureInstances());
@@ -1406,8 +1410,8 @@ public class InstantiateModel {
 
 			if (dim == 0) {
 				result = (InstanceObject) AadlUtil.findNamedElementInList(owned, name);
-				if (contextConnRef != null)
-					resolveConnectionReference(contextConnRef, result, name,doSource) ;
+//				if (contextConnRef != null)
+//					resolveConnectionReference(contextConnRef, result, name,doSource) ;
 			} else {
 				outer: for (InstanceObject io : owned) {
 					if (io.getName().equalsIgnoreCase(name)) {
