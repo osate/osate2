@@ -218,9 +218,9 @@ transitions
  a -[+1 * 0 = 0]-> a ;
  a -[1 /2 > 0]-> a ;
  a -[2 mod x > 0 or true]-> a ;
- 
- a -[inPortA'fresh != true]->a ;
- a -[abs(-inPortA'count) + 1> 0]->a ;
+ a -[inPortA'fresh != true]-> a ;
+ a -[abs(-inPortA'count) + 1> 0]-> a ;
+ a -[inPortA? = 0 and inPortB? = 1]-> a ;
  
  -- Actions, sequences et action sets tests --
  
