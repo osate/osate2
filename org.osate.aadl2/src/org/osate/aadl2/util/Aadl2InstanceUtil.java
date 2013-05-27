@@ -1,5 +1,7 @@
 package org.osate.aadl2.util;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AnnexSubclause;
@@ -31,6 +33,28 @@ public class Aadl2InstanceUtil {
 			ConnectionInstanceEnd dst = connectionInstance.getDestination();
 			if (containedIn(src, ci) && !containedIn(dst, ci)) {
 				result.add(connectionInstance);
+			}
+		}
+		return result;
+	}
+	/**
+	 * get outgoing connection instances from the component instance or any contained component instance
+	 * @param ci component instance
+	 * @return list of connection references
+	 */
+	public static EList<ConnectionReference> getOutgoingConnectionReferences(ComponentInstance ci) {
+		EList<ConnectionReference> result = new BasicEList<ConnectionReference>();
+		Iterable<ConnectionInstance> it = ci.allEnclosingConnectionInstances();
+		for (ConnectionInstance connectionInstance : it) {
+			ConnectionInstanceEnd src = connectionInstance.getSource();
+			ConnectionInstanceEnd dst = connectionInstance.getDestination();
+			if (containedIn(src, ci) && !containedIn(dst, ci)) {
+				EList<ConnectionReference> connreflist = connectionInstance.getConnectionReferences();
+				for (ConnectionReference connectionReference : connreflist) {
+					ComponentInstance pci = connectionReference.getContext();
+					if (pci == ci.getContainingComponentInstance())
+						result.add(connectionReference);
+				}
 			}
 		}
 		return result;
@@ -146,11 +170,12 @@ public class Aadl2InstanceUtil {
 	public static ConnectionInstanceEnd getSrcEndPointInstance(ComponentInstance ci, ConnectionInstance conni) {
 		for (ConnectionReference connRef : conni.getConnectionReferences()) {
 			if (connRef.getContext() == ci) {
-				Connection conn = connRef.getConnection();
-				final ConnectionEnd srcF = conn.getAllSource();
-				final Context srcCtxt = conn.getAllSourceContext();
-				final ConnectionInstanceEnd srcInstance = conni.getInstantiatedEndPoint(connRef.getContext(), srcF, srcCtxt);
-				return srcInstance;
+				return connRef.getSource();
+//				Connection conn = connRef.getConnection();
+//				final ConnectionEnd srcF = conn.getAllSource();
+//				final Context srcCtxt = conn.getAllSourceContext();
+//				final ConnectionInstanceEnd srcInstance = conni.getInstantiatedEndPoint(connRef.getContext(), srcF, srcCtxt);
+//				return srcInstance;
 			}
 		}
 		return null;
@@ -167,14 +192,32 @@ public class Aadl2InstanceUtil {
 	public static ConnectionInstanceEnd getDestEndPointInstance(ComponentInstance ci, ConnectionInstance conni) {
 		for (ConnectionReference connRef : conni.getConnectionReferences()) {
 			if (connRef.getContext() == ci.getContainingComponentInstance()) {
-				Connection conn = connRef.getConnection();
-				final ConnectionEnd dstF = conn.getAllDestination();
-				final Context dstCtxt = conn.getAllDestinationContext();
-				if (ci.getSubcomponent() == dstCtxt) {
-					final ConnectionInstanceEnd dstInstance = conni.getInstantiatedEndPoint(connRef.getContext(), dstF,
-							dstCtxt);
-					return dstInstance;
-				}
+				return connRef.getDestination();
+//				Connection conn = connRef.getConnection();
+//				final ConnectionEnd dstF = conn.getAllDestination();
+//				final Context dstCtxt = conn.getAllDestinationContext();
+//				if (ci.getSubcomponent() == dstCtxt) {
+//					final ConnectionInstanceEnd dstInstance = conni.getInstantiatedEndPoint(connRef.getContext(), dstF,
+//							dstCtxt);
+//					return dstInstance;
+//				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Find the destination endpoint of the connection in the specified component instance
+	 * the endpoint can be a feature instance or a component instance
+	 * The connection instance may go inside the component instance
+	 * @param cilist  component instances that could be the target
+	 * @param conni connection instance
+	 * @return InstanceObject
+	 */
+	public static ConnectionInstanceEnd getDestEndPointInstance(Collection<ComponentInstance> cilist, ConnectionInstance conni) {
+		for (ConnectionReference connRef : conni.getConnectionReferences()) {
+			if (cilist.contains(connRef.getContext()) ) {
+				return connRef.getDestination();
 			}
 		}
 		return null;
