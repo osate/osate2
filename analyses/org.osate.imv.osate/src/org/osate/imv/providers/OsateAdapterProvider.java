@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
@@ -54,6 +55,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.impl.ConnectionReferenceImpl;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
@@ -378,44 +380,56 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		List<ConnectionItem> connectionList = this.getConnections(componentAdapter.getModelElement());
 		for(Iterator<ConnectionItem> it = connectionList.iterator(); it.hasNext();){
 			ConnectionItem connectionItem = it.next();
-			Connection connectionRef = (Connection)connectionItem.getModelElement();
-			IAadlElementAdapter srcAdapter = null;
-			IAadlElementAdapter dstAdapter = null;
-			if (me instanceof InstanceObject){
-				srcAdapter = this.modelElementToAdapterMap.get(connectionItem.getSrc());
-				dstAdapter = this.modelElementToAdapterMap.get(connectionItem.getDest());
+			ConnectionReference connref = connectionItem.getConnectionReference();
+			if (connref != null){
+				IAadlElementAdapter srcAdapter = this.modelElementToAdapterMap.get(connref.getSource());
+				IAadlElementAdapter dstAdapter = this.modelElementToAdapterMap.get(connref.getDestination());
+				if(srcAdapter != null && dstAdapter != null) {
+					// Create connection adapter for this connection.
+					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref.eContainer(), this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter, dstAdapter);
+					// Add to component.
+					componentAdapter.addChild(connectionAdapter);
+				}
 			} else {
-				Context dstCxt = connectionRef.getAllDestinationContext();
-				Context srcCxt = connectionRef.getAllSourceContext();
-				if (srcCxt instanceof Subcomponent){
-//					srcAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, srcCxt), (NamedElement)connectionItem.getSrc());
-					srcAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( srcCxt), (NamedElement)connectionItem.getSrc());
-				} else	if (srcCxt instanceof FeatureGroup){
-					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
-				} else	if (connectionItem.getSrc() instanceof Subcomponent){
-//					srcAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
-					srcAdapter = this.modelElementToAdapterMap.get((NamedElement)connectionItem.getSrc());
+				Connection connectionRef = (Connection)connectionItem.getModelElement();
+				IAadlElementAdapter srcAdapter = null;
+				IAadlElementAdapter dstAdapter = null;
+				if (me instanceof InstanceObject){
+					srcAdapter = this.modelElementToAdapterMap.get(connectionItem.getSrc());
+					dstAdapter = this.modelElementToAdapterMap.get(connectionItem.getDest());
 				} else {
-					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+					Context dstCxt = connectionRef.getAllDestinationContext();
+					Context srcCxt = connectionRef.getAllSourceContext();
+					if (srcCxt instanceof Subcomponent){
+						//					srcAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, srcCxt), (NamedElement)connectionItem.getSrc());
+						srcAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( srcCxt), (NamedElement)connectionItem.getSrc());
+					} else	if (srcCxt instanceof FeatureGroup){
+						srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
+					} else	if (connectionItem.getSrc() instanceof Subcomponent){
+						//					srcAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+						srcAdapter = this.modelElementToAdapterMap.get((NamedElement)connectionItem.getSrc());
+					} else {
+						srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+					}
+					if (dstCxt instanceof Subcomponent){
+						//					dstAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, dstCxt), (NamedElement)connectionItem.getDest());
+						dstAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( dstCxt), (NamedElement)connectionItem.getDest());
+					} else	if (dstCxt instanceof FeatureGroup){
+						dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
+					} else if (connectionItem.getDest() instanceof Subcomponent){
+						//					dstAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
+						dstAdapter = this.modelElementToAdapterMap.get( (NamedElement)connectionItem.getDest());
+					} else {
+						dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
+					}
 				}
-				if (dstCxt instanceof Subcomponent){
-//					dstAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, dstCxt), (NamedElement)connectionItem.getDest());
-					dstAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( dstCxt), (NamedElement)connectionItem.getDest());
-				} else	if (dstCxt instanceof FeatureGroup){
-					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
-				} else if (connectionItem.getDest() instanceof Subcomponent){
-//					dstAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
-					dstAdapter = this.modelElementToAdapterMap.get( (NamedElement)connectionItem.getDest());
-				} else {
-					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
-				}
-			}
 
-			if(srcAdapter != null && dstAdapter != null) {
-				// Create connection adapter for this connection.
-				AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connectionRef, this.getConnectionDecorationType(connectionRef), this.labelProvider, srcAdapter, dstAdapter);
-				// Add to component.
-				componentAdapter.addChild(connectionAdapter);
+				if(srcAdapter != null && dstAdapter != null) {
+					// Create connection adapter for this connection.
+					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connectionRef, this.getConnectionDecorationType(connectionRef), this.labelProvider, srcAdapter, dstAdapter);
+					// Add to component.
+					componentAdapter.addChild(connectionAdapter);
+				}
 			}
 		}
 	}
@@ -526,102 +540,20 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		// Only component instances have connections.
 		ComponentImplementation cimpl = null;
 		if(element instanceof ComponentInstance){
-//			// Get connection instances.
-//			Iterable<ConnectionInstance> res = ((ComponentInstance)element).allEnclosingConnectionInstances();
-//			for (ConnectionInstance connection : res) {
-//				// Get connection references.
-//				for(Iterator<ConnectionReference> refsIterator = connection.getConnectionReferences().iterator(); refsIterator.hasNext();){
-//					ConnectionInstanceEnd srcConnectionInstanceEnd = null;
-//					ConnectionInstanceEnd dstConnectionInstanceEnd = null;
-//					ConnectionReference ref = refsIterator.next();
-//					ComponentInstance context = ref.getContext();
-//
-//					if(context.equals(element)){
-//						Connection conn = ref.getConnection();
-//
-//						// Get connection source.
-//						ConnectionEnd srcEnd = conn.getAllSource();
-//						NamedElement componentCntxt = conn.getAllSrcContextComponent();
-//						NamedElement srcCxt = conn.getAllSourceContext();
-//						if (srcCxt instanceof FeatureGroup){
-//							// connect to feature group
-//							srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcCxt);
-//						} else {
-//							srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcEnd);
-//						}
-//
-//						// Get connection destination.
-//						ConnectionEnd dstEnd = conn.getAllDestination();
-//						componentCntxt = conn.getAllDstContextComponent();
-//						NamedElement dstCxt = conn.getAllDestinationContext();
-//						if (dstCxt instanceof FeatureGroup){
-//							// connect to feature group
-//							dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstCxt);
-//						} else {
-//							dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstEnd);
-//						}
-//
-//						if(srcEnd != null && dstEnd != null) {
-//							// We need to check for duplicate feature group connections (i.e. only one connection should be returned
-//							// for feature group connections.
-//							if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
-//								connectionList.add(new ConnectionItem(srcConnectionInstanceEnd, dstConnectionInstanceEnd, conn));
-//							}
-//						}
-//
-//						break;
-//					}
-//				}
-//			}
-			if (element instanceof SystemInstance){
-				cimpl = ((SystemInstance)element).getSystemImplementation();
-			} else {
-				ComponentClassifier cl = ((ComponentInstance)element).getComponentClassifier();
-				if (cl instanceof ComponentImplementation){
-					cimpl = (ComponentImplementation)cl;
-				} else {
-					return connectionList;
-				}
-			}
-			List<Connection> connections = cimpl.getAllConnections();
-			for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
-				Connection conn = it.next();
-				ConnectionInstanceEnd srcConnectionInstanceEnd = null;
-				ConnectionInstanceEnd dstConnectionInstanceEnd = null;
-				ComponentInstance context = (ComponentInstance)element;
-
-				// Get connection source.
-				ConnectionEnd srcEnd = conn.getAllSource();
-				NamedElement componentCntxt = conn.getAllSrcContextComponent();
-				NamedElement srcCxt = conn.getAllSourceContext();
-				if (srcCxt instanceof FeatureGroup){
-					// connect to feature group
-					srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcCxt);
-				} else {
-					srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcEnd);
-				}
-
-				// Get connection destination.
-				ConnectionEnd dstEnd = conn.getAllDestination();
-				componentCntxt = conn.getAllDstContextComponent();
-				NamedElement dstCxt = conn.getAllDestinationContext();
-				if (dstCxt instanceof FeatureGroup){
-					// connect to feature group
-					dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstCxt);
-				} else {
-					dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstEnd);
-				}
-
-				if(srcEnd != null && dstEnd != null) {
-					// We need to check for duplicate feature group connections (i.e. only one connection should be returned
-					// for feature group connections.
+			// do it based on connection instances
+			ComponentInstance ci = (ComponentInstance)element;
+			EList<ComponentInstance> subcis = ci.getComponentInstances();
+			for (ComponentInstance subci : subcis) {
+				EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getOutgoingConnectionReferences(subci);
+				for (ConnectionReference connref : connrefs) {
+					ConnectionInstanceEnd srcConnectionInstanceEnd = connref.getSource();
+					ConnectionInstanceEnd dstConnectionInstanceEnd = connref.getDestination();
 					if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
-						connectionList.add(new ConnectionItem(srcConnectionInstanceEnd, dstConnectionInstanceEnd, conn));
+						connectionList.add(new ConnectionItem(connref));
 					}
 				}
-
-//				break;
 			}
+			
 		}
 		// Only component implementations have connections.
 		if(element instanceof ComponentImplementation){
@@ -939,11 +871,16 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		private Object srcCxt;
 		private Object destCxt;
 		private Object modelElement;
+		private ConnectionReference connRef;
 
 		public ConnectionItem(Object src, Object dest, Object item) {
 			this.src = src;
 			this.dest = dest;
 			this.modelElement = item;
+		}
+
+		public ConnectionItem(ConnectionReference connref) {
+			this.connRef = connref;
 		}
 
 		public ConnectionItem(Object src, Object dest, Object srcCxt, Object destCxt, Object item) {
@@ -955,6 +892,9 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		}
 		public Object getModelElement() {
 			return modelElement;
+		}
+		public ConnectionReference getConnectionReference() {
+			return connRef;
 		}
 		public void setModelElement(Object item) {
 			this.modelElement = item;
