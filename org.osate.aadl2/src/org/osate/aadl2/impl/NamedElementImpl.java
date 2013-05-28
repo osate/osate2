@@ -409,6 +409,10 @@ public abstract class NamedElementImpl extends ElementImpl implements
 		return name != null && name.length() > 0;
 	}
 
+	public String getFullName() {
+		return getName();
+	}
+
 	/**
 	 * Retrieves the property value of a non-modal, single-valued property. Use
 	 * this method if you know the property can only have a single value and is

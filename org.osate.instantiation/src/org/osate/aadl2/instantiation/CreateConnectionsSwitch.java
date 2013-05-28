@@ -1096,7 +1096,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							new BasicEList<ModeInstance>(Collections.singletonList(mi)));
 				}
 				if (conni.getInSystemOperationModes().isEmpty()) {
-					warning(conni.getContainingComponentInstance(), "Connection " + conni.getPathName() + " was removed because it is not active in any system operation mode");
+					warning(conni.getContainingComponentInstance(), "Connection " + conni.getName() + " was removed because it is not active in any system operation mode");
 					EcoreUtil.delete(conni);
 				}
 				break;

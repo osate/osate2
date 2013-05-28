@@ -808,7 +808,7 @@ public class InstantiateModel {
 
 	protected void fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse, int index) {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
-		fi.setName(feature.getName());
+		fi.setName(feature.getName() );
 		fi.setFeature(feature);
 		// must add before prototype resolution in fillFeatureInstance
 		ci.getFeatureInstances().add(fi);
@@ -833,7 +833,7 @@ public class InstantiateModel {
 	 */
 	protected void fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse, int index) {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
-		fi.setName(feature.getName() + (index > 0 ? "_" + index : ""));
+		fi.setName(feature.getName());
 		fi.setFeature(feature);
 		fgi.getFeatureInstances().add(fi);
 		// take into account inverse in setting direction of features inside feature groups
