@@ -478,17 +478,21 @@ public class DoBoundResourceAnalysisLogic {
 	}
 
 	protected ComponentInstance getHardwareComponent(ConnectionInstanceEnd cie) {
-		ComponentInstance ci = null;
 		if (cie instanceof FeatureInstance) {
 			FeatureInstance fi = (FeatureInstance) cie;
-			ci = fi.getContainingComponentInstance();
-			if (ci.getCategory() == ComponentCategory.DEVICE) {
-				return ci;
+			ComponentInstance swci = fi.getContainingComponentInstance();
+			if (swci.getCategory() == ComponentCategory.DEVICE) {
+				return swci;
 			}
-			List<ComponentInstance> ciList = GetProperties.getActualProcessorBinding(ci);
-			ci = ciList.isEmpty() ? null : ciList.get(0);
+			List<ComponentInstance> ciList = GetProperties.getActualProcessorBinding(swci);
+			return ciList.isEmpty() ? null : ciList.get(0);
+		} else if (cie instanceof ComponentInstance){
+			ComponentInstance swci = (ComponentInstance)cie;
+			List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(swci);
+			return ciList.isEmpty() ? null : ciList.get(0);
+			
 		}
-		return ci;
+		return null;
 	}
 
 	/**
@@ -517,10 +521,17 @@ public class DoBoundResourceAnalysisLogic {
 	 * @return true if they are connected by bus access connection
 	 */
 	protected boolean connectedToBus(ComponentInstance HWcomp, ComponentInstance bus) {
-		EList acl = bus.getSrcConnectionInstances();
-		for (Iterator it = acl.iterator(); it.hasNext();) {
-			ConnectionInstance srcaci = (ConnectionInstance) it.next();
+		EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
+		for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
+			ConnectionInstance srcaci = it.next();
 			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
+				return true;
+			}
+		}
+		acl = bus.getDstConnectionInstances();
+		for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
+			ConnectionInstance dstaci = it.next();
+			if (dstaci.getSource().getContainingComponentInstance() == HWcomp) {
 				return true;
 			}
 		}
