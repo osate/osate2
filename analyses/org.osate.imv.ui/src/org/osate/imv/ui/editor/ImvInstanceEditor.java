@@ -228,13 +228,13 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 					if (si != null)
 					{
 						Element rootElement = imvDocument.createElement("instance");
-						rootElement.setAttribute("name", si.getName());
+						rootElement.setAttribute("name", si.getFullName());
 						imvDocument.appendChild(rootElement);
 					} 
 					else 
 					{
 						Element rootElement = imvDocument.createElement("package");
-						rootElement.setAttribute("name", pkg.getName());
+						rootElement.setAttribute("name", pkg.getFullName());
 						imvDocument.appendChild(rootElement);
 					}
 

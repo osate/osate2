@@ -80,7 +80,7 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 				openImvPerspective();
 			}
 			catch(PartInitException e){
-				System.err.println("Failed to open IMV editor for: " + si.getName());
+				System.err.println("Failed to open IMV editor for: " + si.getFullName());
 				e.printStackTrace();
 			}
 		}

@@ -50,7 +50,7 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 
 	@Override
 	public void saveRootAdapter(AadlComponentAdapter rootAdapter) {
-		String name = ((NamedElement)rootAdapter.getModelElement()).getName();
+		String name = ((NamedElement)rootAdapter.getModelElement()).getFullName();
 		// Get root xml element.
 		Element rootElement = xmlDoc.getDocumentElement();
 
@@ -75,7 +75,7 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 		Element e = xmlDoc.createElement("element");
 
 		e.setAttribute("type", Integer.toString(COMPONENT_FIGURE_TYPE));
-		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getName());
+		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getFullName());
 
 		ComponentFigure figure = adapter.getFigure();
 
@@ -110,7 +110,7 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 		Element e = xmlDoc.createElement("element");
 
 		e.setAttribute("type", Integer.toString(FEATURE_FIGURE_TYPE));
-		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getName());
+		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getFullName());
 
 		FeatureFigure figure = adapter.getFigure();
 
@@ -135,7 +135,7 @@ public class XmlAadlAdapterSaverDelegate implements IAadlAdapterSaverDelegate {
 		Element e = xmlDoc.createElement("element");
 
 		e.setAttribute("type", Integer.toString(CONNECTION_FIGURE_TYPE));
-		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getName());
+		e.setAttribute("name", ((NamedElement)adapter.getModelElement()).getFullName());
 
 		Connection figure = adapter.getFigure();
 

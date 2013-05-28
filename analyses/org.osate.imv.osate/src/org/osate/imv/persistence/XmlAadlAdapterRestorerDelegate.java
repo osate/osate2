@@ -134,18 +134,18 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 
 			if(type == XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE || type ==  XmlAadlAdapterSaverDelegate.FEATURE_FIGURE_TYPE) {
 				NamedElement parentElement = (NamedElement)namedElement.getOwner();
-				if(parentElement == null || namedElement.getName().equals(containerElement.getAttribute("name"))) {
+				if(parentElement == null || namedElement.getFullName().equals(containerElement.getAttribute("name"))) {
 					retElement = containerElement;
-				} else if(parentElement.getName().equals(containerElement.getAttribute("name"))) {
-					retElement = getChildElementByName(namedElement.getName(), containerElement, type);
+				} else if(parentElement.getFullName().equals(containerElement.getAttribute("name"))) {
+					retElement = getChildElementByName(namedElement.getFullName(), containerElement, type);
 				} else {
-					Element newParentElement = getChildElementByName(parentElement.getName(), containerElement, XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE);
+					Element newParentElement = getChildElementByName(parentElement.getFullName(), containerElement, XmlAadlAdapterSaverDelegate.COMPONENT_FIGURE_TYPE);
 					if(newParentElement != null) {
-						retElement = getChildElementByName(namedElement.getName(), newParentElement, type);
+						retElement = getChildElementByName(namedElement.getFullName(), newParentElement, type);
 					}
 				}
 			} else if(type == XmlAadlAdapterSaverDelegate.CONNECTION_FIGURE_TYPE) {
-				retElement = getChildElementByName(namedElement.getName(), containerElement, type);
+				retElement = getChildElementByName(namedElement.getFullName(), containerElement, type);
 			}
 		}
 
@@ -156,7 +156,7 @@ public class XmlAadlAdapterRestorerDelegate implements IAadlAdapterRestorerDeleg
 		Element retElement = null;
 		Element rootElement = xmlDoc.getDocumentElement();
 
-		String name = ((NamedElement)this.diagram.getRootModelElement()).getName();
+		String name = ((NamedElement)this.diagram.getRootModelElement()).getFullName();
 
 		NodeList nList = rootElement.getChildNodes();
 		for(int i = 0; i < nList.getLength(); i++) {

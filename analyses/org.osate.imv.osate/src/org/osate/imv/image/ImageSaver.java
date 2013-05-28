@@ -181,11 +181,11 @@ public class ImageSaver {
 	}
 
 	private String getSystemInstanceName(IAadlElementAdapter adapter) {
-		return ((InstanceObject)adapter.getModelElement()).getSystemInstance().getName();
+		return ((InstanceObject)adapter.getModelElement()).getSystemInstance().getFullName();
 	}
 
 	private String getImageName(IAadlElementAdapter adapter) {
-		return ((NamedElement)adapter.getModelElement()).getName();
+		return ((NamedElement)adapter.getModelElement()).getFullName();
 	}
 
 	public void addPropertyChangeListener(String propertyName,

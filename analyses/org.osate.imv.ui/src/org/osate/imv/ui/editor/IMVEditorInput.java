@@ -76,9 +76,9 @@ public class IMVEditorInput implements IEditorInput{
 
 	private void createName(){
 		if (si != null)
-			this.name = si.getName() + IMV_EXT;
+			this.name = si.getFullName() + IMV_EXT;
 		if (pkg != null)
-			this.name = pkg.getName() + IMV_EXT;
+			this.name = pkg.getFullName() + IMV_EXT;
 	}
 
 	@Override

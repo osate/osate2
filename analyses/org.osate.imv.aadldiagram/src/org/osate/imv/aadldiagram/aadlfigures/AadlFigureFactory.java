@@ -226,7 +226,7 @@ public class AadlFigureFactory {
 		ILabelProvider lp = adapter.getLabelProvider();
 		String s2=lp.getText(ele);
 		if (ele instanceof NamedElement){
-			String name = ((NamedElement)ele).getName();
+			String name = ((NamedElement)ele).getFullName();
 			if (name != null && name.length() > 0){
 				figure.setToolTip(new Label(s2));
 			}
@@ -272,7 +272,7 @@ public class AadlFigureFactory {
 		figure.setLayoutManager(new DelegatingLayout());
 		Object ele = adapter.getModelElement();
 		if (ele instanceof NamedElement){
-			String name = ((NamedElement)ele).getName();
+			String name = ((NamedElement)ele).getFullName();
 			if (name != null && name.length() > 0){
 				figure.setToolTip(new Label(name));
 			}
