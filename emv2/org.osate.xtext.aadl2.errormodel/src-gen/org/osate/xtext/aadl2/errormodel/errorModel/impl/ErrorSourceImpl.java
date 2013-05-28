@@ -24,7 +24,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getOutgoing <em>Outgoing</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#isAll <em>All</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#isAllOutgoing <em>All Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getFailureModeReference <em>Failure Mode Reference</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getFailureModeType <em>Failure Mode Type</em>}</li>
  * </ul>
@@ -45,24 +45,24 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
   protected ErrorPropagation outgoing;
 
   /**
-	 * The default value of the '{@link #isAll() <em>All</em>}' attribute.
+	 * The default value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAll()
+	 * @see #isAllOutgoing()
 	 * @generated
 	 * @ordered
 	 */
-  protected static final boolean ALL_EDEFAULT = false;
+  protected static final boolean ALL_OUTGOING_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isAll() <em>All</em>}' attribute.
+	 * The cached value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAll()
+	 * @see #isAllOutgoing()
 	 * @generated
 	 * @ordered
 	 */
-  protected boolean all = ALL_EDEFAULT;
+  protected boolean allOutgoing = ALL_OUTGOING_EDEFAULT;
 
   /**
 	 * The cached value of the '{@link #getFailureModeReference() <em>Failure Mode Reference</em>}' reference.
@@ -151,9 +151,9 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isAll()
+  public boolean isAllOutgoing()
   {
-		return all;
+		return allOutgoing;
 	}
 
   /**
@@ -161,12 +161,12 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setAll(boolean newAll)
+  public void setAllOutgoing(boolean newAllOutgoing)
   {
-		boolean oldAll = all;
-		all = newAll;
+		boolean oldAllOutgoing = allOutgoing;
+		allOutgoing = newAllOutgoing;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SOURCE__ALL, oldAll, all));
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING, oldAllOutgoing, allOutgoing));
 	}
 
   /**
@@ -283,8 +283,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
 			case ErrorModelPackage.ERROR_SOURCE__OUTGOING:
 				if (resolve) return getOutgoing();
 				return basicGetOutgoing();
-			case ErrorModelPackage.ERROR_SOURCE__ALL:
-				return isAll();
+			case ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING:
+				return isAllOutgoing();
 			case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
 				if (resolve) return getFailureModeReference();
 				return basicGetFailureModeReference();
@@ -306,8 +306,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
 			case ErrorModelPackage.ERROR_SOURCE__OUTGOING:
 				setOutgoing((ErrorPropagation)newValue);
 				return;
-			case ErrorModelPackage.ERROR_SOURCE__ALL:
-				setAll((Boolean)newValue);
+			case ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING:
+				setAllOutgoing((Boolean)newValue);
 				return;
 			case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
 				setFailureModeReference((ErrorBehaviorStateOrTypeSet)newValue);
@@ -331,8 +331,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
 			case ErrorModelPackage.ERROR_SOURCE__OUTGOING:
 				setOutgoing((ErrorPropagation)null);
 				return;
-			case ErrorModelPackage.ERROR_SOURCE__ALL:
-				setAll(ALL_EDEFAULT);
+			case ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING:
+				setAllOutgoing(ALL_OUTGOING_EDEFAULT);
 				return;
 			case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
 				setFailureModeReference((ErrorBehaviorStateOrTypeSet)null);
@@ -355,8 +355,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
 		switch (featureID) {
 			case ErrorModelPackage.ERROR_SOURCE__OUTGOING:
 				return outgoing != null;
-			case ErrorModelPackage.ERROR_SOURCE__ALL:
-				return all != ALL_EDEFAULT;
+			case ErrorModelPackage.ERROR_SOURCE__ALL_OUTGOING:
+				return allOutgoing != ALL_OUTGOING_EDEFAULT;
 			case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_REFERENCE:
 				return failureModeReference != null;
 			case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_TYPE:
@@ -376,8 +376,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (all: ");
-		result.append(all);
+		result.append(" (allOutgoing: ");
+		result.append(allOutgoing);
 		result.append(')');
 		return result.toString();
 	}

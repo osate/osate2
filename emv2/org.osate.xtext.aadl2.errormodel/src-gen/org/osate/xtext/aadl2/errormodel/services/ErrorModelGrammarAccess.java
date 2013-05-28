@@ -1065,75 +1065,71 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class TypeTokenOrNoErrorElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeTokenOrNoError");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cTypeTokenAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Group cGroup_0_2 = (Group)cGroup_0.eContents().get(2);
-		private final Assignment cTypeAssignment_0_2_0 = (Assignment)cGroup_0_2.eContents().get(0);
-		private final CrossReference cTypeErrorTypeCrossReference_0_2_0_0 = (CrossReference)cTypeAssignment_0_2_0.eContents().get(0);
-		private final RuleCall cTypeErrorTypeQEMREFParserRuleCall_0_2_0_0_1 = (RuleCall)cTypeErrorTypeCrossReference_0_2_0_0.eContents().get(1);
-		private final Group cGroup_0_2_1 = (Group)cGroup_0_2.eContents().get(1);
-		private final Keyword cAsteriskKeyword_0_2_1_0 = (Keyword)cGroup_0_2_1.eContents().get(0);
-		private final Assignment cTypeAssignment_0_2_1_1 = (Assignment)cGroup_0_2_1.eContents().get(1);
-		private final CrossReference cTypeErrorTypeCrossReference_0_2_1_1_0 = (CrossReference)cTypeAssignment_0_2_1_1.eContents().get(0);
-		private final RuleCall cTypeErrorTypeQEMREFParserRuleCall_0_2_1_1_0_1 = (RuleCall)cTypeErrorTypeCrossReference_0_2_1_1_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Keyword cNoerrorKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cTypeTokenAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Assignment cTypeAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
+		private final CrossReference cTypeErrorTypeCrossReference_2_0_0_0 = (CrossReference)cTypeAssignment_2_0_0.eContents().get(0);
+		private final RuleCall cTypeErrorTypeQEMREFParserRuleCall_2_0_0_0_1 = (RuleCall)cTypeErrorTypeCrossReference_2_0_0_0.eContents().get(1);
+		private final Group cGroup_2_0_1 = (Group)cGroup_2_0.eContents().get(1);
+		private final Keyword cAsteriskKeyword_2_0_1_0 = (Keyword)cGroup_2_0_1.eContents().get(0);
+		private final Assignment cTypeAssignment_2_0_1_1 = (Assignment)cGroup_2_0_1.eContents().get(1);
+		private final CrossReference cTypeErrorTypeCrossReference_2_0_1_1_0 = (CrossReference)cTypeAssignment_2_0_1_1.eContents().get(0);
+		private final RuleCall cTypeErrorTypeQEMREFParserRuleCall_2_0_1_1_0_1 = (RuleCall)cTypeErrorTypeCrossReference_2_0_1_1_0.eContents().get(1);
+		private final Keyword cNoerrorKeyword_2_1 = (Keyword)cAlternatives_2.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//TypeTokenOrNoError returns TypeToken:
 		//
-		//	{TypeToken} "(" (type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])*) | "noerror" ")";
+		//	{TypeToken} "(" (type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])* | "noerror") ")";
 		public ParserRule getRule() { return rule; }
 
-		//{TypeToken} "(" (type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])*) | "noerror" ")"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//{TypeToken} "(" (type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])*)
-		public Group getGroup_0() { return cGroup_0; }
+		//{TypeToken} "(" (type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])* | "noerror") ")"
+		public Group getGroup() { return cGroup; }
 
 		//{TypeToken}
-		public Action getTypeTokenAction_0_0() { return cTypeTokenAction_0_0; }
+		public Action getTypeTokenAction_0() { return cTypeTokenAction_0; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_0_1() { return cLeftParenthesisKeyword_0_1; }
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+
+		//type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])* | "noerror"
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])*
-		public Group getGroup_0_2() { return cGroup_0_2; }
+		public Group getGroup_2_0() { return cGroup_2_0; }
 
 		//type+=[ErrorType|QEMREF]
-		public Assignment getTypeAssignment_0_2_0() { return cTypeAssignment_0_2_0; }
+		public Assignment getTypeAssignment_2_0_0() { return cTypeAssignment_2_0_0; }
 
 		//[ErrorType|QEMREF]
-		public CrossReference getTypeErrorTypeCrossReference_0_2_0_0() { return cTypeErrorTypeCrossReference_0_2_0_0; }
+		public CrossReference getTypeErrorTypeCrossReference_2_0_0_0() { return cTypeErrorTypeCrossReference_2_0_0_0; }
 
 		//QEMREF
-		public RuleCall getTypeErrorTypeQEMREFParserRuleCall_0_2_0_0_1() { return cTypeErrorTypeQEMREFParserRuleCall_0_2_0_0_1; }
+		public RuleCall getTypeErrorTypeQEMREFParserRuleCall_2_0_0_0_1() { return cTypeErrorTypeQEMREFParserRuleCall_2_0_0_0_1; }
 
 		//("*" type+=[ErrorType|QEMREF])*
-		public Group getGroup_0_2_1() { return cGroup_0_2_1; }
+		public Group getGroup_2_0_1() { return cGroup_2_0_1; }
 
 		//"*"
-		public Keyword getAsteriskKeyword_0_2_1_0() { return cAsteriskKeyword_0_2_1_0; }
+		public Keyword getAsteriskKeyword_2_0_1_0() { return cAsteriskKeyword_2_0_1_0; }
 
 		//type+=[ErrorType|QEMREF]
-		public Assignment getTypeAssignment_0_2_1_1() { return cTypeAssignment_0_2_1_1; }
+		public Assignment getTypeAssignment_2_0_1_1() { return cTypeAssignment_2_0_1_1; }
 
 		//[ErrorType|QEMREF]
-		public CrossReference getTypeErrorTypeCrossReference_0_2_1_1_0() { return cTypeErrorTypeCrossReference_0_2_1_1_0; }
+		public CrossReference getTypeErrorTypeCrossReference_2_0_1_1_0() { return cTypeErrorTypeCrossReference_2_0_1_1_0; }
 
 		//QEMREF
-		public RuleCall getTypeErrorTypeQEMREFParserRuleCall_0_2_1_1_0_1() { return cTypeErrorTypeQEMREFParserRuleCall_0_2_1_1_0_1; }
-
-		//"noerror" ")"
-		public Group getGroup_1() { return cGroup_1; }
+		public RuleCall getTypeErrorTypeQEMREFParserRuleCall_2_0_1_1_0_1() { return cTypeErrorTypeQEMREFParserRuleCall_2_0_1_1_0_1; }
 
 		//"noerror"
-		public Keyword getNoerrorKeyword_1_0() { return cNoerrorKeyword_1_0; }
+		public Keyword getNoerrorKeyword_2_1() { return cNoerrorKeyword_2_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_1_1() { return cRightParenthesisKeyword_1_1; }
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 	}
 
 	public class TypeTokenConstraintElements extends AbstractParserRuleElementFinder {
@@ -1783,8 +1779,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOutgoingAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
 		private final CrossReference cOutgoingErrorPropagationCrossReference_4_0_0 = (CrossReference)cOutgoingAssignment_4_0.eContents().get(0);
 		private final RuleCall cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_4_0_0_1 = (RuleCall)cOutgoingErrorPropagationCrossReference_4_0_0.eContents().get(1);
-		private final Assignment cAllAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
-		private final Keyword cAllAllKeyword_4_1_0 = (Keyword)cAllAssignment_4_1.eContents().get(0);
+		private final Assignment cAllOutgoingAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
+		private final Keyword cAllOutgoingAllKeyword_4_1_0 = (Keyword)cAllOutgoingAssignment_4_1.eContents().get(0);
 		private final Assignment cTypeTokenConstraintAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0 = (RuleCall)cTypeTokenConstraintAssignment_5.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
@@ -1802,14 +1798,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorSource:
 		//
-		//	name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all")
+		//	name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
 		//
 		//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
 		//
 		//	failureModeType=TypeSetConstructor? | failureModeType=TypeSetConstructor))? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all")
+		//name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
 		//
 		//typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
 		//
@@ -1831,7 +1827,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"source"
 		public Keyword getSourceKeyword_3() { return cSourceKeyword_3; }
 
-		//outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all"
+		//outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all"
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
 		//outgoing=[ErrorPropagation|ErrorPropagationPoint]
@@ -1843,11 +1839,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ErrorPropagationPoint
 		public RuleCall getOutgoingErrorPropagationErrorPropagationPointParserRuleCall_4_0_0_1() { return cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_4_0_0_1; }
 
-		//all?="all"
-		public Assignment getAllAssignment_4_1() { return cAllAssignment_4_1; }
+		//allOutgoing?="all"
+		public Assignment getAllOutgoingAssignment_4_1() { return cAllOutgoingAssignment_4_1; }
 
 		//"all"
-		public Keyword getAllAllKeyword_4_1_0() { return cAllAllKeyword_4_1_0; }
+		public Keyword getAllOutgoingAllKeyword_4_1_0() { return cAllOutgoingAllKeyword_4_1_0; }
 
 		//typeTokenConstraint=TypeTokenConstraint?
 		public Assignment getTypeTokenConstraintAssignment_5() { return cTypeTokenConstraintAssignment_5; }
@@ -1986,9 +1982,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cErrorKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cPathKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cIncomingAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cIncomingErrorPropagationCrossReference_4_0 = (CrossReference)cIncomingAssignment_4.eContents().get(0);
-		private final RuleCall cIncomingErrorPropagationErrorPropagationPointParserRuleCall_4_0_1 = (RuleCall)cIncomingErrorPropagationCrossReference_4_0.eContents().get(1);
+		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
+		private final Assignment cIncomingAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
+		private final CrossReference cIncomingErrorPropagationCrossReference_4_0_0 = (CrossReference)cIncomingAssignment_4_0.eContents().get(0);
+		private final RuleCall cIncomingErrorPropagationErrorPropagationPointParserRuleCall_4_0_0_1 = (RuleCall)cIncomingErrorPropagationCrossReference_4_0_0.eContents().get(1);
+		private final Assignment cAllIncomingAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
+		private final Keyword cAllIncomingAllKeyword_4_1_0 = (Keyword)cAllIncomingAssignment_4_1.eContents().get(0);
 		private final Assignment cTypeTokenConstraintAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0 = (RuleCall)cTypeTokenConstraintAssignment_5.eContents().get(0);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_6 = (Keyword)cGroup.eContents().get(6);
@@ -1996,8 +1995,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOutgoingAssignment_7_0 = (Assignment)cAlternatives_7.eContents().get(0);
 		private final CrossReference cOutgoingErrorPropagationCrossReference_7_0_0 = (CrossReference)cOutgoingAssignment_7_0.eContents().get(0);
 		private final RuleCall cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_7_0_0_1 = (RuleCall)cOutgoingErrorPropagationCrossReference_7_0_0.eContents().get(1);
-		private final Assignment cAllAssignment_7_1 = (Assignment)cAlternatives_7.eContents().get(1);
-		private final Keyword cAllAllKeyword_7_1_0 = (Keyword)cAllAssignment_7_1.eContents().get(0);
+		private final Assignment cAllOutgoingAssignment_7_1 = (Assignment)cAlternatives_7.eContents().get(1);
+		private final Keyword cAllOutgoingAllKeyword_7_1_0 = (Keyword)cAllOutgoingAssignment_7_1.eContents().get(0);
 		private final Alternatives cAlternatives_8 = (Alternatives)cGroup.eContents().get(8);
 		private final Assignment cTargetTokenAssignment_8_0 = (Assignment)cAlternatives_8.eContents().get(0);
 		private final RuleCall cTargetTokenTypeTokenParserRuleCall_8_0_0 = (RuleCall)cTargetTokenAssignment_8_0.eContents().get(0);
@@ -2011,18 +2010,18 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorPath:
 		//
-		//	name=ID ":" "error" "path" incoming=[ErrorPropagation|ErrorPropagationPoint] typeTokenConstraint=TypeTokenConstraint?
+		//	name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
 		//
-		//	"->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all") (targetToken=TypeToken | "use" "mappings"
+		//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
 		//
-		//	typeMappingSet=[TypeMappingSet|QEMREF])? ";";
+		//	allOutgoing?="all") (targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "error" "path" incoming=[ErrorPropagation|ErrorPropagationPoint] typeTokenConstraint=TypeTokenConstraint?
+		//name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
 		//
-		//"->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all") (targetToken=TypeToken | "use" "mappings"
+		//typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
 		//
-		//typeMappingSet=[TypeMappingSet|QEMREF])? ";"
+		//(targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -2040,14 +2039,23 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"path"
 		public Keyword getPathKeyword_3() { return cPathKeyword_3; }
 
+		//incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all"
+		public Alternatives getAlternatives_4() { return cAlternatives_4; }
+
 		//incoming=[ErrorPropagation|ErrorPropagationPoint]
-		public Assignment getIncomingAssignment_4() { return cIncomingAssignment_4; }
+		public Assignment getIncomingAssignment_4_0() { return cIncomingAssignment_4_0; }
 
 		//[ErrorPropagation|ErrorPropagationPoint]
-		public CrossReference getIncomingErrorPropagationCrossReference_4_0() { return cIncomingErrorPropagationCrossReference_4_0; }
+		public CrossReference getIncomingErrorPropagationCrossReference_4_0_0() { return cIncomingErrorPropagationCrossReference_4_0_0; }
 
 		//ErrorPropagationPoint
-		public RuleCall getIncomingErrorPropagationErrorPropagationPointParserRuleCall_4_0_1() { return cIncomingErrorPropagationErrorPropagationPointParserRuleCall_4_0_1; }
+		public RuleCall getIncomingErrorPropagationErrorPropagationPointParserRuleCall_4_0_0_1() { return cIncomingErrorPropagationErrorPropagationPointParserRuleCall_4_0_0_1; }
+
+		//allIncoming?="all"
+		public Assignment getAllIncomingAssignment_4_1() { return cAllIncomingAssignment_4_1; }
+
+		//"all"
+		public Keyword getAllIncomingAllKeyword_4_1_0() { return cAllIncomingAllKeyword_4_1_0; }
 
 		//typeTokenConstraint=TypeTokenConstraint?
 		public Assignment getTypeTokenConstraintAssignment_5() { return cTypeTokenConstraintAssignment_5; }
@@ -2058,7 +2066,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"->"
 		public Keyword getHyphenMinusGreaterThanSignKeyword_6() { return cHyphenMinusGreaterThanSignKeyword_6; }
 
-		//outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all"
+		//outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all"
 		public Alternatives getAlternatives_7() { return cAlternatives_7; }
 
 		//outgoing=[ErrorPropagation|ErrorPropagationPoint]
@@ -2070,11 +2078,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ErrorPropagationPoint
 		public RuleCall getOutgoingErrorPropagationErrorPropagationPointParserRuleCall_7_0_0_1() { return cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_7_0_0_1; }
 
-		//all?="all"
-		public Assignment getAllAssignment_7_1() { return cAllAssignment_7_1; }
+		//allOutgoing?="all"
+		public Assignment getAllOutgoingAssignment_7_1() { return cAllOutgoingAssignment_7_1; }
 
 		//"all"
-		public Keyword getAllAllKeyword_7_1_0() { return cAllAllKeyword_7_1_0; }
+		public Keyword getAllOutgoingAllKeyword_7_1_0() { return cAllOutgoingAllKeyword_7_1_0; }
 
 		//(targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])?
 		public Alternatives getAlternatives_8() { return cAlternatives_8; }
@@ -3801,15 +3809,22 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cConditionAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cConditionConditionExpressionParserRuleCall_3_0 = (RuleCall)cConditionAssignment_3.eContents().get(0);
 		private final Keyword cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Alternatives cAlternatives_5_0 = (Alternatives)cGroup_5.eContents().get(0);
-		private final Assignment cOutgoingAssignment_5_0_0 = (Assignment)cAlternatives_5_0.eContents().get(0);
-		private final CrossReference cOutgoingErrorPropagationCrossReference_5_0_0_0 = (CrossReference)cOutgoingAssignment_5_0_0.eContents().get(0);
-		private final RuleCall cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_1 = (RuleCall)cOutgoingErrorPropagationCrossReference_5_0_0_0.eContents().get(1);
-		private final Assignment cAllPropagationsAssignment_5_0_1 = (Assignment)cAlternatives_5_0.eContents().get(1);
-		private final Keyword cAllPropagationsAllKeyword_5_0_1_0 = (Keyword)cAllPropagationsAssignment_5_0_1.eContents().get(0);
-		private final Assignment cTypeTokenAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cTypeTokenTypeTokenOrNoErrorParserRuleCall_5_1_0 = (RuleCall)cTypeTokenAssignment_5_1.eContents().get(0);
+		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
+		private final Group cGroup_5_0 = (Group)cAlternatives_5.eContents().get(0);
+		private final Alternatives cAlternatives_5_0_0 = (Alternatives)cGroup_5_0.eContents().get(0);
+		private final Assignment cOutgoingAssignment_5_0_0_0 = (Assignment)cAlternatives_5_0_0.eContents().get(0);
+		private final CrossReference cOutgoingErrorPropagationCrossReference_5_0_0_0_0 = (CrossReference)cOutgoingAssignment_5_0_0_0.eContents().get(0);
+		private final RuleCall cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_0_1 = (RuleCall)cOutgoingErrorPropagationCrossReference_5_0_0_0_0.eContents().get(1);
+		private final Assignment cAllPropagationsAssignment_5_0_0_1 = (Assignment)cAlternatives_5_0_0.eContents().get(1);
+		private final Keyword cAllPropagationsAllKeyword_5_0_0_1_0 = (Keyword)cAllPropagationsAssignment_5_0_0_1.eContents().get(0);
+		private final Assignment cTypeTokenAssignment_5_0_1 = (Assignment)cGroup_5_0.eContents().get(1);
+		private final RuleCall cTypeTokenTypeTokenOrNoErrorParserRuleCall_5_0_1_0 = (RuleCall)cTypeTokenAssignment_5_0_1.eContents().get(0);
+		private final Group cGroup_5_1 = (Group)cAlternatives_5.eContents().get(1);
+		private final Assignment cOutgoingAssignment_5_1_0 = (Assignment)cGroup_5_1.eContents().get(0);
+		private final CrossReference cOutgoingErrorPropagationCrossReference_5_1_0_0 = (CrossReference)cOutgoingAssignment_5_1_0.eContents().get(0);
+		private final RuleCall cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_1_0_0_1 = (RuleCall)cOutgoingErrorPropagationCrossReference_5_1_0_0.eContents().get(1);
+		private final Assignment cMaskAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
+		private final Keyword cMaskMaskKeyword_5_1_1_0 = (Keyword)cMaskAssignment_5_1_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//OutgoingPropagationCondition:
@@ -3818,16 +3833,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all")
 		//
-		//	typeToken=TypeTokenOrNoError?) //		|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask')
-		// ";";
+		//	typeToken=TypeTokenOrNoError? | outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
 		//
 		//condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all")
 		//
-		//typeToken=TypeTokenOrNoError?) //		|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask')
-		// ";"
+		//typeToken=TypeTokenOrNoError? | outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";"
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ":")?
@@ -3881,32 +3894,55 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"]->"
 		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4; }
 
+		//(outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all") typeToken=TypeTokenOrNoError? |
+		//
+		//outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask"
+		public Alternatives getAlternatives_5() { return cAlternatives_5; }
+
 		//(outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all") typeToken=TypeTokenOrNoError?
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_5_0() { return cGroup_5_0; }
 
 		//outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all"
-		public Alternatives getAlternatives_5_0() { return cAlternatives_5_0; }
+		public Alternatives getAlternatives_5_0_0() { return cAlternatives_5_0_0; }
 
 		//outgoing=[ErrorPropagation|ErrorPropagationPoint]
-		public Assignment getOutgoingAssignment_5_0_0() { return cOutgoingAssignment_5_0_0; }
+		public Assignment getOutgoingAssignment_5_0_0_0() { return cOutgoingAssignment_5_0_0_0; }
 
 		//[ErrorPropagation|ErrorPropagationPoint]
-		public CrossReference getOutgoingErrorPropagationCrossReference_5_0_0_0() { return cOutgoingErrorPropagationCrossReference_5_0_0_0; }
+		public CrossReference getOutgoingErrorPropagationCrossReference_5_0_0_0_0() { return cOutgoingErrorPropagationCrossReference_5_0_0_0_0; }
 
 		//ErrorPropagationPoint
-		public RuleCall getOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_1() { return cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_1; }
+		public RuleCall getOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_0_1() { return cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_0_1; }
 
 		//allPropagations?="all"
-		public Assignment getAllPropagationsAssignment_5_0_1() { return cAllPropagationsAssignment_5_0_1; }
+		public Assignment getAllPropagationsAssignment_5_0_0_1() { return cAllPropagationsAssignment_5_0_0_1; }
 
 		//"all"
-		public Keyword getAllPropagationsAllKeyword_5_0_1_0() { return cAllPropagationsAllKeyword_5_0_1_0; }
+		public Keyword getAllPropagationsAllKeyword_5_0_0_1_0() { return cAllPropagationsAllKeyword_5_0_0_1_0; }
 
 		//typeToken=TypeTokenOrNoError?
-		public Assignment getTypeTokenAssignment_5_1() { return cTypeTokenAssignment_5_1; }
+		public Assignment getTypeTokenAssignment_5_0_1() { return cTypeTokenAssignment_5_0_1; }
 
 		//TypeTokenOrNoError
-		public RuleCall getTypeTokenTypeTokenOrNoErrorParserRuleCall_5_1_0() { return cTypeTokenTypeTokenOrNoErrorParserRuleCall_5_1_0; }
+		public RuleCall getTypeTokenTypeTokenOrNoErrorParserRuleCall_5_0_1_0() { return cTypeTokenTypeTokenOrNoErrorParserRuleCall_5_0_1_0; }
+
+		//outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask"
+		public Group getGroup_5_1() { return cGroup_5_1; }
+
+		//outgoing=[ErrorPropagation|ErrorPropagationPoint]?
+		public Assignment getOutgoingAssignment_5_1_0() { return cOutgoingAssignment_5_1_0; }
+
+		//[ErrorPropagation|ErrorPropagationPoint]
+		public CrossReference getOutgoingErrorPropagationCrossReference_5_1_0_0() { return cOutgoingErrorPropagationCrossReference_5_1_0_0; }
+
+		//ErrorPropagationPoint
+		public RuleCall getOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_1_0_0_1() { return cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_1_0_0_1; }
+
+		//mask?="mask"
+		public Assignment getMaskAssignment_5_1_1() { return cMaskAssignment_5_1_1; }
+
+		//"mask"
+		public Keyword getMaskMaskKeyword_5_1_1_0() { return cMaskMaskKeyword_5_1_1_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
@@ -4998,7 +5034,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeTokenOrNoError returns TypeToken:
 	//
-	//	{TypeToken} "(" (type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])*) | "noerror" ")";
+	//	{TypeToken} "(" (type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])* | "noerror") ")";
 	public TypeTokenOrNoErrorElements getTypeTokenOrNoErrorAccess() {
 		return (pTypeTokenOrNoError != null) ? pTypeTokenOrNoError : (pTypeTokenOrNoError = new TypeTokenOrNoErrorElements());
 	}
@@ -5162,7 +5198,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorSource:
 	//
-	//	name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all")
+	//	name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
 	//
 	//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
 	//
@@ -5201,11 +5237,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorPath:
 	//
-	//	name=ID ":" "error" "path" incoming=[ErrorPropagation|ErrorPropagationPoint] typeTokenConstraint=TypeTokenConstraint?
+	//	name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
 	//
-	//	"->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all") (targetToken=TypeToken | "use" "mappings"
+	//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
 	//
-	//	typeMappingSet=[TypeMappingSet|QEMREF])? ";";
+	//	allOutgoing?="all") (targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
 	public ErrorPathElements getErrorPathAccess() {
 		return (pErrorPath != null) ? pErrorPath : (pErrorPath = new ErrorPathElements());
 	}
@@ -5544,8 +5580,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all")
 	//
-	//	typeToken=TypeTokenOrNoError?) //		|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask')
-	// ";";
+	//	typeToken=TypeTokenOrNoError? | outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";";
 	public OutgoingPropagationConditionElements getOutgoingPropagationConditionAccess() {
 		return (pOutgoingPropagationCondition != null) ? pOutgoingPropagationCondition : (pOutgoingPropagationCondition = new OutgoingPropagationConditionElements());
 	}

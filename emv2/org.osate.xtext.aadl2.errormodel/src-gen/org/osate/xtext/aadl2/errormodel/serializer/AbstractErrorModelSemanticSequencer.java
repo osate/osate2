@@ -901,9 +901,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         incoming=[ErrorPropagation|ErrorPropagationPoint] 
+	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
-	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?='all') 
+	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
 	 *         (targetToken=TypeToken | typeMappingSet=[TypeMappingSet|QEMREF])?
 	 *     )
 	 */
@@ -948,7 +948,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?='all') 
+	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
 	 *         ((failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetConstructor?) | failureModeType=TypeSetConstructor)?
 	 *     )
@@ -1036,8 +1036,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID? 
 	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
 	 *         condition=ConditionExpression? 
-	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?='all') 
-	 *         typeToken=TypeTokenOrNoError?
+	 *         (
+	 *             ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?='all') typeToken=TypeTokenOrNoError?) | 
+	 *             (outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?='mask')
+	 *         )
 	 *     )
 	 */
 	protected void sequence_OutgoingPropagationCondition(EObject context, OutgoingPropagationCondition semanticObject) {
@@ -1227,7 +1229,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*)
+	 *     ((type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*)?)
 	 */
 	protected void sequence_TypeTokenOrNoError(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

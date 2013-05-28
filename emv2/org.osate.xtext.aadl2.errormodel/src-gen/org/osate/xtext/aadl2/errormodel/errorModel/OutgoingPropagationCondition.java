@@ -21,6 +21,7 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getOutgoing <em>Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isAllPropagations <em>All Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#getTypeToken <em>Type Token</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isMask <em>Mask</em>}</li>
  * </ul>
  * </p>
  *
@@ -211,5 +212,31 @@ public interface OutgoingPropagationCondition extends EObject, NamedElement
 	 * @generated
 	 */
   void setTypeToken(TypeToken value);
+
+  /**
+	 * Returns the value of the '<em><b>Mask</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Mask</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+	 * @return the value of the '<em>Mask</em>' attribute.
+	 * @see #setMask(boolean)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getOutgoingPropagationCondition_Mask()
+	 * @model
+	 * @generated
+	 */
+  boolean isMask();
+
+  /**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isMask <em>Mask</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Mask</em>' attribute.
+	 * @see #isMask()
+	 * @generated
+	 */
+  void setMask(boolean value);
 
 } // OutgoingPropagationCondition

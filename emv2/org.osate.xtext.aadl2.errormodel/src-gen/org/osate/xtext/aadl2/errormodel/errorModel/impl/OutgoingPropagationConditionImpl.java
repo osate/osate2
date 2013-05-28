@@ -34,6 +34,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getOutgoing <em>Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#isAllPropagations <em>All Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getTypeToken <em>Type Token</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#isMask <em>Mask</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,6 +131,26 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 	 * @ordered
 	 */
   protected TypeToken typeToken;
+
+  /**
+	 * The default value of the '{@link #isMask() <em>Mask</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #isMask()
+	 * @generated
+	 * @ordered
+	 */
+  protected static final boolean MASK_EDEFAULT = false;
+
+  /**
+	 * The cached value of the '{@link #isMask() <em>Mask</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #isMask()
+	 * @generated
+	 * @ordered
+	 */
+  protected boolean mask = MASK_EDEFAULT;
 
   /**
 	 * <!-- begin-user-doc -->
@@ -423,6 +444,29 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  public boolean isMask()
+  {
+		return mask;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public void setMask(boolean newMask)
+  {
+		boolean oldMask = mask;
+		mask = newMask;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__MASK, oldMask, mask));
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -462,6 +506,8 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 				return isAllPropagations();
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
 				return getTypeToken();
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__MASK:
+				return isMask();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -495,6 +541,9 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
 				setTypeToken((TypeToken)newValue);
+				return;
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__MASK:
+				setMask((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -530,6 +579,9 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
 				setTypeToken((TypeToken)null);
 				return;
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__MASK:
+				setMask(MASK_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -557,6 +609,8 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 				return allPropagations != ALL_PROPAGATIONS_EDEFAULT;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
 				return typeToken != null;
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__MASK:
+				return mask != MASK_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -576,6 +630,8 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 		result.append(allStates);
 		result.append(", allPropagations: ");
 		result.append(allPropagations);
+		result.append(", mask: ");
+		result.append(mask);
 		result.append(')');
 		return result.toString();
 	}

@@ -1096,7 +1096,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getErrorSource_All()
+  public EAttribute getErrorSource_AllOutgoing()
   {
 		return (EAttribute)errorSourceEClass.getEStructuralFeatures().get(1);
 	}
@@ -1176,9 +1176,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getErrorPath_Outgoing()
+  public EAttribute getErrorPath_AllIncoming()
   {
-		return (EReference)errorPathEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)errorPathEClass.getEStructuralFeatures().get(1);
 	}
 
   /**
@@ -1186,9 +1186,19 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getErrorPath_All()
+  public EReference getErrorPath_Outgoing()
   {
-		return (EAttribute)errorPathEClass.getEStructuralFeatures().get(2);
+		return (EReference)errorPathEClass.getEStructuralFeatures().get(2);
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public EAttribute getErrorPath_AllOutgoing()
+  {
+		return (EAttribute)errorPathEClass.getEStructuralFeatures().get(3);
 	}
 
   /**
@@ -1198,7 +1208,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 */
   public EReference getErrorPath_TargetToken()
   {
-		return (EReference)errorPathEClass.getEStructuralFeatures().get(3);
+		return (EReference)errorPathEClass.getEStructuralFeatures().get(4);
 	}
 
   /**
@@ -1208,7 +1218,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 	 */
   public EReference getErrorPath_TypeMappingSet()
   {
-		return (EReference)errorPathEClass.getEStructuralFeatures().get(4);
+		return (EReference)errorPathEClass.getEStructuralFeatures().get(5);
 	}
 
   /**
@@ -2056,6 +2066,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  public EAttribute getOutgoingPropagationCondition_Mask()
+  {
+		return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(7);
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
   public EClass getErrorDetection()
   {
 		return errorDetectionEClass;
@@ -2474,7 +2494,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
 		errorSourceEClass = createEClass(ERROR_SOURCE);
 		createEReference(errorSourceEClass, ERROR_SOURCE__OUTGOING);
-		createEAttribute(errorSourceEClass, ERROR_SOURCE__ALL);
+		createEAttribute(errorSourceEClass, ERROR_SOURCE__ALL_OUTGOING);
 		createEReference(errorSourceEClass, ERROR_SOURCE__FAILURE_MODE_REFERENCE);
 		createEReference(errorSourceEClass, ERROR_SOURCE__FAILURE_MODE_TYPE);
 
@@ -2485,8 +2505,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
 		errorPathEClass = createEClass(ERROR_PATH);
 		createEReference(errorPathEClass, ERROR_PATH__INCOMING);
+		createEAttribute(errorPathEClass, ERROR_PATH__ALL_INCOMING);
 		createEReference(errorPathEClass, ERROR_PATH__OUTGOING);
-		createEAttribute(errorPathEClass, ERROR_PATH__ALL);
+		createEAttribute(errorPathEClass, ERROR_PATH__ALL_OUTGOING);
 		createEReference(errorPathEClass, ERROR_PATH__TARGET_TOKEN);
 		createEReference(errorPathEClass, ERROR_PATH__TYPE_MAPPING_SET);
 
@@ -2597,6 +2618,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		createEReference(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__OUTGOING);
 		createEAttribute(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS);
 		createEReference(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN);
+		createEAttribute(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__MASK);
 
 		errorDetectionEClass = createEClass(ERROR_DETECTION);
 		createEReference(errorDetectionEClass, ERROR_DETECTION__STATE);
@@ -2807,7 +2829,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
 		initEClass(errorSourceEClass, ErrorSource.class, "ErrorSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getErrorSource_Outgoing(), this.getErrorPropagation(), null, "outgoing", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorSource_All(), ecorePackage.getEBoolean(), "all", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getErrorSource_AllOutgoing(), ecorePackage.getEBoolean(), "allOutgoing", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorSource_FailureModeReference(), this.getErrorBehaviorStateOrTypeSet(), null, "failureModeReference", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorSource_FailureModeType(), this.getTypeSet(), null, "failureModeType", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2818,8 +2840,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
 		initEClass(errorPathEClass, ErrorPath.class, "ErrorPath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getErrorPath_Incoming(), this.getErrorPropagation(), null, "incoming", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getErrorPath_AllIncoming(), ecorePackage.getEBoolean(), "allIncoming", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorPath_Outgoing(), this.getErrorPropagation(), null, "outgoing", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorPath_All(), ecorePackage.getEBoolean(), "all", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getErrorPath_AllOutgoing(), ecorePackage.getEBoolean(), "allOutgoing", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorPath_TargetToken(), this.getTypeToken(), null, "targetToken", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorPath_TypeMappingSet(), this.getTypeMappingSet(), null, "typeMappingSet", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2930,6 +2953,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		initEReference(getOutgoingPropagationCondition_Outgoing(), this.getErrorPropagation(), null, "outgoing", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOutgoingPropagationCondition_AllPropagations(), ecorePackage.getEBoolean(), "allPropagations", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOutgoingPropagationCondition_TypeToken(), this.getTypeToken(), null, "typeToken", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOutgoingPropagationCondition_Mask(), ecorePackage.getEBoolean(), "mask", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorDetectionEClass, ErrorDetection.class, "ErrorDetection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getErrorDetection_State(), this.getErrorBehaviorState(), null, "state", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -12,8 +12,9 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllIncoming <em>All Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getOutgoing <em>Outgoing</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAll <em>All</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllOutgoing <em>All Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTargetToken <em>Target Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  * </ul>
@@ -52,6 +53,32 @@ public interface ErrorPath extends ErrorFlow
   void setIncoming(ErrorPropagation value);
 
   /**
+	 * Returns the value of the '<em><b>All Incoming</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>All Incoming</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+	 * @return the value of the '<em>All Incoming</em>' attribute.
+	 * @see #setAllIncoming(boolean)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPath_AllIncoming()
+	 * @model
+	 * @generated
+	 */
+  boolean isAllIncoming();
+
+  /**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllIncoming <em>All Incoming</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>All Incoming</em>' attribute.
+	 * @see #isAllIncoming()
+	 * @generated
+	 */
+  void setAllIncoming(boolean value);
+
+  /**
 	 * Returns the value of the '<em><b>Outgoing</b></em>' reference.
 	 * <!-- begin-user-doc -->
    * <p>
@@ -78,30 +105,30 @@ public interface ErrorPath extends ErrorFlow
   void setOutgoing(ErrorPropagation value);
 
   /**
-	 * Returns the value of the '<em><b>All</b></em>' attribute.
+	 * Returns the value of the '<em><b>All Outgoing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>All</em>' attribute isn't clear,
+   * If the meaning of the '<em>All Outgoing</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>All</em>' attribute.
-	 * @see #setAll(boolean)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPath_All()
+	 * @return the value of the '<em>All Outgoing</em>' attribute.
+	 * @see #setAllOutgoing(boolean)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPath_AllOutgoing()
 	 * @model
 	 * @generated
 	 */
-  boolean isAll();
+  boolean isAllOutgoing();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAll <em>All</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllOutgoing <em>All Outgoing</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>All</em>' attribute.
-	 * @see #isAll()
+	 * @param value the new value of the '<em>All Outgoing</em>' attribute.
+	 * @see #isAllOutgoing()
 	 * @generated
 	 */
-  void setAll(boolean value);
+  void setAllOutgoing(boolean value);
 
   /**
 	 * Returns the value of the '<em><b>Target Token</b></em>' containment reference.

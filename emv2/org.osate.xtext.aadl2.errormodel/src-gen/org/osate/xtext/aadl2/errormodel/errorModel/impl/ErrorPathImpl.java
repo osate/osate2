@@ -24,8 +24,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#isAllIncoming <em>All Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getOutgoing <em>Outgoing</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#isAll <em>All</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#isAllOutgoing <em>All Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getTargetToken <em>Target Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  * </ul>
@@ -46,6 +47,26 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
   protected ErrorPropagation incoming;
 
   /**
+	 * The default value of the '{@link #isAllIncoming() <em>All Incoming</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #isAllIncoming()
+	 * @generated
+	 * @ordered
+	 */
+  protected static final boolean ALL_INCOMING_EDEFAULT = false;
+
+  /**
+	 * The cached value of the '{@link #isAllIncoming() <em>All Incoming</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #isAllIncoming()
+	 * @generated
+	 * @ordered
+	 */
+  protected boolean allIncoming = ALL_INCOMING_EDEFAULT;
+
+  /**
 	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -56,24 +77,24 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
   protected ErrorPropagation outgoing;
 
   /**
-	 * The default value of the '{@link #isAll() <em>All</em>}' attribute.
+	 * The default value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAll()
+	 * @see #isAllOutgoing()
 	 * @generated
 	 * @ordered
 	 */
-  protected static final boolean ALL_EDEFAULT = false;
+  protected static final boolean ALL_OUTGOING_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isAll() <em>All</em>}' attribute.
+	 * The cached value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAll()
+	 * @see #isAllOutgoing()
 	 * @generated
 	 * @ordered
 	 */
-  protected boolean all = ALL_EDEFAULT;
+  protected boolean allOutgoing = ALL_OUTGOING_EDEFAULT;
 
   /**
 	 * The cached value of the '{@link #getTargetToken() <em>Target Token</em>}' containment reference.
@@ -162,6 +183,29 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  public boolean isAllIncoming()
+  {
+		return allIncoming;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public void setAllIncoming(boolean newAllIncoming)
+  {
+		boolean oldAllIncoming = allIncoming;
+		allIncoming = newAllIncoming;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__ALL_INCOMING, oldAllIncoming, allIncoming));
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
   public ErrorPropagation getOutgoing()
   {
 		if (outgoing != null && outgoing.eIsProxy()) {
@@ -203,9 +247,9 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isAll()
+  public boolean isAllOutgoing()
   {
-		return all;
+		return allOutgoing;
 	}
 
   /**
@@ -213,12 +257,12 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setAll(boolean newAll)
+  public void setAllOutgoing(boolean newAllOutgoing)
   {
-		boolean oldAll = all;
-		all = newAll;
+		boolean oldAllOutgoing = allOutgoing;
+		allOutgoing = newAllOutgoing;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__ALL, oldAll, all));
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__ALL_OUTGOING, oldAllOutgoing, allOutgoing));
 	}
 
   /**
@@ -335,11 +379,13 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
 			case ErrorModelPackage.ERROR_PATH__INCOMING:
 				if (resolve) return getIncoming();
 				return basicGetIncoming();
+			case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
+				return isAllIncoming();
 			case ErrorModelPackage.ERROR_PATH__OUTGOING:
 				if (resolve) return getOutgoing();
 				return basicGetOutgoing();
-			case ErrorModelPackage.ERROR_PATH__ALL:
-				return isAll();
+			case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
+				return isAllOutgoing();
 			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
 				return getTargetToken();
 			case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
@@ -361,11 +407,14 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
 			case ErrorModelPackage.ERROR_PATH__INCOMING:
 				setIncoming((ErrorPropagation)newValue);
 				return;
+			case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
+				setAllIncoming((Boolean)newValue);
+				return;
 			case ErrorModelPackage.ERROR_PATH__OUTGOING:
 				setOutgoing((ErrorPropagation)newValue);
 				return;
-			case ErrorModelPackage.ERROR_PATH__ALL:
-				setAll((Boolean)newValue);
+			case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
+				setAllOutgoing((Boolean)newValue);
 				return;
 			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
 				setTargetToken((TypeToken)newValue);
@@ -389,11 +438,14 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
 			case ErrorModelPackage.ERROR_PATH__INCOMING:
 				setIncoming((ErrorPropagation)null);
 				return;
+			case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
+				setAllIncoming(ALL_INCOMING_EDEFAULT);
+				return;
 			case ErrorModelPackage.ERROR_PATH__OUTGOING:
 				setOutgoing((ErrorPropagation)null);
 				return;
-			case ErrorModelPackage.ERROR_PATH__ALL:
-				setAll(ALL_EDEFAULT);
+			case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
+				setAllOutgoing(ALL_OUTGOING_EDEFAULT);
 				return;
 			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
 				setTargetToken((TypeToken)null);
@@ -416,10 +468,12 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
 		switch (featureID) {
 			case ErrorModelPackage.ERROR_PATH__INCOMING:
 				return incoming != null;
+			case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
+				return allIncoming != ALL_INCOMING_EDEFAULT;
 			case ErrorModelPackage.ERROR_PATH__OUTGOING:
 				return outgoing != null;
-			case ErrorModelPackage.ERROR_PATH__ALL:
-				return all != ALL_EDEFAULT;
+			case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
+				return allOutgoing != ALL_OUTGOING_EDEFAULT;
 			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
 				return targetToken != null;
 			case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
@@ -439,8 +493,10 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (all: ");
-		result.append(all);
+		result.append(" (allIncoming: ");
+		result.append(allIncoming);
+		result.append(", allOutgoing: ");
+		result.append(allOutgoing);
 		result.append(')');
 		return result.toString();
 	}

@@ -137,7 +137,7 @@ TypeToken returns TypeToken:
 
 TypeTokenOrNoError returns TypeToken:
 	{TypeToken}
-     '(' ( type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])*) | 'noerror' ')'
+     '(' (( type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])*) | 'noerror') ')'
 ;
 
 TypeTokenConstraint returns TypeSet:
@@ -206,7 +206,7 @@ PropagationKind  : ('processor'|'memory'|'bus'|'device'|'system'|('virtual' 'bus
 
 ErrorSource returns ErrorSource:
   name=ID ':' 'error' 'source' (outgoing=[ErrorPropagation|ErrorPropagationPoint]
-  	|all?='all'
+  	|allOutgoing?='all'
   ) (typeTokenConstraint=TypeTokenConstraint)?
   	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetConstructor )?) 
   		| (  failureModeType = TypeSetConstructor )
@@ -220,7 +220,7 @@ ErrorSink returns ErrorSink:
   ';';
 
 ErrorPath returns ErrorPath:
-  name=ID ':' 'error' 'path' incoming=[ErrorPropagation|ErrorPropagationPoint] ( typeTokenConstraint=TypeTokenConstraint)? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint]|all?='all') 
+  name=ID ':' 'error' 'path' (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') ( typeTokenConstraint=TypeTokenConstraint)? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint]|allOutgoing?='all') 
   ( targetToken=TypeToken | 'use' 'mappings' typeMappingSet=[TypeMappingSet|QEMREF])?
   ';';
 
@@ -397,7 +397,7 @@ OutgoingPropagationCondition returns OutgoingPropagationCondition:
     )
 	'-[' (condition=ConditionExpression)? ']->' 
 	(((outgoing=[ErrorPropagation|ErrorPropagationPoint]|allPropagations?='all' ) (typeToken=TypeTokenOrNoError)?)
-//		|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask')
+		|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask')
 	)
 	 ';'
 ;

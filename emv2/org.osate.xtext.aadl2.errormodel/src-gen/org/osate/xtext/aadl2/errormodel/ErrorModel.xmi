@@ -439,14 +439,14 @@
       <type metamodel="/0/@metamodelDeclarations.0">
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
       </type>
-      <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Action">
-            <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
-            </type>
-          </elements>
-          <elements xsi:type="xtext:Keyword" value="("/>
+      <alternatives xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Action">
+          <type metamodel="/0/@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
+          </type>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Alternatives">
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
               <terminal xsi:type="xtext:CrossReference">
@@ -468,11 +468,9 @@
               </elements>
             </elements>
           </elements>
-        </elements>
-        <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Keyword" value="noerror"/>
-          <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeTokenConstraint">
@@ -749,7 +747,7 @@
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
             </terminal>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="all" operator="?=">
+          <elements xsi:type="xtext:Assignment" feature="allOutgoing" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
           </elements>
         </elements>
@@ -825,13 +823,18 @@
         <elements xsi:type="xtext:Keyword" value=":"/>
         <elements xsi:type="xtext:Keyword" value="error"/>
         <elements xsi:type="xtext:Keyword" value="path"/>
-        <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
-          <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
-            </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
-          </terminal>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="/0/@metamodelDeclarations.0">
+                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
+            </terminal>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="allIncoming" operator="?=">
+            <terminal xsi:type="xtext:Keyword" value="all"/>
+          </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
@@ -846,7 +849,7 @@
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
             </terminal>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="all" operator="?=">
+          <elements xsi:type="xtext:Assignment" feature="allOutgoing" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
           </elements>
         </elements>
@@ -1590,9 +1593,27 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.54"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="]->"/>
-        <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" feature="outgoing" operator="=">
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Assignment" feature="outgoing" operator="=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="/0/@metamodelDeclarations.0">
+                    <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
+                </terminal>
+              </elements>
+              <elements xsi:type="xtext:Assignment" feature="allPropagations" operator="?=">
+                <terminal xsi:type="xtext:Keyword" value="all"/>
+              </elements>
+            </elements>
+            <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeToken" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" cardinality="?" feature="outgoing" operator="=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
@@ -1600,12 +1621,9 @@
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
               </terminal>
             </elements>
-            <elements xsi:type="xtext:Assignment" feature="allPropagations" operator="?=">
-              <terminal xsi:type="xtext:Keyword" value="all"/>
+            <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
+              <terminal xsi:type="xtext:Keyword" value="mask"/>
             </elements>
-          </elements>
-          <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeToken" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>

@@ -79,7 +79,7 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorSource">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSource/outgoing"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorSource/all"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorSource/allOutgoing"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSource/failureModeReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorSource/failureModeType"/>
     </genClasses>
@@ -89,8 +89,9 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorPath">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPath/incoming"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPath/allIncoming"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPath/outgoing"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPath/all"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorPath/allOutgoing"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPath/targetToken"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorPath/typeMappingSet"/>
     </genClasses>
@@ -195,6 +196,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//OutgoingPropagationCondition/outgoing"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//OutgoingPropagationCondition/allPropagations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//OutgoingPropagationCondition/typeToken"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//OutgoingPropagationCondition/mask"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorDetection">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorDetection/state"/>

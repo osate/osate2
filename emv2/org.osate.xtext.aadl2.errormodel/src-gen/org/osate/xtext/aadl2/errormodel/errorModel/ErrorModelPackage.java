@@ -1290,13 +1290,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_SOURCE__OUTGOING = ERROR_FLOW_FEATURE_COUNT + 0;
 
   /**
-	 * The feature id for the '<em><b>All</b></em>' attribute.
+	 * The feature id for the '<em><b>All Outgoing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_SOURCE__ALL = ERROR_FLOW_FEATURE_COUNT + 1;
+  int ERROR_SOURCE__ALL_OUTGOING = ERROR_FLOW_FEATURE_COUNT + 1;
 
   /**
 	 * The feature id for the '<em><b>Failure Mode Reference</b></em>' reference.
@@ -1500,22 +1500,31 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_PATH__INCOMING = ERROR_FLOW_FEATURE_COUNT + 0;
 
   /**
+	 * The feature id for the '<em><b>All Incoming</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int ERROR_PATH__ALL_INCOMING = ERROR_FLOW_FEATURE_COUNT + 1;
+
+  /**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PATH__OUTGOING = ERROR_FLOW_FEATURE_COUNT + 1;
+  int ERROR_PATH__OUTGOING = ERROR_FLOW_FEATURE_COUNT + 2;
 
   /**
-	 * The feature id for the '<em><b>All</b></em>' attribute.
+	 * The feature id for the '<em><b>All Outgoing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PATH__ALL = ERROR_FLOW_FEATURE_COUNT + 2;
+  int ERROR_PATH__ALL_OUTGOING = ERROR_FLOW_FEATURE_COUNT + 3;
 
   /**
 	 * The feature id for the '<em><b>Target Token</b></em>' containment reference.
@@ -1524,7 +1533,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PATH__TARGET_TOKEN = ERROR_FLOW_FEATURE_COUNT + 3;
+  int ERROR_PATH__TARGET_TOKEN = ERROR_FLOW_FEATURE_COUNT + 4;
 
   /**
 	 * The feature id for the '<em><b>Type Mapping Set</b></em>' reference.
@@ -1533,7 +1542,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PATH__TYPE_MAPPING_SET = ERROR_FLOW_FEATURE_COUNT + 4;
+  int ERROR_PATH__TYPE_MAPPING_SET = ERROR_FLOW_FEATURE_COUNT + 5;
 
   /**
 	 * The number of structural features of the '<em>Error Path</em>' class.
@@ -1542,7 +1551,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PATH_FEATURE_COUNT = ERROR_FLOW_FEATURE_COUNT + 5;
+  int ERROR_PATH_FEATURE_COUNT = ERROR_FLOW_FEATURE_COUNT + 6;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPathsImpl <em>Propagation Paths</em>}' class.
@@ -3234,13 +3243,22 @@ public interface ErrorModelPackage extends EPackage
   int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
+	 * The feature id for the '<em><b>Mask</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int OUTGOING_PROPAGATION_CONDITION__MASK = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
+
+  /**
 	 * The number of structural features of the '<em>Outgoing Propagation Condition</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int OUTGOING_PROPAGATION_CONDITION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
+  int OUTGOING_PROPAGATION_CONDITION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 8;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl <em>Error Detection</em>}' class.
@@ -4443,15 +4461,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorSource_Outgoing();
 
   /**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAll <em>All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAllOutgoing <em>All Outgoing</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>All</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAll()
+	 * @return the meta object for the attribute '<em>All Outgoing</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAllOutgoing()
 	 * @see #getErrorSource()
 	 * @generated
 	 */
-  EAttribute getErrorSource_All();
+  EAttribute getErrorSource_AllOutgoing();
 
   /**
 	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeReference <em>Failure Mode Reference</em>}'.
@@ -4528,6 +4546,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorPath_Incoming();
 
   /**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllIncoming <em>All Incoming</em>}'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>All Incoming</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllIncoming()
+	 * @see #getErrorPath()
+	 * @generated
+	 */
+  EAttribute getErrorPath_AllIncoming();
+
+  /**
 	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getOutgoing <em>Outgoing</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4539,15 +4568,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorPath_Outgoing();
 
   /**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAll <em>All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllOutgoing <em>All Outgoing</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>All</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAll()
+	 * @return the meta object for the attribute '<em>All Outgoing</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllOutgoing()
 	 * @see #getErrorPath()
 	 * @generated
 	 */
-  EAttribute getErrorPath_All();
+  EAttribute getErrorPath_AllOutgoing();
 
   /**
 	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTargetToken <em>Target Token</em>}'.
@@ -5472,6 +5501,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getOutgoingPropagationCondition_TypeToken();
 
   /**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isMask <em>Mask</em>}'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Mask</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isMask()
+	 * @see #getOutgoingPropagationCondition()
+	 * @generated
+	 */
+  EAttribute getOutgoingPropagationCondition_Mask();
+
+  /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection <em>Error Detection</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6333,12 +6373,12 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_SOURCE__OUTGOING = eINSTANCE.getErrorSource_Outgoing();
 
     /**
-		 * The meta object literal for the '<em><b>All</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>All Outgoing</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EAttribute ERROR_SOURCE__ALL = eINSTANCE.getErrorSource_All();
+    EAttribute ERROR_SOURCE__ALL_OUTGOING = eINSTANCE.getErrorSource_AllOutgoing();
 
     /**
 		 * The meta object literal for the '<em><b>Failure Mode Reference</b></em>' reference feature.
@@ -6403,6 +6443,14 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_PATH__INCOMING = eINSTANCE.getErrorPath_Incoming();
 
     /**
+		 * The meta object literal for the '<em><b>All Incoming</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+		 * @generated
+		 */
+    EAttribute ERROR_PATH__ALL_INCOMING = eINSTANCE.getErrorPath_AllIncoming();
+
+    /**
 		 * The meta object literal for the '<em><b>Outgoing</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6411,12 +6459,12 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_PATH__OUTGOING = eINSTANCE.getErrorPath_Outgoing();
 
     /**
-		 * The meta object literal for the '<em><b>All</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>All Outgoing</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EAttribute ERROR_PATH__ALL = eINSTANCE.getErrorPath_All();
+    EAttribute ERROR_PATH__ALL_OUTGOING = eINSTANCE.getErrorPath_AllOutgoing();
 
     /**
 		 * The meta object literal for the '<em><b>Target Token</b></em>' containment reference feature.
@@ -7153,6 +7201,14 @@ public interface ErrorModelPackage extends EPackage
 		 * @generated
 		 */
     EReference OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = eINSTANCE.getOutgoingPropagationCondition_TypeToken();
+
+    /**
+		 * The meta object literal for the '<em><b>Mask</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+		 * @generated
+		 */
+    EAttribute OUTGOING_PROPAGATION_CONDITION__MASK = eINSTANCE.getOutgoingPropagationCondition_Mask();
 
     /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl <em>Error Detection</em>}' class.
