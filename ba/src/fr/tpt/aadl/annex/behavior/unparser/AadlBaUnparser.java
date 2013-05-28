@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.FeatureMap ;
 import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.PropertySet ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.aadl2.modelsupport.AadlConstants ;
 import org.osate.aadl2.modelsupport.UnparseText ;
@@ -948,6 +949,33 @@ public class AadlBaUnparser
             process(object.getSecondValue()) ;
           }
         }
+        return DONE ;
+      }
+      
+      public String caseBehaviorProperty(BehaviorProperty object)
+      {
+        PropertySet ps = object.getPropertySet() ;
+        String propertyName = "" ;
+        
+        if (ps != null)
+        {
+          aadlbaText.addOutput(ps.getQualifiedName()) ;
+          aadlbaText.addOutput(":") ;
+        }
+        
+        if(object instanceof BehaviorPropertyValue)
+        {
+          BehaviorPropertyValue tmp = (BehaviorPropertyValue) object ;
+          propertyName = tmp.getProperty().getName() ;
+        }
+        else
+        {
+          BehaviorPropertyConstant tmp = (BehaviorPropertyConstant) object ;
+          propertyName = tmp.getProperty().getName() ;
+        }
+        
+        aadlbaText.addOutput(propertyName) ;
+        
         return DONE ;
       }
     } ;
