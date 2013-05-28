@@ -375,15 +375,24 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			ConnectionItem connectionItem = it.next();
 			ConnectionReference connref = connectionItem.getConnectionReference();
 			if (connref != null){
-				IAadlElementAdapter srcAdapter = this.modelElementToAdapterMap.get(connref.getSource());
-				IAadlElementAdapter dstAdapter = this.modelElementToAdapterMap.get(connref.getDestination());
+				ConnectionInstanceEnd src = connref.getSource();
+				IAadlElementAdapter srcAdapter = this.modelElementToAdapterMap.get(src);
+				if (srcAdapter == null&&src instanceof FeatureInstance){
+					srcAdapter = this.modelElementToAdapterMap.get(src.getOwner());
+				}
+				ConnectionInstanceEnd dst = connref.getDestination();
+				IAadlElementAdapter dstAdapter = this.modelElementToAdapterMap.get(dst);
+				if (dstAdapter == null&&dst instanceof FeatureInstance){
+					dstAdapter = this.modelElementToAdapterMap.get(dst.getOwner());
+				}
 				if(srcAdapter != null && dstAdapter != null) {
 					// Create connection adapter for this connection.
-					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref.eContainer(), this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter, dstAdapter);
+					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref, this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter, dstAdapter);
 					// Add to component.
 					componentAdapter.addChild(connectionAdapter);
 				}
 			} else {
+				// declarative model
 				Connection connectionRef = (Connection)connectionItem.getModelElement();
 				IAadlElementAdapter srcAdapter = null;
 				IAadlElementAdapter dstAdapter = null;
@@ -546,7 +555,16 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 					}
 				}
 			}
-			
+			// now connections that come from outside the containing component
+			EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getIncomingConnectionReferences(ci);
+			for (ConnectionReference connref : connrefs) {
+				ConnectionInstanceEnd srcConnectionInstanceEnd = connref.getSource();
+				ConnectionInstanceEnd dstConnectionInstanceEnd = connref.getDestination();
+				if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
+					connectionList.add(new ConnectionItem(connref));
+				}
+			}
+
 		}
 		// Only component implementations have connections.
 		if(element instanceof ComponentImplementation){

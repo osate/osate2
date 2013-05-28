@@ -18,6 +18,11 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.zest.layouts.LayoutRelationship;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionKind;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.imv.aadldiagram.aadlfigures.AadlFigureFactory;
 import org.osate.imv.aadldiagram.connectiondecorations.ConnectionDecorationType;
 import org.osate.imv.aadldiagram.draw2d.SelectableMevConnectionFigure;
@@ -51,6 +56,23 @@ public class AadlConnectionAdapter extends AbstractAadlElementAdapter {
 		this.sourceAdapter = sourceAdapter;
 		this.destinationAdapter = destinationAdapter;
 		this.decorationType = decorationType;
+	}
+
+	@Override
+	public Object getModelElement() {
+		Object me = super.getModelElement();
+		if (me instanceof ConnectionReference){
+			ConnectionReference connref = (ConnectionReference)me;
+			 ConnectionInstance conni = (ConnectionInstance)connref.getOwner();
+			 return conni;
+			 // trying to show individual connection
+//			if (conni.getKind() != ConnectionKind.FEATURE_GROUP_CONNECTION && connref.getConnection() instanceof FeatureGroupConnection){
+//				return connref.getConnection();
+//			} else {
+//				return conni;
+//			}
+		}
+		return me;
 	}
 
 	@Override
