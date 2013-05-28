@@ -2646,6 +2646,7 @@ public class AadlBaTypeChecker
     Enum<?> currentDirRight  ;
     ValueExpression valueExp ;
     ListIterator<ParameterLabel> it = callParams.listIterator() ;
+    Value v ;
     Target tar ;
     TypeHolder t1, t2 ;
     ValueAndTypeHolder vth ;
@@ -2680,13 +2681,13 @@ public class AadlBaTypeChecker
       
       Classifier klass = AadlBaUtils.getClassifier(feat,_baParentContainer);
       
-      vth = valueExpressionCheck(valueExp) ;
-      
-      if(vth != null)
+      // ValueExpression case.
+      if(currentDirRight == DirectionType.IN ||
+         currentDirRight == Aadl2Utils.DataAccessRight.read_only)
       {
-        // ValueExpression case.
-        if(currentDirRight == DirectionType.IN ||
-           currentDirRight == Aadl2Utils.DataAccessRight.read_only)
+        vth = valueExpressionCheck(valueExp) ;
+
+        if(vth != null)
         {
           try
           {
@@ -2708,25 +2709,32 @@ public class AadlBaTypeChecker
             isconsistent = false ;
           }
         }
-        // Target case.
-        else if(currentDirRight != Aadl2Utils.DataAccessRight.unknown)
+        else // Value expression checking error case.
         {
-          Value uniqueValue = AadlBaUtils.isOnlyOneValue((ValueExpression)
-                                                                     vth.value); 
-          if(uniqueValue instanceof Target)
+          // Error reporting has already been done.
+          hasCheckingPassed = false ;
+        }
+      }
+      else if(currentDirRight != Aadl2Utils.DataAccessRight.unknown)
+      {
+        v = AadlBaUtils.isOnlyOneValue(valueExp) ;
+
+        if(v instanceof Target) // Target case.
+        {
+          tar = targetCheck((Target) v) ;
+
+          if(tar != null)
           {
-            tar = (Target) uniqueValue ;
-            
             try
             {
                t1 = AadlBaUtils.getTypeHolder(klass) ;
                t2 = AadlBaUtils.getTypeHolder(tar, _baParentContainer) ;
             }
             catch (DimensionException de)
-            {
-              reportDimensionException(de) ;
-              return false ;
-            }
+                {
+                   reportDimensionException(de) ;
+                   return false ;
+                }
             
             expectedTypes.add(t1) ;
             typesFound.add(t2) ;
@@ -2752,24 +2760,34 @@ public class AadlBaTypeChecker
               it.set(tar) ;
             }
           }
-          else // Value expression taken as a target like arithmetic pointer
-               // operation.
+          else // Target checking error case.
           {
-            // Due to target/value expression semantic ambiguity, the parsing
-            // phase may have introduced a semantic errors :
-           
-            // The parameter label has
-            // to be a value expression with a single value when the expected
-            // subprogram parameter is IN_OUT or OUT.
+            // Error reporting has already been done.
+            hasCheckingPassed = false ;
+          }
+        }
+        else // Value expression taken as a target -> warning arithmetic pointer operation.
+        {
+          // Due to target/value expression semantic ambiguity, the parsing
+          // phase may have introduced a semantic errors :
 
-            // If vth.value is not instanceof Target but ValueExpression or Value 
-            // like :
-            //       _ IntegerConstant or ValueConstant
-            //       _ PortFreshValue
-            //       _ PortCountValue
-            //       _ PortDequeueValue
-            // It resolves the type in order to format the warning message:
-            
+          // If v == null :               
+          // The parameter label has
+          // to be a value expression with a single value when the expected
+          // subprogram parameter is IN_OUT or OUT.
+
+          // If v is not instanceof Target but ValueExpression or Value 
+          // like :
+          //       _ IntegerConstant or ValueConstant
+          //       _ PortFreshValue
+          //       _ PortCountValue
+          //       _ PortDequeueValue
+          // It resolves the type in order to format the warning message:
+          
+          vth = valueExpressionCheck(valueExp) ;
+
+          if(vth != null)
+          {
             try
             {
                t1 = AadlBaUtils.getTypeHolder(klass) ;
@@ -2787,27 +2805,25 @@ public class AadlBaTypeChecker
             
             StringBuilder msg = new StringBuilder() ;
             msg.append('\'');
-            msg.append(unparseNameElement(vth.value)) ;
-            msg.append("\': is an readonly value and it is used as a " +
-            		       "writable value");
+            msg.append(unparseNameElement(valueExp)) ;
+            msg.append("\': is an read only value and it is used as a writable value");
             
             // Reports a warning.
             reportWarning(valueExp, msg.toString());
           }
-        }
-        else
-        {
-          hasCheckingPassed = false ;
-          reportError(valueExp, "can't fetch data access right. Set the default "+
-                                "right in memory_properties.aadl") ;
+          else
+          {
+            // Error reporting has already been done.
+            hasCheckingPassed = false ;
+          }
         }
       }
       else
       {
-        // Error reporting has already been done.
-        hasCheckingPassed = false ;
+        reportError(valueExp, "can't fetch data access right. Set the default "+
+                              "right in memory_properties.aadl") ;
       }
-    } // End of for.
+    }
 
     // Reports consistency error.
     if(! isconsistent && hasCheckingPassed)
