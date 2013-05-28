@@ -18,7 +18,6 @@ import java.util.Set;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.imv.aadldiagram.AadlDiagram;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.visitors.RestoreStateVisitor;

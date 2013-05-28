@@ -11,10 +11,9 @@
 
 package org.osate.imv.aadldiagram.aadlfigures.components;
 
-import java.awt.event.ComponentAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import org.eclipse.draw2d.ColorConstants;
+
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;

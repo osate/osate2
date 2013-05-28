@@ -35,7 +35,6 @@
  */
 package org.osate.imv.aadldiagram.adapters;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.MouseEvent;
@@ -45,11 +44,8 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.zest.layouts.LayoutRelationship;
 import org.osate.imv.aadldiagram.aadlfigures.AadlFigureFactory;
 import org.osate.imv.aadldiagram.bindingdecorations.BindingDecorationType;
-import org.osate.imv.aadldiagram.connectiondecorations.ConnectionDecorationType;
 import org.osate.imv.aadldiagram.draw2d.SelectableMevBindingFigure;
-import org.osate.imv.aadldiagram.draw2d.SelectableMevConnectionFigure;
 import org.osate.imv.aadldiagram.layout.GraphLayoutBinding;
-import org.osate.imv.aadldiagram.layout.GraphLayoutConnection;
 import org.osate.imv.aadldiagram.visitors.AadlAdapterVisitor;
 
 

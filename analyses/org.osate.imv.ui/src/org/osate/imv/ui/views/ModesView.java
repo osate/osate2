@@ -51,7 +51,6 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
@@ -61,7 +60,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ModeInstance;
-import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.imv.model.IImvModelProvider;
 import org.osate.imv.model.ModeManager;
 

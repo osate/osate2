@@ -42,7 +42,6 @@ import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
-import org.osate.imv.aadldiagram.connectiondecorations.PortConnectionDecoration.DecorationType;
 
 public class BindingDecoration extends Figure implements RotatableDecoration {
 

@@ -15,7 +15,6 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 
 public class DeviceFigure extends ComponentFigure {
 	private static final int LINE_GAP = 4;

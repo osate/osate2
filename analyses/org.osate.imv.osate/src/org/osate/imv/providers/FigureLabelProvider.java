@@ -16,7 +16,6 @@ import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.InstanceObject;
 
 
 public class FigureLabelProvider extends BaseLabelProvider implements ILabelProvider{
@@ -31,10 +30,8 @@ public class FigureLabelProvider extends BaseLabelProvider implements ILabelProv
 	public String getText(Object element) {
 		Assert.isNotNull(element);
 		String text = null;
-		if(element instanceof InstanceObject)
-			return ((InstanceObject)element).getPathName();
 		if(element instanceof NamedElement)
-			return ((NamedElement)element).getName();
+			return ((NamedElement)element).getFullName();
 		return text;
 	}
 

@@ -19,8 +19,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.osate.imv.aadldiagram.AadlDiagram;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
-import org.osate.imv.aadldiagram.visitors.ConnectionFilterVisitor;
-import org.osate.imv.aadldiagram.visitors.FilterVisitor;
 
 
 public class AadlHierarchicalDiagramViewer extends AadlDiagramViewer {

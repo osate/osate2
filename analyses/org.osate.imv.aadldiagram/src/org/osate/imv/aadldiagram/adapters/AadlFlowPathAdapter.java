@@ -19,9 +19,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.zest.layouts.LayoutRelationship;
 import org.osate.imv.aadldiagram.aadlfigures.AadlFigureFactory;
-import org.osate.imv.aadldiagram.connectiondecorations.ConnectionDecorationType;
 import org.osate.imv.aadldiagram.draw2d.SelectableMevConnectionFigure;
-import org.osate.imv.aadldiagram.layout.GraphLayoutConnection;
 import org.osate.imv.aadldiagram.layout.GraphLayoutFlowPath;
 import org.osate.imv.aadldiagram.visitors.AadlAdapterVisitor;
 

@@ -38,7 +38,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.imv.aadldiagram.aadlfigures.components.ComponentFigure;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
-import org.osate.imv.aadldiagram.adapters.AadlFlowPathAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.draw2d.BendpointHelper;
 

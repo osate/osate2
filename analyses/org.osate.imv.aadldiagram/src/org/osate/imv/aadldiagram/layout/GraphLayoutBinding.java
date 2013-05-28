@@ -41,7 +41,6 @@ import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.LayoutRelationship;
 import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 import org.osate.imv.aadldiagram.adapters.AadlBindingAdapter;
-import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 
 

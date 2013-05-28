@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.osate.imv.aadldiagram.viewer.AadlHierarchicalDiagramViewer;
 import org.osate.imv.aadldiagram.viewer.AadlPersistentDiagramViewer;
 import org.osate.imv.ui.IImageKeys;
 import org.osate.imv.ui.ImvUiPlugin;
