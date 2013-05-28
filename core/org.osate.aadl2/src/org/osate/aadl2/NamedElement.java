@@ -244,6 +244,13 @@ public interface NamedElement extends Element {
 	String qualifiedName();
 
 	/**
+	 * Get the component name including array indices
+	 * 
+	 * @return name as string
+	 */
+	String getFullName();
+
+	/**
 	 * Returns {@code true} if this {@code NamedElement} has a name. This method
 	 * will check for {@code null} and the empty string.
 	 * 

@@ -77,13 +77,6 @@ public interface InstanceObject extends EObject, NamedElement {
 	SystemInstance getSystemInstance();
 
 	/**
-	 * Get the component name including array indices
-	 * 
-	 * @return path as string
-	 */
-	String getPathName();
-
-	/**
 	 * Construct a string path from the system instance as root
 	 * 
 	 * @return path as string
