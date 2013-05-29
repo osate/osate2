@@ -123,40 +123,31 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	protected void processHazards(ComponentInstance ci, WriteToFile report)
 	{
 
-		ErrorModelSubclause errorModelSubclause = EMV2Util.getFirstEMV2Subclause(ci.getComponentClassifier());
-		// find error events listed as condition elements in transitions and report them as hazard if they have the hazard property
-		if (errorModelSubclause != null)
+		for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(ci.getComponentClassifier()))
 		{
-			ErrorBehaviorStateMachine errorBehavior = errorModelSubclause.getUseBehavior();
-			if (errorBehavior != null)
+			ConditionExpression cond = trans.getCondition();
+			if (cond instanceof ConditionElement)
 			{
-	
-				for (ErrorBehaviorTransition trans : errorBehavior.getTransitions())
+				ConditionElement condElement = (ConditionElement)trans.getCondition();
+				if (condElement.getIncoming() instanceof ErrorEvent)
 				{
-					ConditionExpression cond = trans.getCondition();
-					if (cond instanceof ConditionElement)
+					ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
+					ContainedNamedElement PA = null;
+					ContainedNamedElement Sev = null;
+					ContainedNamedElement Like = null;
+					PA = EMV2Util.getHazardProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+					Sev = getSeverityProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+					Like = getLikelihoodProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+					if ((PA != null) && (Sev != null) && (Like != null))
 					{
-						ConditionElement condElement = (ConditionElement)trans.getCondition();
-						if (condElement.getIncoming() instanceof ErrorEvent)
-						{
-							ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
-							ContainedNamedElement PA = null;
-							ContainedNamedElement Sev = null;
-							ContainedNamedElement Like = null;
-							PA = EMV2Util.getHazardProperty(ci, null,errorEvent,errorEvent.getTypeSet());
-							Sev = getSeverityProperty(ci, null,errorEvent,errorEvent.getTypeSet());
-							Like = getLikelihoodProperty(ci, null,errorEvent,errorEvent.getTypeSet());
-							if ((PA != null) && (Sev != null) && (Like != null))
-							{
-								reportHazardProperty(ci, PA, Sev, Like, null, errorEvent.getTypeSet(), errorEvent,report);
-							}
-						}
-						//condElement.getIncoming()
+						reportHazardProperty(ci, PA, Sev, Like, null, errorEvent.getTypeSet(), errorEvent,report);
 					}
-
 				}
+				//condElement.getIncoming()
 			}
+
 		}
+
 
 		// report all error sources as hazards if they have the property
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
