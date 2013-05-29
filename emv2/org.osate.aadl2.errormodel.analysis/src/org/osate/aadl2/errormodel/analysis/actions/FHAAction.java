@@ -279,8 +279,18 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	protected void reportFHAEntry(WriteToFile report,EList<BasicPropertyAssociation> fields,
 			String Severity, String Likelihood, ComponentInstance ci,
 			String failureModeName,  String typetext){
+		String componentName = ci.getName();
+		
+		/*
+		 * We include the parent component name if not null and if this is not the root system
+		 * instance.
+		 */
+		if ((ci.getContainingComponentInstance() != null) && (ci.getContainingComponentInstance() != ci.getSystemInstance()))
+		{
+			componentName = ci.getContainingComponentInstance().getName() + "/" + componentName;
+		}
 		// component name & error propagation name/type
-		report.addOutput(ci.getName()+", "+(typetext.isEmpty()?"":typetext+" on ")+failureModeName);
+		report.addOutput(componentName+", "+(typetext.isEmpty()?"":typetext+" on ")+failureModeName);
 		// crossreference
 		addComma(report);
 		reportStringProperty(fields, "crossreference", report);
