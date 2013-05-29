@@ -156,7 +156,7 @@ public class FTAUtils
 			Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(cl);
 			for (ErrorBehaviorTransition t : transitions)
 			{
-				OsateDebug.osateDebug( " trans = " + t);
+				OsateDebug.osateDebug( " trans = " + t + "|" + t.getName());
 				OsateDebug.osateDebug("target="  + t.getTarget().getName());
 				OsateDebug.osateDebug("condition="  + t.getCondition());
 				if (t.getCondition() instanceof ConditionElement)
@@ -205,11 +205,46 @@ public class FTAUtils
 							propagations.add(newEvent);
 							OsateDebug.osateDebug("ep="  + ep);
 						}
+						
 						if (eop instanceof ErrorEvent)
 						{
 							
 							ErrorEvent ev = (ErrorEvent) ce.getIncoming();
 							OsateDebug.osateDebug("ev="  + ev);
+							Event newEvent = new Event ();
+							/*
+							 * Set the propagation name.
+							 */
+							String newEventName = null;
+							
+							/*
+							 * First, we try to put the type name as the propagation
+							 * name.
+							 */
+							TypeSet ts = ev.getTypeSet();
+							if ((ts != null) && (ts.getElementType() != null))
+							{
+								for (TypeToken tt : ts.getElementType())
+								{
+									OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
+									
+									newEventName = tt.getType().get(0).getName();
+								}
+							}
+							/*
+							 * Then, if we fail to get the type name, we retrieve
+							 * the associated event name.
+							 */
+
+							if (newEventName == null)
+							{
+								newEventName = ev.getName();
+							}
+							
+
+							newEvent.setName (newEventName);
+							newEvent.setEventType(EventType.EVENT);
+							propagations.add(newEvent);
 						}
 
 					}
