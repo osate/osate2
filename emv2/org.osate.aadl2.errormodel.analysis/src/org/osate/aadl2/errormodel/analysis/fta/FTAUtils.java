@@ -25,6 +25,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
@@ -142,6 +143,8 @@ public class FTAUtils
 		Classifier cl;
 		
 		propagations = new ArrayList<Event>();
+		
+
 		cl = relatedInstance.getComponentClassifier();
 
 		OsateDebug.osateDebug("relatedInstance" + relatedInstance);
@@ -166,19 +169,37 @@ public class FTAUtils
 						{
 							ErrorPropagation ep = (ErrorPropagation) ce.getIncoming();
 							Event newEvent = new Event ();
-							String newEventName = "propagation from";
+							/*
+							 * Set the propagation name.
+							 */
+							String newEventName = null;
+							
+							/*
+							 * First, we try to put the type name as the propagation
+							 * name.
+							 */
 							TypeSet ts = ep.getTypeSet();
+							for (TypeToken tt : ts.getElementType())
+							{
+								OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
+								
+								newEventName = tt.getType().get(0).getName();
+							}
+							
+							/*
+							 * Then, if we fail to get the type name, we retrieve
+							 * the associated feature name.
+							 */
 							List<FeatureReference> features = ep.getFeaturerefs();
 							for (FeatureReference fe : features)
 							{
 								OsateDebug.osateDebug("fe="  + fe.getFeature());
-								newEventName += " " + fe.getFeature().getName();
+								if (newEventName == null)
+								{
+									newEventName = fe.getFeature().getName();
+								}
 							}
-							for (TypeToken tt : ts.getElementType())
-							{
-								OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
-								newEventName += "(type " +tt.getType().get(0).getName() +")";
-							}
+
 							newEvent.setName (newEventName);
 							newEvent.setEventType(EventType.EVENT);
 							propagations.add(newEvent);
@@ -218,27 +239,43 @@ public class FTAUtils
 				Subcomponent subcomponent = subcomponentElement.getSubcomponent();
 				OsateDebug.osateDebug("cond = " + cond + "      subcomponent=" + subcomponent);
 				ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
-				//OsateDebug.osateDebug("         instance " + relatedInstance);
 				
-				if (behaviorState != null)
+				if (relatedInstance == null)
 				{
+					continue;
+				}
+				//OsateDebug.osateDebug("         instance " + relatedInstance);
+				if (EMV2Util.hasCompositeErrorBehavior(relatedInstance))
+				{
+					ErrorModelSubclause ems = EMV2Util.getFirstEMV2Subclause(relatedInstance.getComponentClassifier());
+					CompositeErrorBehavior ceb = ems.getCompositeBehavior();
+					Event resultEvent;
+					fillCompositeBehavior(event, ceb, behaviorState.getName(), relatedInstance, componentInstances);
+					//	public static void fillCompositeBehavior (Event ftaEvent, CompositeErrorBehavior compositeErrorBehavior, String stateName, ComponentInstance relatedInstance, final EList<ComponentInstance> componentInstances)
 					
-					if (event.getEventType() != EventType.NORMAL)
+				}
+				else
+				{
+					if (behaviorState != null)
 					{
-						Event resultEvent = new Event();
-						resultEvent.setEventType(EventType.NORMAL);
-						fillFTAEventfromEventState(resultEvent, behaviorState, relatedInstance, componentInstances);
 						
-						event.addSubEvent(resultEvent);
-						
-					}
-					else
-					{
-						fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
-						List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement, componentInstances);
-						for (Event tmpEvent : propagations)
+						if (event.getEventType() != EventType.NORMAL)
 						{
-							event.addSubEvent(tmpEvent);
+							Event resultEvent = new Event();
+							resultEvent.setEventType(EventType.NORMAL);
+							fillFTAEventfromEventState(resultEvent, behaviorState, relatedInstance, componentInstances);
+							
+							event.addSubEvent(resultEvent);
+							
+						}
+						else
+						{
+							fillFTAEventfromEventState(event, behaviorState, relatedInstance, componentInstances);
+							List<Event> propagations = findIncomingPropagations (relatedInstance, conditionElement, componentInstances);
+							for (Event tmpEvent : propagations)
+							{
+								event.addSubEvent(tmpEvent);
+							}
 						}
 					}
 				}
@@ -323,7 +360,18 @@ public class FTAUtils
 				//result += handleCondition (conditionExpression, componentInstances);
 				Event resultEvent = new Event ();
 				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances);
-				event.addSubEvent(resultEvent);
+				if (conditionExpression instanceof SAndExpression)
+				{
+					for (Event e : resultEvent.getSubEvents())
+					{
+						event.addSubEvent(e);
+					}
+						
+				}
+				else
+				{
+					event.addSubEvent(resultEvent);
+				}
 			}
 		}
 	}

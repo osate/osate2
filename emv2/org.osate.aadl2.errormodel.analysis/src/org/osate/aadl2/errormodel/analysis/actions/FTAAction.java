@@ -69,7 +69,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 	}
 
 	protected String getActionName() {
-		return "RBD";
+		return "FTA";
 	}
 
 	
@@ -93,6 +93,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		
 		componentInstances = EMV2Util.getComponentInstancesWithComponentErrorBehavior (systemInstance);
 		componentInstances.addAll(EMV2Util.getComponentInstancesWithErrorPropagations(systemInstance));
+		componentInstances.addAll(EMV2Util.getComponentInstancesWithCompositeErrorBehavior(systemInstance));
 		// TODO may need to be updated to handle inherits from classifier extensions
 		result = new Event ();
 		FTAUtils.fillCompositeBehavior (result, ceb, ERROR_STATE_NAME, systemInstance, componentInstances);
