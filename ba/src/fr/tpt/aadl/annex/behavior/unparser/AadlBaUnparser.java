@@ -121,7 +121,7 @@ public class AadlBaUnparser
           theEClass.eContainer() == AadlBaPackage.eINSTANCE)
       aadlbaSwitch.doSwitch(theElement) ;
     else
-      System.err.println("process aadlba switch failed for : " +
+      System.err.println("aadlba unparsing failed for : " +
         theElement.getClass().getSimpleName()) ;
 
     return this.getOutput() ;
