@@ -1220,6 +1220,42 @@ public class InstantiateModel {
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
 						}
+					} else if (patternName.equalsIgnoreCase("Next_Next")) {
+						for (long i = 1; i <= srcSizes.get(srcOffset) - 2; i++) {
+							srcIndices.add(i);
+							dstIndices.add(i + 2);
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
+					} else if (patternName.equalsIgnoreCase("Previous_Previous")) {
+						for (long i = 3; i <= srcSizes.get(srcOffset); i++) {
+							srcIndices.add(i);
+							dstIndices.add(i - 2);
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
+					} else if (patternName.equalsIgnoreCase("Cyclic_Next_Next")) {
+						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+							srcIndices.add(i);
+							dstIndices.add(i == srcSizes.get(srcOffset) ? 2 :(i == srcSizes.get(srcOffset)-1 ? 1 : i + 1));
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
+					} else if (patternName.equalsIgnoreCase("Cyclic_Previous_Previous")) {
+						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+							srcIndices.add(i);
+							dstIndices.add(i == 2 ? srcSizes.get(srcOffset) :(i==1?srcSizes.get(srcOffset)-1: i - 1));
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
 					}
 				}
 			}
