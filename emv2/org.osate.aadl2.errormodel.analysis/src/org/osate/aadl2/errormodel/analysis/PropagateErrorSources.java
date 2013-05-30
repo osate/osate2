@@ -208,6 +208,21 @@ public class PropagateErrorSources {
 				
 				if (used)
 				{
+					ErrorPropagation ep = opc.getOutgoing();
+					
+					TypeSet ts = opc.getTypeTokenConstraint();
+					if (ts == null)
+					{
+						ts = ep.getTypeSet();
+					}
+					ErrorBehaviorState failureMode = null;
+
+					EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
+					for (TypeToken typeToken : result) {
+						String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
+						traceErrorPaths(ci,ep,typeToken,2,componentText+", "+ "internal event " + event.getName());
+					}
+					
 					OsateDebug.osateDebug("event=" + event.getName() + "state=" + opc.getState().getName() + "|outgoing=" + opc.getOutgoing());
 				}
 			}

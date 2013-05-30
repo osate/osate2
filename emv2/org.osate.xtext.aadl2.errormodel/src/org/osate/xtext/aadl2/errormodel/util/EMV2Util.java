@@ -1223,6 +1223,11 @@ public class EMV2Util {
 		return result.values();
 	}
 	
+	public static Collection<ErrorPropagation> getAllErrorPropagations(ComponentInstance ci){
+		return getAllErrorPropagations(ci.getComponentClassifier());
+	}
+
+	
 	/**
 	 * return list of error containments including those inherited from classifiers being extended
 	 * @param cl Classifier
@@ -1380,6 +1385,12 @@ public class EMV2Util {
 		return result.values();
 	}
 
+	public static Collection<ErrorBehaviorEvent> getAllErrorBehaviorEvents(ComponentInstance ci)
+	{
+		return getAllErrorBehaviorEvents(ci.getComponentClassifier());
+	}
+
+	
 	
 	/**
 	 * return list of ErrorBehaviorStates including those inherited from classifiers being extended
@@ -1420,6 +1431,12 @@ public class EMV2Util {
 		result.addAll(unlist);
 		return result;
 	}
+	
+	public static Collection<ErrorBehaviorTransition> getAllErrorBehaviorTransitions(ComponentInstance ci)
+	{
+		return getAllErrorBehaviorTransitions (ci.getComponentClassifier());
+	}
+
 	
 	/**
 	 * return list of ErrorBehaviorTransition including those inherited from classifiers being extended
@@ -1475,6 +1492,12 @@ public class EMV2Util {
 		res.addAll(unlist);
 		return res;
 	}
+	
+	public static Collection<OutgoingPropagationCondition> getAllOutgoingPropagationConditions(ComponentInstance ci)
+	{
+		return getAllOutgoingPropagationConditions(ci.getComponentClassifier());
+	}
+
 	
 	/**
 	 * return list of OutgoingPropagationCondition including those inherited from classifiers being extended
