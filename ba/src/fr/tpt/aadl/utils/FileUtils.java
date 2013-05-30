@@ -146,4 +146,27 @@ public class FileUtils
       FileUtils.copyFiles(f, destFolder, excludedNodeNames) ;
     }
   }
+  
+  /**
+   * Delete the given File object. If the object represents a directory, it 
+   * recursively deletes the directory and its contains.
+   * 
+   * @param toBeDelete the given File object.
+   */
+  public static void deleteFile (File toBeDelete)
+  {
+    if(toBeDelete.exists())
+    {
+      if(toBeDelete.isDirectory())
+      {
+        for(File f : toBeDelete.listFiles())
+        {
+          // Recursive call.
+          FileUtils.deleteFile(f) ;
+        }
+      }
+      
+      toBeDelete.delete() ;
+    }
+  }
 }
