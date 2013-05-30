@@ -70,8 +70,12 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 		PropagateErrorSources faultimpact = new PropagateErrorSources("FaultImpact", si); // optional third parameter maxLevel
 		faultimpact.reportHeading();
 		List<ComponentInstance> cilist = faultimpact.getSubcomponents();
-		for (ComponentInstance componentInstance : cilist) {
-			faultimpact.startErrorFlows(componentInstance);
+		for (ComponentInstance componentInstance : cilist) 
+		{
+			if (componentInstance != null)
+			{
+				faultimpact.startErrorFlows(componentInstance);
+			}
 		}
 		faultimpact.saveReport();
 

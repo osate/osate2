@@ -66,8 +66,12 @@ public final class FMEAAction extends AaxlReadOnlyActionAsJob {
 		
 		PropagateErrorSources faultimpact = new PropagateErrorSources("FMEA", si);
 		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
-		for (ComponentInstance componentInstance : cilist) {
-			faultimpact.startErrorFlows(componentInstance);
+		for (ComponentInstance componentInstance : cilist) 
+		{
+			if (componentInstance != null)
+			{
+				faultimpact.startErrorFlows(componentInstance);
+			}
 		}
 		faultimpact.saveReport();
 

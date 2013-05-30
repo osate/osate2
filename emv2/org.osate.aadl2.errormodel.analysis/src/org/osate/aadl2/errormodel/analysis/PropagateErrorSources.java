@@ -33,7 +33,9 @@
  */
 package org.osate.aadl2.errormodel.analysis;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
@@ -48,13 +50,19 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -150,7 +158,8 @@ public class PropagateErrorSources {
 	public void startErrorFlows(ComponentInstance ci){
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		String componentText = generateItemText(ci);
-		for (ErrorSource errorSource : eslist) {
+		for (ErrorSource errorSource : eslist)
+		{
 			ErrorPropagation ep = errorSource.getOutgoing();
 			TypeSet ts = errorSource.getTypeTokenConstraint();
 			if (ts == null) ep.getTypeSet();
@@ -166,6 +175,45 @@ public class PropagateErrorSources {
 				traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
 			}
 		}
+		
+		for (ErrorBehaviorEvent event : EMV2Util.getAllErrorBehaviorEvents(ci))
+		{
+			List<ErrorBehaviorState> states = new ArrayList<ErrorBehaviorState> ();
+			for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(ci))
+			{
+				if (trans.getCondition() instanceof ConditionElement)
+				{
+					ConditionElement conditionElement = (ConditionElement) trans.getCondition(); 
+					if (conditionElement.getIncoming() instanceof ErrorPropagation)
+					{
+						continue;
+					}
+					if (conditionElement.getIncoming().getName().equalsIgnoreCase(event.getName()))
+					{
+						states.add (trans.getTarget());
+					}
+				}
+			}
+			
+			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(ci))
+			{
+				boolean used = false;
+				for (ErrorBehaviorState s : states)
+				{
+					if (s.getName().equalsIgnoreCase(opc.getState().getName()))
+					{
+						used = true;
+					}
+				}
+				
+				if (used)
+				{
+					OsateDebug.osateDebug("event=" + event.getName() + "state=" + opc.getState().getName() + "|outgoing=" + opc.getOutgoing());
+				}
+			}
+
+		}
+		
 	}
 	
 	/**
@@ -174,17 +222,33 @@ public class PropagateErrorSources {
 	 * @param ci component instance
 	 * @return String
 	 */
-	public String generateItemText(ConnectionInstanceEnd io){
-		if (io instanceof FeatureInstance){
+	public String generateItemText(ConnectionInstanceEnd io)
+	{
+		String result;
+		
+		if (io instanceof FeatureInstance)
+		{
 			FeatureInstance fi = (FeatureInstance)io;
 			ComponentInstance ci = fi.getContainingComponentInstance();
-			return (/*ci.getCategory().name()+" "+*/ci.getQualifiedName()+"."+fi.getName());
-		} else if (io instanceof ComponentInstance){
-			ComponentInstance ci = (ComponentInstance)io;
-			return (/*ci.getCategory().name()+" "+*/ci.getQualifiedName());
-		} else {
-			return (io.getName());
+			result = ci.getQualifiedName()+"."+fi.getName();
 		}
+		else if (io instanceof ComponentInstance)
+		{
+			ComponentInstance ci = (ComponentInstance)io;
+			if ((ci.getContainingComponentInstance() != null) && (ci.getContainingComponentInstance() != ci.getSystemInstance()))
+			{
+				result = ci.getContainingComponentInstance().getName() + "/" + ci.getName();
+			}
+			else
+			{
+				result = ci.getQualifiedName();
+			}
+		}
+		else 
+		{
+			result = io.getName();
+		}
+		return result;
 	}
 	
 	/**
