@@ -389,28 +389,31 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			if (fromCtx instanceof FeatureGroup) {
 				// TODO phf: find index and compare with stack
-				int idx = ((FeatureGroup) fromCtx).getIndexOf((Feature) fromEnd);
-				if (!upIndex.empty()) {
-					int popidx = upIndex.peek();
-					if (idx != popidx) {
-						// did not match
-						return;
-					} else {
-						poppedIdx = upIndex.pop();
-					}
-				} else {
-					downIndex.push(idx);
-					downedIdx = idx;
-				}
 				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList(ci.getFeatureInstances(),
 						fromCtx.getName());
 				if (fgi != null) {
 					fiList = fgi.getFeatureInstances();
+					fromFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, fromEnd.getName());
+				}
+				if (fromFi!= null){
+					int idx = fiList.indexOf(fromFi);
+					if (!upIndex.empty()) {
+						int popidx = upIndex.peek();
+						if (idx != popidx) {
+							// did not match
+							return;
+						} else {
+							poppedIdx = upIndex.pop();
+						}
+					} else {
+						downIndex.push(idx);
+						downedIdx = idx;
+					}
 				}
 			} else {
 				fiList = (fromCi != null ? fromCi : ci).getFeatureInstances();
+				fromFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, fromEnd.getName());
 			}
-			fromFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, fromEnd.getName());
 		} else {
 			fromFi = ci.findSubcomponentInstance((Subcomponent)fromEnd);
 		}
@@ -418,25 +421,35 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			List<FeatureInstance> fiList = null;
 
 			if (toCtx instanceof FeatureGroup) {
-				// TODO phf: find index and add to stack
-				int idx = ((FeatureGroup) toCtx).getIndexOf((Feature) toEnd);
-				if (idx != -1) {
-					upIndex.push(idx);
-					pushedIdx = idx;
-				} else {
-					// should not happen
-					warning(ci, toEnd.getName() + " not a feature in feature group.");
-				}
+//				int idx = ((FeatureGroup) toCtx).getIndexOf((Feature) toEnd);
+//				if (idx != -1) {
+//					upIndex.push(idx);
+//					pushedIdx = idx;
+//				} else {
+//					// should not happen
+//					warning(ci, toEnd.getName() + " not a feature in feature group.");
+//				}
 
 				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList(ci.getFeatureInstances(),
 						toCtx.getName());
 				if (fgi != null) {
 					fiList = fgi.getFeatureInstances();
+					toFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, toEnd.getName());
+				}
+				if (toFi != null){
+					int idx = fiList.indexOf(toFi);
+					if (idx != -1) {
+						upIndex.push(idx);
+						pushedIdx = idx;
+					} else {
+						// should not happen
+						warning(ci, toEnd.getName() + " not a feature in feature group.");
+					}
 				}
 			} else {
 				fiList = (toCi != null ? toCi : ci).getFeatureInstances();
+				toFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, toEnd.getName());
 			}
-			toFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, toEnd.getName());
 		} else {
 			toFi = ci.findSubcomponentInstance((Subcomponent)toEnd);
 		}
