@@ -12,7 +12,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getOutgoing <em>Outgoing</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAll <em>All</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAllOutgoing <em>All Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeReference <em>Failure Mode Reference</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeType <em>Failure Mode Type</em>}</li>
  * </ul>
@@ -51,30 +51,30 @@ public interface ErrorSource extends ErrorFlow
   void setOutgoing(ErrorPropagation value);
 
   /**
-	 * Returns the value of the '<em><b>All</b></em>' attribute.
+	 * Returns the value of the '<em><b>All Outgoing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>All</em>' attribute isn't clear,
+   * If the meaning of the '<em>All Outgoing</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>All</em>' attribute.
-	 * @see #setAll(boolean)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorSource_All()
+	 * @return the value of the '<em>All Outgoing</em>' attribute.
+	 * @see #setAllOutgoing(boolean)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorSource_AllOutgoing()
 	 * @model
 	 * @generated
 	 */
-  boolean isAll();
+  boolean isAllOutgoing();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAll <em>All</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAllOutgoing <em>All Outgoing</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>All</em>' attribute.
-	 * @see #isAll()
+	 * @param value the new value of the '<em>All Outgoing</em>' attribute.
+	 * @see #isAllOutgoing()
 	 * @generated
 	 */
-  void setAll(boolean value);
+  void setAllOutgoing(boolean value);
 
   /**
 	 * Returns the value of the '<em><b>Failure Mode Reference</b></em>' reference.

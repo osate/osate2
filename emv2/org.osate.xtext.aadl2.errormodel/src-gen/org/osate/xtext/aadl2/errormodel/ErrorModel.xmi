@@ -45,20 +45,20 @@
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.8"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.40"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.44"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.41"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.45"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.29"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.60"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.37"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.36"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.46"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.30"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.26"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.61"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.49"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.38"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.37"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.40"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.62"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.50"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.60"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ModalElement">
@@ -74,24 +74,24 @@
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.17"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.38"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.46"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.48"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.52"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.65"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.36"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.47"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.49"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.53"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.55"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.56"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.60"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.66"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.63"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.73"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.26"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.54"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.56"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.57"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.61"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.67"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.64"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.74"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.27"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorModelSubclause">
@@ -112,7 +112,7 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="*">
@@ -122,7 +122,7 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
             </elements>
           </elements>
@@ -136,25 +136,25 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorStateMachine"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Keyword" value=";"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="errorPropagations" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="componentBehavior" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.52"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.53"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="compositeBehavior" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.65"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.66"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="connectionBehavior" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.48"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.49"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="propagationPaths" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.36"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="properties"/>
@@ -184,7 +184,7 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
             </elements>
             <elements xsi:type="xtext:Group" cardinality="*">
@@ -194,7 +194,7 @@
                   <type metamodel="/0/@metamodelDeclarations.0">
                     <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
                   </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
                 </terminal>
               </elements>
             </elements>
@@ -214,13 +214,13 @@
           <elements xsi:type="xtext:Keyword" value=";"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="behaviors" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.40"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="mappings" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="transformations" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
         </elements>
       </alternatives>
     </rules>
@@ -252,7 +252,7 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
         </elements>
@@ -274,7 +274,7 @@
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
@@ -333,7 +333,7 @@
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
         </elements>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
@@ -355,7 +355,7 @@
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
@@ -371,7 +371,7 @@
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
@@ -381,7 +381,7 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
         </elements>
@@ -418,7 +418,7 @@
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
@@ -428,9 +428,47 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="TypeTokenOrNoError">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Action">
+          <type metamodel="/0/@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
+          </type>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
+              </terminal>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="*">
+              <elements xsi:type="xtext:Keyword" value="*"/>
+              <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="/0/@metamodelDeclarations.0">
+                    <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
+                </terminal>
+              </elements>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value="noerror"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=")"/>
       </alternatives>
@@ -468,7 +506,7 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="*">
@@ -478,14 +516,14 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
             </elements>
           </elements>
           <elements xsi:type="xtext:Keyword" value=";"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="+" feature="transformation" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="end"/>
         <elements xsi:type="xtext:Keyword" value="transformations"/>
@@ -498,11 +536,11 @@
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="source" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="-["/>
         <elements xsi:type="xtext:Assignment" feature="contributor" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="]->"/>
         <elements xsi:type="xtext:Assignment" feature="target" operator="=">
@@ -529,7 +567,7 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="*">
@@ -539,14 +577,14 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
             </elements>
           </elements>
           <elements xsi:type="xtext:Keyword" value=";"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="+" feature="mapping" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="end"/>
         <elements xsi:type="xtext:Keyword" value="mappings"/>
@@ -559,7 +597,7 @@
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="source" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="->"/>
         <elements xsi:type="xtext:Assignment" feature="target" operator="=">
@@ -581,12 +619,12 @@
           </type>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="propagations" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.26"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="flows"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="flows" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.29"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.30"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="end"/>
@@ -606,16 +644,16 @@
         </elements>
         <elements xsi:type="xtext:Alternatives">
           <elements xsi:type="xtext:Assignment" feature="kind" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.28"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.29"/>
           </elements>
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Assignment" feature="featurerefs" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.26"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.27"/>
             </elements>
             <elements xsi:type="xtext:Group" cardinality="*">
               <elements xsi:type="xtext:Keyword" value="."/>
               <elements xsi:type="xtext:Assignment" feature="featurerefs" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.26"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.27"/>
               </elements>
             </elements>
           </elements>
@@ -625,7 +663,7 @@
           <terminal xsi:type="xtext:Keyword" value="not"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="direction" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.27"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.28"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="propagation"/>
         <elements xsi:type="xtext:Assignment" feature="typeSet" operator="=">
@@ -684,9 +722,9 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorFlow"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.30"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.32"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.31"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.33"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorSource">
@@ -706,15 +744,15 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
             </terminal>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="all" operator="?=">
+          <elements xsi:type="xtext:Assignment" feature="allOutgoing" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="when"/>
@@ -745,7 +783,7 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorStateOrTypeSet"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.44"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.45"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.11"/>
       </alternatives>
     </rules>
@@ -760,16 +798,21 @@
         <elements xsi:type="xtext:Keyword" value=":"/>
         <elements xsi:type="xtext:Keyword" value="error"/>
         <elements xsi:type="xtext:Keyword" value="sink"/>
-        <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
-          <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
-            </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
-          </terminal>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="/0/@metamodelDeclarations.0">
+                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
+            </terminal>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="allIncoming" operator="?=">
+            <terminal xsi:type="xtext:Keyword" value="all"/>
+          </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
@@ -785,16 +828,21 @@
         <elements xsi:type="xtext:Keyword" value=":"/>
         <elements xsi:type="xtext:Keyword" value="error"/>
         <elements xsi:type="xtext:Keyword" value="path"/>
-        <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
-          <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
-            </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
-          </terminal>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="/0/@metamodelDeclarations.0">
+                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
+            </terminal>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="allIncoming" operator="?=">
+            <terminal xsi:type="xtext:Keyword" value="all"/>
+          </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="->"/>
         <elements xsi:type="xtext:Alternatives">
@@ -803,10 +851,10 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
             </terminal>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="all" operator="?=">
+          <elements xsi:type="xtext:Assignment" feature="allOutgoing" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
           </elements>
         </elements>
@@ -822,7 +870,7 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeMappingSet"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
             </elements>
           </elements>
@@ -835,7 +883,7 @@
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.28"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.29"/>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
           <elements xsi:type="xtext:Group" cardinality="*">
@@ -853,12 +901,12 @@
         <elements xsi:type="xtext:Keyword" value="propagation"/>
         <elements xsi:type="xtext:Keyword" value="paths"/>
         <elements xsi:type="xtext:Assignment" cardinality="+" feature="points" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.36"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.37"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="connections"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="connections" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.37"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.38"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="end"/>
@@ -890,11 +938,11 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value=":"/>
         <elements xsi:type="xtext:Assignment" feature="source" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.38"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="->"/>
         <elements xsi:type="xtext:Assignment" feature="target" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.38"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
@@ -943,7 +991,7 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="*">
@@ -953,7 +1001,7 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
             </elements>
           </elements>
@@ -967,7 +1015,7 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeTransformationSet"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Keyword" value=";"/>
@@ -975,19 +1023,19 @@
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="events"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="events" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.40"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.41"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="states"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="states" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.44"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.45"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="transitions"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="transitions" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.45"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.46"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -1006,9 +1054,9 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorEvent"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.41"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.42"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.43"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.44"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorEvent">
@@ -1131,49 +1179,56 @@
               </terminal>
             </elements>
             <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
             </elements>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="all" operator="?=">
+          <elements xsi:type="xtext:Assignment" feature="allStates" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="-["/>
         <elements xsi:type="xtext:Assignment" feature="condition" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.53"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.54"/>
         </elements>
-        <elements xsi:type="xtext:Keyword" value="]->"/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Group">
-              <elements xsi:type="xtext:Assignment" feature="target" operator="=">
-                <terminal xsi:type="xtext:CrossReference">
-                  <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
-                  </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
-                </terminal>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="]->"/>
+            <elements xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Alternatives">
+                <elements xsi:type="xtext:Group">
+                  <elements xsi:type="xtext:Assignment" feature="target" operator="=">
+                    <terminal xsi:type="xtext:CrossReference">
+                      <type metamodel="/0/@metamodelDeclarations.0">
+                        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+                      </type>
+                      <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
+                    </terminal>
+                  </elements>
+                  <elements xsi:type="xtext:Assignment" cardinality="?" feature="targetToken" operator="=">
+                    <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.17"/>
+                  </elements>
+                </elements>
+                <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
+                  <terminal xsi:type="xtext:Keyword" value="mask"/>
+                </elements>
               </elements>
-              <elements xsi:type="xtext:Assignment" cardinality="?" feature="targetToken" operator="=">
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.17"/>
+              <elements xsi:type="xtext:Group">
+                <elements xsi:type="xtext:Keyword" value="("/>
+                <elements xsi:type="xtext:Assignment" feature="destinationBranches" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.47"/>
+                </elements>
+                <elements xsi:type="xtext:Group" cardinality="+">
+                  <elements xsi:type="xtext:Keyword" value=","/>
+                  <elements xsi:type="xtext:Assignment" feature="destinationBranches" operator="+=">
+                    <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.47"/>
+                  </elements>
+                </elements>
+                <elements xsi:type="xtext:Keyword" value=")"/>
               </elements>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
-              <terminal xsi:type="xtext:Keyword" value="mask"/>
             </elements>
           </elements>
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Keyword" value="("/>
-            <elements xsi:type="xtext:Assignment" feature="destinationBranches" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.46"/>
-            </elements>
-            <elements xsi:type="xtext:Group" cardinality="+">
-              <elements xsi:type="xtext:Keyword" value=","/>
-              <elements xsi:type="xtext:Assignment" feature="destinationBranches" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.46"/>
-              </elements>
-            </elements>
-            <elements xsi:type="xtext:Keyword" value=")"/>
+          <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
+            <terminal xsi:type="xtext:Keyword" value="]"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
@@ -1204,7 +1259,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="with"/>
         <elements xsi:type="xtext:Assignment" feature="value" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.47"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.48"/>
         </elements>
       </alternatives>
     </rules>
@@ -1227,7 +1282,7 @@
               <type metamodel="/0/@metamodelDeclarations.1">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyConstant"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="others" operator="?=">
@@ -1257,13 +1312,13 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeTransformationSet"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Keyword" value=";"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="connectionErrorSources" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.49"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.50"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="end"/>
         <elements xsi:type="xtext:Keyword" value="connection"/>
@@ -1295,7 +1350,7 @@
           </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="when"/>
@@ -1317,10 +1372,10 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeUseContext"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.39"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.50"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.40"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.51"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ComponentErrorBehavior">
@@ -1344,7 +1399,7 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeTransformationSet"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
           </elements>
           <elements xsi:type="xtext:Keyword" value=";"/>
@@ -1352,32 +1407,32 @@
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="events"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="events" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.40"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.41"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="transitions"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="transitions" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.45"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.46"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="propagations"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="outgoingPropagationConditions" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.60"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.61"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="detections"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="errorDetections" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.61"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.62"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="mode"/>
           <elements xsi:type="xtext:Keyword" value="mappings"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="errorStateToModeMappings" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.63"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.64"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="end"/>
@@ -1390,7 +1445,7 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.54"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.55"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Action" feature="operands" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
@@ -1399,7 +1454,7 @@
           </elements>
           <elements xsi:type="xtext:Keyword" value="or"/>
           <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.54"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.55"/>
           </elements>
         </elements>
       </alternatives>
@@ -1409,7 +1464,7 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.57"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Action" feature="operands" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
@@ -1418,7 +1473,7 @@
           </elements>
           <elements xsi:type="xtext:Keyword" value="and"/>
           <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.57"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
           </elements>
         </elements>
       </alternatives>
@@ -1434,12 +1489,12 @@
         <elements xsi:type="xtext:Keyword" value="ormore"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=")"/>
@@ -1456,12 +1511,12 @@
         <elements xsi:type="xtext:Keyword" value="orless"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=")"/>
@@ -1472,12 +1527,12 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.55"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.56"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.57"/>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Keyword" value="("/>
-          <elements xsi:type="xtext:RuleCall" rule="/0/@rules.53"/>
+          <elements xsi:type="xtext:RuleCall" rule="/0/@rules.54"/>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
       </alternatives>
@@ -1492,11 +1547,11 @@
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//EventOrPropagation"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
           </terminal>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="constraint" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
         </elements>
       </alternatives>
     </rules>
@@ -1505,8 +1560,8 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//EventOrPropagation"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.40"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.41"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.26"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="OutgoingPropagationCondition">
@@ -1531,16 +1586,16 @@
               </terminal>
             </elements>
             <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
             </elements>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="all" operator="?=">
+          <elements xsi:type="xtext:Assignment" feature="allStates" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="-["/>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="condition" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.53"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.54"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="]->"/>
         <elements xsi:type="xtext:Alternatives">
@@ -1551,15 +1606,15 @@
                   <type metamodel="/0/@metamodelDeclarations.0">
                     <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
                   </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
                 </terminal>
               </elements>
-              <elements xsi:type="xtext:Assignment" feature="all" operator="?=">
+              <elements xsi:type="xtext:Assignment" feature="allPropagations" operator="?=">
                 <terminal xsi:type="xtext:Keyword" value="all"/>
               </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeToken" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.17"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
             </elements>
           </elements>
           <elements xsi:type="xtext:Group">
@@ -1568,7 +1623,7 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
               </terminal>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
@@ -1601,21 +1656,21 @@
               </terminal>
             </elements>
             <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
             </elements>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="all" operator="?=">
+          <elements xsi:type="xtext:Assignment" feature="allStates" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="all"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="-["/>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="condition" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.53"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.54"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="]->"/>
         <elements xsi:type="xtext:Alternatives">
           <elements xsi:type="xtext:Assignment" feature="internalDetectionPort" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.64"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.65"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="detectionReportingPort" operator="=">
             <terminal xsi:type="xtext:CrossReference">
@@ -1628,7 +1683,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="!"/>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="errorCode" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.62"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.63"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
@@ -1639,7 +1694,7 @@
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Assignment" feature="intValue" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.75"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="constant" operator="=">
           <terminal xsi:type="xtext:CrossReference">
@@ -1721,7 +1776,7 @@
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="states"/>
           <elements xsi:type="xtext:Assignment" cardinality="+" feature="states" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.66"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.67"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="end"/>
@@ -1737,7 +1792,7 @@
         <elements xsi:type="xtext:Keyword" value="["/>
         <elements xsi:type="xtext:Alternatives">
           <elements xsi:type="xtext:Assignment" feature="condition" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.67"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.68"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="others" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="others"/>
@@ -1763,7 +1818,7 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.68"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.69"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Action" feature="operands" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
@@ -1772,7 +1827,7 @@
           </elements>
           <elements xsi:type="xtext:Keyword" value="or"/>
           <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.68"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.69"/>
           </elements>
         </elements>
       </alternatives>
@@ -1782,7 +1837,7 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.71"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Action" feature="operands" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
@@ -1791,7 +1846,7 @@
           </elements>
           <elements xsi:type="xtext:Keyword" value="and"/>
           <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.71"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
           </elements>
         </elements>
       </alternatives>
@@ -1807,12 +1862,12 @@
         <elements xsi:type="xtext:Keyword" value="ormore"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.73"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.73"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=")"/>
@@ -1829,12 +1884,12 @@
         <elements xsi:type="xtext:Keyword" value="orless"/>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.73"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="operands" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.73"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=")"/>
@@ -1845,12 +1900,12 @@
         <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.69"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.73"/>
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.70"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.71"/>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Keyword" value="("/>
-          <elements xsi:type="xtext:RuleCall" rule="/0/@rules.67"/>
+          <elements xsi:type="xtext:RuleCall" rule="/0/@rules.68"/>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
       </alternatives>
@@ -1862,7 +1917,7 @@
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Group" cardinality="+">
           <elements xsi:type="xtext:Assignment" feature="subcomponents" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.73"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.74"/>
           </elements>
           <elements xsi:type="xtext:Keyword" value="."/>
         </elements>
@@ -1875,7 +1930,7 @@
           </terminal>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="constraint" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
         </elements>
       </alternatives>
     </rules>
@@ -1932,7 +1987,7 @@
       </alternatives>
     </rules>
   </xtext:Grammar>
-  <xtext:Grammar name="org.osate.xtext.aadl2.properties.Properties" definesHiddenTokens="true" hiddenTokens="/1/@rules.47 /0/@rules.74">
+  <xtext:Grammar name="org.osate.xtext.aadl2.properties.Properties" definesHiddenTokens="true" hiddenTokens="/1/@rules.47 /0/@rules.75">
     <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="aadl2">
       <ePackage href="http://aadl.info/AADL/2.0#/"/>
     </metamodelDeclarations>
@@ -2474,7 +2529,7 @@
           <elements xsi:type="xtext:Keyword" value="+"/>
           <elements xsi:type="xtext:Keyword" value="-"/>
         </elements>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.75"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="RealTerm">
@@ -2560,7 +2615,7 @@
       <type metamodel="/1/@metamodelDeclarations.0">
         <classifier xsi:type="ecore:EDataType" href="http://aadl.info/AADL/2.0#//Integer"/>
       </type>
-      <alternatives xsi:type="xtext:RuleCall" rule="/0/@rules.75"/>
+      <alternatives xsi:type="xtext:RuleCall" rule="/0/@rules.76"/>
     </rules>
     <rules xsi:type="xtext:TerminalRule" name="EXPONENT" fragment="true">
       <type metamodel="/1/@metamodelDeclarations.1">

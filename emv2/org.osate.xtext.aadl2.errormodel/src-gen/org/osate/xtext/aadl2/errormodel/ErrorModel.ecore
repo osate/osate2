@@ -109,7 +109,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorSource" eSuperTypes="#//ErrorFlow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="#//ErrorPropagation"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="all" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allOutgoing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="failureModeReference" eType="#//ErrorBehaviorStateOrTypeSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="failureModeType" eType="#//TypeSet"
         containment="true"/>
@@ -117,11 +117,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorStateOrTypeSet"/>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorSink" eSuperTypes="#//ErrorFlow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//ErrorPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allIncoming" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPath" eSuperTypes="#//ErrorFlow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" eType="#//ErrorPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allIncoming" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="#//ErrorPropagation"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="all" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allOutgoing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetToken" eType="#//TypeToken"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeMappingSet" eType="#//TypeMappingSet"/>
@@ -180,7 +182,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ErrorBehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTokenConstraint" eType="#//TypeSet"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="all" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allStates" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ErrorBehaviorState"/>
@@ -256,10 +258,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTokenConstraint" eType="#//TypeSet"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="all" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allStates" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="#//ErrorPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allPropagations" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeToken" eType="#//TypeToken"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -268,7 +271,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTokenConstraint" eType="#//TypeSet"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="all" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allStates" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="internalDetectionPort"

@@ -32,7 +32,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#isAll <em>All</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#isAllStates <em>All States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getInternalDetectionPort <em>Internal Detection Port</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl#getDetectionReportingPort <em>Detection Reporting Port</em>}</li>
@@ -65,24 +65,24 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
   protected TypeSet typeTokenConstraint;
 
   /**
-	 * The default value of the '{@link #isAll() <em>All</em>}' attribute.
+	 * The default value of the '{@link #isAllStates() <em>All States</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAll()
+	 * @see #isAllStates()
 	 * @generated
 	 * @ordered
 	 */
-  protected static final boolean ALL_EDEFAULT = false;
+  protected static final boolean ALL_STATES_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isAll() <em>All</em>}' attribute.
+	 * The cached value of the '{@link #isAllStates() <em>All States</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAll()
+	 * @see #isAllStates()
 	 * @generated
 	 * @ordered
 	 */
-  protected boolean all = ALL_EDEFAULT;
+  protected boolean allStates = ALL_STATES_EDEFAULT;
 
   /**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
@@ -237,9 +237,9 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isAll()
+  public boolean isAllStates()
   {
-		return all;
+		return allStates;
 	}
 
   /**
@@ -247,12 +247,12 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setAll(boolean newAll)
+  public void setAllStates(boolean newAllStates)
   {
-		boolean oldAll = all;
-		all = newAll;
+		boolean oldAllStates = allStates;
+		allStates = newAllStates;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__ALL, oldAll, all));
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__ALL_STATES, oldAllStates, allStates));
 	}
 
   /**
@@ -469,8 +469,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
 				return basicGetState();
 			case ErrorModelPackage.ERROR_DETECTION__TYPE_TOKEN_CONSTRAINT:
 				return getTypeTokenConstraint();
-			case ErrorModelPackage.ERROR_DETECTION__ALL:
-				return isAll();
+			case ErrorModelPackage.ERROR_DETECTION__ALL_STATES:
+				return isAllStates();
 			case ErrorModelPackage.ERROR_DETECTION__CONDITION:
 				return getCondition();
 			case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
@@ -499,8 +499,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
 			case ErrorModelPackage.ERROR_DETECTION__TYPE_TOKEN_CONSTRAINT:
 				setTypeTokenConstraint((TypeSet)newValue);
 				return;
-			case ErrorModelPackage.ERROR_DETECTION__ALL:
-				setAll((Boolean)newValue);
+			case ErrorModelPackage.ERROR_DETECTION__ALL_STATES:
+				setAllStates((Boolean)newValue);
 				return;
 			case ErrorModelPackage.ERROR_DETECTION__CONDITION:
 				setCondition((ConditionExpression)newValue);
@@ -533,8 +533,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
 			case ErrorModelPackage.ERROR_DETECTION__TYPE_TOKEN_CONSTRAINT:
 				setTypeTokenConstraint((TypeSet)null);
 				return;
-			case ErrorModelPackage.ERROR_DETECTION__ALL:
-				setAll(ALL_EDEFAULT);
+			case ErrorModelPackage.ERROR_DETECTION__ALL_STATES:
+				setAllStates(ALL_STATES_EDEFAULT);
 				return;
 			case ErrorModelPackage.ERROR_DETECTION__CONDITION:
 				setCondition((ConditionExpression)null);
@@ -565,8 +565,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
 				return state != null;
 			case ErrorModelPackage.ERROR_DETECTION__TYPE_TOKEN_CONSTRAINT:
 				return typeTokenConstraint != null;
-			case ErrorModelPackage.ERROR_DETECTION__ALL:
-				return all != ALL_EDEFAULT;
+			case ErrorModelPackage.ERROR_DETECTION__ALL_STATES:
+				return allStates != ALL_STATES_EDEFAULT;
 			case ErrorModelPackage.ERROR_DETECTION__CONDITION:
 				return condition != null;
 			case ErrorModelPackage.ERROR_DETECTION__INTERNAL_DETECTION_PORT:
@@ -590,8 +590,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (all: ");
-		result.append(all);
+		result.append(" (allStates: ");
+		result.append(allStates);
 		result.append(')');
 		return result.toString();
 	}
