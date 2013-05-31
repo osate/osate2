@@ -29,6 +29,7 @@ public class WriteToFile {
 	EObject root;
 	String fileExtension;
 	Boolean saved = false;
+	String suffix = null;
 	
 	public WriteToFile(String reporttype, EObject root){
 		this.reportType = reporttype;
@@ -36,12 +37,17 @@ public class WriteToFile {
 		this.textBuffer = new UnparseText();
 		this.fileExtension = "csv";
 	}
-	
+
 	public WriteToFile(String reporttype, EObject root, String extension){
 		this.reportType = reporttype;
 		this.root = root;
 		this.textBuffer = new UnparseText();
 		this.fileExtension = extension;
+	}
+	
+	public void setSuffix (String s)
+	{
+		this.suffix = s;
 	}
 	
 	public void setFileExtension (String fe)
@@ -77,11 +83,20 @@ public class WriteToFile {
 		if (root instanceof InstanceObject){
 			path = path.removeFileExtension();
 			String filename = path.lastSegment()+"__"+reporttype;
+			if (this.suffix != null)
+			{
+				filename = filename + suffix;
+			}
 			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		} else {
 			String filename = path.lastSegment()+reporttype;
+			if (this.suffix != null)
+			{
+				filename = filename + suffix;
+			}
 			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		}
+
 		path = path.addFileExtension(this.fileExtension);
 		return path;
 	}
