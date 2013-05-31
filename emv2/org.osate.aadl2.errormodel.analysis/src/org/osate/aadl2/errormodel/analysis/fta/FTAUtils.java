@@ -199,6 +199,7 @@ public class FTAUtils
 									newEventName = fe.getFeature().getName();
 								}
 							}
+							
 
 							newEvent.setName (newEventName);
 							newEvent.setEventType(EventType.EVENT);

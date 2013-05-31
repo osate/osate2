@@ -27,7 +27,15 @@ public class PropagationPath {
 		return pathSrc;
 	}
 	public ComponentInstance getSrcCI(){
-		return pathSrc==null?null:pathSrc.getComponentInstance();
+		if (pathSrc == null)
+		{
+			return null;
+		}
+		if (pathSrc.getComponentInstance() != null)
+		{
+			return pathSrc.getComponentInstance();
+		}
+		return null;
 	}
 	public void setPathSrc(PropagationPathEnd pathSrc) {
 		this.pathSrc = pathSrc;
@@ -35,8 +43,17 @@ public class PropagationPath {
 	public PropagationPathEnd getPathDst() {
 		return pathDst;
 	}
-	public ComponentInstance getDstCI(){
-		return pathDst==null?null:pathDst.getComponentInstance();
+	public ComponentInstance getDstCI()
+	{
+		if (pathDst == null)
+		{
+			return null;
+		}
+		if (pathDst.getComponentInstance() != null)
+		{
+			return pathDst.getComponentInstance();
+		}
+		return null;
 	}
 	public void setPathDst(PropagationPathEnd pathDst) {
 		this.pathDst = pathDst;

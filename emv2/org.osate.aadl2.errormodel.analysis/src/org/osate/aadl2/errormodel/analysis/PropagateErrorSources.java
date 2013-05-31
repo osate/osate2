@@ -272,10 +272,13 @@ public class PropagateErrorSources {
 	 * @param ci component instance
 	 * @return String
 	 */
-	public String generateConnectionText(ConnectionInstanceEnd src, ConnectionInstanceEnd dst, TypeToken token){
-			return (generateItemText(src)+
-			EMV2Util.getPrintName(token)+
-			"->"+generateItemText(dst));
+	public String generateConnectionText(ConnectionInstanceEnd src, ConnectionInstanceEnd dst, TypeToken token)
+	{
+		if ( (src != null) && (dst != null))
+		{
+			return (generateItemText(src)+EMV2Util.getPrintName(token)+"->"+generateItemText(dst));
+		}
+		return "uncomplete connection";
 	}
 	
 	/**
@@ -347,6 +350,10 @@ public class PropagateErrorSources {
 	 * @param conni
 	 */
 	protected void traceErrorFlows(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText){
+		if(ci == null)
+		{
+			return;
+		}
 			Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
 			if (!efs.isEmpty()){
 				Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFrom(efs, ep);
