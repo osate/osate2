@@ -1416,6 +1416,11 @@ public class EMV2Util {
 		return Collections.EMPTY_LIST;
 	}
 
+	public static Collection<ErrorBehaviorState> getAllErrorBehaviorStates(ComponentInstance ci)
+	{
+		return getAllErrorBehaviorStates(ci.getComponentClassifier());
+	}
+	
 	
 	/**
 	 * return list of ErrorBehaviorEvents including those inherited from classifiers being extended

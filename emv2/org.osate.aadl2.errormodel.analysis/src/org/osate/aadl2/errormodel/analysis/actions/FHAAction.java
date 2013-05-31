@@ -96,6 +96,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		WriteToFile report = new WriteToFile("FHA", si);
 		reportHeading(report);
 		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
+		processHazards(si, report);
 		for (ComponentInstance componentInstance : cilist) {
 			processHazards(componentInstance, report);
 		}
@@ -146,6 +147,21 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				//condElement.getIncoming()
 			}
 
+		}
+		 
+		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci))
+		{
+
+			ContainedNamedElement PA = null;
+			ContainedNamedElement Sev = null;
+			ContainedNamedElement Like = null;
+			PA = EMV2Util.getHazardProperty(ci, null,state,state.getTypeSet());
+			Sev = getSeverityProperty(ci, null,state,state.getTypeSet());
+			Like = getLikelihoodProperty(ci, null,state,state.getTypeSet());
+			if ((PA != null) && (Sev != null) && (Like != null))
+			{
+				reportHazardProperty(ci, PA, Sev, Like, null, state.getTypeSet(), state,report);
+			}
 		}
 
 
@@ -288,6 +304,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		if ((ci.getContainingComponentInstance() != null) && (ci.getContainingComponentInstance() != ci.getSystemInstance()))
 		{
 			componentName = ci.getContainingComponentInstance().getName() + "/" + componentName;
+		}
+		if (ci instanceof SystemInstance)
+		{
+			componentName = "Root system";
 		}
 		// component name & error propagation name/type
 		report.addOutput(componentName+", "+(typetext.isEmpty()?"":typetext+" on ")+failureModeName);
