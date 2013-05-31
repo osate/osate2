@@ -276,7 +276,7 @@ public class InstanceModelUtil {
 		  	//when all the timing properties are not null ! except the ARC related properties.
 		  	try
 		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding(connectionInstance);
+		  		bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	}
 		  	catch (PropertyNotPresentException e)
 		  	{
@@ -307,7 +307,7 @@ public class InstanceModelUtil {
 		  	//when all the timing properties are not null ! except the ARC related properties.
 		  	try
 		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding(connectionInstance);
+		  		bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	}
 		  	catch (PropertyNotPresentException e)
 		  	{
@@ -341,7 +341,7 @@ public class InstanceModelUtil {
 		  	//when all the timing properties are not null ! except the ARC related properties.
 		  	try
 		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding(connectionInstance);
+		  		bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	}
 		  	catch (PropertyNotPresentException e)
 		  	{
@@ -372,7 +372,7 @@ public class InstanceModelUtil {
 		  	//when all the timing properties are not null ! except the ARC related properties.
 		  	try
 		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding(elt);
+		  		bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)elt);
 		  	}
 		  	catch (PropertyNotPresentException e)
 		  	{

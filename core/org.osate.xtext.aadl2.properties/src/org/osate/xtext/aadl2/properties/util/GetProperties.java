@@ -212,7 +212,7 @@ public class GetProperties {
 		return components;
 	}
 
-	public static List<ComponentInstance> getActualConnectionBinding(final ComponentInstance io) {
+	public static List<ComponentInstance> getActualConnectionBinding(final ConnectionInstance io) {
 		Property actualConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_CONNECTION_BINDING);
 		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualConnectionBinding);
@@ -254,14 +254,15 @@ public class GetProperties {
 		return components;
 	}
 
-	public static List<ComponentInstance> getActualConnectionBinding(final NamedElement ne) {
+	public static List<? extends PropertyExpression> getActualConnectionBinding(final NamedElement ne) {
 			Property actualConnectionBinding = lookupPropertyDefinition(ne,DeploymentProperties._NAME,
 					DeploymentProperties.ACTUAL_CONNECTION_BINDING);
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(actualConnectionBinding);
 			ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
-			for (PropertyExpression propertyExpression : propertyValues)
-				components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
-			return components;
+			return propertyValues;
+			//			for (PropertyExpression propertyExpression : propertyValues)
+//				components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+//			return components;
 	}
 
 	public static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
