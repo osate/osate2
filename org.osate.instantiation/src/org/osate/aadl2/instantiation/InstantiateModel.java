@@ -1256,6 +1256,24 @@ public class InstantiateModel {
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
 						}
+					} else if (patternName.equalsIgnoreCase("Even_To_Even")) {
+						for (long i = 2; i <= srcSizes.get(srcOffset); i=i+2) {
+							srcIndices.add(i);
+							dstIndices.add(i);
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
+					} else if (patternName.equalsIgnoreCase("Odd_To_Odd")) {
+						for (long i = 1; i <= srcSizes.get(srcOffset); i=i+2) {
+							srcIndices.add(i);
+							dstIndices.add(i);
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
 					}
 				}
 			}
