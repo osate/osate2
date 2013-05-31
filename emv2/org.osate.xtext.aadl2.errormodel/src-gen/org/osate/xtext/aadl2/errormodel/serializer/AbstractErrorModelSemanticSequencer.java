@@ -1031,7 +1031,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID? 
 	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | all?='all') 
 	 *         condition=ConditionExpression? 
-	 *         ((outgoing=[ErrorPropagation|ErrorPropagationPoint] typeToken=TypeToken?) | (outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?='mask'))
+	 *         (
+	 *             ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?='all') typeToken=TypeToken?) | 
+	 *             (outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?='mask')
+	 *         )
 	 *     )
 	 */
 	protected void sequence_OutgoingPropagationCondition(EObject context, OutgoingPropagationCondition semanticObject) {

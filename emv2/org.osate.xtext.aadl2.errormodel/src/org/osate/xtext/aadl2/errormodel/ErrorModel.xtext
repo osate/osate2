@@ -389,7 +389,7 @@ OutgoingPropagationCondition returns OutgoingPropagationCondition:
     	| all?='all'
     )
 	'-[' (condition=ConditionExpression)? ']->' 
-	((outgoing=[ErrorPropagation|ErrorPropagationPoint] (typeToken=TypeToken)?)|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask'))
+	(((outgoing=[ErrorPropagation|ErrorPropagationPoint]|all?='all' )(typeToken=TypeToken)?)|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask'))
 	 ';'
 ;
 

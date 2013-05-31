@@ -65,6 +65,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEventOrPropagationAccess().getAlternatives(), "rule__EventOrPropagation__Alternatives");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getAlternatives_1(), "rule__OutgoingPropagationCondition__Alternatives_1");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getAlternatives_5(), "rule__OutgoingPropagationCondition__Alternatives_5");
+					put(grammarAccess.getOutgoingPropagationConditionAccess().getAlternatives_5_0_0(), "rule__OutgoingPropagationCondition__Alternatives_5_0_0");
 					put(grammarAccess.getErrorDetectionAccess().getAlternatives_1(), "rule__ErrorDetection__Alternatives_1");
 					put(grammarAccess.getErrorDetectionAccess().getAlternatives_5(), "rule__ErrorDetection__Alternatives_5");
 					put(grammarAccess.getErrorCodeValueAccess().getAlternatives(), "rule__ErrorCodeValue__Alternatives");
@@ -394,7 +395,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getTypeTokenConstraintAssignment_1_0_1(), "rule__OutgoingPropagationCondition__TypeTokenConstraintAssignment_1_0_1");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getAllAssignment_1_1(), "rule__OutgoingPropagationCondition__AllAssignment_1_1");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getConditionAssignment_3(), "rule__OutgoingPropagationCondition__ConditionAssignment_3");
-					put(grammarAccess.getOutgoingPropagationConditionAccess().getOutgoingAssignment_5_0_0(), "rule__OutgoingPropagationCondition__OutgoingAssignment_5_0_0");
+					put(grammarAccess.getOutgoingPropagationConditionAccess().getOutgoingAssignment_5_0_0_0(), "rule__OutgoingPropagationCondition__OutgoingAssignment_5_0_0_0");
+					put(grammarAccess.getOutgoingPropagationConditionAccess().getAllAssignment_5_0_0_1(), "rule__OutgoingPropagationCondition__AllAssignment_5_0_0_1");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getTypeTokenAssignment_5_0_1(), "rule__OutgoingPropagationCondition__TypeTokenAssignment_5_0_1");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getOutgoingAssignment_5_1_0(), "rule__OutgoingPropagationCondition__OutgoingAssignment_5_1_0");
 					put(grammarAccess.getOutgoingPropagationConditionAccess().getMaskAssignment_5_1_1(), "rule__OutgoingPropagationCondition__MaskAssignment_5_1_1");

@@ -3710,9 +3710,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cAlternatives_5.eContents().get(0);
-		private final Assignment cOutgoingAssignment_5_0_0 = (Assignment)cGroup_5_0.eContents().get(0);
-		private final CrossReference cOutgoingErrorPropagationCrossReference_5_0_0_0 = (CrossReference)cOutgoingAssignment_5_0_0.eContents().get(0);
-		private final RuleCall cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_1 = (RuleCall)cOutgoingErrorPropagationCrossReference_5_0_0_0.eContents().get(1);
+		private final Alternatives cAlternatives_5_0_0 = (Alternatives)cGroup_5_0.eContents().get(0);
+		private final Assignment cOutgoingAssignment_5_0_0_0 = (Assignment)cAlternatives_5_0_0.eContents().get(0);
+		private final CrossReference cOutgoingErrorPropagationCrossReference_5_0_0_0_0 = (CrossReference)cOutgoingAssignment_5_0_0_0.eContents().get(0);
+		private final RuleCall cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_0_1 = (RuleCall)cOutgoingErrorPropagationCrossReference_5_0_0_0_0.eContents().get(1);
+		private final Assignment cAllAssignment_5_0_0_1 = (Assignment)cAlternatives_5_0_0.eContents().get(1);
+		private final Keyword cAllAllKeyword_5_0_0_1_0 = (Keyword)cAllAssignment_5_0_0_1.eContents().get(0);
 		private final Assignment cTypeTokenAssignment_5_0_1 = (Assignment)cGroup_5_0.eContents().get(1);
 		private final RuleCall cTypeTokenTypeTokenParserRuleCall_5_0_1_0 = (RuleCall)cTypeTokenAssignment_5_0_1.eContents().get(0);
 		private final Group cGroup_5_1 = (Group)cAlternatives_5.eContents().get(1);
@@ -3727,16 +3730,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | all?="all") "-["
 		//
-		//	condition=ConditionExpression? "]->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] typeToken=TypeToken? |
+		//	condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all")
 		//
-		//	outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";";
+		//	typeToken=TypeToken? | outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | all?="all") "-["
 		//
-		//condition=ConditionExpression? "]->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] typeToken=TypeToken? |
+		//condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all")
 		//
-		//outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";"
+		//typeToken=TypeToken? | outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";"
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ":")?
@@ -3790,22 +3793,31 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"]->"
 		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4; }
 
-		//outgoing=[ErrorPropagation|ErrorPropagationPoint] typeToken=TypeToken? |
+		//(outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all") typeToken=TypeToken? |
 		//
 		//outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask"
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
-		//outgoing=[ErrorPropagation|ErrorPropagationPoint] typeToken=TypeToken?
+		//(outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all") typeToken=TypeToken?
 		public Group getGroup_5_0() { return cGroup_5_0; }
 
+		//outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all"
+		public Alternatives getAlternatives_5_0_0() { return cAlternatives_5_0_0; }
+
 		//outgoing=[ErrorPropagation|ErrorPropagationPoint]
-		public Assignment getOutgoingAssignment_5_0_0() { return cOutgoingAssignment_5_0_0; }
+		public Assignment getOutgoingAssignment_5_0_0_0() { return cOutgoingAssignment_5_0_0_0; }
 
 		//[ErrorPropagation|ErrorPropagationPoint]
-		public CrossReference getOutgoingErrorPropagationCrossReference_5_0_0_0() { return cOutgoingErrorPropagationCrossReference_5_0_0_0; }
+		public CrossReference getOutgoingErrorPropagationCrossReference_5_0_0_0_0() { return cOutgoingErrorPropagationCrossReference_5_0_0_0_0; }
 
 		//ErrorPropagationPoint
-		public RuleCall getOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_1() { return cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_1; }
+		public RuleCall getOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_0_1() { return cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_0_1; }
+
+		//all?="all"
+		public Assignment getAllAssignment_5_0_0_1() { return cAllAssignment_5_0_0_1; }
+
+		//"all"
+		public Keyword getAllAllKeyword_5_0_0_1_0() { return cAllAllKeyword_5_0_0_1_0; }
 
 		//typeToken=TypeToken?
 		public Assignment getTypeTokenAssignment_5_0_1() { return cTypeTokenAssignment_5_0_1; }
@@ -5453,9 +5465,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | all?="all") "-["
 	//
-	//	condition=ConditionExpression? "]->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] typeToken=TypeToken? |
+	//	condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | all?="all")
 	//
-	//	outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";";
+	//	typeToken=TypeToken? | outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?="mask") ";";
 	public OutgoingPropagationConditionElements getOutgoingPropagationConditionAccess() {
 		return (pOutgoingPropagationCondition != null) ? pOutgoingPropagationCondition : (pOutgoingPropagationCondition = new OutgoingPropagationConditionElements());
 	}

@@ -5055,7 +5055,7 @@ ruleOutgoingPropagationCondition returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getOutgoingPropagationConditionAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4());
     }
-(((
+((((
 (
 		{
 			if ($current==null) {
@@ -5063,26 +5063,43 @@ ruleOutgoingPropagationCondition returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getOutgoingErrorPropagationCrossReference_5_0_0_0()); 
+	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getOutgoingErrorPropagationCrossReference_5_0_0_0_0()); 
 	    }
 		ruleErrorPropagationPoint		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(
+)
+    |(
+(
+		lv_all_9_0=
+	KEYWORD_25
+    {
+        newLeafNode(lv_all_9_0, grammarAccess.getOutgoingPropagationConditionAccess().getAllAllKeyword_5_0_0_1_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getOutgoingPropagationConditionRule());
+	        }
+       		setWithLastConsumed($current, "all", true, "all");
+	    }
+
+)
+))(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getTypeTokenTypeTokenParserRuleCall_5_0_1_0()); 
 	    }
-		lv_typeToken_9_0=ruleTypeToken		{
+		lv_typeToken_10_0=ruleTypeToken		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getOutgoingPropagationConditionRule());
 	        }
        		set(
        			$current, 
        			"typeToken",
-        		lv_typeToken_9_0, 
+        		lv_typeToken_10_0, 
         		"TypeToken");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -5106,10 +5123,10 @@ ruleOutgoingPropagationCondition returns [EObject current=null]
 )
 )?(
 (
-		lv_mask_11_0=
+		lv_mask_12_0=
 	KEYWORD_33
     {
-        newLeafNode(lv_mask_11_0, grammarAccess.getOutgoingPropagationConditionAccess().getMaskMaskKeyword_5_1_1_0());
+        newLeafNode(lv_mask_12_0, grammarAccess.getOutgoingPropagationConditionAccess().getMaskMaskKeyword_5_1_1_0());
     }
 
 	    {
@@ -5121,9 +5138,9 @@ ruleOutgoingPropagationCondition returns [EObject current=null]
 
 )
 )))
-	otherlv_12=KEYWORD_10
+	otherlv_13=KEYWORD_10
     {
-    	newLeafNode(otherlv_12, grammarAccess.getOutgoingPropagationConditionAccess().getSemicolonKeyword_6());
+    	newLeafNode(otherlv_13, grammarAccess.getOutgoingPropagationConditionAccess().getSemicolonKeyword_6());
     }
 )
 ;
