@@ -155,11 +155,13 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 			if (ftaEvent != null)
 			{
 				this.ftaFile = new WriteToFile("Fault Tree Analysis", si);
+				this.ftaFile.setSuffix(ERROR_STATE_NAME);
 				this.ftaFile.setFileExtension("xml");
 				this.ftaFile.addOutput(ftaEvent.toXML());
 				this.ftaFile.saveToFile();
 				
 				this.ftaFile = new WriteToFile("Fault Tree Analysis", si);
+				this.ftaFile.setSuffix(ERROR_STATE_NAME);
 				this.ftaFile.setFileExtension("fta");
 				this.ftaFile.addOutput("NULL\nS NULL 0\n3 fta\n");
 				this.ftaFile.addOutput(ftaEvent.toFTA());
