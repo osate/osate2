@@ -135,6 +135,11 @@ TypeToken returns TypeToken:
      '(' type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])* ')'
 ;
 
+TypeTokenOrNoError returns TypeToken:
+	{TypeToken}
+     '(' (( type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])*) | 'noerror') ')'
+;
+
 TypeTokenConstraint returns TypeSet:
 	TypeSetReference
 ;
@@ -201,7 +206,7 @@ PropagationKind  : ('processor'|'memory'|'bus'|'device'|'system'|('virtual' 'bus
 
 ErrorSource returns ErrorSource:
   name=ID ':' 'error' 'source' (outgoing=[ErrorPropagation|ErrorPropagationPoint]
-  	|all?='all'
+  	|allOutgoing?='all'
   ) (typeTokenConstraint=TypeTokenConstraint)?
   	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetConstructor )?) 
   		| (  failureModeType = TypeSetConstructor )
@@ -211,11 +216,11 @@ ErrorSource returns ErrorSource:
 ErrorBehaviorStateOrTypeSet: ErrorBehaviorState | TypeSetDefinition;
 
 ErrorSink returns ErrorSink:
-  name=ID ':' 'error' 'sink' incoming=[ErrorPropagation|ErrorPropagationPoint] (typeTokenConstraint=TypeTokenConstraint)?
+  name=ID ':' 'error' 'sink' (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') (typeTokenConstraint=TypeTokenConstraint)?
   ';';
 
 ErrorPath returns ErrorPath:
-  name=ID ':' 'error' 'path' incoming=[ErrorPropagation|ErrorPropagationPoint] ( typeTokenConstraint=TypeTokenConstraint)? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint]|all?='all') 
+  name=ID ':' 'error' 'path' (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') ( typeTokenConstraint=TypeTokenConstraint)? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint]|allOutgoing?='all') 
   ( targetToken=TypeToken | 'use' 'mappings' typeMappingSet=[TypeMappingSet|QEMREF])?
   ';';
 
@@ -287,10 +292,12 @@ ErrorBehaviorState returns ErrorBehaviorState:
 ErrorBehaviorTransition returns ErrorBehaviorTransition:
   (name = ID ':')? 
   ((source=[ErrorBehaviorState|ID] (typeTokenConstraint=TypeTokenConstraint)?)
-  	| all?='all')
-   '-[' condition=ConditionExpression ']->' 
+  	| allStates?='all')
+   '-[' condition=ConditionExpression ((']->' 
   (((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?)|mask?='mask')
-  	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )+ ')'))
+  	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )+ ')')))
+  	| mask ?= ']'
+  	)
   ';';
 
 TransitionBranch returns TransitionBranch:  
@@ -386,10 +393,12 @@ EventOrPropagation :
 OutgoingPropagationCondition returns OutgoingPropagationCondition: 
     (name = ID ':')? 
     ((state=[ErrorBehaviorState|ID] (typeTokenConstraint=TypeTokenConstraint)?)
-    	| all?='all'
+    	| allStates?='all'
     )
 	'-[' (condition=ConditionExpression)? ']->' 
-	((outgoing=[ErrorPropagation|ErrorPropagationPoint] (typeToken=TypeToken)?)|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask'))
+	(((outgoing=[ErrorPropagation|ErrorPropagationPoint]|allPropagations?='all' ) (typeToken=TypeTokenOrNoError)?)
+		|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask')
+	)
 	 ';'
 ;
 
@@ -398,7 +407,7 @@ OutgoingPropagationCondition returns OutgoingPropagationCondition:
 ErrorDetection returns ErrorDetection: 
     (name = ID ':' )?
     ((state=[ErrorBehaviorState|ID] (typeTokenConstraint=TypeTokenConstraint)?)|
-    	all?='all'
+    	allStates?='all'
     )
 	'-[' (condition=ConditionExpression)? ']->' 
 	( internalDetectionPort=InternalPort| detectionReportingPort=[aadl2::Port|ID] ) '!'

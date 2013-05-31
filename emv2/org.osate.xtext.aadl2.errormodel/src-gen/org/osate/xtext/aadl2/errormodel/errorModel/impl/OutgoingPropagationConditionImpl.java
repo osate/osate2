@@ -29,9 +29,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#isAll <em>All</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#isAllStates <em>All States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getOutgoing <em>Outgoing</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#isAllPropagations <em>All Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#getTypeToken <em>Type Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.OutgoingPropagationConditionImpl#isMask <em>Mask</em>}</li>
  * </ul>
@@ -62,24 +63,24 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
   protected TypeSet typeTokenConstraint;
 
   /**
-	 * The default value of the '{@link #isAll() <em>All</em>}' attribute.
+	 * The default value of the '{@link #isAllStates() <em>All States</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAll()
+	 * @see #isAllStates()
 	 * @generated
 	 * @ordered
 	 */
-  protected static final boolean ALL_EDEFAULT = false;
+  protected static final boolean ALL_STATES_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isAll() <em>All</em>}' attribute.
+	 * The cached value of the '{@link #isAllStates() <em>All States</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAll()
+	 * @see #isAllStates()
 	 * @generated
 	 * @ordered
 	 */
-  protected boolean all = ALL_EDEFAULT;
+  protected boolean allStates = ALL_STATES_EDEFAULT;
 
   /**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
@@ -100,6 +101,26 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 	 * @ordered
 	 */
   protected ErrorPropagation outgoing;
+
+  /**
+	 * The default value of the '{@link #isAllPropagations() <em>All Propagations</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #isAllPropagations()
+	 * @generated
+	 * @ordered
+	 */
+  protected static final boolean ALL_PROPAGATIONS_EDEFAULT = false;
+
+  /**
+	 * The cached value of the '{@link #isAllPropagations() <em>All Propagations</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #isAllPropagations()
+	 * @generated
+	 * @ordered
+	 */
+  protected boolean allPropagations = ALL_PROPAGATIONS_EDEFAULT;
 
   /**
 	 * The cached value of the '{@link #getTypeToken() <em>Type Token</em>}' containment reference.
@@ -244,9 +265,9 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isAll()
+  public boolean isAllStates()
   {
-		return all;
+		return allStates;
 	}
 
   /**
@@ -254,12 +275,12 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setAll(boolean newAll)
+  public void setAllStates(boolean newAllStates)
   {
-		boolean oldAll = all;
-		all = newAll;
+		boolean oldAllStates = allStates;
+		allStates = newAllStates;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL, oldAll, all));
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_STATES, oldAllStates, allStates));
 	}
 
   /**
@@ -347,6 +368,29 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 		outgoing = newOutgoing;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__OUTGOING, oldOutgoing, outgoing));
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public boolean isAllPropagations()
+  {
+		return allPropagations;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public void setAllPropagations(boolean newAllPropagations)
+  {
+		boolean oldAllPropagations = allPropagations;
+		allPropagations = newAllPropagations;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS, oldAllPropagations, allPropagations));
 	}
 
   /**
@@ -451,13 +495,15 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 				return basicGetState();
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT:
 				return getTypeTokenConstraint();
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL:
-				return isAll();
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_STATES:
+				return isAllStates();
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__CONDITION:
 				return getCondition();
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__OUTGOING:
 				if (resolve) return getOutgoing();
 				return basicGetOutgoing();
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS:
+				return isAllPropagations();
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
 				return getTypeToken();
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__MASK:
@@ -481,14 +527,17 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT:
 				setTypeTokenConstraint((TypeSet)newValue);
 				return;
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL:
-				setAll((Boolean)newValue);
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_STATES:
+				setAllStates((Boolean)newValue);
 				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__CONDITION:
 				setCondition((ConditionExpression)newValue);
 				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__OUTGOING:
 				setOutgoing((ErrorPropagation)newValue);
+				return;
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS:
+				setAllPropagations((Boolean)newValue);
 				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
 				setTypeToken((TypeToken)newValue);
@@ -515,14 +564,17 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT:
 				setTypeTokenConstraint((TypeSet)null);
 				return;
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL:
-				setAll(ALL_EDEFAULT);
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_STATES:
+				setAllStates(ALL_STATES_EDEFAULT);
 				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__CONDITION:
 				setCondition((ConditionExpression)null);
 				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__OUTGOING:
 				setOutgoing((ErrorPropagation)null);
+				return;
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS:
+				setAllPropagations(ALL_PROPAGATIONS_EDEFAULT);
 				return;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
 				setTypeToken((TypeToken)null);
@@ -547,12 +599,14 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 				return state != null;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN_CONSTRAINT:
 				return typeTokenConstraint != null;
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL:
-				return all != ALL_EDEFAULT;
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_STATES:
+				return allStates != ALL_STATES_EDEFAULT;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__CONDITION:
 				return condition != null;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__OUTGOING:
 				return outgoing != null;
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS:
+				return allPropagations != ALL_PROPAGATIONS_EDEFAULT;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN:
 				return typeToken != null;
 			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION__MASK:
@@ -572,8 +626,10 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (all: ");
-		result.append(all);
+		result.append(" (allStates: ");
+		result.append(allStates);
+		result.append(", allPropagations: ");
+		result.append(allPropagations);
 		result.append(", mask: ");
 		result.append(mask);
 		result.append(')');

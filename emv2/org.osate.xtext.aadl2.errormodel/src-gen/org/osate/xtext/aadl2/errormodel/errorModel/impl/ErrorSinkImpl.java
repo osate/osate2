@@ -21,6 +21,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSinkImpl#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSinkImpl#isAllIncoming <em>All Incoming</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,6 +38,26 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
 	 * @ordered
 	 */
   protected ErrorPropagation incoming;
+
+  /**
+	 * The default value of the '{@link #isAllIncoming() <em>All Incoming</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #isAllIncoming()
+	 * @generated
+	 * @ordered
+	 */
+  protected static final boolean ALL_INCOMING_EDEFAULT = false;
+
+  /**
+	 * The cached value of the '{@link #isAllIncoming() <em>All Incoming</em>}' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #isAllIncoming()
+	 * @generated
+	 * @ordered
+	 */
+  protected boolean allIncoming = ALL_INCOMING_EDEFAULT;
 
   /**
 	 * <!-- begin-user-doc -->
@@ -105,6 +126,29 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  public boolean isAllIncoming()
+  {
+		return allIncoming;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public void setAllIncoming(boolean newAllIncoming)
+  {
+		boolean oldAllIncoming = allIncoming;
+		allIncoming = newAllIncoming;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SINK__ALL_INCOMING, oldAllIncoming, allIncoming));
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -112,6 +156,8 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
 			case ErrorModelPackage.ERROR_SINK__INCOMING:
 				if (resolve) return getIncoming();
 				return basicGetIncoming();
+			case ErrorModelPackage.ERROR_SINK__ALL_INCOMING:
+				return isAllIncoming();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -127,6 +173,9 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
 		switch (featureID) {
 			case ErrorModelPackage.ERROR_SINK__INCOMING:
 				setIncoming((ErrorPropagation)newValue);
+				return;
+			case ErrorModelPackage.ERROR_SINK__ALL_INCOMING:
+				setAllIncoming((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -144,6 +193,9 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
 			case ErrorModelPackage.ERROR_SINK__INCOMING:
 				setIncoming((ErrorPropagation)null);
 				return;
+			case ErrorModelPackage.ERROR_SINK__ALL_INCOMING:
+				setAllIncoming(ALL_INCOMING_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -159,8 +211,27 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
 		switch (featureID) {
 			case ErrorModelPackage.ERROR_SINK__INCOMING:
 				return incoming != null;
+			case ErrorModelPackage.ERROR_SINK__ALL_INCOMING:
+				return allIncoming != ALL_INCOMING_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  @Override
+  public String toString()
+  {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (allIncoming: ");
+		result.append(allIncoming);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ErrorSinkImpl

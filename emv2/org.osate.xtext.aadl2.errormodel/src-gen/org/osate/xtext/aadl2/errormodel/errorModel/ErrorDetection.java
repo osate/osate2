@@ -18,7 +18,7 @@ import org.osate.aadl2.Port;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getState <em>State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAll <em>All</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAllStates <em>All States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getInternalDetectionPort <em>Internal Detection Port</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}</li>
@@ -85,30 +85,30 @@ public interface ErrorDetection extends EObject, NamedElement
   void setTypeTokenConstraint(TypeSet value);
 
   /**
-	 * Returns the value of the '<em><b>All</b></em>' attribute.
+	 * Returns the value of the '<em><b>All States</b></em>' attribute.
 	 * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>All</em>' attribute isn't clear,
+   * If the meaning of the '<em>All States</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>All</em>' attribute.
-	 * @see #setAll(boolean)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorDetection_All()
+	 * @return the value of the '<em>All States</em>' attribute.
+	 * @see #setAllStates(boolean)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorDetection_AllStates()
 	 * @model
 	 * @generated
 	 */
-  boolean isAll();
+  boolean isAllStates();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAll <em>All</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#isAllStates <em>All States</em>}' attribute.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>All</em>' attribute.
-	 * @see #isAll()
+	 * @param value the new value of the '<em>All States</em>' attribute.
+	 * @see #isAllStates()
 	 * @generated
 	 */
-  void setAll(boolean value);
+  void setAllStates(boolean value);
 
   /**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
