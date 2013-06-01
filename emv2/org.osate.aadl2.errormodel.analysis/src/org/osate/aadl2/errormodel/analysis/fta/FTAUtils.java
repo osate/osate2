@@ -168,7 +168,7 @@ public class FTAUtils
 						if (eop instanceof ErrorPropagation)
 						{
 							ErrorPropagation ep = (ErrorPropagation) ce.getIncoming();
-							Event newEvent = new Event ();
+							Event newEvent;
 							/*
 							 * Set the propagation name.
 							 */
@@ -184,6 +184,12 @@ public class FTAUtils
 								OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
 								
 								newEventName = tt.getType().get(0).getName();
+
+								newEvent = new Event();
+								newEvent.setName (newEventName);
+								newEvent.setEventType(EventType.EVENT);
+								propagations.add(newEvent);
+								OsateDebug.osateDebug("ep="  + ep);
 							}
 							
 							/*
@@ -197,14 +203,16 @@ public class FTAUtils
 								if (newEventName == null)
 								{
 									newEventName = fe.getFeature().getName();
+
+									newEvent = new Event();
+									newEvent.setName (newEventName);
+									newEvent.setEventType(EventType.EVENT);
+									propagations.add(newEvent);
+									OsateDebug.osateDebug("ep="  + ep);
 								}
 							}
 							
 
-							newEvent.setName (newEventName);
-							newEvent.setEventType(EventType.EVENT);
-							propagations.add(newEvent);
-							OsateDebug.osateDebug("ep="  + ep);
 						}
 						
 						if (eop instanceof ErrorEvent)
@@ -212,7 +220,7 @@ public class FTAUtils
 							
 							ErrorEvent ev = (ErrorEvent) ce.getIncoming();
 							OsateDebug.osateDebug("ev="  + ev);
-							Event newEvent = new Event ();
+							Event newEvent;
 							/*
 							 * Set the propagation name.
 							 */
@@ -230,6 +238,15 @@ public class FTAUtils
 									OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
 									
 									newEventName = tt.getType().get(0).getName();
+									OsateDebug.osateDebug("eventname="  + newEventName);
+
+									if (newEventName != null)
+									{
+										newEvent = new Event ();
+										newEvent.setName (newEventName);
+										newEvent.setEventType(EventType.EVENT);
+										propagations.add(newEvent);
+									}
 								}
 							}
 							/*
@@ -239,13 +256,14 @@ public class FTAUtils
 
 							if (newEventName == null)
 							{
+								newEvent = new Event ();
 								newEventName = ev.getName();
+								newEvent.setName (newEventName);
+								newEvent.setEventType(EventType.EVENT);
+								propagations.add(newEvent);
 							}
 							
 
-							newEvent.setName (newEventName);
-							newEvent.setEventType(EventType.EVENT);
-							propagations.add(newEvent);
 						}
 
 					}
