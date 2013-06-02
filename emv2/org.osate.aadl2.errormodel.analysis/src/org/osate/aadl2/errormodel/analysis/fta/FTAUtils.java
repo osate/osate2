@@ -167,6 +167,7 @@ public class FTAUtils
 						EventOrPropagation eop = ce.getIncoming();
 						if (eop instanceof ErrorPropagation)
 						{
+							
 							ErrorPropagation ep = (ErrorPropagation) ce.getIncoming();
 							Event newEvent;
 							/*
@@ -178,7 +179,7 @@ public class FTAUtils
 							 * First, we try to put the type name as the propagation
 							 * name.
 							 */
-							TypeSet ts = ep.getTypeSet();
+							TypeSet ts = ce.getConstraint();
 							for (TypeToken tt : ts.getElementType())
 							{
 								OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
