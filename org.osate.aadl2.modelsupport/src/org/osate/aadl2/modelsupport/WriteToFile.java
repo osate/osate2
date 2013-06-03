@@ -25,6 +25,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 public class WriteToFile {
 	
 	UnparseText textBuffer ;
+	String reportFolder;
 	String reportType;
 	EObject root;
 	String fileExtension;
@@ -43,6 +44,27 @@ public class WriteToFile {
 		this.root = root;
 		this.textBuffer = new UnparseText();
 		this.fileExtension = extension;
+	}
+	
+	public WriteToFile(String reportfolder, String reporttype, EObject root){
+		this.reportFolder = reportfolder;
+		this.reportType = reporttype;
+		this.root = root;
+		this.textBuffer = new UnparseText();
+		this.fileExtension = "csv";
+	}
+
+	public WriteToFile(String reportfolder,String reporttype, EObject root, String extension){
+		this.reportFolder = reportfolder;
+		this.reportType = reporttype;
+		this.root = root;
+		this.textBuffer = new UnparseText();
+		this.fileExtension = extension;
+	}
+	
+	public void setReportFolder (String s)
+	{
+		this.reportFolder = s;
 	}
 	
 	public void setSuffix (String s)
