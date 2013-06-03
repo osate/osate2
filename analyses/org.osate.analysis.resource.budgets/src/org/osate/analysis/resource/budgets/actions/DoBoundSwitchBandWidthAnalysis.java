@@ -57,7 +57,8 @@ public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 			return true;
 	}
 
-	protected DoBoundResourceAnalysisLogic getLogicObject(AnalysisErrorReporterManager loggingErrManager) {
+	@Override
+	protected DoBoundResourceAnalysisLogic getLogicObject() {
 		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), reportMessage, this);
 	}
 }

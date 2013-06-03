@@ -51,7 +51,8 @@ public class DoSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 		return "Bus bandwidth analysis";
 	}
 
-	protected DoBoundResourceAnalysisLogic getLogicObject(AnalysisErrorReporterManager loggingErrManager) {
+	@Override
+	protected DoBoundResourceAnalysisLogic getLogicObject() {
 		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), reportMessage, this);
 	}
 

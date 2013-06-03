@@ -301,6 +301,7 @@ public class DoResourceBudgetLogic {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.error(obj, msg);
+		reportMessage.append("** " +msg+"\n");
 	}
 
 	private void warningSummary(final Element obj, String somName, String msg) {
@@ -308,6 +309,7 @@ public class DoResourceBudgetLogic {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.warning(obj, msg);
+		reportMessage.append("* " +msg+"\n");
 	}
 
 	private void infoSummary(final Element obj, String somName, String msg) {
@@ -315,6 +317,7 @@ public class DoResourceBudgetLogic {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.info(obj, msg);
+		reportMessage.append(msg+"\n");
 	}
 
 	public String getResultsMessages() {

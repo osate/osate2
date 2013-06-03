@@ -477,15 +477,27 @@ public class DoBoundResourceAnalysisLogic {
 	}
 
 	protected void errorSummary(final Element obj, String somName, String msg) {
-		errManager.error(obj, somName+msg);
+		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		errManager.error(obj, msg);
+		reportMessage.append("** "+msg+"\n");
 	}
 
 	protected void warningSummary(final Element obj, String somName, String msg) {
-		errManager.warning(obj, somName+msg);
+		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		errManager.warning(obj, msg);
+		reportMessage.append("* " +msg+"\n");
 	}
 
 	protected void infoSummary(final Element obj, String somName, String msg) {
-		errManager.info(obj, somName+msg);
+		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		errManager.info(obj, msg);
+		reportMessage.append(msg+"\n");
 	}
 
 	protected String getResultsMessages() {
