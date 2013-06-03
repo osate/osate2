@@ -681,7 +681,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void logError( final String msg){
 		if (csvlog != null)
-		csvlog.addOutputNewline("ERROR: "+msg);
+		csvlog.addOutputNewline(",,ERROR: "+msg);
 	}
 
 	/**
@@ -690,7 +690,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void logWarning( final String msg){
 		if (csvlog != null)
-		csvlog.addOutputNewline("Warning: "+msg);
+		csvlog.addOutputNewline(",,Warning: "+msg);
 	}
 
 
