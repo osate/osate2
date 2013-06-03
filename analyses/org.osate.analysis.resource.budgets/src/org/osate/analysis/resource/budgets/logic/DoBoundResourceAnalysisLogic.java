@@ -100,7 +100,7 @@ public class DoBoundResourceAnalysisLogic {
 				final SystemOperationMode som = soms.nextSOM();
 				final String somName = Aadl2Util.getPrintableSOMName(som);
 				checkProcessorLoads(root, somName);
-//				checkVirtualProcessorLoads(root, somName);
+				checkVirtualProcessorLoads(root, somName);
 				checkMemoryLoads(root, somName);
 			}
 			monitor.done();
@@ -143,7 +143,7 @@ public class DoBoundResourceAnalysisLogic {
 	protected void checkProcessorLoad(ComponentInstance curProcessor, String somName) {
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(curProcessor);
 		double MIPScapacity = GetProperties.getMIPSCapacityInMIPS(curProcessor,0.0);
-		if (MIPScapacity == 0 && curProcessor.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)){
 			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundComponents(curProcessor);
