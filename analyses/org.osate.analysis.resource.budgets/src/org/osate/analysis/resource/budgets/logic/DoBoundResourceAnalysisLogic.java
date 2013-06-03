@@ -345,36 +345,28 @@ public class DoBoundResourceAnalysisLogic {
 			double budget = 0.0;
 			double actual = 0.0;
 			if (doBindings) {
-				if (GetProperties.getActualConnectionBinding(connectionInstance).isEmpty()){
-					// try to find a bus since there is not explicit binding
-					if (InstanceModelUtil.connectedByBus(connectionInstance, curBus) || (hasSwitchLoopback(connectionInstance, curBus) && loopback)) {
-						budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
-						if (budget == 0) {
-							errManager.warning(connectionInstance, "Connection " + connectionInstance.getName() + " has no bandwidth budget");
-						} else {
-							totalBandWidth += budget;
-						}
-					}
-				} else {
-					// we have a binding, is it to the current bus
-					if (InstanceModelUtil.isBoundToBus(connectionInstance, curBus)){
-						budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
-						actual = calcBandwidth(connectionInstance.getSource());
-						if (budget == 0 && actual == 0) {
+				// we have a binding, is it to the current bus
+				if (InstanceModelUtil.isBoundToBus(connectionInstance, curBus)||
+						// we derived a bus connection from the connection end bindings
+						InstanceModelUtil.connectedByBus(connectionInstance, curBus) || 
+						// we have a switch back 
+						(hasSwitchLoopback(connectionInstance, curBus) && loopback)) {
+				}
+				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
+				actual = calcBandwidth(connectionInstance.getSource());
+				if (budget == 0 && actual == 0) {
+					errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
+							+ " has no bandwidth budget or port output rates");
+				}
+				if (budget > 0) {
+					if (actual > 0) {
+						totalBandWidth += actual;
+						if (actual > budget) {
 							errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
-									+ " has no bandwidth budget or port output rates");
+									+ " has port-based bandwidth exceeds bandwidth budget");
 						}
-						if (budget > 0) {
-							if (actual > 0) {
-								totalBandWidth += actual;
-								if (actual > budget) {
-									errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
-											+ " has port-based bandwidth exceeds bandwidth budget");
-								}
-							} else {
-								totalBandWidth += budget;
-							}
-						}
+					} else {
+						totalBandWidth += budget;
 					}
 				}
 			} else {
