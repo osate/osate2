@@ -45,12 +45,14 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.impl.EnumerationLiteralImpl;
 import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -251,8 +253,45 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 						{
 							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
+
+							
 							newPA.setProperty(prop);
 							fillPropertyValue(connRef, newPA, propertyValue);
+							
+							
+							/*
+							 * FIXME JD
+							 * 
+							 * Try to look if the property references a component or not.
+							 * This was done to fix the issue related to the Bound Bus analysis plugin
+							 */
+							for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
+									.hasNext();) {
+								Element elem = content.next();
+								if (elem instanceof ModalPropertyValue)
+								{
+									ModalPropertyValue mpv = (ModalPropertyValue)elem;
+									if (mpv.getOwnedValue() instanceof ListValue)
+									{
+										ListValue lv = (ListValue)mpv.getOwnedValue();
+										for (Element e : lv.getOwnedListElements())
+										{
+											if (e instanceof ReferenceValue) {
+												PropertyExpression irv = ((ReferenceValue) e).instantiate(conni.getContainingComponentInstance());
+												//EcoreUtil.replace(e, irv);
+												lv.getOwnedListElements().remove(e);
+												lv.getOwnedListElements().add(irv);
+												//ref.removePropertyAssociations(prop);
+											}
+										}
+									}
+								}
+								if (elem instanceof ReferenceValue) {
+									PropertyExpression irv = ((ReferenceValue) elem).instantiate(conni.getContainingComponentInstance());
+									EcoreUtil.replace(elem, irv);
+
+								}
+							}
 
 							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
 
@@ -266,10 +305,14 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							if (setPA == null) 
 							{
 								setPA = newPA;
+								
+								/*
+								 * This code seems to be useless
 								newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 								newPA.setProperty(prop);
 								fillPropertyValue(connRef, newPA, propertyValue);
-
+								*/
+								
 								/*
 								 * JD bug 174
 								 * Also add the property to the connection reference
@@ -382,6 +425,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 			if (!proxy.isModal()) 
 			{
+									
 				pa.getOwnedValues().add(newVal);
 			} 
 			else 
