@@ -397,7 +397,7 @@ public class InstanceModelUtil {
 		  	//when all the timing properties are not null ! except the ARC related properties.
 		  	List<ComponentInstance> bindinglist= GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
-				if (boundComponentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
+				if (isVirtualBus(boundComponentInstance)){
 					if (isBoundToBus(boundComponentInstance,bus)){
 						return true;
 					}
@@ -420,7 +420,7 @@ public class InstanceModelUtil {
 		  	//when all the timing properties are not null ! except the ARC related properties.
 		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
-				if (boundComponentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
+				if (isVirtualBus(boundComponentInstance)){
 					if (isBoundToBus(boundComponentInstance)){
 						return true;
 					}
@@ -446,7 +446,7 @@ public class InstanceModelUtil {
 		  	//when all the timing properties are not null ! except the ARC related properties.
 		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
-				if (boundComponentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
+				if (isVirtualBus(boundComponentInstance)){
 					getRealConnectionBindings(connectionInstance,result);
 				} else {
 					result.add(boundComponentInstance);
