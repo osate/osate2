@@ -5,17 +5,20 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -149,6 +152,28 @@ public class InstanceModelUtil {
 					&& (((ComponentInstance) device).getCategory() == ComponentCategory.DEVICE))
 					||device instanceof DeviceSubcomponent;
 		}
+
+		/**
+		 * true of NamedElement is a ComponentInstance of category bus or a BusSubcomponent
+		 * @param bus
+		 * @return
+		 */
+		public static  boolean isBus(final NamedElement bus){
+			return ((bus instanceof ComponentInstance)
+					&& (((ComponentInstance) bus).getCategory() == ComponentCategory.BUS))
+					||bus instanceof BusSubcomponent;
+		}
+
+		/**
+		 * true of NamedElement is a ComponentInstance of category virtual bus or a VirtualBusSubcomponent
+		 * @param vbus
+		 * @return
+		 */
+		public static  boolean isVirtualBus(final NamedElement vbus){
+			return ((vbus instanceof ComponentInstance)
+					&& (((ComponentInstance) vbus).getCategory() == ComponentCategory.VIRTUAL_BUS))
+					||vbus instanceof VirtualBusSubcomponent;
+		}
 		
 		/**
 		 * true of NamedElement is a ComponentInstance of category processor or a ProcessorSubcomponent
@@ -162,7 +187,7 @@ public class InstanceModelUtil {
 		}
 		
 		/**
-		 * true of NamedElement is a ComponentInstance of category processor or a ProcessorSubcomponent
+		 * true of NamedElement is a ComponentInstance of category virtual processor or a VirtualProcessorSubcomponent
 		 * @param processor
 		 * @return
 		 */
@@ -170,6 +195,17 @@ public class InstanceModelUtil {
 			return ((processor instanceof ComponentInstance)
 					&& (((ComponentInstance) processor).getCategory() == ComponentCategory.PROCESSOR))
 					||processor instanceof ProcessorSubcomponent;
+		}
+		
+		/**
+		 * true of NamedElement is a ComponentInstance of category memory or a MemorySubcomponent
+		 * @param memory
+		 * @return
+		 */
+		public static  boolean isMemory(final NamedElement memory){
+			return ((memory instanceof ComponentInstance)
+					&& (((ComponentInstance) memory).getCategory() == ComponentCategory.MEMORY))
+					||memory instanceof MemorySubcomponent;
 		}
 		
 		/**
@@ -239,17 +275,9 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 		public static boolean isBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
-			List<ComponentInstance> bindinglist;
 			//construct a new schedulable component, and put into the runTimeComponents only
 			//when all the timing properties are not null ! except the ARC related properties.
-			try
-			{
-				bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
-			}
-			catch (PropertyNotPresentException e)
-			{
-				return false;
-			}
+				List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
@@ -262,7 +290,32 @@ public class InstanceModelUtil {
 			}
 			return false;
 		}
-		
+
+
+		/**
+		 * processor instance is directly or indirectly bound to the processor
+		 * It could be bound to a virtual processor which in turn is bound to a processor
+		 * the component instance can be a thread, process, or a virtual processor instance
+		 * @param componentInstance
+		 * @return processor instance
+		 */
+		public static ComponentInstance getBoundProcessor(ComponentInstance componentInstance){
+			//construct a new schedulable component, and put into the runTimeComponents only
+			//when all the timing properties are not null ! except the ARC related properties.
+			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
+			for (ComponentInstance boundCompInstance : bindinglist) {
+				if (isVirtualProcessor(boundCompInstance)){
+					// it is bound to or contained in
+					ComponentInstance res = getBoundProcessor(boundCompInstance);
+					if (res != null) return res;
+					return getContainingProcessor(boundCompInstance);
+				} else {
+					return boundCompInstance;
+				}
+			}
+			return null;
+		}
+
 		/**
 		 * returns true if container contains contained as instance.
 		 * @param container InstanceObject
@@ -277,6 +330,22 @@ public class InstanceModelUtil {
 				contained = (InstanceObject)contained.getOwner();
 			}
 			return false;
+		}
+
+		/**
+		 * returns containing processor instance.
+		 * @param vprocessor
+		 * @return ComponentInstance processor
+		 */
+		public static ComponentInstance getContainingProcessor(ComponentInstance vprocessor){
+			ComponentInstance res = vprocessor;
+			while (res != null ){
+				if (isProcessor(res)){
+					return res;
+				}
+				res = res.getContainingComponentInstance();
+			}
+			return null;
 		}
 		
 		/**
@@ -411,8 +480,9 @@ public class InstanceModelUtil {
 	  
 	  /**
 	   * return the hardware component of the connection instance end.
-	   * If it is a device return the device. If it is a software component, return the hardware component it is bound to.
-	   * If it is a feature instance, then look for the processor its enclosing component is bound to.
+	   * If its enclosing component is a hardware component or device return it. 
+	   * If its enclosing component  is a software component, return the processor it is bound to.
+	   * If its enclosing component is a software component, then look for the processor it is bound to.
 	   * If it is a component instance (BUS), return the bus
 	   * If it is a DATA, SUBPROGRAM, or SUBPROGRAM GROUP component instance, then return the memory it is bound to. 
 	   * @param cie
@@ -422,14 +492,13 @@ public class InstanceModelUtil {
 			if (cie instanceof FeatureInstance) {
 				FeatureInstance fi = (FeatureInstance) cie;
 				ComponentInstance swci = fi.getContainingComponentInstance();
-				if (swci.getCategory() == ComponentCategory.DEVICE) {
+				if (isDevice(swci)||isBus(swci)||isProcessor(swci)||isMemory(swci)) {
 					return swci;
 				}
-				List<ComponentInstance> ciList = GetProperties.getActualProcessorBinding(swci);
-				return ciList.isEmpty() ? null : ciList.get(0);
+				return getBoundProcessor(swci);
 			} else if (cie instanceof ComponentInstance){
 				ComponentInstance ci = (ComponentInstance)cie;
-				if (ci.getCategory() == ComponentCategory.BUS){
+				if (isBus(ci)){
 					return ci;
 				}
 					List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(ci);
