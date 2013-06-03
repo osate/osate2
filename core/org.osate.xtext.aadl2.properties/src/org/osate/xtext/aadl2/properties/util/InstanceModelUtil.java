@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.properties.util;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -7,6 +8,7 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortConnection;
@@ -21,6 +23,8 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 
 public class InstanceModelUtil {
@@ -233,6 +237,22 @@ public class InstanceModelUtil {
 			}
 			return false;
 		}
+		
+		/**
+		 * get all components bound to the given component
+		 * @param procorVP
+		 * @return
+		 */
+		public static EList<ComponentInstance> getBoundComponents(final ComponentInstance procorVP){
+			SystemInstance root = procorVP.getSystemInstance();
+			EList boundComponents = new ForAllElement() {
+				@Override
+				protected boolean suchThat(Element obj) {
+					return InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP);
+				}
+			}.processPreOrderComponentInstance(root,ComponentCategory.THREAD);
+			return boundComponents;
+		}
 
 
 		/**
@@ -386,5 +406,78 @@ public class InstanceModelUtil {
 		  return false;
 	}
 
+
+	  
+	  /**
+	   * return the hardware component of the connection instance end.
+	   * If it is a device return the device. If it is a software component, return the hardware component it is bound to.
+	   * If it is a feature instance, then look for the processor its enclosing component is bound to.
+	   * If it is a component instance (BUS), return the bus
+	   * If it is a DATA, SUBPROGRAM, or SUBPROGRAM GROUP component instance, then return the memory it is bound to. 
+	   * @param cie
+	   * @return hw component instance
+	   */
+	  public static ComponentInstance getHardwareComponent(ConnectionInstanceEnd cie) {
+			if (cie instanceof FeatureInstance) {
+				FeatureInstance fi = (FeatureInstance) cie;
+				ComponentInstance swci = fi.getContainingComponentInstance();
+				if (swci.getCategory() == ComponentCategory.DEVICE) {
+					return swci;
+				}
+				List<ComponentInstance> ciList = GetProperties.getActualProcessorBinding(swci);
+				return ciList.isEmpty() ? null : ciList.get(0);
+			} else if (cie instanceof ComponentInstance){
+				ComponentInstance ci = (ComponentInstance)cie;
+				if (ci.getCategory() == ComponentCategory.BUS){
+					return ci;
+				}
+					List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(ci);
+					return ciList.isEmpty() ? null : ciList.get(0);
+			}
+			return null;
+		}
+
+		/**
+		 * true if the processor of the port connection source is connected to the
+		 * specified bus
+		 * 
+		 * @param pci
+		 * @param curBus
+		 * @return
+		 */
+		public static boolean connectedByBus(ConnectionInstance pci, ComponentInstance curBus) {
+			ComponentInstance srcHW = getHardwareComponent(pci.getSource());
+			ComponentInstance dstHW = getHardwareComponent(pci.getDestination());
+			if (srcHW == null || dstHW == null || srcHW == dstHW)
+				return false;
+
+			return connectedToBus(srcHW, curBus) && connectedToBus(dstHW, curBus);
+
+		}
+
+		/**
+		 * is hardware component connected (directly) to the given bus
+		 * 
+		 * @param HWcomp ComponentInstance hardware component
+		 * @param bus ComponentInstance bus component
+		 * @return true if they are connected by bus access connection
+		 */
+		public static boolean connectedToBus(ComponentInstance HWcomp, ComponentInstance bus) {
+			EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
+			for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
+				ConnectionInstance srcaci = it.next();
+				if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
+					return true;
+				}
+			}
+			acl = bus.getDstConnectionInstances();
+			for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
+				ConnectionInstance dstaci = it.next();
+				if (dstaci.getSource().getContainingComponentInstance() == HWcomp) {
+					return true;
+				}
+			}
+			return false;
+		}
 
 }
