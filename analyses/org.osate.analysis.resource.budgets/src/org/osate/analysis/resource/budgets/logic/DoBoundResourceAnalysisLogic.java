@@ -147,10 +147,19 @@ public class DoBoundResourceAnalysisLogic {
 			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundComponents(curProcessor);
-		if (boundComponents.size() == 0) {
-			errorSummary(curProcessor, somName, "No application components bound to "
+		if (boundComponents.size() == 0&& MIPScapacity > 0) {
+			warningSummary(curProcessor, somName, "No application components bound to "
 					+ curProcessor.getComponentInstancePath());
 			return;
+		}
+		if (MIPScapacity == 0&&InstanceModelUtil.isVirtualProcessor(curProcessor)){
+			warningSummary(curProcessor, somName, "Virtual processor "
+					+ curProcessor.getComponentInstancePath()+" has no MIPS capacity or budget.");
+			return;
+		}
+		if (MIPScapacity == 0&&InstanceModelUtil.isProcessor(curProcessor)){
+			errorSummary(curProcessor, somName, "Processor "
+					+ curProcessor.getComponentInstancePath()+" has no MIPS capacity but has bound components.");
 		}
 		double totalMIPS = 0.0;
 		Set<ComponentInstance> covered = new HashSet<ComponentInstance>();
