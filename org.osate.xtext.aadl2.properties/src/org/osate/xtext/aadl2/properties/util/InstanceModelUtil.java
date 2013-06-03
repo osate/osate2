@@ -13,8 +13,10 @@ import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -149,6 +151,28 @@ public class InstanceModelUtil {
 		}
 		
 		/**
+		 * true of NamedElement is a ComponentInstance of category processor or a ProcessorSubcomponent
+		 * @param vprocessor
+		 * @return
+		 */
+		public static  boolean isVirtualProcessor(final NamedElement vprocessor){
+			return ((vprocessor instanceof ComponentInstance)
+					&& (((ComponentInstance) vprocessor).getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
+					||vprocessor instanceof VirtualProcessorSubcomponent;
+		}
+		
+		/**
+		 * true of NamedElement is a ComponentInstance of category processor or a ProcessorSubcomponent
+		 * @param processor
+		 * @return
+		 */
+		public static  boolean isProcessor(final NamedElement processor){
+			return ((processor instanceof ComponentInstance)
+					&& (((ComponentInstance) processor).getCategory() == ComponentCategory.PROCESSOR))
+					||processor instanceof ProcessorSubcomponent;
+		}
+		
+		/**
 		 * true of NamedElement is a ComponentInstance of category system or a SystemSubcomponent
 		 * @param system
 		 * @return
@@ -227,7 +251,8 @@ public class InstanceModelUtil {
 				return false;
 			}
 			for (ComponentInstance boundCompInstance : bindinglist) {
-				if (boundCompInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
+				if (isVirtualProcessor(boundCompInstance)){
+					// it is bound to or contained in
 					if (isBoundToProcessor(boundCompInstance,processor) || contains(processor,boundCompInstance)){
 						return true;
 					}
