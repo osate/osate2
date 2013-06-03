@@ -228,12 +228,28 @@ public class InstanceModelUtil {
 			}
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (boundCompInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
-					if (isBoundToProcessor(boundCompInstance,processor)){
+					if (isBoundToProcessor(boundCompInstance,processor) || contains(processor,boundCompInstance)){
 						return true;
 					}
 				} else if (boundCompInstance == processor){
 					return true;
 				}
+			}
+			return false;
+		}
+		
+		/**
+		 * returns true if container contains contained as instance.
+		 * @param container InstanceObject
+		 * @param contained InstanceObject
+		 * @return boolean
+		 */
+		public static boolean contains(InstanceObject container, InstanceObject contained){
+			while (contained != null ){
+				if (contained == container){
+					return true;
+				}
+				contained = (InstanceObject)contained.getOwner();
 			}
 			return false;
 		}
@@ -263,17 +279,9 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 		public static boolean isDirectlyBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
-			List<ComponentInstance> bindinglist;
+			List<ComponentInstance> bindinglist= GetProperties.getActualProcessorBinding(componentInstance);;
 			//construct a new schedulable component, and put into the runTimeComponents only
 			//when all the timing properties are not null ! except the ARC related properties.
-			try
-			{
-				bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
-			}
-			catch (PropertyNotPresentException e)
-			{
-				return false;
-			}
 			for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (boundComponentInstance == processor){
 					return true;
@@ -291,17 +299,9 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isBoundToBus(InstanceObject connectionInstance, ComponentInstance bus){
-		  	List<ComponentInstance> bindinglist;
 		  	//construct a new schedulable component, and put into the runTimeComponents only
 		  	//when all the timing properties are not null ! except the ARC related properties.
-		  	try
-		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
-		  	}
-		  	catch (PropertyNotPresentException e)
-		  	{
-		  		return false;
-		  	}
+		  	List<ComponentInstance> bindinglist= GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (boundComponentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
 					if (isBoundToBus(boundComponentInstance,bus)){
@@ -322,17 +322,9 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isBoundToBus(InstanceObject connectionInstance){
-		  	List<ComponentInstance> bindinglist;
 		  	//construct a new schedulable component, and put into the runTimeComponents only
 		  	//when all the timing properties are not null ! except the ARC related properties.
-		  	try
-		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
-		  	}
-		  	catch (PropertyNotPresentException e)
-		  	{
-		  		return false;
-		  	}
+		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (boundComponentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
 					if (isBoundToBus(boundComponentInstance)){
@@ -356,17 +348,9 @@ public class InstanceModelUtil {
 		  return getRealConnectionBindings(connectionInstance, result);
 	}
 	  private static EList<ComponentInstance> getRealConnectionBindings(InstanceObject connectionInstance, EList<ComponentInstance> result){
-		  	List<ComponentInstance> bindinglist;
 		  	//construct a new schedulable component, and put into the runTimeComponents only
 		  	//when all the timing properties are not null ! except the ARC related properties.
-		  	try
-		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
-		  	}
-		  	catch (PropertyNotPresentException e)
-		  	{
-		  		return result;
-		  	}
+		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (boundComponentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)){
 					getRealConnectionBindings(connectionInstance,result);
@@ -387,17 +371,9 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isDirectlyBoundToBus(InstanceObject elt, ComponentInstance bus){
-		  	List<ComponentInstance> bindinglist;
 		  	//construct a new schedulable component, and put into the runTimeComponents only
 		  	//when all the timing properties are not null ! except the ARC related properties.
-		  	try
-		  	{
-		  		bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)elt);
-		  	}
-		  	catch (PropertyNotPresentException e)
-		  	{
-		  		return false;
-		  	}
+		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)elt);
 		  	for (ComponentInstance componentInstance : bindinglist) {
 				if (componentInstance == bus){
 					return true;

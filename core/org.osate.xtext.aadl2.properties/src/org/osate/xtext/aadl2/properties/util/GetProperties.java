@@ -35,6 +35,7 @@ package org.osate.xtext.aadl2.properties.util;
 
 import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -204,7 +205,12 @@ public class GetProperties {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		Property actualProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualProcessorBinding);
+		List<? extends PropertyExpression> propertyValues ;
+		try {
+			propertyValues = io.getPropertyValueList(actualProcessorBinding);
+		} catch (Exception e) {
+			return components;
+		}
 		for (PropertyExpression propertyExpression : propertyValues){
 			InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
 			components.add((ComponentInstance)obj);
@@ -213,10 +219,15 @@ public class GetProperties {
 	}
 
 	public static List<ComponentInstance> getActualConnectionBinding(final ConnectionInstance io) {
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		Property actualConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_CONNECTION_BINDING);
-		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualConnectionBinding);
-		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		List<? extends PropertyExpression> propertyValues ;
+		try {
+			propertyValues = io.getPropertyValueList(actualConnectionBinding);
+		} catch (Exception e) {
+			return components;
+		}
 		for (PropertyExpression propertyExpression : propertyValues)
 			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
 		return components;
@@ -226,8 +237,13 @@ public class GetProperties {
 	public static List<ComponentInstance> getAllowedProcessorBinding(final ComponentInstance io) {
 		Property allowedProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_PROCESSOR_BINDING);
-		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(allowedProcessorBinding);
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		List<? extends PropertyExpression> propertyValues ;
+		try {
+			propertyValues = io.getPropertyValueList(allowedProcessorBinding);
+		} catch (Exception e) {
+			return components;
+		}
 		for (PropertyExpression propertyExpression : propertyValues)
 			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
 		return components;
@@ -237,8 +253,13 @@ public class GetProperties {
 	public static List<ComponentClassifier> getAllowedProcessorBindingClass(final ComponentInstance io) {
 		Property allowedProcessorBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_PROCESSOR_BINDING_CLASS);
-		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(allowedProcessorBindingClass);
 		ArrayList<ComponentClassifier> components = new ArrayList<ComponentClassifier>();
+		List<? extends PropertyExpression> propertyValues ;
+		try {
+			propertyValues = io.getPropertyValueList(allowedProcessorBindingClass);
+		} catch (Exception e) {
+			return components;
+		}
 		for (PropertyExpression propertyExpression : propertyValues)
 			components.add((ComponentClassifier)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
 		return components;
@@ -247,8 +268,13 @@ public class GetProperties {
 	public static List<ComponentInstance> getActualMemoryBinding(final InstanceObject io) {
 		Property actualMemoryBinding = lookupPropertyDefinition(io,DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_MEMORY_BINDING);
-		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualMemoryBinding);
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		List<? extends PropertyExpression> propertyValues ;
+		try {
+			propertyValues = io.getPropertyValueList(actualMemoryBinding);
+		} catch (Exception e) {
+			return components;
+		}
 		for (PropertyExpression propertyExpression : propertyValues)
 			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
 		return components;
@@ -257,12 +283,13 @@ public class GetProperties {
 	public static List<? extends PropertyExpression> getActualConnectionBinding(final NamedElement ne) {
 			Property actualConnectionBinding = lookupPropertyDefinition(ne,DeploymentProperties._NAME,
 					DeploymentProperties.ACTUAL_CONNECTION_BINDING);
-			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(actualConnectionBinding);
-			ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+			List<? extends PropertyExpression> propertyValues ;
+			try {
+				propertyValues = ne.getPropertyValueList(actualConnectionBinding);
+			} catch (Exception e) {
+				return Collections.EMPTY_LIST;
+			}
 			return propertyValues;
-			//			for (PropertyExpression propertyExpression : propertyValues)
-//				components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
-//			return components;
 	}
 
 	public static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
@@ -905,7 +932,12 @@ public class GetProperties {
 	public static List<ComponentClassifier> getBaseType(final NamedElement ne) {
 		Property baseType = lookupPropertyDefinition(ne,DataModel._NAME, DataModel.BASE_TYPE);
 		List<ComponentClassifier> res = new BasicEList<ComponentClassifier>();
-		List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(baseType);
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = ne.getPropertyValueList(baseType);
+		} catch (Exception e) {
+			return res;
+		}
 		for (PropertyExpression propertyExpression : propertyValues){
 			res.add((ComponentClassifier)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
 		}
@@ -915,7 +947,12 @@ public class GetProperties {
 	public static Classifier getSingleBaseType(final NamedElement ne){
     	Property baseType = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.BASE_TYPE);
     	if (baseType != null){
-    		List<? extends PropertyExpression> srcpropertyValues = ne.getPropertyValueList(baseType);
+    		List<? extends PropertyExpression> srcpropertyValues;
+    		try {
+    			srcpropertyValues = ne.getPropertyValueList(baseType);
+    		} catch (Exception e) {
+    			return null;
+    		}
     		if (srcpropertyValues.size() == 1){
     				PropertyExpression pv = srcpropertyValues.get(0);
     				return ((ClassifierValueImpl) pv).getClassifier();
