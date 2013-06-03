@@ -355,22 +355,22 @@ public class DoBoundResourceAnalysisLogic {
 						InstanceModelUtil.connectedByBus(connectionInstance, curBus) || 
 						// we have a switch back 
 						(hasSwitchLoopback(connectionInstance, curBus) && loopback)) {
-				}
-				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
-				actual = calcBandwidth(connectionInstance.getSource());
-				if (budget == 0 && actual == 0) {
-					errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
-							+ " has no bandwidth budget or port output rates");
-				}
-				if (budget > 0) {
-					if (actual > 0) {
-						totalBandWidth += actual;
-						if (actual > budget) {
-							errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
-									+ " has port-based bandwidth exceeds bandwidth budget");
+					budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
+					actual = calcBandwidth(connectionInstance.getSource());
+					if (budget == 0 && actual == 0) {
+						errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
+								+ " has no bandwidth budget or port output rates");
+					}
+					if (budget > 0) {
+						if (actual > 0) {
+							totalBandWidth += actual;
+							if (actual > budget) {
+								errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
+										+ " has port-based bandwidth exceeds bandwidth budget");
+							}
+						} else {
+							totalBandWidth += budget;
 						}
-					} else {
-						totalBandWidth += budget;
 					}
 				}
 			} else {
