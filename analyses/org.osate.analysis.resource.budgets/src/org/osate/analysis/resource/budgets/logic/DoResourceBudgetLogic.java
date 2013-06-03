@@ -66,11 +66,8 @@ public class DoResourceBudgetLogic {
 	private AbstractAaxlAction errManager;
 
 	public DoResourceBudgetLogic(final StringBuffer reportMessage,AbstractAaxlAction action){
-//			final AnalysisErrorReporterManager loggingErrManager, final AnalysisErrorReporterManager errManager) {
 		this.reportMessage = reportMessage;
 		this.errManager = action;
-//		this.loggingErrManager = loggingErrManager;
-//		this.errManager = errManager;
 	}
 
 	public void analyzeResourceBudget(final SystemInstance si, String somName) {

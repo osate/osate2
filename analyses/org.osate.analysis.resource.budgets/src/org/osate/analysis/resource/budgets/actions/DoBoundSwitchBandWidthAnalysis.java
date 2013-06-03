@@ -39,6 +39,7 @@
  */
 package org.osate.analysis.resource.budgets.actions;
 
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisLogic;
@@ -49,8 +50,14 @@ public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 		return "Bound bus bandwidth analysis";
 	}
 
+
+	@Override
+	protected boolean initializeAction(NamedElement obj) {
+	    	setCSVLog("BoundBandwidthBudgets", obj);
+			return true;
+	}
+
 	protected DoBoundResourceAnalysisLogic getLogicObject(AnalysisErrorReporterManager loggingErrManager) {
-		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), reportMessage, getErrorManager(),
-				loggingErrManager);
+		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), reportMessage, this);
 	}
 }

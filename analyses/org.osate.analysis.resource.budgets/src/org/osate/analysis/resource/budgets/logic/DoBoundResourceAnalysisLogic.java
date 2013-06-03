@@ -64,6 +64,7 @@ import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.architecture.InstanceValidation;
+import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -76,19 +77,13 @@ public class DoBoundResourceAnalysisLogic {
 	 * The string buffer that is used to record error messages.
 	 */
 	private final StringBuffer reportMessage;
-	private final AnalysisErrorReporterManager errManager;
-
-	/**
-	 * Secondary error reporter used to report to a string buffer.
-	 */
-	private final AnalysisErrorReporterManager loggingErrManager;
+	private AbstractAaxlAction errManager;
 
 	public DoBoundResourceAnalysisLogic(final String actionName, final StringBuffer reportMessage,
-			final AnalysisErrorReporterManager errManager, final AnalysisErrorReporterManager loggingErrManager) {
+			final AbstractAaxlAction  errManager) {
 		this.actionName = actionName;
 		this.reportMessage = reportMessage;
 		this.errManager = errManager;
-		this.loggingErrManager = loggingErrManager;
 	}
 
 	public void analysisBody(final IProgressMonitor monitor, final Element obj) {
@@ -483,17 +478,14 @@ public class DoBoundResourceAnalysisLogic {
 
 	protected void errorSummary(final Element obj, String somName, String msg) {
 		errManager.error(obj, somName+msg);
-		loggingErrManager.error(obj, somName+msg);
 	}
 
 	protected void warningSummary(final Element obj, String somName, String msg) {
 		errManager.warning(obj, somName+msg);
-		loggingErrManager.warning(obj, somName+msg);
 	}
 
 	protected void infoSummary(final Element obj, String somName, String msg) {
 		errManager.info(obj, somName+msg);
-		loggingErrManager.info(obj, somName+msg);
 	}
 
 	protected String getResultsMessages() {

@@ -41,6 +41,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.ui.dialogs.Dialog;
 
 /**
@@ -52,11 +53,10 @@ public class DoSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysisLogic
 	 * @param actionName
 	 * @param reportMessage
 	 * @param errManager
-	 * @param loggingErrManager
 	 */
 	public DoSwitchBandWidthAnalysisLogic(final String actionName, final StringBuffer reportMessage,
-			final AnalysisErrorReporterManager errManager, final AnalysisErrorReporterManager loggingErrManager) {
-		super(actionName, reportMessage, errManager, loggingErrManager);
+			final AbstractAaxlAction errManager) {
+		super(actionName, reportMessage, errManager);
 	}
 
 	/* (non-Javadoc)

@@ -48,7 +48,7 @@ public class DoBoundResourceAutoAnalysis extends AbstractAnalysis {
 	protected final boolean runImpl() {
 		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new StringBufferAnalysisErrorReporter.Factory("*** ",
 				"* ", "", reportMessage));
-		getLogicObject(loggingErrManager).analysisBody(new NullProgressMonitor(), getParameter());
+//		getLogicObject(loggingErrManager).analysisBody(new NullProgressMonitor(), getParameter());
 		return getErrorManager().getNumErrors() == 0;
 	}
 
@@ -59,9 +59,9 @@ public class DoBoundResourceAutoAnalysis extends AbstractAnalysis {
 	protected String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.ResourceObjectMarker";
 	}
-
-	protected DoBoundResourceAnalysisLogic getLogicObject(final AnalysisErrorReporterManager loggingErrManager) {
-		return new DoBoundResourceAnalysisLogic("Bound resource analysis", reportMessage, getErrorManager(),
-				loggingErrManager);
-	}
+//
+//	protected DoBoundResourceAnalysisLogic getLogicObject(final AnalysisErrorReporterManager loggingErrManager) {
+//		return new DoBoundResourceAnalysisLogic("Bound resource analysis", reportMessage, getErrorManager(),
+//				loggingErrManager);
+//	}
 }

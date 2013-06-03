@@ -40,7 +40,8 @@ import org.osate.analysis.resource.budgets.logic.DoSwitchBandWidthAnalysisLogic;
 
 public class DoSwitchBandWidthAutoAnalysis extends DoBoundResourceAutoAnalysis {
 	protected DoBoundResourceAnalysisLogic getLogicObject(AnalysisErrorReporterManager loggingErrManager) {
-		return new DoSwitchBandWidthAnalysisLogic("Bus bandwidth analysis", reportMessage, getErrorManager(),
-				loggingErrManager);
+		return null;
+//		new DoSwitchBandWidthAnalysisLogic("Bus bandwidth analysis", reportMessage, getErrorManager(),
+//				loggingErrManager);
 	}
 }
