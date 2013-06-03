@@ -47,12 +47,13 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoResourceBudgetLogic {
 	private final StringBuffer reportMessage;
-	private final AnalysisErrorReporterManager loggingErrManager;
-	private final AnalysisErrorReporterManager errManager;
+//	private final AnalysisErrorReporterManager loggingErrManager;
+//	private final AnalysisErrorReporterManager errManager;
 
 	private double capacity = 0;
 	private double vcapacity = 0;
@@ -62,12 +63,14 @@ public class DoResourceBudgetLogic {
 	private int budgetedComponents = 0;
 	private int resources = 0;
 	private int capacityResources = 0;
+	private AbstractAaxlAction errManager;
 
-	public DoResourceBudgetLogic(final StringBuffer reportMessage,
-			final AnalysisErrorReporterManager loggingErrManager, final AnalysisErrorReporterManager errManager) {
+	public DoResourceBudgetLogic(final StringBuffer reportMessage,AbstractAaxlAction action){
+//			final AnalysisErrorReporterManager loggingErrManager, final AnalysisErrorReporterManager errManager) {
 		this.reportMessage = reportMessage;
-		this.loggingErrManager = loggingErrManager;
-		this.errManager = errManager;
+		this.errManager = action;
+//		this.loggingErrManager = loggingErrManager;
+//		this.errManager = errManager;
 	}
 
 	public void analyzeResourceBudget(final SystemInstance si, String somName) {
@@ -301,7 +304,6 @@ public class DoResourceBudgetLogic {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.error(obj, msg);
-		loggingErrManager.error(obj, msg);
 	}
 
 	private void warningSummary(final Element obj, String somName, String msg) {
@@ -309,7 +311,6 @@ public class DoResourceBudgetLogic {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.warning(obj, msg);
-		loggingErrManager.warning(obj, msg);
 	}
 
 	private void infoSummary(final Element obj, String somName, String msg) {
@@ -317,7 +318,6 @@ public class DoResourceBudgetLogic {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.info(obj, msg);
-		loggingErrManager.info(obj, msg);
 	}
 
 	public String getResultsMessages() {

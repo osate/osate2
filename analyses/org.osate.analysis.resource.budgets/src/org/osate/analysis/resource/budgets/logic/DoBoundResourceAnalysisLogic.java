@@ -132,22 +132,6 @@ public class DoBoundResourceAnalysisLogic {
 		};
 		mal.processPreOrderComponentInstance(si, ComponentCategory.VIRTUAL_PROCESSOR);
 	}
-	
-	/**
-	 * get all components bound to the given component
-	 * @param procorVP
-	 * @return
-	 */
-	protected EList getBoundComponents(final ComponentInstance procorVP){
-		SystemInstance root = procorVP.getSystemInstance();
-		EList boundComponents = new ForAllElement() {
-			@Override
-			protected boolean suchThat(Element obj) {
-				return InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP);
-			}
-		}.processPreOrderComponentInstance(root,ComponentCategory.THREAD);
-		return boundComponents;
-	}
 
 
 	/**
@@ -162,15 +146,15 @@ public class DoBoundResourceAnalysisLogic {
 		if (MIPScapacity == 0 && curProcessor.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
 			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
-		EList boundComponents = getBoundComponents(curProcessor);
+		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundComponents(curProcessor);
 		if (boundComponents.size() == 0) {
 			errorSummary(curProcessor, somName, "No application components bound to "
 					+ curProcessor.getComponentInstancePath());
 			return;
 		}
 		double totalMIPS = 0.0;
-		Set covered = new HashSet();
-		for (Iterator it = boundComponents.iterator(); it.hasNext();) {
+		Set<ComponentInstance> covered = new HashSet<ComponentInstance>();
+		for (Iterator<ComponentInstance> it = boundComponents.iterator(); it.hasNext();) {
 			ComponentInstance bci = (ComponentInstance) it.next();
 			if (covered.contains(bci)) {
 				// one of the children has a budget, which was accounted for
@@ -363,7 +347,7 @@ public class DoBoundResourceAnalysisLogic {
 			if (doBindings) {
 				if (GetProperties.getActualConnectionBinding(connectionInstance).isEmpty()){
 					// try to find a bus since there is not explicit binding
-					if (connectedByBus(connectionInstance, curBus) || (hasSwitchLoopback(connectionInstance, curBus) && loopback)) {
+					if (InstanceModelUtil.connectedByBus(connectionInstance, curBus) || (hasSwitchLoopback(connectionInstance, curBus) && loopback)) {
 						budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 						if (budget == 0) {
 							errManager.warning(connectionInstance, "Connection " + connectionInstance.getName() + " has no bandwidth budget");
@@ -467,73 +451,12 @@ public class DoBoundResourceAnalysisLogic {
 	 * current bus
 	 */
 	protected boolean hasSwitchLoopback(ConnectionInstance pci, ComponentInstance curBus) {
-		ComponentInstance srcHW = getHardwareComponent(pci.getSource());
-		ComponentInstance dstHW = getHardwareComponent(pci.getDestination());
+		ComponentInstance srcHW = InstanceModelUtil.getHardwareComponent(pci.getSource());
+		ComponentInstance dstHW = InstanceModelUtil.getHardwareComponent(pci.getDestination());
 		if (srcHW == null || dstHW == null)
 			return false;
-		if (srcHW == dstHW && connectedToBus(srcHW, curBus)) {
+		if (srcHW == dstHW && InstanceModelUtil.connectedToBus(srcHW, curBus)) {
 			return true;
-		}
-		return false;
-	}
-
-	protected ComponentInstance getHardwareComponent(ConnectionInstanceEnd cie) {
-		if (cie instanceof FeatureInstance) {
-			FeatureInstance fi = (FeatureInstance) cie;
-			ComponentInstance swci = fi.getContainingComponentInstance();
-			if (swci.getCategory() == ComponentCategory.DEVICE) {
-				return swci;
-			}
-			List<ComponentInstance> ciList = GetProperties.getActualProcessorBinding(swci);
-			return ciList.isEmpty() ? null : ciList.get(0);
-		} else if (cie instanceof ComponentInstance){
-			ComponentInstance swci = (ComponentInstance)cie;
-			List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(swci);
-			return ciList.isEmpty() ? null : ciList.get(0);
-			
-		}
-		return null;
-	}
-
-	/**
-	 * true if the processor of the port connection source is connected to the
-	 * specified bus
-	 * 
-	 * @param pci
-	 * @param curBus
-	 * @return
-	 */
-	protected boolean connectedByBus(ConnectionInstance pci, ComponentInstance curBus) {
-		ComponentInstance srcHW = getHardwareComponent(pci.getSource());
-		ComponentInstance dstHW = getHardwareComponent(pci.getDestination());
-		if (srcHW == null || dstHW == null || srcHW == dstHW)
-			return false;
-
-		return connectedToBus(srcHW, curBus) && connectedToBus(dstHW, curBus);
-
-	}
-
-	/**
-	 * is hardware component connected (directly) to the given bus
-	 * 
-	 * @param HWcomp ComponentInstance hardware component
-	 * @param bus ComponentInstance bus component
-	 * @return true if they are connected by bus access connection
-	 */
-	protected boolean connectedToBus(ComponentInstance HWcomp, ComponentInstance bus) {
-		EList<ConnectionInstance> acl = bus.getSrcConnectionInstances();
-		for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
-			ConnectionInstance srcaci = it.next();
-			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
-				return true;
-			}
-		}
-		acl = bus.getDstConnectionInstances();
-		for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
-			ConnectionInstance dstaci = it.next();
-			if (dstaci.getSource().getContainingComponentInstance() == HWcomp) {
-				return true;
-			}
 		}
 		return false;
 	}

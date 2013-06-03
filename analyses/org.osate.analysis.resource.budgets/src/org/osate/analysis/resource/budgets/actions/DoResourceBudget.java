@@ -101,7 +101,7 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 				return;
 			}
 
-			logic = new DoResourceBudgetLogic(reportMessage, loggingErrManager, getErrorManager());
+			logic = new DoResourceBudgetLogic(reportMessage, this);
 			logic.analyzeResourceBudget(si, somName);
 //			}
 			monitor.done();

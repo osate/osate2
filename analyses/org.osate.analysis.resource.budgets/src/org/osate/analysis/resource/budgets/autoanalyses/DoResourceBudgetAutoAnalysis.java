@@ -54,9 +54,9 @@ public class DoResourceBudgetAutoAnalysis extends AbstractAnalysis {
 //		{
 //			final SystemOperationMode som = soms.nextSOM();
 //			final String somName = som.getName();
-		final String somName = null;
-		logic = new DoResourceBudgetLogic(reportMessage, loggingErrManager, getErrorManager());
-		logic.analyzeResourceBudget((SystemInstance) getParameter(), somName);
+//		final String somName = null;
+//		logic = new DoResourceBudgetLogic(reportMessage, this);//loggingErrManager, getErrorManager());
+//		logic.analyzeResourceBudget((SystemInstance) getParameter(), somName);
 //		}
 		return getErrorManager().getNumErrors() == 0;
 	}
