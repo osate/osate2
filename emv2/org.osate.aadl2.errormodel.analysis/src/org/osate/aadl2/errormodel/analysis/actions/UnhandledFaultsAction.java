@@ -117,19 +117,19 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			for (ConnectionReference connectionReference : connrefs) {
 				ConnectionInstanceEnd src = connectionReference.getSource();
 				ConnectionInstanceEnd dst = connectionReference.getDestination();
-				if (srcprop == null && src instanceof FeatureInstance){
+				if (srcprop == null && dst instanceof FeatureInstance){
 					srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)dst);
 				}
-				if (srccontain == null && src instanceof FeatureInstance){
+				if (srccontain == null && dst instanceof FeatureInstance){
 					srccontain = EMV2Util.getOutgoingErrorContainment((FeatureInstance)dst);
 				}
-				if (dst instanceof FeatureInstance){
+				if (src instanceof FeatureInstance){
 					ErrorPropagation founddst = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
 					if (founddst != null){
 						dstprop = founddst;
 					}
 				}
-				if (dst instanceof FeatureInstance){
+				if (src instanceof FeatureInstance){
 					ErrorPropagation founddst = EMV2Util.getOutgoingErrorContainment((FeatureInstance)src);
 					if (founddst != null){
 						dstcontain = founddst;
