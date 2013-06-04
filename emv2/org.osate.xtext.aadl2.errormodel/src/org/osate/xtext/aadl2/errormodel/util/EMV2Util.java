@@ -24,9 +24,12 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
@@ -2366,6 +2369,40 @@ public class EMV2Util {
 		EList<FeatureReference> frefs = ep.getFeaturerefs();
 		if (frefs.isEmpty()) return ci;
 		return frefs.get(frefs.size()-1).getFeature();
+	}
+	
+	/**
+	 * returns the feature instance in the component instance that is referenced by the Error Propagation (or Containment)
+	 * @param ep
+	 * @param ci
+	 * @return
+	 */
+	public static DirectionType getErrorPropagationPointDirection(ErrorPropagation ep){
+		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		boolean inverse = false;
+		for (int i=0;i < frefs.size()-1; i++){
+			NamedElement f = frefs.get(i).getFeature();
+			if (f instanceof FeatureGroup){
+				FeatureGroup fg = (FeatureGroup)f;
+				FeatureGroupType fgt = fg.getAllFeatureGroupType();
+				if (fg.isInverse()){
+					inverse = !inverse;
+				}
+				if (fgt != null && fgt.getInverse() != null){
+					inverse = !inverse;
+				}
+			}
+		}
+		NamedElement finalf = frefs.get(frefs.size()-1).getFeature();
+		if (finalf instanceof Port){
+			DirectionType portd = ((Port) finalf).getDirection();
+			if (inverse){
+				return portd.getInverseDirection();
+			} else {
+				return portd;
+			}
+		}
+		return null;
 	}
 	
 	/**
