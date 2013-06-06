@@ -256,15 +256,17 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			 * and add a binding relation with it.
 			 */
 			if ((this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)||
-				(this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.DEVICE))
+					(this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.DEVICE)||
+					(this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.VIRTUAL_PROCESSOR))
 			{
 				//System.out.println ("process " + adapter.getModelElement());
 				process = (ComponentInstance) adapter.getModelElement();
 				boundProcessors = GetProperties.getActualProcessorBinding((ComponentInstance)adapter.getModelElement());
 
-				if (boundProcessors.size() > 0)
+
+				for (int k = 0 ; k < boundProcessors.size() ; k++)
 				{
-					boundProcessor = boundProcessors.get(0);
+					boundProcessor = boundProcessors.get(k);
 					//System.out.println ("associated processor " + boundProcessor);
 					if (boundProcessor.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
 					{
@@ -281,28 +283,27 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 							boundProcessor = processorContainer;
 						}	
 					}
-				}
 
-
-				if ( (process != null) && (boundProcessor != null))
-				{
-					processAdapter = this.modelElementToAdapterMap.get(process);
-					boundResourceAdapter = this.modelElementToAdapterMap.get(boundProcessor);
-					if ( (processAdapter != null) && (boundResourceAdapter != null))
+					if ( (process != null) && (boundProcessor != null))
 					{
-						bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.PROCESSOR, this.labelProvider, processAdapter, boundResourceAdapter);
-
-						// JD: check if this happens
-
-						if (bindingAdapter != null)
+						processAdapter = this.modelElementToAdapterMap.get(process);
+						boundResourceAdapter = this.modelElementToAdapterMap.get(boundProcessor);
+						if ( (processAdapter != null) && (boundResourceAdapter != null))
 						{
-							// JD: Add to the main component.
-							componentAdapter.addChild(bindingAdapter);
+							bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.PROCESSOR, this.labelProvider, processAdapter, boundResourceAdapter);
+
+							// JD: check if this happens
+
+							if (bindingAdapter != null)
+							{
+								// JD: Add to the main component.
+								componentAdapter.addChild(bindingAdapter);
+							}
 						}
 					}
 				}
 			}
-			
+
 			
 			/*
 			 * Now, for each proceess, try to find the associated memory component
