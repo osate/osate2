@@ -275,8 +275,6 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 		public static boolean isBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
-			//construct a new schedulable component, and put into the runTimeComponents only
-			//when all the timing properties are not null ! except the ARC related properties.
 				List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
@@ -300,8 +298,6 @@ public class InstanceModelUtil {
 		 * @return processor instance
 		 */
 		public static ComponentInstance getBoundProcessor(ComponentInstance componentInstance){
-			//construct a new schedulable component, and put into the runTimeComponents only
-			//when all the timing properties are not null ! except the ARC related properties.
 			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
@@ -374,8 +370,6 @@ public class InstanceModelUtil {
 		 */
 		public static boolean isDirectlyBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
 			List<ComponentInstance> bindinglist= GetProperties.getActualProcessorBinding(componentInstance);;
-			//construct a new schedulable component, and put into the runTimeComponents only
-			//when all the timing properties are not null ! except the ARC related properties.
 			for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (boundComponentInstance == processor){
 					return true;
@@ -393,8 +387,6 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isBoundToBus(InstanceObject connectionInstance, ComponentInstance bus){
-		  	//construct a new schedulable component, and put into the runTimeComponents only
-		  	//when all the timing properties are not null ! except the ARC related properties.
 		  	List<ComponentInstance> bindinglist= GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (isVirtualBus(boundComponentInstance)){
@@ -416,8 +408,6 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isBoundToBus(InstanceObject connectionInstance){
-		  	//construct a new schedulable component, and put into the runTimeComponents only
-		  	//when all the timing properties are not null ! except the ARC related properties.
 		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (isVirtualBus(boundComponentInstance)){
@@ -442,8 +432,6 @@ public class InstanceModelUtil {
 		  return getRealConnectionBindings(connectionInstance, result);
 	}
 	  private static EList<ComponentInstance> getRealConnectionBindings(InstanceObject connectionInstance, EList<ComponentInstance> result){
-		  	//construct a new schedulable component, and put into the runTimeComponents only
-		  	//when all the timing properties are not null ! except the ARC related properties.
 		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (isVirtualBus(boundComponentInstance)){
@@ -465,8 +453,6 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isDirectlyBoundToBus(InstanceObject elt, ComponentInstance bus){
-		  	//construct a new schedulable component, and put into the runTimeComponents only
-		  	//when all the timing properties are not null ! except the ARC related properties.
 		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)elt);
 		  	for (ComponentInstance componentInstance : bindinglist) {
 				if (componentInstance == bus){
