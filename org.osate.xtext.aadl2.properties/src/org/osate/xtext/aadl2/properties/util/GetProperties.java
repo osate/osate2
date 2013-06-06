@@ -517,6 +517,7 @@ public class GetProperties {
 	 * @return MIPS or 0.0
 	 */
 	public static double getThreadExecutioninMIPS(ComponentInstance threadinstance) {
+		if (!InstanceModelUtil.isThread(threadinstance)) return 0;
 		double mips = getThreadExecutionIPDinMIPS(threadinstance);
 		if (mips == 0){
 			double period = getPeriodInSeconds(threadinstance, 0.0);
