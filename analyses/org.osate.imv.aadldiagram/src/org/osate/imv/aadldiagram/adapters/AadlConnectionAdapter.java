@@ -59,23 +59,6 @@ public class AadlConnectionAdapter extends AbstractAadlElementAdapter {
 	}
 
 	@Override
-	public Object getModelElement() {
-		Object me = super.getModelElement();
-		if (me instanceof ConnectionReference){
-			ConnectionReference connref = (ConnectionReference)me;
-			 ConnectionInstance conni = (ConnectionInstance)connref.getOwner();
-			 return conni;
-			 // trying to show individual connection
-//			if (conni.getKind() != ConnectionKind.FEATURE_GROUP_CONNECTION && connref.getConnection() instanceof FeatureGroupConnection){
-//				return connref.getConnection();
-//			} else {
-//				return conni;
-//			}
-		}
-		return me;
-	}
-
-	@Override
 	public SelectableMevConnectionFigure getFigure() {
 		if(figure == null) {
 			// Build figure.
