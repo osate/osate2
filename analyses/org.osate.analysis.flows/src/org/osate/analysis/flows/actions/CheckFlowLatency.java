@@ -102,13 +102,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, SystemInstance root, SystemOperationMode som) {
 		monitor.beginTask(getActionName(), 1);
-		String header = Aadl2Util.getPrintableSOMName(som);
-		if (!header.isEmpty())
-			csvlog.addOutputNewline(header);
-		header = "flow,model element,name,deadline or conn delay,sampling delay,partition delay,flow spec,additional, total, expected\n";
-		csvlog.addOutputNewline(header);
 		final FlowLatencyAnalysisSwitch flowLatencySwitch =
-			new FlowLatencyAnalysisSwitch( monitor, errManager,csvlog);
+			new FlowLatencyAnalysisSwitch( monitor, errManager,csvlog, som);
 		flowLatencySwitch.processPreOrderComponentInstance(root);
 		// XXX: disabled async analysis until we complete handling processor bindings
 		flowLatencySwitch.setIsAsynchronous();
@@ -124,12 +119,6 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	
 	public void saveCSVContent(){
 		csvlog.saveToFile();
-	}
-	
-	public void initCSVReport(NamedElement root){
-    	csvlog = new WriteToFile("FlowLatency", root);
-		String header = "flow,model element,name,deadline or conn delay,sampling delay,partition delay,flow spec,additional, total, expected\n\r";
-		csvlog.addOutputNewline(header);
 	}
 
 
