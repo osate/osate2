@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -398,8 +399,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				IAadlElementAdapter srcAdapter = null;
 				IAadlElementAdapter dstAdapter = null;
 				if (me instanceof InstanceObject){
-					srcAdapter = this.modelElementToAdapterMap.get(connectionItem.getSrc());
-					dstAdapter = this.modelElementToAdapterMap.get(connectionItem.getDest());
+					if (connectionItem.getSrc() instanceof InstanceObject){
+						srcAdapter = this.modelElementToAdapterMap.get(connectionItem.getSrc());
+						dstAdapter = this.modelElementToAdapterMap.get(connectionItem.getDest());
+					} else {
+						srcAdapter = findFeatureInstanceAdapter(connectionItem.getSrc());
+						dstAdapter = findFeatureInstanceAdapter(connectionItem.getDest());
+
+					}
 				} else {
 					Context dstCxt = connectionRef.getAllDestinationContext();
 					Context srcCxt = connectionRef.getAllSourceContext();
@@ -435,6 +442,20 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				}
 			}
 		}
+	}
+	
+	private IAadlElementAdapter findFeatureInstanceAdapter(Object ce){
+		Set<Object> keys = modelElementToAdapterMap.keySet();
+		for (Object object : keys) {
+			if (!(object instanceof InstanceObject)) return null;
+			if (object instanceof FeatureInstance){
+				FeatureInstance fi = (FeatureInstance)object;
+				if (fi.getFeature() == ce){
+					return modelElementToAdapterMap.get(fi);
+				}
+			}
+		}
+		return null;
 	}
 
 	public void addFlowPathsToComponent(AadlComponentAdapter componentAdapter) 
@@ -541,7 +562,6 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		List<FeatureGroupConnection> featureGroupConnections = new ArrayList<FeatureGroupConnection>();
 
 		// Only component instances have connections.
-		ComponentImplementation cimpl = null;
 		if(element instanceof ComponentInstance){
 			// do it based on connection instances
 			ComponentInstance ci = (ComponentInstance)element;
@@ -565,11 +585,33 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 					connectionList.add(new ConnectionItem(connref));
 				}
 			}
-
+			// now any incoming or outgoing that are not represented by connection instances
+			ComponentClassifier cl = ci.getComponentClassifier();
+			if (cl instanceof ComponentImplementation){
+				ComponentImplementation cimpl = (ComponentImplementation)cl;
+				List<Connection> connections = cimpl.getAllConnections();
+				for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
+					Connection conn = it.next();
+					if (!(conn.getAllDestinationContext() instanceof Subcomponent)||!(conn.getAllSourceContext() instanceof Subcomponent)){
+						// one end must not be a subcomponent
+						// Get connection source.
+						ConnectionEnd srcEnd = conn.getAllSource();
+						// Get connection destination.
+						ConnectionEnd dstEnd = conn.getAllDestination();
+						if(srcEnd != null && dstEnd != null) {
+							// We need to check for duplicate feature group connections (i.e. only one connection should be returned
+							// for feature group connections.
+							if (!duplicateConnectionItem(connectionList, conn, srcEnd, dstEnd)){
+								connectionList.add(new ConnectionItem(srcEnd, dstEnd, conn));
+							}
+						}
+					}
+				}
+			}
 		}
 		// Only component implementations have connections.
 		if(element instanceof ComponentImplementation){
-			cimpl = (ComponentImplementation)element;
+			ComponentImplementation cimpl = (ComponentImplementation)element;
 			// Get connection .
 			List<Connection> connections = cimpl.getAllConnections();
 			for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
@@ -590,6 +632,18 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		}
 
 		return connectionList;
+	}
+	
+	private boolean duplicateConnectionItem(List<ConnectionItem> connectionList,Connection conn, ConnectionEnd src, ConnectionEnd dst){
+		for (ConnectionItem connectionItem : connectionList) {
+			if (connectionItem.getConnectionReference()!=null){
+				ConnectionReference connref = connectionItem.getConnectionReference();
+				if (connref.getConnection() == conn){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 
