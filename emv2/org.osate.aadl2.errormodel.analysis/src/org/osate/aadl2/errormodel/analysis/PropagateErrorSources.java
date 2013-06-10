@@ -172,6 +172,7 @@ public class PropagateErrorSources {
 			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
 			for (TypeToken typeToken : result) {
 				String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
+				
 				traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
 			}
 		}
@@ -350,7 +351,7 @@ public class PropagateErrorSources {
 	 * @param conni
 	 */
 	protected void traceErrorFlows(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText){
-		if(ci == null)
+		if (ci == null)
 		{
 			return;
 		}

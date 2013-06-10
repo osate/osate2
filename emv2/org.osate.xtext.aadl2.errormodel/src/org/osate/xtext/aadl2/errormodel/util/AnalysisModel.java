@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Feature;
@@ -20,8 +21,10 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -42,6 +45,30 @@ public class AnalysisModel {
 		List<ConnectionInstance> cilist = EcoreUtil2.getAllContentsOfType(root, ConnectionInstance.class);
 		for (ConnectionInstance connectionInstance : cilist) {
 			populateConnectionPropagationPaths(connectionInstance);
+		}
+		
+		List<ComponentInstance> complist = EcoreUtil2.getAllContentsOfType(root, ComponentInstance.class);
+		for (ComponentInstance ci : complist)
+		{
+			if (! EMV2Util.hasEMV2Subclause(ci))
+			{
+				continue;
+			}
+			if (ci.getComponentClassifier().getCategory() == ComponentCategory.PROCESS)
+			{
+				List<ComponentInstance> cpus = GetProperties.getActualProcessorBinding(ci);
+				if (cpus.size() > 0)
+				{
+					for (ComponentInstance cpu : cpus)
+					{
+						OsateDebug.osateDebug("add ci="+ ci);
+						OsateDebug.osateDebug("add cpu="+ ci);
+						populateConnectionPropagationPaths(ci, cpu);
+
+						subcomponents.add(ci);
+					}
+				}
+			}
 		}
 	}
 	
@@ -107,6 +134,38 @@ public class AnalysisModel {
 			}
 		}
 		propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance));
+		subcomponents.add(srcCI);
+		subcomponents.add(dstCI);
+	}
+	
+	/**
+	 * This is made to support the binding between component. Here, the first argument is the resources
+	 * bound (e.g. a process) and the boundResource argument the associated resources (e.g. a processor).
+	 * @param comp
+	 * @param boundResource
+	 */
+	protected void populateConnectionPropagationPaths(ComponentInstance comp, ComponentInstance boundResource){
+		ErrorPropagation srcprop = null;
+		ComponentInstance srcCI = boundResource;
+		ErrorPropagation dstprop = null;
+		ComponentInstance dstCI = comp;
+
+		for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(boundResource.getComponentClassifier()))
+		{
+			srcprop = ep;
+
+			/*
+			 * FIXME JD : for now, we take as input the outgoing error propagation from the processor/virtual processor
+			 * and then, all the incoming error propagation from the bound process. This is not the correct
+			 * way to proceed, we should have helper functions in EMV2Util to retrieve the incoming
+			 * ErrorPropagation that corresponds to the OutgoingPropagation from the processor.
+			 */
+			for (ErrorPropagation ep2 : EMV2Util.getAllIncomingErrorPropagations(comp.getComponentClassifier()))
+			{
+				dstprop = ep2;
+				propagationPaths.add(new PropagationPath(srcCI, ep, dstCI, ep2));
+			}
+		}
 		subcomponents.add(srcCI);
 		subcomponents.add(dstCI);
 	}
@@ -178,9 +237,10 @@ public class AnalysisModel {
 		for (PropagationPath propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
+				OsateDebug.osateDebug("add path for comp " + ci);
 				result.add(propagationPathRecord);
 			}
-			if (propagationPathRecord.getConni().isBidirectional()){
+			if ((propagationPathRecord.getConni() != null) && (propagationPathRecord.getConni().isBidirectional())){
 				src = propagationPathRecord.getPathDst();
 				if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
 					result.add(propagationPathRecord);

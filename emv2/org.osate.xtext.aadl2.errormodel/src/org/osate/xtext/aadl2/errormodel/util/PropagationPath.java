@@ -9,12 +9,23 @@ public class PropagationPath {
 	PropagationPathEnd pathSrc;
 	PropagationPathEnd pathDst;
 	ConnectionInstance conni;
+	
+	
 	public PropagationPath(PropagationPathEnd pathSrc,
 			PropagationPathEnd pathDst, ConnectionInstance conni) {
 		this.pathSrc = pathSrc;
 		this.pathDst = pathDst;
 		this.conni = conni;
 	}
+	
+	public PropagationPath(
+			ComponentInstance srcCI, ErrorPropagation srcEP,
+			ComponentInstance dstCI, ErrorPropagation dstEP) {
+		this.pathSrc = new PropagationPathEnd(srcCI, srcEP);
+		this.pathDst = new PropagationPathEnd(dstCI, dstEP);
+		this.conni = null;
+	}
+	
 	public PropagationPath(
 			ComponentInstance srcCI, ErrorPropagation srcEP,
 			ComponentInstance dstCI, ErrorPropagation dstEP,
@@ -23,6 +34,8 @@ public class PropagationPath {
 		this.pathDst = new PropagationPathEnd(dstCI, dstEP);
 		this.conni = conni;
 	}
+	
+	
 	public PropagationPathEnd getPathSrc() {
 		return pathSrc;
 	}
