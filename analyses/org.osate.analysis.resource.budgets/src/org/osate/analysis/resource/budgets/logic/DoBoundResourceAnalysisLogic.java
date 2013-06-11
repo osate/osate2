@@ -66,6 +66,7 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
@@ -78,6 +79,7 @@ public class DoBoundResourceAnalysisLogic {
 	 */
 	private final StringBuffer reportMessage;
 	private AbstractAaxlAction errManager;
+	private boolean doDetailedLog = true;
 
 	public DoBoundResourceAnalysisLogic(final String actionName, final StringBuffer reportMessage,
 			final AbstractAaxlAction  errManager) {
@@ -306,12 +308,12 @@ public class DoBoundResourceAnalysisLogic {
 		}
 	}
 
-	protected void checkBusLoads(SystemInstance si, final boolean doBindings, final boolean loopback,
+	protected void checkBusLoads(SystemInstance si, final boolean doBindings, 
 			final String somName) {
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				checkBandWidthLoad((ComponentInstance) obj, doBindings, loopback, somName);
+				checkBandWidthLoad((ComponentInstance) obj, doBindings,  somName);
 			}
 		};
 		mal.processPreOrderComponentInstance(si, ComponentCategory.BUS);
@@ -323,13 +325,12 @@ public class DoBoundResourceAnalysisLogic {
 	 * @param curBus Component Instance of bus
 	 * @param doBindings if true do bindings to all buses, if false do them only
 	 *            for EtherSwitch
-	 * @param loopback if true include communication to own processor in network
-	 *            workload
 	 * @param somName String somName to be used in messages
 	 */
-	protected void checkBandWidthLoad(final ComponentInstance curBus, boolean doBindings, boolean loopback,
+	protected void checkBandWidthLoad(final ComponentInstance curBus, boolean doBindings, 
 			String somName) {
 		double Buscapacity = GetProperties.getBandWidthCapacityInKbps(curBus, 0.0);
+		boolean loopback = GetProperties.getBusLoopBack(curBus);
 		if (Buscapacity == 0)
 			return;
 		SystemInstance root = curBus.getSystemInstance();
@@ -354,7 +355,7 @@ public class DoBoundResourceAnalysisLogic {
 						// we derived a bus connection from the connection end bindings
 						InstanceModelUtil.connectedByBus(connectionInstance, curBus) || 
 						// we have a switch back 
-						(hasSwitchLoopback(connectionInstance, curBus) && loopback)) {
+						((hasSwitchLoopback(connectionInstance, curBus) && loopback))) {
 					budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 					actual = calcBandwidth(connectionInstance.getSource());
 					if (budget == 0 && actual == 0) {
@@ -364,12 +365,14 @@ public class DoBoundResourceAnalysisLogic {
 					if (budget > 0) {
 						if (actual > 0) {
 							totalBandWidth += actual;
+							detailedLog(connectionInstance, "Adding actual "+budget+AadlProject.KBYTESPS_LITERAL);
 							if (actual > budget) {
 								errManager.warning(connectionInstance, "Connection " + connectionInstance.getName()
 										+ " has port-based bandwidth exceeds bandwidth budget");
 							}
 						} else {
 							totalBandWidth += budget;
+							detailedLog(connectionInstance, "Adding budget "+budget+AadlProject.KBYTESPS_LITERAL);
 						}
 					}
 				}
@@ -381,14 +384,15 @@ public class DoBoundResourceAnalysisLogic {
 				}
 				if (budget > 0) {
 					totalBandWidth += budget;
+					detailedLog(connectionInstance, "Adding budget "+budget+AadlProject.KBYTESPS_LITERAL);
 				}
 			}
 		}
 		if (totalBandWidth > Buscapacity) {
-			errorSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of " + binding + " tasks"
+			errorSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of " + binding + " connections"
 					+ (loopback ? " with loopback" : "") + " exceeds bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
 		} else if (totalBandWidth > 0.0 && Buscapacity > 0.0) {
-			infoSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of " + binding + " tasks"
+			infoSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of " + binding + " connections"
 					+ (loopback ? " with loopback" : "") + " within bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
 		}
 	}
@@ -475,9 +479,16 @@ public class DoBoundResourceAnalysisLogic {
 			return 0.0;
 		}
 	}
+	
+	protected void detailedLog(ConnectionInstance conni, String msg){
+		if (doDetailedLog){
+			errManager.logInfo(",,"+conni.getFullName()+", "+msg);
+		}
+
+	}
 
 	protected void errorSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
+		if (somName != null&& !somName.isEmpty() && !somName.equalsIgnoreCase("No Modes")) {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.error(obj, msg);
@@ -485,7 +496,7 @@ public class DoBoundResourceAnalysisLogic {
 	}
 
 	protected void warningSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
+		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.warning(obj, msg);
@@ -493,7 +504,7 @@ public class DoBoundResourceAnalysisLogic {
 	}
 
 	protected void infoSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
+		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
 		errManager.info(obj, msg);

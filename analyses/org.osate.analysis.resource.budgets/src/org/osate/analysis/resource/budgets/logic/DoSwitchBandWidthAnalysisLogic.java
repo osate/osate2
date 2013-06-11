@@ -70,7 +70,7 @@ public class DoSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysisLogic
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
 				final String somName = Aadl2Util.getPrintableSOMName(som);
-				checkBusLoads(root, false, false, somName);
+				checkBusLoads(root, false,  somName);
 			}
 			monitor.done();
 
