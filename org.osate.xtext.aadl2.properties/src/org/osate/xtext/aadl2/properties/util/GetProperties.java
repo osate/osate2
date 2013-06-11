@@ -47,6 +47,7 @@ import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
@@ -206,6 +207,23 @@ public class GetProperties {
 		Property actualProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 		List<? extends PropertyExpression> propertyValues ;
+		
+		/**
+		 * If we have a virtual processor, we consider that it is bound to
+		 * its containing processor. Semantically, we thus consider
+		 * that all contained virtual processor are bound to the 
+		 * physical processor. Then, we add it in the list.
+		 */
+		if (io.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+		{
+			ComponentInstance parent = io.getContainingComponentInstance();
+			if (parent.getCategory() == ComponentCategory.PROCESSOR)
+			{
+				components.add (parent);
+			}
+		}
+		
+		
 		try {
 			propertyValues = io.getPropertyValueList(actualProcessorBinding);
 		} catch (Exception e) {
