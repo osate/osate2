@@ -117,9 +117,6 @@ public abstract class AaxlReadOnlyActionAsJob extends AbstractAaxlAction {
 		PropertiesActivator act = org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator.getInstance();
 	}
 	
-	/** Get the name of the action to display in the Job, etc. */
-	protected abstract String getActionName();
-	
 	
 	
 	protected Job createJob(final Element root) {
