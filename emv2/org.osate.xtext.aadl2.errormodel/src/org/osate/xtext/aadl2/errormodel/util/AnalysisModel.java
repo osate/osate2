@@ -47,6 +47,15 @@ public class AnalysisModel {
 			populateConnectionPropagationPaths(connectionInstance);
 		}
 		
+		/**
+		 * 
+		 * We also browse the list of all component instances.
+		 * Then, for each process, we add an error path between the process
+		 * and its associated processor. When being bound to a virtual processor,
+		 * we also add a binding between the virtual processor and the physical
+		 * processor. Also, the GetActualProcessingBinding returns the parent
+		 * processor for virtual processors.
+		 */
 		List<ComponentInstance> complist = EcoreUtil2.getAllContentsOfType(root, ComponentInstance.class);
 		for (ComponentInstance ci : complist)
 		{
@@ -61,8 +70,17 @@ public class AnalysisModel {
 				{
 					for (ComponentInstance cpu : cpus)
 					{
-						OsateDebug.osateDebug("add ci="+ ci);
-						OsateDebug.osateDebug("add cpu="+ ci);
+						if ((cpu.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
+						{
+							List<ComponentInstance> realCpus = GetProperties.getActualProcessorBinding(cpu);
+							for (ComponentInstance realCpu : realCpus)
+							{
+								if (realCpu.getCategory() == ComponentCategory.PROCESSOR)
+								{
+									populateConnectionPropagationPaths(cpu, realCpu);
+								}
+							}
+						}
 						populateConnectionPropagationPaths(ci, cpu);
 
 						subcomponents.add(ci);
