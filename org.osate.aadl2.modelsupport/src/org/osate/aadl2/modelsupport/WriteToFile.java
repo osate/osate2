@@ -123,18 +123,24 @@ public class WriteToFile {
 		return path;
 	}
 	
+	
 	/**
 	 * Writes content as csv report
-	 * @param root
-	 * @param content
 	 */	
 	public void saveToFile(){
+		saveToFile("");
+	}	
+	
+	/**
+	 * Writes content as csv report prefixed with summary text.
+	 */	
+	public void saveToFile(String summary){
 		if (saved) return;
 		IPath path = getReportPath(reportType,root);
 		if (path != null) {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 			if (file != null) {
-				final InputStream input = new ByteArrayInputStream(textBuffer.getParseOutput().getBytes());
+				final InputStream input = new ByteArrayInputStream((summary+textBuffer.getParseOutput()).getBytes());
 				try {
 					if (file.exists()) {
 						file.setContents(input, true, true, null);
