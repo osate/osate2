@@ -31,6 +31,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 
 public class InstanceModelUtil {
 	
@@ -131,104 +132,104 @@ public class InstanceModelUtil {
 		}
 	
 
-	/**
-	 * true of NamedElement is a ComponentInstance of category thread or a ThreadSubcomponent
-	 * @param thread
-	 * @return
-	 */
-		public static  boolean isThread(final NamedElement thread){
-			return ((thread instanceof ComponentInstance)
-					&& (((ComponentInstance) thread).getCategory() == ComponentCategory.THREAD))
-					||thread instanceof ThreadSubcomponent;
-		}
+		/**
+		 * true of NamedElement is a ComponentInstance of category thread or a ThreadSubcomponent
+		 * @param thread
+		 * @return
+		 */
+			public static  boolean isThread(final NamedElement thread){
+				return ((thread instanceof ComponentInstance)
+						&& (((ComponentInstance) thread).getCategory() == ComponentCategory.THREAD))
+						||thread instanceof ThreadSubcomponent;
+			}
 
-		/**
-		 * true of NamedElement is a ComponentInstance of category device or a DeviceSubcomponent
-		 * @param device
-		 * @return
-		 */
-		public static  boolean isDevice(final NamedElement device){
-			return ((device instanceof ComponentInstance)
-					&& (((ComponentInstance) device).getCategory() == ComponentCategory.DEVICE))
-					||device instanceof DeviceSubcomponent;
-		}
+			/**
+			 * true of NamedElement is a ComponentInstance of category device or a DeviceSubcomponent
+			 * @param device
+			 * @return
+			 */
+			public static  boolean isDevice(final NamedElement device){
+				return ((device instanceof ComponentInstance)
+						&& (((ComponentInstance) device).getCategory() == ComponentCategory.DEVICE))
+						||device instanceof DeviceSubcomponent;
+			}
 
-		/**
-		 * true of NamedElement is a ComponentInstance of category bus or a BusSubcomponent
-		 * @param bus
-		 * @return
-		 */
-		public static  boolean isBus(final NamedElement bus){
-			return ((bus instanceof ComponentInstance)
-					&& (((ComponentInstance) bus).getCategory() == ComponentCategory.BUS))
-					||bus instanceof BusSubcomponent;
-		}
+			/**
+			 * true of NamedElement is a ComponentInstance of category bus or a BusSubcomponent
+			 * @param bus
+			 * @return
+			 */
+			public static  boolean isBus(final NamedElement bus){
+				return ((bus instanceof ComponentInstance)
+						&& (((ComponentInstance) bus).getCategory() == ComponentCategory.BUS))
+						||bus instanceof BusSubcomponent;
+			}
 
-		/**
-		 * true of NamedElement is a ComponentInstance of category virtual bus or a VirtualBusSubcomponent
-		 * @param vbus
-		 * @return
-		 */
-		public static  boolean isVirtualBus(final NamedElement vbus){
-			return ((vbus instanceof ComponentInstance)
-					&& (((ComponentInstance) vbus).getCategory() == ComponentCategory.VIRTUAL_BUS))
-					||vbus instanceof VirtualBusSubcomponent;
-		}
-		
-		/**
-		 * true of NamedElement is a ComponentInstance of category processor or a ProcessorSubcomponent
-		 * @param vprocessor
-		 * @return
-		 */
-		public static  boolean isVirtualProcessor(final NamedElement vprocessor){
-			return ((vprocessor instanceof ComponentInstance)
-					&& (((ComponentInstance) vprocessor).getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
-					||vprocessor instanceof VirtualProcessorSubcomponent;
-		}
-		
-		/**
-		 * true of NamedElement is a ComponentInstance of category virtual processor or a VirtualProcessorSubcomponent
-		 * @param processor
-		 * @return
-		 */
-		public static  boolean isProcessor(final NamedElement processor){
-			return ((processor instanceof ComponentInstance)
-					&& (((ComponentInstance) processor).getCategory() == ComponentCategory.PROCESSOR))
-					||processor instanceof ProcessorSubcomponent;
-		}
-		
-		/**
-		 * true of NamedElement is a ComponentInstance of category memory or a MemorySubcomponent
-		 * @param memory
-		 * @return
-		 */
-		public static  boolean isMemory(final NamedElement memory){
-			return ((memory instanceof ComponentInstance)
-					&& (((ComponentInstance) memory).getCategory() == ComponentCategory.MEMORY))
-					||memory instanceof MemorySubcomponent;
-		}
-		
-		/**
-		 * true of NamedElement is a ComponentInstance of category system or a SystemSubcomponent
-		 * @param system
-		 * @return
-		 */
-		public static  boolean isSystem(final NamedElement system){
-			return ((system instanceof ComponentInstance)
-					&& (((ComponentInstance) system).getCategory() == ComponentCategory.SYSTEM))
-					||system instanceof SystemSubcomponent;
-		}
-		
-		/**
-		 * true of NamedElement is a ComponentInstance of category process or a ProcessSubcomponent
-		 * @param process
-		 * @return
-		 */
-		public static  boolean isProcess(final NamedElement process){
-			return ((process instanceof ComponentInstance)
-					&& (((ComponentInstance) process).getCategory() == ComponentCategory.PROCESS))
-					||process instanceof ProcessSubcomponent;
-		}
+			/**
+			 * true of NamedElement is a ComponentInstance of category virtual bus or a VirtualBusSubcomponent
+			 * @param vbus
+			 * @return
+			 */
+			public static  boolean isVirtualBus(final NamedElement vbus){
+				return ((vbus instanceof ComponentInstance)
+						&& (((ComponentInstance) vbus).getCategory() == ComponentCategory.VIRTUAL_BUS))
+						||vbus instanceof VirtualBusSubcomponent;
+			}
+			
+			/**
+			 * true of NamedElement is a ComponentInstance of category processor or a ProcessorSubcomponent
+			 * @param vprocessor
+			 * @return
+			 */
+			public static  boolean isVirtualProcessor(final NamedElement vprocessor){
+				return ((vprocessor instanceof ComponentInstance)
+						&& (((ComponentInstance) vprocessor).getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
+						||vprocessor instanceof VirtualProcessorSubcomponent;
+			}
+			
+			/**
+			 * true of NamedElement is a ComponentInstance of category virtual processor or a VirtualProcessorSubcomponent
+			 * @param processor
+			 * @return
+			 */
+			public static  boolean isProcessor(final NamedElement processor){
+				return ((processor instanceof ComponentInstance)
+						&& (((ComponentInstance) processor).getCategory() == ComponentCategory.PROCESSOR))
+						||processor instanceof ProcessorSubcomponent;
+			}
+			
+			/**
+			 * true of NamedElement is a ComponentInstance of category memory or a MemorySubcomponent
+			 * @param memory
+			 * @return
+			 */
+			public static  boolean isMemory(final NamedElement memory){
+				return ((memory instanceof ComponentInstance)
+						&& (((ComponentInstance) memory).getCategory() == ComponentCategory.MEMORY))
+						||memory instanceof MemorySubcomponent;
+			}
+			
+			/**
+			 * true of NamedElement is a ComponentInstance of category system or a SystemSubcomponent
+			 * @param system
+			 * @return
+			 */
+			public static  boolean isSystem(final NamedElement system){
+				return ((system instanceof ComponentInstance)
+						&& (((ComponentInstance) system).getCategory() == ComponentCategory.SYSTEM))
+						||system instanceof SystemSubcomponent;
+			}
+			
+			/**
+			 * true of NamedElement is a ComponentInstance of category process or a ProcessSubcomponent
+			 * @param process
+			 * @return
+			 */
+			public static  boolean isProcess(final NamedElement process){
+				return ((process instanceof ComponentInstance)
+						&& (((ComponentInstance) process).getCategory() == ComponentCategory.PROCESS))
+						||process instanceof ProcessSubcomponent;
+			}
 
 		/**
 		 * true if component (thread or device) is periodic
@@ -369,7 +370,7 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 		public static boolean isDirectlyBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
-			List<ComponentInstance> bindinglist= GetProperties.getActualProcessorBinding(componentInstance);;
+			List<ComponentInstance> bindinglist= GetProperties.getActualProcessorBinding(componentInstance);
 			for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (boundComponentInstance == processor){
 					return true;
@@ -379,15 +380,20 @@ public class InstanceModelUtil {
 		}
 
 		/**
-		 * true if component instance is directly or indirectly bound to the bus
+		 * true if connection or virtual bus instance is directly or indirectly bound to the bus
 		 * It could be bound to a virtual bus which in turn is bound to a bus
 		 * the connectionInstance can be a connection or a virtual bus instance
-		 * @param connectionInstance
+		 * @param boundObject
 		 * @param bus
 		 * @return
 		 */
-	  public static boolean isBoundToBus(InstanceObject connectionInstance, ComponentInstance bus){
-		  	List<ComponentInstance> bindinglist= GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
+	  public static boolean isBoundToBus(InstanceObject boundObject, ComponentInstance bus){
+		  	List<ComponentInstance> bindinglist= GetProperties.getActualConnectionBinding(boundObject);
+		  	if (bindinglist.isEmpty()&& isVirtualBus(boundObject)){
+		  		if (Aadl2InstanceUtil.containedIn(boundObject, bus)){
+		  			return true;
+		  		}
+		  	}
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (isVirtualBus(boundComponentInstance)){
 					if (isBoundToBus(boundComponentInstance,bus)){
@@ -401,25 +407,48 @@ public class InstanceModelUtil {
 	}
 
 		/**
-		 * true if component instance is directly or indirectly bound to a bus
+		 * true if connection/virtual bus instance is directly or indirectly bound to a bus
 		 * It could be bound to a virtual bus which in turn is bound to a bus
 		 * the connectionInstance can be a connection or a virtual bus instance
-		 * @param connectionInstance
+		 * @param boundObject
 		 * @return
 		 */
-	  public static boolean isBoundToBus(InstanceObject connectionInstance){
-		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
+	  public static boolean isBoundToBus(InstanceObject boundObject){
+		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(boundObject);
+			  	if (bindinglist.isEmpty()&& isVirtualBus(boundObject)){
+			  		if (containedInBus(boundObject)){
+			  			return true;
+			  		}
+			  	}
 		  	for (ComponentInstance boundComponentInstance : bindinglist) {
 				if (isVirtualBus(boundComponentInstance)){
 					if (isBoundToBus(boundComponentInstance)){
 						return true;
 					}
-				} else {
+				} else if (isBus(boundComponentInstance)){
 					return true;
 				}
 			}
 		  return false;
 	}
+
+		public static boolean containedInBus(InstanceObject element) {
+			while (element != null) {
+				if (isBus(element))
+					return true;
+				element = (InstanceObject) element.getOwner();
+			}
+			return false;
+		}
+		
+		public static ComponentInstance getContainingBus(InstanceObject element) {
+			while (element != null) {
+				if (isBus(element))
+					return (ComponentInstance)element;
+				element = (InstanceObject) element.getOwner();
+			}
+			return null;
+		}
 	  
 		/**
 		 * return list of component instances that the connection instance is bound to directly or indirectly
@@ -431,29 +460,41 @@ public class InstanceModelUtil {
 		  EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
 		  return getRealConnectionBindings(connectionInstance, result);
 	}
-	  private static EList<ComponentInstance> getRealConnectionBindings(InstanceObject connectionInstance, EList<ComponentInstance> result){
-		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)connectionInstance);
-		  	for (ComponentInstance boundComponentInstance : bindinglist) {
-				if (isVirtualBus(boundComponentInstance)){
-					getRealConnectionBindings(connectionInstance,result);
-				} else {
-					result.add(boundComponentInstance);
-				}
-			}
+	  private static EList<ComponentInstance> getRealConnectionBindings(InstanceObject boundObject, EList<ComponentInstance> result){
+		  List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(boundObject);
+		  if (bindinglist.isEmpty()&& isVirtualBus(boundObject)){
+			  ComponentInstance bindingTarget = getContainingBus(boundObject);
+			  if (bindingTarget != null){
+				  result.add(bindingTarget);
+				  return result;
+			  }
+		  }
+		  for (ComponentInstance boundComponentInstance : bindinglist) {
+			  if (isVirtualBus(boundComponentInstance)){
+				  getRealConnectionBindings(boundObject,result);
+			  } else if (isBus(boundComponentInstance)){
+				  result.add(boundComponentInstance);
+			  }
+		  }
 		  return result;
-	}
+	  }
 
 
 
-		/**
-		 * true if component instance is directly bound to the bus
+	  /**
+	   * true if component instance is directly bound to the bus
 		 * the component instance can be a connection or a virtual bus instance
-		 * @param componentInstance
+		 * @param boundObject
 		 * @param processor
 		 * @return
 		 */
-	  public static boolean isDirectlyBoundToBus(InstanceObject elt, ComponentInstance bus){
-		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding((ConnectionInstance)elt);
+	  public static boolean isDirectlyBoundToBus(InstanceObject boundObject, ComponentInstance bus){
+		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(boundObject);
+			  	if (bindinglist.isEmpty()&& isVirtualBus(boundObject)){
+			  		if (containedInBus(boundObject)){
+			  			return true;
+			  		}
+			  	}
 		  	for (ComponentInstance componentInstance : bindinglist) {
 				if (componentInstance == bus){
 					return true;
@@ -461,8 +502,6 @@ public class InstanceModelUtil {
 			}
 		  return false;
 	}
-
-
 	  
 	  /**
 	   * return the hardware component of the connection instance end.
@@ -526,6 +565,7 @@ public class InstanceModelUtil {
 					return true;
 				}
 			}
+			// we have to check the connection the other way around. The bus be the source or destination
 			acl = bus.getDstConnectionInstances();
 			for (Iterator<ConnectionInstance> it = acl.iterator(); it.hasNext();) {
 				ConnectionInstance dstaci = it.next();
