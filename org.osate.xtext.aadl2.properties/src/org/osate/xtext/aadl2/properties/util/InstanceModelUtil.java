@@ -1,7 +1,10 @@
 package org.osate.xtext.aadl2.properties.util;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -311,6 +314,39 @@ public class InstanceModelUtil {
 				}
 			}
 			return null;
+		}
+
+		/**
+		 * processor instance is directly or indirectly bound to the processor
+		 * It could be bound to a virtual processor which in turn is bound to a processor
+		 * the component instance can be a thread, process, or a virtual processor instance
+		 * @param componentInstance
+		 * @return processor instance
+		 */
+		public static Set<ComponentInstance> getBoundProcessors(ComponentInstance componentInstance){
+			final Set<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
+			addBoundProcessors(componentInstance, actualProcs);
+			return Collections.unmodifiableSet(actualProcs);
+		}
+		
+		protected static void addBoundProcessors(ComponentInstance componentInstance,Set<ComponentInstance> result){
+			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
+			if (bindinglist.isEmpty() && isVirtualProcessor(componentInstance)){
+				ComponentInstance res = getContainingProcessor(componentInstance);
+				if (res != null){
+					result.add(res);
+				}
+			} else {
+				for (ComponentInstance boundCompInstance : bindinglist) {
+					if (isVirtualProcessor(boundCompInstance)){
+						// it is bound to or contained in
+						addBoundProcessors(boundCompInstance,result);
+					} else if (isProcessor(boundCompInstance)){
+							result.add(boundCompInstance);
+					}
+					// we should not have another else
+				}
+			}
 		}
 
 		/**
