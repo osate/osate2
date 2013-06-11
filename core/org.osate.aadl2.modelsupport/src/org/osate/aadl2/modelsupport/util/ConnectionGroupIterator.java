@@ -43,6 +43,7 @@ public class ConnectionGroupIterator {
 	protected ConnectionInstance doNext(){
 		while (internalit.hasNext()){
 			ConnectionInstance conni = (ConnectionInstance)internalit.next();
+			if (conni.getKind() == ConnectionKind.PORT_CONNECTION || conni.getKind() == ConnectionKind.FEATURE_GROUP_CONNECTION){
 				Connection top = getActualConnection(conni);
 				if (top instanceof FeatureGroupConnection){
 					if (!done.contains(top)){
@@ -52,6 +53,7 @@ public class ConnectionGroupIterator {
 				} else {
 					return conni;
 				}
+			}
 		}
 		return null;
 	}
