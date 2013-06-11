@@ -762,6 +762,14 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		summaryReport.append(msg+"\n");
 	}
 
+	public void infoSummaryReportOnly(String somName, String msg) {
+		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		summaryReport.append(msg+"\n");
+	}
+
+
 	public String getResultsMessages() {
 		synchronized (summaryReport) {
 			return summaryReport.toString();
