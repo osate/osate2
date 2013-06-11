@@ -59,10 +59,6 @@ import org.osgi.framework.Bundle;
  *
  */
 public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
-	/**
-	 * The string buffer that is used to record error messages.
-	 */
-	protected StringBuffer reportMessage;
 
 	protected void initPropertyReferences() {
 	}
@@ -76,7 +72,7 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected String getActionName() {
-		return "Bound resource analysis";
+		return "Bound Resource Budget Analysis";
 	}
 
 	@Override
@@ -86,7 +82,6 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 	}
 
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-		reportMessage = new StringBuffer();
 		InstanceValidation iv = new InstanceValidation(this);
 		if (!iv.checkReferenceProcessor(((InstanceObject)obj).getSystemInstance())){
 			Dialog.showWarning("Resource Budget Analysis","Model contains thread execution times without reference processor.");
@@ -96,6 +91,6 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected DoBoundResourceAnalysisLogic getLogicObject() {
-		return new DoBoundResourceAnalysisLogic(getActionName(), reportMessage, this);
+		return new DoBoundResourceAnalysisLogic(getActionName(),  this);
 	}
 }

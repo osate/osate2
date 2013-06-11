@@ -56,14 +56,13 @@ import org.osgi.framework.Bundle;
 
 
 public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
-	private StringBuffer reportMessage;
 
 	protected Bundle getBundle() {
 		return ResourceBudgetPlugin.getDefault().getBundle();
 	}
 
 	protected String getActionName() {
-		return "Budget resources";
+		return "Resource Budget Analysis";
 	}
 
 	protected String getMarkerType() {
@@ -80,7 +79,6 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		reportMessage = new StringBuffer();
 
 		//Get the system instance (if any)
 		final SystemInstance si = (obj instanceof InstanceObject) ? ((InstanceObject) obj).getSystemInstance() : null;
@@ -100,14 +98,14 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 				return;
 			}
 
-			logic = new DoResourceBudgetLogic(reportMessage, this);
+			logic = new DoResourceBudgetLogic( this);
 			logic.analyzeResourceBudget(si, somName);
 //			}
 			monitor.done();
 
 			if (si.getSystemOperationModes().size() == 1) {
 				//Also report the results using a message dialog
-				Dialog.showInfo("Resource Budget Statistics", logic.getResultsMessages());
+				Dialog.showInfo("Resource Budget Statistics", getResultsMessages());
 			}
 		}
 	}

@@ -54,9 +54,9 @@ public class DoSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysisLogic
 	 * @param reportMessage
 	 * @param errManager
 	 */
-	public DoSwitchBandWidthAnalysisLogic(final String actionName, final StringBuffer reportMessage,
+	public DoSwitchBandWidthAnalysisLogic(final String actionName, 
 			final AbstractAaxlAction errManager) {
-		super(actionName, reportMessage, errManager);
+		super(actionName,  errManager);
 	}
 
 	/* (non-Javadoc)
@@ -70,13 +70,13 @@ public class DoSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysisLogic
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
 				final String somName = Aadl2Util.getPrintableSOMName(som);
-				checkBusLoads(root, false,  somName);
+				reportBusLoadTotals(root, somName);
 			}
 			monitor.done();
 
 			if (root.getSystemOperationModes().size() == 1) {
 				// Also report the results using a message dialog
-				Dialog.showInfo("Bus Bandwidth Results", getResultsMessages());
+				Dialog.showInfo("Bus Bandwidth Results", getErrManager().getResultsMessages());
 			}
 		} else {
 			Dialog.showError("Bus Bandwidth Analysis Error", "Can only check system instances");

@@ -51,9 +51,6 @@ import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoResourceBudgetLogic {
-	private final StringBuffer reportMessage;
-//	private final AnalysisErrorReporterManager loggingErrManager;
-//	private final AnalysisErrorReporterManager errManager;
 
 	private double capacity = 0;
 	private double vcapacity = 0;
@@ -65,8 +62,7 @@ public class DoResourceBudgetLogic {
 	private int capacityResources = 0;
 	private AbstractAaxlAction errManager;
 
-	public DoResourceBudgetLogic(final StringBuffer reportMessage,AbstractAaxlAction action){
-		this.reportMessage = reportMessage;
+	public DoResourceBudgetLogic(AbstractAaxlAction action){
 		this.errManager = action;
 	}
 
@@ -243,11 +239,11 @@ public class DoResourceBudgetLogic {
 			return budget;
 		}
 		if (budget > 0 && total > budget) {
-			errorSummary(ci, somName, resourceName + " " + ci.getInstanceObjectPath() + " total exceeds budget "
+			errManager.errorSummary(ci, somName, resourceName + " " + ci.getInstanceObjectPath() + " total exceeds budget "
 					+ budget + " by " + (total - budget) + " " + unit.getName());
 		} else {
 			if (total < budget) {
-				warningSummary(ci, somName, String.format(
+				errManager.warningSummary(ci, somName, String.format(
 						resourceName + " " + ci.getInstanceObjectPath() + " total %.1f " + unit.getName()
 								+ " below budget %.1f " + unit.getName()
 								+ " (%.1f %% slack)", total, budget,
@@ -282,47 +278,17 @@ public class DoResourceBudgetLogic {
 				+ resourceName + " budget " + GetProperties.toStringScaled(budgetTotal, unit);
 		if (budgetTotal > capacity) {
 			modelStats = "System " + si.getName() + " over capacity: " + modelStats;
-			errorSummary(si, somName, modelStats);
+			errManager.errorSummary(si, somName, modelStats);
 		} else
-			infoSummary(si, somName, modelStats);
+			errManager.infoSummary(si, somName, modelStats);
 		if (capacityResources < resources) {
 			modelStats = capacityResources + " out of " + resources + " with " + resourceName + " capacity";
-			warningSummary(si, somName, modelStats);
+			errManager.warningSummary(si, somName, modelStats);
 		}
 		if (budgetedComponents < components) {
 			modelStats = budgetedComponents + " out of " + components + " with " + resourceName + " budget";
-			warningSummary(si, somName, modelStats);
+			errManager.warningSummary(si, somName, modelStats);
 		}
-		reportMessage.append("\n");
-	}
-
-	private void errorSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
-			msg = "In SystemMode " + somName + ": " + msg;
-		}
-		errManager.error(obj, msg);
-		reportMessage.append("** " +msg+"\n");
-	}
-
-	private void warningSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
-			msg = "In SystemMode " + somName + ": " + msg;
-		}
-		errManager.warning(obj, msg);
-		reportMessage.append("* " +msg+"\n");
-	}
-
-	private void infoSummary(final Element obj, String somName, String msg) {
-		if (somName != null && !somName.equalsIgnoreCase("No Modes")) {
-			msg = "In SystemMode " + somName + ": " + msg;
-		}
-		errManager.info(obj, msg);
-		reportMessage.append(msg+"\n");
-	}
-
-	public String getResultsMessages() {
-		synchronized (reportMessage) {
-			return reportMessage.toString();
-		}
+		errManager.infoSummary(si, somName, "\n");
 	}
 }
