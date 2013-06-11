@@ -754,30 +754,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			throw new IllegalArgumentException("Component \""
 					+ thread.getName() + "\" is not a thread.");
 		}
-		final Set<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
-		addRealProcessorBindings(thread, actualProcs);
-		return Collections.unmodifiableSet(actualProcs);
+		return InstanceModelUtil.getBoundProcessors(thread);
 	}
-	
-	protected void addRealProcessorBindings(ComponentInstance ci, Set<ComponentInstance> result){
-		try
-		{
-			List<ComponentInstance> actualBindingsVals = GetProperties.getActualProcessorBinding(ci);
-			for (ComponentInstance componentInstance : actualBindingsVals) {
-				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)){
-					addRealProcessorBindings(componentInstance, result);
-				} else {
-					result.add(componentInstance);
-				}
-			}
-		}
-		catch (PropertyNotPresentException e)
-		{
-		}
-		
-	}
-	
-	
 
 	/**
 	 * Get the processor components that a given thread is allowed to be bound to
