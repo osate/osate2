@@ -98,8 +98,11 @@ public class DoBoundResourceAnalysisLogic {
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
 				final String somName = Aadl2Util.getPrintableSOMName(som);
+				errManager.infoSummaryReportOnly(somName, "Processor Report");
 				checkProcessorLoads(root, somName);
+				errManager.infoSummaryReportOnly( somName, "\nVirtual Processor Report");
 				checkVirtualProcessorLoads(root, somName);
+				errManager.infoSummaryReportOnly( somName, "\nRAM/ROM Report");
 				checkMemoryLoads(root, somName);
 			}
 			monitor.done();
@@ -147,8 +150,8 @@ public class DoBoundResourceAnalysisLogic {
 		}
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundComponents(curProcessor);
 		if (boundComponents.size() == 0&& MIPScapacity > 0) {
-			errManager.warningSummary(curProcessor, somName, "No application components bound to "
-					+ curProcessor.getComponentInstancePath());
+			errManager.infoSummary(curProcessor, somName, "No application components bound to "
+					+ curProcessor.getComponentInstancePath()+" with MIPS capacity "+ GetProperties.toStringScaled(MIPScapacity, mipsliteral));
 			return;
 		}
 		if (MIPScapacity == 0&&InstanceModelUtil.isVirtualProcessor(curProcessor)){
@@ -331,6 +334,8 @@ public class DoBoundResourceAnalysisLogic {
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
+				errManager.logInfo("\n\n,Connection Budget Details for bus "+((ComponentInstance)obj).getFullName()+"\n");
+				errManager.logInfo(",Connection,Budget,Actual,Note");
 				checkBandWidthLoad((ComponentInstance) obj, somName);
 			}
 		};
@@ -358,33 +363,30 @@ public class DoBoundResourceAnalysisLogic {
 				budgetedConnections.add(obj);
 		}
 		for (ConnectionInstance connectionInstance : budgetedConnections) {
-			if (InstanceModelUtil.isPortConnection(connectionInstance)){
-				double budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
-				double actual = calcBandwidth(connectionInstance.getSource());
-				String note = "";
-				if (budget > 0) {
-					if (actual > 0) {
-						totalBandWidth += actual;
-						if (actual > budget) {
-							note = "Actual bandwidth exceeds bandwidth budget. Using actual";
-						} else {
-							note = "Using actual bandwidth";
-						}
+			double budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
+			double actual = calcBandwidth(connectionInstance.getSource());
+			String note = "";
+			if (budget > 0) {
+				if (actual > 0) {
+					totalBandWidth += actual;
+					if (actual > budget) {
+						note = "Actual bandwidth exceeds bandwidth budget. Using actual";
 					} else {
-						totalBandWidth += budget;
-//						note="No actual bandwidth from port data size&rate";
+						note = "Using actual bandwidth";
 					}
 				} else {
-					if (actual > 0) {
-						totalBandWidth += actual;
-						note = "No bandwidth budget. Using actual";
-					} else {
-						note =  "No bandwidth budget or actual bandwidth from port data size&rate";
-					}
+					totalBandWidth += budget;
 				}
-				detailedLog(connectionInstance, budget,actual,note);
-
+			} else {
+				if (actual > 0) {
+					totalBandWidth += actual;
+					note = "No bandwidth budget. Using actual";
+				} else {
+					note =  "No bandwidth budget or actual bandwidth from port data size&rate";
+				}
 			}
+			detailedLog(connectionInstance, budget,actual,note);
+
 		}
 		return totalBandWidth;
 	}
@@ -433,16 +435,17 @@ public class DoBoundResourceAnalysisLogic {
 					if (actual > 0) {
 						totalBandWidth += actual;
 						if (actual > budget) {
-							note = "Calculated actual bandwidth exceeds bandwidth budget " +budget+" "+AadlProject.KBYTESPS_LITERAL;
+							note = "Actual bandwidth exceeds bandwidth budget. Using actual";
+						} else {
+							note = "Using actual bandwidth";
 						}
 					} else {
 						totalBandWidth += budget;
-						note="No actual bandwidth from port data size&rate";
 					}
 				} else {
 					if (actual > 0) {
 						totalBandWidth += actual;
-						note = "No bandwidth budget";
+						note = "No bandwidth budget. Using actual";
 					} else {
 						note =  "No bandwidth budget or actual bandwidth from port data size&rate";
 					}
@@ -550,34 +553,4 @@ public class DoBoundResourceAnalysisLogic {
 		}
 
 	}
-//
-//	protected void errorSummary(final Element obj, String somName, String msg) {
-//		if (somName != null&& !somName.isEmpty() && !somName.equalsIgnoreCase("No Modes")) {
-//			msg = "In SystemMode " + somName + ": " + msg;
-//		}
-//		errManager.error(obj, msg);
-//		reportMessage.append("** "+msg+"\n");
-//	}
-//
-//	protected void warningSummary(final Element obj, String somName, String msg) {
-//		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
-//			msg = "In SystemMode " + somName + ": " + msg;
-//		}
-//		errManager.warning(obj, msg);
-//		reportMessage.append("* " +msg+"\n");
-//	}
-//
-//	protected void infoSummary(final Element obj, String somName, String msg) {
-//		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
-//			msg = "In SystemMode " + somName + ": " + msg;
-//		}
-//		errManager.info(obj, msg);
-//		reportMessage.append(msg+"\n");
-//	}
-//
-//	protected String getResultsMessages() {
-//		synchronized (reportMessage) {
-//			return reportMessage.toString();
-//		}
-//	}
 }
