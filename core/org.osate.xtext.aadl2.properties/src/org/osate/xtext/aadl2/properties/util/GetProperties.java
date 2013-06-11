@@ -218,7 +218,7 @@ public class GetProperties {
 		return components;
 	}
 
-	public static List<ComponentInstance> getActualConnectionBinding(final ConnectionInstance io) {
+	public static List<ComponentInstance> getActualConnectionBinding(final InstanceObject io) {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		Property actualConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_CONNECTION_BINDING);
@@ -350,6 +350,15 @@ public class GetProperties {
 			Property BandWidthBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.BANDWIDTH_BUDGET);
 			UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBYTESPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
+	}
+	
+	public static boolean getBusLoopBack(final NamedElement ne){
+		Property loopback = lookupPropertyDefinition(ne,SEI._NAME, SEI.BUS_LOOPBACK);
+		try {
+			return PropertyUtils.getBooleanValue(ne, loopback);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public static ComponentClassifier getReferenceProcessor(final NamedElement ne) {
