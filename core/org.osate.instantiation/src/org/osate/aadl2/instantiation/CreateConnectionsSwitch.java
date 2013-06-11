@@ -56,6 +56,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -63,12 +65,14 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
@@ -76,6 +80,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
@@ -83,6 +88,7 @@ import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.impl.DeviceImpl;
 import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -270,8 +276,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					boolean destinationFromInside = false;
 
 					// warn if there's an incomplete connection
-					if (cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR
-							&& hasOutgoingFeatureSubcomponents) {
+					if (hasOutgoingFeatureSubcomponents&&
+							((cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR)
+							// in case of a provides bus access we want to start from the bus.
+							|| ((cat == PROCESSOR || cat == DEVICE || cat == ComponentCategory.MEMORY)
+							&& feature instanceof BusAccess&& ((BusAccess)feature).getKind() == AccessType.PROVIDES))) {
 						connectedInside = isConnectionEnd(insideSubConns, feature);
 						destinationFromInside = isDestination(insideSubConns, feature);
 					}
@@ -629,6 +638,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							finalizeConnectionInstance(ci, connInfo, toFi);
 						}
 					} else {
+						// we may need to stop at the processor in addition to going in
+						// XXX TODO we may need to do this also for DEVICE and MEMORY
+						if ((toImpl instanceof ProcessorImplementation || toImpl instanceof DeviceImplementation || toImpl instanceof MemoryImplementation)
+								&&!(toEnd instanceof BusAccess && ((BusAccess)toEnd).getKind() == AccessType.PROVIDES )){
+							final ConnectionInfo clone = connInfo.cloneInfo();
+							finalizeConnectionInstance(ci, clone, toFi);
+						}
 						// we have ingoing connections that start with toFeature as End or as Cxt
 						for (Connection nextConn : conns) {
 							final ConnectionInfo clone = connInfo.cloneInfo();
