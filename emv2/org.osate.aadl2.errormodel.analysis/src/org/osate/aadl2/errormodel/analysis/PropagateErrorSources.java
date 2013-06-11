@@ -61,6 +61,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -155,27 +156,11 @@ public class PropagateErrorSources {
 	 * traverse error flow if the component instance is an error source
 	 * @param ci component instance
 	 */
-	public void startErrorFlows(ComponentInstance ci){
+	public void startErrorFlows(ComponentInstance ci)
+	{
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		String componentText = generateItemText(ci);
-		for (ErrorSource errorSource : eslist)
-		{
-			ErrorPropagation ep = errorSource.getOutgoing();
-			TypeSet ts = errorSource.getTypeTokenConstraint();
-			if (ts == null) ep.getTypeSet();
-			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-			ErrorBehaviorState failureMode = null;
-			if (fmr instanceof ErrorBehaviorState){
-				// XXX TODO how about the other case
-				failureMode = (ErrorBehaviorState) fmr;
-			}
-			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
-			for (TypeToken typeToken : result) {
-				String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
-				
-				traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
-			}
-		}
+		List<ErrorType> handledTypes = new ArrayList<ErrorType>();
 		
 		for (ErrorBehaviorEvent event : EMV2Util.getAllErrorBehaviorEvents(ci))
 		{
@@ -219,15 +204,53 @@ public class PropagateErrorSources {
 					ErrorBehaviorState failureMode = null;
 
 					EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
-					for (TypeToken typeToken : result) {
+					for (TypeToken typeToken : result)
+					{
+						for (int i = 0 ; i < typeToken.getType().size() ; i++)
+						{
+							handledTypes.add (typeToken.getType().get(i));
+						}
 						String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
 						traceErrorPaths(ci,ep,typeToken,2,componentText+", "+ "internal event " + event.getName());
 					}
 					
-					OsateDebug.osateDebug("event=" + event.getName() + "state=" + opc.getState().getName() + "|outgoing=" + opc.getOutgoing());
+					//OsateDebug.osateDebug("event=" + event.getName() + "state=" + opc.getState().getName() + "|outgoing=" + opc.getOutgoing());
 				}
 			}
 
+		}
+		for (ErrorSource errorSource : eslist)
+		{
+			ErrorPropagation ep = errorSource.getOutgoing();
+			TypeSet ts = errorSource.getTypeTokenConstraint();
+			if (ts == null) ep.getTypeSet();
+			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
+			ErrorBehaviorState failureMode = null;
+			if (fmr instanceof ErrorBehaviorState){
+				// XXX TODO how about the other case
+				failureMode = (ErrorBehaviorState) fmr;
+			}
+			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
+			for (TypeToken typeToken : result)
+			{
+
+				String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
+				
+				if (failureMode == null)
+				{
+					for (int i = 0 ; i < typeToken.getType().size() ; i++)
+					{
+						if (! handledTypes.contains (typeToken.getType().get(i)))
+						{
+							traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
+						}
+					}
+				}
+				else
+				{
+					traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
+				}
+			}
 		}
 		
 	}

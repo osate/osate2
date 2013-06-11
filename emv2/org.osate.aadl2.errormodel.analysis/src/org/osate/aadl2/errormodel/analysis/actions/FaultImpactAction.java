@@ -73,7 +73,6 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 		List<ComponentInstance> cilist = faultimpact.getSubcomponents();
 		for (ComponentInstance componentInstance : cilist) 
 		{
-			OsateDebug.osateDebug("handle component" + componentInstance);
 			if (componentInstance != null)
 			{
 				faultimpact.startErrorFlows(componentInstance);

@@ -78,11 +78,14 @@ public class AnalysisModel {
 								if (realCpu.getCategory() == ComponentCategory.PROCESSOR)
 								{
 									populateConnectionPropagationPaths(cpu, realCpu);
+									populateConnectionPropagationPaths(ci, cpu);
 								}
 							}
 						}
-						populateConnectionPropagationPaths(ci, cpu);
-
+						else
+						{
+							populateConnectionPropagationPaths(ci, cpu);
+						}
 						subcomponents.add(ci);
 					}
 				}
@@ -181,7 +184,13 @@ public class AnalysisModel {
 			for (ErrorPropagation ep2 : EMV2Util.getAllIncomingErrorPropagations(comp.getComponentClassifier()))
 			{
 				dstprop = ep2;
-				propagationPaths.add(new PropagationPath(srcCI, ep, dstCI, ep2));
+
+				if (EM2TypeSetUtil.contains(srcprop.getTypeSet(), dstprop.getTypeSet()))
+				{
+
+					propagationPaths.add(new PropagationPath(srcCI, ep, dstCI, ep2));
+			
+				}
 			}
 		}
 		subcomponents.add(srcCI);
@@ -255,7 +264,6 @@ public class AnalysisModel {
 		for (PropagationPath propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
-				OsateDebug.osateDebug("add path for comp " + ci);
 				result.add(propagationPathRecord);
 			}
 			if ((propagationPathRecord.getConni() != null) && (propagationPathRecord.getConni().isBidirectional())){
