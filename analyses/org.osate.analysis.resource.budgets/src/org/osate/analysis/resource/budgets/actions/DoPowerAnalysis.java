@@ -56,7 +56,7 @@ public final class DoPowerAnalysis extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected String getMarkerType() {
-		return "org.osate.analysis.resource.budgets.ResourceObjectMarker";
+		return "org.osate.analysis.resource.budgets.PowerAnalysisMarker";
 	}
 
 	protected String getActionName() {

@@ -47,6 +47,7 @@ import org.osate.analysis.resource.budgets.logic.DoSwitchBandWidthAnalysisLogic;
 
 
 public class DoSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
+
 	protected String getActionName() {
 		return "Bus bandwidth analysis";
 	}
@@ -54,6 +55,12 @@ public class DoSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 	@Override
 	protected DoBoundResourceAnalysisLogic getLogicObject() {
 		return new DoSwitchBandWidthAnalysisLogic(getActionName(), reportMessage, this);
+	}
+
+
+	@Override
+	protected String getMarkerType() {
+		return "org.osate.analysis.resource.budgets.BandwidthAnalysisMarker";
 	}
 
 

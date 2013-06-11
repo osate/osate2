@@ -46,10 +46,16 @@ import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisL
 
 
 public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
+	@Override
 	protected String getActionName() {
 		return "Bound bus bandwidth analysis";
 	}
 
+
+	@Override
+	protected String getMarkerType() {
+		return "org.osate.analysis.resource.budgets.BoundBandwidthAnalysisMarker";
+	}
 
 	@Override
 	protected boolean initializeAction(NamedElement obj) {

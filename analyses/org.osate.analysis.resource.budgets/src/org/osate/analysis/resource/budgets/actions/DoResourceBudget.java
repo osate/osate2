@@ -67,7 +67,7 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected String getMarkerType() {
-		return "org.osate.analysis.resource.budgets.ResourceObjectMarker";
+		return "org.osate.analysis.resource.budgets.ResourceAnalysisMarker";
 	}
 
 	protected void initPropertyReferences() {

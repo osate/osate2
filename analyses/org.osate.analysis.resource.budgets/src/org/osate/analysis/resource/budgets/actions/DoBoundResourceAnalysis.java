@@ -72,7 +72,7 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected String getMarkerType() {
-		return "org.osate.analysis.resource.budgets.ResourceObjectMarker";
+		return "org.osate.analysis.resource.budgets.BoundResourceAnalysisMarker";
 	}
 
 	protected String getActionName() {
