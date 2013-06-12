@@ -285,7 +285,7 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 		public static boolean isBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
-			List<ComponentInstance> bindinglist = getDirectlyBoundProcessor(componentInstance);
+			List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
@@ -305,7 +305,7 @@ public class InstanceModelUtil {
 		 * @param io
 		 * @return
 		 */
-		public static List<ComponentInstance> getDirectlyBoundProcessor(final ComponentInstance io) {
+		public static List<ComponentInstance> getProcessorBinding(final ComponentInstance io) {
 			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(io);
 			/**
 			 * If we have a virtual processor, we consider that it is bound to
@@ -331,12 +331,12 @@ public class InstanceModelUtil {
 		 * @param componentInstance
 		 * @return processor instance
 		 */
-		public static ComponentInstance getBoundProcessor(ComponentInstance componentInstance){
-			List<ComponentInstance> bindinglist = getDirectlyBoundProcessor(componentInstance);
+		public static ComponentInstance getBoundPhysicalProcessor(ComponentInstance componentInstance){
+			List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
-					ComponentInstance res = getBoundProcessor(boundCompInstance);
+					ComponentInstance res = getBoundPhysicalProcessor(boundCompInstance);
 					if (res != null) return res;
 				} else { // isProcessor
 					return boundCompInstance;
@@ -352,14 +352,14 @@ public class InstanceModelUtil {
 		 * @param componentInstance
 		 * @return processor instance
 		 */
-		public static Collection<ComponentInstance> getBoundProcessors(ComponentInstance componentInstance){
+		public static Collection<ComponentInstance> getBoundPhysicalProcessors(ComponentInstance componentInstance){
 			final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
 			addBoundProcessors(componentInstance, actualProcs);
 			return actualProcs;
 		}
 		
 		protected static void addBoundProcessors(ComponentInstance componentInstance,UniqueEList<ComponentInstance> result){
-			List<ComponentInstance> bindinglist = getDirectlyBoundProcessor(componentInstance);
+			List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
 				for (ComponentInstance boundCompInstance : bindinglist) {
 					if (isVirtualProcessor(boundCompInstance)){
 						// it is bound to or contained in
@@ -401,7 +401,7 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isBoundToBus(InstanceObject boundObject, ComponentInstance bus){
-			List<ComponentInstance> bindinglist = getDirectlyBoundConnectionHardware(boundObject);
+			List<ComponentInstance> bindinglist = getConnectionBinding(boundObject);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
@@ -420,7 +420,7 @@ public class InstanceModelUtil {
 		 * @param io
 		 * @return
 		 */
-		public static List<ComponentInstance> getDirectlyBoundConnectionHardware(final InstanceObject io) {
+		public static List<ComponentInstance> getConnectionBinding(final InstanceObject io) {
 			List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(io);
 			/**
 			 * If we have a virtual bus, we consider that it is bound to
@@ -446,18 +446,18 @@ public class InstanceModelUtil {
 		 * @param connectionInstance
 		 * @return list of hardware components involved in connection binding
 		 */
-		public static EList<ComponentInstance> getBoundConnectionHardware(ConnectionInstance connectionInstance){
+		public static EList<ComponentInstance> getPhysicalConnectionBinding(ConnectionInstance connectionInstance){
 			final UniqueEList<ComponentInstance> actualHW = new UniqueEList<ComponentInstance>();
-			addBoundConnectionHardware(connectionInstance, actualHW);
+			addPhysicalConnectionBinding(connectionInstance, actualHW);
 			return actualHW;
 		}
 		
-		protected static void addBoundConnectionHardware(InstanceObject VBorConni,UniqueEList<ComponentInstance> result){
-			List<ComponentInstance> bindinglist = getDirectlyBoundConnectionHardware(VBorConni);
+		protected static void addPhysicalConnectionBinding(InstanceObject VBorConni,UniqueEList<ComponentInstance> result){
+			List<ComponentInstance> bindinglist = getConnectionBinding(VBorConni);
 				for (ComponentInstance boundCompInstance : bindinglist) {
 					if (isVirtualBus(boundCompInstance)){
 						// it is bound to or contained in
-						addBoundConnectionHardware(boundCompInstance,result);
+						addPhysicalConnectionBinding(boundCompInstance,result);
 					} else {
 						result.add(boundCompInstance);
 					}
@@ -500,7 +500,7 @@ public class InstanceModelUtil {
 				if (isDevice(swci)||isBus(swci)||isProcessor(swci)||isMemory(swci)) {
 					return swci;
 				}
-				return getBoundProcessor(swci);
+				return getBoundPhysicalProcessor(swci);
 			} else if (cie instanceof ComponentInstance){
 				ComponentInstance ci = (ComponentInstance)cie;
 				if (isBus(ci)){
