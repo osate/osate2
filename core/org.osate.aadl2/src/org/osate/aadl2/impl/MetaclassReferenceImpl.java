@@ -43,6 +43,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.osate.aadl2.Aadl2Package;
@@ -258,8 +259,11 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 				metaclass = Aadl2Package.eINSTANCE.getNamedElement();
 				return metaclass;
 			}
-			EClassifier searchResult = Aadl2Package.eINSTANCE
-					.getEClassifier(metaclassName.toString());
+			EPackage pack = Aadl2Package.eINSTANCE;
+			if (getAnnexName()!=null ){
+				pack = getAnnexEPackage(getAnnexName());
+			}
+			EClassifier searchResult = pack.getEClassifier(metaclassName.toString());
 			if (searchResult instanceof EClass) {
 				EClass searchResultAsEClass = (EClass) searchResult;
 				if (Aadl2Package.eINSTANCE.getNamedElement().isSuperTypeOf(
@@ -268,7 +272,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 				else
 					errorMessage = "' is not a 'named element' or a subtype of 'named element'";
 			} else
-				errorMessage = "' is not the name of an AADL 2 meta class";
+				errorMessage = "' is not the name of a "+(getAnnexName()==null?"AADL2":getAnnexName())+" meta class";
 			if (errorMessage != null) {
 				StringBuilder errorMessageBuilder = new StringBuilder("'");
 				for (Iterator<String> iter = getMetaclassNames().iterator(); iter
@@ -283,6 +287,15 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 			}
 		}
 		return metaclass;
+	}
+	
+	public EPackage getAnnexEPackage(String annexname){
+		if (annexname.equalsIgnoreCase("EMV2")){
+			String NSURI = "http://www.osate.org/xtext/aadl2/errormodel/ErrorModel";
+			EPackage pack = EPackage.Registry.INSTANCE.getEPackage(NSURI);
+			return pack;
+		}
+		return Aadl2Package.eINSTANCE;
 	}
 
 } // MetaclassReferenceImpl
