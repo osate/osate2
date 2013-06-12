@@ -45,6 +45,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -685,17 +686,130 @@ public class EMV2Util {
 	 */
 	public static EList<ErrorFlow> findErrorFlowFrom(Collection<ErrorFlow> efs, ErrorPropagation flowSource){
 		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();
-		for (ErrorFlow ef : efs) {
+		for (ErrorFlow ef : efs)
+		{
 			ErrorPropagation eprop = null;
 			if (ef instanceof ErrorPath){
 				ErrorPath ep = (ErrorPath)ef;
 				 eprop = ep.getIncoming();
 			} else if (ef instanceof ErrorSink){
 				ErrorSink es = (ErrorSink)ef;
-				 eprop =es.getIncoming();
+				eprop =es.getIncoming();
+				
+				
 			}
 			if (eprop != null && eprop == flowSource){
 				result.add(ef);
+			}
+		}
+		return result;
+	}
+	
+	public static boolean areEquivalent (ErrorPropagation ep1 , ErrorPropagation ep2)
+	{
+		boolean result = true;
+		
+		
+		for (FeatureReference fr1 : ep1.getFeaturerefs())
+		{
+			boolean found = false;
+			for (FeatureReference fr2 : ep2.getFeaturerefs())
+			{
+				if (fr1.getFeature() == fr2.getFeature())
+				{
+					if (EM2TypeSetUtil.contains (ep1.getTypeSet(), ep2.getTypeSet()))
+					{
+						found = true;
+					}
+				}
+			}
+			if (found == false)
+			{
+				result = false;
+			}
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * For a given component and errorPropagation, it gives all the potential
+	 * other outgoingpropagation. When we have a component with
+	 * an incoming error propagation, this can be an error sink. On the other
+	 * hand, receiving this error may trigger a state that will be used
+	 * to propagate an error.
+	 * 
+	 * Consider the model below. In that case, the pedalvalue feature is
+	 * an error sink and makes the component to switch to the Failed state.
+	 * On the other hand, being in the Failed state sends
+	 * the NoValue error on brake and skid.
+	 * 
+	 * In that case, the following method is used to return
+	 * the outgoing error propagation related to an specific incoming
+	 * error propagation. In the following examples, the incoming error
+	 * propagation is pedalvalue, the outgoing error propagation Failed/brake and Failed/skid
+	 * 
+	 * 	component error behavior
+	 * 		transitions
+	 * 			terrfrompedal 		: Operational -[pedalvalue{NoService}]-> Failed;
+	 * 		propagations
+	 * 			p1 : Failed -[]-> brake(NoValue);
+	 * 			p2 : Failed -[]-> skid(NoValue);
+	 * 		end component;
+	 * 
+	 * @param component
+	 * @param flowSource
+	 * @return
+	 */
+	public static EList<OutgoingPropagationCondition> getAdditionalOutgoingPropagation (ComponentInstance component, ErrorPropagation flowSource)
+	{
+		EList<OutgoingPropagationCondition> result = new BasicEList<OutgoingPropagationCondition>();
+		
+		
+		for ( ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(component))
+		{
+			if (trans.getCondition() instanceof ConditionElement)
+			{
+				ConditionElement ce = (ConditionElement)trans.getCondition();
+				if (ce.getIncoming() instanceof ErrorPropagation)
+				{
+					if (areEquivalent ((ErrorPropagation)ce.getIncoming(), flowSource))
+					{
+						for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component))
+						{
+
+							if (opc.getState() == trans.getTarget())
+							{
+								result.add (opc);
+							}
+						}
+					}
+				}
+			}
+	
+		}
+		return result;
+	}
+	
+	
+	public static EList<ErrorFlow> findErrorFlowFromComponentInstance(ComponentInstance component, ErrorPropagation flowSource){
+		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();
+		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(component.getComponentClassifier());
+		ErrorFlow toAdd;
+		for (ErrorFlow ef : efs)
+		{
+			ErrorPropagation eprop = null;
+			toAdd = ef;
+			
+			if (ef instanceof ErrorPath){
+				ErrorPath ep = (ErrorPath)ef;
+				 eprop = ep.getIncoming();
+			} else if (ef instanceof ErrorSink){
+				ErrorSink es = (ErrorSink)ef;
+				eprop =es.getIncoming();
+			}
+			if (eprop != null && eprop == flowSource){
+				result.add(toAdd);
 			}
 		}
 		return result;
