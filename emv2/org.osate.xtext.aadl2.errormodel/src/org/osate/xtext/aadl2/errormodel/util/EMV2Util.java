@@ -78,6 +78,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
+import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
+import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
 
 public class EMV2Util {
 	
@@ -731,6 +733,57 @@ public class EMV2Util {
 		return result;
 	}
 	
+	/**
+	 * Return true if a ConditionExpression object contains a reference to a specific error propagation.
+	 * In fact, we are looking for an incoming error propagation that may trigger a condition
+	 * (for example, switching to a state, propagating an error, etc.
+	 * 
+	 * @param conditionExpression : the conditionExpression that may contain a reference to the error propagation
+	 * @param errorPropagation    : the incoming propagation we are looking for as a referenced condition
+	 * @return if the conditionExpression contains a reference (either with a or or and) to the error propagation passed as the second parameter.
+	 */
+	public static boolean errorConditionContainsIncomingPropagation (ConditionExpression conditionExpression , ErrorPropagation errorPropagation)
+	{
+		boolean result = false;
+		if (conditionExpression instanceof ConditionElement)
+		{
+			ConditionElement ce = (ConditionElement)conditionExpression;
+			if (ce.getIncoming() instanceof ErrorPropagation)
+			{
+				if (areEquivalent ((ErrorPropagation)ce.getIncoming(), errorPropagation))
+				{
+					return true;
+				}
+			}
+		}
+		
+		if (conditionExpression instanceof AndExpressionImpl)
+		{
+			AndExpressionImpl ae = (AndExpressionImpl)conditionExpression;
+			for (ConditionExpression ce : ae.getOperands())
+			{
+				if (errorConditionContainsIncomingPropagation(ce, errorPropagation))
+				{
+					result = true;
+				}
+			}
+		}
+
+		if (conditionExpression instanceof OrExpressionImpl)
+		{
+			OrExpressionImpl oe = (OrExpressionImpl)conditionExpression;
+			for (ConditionExpression ce : oe.getOperands())
+			{
+				if (errorConditionContainsIncomingPropagation(ce, errorPropagation))
+				{
+					result = true;
+				}
+			}
+		}
+	
+		return result;
+	}
+	
 	
 	/**
 	 * For a given component and errorPropagation, it gives all the potential
@@ -764,33 +817,28 @@ public class EMV2Util {
 	public static EList<OutgoingPropagationCondition> getAdditionalOutgoingPropagation (ComponentInstance component, ErrorPropagation flowSource)
 	{
 		EList<OutgoingPropagationCondition> result = new BasicEList<OutgoingPropagationCondition>();
-		
-		
+
+
 		for ( ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(component))
 		{
-			if (trans.getCondition() instanceof ConditionElement)
+			if (errorConditionContainsIncomingPropagation (trans.getCondition(), flowSource))
 			{
-				ConditionElement ce = (ConditionElement)trans.getCondition();
-				if (ce.getIncoming() instanceof ErrorPropagation)
-				{
-					if (areEquivalent ((ErrorPropagation)ce.getIncoming(), flowSource))
-					{
-						for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component))
-						{
 
-							if (opc.getState() == trans.getTarget())
-							{
-								result.add (opc);
-							}
-						}
+				for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component))
+				{
+
+					if (opc.getState() == trans.getTarget())
+					{
+						result.add (opc);
 					}
 				}
+
 			}
-	
+
 		}
 		return result;
 	}
-	
+
 	
 	public static EList<ErrorFlow> findErrorFlowFromComponentInstance(ComponentInstance component, ErrorPropagation flowSource){
 		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();

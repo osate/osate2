@@ -378,12 +378,15 @@ public class PropagateErrorSources {
 		{
 			return;
 		}
+		List<ErrorBehaviorState> treated = new ArrayList<ErrorBehaviorState>();
+
 			Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
 			if (!efs.isEmpty()){
 				Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
 				for (ErrorFlow ef : outefs) {
 					if (ef instanceof ErrorSink)
 					{
+						//OsateDebug.osateDebug("error sink" + ef.getName());
 						/**
 						 * We try to find additional error propagation for this error sink.
 						 * For example, if the error sink triggers to switch to
@@ -411,12 +414,12 @@ public class PropagateErrorSources {
 							for (OutgoingPropagationCondition opc : additionalPropagations)
 							{
 								ErrorPropagation outp = opc.getOutgoing();
-								List<ErrorBehaviorState> treated = new ArrayList<ErrorBehaviorState>();
+								OsateDebug.osateDebug("ref" + outp.getFeaturerefs().get(0).getFeature().getName());
 
 								if (! treated.contains(opc.getState()))
 								{
 									treated.add(opc.getState());
-									traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,ef),depth+1,entryText+", "+generateEffectText(ci, outp,outp.getTypeSet().getElementType().get(0)));
+									traceErrorPaths(ci,outp,EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef),depth+1,entryText+", "+generateEffectText(ci, outp,outp.getTypeSet().getElementType().get(0)));
 								}
 							}
 						}
