@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.properties.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,6 +22,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
@@ -33,6 +36,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -281,7 +285,7 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 		public static boolean isBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
-			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
+			List<ComponentInstance> bindinglist = getDirectlyBoundProcessor(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
@@ -297,6 +301,30 @@ public class InstanceModelUtil {
 
 
 		/**
+		 * return the processor or virtual processor that the component is directly bound to
+		 * @param io
+		 * @return
+		 */
+		public static List<ComponentInstance> getDirectlyBoundProcessor(final ComponentInstance io) {
+			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(io);
+			/**
+			 * If we have a virtual processor, we consider that it is bound to
+			 * its containing processor. Semantically, we thus consider
+			 * that all contained virtual processor are bound to the enclosing
+			 * physical processor or VP. Then, we add it in the list.
+			 */
+			if (bindinglist.isEmpty()&&io.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+			{
+				ComponentInstance parent = io.getContainingComponentInstance();
+				if (parent.getCategory() == ComponentCategory.PROCESSOR|| parent.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+				{
+					bindinglist.add (parent);
+				}
+			}
+			return bindinglist;
+		}
+
+		/**
 		 * processor instance is directly or indirectly bound to the processor
 		 * It could be bound to a virtual processor which in turn is bound to a processor
 		 * the component instance can be a thread, process, or a virtual processor instance
@@ -304,7 +332,7 @@ public class InstanceModelUtil {
 		 * @return processor instance
 		 */
 		public static ComponentInstance getBoundProcessor(ComponentInstance componentInstance){
-			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
+			List<ComponentInstance> bindinglist = getDirectlyBoundProcessor(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
@@ -331,7 +359,7 @@ public class InstanceModelUtil {
 		}
 		
 		protected static void addBoundProcessors(ComponentInstance componentInstance,UniqueEList<ComponentInstance> result){
-			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
+			List<ComponentInstance> bindinglist = getDirectlyBoundProcessor(componentInstance);
 				for (ComponentInstance boundCompInstance : bindinglist) {
 					if (isVirtualProcessor(boundCompInstance)){
 						// it is bound to or contained in
@@ -373,7 +401,7 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isBoundToBus(InstanceObject boundObject, ComponentInstance bus){
-			List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(boundObject);
+			List<ComponentInstance> bindinglist = getDirectlyBoundConnectionHardware(boundObject);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
@@ -388,7 +416,31 @@ public class InstanceModelUtil {
 	}
 
 		/**
-		 * HW instances that connection instnace is directly or indirectly bound to 
+		 * return the processor or virtual processor that the component is directly bound to
+		 * @param io
+		 * @return
+		 */
+		public static List<ComponentInstance> getDirectlyBoundConnectionHardware(final InstanceObject io) {
+			List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(io);
+			/**
+			 * If we have a virtual bus, we consider that it is bound to
+			 * its containing bus. Semantically, we thus consider
+			 * that all contained virtual bus are bound to the enclosing
+			 * physical bus or VB. Then, we add it in the list.
+			 */
+			if (bindinglist.isEmpty()&&io instanceof ComponentInstance && ((ComponentInstance)io).getCategory() == ComponentCategory.VIRTUAL_BUS)
+			{
+				ComponentInstance parent = io.getContainingComponentInstance();
+				if (parent.getCategory() == ComponentCategory.BUS|| parent.getCategory() == ComponentCategory.VIRTUAL_BUS)
+				{
+					bindinglist.add (parent);
+				}
+			}
+			return bindinglist;
+		}
+
+		/**
+		 * HW instances that connection instance is directly or indirectly bound to 
 		 * It could be bound to a virtual bus which in turn is bound to a bus
 		 * or a device, processor, memory
 		 * @param connectionInstance
@@ -401,7 +453,7 @@ public class InstanceModelUtil {
 		}
 		
 		protected static void addBoundConnectionHardware(InstanceObject VBorConni,UniqueEList<ComponentInstance> result){
-			List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(VBorConni);
+			List<ComponentInstance> bindinglist = getDirectlyBoundConnectionHardware(VBorConni);
 				for (ComponentInstance boundCompInstance : bindinglist) {
 					if (isVirtualBus(boundCompInstance)){
 						// it is bound to or contained in
