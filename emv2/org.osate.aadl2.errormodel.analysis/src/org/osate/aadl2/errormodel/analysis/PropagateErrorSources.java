@@ -380,13 +380,48 @@ public class PropagateErrorSources {
 		}
 			Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
 			if (!efs.isEmpty()){
-				Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFrom(efs, ep);
+				Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
 				for (ErrorFlow ef : outefs) {
-					if (ef instanceof ErrorSink){
+					if (ef instanceof ErrorSink)
+					{
+						/**
+						 * We try to find additional error propagation for this error sink.
+						 * For example, if the error sink triggers to switch to
+						 * another behavior state and that states is used to propagate
+						 * an error through an error source. Then, we do not consider
+						 * it as an error sink but as an error path and continue 
+						 * to trace the flow using this additional error propagation.
+						 */
+						EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util.getAdditionalOutgoingPropagation (ci, ep);
 						// process should have returned false, but for safety we check again
-						String maskText = ", "+generateItemText(ci)+": "+EMV2Util.getPrintName(tt)+" Masked";
-						reportEntry(entryText+maskText, depth);
-					} else if (ef instanceof ErrorPath){ // error path
+						if(additionalPropagations.size() == 0)
+						{
+							/**
+							 * Here, we do not have any additional error propagation, we mark it as a sink.
+							 */
+							String maskText = ", "+generateItemText(ci)+": "+EMV2Util.getPrintName(tt)+" Masked";
+							reportEntry(entryText+maskText, depth);
+						}
+						else
+						{
+							/**
+							 * We continue to trace the propagation flows
+							 * based on the additional errors propagated.
+							 */
+							for (OutgoingPropagationCondition opc : additionalPropagations)
+							{
+								ErrorPropagation outp = opc.getOutgoing();
+								List<ErrorBehaviorState> treated = new ArrayList<ErrorBehaviorState>();
+
+								if (! treated.contains(opc.getState()))
+								{
+									treated.add(opc.getState());
+									traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,ef),depth+1,entryText+", "+generateEffectText(ci, outp,outp.getTypeSet().getElementType().get(0)));
+								}
+							}
+						}
+					}
+					else if (ef instanceof ErrorPath){ // error path
 						ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
 						traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,ef),depth+1,entryText+", "+generateEffectText(ci, outp,tt));
 					} 
