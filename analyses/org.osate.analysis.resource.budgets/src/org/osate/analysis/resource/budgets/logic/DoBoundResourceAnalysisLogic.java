@@ -404,7 +404,7 @@ public class DoBoundResourceAnalysisLogic {
 	 */
 	protected void checkBandWidthLoad(final ComponentInstance curBus, String somName) {
 		double Buscapacity = GetProperties.getBandWidthCapacityInKbps(curBus, 0.0);
-		boolean loopback = GetProperties.getBusLoopBack(curBus);
+//		boolean loopback = GetProperties.getBusLoopBack(curBus);
 		if (Buscapacity == 0)
 			return;
 		SystemInstance root = curBus.getSystemInstance();
@@ -425,9 +425,10 @@ public class DoBoundResourceAnalysisLogic {
 			// we have a binding, is it to the current bus
 			if (InstanceModelUtil.isBoundToBus(connectionInstance, curBus)||
 					// we derived a bus connection from the connection end bindings
-					InstanceModelUtil.connectedByBus(connectionInstance, curBus) || 
-					// we have a switch back 
-					((hasSwitchLoopback(connectionInstance, curBus) && loopback))) {
+					InstanceModelUtil.connectedByBus(connectionInstance, curBus)  
+//					// we have a switch back 
+//					||((hasSwitchLoopback(connectionInstance, curBus) && loopback))
+					) {
 				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 				actual = calcBandwidth(connectionInstance.getSource());
 				String note = "";
@@ -455,10 +456,12 @@ public class DoBoundResourceAnalysisLogic {
 		}
 		if (totalBandWidth > Buscapacity) {
 			errManager.errorSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of bound connections"
-					+ (loopback ? " with loopback" : "") + " exceeds bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
+//					+ (loopback ? " with loopback" : "") 
+					+ " exceeds bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
 		} else if (totalBandWidth > 0.0 && Buscapacity > 0.0) {
 			errManager.infoSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of bound connections"
-					+ (loopback ? " with loopback" : "") + " within bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
+//					+ (loopback ? " with loopback" : "") 
+					+ " within bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
 		}
 	}
 	
