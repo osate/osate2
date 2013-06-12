@@ -39,6 +39,7 @@
 */
 package org.osate.analysis.resource.management.actions;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -540,7 +541,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		for (final Iterator i = threads.iterator(); i.hasNext();) {
 			final ComponentInstance thr = (ComponentInstance) i.next();
 			final SoftwareNode thrSN = (SoftwareNode) threadToSoftwareNode.get(thr);
-			Set allowed = getActualProcessorBindings(thr);
+			Collection allowed = getActualProcessorBindings(thr);
 			if (allowed.size() == 0){
 				allowed = getAllowedProcessorBindings(thr);
 			}
@@ -749,7 +750,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	 *                      referenced by <code>thread</code> is not
 	 *                      {@link ComponentCategory#THREAD_LITERAL}.
 	 */
-	public Set getActualProcessorBindings(final ComponentInstance thread) {
+	public Collection getActualProcessorBindings(final ComponentInstance thread) {
 		if (thread.getCategory() != ComponentCategory.THREAD) {
 			throw new IllegalArgumentException("Component \""
 					+ thread.getName() + "\" is not a thread.");
