@@ -755,7 +755,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			throw new IllegalArgumentException("Component \""
 					+ thread.getName() + "\" is not a thread.");
 		}
-		return InstanceModelUtil.getBoundProcessors(thread);
+		return InstanceModelUtil.getBoundPhysicalProcessors(thread);
 	}
 
 	/**
