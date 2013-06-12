@@ -207,23 +207,6 @@ public class GetProperties {
 		Property actualProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 		List<? extends PropertyExpression> propertyValues ;
-		
-		/**
-		 * If we have a virtual processor, we consider that it is bound to
-		 * its containing processor. Semantically, we thus consider
-		 * that all contained virtual processor are bound to the enclosing
-		 * physical processor or VP. Then, we add it in the list.
-		 */
-		if (io.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-		{
-			ComponentInstance parent = io.getContainingComponentInstance();
-			if (parent.getCategory() == ComponentCategory.PROCESSOR|| parent.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-			{
-				components.add (parent);
-			}
-		}
-		
-		
 		try {
 			propertyValues = io.getPropertyValueList(actualProcessorBinding);
 		} catch (Exception e) {
@@ -241,20 +224,6 @@ public class GetProperties {
 		Property actualConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_CONNECTION_BINDING);
 		List<? extends PropertyExpression> propertyValues ;
-		/**
-		 * If we have a virtual bus, we consider that it is bound to
-		 * its containing VB/bus. Semantically, we thus consider
-		 * that all contained virtual bus are bound to the enclosing
-		 * physical bus or VB. Then, we add it in the list.
-		 */
-		if (io instanceof ComponentInstance&& ((ComponentInstance)io).getCategory() == ComponentCategory.VIRTUAL_BUS)
-		{
-			ComponentInstance parent = io.getContainingComponentInstance();
-			if (parent.getCategory() == ComponentCategory.BUS||parent.getCategory() == ComponentCategory.VIRTUAL_BUS)
-			{
-				components.add (parent);
-			}
-		}
 		try {
 			propertyValues = io.getPropertyValueList(actualConnectionBinding);
 		} catch (Exception e) {
