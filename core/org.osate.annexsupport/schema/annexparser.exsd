@@ -64,6 +64,13 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="annexNSURI" type="string" use="optional">
+            <annotation>
+               <documentation>
+                  The NSURI of the annex this parser can process.
+               </documentation>
+            </annotation>
+         </attribute>
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>

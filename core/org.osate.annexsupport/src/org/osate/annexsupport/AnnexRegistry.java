@@ -69,7 +69,7 @@ public abstract class AnnexRegistry {
 		public static final String ANNEX_HIGHLIGHTER_EXT_ID = "highlighter";
 		
 
-	private static final String ATT_ANNEXNAME = "annexName";
+		private static final String ATT_ANNEXNAME = "annexName";
 
 	private static final Map registries = new HashMap();
 
