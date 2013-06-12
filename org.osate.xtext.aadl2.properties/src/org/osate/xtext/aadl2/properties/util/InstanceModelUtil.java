@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.properties.util;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.UniqueEList;
 import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Connection;
@@ -274,16 +276,16 @@ public class InstanceModelUtil {
 		 * true if component instance is directly or indirectly bound to the processor
 		 * It could be bound to a virtual processor which in turn is bound to a processor
 		 * the component instance can be a thread, process, or a virtual processor instance
-		 * @param componentInstance
-		 * @param processor
+		 * @param componentInstance component or VP
+		 * @param processor or VP
 		 * @return
 		 */
 		public static boolean isBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
-				List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
+			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
-					if (isBoundToProcessor(boundCompInstance,processor) || contains(processor,boundCompInstance)){
+					if (isBoundToProcessor(boundCompInstance,processor) ){
 						return true;
 					}
 				} else if (boundCompInstance == processor){
@@ -308,8 +310,7 @@ public class InstanceModelUtil {
 					// it is bound to or contained in
 					ComponentInstance res = getBoundProcessor(boundCompInstance);
 					if (res != null) return res;
-					return getContainingProcessor(boundCompInstance);
-				} else {
+				} else { // isProcessor
 					return boundCompInstance;
 				}
 			}
@@ -323,20 +324,14 @@ public class InstanceModelUtil {
 		 * @param componentInstance
 		 * @return processor instance
 		 */
-		public static Set<ComponentInstance> getBoundProcessors(ComponentInstance componentInstance){
-			final Set<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
+		public static Collection<ComponentInstance> getBoundProcessors(ComponentInstance componentInstance){
+			final UniqueEList<ComponentInstance> actualProcs = new UniqueEList<ComponentInstance>();
 			addBoundProcessors(componentInstance, actualProcs);
-			return Collections.unmodifiableSet(actualProcs);
+			return actualProcs;
 		}
 		
-		protected static void addBoundProcessors(ComponentInstance componentInstance,Set<ComponentInstance> result){
+		protected static void addBoundProcessors(ComponentInstance componentInstance,UniqueEList<ComponentInstance> result){
 			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(componentInstance);
-			if (bindinglist.isEmpty() && isVirtualProcessor(componentInstance)){
-				ComponentInstance res = getContainingProcessor(componentInstance);
-				if (res != null){
-					result.add(res);
-				}
-			} else {
 				for (ComponentInstance boundCompInstance : bindinglist) {
 					if (isVirtualProcessor(boundCompInstance)){
 						// it is bound to or contained in
@@ -346,74 +341,28 @@ public class InstanceModelUtil {
 					}
 					// we should not have another else
 				}
-			}
 		}
 
-		/**
-		 * returns true if container contains contained as instance.
-		 * @param container InstanceObject
-		 * @param contained InstanceObject
-		 * @return boolean
-		 */
-		public static boolean contains(InstanceObject container, InstanceObject contained){
-			while (contained != null ){
-				if (contained == container){
-					return true;
-				}
-				contained = (InstanceObject)contained.getOwner();
-			}
-			return false;
-		}
 
-		/**
-		 * returns containing processor instance.
-		 * @param vprocessor
-		 * @return ComponentInstance processor
-		 */
-		public static ComponentInstance getContainingProcessor(ComponentInstance vprocessor){
-			ComponentInstance res = vprocessor;
-			while (res != null ){
-				if (isProcessor(res)){
-					return res;
-				}
-				res = res.getContainingComponentInstance();
-			}
-			return null;
-		}
-		
 		/**
 		 * get all components bound to the given component
 		 * @param procorVP
 		 * @return
 		 */
-		public static EList<ComponentInstance> getBoundComponents(final ComponentInstance procorVP){
+		public static EList<ComponentInstance> getBoundSWComponents(final ComponentInstance procorVP){
 			SystemInstance root = procorVP.getSystemInstance();
 			EList boundComponents = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
-					return InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP);
+					ComponentInstance ci = (ComponentInstance)obj;
+					ComponentCategory cat = ci.getCategory();
+					return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP || cat == ComponentCategory.PROCESS)
+							&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
 				}
-			}.processPreOrderComponentInstance(root,ComponentCategory.THREAD);
+			}.processPreOrderComponentInstance(root);//,ComponentCategory.THREAD);
 			return boundComponents;
 		}
 
-
-		/**
-		 * true if component instance is directly bound to the processor
-		 * the component instance can be a thread, process, or a virtual processor instance
-		 * @param componentInstance
-		 * @param processor
-		 * @return
-		 */
-		public static boolean isDirectlyBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
-			List<ComponentInstance> bindinglist= GetProperties.getActualProcessorBinding(componentInstance);
-			for (ComponentInstance boundComponentInstance : bindinglist) {
-				if (boundComponentInstance == processor){
-					return true;
-				}
-			}
-			return false;
-		}
 
 		/**
 		 * true if connection or virtual bus instance is directly or indirectly bound to the bus
@@ -424,120 +373,63 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 	  public static boolean isBoundToBus(InstanceObject boundObject, ComponentInstance bus){
-		  	List<ComponentInstance> bindinglist= GetProperties.getActualConnectionBinding(boundObject);
-		  	if (bindinglist.isEmpty()&& isVirtualBus(boundObject)){
-		  		if (Aadl2InstanceUtil.containedIn(boundObject, bus)){
-		  			return true;
-		  		}
-		  	}
-		  	for (ComponentInstance boundComponentInstance : bindinglist) {
-				if (isVirtualBus(boundComponentInstance)){
-					if (isBoundToBus(boundComponentInstance,bus)){
+			List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(boundObject);
+			for (ComponentInstance boundCompInstance : bindinglist) {
+				if (isVirtualProcessor(boundCompInstance)){
+					// it is bound to or contained in
+					if (isBoundToBus(boundCompInstance,bus) ){
 						return true;
 					}
-				} else if (boundComponentInstance == bus){
+				} else if (boundCompInstance == bus){
 					return true;
 				}
-			}
-		  return false;
-	}
-
-		/**
-		 * true if connection/virtual bus instance is directly or indirectly bound to a bus
-		 * It could be bound to a virtual bus which in turn is bound to a bus
-		 * the connectionInstance can be a connection or a virtual bus instance
-		 * @param boundObject
-		 * @return
-		 */
-	  public static boolean isBoundToBus(InstanceObject boundObject){
-		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(boundObject);
-			  	if (bindinglist.isEmpty()&& isVirtualBus(boundObject)){
-			  		if (containedInBus(boundObject)){
-			  			return true;
-			  		}
-			  	}
-		  	for (ComponentInstance boundComponentInstance : bindinglist) {
-				if (isVirtualBus(boundComponentInstance)){
-					if (isBoundToBus(boundComponentInstance)){
-						return true;
-					}
-				} else if (isBus(boundComponentInstance)){
-					return true;
-				}
-			}
-		  return false;
-	}
-
-		public static boolean containedInBus(InstanceObject element) {
-			while (element != null) {
-				if (isBus(element))
-					return true;
-				element = (InstanceObject) element.getOwner();
 			}
 			return false;
+	}
+
+		/**
+		 * HW instances that connection instnace is directly or indirectly bound to 
+		 * It could be bound to a virtual bus which in turn is bound to a bus
+		 * or a device, processor, memory
+		 * @param connectionInstance
+		 * @return list of hardware components involved in connection binding
+		 */
+		public static EList<ComponentInstance> getBoundConnectionHardware(ConnectionInstance connectionInstance){
+			final UniqueEList<ComponentInstance> actualHW = new UniqueEList<ComponentInstance>();
+			addBoundConnectionHardware(connectionInstance, actualHW);
+			return actualHW;
 		}
 		
-		public static ComponentInstance getContainingBus(InstanceObject element) {
-			while (element != null) {
-				if (isBus(element))
-					return (ComponentInstance)element;
-				element = (InstanceObject) element.getOwner();
-			}
-			return null;
+		protected static void addBoundConnectionHardware(InstanceObject VBorConni,UniqueEList<ComponentInstance> result){
+			List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(VBorConni);
+				for (ComponentInstance boundCompInstance : bindinglist) {
+					if (isVirtualBus(boundCompInstance)){
+						// it is bound to or contained in
+						addBoundConnectionHardware(boundCompInstance,result);
+					} else {
+						result.add(boundCompInstance);
+					}
+				}
 		}
-	  
+
+
 		/**
-		 * return list of component instances that the connection instance is bound to directly or indirectly
-		 * the connectionInstance can be a connection or a virtual bus instance
-		 * @param connectionInstance
+		 * get all connections bound to the given bus or virtual bus
+		 * @param busorVB
 		 * @return
 		 */
-	  public static EList<ComponentInstance> getRealConnectionBindings(InstanceObject connectionInstance){
-		  EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
-		  return getRealConnectionBindings(connectionInstance, result);
-	}
-	  private static EList<ComponentInstance> getRealConnectionBindings(InstanceObject boundObject, EList<ComponentInstance> result){
-		  List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(boundObject);
-		  if (bindinglist.isEmpty()&& isVirtualBus(boundObject)){
-			  ComponentInstance bindingTarget = getContainingBus(boundObject);
-			  if (bindingTarget != null){
-				  result.add(bindingTarget);
-				  return result;
-			  }
-		  }
-		  for (ComponentInstance boundComponentInstance : bindinglist) {
-			  if (isVirtualBus(boundComponentInstance)){
-				  getRealConnectionBindings(boundObject,result);
-			  } else if (isBus(boundComponentInstance)){
-				  result.add(boundComponentInstance);
-			  }
-		  }
-		  return result;
-	  }
-
-
-
-	  /**
-	   * true if component instance is directly bound to the bus
-		 * the component instance can be a connection or a virtual bus instance
-		 * @param boundObject
-		 * @param processor
-		 * @return
-		 */
-	  public static boolean isDirectlyBoundToBus(InstanceObject boundObject, ComponentInstance bus){
-		  		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(boundObject);
-			  	if (bindinglist.isEmpty()&& isVirtualBus(boundObject)){
-			  		if (containedInBus(boundObject)){
-			  			return true;
-			  		}
-			  	}
-		  	for (ComponentInstance componentInstance : bindinglist) {
-				if (componentInstance == bus){
-					return true;
+		public static EList<ConnectionInstance> getBoundConnections(final ComponentInstance busorVB){
+			EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+			SystemInstance root = busorVB.getSystemInstance();
+			EList<ConnectionInstance> connections = root.getAllConnectionInstances();
+			for (ConnectionInstance connectionInstance : connections) {
+				if (InstanceModelUtil.isBoundToBus(connectionInstance, busorVB)){
+					result.add(connectionInstance);
 				}
 			}
-		  return false;
-	}
+			return result;
+		}
+
 	  
 	  /**
 	   * return the hardware component of the connection instance end.
@@ -583,10 +475,122 @@ public class InstanceModelUtil {
 				return false;
 
 			return connectedToBus(srcHW, curBus) && connectedToBus(dstHW, curBus);
+//			List<ComponentInstance> hwlist = connectedByBus(srcHW, dstHW);
+//			return hwlist.contains(curBus);
+		}
 
+
+		/**
+		 * figure out a hardware path from the endpoints without using connection binding information
+		 * 
+		 * @param conni
+		 * @return
+		 */
+		public static List<ComponentInstance> connectedByHardware(ConnectionInstance conni) {
+			ComponentInstance srcHW = getHardwareComponent(conni.getSource());
+			ComponentInstance dstHW = getHardwareComponent(conni.getDestination());
+			return connectedByBus(srcHW, dstHW);
 		}
 
 		/**
+		 * returns list of buses connecting to HW components. Can be empty list (if
+		 * same component), or null (no connection).
+		 * 
+		 * @param source HW component
+		 * @param destination HW component
+		 * @return list of buses involved in the physical connection
+		 */
+		public static List<ComponentInstance> connectedByBus(ComponentInstance srcHW, ComponentInstance dstHW) {
+			EList<ComponentInstance> visitedBuses = new UniqueEList<ComponentInstance>();
+			return doConnectedByBus(srcHW, dstHW, visitedBuses);
+		}
+
+		/**
+		 * returns list of buses connecting to HW components. Can be empty list (if
+		 * same component), or null (no connection).
+		 * 
+		 * @param source HW component
+		 * @param destination HW component
+		 * @return list of buses involved in the physical connection
+		 */
+		protected static List<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW, EList<ComponentInstance> visitedBuses) {
+			if (srcHW == null || dstHW == null)
+				return visitedBuses;
+			if (srcHW == dstHW)
+				return visitedBuses;
+			EList<FeatureInstance> busaccesslist = srcHW.getFeatureInstances();
+			for (Iterator<FeatureInstance> it = busaccesslist.iterator(); it.hasNext();) {
+				FeatureInstance fi = (FeatureInstance) it.next();
+				if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
+					for (ConnectionInstance aci : fi.getDstConnectionInstances()) {
+						ComponentInstance curBus = (ComponentInstance) aci.getSource();
+						if (!visitedBuses.contains(curBus)) {
+							if (connectedToBus(dstHW, curBus)) {
+								EList<ComponentInstance> res = new BasicEList<ComponentInstance>();
+								res.add(curBus);
+								return res;
+							} else {
+								// first check if there is a bus this bus is connected to
+								visitedBuses.add(curBus);
+								List<ComponentInstance> res = doConnectedByBus(curBus, dstHW, visitedBuses);
+								if (res != null) {
+									res.add(0, curBus);
+									return res;
+								} else {
+									// check for buses that are connected to this bus
+									for (ConnectionInstance srcaci : curBus.getSrcConnectionInstances()) {
+										ComponentInstance bi = srcaci.getDestination().getContainingComponentInstance();
+										if (bi.getCategory() == ComponentCategory.BUS) {
+											if (connectedToBus(dstHW, bi)) {
+												res = new BasicEList<ComponentInstance>();
+												res.add(bi);
+												return res;
+											} else {
+												visitedBuses.add(bi);
+												res = doConnectedByBus(bi, dstHW, visitedBuses);
+												if (res != null) {
+													res.add(0, curBus);
+													return res;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return null;
+		}
+
+
+		/**
+		 * list of buses the hardware component is directly connected to
+		 * 
+		 * @param HWcomp ComponentInstance hardware component
+		 * @return list of buses
+		 */
+		public static EList<ComponentInstance> getConnectedBuses(ComponentInstance HWcomp) {
+			EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
+			EList<ConnectionInstance> acl = HWcomp.getSrcConnectionInstances();
+			for (ConnectionInstance srcaci : acl) {
+				ComponentInstance res = srcaci.getDestination().getComponentInstance();
+				if (res.getCategory() == ComponentCategory.BUS) {
+					result.add(res);
+				}
+			}
+			// we have to check the connection the other way around. The bus be the source or destination
+			acl = HWcomp.getDstConnectionInstances();
+			for (ConnectionInstance dstaci : acl) {
+				ComponentInstance res = dstaci.getSource().getComponentInstance();
+				if (res.getCategory() == ComponentCategory.BUS) {
+					result.add(res);
+				}
+			}
+			return result;
+		}
+			/**
 		 * is hardware component connected (directly) to the given bus
 		 * 
 		 * @param HWcomp ComponentInstance hardware component
@@ -610,6 +614,29 @@ public class InstanceModelUtil {
 				}
 			}
 			return false;
+		}
+		/**
+		 * is hardware component connected (directly) to the given bus, incl. bus to
+		 * bus
+		 * 
+		 * @param HWcomp ComponentInstance hardware component
+		 * @param bus ComponentInstance bus component
+		 * @return access connection instance if they are connected by bus access
+		 *         connection
+		 */
+		public static ConnectionInstance getBusAccessConnection(ComponentInstance HWcomp, ComponentInstance bus) {
+			for (ConnectionInstance srcaci : bus.getSrcConnectionInstances()) {
+				if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
+					return srcaci;
+				}
+			}
+			// check the other way
+			for (ConnectionInstance srcaci : HWcomp.getSrcConnectionInstances()) {
+				if (srcaci.getDestination().getContainingComponentInstance() == bus) {
+					return srcaci;
+				}
+			}
+			return null;
 		}
 
 }
