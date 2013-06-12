@@ -101,4 +101,13 @@ public class AnnexParserProxy extends AnnexProxy implements AnnexParser {
 		}
 		return parser;
 	}
+	
+	private String getAnnexNSURI(){
+		try {
+			String value = configElem.getAttribute(ATT_ANNEXNSURI);
+			return value;
+			} catch (Exception e) {
+		}
+		return null;
+	}
 }
