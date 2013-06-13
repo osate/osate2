@@ -279,6 +279,7 @@ public class DoResourceBudgetLogic {
 	private void report(SystemInstance si, String resourceName, UnitLiteral unit, String somName) {
 		if (budgetTotal < 0)
 			budgetTotal = 0;
+		errManager.infoSummaryReportOnly(si,somName, "Summary\n");
 
 		String modelStats = resourceName + " capacity " + GetProperties.toStringScaled(capacity, unit) + " : "
 				+ resourceName + " budget " + GetProperties.toStringScaled(budgetTotal, unit);
@@ -299,7 +300,6 @@ public class DoResourceBudgetLogic {
 		} else{
 			errManager.infoSummary(si, somName, modelStats);
 		}
-		errManager.infoSummary(si, somName, "\n");
 	}
 	
 	protected void logHeader(String msg){

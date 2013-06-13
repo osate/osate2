@@ -95,11 +95,11 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
 				final String somName = Aadl2Util.getPrintableSOMName(som);
-				errManager.infoSummaryReportOnly(somName, "Processor Report");
+				errManager.infoSummaryReportOnly(root,somName, "Processor Report");
 				checkProcessorLoads(root, somName);
-				errManager.infoSummaryReportOnly( somName, "\nVirtual Processor Report");
+				errManager.infoSummaryReportOnly(root, somName, "\nVirtual Processor Report");
 				checkVirtualProcessorLoads(root, somName);
-				errManager.infoSummaryReportOnly( somName, "\nRAM/ROM Report");
+				errManager.infoSummaryReportOnly(root, somName, "\nRAM/ROM Report");
 				checkMemoryLoads(root, somName);
 			}
 			monitor.done();
@@ -226,7 +226,11 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	 */
 	protected void doMemoryLoad(ComponentInstance curMemory, String somName, EList boundComponents, boolean isROM) {
 		double totalMemory = 0.0;
+		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
 		String resourceName = isROM ? "ROM" : "RAM";
+		double Memorycapacity = isROM ? GetProperties.getROMCapacityInKB(curMemory, 0.0):
+			GetProperties.getRAMCapacityInKB(curMemory, 0.0);
+		logHeader("\n\nDetailed Workload Report for memory "+curMemory.getComponentInstancePath()+" with Capacity "+GetProperties.toStringScaled(Memorycapacity, kbliteral)+"\n\n,Component,Budget,Actual");
 		Set budgeted = new HashSet();
 		for (Iterator it = boundComponents.iterator(); it.hasNext();) {
 			ComponentInstance bci = (ComponentInstance) it.next();
@@ -262,9 +266,9 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			} catch (Throwable e) {
 			}
 		}
-		try {
-			double Memorycapacity = isROM ? GetProperties.getROMCapacityInKB(curMemory, 0.0):
-				GetProperties.getRAMCapacityInKB(curMemory, 0.0);
+			if (Memorycapacity == 0)
+			errManager.errorSummary(curMemory, somName, "" + (isROM ? "ROM" : "RAM") + " memory "
+					+ curMemory.getComponentInstancePath() + " has no memory capacity specified");
 			if (totalMemory > Memorycapacity) {
 				errManager.errorSummary(curMemory, somName, "Total Memory " + totalMemory + " KB of bounds tasks exceeds Memory capacity "
 						+ Memorycapacity + " KB of "
@@ -277,10 +281,6 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 						+ Memorycapacity + " KB of "
 						+ curMemory.getComponentInstancePath());
 			}
-		} catch (InvalidModelException e) {
-			errManager.errorSummary(curMemory, somName, "" + (isROM ? "ROM" : "RAM") + " memory "
-					+ curMemory.getComponentInstancePath() + " has no memory capacity specified");
-		}
 	}
 
 	protected void reportBusLoadTotals(SystemInstance si, final String somName) {
@@ -293,7 +293,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			@Override
 			protected void process(Element obj) {
 				double buscapacity = GetProperties.getBandWidthCapacityInKbps((ComponentInstance)obj, 0.0);
-				errManager.infoSummary(obj, somName, "Bus "+((ComponentInstance)obj).getFullName()+" bandwidth capacity: " + buscapacity+" KBytesps");
+				errManager.infoSummary((NamedElement)obj, somName, "Bus "+((ComponentInstance)obj).getFullName()+" bandwidth capacity: " + buscapacity+" KBytesps");
 			}
 		};
 		mal.processPreOrderComponentInstance(si, ComponentCategory.BUS);
