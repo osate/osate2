@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.MetaclassReference;
+import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -289,12 +290,16 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 		return metaclass;
 	}
 	
-	public EPackage getAnnexEPackage(String annexname){
-		if (annexname.equalsIgnoreCase("EMV2")){
-			String NSURI = "http://www.osate.org/xtext/aadl2/errormodel/ErrorModel";
+	public EPackage getAnnexEPackage(String annexname)
+	{
+
+		String NSURI = ParseUtil.getAnnexNS(annexname);
+		if (NSURI != null)
+		{
 			EPackage pack = EPackage.Registry.INSTANCE.getEPackage(NSURI);
 			return pack;
 		}
+		
 		return Aadl2Package.eINSTANCE;
 	}
 
