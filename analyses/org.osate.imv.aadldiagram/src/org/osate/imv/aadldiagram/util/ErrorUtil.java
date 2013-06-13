@@ -1,21 +1,40 @@
 package org.osate.imv.aadldiagram.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.DataPort;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.imv.aadldiagram.viewer.AadlPersistentDiagramViewer;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ErrorUtil {
@@ -24,6 +43,160 @@ public class ErrorUtil {
 	public final static int MIN_FACTOR     		=  1;
 	public final static int MAX_FACTOR     		=  99;
 	public final static int DEFAULT_FACTOR     	=  50;
+	//AadlPersistentDiagramViewer.getErrorComponent()
+	
+	
+	private static AnalysisModel analysisModel;
+	private static Map<ComponentInstance,Integer> factorCache;
+	
+	public static void generateAnalysisModel(ComponentInstance ci)
+	{
+		//OsateDebug.osateDebug("generate analysis model with ci=" + ci.getName());
+		analysisModel = new AnalysisModel(ci);
+		factorCache   = new HashMap<ComponentInstance, Integer>();
+	}
+	
+	public static void setCacheValue (ComponentInstance ci, int v)
+	{
+		factorCache.put(ci,v);
+	}
+	
+	
+	public static int getFactorWithPath (ComponentInstance componentTarget)
+	{
+		if (componentTarget == null)
+		{
+			return INVALID_FACTOR;
+		}
+		
+		if (factorCache.containsKey(componentTarget))
+		{
+			return factorCache.get(componentTarget);
+		}
+		
+		return (getFactorWithPath(AadlPersistentDiagramViewer.getErrorComponent(), componentTarget, 1));
+	}
+	
+	public static int getFactorWithPath (ComponentInstance componentSource, ComponentInstance componentTarget, int scale)
+	{
+		if (analysisModel == null)
+		{
+			//OsateDebug.osateDebug("analysis model null");
+			return INVALID_FACTOR;
+		}
+		
+		if ((componentSource == null) || (componentTarget == null))
+		{
+			//OsateDebug.osateDebug("component source null");
+			return INVALID_FACTOR;
+		}
+		
+		if (factorCache.containsKey(componentTarget))
+		{
+			return factorCache.get(componentTarget);
+		}
+		
+		
+		if (componentSource == componentTarget)
+		{
+			return MAX_FACTOR / scale;
+		}
+		
+//		OsateDebug.osateDebug("componentSource = " + componentSource);
+//		OsateDebug.osateDebug("componentDestination = " + componentTarget);
+		ComponentInstance errorComponent;
+		
+		errorComponent = AadlPersistentDiagramViewer.getErrorComponent();
+		
+		if (errorComponent == null)
+		{
+			return INVALID_FACTOR;
+		}
+		
+		
+		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(componentSource.getComponentClassifier());
+
+		if (!efs.isEmpty())
+		{
+			
+			for (ErrorFlow ef : efs) 
+			{
+			//	OsateDebug.osateDebug("ef classifier="+ef.getContainingClassifier());
+				//OsateDebug.osateDebug("ef ="+ef); 
+				
+				if (ef instanceof ErrorSource)
+				{
+				//	OsateDebug.osateDebug("e" + ef);
+
+					ErrorPropagation outp = ((ErrorSource)ef).getOutgoing();
+					List<PropagationPathEnd> ppes = analysisModel.getAllPropagationDestinationEnds(componentSource, outp);
+					//OsateDebug.osateDebug("outp" + ((ErrorSource)ef).getOutgoing());
+				
+					for(PropagationPathEnd ppe : ppes)
+					{
+						//OsateDebug.osateDebug("ppe ="+ppe); 
+						int factor = getFactorWithPath (ppe.getComponentInstance(), componentTarget, scale + 1);
+						if (factor != INVALID_FACTOR)
+						{
+							return factor;
+						}
+					}
+				}
+				
+				if (ef instanceof ErrorSink)
+				{
+					ErrorPropagation ep = ((ErrorSink)ef).getIncoming();
+				//	OsateDebug.osateDebug("classifier="+ef.getContainingClassifier());
+					EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util.getAdditionalOutgoingPropagation (componentSource, ep);
+					// process should have returned false, but for safety we check again
+					if(additionalPropagations.size() == 0)
+					{
+						if (ef.getContainingClassifier() == componentTarget.getComponentClassifier())
+						{
+							//OsateDebug.osateDebug("eror path on ="+componentSource);
+							return MAX_FACTOR / scale;
+						}
+					}
+					else
+					{
+						/**
+						 * We continue to trace the propagation flows
+						 * based on the additional errors propagated.
+						 */
+						for (OutgoingPropagationCondition opc : additionalPropagations)
+						{
+							ErrorPropagation outp = opc.getOutgoing();
+							List<PropagationPathEnd> ppes = analysisModel.getAllPropagationDestinationEnds(componentSource, outp);
+
+							for(PropagationPathEnd ppe : ppes)
+							{
+								int factor = getFactorWithPath (ppe.getComponentInstance(), componentTarget, scale + 1);
+								if (factor != INVALID_FACTOR)
+								{
+									return factor;
+								}
+							}
+
+//							if (! treated.contains(opc.getState()))
+//							{
+//								treated.add(opc.getState());
+//								traceErrorPaths(ci,outp,EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef),depth+1,entryText+", "+generateEffectText(ci, outp,outp.getTypeSet().getElementType().get(0)));
+//							}
+						}
+					}
+				}
+				else if (ef instanceof ErrorPath){ // error path
+					if (ef.getContainingClassifier() == componentTarget.getComponentClassifier())
+					{
+					//	OsateDebug.osateDebug("eror path on ="+componentSource);
+						return MAX_FACTOR / scale;
+					}
+//					traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,ef),depth+1,entryText+", "+generateEffectText(ci, outp,tt));
+				} 
+			}}
+		return INVALID_FACTOR;
+	}
+
 	
 	/*
 	 * returns a factor between 0 and 100 which indicates

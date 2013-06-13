@@ -69,9 +69,9 @@ public class AadlBindingAdapter extends AbstractAadlElementAdapter {
 	public AadlBindingAdapter(Object process, BindingDecorationType decorationType, ILabelProvider labelProvider, IAadlElementAdapter processAdapter, IAadlElementAdapter boundResourceAdapter) {
 		super(process, labelProvider);
  
-		this.processAdapter = processAdapter;
-		this.boundResourceAdapter = boundResourceAdapter;
-		this.decorationType = decorationType;
+		this.processAdapter 		= processAdapter;
+		this.boundResourceAdapter 	= boundResourceAdapter;
+		this.decorationType 		= decorationType;
 		
 	}
 

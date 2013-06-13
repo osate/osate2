@@ -56,8 +56,10 @@ public class ComponentFigure extends ResizableMevFigure {
 		
 		if ( (adapter != null) && (adapter.getModelElement() instanceof ComponentInstance))
 		{
-			factor = ErrorUtil.getFactor (AadlPersistentDiagramViewer.getErrorComponent(), 
-										  ((ComponentInstance) adapter.getModelElement()));
+//			factor = ErrorUtil.getFactorWithPath (AadlPersistentDiagramViewer.getErrorComponent(), 
+//										  		 ((ComponentInstance) adapter.getModelElement()));
+			factor = ErrorUtil.getFactorWithPath ((ComponentInstance) adapter.getModelElement());
+			ErrorUtil.setCacheValue((ComponentInstance)adapter.getModelElement(), factor);
 		}
 
 		if ( (AadlPersistentDiagramViewer.useError()) && (factor != -1 ))
@@ -70,7 +72,9 @@ public class ComponentFigure extends ResizableMevFigure {
 			 * As we operate with integer only, we have to separate
 			 * the * 2.5 into * 25 / 10. 
 			 */
-			c = new Color(null, factor * 25 / 10, 0, 0);
+			c = new Color(null, 200 + factor / 3, 50 + factor / 3, 50 + factor);
+			
+			
 		}	
 		else
 		{

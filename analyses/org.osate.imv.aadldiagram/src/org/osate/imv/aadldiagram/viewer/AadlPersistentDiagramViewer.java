@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
+import org.osate.imv.aadldiagram.util.ErrorUtil;
 import org.osate.imv.aadldiagram.visitors.RestoreStateVisitor;
 
 
@@ -96,6 +97,7 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 		if (selectedAdapter.getModelElement() instanceof ComponentInstance)
 		{
 			errorComponent = (ComponentInstance) (selectedAdapter.getModelElement());
+			ErrorUtil.generateAnalysisModel (((ComponentInstance)selectedAdapter.getModelElement()).getSystemInstance());
 			useError = true;
 		}
 		forceRefresh = true;
