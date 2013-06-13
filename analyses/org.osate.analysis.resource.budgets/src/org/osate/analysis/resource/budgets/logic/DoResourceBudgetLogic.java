@@ -41,6 +41,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -48,6 +49,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.ui.actions.AbstractAaxlAction;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoResourceBudgetLogic {
@@ -61,6 +63,8 @@ public class DoResourceBudgetLogic {
 	private int resources = 0;
 	private int capacityResources = 0;
 	private AbstractAaxlAction errManager;
+	private boolean doDetailedLog = true;
+	String prefixSymbol = "*";
 
 	public DoResourceBudgetLogic(AbstractAaxlAction action){
 		this.errManager = action;
@@ -69,29 +73,48 @@ public class DoResourceBudgetLogic {
 	public void analyzeResourceBudget(final SystemInstance si, String somName) {
 		init();
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(si);
+		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 		EList proclist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
-		capacity = sumCapacity(proclist, ResourceKind.MIPS, "processor",  true);
+		logHeader("\n\nDetailed Processor MIPS Capacity Report\n");
+		logHeader("Component,Capacity");
+		capacity = sumCapacity(proclist, ResourceKind.MIPS, "processor",  true,mipsliteral);
+		detailedLog(null, capacity, mipsliteral);
 		EList vproclist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.VIRTUAL_PROCESSOR);
-		vcapacity = sumVPMIPSBudget(vproclist,  true);
-		budgetTotal = sumBudgets(si, ResourceKind.MIPS, GetProperties.getMIPSUnitLiteral(si), true, somName);
-		if (budgetTotal > vcapacity){
-			budgetTotal = budgetTotal - vcapacity;
-			// VP was added into the budget total so we take it back out
-			// VP was not added into the capacity total
+		if (!vproclist.isEmpty()){
+			logHeader("\n\nDetailed Virtual Processor MIPS Capacity Report\n");
+			logHeader("Component,Capacity");
+			vcapacity = sumVPMIPSBudget(vproclist,  true,mipsliteral);
+			detailedLog(null, vcapacity, mipsliteral);
 		}
-		report(si, "MIPS", GetProperties.getMIPSUnitLiteral(si), somName);
+		logHeader("\n\nDetailed MIPS Budget Report\n");
+		logHeader("Component,Budget,Actual,Notes");
+		budgetTotal = sumBudgets(si, ResourceKind.MIPS, mipsliteral, true, somName,"");
+		detailedLog(null, budgetTotal, mipsliteral);
+		report(si, "MIPS", mipsliteral, somName);
 
 		init();
 		EList memlist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
-		capacity = sumCapacity(memlist, ResourceKind.RAM, "Memory", true);
-		budgetTotal = sumBudgets(si, ResourceKind.RAM, GetProperties.getKBUnitLiteral(si), true, somName);
-		report(si, "RAM", GetProperties.getKBUnitLiteral(si), somName);
+		logHeader("\n\nDetailed RAM Capacity Report\n");
+		logHeader("Component,Capacity");
+		capacity = sumCapacity(memlist, ResourceKind.RAM, "Memory", true,kbliteral);
+		detailedLog(null, capacity, kbliteral);
+		logHeader("\n\nDetailed RAM Budget Report\n");
+		logHeader("Component,Budget,Actual,Notes");
+		budgetTotal = sumBudgets(si, ResourceKind.RAM, kbliteral, true, somName,"");
+		detailedLog(null, budgetTotal, kbliteral);
+		report(si, "RAM", kbliteral, somName);
 
 		init();
 		memlist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
-		capacity = sumCapacity(memlist, ResourceKind.ROM, "ROM", false);
-		budgetTotal = sumBudgets(si, ResourceKind.ROM, GetProperties.getKBUnitLiteral(si), false, somName);
-		report(si, "ROM", GetProperties.getKBUnitLiteral(si), somName);
+		logHeader("\n\nDetailed RAM Capacity Report\n");
+		logHeader("Component,Capacity");
+		capacity = sumCapacity(memlist, ResourceKind.ROM, "ROM", false,kbliteral);
+		detailedLog(null, capacity, kbliteral);
+		logHeader("\n\nDetailed ROM Budget Report\n");
+		logHeader("Component,Budget,Actual,Notes");
+		budgetTotal = sumBudgets(si, ResourceKind.ROM, kbliteral, false, somName,"");
+		detailedLog(null, budgetTotal, kbliteral);
+		report(si, "ROM", kbliteral, somName);
 	}
 
 	private void init() {
@@ -133,30 +156,27 @@ public class DoResourceBudgetLogic {
 	}
 	
 
-	private double sumVPMIPSBudget(EList ilist,  boolean required) {
+	private double sumVPMIPSBudget(EList ilist,  boolean required, UnitLiteral unit) {
 		double total = 0.0;
 		for (Iterator it = ilist.iterator(); it.hasNext();) {
 			ComponentInstance io = (ComponentInstance) it.next();
 			double budget = GetProperties.getMIPSBudgetInMIPS(io);
 			total += budget;
-			if (budget == 0)
-					errManager.warning(io, "Virtual processor " + io.getInstanceObjectPath() + " without MIPS budget.");
+			detailedLog(io, budget,unit );
 		}
 		return total;
 	}
 
-	private double sumCapacity(EList ilist, ResourceKind rk, String resourceName, boolean required) {
+	private double sumCapacity(EList ilist, ResourceKind rk, String resourceName, boolean required, UnitLiteral unit) {
 		double total = 0.0;
 		for (Iterator it = ilist.iterator(); it.hasNext();) {
 			ComponentInstance io = (ComponentInstance) it.next();
 			double capacity = getCapacity(io, rk);
 			total += capacity;
+			detailedLog(io, capacity,unit );
 			resources++;
 			if (capacity > 0)
 				capacityResources++;
-			else  {
-					errManager.warning(io, resourceName + " " + io.getInstanceObjectPath() + " without capacity");
-			}
 		}
 		return total;
 	}
@@ -174,88 +194,70 @@ public class DoResourceBudgetLogic {
 	 * @return double total, zero, if no budget, -1 if hardware only in
 	 *         substructure
 	 */
-	private double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, boolean required, String somName) {
-		double total = 0.0;
+	private double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, boolean required, String somName,String prefix) {
+		double subtotal = 0.0;
 		EList subcis = ci.getComponentInstances();
 		boolean HWOnly = false;
-		int subbudget = 0;
-		int subsize = 0;
-		if (subcis.size() > 0) {
-			HWOnly = true;
-		} else {
+		int subbudgetcount = 0;
+		int subcount = 0;
+		if (subcis.size() == 0) {
 			if (isHardware(ci)) {
 				return -1;
 			}
-
+		} else {
+			// track HWonly if subcomponents
+			HWOnly = true;
 		}
 		for (Iterator it = subcis.iterator(); it.hasNext();) {
 			ComponentInstance subci = (ComponentInstance) it.next();
-			double res = sumBudgets(subci, rk, unit, required, somName);
-			if (res >= 0) {
+			double subresult = sumBudgets(subci, rk, unit, required, somName,prefix+prefixSymbol);
+			if (subresult >= 0) {
 				HWOnly = false;
-				total += res;
+				subtotal += subresult;
 				if (subci.getCategory() == ComponentCategory.DEVICE) {
-					if (res > 0) {
+					if (subresult > 0) {
 						// only count device if it has a budget
-						subsize++;
-						subbudget++;
+						subcount++;
+						subbudgetcount++;
 					}
 				} else {
 					// track how many non-devices and whether they have a budget
-					subsize++;
-					if (res > 0) {
-						subbudget++;
+					subcount++;
+					if (subresult > 0) {
+						subbudgetcount++;
 					}
 				}
 			}
 		}
+		if (HWOnly) return -1;
 		double budget = getBudget(ci, rk);
 		String resourceName = ci.getCategory().getName();
+		String notes = "";
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
-			double actualmips = GetProperties.getThreadExecutioninMIPS(ci);
-			if (actualmips == 0.0) {
-				total = budget;
-			} else {
-				total = actualmips;
-				if (actualmips > budget && budget > 0){
-					errManager.info(ci, resourceName + " " + ci.getInstanceObjectPath() + " thread execution time (in MIPS) " + actualmips +" greater than budget "+budget);
-				}
-			}
+			subtotal = GetProperties.getThreadExecutioninMIPS(ci);
 		}
-		if (budget == 0 && total == 0 && required) {
-			if (!(ci.getCategory() == ComponentCategory.DEVICE)) {
-				errManager.warning(ci, resourceName + " " + ci.getInstanceObjectPath() + " without " + rk.name());
-			} else {
-				errManager.info(ci, resourceName + " " + ci.getInstanceObjectPath() + " without " + rk.name());
-				return -1;
-			}
+			components = components + subcount;
+			budgetedComponents = budgetedComponents + subbudgetcount;
+		if (budget > 0 && subtotal > budget) {
+			notes = notes+",Error: subtotal exceeds budget "
+					+ budget + " by " + (subtotal - budget) + " " + unit.getName();
+		} 
+
+		if (subtotal > 0 &&subtotal < budget) {
+			notes=notes+", "+String.format(
+					resourceName + " " + ci.getInstanceObjectPath() + " total %.1f " + unit.getName()
+					+ " below budget %.1f " + unit.getName()
+					+ " (%.1f %% slack)", subtotal, budget,
+					(budget - subtotal) / budget * 100);
 		}
-		if (subbudget < subsize) {
-			// count leaf nodes only
-			components = components + subsize;
-			budgetedComponents = budgetedComponents + subbudget;
-		}
-		if (total == 0.0) {
-			return budget;
-		}
-		if (budget > 0 && total > budget) {
-			errManager.errorSummary(ci, somName, resourceName + " " + ci.getInstanceObjectPath() + " total exceeds budget "
-					+ budget + " by " + (total - budget) + " " + unit.getName());
-		} else {
-			if (total < budget) {
-				errManager.warningSummary(ci, somName, String.format(
-						resourceName + " " + ci.getInstanceObjectPath() + " total %.1f " + unit.getName()
-								+ " below budget %.1f " + unit.getName()
-								+ " (%.1f %% slack)", total, budget,
-						(budget - total) / budget * 100));
-			}
-		}
-		return total;
+		detailedLog(prefix,ci, budget, subtotal, resourceName, unit, notes);
+		return subtotal==0?budget:subtotal;
 	}
 
 	protected boolean isHardware(ComponentInstance ci) {
 		ComponentCategory cat = ci.getCategory();
-		if (cat == ComponentCategory.BUS || cat == ComponentCategory.PROCESSOR || cat == ComponentCategory.MEMORY)
+		if (cat == ComponentCategory.BUS || cat == ComponentCategory.PROCESSOR 
+				||cat == ComponentCategory.VIRTUAL_PROCESSOR || cat == ComponentCategory.MEMORY)
 			return true;
 		if (cat == ComponentCategory.SYSTEM || cat == ComponentCategory.DEVICE) {
 			EList el = ci.getFeatureInstances();
@@ -281,14 +283,39 @@ public class DoResourceBudgetLogic {
 			errManager.errorSummary(si, somName, modelStats);
 		} else
 			errManager.infoSummary(si, somName, modelStats);
+		modelStats = capacityResources + " out of " + resources + " with " + resourceName + " capacity";
 		if (capacityResources < resources) {
-			modelStats = capacityResources + " out of " + resources + " with " + resourceName + " capacity";
 			errManager.warningSummary(si, somName, modelStats);
+		} else {
+			errManager.infoSummary(si, somName, modelStats);
 		}
+		modelStats = budgetedComponents + " out of " + components + " with " + resourceName + " budget";
 		if (budgetedComponents < components) {
-			modelStats = budgetedComponents + " out of " + components + " with " + resourceName + " budget";
 			errManager.warningSummary(si, somName, modelStats);
+		} else{
+			errManager.infoSummary(si, somName, modelStats);
 		}
 		errManager.infoSummary(si, somName, "\n");
 	}
+	
+	protected void logHeader(String msg){
+		errManager.logInfo(msg);
+	}
+	protected void detailedLog(String prefix,ComponentInstance ci, double budget, double actual, String resourceName, UnitLiteral unit, String msg){
+		if (doDetailedLog){
+			String budgetmsg = 	"Budget "+GetProperties.toStringScaled(budget,unit)+",";
+			String actualmsg = "Actual "+GetProperties.toStringScaled(actual,unit)+",";
+			errManager.logInfo(prefix+ci.getCategory().getName()+" "+ci.getComponentInstancePath()+", "+budgetmsg+actualmsg+msg);
+		}
+	}
+	
+	protected void detailedLog(ComponentInstance ci, double budget, UnitLiteral unit){
+		if (doDetailedLog){
+			String budgetmsg = 	GetProperties.toStringScaled(budget,unit)+",";
+			String front = ci==null?"Total":ci.getCategory().getName()+" "+ci.getComponentInstancePath();
+			errManager.logInfo(front+", "+budgetmsg);
+		}
+
+	}
+
 }
