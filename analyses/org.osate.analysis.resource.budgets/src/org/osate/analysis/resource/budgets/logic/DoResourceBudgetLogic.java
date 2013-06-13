@@ -322,7 +322,6 @@ public class DoResourceBudgetLogic {
 			String front = ci==null?"Total":ci.getCategory().getName()+" "+ci.getComponentInstancePath();
 			errManager.logInfo(front+", "+budgetmsg);
 		}
-
 	}
 
 }

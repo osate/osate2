@@ -37,6 +37,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.ErrorManager;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
@@ -296,11 +297,11 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	}
 
 	protected void reportBusLoadTotals(SystemInstance si, final String somName) {
-		errManager.logInfo("\n\n,Connection Budget Details\n");
-		errManager.logInfo(",Connection,Budget,Actual,Note");
+		errManager.logInfo("\n\nConnection Budget Details\n");
+		errManager.logInfo("Connection,Budget,Actual,Note");
 		double budget = calcBandWidthLoad(si);
 		errManager.logInfo("");
-		errManager.infoSummary(si, somName,"Connection bandwidth total: " + budget+" KBytesps");
+		errManager.infoSummary(si, somName,"Connection bandwidth budget total: " + budget+" KBytesps");
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
@@ -316,8 +317,6 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				errManager.logInfo("\n\n,Connection Budget Details for bus "+((ComponentInstance)obj).getFullName()+"\n");
-				errManager.logInfo(",Connection,Budget,Actual,Note");
 				checkBandWidthLoad((ComponentInstance) obj, somName);
 			}
 		};
@@ -364,7 +363,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 					totalBandWidth += actual;
 					note = "No bandwidth budget. Using actual";
 				} else {
-					note =  "No bandwidth budget or actual bandwidth from port data size&rate";
+					note =  "No bandwidth budget or actual";
 				}
 			}
 			detailedLog(connectionInstance, budget,actual,note);
@@ -385,10 +384,9 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	 * @param somName String somName to be used in messages
 	 */
 	protected void checkBandWidthLoad(final ComponentInstance curBus, String somName) {
+		UnitLiteral kbspsliteral = GetProperties.getKBytespsUnitLiteral(curBus);
 		double Buscapacity = GetProperties.getBandWidthCapacityInKbps(curBus, 0.0);
 //		boolean loopback = GetProperties.getBusLoopBack(curBus);
-		if (Buscapacity == 0)
-			return;
 		SystemInstance root = curBus.getSystemInstance();
 		double totalBandWidth = 0.0;
 		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
@@ -398,19 +396,29 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		ConnectionGroupIterator cgi = new ConnectionGroupIterator(connections);
 		while (cgi.hasNext()) {
 			ConnectionInstance obj = cgi.next();
-			if (obj != null)
+			if (obj != null){
+				if (InstanceModelUtil.isBoundToBus(obj, curBus)||
+						// we derived a bus connection from the connection end bindings
+						InstanceModelUtil.connectedByBus(obj, curBus) ){ 
 				budgetedConnections.add(obj);
+				}
+			}
 		}
+		if (Buscapacity == 0){
+			if (!budgetedConnections.isEmpty()){
+				errManager.warningSummary(curBus, somName,curBus.getComponentInstancePath()+ " has no capacity but bound connections");
+			} else{
+				errManager.warningSummary(curBus, somName,curBus.getComponentInstancePath()+ " has no capacity");
+			return;
+			}
+		}
+		if (budgetedConnections.isEmpty()) return;
+		errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" with capacity "+Buscapacity+"KBytesps\n");
+		errManager.logInfo("Connection,Budget,Actual,Note");
 		for (ConnectionInstance connectionInstance : budgetedConnections) {
 			double budget = 0.0;
 			double actual = 0.0;
 			// we have a binding, is it to the current bus
-			if (InstanceModelUtil.isBoundToBus(connectionInstance, curBus)||
-					// we derived a bus connection from the connection end bindings
-					InstanceModelUtil.connectedByBus(connectionInstance, curBus)  
-//					// we have a switch back 
-//					||((hasSwitchLoopback(connectionInstance, curBus) && loopback))
-					) {
 				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 				actual = calcBandwidth(connectionInstance.getSource());
 				String note = "";
@@ -434,16 +442,12 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 					}
 				}
 				detailedLog(connectionInstance, budget,actual,note);
-			}
 		}
+		detailedLog(null, totalBandWidth,kbspsliteral);
 		if (totalBandWidth > Buscapacity) {
-			errManager.errorSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of bound connections"
-//					+ (loopback ? " with loopback" : "") 
-					+ " exceeds bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
+			errManager.errorSummary(curBus, somName, curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps exceeded by connection bandwidth budget totals " + totalBandWidth + " Kbps");
 		} else if (totalBandWidth > 0.0 && Buscapacity > 0.0) {
-			errManager.infoSummary(curBus, somName, "Total Bus bandwidth budget " + totalBandWidth + " Kbps of bound connections"
-//					+ (loopback ? " with loopback" : "") 
-					+ " within bandwidth capacity " + Buscapacity + " KBytesps of " + curBus.getComponentInstancePath());
+			errManager.infoSummary(curBus, somName, curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps sufficient for connection bandwidth  budget totals " + totalBandWidth + " Kbps");
 		}
 	}
 	
@@ -533,10 +537,10 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	
 	protected void detailedLog(InstanceObject obj, double budget, double actual, String msg){
 		if (doDetailedLog){
-			String budgetmsg = (budget == 0?",":"Budget "+budget+" "+AadlProject.KBYTESPS_LITERAL+",");
-			String actualmsg = (actual == 0?",":"Actual "+actual+" "+AadlProject.KBYTESPS_LITERAL+",");
+			String budgetmsg = budget+" "+AadlProject.KBYTESPS_LITERAL+",";
+			String actualmsg = actual+" "+AadlProject.KBYTESPS_LITERAL+",";
 			String objname = (obj instanceof ConnectionInstance)?obj.getFullName():((ComponentInstance)obj).getComponentInstancePath();
-			errManager.logInfo(","+obj.getFullName()+", "+budgetmsg+actualmsg+msg);
+			errManager.logInfo(obj.getFullName()+", "+budgetmsg+actualmsg+msg);
 		}
 
 	}
