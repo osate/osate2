@@ -40,6 +40,7 @@
 package org.osate.ui.actions;
 
 
+import java.io.ObjectInputStream.GetField;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,6 +68,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.WriteToFile;
@@ -738,15 +740,15 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	}
 	
 
-	public void errorSummary(final Element obj, String somName, String msg) {
+	public void errorSummary(final NamedElement obj, String somName, String msg) {
 		if (somName != null&& !somName.isEmpty() && !somName.equalsIgnoreCase("No Modes")) {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
-		errManager.error(obj, msg);
+		errManager.error(obj,msg);
 		summaryReport.append("** "+msg+"\n");
 	}
 
-	public void warningSummary(final Element obj, String somName, String msg) {
+	public void warningSummary(final NamedElement obj, String somName, String msg) {
 		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
@@ -754,15 +756,15 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		summaryReport.append("* " +msg+"\n");
 	}
 
-	public void infoSummary(final Element obj, String somName, String msg) {
+	public void infoSummary(final NamedElement obj, String somName, String msg) {
 		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
-			msg = "In SystemMode " + somName + ": " + msg;
+			msg = " in SystemMode " + somName + ": " + msg;
 		}
 		errManager.info(obj, msg);
 		summaryReport.append(msg+"\n");
 	}
 
-	public void infoSummaryReportOnly(String somName, String msg) {
+	public void infoSummaryReportOnly(Element obj, String somName, String msg) {
 		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
 			msg = "In SystemMode " + somName + ": " + msg;
 		}
@@ -775,6 +777,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 			return summaryReport.toString();
 		}
 	}
+	
 
 	
 	/**
