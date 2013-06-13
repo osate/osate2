@@ -3070,14 +3070,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ) {
 			if (!AadlUtil.isokClassifierSubstitutionMatch(originalClassifier, refinedClassifier))
-				error(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Classifier Match'");
+				warning(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Classifier Match'");
 		}
 		else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
 			if (!AadlUtil.isokClassifierSubstitutionTypeExtension(originalClassifier, refinedClassifier))
-				error(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Type Extension'");
+				warning(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Type Extension'");
 		}
 		else if (ModelingProperties.SIGNATURE_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-			warning(target, "Signature Match checking in clasifier substitution of refinement check not implemented yet.");
+			info(target, "Signature Match checking in clasifier substitution of refinement check not implemented yet.");
 		}
 	}
 
