@@ -176,6 +176,11 @@ public class GetProperties {
 		return (EnumerationLiteral) ((EnumerationType)pt).findNamedElement(literal);
 	}
 	
+	public static UnitLiteral getKBytespsUnitLiteral(NamedElement context){
+		return findUnitLiteral(context,AadlProject.DATA_RATE_UNITS, AadlProject.KBYTESPS_LITERAL);
+	}
+
+	
 	public static UnitLiteral getKBUnitLiteral(NamedElement context){
 		return findUnitLiteral(context,AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
