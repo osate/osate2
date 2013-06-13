@@ -145,7 +145,6 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)){
 			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
-		logHeader("\n\nDetailed Workload Report for Processor "+curProcessor.getComponentInstancePath()+" with Capacity "+GetProperties.toStringScaled(MIPScapacity, mipsliteral)+"\n\n,Component,Budget,Actual");
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curProcessor);
 		if (boundComponents.size() == 0&& MIPScapacity > 0) {
 			errManager.infoSummary(curProcessor, somName, "No application components bound to "
@@ -161,14 +160,18 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			errManager.errorSummary(curProcessor, somName, "Processor "
 					+ curProcessor.getComponentInstancePath()+" has no MIPS capacity but has bound components.");
 		}
+		if (InstanceModelUtil.isVirtualProcessor(curProcessor)){
+			logHeader("\n\nDetailed Workload Report for Virtual Processor "+curProcessor.getComponentInstancePath()+" with Capacity "+GetProperties.toStringScaled(MIPScapacity, mipsliteral)+"\n\nComponent,Budget,Actual");
+		}else {
+			logHeader("\n\nDetailed Workload Report for Processor "+curProcessor.getComponentInstancePath()+" with Capacity "+GetProperties.toStringScaled(MIPScapacity, mipsliteral)+"\n\nComponent,Budget,Actual");
+		}
 		double totalMIPS = 0.0;
 		for (Iterator<ComponentInstance> it = boundComponents.iterator(); it.hasNext();) {
 			ComponentInstance bci = (ComponentInstance) it.next();
-			double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, true, somName, ",");
-			logHeader("Workload,"+bci.getComponentInstancePath()+","+ GetProperties.toStringScaled(actualmips, mipsliteral));
+			double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, true, somName, "");
 			totalMIPS += actualmips;
 		}
-		logHeader("Total,,"+ GetProperties.toStringScaled(totalMIPS, mipsliteral));
+		logHeader("Total,"+ GetProperties.toStringScaled(totalMIPS, mipsliteral));
 		if (totalMIPS > MIPScapacity) {
 			errManager.errorSummary(curProcessor, somName, "Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks exceeds MIPS capacity "
 					+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of " + curProcessor.getComponentInstancePath());
@@ -230,22 +233,30 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		String resourceName = isROM ? "ROM" : "RAM";
 		double Memorycapacity = isROM ? GetProperties.getROMCapacityInKB(curMemory, 0.0):
 			GetProperties.getRAMCapacityInKB(curMemory, 0.0);
-		logHeader("\n\nDetailed Workload Report for memory "+curMemory.getComponentInstancePath()+" with Capacity "+GetProperties.toStringScaled(Memorycapacity, kbliteral)+"\n\n,Component,Budget,Actual");
+		if (boundComponents.size() == 0&& Memorycapacity > 0) {
+			errManager.infoSummary(curMemory, somName, "No application components bound to "
+					+ curMemory.getComponentInstancePath()+" with "+resourceName+" capacity "+ GetProperties.toStringScaled(Memorycapacity, kbliteral));
+			return;
+		}
+		if (Memorycapacity == 0){
+			errManager.errorSummary(curMemory, somName, "Memory "
+					+ curMemory.getComponentInstancePath()+" has no "+resourceName+" capacity but has bound components.");
+		}
+		logHeader("\n\nDetailed Workload Report for memory "+curMemory.getComponentInstancePath()+" with Capacity "+GetProperties.toStringScaled(Memorycapacity, kbliteral)+"\n\nComponent,Budget,Actual");
 		Set budgeted = new HashSet();
 		for (Iterator it = boundComponents.iterator(); it.hasNext();) {
+			String notes ="";
 			ComponentInstance bci = (ComponentInstance) it.next();
-			try {
 				double totalactual = sumMemoryActuals(bci,isROM);
 				double budget = isROM ? GetProperties.getROMBudgetInKB(bci, 0.0):
 					GetProperties.getRAMBudgetInKB(bci, 0.0);
 				if (totalactual > 0) {
 					// only compare if there were actuals
 					if (totalactual > budget) {
-						errManager.errorSummary(bci, somName, "Component " + bci.getComponentInstancePath() + " " + resourceName
-								+ " total exceeds budget by " + (totalactual - budget) + " KB");
+						notes=notes+ ",Error: "+ resourceName
+								+ " subtotal exceeds budget by " + (totalactual - budget) + " KB";
 					} else if (totalactual < budget) {
-						errManager.warningSummary(bci, somName, "Component " + bci.getComponentInstancePath()
-								+ " has unallocated " + resourceName + " budget " + (budget - totalactual) + " KB");
+						notes=notes+ ",Warning: "+resourceName+" Subtotal under budget by " + (budget - totalactual) + " KB";
 					}
 				}
 				if (totalactual == 0.0) {
@@ -253,6 +264,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 					if (budget > 0 && !budgeted.contains(bci)) {
 						// only add it if no children budget numbers have been added
 						totalMemory += budget;
+						detailedLog(bci, budget, kbliteral);
 						// add ancestors to budgeted list so their budget does not get added later
 						while ((bci = bci.getContainingComponentInstance()) != null) {
 							budgeted.add(bci);
@@ -260,11 +272,11 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 					}
 				} else {
 					// add only the current actual; the children actual have been added before
-					totalMemory += isROM ? GetProperties.getROMActualInKB(bci, 0.0):
-						GetProperties.getRAMActualInKB(bci, 0.0);;
+					double currentActual = isROM ? GetProperties.getROMActualInKB(bci, 0.0):
+						GetProperties.getRAMActualInKB(bci, 0.0);
+					detailedLog(bci, budget, kbliteral);
+					totalMemory += currentActual;
 				}
-			} catch (Throwable e) {
-			}
 		}
 			if (Memorycapacity == 0)
 			errManager.errorSummary(curMemory, somName, "" + (isROM ? "ROM" : "RAM") + " memory "
