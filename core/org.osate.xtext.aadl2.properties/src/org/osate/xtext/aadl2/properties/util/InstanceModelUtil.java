@@ -288,14 +288,14 @@ public class InstanceModelUtil {
 		public static boolean isBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
 			List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
-				if (isVirtualProcessor(boundCompInstance)){
+				if (boundCompInstance == processor){
+					return true;
+				} else if (isVirtualProcessor(boundCompInstance)){
 					// it is bound to or contained in
 					if (isBoundToProcessor(boundCompInstance,processor) ){
 						return true;
 					}
-				} else if (boundCompInstance == processor){
-					return true;
-				}
+				}  
 			}
 			return false;
 		}
