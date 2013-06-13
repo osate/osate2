@@ -63,6 +63,7 @@ import org.osate.aadl2.modelsupport.util.ConnectionGroupIterator;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.ui.dialogs.Dialog;
@@ -72,23 +73,19 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 //TODO-LW: assumes connection ends are features
-public class DoBoundResourceAnalysisLogic {
+public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	protected final String actionName;
 	/**
 	 * The string buffer that is used to record error messages.
 	 */
-	private AbstractAaxlAction errManager;
 	private boolean doDetailedLog = true;
 
 	public DoBoundResourceAnalysisLogic(final String actionName, 
 			final AbstractAaxlAction  errManager) {
+		super(errManager);
 		this.actionName = actionName;
-		this.errManager = errManager;
 	}
 	
-	public AbstractAaxlAction getErrManager(){
-		return this.errManager;
-	}
 
 	public void analysisBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
@@ -148,6 +145,7 @@ public class DoBoundResourceAnalysisLogic {
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)){
 			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
+		logHeader("\n\nDetailed Workload Report for Processor "+curProcessor.getComponentInstancePath()+" with Capacity "+GetProperties.toStringScaled(MIPScapacity, mipsliteral)+"\n\n,Component,Budget,Actual");
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curProcessor);
 		if (boundComponents.size() == 0&& MIPScapacity > 0) {
 			errManager.infoSummary(curProcessor, somName, "No application components bound to "
@@ -164,41 +162,13 @@ public class DoBoundResourceAnalysisLogic {
 					+ curProcessor.getComponentInstancePath()+" has no MIPS capacity but has bound components.");
 		}
 		double totalMIPS = 0.0;
-		Set<ComponentInstance> covered = new HashSet<ComponentInstance>();
 		for (Iterator<ComponentInstance> it = boundComponents.iterator(); it.hasNext();) {
 			ComponentInstance bci = (ComponentInstance) it.next();
-			if (covered.contains(bci)) {
-				// one of the children has a budget, which was accounted for
-				break;
-			}
-			double actualmips = GetProperties.getThreadExecutioninMIPS(bci);
-			double budget = GetProperties.getMIPSBudgetInMIPS(bci, 0.0);
-			if (actualmips > 0) {
-				if (budget > 0 && actualmips > budget) {
-					errManager.warningSummary(bci, somName, "Execution time (in MIPS) " + GetProperties.toStringScaled(actualmips, mipsliteral) + " exceeds MIPS budget "
-							+ GetProperties.toStringScaled(budget, mipsliteral) + " for "+bci.getComponentInstancePath());
-				} else if (budget > 0 && actualmips < budget) {
-					errManager.infoSummary(bci, somName, "Execution time (in MIPS) " + GetProperties.toStringScaled(actualmips, mipsliteral) + " is less than MIPS budget "
-							+ GetProperties.toStringScaled(budget, mipsliteral) + " for "+bci.getComponentInstancePath());
-				}
-				// add ancestors to coverage list
-				while ((bci = bci.getContainingComponentInstance()) != null) {
-					covered.add(bci);
-				}
-				totalMIPS += actualmips;
-			} else {
-				if (budget == 0) {
-					errManager.warningSummary(bci, somName, "Bound component " + bci.getComponentInstancePath()
-							+ " has no MIPS budget or execution time");
-				} else {
-					totalMIPS += budget;
-					// add ancestors to coverage list
-					while ((bci = bci.getContainingComponentInstance()) != null) {
-						covered.add(bci);
-					}
-				}
-			}
+			double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, true, somName, ",");
+			logHeader("Workload,"+bci.getComponentInstancePath()+","+ GetProperties.toStringScaled(actualmips, mipsliteral));
+			totalMIPS += actualmips;
 		}
+		logHeader("Total,,"+ GetProperties.toStringScaled(totalMIPS, mipsliteral));
 		if (totalMIPS > MIPScapacity) {
 			errManager.errorSummary(curProcessor, somName, "Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks exceeds MIPS capacity "
 					+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of " + curProcessor.getComponentInstancePath());
@@ -261,7 +231,7 @@ public class DoBoundResourceAnalysisLogic {
 		for (Iterator it = boundComponents.iterator(); it.hasNext();) {
 			ComponentInstance bci = (ComponentInstance) it.next();
 			try {
-				double totalactual = sumActuals(bci,isROM);
+				double totalactual = sumMemoryActuals(bci,isROM);
 				double budget = isROM ? GetProperties.getROMBudgetInKB(bci, 0.0):
 					GetProperties.getRAMBudgetInKB(bci, 0.0);
 				if (totalactual > 0) {
@@ -529,14 +499,14 @@ public class DoBoundResourceAnalysisLogic {
 		return false;
 	}
 
-	protected double sumActuals(ComponentInstance ci, boolean isROM) {
+	protected double sumMemoryActuals(ComponentInstance ci, boolean isROM) {
 		try {
 			double total = isROM ? GetProperties.getROMActualInKB(ci, 0.0):
 				GetProperties.getRAMActualInKB(ci, 0.0);
 			EList subcis = ci.getComponentInstances();
 			for (Iterator it = subcis.iterator(); it.hasNext();) {
 				ComponentInstance subci = (ComponentInstance) it.next();
-				total += sumActuals(subci, isROM);
+				total += sumMemoryActuals(subci, isROM);
 			}
 			return total;
 		} catch (PropertyDoesNotApplyToHolderException e) {
@@ -548,11 +518,13 @@ public class DoBoundResourceAnalysisLogic {
 		}
 	}
 	
-	protected void detailedLog(ConnectionInstance conni, double budget, double actual, String msg){
+	
+	protected void detailedLog(InstanceObject obj, double budget, double actual, String msg){
 		if (doDetailedLog){
 			String budgetmsg = (budget == 0?",":"Budget "+budget+" "+AadlProject.KBYTESPS_LITERAL+",");
 			String actualmsg = (actual == 0?",":"Actual "+actual+" "+AadlProject.KBYTESPS_LITERAL+",");
-			errManager.logInfo(","+conni.getFullName()+", "+budgetmsg+actualmsg+msg);
+			String objname = (obj instanceof ConnectionInstance)?obj.getFullName():((ComponentInstance)obj).getComponentInstancePath();
+			errManager.logInfo(","+obj.getFullName()+", "+budgetmsg+actualmsg+msg);
 		}
 
 	}

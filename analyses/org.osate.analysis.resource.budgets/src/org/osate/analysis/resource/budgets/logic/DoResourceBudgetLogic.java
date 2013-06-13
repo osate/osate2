@@ -62,12 +62,16 @@ public class DoResourceBudgetLogic {
 	private int budgetedComponents = 0;
 	private int resources = 0;
 	private int capacityResources = 0;
-	private AbstractAaxlAction errManager;
+	protected AbstractAaxlAction errManager;
 	private boolean doDetailedLog = true;
 	String prefixSymbol = "*";
 
 	public DoResourceBudgetLogic(AbstractAaxlAction action){
 		this.errManager = action;
+	}
+	
+	protected AbstractAaxlAction getErrManager(){
+		return this.errManager;
 	}
 
 	public void analyzeResourceBudget(final SystemInstance si, String somName) {
@@ -126,7 +130,7 @@ public class DoResourceBudgetLogic {
 		budgetTotal = 0;
 	}
 	
-	private enum ResourceKind {MIPS, RAM, ROM};
+	protected enum ResourceKind {MIPS, RAM, ROM};
 	
 	private double getCapacity(ComponentInstance ne,ResourceKind kind){
 		switch(kind){
@@ -194,7 +198,7 @@ public class DoResourceBudgetLogic {
 	 * @return double total, zero, if no budget, -1 if hardware only in
 	 *         substructure
 	 */
-	private double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, boolean required, String somName,String prefix) {
+	protected double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, boolean required, String somName,String prefix) {
 		double subtotal = 0.0;
 		EList subcis = ci.getComponentInstances();
 		boolean HWOnly = false;
