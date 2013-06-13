@@ -374,7 +374,9 @@ public class InstanceModelUtil {
 
 
 		/**
-		 * get all components bound to the given component
+		 * get all top level SW components bound to the given processor or VP component
+		 * The list contains only the top component if a component and its children are bound
+		 * to the same processor.
 		 * @param procorVP
 		 * @return
 		 */
@@ -395,6 +397,65 @@ public class InstanceModelUtil {
 				addAsRoot(topobjects,(ComponentInstance)componentInstance);
 			}
 			return topobjects;
+		}
+
+		/**
+		 * get all SW components bound to the given processor or VP component
+		 * This includes the children of a component that is bound as the binding property is inherited.
+		 * @param procorVP
+		 * @return
+		 */
+		public static EList<ComponentInstance> getAllBoundSWComponents(final ComponentInstance procorVP){
+			SystemInstance root = procorVP.getSystemInstance();
+			EList boundComponents = new ForAllElement() {
+				@Override
+				protected boolean suchThat(Element obj) {
+					ComponentInstance ci = (ComponentInstance)obj;
+					ComponentCategory cat = ci.getCategory();
+					return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP 
+							|| cat == ComponentCategory.PROCESS|| cat == ComponentCategory.SYSTEM)
+							&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
+				}
+			}.processPreOrderComponentInstance(root);
+			return boundComponents;
+		}
+
+		/**
+		 * get all threads bound to the given component
+		 * @param procorVP
+		 * @return
+		 */
+		public static EList<ComponentInstance> getBoundThreads(final ComponentInstance procorVP){
+			SystemInstance root = procorVP.getSystemInstance();
+			EList boundComponents = new ForAllElement() {
+				@Override
+				protected boolean suchThat(Element obj) {
+					ComponentInstance ci = (ComponentInstance)obj;
+					ComponentCategory cat = ci.getCategory();
+					return ((cat == ComponentCategory.THREAD )
+							&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
+				}
+			}.processPreOrderComponentInstance(root);
+			return boundComponents;
+		}
+
+		/**
+		 * get all processes bound to the given component
+		 * @param procorVP
+		 * @return
+		 */
+		public static EList<ComponentInstance> getBoundProcesses(final ComponentInstance procorVP){
+			SystemInstance root = procorVP.getSystemInstance();
+			EList boundComponents = new ForAllElement() {
+				@Override
+				protected boolean suchThat(Element obj) {
+					ComponentInstance ci = (ComponentInstance)obj;
+					ComponentCategory cat = ci.getCategory();
+					return (( cat == ComponentCategory.PROCESS)
+							&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
+				}
+			}.processPreOrderComponentInstance(root);
+			return boundComponents;
 		}
 		
 		public static void addAsRoot(EList<ComponentInstance> blist, ComponentInstance ci){
