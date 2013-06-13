@@ -110,7 +110,7 @@ public class DoResourceBudgetLogic {
 
 		init();
 		memlist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
-		logHeader("\n\nDetailed RAM Capacity Report\n");
+		logHeader("\n\nDetailed ROM Capacity Report\n");
 		logHeader("Component,Capacity");
 		capacity = sumCapacity(memlist, ResourceKind.ROM, "ROM", false,kbliteral);
 		detailedLog(null, capacity, kbliteral);
@@ -202,6 +202,7 @@ public class DoResourceBudgetLogic {
 		double subtotal = 0.0;
 		EList subcis = ci.getComponentInstances();
 		boolean HWOnly = false;
+		boolean isSystemInstance = ci instanceof SystemInstance;
 		int subbudgetcount = 0;
 		int subcount = 0;
 		if (subcis.size() == 0) {
@@ -214,7 +215,8 @@ public class DoResourceBudgetLogic {
 		}
 		for (Iterator it = subcis.iterator(); it.hasNext();) {
 			ComponentInstance subci = (ComponentInstance) it.next();
-			double subresult = sumBudgets(subci, rk, unit, required, somName,prefix+prefixSymbol);
+			double subresult = sumBudgets(subci, rk, unit, required, somName,
+					isSystemInstance?"":prefix+prefixSymbol);
 			if (subresult >= 0) {
 				HWOnly = false;
 				subtotal += subresult;
@@ -254,7 +256,8 @@ public class DoResourceBudgetLogic {
 					+ " (%.1f %% slack)", subtotal, budget,
 					(budget - subtotal) / budget * 100);
 		}
-		detailedLog(prefix,ci, budget, subtotal, resourceName, unit, notes);
+		if (!isSystemInstance)
+			detailedLog(prefix,ci, budget, subtotal, resourceName, unit, notes);
 		return subtotal==0?budget:subtotal;
 	}
 
@@ -279,6 +282,7 @@ public class DoResourceBudgetLogic {
 	private void report(SystemInstance si, String resourceName, UnitLiteral unit, String somName) {
 		if (budgetTotal < 0)
 			budgetTotal = 0;
+		errManager.infoSummaryReportOnly(si,somName, "Summary\n");
 
 		String modelStats = resourceName + " capacity " + GetProperties.toStringScaled(capacity, unit) + " : "
 				+ resourceName + " budget " + GetProperties.toStringScaled(budgetTotal, unit);
@@ -299,7 +303,6 @@ public class DoResourceBudgetLogic {
 		} else{
 			errManager.infoSummary(si, somName, modelStats);
 		}
-		errManager.infoSummary(si, somName, "\n");
 	}
 	
 	protected void logHeader(String msg){
@@ -307,8 +310,8 @@ public class DoResourceBudgetLogic {
 	}
 	protected void detailedLog(String prefix,ComponentInstance ci, double budget, double actual, String resourceName, UnitLiteral unit, String msg){
 		if (doDetailedLog){
-			String budgetmsg = 	"Budget "+GetProperties.toStringScaled(budget,unit)+",";
-			String actualmsg = "Actual "+GetProperties.toStringScaled(actual,unit)+",";
+			String budgetmsg = 	prefix+GetProperties.toStringScaled(budget,unit)+",";
+			String actualmsg = prefix+GetProperties.toStringScaled(actual,unit)+",";
 			errManager.logInfo(prefix+ci.getCategory().getName()+" "+ci.getComponentInstancePath()+", "+budgetmsg+actualmsg+msg);
 		}
 	}
@@ -319,7 +322,6 @@ public class DoResourceBudgetLogic {
 			String front = ci==null?"Total":ci.getCategory().getName()+" "+ci.getComponentInstancePath();
 			errManager.logInfo(front+", "+budgetmsg);
 		}
-
 	}
 
 }
