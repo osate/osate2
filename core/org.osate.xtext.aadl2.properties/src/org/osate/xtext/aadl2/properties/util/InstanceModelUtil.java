@@ -39,6 +39,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 
@@ -384,12 +385,34 @@ public class InstanceModelUtil {
 				protected boolean suchThat(Element obj) {
 					ComponentInstance ci = (ComponentInstance)obj;
 					ComponentCategory cat = ci.getCategory();
-					return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP || cat == ComponentCategory.PROCESS)
+					return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP 
+							|| cat == ComponentCategory.PROCESS|| cat == ComponentCategory.SYSTEM)
 							&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
 				}
-			}.processPreOrderComponentInstance(root);//,ComponentCategory.THREAD);
-			return boundComponents;
+			}.processPreOrderComponentInstance(root);
+			EList<ComponentInstance> topobjects = new BasicEList<ComponentInstance>();
+			for (Object componentInstance : boundComponents) {
+				addAsRoot(topobjects,(ComponentInstance)componentInstance);
+			}
+			return topobjects;
 		}
+		
+		public static void addAsRoot(EList<ComponentInstance> blist, ComponentInstance ci){
+			BasicEList<ComponentInstance> removeme = new BasicEList<ComponentInstance>();
+			for (ComponentInstance bi : blist) {
+				if (AadlUtil.containedIn(ci, bi)){
+					return;
+				}
+				if(AadlUtil.containedIn(bi, ci)){
+					removeme.add(bi);
+				}			
+			}
+			if (!removeme.isEmpty()){
+				blist.removeAll(removeme);
+			}
+			blist.add(ci);
+		}
+		
 
 
 		/**
