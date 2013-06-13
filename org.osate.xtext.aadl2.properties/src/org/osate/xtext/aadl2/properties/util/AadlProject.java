@@ -109,6 +109,7 @@ public final class AadlProject {
 	public static final String SIZE_UNITS = "Size_Units";
 	public static final String BITS_LITERAL = "Bits";
 	public static final String B_LITERAL = "Bytes";
+	public static final String BYTES_LITERAL = "Bytes";
 	public static final String KB_LITERAL = "KByte";
 	public static final String MB_LITERAL = "MByte";
 	public static final String GB_LITERAL = "GByte";
