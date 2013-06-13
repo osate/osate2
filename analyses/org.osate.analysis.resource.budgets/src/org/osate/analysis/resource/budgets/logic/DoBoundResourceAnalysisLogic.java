@@ -298,7 +298,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 
 	protected void reportBusLoadTotals(SystemInstance si, final String somName) {
 		errManager.logInfo("\n\nConnection Budget Details\n");
-		errManager.logInfo("Connection,Budget,Actual,Note");
+		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
 		double budget = calcBandWidthLoad(si);
 		errManager.logInfo("");
 		errManager.infoSummary(si, somName,"Connection bandwidth budget total: " + budget+" KBytesps");
@@ -345,7 +345,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		}
 		for (ConnectionInstance connectionInstance : budgetedConnections) {
 			double budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
-			double actual = calcBandwidth(connectionInstance.getSource());
+			double actual = calcBandwidthKBytesps(connectionInstance.getSource());
 			String note = "";
 			if (budget > 0) {
 				if (actual > 0) {
@@ -414,13 +414,13 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		}
 		if (budgetedConnections.isEmpty()) return;
 		errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" with capacity "+Buscapacity+"KBytesps\n");
-		errManager.logInfo("Connection,Budget,Actual,Note");
+		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
 		for (ConnectionInstance connectionInstance : budgetedConnections) {
 			double budget = 0.0;
 			double actual = 0.0;
 			// we have a binding, is it to the current bus
 				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
-				actual = calcBandwidth(connectionInstance.getSource());
+				actual = calcBandwidthKBytesps(connectionInstance.getSource());
 				String note = "";
 				if (budget > 0) {
 					if (actual > 0) {
@@ -469,15 +469,17 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	 * @return
 	 */
 
-	protected double calcBandwidth(ConnectionInstanceEnd cie) {
+	protected double calcBandwidthKBytesps(ConnectionInstanceEnd cie) {
 		double res = 0;
 
 		// TODO-LW add other cases
 		if (cie instanceof FeatureInstance) {
 			FeatureInstance fi = (FeatureInstance) cie;
-			double datasize = GetProperties.getSourceDataSizeInBytes(fi);
+			double datasize = GetProperties.getSourceDataSize(fi,GetProperties.getKBUnitLiteral(fi));
 			double srcRate = getDataRate(fi,  0.0);
 			if (srcRate == 0) {
+				double period = GetProperties.getPeriodInSeconds(fi.getContainingComponentInstance(), 0);
+				if (period == 0) return res;
 				srcRate = 1 / GetProperties.getPeriodInSeconds(fi.getContainingComponentInstance(), 1);
 			}
 			res = datasize * srcRate;
@@ -486,7 +488,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 				double subres = 0;
 				for (Iterator it = fil.iterator(); it.hasNext();) {
 					FeatureInstance sfi = (FeatureInstance) it.next();
-					subres = subres + calcBandwidth(sfi);
+					subres = subres + calcBandwidthKBytesps(sfi);
 				}
 				if (subres > res) {
 					if (res > 0) {
