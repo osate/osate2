@@ -778,17 +778,44 @@ public class GetProperties {
 			}
 			return res;
 	}
+
+	public static double getSourceDataSize(final NamedElement ne, UnitLiteral unit) {
+			Property SourceDataSize = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.SOURCE_DATA_SIZE);
+			double res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, unit, 0.0);
+			if (res == 0.0 && ne instanceof FeatureGroupType) {
+				EList fl = ((FeatureGroupType) ne).getAllFeatures();
+				for (Object f : fl) {
+					Classifier c = ((Feature) f).getAllClassifier();
+					if (c == null) {
+//						res = res + 1.0;
+					} else {
+						res = res + getSourceDataSize(c,unit);
+					}
+				}
+			}
+			return res;
+	}
 	
 	public static double getSourceCodeSizeInBytes(final NamedElement ne) {
 			Property SourceCodeSize = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.SOURCE_CODE_SIZE);
-			UnitLiteral Bytes = findUnitLiteral(SourceCodeSize, AadlProject.B_LITERAL);
+			UnitLiteral Bytes = findUnitLiteral(SourceCodeSize, AadlProject.BYTES_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, SourceCodeSize, Bytes,0.0);
 	}
 	
 	public static double getSourceStackSizeInBytes(final NamedElement ne) {
 			Property SourceStackSize = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.SOURCE_STACK_SIZE);
-			UnitLiteral Bytes = findUnitLiteral(SourceStackSize, AadlProject.B_LITERAL);
+			UnitLiteral Bytes = findUnitLiteral(SourceStackSize, AadlProject.BYTES_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, SourceStackSize, Bytes,0.0);
+	}
+	
+	public static double getSourceCodeSize(final NamedElement ne, UnitLiteral unit) {
+			Property SourceCodeSize = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.SOURCE_CODE_SIZE);
+			return PropertyUtils.getScaledNumberValue(ne, SourceCodeSize, unit,0.0);
+	}
+	
+	public static double getSourceStackSize(final NamedElement ne, UnitLiteral unit) {
+			Property SourceStackSize = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.SOURCE_STACK_SIZE);
+			return PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit,0.0);
 	}
 
 
