@@ -389,7 +389,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				}
 				if(srcAdapter != null && dstAdapter != null) {
 					// Create connection adapter for this connection.
-					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref.getConnection(), this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter, dstAdapter);
+					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref, this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter, dstAdapter);
 					// Add to component.
 					componentAdapter.addChild(connectionAdapter);
 				}
