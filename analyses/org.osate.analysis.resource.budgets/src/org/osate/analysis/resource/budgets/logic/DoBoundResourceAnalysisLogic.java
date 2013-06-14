@@ -399,7 +399,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			if (obj != null){
 				if (InstanceModelUtil.isBoundToBus(obj, curBus)||
 						// we derived a bus connection from the connection end bindings
-						InstanceModelUtil.connectedByBus(obj, curBus) ){ 
+					(!InstanceModelUtil.hasBusBinding(obj)&&InstanceModelUtil.connectedByBus(obj, curBus)) ){ 
 				budgetedConnections.add(obj);
 				}
 			}
@@ -412,7 +412,10 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			return;
 			}
 		}
-		if (budgetedConnections.isEmpty()) return;
+		if (budgetedConnections.isEmpty()){
+			errManager.infoSummary(curBus, somName,curBus.getComponentInstancePath()+ " with bandwidth capacity "+Buscapacity+"KBytesps has no bound connections");
+			return;
+		}
 		errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" with capacity "+Buscapacity+"KBytesps\n");
 		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
 		for (ConnectionInstance connectionInstance : budgetedConnections) {
