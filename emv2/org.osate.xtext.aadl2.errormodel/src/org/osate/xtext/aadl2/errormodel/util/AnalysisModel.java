@@ -316,11 +316,33 @@ public class AnalysisModel {
 		return result;
 	}
 	
+	public EList<PropagationPathEnd> getAllPropagationDestinationEnds(ConnectionInstance ci){
+		EList<PropagationPathEnd> result= new BasicEList<PropagationPathEnd>();
+		for (PropagationPath propagationPathRecord : propagationPaths) {
+			PropagationPathEnd src = propagationPathRecord.getPathSrc();
+			if(src.getConnectionInstance() == ci ){
+				result.add(propagationPathRecord.getPathDst());
+			}
+		}
+		return result;
+	}
+	
 	public EList<PropagationPath> getAllPropagationPaths(ComponentInstance ci, ErrorPropagation outEP){
 		EList<PropagationPath> result= new BasicEList<PropagationPath>();
 		for (PropagationPath propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
+				result.add(propagationPathRecord);
+			}
+		}
+		return result;
+	}
+	
+	public EList<PropagationPath> getAllPropagationPaths(ConnectionInstance ci){
+		EList<PropagationPath> result= new BasicEList<PropagationPath>();
+		for (PropagationPath propagationPathRecord : propagationPaths) {
+			PropagationPathEnd src = propagationPathRecord.getPathSrc();
+			if(src.getConnectionInstance() == ci ){
 				result.add(propagationPathRecord);
 			}
 		}
@@ -338,6 +360,17 @@ public class AnalysisModel {
 		return result;
 	}
 	
+	public EList<PropagationPathEnd> getAllPropagationSourceEnds(ConnectionInstance ci){
+		EList<PropagationPathEnd> result= new BasicEList<PropagationPathEnd>();
+		for (PropagationPath propagationPathRecord : propagationPaths) {
+			PropagationPathEnd src = propagationPathRecord.getPathDst();
+			if(src.getConnectionInstance() == ci ){
+				result.add(propagationPathRecord.getPathDst());
+			}
+		}
+		return result;
+	}
+	
 	public EList<PropagationPath> getAllReversePropagationPaths(ComponentInstance ci, ErrorPropagation inEP){
 		EList<PropagationPath> result= new BasicEList<PropagationPath>();
 		for (PropagationPath propagationPathRecord : propagationPaths) {
@@ -348,15 +381,26 @@ public class AnalysisModel {
 		}
 		return result;
 	}
-	
+
+	public EList<PropagationPath> getAllReversePropagationPaths(ConnectionInstance ci){
+		EList<PropagationPath> result= new BasicEList<PropagationPath>();
+		for (PropagationPath propagationPathRecord : propagationPaths) {
+			PropagationPathEnd src = propagationPathRecord.getPathDst();
+			if(src.getConnectionInstance() == ci ){
+				result.add(propagationPathRecord);
+			}
+		}
+		return result;
+	}
+
 	
 	/**
 	 * return all feature (or for access component) instances that are the connection destination of the given feature instance
-	 * The soruce and destinations are assumed to be components with error models
+	 * The source and destinations are assumed to be components with error models
 	 * @param fi
 	 * @return list of ConnectionInstanceEnd
 	 */
-	public EList<ConnectionInstanceEnd> getAllConnectionDestinations(ConnectionInstanceEnd fi){
+	public EList<ConnectionInstanceEnd> getAllPropagationDestinationEnds(ConnectionInstanceEnd fi){
 		EList<ConnectionInstanceEnd> result= new BasicEList<ConnectionInstanceEnd>();
 		NamedElement f = null;
 		if (fi instanceof FeatureInstance){
