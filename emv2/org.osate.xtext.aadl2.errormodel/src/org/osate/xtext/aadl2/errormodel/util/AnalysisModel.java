@@ -7,11 +7,18 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.Bus;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Device;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.Memory;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Processor;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.VirtualBus;
+import org.osate.aadl2.VirtualProcessor;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -25,6 +32,7 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -39,6 +47,7 @@ public class AnalysisModel {
 	protected ComponentInstance root; // component instance that is the root of the analysis
 	protected EList<PropagationPath> propagationPaths = new BasicEList<PropagationPath>(); // component instances (with emv2 propagations) within the root
 	protected EList<ComponentInstance> subcomponents = new UniqueEList<ComponentInstance>(); // component instances (with emv2 propagations) within the root
+	protected EList<ConnectionInstance> connections = new BasicEList<ConnectionInstance>(); // connection instances whose bond resources have a emv2 propagation
 	
 	public AnalysisModel(ComponentInstance root) {
 		this.root = root;
@@ -63,32 +72,9 @@ public class AnalysisModel {
 			{
 				continue;
 			}
-			if (ci.getComponentClassifier().getCategory() == ComponentCategory.PROCESS)
+			if (ci.getCategory() == ComponentCategory.PROCESS|| ci.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
 			{
-				List<ComponentInstance> cpus = GetProperties.getActualProcessorBinding(ci);
-				if (cpus.size() > 0)
-				{
-					for (ComponentInstance cpu : cpus)
-					{
-						if ((cpu.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
-						{
-							List<ComponentInstance> realCpus = GetProperties.getActualProcessorBinding(cpu);
-							for (ComponentInstance realCpu : realCpus)
-							{
-								if (realCpu.getCategory() == ComponentCategory.PROCESSOR)
-								{
-									populateConnectionPropagationPaths(cpu, realCpu);
-									populateConnectionPropagationPaths(ci, cpu);
-								}
-							}
-						}
-						else
-						{
-							populateConnectionPropagationPaths(ci, cpu);
-						}
-						subcomponents.add(ci);
-					}
-				}
+				populateBindingPaths(ci);
 			}
 		}
 	}
@@ -106,6 +92,9 @@ public class AnalysisModel {
 	}
 	public EList<ComponentInstance> getSubcomponents() {
 		return subcomponents;
+	}
+	public EList<ConnectionInstance> getConnections() {
+		return connections;
 	}
 	public InstanceObject getRoot() {
 		return root;
@@ -154,47 +143,119 @@ public class AnalysisModel {
 				}
 			}
 		}
-		propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance));
-		subcomponents.add(srcCI);
-		subcomponents.add(dstCI);
+		if (srcprop!= null && dstprop!=null){
+			propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop));
+			subcomponents.add(srcCI);
+			subcomponents.add(dstCI);
+		}
 	}
 	
 	/**
-	 * This is made to support the binding between component. Here, the first argument is the resources
-	 * bound (e.g. a process) and the boundResource argument the associated resources (e.g. a processor).
+	 * populate direct bindings from the specified component to its resources
+	 * @param ci
+	 */
+	protected void populateBindingPaths(InstanceObject obj){
+		if (obj instanceof ComponentInstance){
+			ComponentInstance ci = (ComponentInstance)obj;
+			List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding(ci);
+			for (ComponentInstance cpu : cpus)
+			{
+				populateBindingPropagationPaths(ci, cpu,"processor");
+			}
+			if (!(ci instanceof VirtualProcessor)){
+				// do memory bindings
+				List<ComponentInstance> mems = InstanceModelUtil.getMemoryBinding(ci);
+				for (ComponentInstance mem : mems)
+				{
+					populateBindingPropagationPaths(ci, mem,"memory");
+				}
+			}
+			if (ci instanceof VirtualBus){
+				// do connection bindings
+				List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(ci);
+				for (ComponentInstance bres : boundresources)
+				{
+					populateBindingPropagationPaths(ci, bres,"binding");
+				}
+			}
+		} else if (obj instanceof ConnectionInstance){
+			// do connection bindings
+			List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(obj);
+			for (ComponentInstance bres : boundresources)
+			{
+				populateBindingPropagationPaths((ConnectionInstance)obj, bres,"binding");
+			}
+		}
+	}
+	
+	/**
+	 * This is made to support the binding between component. Here, the first argument is the component 
+	 * bound to a resource (e.g. a process) and the boundResource argument the associated resources (e.g. a processor).
 	 * @param comp
 	 * @param boundResource
 	 */
-	protected void populateConnectionPropagationPaths(ComponentInstance comp, ComponentInstance boundResource){
-		ErrorPropagation srcprop = null;
-		ComponentInstance srcCI = boundResource;
-		ErrorPropagation dstprop = null;
-		ComponentInstance dstCI = comp;
+	protected void populateBindingPropagationPaths(ComponentInstance comp, ComponentInstance boundResource,String resourcebindingKind){
+		// source prop kind determined by destination and vice versa (BR = bound resource, BC bound component
+		boolean added = false;
+		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource, "bindings");
+		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp, resourcebindingKind);
 
-		for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(boundResource.getComponentClassifier()))
-		{
-			srcprop = ep;
-
-			/*
-			 * FIXME JD : for now, we take as input the outgoing error propagation from the processor/virtual processor
-			 * and then, all the incoming error propagation from the bound process. This is not the correct
-			 * way to proceed, we should have helper functions in EMV2Util to retrieve the incoming
-			 * ErrorPropagation that corresponds to the OutgoingPropagation from the processor.
-			 */
-			for (ErrorPropagation ep2 : EMV2Util.getAllIncomingErrorPropagations(comp.getComponentClassifier()))
+		if (BRsrcprop != null && BCdstprop != null ){
+			if(EM2TypeSetUtil.contains(BRsrcprop.getTypeSet(), BCdstprop.getTypeSet()))
 			{
-				dstprop = ep2;
-
-				if (EM2TypeSetUtil.contains(srcprop.getTypeSet(), dstprop.getTypeSet()))
-				{
-
-					propagationPaths.add(new PropagationPath(srcCI, ep, dstCI, ep2));
-			
-				}
+				propagationPaths.add(new PropagationPath(boundResource, BRsrcprop, comp, BCdstprop));
+				added = true;
+			} else {
+				// error message about mismatch of type set
 			}
 		}
-		subcomponents.add(srcCI);
-		subcomponents.add(dstCI);
+		ErrorPropagation BCsrcprop = EMV2Util.findOutgoingErrorPropagation(comp,resourcebindingKind );
+		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource, "bindings");
+		 if (BCsrcprop != null && BRdstprop!=null){
+			 if (EM2TypeSetUtil.contains(BCsrcprop.getTypeSet(), BRdstprop.getTypeSet()))
+			 {
+				 propagationPaths.add(new PropagationPath(comp, BCsrcprop, boundResource, BRdstprop));
+				 added = true;
+			 } else {
+				 // error message about mismatch of type set
+			 }
+		 }
+		if (added){
+			subcomponents.add(comp);
+			subcomponents.add(boundResource);
+		}
+	}
+	
+	/**
+	 * This is made to support the binding between connection and components. Here, the first argument is the connection 
+	 * bound to a resource and the boundResource argument the associated resources (e.g. a bus).
+	 * @param conn
+	 * @param boundResource
+	 */
+	protected void populateBindingPropagationPaths(ConnectionInstance conn, ComponentInstance boundResource,String bindingKind){
+		boolean added = false;
+		// source prop kind determined by destination and vice versa (BR = bound resource, BC bound component
+		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource, bindingKind);
+
+		if (BRsrcprop != null  )
+		{
+			propagationPaths.add(new PropagationPath(boundResource, BRsrcprop,conn));
+			added = true;
+		} else {
+			// error message about mismatch of type set
+		}
+		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource, bindingKind);
+		if (BRsrcprop != null)
+		{
+			propagationPaths.add(new PropagationPath(conn, boundResource, BRdstprop));
+			added = true;
+		} else {
+			// error message about mismatch of type set
+		}
+		if (added){
+			connections.add(conn);
+			subcomponents.add(boundResource);
+		}
 	}
 	
 	/**
@@ -237,9 +298,11 @@ public class AnalysisModel {
 				}
 			}
 		}
-		propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop, connectionInstance));
-		subcomponents.add(srcCI);
-		subcomponents.add(dstCI);
+		if (srcprop!= null && dstprop!= null){
+			propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop));
+			subcomponents.add(srcCI);
+			subcomponents.add(dstCI);
+		}
 	}
 	
 	public EList<PropagationPathEnd> getAllPropagationDestinationEnds(ComponentInstance ci, ErrorPropagation outEP){
@@ -248,12 +311,6 @@ public class AnalysisModel {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
 				result.add(propagationPathRecord.getPathDst());
-			}
-			if (propagationPathRecord.getConni().isBidirectional()){
-				src = propagationPathRecord.getPathDst();
-				if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
-					result.add(propagationPathRecord.getPathSrc());
-				}
 			}
 		}
 		return result;
@@ -266,12 +323,6 @@ public class AnalysisModel {
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
 				result.add(propagationPathRecord);
 			}
-			if ((propagationPathRecord.getConni() != null) && (propagationPathRecord.getConni().isBidirectional())){
-				src = propagationPathRecord.getPathDst();
-				if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
-					result.add(propagationPathRecord);
-				}
-			}
 		}
 		return result;
 	}
@@ -283,12 +334,6 @@ public class AnalysisModel {
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == inEP){
 				result.add(propagationPathRecord.getPathDst());
 			}
-			if (propagationPathRecord.getConni().isBidirectional()){
-				src = propagationPathRecord.getPathSrc();
-				if(src.getComponentInstance() == ci && src.getErrorPropagation() == inEP){
-					result.add(propagationPathRecord.getPathDst());
-				}
-			}
 		}
 		return result;
 	}
@@ -299,12 +344,6 @@ public class AnalysisModel {
 			PropagationPathEnd src = propagationPathRecord.getPathDst();
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == inEP){
 				result.add(propagationPathRecord);
-			}
-			if (propagationPathRecord.getConni().isBidirectional()){
-				src = propagationPathRecord.getPathSrc();
-				if(src.getComponentInstance() == ci && src.getErrorPropagation() == inEP){
-					result.add(propagationPathRecord);
-				}
 			}
 		}
 		return result;
@@ -319,12 +358,11 @@ public class AnalysisModel {
 	 */
 	public EList<ConnectionInstanceEnd> getAllConnectionDestinations(ConnectionInstanceEnd fi){
 		EList<ConnectionInstanceEnd> result= new BasicEList<ConnectionInstanceEnd>();
-		ComponentInstance ci = fi.getContainingComponentInstance();
 		NamedElement f = null;
 		if (fi instanceof FeatureInstance){
 		f = ((FeatureInstance)fi).getFeature();
 		} else {
-			f = ((ComponentInstance)f).getSubcomponent();
+			f = ((ComponentInstance)fi).getSubcomponent();
 		}
 		for (PropagationPath propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
@@ -341,25 +379,6 @@ public class AnalysisModel {
 						result.add(dstfi);
 					} else if (EMV2Util.isAccess(dstep)){
 						result.add(dstCI);
-					}
-				}
-			}
-			if (propagationPathRecord.getConni().isBidirectional()){
-				src = propagationPathRecord.getPathDst();
-				ep = src.getErrorPropagation();
-				srcf = EMV2Util.getFeature(ep);
-				if (srcf != null && srcf == f){
-					PropagationPathEnd dst = propagationPathRecord.pathSrc;
-					ErrorPropagation dstep = dst.getErrorPropagation();
-					if (dstep != null){
-						Feature dstf = EMV2Util.getFeature(dstep);
-						ComponentInstance dstCI = dst.getComponentInstance();
-						if (dstf != null){
-							FeatureInstance dstfi = dstCI.findFeatureInstance(dstf);
-							result.add(dstfi);
-						} else if (EMV2Util.isAccess(dstep)){
-							result.add(dstCI);
-						}
 					}
 				}
 			}
