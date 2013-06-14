@@ -11,7 +11,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.swt.internal.ole.win32.ISpecifyPropertyPages;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BasicPropertyAssociation;
