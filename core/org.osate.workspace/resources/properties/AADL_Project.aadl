@@ -6,7 +6,8 @@ property set AADL_Project is
 	Supported_Active_Thread_Handling_Protocols: type enumeration (abort);
 	
 	Supported_Connection_Patterns: type enumeration (One_To_One, All_To_All, One_To_All, All_To_One,
-			 Next, Previous, Cyclic_Next, Cyclic_Previous);
+			 Next, Previous, Cyclic_Next, Cyclic_Previous,
+			 Odd_To_Odd, Even_To_Even, Next_Next, Cyclic_Next_Next, Previous_Previous, Cyclic_Previous_Previous);
 	
 	Supported_Concurrency_Control_Protocols: type enumeration (None_Specified, Interrupt_Masking, 
 	                Maximum_Priority, Priority_Inheritance, Priority_Ceiling, Spin_Lock, Semaphore, Protected_Access);
