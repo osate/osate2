@@ -306,6 +306,16 @@ public class InstanceModelUtil {
 		 * @param io
 		 * @return
 		 */
+		public static List<ComponentInstance> getMemoryBinding(final ComponentInstance io) {
+			List<ComponentInstance> bindinglist = GetProperties.getActualMemoryBinding(io);
+			return bindinglist;
+		}
+
+		/**
+		 * return the processor or virtual processor that the component is directly bound to
+		 * @param io
+		 * @return
+		 */
 		public static List<ComponentInstance> getProcessorBinding(final ComponentInstance io) {
 			List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(io);
 			/**
