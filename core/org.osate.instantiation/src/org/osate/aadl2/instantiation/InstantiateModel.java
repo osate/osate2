@@ -94,6 +94,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeTransition;
@@ -630,7 +631,7 @@ public class InstantiateModel {
 						void process(int dim, Stack<Long> indexStack) {
 							// index starts with one
 							ArraySize arraySize = dims.get(dim).getSize();
-							long count = getElementCount(arraySize);
+							long count = getElementCount(arraySize,ci);
 
 							for (int i = 1; i <= count; i++) {
 								if (dim + 1 < dimensions) {
@@ -794,7 +795,7 @@ public class InstantiateModel {
 				class ArrayInstantiator {
 					void process(int dim) {
 						ArraySize arraySize = dims.get(dim).getSize();
-						long count = getElementCount(arraySize);
+						long count = getElementCount(arraySize,ci);
 
 						for (int i = 1; i <= count; i++) {
 							fillFeatureInstance(ci, feature, false, i);
@@ -1001,7 +1002,7 @@ public class InstantiateModel {
 				class ArrayInstantiator {
 					void process(int dim) {
 						ArraySize arraySize = dims.get(dim).getSize();
-						long count = getElementCount(arraySize);
+						long count = getElementCount(arraySize,fgi.getContainingComponentInstance());
 
 						for (int i = 0; i < count; i++) {
 							fillFeatureInstance(fgi, feature, inverse, i + 1);
@@ -1305,6 +1306,20 @@ public class InstantiateModel {
 		return null;
 	}
 
+	private long getArraySizeValue(ComponentInstance ci, Property pd) {
+		PropertyExpression res = ci.getSimplePropertyValue(pd);
+		Subcomponent sub = ci.getSubcomponent();
+		for (PropertyAssociation pa : sub.getOwnedPropertyAssociations()) {
+			if (pa.getProperty().getName().equalsIgnoreCase(pd.getName())) {
+				PropertyExpression pe = pa.getOwnedValues().get(0).getOwnedValue();
+				if (pe instanceof IntegerLiteral){
+					return ((IntegerLiteral) pe).getValue();
+				}
+			}
+		}
+		return 0;
+	}
+
 	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
 			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
 		InstanceObject current = end;
@@ -1330,7 +1345,7 @@ public class InstantiateModel {
 					for (ArrayDimension ad : s.getArrayDimensions()) {
 						ArraySize as = ad.getSize();
 
-						temp.add((int) getElementCount(as));
+						temp.add((int) getElementCount(as,(ComponentInstance)current.getContainingComponentInstance()));
 					}
 					sizes.addAll(0, temp);
 
@@ -1338,7 +1353,7 @@ public class InstantiateModel {
 					Feature f = ((FeatureInstance) current).getFeature();
 					ArraySize as = f.getArrayDimensions().get(0).getSize();
 
-					sizes.add(0, (int) getElementCount(as));
+					sizes.add(0, (int) getElementCount(as,current.getContainingComponentInstance()));
 				}
 			}
 			current = (InstanceObject) current.getOwner();
@@ -1526,7 +1541,27 @@ public class InstantiateModel {
 	// Methods related to arrays
 	// --------------------------------------------------------------------------------------------
 
-	private long getElementCount(ArraySize as) {
+//	private long getElementCount(ArraySize as) {
+//		long result = 0L;
+//		if (as == null) {
+//			return result;
+//		}
+//		if (as.getSizeProperty() == null) {
+//			result = as.getSize();
+//		} else {
+//			ArraySizeProperty asp = as.getSizeProperty();
+//			if (asp instanceof PropertyConstant) {
+//				PropertyConstant pc = (PropertyConstant) asp;
+//				PropertyExpression cv = pc.getConstantValue();
+//				if (cv instanceof IntegerLiteral) {
+//					result = ((IntegerLiteral) cv).getValue();
+//				}
+//			}
+//		}
+//		return result;
+//	}
+
+	private long getElementCount(ArraySize as, ComponentInstance ci) {
 		long result = 0L;
 		if (as == null) {
 			return result;
@@ -1541,6 +1576,9 @@ public class InstantiateModel {
 				if (cv instanceof IntegerLiteral) {
 					result = ((IntegerLiteral) cv).getValue();
 				}
+			} else if (asp instanceof Property){
+				Property pd = (Property) asp;
+				result = getArraySizeValue(ci, pd);
 			}
 		}
 		return result;
