@@ -510,6 +510,16 @@ public class InstanceModelUtil {
 	}
 
 		/**
+		 * true if connection or virtual bus instance has connection binding 
+		 * @param boundObject
+		 * @return
+		 */
+	  public static boolean hasBusBinding(InstanceObject boundObject){
+			List<ComponentInstance> bindinglist = getConnectionBinding(boundObject);
+			return !bindinglist.isEmpty();
+	}
+
+		/**
 		 * return the processor or virtual processor that the component is directly bound to
 		 * @param io
 		 * @return
