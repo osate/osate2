@@ -416,10 +416,10 @@ public class FnCallExpr extends Expr {
 	private boolean checkType(InstanceObject aadl, String typeName)
 	{
 		boolean r;
-		OsateDebug.osateDebug("aadl comp" + aadl.getComponentInstance().getComponentClassifier());
-		OsateDebug.osateDebug("type=" + typeName);
+		//OsateDebug.osateDebug("aadl comp" + aadl.getComponentInstance().getComponentClassifier());
+		//OsateDebug.osateDebug("type=" + typeName);
 		r = aadl.getComponentInstance().getComponentClassifier().getName().toLowerCase().contains(typeName.toLowerCase());
-		OsateDebug.osateDebug("return " + r);
+		//OsateDebug.osateDebug("return " + r);
 		return r;
 	}
 	
