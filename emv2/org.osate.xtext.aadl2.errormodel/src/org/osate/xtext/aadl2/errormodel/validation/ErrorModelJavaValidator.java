@@ -140,12 +140,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
-//		Classifier cl = subclause.getContainingClassifier();
-//		Collection<ErrorPropagation> names = EMV2Util.getAllErrorPropagations(cl);
-//		EList<NamedElement> doubles = EMV2Util.findDoubleNamedElementsInList(names);
-//		for (NamedElement namedElement : doubles) {
-//			error(namedElement, namedElement.getName()+" has duplicate error propagations.");
-//		}
+		Collection<NamedElement> names = EMV2Util.getAllNamedElements(subclause);
+		EList<NamedElement> doubles = EMV2Util.findDoubleNamedElementsInList(names);
+		for (NamedElement namedElement : doubles) {
+			error(namedElement, namedElement.getName()+" has duplicate error propagations.");
+		}
 	}
 
 	@Check(CheckType.NORMAL)
@@ -718,8 +717,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkErrorPathTypes(ErrorPath ef) {
+		ErrorPropagation epin = ef.getIncoming();
 		if (ef.getTypeTokenConstraint() != null) {
-			ErrorPropagation epin = ef.getIncoming();
 			if (!EM2TypeSetUtil.contains(epin.getTypeSet(),
 					ef.getTypeTokenConstraint())) {
 				error(ef,
@@ -727,14 +726,23 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								+ EMV2Util.getPrintName(epin) + "\"");
 			}
 		}
+		ErrorPropagation epout = ef.getOutgoing();
 		if (ef.getTargetToken() != null) {
-			ErrorPropagation epout = ef.getOutgoing();
 			if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
 					ef.getTargetToken())) {
 				error(ef,
 						"Target token is not contained in type set of outgoing propagation "
 								+ EMV2Util.getPrintName(epout));
 			}
+		} else {
+			// path has not target token so we have to match the incoming constraint
+			if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
+					ef.getTypeTokenConstraint())) {
+				error(ef,
+						"Incoming path type constraint is not contained in type set of outgoing propagation "
+								+ EMV2Util.getPrintName(epout));
+			}
+			
 		}
 	}
 
