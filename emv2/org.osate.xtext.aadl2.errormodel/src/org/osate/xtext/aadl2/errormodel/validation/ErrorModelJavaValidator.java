@@ -140,11 +140,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
-		Collection<NamedElement> names = EMV2Util.getAllNamedElements(subclause);
-		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(names);
-		for (NamedElement namedElement : doubles) {
-			error(namedElement, namedElement.getName()+" has duplicate definitions.");
-		}
+//		Classifier cl = subclause.getContainingClassifier();
+//		Collection<ErrorPropagation> names = EMV2Util.getAllErrorPropagations(cl);
+//		EList<NamedElement> doubles = EMV2Util.findDoubleNamedElementsInList(names);
+//		for (NamedElement namedElement : doubles) {
+//			error(namedElement, namedElement.getName()+" has duplicate error propagations.");
+//		}
 	}
 
 	@Check(CheckType.NORMAL)
@@ -253,7 +254,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkDirectionType(ErrorPropagation errorPropagation) {
 		DirectionType pd = errorPropagation.getDirection();
-			DirectionType portd = EMV2Util.getErrorPropagationPointDirection(errorPropagation);
+			DirectionType portd = EMV2Util.getErrorPropagationFeatureDirection(errorPropagation);
 			if (!(pd.getName().equalsIgnoreCase(portd.getName()) || portd == DirectionType.IN_OUT))
 				error(errorPropagation,
 						"Propagation direction does not match port direction.");
@@ -267,7 +268,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			ErrorPropagation ep1 = eps.get(i);
 			for (int k = i + 1; k < epssize; k++) {
 				ErrorPropagation ep2 = eps.get(k);
-				if (EMV2Util.getErrorPropagationPoint(ep1,null) == EMV2Util.getErrorPropagationPoint(ep2,null)) {
+				if (EMV2Util.getPrintName(ep1) == EMV2Util.getPrintName(ep2)) {
 					// uniqueness needs to take into account direction
 					if ((ep1.isNot() && ep2.isNot() || !ep1.isNot()
 							&& !ep2.isNot()) && ep1.getDirection() == ep2.getDirection()) {

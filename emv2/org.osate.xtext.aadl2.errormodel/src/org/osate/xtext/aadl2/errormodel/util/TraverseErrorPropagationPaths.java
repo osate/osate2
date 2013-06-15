@@ -205,7 +205,7 @@ public class TraverseErrorPropagationPaths {
 			EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
 			if (!flowlist.isEmpty()){
 				for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
-					if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationPoint(inprop, ci)){
+					if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(inprop, ci)){
 						FeatureInstance outfi = flowSpecificationInstance.getDestination();
 						if (outfi != null){
 							ErrorPropagation outprop = EMV2Util.getOutgoingErrorPropagation(outfi);

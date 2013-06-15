@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -363,19 +366,35 @@ public class EMV2Util {
 		return null;
 	}
 	
-	
+
 	/**
-	 * return list of error propagations including those inherited from classifiers being extended
-	 * @param cl Classifier
-	 * @return Collection<ErrorPropagation> list of ErrorPropagation excluding duplicates
+	 * Check to see if all NamedElements in the Elist have a unique name. The
+	 * list can contain object that are not NamedElements. This implementation
+	 * utilizes List Iterators.
+	 * 
+	 * @param el EList or NamedElements or other objects
+	 * @return EList of NameElements that are defining a previously defined name
 	 */
-	public static Collection<ErrorPropagations> getAllErrorPropagationComposites(Classifier cl){
-		EList<ErrorPropagations> result = new BasicEList<ErrorPropagations>();
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
-			if (eps!= null){
-				result.add(eps);
+	public static EList<NamedElement> findDoubleNamedElementsInList(Collection<?> el) {
+		EList<NamedElement> result = new BasicEList<NamedElement>();
+		final Set<String> seen = new HashSet<String>();
+
+		if (el != null) {
+			for (final Iterator i = el.iterator(); i.hasNext();) {
+				final Object obj = i.next();
+				if (obj instanceof NamedElement) {
+					final NamedElement lit = (NamedElement) obj;
+					 String name = lit.getName();
+					if (obj instanceof ErrorPropagation){
+						name = getPrintName((ErrorPropagation)obj);
+					}
+					if (name != null && !name.isEmpty()) {
+						name = name.toLowerCase();
+						if (!seen.add(name)) {
+							result.add(lit);
+						}
+					}
+				}
 			}
 		}
 		return result;
@@ -2528,7 +2547,7 @@ public class EMV2Util {
 	 * @param ci
 	 * @return
 	 */
-	public static NamedElement getErrorPropagationPoint(ErrorPropagation ep, ComponentInstance ci){
+	public static NamedElement getErrorPropagationFeature(ErrorPropagation ep, ComponentInstance ci){
 		EList<FeatureReference> frefs = ep.getFeaturerefs();
 		if (frefs.isEmpty()) return ci;
 		return frefs.get(frefs.size()-1).getFeature();
@@ -2540,11 +2559,12 @@ public class EMV2Util {
 	 * @param ci
 	 * @return
 	 */
-	public static DirectionType getErrorPropagationPointDirection(ErrorPropagation ep){
+	public static DirectionType getErrorPropagationFeatureDirection(ErrorPropagation ep){
 		EList<FeatureReference> frefs = ep.getFeaturerefs();
 		boolean inverse = false;
+		NamedElement f = null;
 		for (int i=0;i < frefs.size()-1; i++){
-			NamedElement f = frefs.get(i).getFeature();
+			f = frefs.get(i).getFeature();
 			if (f instanceof FeatureGroup){
 				FeatureGroup fg = (FeatureGroup)f;
 				FeatureGroupType fgt = fg.getAllFeatureGroupType();
@@ -2556,16 +2576,16 @@ public class EMV2Util {
 				}
 			}
 		}
-		NamedElement finalf = frefs.get(frefs.size()-1).getFeature();
-		if (finalf instanceof Port){
-			DirectionType portd = ((Port) finalf).getDirection();
+		if (f instanceof Port){
+			DirectionType portd = ((Port) f).getDirection();
 			if (inverse){
 				return portd.getInverseDirection();
 			} else {
 				return portd;
 			}
 		}
-		return null;
+		// for anything but the port we assume in_out
+		return DirectionType.IN_OUT;
 	}
 	
 	/**
@@ -2575,17 +2595,16 @@ public class EMV2Util {
 	 * @return Boolean
 	 */
 	public static boolean isErrorPropagationOf(ErrorPropagation ep, FeatureInstance fi){
-		Feature fif = fi.getFeature();
-		if (Aadl2Util.isNull(fif)) return false;
+		if (Aadl2Util.isNull(fi.getFeature())) return false; // not to a feature
 		EList<FeatureReference> frefs = ep.getFeaturerefs();
 		if (frefs.isEmpty()) return false;
 		for (int i = frefs.size()-1; i >0; i--) {
 			FeatureReference fref = frefs.get(i);
-			if (Aadl2Util.isNull(fref.getFeature())||fref.getFeature() != fi.getFeature()){
+			if (!Aadl2Util.isNull(fref.getFeature())&&fref.getFeature() == fi.getFeature()){
 				return false;
 			}
 		}
-		return true;
+		return false;
 	}
 	
 

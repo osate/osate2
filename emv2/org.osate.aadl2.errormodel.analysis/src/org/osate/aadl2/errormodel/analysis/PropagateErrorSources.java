@@ -435,7 +435,7 @@ public class PropagateErrorSources {
 				EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
 				if (!flowlist.isEmpty()){
 					for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
-						if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationPoint(ep, ci)){
+						if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(ep, ci)){
 							FeatureInstance outfi = flowSpecificationInstance.getDestination();
 							if (outfi != null){
 								ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
