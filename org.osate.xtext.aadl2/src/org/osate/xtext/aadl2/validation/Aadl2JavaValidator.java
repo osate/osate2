@@ -4816,6 +4816,13 @@ public boolean hasExtendCycles(Classifier cl) {
 							" subset of the outgoing features in the opposite feature group.");
 				}
 			}
+			// does not work because of ports in both directions. WOuld have to be subset
+//			else if (ModelingProperties.TYPE_EXTENSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+//				if (!testIfFeatureGroupTypeExtension(destinationType, sourceType)) {
+//					error(connection, "The type "+ sourceType.getQualifiedName() +" of '" + source.getName() + "' is not a type extension of type "+ destinationType.getQualifiedName() +" of '" + destination.getName()+"'");
+//				}
+//			}
+
 		}
 		else { //up or down hierarchy
 			boolean cxtFGIsInverse = false;
@@ -4885,6 +4892,28 @@ public boolean hasExtendCycles(Classifier cl) {
 							" group.");
 				}
 			}
+			// works
+//			else if (ModelingProperties.TYPE_EXTENSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+//				FeatureGroup innerFeatureGroup;
+//				FeatureGroupType innerFeatureGroupType;
+//				FeatureGroup outerFeatureGroup;
+//				FeatureGroupType outerFeatureGroupType;
+//				if (connection.getAllSourceContext() instanceof Subcomponent) {
+//					innerFeatureGroup = source;
+//					innerFeatureGroupType = sourceType;
+//					outerFeatureGroup = destination;
+//					outerFeatureGroupType = destinationType;
+//				}
+//				else {
+//					outerFeatureGroup = source;
+//					outerFeatureGroupType = sourceType;
+//					innerFeatureGroup = destination;
+//					innerFeatureGroupType = destinationType;
+//				}
+//				if (!testIfFeatureGroupTypeExtension(innerFeatureGroupType, outerFeatureGroupType)) {
+//					error(connection, "The type "+ outerFeatureGroupType.getQualifiedName() +" of '" + outerFeatureGroup.getName() + "' is not a type extension of type "+ outerFeatureGroupType.getQualifiedName() +" of '" + outerFeatureGroup.getName()+"'");
+//				}
+//			}
 		}
 	}
 	
@@ -4955,6 +4984,16 @@ public boolean hasExtendCycles(Classifier cl) {
 		return false;
 	}
 
+	
+	private boolean testIfFeatureGroupTypeExtension(FeatureGroupType originalType, FeatureGroupType extendedType) {
+		if (originalType == extendedType.getExtended()) {
+			return true;
+		}
+		if (extendedType.getInverse() != null && originalType == extendedType.getInverse()){
+			return true;
+		}
+		return false;
+	}
 	
 	private boolean testIfFeatureGroupTypesAreIdentical(FeatureGroup source, FeatureGroupType sourceType, FeatureGroup destination, FeatureGroupType destinationType) {
 		if (sourceType == destinationType) {
@@ -5048,7 +5087,7 @@ public boolean hasExtendCycles(Classifier cl) {
 					//feature group type has inverse and feature is defined in the inverse FGT
 					innerDirection = innerDirection.getInverseDirection();
 				}
-				if (innerDirection.incoming()) {
+//				if (innerDirection.incoming()) {
 					//need to find incoming feature in outer feature group
 					boolean matchingFeatureFound = false;
 					for (Feature outerFeature : outerType.getAllFeatures()) {
@@ -5062,8 +5101,8 @@ public boolean hasExtendCycles(Classifier cl) {
 									//feature group type has inverse and feature is defined in the inverse FGT
 									outerDirection = outerDirection.getInverseDirection();
 								}
-								if (!outerDirection.incoming())
-									return false;
+//								if (!outerDirection.incoming())
+//									return false;
 								if (!innerFeature.eClass().equals(outerFeature.eClass()))
 									return false;
 							}
@@ -5073,47 +5112,47 @@ public boolean hasExtendCycles(Classifier cl) {
 					}
 					if (!matchingFeatureFound)
 						return false;
-				}
+//				}
 			}
 		}
 		
-		for (Feature outerFeature : outerType.getAllFeatures()) {
-			if (outerFeature instanceof DirectedFeature) {
-				DirectionType outerDirection = ((DirectedFeature)outerFeature).getDirection();
-				if (isOuterFGInverse)
-					outerDirection = outerDirection.getInverseDirection();
-				if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
-					//feature group type has inverse and feature is defined in the inverse FGT
-					outerDirection = outerDirection.getInverseDirection();
-				}
-				if (outerDirection.outgoing()) {
-					//need to find outgoing feature in inner feature group
-					boolean matchingFeatureFound = false;
-					for (Feature innerFeature : innerType.getAllFeatures()) {
-						if (outerFeature.getName().equalsIgnoreCase(innerFeature.getName())) {
-							matchingFeatureFound = true;
-							if (innerFeature instanceof DirectedFeature) {
-								DirectionType innerDirection = ((DirectedFeature)innerFeature).getDirection();
-								if (isInnerFGInverse)
-									innerDirection = innerDirection.getInverseDirection();
-								if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
-									//feature group type has inverse and feature is defined in the inverse FGT
-									innerDirection = innerDirection.getInverseDirection();
-								}
-								if (!innerDirection.outgoing())
-									return false;
-								if (!outerFeature.eClass().equals(innerFeature.eClass()))
-									return false;
-							}
-							else
-								return false;
-						}
-					}
-					if (!matchingFeatureFound)
-						return false;
-				}
-			}
-		}
+//		for (Feature outerFeature : outerType.getAllFeatures()) {
+//			if (outerFeature instanceof DirectedFeature) {
+//				DirectionType outerDirection = ((DirectedFeature)outerFeature).getDirection();
+//				if (isOuterFGInverse)
+//					outerDirection = outerDirection.getInverseDirection();
+//				if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
+//					//feature group type has inverse and feature is defined in the inverse FGT
+//					outerDirection = outerDirection.getInverseDirection();
+//				}
+//				if (outerDirection.outgoing()) {
+//					//need to find outgoing feature in inner feature group
+//					boolean matchingFeatureFound = false;
+//					for (Feature innerFeature : innerType.getAllFeatures()) {
+//						if (outerFeature.getName().equalsIgnoreCase(innerFeature.getName())) {
+//							matchingFeatureFound = true;
+//							if (innerFeature instanceof DirectedFeature) {
+//								DirectionType innerDirection = ((DirectedFeature)innerFeature).getDirection();
+//								if (isInnerFGInverse)
+//									innerDirection = innerDirection.getInverseDirection();
+//								if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
+//									//feature group type has inverse and feature is defined in the inverse FGT
+//									innerDirection = innerDirection.getInverseDirection();
+//								}
+//								if (!innerDirection.outgoing())
+//									return false;
+//								if (!outerFeature.eClass().equals(innerFeature.eClass()))
+//									return false;
+//							}
+//							else
+//								return false;
+//						}
+//					}
+//					if (!matchingFeatureFound)
+//						return false;
+//				}
+//			}
+//		}
 		
 		return true;
 	}
