@@ -4941,11 +4941,11 @@ public boolean hasExtendCycles(Classifier cl) {
 			// fg must be the same (both inverse or both not inverse)
 			return (source.isInverse() && destination.isInverse())||(!source.isInverse() && !destination.isInverse());
 		}
-		if (isSameInExtends(sourceType, sourceType)){
+		if (isSameInExtends(sourceType, destinationType)){
 			// they have a common FGT root
 			return (source.isInverse() && !destination.isInverse())||(!source.isInverse() && destination.isInverse());
 		}
-		return true;
+		return false;
 	}
 	
 	public boolean isInverseOfInExtends(FeatureGroupType srcpgt,FeatureGroupType dstpgt) {
