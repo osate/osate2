@@ -152,5 +152,14 @@ The following theorem checks that two connected partitions have the same critica
 </pre>
 
 
+<h4>Is_Type_Of</h4>
+<pre>
+theorem checkfamily
+foreach p in { element in Processor_Set | Is_Of_Type (element, "e500mc")}
+do
+   check Property_Exists (p, "Processor_Properties::Processor_Family");
+end;
+</pre>
+
 </body>
 </html>
