@@ -83,6 +83,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.lute.LuteException;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
@@ -166,7 +167,15 @@ public class FnCallExpr extends Expr {
 			Val result = getProperty(aadl, property);
 			return new BoolVal(result != null);
 			
-		} else if (fn.equals("Is_Bound_To")) {
+		}else if (fn.equals("Is_Of_Type")) {
+			expectArgs(2);
+			InstanceObject aadl = argValues.get(0).getAADL();
+			String typeString = argValues.get(1).getString();
+			return new BoolVal(checkType(aadl, typeString));
+			
+		}
+		
+		else if (fn.equals("Is_Bound_To")) {
 			expectArgs(2);
 			System.out.println( argValues.get(0));
 			System.out.println( argValues.get(1));
@@ -402,6 +411,16 @@ public class FnCallExpr extends Expr {
 		if (!(args.size() == n)) {
 			throw new LuteException("Function " + fn + " expects " + n + " arguments");
 		}
+	}
+	
+	private boolean checkType(InstanceObject aadl, String typeName)
+	{
+		boolean r;
+		OsateDebug.osateDebug("aadl comp" + aadl.getComponentInstance().getComponentClassifier());
+		OsateDebug.osateDebug("type=" + typeName);
+		r = aadl.getComponentInstance().getComponentClassifier().getName().toLowerCase().contains(typeName.toLowerCase());
+		OsateDebug.osateDebug("return " + r);
+		return r;
 	}
 	
 	private Val getProperty(InstanceObject aadl, String propName) 
