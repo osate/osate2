@@ -28,7 +28,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
