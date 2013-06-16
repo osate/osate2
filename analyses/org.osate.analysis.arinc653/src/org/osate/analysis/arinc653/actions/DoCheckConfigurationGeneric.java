@@ -36,13 +36,10 @@ package org.osate.analysis.arinc653.actions;
 
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.arinc653.Activator;
 import org.osate.analysis.arinc653.ConfigurationValidation;
 import org.osate.analysis.lute.utils.Invoke;

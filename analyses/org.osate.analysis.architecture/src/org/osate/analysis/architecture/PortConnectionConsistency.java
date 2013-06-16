@@ -40,8 +40,6 @@
 package org.osate.analysis.architecture;
 
 
-import java.util.List;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
@@ -52,16 +50,11 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
-import org.osate.aadl2.modelsupport.UnparseText;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.contribution.sei.names.DataModel;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;

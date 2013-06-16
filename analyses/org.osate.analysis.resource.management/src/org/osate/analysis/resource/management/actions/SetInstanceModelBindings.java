@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.command.AbstractCommand;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceFactory;

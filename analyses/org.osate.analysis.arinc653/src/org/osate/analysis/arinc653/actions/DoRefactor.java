@@ -40,7 +40,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.arinc653.Activator;
-import org.osate.analysis.arinc653.ConfigurationValidation;
 import org.osate.analysis.arinc653.RefactorSuggestion;
 import org.osate.analysis.arinc653.RefactoringAnalyzer;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;

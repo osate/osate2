@@ -61,7 +61,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SystemSubcomponent;
@@ -73,7 +72,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgr
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 /**
  * @author phf This class provides for checking whether the required_connection

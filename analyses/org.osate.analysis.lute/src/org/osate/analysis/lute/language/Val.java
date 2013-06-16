@@ -24,7 +24,6 @@ package org.osate.analysis.lute.language;
 import java.math.BigInteger;
 import java.util.Collection;
 
-
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.lute.LuteException;
 

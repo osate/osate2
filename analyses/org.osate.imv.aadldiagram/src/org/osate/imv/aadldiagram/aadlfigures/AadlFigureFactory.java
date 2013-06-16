@@ -23,7 +23,6 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
-import org.osate.aadl2.NamedElement;
 import org.osate.imv.aadldiagram.aadlfigures.components.AbstractFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.BusFigure;
 import org.osate.imv.aadldiagram.aadlfigures.components.ComponentFigure;

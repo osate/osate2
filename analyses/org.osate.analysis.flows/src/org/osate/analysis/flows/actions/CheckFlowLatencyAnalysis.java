@@ -33,11 +33,7 @@
  */
 package org.osate.analysis.flows.actions;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
 import org.osate.ui.actions.AbstractAnalysis;
 
 

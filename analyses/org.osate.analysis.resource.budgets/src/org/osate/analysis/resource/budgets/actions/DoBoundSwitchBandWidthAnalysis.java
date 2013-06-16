@@ -40,7 +40,6 @@
 package org.osate.analysis.resource.budgets.actions;
 
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisLogic;
 

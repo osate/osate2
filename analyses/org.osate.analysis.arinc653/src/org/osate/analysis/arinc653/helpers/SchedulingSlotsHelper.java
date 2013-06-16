@@ -38,16 +38,14 @@ package org.osate.analysis.arinc653.helpers;
 import java.util.List;
 
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.contribution.sei.names.ARINC653;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 
 

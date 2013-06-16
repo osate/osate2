@@ -46,7 +46,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.impl.ReferenceValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;

@@ -43,13 +43,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.modelsupport.WriteToFile;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.parsesupport.AObject;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.PortConnectionConsistency;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
 public final class DoPortConnectionConsistency extends AaxlReadOnlyActionAsJob {

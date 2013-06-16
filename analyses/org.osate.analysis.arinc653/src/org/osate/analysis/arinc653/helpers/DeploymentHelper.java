@@ -40,7 +40,6 @@ import java.util.Map;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.VirtualProcessorSubcomponent;

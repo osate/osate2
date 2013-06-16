@@ -47,7 +47,6 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.analysis.architecture.actions.MissRateProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 

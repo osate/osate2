@@ -45,7 +45,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
@@ -62,7 +61,6 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
 import org.osate.analysis.lute.utils.Invoke;
 import org.osate.analysis.lute.utils.Logger;
-import org.osate.analysis.lute.utils.*;
 
 
 public class ConfigurationValidation extends AadlProcessingSwitchWithProgress

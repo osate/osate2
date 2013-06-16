@@ -33,11 +33,8 @@
  */
 package org.osate.analysis.resource.budgets.autoanalyses;
 
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.StringBufferAnalysisErrorReporter;
-import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoResourceBudgetLogic;
 import org.osate.ui.actions.AbstractAnalysis;
 

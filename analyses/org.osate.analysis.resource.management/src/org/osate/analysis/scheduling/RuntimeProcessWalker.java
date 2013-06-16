@@ -40,11 +40,8 @@
 package org.osate.analysis.scheduling;
 
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -54,8 +51,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.QuickSort;
-import org.osate.aadl2.modelsupport.WriteToFile;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.analysis.resource.management.actions.Schedule;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
