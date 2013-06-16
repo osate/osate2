@@ -1,7 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.parsing;
 
 
-import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.impl.Serializer;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -9,10 +8,8 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.PackageSection;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.xtext.aadl2.errormodel.ErrorModelRuntimeModule;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 public class EMV2AnnexUnparser implements AnnexUnparser {

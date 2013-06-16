@@ -1,6 +1,5 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
-import org.osate.aadl2.impl.ConnectionImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;

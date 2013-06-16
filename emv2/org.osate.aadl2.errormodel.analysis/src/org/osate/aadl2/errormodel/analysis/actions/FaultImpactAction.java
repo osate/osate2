@@ -41,7 +41,6 @@ import org.osate.aadl2.errormodel.analysis.PropagateErrorSources;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 
 public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {

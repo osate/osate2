@@ -25,7 +25,6 @@ import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;

@@ -1,6 +1,5 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ContainedNamedElement;
@@ -41,14 +39,12 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -83,7 +79,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class EMV2Util {
 	

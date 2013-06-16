@@ -1,8 +1,5 @@
 package org.osate.xtext.aadl2.errormodel.ui;
 
-import static com.google.inject.Guice.createInjector;
-import static com.google.inject.util.Modules.override;
-
 import org.apache.log4j.Logger;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator;

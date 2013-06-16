@@ -15,7 +15,6 @@ import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameProvider;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 

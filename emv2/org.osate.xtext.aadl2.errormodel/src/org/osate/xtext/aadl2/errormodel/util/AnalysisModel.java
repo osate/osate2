@@ -1,22 +1,14 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.Bus;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Device;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.Memory;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Processor;
-import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.VirtualProcessor;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -24,18 +16,9 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.Aadl2InstanceUtil;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 /**
  * The purpose of this class is to keep track of model elements involved in a particular EM analysis.
  * @author phf
