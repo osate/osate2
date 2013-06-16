@@ -89,7 +89,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 					if (searchResult != null) return Collections.singletonList(searchResult);
 					searchResult = findTypeSet(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
-					searchResult = EMV2Util.findErrorPropagationPoint(cxtElement, name,null,false);
+					searchResult = EMV2Util.findErrorPropagation(EMV2Util.getContainingErrorModelSubclause(cxtElement), name,null);
+					if (searchResult != null) return Collections.singletonList(searchResult);
+					searchResult = EMV2Util.findPropagationPoint(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
 					searchResult = EMV2Util.findErrorFlow(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
@@ -140,6 +142,11 @@ public class EMLinkingService extends PropertiesLinkingService {
 		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType) {
 			searchResult = findErrorType(cxt, name);
 
+		} else if (ErrorModelPackage.eINSTANCE.getPropagationPoint() == requiredType) {
+			// find propagation point
+			Classifier cl = AadlUtil.getContainingClassifier(context);
+			searchResult = EMV2Util.findPropagationPoint(cl,name);
+
 		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType) {
 			// first look it up in global index
 			EObject gobj = getIndexedObject(context, reference, name);
@@ -164,11 +171,11 @@ public class EMLinkingService extends PropertiesLinkingService {
 
 		} else if (ErrorModelPackage.eINSTANCE.getErrorPropagation() == requiredType) {
 			if (reference.getName().equalsIgnoreCase("outgoing")){
-				searchResult = EMV2Util.findErrorPropagationPoint(cxt, name,DirectionType.OUT,false);
+				searchResult = EMV2Util.findErrorPropagation(cxt, name,DirectionType.OUT);
 			} else if (reference.getName().equalsIgnoreCase("incoming")){
-				searchResult = EMV2Util.findErrorPropagationPoint(cxt, name,DirectionType.IN,false);
+				searchResult = EMV2Util.findErrorPropagation(cxt, name,DirectionType.IN);
 			} else {
-				searchResult = EMV2Util.findErrorPropagationPoint(cxt, name,null,false);
+				searchResult = EMV2Util.findErrorPropagation(cxt, name,null);
 			}
 
 		} else if (ErrorModelPackage.eINSTANCE.getTypeMappingSet() == requiredType) {
@@ -183,7 +190,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 			searchResult = EMV2Util.findErrorBehaviorState((Element)context, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getEventOrPropagation() == requiredType) {
-			searchResult = EMV2Util.findErrorPropagationPoint(cxt, name,DirectionType.IN,false);
+			searchResult = EMV2Util.findErrorPropagation(cxt, name,DirectionType.IN);
 			if (searchResult == null ){
 				if (context instanceof ConditionExpression 
 						&& (EMV2Util.getConditionExpressionContext((ConditionExpression)context) instanceof ErrorDetection
