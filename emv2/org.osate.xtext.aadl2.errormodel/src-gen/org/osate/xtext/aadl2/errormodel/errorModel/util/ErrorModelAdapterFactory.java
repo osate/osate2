@@ -129,8 +129,8 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
 				return createErrorPropagationAdapter();
 			}
 			@Override
-			public Adapter caseFeatureReference(FeatureReference object) {
-				return createFeatureReferenceAdapter();
+			public Adapter caseFeatureorPPReference(FeatureorPPReference object) {
+				return createFeatureorPPReferenceAdapter();
 			}
 			@Override
 			public Adapter caseErrorFlow(ErrorFlow object) {
@@ -525,16 +525,16 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
 	}
 
   /**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference <em>Feature Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference <em>Featureor PP Reference</em>}'.
 	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 	 * @generated
 	 */
-  public Adapter createFeatureReferenceAdapter()
+  public Adapter createFeatureorPPReferenceAdapter()
   {
 		return null;
 	}

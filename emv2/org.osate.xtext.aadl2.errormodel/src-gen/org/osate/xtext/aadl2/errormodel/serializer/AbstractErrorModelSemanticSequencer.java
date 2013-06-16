@@ -54,7 +54,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
@@ -445,10 +445,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
-			case ErrorModelPackage.FEATURE_REFERENCE:
+			case ErrorModelPackage.FEATUREOR_PP_REFERENCE:
 				if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getFeatureReferenceRule()) {
-					sequence_FeatureReference(context, (FeatureReference) semanticObject); 
+				   context == grammarAccess.getFeatureorPPReferenceRule()) {
+					sequence_FeatureorPPReference(context, (FeatureorPPReference) semanticObject); 
 					return; 
 				}
 				else break;
@@ -915,7 +915,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
-	 *         (kind=PropagationKind | (featurerefs+=FeatureReference featurerefs+=FeatureReference*)) 
+	 *         (kind=PropagationKind | (featureorPPRefs+=FeatureorPPReference featureorPPRefs+=FeatureorPPReference*)) 
 	 *         not?='not'? 
 	 *         direction=PropagationDirection 
 	 *         typeSet=TypeSetReference
@@ -987,9 +987,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     feature=[NamedElement|ID]
+	 *     featureorPP=[NamedElement|ID]
 	 */
-	protected void sequence_FeatureReference(EObject context, FeatureReference semanticObject) {
+	protected void sequence_FeatureorPPReference(EObject context, FeatureorPPReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

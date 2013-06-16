@@ -8,7 +8,6 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
@@ -28,13 +27,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPropagationImpl;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -197,13 +195,13 @@ public class FTAUtils
 							 * Then, if we fail to get the type name, we retrieve
 							 * the associated feature name.
 							 */
-							List<FeatureReference> features = ep.getFeaturerefs();
-							for (FeatureReference fe : features)
+							List<FeatureorPPReference> features = ep.getFeatureorPPRefs();
+							for (FeatureorPPReference fe : features)
 							{
-								OsateDebug.osateDebug("fe="  + fe.getFeature());
+								OsateDebug.osateDebug("fe="  + fe.getFeatureorPP());
 								if (newEventName == null)
 								{
-									newEventName = fe.getFeature().getName();
+									newEventName = fe.getFeatureorPP().getName();
 
 									newEvent = new Event();
 									newEvent.setName (newEventName);

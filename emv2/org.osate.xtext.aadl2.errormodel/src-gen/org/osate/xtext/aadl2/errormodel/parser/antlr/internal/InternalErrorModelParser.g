@@ -72,7 +72,7 @@ ruleErrorModelGrammarRoot returns [EObject current=null]
     }
     @after { leaveRule(); }:
 ((
-	otherlv_0=KEYWORD_68
+	otherlv_0=KEYWORD_65
     {
     	newLeafNode(otherlv_0, grammarAccess.getErrorModelGrammarRootAccess().getLibraryKeyword_0_0());
     }
@@ -151,12 +151,12 @@ ruleErrorModelSubclause returns [EObject current=null]
             $current);
     }
 )(
-	otherlv_1=KEYWORD_32
+	otherlv_1=KEYWORD_31
     {
     	newLeafNode(otherlv_1, grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_1_0());
     }
 
-	otherlv_2=KEYWORD_51
+	otherlv_2=KEYWORD_50
     {
     	newLeafNode(otherlv_2, grammarAccess.getErrorModelSubclauseAccess().getTypesKeyword_1_1());
     }
@@ -201,12 +201,12 @@ ruleErrorModelSubclause returns [EObject current=null]
     	newLeafNode(otherlv_6, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_1_4());
     }
 )?(
-	otherlv_7=KEYWORD_32
+	otherlv_7=KEYWORD_31
     {
     	newLeafNode(otherlv_7, grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_2_0());
     }
 
-	otherlv_8=KEYWORD_73
+	otherlv_8=KEYWORD_69
     {
     	newLeafNode(otherlv_8, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_2_1());
     }
@@ -321,7 +321,7 @@ ruleErrorModelSubclause returns [EObject current=null]
 
 )
 )?(
-	otherlv_16=KEYWORD_84
+	otherlv_16=KEYWORD_80
     {
     	newLeafNode(otherlv_16, grammarAccess.getErrorModelSubclauseAccess().getPropertiesKeyword_8_0());
     }
@@ -371,17 +371,17 @@ ruleErrorModelLibrary returns [EObject current=null]
             $current);
     }
 )(
-	otherlv_1=KEYWORD_43
+	otherlv_1=KEYWORD_42
     {
     	newLeafNode(otherlv_1, grammarAccess.getErrorModelLibraryAccess().getErrorKeyword_1_0());
     }
 
-	otherlv_2=KEYWORD_51
+	otherlv_2=KEYWORD_50
     {
     	newLeafNode(otherlv_2, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_1());
     }
 (
-	otherlv_3=KEYWORD_66
+	otherlv_3=KEYWORD_63
     {
     	newLeafNode(otherlv_3, grammarAccess.getErrorModelLibraryAccess().getExtendsKeyword_1_2_0());
     }
@@ -421,7 +421,7 @@ ruleErrorModelLibrary returns [EObject current=null]
 
 )
 ))*
-	otherlv_7=KEYWORD_41
+	otherlv_7=KEYWORD_40
     {
     	newLeafNode(otherlv_7, grammarAccess.getErrorModelLibraryAccess().getWithKeyword_1_2_3());
     }
@@ -444,7 +444,7 @@ ruleErrorModelLibrary returns [EObject current=null]
 
 )
 )*(
-	otherlv_9=KEYWORD_84
+	otherlv_9=KEYWORD_80
     {
     	newLeafNode(otherlv_9, grammarAccess.getErrorModelLibraryAccess().getPropertiesKeyword_1_4_0());
     }
@@ -467,12 +467,12 @@ ruleErrorModelLibrary returns [EObject current=null]
 
 )
 )+)?
-	otherlv_11=KEYWORD_28
+	otherlv_11=KEYWORD_27
     {
     	newLeafNode(otherlv_11, grammarAccess.getErrorModelLibraryAccess().getEndKeyword_1_5());
     }
 
-	otherlv_12=KEYWORD_51
+	otherlv_12=KEYWORD_50
     {
     	newLeafNode(otherlv_12, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_6());
     }
@@ -640,12 +640,12 @@ ruleTypeDefinition returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getTypeDefinitionAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_39
+	otherlv_2=KEYWORD_38
     {
     	newLeafNode(otherlv_2, grammarAccess.getTypeDefinitionAccess().getTypeKeyword_2());
     }
 (
-	otherlv_3=KEYWORD_66
+	otherlv_3=KEYWORD_63
     {
     	newLeafNode(otherlv_3, grammarAccess.getTypeDefinitionAccess().getExtendsKeyword_3_0());
     }
@@ -709,12 +709,12 @@ ruleTypeAlias returns [EObject current=null]
 
 )
 )
-	otherlv_1=KEYWORD_71
+	otherlv_1=KEYWORD_68
     {
     	newLeafNode(otherlv_1, grammarAccess.getTypeAliasAccess().getRenamesKeyword_1());
     }
 
-	otherlv_2=KEYWORD_39
+	otherlv_2=KEYWORD_38
     {
     	newLeafNode(otherlv_2, grammarAccess.getTypeAliasAccess().getTypeKeyword_2());
     }
@@ -783,12 +783,12 @@ ruleTypeSetDefinition returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getTypeSetDefinitionAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_39
+	otherlv_2=KEYWORD_38
     {
     	newLeafNode(otherlv_2, grammarAccess.getTypeSetDefinitionAccess().getTypeKeyword_2());
     }
 
-	otherlv_3=KEYWORD_31
+	otherlv_3=KEYWORD_30
     {
     	newLeafNode(otherlv_3, grammarAccess.getTypeSetDefinitionAccess().getSetKeyword_3());
     }
@@ -1006,17 +1006,17 @@ ruleTypeSetAlias returns [EObject current=null]
 
 )
 )
-	otherlv_1=KEYWORD_71
+	otherlv_1=KEYWORD_68
     {
     	newLeafNode(otherlv_1, grammarAccess.getTypeSetAliasAccess().getRenamesKeyword_1());
     }
 
-	otherlv_2=KEYWORD_39
+	otherlv_2=KEYWORD_38
     {
     	newLeafNode(otherlv_2, grammarAccess.getTypeSetAliasAccess().getTypeKeyword_2());
     }
 
-	otherlv_3=KEYWORD_31
+	otherlv_3=KEYWORD_30
     {
     	newLeafNode(otherlv_3, grammarAccess.getTypeSetAliasAccess().getSetKeyword_3());
     }
@@ -1129,7 +1129,7 @@ ruleNoError returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getNoErrorAccess().getLeftCurlyBracketKeyword_1());
     }
 
-	otherlv_2=KEYWORD_69
+	otherlv_2=KEYWORD_66
     {
     	newLeafNode(otherlv_2, grammarAccess.getNoErrorAccess().getNoerrorKeyword_2());
     }
@@ -1279,7 +1279,7 @@ ruleTypeTokenOrNoError returns [EObject current=null]
 )
 ))*)
     |
-	otherlv_5=KEYWORD_69
+	otherlv_5=KEYWORD_66
     {
     	newLeafNode(otherlv_5, grammarAccess.getTypeTokenOrNoErrorAccess().getNoerrorKeyword_2_1());
     }
@@ -1380,12 +1380,12 @@ ruleTypeTransformationSet returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_39
+	otherlv_0=KEYWORD_38
     {
     	newLeafNode(otherlv_0, grammarAccess.getTypeTransformationSetAccess().getTypeKeyword_0());
     }
 
-	otherlv_1=KEYWORD_89
+	otherlv_1=KEYWORD_85
     {
     	newLeafNode(otherlv_1, grammarAccess.getTypeTransformationSetAccess().getTransformationsKeyword_1());
     }
@@ -1408,12 +1408,12 @@ ruleTypeTransformationSet returns [EObject current=null]
 
 )
 )(
-	otherlv_3=KEYWORD_32
+	otherlv_3=KEYWORD_31
     {
     	newLeafNode(otherlv_3, grammarAccess.getTypeTransformationSetAccess().getUseKeyword_3_0());
     }
 
-	otherlv_4=KEYWORD_51
+	otherlv_4=KEYWORD_50
     {
     	newLeafNode(otherlv_4, grammarAccess.getTypeTransformationSetAccess().getTypesKeyword_3_1());
     }
@@ -1476,12 +1476,12 @@ ruleTypeTransformationSet returns [EObject current=null]
 
 )
 )+
-	otherlv_10=KEYWORD_28
+	otherlv_10=KEYWORD_27
     {
     	newLeafNode(otherlv_10, grammarAccess.getTypeTransformationSetAccess().getEndKeyword_5());
     }
 
-	otherlv_11=KEYWORD_89
+	otherlv_11=KEYWORD_85
     {
     	newLeafNode(otherlv_11, grammarAccess.getTypeTransformationSetAccess().getTransformationsKeyword_6());
     }
@@ -1602,12 +1602,12 @@ ruleTypeMappingSet returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_39
+	otherlv_0=KEYWORD_38
     {
     	newLeafNode(otherlv_0, grammarAccess.getTypeMappingSetAccess().getTypeKeyword_0());
     }
 
-	otherlv_1=KEYWORD_76
+	otherlv_1=KEYWORD_72
     {
     	newLeafNode(otherlv_1, grammarAccess.getTypeMappingSetAccess().getMappingsKeyword_1());
     }
@@ -1630,12 +1630,12 @@ ruleTypeMappingSet returns [EObject current=null]
 
 )
 )(
-	otherlv_3=KEYWORD_32
+	otherlv_3=KEYWORD_31
     {
     	newLeafNode(otherlv_3, grammarAccess.getTypeMappingSetAccess().getUseKeyword_3_0());
     }
 
-	otherlv_4=KEYWORD_51
+	otherlv_4=KEYWORD_50
     {
     	newLeafNode(otherlv_4, grammarAccess.getTypeMappingSetAccess().getTypesKeyword_3_1());
     }
@@ -1698,12 +1698,12 @@ ruleTypeMappingSet returns [EObject current=null]
 
 )
 )+
-	otherlv_10=KEYWORD_28
+	otherlv_10=KEYWORD_27
     {
     	newLeafNode(otherlv_10, grammarAccess.getTypeMappingSetAccess().getEndKeyword_5());
     }
 
-	otherlv_11=KEYWORD_76
+	otherlv_11=KEYWORD_72
     {
     	newLeafNode(otherlv_11, grammarAccess.getTypeMappingSetAccess().getMappingsKeyword_6());
     }
@@ -1801,12 +1801,12 @@ ruleErrorPropagations returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_43
+	otherlv_0=KEYWORD_42
     {
     	newLeafNode(otherlv_0, grammarAccess.getErrorPropagationsAccess().getErrorKeyword_0());
     }
 
-	otherlv_1=KEYWORD_88
+	otherlv_1=KEYWORD_84
     {
     	newLeafNode(otherlv_1, grammarAccess.getErrorPropagationsAccess().getPropagationsKeyword_1());
     }
@@ -1835,7 +1835,7 @@ ruleErrorPropagations returns [EObject current=null]
 
 )
 )*(
-	otherlv_4=KEYWORD_46
+	otherlv_4=KEYWORD_45
     {
     	newLeafNode(otherlv_4, grammarAccess.getErrorPropagationsAccess().getFlowsKeyword_4_0());
     }
@@ -1858,12 +1858,12 @@ ruleErrorPropagations returns [EObject current=null]
 
 )
 )+)?
-	otherlv_6=KEYWORD_28
+	otherlv_6=KEYWORD_27
     {
     	newLeafNode(otherlv_6, grammarAccess.getErrorPropagationsAccess().getEndKeyword_5());
     }
 
-	otherlv_7=KEYWORD_88
+	otherlv_7=KEYWORD_84
     {
     	newLeafNode(otherlv_7, grammarAccess.getErrorPropagationsAccess().getPropagationsKeyword_6());
     }
@@ -1921,17 +1921,17 @@ ruleErrorPropagation returns [EObject current=null]
     |((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getFeaturerefsFeatureReferenceParserRuleCall_1_1_0_0()); 
+	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getFeatureorPPRefsFeatureorPPReferenceParserRuleCall_1_1_0_0()); 
 	    }
-		lv_featurerefs_2_0=ruleFeatureReference		{
+		lv_featureorPPRefs_2_0=ruleFeatureorPPReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorPropagationRule());
 	        }
        		add(
        			$current, 
-       			"featurerefs",
-        		lv_featurerefs_2_0, 
-        		"FeatureReference");
+       			"featureorPPRefs",
+        		lv_featureorPPRefs_2_0, 
+        		"FeatureorPPReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1944,17 +1944,17 @@ ruleErrorPropagation returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getFeaturerefsFeatureReferenceParserRuleCall_1_1_1_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getFeatureorPPRefsFeatureorPPReferenceParserRuleCall_1_1_1_1_0()); 
 	    }
-		lv_featurerefs_4_0=ruleFeatureReference		{
+		lv_featureorPPRefs_4_0=ruleFeatureorPPReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorPropagationRule());
 	        }
        		add(
        			$current, 
-       			"featurerefs",
-        		lv_featurerefs_4_0, 
-        		"FeatureReference");
+       			"featureorPPRefs",
+        		lv_featureorPPRefs_4_0, 
+        		"FeatureorPPReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1967,7 +1967,7 @@ ruleErrorPropagation returns [EObject current=null]
 (
 (
 		lv_not_6_0=
-	KEYWORD_29
+	KEYWORD_28
     {
         newLeafNode(lv_not_6_0, grammarAccess.getErrorPropagationAccess().getNotNotKeyword_3_0());
     }
@@ -1999,7 +1999,7 @@ ruleErrorPropagation returns [EObject current=null]
 
 )
 )
-	otherlv_8=KEYWORD_86
+	otherlv_8=KEYWORD_82
     {
     	newLeafNode(otherlv_8, grammarAccess.getErrorPropagationAccess().getPropagationKeyword_5());
     }
@@ -2033,17 +2033,17 @@ ruleErrorPropagation returns [EObject current=null]
 
 
 
-// Entry rule entryRuleFeatureReference
-entryRuleFeatureReference returns [EObject current=null]
+// Entry rule entryRuleFeatureorPPReference
+entryRuleFeatureorPPReference returns [EObject current=null]
 	:
-	{ newCompositeNode(grammarAccess.getFeatureReferenceRule()); }
-	 iv_ruleFeatureReference=ruleFeatureReference 
-	 { $current=$iv_ruleFeatureReference.current; } 
+	{ newCompositeNode(grammarAccess.getFeatureorPPReferenceRule()); }
+	 iv_ruleFeatureorPPReference=ruleFeatureorPPReference 
+	 { $current=$iv_ruleFeatureorPPReference.current; } 
 	 EOF 
 ;
 
-// Rule FeatureReference
-ruleFeatureReference returns [EObject current=null] 
+// Rule FeatureorPPReference
+ruleFeatureorPPReference returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
@@ -2051,12 +2051,12 @@ ruleFeatureReference returns [EObject current=null]
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFeatureReferenceRule());
+	            $current = createModelElement(grammarAccess.getFeatureorPPReferenceRule());
 	        }
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getFeatureReferenceAccess().getFeatureNamedElementCrossReference_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getFeatureorPPReferenceAccess().getFeatureorPPNamedElementCrossReference_0()); 
 	}
 
 )
@@ -2090,7 +2090,7 @@ rulePropagationDirection returns [AntlrDatatypeRuleToken current=new AntlrDataty
     }
 
     |
-	kw=KEYWORD_30 
+	kw=KEYWORD_29 
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getPropagationDirectionAccess().getOutKeyword_1()); 
@@ -2118,85 +2118,45 @@ rulePropagationKind returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRul
     @after { leaveRule();
     }:
 (
-	kw=KEYWORD_79 
+	kw=KEYWORD_75 
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getPropagationKindAccess().getProcessorKeyword_0()); 
     }
 
     |
-	kw=KEYWORD_55 
+	kw=KEYWORD_53 
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getPropagationKindAccess().getMemoryKeyword_1()); 
     }
 
     |
-	kw=KEYWORD_27 
+	kw=KEYWORD_78 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBusKeyword_2()); 
+        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getConnectionKeyword_2()); 
     }
 
     |
-	kw=KEYWORD_53 
+	kw=KEYWORD_61 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getDeviceKeyword_3()); 
+        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingKeyword_3()); 
     }
 
     |
-	kw=KEYWORD_62 
+	kw=KEYWORD_70 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getSystemKeyword_4()); 
-    }
-
-    |(
-	kw=KEYWORD_72 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getVirtualKeyword_5_0()); 
-    }
-
-	kw=KEYWORD_27 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBusKeyword_5_1()); 
-    }
-)
-    |(
-	kw=KEYWORD_72 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getVirtualKeyword_6_0()); 
-    }
-
-	kw=KEYWORD_79 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getProcessorKeyword_6_1()); 
-    }
-)
-    |
-	kw=KEYWORD_64 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingKeyword_7()); 
+        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingsKeyword_4()); 
     }
 
     |
-	kw=KEYWORD_74 
+	kw=KEYWORD_51 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingsKeyword_8()); 
-    }
-
-    |
-	kw=KEYWORD_52 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getAccessKeyword_9()); 
+        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getAccessKeyword_5()); 
     }
 )
     ;
@@ -2293,12 +2253,12 @@ ruleErrorSource returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getErrorSourceAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_43
+	otherlv_2=KEYWORD_42
     {
     	newLeafNode(otherlv_2, grammarAccess.getErrorSourceAccess().getErrorKeyword_2());
     }
 
-	otherlv_3=KEYWORD_60
+	otherlv_3=KEYWORD_58
     {
     	newLeafNode(otherlv_3, grammarAccess.getErrorSourceAccess().getSourceKeyword_3());
     }
@@ -2353,7 +2313,7 @@ ruleErrorSource returns [EObject current=null]
 
 )
 )?(
-	otherlv_7=KEYWORD_40
+	otherlv_7=KEYWORD_39
     {
     	newLeafNode(otherlv_7, grammarAccess.getErrorSourceAccess().getWhenKeyword_6_0());
     }
@@ -2459,12 +2419,12 @@ ruleErrorSink returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getErrorSinkAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_43
+	otherlv_2=KEYWORD_42
     {
     	newLeafNode(otherlv_2, grammarAccess.getErrorSinkAccess().getErrorKeyword_2());
     }
 
-	otherlv_3=KEYWORD_37
+	otherlv_3=KEYWORD_36
     {
     	newLeafNode(otherlv_3, grammarAccess.getErrorSinkAccess().getSinkKeyword_3());
     }
@@ -2568,12 +2528,12 @@ ruleErrorPath returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getErrorPathAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_43
+	otherlv_2=KEYWORD_42
     {
     	newLeafNode(otherlv_2, grammarAccess.getErrorPathAccess().getErrorKeyword_2());
     }
 
-	otherlv_3=KEYWORD_35
+	otherlv_3=KEYWORD_34
     {
     	newLeafNode(otherlv_3, grammarAccess.getErrorPathAccess().getPathKeyword_3());
     }
@@ -2684,12 +2644,12 @@ ruleErrorPath returns [EObject current=null]
 )
 )
     |(
-	otherlv_11=KEYWORD_32
+	otherlv_11=KEYWORD_31
     {
     	newLeafNode(otherlv_11, grammarAccess.getErrorPathAccess().getUseKeyword_8_1_0());
     }
 
-	otherlv_12=KEYWORD_76
+	otherlv_12=KEYWORD_72
     {
     	newLeafNode(otherlv_12, grammarAccess.getErrorPathAccess().getMappingsKeyword_8_1_1());
     }
@@ -2789,12 +2749,12 @@ rulePropagationPaths returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_86
+	otherlv_0=KEYWORD_82
     {
     	newLeafNode(otherlv_0, grammarAccess.getPropagationPathsAccess().getPropagationKeyword_0());
     }
 
-	otherlv_1=KEYWORD_48
+	otherlv_1=KEYWORD_47
     {
     	newLeafNode(otherlv_1, grammarAccess.getPropagationPathsAccess().getPathsKeyword_1());
     }
@@ -2817,7 +2777,7 @@ rulePropagationPaths returns [EObject current=null]
 
 )
 )+(
-	otherlv_3=KEYWORD_85
+	otherlv_3=KEYWORD_81
     {
     	newLeafNode(otherlv_3, grammarAccess.getPropagationPathsAccess().getConnectionsKeyword_3_0());
     }
@@ -2840,12 +2800,12 @@ rulePropagationPaths returns [EObject current=null]
 
 )
 )+)?
-	otherlv_5=KEYWORD_28
+	otherlv_5=KEYWORD_27
     {
     	newLeafNode(otherlv_5, grammarAccess.getPropagationPathsAccess().getEndKeyword_4());
     }
 
-	otherlv_6=KEYWORD_48
+	otherlv_6=KEYWORD_47
     {
     	newLeafNode(otherlv_6, grammarAccess.getPropagationPathsAccess().getPathsKeyword_5());
     }
@@ -2899,12 +2859,12 @@ rulePropagationPoint returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getPropagationPointAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_86
+	otherlv_2=KEYWORD_82
     {
     	newLeafNode(otherlv_2, grammarAccess.getPropagationPointAccess().getPropagationKeyword_2());
     }
 
-	otherlv_3=KEYWORD_49
+	otherlv_3=KEYWORD_48
     {
     	newLeafNode(otherlv_3, grammarAccess.getPropagationPointAccess().getPointKeyword_3());
     }
@@ -3077,12 +3037,12 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_43
+	otherlv_0=KEYWORD_42
     {
     	newLeafNode(otherlv_0, grammarAccess.getErrorBehaviorStateMachineAccess().getErrorKeyword_0());
     }
 
-	otherlv_1=KEYWORD_73
+	otherlv_1=KEYWORD_69
     {
     	newLeafNode(otherlv_1, grammarAccess.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
     }
@@ -3105,12 +3065,12 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 )(
-	otherlv_3=KEYWORD_32
+	otherlv_3=KEYWORD_31
     {
     	newLeafNode(otherlv_3, grammarAccess.getErrorBehaviorStateMachineAccess().getUseKeyword_3_0());
     }
 
-	otherlv_4=KEYWORD_51
+	otherlv_4=KEYWORD_50
     {
     	newLeafNode(otherlv_4, grammarAccess.getErrorBehaviorStateMachineAccess().getTypesKeyword_3_1());
     }
@@ -3155,12 +3115,12 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
     	newLeafNode(otherlv_8, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_3_4());
     }
 )?(
-	otherlv_9=KEYWORD_32
+	otherlv_9=KEYWORD_31
     {
     	newLeafNode(otherlv_9, grammarAccess.getErrorBehaviorStateMachineAccess().getUseKeyword_4_0());
     }
 
-	otherlv_10=KEYWORD_89
+	otherlv_10=KEYWORD_85
     {
     	newLeafNode(otherlv_10, grammarAccess.getErrorBehaviorStateMachineAccess().getTransformationsKeyword_4_1());
     }
@@ -3185,7 +3145,7 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
     	newLeafNode(otherlv_12, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_4_3());
     }
 )?(
-	otherlv_13=KEYWORD_54
+	otherlv_13=KEYWORD_52
     {
     	newLeafNode(otherlv_13, grammarAccess.getErrorBehaviorStateMachineAccess().getEventsKeyword_5_0());
     }
@@ -3208,7 +3168,7 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 )+)?(
-	otherlv_15=KEYWORD_61
+	otherlv_15=KEYWORD_59
     {
     	newLeafNode(otherlv_15, grammarAccess.getErrorBehaviorStateMachineAccess().getStatesKeyword_6_0());
     }
@@ -3231,7 +3191,7 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 )+)?(
-	otherlv_17=KEYWORD_87
+	otherlv_17=KEYWORD_83
     {
     	newLeafNode(otherlv_17, grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsKeyword_7_0());
     }
@@ -3254,7 +3214,7 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 )+)?(
-	otherlv_19=KEYWORD_84
+	otherlv_19=KEYWORD_80
     {
     	newLeafNode(otherlv_19, grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesKeyword_8_0());
     }
@@ -3277,12 +3237,12 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 )+)?
-	otherlv_21=KEYWORD_28
+	otherlv_21=KEYWORD_27
     {
     	newLeafNode(otherlv_21, grammarAccess.getErrorBehaviorStateMachineAccess().getEndKeyword_9());
     }
 
-	otherlv_22=KEYWORD_73
+	otherlv_22=KEYWORD_69
     {
     	newLeafNode(otherlv_22, grammarAccess.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_10());
     }
@@ -3386,12 +3346,12 @@ ruleErrorEvent returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getErrorEventAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_43
+	otherlv_2=KEYWORD_42
     {
     	newLeafNode(otherlv_2, grammarAccess.getErrorEventAccess().getErrorKeyword_2());
     }
 
-	otherlv_3=KEYWORD_44
+	otherlv_3=KEYWORD_43
     {
     	newLeafNode(otherlv_3, grammarAccess.getErrorEventAccess().getEventKeyword_3());
     }
@@ -3414,7 +3374,7 @@ ruleErrorEvent returns [EObject current=null]
 
 )
 )?(
-	otherlv_5=KEYWORD_40
+	otherlv_5=KEYWORD_39
     {
     	newLeafNode(otherlv_5, grammarAccess.getErrorEventAccess().getWhenKeyword_5_0());
     }
@@ -3486,17 +3446,17 @@ ruleRepairEvent returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getRepairEventAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_59
+	otherlv_2=KEYWORD_57
     {
     	newLeafNode(otherlv_2, grammarAccess.getRepairEventAccess().getRepairKeyword_2());
     }
 
-	otherlv_3=KEYWORD_44
+	otherlv_3=KEYWORD_43
     {
     	newLeafNode(otherlv_3, grammarAccess.getRepairEventAccess().getEventKeyword_3());
     }
 (
-	otherlv_4=KEYWORD_40
+	otherlv_4=KEYWORD_39
     {
     	newLeafNode(otherlv_4, grammarAccess.getRepairEventAccess().getWhenKeyword_4_0());
     }
@@ -3568,17 +3528,17 @@ ruleRecoverEvent returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getRecoverEventAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_70
+	otherlv_2=KEYWORD_67
     {
     	newLeafNode(otherlv_2, grammarAccess.getRecoverEventAccess().getRecoverKeyword_2());
     }
 
-	otherlv_3=KEYWORD_44
+	otherlv_3=KEYWORD_43
     {
     	newLeafNode(otherlv_3, grammarAccess.getRecoverEventAccess().getEventKeyword_3());
     }
 (
-	otherlv_4=KEYWORD_40
+	otherlv_4=KEYWORD_39
     {
     	newLeafNode(otherlv_4, grammarAccess.getRecoverEventAccess().getWhenKeyword_4_0());
     }
@@ -3665,7 +3625,7 @@ ruleErrorBehaviorState returns [EObject current=null]
 (
 (
 		lv_intial_2_0=
-	KEYWORD_67
+	KEYWORD_64
     {
         newLeafNode(lv_intial_2_0, grammarAccess.getErrorBehaviorStateAccess().getIntialInitialKeyword_2_0());
     }
@@ -3679,7 +3639,7 @@ ruleErrorBehaviorState returns [EObject current=null]
 
 )
 )?
-	otherlv_3=KEYWORD_50
+	otherlv_3=KEYWORD_49
     {
     	newLeafNode(otherlv_3, grammarAccess.getErrorBehaviorStateAccess().getStateKeyword_3());
     }
@@ -3861,7 +3821,7 @@ ruleErrorBehaviorTransition returns [EObject current=null]
     |(
 (
 		lv_mask_10_0=
-	KEYWORD_33
+	KEYWORD_32
     {
         newLeafNode(lv_mask_10_0, grammarAccess.getErrorBehaviorTransitionAccess().getMaskMaskKeyword_4_0_1_0_1_0());
     }
@@ -4004,7 +3964,7 @@ ruleTransitionBranch returns [EObject current=null]
     |(
 (
 		lv_mask_2_0=
-	KEYWORD_33
+	KEYWORD_32
     {
         newLeafNode(lv_mask_2_0, grammarAccess.getTransitionBranchAccess().getMaskMaskKeyword_0_1_0());
     }
@@ -4018,7 +3978,7 @@ ruleTransitionBranch returns [EObject current=null]
 
 )
 ))
-	otherlv_3=KEYWORD_41
+	otherlv_3=KEYWORD_40
     {
     	newLeafNode(otherlv_3, grammarAccess.getTransitionBranchAccess().getWithKeyword_1());
     }
@@ -4105,7 +4065,7 @@ ruleBranchValue returns [EObject current=null]
     |(
 (
 		lv_others_3_0=
-	KEYWORD_58
+	KEYWORD_56
     {
         newLeafNode(lv_others_3_0, grammarAccess.getBranchValueAccess().getOthersOthersKeyword_1_2_0());
     }
@@ -4140,17 +4100,17 @@ ruleConnectionErrorBehavior returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_82
+	otherlv_0=KEYWORD_78
     {
     	newLeafNode(otherlv_0, grammarAccess.getConnectionErrorBehaviorAccess().getConnectionKeyword_0());
     }
 
-	otherlv_1=KEYWORD_43
+	otherlv_1=KEYWORD_42
     {
     	newLeafNode(otherlv_1, grammarAccess.getConnectionErrorBehaviorAccess().getErrorKeyword_1());
     }
 
-	otherlv_2=KEYWORD_73
+	otherlv_2=KEYWORD_69
     {
     	newLeafNode(otherlv_2, grammarAccess.getConnectionErrorBehaviorAccess().getBehaviorKeyword_2());
     }
@@ -4161,12 +4121,12 @@ ruleConnectionErrorBehavior returns [EObject current=null]
             $current);
     }
 )(
-	otherlv_4=KEYWORD_32
+	otherlv_4=KEYWORD_31
     {
     	newLeafNode(otherlv_4, grammarAccess.getConnectionErrorBehaviorAccess().getUseKeyword_4_0());
     }
 
-	otherlv_5=KEYWORD_89
+	otherlv_5=KEYWORD_85
     {
     	newLeafNode(otherlv_5, grammarAccess.getConnectionErrorBehaviorAccess().getTransformationsKeyword_4_1());
     }
@@ -4209,12 +4169,12 @@ ruleConnectionErrorBehavior returns [EObject current=null]
 
 )
 )*
-	otherlv_9=KEYWORD_28
+	otherlv_9=KEYWORD_27
     {
     	newLeafNode(otherlv_9, grammarAccess.getConnectionErrorBehaviorAccess().getEndKeyword_6());
     }
 
-	otherlv_10=KEYWORD_82
+	otherlv_10=KEYWORD_78
     {
     	newLeafNode(otherlv_10, grammarAccess.getConnectionErrorBehaviorAccess().getConnectionKeyword_7());
     }
@@ -4268,12 +4228,12 @@ ruleConnectionErrorSource returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getConnectionErrorSourceAccess().getColonKeyword_1());
     }
 
-	otherlv_2=KEYWORD_43
+	otherlv_2=KEYWORD_42
     {
     	newLeafNode(otherlv_2, grammarAccess.getConnectionErrorSourceAccess().getErrorKeyword_2());
     }
 
-	otherlv_3=KEYWORD_60
+	otherlv_3=KEYWORD_58
     {
     	newLeafNode(otherlv_3, grammarAccess.getConnectionErrorSourceAccess().getSourceKeyword_3());
     }
@@ -4326,7 +4286,7 @@ ruleConnectionErrorSource returns [EObject current=null]
 
 )
 )?(
-	otherlv_7=KEYWORD_40
+	otherlv_7=KEYWORD_39
     {
     	newLeafNode(otherlv_7, grammarAccess.getConnectionErrorSourceAccess().getWhenKeyword_6_0());
     }
@@ -4407,17 +4367,17 @@ ruleComponentErrorBehavior returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_77
+	otherlv_0=KEYWORD_73
     {
     	newLeafNode(otherlv_0, grammarAccess.getComponentErrorBehaviorAccess().getComponentKeyword_0());
     }
 
-	otherlv_1=KEYWORD_43
+	otherlv_1=KEYWORD_42
     {
     	newLeafNode(otherlv_1, grammarAccess.getComponentErrorBehaviorAccess().getErrorKeyword_1());
     }
 
-	otherlv_2=KEYWORD_73
+	otherlv_2=KEYWORD_69
     {
     	newLeafNode(otherlv_2, grammarAccess.getComponentErrorBehaviorAccess().getBehaviorKeyword_2());
     }
@@ -4428,12 +4388,12 @@ ruleComponentErrorBehavior returns [EObject current=null]
             $current);
     }
 )(
-	otherlv_4=KEYWORD_32
+	otherlv_4=KEYWORD_31
     {
     	newLeafNode(otherlv_4, grammarAccess.getComponentErrorBehaviorAccess().getUseKeyword_4_0());
     }
 
-	otherlv_5=KEYWORD_89
+	otherlv_5=KEYWORD_85
     {
     	newLeafNode(otherlv_5, grammarAccess.getComponentErrorBehaviorAccess().getTransformationsKeyword_4_1());
     }
@@ -4458,7 +4418,7 @@ ruleComponentErrorBehavior returns [EObject current=null]
     	newLeafNode(otherlv_7, grammarAccess.getComponentErrorBehaviorAccess().getSemicolonKeyword_4_3());
     }
 )?(
-	otherlv_8=KEYWORD_54
+	otherlv_8=KEYWORD_52
     {
     	newLeafNode(otherlv_8, grammarAccess.getComponentErrorBehaviorAccess().getEventsKeyword_5_0());
     }
@@ -4481,7 +4441,7 @@ ruleComponentErrorBehavior returns [EObject current=null]
 
 )
 )+)?(
-	otherlv_10=KEYWORD_87
+	otherlv_10=KEYWORD_83
     {
     	newLeafNode(otherlv_10, grammarAccess.getComponentErrorBehaviorAccess().getTransitionsKeyword_6_0());
     }
@@ -4504,7 +4464,7 @@ ruleComponentErrorBehavior returns [EObject current=null]
 
 )
 )+)?(
-	otherlv_12=KEYWORD_88
+	otherlv_12=KEYWORD_84
     {
     	newLeafNode(otherlv_12, grammarAccess.getComponentErrorBehaviorAccess().getPropagationsKeyword_7_0());
     }
@@ -4527,7 +4487,7 @@ ruleComponentErrorBehavior returns [EObject current=null]
 
 )
 )+)?(
-	otherlv_14=KEYWORD_83
+	otherlv_14=KEYWORD_79
     {
     	newLeafNode(otherlv_14, grammarAccess.getComponentErrorBehaviorAccess().getDetectionsKeyword_8_0());
     }
@@ -4550,12 +4510,12 @@ ruleComponentErrorBehavior returns [EObject current=null]
 
 )
 )+)?(
-	otherlv_16=KEYWORD_34
+	otherlv_16=KEYWORD_33
     {
     	newLeafNode(otherlv_16, grammarAccess.getComponentErrorBehaviorAccess().getModeKeyword_9_0());
     }
 
-	otherlv_17=KEYWORD_76
+	otherlv_17=KEYWORD_72
     {
     	newLeafNode(otherlv_17, grammarAccess.getComponentErrorBehaviorAccess().getMappingsKeyword_9_1());
     }
@@ -4578,12 +4538,12 @@ ruleComponentErrorBehavior returns [EObject current=null]
 
 )
 )+)?
-	otherlv_19=KEYWORD_28
+	otherlv_19=KEYWORD_27
     {
     	newLeafNode(otherlv_19, grammarAccess.getComponentErrorBehaviorAccess().getEndKeyword_10());
     }
 
-	otherlv_20=KEYWORD_77
+	otherlv_20=KEYWORD_73
     {
     	newLeafNode(otherlv_20, grammarAccess.getComponentErrorBehaviorAccess().getComponentKeyword_11());
     }
@@ -4750,7 +4710,7 @@ ruleOrmoreExpression returns [EObject current=null]
 
 )
 )
-	otherlv_1=KEYWORD_57
+	otherlv_1=KEYWORD_55
     {
     	newLeafNode(otherlv_1, grammarAccess.getOrmoreExpressionAccess().getOrmoreKeyword_1());
     }
@@ -4845,7 +4805,7 @@ ruleOrlessExpression returns [EObject current=null]
 
 )
 )
-	otherlv_1=KEYWORD_56
+	otherlv_1=KEYWORD_54
     {
     	newLeafNode(otherlv_1, grammarAccess.getOrlessExpressionAccess().getOrlessKeyword_1());
     }
@@ -5253,7 +5213,7 @@ ruleOutgoingPropagationCondition returns [EObject current=null]
 )?(
 (
 		lv_mask_12_0=
-	KEYWORD_33
+	KEYWORD_32
     {
         newLeafNode(lv_mask_12_0, grammarAccess.getOutgoingPropagationConditionAccess().getMaskMaskKeyword_5_1_1_0());
     }
@@ -5565,7 +5525,7 @@ ruleErrorStateToModeMapping returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getErrorStateToModeMappingAccess().getInKeyword_1());
     }
 
-	otherlv_2=KEYWORD_47
+	otherlv_2=KEYWORD_46
     {
     	newLeafNode(otherlv_2, grammarAccess.getErrorStateToModeMappingAccess().getModesKeyword_2());
     }
@@ -5637,7 +5597,7 @@ ruleInternalPort returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_36
+	otherlv_0=KEYWORD_35
     {
     	newLeafNode(otherlv_0, grammarAccess.getInternalPortAccess().getSelfKeyword_0());
     }
@@ -5686,17 +5646,17 @@ ruleCompositeErrorBehavior returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_78
+	otherlv_0=KEYWORD_74
     {
     	newLeafNode(otherlv_0, grammarAccess.getCompositeErrorBehaviorAccess().getCompositeKeyword_0());
     }
 
-	otherlv_1=KEYWORD_43
+	otherlv_1=KEYWORD_42
     {
     	newLeafNode(otherlv_1, grammarAccess.getCompositeErrorBehaviorAccess().getErrorKeyword_1());
     }
 
-	otherlv_2=KEYWORD_73
+	otherlv_2=KEYWORD_69
     {
     	newLeafNode(otherlv_2, grammarAccess.getCompositeErrorBehaviorAccess().getBehaviorKeyword_2());
     }
@@ -5707,7 +5667,7 @@ ruleCompositeErrorBehavior returns [EObject current=null]
             $current);
     }
 )(
-	otherlv_4=KEYWORD_61
+	otherlv_4=KEYWORD_59
     {
     	newLeafNode(otherlv_4, grammarAccess.getCompositeErrorBehaviorAccess().getStatesKeyword_4_0());
     }
@@ -5730,12 +5690,12 @@ ruleCompositeErrorBehavior returns [EObject current=null]
 
 )
 )+)?
-	otherlv_6=KEYWORD_28
+	otherlv_6=KEYWORD_27
     {
     	newLeafNode(otherlv_6, grammarAccess.getCompositeErrorBehaviorAccess().getEndKeyword_5());
     }
 
-	otherlv_7=KEYWORD_78
+	otherlv_7=KEYWORD_74
     {
     	newLeafNode(otherlv_7, grammarAccess.getCompositeErrorBehaviorAccess().getCompositeKeyword_6());
     }
@@ -5792,7 +5752,7 @@ ruleCompositeState returns [EObject current=null]
     |(
 (
 		lv_others_2_0=
-	KEYWORD_58
+	KEYWORD_56
     {
         newLeafNode(lv_others_2_0, grammarAccess.getCompositeStateAccess().getOthersOthersKeyword_1_1_0());
     }
@@ -6004,7 +5964,7 @@ ruleSOrmoreExpression returns [EObject current=null]
 
 )
 )
-	otherlv_1=KEYWORD_57
+	otherlv_1=KEYWORD_55
     {
     	newLeafNode(otherlv_1, grammarAccess.getSOrmoreExpressionAccess().getOrmoreKeyword_1());
     }
@@ -6099,7 +6059,7 @@ ruleSOrlessExpression returns [EObject current=null]
 
 )
 )
-	otherlv_1=KEYWORD_56
+	otherlv_1=KEYWORD_54
     {
     	newLeafNode(otherlv_1, grammarAccess.getSOrlessExpressionAccess().getOrlessKeyword_1());
     }
@@ -6438,7 +6398,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 ))(
 (
 		lv_constant_3_0=
-	KEYWORD_75
+	KEYWORD_71
     {
         newLeafNode(lv_constant_3_0, grammarAccess.getContainedPropertyAssociationAccess().getConstantConstantKeyword_2_0());
     }
@@ -6493,7 +6453,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 
 )
 ))*)(
-	otherlv_7=KEYWORD_63
+	otherlv_7=KEYWORD_60
     {
     	newLeafNode(otherlv_7, grammarAccess.getContainedPropertyAssociationAccess().getAppliesKeyword_4_0());
     }
@@ -6549,7 +6509,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
     	newLeafNode(otherlv_12, grammarAccess.getContainedPropertyAssociationAccess().getInKeyword_5_0());
     }
 
-	otherlv_13=KEYWORD_64
+	otherlv_13=KEYWORD_61
     {
     	newLeafNode(otherlv_13, grammarAccess.getContainedPropertyAssociationAccess().getBindingKeyword_5_1());
     }
@@ -6702,7 +6662,7 @@ ruleOptionalModalPropertyValue returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getOptionalModalPropertyValueAccess().getInKeyword_1_0());
     }
 
-	otherlv_2=KEYWORD_47
+	otherlv_2=KEYWORD_46
     {
     	newLeafNode(otherlv_2, grammarAccess.getOptionalModalPropertyValueAccess().getModesKeyword_1_1());
     }
@@ -6982,7 +6942,7 @@ ruleBooleanLiteral returns [EObject current=null]
 )((
 (
 		lv_value_1_0=
-	KEYWORD_38
+	KEYWORD_37
     {
         newLeafNode(lv_value_1_0, grammarAccess.getBooleanLiteralAccess().getValueTrueKeyword_1_0_0());
     }
@@ -6997,7 +6957,7 @@ ruleBooleanLiteral returns [EObject current=null]
 )
 )
     |
-	otherlv_2=KEYWORD_45
+	otherlv_2=KEYWORD_44
     {
     	newLeafNode(otherlv_2, grammarAccess.getBooleanLiteralAccess().getFalseKeyword_1_1());
     }
@@ -7059,7 +7019,7 @@ ruleReferenceTerm returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_80
+	otherlv_0=KEYWORD_76
     {
     	newLeafNode(otherlv_0, grammarAccess.getReferenceTermAccess().getReferenceKeyword_0());
     }
@@ -7187,7 +7147,7 @@ ruleComputedTerm returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_65
+	otherlv_0=KEYWORD_62
     {
     	newLeafNode(otherlv_0, grammarAccess.getComputedTermAccess().getComputeKeyword_0());
     }
@@ -7241,7 +7201,7 @@ ruleComponentClassifierTerm returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_81
+	otherlv_0=KEYWORD_77
     {
     	newLeafNode(otherlv_0, grammarAccess.getComponentClassifierTermAccess().getClassifierKeyword_0());
     }
@@ -7953,7 +7913,7 @@ ruleNumericRangeTerm returns [EObject current=null]
 
 )
 )(
-	otherlv_3=KEYWORD_42
+	otherlv_3=KEYWORD_41
     {
     	newLeafNode(otherlv_3, grammarAccess.getNumericRangeTermAccess().getDeltaKeyword_3_0());
     }

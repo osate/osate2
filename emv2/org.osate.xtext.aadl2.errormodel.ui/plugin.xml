@@ -218,7 +218,7 @@
    		point="org.osate.annexsupport.parser">
          <parser 	
          	annexName="EMV2"
-         	annexNSURI="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel"
+         	annexNSURI="http://www.aadl.info/EMV2"
          	class="org.osate.xtext.aadl2.errormodel.parsing.EMV2AnnexParser"
          	name="EMV2 Annex Parser"
          	id="org.osate.aadl2.emv2.parser"/>

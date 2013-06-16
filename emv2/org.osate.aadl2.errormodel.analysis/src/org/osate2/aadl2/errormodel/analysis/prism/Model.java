@@ -176,9 +176,9 @@ public class Model
 		String errorTypeKey;
 		String propagationKey;
 		propagationKey = ppe.getComponentInstance().getName() + "_" + 
-				   		 ppe.getErrorPropagation().getFeaturerefs().get(0).getFeature().getName();
+				   		 ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP().getName();
 		errorTypeKey = ppe.getComponentInstance().getName() + "_" + 
-					   ppe.getErrorPropagation().getFeaturerefs().get(0).getFeature().getName() + "_" +
+					   ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP().getName() + "_" +
 		               et.getName();
 		
 		int newErrorValue;

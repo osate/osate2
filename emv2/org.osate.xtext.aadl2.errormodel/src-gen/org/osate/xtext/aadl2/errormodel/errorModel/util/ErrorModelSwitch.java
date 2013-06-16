@@ -185,10 +185,10 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ErrorModelPackage.FEATURE_REFERENCE: {
-				FeatureReference featureReference = (FeatureReference)theEObject;
-				T result = caseFeatureReference(featureReference);
-				if (result == null) result = caseElement(featureReference);
+			case ErrorModelPackage.FEATUREOR_PP_REFERENCE: {
+				FeatureorPPReference featureorPPReference = (FeatureorPPReference)theEObject;
+				T result = caseFeatureorPPReference(featureorPPReference);
+				if (result == null) result = caseElement(featureorPPReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -710,17 +710,17 @@ public class ErrorModelSwitch<T> extends Switch<T>
 	}
 
   /**
-	 * Returns the result of interpreting the object as an instance of '<em>Feature Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Featureor PP Reference</em>'.
 	 * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Feature Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Featureor PP Reference</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-  public T caseFeatureReference(FeatureReference object)
+  public T caseFeatureorPPReference(FeatureorPPReference object)
   {
 		return null;
 	}

@@ -40,7 +40,7 @@ public interface ErrorModelPackage extends EPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  String eNS_URI = "http://www.osate.org/xtext/aadl2/errormodel/ErrorModel";
+  String eNS_URI = "http://www.aadl.info/EMV2";
 
   /**
 	 * The package namespace name.
@@ -1053,13 +1053,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_PROPAGATION__KIND = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-	 * The feature id for the '<em><b>Featurerefs</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Featureor PP Refs</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_PROPAGATION__FEATUREREFS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int ERROR_PROPAGATION__FEATUREOR_PP_REFS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
 	 * The feature id for the '<em><b>Not</b></em>' attribute.
@@ -1098,14 +1098,14 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_PROPAGATION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureReferenceImpl <em>Feature Reference</em>}' class.
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureorPPReferenceImpl <em>Featureor PP Reference</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureReferenceImpl
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getFeatureReference()
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureorPPReferenceImpl
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getFeatureorPPReference()
 	 * @generated
 	 */
-  int FEATURE_REFERENCE = 13;
+  int FEATUREOR_PP_REFERENCE = 13;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1114,7 +1114,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int FEATURE_REFERENCE__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+  int FEATUREOR_PP_REFERENCE__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
 
   /**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1123,25 +1123,25 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int FEATURE_REFERENCE__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+  int FEATUREOR_PP_REFERENCE__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
-	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * The feature id for the '<em><b>Featureor PP</b></em>' reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int FEATURE_REFERENCE__FEATURE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int FEATUREOR_PP_REFERENCE__FEATUREOR_PP = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
-	 * The number of structural features of the '<em>Feature Reference</em>' class.
+	 * The number of structural features of the '<em>Featureor PP Reference</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int FEATURE_REFERENCE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int FEATUREOR_PP_REFERENCE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorFlowImpl <em>Error Flow</em>}' class.
@@ -4363,15 +4363,15 @@ public interface ErrorModelPackage extends EPackage
   EAttribute getErrorPropagation_Kind();
 
   /**
-	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeaturerefs <em>Featurerefs</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRefs <em>Featureor PP Refs</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Featurerefs</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeaturerefs()
+	 * @return the meta object for the containment reference list '<em>Featureor PP Refs</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRefs()
 	 * @see #getErrorPropagation()
 	 * @generated
 	 */
-  EReference getErrorPropagation_Featurerefs();
+  EReference getErrorPropagation_FeatureorPPRefs();
 
   /**
 	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#isNot <em>Not</em>}'.
@@ -4407,25 +4407,25 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorPropagation_TypeSet();
 
   /**
-	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference <em>Feature Reference</em>}'.
+	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference <em>Featureor PP Reference</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Feature Reference</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference
+	 * @return the meta object for class '<em>Featureor PP Reference</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
 	 * @generated
 	 */
-  EClass getFeatureReference();
+  EClass getFeatureorPPReference();
 
   /**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference#getFeature <em>Feature</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference#getFeatureorPP <em>Featureor PP</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Feature</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference#getFeature()
-	 * @see #getFeatureReference()
+	 * @return the meta object for the reference '<em>Featureor PP</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference#getFeatureorPP()
+	 * @see #getFeatureorPPReference()
 	 * @generated
 	 */
-  EReference getFeatureReference_Feature();
+  EReference getFeatureorPPReference_FeatureorPP();
 
   /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow <em>Error Flow</em>}'.
@@ -6307,12 +6307,12 @@ public interface ErrorModelPackage extends EPackage
     EAttribute ERROR_PROPAGATION__KIND = eINSTANCE.getErrorPropagation_Kind();
 
     /**
-		 * The meta object literal for the '<em><b>Featurerefs</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Featureor PP Refs</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference ERROR_PROPAGATION__FEATUREREFS = eINSTANCE.getErrorPropagation_Featurerefs();
+    EReference ERROR_PROPAGATION__FEATUREOR_PP_REFS = eINSTANCE.getErrorPropagation_FeatureorPPRefs();
 
     /**
 		 * The meta object literal for the '<em><b>Not</b></em>' attribute feature.
@@ -6339,22 +6339,22 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_PROPAGATION__TYPE_SET = eINSTANCE.getErrorPropagation_TypeSet();
 
     /**
-		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureReferenceImpl <em>Feature Reference</em>}' class.
+		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureorPPReferenceImpl <em>Featureor PP Reference</em>}' class.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureReferenceImpl
-		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getFeatureReference()
+		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.FeatureorPPReferenceImpl
+		 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getFeatureorPPReference()
 		 * @generated
 		 */
-    EClass FEATURE_REFERENCE = eINSTANCE.getFeatureReference();
+    EClass FEATUREOR_PP_REFERENCE = eINSTANCE.getFeatureorPPReference();
 
     /**
-		 * The meta object literal for the '<em><b>Feature</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Featureor PP</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference FEATURE_REFERENCE__FEATURE = eINSTANCE.getFeatureReference_Feature();
+    EReference FEATUREOR_PP_REFERENCE__FEATUREOR_PP = eINSTANCE.getFeatureorPPReference_FeatureorPP();
 
     /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorFlowImpl <em>Error Flow</em>}' class.

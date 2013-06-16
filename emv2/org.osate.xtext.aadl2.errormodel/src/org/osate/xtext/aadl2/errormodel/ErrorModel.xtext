@@ -1,7 +1,7 @@
 grammar org.osate.xtext.aadl2.errormodel.ErrorModel 
 with org.osate.xtext.aadl2.properties.Properties
 
-generate errorModel "http://www.osate.org/xtext/aadl2/errormodel/ErrorModel"
+generate errorModel "http://www.aadl.info/EMV2"
 
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
@@ -50,7 +50,7 @@ ElementErrorType|TypeToken
 |	ComponentErrorBehavior | CompositeErrorBehavior
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 |CompositeState	|ErrorStateToModeMapping
-| SubcomponentElement | FeatureReference
+| SubcomponentElement | FeatureorPPReference
 ;
 
 
@@ -182,19 +182,19 @@ ErrorPropagations returns ErrorPropagations:
    
 ErrorPropagation returns ErrorPropagation:
 	{ErrorPropagation}
-   (  kind=PropagationKind | (featurerefs+=FeatureReference)("." (featurerefs+=FeatureReference))* )
+   (  kind=PropagationKind | (featureorPPRefs+=FeatureorPPReference)("." (featureorPPRefs+=FeatureorPPReference))* )
    ':' (not?='not')? (direction=PropagationDirection)  
    'propagation' 
     typeSet=TypeSetReference
    ';';
 
-FeatureReference returns FeatureReference:
-	feature=[aadl2::NamedElement|ID]
+FeatureorPPReference returns FeatureorPPReference:
+	featureorPP=[aadl2::NamedElement|ID]
 ;
    
 PropagationDirection returns aadl2::DirectionType: 'in' | 'out' ;
 
-PropagationKind  : ('processor'|'memory'|'bus'|'device'|'system'|('virtual' 'bus')|('virtual' 'processor')|'binding' | 'bindings'|'access'); // virtual bus, virtual processor
+PropagationKind  : ('processor'|'memory'|'connection'|'binding' | 'bindings'|'access'); 
 
 // enum does not work as  
 //enum PropKind : PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'

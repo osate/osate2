@@ -27,8 +27,8 @@ public class ErrorModelStandaloneSetupGenerated implements ISetup {
 	}
 	
 	public void register(Injector injector) {
-	if (!EPackage.Registry.INSTANCE.containsKey("http://www.osate.org/xtext/aadl2/errormodel/ErrorModel")) {
-		EPackage.Registry.INSTANCE.put("http://www.osate.org/xtext/aadl2/errormodel/ErrorModel", org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage.eINSTANCE);
+	if (!EPackage.Registry.INSTANCE.containsKey("http://www.aadl.info/EMV2")) {
+		EPackage.Registry.INSTANCE.put("http://www.aadl.info/EMV2", org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage.eINSTANCE);
 	}
 
 		org.eclipse.xtext.resource.IResourceFactory resourceFactory = injector.getInstance(org.eclipse.xtext.resource.IResourceFactory.class);

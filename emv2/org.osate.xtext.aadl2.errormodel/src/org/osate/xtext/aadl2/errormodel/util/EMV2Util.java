@@ -69,7 +69,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -482,31 +482,64 @@ public class EMV2Util {
 	}
 	
 	/**
-	 * Find error propagation point in the EMV2 subclause only
+	 * Find error propagation  
 	 * @param ems
 	 * @param name
 	 * @param dir
-	 * @param isNot
 	 * @return
 	 */
 	public static ErrorPropagation findErrorPropagation(ErrorModelSubclause ems, String name, DirectionType dir, boolean isNot){
-		ErrorPropagations eps = ems.getErrorPropagations();
-		if (eps != null){
-			for (ErrorPropagation ep : eps.getPropagations()){
-				if (ep.isNot() == isNot&& (dir == null ||ep.getDirection()== dir)){
-					// do we need to check (context instanceof QualifiedObservableErrorPropagationPoint)
-					EList<FeatureReference> refs = ep.getFeaturerefs();
-					if (!refs.isEmpty()){
-						String refname = "";
-						for (FeatureReference featureReference : refs) {
-							if (Aadl2Util.isNull(featureReference.getFeature())) return null;
-							refname = refname + (refname.isEmpty()?"":".")+featureReference.getFeature().getName();
-						}
-						if (refname.equalsIgnoreCase(name)) return ep;
+		Collection<ErrorPropagation> eps = null;
+		if (isNot){
+			eps = getAllErrorContainments(ems.getContainingClassifier());
+		}
+		else{
+			eps = getAllErrorPropagations(ems.getContainingClassifier());
+		}
+		for (ErrorPropagation ep : eps){
+			if (ep.isNot() == isNot&& (dir == null ||ep.getDirection()== dir)){
+				// do we need to check (context instanceof QualifiedObservableErrorPropagationPoint)
+				EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+				if (!refs.isEmpty()){
+					String refname = "";
+					for (FeatureorPPReference FeatureorPPReference : refs) {
+						if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
+						refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
 					}
-					String kind = ep.getKind();
-					if (kind != null && kind.equalsIgnoreCase(name)&&
-							(dir == null||dir.equals(ep.getDirection()))) return ep;
+					if (refname.equalsIgnoreCase(name)) return ep;
+				}
+				String kind = ep.getKind();
+				if (kind != null && kind.equalsIgnoreCase(name)&&
+						(dir == null||dir.equals(ep.getDirection()))) return ep;
+			}
+		}
+		return null;
+	}
+	/**
+	 * Find error propagation  
+	 * @param ems
+	 * @param name
+	 * @param dir
+	 * @return
+	 */
+	public static ErrorPropagation findErrorPropagation(ErrorModelSubclause ems, String name, DirectionType dir){
+		Collection<ErrorPropagation> eps = null;
+			eps = getAllErrorPropagations(ems.getContainingClassifier());
+		for (ErrorPropagation ep : eps){
+			if (dir == null ||ep.getDirection()== dir){
+				EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+				if (!refs.isEmpty()){
+					String refname = "";
+					for (FeatureorPPReference FeatureorPPReference : refs) {
+						if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
+						refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
+					}
+					if (refname.equalsIgnoreCase(name)) return ep;
+				}
+				String kind = ep.getKind();
+				if (kind != null && kind.equalsIgnoreCase(name)&&
+						(dir == null||dir.equals(ep.getDirection()))){
+					return ep;
 				}
 			}
 		}
@@ -732,12 +765,12 @@ public class EMV2Util {
 		boolean result = true;
 		
 		
-		for (FeatureReference fr1 : ep1.getFeaturerefs())
+		for (FeatureorPPReference fr1 : ep1.getFeatureorPPRefs())
 		{
 			boolean found = false;
-			for (FeatureReference fr2 : ep2.getFeaturerefs())
+			for (FeatureorPPReference fr2 : ep2.getFeatureorPPRefs())
 			{
-				if (fr1.getFeature() == fr2.getFeature())
+				if (fr1.getFeatureorPP() == fr2.getFeatureorPP())
 				{
 					if (EM2TypeSetUtil.contains (ep1.getTypeSet(), ep2.getTypeSet()))
 					{
@@ -1854,10 +1887,10 @@ public class EMV2Util {
 	 * @return Feature
 	 */
 	public static Feature getFeature(ErrorPropagation ep){
-		EList<FeatureReference> freflist = ep.getFeaturerefs();
+		EList<FeatureorPPReference> freflist = ep.getFeatureorPPRefs();
 		if (!freflist.isEmpty()){
-			FeatureReference fref = freflist.get(freflist.size()-1);
-			NamedElement f = fref.getFeature();
+			FeatureorPPReference fref = freflist.get(freflist.size()-1);
+			NamedElement f = fref.getFeatureorPP();
 			if (f instanceof Feature){
 				return (Feature) f;
 			}
@@ -1920,14 +1953,14 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static String getPrintName(ErrorPropagation ep){
-		EList<FeatureReference> refs = ep.getFeaturerefs();
+		EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
 		String refname = "";
 		if (refs.isEmpty()){
 			if (ep.getKind() != null) return ep.getKind();
 		} else {
-		for (FeatureReference featureReference : refs) {
-			if (Aadl2Util.isNull(featureReference.getFeature())) return null;
-			refname = refname + (refname.isEmpty()?"":".")+featureReference.getFeature().getName();
+		for (FeatureorPPReference FeatureorPPReference : refs) {
+			if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
+			refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
 		}
 		}
 		return refname;
@@ -2519,11 +2552,11 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static FeatureInstance findFeatureInstance(ErrorPropagation ep, ComponentInstance ci){
-		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
 		if (frefs.isEmpty()) return null;
 		InstanceObject container = ci;
-		for (FeatureReference featureReference : frefs) {
-			NamedElement ne = featureReference.getFeature();
+		for (FeatureorPPReference FeatureorPPReference : frefs) {
+			NamedElement ne = FeatureorPPReference.getFeatureorPP();
 			if (ne instanceof Feature){
 				Feature fe = (Feature)ne;
 				FeatureInstance fi = (container instanceof ComponentInstance?
@@ -2548,9 +2581,9 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static NamedElement getErrorPropagationFeature(ErrorPropagation ep, ComponentInstance ci){
-		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
 		if (frefs.isEmpty()) return ci;
-		return frefs.get(frefs.size()-1).getFeature();
+		return frefs.get(frefs.size()-1).getFeatureorPP();
 	}
 	
 	/**
@@ -2560,11 +2593,11 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static DirectionType getErrorPropagationFeatureDirection(ErrorPropagation ep){
-		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
 		boolean inverse = false;
 		NamedElement f = null;
 		for (int i=0;i < frefs.size()-1; i++){
-			f = frefs.get(i).getFeature();
+			f = frefs.get(i).getFeatureorPP();
 			if (f instanceof FeatureGroup){
 				FeatureGroup fg = (FeatureGroup)f;
 				FeatureGroupType fgt = fg.getAllFeatureGroupType();
@@ -2596,11 +2629,11 @@ public class EMV2Util {
 	 */
 	public static boolean isErrorPropagationOf(ErrorPropagation ep, FeatureInstance fi){
 		if (Aadl2Util.isNull(fi.getFeature())) return false; // not to a feature
-		EList<FeatureReference> frefs = ep.getFeaturerefs();
+		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
 		if (frefs.isEmpty()) return false;
 		for (int i = frefs.size()-1; i >0; i--) {
-			FeatureReference fref = frefs.get(i);
-			if (!Aadl2Util.isNull(fref.getFeature())&&fref.getFeature() == fi.getFeature()){
+			FeatureorPPReference fref = frefs.get(i);
+			if (!Aadl2Util.isNull(fref.getFeatureorPP())&&fref.getFeatureorPP() == fi.getFeature()){
 				return false;
 			}
 		}

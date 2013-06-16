@@ -140,13 +140,13 @@ public interface ErrorModelFactory extends EFactory
   ErrorPropagation createErrorPropagation();
 
   /**
-	 * Returns a new object of class '<em>Feature Reference</em>'.
+	 * Returns a new object of class '<em>Featureor PP Reference</em>'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Feature Reference</em>'.
+	 * @return a new object of class '<em>Featureor PP Reference</em>'.
 	 * @generated
 	 */
-  FeatureReference createFeatureReference();
+  FeatureorPPReference createFeatureorPPReference();
 
   /**
 	 * Returns a new object of class '<em>Error Flow</em>'.

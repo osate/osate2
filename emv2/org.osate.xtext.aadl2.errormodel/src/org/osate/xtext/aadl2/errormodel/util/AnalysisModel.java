@@ -30,7 +30,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 

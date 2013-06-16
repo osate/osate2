@@ -44,7 +44,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
@@ -171,7 +171,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  private EClass featureReferenceEClass = null;
+  private EClass featureorPPReferenceEClass = null;
 
   /**
 	 * <!-- begin-user-doc -->
@@ -996,7 +996,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getErrorPropagation_Featurerefs()
+  public EReference getErrorPropagation_FeatureorPPRefs()
   {
 		return (EReference)errorPropagationEClass.getEStructuralFeatures().get(1);
 	}
@@ -1036,9 +1036,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getFeatureReference()
+  public EClass getFeatureorPPReference()
   {
-		return featureReferenceEClass;
+		return featureorPPReferenceEClass;
 	}
 
   /**
@@ -1046,9 +1046,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getFeatureReference_Feature()
+  public EReference getFeatureorPPReference_FeatureorPP()
   {
-		return (EReference)featureReferenceEClass.getEStructuralFeatures().get(0);
+		return (EReference)featureorPPReferenceEClass.getEStructuralFeatures().get(0);
 	}
 
   /**
@@ -2491,13 +2491,13 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
 		errorPropagationEClass = createEClass(ERROR_PROPAGATION);
 		createEAttribute(errorPropagationEClass, ERROR_PROPAGATION__KIND);
-		createEReference(errorPropagationEClass, ERROR_PROPAGATION__FEATUREREFS);
+		createEReference(errorPropagationEClass, ERROR_PROPAGATION__FEATUREOR_PP_REFS);
 		createEAttribute(errorPropagationEClass, ERROR_PROPAGATION__NOT);
 		createEAttribute(errorPropagationEClass, ERROR_PROPAGATION__DIRECTION);
 		createEReference(errorPropagationEClass, ERROR_PROPAGATION__TYPE_SET);
 
-		featureReferenceEClass = createEClass(FEATURE_REFERENCE);
-		createEReference(featureReferenceEClass, FEATURE_REFERENCE__FEATURE);
+		featureorPPReferenceEClass = createEClass(FEATUREOR_PP_REFERENCE);
+		createEReference(featureorPPReferenceEClass, FEATUREOR_PP_REFERENCE__FEATUREOR_PP);
 
 		errorFlowEClass = createEClass(ERROR_FLOW);
 		createEReference(errorFlowEClass, ERROR_FLOW__TYPE_TOKEN_CONSTRAINT);
@@ -2723,7 +2723,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		errorPropagationsEClass.getESuperTypes().add(theAadl2Package.getElement());
 		errorPropagationEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorPropagationEClass.getESuperTypes().add(this.getEventOrPropagation());
-		featureReferenceEClass.getESuperTypes().add(theAadl2Package.getElement());
+		featureorPPReferenceEClass.getESuperTypes().add(theAadl2Package.getElement());
 		errorFlowEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
 		errorSourceEClass.getESuperTypes().add(this.getErrorFlow());
 		errorSinkEClass.getESuperTypes().add(this.getErrorFlow());
@@ -2827,13 +2827,13 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
 		initEClass(errorPropagationEClass, ErrorPropagation.class, "ErrorPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getErrorPropagation_Kind(), ecorePackage.getEString(), "kind", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorPropagation_Featurerefs(), this.getFeatureReference(), null, "featurerefs", null, 0, -1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorPropagation_FeatureorPPRefs(), this.getFeatureorPPReference(), null, "featureorPPRefs", null, 0, -1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getErrorPropagation_Not(), ecorePackage.getEBoolean(), "not", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getErrorPropagation_Direction(), theAadl2Package.getDirectionType(), "direction", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorPropagation_TypeSet(), this.getTypeSet(), null, "typeSet", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(featureReferenceEClass, FeatureReference.class, "FeatureReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFeatureReference_Feature(), theAadl2Package.getNamedElement(), null, "feature", null, 0, 1, FeatureReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(featureorPPReferenceEClass, FeatureorPPReference.class, "FeatureorPPReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFeatureorPPReference_FeatureorPP(), theAadl2Package.getNamedElement(), null, "featureorPP", null, 0, 1, FeatureorPPReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorFlowEClass, ErrorFlow.class, "ErrorFlow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getErrorFlow_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, ErrorFlow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

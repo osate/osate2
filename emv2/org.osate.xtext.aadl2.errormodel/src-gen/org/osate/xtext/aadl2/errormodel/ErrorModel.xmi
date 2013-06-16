@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext">
   <xtext:Grammar name="org.osate.xtext.aadl2.errormodel.ErrorModel" usedGrammars="/1">
     <metamodelDeclarations xsi:type="xtext:GeneratedMetamodel" name="errorModel">
-      <ePackage href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#/"/>
+      <ePackage href="http://www.aadl.info/EMV2#/"/>
     </metamodelDeclarations>
     <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="aadl2">
       <ePackage href="http://aadl.info/AADL/2.0#/"/>
@@ -12,7 +12,7 @@
     </metamodelDeclarations>
     <rules xsi:type="xtext:ParserRule" name="ErrorModelGrammarRoot">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelGrammarRoot"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelGrammarRoot"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Group">
@@ -96,12 +96,12 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorModelSubclause">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelSubclause"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelSubclause"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelSubclause"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelSubclause"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -110,7 +110,7 @@
           <elements xsi:type="xtext:Assignment" feature="useTypes" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -120,7 +120,7 @@
             <elements xsi:type="xtext:Assignment" feature="useTypes" operator="+=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
@@ -134,7 +134,7 @@
           <elements xsi:type="xtext:Assignment" feature="useBehavior" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorStateMachine"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorStateMachine"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -166,12 +166,12 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorModelLibrary">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -182,7 +182,7 @@
             <elements xsi:type="xtext:Assignment" feature="extends" operator="+=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
@@ -192,7 +192,7 @@
               <elements xsi:type="xtext:Assignment" feature="extends" operator="+=">
                 <terminal xsi:type="xtext:CrossReference">
                   <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                    <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
                   </type>
                   <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
                 </terminal>
@@ -226,7 +226,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorTypes">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorTypes"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorTypes"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.9"/>
@@ -237,7 +237,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeDefinition">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -250,7 +250,7 @@
           <elements xsi:type="xtext:Assignment" feature="superType" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -261,7 +261,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeAlias">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -272,7 +272,7 @@
         <elements xsi:type="xtext:Assignment" feature="aliasedType" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
@@ -282,7 +282,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeSetDefinition">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -307,7 +307,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeSetConstructor">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="{"/>
@@ -325,13 +325,13 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeSetReference">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Assignment" feature="reference" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
@@ -341,7 +341,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeSetAlias">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -353,7 +353,7 @@
         <elements xsi:type="xtext:Assignment" feature="aliasedType" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
@@ -363,13 +363,13 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ElementErrorType">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeToken"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
@@ -379,7 +379,7 @@
           <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -389,12 +389,12 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="NoError">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Keyword" value="{"/>
@@ -404,19 +404,19 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeToken">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeToken"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeToken"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Keyword" value="("/>
         <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
           </terminal>
@@ -426,7 +426,7 @@
           <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -437,12 +437,12 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeTokenOrNoError">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeToken"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeToken"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeToken"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Keyword" value="("/>
@@ -451,7 +451,7 @@
             <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
@@ -461,7 +461,7 @@
               <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
                 <terminal xsi:type="xtext:CrossReference">
                   <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorType"/>
+                    <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
                   </type>
                   <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
                 </terminal>
@@ -475,13 +475,13 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeTokenConstraint">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
       </type>
       <alternatives xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeTokenConstraintNoError">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeSet"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
@@ -490,7 +490,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeTransformationSet">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeTransformationSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeTransformationSet"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="type"/>
@@ -504,7 +504,7 @@
           <elements xsi:type="xtext:Assignment" feature="useTypes" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -514,7 +514,7 @@
             <elements xsi:type="xtext:Assignment" feature="useTypes" operator="+=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
@@ -532,7 +532,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeTransformation">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeTransformation"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeTransformation"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="source" operator="=">
@@ -551,7 +551,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeMappingSet">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeMappingSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeMappingSet"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="type"/>
@@ -565,7 +565,7 @@
           <elements xsi:type="xtext:Assignment" feature="useTypes" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -575,7 +575,7 @@
             <elements xsi:type="xtext:Assignment" feature="useTypes" operator="+=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
@@ -593,7 +593,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeMapping">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeMapping"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeMapping"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="source" operator="=">
@@ -608,14 +608,14 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorPropagations">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagations"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagations"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="error"/>
         <elements xsi:type="xtext:Keyword" value="propagations"/>
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagations"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagations"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="propagations" operator="+=">
@@ -634,12 +634,12 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorPropagation">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Alternatives">
@@ -647,12 +647,12 @@
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.29"/>
           </elements>
           <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Assignment" feature="featurerefs" operator="+=">
+            <elements xsi:type="xtext:Assignment" feature="featureorPPRefs" operator="+=">
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.27"/>
             </elements>
             <elements xsi:type="xtext:Group" cardinality="*">
               <elements xsi:type="xtext:Keyword" value="."/>
-              <elements xsi:type="xtext:Assignment" feature="featurerefs" operator="+=">
+              <elements xsi:type="xtext:Assignment" feature="featureorPPRefs" operator="+=">
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.27"/>
               </elements>
             </elements>
@@ -672,11 +672,11 @@
         <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
     </rules>
-    <rules xsi:type="xtext:ParserRule" name="FeatureReference">
+    <rules xsi:type="xtext:ParserRule" name="FeatureorPPReference">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//FeatureReference"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//FeatureorPPReference"/>
       </type>
-      <alternatives xsi:type="xtext:Assignment" feature="feature" operator="=">
+      <alternatives xsi:type="xtext:Assignment" feature="featureorPP" operator="=">
         <terminal xsi:type="xtext:CrossReference">
           <type metamodel="/0/@metamodelDeclarations.1">
             <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//NamedElement"/>
@@ -701,17 +701,7 @@
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Keyword" value="processor"/>
         <elements xsi:type="xtext:Keyword" value="memory"/>
-        <elements xsi:type="xtext:Keyword" value="bus"/>
-        <elements xsi:type="xtext:Keyword" value="device"/>
-        <elements xsi:type="xtext:Keyword" value="system"/>
-        <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Keyword" value="virtual"/>
-          <elements xsi:type="xtext:Keyword" value="bus"/>
-        </elements>
-        <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Keyword" value="virtual"/>
-          <elements xsi:type="xtext:Keyword" value="processor"/>
-        </elements>
+        <elements xsi:type="xtext:Keyword" value="connection"/>
         <elements xsi:type="xtext:Keyword" value="binding"/>
         <elements xsi:type="xtext:Keyword" value="bindings"/>
         <elements xsi:type="xtext:Keyword" value="access"/>
@@ -719,7 +709,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorFlow">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorFlow"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorFlow"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.31"/>
@@ -729,7 +719,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorSource">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorSource"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorSource"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -742,7 +732,7 @@
           <elements xsi:type="xtext:Assignment" feature="outgoing" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
             </terminal>
@@ -761,7 +751,7 @@
               <elements xsi:type="xtext:Assignment" feature="failureModeReference" operator="=">
                 <terminal xsi:type="xtext:CrossReference">
                   <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorStateOrTypeSet"/>
+                    <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorStateOrTypeSet"/>
                   </type>
                   <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
                 </terminal>
@@ -780,7 +770,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorBehaviorStateOrTypeSet">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorStateOrTypeSet"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorStateOrTypeSet"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.45"/>
@@ -789,7 +779,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorSink">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorSink"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorSink"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -802,7 +792,7 @@
           <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
             </terminal>
@@ -819,7 +809,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorPath">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPath"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPath"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -832,7 +822,7 @@
           <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
             </terminal>
@@ -849,7 +839,7 @@
           <elements xsi:type="xtext:Assignment" feature="outgoing" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
             </terminal>
@@ -868,7 +858,7 @@
             <elements xsi:type="xtext:Assignment" feature="typeMappingSet" operator="=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeMappingSet"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeMappingSet"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
@@ -895,7 +885,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="PropagationPaths">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//PropagationPaths"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//PropagationPaths"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="propagation"/>
@@ -916,7 +906,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="PropagationPoint">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//PropagationPoint"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//PropagationPoint"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -930,7 +920,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="PropagationPointConnection">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//PropagationPointConnection"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//PropagationPointConnection"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -949,7 +939,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="QualifiedPropagationPoint">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//QualifiedPropagationPoint"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//QualifiedPropagationPoint"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -966,7 +956,7 @@
         <elements xsi:type="xtext:Assignment" feature="propagationPoint" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//PropagationPoint"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//PropagationPoint"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
           </terminal>
@@ -975,7 +965,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorBehaviorStateMachine">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorStateMachine"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorStateMachine"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="error"/>
@@ -989,7 +979,7 @@
           <elements xsi:type="xtext:Assignment" feature="useTypes" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -999,7 +989,7 @@
             <elements xsi:type="xtext:Assignment" feature="useTypes" operator="+=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelLibrary"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorModelLibrary"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
               </terminal>
@@ -1013,7 +1003,7 @@
           <elements xsi:type="xtext:Assignment" feature="useTransformation" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeTransformationSet"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeTransformationSet"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -1051,7 +1041,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorBehaviorEvent">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorEvent"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorEvent"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.42"/>
@@ -1061,7 +1051,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorEvent">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorEvent"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorEvent"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -1084,7 +1074,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="RepairEvent">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//RepairEvent"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//RepairEvent"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -1104,7 +1094,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="RecoverEvent">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//RecoverEvent"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//RecoverEvent"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -1140,7 +1130,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorBehaviorState">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -1159,7 +1149,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorBehaviorTransition">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorTransition"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorTransition"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -1173,7 +1163,7 @@
             <elements xsi:type="xtext:Assignment" feature="source" operator="=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
               </terminal>
@@ -1199,7 +1189,7 @@
                   <elements xsi:type="xtext:Assignment" feature="target" operator="=">
                     <terminal xsi:type="xtext:CrossReference">
                       <type metamodel="/0/@metamodelDeclarations.0">
-                        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+                        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
                       </type>
                       <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
                     </terminal>
@@ -1236,7 +1226,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TransitionBranch">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TransitionBranch"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TransitionBranch"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Alternatives">
@@ -1244,7 +1234,7 @@
             <elements xsi:type="xtext:Assignment" feature="target" operator="=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
               </terminal>
@@ -1265,12 +1255,12 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="BranchValue">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//BranchValue"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//BranchValue"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//BranchValue"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//BranchValue"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Alternatives">
@@ -1293,7 +1283,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ConnectionErrorBehavior">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConnectionErrorBehavior"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConnectionErrorBehavior"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="connection"/>
@@ -1301,7 +1291,7 @@
         <elements xsi:type="xtext:Keyword" value="behavior"/>
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConnectionErrorBehavior"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConnectionErrorBehavior"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -1310,7 +1300,7 @@
           <elements xsi:type="xtext:Assignment" feature="typeTransformationSet" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeTransformationSet"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeTransformationSet"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -1327,7 +1317,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ConnectionErrorSource">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConnectionErrorSource"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConnectionErrorSource"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
@@ -1363,13 +1353,13 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="EBSMUseContext">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//EBSMUseContext"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//EBSMUseContext"/>
       </type>
       <alternatives xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TypeUseContext">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeUseContext"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeUseContext"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
@@ -1380,7 +1370,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ComponentErrorBehavior">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ComponentErrorBehavior"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ComponentErrorBehavior"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="component"/>
@@ -1388,7 +1378,7 @@
         <elements xsi:type="xtext:Keyword" value="behavior"/>
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ComponentErrorBehavior"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ComponentErrorBehavior"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -1397,7 +1387,7 @@
           <elements xsi:type="xtext:Assignment" feature="useTransformation" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//TypeTransformationSet"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeTransformationSet"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
             </terminal>
@@ -1442,14 +1432,14 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ConditionExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.55"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Action" feature="operands" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//OrExpression"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//OrExpression"/>
             </type>
           </elements>
           <elements xsi:type="xtext:Keyword" value="or"/>
@@ -1461,14 +1451,14 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="AndExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.58"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Action" feature="operands" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//AndExpression"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//AndExpression"/>
             </type>
           </elements>
           <elements xsi:type="xtext:Keyword" value="and"/>
@@ -1480,7 +1470,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="OrmoreExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//OrmoreExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//OrmoreExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="count" operator="=">
@@ -1502,7 +1492,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="OrlessExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//OrlessExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//OrlessExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="count" operator="=">
@@ -1524,7 +1514,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ConditionTerm">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.59"/>
@@ -1539,13 +1529,13 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ConditionElement">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionElement"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConditionElement"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="incoming" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//EventOrPropagation"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//EventOrPropagation"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
           </terminal>
@@ -1557,7 +1547,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="EventOrPropagation">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//EventOrPropagation"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//EventOrPropagation"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.41"/>
@@ -1566,7 +1556,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="OutgoingPropagationCondition">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//OutgoingPropagationCondition"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//OutgoingPropagationCondition"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -1580,7 +1570,7 @@
             <elements xsi:type="xtext:Assignment" feature="state" operator="=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
               </terminal>
@@ -1604,7 +1594,7 @@
               <elements xsi:type="xtext:Assignment" feature="outgoing" operator="=">
                 <terminal xsi:type="xtext:CrossReference">
                   <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+                    <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
                   </type>
                   <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
                 </terminal>
@@ -1621,7 +1611,7 @@
             <elements xsi:type="xtext:Assignment" cardinality="?" feature="outgoing" operator="=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorPropagation"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
               </terminal>
@@ -1636,7 +1626,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorDetection">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorDetection"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorDetection"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -1650,7 +1640,7 @@
             <elements xsi:type="xtext:Assignment" feature="state" operator="=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
               </terminal>
@@ -1690,7 +1680,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorCodeValue">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorCodeValue"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorCodeValue"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:Assignment" feature="intValue" operator="=">
@@ -1711,13 +1701,13 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorStateToModeMapping">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorStateToModeMapping"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorStateToModeMapping"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="errorState" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
           </terminal>
@@ -1762,7 +1752,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="CompositeErrorBehavior">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//CompositeErrorBehavior"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//CompositeErrorBehavior"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="composite"/>
@@ -1770,7 +1760,7 @@
         <elements xsi:type="xtext:Keyword" value="behavior"/>
         <elements xsi:type="xtext:Action">
           <type metamodel="/0/@metamodelDeclarations.0">
-            <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//CompositeErrorBehavior"/>
+            <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//CompositeErrorBehavior"/>
           </type>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -1786,7 +1776,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="CompositeState">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//CompositeState"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//CompositeState"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="["/>
@@ -1802,7 +1792,7 @@
         <elements xsi:type="xtext:Assignment" feature="state" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
           </terminal>
@@ -1815,14 +1805,14 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="SConditionExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.69"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Action" feature="operands" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//SOrExpression"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//SOrExpression"/>
             </type>
           </elements>
           <elements xsi:type="xtext:Keyword" value="or"/>
@@ -1834,14 +1824,14 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="SAndExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Action" feature="operands" operator="+=">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//SAndExpression"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//SAndExpression"/>
             </type>
           </elements>
           <elements xsi:type="xtext:Keyword" value="and"/>
@@ -1853,7 +1843,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="SOrmoreExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//OrmoreExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//OrmoreExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="count" operator="=">
@@ -1875,7 +1865,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="SOrlessExpression">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//OrlessExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//OrlessExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="count" operator="=">
@@ -1897,7 +1887,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="SConditionTerm">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionExpression"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConditionExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.73"/>
@@ -1912,7 +1902,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="SConditionElement">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ConditionElement"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ConditionElement"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Group" cardinality="+">
@@ -1924,7 +1914,7 @@
         <elements xsi:type="xtext:Assignment" feature="reference" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorState"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.46"/>
           </terminal>
@@ -1936,7 +1926,7 @@
     </rules>
     <rules xsi:type="xtext:ParserRule" name="SubcomponentElement">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//SubcomponentElement"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//SubcomponentElement"/>
       </type>
       <alternatives xsi:type="xtext:Assignment" feature="subcomponent" operator="=">
         <terminal xsi:type="xtext:CrossReference">

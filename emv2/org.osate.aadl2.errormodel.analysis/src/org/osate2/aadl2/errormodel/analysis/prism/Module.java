@@ -33,7 +33,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -252,7 +252,7 @@ public class Module {
 
 			for (PropagationPathEnd ppe : propagationEnds)
 			{
-				Feature connectedFeature = (Feature) ppe.getErrorPropagation().getFeaturerefs().get(0).getFeature();
+				NamedElement connectedFeature =  ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP();
 
 
 				ErrorType et = opc.getTypeToken().getType().get(0);
@@ -427,10 +427,9 @@ public class Module {
 				 */
 				if (ep.getDirection().incoming())
 				{
-					for (FeatureReference fr : ep.getFeaturerefs())
+					for (FeatureorPPReference fr : ep.getFeatureorPPRefs())
 					{
-						NamedElement feature;
-						feature = fr.getFeature();
+						NamedElement feature = fr.getFeatureorPP();
 						
 						int errorVal = 1;
 						TypeSet ts = ep.getTypeSet();
@@ -533,7 +532,7 @@ public class Module {
 		{
 			command = new Command();
 			
-			Feature connectedFeature = (Feature) ppe.getErrorPropagation().getFeaturerefs().get(0).getFeature();
+			NamedElement connectedFeature = ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP();
 			
 			incomingPropagationName = connectedFeature.getName();
 	
@@ -583,7 +582,7 @@ public class Module {
 
 				for (PropagationPathEnd ppe : propagationEnds)
 				{
-					Feature connectedFeature = (Feature) ppe.getErrorPropagation().getFeaturerefs().get(0).getFeature();
+					NamedElement connectedFeature =  ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP();
 
 
 					ErrorType et = incomingErrorPropagation.getTypeSet().getElementType().get(0).getType().get(0);
@@ -598,7 +597,7 @@ public class Module {
 						errorTypeValue = this.associatedModel.getErrorTypeCode(ppe, et);
 					}
 				}
-				result = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(aadlComponent, incomingErrorPropagation.getFeaturerefs().get(0).getFeature().getName())),
+				result = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(aadlComponent, incomingErrorPropagation.getFeatureorPPRefs().get(0).getFeatureorPP().getName())),
 			              new Terminal ("" + errorTypeValue));
 			}
 		}

@@ -5,7 +5,7 @@
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "http://www.osate.org/xtext/aadl2/errormodel/ErrorModel" 
+       uri = "http://www.aadl.info/EMV2" 
        class = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
        genModel = "org/osate/xtext/aadl2/errormodel/ErrorModel.genmodel" /> 
 	

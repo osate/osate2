@@ -29,7 +29,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   public static ErrorModelFactory init()
   {
 		try {
-			ErrorModelFactory theErrorModelFactory = (ErrorModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.osate.org/xtext/aadl2/errormodel/ErrorModel"); 
+			ErrorModelFactory theErrorModelFactory = (ErrorModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.aadl.info/EMV2"); 
 			if (theErrorModelFactory != null) {
 				return theErrorModelFactory;
 			}
@@ -73,7 +73,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
 			case ErrorModelPackage.TYPE_MAPPING: return createTypeMapping();
 			case ErrorModelPackage.ERROR_PROPAGATIONS: return createErrorPropagations();
 			case ErrorModelPackage.ERROR_PROPAGATION: return createErrorPropagation();
-			case ErrorModelPackage.FEATURE_REFERENCE: return createFeatureReference();
+			case ErrorModelPackage.FEATUREOR_PP_REFERENCE: return createFeatureorPPReference();
 			case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
 			case ErrorModelPackage.ERROR_SOURCE: return createErrorSource();
 			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET: return createErrorBehaviorStateOrTypeSet();
@@ -266,10 +266,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public FeatureReference createFeatureReference()
+  public FeatureorPPReference createFeatureorPPReference()
   {
-		FeatureReferenceImpl featureReference = new FeatureReferenceImpl();
-		return featureReference;
+		FeatureorPPReferenceImpl featureorPPReference = new FeatureorPPReferenceImpl();
+		return featureorPPReference;
 	}
 
   /**
