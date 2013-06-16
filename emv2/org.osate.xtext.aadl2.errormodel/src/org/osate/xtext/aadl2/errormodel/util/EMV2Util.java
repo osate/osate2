@@ -481,41 +481,49 @@ public class EMV2Util {
 		}
 		return null;
 	}
+	
 	/**
-	 * Find error propagation  in containing EMS
+	 * Find error propagation  in containing classifier
 	 * @param element
 	 * @param name
 	 * @param dir
 	 * @return
 	 */
-	public static ErrorPropagation findErrorPropagation(Element element, String name, DirectionType dir){
-		return findErrorPropagation(getContainingErrorModelSubclause(element), name, dir);
+	public static ErrorPropagation findErrorPropagation(Element context, String name, DirectionType dir){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagation res = findErrorPropagation(errorModelSubclause, name, dir);
+			if (res != null) return res;
+		}
+		return null;
 	}
 	
 	/**
-	 * Find error propagation  
+	 * Find error propagation in subclause 
 	 * @param ems
 	 * @param name
 	 * @param dir
 	 * @return
 	 */
 	public static ErrorPropagation findErrorPropagation(ErrorModelSubclause ems, String name, DirectionType dir){
-		Collection<ErrorPropagation> eps =  getAllErrorPropagations(ems.getContainingClassifier());
-		for (ErrorPropagation ep : eps){
-			if (dir == null ||ep.getDirection()== dir){
-				EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
-				if (!refs.isEmpty()){
-					String refname = "";
-					for (FeatureorPPReference FeatureorPPReference : refs) {
-						if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
-						refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
+		ErrorPropagations eps = ems.getErrorPropagations();
+		if (eps != null){
+			for (ErrorPropagation ep : eps.getPropagations()){
+				if (dir == null ||ep.getDirection()== dir){
+					EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+					if (!refs.isEmpty()){
+						String refname = "";
+						for (FeatureorPPReference FeatureorPPReference : refs) {
+							if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
+							refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
+						}
+						if (refname.equalsIgnoreCase(name)) return ep;
 					}
-					if (refname.equalsIgnoreCase(name)) return ep;
-				}
-				String kind = ep.getKind();
-				if (kind != null && kind.equalsIgnoreCase(name)&&
-						(dir == null||dir.equals(ep.getDirection()))){
-					return ep;
+					String kind = ep.getKind();
+					if (kind != null && kind.equalsIgnoreCase(name)&&
+							(dir == null||dir.equals(ep.getDirection()))){
+						return ep;
+					}
 				}
 			}
 		}
@@ -1773,8 +1781,8 @@ public class EMV2Util {
 	 */
 	public static Collection<NamedElement> getAllNamedElements(ErrorModelSubclause ems){
 		Collection<NamedElement> result = new BasicEList<NamedElement>();
-		ErrorPropagations props = ems.getErrorPropagations();
-		getAllNamedElements(props, result);
+//		ErrorPropagations props = ems.getErrorPropagations();
+//		getAllNamedElements(props, result);
 		ComponentErrorBehavior ceb = ems.getComponentBehavior();
 		getAllNamedElements(ceb, result);
 		return result;
