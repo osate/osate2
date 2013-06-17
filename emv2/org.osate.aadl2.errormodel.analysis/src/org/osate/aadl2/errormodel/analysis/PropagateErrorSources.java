@@ -202,7 +202,7 @@ public class PropagateErrorSources {
 						{
 							handledTypes.add (typeToken.getType().get(i));
 						}
-						String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
+						String failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:typeToken);
 						traceErrorPaths(ci,ep,typeToken,2,componentText+", "+ "internal event " + event.getName());
 					}
 					
@@ -226,7 +226,7 @@ public class PropagateErrorSources {
 			for (TypeToken typeToken : result)
 			{
 
-				String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
+				String failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:typeToken);
 				
 				if (failureMode == null)
 				{
@@ -282,27 +282,13 @@ public class PropagateErrorSources {
 		return result;
 	}
 	
-	/**
-	 * get the text to be used for the item (Component or feature)
-	 * that is the source of a failure mode
-	 * @param ci component instance
-	 * @return String
-	 */
-	public String generateConnectionText(ConnectionInstanceEnd src, ConnectionInstanceEnd dst, TypeToken token)
-	{
-		if ( (src != null) && (dst != null))
-		{
-			return (generateItemText(src)+EMV2Util.getPrintName(token)+"->"+generateItemText(dst));
-		}
-		return "uncomplete connection";
-	}
 	
 	/**
 	 * get the text for the failure mode
 	 * @param io Error State or Type token
 	 * @return String
 	 */
-	public String generateFailureModeText(EObject io){
+	public String generateOriginalFailureModeText(EObject io){
 		if (io instanceof ErrorBehaviorState){
 			ErrorBehaviorState ev = (ErrorBehaviorState)io;
 			return ev.getName();
@@ -332,12 +318,24 @@ public class PropagateErrorSources {
 	 * @param io Instance Object
 	 * @param ep Error Propagation
 	 */
-	public String generateEffectText(ComponentInstance io, ErrorPropagation ep, TypeToken tt){
+	public String generatePropagationPointText(ComponentInstance io, ErrorPropagation ep){
 			return(generateItemText(io)+
-					(ep!=null?"."+EMV2Util.getPrintName(ep):"")+
-					(tt!=null?":"+EMV2Util.getPrintName(tt):""));
+					(ep!=null?"."+EMV2Util.getPrintName(ep):""));
 	}
 	
+	
+	/**
+	 * report on io object with optional error propagation.
+	 * report on attached ErrorModelState if present
+	 * note: error propagation ep can be null.
+	 * @param io Instance Object
+	 * @param ep Error Propagation
+	 */
+	public String generateErrorPropText( ErrorPropagation ep, TypeToken tt){
+			return(
+					(ep!=null?EMV2Util.getPrintName(ep):"")+
+					(tt!=null?" "+EMV2Util.getPrintName(tt):""));
+	}
 	
 	
 	/**
@@ -346,16 +344,16 @@ public class PropagateErrorSources {
 	 */
 	protected void traceErrorPaths(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText){
 		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
-		String effectText = ", "+generateEffectText(ci, ep,tt);
+		String effectText = ", "+generateErrorPropText(ep,tt);
 		if (paths.isEmpty()){
-			reportEntry(entryText+effectText+", <no paths>, ", depth);
+			reportEntry(entryText+effectText+" -> <no paths>,,", depth);
 			return;
 		}
 		for (PropagationPath path : paths) {
-			String connText=", "+generateConnectionText(path.getSrcCI(), path.getDstCI(),tt);
 			ComponentInstance destci = path.getDstCI();
 			ErrorPropagation destEP = path.getPathDst().getErrorPropagation();
 			// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
+			String connText=" -> "+generateItemText(destci);
 			traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
 		}
 	}
@@ -372,80 +370,96 @@ public class PropagateErrorSources {
 		}
 		List<ErrorBehaviorState> treated = new ArrayList<ErrorBehaviorState>();
 
-			Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
-			if (!efs.isEmpty()){
-				Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
-				for (ErrorFlow ef : outefs) {
-					if (ef instanceof ErrorSink)
+		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
+		boolean handled = false;
+		Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
+		for (ErrorFlow ef : outefs) {
+			if (ef instanceof ErrorSink)
+			{
+				//OsateDebug.osateDebug("error sink" + ef.getName());
+				/**
+				 * We try to find additional error propagation for this error sink.
+				 * For example, if the error sink triggers to switch to
+				 * another behavior state and that states is used to propagate
+				 * an error through an error source. Then, we do not consider
+				 * it as an error sink but as an error path and continue 
+				 * to trace the flow using this additional error propagation.
+				 */
+				EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util.getAdditionalOutgoingPropagation (ci, ep);
+				// process should have returned false, but for safety we check again
+				if(additionalPropagations.size() == 0)
+				{
+					/**
+					 * Here, we do not have any additional error propagation, we mark it as a sink.
+					 */
+					if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)){
+						String maskText = ", "+generateErrorPropText(ep,tt)+" [Masked],";
+						reportEntry(entryText+maskText, depth);
+						handled = true;
+					}
+				}
+				else
+				{
+					/**
+					 * We continue to trace the propagation flows
+					 * based on the additional errors propagated.
+					 */
+					for (OutgoingPropagationCondition opc : additionalPropagations)
 					{
-						//OsateDebug.osateDebug("error sink" + ef.getName());
-						/**
-						 * We try to find additional error propagation for this error sink.
-						 * For example, if the error sink triggers to switch to
-						 * another behavior state and that states is used to propagate
-						 * an error through an error source. Then, we do not consider
-						 * it as an error sink but as an error path and continue 
-						 * to trace the flow using this additional error propagation.
-						 */
-						EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util.getAdditionalOutgoingPropagation (ci, ep);
-						// process should have returned false, but for safety we check again
-						if(additionalPropagations.size() == 0)
-						{
-							/**
-							 * Here, we do not have any additional error propagation, we mark it as a sink.
-							 */
-							String maskText = ", "+generateItemText(ci)+": "+EMV2Util.getPrintName(tt)+" Masked";
-							reportEntry(entryText+maskText, depth);
-						}
-						else
-						{
-							/**
-							 * We continue to trace the propagation flows
-							 * based on the additional errors propagated.
-							 */
-							for (OutgoingPropagationCondition opc : additionalPropagations)
-							{
-								ErrorPropagation outp = opc.getOutgoing();
+						ErrorPropagation outp = opc.getOutgoing();
 
-								if (! treated.contains(opc.getState()))
-								{
-									treated.add(opc.getState());
-									traceErrorPaths(ci,outp,EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef),depth+1,entryText+", "+generateEffectText(ci, outp,outp.getTypeSet().getElementType().get(0)));
+						if (! treated.contains(opc.getState()))
+						{
+							treated.add(opc.getState());
+							traceErrorPaths(ci,outp,EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef),depth+1,entryText+", "+generateErrorPropText(outp,outp.getTypeSet().getElementType().get(0)));
+						}
+					}
+					handled = true;
+				}
+			}
+			else if (ef instanceof ErrorPath){ // error path
+				if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)){
+					ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
+					traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,ef),depth+1,entryText+", "+generateErrorPropText( outp,tt));
+					handled = true;
+				}
+			} 
+		}
+		if (!handled){
+			// no error flows:. and no flows condition
+			// try flows or propagate to all outgoing connections
+			EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
+			if (!flowlist.isEmpty()){
+				for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
+					if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(ep, ci)){
+						FeatureInstance outfi = flowSpecificationInstance.getDestination();
+						if (outfi != null){
+							ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
+							traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,flowSpecificationInstance),depth+1,entryText+", "+generateErrorPropText(outp,tt)+" [FlowPath]");
+						} else {
+							// do all since we have a flow sink
+							EList<FeatureInstance> filist = ci.getFeatureInstances();
+							for (FeatureInstance fi : filist) {
+								if (fi.getDirection().outgoing()){
+									ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
+									traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,null),depth+1,entryText+","+generateErrorPropText(outp,tt)+" [SinkAll]");
 								}
 							}
 						}
 					}
-					else if (ef instanceof ErrorPath){ // error path
-						ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
-						traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,ef),depth+1,entryText+", "+generateEffectText(ci, outp,tt));
-					} 
 				}
-			} else{
-				// no error flows: XXX need to fix ef being more than one. also no error flows. and no flows condition
-				// try flows or propagate to all outgoing connections
-				EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
-				if (!flowlist.isEmpty()){
-					for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
-						if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(ep, ci)){
-							FeatureInstance outfi = flowSpecificationInstance.getDestination();
-							if (outfi != null){
-								ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
-								traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,flowSpecificationInstance),depth+1,entryText+", "+generateEffectText(ci, ep,tt));
-							}
-						}
-					}
-				} else {
-					// now all outgoing connections since we did not find flows
-					EList<FeatureInstance> filist = ci.getFeatureInstances();
-					for (FeatureInstance fi : filist) {
-						if (fi.getDirection().outgoing()){
-							ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
-							traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,null),depth+1,entryText+","+generateEffectText(ci, ep,tt));
-						}
+			} else {
+				// now all outgoing connections since we did not find flows
+				EList<FeatureInstance> filist = ci.getFeatureInstances();
+				for (FeatureInstance fi : filist) {
+					if (fi.getDirection().outgoing()){
+						ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
+						traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,null),depth+1,entryText+","+generateErrorPropText(outp,tt)+" [AllOut]");
 					}
 				}
 			}
 		}
 	}
+}
 
 
