@@ -72,6 +72,11 @@ public class AnalysisModel {
 			}
 		}
 	}
+
+	public EList<PropagationPath> getPropagationPaths() {
+		return propagationPaths;
+	}
+
 	public EList<ComponentInstance> getSubcomponents() {
 		return subcomponents;
 	}

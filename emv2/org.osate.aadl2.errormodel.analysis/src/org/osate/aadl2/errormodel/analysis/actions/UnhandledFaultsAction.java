@@ -47,8 +47,10 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPath;
 
 public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	protected String getMarkerType() {
@@ -70,9 +72,10 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		else return;
 
 		setTXTLog("UnhandledFaults", si);
-		List<ConnectionInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ConnectionInstance.class);
-		for (ConnectionInstance connectionInstance : cilist) {
-			processMatchingErrorPropagation(connectionInstance);
+		AnalysisModel model = new AnalysisModel(si);
+		EList<PropagationPath> pathlist = model.getPropagationPaths();
+		for (PropagationPath path : pathlist) {
+			checkPropagationPathErrorTypes(path);
 		}
 		monitor.done();
 	}
@@ -163,6 +166,20 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		if ( dstprop == null  && dstcontain == null && (srcprop != null||srccontain != null)){
 				// has an EMV2 subclause but no propagation specification for the feature
 				error(connectionInstance,"Connection target has no error propagation/containment but source does: "+(srcprop!=null?EMV2Util.getPrintName(srcprop):EMV2Util.getPrintName(srccontain)));
+		}
+	}
+
+	protected void checkPropagationPathErrorTypes(PropagationPath path){
+		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
+		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
+		if (srcprop != null && dstprop != null){
+			if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
+				error(path.getSrcCI(),"Outgoing propagation  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+			}
+		}
+		if ( dstprop == null   && srcprop != null){
+				// has an EMV2 subclause but no propagation specification for the feature
+				error(path.getSrcCI(),"Connection target has no error propagation/containment but source does: "+EMV2Util.getPrintName(srcprop));
 		}
 	}
 
