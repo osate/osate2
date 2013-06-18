@@ -49,6 +49,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.parsesupport.ParseUtil;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -260,6 +261,14 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 				metaclass = Aadl2Package.eINSTANCE.getNamedElement();
 				return metaclass;
 			}
+			if (metaclassName.toString().equalsIgnoreCase("package")) 
+			{
+				//Related to bug 241
+				// Make the property taken as for a "all"
+				metaclass = Aadl2Package.eINSTANCE.getNamedElement();
+				return metaclass;
+			}
+			OsateDebug.osateDebug("metaclass = "+metaclassName.toString());
 			EPackage pack = Aadl2Package.eINSTANCE;
 			if (getAnnexName()!=null ){
 				pack = getAnnexEPackage(getAnnexName());
