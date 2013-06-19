@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.osate.aadl2.Aadl2Package;
 
 /**
@@ -2720,25 +2721,6 @@ public interface ErrorModelPackage extends EPackage
   int CONNECTION_ERROR_SOURCE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeUseContextImpl <em>Type Use Context</em>}' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeUseContextImpl
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeUseContext()
-	 * @generated
-	 */
-  int TYPE_USE_CONTEXT = 35;
-
-  /**
-	 * The number of structural features of the '<em>Type Use Context</em>' class.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int TYPE_USE_CONTEXT_FEATURE_COUNT = 0;
-
-  /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EBSMUseContextImpl <em>EBSM Use Context</em>}' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2749,13 +2731,68 @@ public interface ErrorModelPackage extends EPackage
   int EBSM_USE_CONTEXT = 34;
 
   /**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int EBSM_USE_CONTEXT__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+
+  /**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int EBSM_USE_CONTEXT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+
+  /**
 	 * The number of structural features of the '<em>EBSM Use Context</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int EBSM_USE_CONTEXT_FEATURE_COUNT = TYPE_USE_CONTEXT_FEATURE_COUNT + 0;
+  int EBSM_USE_CONTEXT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeUseContextImpl <em>Type Use Context</em>}' class.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeUseContextImpl
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeUseContext()
+	 * @generated
+	 */
+  int TYPE_USE_CONTEXT = 35;
+
+  /**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int TYPE_USE_CONTEXT__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+
+  /**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int TYPE_USE_CONTEXT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+
+  /**
+	 * The number of structural features of the '<em>Type Use Context</em>' class.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int TYPE_USE_CONTEXT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl <em>Component Error Behavior</em>}' class.

@@ -1,6 +1,14 @@
 package org.osate.xtext.aadl2.errormodel.serializer;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -69,8 +77,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
-
-import com.google.inject.Inject;
 
 @SuppressWarnings("all")
 public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSemanticSequencer {
@@ -318,7 +324,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE:
-				if(context == grammarAccess.getErrorBehaviorStateMachineRule() ||
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getErrorBehaviorStateMachineRule() ||
 				   context == grammarAccess.getNamedElementRule() ||
 				   context == grammarAccess.getTypeUseContextRule()) {
 					sequence_ErrorBehaviorStateMachine(context, (ErrorBehaviorStateMachine) semanticObject); 
@@ -371,6 +378,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE:
 				if(context == grammarAccess.getAnnexSubclauseRule() ||
 				   context == grammarAccess.getEBSMUseContextRule() ||
+				   context == grammarAccess.getElementRule() ||
 				   context == grammarAccess.getErrorModelSubclauseRule() ||
 				   context == grammarAccess.getModalElementRule() ||
 				   context == grammarAccess.getTypeUseContextRule()) {
@@ -595,7 +603,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.TYPE_MAPPING_SET:
-				if(context == grammarAccess.getNamedElementRule() ||
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getNamedElementRule() ||
 				   context == grammarAccess.getTypeMappingSetRule() ||
 				   context == grammarAccess.getTypeUseContextRule()) {
 					sequence_TypeMappingSet(context, (TypeMappingSet) semanticObject); 
@@ -655,7 +664,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.TYPE_TRANSFORMATION_SET:
-				if(context == grammarAccess.getNamedElementRule() ||
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getNamedElementRule() ||
 				   context == grammarAccess.getTypeTransformationSetRule() ||
 				   context == grammarAccess.getTypeUseContextRule()) {
 					sequence_TypeTransformationSet(context, (TypeTransformationSet) semanticObject); 

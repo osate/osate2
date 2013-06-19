@@ -6,8 +6,11 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import org.osate.aadl2.Aadl2Package;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
@@ -2742,7 +2745,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		transitionBranchEClass.getESuperTypes().add(theAadl2Package.getElement());
 		connectionErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
 		connectionErrorSourceEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
+		ebsmUseContextEClass.getESuperTypes().add(theAadl2Package.getElement());
 		ebsmUseContextEClass.getESuperTypes().add(this.getTypeUseContext());
+		typeUseContextEClass.getESuperTypes().add(theAadl2Package.getElement());
 		componentErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
 		conditionExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());
 		ormoreExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());

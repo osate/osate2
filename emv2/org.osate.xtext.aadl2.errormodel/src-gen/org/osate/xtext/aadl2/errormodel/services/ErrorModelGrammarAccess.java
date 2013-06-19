@@ -4,25 +4,16 @@
 
 package org.osate.xtext.aadl2.errormodel.services;
 
+import com.google.inject.Singleton;
+import com.google.inject.Inject;
+
 import java.util.List;
 
-import org.eclipse.xtext.Action;
-import org.eclipse.xtext.Alternatives;
-import org.eclipse.xtext.Assignment;
-import org.eclipse.xtext.CrossReference;
-import org.eclipse.xtext.Grammar;
-import org.eclipse.xtext.GrammarUtil;
-import org.eclipse.xtext.Group;
-import org.eclipse.xtext.Keyword;
-import org.eclipse.xtext.ParserRule;
-import org.eclipse.xtext.RuleCall;
-import org.eclipse.xtext.TerminalRule;
-import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
+import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
-import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
+import org.eclipse.xtext.service.AbstractElementFinder.*;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
 
 @Singleton
 public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
@@ -223,6 +214,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorStateToModeMappingParserRuleCall_17 = (RuleCall)cAlternatives.eContents().get(17);
 		private final RuleCall cSubcomponentElementParserRuleCall_18 = (RuleCall)cAlternatives.eContents().get(18);
 		private final RuleCall cFeatureorPPReferenceParserRuleCall_19 = (RuleCall)cAlternatives.eContents().get(19);
+		private final RuleCall cEBSMUseContextParserRuleCall_20 = (RuleCall)cAlternatives.eContents().get(20);
+		private final RuleCall cTypeUseContextParserRuleCall_21 = (RuleCall)cAlternatives.eContents().get(21);
 		
 		//Element returns aadl2::Element:
 		//
@@ -232,7 +225,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
 		//
-		//	CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference;
+		//	CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference | EBSMUseContext |
+		//
+		//	TypeUseContext;
 		public ParserRule getRule() { return rule; }
 
 		//ElementErrorType | TypeToken | TypeTransformation | TypeMapping | PropagationPaths | QualifiedPropagationPoint |
@@ -241,7 +236,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
 		//
-		//CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference
+		//CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference | EBSMUseContext |
+		//
+		//TypeUseContext
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ElementErrorType
@@ -303,6 +300,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//FeatureorPPReference
 		public RuleCall getFeatureorPPReferenceParserRuleCall_19() { return cFeatureorPPReferenceParserRuleCall_19; }
+
+		//EBSMUseContext
+		public RuleCall getEBSMUseContextParserRuleCall_20() { return cEBSMUseContextParserRuleCall_20; }
+
+		//TypeUseContext
+		public RuleCall getTypeUseContextParserRuleCall_21() { return cTypeUseContextParserRuleCall_21; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -4863,7 +4866,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
 	//
-	//	CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference;
+	//	CompositeState | ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference | EBSMUseContext |
+	//
+	//	TypeUseContext;
 	public ElementElements getElementAccess() {
 		return (pElement != null) ? pElement : (pElement = new ElementElements());
 	}
@@ -5736,17 +5741,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
 	} 
 
-	//terminal INTEGER_LIT:
-	//
-	//	"0".."9"+;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TerminalRule getINTEGER_LITRule() {
 		return (tINTEGER_LIT != null) ? tINTEGER_LIT : (tINTEGER_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INTEGER_LIT"));
 	} 
 
-	////('.' ID )?;
-	// QEMREF:
-	//
-	//	(ID "::")* ID;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public QEMREFElements getQEMREFAccess() {
 		return (pQEMREF != null) ? pQEMREF : (pQEMREF = new QEMREFElements());
 	}

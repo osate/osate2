@@ -2,6 +2,7 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
+import org.osate.aadl2.Element;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +14,6 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  * @model
  * @generated
  */
-public interface EBSMUseContext extends TypeUseContext
+public interface EBSMUseContext extends Element, TypeUseContext
 {
 } // EBSMUseContext

@@ -2105,7 +2105,15 @@ public class EMV2Util {
 	 * @return ErrorBehaviorStateMachine
 	 */
 	public static ErrorBehaviorStateMachine getUseBehavior(EBSMUseContext context){
-		if (context instanceof ErrorModelSubclause) return ((ErrorModelSubclause)context).getUseBehavior();
+		if (context instanceof ErrorModelSubclause) {
+			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
+			for (ErrorModelSubclause errorModelSubclause : emslist) {
+				ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+				if (ebsm!= null){
+					return ebsm;
+				}
+			}
+		}
 		return null;
 	}
 	
@@ -2115,7 +2123,15 @@ public class EMV2Util {
 	 * @return EList<ErrorModelLibrary>
 	 */
 	public static EList<ErrorModelLibrary> getUseTypes(TypeUseContext context){
-		if (context instanceof ErrorModelSubclause) return ((ErrorModelSubclause)context).getUseTypes();
+		if (context instanceof ErrorModelSubclause) {
+			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
+			for (ErrorModelSubclause errorModelSubclause : emslist) {
+				EList<ErrorModelLibrary> eml = errorModelSubclause.getUseTypes();
+				if (!eml.isEmpty()){
+					return eml;
+				}
+			}
+		}
 		if (context instanceof TypeTransformationSet) return ((TypeTransformationSet)context).getUseTypes();
 		if (context instanceof TypeMappingSet) return ((TypeMappingSet)context).getUseTypes();
 		if (context instanceof ErrorBehaviorStateMachine) return ((ErrorBehaviorStateMachine)context).getUseTypes();

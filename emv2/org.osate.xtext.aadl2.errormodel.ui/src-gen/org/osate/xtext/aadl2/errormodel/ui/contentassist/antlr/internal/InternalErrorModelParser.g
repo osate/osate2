@@ -1444,6 +1444,32 @@ finally {
 
 
 
+// Entry rule entryRuleTypeUseContext
+entryRuleTypeUseContext 
+:
+{ before(grammarAccess.getTypeUseContextRule()); }
+	 ruleTypeUseContext
+{ after(grammarAccess.getTypeUseContextRule()); } 
+	 EOF 
+;
+
+// Rule TypeUseContext
+ruleTypeUseContext 
+    @init {
+		int stackSize = keepStackSize();
+    }
+    :
+(
+{ before(grammarAccess.getTypeUseContextAccess().getAlternatives()); }
+(rule__TypeUseContext__Alternatives)
+{ after(grammarAccess.getTypeUseContextAccess().getAlternatives()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 
 
 // Entry rule entryRuleComponentErrorBehavior
@@ -3548,6 +3574,39 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__TypeUseContext__Alternatives
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTypeUseContextAccess().getTypeTransformationSetParserRuleCall_0()); }
+	ruleTypeTransformationSet
+{ after(grammarAccess.getTypeUseContextAccess().getTypeTransformationSetParserRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getTypeUseContextAccess().getTypeMappingSetParserRuleCall_1()); }
+	ruleTypeMappingSet
+{ after(grammarAccess.getTypeUseContextAccess().getTypeMappingSetParserRuleCall_1()); }
+)
+
+    |(
+{ before(grammarAccess.getTypeUseContextAccess().getErrorBehaviorStateMachineParserRuleCall_2()); }
+	ruleErrorBehaviorStateMachine
+{ after(grammarAccess.getTypeUseContextAccess().getErrorBehaviorStateMachineParserRuleCall_2()); }
+)
+
+    |(
+{ before(grammarAccess.getTypeUseContextAccess().getEBSMUseContextParserRuleCall_3()); }
+	ruleEBSMUseContext
+{ after(grammarAccess.getTypeUseContextAccess().getEBSMUseContextParserRuleCall_3()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 rule__ConditionTerm__Alternatives
     @init {

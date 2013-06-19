@@ -3,6 +3,9 @@
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import org.eclipse.emf.ecore.EClass;
+
+import org.osate.aadl2.impl.ElementImpl;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
@@ -15,7 +18,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  *
  * @generated
  */
-public class EBSMUseContextImpl extends TypeUseContextImpl implements EBSMUseContext
+public class EBSMUseContextImpl extends ElementImpl implements EBSMUseContext
 {
   /**
 	 * <!-- begin-user-doc -->

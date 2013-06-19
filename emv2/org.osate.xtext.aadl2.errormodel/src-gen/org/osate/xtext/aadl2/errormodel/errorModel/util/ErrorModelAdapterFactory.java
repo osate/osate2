@@ -4,67 +4,18 @@ package org.osate.xtext.aadl2.errormodel.errorModel.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
+
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
 import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelGrammarRoot;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.*;
 
 /**
  * <!-- begin-user-doc -->

@@ -4,8 +4,8 @@
  */
 package org.osate.xtext.aadl2.errormodel.ui;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.ui.DefaultUiModule;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Manual modifications go to {org.osate.xtext.aadl2.errormodel.ui.ErrorModelUiModule}

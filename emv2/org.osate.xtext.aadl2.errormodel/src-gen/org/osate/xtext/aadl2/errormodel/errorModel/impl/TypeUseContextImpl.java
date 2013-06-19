@@ -3,7 +3,9 @@
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.osate.aadl2.impl.ElementImpl;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 
@@ -16,7 +18,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
  *
  * @generated
  */
-public class TypeUseContextImpl extends MinimalEObjectImpl.Container implements TypeUseContext
+public class TypeUseContextImpl extends ElementImpl implements TypeUseContext
 {
   /**
 	 * <!-- begin-user-doc -->
