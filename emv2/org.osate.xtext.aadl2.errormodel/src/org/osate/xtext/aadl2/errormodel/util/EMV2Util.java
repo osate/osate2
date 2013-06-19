@@ -2089,6 +2089,8 @@ public class EMV2Util {
 				if (tms != null){
 					result = EM2TypeSetUtil.mapTypeToken(sourceToken, tms);
 				}
+			} else {
+				result = ttup;
 			}
 		} else if (path instanceof FlowSpecificationInstance){
 			// pass on source token

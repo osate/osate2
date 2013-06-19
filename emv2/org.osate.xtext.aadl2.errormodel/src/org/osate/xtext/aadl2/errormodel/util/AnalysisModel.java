@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.VirtualBus;
@@ -100,11 +101,12 @@ public class AnalysisModel {
 		ComponentInstance srcCI = null;
 		ErrorPropagation dstprop = null;
 		ComponentInstance dstCI = null;
+		EList<ConnectionReference> addlconnref = new BasicEList<ConnectionReference>();
 		for (ConnectionReference connectionReference : connrefs) {
 			ConnectionInstanceEnd src = connectionReference.getSource();
 			ConnectionInstanceEnd dst = connectionReference.getDestination();
 			if (srcprop == null){ 
-				if( src instanceof FeatureInstance){
+				if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()){
 					// remember the first src with EP
 					srcCI = ((FeatureInstance)src).getContainingComponentInstance();
 					srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
@@ -112,9 +114,26 @@ public class AnalysisModel {
 					srcCI = (ComponentInstance) src;
 					srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
 				}
-			} 
+			} else {
+				if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()
+						&&EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src) != null){
+					// remember the first src with EP
+					EList<FeatureInstance> flist = ((FeatureInstance)src).getContainingComponentInstance().getFeatureInstances();
+					for (FeatureInstance featureInstance : flist) {
+						if (EMV2Util.getIncomingErrorPropagation(featureInstance) != null){
+							addlconnref.add(connectionReference);
+							break;
+						}
+					}
+				} else if (src instanceof ComponentInstance){
+					if( EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) != null){
+						addlconnref.add(connectionReference);
+						break;
+					}
+				}
+			}
 			// we have source. now find destination
-			if (dst instanceof FeatureInstance){
+			if (dst instanceof FeatureInstance && ((FeatureInstance)dst).getDirection().incoming() ){
 				ErrorPropagation founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance)dst);
 				if (founddst != null){
 					// remember the last destination with EP
@@ -131,9 +150,24 @@ public class AnalysisModel {
 			}
 		}
 		if (srcprop!= null && dstprop!=null){
-			propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop));
+			PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop);
+			propagationPaths.add(path);
 			subcomponents.add(srcCI);
 			subcomponents.add(dstCI);
+			for (ConnectionReference connref : addlconnref) {
+				ConnectionInstanceEnd src = connref.getSource();
+				if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()){
+					// remember the first src with EP
+					srcCI = ((FeatureInstance)src).getContainingComponentInstance();
+					srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
+				} else if (src instanceof ComponentInstance){
+					srcCI = (ComponentInstance) src;
+					srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
+				}
+				path = new PropagationPath(srcCI, srcprop, dstCI, dstprop);
+				propagationPaths.add(path);
+				subcomponents.add(srcCI);
+			}
 		}
 	}
 	
