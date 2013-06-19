@@ -364,6 +364,11 @@ public class PropagateErrorSources {
 	 * @param conni
 	 */
 	protected void traceErrorPaths(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText){
+		// TODO this is the place where we can limit the depth of propagation path generation
+//		if (depth > maxLevel){
+//			reportEntry(entryText+" <more>,,", depth);
+//			return;
+//		}
 		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
 		String effectText = ", "+generateErrorPropText(ep,tt);
 		if (paths.isEmpty()){
