@@ -410,8 +410,9 @@ public class PropagateErrorSources {
 
 						if (! treated.contains(opc.getState()))
 						{
+							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef);
 							treated.add(opc.getState());
-							traceErrorPaths(ci,outp,EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef),depth+1,entryText+", "+generateErrorPropText(outp,outp.getTypeSet().getElementType().get(0)));
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateErrorPropText(outp,newtt));
 						}
 					}
 					handled = true;
@@ -420,7 +421,8 @@ public class PropagateErrorSources {
 			else if (ef instanceof ErrorPath){ // error path
 				if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)){
 					ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
-					traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,ef),depth+1,entryText+", "+generateErrorPropText( outp,tt));
+					TypeToken newtt = EMV2Util.mapToken(tt,ef);
+					traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateErrorPropText( outp,newtt));
 					handled = true;
 				}
 			} 
@@ -435,14 +437,16 @@ public class PropagateErrorSources {
 						FeatureInstance outfi = flowSpecificationInstance.getDestination();
 						if (outfi != null){
 							ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
-							traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,flowSpecificationInstance),depth+1,entryText+", "+generateErrorPropText(outp,tt)+" [FlowPath]");
+							TypeToken newtt = EMV2Util.mapToken(tt,flowSpecificationInstance);
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateErrorPropText(outp,newtt)+" [FlowPath]");
 						} else {
 							// do all since we have a flow sink
 							EList<FeatureInstance> filist = ci.getFeatureInstances();
 							for (FeatureInstance fi : filist) {
 								if (fi.getDirection().outgoing()){
+									TypeToken newtt = EMV2Util.mapToken(tt,null);
 									ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
-									traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,null),depth+1,entryText+","+generateErrorPropText(outp,tt)+" [SinkAll]");
+									traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateErrorPropText(outp,newtt)+" [FlowSink]");
 								}
 							}
 						}
@@ -454,7 +458,8 @@ public class PropagateErrorSources {
 				for (FeatureInstance fi : filist) {
 					if (fi.getDirection().outgoing()){
 						ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
-						traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,null),depth+1,entryText+","+generateErrorPropText(outp,tt)+" [AllOut]");
+						TypeToken newtt = EMV2Util.mapToken(tt,null);
+						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateErrorPropText(outp,newtt)+" [AllOut]");
 					}
 				}
 			}

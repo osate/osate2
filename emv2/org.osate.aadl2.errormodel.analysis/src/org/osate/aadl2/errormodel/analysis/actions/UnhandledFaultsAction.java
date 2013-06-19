@@ -71,7 +71,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		}
 		else return;
 
-		setTXTLog("UnhandledFaults", si);
+		setCSVLog("UnhandledFaults", si);
 		AnalysisModel model = new AnalysisModel(si);
 		EList<PropagationPath> pathlist = model.getPropagationPaths();
 		for (PropagationPath path : pathlist) {
@@ -95,6 +95,9 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			if (srccontain == null && src instanceof FeatureInstance){
 				srccontain = EMV2Util.getOutgoingErrorContainment((FeatureInstance)src);
 			}
+			// determine outgoing and find outgoing. if incoming then incoming.
+			// once matched, make dst the source and look for the next dst with prop/containment
+//			connectionReference.getConnection().ge
 			if (dst instanceof FeatureInstance){
 				ErrorPropagation founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance)dst);
 				if (founddst != null){
