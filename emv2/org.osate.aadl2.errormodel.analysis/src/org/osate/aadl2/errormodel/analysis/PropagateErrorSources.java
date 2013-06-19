@@ -74,7 +74,7 @@ public class PropagateErrorSources {
 	protected WriteToFile report ;
 	protected AnalysisModel faultModel ;
 	protected EList<EObject> visited ;
-	protected int maxLevel = 5;
+	protected int maxLevel = 10;
 
 	public PropagateErrorSources(String reportType, ComponentInstance root){
 		report = new WriteToFile(reportType, root);
@@ -127,7 +127,7 @@ public class PropagateErrorSources {
 		for (int i = 2; i <= this.maxLevel; i++) {
 			report.addOutput(", Failure Mode, "+(i==2?"second":i==3?"third":Integer.toString(i)+"th")+" Level Effect");
 		}
-		report.addOutputNewline(", Severity");	
+		report.addOutputNewline("");	
 	}
 	
 	
@@ -137,11 +137,11 @@ public class PropagateErrorSources {
 	 * @param curLevel last level reported
 	 */
 	public void reportEntry(String entryText,int curLevel){
-		report.addOutput(entryText);
-		for (int i = curLevel; i < maxLevel; i++) {
-			report.addOutput(", , ");
-		}
-		report.addOutputNewline(", "+"Severe");	
+		report.addOutputNewline(entryText);
+//		for (int i = curLevel; i < maxLevel; i++) {
+//			report.addOutput(", , ");
+//		}
+//		report.addOutputNewline(", "+"Severe");	
 	}
 
 	/**
@@ -337,6 +337,27 @@ public class PropagateErrorSources {
 					(tt!=null?" "+EMV2Util.getPrintName(tt):""));
 	}
 	
+	/**
+	 * report on Failure mode.
+	 * note: error propagation ep can be null.
+	 * @param io Instance Object
+	 * @param ep Error Propagation
+	 */
+	public String generateFailureModeText( ComponentInstance ci,ErrorPropagation ep, TypeToken tt){
+			return  generateComponentErrorPropText(ci,ep,tt);//generateErrorPropText(ep, tt);
+	}
+	
+	/**
+	 * report on ci object with optional error propagation.
+	 * note: error propagation ep can be null.
+	 * @param io Instance Object
+	 * @param ep Error Propagation
+	 */
+	public String generateComponentErrorPropText( ComponentInstance ci,ErrorPropagation ep, TypeToken tt){
+			return generateItemText(ci)+"."+
+					generateErrorPropText(ep, tt);
+	}
+	
 	
 	/**
 	 * traverse through the destination of the connection instance 
@@ -393,7 +414,7 @@ public class PropagateErrorSources {
 					 * Here, we do not have any additional error propagation, we mark it as a sink.
 					 */
 					if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)){
-						String maskText = ", "+generateErrorPropText(ep,tt)+" [Masked],";
+						String maskText = ", "+generateFailureModeText(ci,ep,tt)+" [Masked],";
 						reportEntry(entryText+maskText, depth);
 						handled = true;
 					}
@@ -412,7 +433,7 @@ public class PropagateErrorSources {
 						{
 							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef);
 							treated.add(opc.getState());
-							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateErrorPropText(outp,newtt));
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci,outp,newtt));
 						}
 					}
 					handled = true;
@@ -422,7 +443,7 @@ public class PropagateErrorSources {
 				if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)){
 					ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
 					TypeToken newtt = EMV2Util.mapToken(tt,ef);
-					traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateErrorPropText( outp,newtt));
+					traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, outp,newtt));
 					handled = true;
 				}
 			} 
@@ -438,7 +459,7 @@ public class PropagateErrorSources {
 						if (outfi != null){
 							ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
 							TypeToken newtt = EMV2Util.mapToken(tt,flowSpecificationInstance);
-							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateErrorPropText(outp,newtt)+" [FlowPath]");
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci,outp,newtt)+" [FlowPath]");
 						} else {
 							// do all since we have a flow sink
 							EList<FeatureInstance> filist = ci.getFeatureInstances();
@@ -446,7 +467,7 @@ public class PropagateErrorSources {
 								if (fi.getDirection().outgoing()){
 									TypeToken newtt = EMV2Util.mapToken(tt,null);
 									ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
-									traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateErrorPropText(outp,newtt)+" [FlowSink]");
+									traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,outp,newtt)+" [FlowSink]");
 								}
 							}
 						}
@@ -459,7 +480,7 @@ public class PropagateErrorSources {
 					if (fi.getDirection().outgoing()){
 						ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
 						TypeToken newtt = EMV2Util.mapToken(tt,null);
-						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateErrorPropText(outp,newtt)+" [AllOut]");
+						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,outp,newtt)+" [AllOut]");
 					}
 				}
 			}
