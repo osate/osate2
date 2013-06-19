@@ -150,7 +150,7 @@ public class AnalysisModel {
 			}
 		}
 		if (srcprop!= null && dstprop!=null){
-			PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop);
+			PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 			propagationPaths.add(path);
 			subcomponents.add(srcCI);
 			subcomponents.add(dstCI);
@@ -164,7 +164,7 @@ public class AnalysisModel {
 					srcCI = (ComponentInstance) src;
 					srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
 				}
-				path = new PropagationPath(srcCI, srcprop, dstCI, dstprop);
+				path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 				propagationPaths.add(path);
 				subcomponents.add(srcCI);
 			}
@@ -224,7 +224,7 @@ public class AnalysisModel {
 		if (BRsrcprop != null && BCdstprop != null ){
 			if(EM2TypeSetUtil.contains(BRsrcprop.getTypeSet(), BCdstprop.getTypeSet()))
 			{
-				propagationPaths.add(new PropagationPath(boundResource, BRsrcprop, comp, BCdstprop));
+				propagationPaths.add(new PropagationPath(boundResource, BRsrcprop, comp, BCdstprop,null));
 				added = true;
 			} else {
 				// error message about mismatch of type set
@@ -235,7 +235,7 @@ public class AnalysisModel {
 		 if (BCsrcprop != null && BRdstprop!=null){
 			 if (EM2TypeSetUtil.contains(BCsrcprop.getTypeSet(), BRdstprop.getTypeSet()))
 			 {
-				 propagationPaths.add(new PropagationPath(comp, BCsrcprop, boundResource, BRdstprop));
+				 propagationPaths.add(new PropagationPath(comp, BCsrcprop, boundResource, BRdstprop,null));
 				 added = true;
 			 } else {
 				 // error message about mismatch of type set
@@ -320,7 +320,7 @@ public class AnalysisModel {
 			}
 		}
 		if (srcprop!= null && dstprop!= null){
-			propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop));
+			propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance));
 			subcomponents.add(srcCI);
 			subcomponents.add(dstCI);
 		}

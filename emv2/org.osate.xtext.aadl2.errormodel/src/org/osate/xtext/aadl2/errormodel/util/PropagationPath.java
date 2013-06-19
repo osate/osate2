@@ -2,6 +2,7 @@ package org.osate.xtext.aadl2.errormodel.util;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 /**
  * Directional propagation path
@@ -12,13 +13,15 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 public class PropagationPath {
 	PropagationPathEnd pathSrc;
 	PropagationPathEnd pathDst;
+	ConnectionInstance conni;
 	
 	
 	public PropagationPath(
 			ComponentInstance srcCI, ErrorPropagation srcEP,
-			ComponentInstance dstCI, ErrorPropagation dstEP) {
+			ComponentInstance dstCI, ErrorPropagation dstEP, ConnectionInstance conni) {
 		this.pathSrc = new PropagationPathEnd(srcCI, srcEP);
 		this.pathDst = new PropagationPathEnd(dstCI, dstEP);
+		this.conni = conni;
 	}
 	
 	
@@ -27,6 +30,7 @@ public class PropagationPath {
 			ComponentInstance dstCI, ErrorPropagation dstEP) {
 		this.pathSrc = new PropagationPathEnd(srcConni, null);
 		this.pathDst = new PropagationPathEnd(dstCI, dstEP);
+		this.conni = null;
 	}
 	
 	public PropagationPath(
@@ -34,8 +38,13 @@ public class PropagationPath {
 			ConnectionInstance dstConni) {
 		this.pathSrc = new PropagationPathEnd(srcCI, srcEP);
 		this.pathDst = new PropagationPathEnd(dstConni, null);
+		this.conni = null;
 	}
 	
+	
+	public ConnectionInstance getConnectionInstance() {
+		return conni;
+	}
 	
 	public PropagationPathEnd getPathSrc() {
 		return pathSrc;

@@ -177,12 +177,12 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
 		if (srcprop != null && dstprop != null){
 			if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
-				error(path.getSrcCI(),"Outgoing propagation  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+				error(path.getConnectionInstance()!=null?path.getConnectionInstance():path.getSrcCI(),"Outgoing propagation  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
 		if ( dstprop == null   && srcprop != null){
 				// has an EMV2 subclause but no propagation specification for the feature
-				error(path.getSrcCI(),"Connection target has no error propagation/containment but source does: "+EMV2Util.getPrintName(srcprop));
+				error(path.getConnectionInstance()!=null?path.getConnectionInstance():path.getSrcCI(),"Connection target has no error propagation/containment but source does: "+EMV2Util.getPrintName(srcprop));
 		}
 	}
 
