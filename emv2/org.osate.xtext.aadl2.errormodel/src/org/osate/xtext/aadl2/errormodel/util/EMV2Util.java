@@ -1781,8 +1781,8 @@ public class EMV2Util {
 	 */
 	public static Collection<NamedElement> getAllNamedElements(ErrorModelSubclause ems){
 		Collection<NamedElement> result = new BasicEList<NamedElement>();
-//		ErrorPropagations props = ems.getErrorPropagations();
-//		getAllNamedElements(props, result);
+		ErrorPropagations props = ems.getErrorPropagations();
+		getAllNamedElements(props, result);
 		ComponentErrorBehavior ceb = ems.getComponentBehavior();
 		getAllNamedElements(ceb, result);
 		return result;
