@@ -438,7 +438,7 @@ public class PropagateErrorSources {
 						{
 							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef);
 							treated.add(opc.getState());
-							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci,outp,newtt));
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci,ep,tt));
 						}
 					}
 					handled = true;
@@ -448,7 +448,7 @@ public class PropagateErrorSources {
 				if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)){
 					ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
 					TypeToken newtt = EMV2Util.mapToken(tt,ef);
-					traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, outp,newtt));
+					traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt));
 					handled = true;
 				}
 			} 
@@ -464,7 +464,7 @@ public class PropagateErrorSources {
 						if (outfi != null){
 							ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
 							TypeToken newtt = EMV2Util.mapToken(tt,flowSpecificationInstance);
-							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci,outp,newtt)+" [FlowPath]");
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci,ep,tt)+" [FlowPath]");
 						} else {
 							// do all since we have a flow sink
 							EList<FeatureInstance> filist = ci.getFeatureInstances();
@@ -472,7 +472,7 @@ public class PropagateErrorSources {
 								if (fi.getDirection().outgoing()){
 									TypeToken newtt = EMV2Util.mapToken(tt,null);
 									ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
-									traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,outp,newtt)+" [FlowSink]");
+									traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [FlowSink]");
 								}
 							}
 						}
@@ -485,7 +485,7 @@ public class PropagateErrorSources {
 					if (fi.getDirection().outgoing()){
 						ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
 						TypeToken newtt = EMV2Util.mapToken(tt,null);
-						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,outp,newtt)+" [AllOut]");
+						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
 					}
 				}
 			}
