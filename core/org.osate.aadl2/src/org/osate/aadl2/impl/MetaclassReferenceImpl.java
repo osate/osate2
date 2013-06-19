@@ -268,7 +268,6 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 				metaclass = Aadl2Package.eINSTANCE.getNamedElement();
 				return metaclass;
 			}
-			OsateDebug.osateDebug("metaclass = "+metaclassName.toString());
 			EPackage pack = Aadl2Package.eINSTANCE;
 			if (getAnnexName()!=null ){
 				pack = getAnnexEPackage(getAnnexName());
