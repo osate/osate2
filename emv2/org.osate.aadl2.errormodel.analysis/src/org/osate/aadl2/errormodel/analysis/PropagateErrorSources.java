@@ -74,7 +74,7 @@ public class PropagateErrorSources {
 	protected WriteToFile report ;
 	protected AnalysisModel faultModel ;
 	protected EList<EObject> visited ;
-	protected int maxLevel = 10;
+	protected int maxLevel = 7;
 
 	public PropagateErrorSources(String reportType, ComponentInstance root){
 		report = new WriteToFile(reportType, root);
@@ -127,7 +127,7 @@ public class PropagateErrorSources {
 		for (int i = 2; i <= this.maxLevel; i++) {
 			report.addOutput(", Failure Mode, "+(i==2?"second":i==3?"third":Integer.toString(i)+"th")+" Level Effect");
 		}
-		report.addOutputNewline("");	
+		report.addOutputNewline(", More");	
 	}
 	
 	
