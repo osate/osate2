@@ -395,7 +395,7 @@ public class PropagateErrorSources {
 			String connText=" -> "+generateItemText(destci);
 			traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
 		}
-		removeVisitedToken(ci, tt);
+		removeVisitedToken(fi, tt);
 	}
 	
 	
