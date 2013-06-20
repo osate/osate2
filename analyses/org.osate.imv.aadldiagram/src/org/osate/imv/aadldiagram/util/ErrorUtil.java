@@ -41,12 +41,17 @@ public class ErrorUtil {
 	
 	private static AnalysisModel analysisModel;
 	private static Map<ComponentInstance,Integer> factorCache;
+	private static Map<String,Boolean> localCache;
 	
 	public static void generateAnalysisModel(ComponentInstance ci)
 	{
 		//OsateDebug.osateDebug("generate analysis model with ci=" + ci.getName());
 		analysisModel = new AnalysisModel(ci);
 		factorCache   = new HashMap<ComponentInstance, Integer>();
+		for (ComponentInstance tmp : analysisModel.getSubcomponents())
+		{
+			factorCache.put(tmp, getFactorWithPath(tmp));
+		}
 	}
 	
 	public static void setCacheValue (ComponentInstance ci, int v)
@@ -57,6 +62,7 @@ public class ErrorUtil {
 	
 	public static int getFactorWithPath (ComponentInstance componentTarget)
 	{
+		
 		if (componentTarget == null)
 		{
 			return INVALID_FACTOR;
@@ -66,7 +72,9 @@ public class ErrorUtil {
 		{
 			return factorCache.get(componentTarget);
 		}
-		
+		//for (ComponentInstanceanalysisModel.getSubcomponents()
+		OsateDebug.osateDebug( "Computing factor for comp " + componentTarget.getName());
+		localCache   = new HashMap<String, Boolean>();
 		return (getFactorWithPath(AadlPersistentDiagramViewer.getErrorComponent(), componentTarget, 1));
 	}
 	
@@ -88,7 +96,12 @@ public class ErrorUtil {
 		{
 			return factorCache.get(componentTarget);
 		}
-		
+		String t = componentSource.getName() + componentTarget.getName();
+		if (localCache.containsKey(t))
+		{
+			return INVALID_FACTOR;
+		}
+		localCache.put(t,true);
 		
 		if (componentSource == componentTarget)
 		{
@@ -97,14 +110,7 @@ public class ErrorUtil {
 		
 //		OsateDebug.osateDebug("componentSource = " + componentSource);
 //		OsateDebug.osateDebug("componentDestination = " + componentTarget);
-		ComponentInstance errorComponent;
-		
-		errorComponent = AadlPersistentDiagramViewer.getErrorComponent();
-		
-		if (errorComponent == null)
-		{
-			return INVALID_FACTOR;
-		}
+
 		
 		
 		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(componentSource.getComponentClassifier());
@@ -117,11 +123,20 @@ public class ErrorUtil {
 			//	OsateDebug.osateDebug("ef classifier="+ef.getContainingClassifier());
 				//OsateDebug.osateDebug("ef ="+ef); 
 				
-				if (ef instanceof ErrorSource)
+				//if (ef instanceof ErrorSource) 
+				if ((ef instanceof ErrorSource) || (ef instanceof ErrorPath))
 				{
+					ErrorPropagation outp = null;
+				
 				//	OsateDebug.osateDebug("e" + ef);
-
-					ErrorPropagation outp = ((ErrorSource)ef).getOutgoing();
+					if (ef instanceof ErrorSource)
+					{
+						outp = ((ErrorSource)ef).getOutgoing();
+					}
+					if (ef instanceof ErrorPath)
+					{
+						outp = ((ErrorPath)ef).getOutgoing();
+					}
 					List<PropagationPathEnd> ppes = analysisModel.getAllPropagationDestinationEnds(componentSource, outp);
 					//OsateDebug.osateDebug("outp" + ((ErrorSource)ef).getOutgoing());
 				
@@ -136,9 +151,21 @@ public class ErrorUtil {
 					}
 				}
 				
-				if (ef instanceof ErrorSink)
+				if ( (ef instanceof ErrorSink) || (ef instanceof ErrorPath))
+				//if (ef instanceof ErrorSink)
 				{
-					ErrorPropagation ep = ((ErrorSink)ef).getIncoming();
+					ErrorPropagation ep = null;
+				
+					if (ef instanceof ErrorSink)
+					{
+						ep = ((ErrorSink)ef).getIncoming();
+					}
+					
+					if (ef instanceof ErrorPath)
+					{
+						ep = ((ErrorPath)ef).getIncoming();
+					}
+					
 				//	OsateDebug.osateDebug("classifier="+ef.getContainingClassifier());
 					EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util.getAdditionalOutgoingPropagation (componentSource, ep);
 					// process should have returned false, but for safety we check again
@@ -152,17 +179,21 @@ public class ErrorUtil {
 					}
 					else
 					{
+						//OsateDebug.osateDebug( "   additional= " + additionalPropagations);
 						/**
 						 * We continue to trace the propagation flows
 						 * based on the additional errors propagated.
 						 */
 						for (OutgoingPropagationCondition opc : additionalPropagations)
 						{
+							//OsateDebug.osateDebug( "      opc= " + opc);
+
 							ErrorPropagation outp = opc.getOutgoing();
 							List<PropagationPathEnd> ppes = analysisModel.getAllPropagationDestinationEnds(componentSource, outp);
 
 							for(PropagationPathEnd ppe : ppes)
 							{
+								//OsateDebug.osateDebug( "      ppe comp= " + ppe.getComponentInstance());
 								int factor = getFactorWithPath (ppe.getComponentInstance(), componentTarget, scale + 1);
 								if (factor != INVALID_FACTOR)
 								{
@@ -178,12 +209,15 @@ public class ErrorUtil {
 						}
 					}
 				}
-				else if (ef instanceof ErrorPath){ // error path
+				
+				
+				if (ef instanceof ErrorPath){ // error path
 					if (ef.getContainingClassifier() == componentTarget.getComponentClassifier())
 					{
 					//	OsateDebug.osateDebug("eror path on ="+componentSource);
 						return MAX_FACTOR / scale;
 					}
+					
 //					traceErrorPaths(ci,outp,EMV2Util.mapToken(tt,ef),depth+1,entryText+", "+generateEffectText(ci, outp,tt));
 				} 
 			}}
