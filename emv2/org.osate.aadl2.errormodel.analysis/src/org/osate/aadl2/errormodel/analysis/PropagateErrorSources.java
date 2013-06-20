@@ -394,7 +394,7 @@ public class PropagateErrorSources {
 		{
 			return;
 		}
-		List<ErrorBehaviorState> treated = new ArrayList<ErrorBehaviorState>();
+		List<ErrorPropagation> treated = new ArrayList<ErrorPropagation>();
 
 		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
 		boolean handled = false;
@@ -434,11 +434,14 @@ public class PropagateErrorSources {
 					{
 						ErrorPropagation outp = opc.getOutgoing();
 
-						if (! treated.contains(opc.getState()))
+						/**
+						 * We try to address all potential error propagation cases.
+						 */
+						if (! treated.contains(outp))
 						{
 							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef);
-							treated.add(opc.getState());
-							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci,ep,tt));
+							treated.add(outp);
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", from state " + opc.getState().getName() +" " +generateFailureModeText(ci,ep,tt));
 						}
 					}
 					handled = true;
