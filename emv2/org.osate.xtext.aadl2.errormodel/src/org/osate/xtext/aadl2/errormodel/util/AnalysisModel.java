@@ -169,6 +169,76 @@ public class AnalysisModel {
 				subcomponents.add(srcCI);
 			}
 		}
+		if (connectionInstance.isBidirectional()){
+			for (int i= connrefs.size()-1; i>= 0 ;i--) {
+				ConnectionReference connectionReference = connrefs.get(i);
+				ConnectionInstanceEnd dst = connectionReference.getSource();
+				ConnectionInstanceEnd src = connectionReference.getDestination();
+				if (srcprop == null){ 
+					if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()){
+						// remember the first src with EP
+						srcCI = ((FeatureInstance)src).getContainingComponentInstance();
+						srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
+					} else if (src instanceof ComponentInstance){
+						srcCI = (ComponentInstance) src;
+						srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
+					}
+				} else {
+					if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()
+							&&EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src) != null){
+						// remember the first src with EP
+						EList<FeatureInstance> flist = ((FeatureInstance)src).getContainingComponentInstance().getFeatureInstances();
+						for (FeatureInstance featureInstance : flist) {
+							if (EMV2Util.getIncomingErrorPropagation(featureInstance) != null){
+								addlconnref.add(connectionReference);
+								break;
+							}
+						}
+					} else if (src instanceof ComponentInstance){
+						if( EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) != null){
+							addlconnref.add(connectionReference);
+							break;
+						}
+					}
+				}
+				// we have source. now find destination
+				if (dst instanceof FeatureInstance && ((FeatureInstance)dst).getDirection().incoming() ){
+					ErrorPropagation founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance)dst);
+					if (founddst != null){
+						// remember the last destination with EP
+						dstprop = founddst;
+						dstCI = ((FeatureInstance)dst).getContainingComponentInstance();
+					}
+				} else if (dst instanceof ComponentInstance){
+					ErrorPropagation founddst = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance)dst);
+					if (founddst != null){
+						// remember the last destination with EP
+						dstprop = founddst;
+						dstCI = ((FeatureInstance)dst).getContainingComponentInstance();
+					}
+				}
+			}
+			if (srcprop!= null && dstprop!=null){
+				PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+				propagationPaths.add(path);
+				subcomponents.add(srcCI);
+				subcomponents.add(dstCI);
+				for (ConnectionReference connref : addlconnref) {
+					ConnectionInstanceEnd src = connref.getSource();
+					if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()){
+						// remember the first src with EP
+						srcCI = ((FeatureInstance)src).getContainingComponentInstance();
+						srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
+					} else if (src instanceof ComponentInstance){
+						srcCI = (ComponentInstance) src;
+						srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
+					}
+					path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+					propagationPaths.add(path);
+					subcomponents.add(srcCI);
+				}
+			}
+		}
 	}
 	
 	/**
