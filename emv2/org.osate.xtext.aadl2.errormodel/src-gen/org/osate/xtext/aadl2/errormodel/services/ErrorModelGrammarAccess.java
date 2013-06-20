@@ -5741,12 +5741,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
 	} 
 
-	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
+	//terminal INTEGER_LIT:
+	//
+	//	"0".."9"+;
 	public TerminalRule getINTEGER_LITRule() {
 		return (tINTEGER_LIT != null) ? tINTEGER_LIT : (tINTEGER_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INTEGER_LIT"));
 	} 
 
-	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
+	////('.' ID )?;
+	// QEMREF:
+	//
+	//	(ID "::")* ID;
 	public QEMREFElements getQEMREFAccess() {
 		return (pQEMREF != null) ? pQEMREF : (pQEMREF = new QEMREFElements());
 	}
@@ -5909,7 +5914,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ReferenceTerm returns aadl2::ReferenceValue:
 	//
-	//	"reference" "(" containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
+	//	"reference" "(" (containmentPathElement+=QualifiedContainmentPathElement ".")?
+	//
+	//	containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
 	//
 	//	//	( 'annex' ID '{**' 
 	// //	containmentPathElement+=ContainmentPathElement
@@ -6006,6 +6013,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getContainmentPathElementRule() {
 		return getContainmentPathElementAccess().getRule();
+	}
+
+	//QualifiedContainmentPathElement returns aadl2::ContainmentPathElement:
+	//
+	//	namedElement=[aadl2::NamedElement|QCLREF];
+	public PropertiesGrammarAccess.QualifiedContainmentPathElementElements getQualifiedContainmentPathElementAccess() {
+		return gaProperties.getQualifiedContainmentPathElementAccess();
+	}
+	
+	public ParserRule getQualifiedContainmentPathElementRule() {
+		return getQualifiedContainmentPathElementAccess().getRule();
 	}
 
 	//ANNEXREF: // check what values are ok inside ** **
@@ -6202,6 +6220,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	public TerminalRule getBASED_INTEGERRule() {
 		return gaProperties.getBASED_INTEGERRule();
 	} 
+
+	//QCLREF:
+	//
+	//	ID "::" ID;
+	public PropertiesGrammarAccess.QCLREFElements getQCLREFAccess() {
+		return gaProperties.getQCLREFAccess();
+	}
+	
+	public ParserRule getQCLREFRule() {
+		return getQCLREFAccess().getRule();
+	}
 
 	//QPREF:
 	//
