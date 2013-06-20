@@ -301,9 +301,15 @@ public class PropagateErrorSources {
 		}
 	}
 	
-	protected void setToken(InstanceObject io, TypeToken token){
+	protected boolean setVisitToken(InstanceObject io, TypeToken token){
 		ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
-		if (st != null) st.setToken(token);
+		if (st != null) return st.setVisitToken(token);
+		return false;
+	}
+	
+	protected void removeVisitedToken(InstanceObject io, TypeToken token){
+		ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
+		if (st != null) st.removeVisitedToken(token);
 	}
 	
 	protected TypeToken getToken(InstanceObject io){
@@ -369,6 +375,13 @@ public class PropagateErrorSources {
 //			reportEntry(entryText+" <more>,,", depth);
 //			return;
 //		}
+		FeatureInstance fi = EMV2Util.findFeatureInstance(ep, ci);
+		if (setVisitToken(fi, tt)){
+			// we were there before.
+			String effectText = ", "+generateErrorPropText(ep,tt);
+			reportEntry(entryText+effectText+" -> <Cycle>,,", depth);
+			return;
+		}
 		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
 		String effectText = ", "+generateErrorPropText(ep,tt);
 		if (paths.isEmpty()){
@@ -382,6 +395,7 @@ public class PropagateErrorSources {
 			String connText=" -> "+generateItemText(destci);
 			traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
 		}
+		removeVisitedToken(ci, tt);
 	}
 	
 	
