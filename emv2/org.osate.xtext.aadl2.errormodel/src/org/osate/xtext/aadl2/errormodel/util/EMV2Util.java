@@ -394,7 +394,7 @@ public class EMV2Util {
 					 */
 					if (obj instanceof ErrorPropagation){
 						continue;
-					}
+					} 
 					
 					if (name != null && !name.isEmpty()) {
 						name = name.toLowerCase();
@@ -1709,8 +1709,8 @@ public class EMV2Util {
 	public static Collection<OutgoingPropagationCondition> getAllOutgoingPropagationConditions(Classifier cl){
 		BasicEList<OutgoingPropagationCondition> unlist = new BasicEList<OutgoingPropagationCondition>();
 		Collection<OutgoingPropagationCondition> res = getAllOutgoingPropagationConditions(cl, unlist).values();
-		res.addAll(unlist);
-		return res;
+		unlist.addAll(res);
+		return unlist;
 	}
 	
 	public static Collection<OutgoingPropagationCondition> getAllOutgoingPropagationConditions(ComponentInstance ci)
