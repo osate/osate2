@@ -23,7 +23,7 @@ public interface ErrorModelState {
 	 * @param token
 	 * @return
 	 */
-	public boolean setVisitToken(TypeToken token);
+	public void setVisitToken(TypeToken token);
 
 	
 	/**
