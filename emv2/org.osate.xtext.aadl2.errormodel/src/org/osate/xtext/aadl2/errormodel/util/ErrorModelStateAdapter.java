@@ -16,7 +16,7 @@ public class ErrorModelStateAdapter extends AdapterImpl implements ErrorModelSta
 
 	protected ErrorBehaviorState currentErrorState;
 	
-	protected TypeSet visited = ErrorModelFactory.eINSTANCE.createTypeSet();
+	protected Collection <TypeToken> visited = new BasicEList<TypeToken>();
 
 	public TypeToken getToken(){
 		return token;
@@ -26,17 +26,13 @@ public class ErrorModelStateAdapter extends AdapterImpl implements ErrorModelSta
 		this.token = token;
 	}
 	
-	public boolean setVisitToken(TypeToken token){
-		if (EM2TypeSetUtil.contains(visited, token)){
-			return false;
-		}
+	public void setVisitToken(TypeToken token){
 		this.token = token;
-		visited.getElementType().add(token);
-		return true;
+		visited.add(token);
 	}
 	
 	public void removeVisitedToken(TypeToken token){
-		visited.getElementType().remove(token);
+		visited.remove(token);
 	}
 	
 	public void unsetToken(){
@@ -58,15 +54,20 @@ public class ErrorModelStateAdapter extends AdapterImpl implements ErrorModelSta
 	public void unsetAll(){
 		this.token = null;
 		this.currentErrorState = null;
-		this.visited.getElementType().clear();
+		this.visited.clear();
 	}
 
 	public Collection<TypeToken> getVisitedTokens() {
-		return visited.getElementType();
+		return visited;
 	}
 	
 	public boolean visited(TypeToken tt){
-		return (EM2TypeSetUtil.contains(visited, tt));
+		for(TypeToken tok: visited){
+			if (EM2TypeSetUtil.contains(tok, tt)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 

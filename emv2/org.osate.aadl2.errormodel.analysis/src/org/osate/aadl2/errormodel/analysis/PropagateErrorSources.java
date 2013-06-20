@@ -175,6 +175,11 @@ public class PropagateErrorSources {
 			
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(ci))
 			{
+				if (opc.isMask())
+				{
+					continue;
+				}
+				
 				boolean used = false;
 				for (ErrorBehaviorState s : states)
 				{
@@ -301,32 +306,6 @@ public class PropagateErrorSources {
 		}
 	}
 	
-	protected boolean setVisitToken(InstanceObject io, TypeToken token)
-	{
-		ErrorModelState st;
-		if (io == null)
-		{
-			return false;
-		}
-		
-		st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
-		if (st != null)
-		{
-			return st.setVisitToken(token);
-		}
-		return false;
-	}
-	
-	protected void removeVisitedToken(InstanceObject io, TypeToken token){
-		ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
-		if (st != null) st.removeVisitedToken(token);
-	}
-	
-	protected TypeToken getToken(InstanceObject io){
-		ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
-		return st == null?null:st.getToken();
-	}
-	
 	/**
 	 * report on io object with optional error propagation.
 	 * report on attached ErrorModelState if present
@@ -386,11 +365,19 @@ public class PropagateErrorSources {
 //			return;
 //		}
 		FeatureInstance fi = EMV2Util.findFeatureInstance(ep, ci);
-		if (setVisitToken(fi, tt)){
+		ErrorModelState st=null;
+		if (fi != null){
+			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
+		} else {
+			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(ci, ErrorModelState.class);
+		}
+		if (st.visited(tt)){
 			// we were there before.
 			String effectText = ", "+generateErrorPropText(ep,tt);
 			reportEntry(entryText+effectText+" -> <Cycle>,,", depth);
 			return;
+		} else {
+			st.setVisitToken(tt);
 		}
 		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
 		String effectText = ", "+generateErrorPropText(ep,tt);
@@ -405,7 +392,7 @@ public class PropagateErrorSources {
 			String connText=" -> "+generateItemText(destci);
 			traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
 		}
-		removeVisitedToken(ci, tt);
+		st.removeVisitedToken( tt);
 	}
 	
 	
@@ -511,8 +498,10 @@ public class PropagateErrorSources {
 				for (FeatureInstance fi : filist) {
 					if (fi.getDirection().outgoing()){
 						ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
-						TypeToken newtt = EMV2Util.mapToken(tt,null);
-						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
+						if (outp!=null){
+							TypeToken newtt = EMV2Util.mapToken(tt,null);
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
+						}
 					}
 				}
 			}
