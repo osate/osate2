@@ -301,9 +301,19 @@ public class PropagateErrorSources {
 		}
 	}
 	
-	protected boolean setVisitToken(InstanceObject io, TypeToken token){
-		ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
-		if (st != null) return st.setVisitToken(token);
+	protected boolean setVisitToken(InstanceObject io, TypeToken token)
+	{
+		ErrorModelState st;
+		if (io == null)
+		{
+			return false;
+		}
+		
+		st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
+		if (st != null)
+		{
+			return st.setVisitToken(token);
+		}
 		return false;
 	}
 	

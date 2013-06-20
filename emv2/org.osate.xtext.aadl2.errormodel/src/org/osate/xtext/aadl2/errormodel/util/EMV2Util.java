@@ -2567,6 +2567,11 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static FeatureInstance findFeatureInstance(ErrorPropagation ep, ComponentInstance ci){
+		if (ep == null)
+		{
+			return null;
+		}
+		
 		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
 		if (frefs.isEmpty()) return null;
 		InstanceObject container = ci;
