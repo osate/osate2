@@ -431,6 +431,10 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 					sequence_ContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getQualifiedContainmentPathElementRule()) {
+					sequence_QualifiedContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
+					return; 
+				}
 				else break;
 			case Aadl2Package.DATA_ACCESS:
 				if(context == grammarAccess.getDataAccessRule()) {

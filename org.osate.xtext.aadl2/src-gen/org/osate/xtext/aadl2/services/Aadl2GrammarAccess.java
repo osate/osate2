@@ -29695,7 +29695,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ReferenceTerm returns aadl2::ReferenceValue:
 	//
-	//	"reference" "(" containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
+	//	"reference" "(" (containmentPathElement+=QualifiedContainmentPathElement ".")?
+	//
+	//	containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
 	//
 	//	//	( 'annex' ID '{**' 
 	// //	containmentPathElement+=ContainmentPathElement
@@ -29792,6 +29794,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getContainmentPathElementRule() {
 		return getContainmentPathElementAccess().getRule();
+	}
+
+	//QualifiedContainmentPathElement returns aadl2::ContainmentPathElement:
+	//
+	//	namedElement=[aadl2::NamedElement|QCLREF];
+	public PropertiesGrammarAccess.QualifiedContainmentPathElementElements getQualifiedContainmentPathElementAccess() {
+		return gaProperties.getQualifiedContainmentPathElementAccess();
+	}
+	
+	public ParserRule getQualifiedContainmentPathElementRule() {
+		return getQualifiedContainmentPathElementAccess().getRule();
 	}
 
 	//ANNEXREF: // check what values are ok inside ** **
@@ -30002,6 +30015,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public TerminalRule getBASED_INTEGERRule() {
 		return gaProperties.getBASED_INTEGERRule();
 	} 
+
+	//QCLREF:
+	//
+	//	ID "::" ID;
+	public PropertiesGrammarAccess.QCLREFElements getQCLREFAccess() {
+		return gaProperties.getQCLREFAccess();
+	}
+	
+	public ParserRule getQCLREFRule() {
+		return getQCLREFAccess().getRule();
+	}
 
 	//QPREF:
 	//

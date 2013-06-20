@@ -98,6 +98,7 @@ ConstantValue returns aadl2::NamedValue:
 
 ReferenceTerm returns aadl2::ReferenceValue:
   'reference' '(' 	
+  (containmentPathElement+=QualifiedContainmentPathElement '.')?
   containmentPathElement+=ContainmentPathElement
 	( '.' containmentPathElement+=ContainmentPathElement)*
 //	( 'annex' ID '{**' 
@@ -154,6 +155,9 @@ ContainmentPathElement returns aadl2::ContainmentPathElement:
 	 ) 
 //	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	)
+;
+QualifiedContainmentPathElement returns aadl2::ContainmentPathElement:
+	namedElement=[aadl2::NamedElement|QCLREF]
 ;
 
 ANNEXREF :
@@ -254,6 +258,9 @@ EXTENDED_DIGIT     :  ( '0'..'9' | 'a'..'f' | 'A'..'F') ;
 terminal fragment
 BASED_INTEGER      :  ( EXTENDED_DIGIT ) ( ('_')? EXTENDED_DIGIT )* ;
 
+
+QCLREF:
+	ID '::' ID;
 
 
 QPREF:
