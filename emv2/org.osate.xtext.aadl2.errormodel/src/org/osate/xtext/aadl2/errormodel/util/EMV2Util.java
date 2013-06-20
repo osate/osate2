@@ -380,9 +380,22 @@ public class EMV2Util {
 				if (obj instanceof NamedElement) {
 					final NamedElement lit = (NamedElement) obj;
 					 String name = lit.getName();
+					 
+					/**
+					 * Comment code - JD
+					 */
 					if (obj instanceof ErrorPropagation && !((ErrorPropagation)obj).isNot()){
 						name = getPrintName((ErrorPropagation)obj);
 					}
+					
+					/**
+					 * FIXME-JD 
+					 * Does not try to find duplicates for error propagation
+					 */
+					if (obj instanceof ErrorPropagation){
+						continue;
+					}
+					
 					if (name != null && !name.isEmpty()) {
 						name = name.toLowerCase();
 						if (!seen.add(name)) {
