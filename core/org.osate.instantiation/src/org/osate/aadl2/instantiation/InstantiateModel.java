@@ -705,10 +705,6 @@ public class InstantiateModel {
 			}
 			newInstance.setCategory(cc.getCategory());
 		}
-		//OsateDebug.osateDebug ("instantiate sub " + sub.getName());
-		//OsateDebug.osateDebug ("   stack " + indexStack);
-		//OsateDebug.osateDebug ("   index " + index);
-		//OsateDebug.osateDebug ("   modalelem " + mm);
 
 		for (Mode mode : mm.getAllInModes()) {
 			ModeInstance mi = parent.findModeInstance(mode);
