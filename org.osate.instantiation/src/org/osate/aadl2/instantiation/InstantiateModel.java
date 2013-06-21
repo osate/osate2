@@ -1079,7 +1079,8 @@ public class InstantiateModel {
 						}
 					}
 				}
-			} else if (setPA != null) {
+			} 
+			if (setPA != null) {
 				EcoreUtil.remove(setPA);
 				// TODO-LW: modal conn set allowed?
 				List<Long> srcIndices;
