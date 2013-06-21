@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.eclipse.ui.commands">
+	   <command id="edu.uah.rsesc.aadl.age.commands.openpackagediagram" name="Open Package Diagram" defaultHandler="edu.uah.rsesc.aadl.age.handlers.OpenPackageDiagramHandler"></command>
+	   <command id="edu.uah.rsesc.aadl.age.commands.openclassifierdiagram" name="Open Classifier Diagram" defaultHandler="edu.uah.rsesc.aadl.age.handlers.OpenClassifierDiagramHandler"></command>
+   </extension>
+	   
+   <extension point="org.eclipse.ui.menus">
+   	<!--
+   		<menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">		
+			<menu id="edu.uah.rsesc.aadl.age.menu" label="AGE">
+				<command commandId="edu.uah.rsesc.aadl.age.commands.openpackagediagram" style="push"/>
+			</menu>
+		</menuContribution>
+		-->
+		<menuContribution allPopups="false" locationURI="popup:#TextEditorContext?after=additions">
+			<command commandId="edu.uah.rsesc.aadl.age.commands.openpackagediagram" style="push"/>
+			<command commandId="edu.uah.rsesc.aadl.age.commands.openclassifierdiagram" style="push"/>
+		</menuContribution>
+		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
+			<command commandId="edu.uah.rsesc.aadl.age.commands.openpackagediagram" style="push"/>
+			<command commandId="edu.uah.rsesc.aadl.age.commands.openclassifierdiagram" style="push"/>
+		</menuContribution>
+   </extension>
+	   
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypes">
+      <diagramType
+            name="AADL Package Diagram Type"
+            type="AADL Package"
+            id="edu.uah.rsesc.aadl.age.aadlPackageDiagramType">
+      </diagramType>
+      
+      <diagramType
+            name="AADL Type Diagram Type"
+            type="AADL Type"
+            id="edu.uah.rsesc.aadl.age.aadlTypeDiagramType">
+      </diagramType>
+      
+      <diagramType
+            name="AADL Component Implementation Diagram Type"
+            type="AADL Component Implementation"
+            id="edu.uah.rsesc.aadl.age.aadlComponentImplementationDiagramType">
+      </diagramType>
+   </extension>
+   
+   <extension
+         point="org.eclipse.graphiti.ui.diagramTypeProviders">
+      <diagramTypeProvider
+            name="AADL Package Diagram Type Provider"
+            class="edu.uah.rsesc.aadl.age.diagram.PackageDiagramTypeProvider"
+            id="edu.uah.rsesc.aadl.age.aadlPackageDiagramTypeProvider">
+         <diagramType
+               id="edu.uah.rsesc.aadl.age.aadlPackageDiagramType">
+         </diagramType>
+      </diagramTypeProvider>
+      
+      <diagramTypeProvider
+            name="AADL Type Diagram Type Provider"
+            class="edu.uah.rsesc.aadl.age.diagram.TypeDiagramTypeProvider"
+            id="edu.uah.rsesc.aadl.age.aadlTypeDiagramTypeProvider">
+         <diagramType
+               id="edu.uah.rsesc.aadl.age.aadlTypeDiagramType">
+         </diagramType>
+      </diagramTypeProvider>
+      
+      <diagramTypeProvider
+            name="AADL Component Implementation Diagram Type Provider"
+            class="edu.uah.rsesc.aadl.age.diagram.ComponentImplementationDiagramTypeProvider"
+            id="edu.uah.rsesc.aadl.age.aadlComponentImplementationDiagramTypeProvider">
+         <diagramType
+               id="edu.uah.rsesc.aadl.age.aadlComponentImplementationDiagramType">
+         </diagramType>
+      </diagramTypeProvider>
+   </extension>
+
+</plugin>
