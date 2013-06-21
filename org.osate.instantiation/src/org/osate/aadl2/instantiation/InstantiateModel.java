@@ -1296,8 +1296,9 @@ public class InstantiateModel {
 			if (fv.getProperty().getName().equalsIgnoreCase(field)) {
 				ListValue lv = (ListValue) fv.getOwnedValue();
 				EList<PropertyExpression> vlist = lv.getOwnedListElements();
-				for (int i = vlist.size()-1; i >=0; i--){
-				PropertyExpression elem = vlist.get(i);
+//				for (int i = vlist.size()-1; i >=0; i--){
+//				PropertyExpression elem = vlist.get(i);
+				for (PropertyExpression elem:vlist){
 					indices.add(((IntegerLiteral) elem).getValue());
 				}
 			}
@@ -1376,7 +1377,7 @@ public class InstantiateModel {
 			int d = 0;
 
 			if (names != null) {
-				names.addFirst(current.getName());
+				names.add(current.getName());
 			}
 			if (current instanceof ComponentInstance) {
 				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
@@ -1384,25 +1385,23 @@ public class InstantiateModel {
 				d = 1;
 			}
 			if (dims != null) {
-				dims.addFirst(d);
+				dims.add(d);
 			}
 			if (sizes != null && d != 0) {
 				if (current instanceof ComponentInstance) {
 					Subcomponent s = ((ComponentInstance) current).getSubcomponent();
-					List<Integer> temp = new ArrayList<Integer>();
 
 					for (ArrayDimension ad : s.getArrayDimensions()) {
 						ArraySize as = ad.getSize();
 
-						temp.add((int) getElementCount(as,(ComponentInstance)current.getContainingComponentInstance()));
+						sizes.add((int) getElementCount(as,(ComponentInstance)current.getContainingComponentInstance()));
 					}
-					sizes.addAll(0, temp);
 
 				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
 					Feature f = ((FeatureInstance) current).getFeature();
 					ArraySize as = f.getArrayDimensions().get(0).getSize();
 
-					sizes.add(0, (int) getElementCount(as,current.getContainingComponentInstance()));
+					sizes.add((int) getElementCount(as,current.getContainingComponentInstance()));
 				}
 			}
 			current = (InstanceObject) current.getOwner();
@@ -1503,16 +1502,18 @@ public class InstantiateModel {
 			List<Integer> sizes, List<Long> indices, ConnectionInstance newconn,boolean doSource) {
 		InstanceObject result = container;
 		
-		int offset = 0;
-		int count = 0;
+		int offset = indices.size()-1;
+		int count = dims.size()-1;
 		ConnectionReference contextConnRef = null;
 
-		for (String name : names) {
+//		for (String name : names) {
+		for (int nameidx = names.size()-1; nameidx>=0;nameidx--) {
+			String name = names.get(nameidx);
 			List<InstanceObject> owned = new ArrayList<InstanceObject>();
 			int dim = dims.get(count);
 			if (result instanceof ComponentInstance) {
 				ConnectionReference nextConnRef = findConnectionReference((ComponentInstance)result, newconn);
-				// if nextConnRef is null it is because we are going to look up feature instances inside the last ocmponent instance
+				// if nextConnRef is null it is because we are going to look up feature instances inside the last component instance
 				if (nextConnRef != null) {
 					contextConnRef = nextConnRef;
 					if (contextConnRef != null&& contextConnRef.getContext() != result){
@@ -1535,11 +1536,11 @@ public class InstantiateModel {
 					if (io.getName().equalsIgnoreCase(name)) {
 						try {
 							if (io instanceof ComponentInstance) {
-								int d = 0;
+								int d = dim-1;
 								for (long i : ((ComponentInstance) io).getIndices()) {
-									if (i != indices.get(offset + d))
+									if (i != indices.get(offset - d))
 										continue outer;
-									d++;
+									d--;
 								}
 							} else {
 								if (((FeatureInstance) io).getIndex() != indices.get(offset))
@@ -1558,8 +1559,8 @@ public class InstantiateModel {
 			if (result == null) {
 				return null;
 			}
-			offset += dim;
-			count++;
+			offset -= dim;
+			count--;
 			if (contextConnRef!=null)
 				resolveConnectionReference(contextConnRef, result, name,doSource) ;
 		}
@@ -1590,25 +1591,6 @@ public class InstantiateModel {
 	// Methods related to arrays
 	// --------------------------------------------------------------------------------------------
 
-//	private long getElementCount(ArraySize as) {
-//		long result = 0L;
-//		if (as == null) {
-//			return result;
-//		}
-//		if (as.getSizeProperty() == null) {
-//			result = as.getSize();
-//		} else {
-//			ArraySizeProperty asp = as.getSizeProperty();
-//			if (asp instanceof PropertyConstant) {
-//				PropertyConstant pc = (PropertyConstant) asp;
-//				PropertyExpression cv = pc.getConstantValue();
-//				if (cv instanceof IntegerLiteral) {
-//					result = ((IntegerLiteral) cv).getValue();
-//				}
-//			}
-//		}
-//		return result;
-//	}
 
 	private long getElementCount(ArraySize as, ComponentInstance ci) {
 		long result = 0L;
