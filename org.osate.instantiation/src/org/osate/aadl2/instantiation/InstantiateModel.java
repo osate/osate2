@@ -481,7 +481,7 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			return;
 		}
-
+		// handle connection patterns
 		processConnections(root);
 		if (monitor.isCanceled()) {
 			return;
@@ -1016,8 +1016,8 @@ public class InstantiateModel {
 
 	private void processConnections(SystemInstance root) {
 		List<ConnectionInstance> toRemove = new ArrayList<ConnectionInstance>();
-
-		for (ConnectionInstance conni : root.getAllConnectionInstances()) {
+		EList<ConnectionInstance> connilist = root.getAllConnectionInstances();
+		for (ConnectionInstance conni : connilist) {
 			PropertyAssociation setPA = getPA(conni, "Connection_Set");
 			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
 
