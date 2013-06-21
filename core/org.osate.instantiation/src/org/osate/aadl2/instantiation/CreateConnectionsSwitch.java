@@ -72,6 +72,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
@@ -122,12 +123,16 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * stack.
 	 */
 	private Stack<Integer> upIndex = new Stack<Integer>();
+	private Stack<Feature> upFeature = new Stack<Feature>();
+	private Stack<FeatureGroupType> upFGT = new Stack<FeatureGroupType>();
 
 	/**
 	 * Keeps track of indices used when going down into feature groups after we
 	 * run out of indices in the up stack.
 	 */
 	private Stack<Integer> downIndex = new Stack<Integer>();
+	private Stack<Feature> downFeature = new Stack<Feature>();
+	private Stack<FeatureGroupType> downFGT = new Stack<FeatureGroupType>();
 
 	/**
 	 * A classifier for an instance object when it is a prototype in the
