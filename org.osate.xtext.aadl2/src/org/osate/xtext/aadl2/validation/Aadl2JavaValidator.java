@@ -90,6 +90,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkComponentImplementationModes(componentImplementation);
 		checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(componentImplementation);
 		checkModeSpecificFlowImplementations(componentImplementation);
+		checkEndId(componentImplementation);
 	}
 
 	@Check(CheckType.FAST)
@@ -104,6 +105,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkComponentTypeUniqueNames(componentType);
 		checkComponentTypeModes(componentType);
 		checkForInheritedFeatureArrays(componentType);
+		checkEndId(componentType);
 	}
 
 	@Check(CheckType.FAST)
@@ -371,6 +373,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseFeatureGroupType(FeatureGroupType featureGroupType) {
 		checkForChainedInverseFeatureGroupTypes(featureGroupType);
 		checkFeatureGroupTypeUniqueNames(featureGroupType);
+		checkEndId(featureGroupType);
 	}
 
 	@Check(CheckType.FAST)
@@ -469,7 +472,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseClassifier(Classifier cl) {
 		checkExtendCycles(cl);
-		checkEndId(cl);
+//		checkEndId(cl);
 	}
 
 
