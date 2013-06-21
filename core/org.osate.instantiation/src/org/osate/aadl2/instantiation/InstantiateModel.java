@@ -41,6 +41,7 @@ package org.osate.aadl2.instantiation;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1293,7 +1294,9 @@ public class InstantiateModel {
 		for (BasicPropertyAssociation fv : rv.getOwnedFieldValues()) {
 			if (fv.getProperty().getName().equalsIgnoreCase(field)) {
 				ListValue lv = (ListValue) fv.getOwnedValue();
-				for (PropertyExpression elem : lv.getOwnedListElements()) {
+				EList<PropertyExpression> vlist = lv.getOwnedListElements();
+				for (int i = vlist.size()-1; i >=0; i--){
+				PropertyExpression elem = vlist.get(i);
 					indices.add(((IntegerLiteral) elem).getValue());
 				}
 			}
@@ -1335,6 +1338,20 @@ public class InstantiateModel {
 			}
 		}
 		return false;
+	}
+
+	private Collection<PropertyExpression> getOffsetList(ConnectionInstance conni) {
+		for (ConnectionReference connref : conni.getConnectionReferences()) {
+			for (PropertyAssociation pa : connref.getConnection().getOwnedPropertyAssociations()) {
+				if (pa.getProperty().getName().equalsIgnoreCase("Index_Offset")
+						&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
+								"Communication_Properties")) {
+					return ((ListValue) pa.getOwnedValues().get(0).getOwnedValue())
+							.getOwnedListElements();
+				}
+			}
+		}
+		return null;
 	}
 
 	private long getArraySizeValue(ComponentInstance ci, Property pd) {
