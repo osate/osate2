@@ -35,7 +35,9 @@ package org.osate.aadl2.errormodel.analysis;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
@@ -75,18 +77,19 @@ public class PropagateErrorSources {
 	protected AnalysisModel faultModel ;
 	protected EList<EObject> visited ;
 	protected int maxLevel = 7;
+	private Map<ComponentInstance,List<String>> alreadyTreated;
+	
 
 	public PropagateErrorSources(String reportType, ComponentInstance root){
 		report = new WriteToFile(reportType, root);
 		faultModel = new AnalysisModel(root);
 		visited = new UniqueEList<EObject>();
+		alreadyTreated = new HashMap<ComponentInstance,List<String>>();
 		
 	}
 
 	public PropagateErrorSources(String reportType, ComponentInstance root, int maxLevel){
-		report = new WriteToFile(reportType, root);
-		faultModel = new AnalysisModel(root);
-		visited = new UniqueEList<EObject>();
+		this (reportType,root);
 		this.maxLevel = maxLevel;
 	}
 	
@@ -405,6 +408,25 @@ public class PropagateErrorSources {
 		{
 			return;
 		}
+		
+		
+		/**
+		 * With alreadyTreated, we have a cache that keep track of existing report
+		 * text for each component. For each component, we maintain a list of existing
+		 * entryText already reported. So, we do not duplicate the error report for each component
+		 * and make sure to report each entry only once.
+		 */
+		if (! alreadyTreated.containsKey(ci))
+		{
+			alreadyTreated.put(ci, new ArrayList<String>());
+		}
+		if (alreadyTreated.get(ci).contains(entryText))
+		{
+			return;
+		}
+		
+		alreadyTreated.get(ci).add(entryText);
+		
 		List<ErrorPropagation> treated = new ArrayList<ErrorPropagation>();
 
 		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
@@ -424,6 +446,7 @@ public class PropagateErrorSources {
 				 */
 				EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util.getAdditionalOutgoingPropagation (ci, ep);
 				// process should have returned false, but for safety we check again
+				
 				if(additionalPropagations.size() == 0)
 				{
 					/**
@@ -448,7 +471,7 @@ public class PropagateErrorSources {
 						/**
 						 * We try to address all potential error propagation cases.
 						 */
-						if (! treated.contains(outp))
+						if (! treated.contains(opc))
 						{
 							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef);
 							treated.add(outp);
