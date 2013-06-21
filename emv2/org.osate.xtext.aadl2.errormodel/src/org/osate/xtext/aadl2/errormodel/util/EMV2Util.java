@@ -877,7 +877,7 @@ public class EMV2Util {
 				for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component))
 				{
 
-					if (opc.getState() == trans.getTarget())
+					if (( ! result.contains(opc) )&& (opc.getState() == trans.getTarget()))
 					{
 						result.add (opc);
 					}
