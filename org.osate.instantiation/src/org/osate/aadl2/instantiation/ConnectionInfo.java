@@ -100,6 +100,7 @@ class ConnectionInfo {
 		final ConnectionEnd dest = opposite ? newSeg.getAllSource() : newSeg.getAllDestination();
 		final boolean goingUp = !(dstCtx instanceof Subcomponent);
 		final boolean goingDown = !(srcCtx instanceof Subcomponent);
+		// TODO can we do these checks on the instance information
 
 		if (srcFi != null) {
 			sources.add(srcFi);

@@ -123,16 +123,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * stack.
 	 */
 	private Stack<Integer> upIndex = new Stack<Integer>();
-	private Stack<Feature> upFeature = new Stack<Feature>();
-	private Stack<FeatureGroupType> upFGT = new Stack<FeatureGroupType>();
+	private Stack<FeatureInstance> upFeature = new Stack<FeatureInstance>();
 
 	/**
 	 * Keeps track of indices used when going down into feature groups after we
 	 * run out of indices in the up stack.
 	 */
 	private Stack<Integer> downIndex = new Stack<Integer>();
-	private Stack<Feature> downFeature = new Stack<Feature>();
-	private Stack<FeatureGroupType> downFGT = new Stack<FeatureGroupType>();
+	private Stack<FeatureInstance> downFeature = new Stack<FeatureInstance>();
 
 	/**
 	 * A classifier for an instance object when it is a prototype in the
@@ -299,24 +297,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						if (!(destinationFromInside || conn.isBidirectional() && connectedInside)) 
 						{
 							prevFi = featurei;
-							// TODO-LW: check if this logic is correct
 							
 							boolean opposite = isOpposite (feature, sub, conn);
-//								if (outcomingConns.isEmpty() && !outgoingConns.isEmpty()) {
-//									if (f instanceof FeatureGroup) {
-//										warning(featurei,
-//												"Connection instance starts in enclosing component: Feature group "
-//														+ featurei.getName()
-//														+ " has no connection from/to subcomponents of " + ci.getName()
-//														+ " but external connections.");
-//									} else {
-//										warning(featurei,
-//												"Connection instance starts in enclosing component: Outgoing feature "
-//														+ featurei.getName()
-//														+ " has no connection from subcomponents of " + ci.getName()
-//														+ " but external connections.");
-//									}
-//								}
 
 							appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, parentci, opposite);
 							if (monitor.isCanceled()) 
@@ -329,6 +311,27 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 			}
 		}
+	}
+	
+	private int getFeatureIndex(FeatureInstance fi){
+		Element fgi = fi.getOwner();
+		if (fgi instanceof FeatureInstance){
+			EList<FeatureInstance> flist = ((FeatureInstance) fgi).getFeatureInstances();
+			return flist.indexOf(fi);
+		}
+		return -1;
+	}
+	
+	private boolean isSame(FeatureInstance up, FeatureInstance down){
+		if (up.getName().equalsIgnoreCase(down.getName())){
+			return true;
+		}
+		FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)up.getOwner()).getFeature()).getFeatureGroupType();
+		FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance)down.getOwner()).getFeature()).getFeatureGroupType();
+		if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
+			return (getFeatureIndex(up)==getFeatureIndex(down));
+		}
+		return false;
 	}
 
 	/**
@@ -356,9 +359,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		final boolean dstEmpty = toCtx instanceof Subcomponent && toCi.getComponentInstances().isEmpty();
 		ConnectionInstanceEnd fromFi = null;
 		ConnectionInstanceEnd toFi = null;
-		int pushedIdx = -1;
-		int poppedIdx = -1;
-		int downedIdx = -1;
+		FeatureInstance pushedFeature = null;
+		FeatureInstance poppedFeature = null;
+		FeatureInstance downedFeature = null;
 
 		/*
 		 * FIX JD
@@ -410,18 +413,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					fromFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, fromEnd.getName());
 				}
 				if (fromFi!= null){
-					int idx = fiList.indexOf(fromFi);
-					if (!upIndex.empty()) {
-						int popidx = upIndex.peek();
-						if (idx != popidx) {
+					if (!upFeature.empty()) {
+						FeatureInstance popfi = upFeature.peek();
+						if (!isSame(popfi ,(FeatureInstance)fromFi)) {
 							// did not match
 							return;
 						} else {
-							poppedIdx = upIndex.pop();
+							poppedFeature = upFeature.pop();
 						}
 					} else {
-						downIndex.push(idx);
-						downedIdx = idx;
+						downFeature.push((FeatureInstance)fromFi);
+						downedFeature = (FeatureInstance)fromFi;
 					}
 				}
 			} else {
@@ -435,14 +437,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			List<FeatureInstance> fiList = null;
 
 			if (toCtx instanceof FeatureGroup) {
-//				int idx = ((FeatureGroup) toCtx).getIndexOf((Feature) toEnd);
-//				if (idx != -1) {
-//					upIndex.push(idx);
-//					pushedIdx = idx;
-//				} else {
-//					// should not happen
-//					warning(ci, toEnd.getName() + " not a feature in feature group.");
-//				}
 
 				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList(ci.getFeatureInstances(),
 						toCtx.getName());
@@ -451,14 +445,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					toFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, toEnd.getName());
 				}
 				if (toFi != null){
-					int idx = fiList.indexOf(toFi);
-					if (idx != -1) {
-						upIndex.push(idx);
-						pushedIdx = idx;
-					} else {
-						// should not happen
-						warning(ci, toEnd.getName() + " not a feature in feature group.");
-					}
+						upFeature.push((FeatureInstance)toFi);
+						pushedFeature = (FeatureInstance)toFi;
 				}
 			} else {
 				fiList = (toCi != null ? toCi : ci).getFeatureInstances();
@@ -553,12 +541,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					List<Connection> conns = filterOutgoingConnections(parentConns, toFeature, ci.getSubcomponent());
 
 					if (conns.isEmpty() && !didModeTransitionConnection) {
-						// PropertyValue reqconn =
-						// ((Feature)dest).getSimplePropertyValue(PredeclaredPropertyNames.REQUIRED_CONNECTION);
-						// if (reqconn instanceof TRUE){
-						//warning(ci, "Connection declaration to enclosing component ends with feature " + toFeature.getName()
-						//		+ " for subcomponent " + ci.getName() + ". Connection instance not created.");
-						// }
 
 						// TODO phf: we should not create the instance while we are only outgoing
 						// if we do toFeature may point to the feature group rather than the feature of the feature group
@@ -629,9 +611,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						List<Subcomponent> subs = toImpl.getAllSubcomponents();
 
 						if (!subs.isEmpty()) {
-							// PropertyValue reqconn =
-							// ((Feature)dest).getSimplePropertyValue(PredeclaredPropertyNames.REQUIRED_CONNECTION);
-							// if (reqconn instanceof TRUE){
 							if (!isValidFinalComponent(toCtx)) {
 								warning(ci,
 										"No connection declaration from feature " + toEnd.getName() + " of component "
@@ -639,12 +618,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 												+ " to subcomponents. Connection instance ends at "
 												+ ((Subcomponent) toCtx).getName());
 							}
-							// }
 							finalizeConnectionInstance(ci, connInfo, toFi);
 						}
 					} else {
 						// we may need to stop at the processor in addition to going in
-						// XXX TODO we may need to do this also for DEVICE and MEMORY
 						if ((toImpl instanceof ProcessorImplementation || toImpl instanceof DeviceImplementation || toImpl instanceof MemoryImplementation)
 								&&!(toEnd instanceof BusAccess && ((BusAccess)toEnd).getKind() == AccessType.PROVIDES )){
 							final ConnectionInfo clone = connInfo.cloneInfo();
@@ -664,26 +641,26 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 			}
 		}
-		if (pushedIdx != -1) {
-			if (!upIndex.empty()) {
-				upIndex.pop();
+		if (pushedFeature != null) {
+			if (!upFeature.empty()) {
+				upFeature.pop();
 			} else {
 				warning(ci, "Popping from empty upindex");
 			}
 		}
-		if (poppedIdx != -1) {
-			if (downIndex.empty()) {
-				upIndex.push(poppedIdx);
+		if (poppedFeature != null) {
+			if (downFeature.empty()) {
+				upFeature.push(poppedFeature);
 			} else {
 				// remove from downIndex
 				warning(ci, "Trying to push back on while downIndex is not empty");
 			}
 		}
-		if (downedIdx != -1) {
+		if (downedFeature != null) {
 			// remove from downIndex
-			int popidx = downIndex.pop();
-			if (popidx != downedIdx) {
-				// should be the same index
+			FeatureInstance popfeature = downFeature.pop();
+			if (!isSame(popfeature,downedFeature)) {
+				// should be the same 
 				warning(ci, "Did not match popped downIndex");
 			}
 		}
@@ -696,13 +673,23 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	protected void finalizeConnectionInstance(ComponentInstance parentci, final ConnectionInfo connInfo,
 			ConnectionInstanceEnd dstEnd) {
 
-		int idx = -1;
+		FeatureInstance  upFi = null;
 		if (dstEnd instanceof FeatureInstance){
 			FeatureInstance dstFi = (FeatureInstance)dstEnd;
 
-			if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP && !upIndex.isEmpty()) {
-				idx = upIndex.pop();
-				dstFi = dstFi.getFeatureInstances().get(idx);
+			if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP && !upFeature.isEmpty()) {
+				upFi = upFeature.pop();
+				EList<FeatureInstance> flist = dstFi.getFeatureInstances();
+				FeatureInstance resFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
+				if (resFi == null){  // do index only if we have inverse feature groups and they have their own element names
+					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)upFi.getOwner()).getFeature()).getFeatureGroupType();
+					FeatureGroupType downfgt = ((FeatureGroup)dstFi.getFeature()).getFeatureGroupType();
+					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
+						dstFi = flist.get(getFeatureIndex(upFi));
+					}
+				} else {
+					dstFi = resFi;
+				}
 			}
 			if (connInfo.src instanceof FeatureInstance) {
 				FeatureInstance srcFi = (FeatureInstance) connInfo.src;
@@ -726,8 +713,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				error(parentci.getSystemInstance(), "Connection source is neither a feature nor a component: "
 						+ connInfo.src.getInstanceObjectPath() + " => " + connInfo.src.getInstanceObjectPath());
 			}
-			if (idx != -1) {
-				upIndex.push(idx);
+			if (upFi  != null) {
+				upFeature.push(upFi );
 			}
 		} else {
 			// Component Instance
@@ -849,22 +836,45 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private void balanceFeatureGroupEnds(final ComponentInstance parentci, final ConnectionInfo connInfo,
 			ConnectionInstanceEnd srcEnd, ConnectionInstanceEnd dstEnd) {
 
-		if (!upIndex.isEmpty()) {
+		if (!upFeature.isEmpty()) {
 			// dstEnd is higher up in the hierarchy than srcEnd:
 			// we need to match from latest to the oldest in stack
 			// going down into the FG nesting hierarchy
-			for (int count = upIndex.size() - 1; count >= 0; count--) {
-				dstEnd = ((FeatureInstance) dstEnd).getFeatureInstances().get(upIndex.get(count));
+			for (int count = upFeature.size() - 1; count >= 0; count--) {
+				EList<FeatureInstance> flist = ((FeatureInstance) dstEnd).getFeatureInstances();
+				FeatureInstance upFi = upFeature.get(count);
+				FeatureInstance resFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
+				if (resFi == null){  // do index only if we have inverse feature groups and they have their own element names
+					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)upFi.getOwner()).getFeature()).getFeatureGroupType();
+					FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance) dstEnd).getFeature()).getFeatureGroupType();
+					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
+						dstEnd = flist.get(getFeatureIndex(upFi));
+					}
+				} else {
+					dstEnd = resFi;
+				}
 			}
 		} else if (!downIndex.isEmpty()) {
 			// dstEnd is further down in the hierarchy than srcEnd: find feature corresponding to dstEnd
 			// We need to match from the oldest to the latest in stack
 			// This is a down stack, i.e., the highest element got pushed first an dis the oldest.
-			for (int count = 0 ; count <downIndex.size() ; count++) {
-				int idx = downIndex.get(count);
-				if (idx >= 0 && idx < ((FeatureInstance) srcEnd).getFeatureInstances().size()){
-					srcEnd = ((FeatureInstance) srcEnd).getFeatureInstances().get(idx);
+			for (int count = 0 ; count <downFeature.size() ; count++) {
+				FeatureInstance downFi = downFeature.get(count);
+				EList<FeatureInstance> flist = ((FeatureInstance) srcEnd).getFeatureInstances();
+				FeatureInstance resFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, downFi.getName());
+				if (resFi == null){  // do index only if we have inverse feature groups and they have their own element names
+					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)downFi.getOwner()).getFeature()).getFeatureGroupType();
+					FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance) srcEnd).getFeature()).getFeatureGroupType();
+					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
+						dstEnd = flist.get(getFeatureIndex(downFi));
+					}
+				} else {
+					dstEnd = resFi;
 				}
+//				int idx = downFeature.get(count);
+//				if (idx >= 0 && idx < ((FeatureInstance) srcEnd).getFeatureInstances().size()){
+//					srcEnd = ((FeatureInstance) srcEnd).getFeatureInstances().get(idx);
+//				}
 			}
 		}
 
