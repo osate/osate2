@@ -1073,7 +1073,7 @@ public class InstantiateModel {
 						errManager.warning(conni,
 								"Connection pattern specified for connection that does not connect array elements.");
 					} else {
-						if (interpretConnectionPatterns(conni, isOpposite,pattern, pattern.size() - 1, srcSizes, 0, dstSizes, 0,
+						if (interpretConnectionPatterns(conni, isOpposite,pattern, 0, srcSizes, 0, dstSizes, 0,
 								new ArrayList<Long>(), new ArrayList<Long>())) {
 							toRemove.add(conni);
 						}
@@ -1106,7 +1106,7 @@ public class InstantiateModel {
 			List<Long> srcIndices, List<Long> dstIndices) {
 		boolean result = true;
 
-		if (patterns != null ? offset < 0 : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
+		if (patterns != null ? offset >= patterns.size() : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
 			createNewConnection(conni, srcIndices, dstIndices);
 		} else if (patterns == null) {
 			// default one-to-one pattern
@@ -1126,7 +1126,7 @@ public class InstantiateModel {
 				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 					srcIndices.add(i);
 					dstIndices.add(i);
-					result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset - 1, srcSizes, srcOffset + 1,
+					result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes, srcOffset + 1,
 							dstSizes, dstOffset + 1, srcIndices, dstIndices);
 					srcIndices.remove(srcOffset);
 					dstIndices.remove(dstOffset);
@@ -1158,7 +1158,7 @@ public class InstantiateModel {
 					srcIndices.add(i);
 					for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 						dstIndices.add(j);
-						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 								dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 					}
@@ -1167,14 +1167,14 @@ public class InstantiateModel {
 			} else if ((!isOpposite&&patternName.equalsIgnoreCase("One_To_All"))||(isOpposite&&patternName.equalsIgnoreCase("All_To_One"))) {
 				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 					dstIndices.add(j);
-					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset, dstSizes,
+					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset, dstSizes,
 							dstOffset + 1, srcIndices, dstIndices);
 					dstIndices.remove(dstOffset);
 				}
 			} else if ((!isOpposite&&patternName.equalsIgnoreCase("All_To_One"))||(isOpposite&&patternName.equalsIgnoreCase("One_To_All"))) {
 				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 					srcIndices.add(i);
-					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 							dstSizes, dstOffset, srcIndices, dstIndices);
 					srcIndices.remove(srcOffset);
 				}
@@ -1188,7 +1188,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							srcIndices.remove(srcOffset);
 							dstIndices.remove(dstOffset);
@@ -1197,7 +1197,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
 							srcIndices.add(i);
 							dstIndices.add(i + 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1206,7 +1206,7 @@ public class InstantiateModel {
 						for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i - 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1215,7 +1215,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1224,7 +1224,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1233,7 +1233,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset) - 2; i++) {
 							srcIndices.add(i);
 							dstIndices.add(i + 2);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1242,7 +1242,7 @@ public class InstantiateModel {
 						for (long i = 3; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i - 2);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1251,7 +1251,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i == srcSizes.get(srcOffset) ? 2 :(i == srcSizes.get(srcOffset)-1 ? 1 : i + 1));
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1260,7 +1260,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i == 2 ? srcSizes.get(srcOffset) :(i==1?srcSizes.get(srcOffset)-1: i - 1));
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1269,7 +1269,7 @@ public class InstantiateModel {
 						for (long i = 2; i <= srcSizes.get(srcOffset); i=i+2) {
 							srcIndices.add(i);
 							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1278,7 +1278,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i=i+2) {
 							srcIndices.add(i);
 							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset - 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
