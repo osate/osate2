@@ -20,7 +20,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
@@ -46,6 +48,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
@@ -367,6 +370,50 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 		}
 	}
+	
+	protected IAadlElementAdapter getSourceAdapter(ConnectionReference topConnRef){
+		ConnectionInstance conni = (ConnectionInstance)topConnRef.getOwner();
+		IAadlElementAdapter result = null;
+		ConnectionReference connRef = topConnRef;
+		IAadlElementAdapter found = getAadlElementAdapter(connRef.getSource());
+		while (found != null){
+			result = found;
+			connRef = Aadl2InstanceUtil.getPreviousConnectionReference(conni, connRef);
+			if (connRef != null){
+				found = getAadlElementAdapter(connRef.getSource());
+			} else {
+				found = null;
+			}
+		}
+		return result;
+	}
+	
+	protected IAadlElementAdapter getDestinationAdapter(ConnectionReference topConnRef){
+		ConnectionInstance conni = (ConnectionInstance)topConnRef.getOwner();
+		IAadlElementAdapter result = null;
+		ConnectionReference connRef = topConnRef;
+		IAadlElementAdapter found = getAadlElementAdapter(connRef.getDestination());
+		while (found != null){
+			result = found;
+			connRef = Aadl2InstanceUtil.getNextConnectionReference(conni, connRef);
+			if (connRef != null){
+				found = getAadlElementAdapter(connRef.getDestination());
+			} else {
+				found = null;
+			}
+		}
+		return result;
+	}
+	
+	protected IAadlElementAdapter getAadlElementAdapter(ConnectionInstanceEnd cie){
+		IAadlElementAdapter adapter = this.modelElementToAdapterMap.get(cie);
+		if (adapter == null&&cie instanceof FeatureInstance){
+			adapter = this.modelElementToAdapterMap.get(cie.getOwner());
+		}
+		return adapter;
+	}
+	
+
 
 
 	public void addConnectionsToComponent(AadlComponentAdapter componentAdapter) 
@@ -377,16 +424,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			ConnectionItem connectionItem = it.next();
 			ConnectionReference connref = connectionItem.getConnectionReference();
 			if (connref != null){
+				// TODO direction connections
+//				IAadlElementAdapter srcAdapter = getSourceAdapter(connref);
+//				IAadlElementAdapter dstAdapter = getDestinationAdapter(connref);
+
 				ConnectionInstanceEnd src = connref.getSource();
-				IAadlElementAdapter srcAdapter = this.modelElementToAdapterMap.get(src);
-				if (srcAdapter == null&&src instanceof FeatureInstance){
-					srcAdapter = this.modelElementToAdapterMap.get(src.getOwner());
-				}
+				IAadlElementAdapter srcAdapter = getAadlElementAdapter(src);
 				ConnectionInstanceEnd dst = connref.getDestination();
-				IAadlElementAdapter dstAdapter = this.modelElementToAdapterMap.get(dst);
-				if (dstAdapter == null&&dst instanceof FeatureInstance){
-					dstAdapter = this.modelElementToAdapterMap.get(dst.getOwner());
-				}
+				IAadlElementAdapter dstAdapter = getAadlElementAdapter(dst);
 				if(srcAdapter != null && dstAdapter != null) {
 					// Create connection adapter for this connection.
 					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref, this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter, dstAdapter);
@@ -560,11 +605,15 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 	public List<ConnectionItem> getConnections(Object element) {
 		List<ConnectionItem> connectionList = new ArrayList<ConnectionItem>();
 		List<FeatureGroupConnection> featureGroupConnections = new ArrayList<FeatureGroupConnection>();
-
-		// Only component instances have connections.
 		if(element instanceof ComponentInstance){
-			// do it based on connection instances
 			ComponentInstance ci = (ComponentInstance)element;
+			// TODO direct connections
+//			// do it based on connection instances
+//			List<ConnectionInstance> conns = EcoreUtil2.getAllContentsOfType(ci, ConnectionInstance.class);
+//			for (ConnectionInstance connectionInstance : conns) {
+//				connectionList.add(new ConnectionItem(Aadl2InstanceUtil.getAcrossConnectionReference(connectionInstance)));
+//			}
+
 			EList<ComponentInstance> subcis = ci.getComponentInstances();
 			for (ComponentInstance subci : subcis) {
 				EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getOutgoingConnectionReferences(subci);

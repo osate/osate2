@@ -38,6 +38,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.imv.aadldiagram.aadlfigures.components.ComponentFigure;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
+import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.draw2d.BendpointHelper;
 
@@ -124,10 +125,54 @@ public class AadlDiagram extends FigureCanvas {
 		if (obj instanceof ComponentInstance){
 			int max = hierarchyDepth((ComponentInstance)obj);
 			if (nestingLevel < max ){
-			this.nestingLevel++;
+				this.nestingLevel++;
+				makeVisible(this.rootAdapter, nestingLevel);
 			}
 		}
 	}
+	
+
+	public void decrementNestingLevel() {
+		if (this.nestingLevel > 1){
+			makeInvisible(this.rootAdapter, nestingLevel);
+			this.nestingLevel--;
+		}
+	}
+
+	protected void makeVisible(AadlComponentAdapter compAdapter,int nestingLevel){
+		if (nestingLevel == 0){
+		compAdapter.getFigure().setVisible(true);
+		Iterator<AadlFeatureAdapter> cfit = compAdapter.getChildFeatures();
+		while (cfit.hasNext()){
+			cfit.next().getFigure().setVisible(true);
+		}
+		} else {
+			Iterator<AadlComponentAdapter> cit = compAdapter.getChildComponents();
+			while (cit.hasNext()){
+				AadlComponentAdapter childAdapter = cit.next();
+				makeVisible(childAdapter,nestingLevel-1);
+			}
+		}
+		
+	}
+
+	protected void makeInvisible(AadlComponentAdapter compAdapter,int nestingLevel){
+		if (nestingLevel == 0){
+			compAdapter.getFigure().setVisible(false);
+			Iterator<AadlFeatureAdapter> cfit = compAdapter.getChildFeatures();
+			while (cfit.hasNext()){
+				cfit.next().getFigure().setVisible(false);
+			}
+		} else {
+			Iterator<AadlComponentAdapter> cit = compAdapter.getChildComponents();
+			while (cit.hasNext()){
+				AadlComponentAdapter childAdapter = cit.next();
+				makeInvisible(childAdapter,nestingLevel-1);
+			}
+		}
+		
+	}
+
 
 	protected int hierarchyDepth(ComponentInstance ci){
 		int result =0;
@@ -139,11 +184,6 @@ public class AadlDiagram extends FigureCanvas {
 			if (res > result-1) result = res+1;
 		}
 		return result;
-	}
-
-	public void decrementNestingLevel() {
-		if (this.nestingLevel > 1)
-			this.nestingLevel--;
 	}
 
 	public int getNestingLevel() {

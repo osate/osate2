@@ -79,9 +79,10 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 
 	public void incrementComponentNestingHandler() {
 			this.getAadlDiagram().incrementNestingLevel();
+			Boolean tmprefresh = forceRefresh;
 			forceRefresh = true;
 			refresh();
-			forceRefresh = false;
+			forceRefresh = tmprefresh;
 //			boolean restore = !this.isElementCached(this.getInput());
 //			this.resetRootAdapter();
 //			if (restore){
@@ -125,9 +126,10 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 	
 	public void decrementComponentNestingHandler() {
 		this.getAadlDiagram().decrementNestingLevel();
+		Boolean tmprefresh = forceRefresh;
 		forceRefresh = true;
 		refresh();
-		forceRefresh = false;
+		forceRefresh = tmprefresh;
  	}
 
 
