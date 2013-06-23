@@ -247,10 +247,12 @@ public class Aadl2InstanceUtil {
 	}
 	
 	
-	public static ConnectionReference getAcrossConnectionReference(ComponentInstance context, ConnectionInstance conni){
+	public static ConnectionReference getAcrossConnectionReference(ConnectionInstance conni){
 		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
 		for (ConnectionReference connectionReference : connrefs) {
-			if (connectionReference.getContext().getName().equalsIgnoreCase(context.getName())){
+			ComponentInstance cxt = connectionReference.getContext();
+			if (cxt != connectionReference.getSource().getComponentInstance()
+					&& cxt != connectionReference.getDestination().getComponentInstance()){
 				return connectionReference;
 			}
 		}
