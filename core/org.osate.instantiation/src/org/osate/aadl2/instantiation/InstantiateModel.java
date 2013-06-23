@@ -139,6 +139,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.workspace.WorkspacePlugin;
@@ -1421,7 +1422,7 @@ public class InstantiateModel {
 		ComponentInstance container = conni.getContainingComponentInstance();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
-		ConnectionReference topConnRef = findAcrossConnectionReference(container, newConn);
+		ConnectionReference topConnRef = Aadl2InstanceUtil.getAcrossConnectionReference(container, newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
 		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
 				srcIndices, true);
@@ -1459,16 +1460,6 @@ public class InstantiateModel {
 		newConn.setDestination((ConnectionInstanceEnd) dst);
 		newConn.setName(sb.toString());
 
-	}
-	
-	private ConnectionReference findAcrossConnectionReference(ComponentInstance context, ConnectionInstance conni){
-		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
-		for (ConnectionReference connectionReference : connrefs) {
-			if (connectionReference.getContext().getName().equalsIgnoreCase(context.getName())){
-				return connectionReference;
-			}
-		}
-		return null;
 	}
 	
 	/**
@@ -1624,31 +1615,13 @@ public class InstantiateModel {
 			// now we need to update the connref pointers
 			if (doSource){
 				outerConnRef = targetConnRef;
-				targetConnRef = getPreviousConnectionReference(newconn, outerConnRef);
+				targetConnRef = Aadl2InstanceUtil.getPreviousConnectionReference(newconn, outerConnRef);
 			} else {
 				outerConnRef = targetConnRef;
-				targetConnRef = getNextConnectionReference(newconn, outerConnRef);
+				targetConnRef = Aadl2InstanceUtil.getNextConnectionReference(newconn, outerConnRef);
 			}
 		}
 		return result;
-	}
-	
-	private ConnectionReference getNextConnectionReference(ConnectionInstance conni, ConnectionReference connref){
-		EList<ConnectionReference> crlist = conni.getConnectionReferences();
-		int idx = crlist.indexOf(connref);
-		if (idx < crlist.size()-1){
-			return crlist.get(crlist.indexOf(connref)+1);
-		}
-		return null;
-	}
-	
-	private ConnectionReference getPreviousConnectionReference(ConnectionInstance conni, ConnectionReference connref){
-		EList<ConnectionReference> crlist = conni.getConnectionReferences();
-		int idx = crlist.indexOf(connref);
-		if (idx >0){
-			return crlist.get(crlist.indexOf(connref)-1);
-		}
-		return null;
 	}
 
 	// --------------------------------------------------------------------------------------------

@@ -246,5 +246,33 @@ public class Aadl2InstanceUtil {
 		return null;
 	}
 	
+	
+	public static ConnectionReference getAcrossConnectionReference(ComponentInstance context, ConnectionInstance conni){
+		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
+		for (ConnectionReference connectionReference : connrefs) {
+			if (connectionReference.getContext().getName().equalsIgnoreCase(context.getName())){
+				return connectionReference;
+			}
+		}
+		return null;
+	}
+	
+	public static ConnectionReference getNextConnectionReference(ConnectionInstance conni, ConnectionReference connref){
+		EList<ConnectionReference> crlist = conni.getConnectionReferences();
+		int idx = crlist.indexOf(connref);
+		if (idx < crlist.size()-1){
+			return crlist.get(crlist.indexOf(connref)+1);
+		}
+		return null;
+	}
+	
+	public static ConnectionReference getPreviousConnectionReference(ConnectionInstance conni, ConnectionReference connref){
+		EList<ConnectionReference> crlist = conni.getConnectionReferences();
+		int idx = crlist.indexOf(connref);
+		if (idx >0){
+			return crlist.get(crlist.indexOf(connref)-1);
+		}
+		return null;
+	}
 
 }
