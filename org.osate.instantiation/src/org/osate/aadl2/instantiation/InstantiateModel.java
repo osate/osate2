@@ -1408,24 +1408,29 @@ public class InstantiateModel {
 		}
 	}
 
-	// TODO-LW: check for invalid number of indices (in property vs. in model path)
+	/**
+	 * create a copy of the connection instance with the specified indices for the source and the destination
+	 * @param conni
+	 * @param srcIndices
+	 * @param dstIndices
+	 */
 	private void createNewConnection(ConnectionInstance conni, List<Long> srcIndices, List<Long> dstIndices) {
 		LinkedList<String> names = new LinkedList<String>();
 		LinkedList<Integer> dims = new LinkedList<Integer>();
 		LinkedList<Integer> sizes = new LinkedList<Integer>();
-
+		ComponentInstance container = conni.getContainingComponentInstance();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
-
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
+		ConnectionReference topConnRef = findAcrossConnectionReference(container, newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
-		InstanceObject src = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, srcIndices,
-				newConn,true);
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
+				srcIndices, true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
-		InstanceObject dst = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, dstIndices,
-				newConn,false);
+		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
+				dstIndices,false);
 
 		if (src == null) {
 			errManager.error(newConn, "Connection source not found");
@@ -1456,7 +1461,7 @@ public class InstantiateModel {
 
 	}
 	
-	private ConnectionReference findConnectionReference(ComponentInstance context, ConnectionInstance conni){
+	private ConnectionReference findAcrossConnectionReference(ComponentInstance context, ConnectionInstance conni){
 		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
 		for (ConnectionReference connectionReference : connrefs) {
 			if (connectionReference.getContext().getName().equalsIgnoreCase(context.getName())){
@@ -1466,76 +1471,123 @@ public class InstantiateModel {
 		return null;
 	}
 	
-	private void resolveConnectionReference(ConnectionReference contextConnRef, InstanceObject result, String name, boolean doSource){
-		ConnectionInstanceEnd src = contextConnRef.getSource();
-		ConnectionInstanceEnd dst = contextConnRef.getDestination();
-		String contextName = contextConnRef.getContext().getName();
+	/**
+	 * resolve downgoing source or destination of the connection reference.
+	 * we do so by re-retrieving the feature instance based on the existing connection instance end name.
+	 * If the connection reference is up or down going we also fill in the other end.
+	 * @param targetConnRef
+	 * @param result
+	 * @param name
+	 * @param doSource
+	 */
+	private ConnectionInstanceEnd resolveConnectionReference(ConnectionReference targetConnRef, ConnectionReference outerConnRef, ComponentInstance target,  boolean doSource){
+		ConnectionInstanceEnd src = targetConnRef.getSource();
+		ConnectionInstanceEnd dst = targetConnRef.getDestination();
 		if (doSource){
-			if (name.equalsIgnoreCase(src.getName())){
-				contextConnRef.setSource((ConnectionInstanceEnd)result);
-			} else if (src instanceof FeatureInstance&& name.equalsIgnoreCase(src.getContainingComponentInstance().getName())){
-				ConnectionInstanceEnd found = (ConnectionInstanceEnd)resolveContainingPath(src, (ComponentInstance)result);
+			if (target.getName().equalsIgnoreCase(src.getName())){
+				// we point to a component instance, such as a bus or data component in an access connection
+				targetConnRef.setSource(target);
+			} else if (src instanceof FeatureInstance){
+				// re-resolve the source feature 
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), src.getName()); 
 				if (found != null) 
-					contextConnRef.setSource(found);
-			} else if (src instanceof FeatureInstance&& contextName.equalsIgnoreCase(src.getContainingComponentInstance().getName())){
-				ConnectionInstanceEnd found = (ConnectionInstanceEnd)resolveContainingPath(src, contextConnRef.getContext());
-				if (found != null) 
-					contextConnRef.setSource(found);
+					targetConnRef.setSource(found);
 			} 
+			// now we need to resolve the upper end (destination)
+			if (targetConnRef != outerConnRef){
+				// we need to fix the context of the connection reference 
+				ConnectionInstanceEnd outerSrc = outerConnRef.getSource();
+				targetConnRef.setContext(outerSrc.getComponentInstance());
+				// we are not at the top so we fix up the upper end of the connection reference
+				if ((dst.getOwner() instanceof ComponentInstance) && dst.getName().equalsIgnoreCase(outerSrc.getName())){
+					targetConnRef.setDestination(outerSrc);
+				} else {
+					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
+					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(((FeatureInstance)outerSrc).getFeatureInstances(), dst.getName()); 
+					if (found != null) 
+						targetConnRef.setDestination(found);
+				}
+			}
+			return targetConnRef.getSource();
 		}else {
-
-			if (name.equalsIgnoreCase(dst.getName())){
-				contextConnRef.setDestination((ConnectionInstanceEnd)result);
-			} else if (dst instanceof FeatureInstance&& name.equalsIgnoreCase(dst.getContainingComponentInstance().getName())){
-				ConnectionInstanceEnd found = (ConnectionInstanceEnd)resolveContainingPath(dst, (ComponentInstance)result);
+			if (target.getName().equalsIgnoreCase(dst.getName())){
+				// we point to a component instance, such as a bus or data component in an access connection
+				targetConnRef.setDestination(target);
+			} else if (dst instanceof FeatureInstance){
+				// re-resolve the source feature 
+				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), dst.getName()); 
 				if (found != null) 
-					contextConnRef.setDestination(found);
-			} else if (dst instanceof FeatureInstance&& contextName.equalsIgnoreCase(dst.getContainingComponentInstance().getName())){
-				ConnectionInstanceEnd found = (ConnectionInstanceEnd)resolveContainingPath(dst, contextConnRef.getContext());
-				if (found != null)
-					contextConnRef.setDestination(found);
-			} 
+					targetConnRef.setDestination(found);
+			}
+			// now we need to resolve the upper end (source)
+			if (targetConnRef != outerConnRef){
+				// we need to fix the context of the connection reference 
+				ConnectionInstanceEnd outerDst = outerConnRef.getDestination();
+				targetConnRef.setContext(outerDst.getComponentInstance());
+				// we are not at the top so we fix up the upper end of the connection reference
+				if ((src.getOwner() instanceof ComponentInstance) && src.getName().equalsIgnoreCase(outerDst.getName())){
+					targetConnRef.setSource(outerDst);
+				} else {
+					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
+					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(((FeatureInstance)outerDst).getFeatureInstances(), src.getName()); 
+					if (found != null) 
+						targetConnRef.setSource(found);
+				}
+			}
+			return targetConnRef.getDestination();
 		}
 	}
 
-	private InstanceObject findInstanceObject(ComponentInstance container, List<String> names, List<Integer> dims,
-			List<Integer> sizes, List<Long> indices, ConnectionInstance newconn,boolean doSource) {
-		InstanceObject result = container;
-		
+	/**
+	 * this method resolves the connection instance from the top connection reference down the source or the destination
+	 * @param newconn Connection Instance whose paths need to be resolved
+	 * @param topref Connection Reference going across components
+	 * @param names sequence of names of the path bottom up
+	 * @param dims Dimensions (bottom up) along the path
+	 * @param sizes Sizes of each dimension bottom up
+	 * @param indices The indices to be used for elements that are arrays
+	 * @param doSource Go down the source path or the destination path
+	 * @return ConnectionInstanceEnd the ultimate source/destination object (feature instance or component instance)
+	 */
+	private ConnectionInstanceEnd resolveConnectionInstancePath(ConnectionInstance newconn, ConnectionReference topref, List<String> names,
+			List<Integer> dims, List<Integer> sizes, List<Long> indices, boolean doSource) {
+		// the connection reference to be resolved
+		ConnectionReference targetConnRef = topref;
+		ConnectionReference outerConnRef = topref;
+		ConnectionInstanceEnd resolutionContext = newconn.getContainingComponentInstance();
+		// we have to process the indices backwards since we go top down
+		// offset starts with the last element of the indices array
 		int offset = indices.size()-1;
 		int count = dims.size()-1;
-		ConnectionReference contextConnRef = null;
-
-//		for (String name : names) {
+		ConnectionInstanceEnd result = null;
 		for (int nameidx = names.size()-1; nameidx>=0;nameidx--) {
 			String name = names.get(nameidx);
 			List<InstanceObject> owned = new ArrayList<InstanceObject>();
 			int dim = dims.get(count);
-			if (result instanceof ComponentInstance) {
-				ConnectionReference nextConnRef = findConnectionReference((ComponentInstance)result, newconn);
+			if (resolutionContext instanceof ComponentInstance) {
 				// if nextConnRef is null it is because we are going to look up feature instances inside the last component instance
-				if (nextConnRef != null) {
-					contextConnRef = nextConnRef;
-					if (contextConnRef != null&& contextConnRef.getContext() != result){
-						contextConnRef.setContext((ComponentInstance)result);
-					}
-				}
-				owned.addAll(((ComponentInstance) result).getComponentInstances());
-				owned.addAll(((ComponentInstance) result).getFeatureInstances());
-			} else if (result instanceof FeatureInstance) {
-				owned.addAll(((FeatureInstance) result).getFeatureInstances());
+				owned.addAll(((ComponentInstance) resolutionContext).getComponentInstances());
+				owned.addAll(((ComponentInstance) resolutionContext).getFeatureInstances());
+			} else if (resolutionContext instanceof FeatureInstance) {
+				owned.addAll(((FeatureInstance) resolutionContext).getFeatureInstances());
 			}
-			result = null;
 
 			if (dim == 0) {
-				result = (InstanceObject) AadlUtil.findNamedElementInList(owned, name);
-//				if (contextConnRef != null)
-//					resolveConnectionReference(contextConnRef, result, name,doSource) ;
+				resolutionContext = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(owned, name);
+				// targetConnRef could be null once we are at the end and will resolve the feature name(s)
+				if (targetConnRef != null&& resolutionContext instanceof ComponentInstance){
+					result = resolveConnectionReference(targetConnRef, outerConnRef,(ComponentInstance)resolutionContext, doSource) ;
+				} else {
+					// the resolved feature has been found
+					result = resolutionContext;
+				}
 			} else {
+				// find the object based on its name and indices
 				outer: for (InstanceObject io : owned) {
 					if (io.getName().equalsIgnoreCase(name)) {
 						try {
 							if (io instanceof ComponentInstance) {
+								// we need to deal with possibly more than one index
 								int d = dim-1;
 								for (long i : ((ComponentInstance) io).getIndices()) {
 									if (i != indices.get(offset - d))
@@ -1543,6 +1595,7 @@ public class InstantiateModel {
 									d--;
 								}
 							} else {
+								// we have a feature that may have an index or zero index
 								if (((FeatureInstance) io).getIndex() != indices.get(offset))
 									continue outer;
 							}
@@ -1550,33 +1603,52 @@ public class InstantiateModel {
 							errManager.warning(newconn,
 									"Too few indices for connection end, using fist array element");
 						}
-						result = io;
+						resolutionContext = (ConnectionInstanceEnd) io;
 						break;
 					}
 				}
-
 			}
-			if (result == null) {
+			if (resolutionContext == null) {
 				return null;
 			}
+			if (targetConnRef != null&& resolutionContext instanceof ComponentInstance){
+				result = resolveConnectionReference(targetConnRef, outerConnRef,(ComponentInstance)resolutionContext, doSource) ;
+			} else {
+				// the resolved feature has been found
+				result = resolutionContext;
+			}
+			// reduce the offset by the processed indices of the element we just looked up
 			offset -= dim;
+			// reduce the index into the dims array to get the next number of dimensions
 			count--;
-			if (contextConnRef!=null)
-				resolveConnectionReference(contextConnRef, result, name,doSource) ;
+			// now we need to update the connref pointers
+			if (doSource){
+				outerConnRef = targetConnRef;
+				targetConnRef = getPreviousConnectionReference(newconn, outerConnRef);
+			} else {
+				outerConnRef = targetConnRef;
+				targetConnRef = getNextConnectionReference(newconn, outerConnRef);
+			}
 		}
 		return result;
 	}
 	
-	private InstanceObject resolveContainingPath(ConnectionInstanceEnd ciend, ComponentInstance top){
-		Element container = ciend.getOwner();
-		if (!(container instanceof ComponentInstance)){
-			 InstanceObject newcontainer = resolveContainingPath((ConnectionInstanceEnd)container, top);
-			return (InstanceObject) AadlUtil.findNamedElementInList(
-					newcontainer instanceof FeatureInstance? ((FeatureInstance)newcontainer).getFeatureInstances():((ComponentInstance)newcontainer).getFeatureInstances(), 
-					ciend.getName());
-		} else{
-			return (InstanceObject) AadlUtil.findNamedElementInList(top.getFeatureInstances(), ciend.getName());
+	private ConnectionReference getNextConnectionReference(ConnectionInstance conni, ConnectionReference connref){
+		EList<ConnectionReference> crlist = conni.getConnectionReferences();
+		int idx = crlist.indexOf(connref);
+		if (idx < crlist.size()-1){
+			return crlist.get(crlist.indexOf(connref)+1);
 		}
+		return null;
+	}
+	
+	private ConnectionReference getPreviousConnectionReference(ConnectionInstance conni, ConnectionReference connref){
+		EList<ConnectionReference> crlist = conni.getConnectionReferences();
+		int idx = crlist.indexOf(connref);
+		if (idx >0){
+			return crlist.get(crlist.indexOf(connref)-1);
+		}
+		return null;
 	}
 
 	// --------------------------------------------------------------------------------------------
