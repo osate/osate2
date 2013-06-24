@@ -39,12 +39,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
@@ -76,6 +78,10 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		EList<PropagationPath> pathlist = model.getPropagationPaths();
 		for (PropagationPath path : pathlist) {
 			checkPropagationPathErrorTypes(path);
+		}
+		for (ComponentInstance ci : EMV2Util.getComponentInstancesWithEMV2Subclause(si))
+		{
+			checkComponent (ci, model);
 		}
 		monitor.done();
 	}
@@ -183,6 +189,28 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		if ( dstprop == null   && srcprop != null){
 				// has an EMV2 subclause but no propagation specification for the feature
 				error(path.getConnectionInstance()!=null?path.getConnectionInstance():path.getSrcCI(),"Connection target has no error propagation/containment but source does: "+EMV2Util.getPrintName(srcprop));
+		}
+	}
+	
+	protected void checkComponent(ComponentInstance componentInstance, AnalysisModel model)
+	{
+		for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
+		{
+			if (model.getAllPropagationPaths(componentInstance, ep).size() == 0)
+			{
+				error(componentInstance,"Outgoing propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
+
+				//OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " + ep.getName());
+			}
+		}
+		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
+		{
+			if (model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0)
+			{
+				error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
+
+				//OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " + ep.getName());
+			}
 		}
 	}
 
