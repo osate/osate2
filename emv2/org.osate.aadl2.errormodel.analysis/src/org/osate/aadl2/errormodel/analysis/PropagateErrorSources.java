@@ -403,7 +403,8 @@ public class PropagateErrorSources {
 	 * traverse through the destination of the connection instance 
 	 * @param conni
 	 */
-	protected void traceErrorFlows(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText){
+	protected void traceErrorFlows(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText)
+	{
 		if (ci == null)
 		{
 			return;
