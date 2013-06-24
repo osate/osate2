@@ -682,22 +682,35 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		logError(msg);
 	}
 	
+	
+
+	public final void error(final ComponentInstance obj, final String msg){
+		errManager.error(obj, msg);
+		logError(obj, msg);
+	}
+	
 	/**
 	 * log error message on object as result of action.
 	 * @param msg The error message
 	 */
 	public final void logError( final String msg){
 		if (csvlog != null)
-		csvlog.addOutputNewline(",,ERROR: "+msg);
+		csvlog.addOutputNewline("ERROR: "+msg);
 	}
-
+	
+	public final void logError(ComponentInstance ci, final String msg){
+		if (csvlog != null)
+		csvlog.addOutputNewline(ci.getName() + ",ERROR: "+msg);
+	}
+	
+	
 	/**
 	 * Log warning message on object as result of action.
 	 * @param msg The warning message
 	 */
 	public final void logWarning( final String msg){
 		if (csvlog != null)
-		csvlog.addOutputNewline(",,Warning: "+msg);
+		csvlog.addOutputNewline("Warning: "+msg);
 	}
 
 
