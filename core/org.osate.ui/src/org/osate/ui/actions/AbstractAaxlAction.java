@@ -693,14 +693,20 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * log error message on object as result of action.
 	 * @param msg The error message
 	 */
-	public final void logError( final String msg){
+	public final void logError( final String msg)
+	{
 		if (csvlog != null)
-		csvlog.addOutputNewline("ERROR: "+msg);
+		{
+			csvlog.addOutputNewline("\"ERROR: "+msg +"\"");
+		}
 	}
 	
-	public final void logError(ComponentInstance ci, final String msg){
+	public final void logError(ComponentInstance ci, final String msg)
+	{
 		if (csvlog != null)
-		csvlog.addOutputNewline(ci.getName() + ",ERROR: "+msg);
+		{
+			csvlog.addOutputNewline("Component Instance: " + ci.getName() + ",\"ERROR: "+msg+"\"");
+		}
 	}
 	
 	
