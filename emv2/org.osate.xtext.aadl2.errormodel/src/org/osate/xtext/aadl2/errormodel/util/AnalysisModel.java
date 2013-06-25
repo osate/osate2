@@ -18,6 +18,7 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 /**
@@ -60,6 +61,7 @@ public class AnalysisModel {
 				populateBindingPaths(ci);
 			}
 		}
+		printPropagationPaths();
 	}
 	
 	public AnalysisModel(ComponentInstance root, boolean closest) {
@@ -89,6 +91,14 @@ public class AnalysisModel {
 	}
 	public void setRoot(ComponentInstance root) {
 		this.root = root;
+	}
+	
+	public void printPropagationPaths(){
+		EList<PropagationPath> pl = getPropagationPaths();
+		for (PropagationPath propagationPath : pl) {
+			OsateDebug.osateDebug("PP src "+propagationPath.getSrcCI().getComponentInstancePath()+EMV2Util.getPrintName(propagationPath.getPathSrc().getErrorPropagation())+" dst "+
+					propagationPath.getDstCI().getComponentInstancePath()+EMV2Util.getPrintName(propagationPath.getPathSrc().getErrorPropagation())+" conni "+propagationPath.getConnectionInstance().getName());
+		}
 	}
 	
 	/**

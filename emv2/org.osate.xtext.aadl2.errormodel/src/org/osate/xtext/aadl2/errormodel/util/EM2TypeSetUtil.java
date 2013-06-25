@@ -1,5 +1,8 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
@@ -162,6 +165,58 @@ public class EM2TypeSetUtil {
 		}
 		return true;
 	}
+
+	
+	
+	/**
+	 * returns all subtypes of the token that are in TypeSet ts 
+	 * The type set can represent a constraint
+	 * aliases are resolved before the error types are compared
+	 * @param ts TypeSet
+	 * @param token TypeToken
+	 * @return list TypeToken
+	 */
+	public static Collection<TypeToken> getSubTypes(TypeSet ts, TypeToken token){
+		BasicEList<TypeToken> result = new BasicEList<TypeToken>();
+		if (ts == null || token == null) return result;
+		ts = EMV2Util.resolveAlias(ts);
+		int toksize = token.getType().size();
+		for (TypeToken tselement : ts.getElementType()) {
+			if (tselement.getType().size() == toksize){
+				getSubTypes(tselement, token, result);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * adds a type token that has the subtype of each product element of the two tokens
+	 * The subtype can be from the constraint or the token
+	 * The TypeToken error type lists are assumed to be of the same size
+	 * @param ts TypeSet
+	 * @param token TypeToken
+	 * @param result List of type tokens
+	 */
+	protected static void getSubTypes(TypeToken constraint, TypeToken token, Collection<TypeToken> result){
+		int toksize = token.getType().size();
+		EList<ErrorType> toklist = token.getType();
+		EList<ErrorType> conlist = constraint.getType();
+		TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
+		for (int i = 0 ; i < toksize; i++) {
+			ErrorType toktype = toklist.get(i);
+			ErrorType contype = conlist.get(i);
+			if (contains(toktype,contype)){
+				tt.getType().add(contype);
+			} else if (contains(contype, toktype)){
+				tt.getType().add(toktype);
+			} else {
+				return ;
+			}
+		}
+		result.add(tt);
+		return ;
+	}
+	
 	
 	/**
 	 * generate all type tokens for a given typeset.

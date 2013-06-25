@@ -386,14 +386,14 @@ public class PropagateErrorSources {
 		String effectText = ", "+generateErrorPropText(ep,tt);
 		if (paths.isEmpty()){
 			reportEntry(entryText+effectText+" -> <no paths>,,", depth);
-			return;
-		}
-		for (PropagationPath path : paths) {
-			ComponentInstance destci = path.getDstCI();
-			ErrorPropagation destEP = path.getPathDst().getErrorPropagation();
-			// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-			String connText=" -> "+generateItemText(destci);
-			traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
+		} else {
+			for (PropagationPath path : paths) {
+				ComponentInstance destci = path.getDstCI();
+				ErrorPropagation destEP = path.getPathDst().getErrorPropagation();
+				// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
+				String connText=" -> "+generateItemText(destci);
+				traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
+			}
 		}
 		st.removeVisitedToken( tt);
 	}
@@ -428,8 +428,6 @@ public class PropagateErrorSources {
 		alreadyTreated.get(ci).add(entryText);
 		
 		List<ErrorPropagation> treated = new ArrayList<ErrorPropagation>();
-
-		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
 		boolean handled = false;
 		Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFromComponentInstance(ci, ep);
 		for (ErrorFlow ef : outefs) {
@@ -456,6 +454,13 @@ public class PropagateErrorSources {
 						String maskText = ", "+generateFailureModeText(ci,ep,tt)+" [Masked],";
 						reportEntry(entryText+maskText, depth);
 						handled = true;
+					} else {
+						Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(ef.getTypeTokenConstraint(), tt);
+						for (TypeToken typeToken : intersection) {
+							String maskText = ", "+generateFailureModeText(ci,ep,typeToken)+" [Masked],";
+							reportEntry(entryText+maskText, depth);
+							handled = true;
+						}
 					}
 				}
 				else
@@ -487,29 +492,60 @@ public class PropagateErrorSources {
 					TypeToken newtt = EMV2Util.mapToken(tt,ef);
 					traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt));
 					handled = true;
+				} else {
+					Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(ef.getTypeTokenConstraint(), tt);
+					for (TypeToken typeToken : intersection) {
+						ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
+						TypeToken newtt = EMV2Util.mapToken(typeToken,ef);
+						traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,typeToken));
+						handled = true;
+					}
 				}
 			} 
 		}
 		if (!handled){
 			// no error flows:. and no flows condition
-			// try flows or propagate to all outgoing connections
+			// try flows or propagate to all outgoing error propagations
 			EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
 			if (!flowlist.isEmpty()){
 				for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
-					if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(ep, ci)){
+					if (flowSpecificationInstance.getSource() != null&&
+							flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(ep, ci)){
 						FeatureInstance outfi = flowSpecificationInstance.getDestination();
 						if (outfi != null){
 							ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(outfi);
-							TypeToken newtt = EMV2Util.mapToken(tt,flowSpecificationInstance);
-							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci,ep,tt)+" [FlowPath]");
+							if (outp != null){
+								TypeToken newtt = EMV2Util.mapToken(tt,flowSpecificationInstance);
+								if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)){
+									traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt)+" [FlowPath]");
+									handled = true;
+								} else {
+									Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(outp.getTypeSet(), newtt);
+									for (TypeToken typeToken : intersection) {
+										traceErrorPaths(ci,outp,typeToken,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt)+" [FlowPath]");
+										handled = true;
+									}
+								}
+							}
 						} else {
 							// do all since we have a flow sink
 							EList<FeatureInstance> filist = ci.getFeatureInstances();
 							for (FeatureInstance fi : filist) {
 								if (fi.getDirection().outgoing()){
-									TypeToken newtt = EMV2Util.mapToken(tt,null);
 									ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
-									traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [FlowSink]");
+									if (outp != null){
+										TypeToken newtt = EMV2Util.mapToken(tt,null);
+										if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)){
+											traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [FlowSink]");
+											handled = true;
+										} else {
+											Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(outp.getTypeSet(), newtt);
+											for (TypeToken typeToken : intersection) {
+												traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [FlowSink]");
+												handled = true;
+											}
+										}
+									}
 								}
 							}
 						}
@@ -524,6 +560,16 @@ public class PropagateErrorSources {
 						if (outp!=null){
 							TypeToken newtt = EMV2Util.mapToken(tt,null);
 							traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
+							if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)){
+								traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
+								handled = true;
+							} else {
+								Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(outp.getTypeSet(), newtt);
+								for (TypeToken typeToken : intersection) {
+									traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
+									handled = true;
+								}
+							}
 						}
 					}
 				}

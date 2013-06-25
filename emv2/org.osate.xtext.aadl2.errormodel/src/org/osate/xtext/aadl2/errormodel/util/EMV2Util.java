@@ -1988,7 +1988,7 @@ public class EMV2Util {
 			if (et != null&& !et.isEmpty()){
 				boolean doproduct = false;
 				for (ErrorType errorType : et) {
-					if (doproduct) res = res+"+"; else doproduct = true;
+					if (doproduct) res = res+"*"; else doproduct = true;
 					res = res + errorType.getName();
 				}
 			}
@@ -2006,7 +2006,7 @@ public class EMV2Util {
 		EList<ErrorType> te = tu.getType();
 		boolean docomma = false;
 		for (ErrorType et : te) {
-			if (docomma) res = res+"+"; else docomma = true;
+			if (docomma) res = res+"*"; else docomma = true;
 			res = res + et.getName();
 		}
 		return res;
