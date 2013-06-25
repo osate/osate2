@@ -281,7 +281,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		}
 	}
 
-	protected String makeCVSText(String text){
+	protected String makeCSVText(String text){
 		return text.replaceAll(",", ";");
 	}
 	
@@ -308,7 +308,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			componentName = "Root system";
 		}
 		// component name & error propagation name/type
-		report.addOutput(componentName+", "+(typetext.isEmpty()?"":typetext+" on ")+failureModeName);
+		report.addOutput(componentName+", \""+(typetext.isEmpty()?"":typetext+" on ")+failureModeName+"\"");
 		// crossreference
 		addComma(report);
 		reportStringProperty(fields, "crossreference", report);
@@ -351,11 +351,15 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	
 	protected void reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
 		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
-		if (xref != null){
+		if (xref != null)
+		{
 			PropertyExpression val = xref.getOwnedValue();
-			if (val instanceof StringLiteral){
+			if (val instanceof StringLiteral)
+			{
 				String text = ((StringLiteral)val).getValue();
-				report.addOutput(makeCVSText(stripQuotes(text)));
+				text = makeCSVText(stripQuotes(text));
+				text = text.replaceAll(System.getProperty("line.separator"), " ");
+				report.addOutput("\"" + text + "\"");
 			}
 		}
 	}

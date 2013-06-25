@@ -39,18 +39,21 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	protected String getMarkerType() {
@@ -76,6 +79,10 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		EList<PropagationPath> pathlist = model.getPropagationPaths();
 		for (PropagationPath path : pathlist) {
 			checkPropagationPathErrorTypes(path);
+		}
+		for (ComponentInstance ci : EMV2Util.getComponentInstancesWithEMV2Subclause(si))
+		{
+			checkComponent (ci, model);
 		}
 		monitor.done();
 	}
@@ -183,6 +190,44 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		if ( dstprop == null   && srcprop != null){
 				// has an EMV2 subclause but no propagation specification for the feature
 				error(path.getConnectionInstance()!=null?path.getConnectionInstance():path.getSrcCI(),"Connection target has no error propagation/containment but source does: "+EMV2Util.getPrintName(srcprop));
+		}
+	}
+	
+	protected void checkComponent(ComponentInstance componentInstance, AnalysisModel model)
+	{
+		for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
+		{
+			OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
+			if (model.getAllPropagationPaths(componentInstance, ep).size() == 0)
+			{
+				error(componentInstance,"Outgoing propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
+
+				//OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " + ep.getName());
+				continue;
+			}
+			
+			for (PropagationPath pp : model.getAllPropagationPaths(componentInstance, ep))
+			{
+				ErrorPropagation ep2 = pp.getPathDst().getErrorPropagation();
+				
+				OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
+				OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
+
+				if (!(EM2TypeSetUtil.contains(ep.getTypeSet(), ep2.getTypeSet()) && EM2TypeSetUtil.contains(ep2.getTypeSet(), ep.getTypeSet())))
+				{
+					error(componentInstance, "Some errors are not handled between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+					continue;
+				}
+			}
+		}
+		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
+		{
+			if (model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0)
+			{
+				error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
+
+				//OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " + ep.getName());
+			}
 		}
 	}
 

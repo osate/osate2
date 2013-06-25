@@ -890,8 +890,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				}
 			}
 			if (srccontain != null && dstcontain != null) {
-				if (!EM2TypeSetUtil.contains(srccontain.getTypeSet(),
-						dstcontain.getTypeSet())) {
+				if (!EM2TypeSetUtil.contains(dstcontain.getTypeSet(),srccontain.getTypeSet())) {
 					error(conn,
 							"Outgoing containment  "
 									+ EMV2Util.getPrintName(srcprop)
