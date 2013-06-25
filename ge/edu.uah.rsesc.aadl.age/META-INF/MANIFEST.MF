@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.xtext.ui;bundle-version="2.3.1",
  org.osate.aadl2;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
- org.osate.aadl2.modelsupport;bundle-version="1.0.0"
+ org.osate.aadl2.modelsupport;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.properties.ui;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: org.eclipse.ui,

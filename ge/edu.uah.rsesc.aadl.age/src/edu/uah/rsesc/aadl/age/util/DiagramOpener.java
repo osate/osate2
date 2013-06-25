@@ -11,6 +11,8 @@ import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
+import org.eclipse.graphiti.mm.pictograms.PictogramsFactory;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
@@ -84,13 +86,22 @@ public class DiagramOpener {
 		
 		// Get the default resource set to hold the new resource
 		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
-		final TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resourceSet);
+		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resourceSet);
+		boolean editingDomainCreated = false;
+		if(editingDomain == null) {
+			Log.info("Creating a editing domain");
+			editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
+			editingDomainCreated = true;
+		}
 		
 		// Create the diagram and its file
 		final IPeService peService = Graphiti.getPeService();
 		final Diagram diagram = peService.createDiagram(diagramTypeId, namedElement.getQualifiedName(), true);
-		PropertyUtil.setAadlElement(diagram, namedElement);
-	
+		
+		final PictogramLink link = PictogramsFactory.eINSTANCE.createPictogramLink();
+		link.getBusinessObjects().add(namedElement);
+		diagram.setLink(link);
+		
 		// Create a resource to hold the diagram	
 		final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), buildBaseFilename(namedElement));
 		
@@ -106,6 +117,11 @@ public class DiagramOpener {
 			createdResource.save(null);
 		} catch (IOException e) {
 			throw new RuntimeException("Error saving new diagram");
+		}
+		
+		// Dispose of the editing domain if we created it
+		if(editingDomainCreated) {
+			editingDomain.dispose();
 		}
 		
 		return createdResource;

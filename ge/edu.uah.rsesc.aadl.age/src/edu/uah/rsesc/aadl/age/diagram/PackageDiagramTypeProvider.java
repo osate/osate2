@@ -7,4 +7,15 @@ public class PackageDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		super();
 		setFeatureProvider(new PackageFeatureProvider(this));
 	}
+	
+	@Override
+	public boolean isAutoUpdateAtStartup() {
+		return true;
+	}
+	/*
+	@Override
+	public boolean isAutoUpdateAtRuntime() {
+		return true;
+	}
+*/
 }

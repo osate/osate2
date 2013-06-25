@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.features;
+package edu.uah.rsesc.aadl.age.features.stub;
 
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -50,8 +50,8 @@ public class AddDomainObjectFeature extends AbstractAddFeature implements
 		peCreateService.createChopboxAnchor(containerShape);
 
 		// TODO: enable the link to the domain object
-		// Object addedDomainObject = context.getNewObject();
-		// link(containerShape, addedDomainObject);
+		Object addedDomainObject = context.getNewObject();
+		link(containerShape, addedDomainObject);
 
 		return containerShape;
 	}

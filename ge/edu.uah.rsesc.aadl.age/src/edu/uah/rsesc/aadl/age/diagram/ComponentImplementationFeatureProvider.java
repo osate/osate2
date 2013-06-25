@@ -11,11 +11,11 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 
-import edu.uah.rsesc.aadl.age.features.AddDomainObjectConnectionConnectionFeature;
-import edu.uah.rsesc.aadl.age.features.AddDomainObjectFeature;
-import edu.uah.rsesc.aadl.age.features.CreateDomainObjectConnectionConnectionFeature;
-import edu.uah.rsesc.aadl.age.features.CreateDomainObjectFeature;
-import edu.uah.rsesc.aadl.age.features.LayoutDomainObjectFeature;
+import edu.uah.rsesc.aadl.age.features.stub.AddDomainObjectConnectionConnectionFeature;
+import edu.uah.rsesc.aadl.age.features.stub.AddDomainObjectFeature;
+import edu.uah.rsesc.aadl.age.features.stub.CreateDomainObjectConnectionConnectionFeature;
+import edu.uah.rsesc.aadl.age.features.stub.CreateDomainObjectFeature;
+import edu.uah.rsesc.aadl.age.features.stub.LayoutDomainObjectFeature;
 
 
 public class ComponentImplementationFeatureProvider extends DefaultFeatureProvider {

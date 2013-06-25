@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.features;
+package edu.uah.rsesc.aadl.age.features.stub;
 
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;

@@ -12,7 +12,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
@@ -50,10 +52,15 @@ class DiagramFinder {
 					if(obj instanceof Diagram) {
 						final Diagram diagram = (Diagram)obj;
 						
-						// Check the aadl element property
-						final String diagramAadlElement = PropertyUtil.getAadlElementName(diagram);
-						if(diagramAadlElement != null && diagramAadlElement.equalsIgnoreCase(aadlElementName)) {
-							matchingDiagramResources.add(resource);		
+						// Create a feature provider and check if it is linked to the aadl elmeent
+						final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
+						if(featureProvider != null) {
+							final Object bo = featureProvider.getBusinessObjectForPictogramElement(diagram);
+							if(bo != null && bo instanceof NamedElement) {
+								if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
+									matchingDiagramResources.add(resource);	
+								}
+							}
 						}
 					}					
 					

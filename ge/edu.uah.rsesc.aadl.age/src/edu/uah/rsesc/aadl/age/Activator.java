@@ -19,6 +19,10 @@ public class Activator extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public Activator() {
+		// TODO: Hack. Remove this if\when OSATE is modified to fix plugin activation ordering issues. 
+		// https://github.com/osate/osate2-core/issues/244
+		// Ensure that the EMFIndexRetrieval is activated
+		org.osate.xtext.aadl2.properties.ui.MyPropertiesActivator.getInstance();
 	}
 
 	/*
