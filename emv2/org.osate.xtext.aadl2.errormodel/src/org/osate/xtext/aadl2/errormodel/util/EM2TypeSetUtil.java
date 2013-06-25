@@ -45,7 +45,7 @@ public class EM2TypeSetUtil {
 	 * @param t2
 	 * @return
 	 */
-	protected static boolean isSame(ErrorType t1, ErrorType t2){
+	public static boolean isSame(ErrorType t1, ErrorType t2){
 		return EMV2Util.resolveAlias(t1) == EMV2Util.resolveAlias(t2);
 	}
 	
@@ -304,7 +304,7 @@ public class EM2TypeSetUtil {
 	 * @param et
 	 * @return
 	 */
-	public static EList<ErrorType> getAllLeafSubTypes( ErrorType et){
+	public static EList<ErrorType> getAllLeafSubTypes (ErrorType et){
 		EList<ErrorType> result = new UniqueEList<ErrorType>();
 		EList<ErrorType> mysubs = et.getSubType();
 		if (mysubs.isEmpty()) {

@@ -49,6 +49,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -212,12 +213,32 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 				
 				OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
 				OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
-
-				if (!(EM2TypeSetUtil.contains(ep.getTypeSet(), ep2.getTypeSet()) && EM2TypeSetUtil.contains(ep2.getTypeSet(), ep.getTypeSet())))
+				EList<TypeToken> srcTokens = EM2TypeSetUtil.generateAllTypeTokens (ep.getTypeSet());
+				EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllTypeTokens (ep2.getTypeSet());
+//			
+//				for (TypeToken tt1 : srcTokens)
+//				{
+//					if (! EM2TypeSetUtil.contains (ep2.getTypeSet(), tt1))
+//					{
+//						error(componentInstance, "Error type " + EMV2Util.getPrintName(tt1)  +  " between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+//
+//					}
+//					
+//				}
+				for (TypeToken tt1 : dstTokens)
 				{
-					error(componentInstance, "Some errors are not handled between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
-					continue;
+					if (! EM2TypeSetUtil.contains (ep.getTypeSet(), tt1))
+					{
+						error(componentInstance, "Error type " + EMV2Util.getPrintName(tt1)  +  " between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+
+					}
+					
 				}
+//				if (!(EM2TypeSetUtil.contains(, ep2.getTypeSet()) && EM2TypeSetUtil.contains(ep2.getTypeSet(), ep.getTypeSet())))
+//				{
+//					error(componentInstance, "Some errors are not handled between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+//					continue;
+				
 			}
 		}
 		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
