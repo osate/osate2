@@ -61,7 +61,7 @@ public class AnalysisModel {
 				populateBindingPaths(ci);
 			}
 		}
-		printPropagationPaths();
+// DEBUG		printPropagationPaths();
 	}
 	
 	public AnalysisModel(ComponentInstance root, boolean closest) {
