@@ -178,7 +178,7 @@ public class FTAUtils
 							 * name.
 							 */
 							TypeSet ts = ce.getConstraint();
-							for (TypeToken tt : ts.getElementType())
+							for (TypeToken tt : ts.getTypeTokens())
 							{
 								OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
 								
@@ -230,9 +230,9 @@ public class FTAUtils
 							 * name.
 							 */
 							TypeSet ts = ev.getTypeSet();
-							if ((ts != null) && (ts.getElementType() != null))
+							if ((ts != null) && (ts.getTypeTokens() != null))
 							{
-								for (TypeToken tt : ts.getElementType())
+								for (TypeToken tt : ts.getTypeTokens())
 								{
 									OsateDebug.osateDebug("tt="  + tt.getType().get(0).getName());
 									

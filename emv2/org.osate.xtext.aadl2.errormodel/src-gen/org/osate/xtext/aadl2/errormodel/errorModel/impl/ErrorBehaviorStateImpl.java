@@ -33,227 +33,234 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 public class ErrorBehaviorStateImpl extends NamedElementImpl implements ErrorBehaviorState
 {
   /**
-	 * The default value of the '{@link #isIntial() <em>Intial</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #isIntial() <em>Intial</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isIntial()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isIntial()
+   * @generated
+   * @ordered
+   */
   protected static final boolean INTIAL_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isIntial() <em>Intial</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #isIntial() <em>Intial</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isIntial()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isIntial()
+   * @generated
+   * @ordered
+   */
   protected boolean intial = INTIAL_EDEFAULT;
 
   /**
-	 * The cached value of the '{@link #getTypeSet() <em>Type Set</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTypeSet() <em>Type Set</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTypeSet()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTypeSet()
+   * @generated
+   * @ordered
+   */
   protected TypeSet typeSet;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected ErrorBehaviorStateImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE;
-	}
+    return ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public boolean isIntial()
   {
-		return intial;
-	}
+    return intial;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setIntial(boolean newIntial)
   {
-		boolean oldIntial = intial;
-		intial = newIntial;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL, oldIntial, intial));
-	}
+    boolean oldIntial = intial;
+    intial = newIntial;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL, oldIntial, intial));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeSet getTypeSet()
   {
-		return typeSet;
-	}
+    return typeSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetTypeSet(TypeSet newTypeSet, NotificationChain msgs)
   {
-		TypeSet oldTypeSet = typeSet;
-		typeSet = newTypeSet;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET, oldTypeSet, newTypeSet);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    TypeSet oldTypeSet = typeSet;
+    typeSet = newTypeSet;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET, oldTypeSet, newTypeSet);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setTypeSet(TypeSet newTypeSet)
   {
-		if (newTypeSet != typeSet) {
-			NotificationChain msgs = null;
-			if (typeSet != null)
-				msgs = ((InternalEObject)typeSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET, null, msgs);
-			if (newTypeSet != null)
-				msgs = ((InternalEObject)newTypeSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET, null, msgs);
-			msgs = basicSetTypeSet(newTypeSet, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET, newTypeSet, newTypeSet));
-	}
+    if (newTypeSet != typeSet)
+    {
+      NotificationChain msgs = null;
+      if (typeSet != null)
+        msgs = ((InternalEObject)typeSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET, null, msgs);
+      if (newTypeSet != null)
+        msgs = ((InternalEObject)newTypeSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET, null, msgs);
+      msgs = basicSetTypeSet(newTypeSet, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET, newTypeSet, newTypeSet));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
-				return basicSetTypeSet(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
+        return basicSetTypeSet(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL:
-				return isIntial();
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
-				return getTypeSet();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL:
+        return isIntial();
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
+        return getTypeSet();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL:
-				setIntial((Boolean)newValue);
-				return;
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
-				setTypeSet((TypeSet)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL:
+        setIntial((Boolean)newValue);
+        return;
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
+        setTypeSet((TypeSet)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL:
-				setIntial(INTIAL_EDEFAULT);
-				return;
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
-				setTypeSet((TypeSet)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL:
+        setIntial(INTIAL_EDEFAULT);
+        return;
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
+        setTypeSet((TypeSet)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL:
-				return intial != INTIAL_EDEFAULT;
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
-				return typeSet != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__INTIAL:
+        return intial != INTIAL_EDEFAULT;
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE__TYPE_SET:
+        return typeSet != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public String toString()
   {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (intial: ");
-		result.append(intial);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (intial: ");
+    result.append(intial);
+    result.append(')');
+    return result.toString();
+  }
 
 } //ErrorBehaviorStateImpl

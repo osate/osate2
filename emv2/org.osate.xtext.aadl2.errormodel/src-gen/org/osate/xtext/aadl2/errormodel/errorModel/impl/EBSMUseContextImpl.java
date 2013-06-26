@@ -21,24 +21,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 public class EBSMUseContextImpl extends ElementImpl implements EBSMUseContext
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected EBSMUseContextImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.EBSM_USE_CONTEXT;
-	}
+    return ErrorModelPackage.Literals.EBSM_USE_CONTEXT;
+  }
 
 } //EBSMUseContextImpl

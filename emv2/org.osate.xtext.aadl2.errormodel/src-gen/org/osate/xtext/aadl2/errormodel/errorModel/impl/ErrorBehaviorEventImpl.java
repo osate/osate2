@@ -21,24 +21,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 public class ErrorBehaviorEventImpl extends NamedElementImpl implements ErrorBehaviorEvent
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected ErrorBehaviorEventImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.ERROR_BEHAVIOR_EVENT;
-	}
+    return ErrorModelPackage.Literals.ERROR_BEHAVIOR_EVENT;
+  }
 
 } //ErrorBehaviorEventImpl

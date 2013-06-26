@@ -28,35 +28,35 @@ import org.osate.aadl2.Element;
 public interface PropagationPaths extends EObject, Element
 {
   /**
-	 * Returns the value of the '<em><b>Points</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Points</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Points</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Points</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPaths_Points()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Points</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPaths_Points()
+   * @model containment="true"
+   * @generated
+   */
   EList<PropagationPoint> getPoints();
 
   /**
-	 * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Connections</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Connections</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPaths_Connections()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Connections</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPaths_Connections()
+   * @model containment="true"
+   * @generated
+   */
   EList<PropagationPointConnection> getConnections();
 
 } // PropagationPaths

@@ -21,24 +21,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 public class ErrorBehaviorStateOrTypeSetImpl extends MinimalEObjectImpl.Container implements ErrorBehaviorStateOrTypeSet
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected ErrorBehaviorStateOrTypeSetImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE_OR_TYPE_SET;
-	}
+    return ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE_OR_TYPE_SET;
+  }
 
 } //ErrorBehaviorStateOrTypeSetImpl

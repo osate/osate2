@@ -230,7 +230,7 @@ public class TraverseErrorPropagationPaths {
 			// XXX TODO how about the other case
 			failureMode = (ErrorBehaviorState) fmr;
 		}
-		EList<TypeToken> sourceTokenSet = EM2TypeSetUtil.generateAllTypeTokens(ts);
+		EList<TypeToken> sourceTokenSet = EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
 		return sourceTokenSet;
 	}
 	

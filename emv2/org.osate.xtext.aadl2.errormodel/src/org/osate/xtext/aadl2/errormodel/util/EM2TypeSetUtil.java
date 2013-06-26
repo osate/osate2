@@ -7,12 +7,16 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Element;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 
 public class EM2TypeSetUtil {
 	
@@ -30,7 +34,7 @@ public class EM2TypeSetUtil {
 	}
 	
 	/**
-	 * true if both error types are in teh same type hierarchy
+	 * true if both error types are in the same type hierarchy
 	 * @param et1 ErrorType
 	 * @param et2 ErrorType
 	 * @return boolean
@@ -45,8 +49,26 @@ public class EM2TypeSetUtil {
 	 * @param t2
 	 * @return
 	 */
-	protected static boolean isSame(ErrorType t1, ErrorType t2){
+	public static boolean isSame(ErrorType t1, ErrorType t2){
 		return EMV2Util.resolveAlias(t1) == EMV2Util.resolveAlias(t2);
+	}
+	
+	/**
+	 * true if error type is an alias
+	 * @param et
+	 * @return
+	 */
+	public static boolean isAlias(ErrorType et){
+		return et.getAliasedType()!=null;
+	}
+	
+	/**
+	 * true if error type set is an alias
+	 * @param et
+	 * @return
+	 */
+	public static boolean isAlias(TypeSet ts){
+		return ts.getAliasedType()!=null;
 	}
 	
 	/**
@@ -120,7 +142,7 @@ public class EM2TypeSetUtil {
 		if ( token == null) return true;
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
-		for (TypeToken tselement : ts.getElementType()) {
+		for (TypeToken tselement : ts.getTypeTokens()) {
 			if (tselement.getType().size() == toksize){
 				if( contains(tselement,token)) return true;
 			}
@@ -140,7 +162,7 @@ public class EM2TypeSetUtil {
 		if (ts == null ) return false;
 		if ( et == null) return true;
 		ts = EMV2Util.resolveAlias(ts);
-		for (TypeToken tselement : ts.getElementType()) {
+		for (TypeToken tselement : ts.getTypeTokens()) {
 				if( contains(tselement,et)) return true;
 		}
 		return false;
@@ -159,7 +181,7 @@ public class EM2TypeSetUtil {
 		if ( subts == null) return true;
 		ts = EMV2Util.resolveAlias(ts);
 		subts = EMV2Util.resolveAlias(subts);
-		EList<TypeToken> subelements = subts.getElementType();
+		EList<TypeToken> subelements = subts.getTypeTokens();
 		for (TypeToken typeToken : subelements) {
 			if (!contains(ts,typeToken)) return false;
 		}
@@ -176,14 +198,14 @@ public class EM2TypeSetUtil {
 	 * @param token TypeToken
 	 * @return list TypeToken
 	 */
-	public static Collection<TypeToken> getSubTypes(TypeSet ts, TypeToken token){
+	public static Collection<TypeToken> getConstrainedTypeTokens(TypeSet ts, TypeToken token){
 		BasicEList<TypeToken> result = new BasicEList<TypeToken>();
 		if (ts == null || token == null) return result;
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
-		for (TypeToken tselement : ts.getElementType()) {
+		for (TypeToken tselement : ts.getTypeTokens()) {
 			if (tselement.getType().size() == toksize){
-				getSubTypes(tselement, token, result);
+				getConstrainedTypeTokens(tselement, token, result);
 			}
 		}
 		return result;
@@ -197,7 +219,7 @@ public class EM2TypeSetUtil {
 	 * @param token TypeToken
 	 * @param result List of type tokens
 	 */
-	protected static void getSubTypes(TypeToken constraint, TypeToken token, Collection<TypeToken> result){
+	protected static void getConstrainedTypeTokens(TypeToken constraint, TypeToken token, Collection<TypeToken> result){
 		int toksize = token.getType().size();
 		EList<ErrorType> toklist = token.getType();
 		EList<ErrorType> conlist = constraint.getType();
@@ -217,22 +239,6 @@ public class EM2TypeSetUtil {
 		return ;
 	}
 	
-	
-	/**
-	 * generate all type tokens for a given typeset.
-	 * Do so only for the top level error type identified by the type set elements
-	 * For example, only do ValueError, not a separate token for each subtype.
-	 * Use generateAllTypeToken if you want tokens for all leaf types.
-	 * @param typeSet
-	 * @return list of type tokens
-	 */
-	public static EList<TypeToken> generateTypeTokens(TypeSet typeSet){
-//		EList<TypeToken> result = new BasicEList<TypeToken>() ; 
-//		EList<TypeToken> typelist = typeSet.getElementType();
-//		result.addAll(typelist);
-//		return result;
-		return typeSet.getElementType();
-	}
 	
 	/**
 	 * add type token for specified error type to newItems. Then add a token
@@ -262,14 +268,14 @@ public class EM2TypeSetUtil {
 	 * @param typeSet
 	 * @return list of type tokens
 	 */
-	public static EList<TypeToken> generateAllTypeTokens(TypeSet typeSet){
+	public static EList<TypeToken> generateAllLeafTypeTokens(TypeSet typeSet, TypeUseContext tuc){
 		EList<TypeToken> result = new BasicEList<TypeToken>() ; 
 		EList<TypeToken> newitems = new BasicEList<TypeToken>() ; 
-		EList<TypeToken> typelist = typeSet.getElementType();
+		EList<TypeToken> typelist = typeSet.getTypeTokens();
 		for (TypeToken typeSetElement : typelist) {
 			EList<ErrorType> elementtypes = typeSetElement.getType();
 			for (ErrorType errorType : elementtypes) {
-				EList<ErrorType> etlist = getAllLeafSubTypes( errorType);
+				EList<ErrorType> etlist = getAllLeafSubTypes( errorType,tuc);
 				if (newitems.isEmpty()){
 					// first/single type
 					for (ErrorType subType : etlist) {
@@ -292,69 +298,54 @@ public class EM2TypeSetUtil {
 		return result;
 	}
 	
-//	
-//	public static EList<ErrorType> getAllLeafErrorTypes(EObject context){
-//		return filterAllLeafErrorTypes(getAllErrorTypes(context));
-//	}
+
+	/**
+	 * Get all error types that are direct subtypes of et.
+	 * We look for any error type accessible in the TypeUseContext, i.e., subclause, type library, type mapping/xform set
+	 * @param et
+	 * @param tuc
+	 * @return
+	 */
+	public static EList<ErrorType> getSubTypes(ErrorType et, TypeUseContext tuc){
+		UniqueEList<ErrorType> result = new UniqueEList<ErrorType>();
+		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
+			EList<ErrorType> typeslist = etl.getTypes();
+			for (ErrorType errorType : typeslist) {
+				ErrorType set = EMV2Util.resolveAlias(errorType);
+				if (set.getSuperType() == et){
+					result.add(errorType);
+				}
+			}
+		}
+		return result;
+	}
 	
 	/**
-	 * get list of subtypes of the given error type et excluding et itself
+	 * get list of leaf subtypes of the given error type et excluding et itself
 	 * Each any error type alias has been resolved
 	 * @param context
 	 * @param et
 	 * @return
 	 */
-	public static EList<ErrorType> getAllLeafSubTypes( ErrorType et){
+	public static EList<ErrorType> getAllLeafSubTypes( ErrorType et, TypeUseContext tuc){
 		EList<ErrorType> result = new UniqueEList<ErrorType>();
-		EList<ErrorType> mysubs = et.getSubType();
-		if (mysubs.isEmpty()) {
-			result.add(EMV2Util.resolveAlias(et));
-			return result;
+		EList<ErrorType> removeMe = new UniqueEList<ErrorType>();
+		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
+			EList<ErrorType> typeslist = etl.getTypes();
+			for (ErrorType errorType : typeslist) {
+				ErrorType set = EMV2Util.resolveAlias(errorType);
+				if ( contains(et, set)){
+					result.add(set);
+				} 
+				if (set.getSuperType() != null){
+					removeMe.add(set.getSuperType());
+				}
+			}
 		}
-		for (ErrorType errorType : mysubs) {
-			addAllLeafSubTypes(result, errorType);
-		}
+		result.removeAll(removeMe);
 		return result;
 	}
 	
-	protected static void addAllLeafSubTypes(EList<ErrorType> result, ErrorType et){
-		EList<ErrorType> mysubs = et.getSubType();
-		if (mysubs.isEmpty()) {
-			result.add(EMV2Util.resolveAlias(et));
-			return ;
-		}
-		for (ErrorType errorType : mysubs) {
-			addAllLeafSubTypes(result, errorType);
-		}
-	}
-	
-	
-	/**
-	 * get all subtypes of ErrorType et in a new UniqueEList.
-	 * The list does not include et itself
-	 * any error type alias has been resolved
-	 * @param et Error Type
-	 * @return
-	 */
-	public static EList<ErrorType> getAllSubTypes(ErrorType et){
-		EList<ErrorType> result = new UniqueEList<ErrorType>();
-		EList<ErrorType> mysubs = et.getSubType();
-		if (mysubs.isEmpty()) return result;
-		for (ErrorType errorType : mysubs) {
-			result.add(EMV2Util.resolveAlias(et));
-			addAllSubTypes(result, errorType);
-		}
-		return result;
-	}
-	
-	protected static void addAllSubTypes(EList<ErrorType> result, ErrorType et){
-		EList<ErrorType> mysubs = et.getSubType();
-		if (mysubs.isEmpty()) return ;
-		for (ErrorType errorType : mysubs) {
-			result.add(EMV2Util.resolveAlias(et));
-			addAllSubTypes(result, errorType);
-		}
-	}
 	
 	
 	/**
@@ -376,42 +367,5 @@ public class EM2TypeSetUtil {
 		return token;
 	}
 
-//	/**
-//	 * map types in a token one type at a time using TypeMappingSet
-//	 * It only maps individual element types based in ElementTypeMapping rules
-//	 * Otherwise no mapping occurs.
-//	 * A new token is returned and the original token is not modified.
-//	 * @param token TypeToken
-//	 * @param tms TypeMappingSet
-//	 * @return TypeToken
-//	 */
-//	public static TypeToken mapTypes(TypeToken token, TypeMappingSet tms){
-//		TypeToken resulttoken = ErrorModelFactory.eINSTANCE.createTypeToken();
-//		EList<ErrorType> typelist = token.getType();
-//		for (ErrorType errorType : typelist) {
-//			resulttoken.getType().add(mapType(errorType, tms));
-//		}
-//		return token;
-//	}
-//	
-//	/**
-//	 * map an error type into its target type using the type mapping set
-//	 * @param type ErrorType
-//	 * @param tms TypeMappingset
-//	 * @return ErrorType
-//	 */
-//	public static ErrorType mapType(ErrorType type, TypeMappingSet tms){
-//		EList<TypeMapping> tmlist = tms.getMapping();
-//		for (TypeMapping typeMapping : tmlist) {
-//			if (typeMapping instanceof ElementTypeMapping){
-//				ElementTypeMapping etm = (ElementTypeMapping)typeMapping;
-//				ErrorType src = etm.getSource();
-//				if (contains(src,type)){
-//					return etm.getTarget();
-//				}
-//			}
-//		}
-//		return type;
-//	}
 
 }

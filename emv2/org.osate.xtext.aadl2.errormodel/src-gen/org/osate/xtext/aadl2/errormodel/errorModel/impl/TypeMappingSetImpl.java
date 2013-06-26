@@ -39,160 +39,167 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 public class TypeMappingSetImpl extends NamedElementImpl implements TypeMappingSet
 {
   /**
-	 * The cached value of the '{@link #getUseTypes() <em>Use Types</em>}' reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getUseTypes() <em>Use Types</em>}' reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getUseTypes()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getUseTypes()
+   * @generated
+   * @ordered
+   */
   protected EList<ErrorModelLibrary> useTypes;
 
   /**
-	 * The cached value of the '{@link #getMapping() <em>Mapping</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getMapping() <em>Mapping</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getMapping()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getMapping()
+   * @generated
+   * @ordered
+   */
   protected EList<TypeMapping> mapping;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected TypeMappingSetImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.TYPE_MAPPING_SET;
-	}
+    return ErrorModelPackage.Literals.TYPE_MAPPING_SET;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<ErrorModelLibrary> getUseTypes()
   {
-		if (useTypes == null) {
-			useTypes = new EObjectResolvingEList<ErrorModelLibrary>(ErrorModelLibrary.class, this, ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES);
-		}
-		return useTypes;
-	}
+    if (useTypes == null)
+    {
+      useTypes = new EObjectResolvingEList<ErrorModelLibrary>(ErrorModelLibrary.class, this, ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES);
+    }
+    return useTypes;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<TypeMapping> getMapping()
   {
-		if (mapping == null) {
-			mapping = new EObjectContainmentEList<TypeMapping>(TypeMapping.class, this, ErrorModelPackage.TYPE_MAPPING_SET__MAPPING);
-		}
-		return mapping;
-	}
+    if (mapping == null)
+    {
+      mapping = new EObjectContainmentEList<TypeMapping>(TypeMapping.class, this, ErrorModelPackage.TYPE_MAPPING_SET__MAPPING);
+    }
+    return mapping;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
-				return ((InternalEList<?>)getMapping()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
+        return ((InternalEList<?>)getMapping()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES:
-				return getUseTypes();
-			case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
-				return getMapping();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES:
+        return getUseTypes();
+      case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
+        return getMapping();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES:
-				getUseTypes().clear();
-				getUseTypes().addAll((Collection<? extends ErrorModelLibrary>)newValue);
-				return;
-			case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
-				getMapping().clear();
-				getMapping().addAll((Collection<? extends TypeMapping>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES:
+        getUseTypes().clear();
+        getUseTypes().addAll((Collection<? extends ErrorModelLibrary>)newValue);
+        return;
+      case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
+        getMapping().clear();
+        getMapping().addAll((Collection<? extends TypeMapping>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES:
-				getUseTypes().clear();
-				return;
-			case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
-				getMapping().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES:
+        getUseTypes().clear();
+        return;
+      case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
+        getMapping().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES:
-				return useTypes != null && !useTypes.isEmpty();
-			case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
-				return mapping != null && !mapping.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_MAPPING_SET__USE_TYPES:
+        return useTypes != null && !useTypes.isEmpty();
+      case ErrorModelPackage.TYPE_MAPPING_SET__MAPPING:
+        return mapping != null && !mapping.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //TypeMappingSetImpl

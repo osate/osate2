@@ -40,173 +40,180 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorStateToModeMapping
 {
   /**
-	 * The cached value of the '{@link #getErrorState() <em>Error State</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getErrorState() <em>Error State</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getErrorState()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getErrorState()
+   * @generated
+   * @ordered
+   */
   protected ErrorBehaviorState errorState;
 
   /**
-	 * The cached value of the '{@link #getMappedModes() <em>Mapped Modes</em>}' reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getMappedModes() <em>Mapped Modes</em>}' reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getMappedModes()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getMappedModes()
+   * @generated
+   * @ordered
+   */
   protected EList<Mode> mappedModes;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected ErrorStateToModeMappingImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.ERROR_STATE_TO_MODE_MAPPING;
-	}
+    return ErrorModelPackage.Literals.ERROR_STATE_TO_MODE_MAPPING;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorState getErrorState()
   {
-		if (errorState != null && errorState.eIsProxy()) {
-			InternalEObject oldErrorState = (InternalEObject)errorState;
-			errorState = (ErrorBehaviorState)eResolveProxy(oldErrorState);
-			if (errorState != oldErrorState) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE, oldErrorState, errorState));
-			}
-		}
-		return errorState;
-	}
+    if (errorState != null && errorState.eIsProxy())
+    {
+      InternalEObject oldErrorState = (InternalEObject)errorState;
+      errorState = (ErrorBehaviorState)eResolveProxy(oldErrorState);
+      if (errorState != oldErrorState)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE, oldErrorState, errorState));
+      }
+    }
+    return errorState;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorState basicGetErrorState()
   {
-		return errorState;
-	}
+    return errorState;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setErrorState(ErrorBehaviorState newErrorState)
   {
-		ErrorBehaviorState oldErrorState = errorState;
-		errorState = newErrorState;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE, oldErrorState, errorState));
-	}
+    ErrorBehaviorState oldErrorState = errorState;
+    errorState = newErrorState;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE, oldErrorState, errorState));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<Mode> getMappedModes()
   {
-		if (mappedModes == null) {
-			mappedModes = new EObjectResolvingEList<Mode>(Mode.class, this, ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES);
-		}
-		return mappedModes;
-	}
+    if (mappedModes == null)
+    {
+      mappedModes = new EObjectResolvingEList<Mode>(Mode.class, this, ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES);
+    }
+    return mappedModes;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
-				if (resolve) return getErrorState();
-				return basicGetErrorState();
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
-				return getMappedModes();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
+        if (resolve) return getErrorState();
+        return basicGetErrorState();
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
+        return getMappedModes();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
-				setErrorState((ErrorBehaviorState)newValue);
-				return;
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
-				getMappedModes().clear();
-				getMappedModes().addAll((Collection<? extends Mode>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
+        setErrorState((ErrorBehaviorState)newValue);
+        return;
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
+        getMappedModes().clear();
+        getMappedModes().addAll((Collection<? extends Mode>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
-				setErrorState((ErrorBehaviorState)null);
-				return;
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
-				getMappedModes().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
+        setErrorState((ErrorBehaviorState)null);
+        return;
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
+        getMappedModes().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
-				return errorState != null;
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
-				return mappedModes != null && !mappedModes.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
+        return errorState != null;
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
+        return mappedModes != null && !mappedModes.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //ErrorStateToModeMappingImpl

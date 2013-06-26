@@ -166,9 +166,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 		} else if (ErrorModelPackage.eINSTANCE.getTypeSet() == requiredType) {
 			searchResult = findTypeSet(cxt, name);
 
-		} else if (ErrorModelPackage.eINSTANCE.getErrorTypes() == requiredType) {
-			searchResult = findErrorTypes(cxt, name);
-
 		} else if (ErrorModelPackage.eINSTANCE.getErrorPropagation() == requiredType) {
 			if (reference.getName().equalsIgnoreCase("outgoing")){
 				searchResult = EMV2Util.findErrorPropagation(cxt, name,DirectionType.OUT);
@@ -301,10 +298,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 		return (TypeSet)findEMLNamedTypeElement(context, typeName, ErrorModelPackage.eINSTANCE.getTypeSet());
 	}
 	
-	public ErrorTypes findErrorTypes(Element context, String typeName){
-		return (ErrorTypes)findEMLNamedTypeElement(context, typeName, ErrorModelPackage.eINSTANCE.getErrorTypes());
-	}
-	
 	
 	public EObject findEMLNamedTypeElement(Element context, String qualTypeName, EClass eclass){
 		String packName = EMV2Util.getPackageName(qualTypeName);
@@ -339,9 +332,16 @@ public class EMLinkingService extends PropertiesLinkingService {
 	
 	public EObject findNamedTypeElementInThisEML(ErrorModelLibrary eml, String typeName, EClass eclass){
 		if (eml == null) return null;
-		EList<ErrorTypes> elt = eml.getTypes();
-		for (ErrorTypes ets : elt){
-			if (eclass.isSuperTypeOf(ets.eClass()) && typeName.equalsIgnoreCase(ets.getName())) return ets;
+		if (eclass == ErrorModelPackage.eINSTANCE.getErrorType()){
+		EList<ErrorType> elt = eml.getTypes();
+		for (ErrorType ets : elt){
+			if (typeName.equalsIgnoreCase(ets.getName())) return ets;
+		}
+		} else {
+			EList<TypeSet> elt = eml.getTypesets();
+			for (TypeSet ets : elt){
+				if (typeName.equalsIgnoreCase(ets.getName())) return ets;
+			}
 		}
 		return null;
 	}

@@ -31,111 +31,116 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverEvent
 {
   /**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
   protected EList<NamedElement> condition;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected RecoverEventImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.RECOVER_EVENT;
-	}
+    return ErrorModelPackage.Literals.RECOVER_EVENT;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<NamedElement> getCondition()
   {
-		if (condition == null) {
-			condition = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ErrorModelPackage.RECOVER_EVENT__CONDITION);
-		}
-		return condition;
-	}
+    if (condition == null)
+    {
+      condition = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ErrorModelPackage.RECOVER_EVENT__CONDITION);
+    }
+    return condition;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-				return getCondition();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+        return getCondition();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-				getCondition().clear();
-				getCondition().addAll((Collection<? extends NamedElement>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+        getCondition().clear();
+        getCondition().addAll((Collection<? extends NamedElement>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-				getCondition().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+        getCondition().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-				return condition != null && !condition.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+        return condition != null && !condition.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //RecoverEventImpl

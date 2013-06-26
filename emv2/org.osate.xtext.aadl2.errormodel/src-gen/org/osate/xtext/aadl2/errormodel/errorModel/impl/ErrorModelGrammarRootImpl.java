@@ -33,225 +33,234 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 public class ErrorModelGrammarRootImpl extends MinimalEObjectImpl.Container implements ErrorModelGrammarRoot
 {
   /**
-	 * The cached value of the '{@link #getEml() <em>Eml</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getEml() <em>Eml</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getEml()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getEml()
+   * @generated
+   * @ordered
+   */
   protected ErrorModelLibrary eml;
 
   /**
-	 * The cached value of the '{@link #getEmsc() <em>Emsc</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getEmsc() <em>Emsc</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getEmsc()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getEmsc()
+   * @generated
+   * @ordered
+   */
   protected ErrorModelSubclause emsc;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected ErrorModelGrammarRootImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.ERROR_MODEL_GRAMMAR_ROOT;
-	}
+    return ErrorModelPackage.Literals.ERROR_MODEL_GRAMMAR_ROOT;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorModelLibrary getEml()
   {
-		return eml;
-	}
+    return eml;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetEml(ErrorModelLibrary newEml, NotificationChain msgs)
   {
-		ErrorModelLibrary oldEml = eml;
-		eml = newEml;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML, oldEml, newEml);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    ErrorModelLibrary oldEml = eml;
+    eml = newEml;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML, oldEml, newEml);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setEml(ErrorModelLibrary newEml)
   {
-		if (newEml != eml) {
-			NotificationChain msgs = null;
-			if (eml != null)
-				msgs = ((InternalEObject)eml).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML, null, msgs);
-			if (newEml != null)
-				msgs = ((InternalEObject)newEml).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML, null, msgs);
-			msgs = basicSetEml(newEml, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML, newEml, newEml));
-	}
+    if (newEml != eml)
+    {
+      NotificationChain msgs = null;
+      if (eml != null)
+        msgs = ((InternalEObject)eml).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML, null, msgs);
+      if (newEml != null)
+        msgs = ((InternalEObject)newEml).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML, null, msgs);
+      msgs = basicSetEml(newEml, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML, newEml, newEml));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorModelSubclause getEmsc()
   {
-		return emsc;
-	}
+    return emsc;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetEmsc(ErrorModelSubclause newEmsc, NotificationChain msgs)
   {
-		ErrorModelSubclause oldEmsc = emsc;
-		emsc = newEmsc;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC, oldEmsc, newEmsc);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    ErrorModelSubclause oldEmsc = emsc;
+    emsc = newEmsc;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC, oldEmsc, newEmsc);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setEmsc(ErrorModelSubclause newEmsc)
   {
-		if (newEmsc != emsc) {
-			NotificationChain msgs = null;
-			if (emsc != null)
-				msgs = ((InternalEObject)emsc).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC, null, msgs);
-			if (newEmsc != null)
-				msgs = ((InternalEObject)newEmsc).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC, null, msgs);
-			msgs = basicSetEmsc(newEmsc, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC, newEmsc, newEmsc));
-	}
+    if (newEmsc != emsc)
+    {
+      NotificationChain msgs = null;
+      if (emsc != null)
+        msgs = ((InternalEObject)emsc).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC, null, msgs);
+      if (newEmsc != null)
+        msgs = ((InternalEObject)newEmsc).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC, null, msgs);
+      msgs = basicSetEmsc(newEmsc, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC, newEmsc, newEmsc));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
-				return basicSetEml(null, msgs);
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
-				return basicSetEmsc(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
+        return basicSetEml(null, msgs);
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
+        return basicSetEmsc(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
-				return getEml();
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
-				return getEmsc();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
+        return getEml();
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
+        return getEmsc();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
-				setEml((ErrorModelLibrary)newValue);
-				return;
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
-				setEmsc((ErrorModelSubclause)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
+        setEml((ErrorModelLibrary)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
+        setEmsc((ErrorModelSubclause)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
-				setEml((ErrorModelLibrary)null);
-				return;
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
-				setEmsc((ErrorModelSubclause)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
+        setEml((ErrorModelLibrary)null);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
+        setEmsc((ErrorModelSubclause)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
-				return eml != null;
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
-				return emsc != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EML:
+        return eml != null;
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT__EMSC:
+        return emsc != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //ErrorModelGrammarRootImpl

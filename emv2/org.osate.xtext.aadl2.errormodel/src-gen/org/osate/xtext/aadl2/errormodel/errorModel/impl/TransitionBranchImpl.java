@@ -37,357 +37,368 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 public class TransitionBranchImpl extends ElementImpl implements TransitionBranch
 {
   /**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTarget()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTarget()
+   * @generated
+   * @ordered
+   */
   protected ErrorBehaviorState target;
 
   /**
-	 * The cached value of the '{@link #getTargetToken() <em>Target Token</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTargetToken() <em>Target Token</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTargetToken()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTargetToken()
+   * @generated
+   * @ordered
+   */
   protected TypeToken targetToken;
 
   /**
-	 * The default value of the '{@link #isMask() <em>Mask</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #isMask() <em>Mask</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isMask()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isMask()
+   * @generated
+   * @ordered
+   */
   protected static final boolean MASK_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isMask() <em>Mask</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #isMask() <em>Mask</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isMask()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isMask()
+   * @generated
+   * @ordered
+   */
   protected boolean mask = MASK_EDEFAULT;
 
   /**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getValue()
+   * @generated
+   * @ordered
+   */
   protected BranchValue value;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected TransitionBranchImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.TRANSITION_BRANCH;
-	}
+    return ErrorModelPackage.Literals.TRANSITION_BRANCH;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorState getTarget()
   {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (ErrorBehaviorState)eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.TRANSITION_BRANCH__TARGET, oldTarget, target));
-			}
-		}
-		return target;
-	}
+    if (target != null && target.eIsProxy())
+    {
+      InternalEObject oldTarget = (InternalEObject)target;
+      target = (ErrorBehaviorState)eResolveProxy(oldTarget);
+      if (target != oldTarget)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.TRANSITION_BRANCH__TARGET, oldTarget, target));
+      }
+    }
+    return target;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorState basicGetTarget()
   {
-		return target;
-	}
+    return target;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setTarget(ErrorBehaviorState newTarget)
   {
-		ErrorBehaviorState oldTarget = target;
-		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__TARGET, oldTarget, target));
-	}
+    ErrorBehaviorState oldTarget = target;
+    target = newTarget;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__TARGET, oldTarget, target));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeToken getTargetToken()
   {
-		return targetToken;
-	}
+    return targetToken;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetTargetToken(TypeToken newTargetToken, NotificationChain msgs)
   {
-		TypeToken oldTargetToken = targetToken;
-		targetToken = newTargetToken;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN, oldTargetToken, newTargetToken);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    TypeToken oldTargetToken = targetToken;
+    targetToken = newTargetToken;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN, oldTargetToken, newTargetToken);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setTargetToken(TypeToken newTargetToken)
   {
-		if (newTargetToken != targetToken) {
-			NotificationChain msgs = null;
-			if (targetToken != null)
-				msgs = ((InternalEObject)targetToken).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN, null, msgs);
-			if (newTargetToken != null)
-				msgs = ((InternalEObject)newTargetToken).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN, null, msgs);
-			msgs = basicSetTargetToken(newTargetToken, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN, newTargetToken, newTargetToken));
-	}
+    if (newTargetToken != targetToken)
+    {
+      NotificationChain msgs = null;
+      if (targetToken != null)
+        msgs = ((InternalEObject)targetToken).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN, null, msgs);
+      if (newTargetToken != null)
+        msgs = ((InternalEObject)newTargetToken).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN, null, msgs);
+      msgs = basicSetTargetToken(newTargetToken, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN, newTargetToken, newTargetToken));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public boolean isMask()
   {
-		return mask;
-	}
+    return mask;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setMask(boolean newMask)
   {
-		boolean oldMask = mask;
-		mask = newMask;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__MASK, oldMask, mask));
-	}
+    boolean oldMask = mask;
+    mask = newMask;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__MASK, oldMask, mask));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public BranchValue getValue()
   {
-		return value;
-	}
+    return value;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetValue(BranchValue newValue, NotificationChain msgs)
   {
-		BranchValue oldValue = value;
-		value = newValue;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__VALUE, oldValue, newValue);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    BranchValue oldValue = value;
+    value = newValue;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__VALUE, oldValue, newValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setValue(BranchValue newValue)
   {
-		if (newValue != value) {
-			NotificationChain msgs = null;
-			if (value != null)
-				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__VALUE, null, msgs);
-			if (newValue != null)
-				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__VALUE, null, msgs);
-			msgs = basicSetValue(newValue, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__VALUE, newValue, newValue));
-	}
+    if (newValue != value)
+    {
+      NotificationChain msgs = null;
+      if (value != null)
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__VALUE, null, msgs);
+      if (newValue != null)
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__VALUE, null, msgs);
+      msgs = basicSetValue(newValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__VALUE, newValue, newValue));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
-				return basicSetTargetToken(null, msgs);
-			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
-				return basicSetValue(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
+        return basicSetTargetToken(null, msgs);
+      case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
+        return basicSetValue(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
-				return getTargetToken();
-			case ErrorModelPackage.TRANSITION_BRANCH__MASK:
-				return isMask();
-			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
-				return getValue();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET:
+        if (resolve) return getTarget();
+        return basicGetTarget();
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
+        return getTargetToken();
+      case ErrorModelPackage.TRANSITION_BRANCH__MASK:
+        return isMask();
+      case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
+        return getValue();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET:
-				setTarget((ErrorBehaviorState)newValue);
-				return;
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
-				setTargetToken((TypeToken)newValue);
-				return;
-			case ErrorModelPackage.TRANSITION_BRANCH__MASK:
-				setMask((Boolean)newValue);
-				return;
-			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
-				setValue((BranchValue)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET:
+        setTarget((ErrorBehaviorState)newValue);
+        return;
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
+        setTargetToken((TypeToken)newValue);
+        return;
+      case ErrorModelPackage.TRANSITION_BRANCH__MASK:
+        setMask((Boolean)newValue);
+        return;
+      case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
+        setValue((BranchValue)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET:
-				setTarget((ErrorBehaviorState)null);
-				return;
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
-				setTargetToken((TypeToken)null);
-				return;
-			case ErrorModelPackage.TRANSITION_BRANCH__MASK:
-				setMask(MASK_EDEFAULT);
-				return;
-			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
-				setValue((BranchValue)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET:
+        setTarget((ErrorBehaviorState)null);
+        return;
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
+        setTargetToken((TypeToken)null);
+        return;
+      case ErrorModelPackage.TRANSITION_BRANCH__MASK:
+        setMask(MASK_EDEFAULT);
+        return;
+      case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
+        setValue((BranchValue)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET:
-				return target != null;
-			case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
-				return targetToken != null;
-			case ErrorModelPackage.TRANSITION_BRANCH__MASK:
-				return mask != MASK_EDEFAULT;
-			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
-				return value != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET:
+        return target != null;
+      case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
+        return targetToken != null;
+      case ErrorModelPackage.TRANSITION_BRANCH__MASK:
+        return mask != MASK_EDEFAULT;
+      case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
+        return value != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public String toString()
   {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (mask: ");
-		result.append(mask);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (mask: ");
+    result.append(mask);
+    result.append(')');
+    return result.toString();
+  }
 
 } //TransitionBranchImpl

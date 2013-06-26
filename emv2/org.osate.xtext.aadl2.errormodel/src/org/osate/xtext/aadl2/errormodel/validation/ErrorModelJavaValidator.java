@@ -375,7 +375,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	// }
 
 	private void checkTypeSetUniqueTypes(TypeSet ts) {
-		EList<TypeToken> etlist = ts.getElementType();
+		EList<TypeToken> etlist = ts.getTypeTokens();
 		int size = etlist.size();
 		for (int i = 0; i < size - 1; i++) {
 			TypeToken tok = etlist.get(i);
@@ -421,8 +421,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10,
 				10);
 		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
-			EList<ErrorTypes> typeslist = etl.getTypes();
-			for (ErrorTypes errorTypes : typeslist) {
+			EList<ErrorType> typeslist = etl.getTypes();
+			for (ErrorType errorTypes : typeslist) {
 				if (etlset.containsKey(errorTypes.getName())) {
 					ErrorModelLibrary eml = EMV2Util
 							.getContainingErrorModelLibrary((Element) etlset
@@ -433,6 +433,20 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 							+ EMV2Util.getPrintName(eml));
 				} else {
 					etlset.put(errorTypes.getName(), errorTypes);
+				}
+			}
+			EList<TypeSet> typesetlist = etl.getTypesets();
+			for (TypeSet typeset : typesetlist) {
+				if (etlset.containsKey(typeset.getName())) {
+					ErrorModelLibrary eml = EMV2Util
+							.getContainingErrorModelLibrary((Element) etlset
+									.get(typeset.getName()));
+					error(tuc, "Error type or type set " + typeset.getName()
+							+ " in library " + EMV2Util.getPrintName(etl)
+							+ " already exists in error type library "
+							+ EMV2Util.getPrintName(eml));
+				} else {
+					etlset.put(typeset.getName(), typeset);
 				}
 			}
 		}

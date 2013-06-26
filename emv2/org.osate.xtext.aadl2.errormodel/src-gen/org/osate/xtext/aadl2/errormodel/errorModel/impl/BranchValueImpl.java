@@ -34,263 +34,269 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 public class BranchValueImpl extends MinimalEObjectImpl.Container implements BranchValue
 {
   /**
-	 * The default value of the '{@link #getRealvalue() <em>Realvalue</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getRealvalue() <em>Realvalue</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getRealvalue()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getRealvalue()
+   * @generated
+   * @ordered
+   */
   protected static final String REALVALUE_EDEFAULT = null;
 
   /**
-	 * The cached value of the '{@link #getRealvalue() <em>Realvalue</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getRealvalue() <em>Realvalue</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getRealvalue()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getRealvalue()
+   * @generated
+   * @ordered
+   */
   protected String realvalue = REALVALUE_EDEFAULT;
 
   /**
-	 * The cached value of the '{@link #getSymboliclabel() <em>Symboliclabel</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getSymboliclabel() <em>Symboliclabel</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getSymboliclabel()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getSymboliclabel()
+   * @generated
+   * @ordered
+   */
   protected PropertyConstant symboliclabel;
 
   /**
-	 * The default value of the '{@link #isOthers() <em>Others</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #isOthers() <em>Others</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isOthers()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isOthers()
+   * @generated
+   * @ordered
+   */
   protected static final boolean OTHERS_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isOthers() <em>Others</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #isOthers() <em>Others</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isOthers()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isOthers()
+   * @generated
+   * @ordered
+   */
   protected boolean others = OTHERS_EDEFAULT;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected BranchValueImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.BRANCH_VALUE;
-	}
+    return ErrorModelPackage.Literals.BRANCH_VALUE;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public String getRealvalue()
   {
-		return realvalue;
-	}
+    return realvalue;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setRealvalue(String newRealvalue)
   {
-		String oldRealvalue = realvalue;
-		realvalue = newRealvalue;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.BRANCH_VALUE__REALVALUE, oldRealvalue, realvalue));
-	}
+    String oldRealvalue = realvalue;
+    realvalue = newRealvalue;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.BRANCH_VALUE__REALVALUE, oldRealvalue, realvalue));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropertyConstant getSymboliclabel()
   {
-		if (symboliclabel != null && ((EObject)symboliclabel).eIsProxy()) {
-			InternalEObject oldSymboliclabel = (InternalEObject)symboliclabel;
-			symboliclabel = (PropertyConstant)eResolveProxy(oldSymboliclabel);
-			if (symboliclabel != oldSymboliclabel) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL, oldSymboliclabel, symboliclabel));
-			}
-		}
-		return symboliclabel;
-	}
+    if (symboliclabel != null && ((EObject)symboliclabel).eIsProxy())
+    {
+      InternalEObject oldSymboliclabel = (InternalEObject)symboliclabel;
+      symboliclabel = (PropertyConstant)eResolveProxy(oldSymboliclabel);
+      if (symboliclabel != oldSymboliclabel)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL, oldSymboliclabel, symboliclabel));
+      }
+    }
+    return symboliclabel;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropertyConstant basicGetSymboliclabel()
   {
-		return symboliclabel;
-	}
+    return symboliclabel;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setSymboliclabel(PropertyConstant newSymboliclabel)
   {
-		PropertyConstant oldSymboliclabel = symboliclabel;
-		symboliclabel = newSymboliclabel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL, oldSymboliclabel, symboliclabel));
-	}
+    PropertyConstant oldSymboliclabel = symboliclabel;
+    symboliclabel = newSymboliclabel;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL, oldSymboliclabel, symboliclabel));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public boolean isOthers()
   {
-		return others;
-	}
+    return others;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setOthers(boolean newOthers)
   {
-		boolean oldOthers = others;
-		others = newOthers;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.BRANCH_VALUE__OTHERS, oldOthers, others));
-	}
+    boolean oldOthers = others;
+    others = newOthers;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.BRANCH_VALUE__OTHERS, oldOthers, others));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.BRANCH_VALUE__REALVALUE:
-				return getRealvalue();
-			case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
-				if (resolve) return getSymboliclabel();
-				return basicGetSymboliclabel();
-			case ErrorModelPackage.BRANCH_VALUE__OTHERS:
-				return isOthers();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.BRANCH_VALUE__REALVALUE:
+        return getRealvalue();
+      case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
+        if (resolve) return getSymboliclabel();
+        return basicGetSymboliclabel();
+      case ErrorModelPackage.BRANCH_VALUE__OTHERS:
+        return isOthers();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.BRANCH_VALUE__REALVALUE:
-				setRealvalue((String)newValue);
-				return;
-			case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
-				setSymboliclabel((PropertyConstant)newValue);
-				return;
-			case ErrorModelPackage.BRANCH_VALUE__OTHERS:
-				setOthers((Boolean)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.BRANCH_VALUE__REALVALUE:
+        setRealvalue((String)newValue);
+        return;
+      case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
+        setSymboliclabel((PropertyConstant)newValue);
+        return;
+      case ErrorModelPackage.BRANCH_VALUE__OTHERS:
+        setOthers((Boolean)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.BRANCH_VALUE__REALVALUE:
-				setRealvalue(REALVALUE_EDEFAULT);
-				return;
-			case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
-				setSymboliclabel((PropertyConstant)null);
-				return;
-			case ErrorModelPackage.BRANCH_VALUE__OTHERS:
-				setOthers(OTHERS_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.BRANCH_VALUE__REALVALUE:
+        setRealvalue(REALVALUE_EDEFAULT);
+        return;
+      case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
+        setSymboliclabel((PropertyConstant)null);
+        return;
+      case ErrorModelPackage.BRANCH_VALUE__OTHERS:
+        setOthers(OTHERS_EDEFAULT);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.BRANCH_VALUE__REALVALUE:
-				return REALVALUE_EDEFAULT == null ? realvalue != null : !REALVALUE_EDEFAULT.equals(realvalue);
-			case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
-				return symboliclabel != null;
-			case ErrorModelPackage.BRANCH_VALUE__OTHERS:
-				return others != OTHERS_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.BRANCH_VALUE__REALVALUE:
+        return REALVALUE_EDEFAULT == null ? realvalue != null : !REALVALUE_EDEFAULT.equals(realvalue);
+      case ErrorModelPackage.BRANCH_VALUE__SYMBOLICLABEL:
+        return symboliclabel != null;
+      case ErrorModelPackage.BRANCH_VALUE__OTHERS:
+        return others != OTHERS_EDEFAULT;
+    }
+    return super.eIsSet(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public String toString()
   {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (realvalue: ");
-		result.append(realvalue);
-		result.append(", others: ");
-		result.append(others);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (realvalue: ");
+    result.append(realvalue);
+    result.append(", others: ");
+    result.append(others);
+    result.append(')');
+    return result.toString();
+  }
 
 } //BranchValueImpl

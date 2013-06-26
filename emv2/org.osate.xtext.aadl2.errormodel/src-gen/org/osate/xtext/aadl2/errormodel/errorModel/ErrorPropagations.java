@@ -28,35 +28,35 @@ import org.osate.aadl2.Element;
 public interface ErrorPropagations extends EObject, Element
 {
   /**
-	 * Returns the value of the '<em><b>Propagations</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Propagations</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Propagations</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Propagations</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagations_Propagations()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Propagations</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagations_Propagations()
+   * @model containment="true"
+   * @generated
+   */
   EList<ErrorPropagation> getPropagations();
 
   /**
-	 * Returns the value of the '<em><b>Flows</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Flows</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Flows</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Flows</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagations_Flows()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Flows</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagations_Flows()
+   * @model containment="true"
+   * @generated
+   */
   EList<ErrorFlow> getFlows();
 
 } // ErrorPropagations

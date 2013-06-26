@@ -27,55 +27,55 @@ import org.osate.aadl2.Subcomponent;
 public interface QualifiedPropagationPoint extends EObject, Element
 {
   /**
-	 * Returns the value of the '<em><b>Subcomponent</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Subcomponent</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Subcomponent</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subcomponent</em>' reference.
-	 * @see #setSubcomponent(Subcomponent)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedPropagationPoint_Subcomponent()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Subcomponent</em>' reference.
+   * @see #setSubcomponent(Subcomponent)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedPropagationPoint_Subcomponent()
+   * @model
+   * @generated
+   */
   Subcomponent getSubcomponent();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponent <em>Subcomponent</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponent <em>Subcomponent</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Subcomponent</em>' reference.
-	 * @see #getSubcomponent()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Subcomponent</em>' reference.
+   * @see #getSubcomponent()
+   * @generated
+   */
   void setSubcomponent(Subcomponent value);
 
   /**
-	 * Returns the value of the '<em><b>Propagation Point</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Propagation Point</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Propagation Point</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Propagation Point</em>' reference.
-	 * @see #setPropagationPoint(PropagationPoint)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedPropagationPoint_PropagationPoint()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Propagation Point</em>' reference.
+   * @see #setPropagationPoint(PropagationPoint)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedPropagationPoint_PropagationPoint()
+   * @model
+   * @generated
+   */
   PropagationPoint getPropagationPoint();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getPropagationPoint <em>Propagation Point</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getPropagationPoint <em>Propagation Point</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Propagation Point</em>' reference.
-	 * @see #getPropagationPoint()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Propagation Point</em>' reference.
+   * @see #getPropagationPoint()
+   * @generated
+   */
   void setPropagationPoint(PropagationPoint value);
 
 } // QualifiedPropagationPoint

@@ -1980,7 +1980,7 @@ public class EMV2Util {
 	public static String getPrintableName(TypeSet ts,String separator){
 		if (ts == null) return "";
 		String res ="{";
-		EList<TypeToken> te = ts.getElementType();
+		EList<TypeToken> te = ts.getTypeTokens();
 		boolean docomma = false;
 		for (TypeToken typeSetElement : te) {
 			 EList<ErrorType> et = typeSetElement.getType();

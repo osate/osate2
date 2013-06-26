@@ -28,9 +28,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getElementType <em>Element Type</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getTypeTokens <em>Type Tokens</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getAliasedType <em>Aliased Type</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getReference <em>Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,250 +39,260 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
 {
   /**
-	 * The cached value of the '{@link #getElementType() <em>Element Type</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTypeTokens() <em>Type Tokens</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getElementType()
-	 * @generated
-	 * @ordered
-	 */
-  protected EList<TypeToken> elementType;
+   * @see #getTypeTokens()
+   * @generated
+   * @ordered
+   */
+  protected EList<TypeToken> typeTokens;
 
   /**
-	 * The cached value of the '{@link #getReference() <em>Reference</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getAliasedType() <em>Aliased Type</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getReference()
-	 * @generated
-	 * @ordered
-	 */
-  protected TypeSet reference;
-
-  /**
-	 * The cached value of the '{@link #getAliasedType() <em>Aliased Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #getAliasedType()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getAliasedType()
+   * @generated
+   * @ordered
+   */
   protected TypeSet aliasedType;
 
   /**
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getReference() <em>Reference</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
-  protected TypeSetImpl()
-  {
-		super();
-	}
+   * @see #getReference()
+   * @generated
+   * @ordered
+   */
+  protected TypeSet reference;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
+  protected TypeSetImpl()
+  {
+    super();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.TYPE_SET;
-	}
+    return ErrorModelPackage.Literals.TYPE_SET;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EList<TypeToken> getElementType()
+   * @generated
+   */
+  public EList<TypeToken> getTypeTokens()
   {
-		if (elementType == null) {
-			elementType = new EObjectContainmentEList<TypeToken>(TypeToken.class, this, ErrorModelPackage.TYPE_SET__ELEMENT_TYPE);
-		}
-		return elementType;
-	}
+    if (typeTokens == null)
+    {
+      typeTokens = new EObjectContainmentEList<TypeToken>(TypeToken.class, this, ErrorModelPackage.TYPE_SET__TYPE_TOKENS);
+    }
+    return typeTokens;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public TypeSet getReference()
-  {
-		if (reference != null && reference.eIsProxy()) {
-			InternalEObject oldReference = (InternalEObject)reference;
-			reference = (TypeSet)eResolveProxy(oldReference);
-			if (reference != oldReference) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.TYPE_SET__REFERENCE, oldReference, reference));
-			}
-		}
-		return reference;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public TypeSet basicGetReference()
-  {
-		return reference;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public void setReference(TypeSet newReference)
-  {
-		TypeSet oldReference = reference;
-		reference = newReference;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TYPE_SET__REFERENCE, oldReference, reference));
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeSet getAliasedType()
   {
-		if (aliasedType != null && aliasedType.eIsProxy()) {
-			InternalEObject oldAliasedType = (InternalEObject)aliasedType;
-			aliasedType = (TypeSet)eResolveProxy(oldAliasedType);
-			if (aliasedType != oldAliasedType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.TYPE_SET__ALIASED_TYPE, oldAliasedType, aliasedType));
-			}
-		}
-		return aliasedType;
-	}
+    if (aliasedType != null && aliasedType.eIsProxy())
+    {
+      InternalEObject oldAliasedType = (InternalEObject)aliasedType;
+      aliasedType = (TypeSet)eResolveProxy(oldAliasedType);
+      if (aliasedType != oldAliasedType)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.TYPE_SET__ALIASED_TYPE, oldAliasedType, aliasedType));
+      }
+    }
+    return aliasedType;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeSet basicGetAliasedType()
   {
-		return aliasedType;
-	}
+    return aliasedType;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setAliasedType(TypeSet newAliasedType)
   {
-		TypeSet oldAliasedType = aliasedType;
-		aliasedType = newAliasedType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TYPE_SET__ALIASED_TYPE, oldAliasedType, aliasedType));
-	}
+    TypeSet oldAliasedType = aliasedType;
+    aliasedType = newAliasedType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TYPE_SET__ALIASED_TYPE, oldAliasedType, aliasedType));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
+  public TypeSet getReference()
+  {
+    if (reference != null && reference.eIsProxy())
+    {
+      InternalEObject oldReference = (InternalEObject)reference;
+      reference = (TypeSet)eResolveProxy(oldReference);
+      if (reference != oldReference)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.TYPE_SET__REFERENCE, oldReference, reference));
+      }
+    }
+    return reference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeSet basicGetReference()
+  {
+    return reference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setReference(TypeSet newReference)
+  {
+    TypeSet oldReference = reference;
+    reference = newReference;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TYPE_SET__REFERENCE, oldReference, reference));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_SET__ELEMENT_TYPE:
-				return ((InternalEList<?>)getElementType()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_SET__TYPE_TOKENS:
+        return ((InternalEList<?>)getTypeTokens()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_SET__ELEMENT_TYPE:
-				return getElementType();
-			case ErrorModelPackage.TYPE_SET__REFERENCE:
-				if (resolve) return getReference();
-				return basicGetReference();
-			case ErrorModelPackage.TYPE_SET__ALIASED_TYPE:
-				if (resolve) return getAliasedType();
-				return basicGetAliasedType();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_SET__TYPE_TOKENS:
+        return getTypeTokens();
+      case ErrorModelPackage.TYPE_SET__ALIASED_TYPE:
+        if (resolve) return getAliasedType();
+        return basicGetAliasedType();
+      case ErrorModelPackage.TYPE_SET__REFERENCE:
+        if (resolve) return getReference();
+        return basicGetReference();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_SET__ELEMENT_TYPE:
-				getElementType().clear();
-				getElementType().addAll((Collection<? extends TypeToken>)newValue);
-				return;
-			case ErrorModelPackage.TYPE_SET__REFERENCE:
-				setReference((TypeSet)newValue);
-				return;
-			case ErrorModelPackage.TYPE_SET__ALIASED_TYPE:
-				setAliasedType((TypeSet)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_SET__TYPE_TOKENS:
+        getTypeTokens().clear();
+        getTypeTokens().addAll((Collection<? extends TypeToken>)newValue);
+        return;
+      case ErrorModelPackage.TYPE_SET__ALIASED_TYPE:
+        setAliasedType((TypeSet)newValue);
+        return;
+      case ErrorModelPackage.TYPE_SET__REFERENCE:
+        setReference((TypeSet)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_SET__ELEMENT_TYPE:
-				getElementType().clear();
-				return;
-			case ErrorModelPackage.TYPE_SET__REFERENCE:
-				setReference((TypeSet)null);
-				return;
-			case ErrorModelPackage.TYPE_SET__ALIASED_TYPE:
-				setAliasedType((TypeSet)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_SET__TYPE_TOKENS:
+        getTypeTokens().clear();
+        return;
+      case ErrorModelPackage.TYPE_SET__ALIASED_TYPE:
+        setAliasedType((TypeSet)null);
+        return;
+      case ErrorModelPackage.TYPE_SET__REFERENCE:
+        setReference((TypeSet)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.TYPE_SET__ELEMENT_TYPE:
-				return elementType != null && !elementType.isEmpty();
-			case ErrorModelPackage.TYPE_SET__REFERENCE:
-				return reference != null;
-			case ErrorModelPackage.TYPE_SET__ALIASED_TYPE:
-				return aliasedType != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.TYPE_SET__TYPE_TOKENS:
+        return typeTokens != null && !typeTokens.isEmpty();
+      case ErrorModelPackage.TYPE_SET__ALIASED_TYPE:
+        return aliasedType != null;
+      case ErrorModelPackage.TYPE_SET__REFERENCE:
+        return reference != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //TypeSetImpl

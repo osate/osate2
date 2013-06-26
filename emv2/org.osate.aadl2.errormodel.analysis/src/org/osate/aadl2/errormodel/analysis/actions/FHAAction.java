@@ -252,7 +252,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 				if (targetType==null){
 					if (ts != null){
-						for(TypeToken token: ts.getElementType()){
+						for(TypeToken token: ts.getTypeTokens()){
 							reportFHAEntry(report, fields, Severity, Likelihood, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
 						}
 					} else {

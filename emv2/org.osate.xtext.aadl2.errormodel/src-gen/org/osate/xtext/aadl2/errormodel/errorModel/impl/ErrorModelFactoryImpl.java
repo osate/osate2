@@ -21,706 +21,710 @@ import org.osate.xtext.aadl2.errormodel.errorModel.*;
 public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFactory
 {
   /**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
+   * Creates the default factory implementation.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public static ErrorModelFactory init()
   {
-		try {
-			ErrorModelFactory theErrorModelFactory = (ErrorModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.aadl.info/EMV2"); 
-			if (theErrorModelFactory != null) {
-				return theErrorModelFactory;
-			}
-		}
-		catch (Exception exception) {
-			EcorePlugin.INSTANCE.log(exception);
-		}
-		return new ErrorModelFactoryImpl();
-	}
+    try
+    {
+      ErrorModelFactory theErrorModelFactory = (ErrorModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.aadl.info/EMV2"); 
+      if (theErrorModelFactory != null)
+      {
+        return theErrorModelFactory;
+      }
+    }
+    catch (Exception exception)
+    {
+      EcorePlugin.INSTANCE.log(exception);
+    }
+    return new ErrorModelFactoryImpl();
+  }
 
   /**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
+   * Creates an instance of the factory.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorModelFactoryImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public EObject create(EClass eClass)
   {
-		switch (eClass.getClassifierID()) {
-			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT: return createErrorModelGrammarRoot();
-			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
-			case ErrorModelPackage.ERROR_MODEL_LIBRARY: return createErrorModelLibrary();
-			case ErrorModelPackage.ERROR_TYPES: return createErrorTypes();
-			case ErrorModelPackage.ERROR_TYPE: return createErrorType();
-			case ErrorModelPackage.TYPE_SET: return createTypeSet();
-			case ErrorModelPackage.TYPE_TOKEN: return createTypeToken();
-			case ErrorModelPackage.TYPE_TRANSFORMATION_SET: return createTypeTransformationSet();
-			case ErrorModelPackage.TYPE_TRANSFORMATION: return createTypeTransformation();
-			case ErrorModelPackage.TYPE_MAPPING_SET: return createTypeMappingSet();
-			case ErrorModelPackage.TYPE_MAPPING: return createTypeMapping();
-			case ErrorModelPackage.ERROR_PROPAGATIONS: return createErrorPropagations();
-			case ErrorModelPackage.ERROR_PROPAGATION: return createErrorPropagation();
-			case ErrorModelPackage.FEATUREOR_PP_REFERENCE: return createFeatureorPPReference();
-			case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
-			case ErrorModelPackage.ERROR_SOURCE: return createErrorSource();
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET: return createErrorBehaviorStateOrTypeSet();
-			case ErrorModelPackage.ERROR_SINK: return createErrorSink();
-			case ErrorModelPackage.ERROR_PATH: return createErrorPath();
-			case ErrorModelPackage.PROPAGATION_PATHS: return createPropagationPaths();
-			case ErrorModelPackage.PROPAGATION_POINT: return createPropagationPoint();
-			case ErrorModelPackage.PROPAGATION_POINT_CONNECTION: return createPropagationPointConnection();
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT: return createQualifiedPropagationPoint();
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE: return createErrorBehaviorStateMachine();
-			case ErrorModelPackage.ERROR_BEHAVIOR_EVENT: return createErrorBehaviorEvent();
-			case ErrorModelPackage.ERROR_EVENT: return createErrorEvent();
-			case ErrorModelPackage.REPAIR_EVENT: return createRepairEvent();
-			case ErrorModelPackage.RECOVER_EVENT: return createRecoverEvent();
-			case ErrorModelPackage.ERROR_BEHAVIOR_STATE: return createErrorBehaviorState();
-			case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION: return createErrorBehaviorTransition();
-			case ErrorModelPackage.TRANSITION_BRANCH: return createTransitionBranch();
-			case ErrorModelPackage.BRANCH_VALUE: return createBranchValue();
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR: return createConnectionErrorBehavior();
-			case ErrorModelPackage.CONNECTION_ERROR_SOURCE: return createConnectionErrorSource();
-			case ErrorModelPackage.EBSM_USE_CONTEXT: return createEBSMUseContext();
-			case ErrorModelPackage.TYPE_USE_CONTEXT: return createTypeUseContext();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR: return createComponentErrorBehavior();
-			case ErrorModelPackage.CONDITION_EXPRESSION: return createConditionExpression();
-			case ErrorModelPackage.ORMORE_EXPRESSION: return createOrmoreExpression();
-			case ErrorModelPackage.ORLESS_EXPRESSION: return createOrlessExpression();
-			case ErrorModelPackage.CONDITION_ELEMENT: return createConditionElement();
-			case ErrorModelPackage.EVENT_OR_PROPAGATION: return createEventOrPropagation();
-			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION: return createOutgoingPropagationCondition();
-			case ErrorModelPackage.ERROR_DETECTION: return createErrorDetection();
-			case ErrorModelPackage.ERROR_CODE_VALUE: return createErrorCodeValue();
-			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: return createErrorStateToModeMapping();
-			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR: return createCompositeErrorBehavior();
-			case ErrorModelPackage.COMPOSITE_STATE: return createCompositeState();
-			case ErrorModelPackage.SUBCOMPONENT_ELEMENT: return createSubcomponentElement();
-			case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
-			case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
-			case ErrorModelPackage.SOR_EXPRESSION: return createSOrExpression();
-			case ErrorModelPackage.SAND_EXPRESSION: return createSAndExpression();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
+    switch (eClass.getClassifierID())
+    {
+      case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT: return createErrorModelGrammarRoot();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: return createErrorModelSubclause();
+      case ErrorModelPackage.ERROR_MODEL_LIBRARY: return createErrorModelLibrary();
+      case ErrorModelPackage.ERROR_TYPES: return createErrorTypes();
+      case ErrorModelPackage.ERROR_TYPE: return createErrorType();
+      case ErrorModelPackage.TYPE_SET: return createTypeSet();
+      case ErrorModelPackage.TYPE_TOKEN: return createTypeToken();
+      case ErrorModelPackage.TYPE_TRANSFORMATION_SET: return createTypeTransformationSet();
+      case ErrorModelPackage.TYPE_TRANSFORMATION: return createTypeTransformation();
+      case ErrorModelPackage.TYPE_MAPPING_SET: return createTypeMappingSet();
+      case ErrorModelPackage.TYPE_MAPPING: return createTypeMapping();
+      case ErrorModelPackage.ERROR_PROPAGATIONS: return createErrorPropagations();
+      case ErrorModelPackage.ERROR_PROPAGATION: return createErrorPropagation();
+      case ErrorModelPackage.FEATUREOR_PP_REFERENCE: return createFeatureorPPReference();
+      case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
+      case ErrorModelPackage.ERROR_SOURCE: return createErrorSource();
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET: return createErrorBehaviorStateOrTypeSet();
+      case ErrorModelPackage.ERROR_SINK: return createErrorSink();
+      case ErrorModelPackage.ERROR_PATH: return createErrorPath();
+      case ErrorModelPackage.PROPAGATION_PATHS: return createPropagationPaths();
+      case ErrorModelPackage.PROPAGATION_POINT: return createPropagationPoint();
+      case ErrorModelPackage.PROPAGATION_POINT_CONNECTION: return createPropagationPointConnection();
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT: return createQualifiedPropagationPoint();
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE: return createErrorBehaviorStateMachine();
+      case ErrorModelPackage.ERROR_BEHAVIOR_EVENT: return createErrorBehaviorEvent();
+      case ErrorModelPackage.ERROR_EVENT: return createErrorEvent();
+      case ErrorModelPackage.REPAIR_EVENT: return createRepairEvent();
+      case ErrorModelPackage.RECOVER_EVENT: return createRecoverEvent();
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE: return createErrorBehaviorState();
+      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION: return createErrorBehaviorTransition();
+      case ErrorModelPackage.TRANSITION_BRANCH: return createTransitionBranch();
+      case ErrorModelPackage.BRANCH_VALUE: return createBranchValue();
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR: return createConnectionErrorBehavior();
+      case ErrorModelPackage.CONNECTION_ERROR_SOURCE: return createConnectionErrorSource();
+      case ErrorModelPackage.EBSM_USE_CONTEXT: return createEBSMUseContext();
+      case ErrorModelPackage.TYPE_USE_CONTEXT: return createTypeUseContext();
+      case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR: return createComponentErrorBehavior();
+      case ErrorModelPackage.CONDITION_EXPRESSION: return createConditionExpression();
+      case ErrorModelPackage.ORMORE_EXPRESSION: return createOrmoreExpression();
+      case ErrorModelPackage.ORLESS_EXPRESSION: return createOrlessExpression();
+      case ErrorModelPackage.CONDITION_ELEMENT: return createConditionElement();
+      case ErrorModelPackage.EVENT_OR_PROPAGATION: return createEventOrPropagation();
+      case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION: return createOutgoingPropagationCondition();
+      case ErrorModelPackage.ERROR_DETECTION: return createErrorDetection();
+      case ErrorModelPackage.ERROR_CODE_VALUE: return createErrorCodeValue();
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: return createErrorStateToModeMapping();
+      case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR: return createCompositeErrorBehavior();
+      case ErrorModelPackage.COMPOSITE_STATE: return createCompositeState();
+      case ErrorModelPackage.SUBCOMPONENT_ELEMENT: return createSubcomponentElement();
+      case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
+      case ErrorModelPackage.AND_EXPRESSION: return createAndExpression();
+      case ErrorModelPackage.SOR_EXPRESSION: return createSOrExpression();
+      case ErrorModelPackage.SAND_EXPRESSION: return createSAndExpression();
+      default:
+        throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+    }
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorModelGrammarRoot createErrorModelGrammarRoot()
   {
-		ErrorModelGrammarRootImpl errorModelGrammarRoot = new ErrorModelGrammarRootImpl();
-		return errorModelGrammarRoot;
-	}
+    ErrorModelGrammarRootImpl errorModelGrammarRoot = new ErrorModelGrammarRootImpl();
+    return errorModelGrammarRoot;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorModelSubclause createErrorModelSubclause()
   {
-		ErrorModelSubclauseImpl errorModelSubclause = new ErrorModelSubclauseImpl();
-		return errorModelSubclause;
-	}
+    ErrorModelSubclauseImpl errorModelSubclause = new ErrorModelSubclauseImpl();
+    return errorModelSubclause;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorModelLibrary createErrorModelLibrary()
   {
-		ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
-		return errorModelLibrary;
-	}
+    ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
+    return errorModelLibrary;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorTypes createErrorTypes()
   {
-		ErrorTypesImpl errorTypes = new ErrorTypesImpl();
-		return errorTypes;
-	}
+    ErrorTypesImpl errorTypes = new ErrorTypesImpl();
+    return errorTypes;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorType createErrorType()
   {
-		ErrorTypeImpl errorType = new ErrorTypeImpl();
-		return errorType;
-	}
+    ErrorTypeImpl errorType = new ErrorTypeImpl();
+    return errorType;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeSet createTypeSet()
   {
-		TypeSetImpl typeSet = new TypeSetImpl();
-		return typeSet;
-	}
+    TypeSetImpl typeSet = new TypeSetImpl();
+    return typeSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeToken createTypeToken()
   {
-		TypeTokenImpl typeToken = new TypeTokenImpl();
-		return typeToken;
-	}
+    TypeTokenImpl typeToken = new TypeTokenImpl();
+    return typeToken;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeTransformationSet createTypeTransformationSet()
   {
-		TypeTransformationSetImpl typeTransformationSet = new TypeTransformationSetImpl();
-		return typeTransformationSet;
-	}
+    TypeTransformationSetImpl typeTransformationSet = new TypeTransformationSetImpl();
+    return typeTransformationSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeTransformation createTypeTransformation()
   {
-		TypeTransformationImpl typeTransformation = new TypeTransformationImpl();
-		return typeTransformation;
-	}
+    TypeTransformationImpl typeTransformation = new TypeTransformationImpl();
+    return typeTransformation;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeMappingSet createTypeMappingSet()
   {
-		TypeMappingSetImpl typeMappingSet = new TypeMappingSetImpl();
-		return typeMappingSet;
-	}
+    TypeMappingSetImpl typeMappingSet = new TypeMappingSetImpl();
+    return typeMappingSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeMapping createTypeMapping()
   {
-		TypeMappingImpl typeMapping = new TypeMappingImpl();
-		return typeMapping;
-	}
+    TypeMappingImpl typeMapping = new TypeMappingImpl();
+    return typeMapping;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorPropagations createErrorPropagations()
   {
-		ErrorPropagationsImpl errorPropagations = new ErrorPropagationsImpl();
-		return errorPropagations;
-	}
+    ErrorPropagationsImpl errorPropagations = new ErrorPropagationsImpl();
+    return errorPropagations;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorPropagation createErrorPropagation()
   {
-		ErrorPropagationImpl errorPropagation = new ErrorPropagationImpl();
-		return errorPropagation;
-	}
+    ErrorPropagationImpl errorPropagation = new ErrorPropagationImpl();
+    return errorPropagation;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public FeatureorPPReference createFeatureorPPReference()
   {
-		FeatureorPPReferenceImpl featureorPPReference = new FeatureorPPReferenceImpl();
-		return featureorPPReference;
-	}
+    FeatureorPPReferenceImpl featureorPPReference = new FeatureorPPReferenceImpl();
+    return featureorPPReference;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorFlow createErrorFlow()
   {
-		ErrorFlowImpl errorFlow = new ErrorFlowImpl();
-		return errorFlow;
-	}
+    ErrorFlowImpl errorFlow = new ErrorFlowImpl();
+    return errorFlow;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorSource createErrorSource()
   {
-		ErrorSourceImpl errorSource = new ErrorSourceImpl();
-		return errorSource;
-	}
+    ErrorSourceImpl errorSource = new ErrorSourceImpl();
+    return errorSource;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorStateOrTypeSet createErrorBehaviorStateOrTypeSet()
   {
-		ErrorBehaviorStateOrTypeSetImpl errorBehaviorStateOrTypeSet = new ErrorBehaviorStateOrTypeSetImpl();
-		return errorBehaviorStateOrTypeSet;
-	}
+    ErrorBehaviorStateOrTypeSetImpl errorBehaviorStateOrTypeSet = new ErrorBehaviorStateOrTypeSetImpl();
+    return errorBehaviorStateOrTypeSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorSink createErrorSink()
   {
-		ErrorSinkImpl errorSink = new ErrorSinkImpl();
-		return errorSink;
-	}
+    ErrorSinkImpl errorSink = new ErrorSinkImpl();
+    return errorSink;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorPath createErrorPath()
   {
-		ErrorPathImpl errorPath = new ErrorPathImpl();
-		return errorPath;
-	}
+    ErrorPathImpl errorPath = new ErrorPathImpl();
+    return errorPath;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropagationPaths createPropagationPaths()
   {
-		PropagationPathsImpl propagationPaths = new PropagationPathsImpl();
-		return propagationPaths;
-	}
+    PropagationPathsImpl propagationPaths = new PropagationPathsImpl();
+    return propagationPaths;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropagationPoint createPropagationPoint()
   {
-		PropagationPointImpl propagationPoint = new PropagationPointImpl();
-		return propagationPoint;
-	}
+    PropagationPointImpl propagationPoint = new PropagationPointImpl();
+    return propagationPoint;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropagationPointConnection createPropagationPointConnection()
   {
-		PropagationPointConnectionImpl propagationPointConnection = new PropagationPointConnectionImpl();
-		return propagationPointConnection;
-	}
+    PropagationPointConnectionImpl propagationPointConnection = new PropagationPointConnectionImpl();
+    return propagationPointConnection;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public QualifiedPropagationPoint createQualifiedPropagationPoint()
   {
-		QualifiedPropagationPointImpl qualifiedPropagationPoint = new QualifiedPropagationPointImpl();
-		return qualifiedPropagationPoint;
-	}
+    QualifiedPropagationPointImpl qualifiedPropagationPoint = new QualifiedPropagationPointImpl();
+    return qualifiedPropagationPoint;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorStateMachine createErrorBehaviorStateMachine()
   {
-		ErrorBehaviorStateMachineImpl errorBehaviorStateMachine = new ErrorBehaviorStateMachineImpl();
-		return errorBehaviorStateMachine;
-	}
+    ErrorBehaviorStateMachineImpl errorBehaviorStateMachine = new ErrorBehaviorStateMachineImpl();
+    return errorBehaviorStateMachine;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorEvent createErrorBehaviorEvent()
   {
-		ErrorBehaviorEventImpl errorBehaviorEvent = new ErrorBehaviorEventImpl();
-		return errorBehaviorEvent;
-	}
+    ErrorBehaviorEventImpl errorBehaviorEvent = new ErrorBehaviorEventImpl();
+    return errorBehaviorEvent;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorEvent createErrorEvent()
   {
-		ErrorEventImpl errorEvent = new ErrorEventImpl();
-		return errorEvent;
-	}
+    ErrorEventImpl errorEvent = new ErrorEventImpl();
+    return errorEvent;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public RepairEvent createRepairEvent()
   {
-		RepairEventImpl repairEvent = new RepairEventImpl();
-		return repairEvent;
-	}
+    RepairEventImpl repairEvent = new RepairEventImpl();
+    return repairEvent;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public RecoverEvent createRecoverEvent()
   {
-		RecoverEventImpl recoverEvent = new RecoverEventImpl();
-		return recoverEvent;
-	}
+    RecoverEventImpl recoverEvent = new RecoverEventImpl();
+    return recoverEvent;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorState createErrorBehaviorState()
   {
-		ErrorBehaviorStateImpl errorBehaviorState = new ErrorBehaviorStateImpl();
-		return errorBehaviorState;
-	}
+    ErrorBehaviorStateImpl errorBehaviorState = new ErrorBehaviorStateImpl();
+    return errorBehaviorState;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorBehaviorTransition createErrorBehaviorTransition()
   {
-		ErrorBehaviorTransitionImpl errorBehaviorTransition = new ErrorBehaviorTransitionImpl();
-		return errorBehaviorTransition;
-	}
+    ErrorBehaviorTransitionImpl errorBehaviorTransition = new ErrorBehaviorTransitionImpl();
+    return errorBehaviorTransition;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TransitionBranch createTransitionBranch()
   {
-		TransitionBranchImpl transitionBranch = new TransitionBranchImpl();
-		return transitionBranch;
-	}
+    TransitionBranchImpl transitionBranch = new TransitionBranchImpl();
+    return transitionBranch;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public BranchValue createBranchValue()
   {
-		BranchValueImpl branchValue = new BranchValueImpl();
-		return branchValue;
-	}
+    BranchValueImpl branchValue = new BranchValueImpl();
+    return branchValue;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ConnectionErrorBehavior createConnectionErrorBehavior()
   {
-		ConnectionErrorBehaviorImpl connectionErrorBehavior = new ConnectionErrorBehaviorImpl();
-		return connectionErrorBehavior;
-	}
+    ConnectionErrorBehaviorImpl connectionErrorBehavior = new ConnectionErrorBehaviorImpl();
+    return connectionErrorBehavior;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ConnectionErrorSource createConnectionErrorSource()
   {
-		ConnectionErrorSourceImpl connectionErrorSource = new ConnectionErrorSourceImpl();
-		return connectionErrorSource;
-	}
+    ConnectionErrorSourceImpl connectionErrorSource = new ConnectionErrorSourceImpl();
+    return connectionErrorSource;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EBSMUseContext createEBSMUseContext()
   {
-		EBSMUseContextImpl ebsmUseContext = new EBSMUseContextImpl();
-		return ebsmUseContext;
-	}
+    EBSMUseContextImpl ebsmUseContext = new EBSMUseContextImpl();
+    return ebsmUseContext;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeUseContext createTypeUseContext()
   {
-		TypeUseContextImpl typeUseContext = new TypeUseContextImpl();
-		return typeUseContext;
-	}
+    TypeUseContextImpl typeUseContext = new TypeUseContextImpl();
+    return typeUseContext;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ComponentErrorBehavior createComponentErrorBehavior()
   {
-		ComponentErrorBehaviorImpl componentErrorBehavior = new ComponentErrorBehaviorImpl();
-		return componentErrorBehavior;
-	}
+    ComponentErrorBehaviorImpl componentErrorBehavior = new ComponentErrorBehaviorImpl();
+    return componentErrorBehavior;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ConditionExpression createConditionExpression()
   {
-		ConditionExpressionImpl conditionExpression = new ConditionExpressionImpl();
-		return conditionExpression;
-	}
+    ConditionExpressionImpl conditionExpression = new ConditionExpressionImpl();
+    return conditionExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public OrmoreExpression createOrmoreExpression()
   {
-		OrmoreExpressionImpl ormoreExpression = new OrmoreExpressionImpl();
-		return ormoreExpression;
-	}
+    OrmoreExpressionImpl ormoreExpression = new OrmoreExpressionImpl();
+    return ormoreExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public OrlessExpression createOrlessExpression()
   {
-		OrlessExpressionImpl orlessExpression = new OrlessExpressionImpl();
-		return orlessExpression;
-	}
+    OrlessExpressionImpl orlessExpression = new OrlessExpressionImpl();
+    return orlessExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ConditionElement createConditionElement()
   {
-		ConditionElementImpl conditionElement = new ConditionElementImpl();
-		return conditionElement;
-	}
+    ConditionElementImpl conditionElement = new ConditionElementImpl();
+    return conditionElement;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EventOrPropagation createEventOrPropagation()
   {
-		EventOrPropagationImpl eventOrPropagation = new EventOrPropagationImpl();
-		return eventOrPropagation;
-	}
+    EventOrPropagationImpl eventOrPropagation = new EventOrPropagationImpl();
+    return eventOrPropagation;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public OutgoingPropagationCondition createOutgoingPropagationCondition()
   {
-		OutgoingPropagationConditionImpl outgoingPropagationCondition = new OutgoingPropagationConditionImpl();
-		return outgoingPropagationCondition;
-	}
+    OutgoingPropagationConditionImpl outgoingPropagationCondition = new OutgoingPropagationConditionImpl();
+    return outgoingPropagationCondition;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorDetection createErrorDetection()
   {
-		ErrorDetectionImpl errorDetection = new ErrorDetectionImpl();
-		return errorDetection;
-	}
+    ErrorDetectionImpl errorDetection = new ErrorDetectionImpl();
+    return errorDetection;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorCodeValue createErrorCodeValue()
   {
-		ErrorCodeValueImpl errorCodeValue = new ErrorCodeValueImpl();
-		return errorCodeValue;
-	}
+    ErrorCodeValueImpl errorCodeValue = new ErrorCodeValueImpl();
+    return errorCodeValue;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorStateToModeMapping createErrorStateToModeMapping()
   {
-		ErrorStateToModeMappingImpl errorStateToModeMapping = new ErrorStateToModeMappingImpl();
-		return errorStateToModeMapping;
-	}
+    ErrorStateToModeMappingImpl errorStateToModeMapping = new ErrorStateToModeMappingImpl();
+    return errorStateToModeMapping;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public CompositeErrorBehavior createCompositeErrorBehavior()
   {
-		CompositeErrorBehaviorImpl compositeErrorBehavior = new CompositeErrorBehaviorImpl();
-		return compositeErrorBehavior;
-	}
+    CompositeErrorBehaviorImpl compositeErrorBehavior = new CompositeErrorBehaviorImpl();
+    return compositeErrorBehavior;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public CompositeState createCompositeState()
   {
-		CompositeStateImpl compositeState = new CompositeStateImpl();
-		return compositeState;
-	}
+    CompositeStateImpl compositeState = new CompositeStateImpl();
+    return compositeState;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public SubcomponentElement createSubcomponentElement()
   {
-		SubcomponentElementImpl subcomponentElement = new SubcomponentElementImpl();
-		return subcomponentElement;
-	}
+    SubcomponentElementImpl subcomponentElement = new SubcomponentElementImpl();
+    return subcomponentElement;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public OrExpression createOrExpression()
   {
-		OrExpressionImpl orExpression = new OrExpressionImpl();
-		return orExpression;
-	}
+    OrExpressionImpl orExpression = new OrExpressionImpl();
+    return orExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public AndExpression createAndExpression()
   {
-		AndExpressionImpl andExpression = new AndExpressionImpl();
-		return andExpression;
-	}
+    AndExpressionImpl andExpression = new AndExpressionImpl();
+    return andExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public SOrExpression createSOrExpression()
   {
-		SOrExpressionImpl sOrExpression = new SOrExpressionImpl();
-		return sOrExpression;
-	}
+    SOrExpressionImpl sOrExpression = new SOrExpressionImpl();
+    return sOrExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public SAndExpression createSAndExpression()
   {
-		SAndExpressionImpl sAndExpression = new SAndExpressionImpl();
-		return sAndExpression;
-	}
+    SAndExpressionImpl sAndExpression = new SAndExpressionImpl();
+    return sAndExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorModelPackage getErrorModelPackage()
   {
-		return (ErrorModelPackage)getEPackage();
-	}
+    return (ErrorModelPackage)getEPackage();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @deprecated
-	 * @generated
-	 */
+   * @deprecated
+   * @generated
+   */
   @Deprecated
   public static ErrorModelPackage getPackage()
   {
-		return ErrorModelPackage.eINSTANCE;
-	}
+    return ErrorModelPackage.eINSTANCE;
+  }
 
 } //ErrorModelFactoryImpl

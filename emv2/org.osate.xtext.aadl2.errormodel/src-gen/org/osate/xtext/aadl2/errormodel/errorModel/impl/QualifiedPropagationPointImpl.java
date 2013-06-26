@@ -35,200 +35,208 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 public class QualifiedPropagationPointImpl extends ElementImpl implements QualifiedPropagationPoint
 {
   /**
-	 * The cached value of the '{@link #getSubcomponent() <em>Subcomponent</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getSubcomponent() <em>Subcomponent</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getSubcomponent()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getSubcomponent()
+   * @generated
+   * @ordered
+   */
   protected Subcomponent subcomponent;
 
   /**
-	 * The cached value of the '{@link #getPropagationPoint() <em>Propagation Point</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getPropagationPoint() <em>Propagation Point</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getPropagationPoint()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getPropagationPoint()
+   * @generated
+   * @ordered
+   */
   protected PropagationPoint propagationPoint;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected QualifiedPropagationPointImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.QUALIFIED_PROPAGATION_POINT;
-	}
+    return ErrorModelPackage.Literals.QUALIFIED_PROPAGATION_POINT;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public Subcomponent getSubcomponent()
   {
-		if (subcomponent != null && ((EObject)subcomponent).eIsProxy()) {
-			InternalEObject oldSubcomponent = (InternalEObject)subcomponent;
-			subcomponent = (Subcomponent)eResolveProxy(oldSubcomponent);
-			if (subcomponent != oldSubcomponent) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, oldSubcomponent, subcomponent));
-			}
-		}
-		return subcomponent;
-	}
+    if (subcomponent != null && ((EObject)subcomponent).eIsProxy())
+    {
+      InternalEObject oldSubcomponent = (InternalEObject)subcomponent;
+      subcomponent = (Subcomponent)eResolveProxy(oldSubcomponent);
+      if (subcomponent != oldSubcomponent)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, oldSubcomponent, subcomponent));
+      }
+    }
+    return subcomponent;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public Subcomponent basicGetSubcomponent()
   {
-		return subcomponent;
-	}
+    return subcomponent;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setSubcomponent(Subcomponent newSubcomponent)
   {
-		Subcomponent oldSubcomponent = subcomponent;
-		subcomponent = newSubcomponent;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, oldSubcomponent, subcomponent));
-	}
+    Subcomponent oldSubcomponent = subcomponent;
+    subcomponent = newSubcomponent;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, oldSubcomponent, subcomponent));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropagationPoint getPropagationPoint()
   {
-		if (propagationPoint != null && propagationPoint.eIsProxy()) {
-			InternalEObject oldPropagationPoint = (InternalEObject)propagationPoint;
-			propagationPoint = (PropagationPoint)eResolveProxy(oldPropagationPoint);
-			if (propagationPoint != oldPropagationPoint) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
-			}
-		}
-		return propagationPoint;
-	}
+    if (propagationPoint != null && propagationPoint.eIsProxy())
+    {
+      InternalEObject oldPropagationPoint = (InternalEObject)propagationPoint;
+      propagationPoint = (PropagationPoint)eResolveProxy(oldPropagationPoint);
+      if (propagationPoint != oldPropagationPoint)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
+      }
+    }
+    return propagationPoint;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropagationPoint basicGetPropagationPoint()
   {
-		return propagationPoint;
-	}
+    return propagationPoint;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setPropagationPoint(PropagationPoint newPropagationPoint)
   {
-		PropagationPoint oldPropagationPoint = propagationPoint;
-		propagationPoint = newPropagationPoint;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
-	}
+    PropagationPoint oldPropagationPoint = propagationPoint;
+    propagationPoint = newPropagationPoint;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT, oldPropagationPoint, propagationPoint));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
-				if (resolve) return getSubcomponent();
-				return basicGetSubcomponent();
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-				if (resolve) return getPropagationPoint();
-				return basicGetPropagationPoint();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+        if (resolve) return getSubcomponent();
+        return basicGetSubcomponent();
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
+        if (resolve) return getPropagationPoint();
+        return basicGetPropagationPoint();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
-				setSubcomponent((Subcomponent)newValue);
-				return;
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-				setPropagationPoint((PropagationPoint)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+        setSubcomponent((Subcomponent)newValue);
+        return;
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
+        setPropagationPoint((PropagationPoint)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
-				setSubcomponent((Subcomponent)null);
-				return;
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-				setPropagationPoint((PropagationPoint)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+        setSubcomponent((Subcomponent)null);
+        return;
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
+        setPropagationPoint((PropagationPoint)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
-				return subcomponent != null;
-			case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
-				return propagationPoint != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
+        return subcomponent != null;
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
+        return propagationPoint != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //QualifiedPropagationPointImpl

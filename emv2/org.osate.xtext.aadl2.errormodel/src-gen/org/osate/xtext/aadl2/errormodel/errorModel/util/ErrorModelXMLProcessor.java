@@ -22,32 +22,33 @@ public class ErrorModelXMLProcessor extends XMLProcessor
 {
 
   /**
-	 * Public constructor to instantiate the helper.
-	 * <!-- begin-user-doc -->
+   * Public constructor to instantiate the helper.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorModelXMLProcessor()
   {
-		super((EPackage.Registry.INSTANCE));
-		ErrorModelPackage.eINSTANCE.eClass();
-	}
+    super((EPackage.Registry.INSTANCE));
+    ErrorModelPackage.eINSTANCE.eClass();
+  }
   
   /**
-	 * Register for "*" and "xml" file extensions the ErrorModelResourceFactoryImpl factory.
-	 * <!-- begin-user-doc -->
+   * Register for "*" and "xml" file extensions the ErrorModelResourceFactoryImpl factory.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected Map<String, Resource.Factory> getRegistrations()
   {
-		if (registrations == null) {
-			super.getRegistrations();
-			registrations.put(XML_EXTENSION, new ErrorModelResourceFactoryImpl());
-			registrations.put(STAR_EXTENSION, new ErrorModelResourceFactoryImpl());
-		}
-		return registrations;
-	}
+    if (registrations == null)
+    {
+      super.getRegistrations();
+      registrations.put(XML_EXTENSION, new ErrorModelResourceFactoryImpl());
+      registrations.put(STAR_EXTENSION, new ErrorModelResourceFactoryImpl());
+    }
+    return registrations;
+  }
 
 } //ErrorModelXMLProcessor

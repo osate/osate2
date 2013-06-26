@@ -21,24 +21,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 public class TypeUseContextImpl extends ElementImpl implements TypeUseContext
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected TypeUseContextImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.TYPE_USE_CONTEXT;
-	}
+    return ErrorModelPackage.Literals.TYPE_USE_CONTEXT;
+  }
 
 } //TypeUseContextImpl

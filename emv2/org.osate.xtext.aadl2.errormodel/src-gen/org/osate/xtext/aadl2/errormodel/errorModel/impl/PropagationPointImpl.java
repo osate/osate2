@@ -21,24 +21,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 public class PropagationPointImpl extends NamedElementImpl implements PropagationPoint
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected PropagationPointImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.PROPAGATION_POINT;
-	}
+    return ErrorModelPackage.Literals.PROPAGATION_POINT;
+  }
 
 } //PropagationPointImpl

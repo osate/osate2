@@ -27,19 +27,19 @@ import org.osate.aadl2.Element;
 public interface TypeToken extends EObject, Element
 {
   /**
-	 * Returns the value of the '<em><b>Type</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorType}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Type</b></em>' reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorType}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Type</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeToken_Type()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Type</em>' reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeToken_Type()
+   * @model
+   * @generated
+   */
   EList<ErrorType> getType();
 
 } // TypeToken

@@ -40,196 +40,202 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 public class OrmoreExpressionImpl extends ElementImpl implements OrmoreExpression
 {
   /**
-	 * The default value of the '{@link #getCount() <em>Count</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getCount() <em>Count</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getCount()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getCount()
+   * @generated
+   * @ordered
+   */
   protected static final long COUNT_EDEFAULT = 0L;
 
   /**
-	 * The cached value of the '{@link #getCount() <em>Count</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getCount() <em>Count</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getCount()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getCount()
+   * @generated
+   * @ordered
+   */
   protected long count = COUNT_EDEFAULT;
 
   /**
-	 * The cached value of the '{@link #getOperands() <em>Operands</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getOperands() <em>Operands</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getOperands()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getOperands()
+   * @generated
+   * @ordered
+   */
   protected EList<ConditionElement> operands;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected OrmoreExpressionImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.ORMORE_EXPRESSION;
-	}
+    return ErrorModelPackage.Literals.ORMORE_EXPRESSION;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public long getCount()
   {
-		return count;
-	}
+    return count;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setCount(long newCount)
   {
-		long oldCount = count;
-		count = newCount;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ORMORE_EXPRESSION__COUNT, oldCount, count));
-	}
+    long oldCount = count;
+    count = newCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ORMORE_EXPRESSION__COUNT, oldCount, count));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<ConditionElement> getOperands()
   {
-		if (operands == null) {
-			operands = new EObjectContainmentEList<ConditionElement>(ConditionElement.class, this, ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS);
-		}
-		return operands;
-	}
+    if (operands == null)
+    {
+      operands = new EObjectContainmentEList<ConditionElement>(ConditionElement.class, this, ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS);
+    }
+    return operands;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
-				return ((InternalEList<?>)getOperands()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
+        return ((InternalEList<?>)getOperands()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ORMORE_EXPRESSION__COUNT:
-				return getCount();
-			case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
-				return getOperands();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ORMORE_EXPRESSION__COUNT:
+        return getCount();
+      case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
+        return getOperands();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ORMORE_EXPRESSION__COUNT:
-				setCount((Long)newValue);
-				return;
-			case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
-				getOperands().clear();
-				getOperands().addAll((Collection<? extends ConditionElement>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ORMORE_EXPRESSION__COUNT:
+        setCount((Long)newValue);
+        return;
+      case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
+        getOperands().clear();
+        getOperands().addAll((Collection<? extends ConditionElement>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ORMORE_EXPRESSION__COUNT:
-				setCount(COUNT_EDEFAULT);
-				return;
-			case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
-				getOperands().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ORMORE_EXPRESSION__COUNT:
+        setCount(COUNT_EDEFAULT);
+        return;
+      case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
+        getOperands().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ORMORE_EXPRESSION__COUNT:
-				return count != COUNT_EDEFAULT;
-			case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
-				return operands != null && !operands.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ORMORE_EXPRESSION__COUNT:
+        return count != COUNT_EDEFAULT;
+      case ErrorModelPackage.ORMORE_EXPRESSION__OPERANDS:
+        return operands != null && !operands.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public String toString()
   {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (count: ");
-		result.append(count);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (count: ");
+    result.append(count);
+    result.append(')');
+    return result.toString();
+  }
 
 } //OrmoreExpressionImpl

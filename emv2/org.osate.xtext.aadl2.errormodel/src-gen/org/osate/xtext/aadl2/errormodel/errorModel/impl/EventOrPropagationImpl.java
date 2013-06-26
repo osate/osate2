@@ -21,24 +21,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 public class EventOrPropagationImpl extends NamedElementImpl implements EventOrPropagation
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected EventOrPropagationImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.EVENT_OR_PROPAGATION;
-	}
+    return ErrorModelPackage.Literals.EVENT_OR_PROPAGATION;
+  }
 
 } //EventOrPropagationImpl

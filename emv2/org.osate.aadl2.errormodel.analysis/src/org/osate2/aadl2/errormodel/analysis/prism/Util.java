@@ -176,11 +176,11 @@ public class Util
 								if (errorSource.getOutgoing() == ep)
 								{
 									TypeSet ts = errorSource.getTypeTokenConstraint();
-									TypeToken tt = ts.getElementType().get(0);
+									TypeToken tt = ts.getTypeTokens().get(0);
 									ErrorType et = tt.getType().get(0);
 									//OsateDebug.osateDebug("[Utils]       ErrorSource token:" + et);
 									Expression e = new Equal (new Terminal (Util.getFeatureName(instanceSource, EMV2Util.getPrintName(ep))),
-						        		    				  new Terminal ("" + Model.getCurrentInstance().getErrorTypeCode(ppe, errorSource.getTypeTokenConstraint().getElementType().get(0).getType().get(0))));
+						        		    				  new Terminal ("" + Model.getCurrentInstance().getErrorTypeCode(ppe, errorSource.getTypeTokenConstraint().getTypeTokens().get(0).getType().get(0))));
 
 									exprs.add(e);
 								}

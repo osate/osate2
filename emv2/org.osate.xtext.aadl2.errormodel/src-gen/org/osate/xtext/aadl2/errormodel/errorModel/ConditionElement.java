@@ -28,97 +28,97 @@ import org.osate.aadl2.Element;
 public interface ConditionElement extends Element, ConditionExpression
 {
   /**
-	 * Returns the value of the '<em><b>Incoming</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Incoming</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Incoming</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Incoming</em>' reference.
-	 * @see #setIncoming(EventOrPropagation)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Incoming()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Incoming</em>' reference.
+   * @see #setIncoming(EventOrPropagation)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Incoming()
+   * @model
+   * @generated
+   */
   EventOrPropagation getIncoming();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getIncoming <em>Incoming</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getIncoming <em>Incoming</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Incoming</em>' reference.
-	 * @see #getIncoming()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Incoming</em>' reference.
+   * @see #getIncoming()
+   * @generated
+   */
   void setIncoming(EventOrPropagation value);
 
   /**
-	 * Returns the value of the '<em><b>Constraint</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Constraint</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constraint</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Constraint</em>' containment reference.
-	 * @see #setConstraint(TypeSet)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Constraint()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Constraint</em>' containment reference.
+   * @see #setConstraint(TypeSet)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Constraint()
+   * @model containment="true"
+   * @generated
+   */
   TypeSet getConstraint();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getConstraint <em>Constraint</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getConstraint <em>Constraint</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Constraint</em>' containment reference.
-	 * @see #getConstraint()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Constraint</em>' containment reference.
+   * @see #getConstraint()
+   * @generated
+   */
   void setConstraint(TypeSet value);
 
   /**
-	 * Returns the value of the '<em><b>Subcomponents</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Subcomponents</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Subcomponents</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subcomponents</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Subcomponents()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Subcomponents</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Subcomponents()
+   * @model containment="true"
+   * @generated
+   */
   EList<SubcomponentElement> getSubcomponents();
 
   /**
-	 * Returns the value of the '<em><b>Reference</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Reference</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Reference</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Reference</em>' reference.
-	 * @see #setReference(ErrorBehaviorState)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Reference()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Reference</em>' reference.
+   * @see #setReference(ErrorBehaviorState)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Reference()
+   * @model
+   * @generated
+   */
   ErrorBehaviorState getReference();
 
   /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getReference <em>Reference</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getReference <em>Reference</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Reference</em>' reference.
-	 * @see #getReference()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Reference</em>' reference.
+   * @see #getReference()
+   * @generated
+   */
   void setReference(ErrorBehaviorState value);
 
 } // ConditionElement

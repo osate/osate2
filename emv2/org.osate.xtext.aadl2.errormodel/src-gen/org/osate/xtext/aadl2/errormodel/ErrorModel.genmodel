@@ -25,6 +25,7 @@
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelLibrary">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/extends"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/types"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/typesets"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/properties"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/behaviors"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelLibrary/mappings"/>
@@ -36,9 +37,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorType/aliasedType"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeSet">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeSet/elementType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeSet/reference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeSet/typeTokens"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeSet/aliasedType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeSet/reference"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeToken">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeToken/type"/>

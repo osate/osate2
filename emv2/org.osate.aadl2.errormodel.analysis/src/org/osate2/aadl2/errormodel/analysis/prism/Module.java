@@ -421,7 +421,7 @@ public class Module {
 						
 						int errorVal = 1;
 						TypeSet ts = ep.getTypeSet();
-						for (TypeToken tt : ts.getElementType())
+						for (TypeToken tt : ts.getTypeTokens())
 						{
 							for (ErrorType et : tt.getType())
 							{
@@ -445,7 +445,7 @@ public class Module {
 					Map<String,Integer> tmpMap = new HashMap<String,Integer>();
 					int errorVal = 1;
 					TypeSet ts = ep.getTypeSet();
-					for (TypeToken tt : ts.getElementType())
+					for (TypeToken tt : ts.getTypeTokens())
 					{
 						for (ErrorType et : tt.getType())
 						{
@@ -573,10 +573,10 @@ public class Module {
 					NamedElement connectedFeature =  ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP();
 
 
-					ErrorType et = incomingErrorPropagation.getTypeSet().getElementType().get(0).getType().get(0);
+					ErrorType et = incomingErrorPropagation.getTypeSet().getTypeTokens().get(0).getType().get(0);
 
 					if ((conditionElement.getConstraint().getReference() == null) &&
-					    conditionElement.getConstraint().getElementType().isEmpty())
+					    conditionElement.getConstraint().getTypeTokens().isEmpty())
 					{
 						errorTypeValue = 0;
 					}

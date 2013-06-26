@@ -41,188 +41,196 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 public class ConnectionErrorBehaviorImpl extends ElementImpl implements ConnectionErrorBehavior
 {
   /**
-	 * The cached value of the '{@link #getTypeTransformationSet() <em>Type Transformation Set</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTypeTransformationSet() <em>Type Transformation Set</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTypeTransformationSet()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTypeTransformationSet()
+   * @generated
+   * @ordered
+   */
   protected TypeTransformationSet typeTransformationSet;
 
   /**
-	 * The cached value of the '{@link #getConnectionErrorSources() <em>Connection Error Sources</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getConnectionErrorSources() <em>Connection Error Sources</em>}' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getConnectionErrorSources()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getConnectionErrorSources()
+   * @generated
+   * @ordered
+   */
   protected EList<ConnectionErrorSource> connectionErrorSources;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected ConnectionErrorBehaviorImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.CONNECTION_ERROR_BEHAVIOR;
-	}
+    return ErrorModelPackage.Literals.CONNECTION_ERROR_BEHAVIOR;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeTransformationSet getTypeTransformationSet()
   {
-		if (typeTransformationSet != null && typeTransformationSet.eIsProxy()) {
-			InternalEObject oldTypeTransformationSet = (InternalEObject)typeTransformationSet;
-			typeTransformationSet = (TypeTransformationSet)eResolveProxy(oldTypeTransformationSet);
-			if (typeTransformationSet != oldTypeTransformationSet) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET, oldTypeTransformationSet, typeTransformationSet));
-			}
-		}
-		return typeTransformationSet;
-	}
+    if (typeTransformationSet != null && typeTransformationSet.eIsProxy())
+    {
+      InternalEObject oldTypeTransformationSet = (InternalEObject)typeTransformationSet;
+      typeTransformationSet = (TypeTransformationSet)eResolveProxy(oldTypeTransformationSet);
+      if (typeTransformationSet != oldTypeTransformationSet)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET, oldTypeTransformationSet, typeTransformationSet));
+      }
+    }
+    return typeTransformationSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeTransformationSet basicGetTypeTransformationSet()
   {
-		return typeTransformationSet;
-	}
+    return typeTransformationSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setTypeTransformationSet(TypeTransformationSet newTypeTransformationSet)
   {
-		TypeTransformationSet oldTypeTransformationSet = typeTransformationSet;
-		typeTransformationSet = newTypeTransformationSet;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET, oldTypeTransformationSet, typeTransformationSet));
-	}
+    TypeTransformationSet oldTypeTransformationSet = typeTransformationSet;
+    typeTransformationSet = newTypeTransformationSet;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET, oldTypeTransformationSet, typeTransformationSet));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<ConnectionErrorSource> getConnectionErrorSources()
   {
-		if (connectionErrorSources == null) {
-			connectionErrorSources = new EObjectContainmentEList<ConnectionErrorSource>(ConnectionErrorSource.class, this, ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES);
-		}
-		return connectionErrorSources;
-	}
+    if (connectionErrorSources == null)
+    {
+      connectionErrorSources = new EObjectContainmentEList<ConnectionErrorSource>(ConnectionErrorSource.class, this, ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES);
+    }
+    return connectionErrorSources;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
-				return ((InternalEList<?>)getConnectionErrorSources()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
+        return ((InternalEList<?>)getConnectionErrorSources()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET:
-				if (resolve) return getTypeTransformationSet();
-				return basicGetTypeTransformationSet();
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
-				return getConnectionErrorSources();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET:
+        if (resolve) return getTypeTransformationSet();
+        return basicGetTypeTransformationSet();
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
+        return getConnectionErrorSources();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET:
-				setTypeTransformationSet((TypeTransformationSet)newValue);
-				return;
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
-				getConnectionErrorSources().clear();
-				getConnectionErrorSources().addAll((Collection<? extends ConnectionErrorSource>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET:
+        setTypeTransformationSet((TypeTransformationSet)newValue);
+        return;
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
+        getConnectionErrorSources().clear();
+        getConnectionErrorSources().addAll((Collection<? extends ConnectionErrorSource>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET:
-				setTypeTransformationSet((TypeTransformationSet)null);
-				return;
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
-				getConnectionErrorSources().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET:
+        setTypeTransformationSet((TypeTransformationSet)null);
+        return;
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
+        getConnectionErrorSources().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET:
-				return typeTransformationSet != null;
-			case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
-				return connectionErrorSources != null && !connectionErrorSources.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET:
+        return typeTransformationSet != null;
+      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES:
+        return connectionErrorSources != null && !connectionErrorSources.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //ConnectionErrorBehaviorImpl

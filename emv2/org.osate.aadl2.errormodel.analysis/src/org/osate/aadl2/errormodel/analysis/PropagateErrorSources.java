@@ -203,7 +203,7 @@ public class PropagateErrorSources {
 					}
 					ErrorBehaviorState failureMode = null;
 
-					EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
+					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ts, EMV2Util.getContainingTypeUseContext(ep));
 					for (TypeToken typeToken : result)
 					{
 						for (int i = 0 ; i < typeToken.getType().size() ; i++)
@@ -230,7 +230,8 @@ public class PropagateErrorSources {
 				// XXX TODO how about the other case
 				failureMode = (ErrorBehaviorState) fmr;
 			}
-			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
+			EList<TypeToken> result = ts.getTypeTokens();
+					//EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
 			for (TypeToken typeToken : result)
 			{
 
@@ -456,7 +457,7 @@ public class PropagateErrorSources {
 						reportEntry(entryText+maskText, depth);
 						handled = true;
 					} else {
-						Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(ef.getTypeTokenConstraint(), tt);
+						Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(ef.getTypeTokenConstraint(), tt);
 						for (TypeToken typeToken : intersection) {
 							String maskText = ", "+generateFailureModeText(ci,ep,typeToken)+" [Masked],";
 							reportEntry(entryText+maskText, depth);
@@ -479,7 +480,7 @@ public class PropagateErrorSources {
 						 */
 						if (! treated.contains(opc))
 						{
-							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getElementType().get(0),ef);
+							TypeToken newtt = EMV2Util.mapToken(outp.getTypeSet().getTypeTokens().get(0),ef);
 							treated.add(outp);
 							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", from state " + opc.getState().getName() +" " +generateFailureModeText(ci,ep,tt));
 						}
@@ -494,7 +495,7 @@ public class PropagateErrorSources {
 					traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt));
 					handled = true;
 				} else {
-					Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(ef.getTypeTokenConstraint(), tt);
+					Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(ef.getTypeTokenConstraint(), tt);
 					for (TypeToken typeToken : intersection) {
 						ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
 						TypeToken newtt = EMV2Util.mapToken(typeToken,ef);
@@ -521,7 +522,7 @@ public class PropagateErrorSources {
 									traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt)+" [FlowPath]");
 									handled = true;
 								} else {
-									Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(outp.getTypeSet(), newtt);
+									Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
 									for (TypeToken typeToken : intersection) {
 										traceErrorPaths(ci,outp,typeToken,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt)+" [FlowPath]");
 										handled = true;
@@ -540,7 +541,7 @@ public class PropagateErrorSources {
 											traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [FlowSink]");
 											handled = true;
 										} else {
-											Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(outp.getTypeSet(), newtt);
+											Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
 											for (TypeToken typeToken : intersection) {
 												traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [FlowSink]");
 												handled = true;
@@ -565,7 +566,7 @@ public class PropagateErrorSources {
 								traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
 								handled = true;
 							} else {
-								Collection<TypeToken> intersection = EM2TypeSetUtil.getSubTypes(outp.getTypeSet(), newtt);
+								Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
 								for (TypeToken typeToken : intersection) {
 									traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
 									handled = true;

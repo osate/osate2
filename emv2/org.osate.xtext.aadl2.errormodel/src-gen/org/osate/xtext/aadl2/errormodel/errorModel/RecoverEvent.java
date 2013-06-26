@@ -25,19 +25,19 @@ import org.osate.aadl2.NamedElement;
 public interface RecoverEvent extends ErrorBehaviorEvent
 {
   /**
-	 * Returns the value of the '<em><b>Condition</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.aadl2.NamedElement}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Condition</b></em>' reference list.
+   * The list contents are of type {@link org.osate.aadl2.NamedElement}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Condition</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getRecoverEvent_Condition()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Condition</em>' reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getRecoverEvent_Condition()
+   * @model
+   * @generated
+   */
   EList<NamedElement> getCondition();
 
 } // RecoverEvent

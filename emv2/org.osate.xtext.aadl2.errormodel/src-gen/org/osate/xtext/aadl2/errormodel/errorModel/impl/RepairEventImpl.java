@@ -27,146 +27,150 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEvent
 {
   /**
-	 * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
   protected static final String CONDITION_EDEFAULT = null;
 
   /**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
   protected String condition = CONDITION_EDEFAULT;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected RepairEventImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.REPAIR_EVENT;
-	}
+    return ErrorModelPackage.Literals.REPAIR_EVENT;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public String getCondition()
   {
-		return condition;
-	}
+    return condition;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setCondition(String newCondition)
   {
-		String oldCondition = condition;
-		condition = newCondition;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.REPAIR_EVENT__CONDITION, oldCondition, condition));
-	}
+    String oldCondition = condition;
+    condition = newCondition;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.REPAIR_EVENT__CONDITION, oldCondition, condition));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-				return getCondition();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.REPAIR_EVENT__CONDITION:
+        return getCondition();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-				setCondition((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.REPAIR_EVENT__CONDITION:
+        setCondition((String)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-				setCondition(CONDITION_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.REPAIR_EVENT__CONDITION:
+        setCondition(CONDITION_EDEFAULT);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-				return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.REPAIR_EVENT__CONDITION:
+        return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
+    }
+    return super.eIsSet(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public String toString()
   {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (condition: ");
-		result.append(condition);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (condition: ");
+    result.append(condition);
+    result.append(')');
+    return result.toString();
+  }
 
 } //RepairEventImpl

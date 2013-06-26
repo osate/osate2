@@ -37,468 +37,481 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
 {
   /**
-	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getIncoming()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getIncoming()
+   * @generated
+   * @ordered
+   */
   protected ErrorPropagation incoming;
 
   /**
-	 * The default value of the '{@link #isAllIncoming() <em>All Incoming</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #isAllIncoming() <em>All Incoming</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAllIncoming()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isAllIncoming()
+   * @generated
+   * @ordered
+   */
   protected static final boolean ALL_INCOMING_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isAllIncoming() <em>All Incoming</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #isAllIncoming() <em>All Incoming</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAllIncoming()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isAllIncoming()
+   * @generated
+   * @ordered
+   */
   protected boolean allIncoming = ALL_INCOMING_EDEFAULT;
 
   /**
-	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getOutgoing()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getOutgoing()
+   * @generated
+   * @ordered
+   */
   protected ErrorPropagation outgoing;
 
   /**
-	 * The default value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAllOutgoing()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isAllOutgoing()
+   * @generated
+   * @ordered
+   */
   protected static final boolean ALL_OUTGOING_EDEFAULT = false;
 
   /**
-	 * The cached value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #isAllOutgoing() <em>All Outgoing</em>}' attribute.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isAllOutgoing()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #isAllOutgoing()
+   * @generated
+   * @ordered
+   */
   protected boolean allOutgoing = ALL_OUTGOING_EDEFAULT;
 
   /**
-	 * The cached value of the '{@link #getTargetToken() <em>Target Token</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTargetToken() <em>Target Token</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTargetToken()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTargetToken()
+   * @generated
+   * @ordered
+   */
   protected TypeToken targetToken;
 
   /**
-	 * The cached value of the '{@link #getTypeMappingSet() <em>Type Mapping Set</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTypeMappingSet() <em>Type Mapping Set</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTypeMappingSet()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTypeMappingSet()
+   * @generated
+   * @ordered
+   */
   protected TypeMappingSet typeMappingSet;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected ErrorPathImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return ErrorModelPackage.Literals.ERROR_PATH;
-	}
+    return ErrorModelPackage.Literals.ERROR_PATH;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorPropagation getIncoming()
   {
-		if (incoming != null && incoming.eIsProxy()) {
-			InternalEObject oldIncoming = (InternalEObject)incoming;
-			incoming = (ErrorPropagation)eResolveProxy(oldIncoming);
-			if (incoming != oldIncoming) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_PATH__INCOMING, oldIncoming, incoming));
-			}
-		}
-		return incoming;
-	}
+    if (incoming != null && incoming.eIsProxy())
+    {
+      InternalEObject oldIncoming = (InternalEObject)incoming;
+      incoming = (ErrorPropagation)eResolveProxy(oldIncoming);
+      if (incoming != oldIncoming)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_PATH__INCOMING, oldIncoming, incoming));
+      }
+    }
+    return incoming;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorPropagation basicGetIncoming()
   {
-		return incoming;
-	}
+    return incoming;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setIncoming(ErrorPropagation newIncoming)
   {
-		ErrorPropagation oldIncoming = incoming;
-		incoming = newIncoming;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__INCOMING, oldIncoming, incoming));
-	}
+    ErrorPropagation oldIncoming = incoming;
+    incoming = newIncoming;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__INCOMING, oldIncoming, incoming));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public boolean isAllIncoming()
   {
-		return allIncoming;
-	}
+    return allIncoming;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setAllIncoming(boolean newAllIncoming)
   {
-		boolean oldAllIncoming = allIncoming;
-		allIncoming = newAllIncoming;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__ALL_INCOMING, oldAllIncoming, allIncoming));
-	}
+    boolean oldAllIncoming = allIncoming;
+    allIncoming = newAllIncoming;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__ALL_INCOMING, oldAllIncoming, allIncoming));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorPropagation getOutgoing()
   {
-		if (outgoing != null && outgoing.eIsProxy()) {
-			InternalEObject oldOutgoing = (InternalEObject)outgoing;
-			outgoing = (ErrorPropagation)eResolveProxy(oldOutgoing);
-			if (outgoing != oldOutgoing) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_PATH__OUTGOING, oldOutgoing, outgoing));
-			}
-		}
-		return outgoing;
-	}
+    if (outgoing != null && outgoing.eIsProxy())
+    {
+      InternalEObject oldOutgoing = (InternalEObject)outgoing;
+      outgoing = (ErrorPropagation)eResolveProxy(oldOutgoing);
+      if (outgoing != oldOutgoing)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_PATH__OUTGOING, oldOutgoing, outgoing));
+      }
+    }
+    return outgoing;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ErrorPropagation basicGetOutgoing()
   {
-		return outgoing;
-	}
+    return outgoing;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setOutgoing(ErrorPropagation newOutgoing)
   {
-		ErrorPropagation oldOutgoing = outgoing;
-		outgoing = newOutgoing;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__OUTGOING, oldOutgoing, outgoing));
-	}
+    ErrorPropagation oldOutgoing = outgoing;
+    outgoing = newOutgoing;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__OUTGOING, oldOutgoing, outgoing));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public boolean isAllOutgoing()
   {
-		return allOutgoing;
-	}
+    return allOutgoing;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setAllOutgoing(boolean newAllOutgoing)
   {
-		boolean oldAllOutgoing = allOutgoing;
-		allOutgoing = newAllOutgoing;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__ALL_OUTGOING, oldAllOutgoing, allOutgoing));
-	}
+    boolean oldAllOutgoing = allOutgoing;
+    allOutgoing = newAllOutgoing;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__ALL_OUTGOING, oldAllOutgoing, allOutgoing));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeToken getTargetToken()
   {
-		return targetToken;
-	}
+    return targetToken;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetTargetToken(TypeToken newTargetToken, NotificationChain msgs)
   {
-		TypeToken oldTargetToken = targetToken;
-		targetToken = newTargetToken;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__TARGET_TOKEN, oldTargetToken, newTargetToken);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    TypeToken oldTargetToken = targetToken;
+    targetToken = newTargetToken;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__TARGET_TOKEN, oldTargetToken, newTargetToken);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setTargetToken(TypeToken newTargetToken)
   {
-		if (newTargetToken != targetToken) {
-			NotificationChain msgs = null;
-			if (targetToken != null)
-				msgs = ((InternalEObject)targetToken).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_PATH__TARGET_TOKEN, null, msgs);
-			if (newTargetToken != null)
-				msgs = ((InternalEObject)newTargetToken).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_PATH__TARGET_TOKEN, null, msgs);
-			msgs = basicSetTargetToken(newTargetToken, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__TARGET_TOKEN, newTargetToken, newTargetToken));
-	}
+    if (newTargetToken != targetToken)
+    {
+      NotificationChain msgs = null;
+      if (targetToken != null)
+        msgs = ((InternalEObject)targetToken).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_PATH__TARGET_TOKEN, null, msgs);
+      if (newTargetToken != null)
+        msgs = ((InternalEObject)newTargetToken).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_PATH__TARGET_TOKEN, null, msgs);
+      msgs = basicSetTargetToken(newTargetToken, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__TARGET_TOKEN, newTargetToken, newTargetToken));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeMappingSet getTypeMappingSet()
   {
-		if (typeMappingSet != null && typeMappingSet.eIsProxy()) {
-			InternalEObject oldTypeMappingSet = (InternalEObject)typeMappingSet;
-			typeMappingSet = (TypeMappingSet)eResolveProxy(oldTypeMappingSet);
-			if (typeMappingSet != oldTypeMappingSet) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET, oldTypeMappingSet, typeMappingSet));
-			}
-		}
-		return typeMappingSet;
-	}
+    if (typeMappingSet != null && typeMappingSet.eIsProxy())
+    {
+      InternalEObject oldTypeMappingSet = (InternalEObject)typeMappingSet;
+      typeMappingSet = (TypeMappingSet)eResolveProxy(oldTypeMappingSet);
+      if (typeMappingSet != oldTypeMappingSet)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET, oldTypeMappingSet, typeMappingSet));
+      }
+    }
+    return typeMappingSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public TypeMappingSet basicGetTypeMappingSet()
   {
-		return typeMappingSet;
-	}
+    return typeMappingSet;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setTypeMappingSet(TypeMappingSet newTypeMappingSet)
   {
-		TypeMappingSet oldTypeMappingSet = typeMappingSet;
-		typeMappingSet = newTypeMappingSet;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET, oldTypeMappingSet, typeMappingSet));
-	}
+    TypeMappingSet oldTypeMappingSet = typeMappingSet;
+    typeMappingSet = newTypeMappingSet;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET, oldTypeMappingSet, typeMappingSet));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
-				return basicSetTargetToken(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
+        return basicSetTargetToken(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_PATH__INCOMING:
-				if (resolve) return getIncoming();
-				return basicGetIncoming();
-			case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
-				return isAllIncoming();
-			case ErrorModelPackage.ERROR_PATH__OUTGOING:
-				if (resolve) return getOutgoing();
-				return basicGetOutgoing();
-			case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
-				return isAllOutgoing();
-			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
-				return getTargetToken();
-			case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
-				if (resolve) return getTypeMappingSet();
-				return basicGetTypeMappingSet();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_PATH__INCOMING:
+        if (resolve) return getIncoming();
+        return basicGetIncoming();
+      case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
+        return isAllIncoming();
+      case ErrorModelPackage.ERROR_PATH__OUTGOING:
+        if (resolve) return getOutgoing();
+        return basicGetOutgoing();
+      case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
+        return isAllOutgoing();
+      case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
+        return getTargetToken();
+      case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
+        if (resolve) return getTypeMappingSet();
+        return basicGetTypeMappingSet();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_PATH__INCOMING:
-				setIncoming((ErrorPropagation)newValue);
-				return;
-			case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
-				setAllIncoming((Boolean)newValue);
-				return;
-			case ErrorModelPackage.ERROR_PATH__OUTGOING:
-				setOutgoing((ErrorPropagation)newValue);
-				return;
-			case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
-				setAllOutgoing((Boolean)newValue);
-				return;
-			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
-				setTargetToken((TypeToken)newValue);
-				return;
-			case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
-				setTypeMappingSet((TypeMappingSet)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_PATH__INCOMING:
+        setIncoming((ErrorPropagation)newValue);
+        return;
+      case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
+        setAllIncoming((Boolean)newValue);
+        return;
+      case ErrorModelPackage.ERROR_PATH__OUTGOING:
+        setOutgoing((ErrorPropagation)newValue);
+        return;
+      case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
+        setAllOutgoing((Boolean)newValue);
+        return;
+      case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
+        setTargetToken((TypeToken)newValue);
+        return;
+      case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
+        setTypeMappingSet((TypeMappingSet)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_PATH__INCOMING:
-				setIncoming((ErrorPropagation)null);
-				return;
-			case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
-				setAllIncoming(ALL_INCOMING_EDEFAULT);
-				return;
-			case ErrorModelPackage.ERROR_PATH__OUTGOING:
-				setOutgoing((ErrorPropagation)null);
-				return;
-			case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
-				setAllOutgoing(ALL_OUTGOING_EDEFAULT);
-				return;
-			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
-				setTargetToken((TypeToken)null);
-				return;
-			case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
-				setTypeMappingSet((TypeMappingSet)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_PATH__INCOMING:
+        setIncoming((ErrorPropagation)null);
+        return;
+      case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
+        setAllIncoming(ALL_INCOMING_EDEFAULT);
+        return;
+      case ErrorModelPackage.ERROR_PATH__OUTGOING:
+        setOutgoing((ErrorPropagation)null);
+        return;
+      case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
+        setAllOutgoing(ALL_OUTGOING_EDEFAULT);
+        return;
+      case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
+        setTargetToken((TypeToken)null);
+        return;
+      case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
+        setTypeMappingSet((TypeMappingSet)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case ErrorModelPackage.ERROR_PATH__INCOMING:
-				return incoming != null;
-			case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
-				return allIncoming != ALL_INCOMING_EDEFAULT;
-			case ErrorModelPackage.ERROR_PATH__OUTGOING:
-				return outgoing != null;
-			case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
-				return allOutgoing != ALL_OUTGOING_EDEFAULT;
-			case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
-				return targetToken != null;
-			case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
-				return typeMappingSet != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_PATH__INCOMING:
+        return incoming != null;
+      case ErrorModelPackage.ERROR_PATH__ALL_INCOMING:
+        return allIncoming != ALL_INCOMING_EDEFAULT;
+      case ErrorModelPackage.ERROR_PATH__OUTGOING:
+        return outgoing != null;
+      case ErrorModelPackage.ERROR_PATH__ALL_OUTGOING:
+        return allOutgoing != ALL_OUTGOING_EDEFAULT;
+      case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
+        return targetToken != null;
+      case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
+        return typeMappingSet != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public String toString()
   {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (allIncoming: ");
-		result.append(allIncoming);
-		result.append(", allOutgoing: ");
-		result.append(allOutgoing);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (allIncoming: ");
+    result.append(allIncoming);
+    result.append(", allOutgoing: ");
+    result.append(allOutgoing);
+    result.append(')');
+    return result.toString();
+  }
 
 } //ErrorPathImpl
