@@ -229,7 +229,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 				{
 					if (! EM2TypeSetUtil.contains (ep.getTypeSet(), tt1))
 					{
-						error(componentInstance, "Error type " + EMV2Util.getPrintName(tt1)  +  " between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+						error(componentInstance, "Type " + EMV2Util.getPrintName(tt1)  +  " is not propagated by the error source " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " but is expected by the error sink " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
 
 					}
 					
