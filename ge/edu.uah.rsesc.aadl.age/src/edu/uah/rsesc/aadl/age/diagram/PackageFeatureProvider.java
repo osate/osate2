@@ -10,10 +10,12 @@ import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -24,6 +26,7 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 
+import edu.uah.rsesc.aadl.age.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.features.PackageAddClassifierFeature;
 import edu.uah.rsesc.aadl.age.features.PackageAddGeneralizationFeature;
 import edu.uah.rsesc.aadl.age.features.PackageUpdateClassifierFeature;
@@ -98,4 +101,9 @@ public class PackageFeatureProvider extends DefaultFeatureProvider {
 	   
 	   return super.getUpdateFeature(context);
 	 }
+	
+	@Override
+	public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
+		return new ICustomFeature[] { new LayoutDiagramFeature(this) };
+	}
 }

@@ -64,7 +64,7 @@ public class PackageAddGeneralizationFeature extends AbstractAddFeature {
         final Style style = isImplements ? StyleUtil.getImplementsStyle(diagram) : StyleUtil.getExtendsStyle(diagram);
         polyline.setStyle(style);
 
-        // TODO: Use constant arrow style
+        // Create the arrow
         final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);    
         createArrow(arrowConnectionDecorator, StyleUtil.getGeneralizationArrowHeadStyle(diagram));
 		return connection;

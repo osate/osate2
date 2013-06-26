@@ -2,11 +2,13 @@ package edu.uah.rsesc.aadl.age.util;
 
 import org.eclipse.graphiti.mm.StyleContainer;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
+import org.eclipse.graphiti.util.IColorConstant;
 
 public class StyleUtil {
 	public static void updateStyles(final Diagram diagram) {
@@ -44,6 +46,7 @@ public class StyleUtil {
 		getImplementsStyle(diagram);
 		getExtendsStyle(diagram);
 		getGeneralizationArrowHeadStyle(diagram);
+		getClassifierLabelStyle(diagram);
 	}
 	
 	// TODO: Probably want style for each type of shape
@@ -168,9 +171,9 @@ public class StyleUtil {
         final Style style = getStyle(diagram, "implements");
         
         // Set the style
-        style.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
-        style.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
-        style.setLineStyle(LineStyle.SOLID);
+        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+        style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
+        style.setLineStyle(LineStyle.DASH);
         style.setLineVisible(true);
         style.setLineWidth(2);
 
@@ -182,9 +185,9 @@ public class StyleUtil {
         final Style style = getStyle(diagram, "extends");
         
         // Set the style
-        style.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
-        style.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
-        style.setLineStyle(LineStyle.DASH);
+        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+        style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
+        style.setLineStyle(LineStyle.SOLID);
         style.setLineVisible(true);
         style.setLineWidth(2);
 
@@ -196,14 +199,30 @@ public class StyleUtil {
         final Style style = getStyle(diagram, "generalization-arrowhead");
         
         // Set the style
-        style.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
-        style.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+        style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
         style.setLineStyle(LineStyle.SOLID);
         style.setLineVisible(true);
         style.setLineWidth(2);
 
         return style;
     }
+	
+	public static Style getClassifierLabelStyle(final Diagram diagram) {
+		final IGaService gaService = Graphiti.getGaService();
+        final Style style = getStyle(diagram, "classifier-label");
+        
+        // Set the style
+        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+        style.setFilled(false);
+        style.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
+        style.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
+        style.setFont(gaService.manageDefaultFont(diagram, false, true));
+        
+        return style;
+    }
+	
+	
 	
 	private static Style getStyle(final StyleContainer parentStyle, final String id) {
 		// TODO: Ability to not recreate style each time.. While running this could be really inefficient. Cach in map that will store it in 

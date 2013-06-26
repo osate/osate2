@@ -8,6 +8,8 @@ import org.eclipse.graphiti.features.impl.AbstractAddShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -139,10 +141,17 @@ public class PackageAddClassifierFeature extends AbstractAddShapeFeature {
         	ga = createDummyShape(containerShape, context, width, height);
         }
         
-        // TODO: Feature Group       
-        
+        // Create anchor
         final Anchor anchor = peCreateService.createChopboxAnchor(containerShape);
-        anchor.setReferencedGraphicsAlgorithm(ga);        
+        anchor.setReferencedGraphicsAlgorithm(ga);
+        
+        // Create label
+        Shape shape = peCreateService.createShape(containerShape, false);
+        
+        final String label = (this.getBusinessObjectForPictogramElement(diagram) == classifier.getNamespace().getOwner()) ? classifier.getName() : classifier.getQualifiedName(); 
+        final Text text = gaService.createPlainText(shape, label);
+        text.setStyle(StyleUtil.getClassifierLabelStyle(diagram));
+        gaService.setLocationAndSize(text, 0, 0, width, 20);
 
         return containerShape;
 	}

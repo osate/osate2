@@ -51,7 +51,7 @@ public class TypeFeatureProvider extends DefaultFeatureProvider {
 		if (context.getPictogramElement() instanceof ContainerShape /* && getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof <DomainObject> */) {
 			return  new LayoutDomainObjectFeature(this);
 		}
-	
+		
 		return super.getLayoutFeature(context);
 	}
 }
