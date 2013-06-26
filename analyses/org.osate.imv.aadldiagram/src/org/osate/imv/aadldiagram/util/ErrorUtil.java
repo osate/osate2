@@ -341,11 +341,11 @@ public class ErrorUtil {
 					
 					TypeSet sourceTypes = sourcePropagation.getTypeSet();
 					TypeSet destinationTypes = sourcePropagation.getTypeSet();
-					for (TypeToken tt1 : sourceTypes.getElementType())
+					for (TypeToken tt1 : sourceTypes.getTypeTokens())
 					{
 						for (ErrorType type1 : tt1.getType())
 						{
-							for (TypeToken tt2 : destinationTypes.getElementType())
+							for (TypeToken tt2 : destinationTypes.getTypeTokens())
 							{
 								for (ErrorType type2 : tt2.getType())
 								{
