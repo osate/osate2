@@ -15,13 +15,12 @@ public class PackageDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	public boolean isAutoUpdateAtStartup() {
 		return true;
 	}
-	/*
+	
 	@Override
 	public boolean isAutoUpdateAtRuntime() {
 		return true;
 	}
-*/
-
+	
 	// Tool behaviors are provided to modify the business object equality check. This is because as of 2013-06-26, the default comparison between
 	// Generalization objects does not work. See https://github.com/osate/osate2-core/issues/250
 	// TODO: Disable after issue is resolved

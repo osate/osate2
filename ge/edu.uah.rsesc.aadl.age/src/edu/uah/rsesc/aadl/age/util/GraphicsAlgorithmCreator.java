@@ -267,28 +267,24 @@ public class GraphicsAlgorithmCreator {
 	private static GraphicsAlgorithm createFeatureGroupGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
+		final int circleSize = Math.min(width/4, height/4);
+		final int barWidth = circleSize/2;
 		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
-		ga.setFilled(false);
-		
-		// TODO: Sizing. Take into account dimensions, features, etc
+		ga.setFilled(false);		
 		
 		// Circle
 		final GraphicsAlgorithm circle = gaService.createPlainEllipse(ga);
-		// TODO: Cap circle size?
-		// TODO: Take into account width\height ratio?		
-		final int circleSize = width/6;
 		gaService.setLocationAndSize(circle, width-circleSize, height/2-circleSize/2, circleSize, circleSize);
 		circle.setStyle(style);
 		
 		// Bar
 		final GraphicsAlgorithm bar = gaService.createPlainRectangle(ga);
-		final int barWidth = 10;
 		gaService.setLocationAndSize(bar, circle.getX()-barWidth+1, 0, barWidth, height);
 		bar.setStyle(style);
 		
 		// TODO: Feature Indicators
-		
+				
 		return ga;
 	}
 	

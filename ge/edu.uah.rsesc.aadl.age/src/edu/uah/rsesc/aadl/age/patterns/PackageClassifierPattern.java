@@ -1,6 +1,7 @@
 package edu.uah.rsesc.aadl.age.patterns;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -21,8 +22,26 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.AbstractClassifier;
+import org.osate.aadl2.BusClassifier;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.MemoryClassifier;
+import org.osate.aadl2.ProcessClassifier;
+import org.osate.aadl2.ProcessorClassifier;
+import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.SubprogramGroupClassifier;
+import org.osate.aadl2.SystemClassifier;
+import org.osate.aadl2.ThreadClassifier;
+import org.osate.aadl2.ThreadGroupClassifier;
+import org.osate.aadl2.VirtualBusClassifier;
+import org.osate.aadl2.VirtualProcessorClassifier;
+
 import edu.uah.rsesc.aadl.age.util.GraphicsAlgorithmCreator;
+import edu.uah.rsesc.aadl.age.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 public class PackageClassifierPattern extends AbstractPattern implements IPattern {
@@ -64,50 +83,131 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 		
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		final IGaService gaService = Graphiti.getGaService();
-		
-		int width = 100;
-        int height = 50; 
-        
+
         // Create the container shape
         final ContainerShape container = peCreateService.createContainerShape(diagram, true);
-        link(container, classifier);        
-       
+   		PropertyUtil.setTypeName(container, getClassifierTypeName(classifier));
+        link(container, classifier);
+        
+		// Determine the label text
+        final String labelTxt = getLabelText(classifier);
+        
+		// Create label
+        final Shape shape = peCreateService.createShape(container, false);
+        final Text text = gaService.createPlainText(shape, labelTxt);
+        text.setStyle(StyleUtil.getClassifierLabelStyle(diagram));
+        
+        // Set the size        
+		final int width = Math.max(100, GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont()).getWidth() + 20); 
+		final int height = 50; 
+		gaService.setLocationAndSize(text, 0, 0, width, 20);
+				
+		// Create the graphics algorithm
         final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, diagram, classifier, width, height);        
         gaService.setLocation(ga, context.getX(), context.getY());
         
         // Create anchor
         final Anchor anchor = peCreateService.createChopboxAnchor(container);
-        anchor.setReferencedGraphicsAlgorithm(ga);
+        //anchor.setReferencedGraphicsAlgorithm(ga);
         
-        // Create label
-        Shape shape = peCreateService.createShape(container, false);
-        
-        final String label = (this.getBusinessObjectForPictogramElement(diagram) == classifier.getNamespace().getOwner()) ? classifier.getName() : classifier.getQualifiedName(); 
-        final Text text = gaService.createPlainText(shape, label);
-        text.setStyle(StyleUtil.getClassifierLabelStyle(diagram));
-        gaService.setLocationAndSize(text, 0, 0, width, 20);
-
         return container;
 	}
 	
 	@Override
-	public boolean canUpdate(final IUpdateContext context) {
-		return (getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof Classifier);
-	}
-
-	@Override
 	public IReason updateNeeded(final IUpdateContext context) {
-		//System.out.println("UPDATE NEEDED?");
-	//	context.getPictogramElement().g
-	//	return Reason.createTrueReason();
+		final PictogramElement pe = context.getPictogramElement();
+		final Classifier classifier = (Classifier)getBusinessObjectForPictogramElement(pe);
+		final String actualTypeName = getClassifierTypeName(classifier);
+		final String storedTypeName = PropertyUtil.getTypeName(pe);	
+		if(!actualTypeName.equals(storedTypeName)) {
+			return Reason.createTrueReason("Type is out of date");
+		}
+		
+		final Text label = getLabel((ContainerShape)pe);
+		if(label == null || !label.getValue().equals(getLabelText(classifier))) {
+			return Reason.createTrueReason("Label is out of date");			
+		}
+
 		return Reason.createFalseReason();
-		//return null;
+	}
+	
+	@Override
+	public boolean canUpdate(final IUpdateContext context) {
+		return (context.getPictogramElement() instanceof ContainerShape) && (getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof Classifier);
+	}
+	
+	// TODO: Seems like this could be merged in with the logic from GrpahicsAlgorithmCreator to keep all this logic together
+	private String getClassifierTypeName(final Classifier classifier) {
+		if(classifier instanceof SystemClassifier) {
+        	return "system";
+        } else if(classifier instanceof ProcessClassifier) {
+        	return "process";
+        } else if(classifier instanceof ThreadGroupClassifier) {
+        	return "thread_group";
+        } else if(classifier instanceof ThreadClassifier) {
+        	return "thread";
+        } else if(classifier instanceof SubprogramClassifier) {
+        	return "subprogram";
+        } else if(classifier instanceof SubprogramGroupClassifier) {
+        	return "subprogram_group";
+        } else if(classifier instanceof DataClassifier) {
+        	return "data";
+        } else if(classifier instanceof AbstractClassifier) {
+        	return "abstract";
+        } else if(classifier instanceof VirtualBusClassifier) {
+        	return "virtual_bus";
+        } else if(classifier instanceof VirtualProcessorClassifier) {
+        	return "virtual_processor";
+        } else if(classifier instanceof BusClassifier) {
+        	return "bus";
+        } else if(classifier instanceof ProcessorClassifier) {
+        	return "processor";
+        } else if(classifier instanceof DeviceClassifier) {     	
+        	return "device";
+        } else if(classifier instanceof MemoryClassifier) {
+        	return "memory";
+        } else if(classifier instanceof FeatureGroupType) {
+        	return "feature_group";
+        } else {
+        	return "unknown";
+        }
 	}
 
+	private String getLabelText(final Classifier classifier) {
+		 return (this.getBusinessObjectForPictogramElement(getDiagram()) == classifier.getNamespace().getOwner()) ? classifier.getName() : classifier.getQualifiedName(); 
+	}
+	
 	@Override
 	public boolean update(final IUpdateContext context) {
-		//System.out.println("UPDATING....");
-		return false;
+		final PictogramElement pe = context.getPictogramElement();
+		final Classifier classifier = (Classifier)getBusinessObjectForPictogramElement(pe);
+		
+		// Update the type name property
+		PropertyUtil.setTypeName(pe, getClassifierTypeName(classifier));
+		
+		// Update the graphical algorithm
+		final GraphicsAlgorithm currentGa = pe.getGraphicsAlgorithm();
+		final int x = currentGa.getX();
+		final int y = currentGa.getY();
+		final GraphicsAlgorithm newGa = GraphicsAlgorithmCreator.createGraphicsAlgorithm((ContainerShape)pe, getDiagram(), classifier, currentGa.getWidth(), currentGa.getHeight());
+		Graphiti.getGaLayoutService().setLocation(newGa,  x, y);
+		
+		// Update the label
+		final Text lbl = getLabel((ContainerShape)pe);
+		if(lbl != null) {
+			lbl.setValue(getLabelText(classifier));
+		}
+		
+		return true;
+	}
+	
+	private Text getLabel(final ContainerShape cs) {
+		for(final Shape shape : cs.getChildren()) {
+			if(shape.getGraphicsAlgorithm() instanceof Text) {
+				return (Text)shape.getGraphicsAlgorithm();
+			}
+		}
+		return null;
 	}
 	
 	@Override
@@ -128,14 +228,9 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 	public void resizeShape(final IResizeShapeContext context) {
 		final PictogramElement pe = context.getPictogramElement();
 		final Object bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
-		if(pe instanceof ContainerShape) {
-			final ContainerShape container = (ContainerShape)pe;
-			if(bo != null) {
-				if(bo instanceof Classifier) {
-		        	final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight());
-				}				
-			}
-		}
+		final ContainerShape container = (ContainerShape)pe;
+		System.out.println("A");
+       	GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight());
 		
 		super.resizeShape(context);
 	}	

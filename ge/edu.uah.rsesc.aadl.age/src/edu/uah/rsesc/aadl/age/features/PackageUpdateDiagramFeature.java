@@ -25,6 +25,7 @@ import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -47,6 +48,7 @@ import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
@@ -60,19 +62,18 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	}
 	
 	@Override
-	public boolean canUpdate(IUpdateContext context) {
-		return true;
-	}
-
-	@Override
 	public IReason updateNeeded(IUpdateContext context) {
 		Log.info("updateNeeded called with context: " + context);
-		// TODO: Determine how to do this while program running. Reason.createTrueReason("Name is out of date");
 		return null;
 	}
 
 	@Override
-	public boolean update(IUpdateContext context) {
+	public boolean canUpdate(IUpdateContext context) {
+		return true;
+	}
+	
+	@Override
+	public boolean update(IUpdateContext context) {		
 		Log.info("update called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
 		final boolean wasEmpty = diagram.getChildren().size() == 0; 
@@ -88,6 +89,9 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	
 		final AadlPackage pkg = (AadlPackage)element;
 
+		// Prune Invalid Generalizations
+		removeInvalidGeneralizations(diagram);
+		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();
 		if(pkg.getPublicSection() != null) {
@@ -132,8 +136,41 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 			final CustomContext customContext = new CustomContext();
 			new LayoutDiagramFeature(this.getFeatureProvider()).execute(customContext);
 		}
-		
+				
 		return false;
+	}
+	
+	private void removeInvalidGeneralizations(final Diagram diagram) {
+		final Iterator<Connection> it = diagram.getConnections().iterator();
+		while(it.hasNext()) {
+			final Connection connection = it.next();
+			final Object bo = (EObject)this.getBusinessObjectForPictogramElement(connection);
+			if(bo instanceof EObject) {
+				EObject emfBusinesObject = (EObject)bo;
+				if(emfBusinesObject.eIsProxy()) {
+					emfBusinesObject = EcoreUtil.resolve(emfBusinesObject, OsateResourceUtil.getResourceSet());
+				}
+
+				if(emfBusinesObject.eIsProxy()) {
+					// Remove it it is still a proxy
+					it.remove();
+				} else if(emfBusinesObject instanceof Generalization) {
+					final Generalization generalization = (Generalization)emfBusinesObject;
+					final Classifier general = generalization.getGeneral();
+					final Classifier specific = generalization.getSpecific();
+					final Object startBo = this.getBusinessObjectForPictogramElement(connection.getStart().getParent());
+					final Object endBo = this.getBusinessObjectForPictogramElement(connection.getEnd().getParent());
+										
+					// Remove the object if the objects pointed to don't match the object referenced by the generalization
+					if(!general.equals(startBo) || !specific.equals(endBo)) {
+						it.remove();
+					}
+				}
+			} else {
+				// Remove the object if the business object was not an EObject
+				it.remove();
+			}
+		}
 	}
 	
 	private void updateClassifiers(final Diagram diagram, final Set<NamedElement> elements, int x, int y) {
@@ -180,38 +217,40 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	}
 	
 	private void updateRelationships(final Diagram diagram, final Set<NamedElement> elements) {
-		// TODO: Check if it is in the diagram first!		
+		final AadlPackage pkg = (AadlPackage)this.getBusinessObjectForPictogramElement(diagram);
 		for(final NamedElement el : elements) {
-			if(el instanceof ComponentType) {
-				// Extension
-				final ComponentType ct = (ComponentType)el;
-				final TypeExtension te = ct.getOwnedExtension();
-				if(te != null) {
-					updateGeneralization(diagram, te);	
-				}
-			}
-			
-			if(el instanceof ComponentImplementation) {
-				final ComponentImplementation ci = ((ComponentImplementation)el);
-				
-				// Implementation Extension
-				final ImplementationExtension ie = ci.getOwnedExtension();
-				if(ie != null) {	
-					updateGeneralization(diagram, ie);					
+			if(el.getNamespace().getOwner() == pkg) {
+				if(el instanceof ComponentType) {
+					// Extension
+					final ComponentType ct = (ComponentType)el;
+					final TypeExtension te = ct.getOwnedExtension();
+					if(te != null) {
+						updateGeneralization(diagram, te);	
+					}
 				}
 				
-				// Realization
-				final Realization realization = ci.getOwnedRealization();
-				if(realization != null) {	
-					updateGeneralization(diagram, realization);					
+				if(el instanceof ComponentImplementation) {
+					final ComponentImplementation ci = ((ComponentImplementation)el);
+					
+					// Implementation Extension
+					final ImplementationExtension ie = ci.getOwnedExtension();
+					if(ie != null) {	
+						updateGeneralization(diagram, ie);					
+					}
+					
+					// Realization
+					final Realization realization = ci.getOwnedRealization();
+					if(realization != null) {	
+						updateGeneralization(diagram, realization);					
+					}
 				}
-			}
-			
-			if(el instanceof FeatureGroupType) {
-				final FeatureGroupType fgt = (FeatureGroupType)el;
-				final GroupExtension ge = fgt.getOwnedExtension();
-				if(ge != null) {
-					updateGeneralization(diagram, ge);	
+				
+				if(el instanceof FeatureGroupType) {
+					final FeatureGroupType fgt = (FeatureGroupType)el;
+					final GroupExtension ge = fgt.getOwnedExtension();
+					if(ge != null) {
+						updateGeneralization(diagram, ge);	
+					}
 				}
 			}
 		}
@@ -229,11 +268,11 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 			final PictogramElement specificPictogramEl = this.getFeatureProvider().getPictogramElementForBusinessObject(specificClassifier);
 			
 			if(generalPictogramEl == null) {
-				throw new RuntimeException("TODO: Unhandled case, referenced general classifier is not in diagram. " + generalClassifier.getQualifiedName());
+				throw new RuntimeException("Unhandled case, referenced general classifier is not in diagram. " + generalClassifier.getQualifiedName());
 			}
 			
 			if(specificPictogramEl == null) {
-				throw new RuntimeException("TODO: Unhandled case, referenced specific classifier is not in diagram. " + specificClassifier.getQualifiedName());
+				throw new RuntimeException("Unhandled case, referenced specific classifier is not in diagram. " + specificClassifier.getQualifiedName());
 			}
 	
 			// Get anchors
