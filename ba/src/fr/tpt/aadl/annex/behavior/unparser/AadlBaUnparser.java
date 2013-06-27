@@ -286,6 +286,15 @@ public class AadlBaUnparser
 
       public String caseBehaviorEnumerationLiteral(BehaviorEnumerationLiteral object)
       {
+        Element refContainer = Aadl2Visitors.getContainingPackageSection(object.getComponent());
+        Element holderPackageOrPropertySet = Aadl2Visitors.getContainingPackageSection(object);
+        if(refContainer!=null && holderPackageOrPropertySet!=null &&
+              false==holderPackageOrPropertySet.equals(refContainer))
+        {
+          StringBuilder sb = new StringBuilder(object.getComponent().getQualifiedName());
+          String prefix=sb.substring(0, sb.lastIndexOf("::")+2);
+          aadlbaText.addOutput(prefix);
+        }
         aadlbaText.addOutput(object.getComponent().getName()) ;
         aadlbaText.addOutput("#") ;
         aadlbaText.addOutput(object.getEnumLiteral().getValue()) ;
