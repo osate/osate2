@@ -48,7 +48,9 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
@@ -197,6 +199,39 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	
 	protected void checkComponent(ComponentInstance componentInstance, AnalysisModel model)
 	{
+		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
+		{
+			OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
+		
+			/**
+			 * 
+			 * In the following, we check that all the types and subtypes for a given components
+			 * are declared as error source for each out propagation. This would be enhanced
+			 * when defining different error sources/path for the same propagation point.
+			 */
+			for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance.getComponentClassifier()))
+			{
+				if (ef instanceof ErrorSink)
+				{
+					ErrorSink es = (ErrorSink)ef;
+					if (es.getIncoming() == ep)
+					{
+		
+						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep)))
+						{
+		
+							if (! EM2TypeSetUtil.contains (es.getTypeTokenConstraint(), tt))
+							{
+								error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " does not declare " + tt.getType().get(0).getName() + " as error source");
+		
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
 		for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
 		{
 			OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
