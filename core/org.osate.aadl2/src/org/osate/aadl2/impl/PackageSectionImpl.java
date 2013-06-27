@@ -671,8 +671,11 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements
 	 */
 	@Override
 	public void setName(String newName) {
-		throw new UnsupportedOperationException(
-				"Cannot set name of package secton.");
+		// DB: Ticket #249. Causes problem with model merge operations. Because getName() is derived from the name of the containing package, 
+		// EMF compare computes a difference between the package section since the package has been renamed. 
+		// Removing exception throw for now.
+		//throw new UnsupportedOperationException(
+			//	"Cannot set name of package secton.");
 	}
 
 	/**

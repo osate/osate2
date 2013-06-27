@@ -37,6 +37,7 @@ package org.osate.xtext.aadl2;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.resource.IFragmentProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
+import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
 
 /**
@@ -51,16 +52,21 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
 	  return Aadl2ValueConverter.class;
 	}
+	
 	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return org.osate.xtext.aadl2.naming.Aadl2QualifiedNameProvider.class;
 	}
 	
-// It has some problems. It recurses on the package in the outline view
-	//	@Override
-//	public Class<? extends IFragmentProvider> bindIFragmentProvider() {
-//		return org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider.class;
-//	}
+	/* // It has some problems. It recurses on the package in the outline view
+	 * DB: Fixing the reference problem. Reviewed getName() on PublicPackageSection to fix the recurses problem.
+	 * (non-Javadoc)
+	 * @see org.eclipse.xtext.service.DefaultRuntimeModule#bindIFragmentProvider()
+	 */
+	@Override
+	public Class<? extends IFragmentProvider> bindIFragmentProvider() {
+		return Aadl2QualifiedNameFragmentProvider.class;
+	}
 
 	@Override
 	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
@@ -108,6 +114,4 @@ public Class<? extends org.eclipse.xtext.resource.DefaultLocationInFileProvider>
 	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
 		return org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider.class;
 	}
-
-
 }

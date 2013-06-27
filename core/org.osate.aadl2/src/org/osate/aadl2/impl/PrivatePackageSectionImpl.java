@@ -142,7 +142,7 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements
 	 */
 	@Override
 	public String getName() {
-		return ((AadlPackage) getOwner()).getName() + "_private";
+		return super.getName() + "_private";
 	}
 
 } // PrivatePackageSectionImpl
