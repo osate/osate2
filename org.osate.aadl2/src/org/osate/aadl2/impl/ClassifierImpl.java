@@ -68,6 +68,7 @@ import org.osate.aadl2.Type;
 import org.osate.aadl2.operations.ClassifierOperations;
 import org.osate.aadl2.operations.TypeOperations;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -265,9 +266,15 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 
 	@Override
 	public EList<NamedElement> getMembers() {
-		BasicEList<NamedElement> results = new BasicEList<NamedElement>(
-				getMembersGen());
-		results.addAll(getInheritedMembers());
+		// DB This should be an EStructuralFeature.Setting
+//		BasicEList<NamedElement> results = new BasicEList<NamedElement>(
+//				getMembersGen());
+		final EList<NamedElement> results = new NonNotifyingEObjectEList<NamedElement>( NamedElement.class,
+																						this,
+																						Aadl2Package.CLASSIFIER__MEMBER);
+		results.addAll(getMembersGen());
+		results.addAll(getInheritedMembers());		
+		
 		return results;
 	}
 
@@ -380,8 +387,13 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		EList<NamedElement> cls = new BasicInternalEList<NamedElement>(
 				NamedElement.class);
 		// members to be returned
-		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(
-				NamedElement.class);
+		// DB The returned list must be an EStructuralFeature.Setting
+//		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(
+//				NamedElement.class);
+		//		final EList<Classifier> list = new BasicEList<Classifier>();
+		final EList<NamedElement> tmp = new NonNotifyingEObjectEList<NamedElement>(	NamedElement.class,
+																					this,
+																					Aadl2Package.CLASSIFIER__INHERITED_MEMBER );
 		cls.add(this);
 		for (Generalization g : getGeneralizations()) {
 			Classifier cl = g.getGeneral();
