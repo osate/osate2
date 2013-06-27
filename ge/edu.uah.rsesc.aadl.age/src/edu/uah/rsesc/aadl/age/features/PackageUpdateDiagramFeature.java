@@ -87,12 +87,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 		}		
 	
 		final AadlPackage pkg = (AadlPackage)element;
-		
-		// TODO: Handle showing extends, implementation, etc if what it extends is in another package...
-		
-		// TODO: Investigate issues with EMF Index being out of date
-		
-		// TODO: Will need to do more work when extends, etc arrows are drawn.	
 
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();

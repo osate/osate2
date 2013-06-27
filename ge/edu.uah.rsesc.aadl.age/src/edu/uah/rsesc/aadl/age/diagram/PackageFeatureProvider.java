@@ -19,6 +19,7 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.GroupExtension;
@@ -27,27 +28,23 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 
 import edu.uah.rsesc.aadl.age.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.features.PackageAddClassifierFeature;
-import edu.uah.rsesc.aadl.age.features.PackageAddGeneralizationFeature;
-import edu.uah.rsesc.aadl.age.features.PackageUpdateClassifierFeature;
 import edu.uah.rsesc.aadl.age.features.PackageUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.features.stub.AddDomainObjectConnectionConnectionFeature;
 import edu.uah.rsesc.aadl.age.features.stub.AddDomainObjectFeature;
 import edu.uah.rsesc.aadl.age.features.stub.CreateDomainObjectConnectionConnectionFeature;
 import edu.uah.rsesc.aadl.age.features.stub.CreateDomainObjectFeature;
 import edu.uah.rsesc.aadl.age.features.stub.LayoutDomainObjectFeature;
+import edu.uah.rsesc.aadl.age.patterns.PackageClassifierPattern;
+import edu.uah.rsesc.aadl.age.patterns.PackageGeneralizationPattern;
 
-public class PackageFeatureProvider extends DefaultFeatureProvider {
+public class PackageFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	public PackageFeatureProvider(IDiagramTypeProvider dtp) {
-		super(dtp);		
-		//this.setIndependenceSolver(new IndependenceProvider());
+		super(dtp);
+		addPattern(new PackageClassifierPattern());
+		addConnectionPattern(new PackageGeneralizationPattern());
 	}
 
-	@Override
-	public ICreateFeature[] getCreateFeatures() {
-		return new ICreateFeature[] {};//new CreateDomainObjectFeature(this)};
-	}
-	
+	// TODO: Remove when deleting is allowed.
 	@Override 
 	public IRemoveFeature getRemoveFeature(final IRemoveContext context) {
 		return null;
@@ -56,54 +53,20 @@ public class PackageFeatureProvider extends DefaultFeatureProvider {
 	@Override 
 	public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
 		return null;
-	}
-	
-	@Override
-	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
-		return new ICreateConnectionFeature[] {};//new CreateDomainObjectConnectionConnectionFeature(this)};
-	}
-	
-	@Override
-	public IAddFeature getAddFeature(IAddContext context) {
-		if (context instanceof IAddConnectionContext && 
-				(context.getNewObject() instanceof Realization || 
-						context.getNewObject() instanceof TypeExtension || 
-						context.getNewObject() instanceof ImplementationExtension || 
-						context.getNewObject() instanceof GroupExtension)) {
-			return new PackageAddGeneralizationFeature(this);
-		} else if (context instanceof IAddContext) {
-			if(context.getNewObject() instanceof Classifier) {
-				return new PackageAddClassifierFeature(this);
-			}
-		}
+	}	
 
-		return super.getAddFeature(context);
-	}
-	
-	@Override
-	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
-		// TODO: check for right domain object instances below
-		if (context.getPictogramElement() instanceof ContainerShape /* && getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof <DomainObject> */) {
-			return  new LayoutDomainObjectFeature(this);
-		}
-	
-		return super.getLayoutFeature(context);
-	}
-	
 	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
 	   PictogramElement pictogramElement = context.getPictogramElement();
 	   if(pictogramElement instanceof Diagram) {
 		   return new PackageUpdateDiagramFeature(this);
-	   } else if(getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof Classifier) {
-		   return new PackageUpdateClassifierFeature(this);
 	   }
 	   
 	   return super.getUpdateFeature(context);
 	 }
-	
 	@Override
 	public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
 		return new ICustomFeature[] { new LayoutDiagramFeature(this) };
 	}
+	
 }

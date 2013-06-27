@@ -1,36 +1,32 @@
-package edu.uah.rsesc.aadl.age.features;
+package edu.uah.rsesc.aadl.age.patterns;
 
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.impl.AbstractAddFeature;
+import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
-import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
+import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-public class PackageAddGeneralizationFeature extends AbstractAddFeature {
-	public PackageAddGeneralizationFeature(IFeatureProvider fp) {
-		super(fp);
-	}
-
+public class PackageGeneralizationPattern extends AbstractConnectionPattern implements IConnectionPattern {
+	
 	@Override
 	public boolean canAdd(IAddContext context) {
         if(context instanceof IAddConnectionContext && 
@@ -78,5 +74,5 @@ public class PackageAddGeneralizationFeature extends AbstractAddFeature {
 	    		-15, -10});
 	    ga.setStyle(style);
 	    return ga;
-	} 
+	}
 }
