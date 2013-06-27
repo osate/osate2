@@ -8,8 +8,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
@@ -188,6 +190,27 @@ public class EM2TypeSetUtil {
 		return true;
 	}
 
+	/**
+	 * true if errors from ep2 are contains in errors from ep1.
+	 * This method used ErrorPropagation to expand the TypeSet.
+	 * @param ep1 ErrorPropagation
+	 * @param ep2 ErrorPropagation
+	 * @return boolean
+	 */
+	public static boolean contains(ErrorPropagation ep1, ErrorPropagation ep2)
+	{
+		EList<TypeToken> srcTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep1.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep1));
+		EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep2.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep2));
+		for (TypeToken tt : dstTokens)
+		{
+			if (! EM2TypeSetUtil.contains (ep1.getTypeSet(), tt))
+			{
+				return false;
+			}
+			
+		}
+		return true;
+	}
 	
 	
 	/**
