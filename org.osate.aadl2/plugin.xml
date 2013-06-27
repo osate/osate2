@@ -35,7 +35,8 @@
             class="org.osate.aadl2.instance.util.InstanceResourceFactoryImpl"/>
    </extension>
 <!--   
-   Code related to the sphinx integration, disabled for now.
+   Begin code related to the sphinx integration.
+-->
    
    <extension point="org.eclipse.emf.ecore.content_parser">
       <parser 
@@ -71,5 +72,7 @@
       		default-charset="UTF-8"> 
       </content-type>
    </extension>
+<!--  
+ end code related to the sphinx integration.
 -->
 </plugin>
