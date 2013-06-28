@@ -3,12 +3,15 @@ package edu.uah.rsesc.aadl.age.diagram;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.osate.aadl2.Generalization;
 
 public class PackageDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	public PackageDiagramTypeProvider() {
 		super();
 		setFeatureProvider(new PackageFeatureProvider(this));
+		
+
 	}
 	
 	@Override

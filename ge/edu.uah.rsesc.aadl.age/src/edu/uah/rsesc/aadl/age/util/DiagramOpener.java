@@ -4,10 +4,15 @@ import java.io.IOException;
 import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.ResourceSetChangeEvent;
+import org.eclipse.emf.transaction.ResourceSetListener;
+import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -26,6 +31,8 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+
+import edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor;
 
 /**
  * Class responsible for providing a mechanism for opening and creating diagrams for AADL model elements
@@ -93,7 +100,7 @@ public class DiagramOpener {
 			editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
 			editingDomainCreated = true;
 		}
-		
+
 		// Create the diagram and its file
 		final IPeService peService = Graphiti.getPeService();
 		final Diagram diagram = peService.createDiagram(diagramTypeId, namedElement.getQualifiedName(), true);
@@ -143,7 +150,7 @@ public class DiagramOpener {
 		{
 			retry = false;
 			final IFolder diagramFolder = SelectionHelper.getProject().getFolder("diagrams/");
-			final IFile diagramFile = diagramFolder.getFile(baseFilename + suffix + ".diagram");
+			final IFile diagramFile = diagramFolder.getFile(baseFilename + suffix + AgeDiagramEditor.EXTENSION);
 			final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 			
 			// Try to get the resource in case it is already in the resource set, otherwise create a new one
@@ -182,12 +189,12 @@ public class DiagramOpener {
 	private void openEditor(final Resource resource) {
 		if(resource.getContents().size() == 0) {
 			throw new RuntimeException("Error opening editor. Resource is empty");
-		} else {
+		} else {			
 			final Diagram diagram = (Diagram)resource.getContents().get(0); 
 			final String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());	
 			final DiagramEditorInput editorInput = DiagramEditorInput.createEditorInput(diagram, providerId);
 			try {
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, DiagramEditor.DIAGRAM_EDITOR_ID);
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, AgeDiagramEditor.DIAGRAM_EDITOR_ID);
 			} catch (PartInitException e) {
 				throw new RuntimeException(e);
 			}

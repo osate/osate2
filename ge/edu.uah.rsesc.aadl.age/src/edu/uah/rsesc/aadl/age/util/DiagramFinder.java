@@ -18,6 +18,8 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
+import edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor;
+
 /**
  * Class that provided methods for finding diagrams representing AADL model elements in the current eclipse workspace
  * @author philip.alldredge
@@ -52,7 +54,7 @@ class DiagramFinder {
 					if(obj instanceof Diagram) {
 						final Diagram diagram = (Diagram)obj;
 						
-						// Create a feature provider and check if it is linked to the aadl elmeent
+						// Create a feature provider and check if it is linked to the aadl element
 						final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
 						if(featureProvider != null) {
 							final Object bo = featureProvider.getBusinessObjectForPictogramElement(diagram);
@@ -88,7 +90,7 @@ class DiagramFinder {
 			         findDiagrams((IContainer)resource, diagramFiles);
 			     } else if (resource instanceof IFile) {
 			         final IFile file = (IFile) resource;
-			         if (file.getName().endsWith(".diagram")) {
+			         if (file.getName().endsWith(AgeDiagramEditor.EXTENSION)) {
 			              diagramFiles.add(file);
 			         }
 			     }

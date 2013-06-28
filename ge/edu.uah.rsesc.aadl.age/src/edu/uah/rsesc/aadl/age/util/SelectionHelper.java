@@ -92,8 +92,7 @@ public class SelectionHelper {
 			throw new RuntimeException("Unexpected case. Unable to get active editor");
 		}
 
-		XtextEditor xtextEditor = (XtextEditor) activeEditor
-				.getAdapter(XtextEditor.class);
+		XtextEditor xtextEditor = (XtextEditor)activeEditor.getAdapter(XtextEditor.class);
 		if (xtextEditor == null) {
 			throw new RuntimeException("Unexpected case. Unable to get Xtext editor");
 		}

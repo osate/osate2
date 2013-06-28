@@ -74,5 +74,21 @@
          </diagramType>
       </diagramTypeProvider>
    </extension>
+   
+   <extension
+	    point = "org.eclipse.ui.editors">
+		<editor
+	  	   id = "edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor"
+	  	   name="AADL Diagram Editor"
+      	   class="edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor"
+		   extensions="aadl_diagram"
+           contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor">
+		</editor>
+	</extension>
 
+	<extension point="org.eclipse.ui.startup">
+      <startup class="edu.uah.rsesc.aadl.age.xtext.Initializer">
+      </startup>
+   </extension>
+   
 </plugin>

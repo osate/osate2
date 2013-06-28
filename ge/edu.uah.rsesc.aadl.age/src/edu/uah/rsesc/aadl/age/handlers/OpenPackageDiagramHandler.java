@@ -26,8 +26,11 @@ public class OpenPackageDiagramHandler extends AbstractHandler {
 			
 			// Get the selected package and try to create\open a diagram for it
 			final AadlPackage pkg = getSelectedPackage();
-			DiagramOpener.create().openOrCreateDiagram(pkg);
-			
+			if(pkg == null) {
+				MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Select a package or classifier.");
+			} else {
+				DiagramOpener.create().openOrCreateDiagram(pkg);	
+			}			
 			Log.ok(getClass().getSimpleName() + " Finished");
 		} catch(RuntimeException e) {
 			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Error opening package diagram handler: " + e.getMessage());
@@ -47,6 +50,6 @@ public class OpenPackageDiagramHandler extends AbstractHandler {
 			}
 		}
 
-		throw new RuntimeException("Unable to get AADL package");
+		return null;
 	}
 }

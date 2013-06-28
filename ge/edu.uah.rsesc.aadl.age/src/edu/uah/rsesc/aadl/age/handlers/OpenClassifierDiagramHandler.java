@@ -27,7 +27,7 @@ public class OpenClassifierDiagramHandler extends AbstractHandler {
 			// Determine the classifier
 			final Classifier classifier = getSelectedClassifier();
 			if(classifier == null) {
-				MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Select a Classifier.");
+				MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Select a classifier.");
 			} else {
 				DiagramOpener.create().openOrCreateDiagram(classifier);
 			}

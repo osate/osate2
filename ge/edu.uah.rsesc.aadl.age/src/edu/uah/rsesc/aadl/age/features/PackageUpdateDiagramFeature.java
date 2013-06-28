@@ -1,5 +1,6 @@
 package edu.uah.rsesc.aadl.age.features;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -81,16 +82,18 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 		// Update styles
 		StyleUtil.updateStyles(diagram);
 		
-		// Update classifiers
+		// Get the AADL Paclage
 		final NamedElement element = (NamedElement)this.getBusinessObjectForPictogramElement(diagram);
 		if(element == null || !(element instanceof AadlPackage)) {
 			return false;
-		}		
-	
+		}	
 		final AadlPackage pkg = (AadlPackage)element;
 
 		// Prune Invalid Generalizations
 		removeInvalidGeneralizations(diagram);
+		
+		// Prune Invalid Shapes
+		removeShapesWithouBusinessObject(diagram);
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();
@@ -141,10 +144,11 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	}
 	
 	private void removeInvalidGeneralizations(final Diagram diagram) {
-		final Iterator<Connection> it = diagram.getConnections().iterator();
-		while(it.hasNext()) {
-			final Connection connection = it.next();
+		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
+		
+		for(final Connection connection : diagram.getConnections()) {
 			final Object bo = (EObject)this.getBusinessObjectForPictogramElement(connection);
+			boolean remove = false;
 			if(bo instanceof EObject) {
 				EObject emfBusinesObject = (EObject)bo;
 				if(emfBusinesObject.eIsProxy()) {
@@ -153,7 +157,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 
 				if(emfBusinesObject.eIsProxy()) {
 					// Remove it it is still a proxy
-					it.remove();
+					remove = true;
 				} else if(emfBusinesObject instanceof Generalization) {
 					final Generalization generalization = (Generalization)emfBusinesObject;
 					final Classifier general = generalization.getGeneral();
@@ -163,13 +167,42 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 										
 					// Remove the object if the objects pointed to don't match the object referenced by the generalization
 					if(!general.equals(startBo) || !specific.equals(endBo)) {
-						it.remove();
+						remove = true;
 					}
 				}
 			} else {
 				// Remove the object if the business object was not an EObject
-				it.remove();
+				remove = true;
 			}
+			
+			if(remove) {
+				connectionsToRemove.add(connection);
+			}
+		}
+		
+		for(final Connection connection : connectionsToRemove) {
+			System.out.println("DELETING");
+			EcoreUtil.delete(connection, true);
+		}
+	}
+	
+	private void removeShapesWithouBusinessObject(final Diagram diagram) {	
+		final List<Shape> shapesToRemove = new ArrayList<Shape>();		
+		for(final Shape shape : diagram.getChildren()) {
+			final Object bo = this.getBusinessObjectForPictogramElement(shape);
+			
+			EObject emfBusinesObject = (EObject)bo;
+			if(emfBusinesObject.eIsProxy()) {
+				emfBusinesObject = EcoreUtil.resolve(emfBusinesObject, OsateResourceUtil.getResourceSet());
+			}
+
+			if(emfBusinesObject.eIsProxy()) {
+				shapesToRemove.add(shape);
+			}
+		}
+		
+		for(final Shape shape : shapesToRemove) {
+			EcoreUtil.delete(shape, true);			
 		}
 	}
 	
