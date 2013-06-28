@@ -45,6 +45,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -65,12 +66,15 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -1657,6 +1661,47 @@ public class EMV2Util {
 		return getAllErrorBehaviorTransitions (ci.getComponentClassifier());
 	}
 
+	
+	private static void getAllConditionElementsFromConditionExpression (EList<ConditionElement> propagations, ConditionExpression ce)
+	{
+
+		if (ce instanceof ConditionElement)
+		{
+			ConditionElement element = (ConditionElement) ce;
+			propagations.add(element);
+		}
+		
+		if (ce instanceof SAndExpression)
+		{
+			SAndExpression and = (SAndExpression) ce;
+			for (ConditionExpression foobar :  and.getOperands())
+			{
+				getAllConditionElementsFromConditionExpression (propagations, foobar);
+			}
+		}
+		if (ce instanceof SOrExpression)
+		{
+			SOrExpression or = (SOrExpression) ce;
+			for (ConditionExpression foobar :  or.getOperands())
+			{
+				getAllConditionElementsFromConditionExpression (propagations, foobar);
+			}
+		}
+	}
+	
+	/**
+	 * return the list of all ConditionElement associated with an ErrorBehaviorTransition.
+	 * In fact, for a transition, we can have several condition element enclosed in and and or branches.
+	 * This methods returns all the condition element referenced inside this constructs.
+	 * @param ebt the behavior transition that contains all the condition elements.
+	 * @return all the condition element related to the behavior transition
+	 */
+	public static Collection<ConditionElement> getAllConditionElementsFromConditionExpression (ErrorBehaviorTransition ebt)
+	{
+		EList<ConditionElement> result = new BasicEList<ConditionElement> ();
+		getAllConditionElementsFromConditionExpression (result, ebt.getCondition());
+		return result;
+	}
 	
 	/**
 	 * return list of ErrorBehaviorTransition including those inherited from classifiers being extended

@@ -36,6 +36,7 @@ package org.osate.aadl2.errormodel.analysis.actions;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Element;
@@ -48,10 +49,13 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
@@ -199,6 +203,61 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	
 	protected void checkComponent(ComponentInstance componentInstance, AnalysisModel model)
 	{
+
+		if (EMV2Util.hasComponentErrorBehavior(componentInstance))
+		{
+			EList<ConditionElement> propagations = new BasicEList<ConditionElement>();
+			
+			
+			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+			{
+				propagations.addAll(EMV2Util.getAllConditionElementsFromConditionExpression (ebt));
+			}
+			
+			/**
+			 * First, we check that if the component has error propagation, it references
+			 * at least ALL error types from ALL incoming propagations.
+			 */
+			if (propagations.size() > 0)
+			{
+				for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
+				{
+					EList<TypeToken> leafs = EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
+					EList<TypeToken> tokens = new BasicEList<TypeToken>();
+	
+					for (ConditionElement ce : propagations)
+					{
+						if (ce.getIncoming() instanceof ErrorPropagation)
+						{
+	
+							if (ce.getIncoming() == ep)
+							{						
+								tokens.addAll(EM2TypeSetUtil.generateAllLeafTypeTokens (ce.getConstraint(),EMV2Util.getContainingTypeUseContext((ErrorPropagation)ce.getIncoming())));
+							}
+						}
+	
+					}
+							
+					for (TypeToken tt : leafs)
+					{
+						boolean found = false;
+						for (TypeToken tt2 : tokens)
+						{
+							if (EM2TypeSetUtil.contains(tt, tt2))
+							{
+								found = true;
+							}
+						}
+						if (! found)
+						{
+							error(componentInstance,"Type " +EMV2Util.getPrintName(tt) + " is not associated with a transition on incoming propagation " + EMV2Util.getPrintName(ep));
+						}
+					}
+				}
+			}
+			
+		}
+		
 		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
 		{
 			OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
