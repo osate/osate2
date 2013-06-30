@@ -463,7 +463,9 @@
               </elements>
             </elements>
           </elements>
-          <elements xsi:type="xtext:Keyword" value="noerror"/>
+          <elements xsi:type="xtext:Assignment" feature="noError" operator="?=">
+            <terminal xsi:type="xtext:Keyword" value="noerror"/>
+          </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=")"/>
       </alternatives>
@@ -1179,22 +1181,17 @@
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Keyword" value="]->"/>
             <elements xsi:type="xtext:Alternatives">
-              <elements xsi:type="xtext:Alternatives">
-                <elements xsi:type="xtext:Group">
-                  <elements xsi:type="xtext:Assignment" feature="target" operator="=">
-                    <terminal xsi:type="xtext:CrossReference">
-                      <type metamodel="/0/@metamodelDeclarations.0">
-                        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
-                      </type>
-                      <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
-                    </terminal>
-                  </elements>
-                  <elements xsi:type="xtext:Assignment" cardinality="?" feature="targetToken" operator="=">
-                    <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
-                  </elements>
+              <elements xsi:type="xtext:Group">
+                <elements xsi:type="xtext:Assignment" feature="target" operator="=">
+                  <terminal xsi:type="xtext:CrossReference">
+                    <type metamodel="/0/@metamodelDeclarations.0">
+                      <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
+                    </type>
+                    <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
+                  </terminal>
                 </elements>
-                <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
-                  <terminal xsi:type="xtext:Keyword" value="mask"/>
+                <elements xsi:type="xtext:Assignment" cardinality="?" feature="targetToken" operator="=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
                 </elements>
               </elements>
               <elements xsi:type="xtext:Group">
@@ -1212,7 +1209,7 @@
               </elements>
             </elements>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
+          <elements xsi:type="xtext:Assignment" feature="steadyState" operator="?=">
             <terminal xsi:type="xtext:Keyword" value="]"/>
           </elements>
         </elements>
@@ -1224,22 +1221,17 @@
         <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TransitionBranch"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Assignment" feature="target" operator="=">
-              <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="/0/@metamodelDeclarations.0">
-                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
-                </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
-              </terminal>
-            </elements>
-            <elements xsi:type="xtext:Assignment" cardinality="?" feature="targetToken" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
-            </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="target" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="/0/@metamodelDeclarations.0">
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
+            </terminal>
           </elements>
-          <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
-            <terminal xsi:type="xtext:Keyword" value="mask"/>
+          <elements xsi:type="xtext:Assignment" cardinality="?" feature="targetToken" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="with"/>
@@ -1583,27 +1575,9 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.52"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="]->"/>
-        <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Alternatives">
-              <elements xsi:type="xtext:Assignment" feature="outgoing" operator="=">
-                <terminal xsi:type="xtext:CrossReference">
-                  <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
-                  </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.33"/>
-                </terminal>
-              </elements>
-              <elements xsi:type="xtext:Assignment" feature="allPropagations" operator="?=">
-                <terminal xsi:type="xtext:Keyword" value="all"/>
-              </elements>
-            </elements>
-            <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeToken" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.16"/>
-            </elements>
-          </elements>
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Assignment" cardinality="?" feature="outgoing" operator="=">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Alternatives">
+            <elements xsi:type="xtext:Assignment" feature="outgoing" operator="=">
               <terminal xsi:type="xtext:CrossReference">
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorPropagation"/>
@@ -1611,9 +1585,12 @@
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.33"/>
               </terminal>
             </elements>
-            <elements xsi:type="xtext:Assignment" feature="mask" operator="?=">
-              <terminal xsi:type="xtext:Keyword" value="mask"/>
+            <elements xsi:type="xtext:Assignment" feature="allPropagations" operator="?=">
+              <terminal xsi:type="xtext:Keyword" value="all"/>
             </elements>
+          </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeToken" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.16"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>

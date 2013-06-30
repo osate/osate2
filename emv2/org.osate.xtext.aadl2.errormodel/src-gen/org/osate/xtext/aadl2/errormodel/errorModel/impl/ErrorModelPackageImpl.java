@@ -817,6 +817,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getTypeToken_NoError()
+  {
+    return (EAttribute)typeTokenEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTypeTransformationSet()
   {
     return typeTransformationSetEClass;
@@ -1587,9 +1597,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getErrorBehaviorTransition_Mask()
+  public EReference getErrorBehaviorTransition_DestinationBranches()
   {
-    return (EAttribute)errorBehaviorTransitionEClass.getEStructuralFeatures().get(6);
+    return (EReference)errorBehaviorTransitionEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -1597,9 +1607,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorBehaviorTransition_DestinationBranches()
+  public EAttribute getErrorBehaviorTransition_SteadyState()
   {
-    return (EReference)errorBehaviorTransitionEClass.getEStructuralFeatures().get(7);
+    return (EAttribute)errorBehaviorTransitionEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -1637,19 +1647,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTransitionBranch_Mask()
-  {
-    return (EAttribute)transitionBranchEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getTransitionBranch_Value()
   {
-    return (EReference)transitionBranchEClass.getEStructuralFeatures().get(3);
+    return (EReference)transitionBranchEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2077,16 +2077,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getOutgoingPropagationCondition_Mask()
-  {
-    return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(7);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getErrorDetection()
   {
     return errorDetectionEClass;
@@ -2468,6 +2458,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     typeTokenEClass = createEClass(TYPE_TOKEN);
     createEReference(typeTokenEClass, TYPE_TOKEN__TYPE);
+    createEAttribute(typeTokenEClass, TYPE_TOKEN__NO_ERROR);
 
     typeTransformationSetEClass = createEClass(TYPE_TRANSFORMATION_SET);
     createEReference(typeTransformationSetEClass, TYPE_TRANSFORMATION_SET__USE_TYPES);
@@ -2568,13 +2559,12 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorBehaviorTransitionEClass, ERROR_BEHAVIOR_TRANSITION__CONDITION);
     createEReference(errorBehaviorTransitionEClass, ERROR_BEHAVIOR_TRANSITION__TARGET);
     createEReference(errorBehaviorTransitionEClass, ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN);
-    createEAttribute(errorBehaviorTransitionEClass, ERROR_BEHAVIOR_TRANSITION__MASK);
     createEReference(errorBehaviorTransitionEClass, ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES);
+    createEAttribute(errorBehaviorTransitionEClass, ERROR_BEHAVIOR_TRANSITION__STEADY_STATE);
 
     transitionBranchEClass = createEClass(TRANSITION_BRANCH);
     createEReference(transitionBranchEClass, TRANSITION_BRANCH__TARGET);
     createEReference(transitionBranchEClass, TRANSITION_BRANCH__TARGET_TOKEN);
-    createEAttribute(transitionBranchEClass, TRANSITION_BRANCH__MASK);
     createEReference(transitionBranchEClass, TRANSITION_BRANCH__VALUE);
 
     branchValueEClass = createEClass(BRANCH_VALUE);
@@ -2630,7 +2620,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__OUTGOING);
     createEAttribute(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__ALL_PROPAGATIONS);
     createEReference(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN);
-    createEAttribute(outgoingPropagationConditionEClass, OUTGOING_PROPAGATION_CONDITION__MASK);
 
     errorDetectionEClass = createEClass(ERROR_DETECTION);
     createEReference(errorDetectionEClass, ERROR_DETECTION__STATE);
@@ -2806,6 +2795,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     initEClass(typeTokenEClass, TypeToken.class, "TypeToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTypeToken_Type(), this.getErrorType(), null, "type", null, 0, -1, TypeToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTypeToken_NoError(), ecorePackage.getEBoolean(), "noError", null, 0, 1, TypeToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeTransformationSetEClass, TypeTransformationSet.class, "TypeTransformationSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTypeTransformationSet_UseTypes(), this.getErrorModelLibrary(), null, "useTypes", null, 0, -1, TypeTransformationSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2906,13 +2896,12 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorBehaviorTransition_Condition(), this.getConditionExpression(), null, "condition", null, 0, 1, ErrorBehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorBehaviorTransition_Target(), this.getErrorBehaviorState(), null, "target", null, 0, 1, ErrorBehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorBehaviorTransition_TargetToken(), this.getTypeToken(), null, "targetToken", null, 0, 1, ErrorBehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getErrorBehaviorTransition_Mask(), ecorePackage.getEBoolean(), "mask", null, 0, 1, ErrorBehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorBehaviorTransition_DestinationBranches(), this.getTransitionBranch(), null, "destinationBranches", null, 0, -1, ErrorBehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getErrorBehaviorTransition_SteadyState(), ecorePackage.getEBoolean(), "steadyState", null, 0, 1, ErrorBehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(transitionBranchEClass, TransitionBranch.class, "TransitionBranch", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTransitionBranch_Target(), this.getErrorBehaviorState(), null, "target", null, 0, 1, TransitionBranch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTransitionBranch_TargetToken(), this.getTypeToken(), null, "targetToken", null, 0, 1, TransitionBranch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTransitionBranch_Mask(), ecorePackage.getEBoolean(), "mask", null, 0, 1, TransitionBranch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTransitionBranch_Value(), this.getBranchValue(), null, "value", null, 0, 1, TransitionBranch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(branchValueEClass, BranchValue.class, "BranchValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2968,7 +2957,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getOutgoingPropagationCondition_Outgoing(), this.getErrorPropagation(), null, "outgoing", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOutgoingPropagationCondition_AllPropagations(), ecorePackage.getEBoolean(), "allPropagations", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getOutgoingPropagationCondition_TypeToken(), this.getTypeToken(), null, "typeToken", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getOutgoingPropagationCondition_Mask(), ecorePackage.getEBoolean(), "mask", null, 0, 1, OutgoingPropagationCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorDetectionEClass, ErrorDetection.class, "ErrorDetection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getErrorDetection_State(), this.getErrorBehaviorState(), null, "state", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

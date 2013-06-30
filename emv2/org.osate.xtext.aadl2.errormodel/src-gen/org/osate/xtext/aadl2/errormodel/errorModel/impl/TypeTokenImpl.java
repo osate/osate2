@@ -4,9 +4,13 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
@@ -24,6 +28,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTokenImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTokenImpl#isNoError <em>No Error</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,6 +45,26 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
    * @ordered
    */
   protected EList<ErrorType> type;
+
+  /**
+   * The default value of the '{@link #isNoError() <em>No Error</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isNoError()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean NO_ERROR_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isNoError() <em>No Error</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isNoError()
+   * @generated
+   * @ordered
+   */
+  protected boolean noError = NO_ERROR_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -81,6 +106,29 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isNoError()
+  {
+    return noError;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNoError(boolean newNoError)
+  {
+    boolean oldNoError = noError;
+    noError = newNoError;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TYPE_TOKEN__NO_ERROR, oldNoError, noError));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -88,6 +136,8 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
     {
       case ErrorModelPackage.TYPE_TOKEN__TYPE:
         return getType();
+      case ErrorModelPackage.TYPE_TOKEN__NO_ERROR:
+        return isNoError();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -107,6 +157,9 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
         getType().clear();
         getType().addAll((Collection<? extends ErrorType>)newValue);
         return;
+      case ErrorModelPackage.TYPE_TOKEN__NO_ERROR:
+        setNoError((Boolean)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -124,6 +177,9 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
       case ErrorModelPackage.TYPE_TOKEN__TYPE:
         getType().clear();
         return;
+      case ErrorModelPackage.TYPE_TOKEN__NO_ERROR:
+        setNoError(NO_ERROR_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -140,8 +196,27 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
     {
       case ErrorModelPackage.TYPE_TOKEN__TYPE:
         return type != null && !type.isEmpty();
+      case ErrorModelPackage.TYPE_TOKEN__NO_ERROR:
+        return noError != NO_ERROR_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (noError: ");
+    result.append(noError);
+    result.append(')');
+    return result.toString();
   }
 
 } //TypeTokenImpl

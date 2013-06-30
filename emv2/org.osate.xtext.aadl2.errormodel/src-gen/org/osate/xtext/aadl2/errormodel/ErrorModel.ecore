@@ -56,6 +56,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="TypeToken" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" unique="false" upperBound="-1"
         eType="#//ErrorType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="noError" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeTransformationSet" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//TypeUseContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
@@ -186,15 +187,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ErrorBehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetToken" eType="#//TypeToken"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destinationBranches" upperBound="-1"
         eType="#//TransitionBranch" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="steadyState" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TransitionBranch" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ErrorBehaviorState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetToken" eType="#//TypeToken"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//BranchValue"
         containment="true"/>
   </eClassifiers>
@@ -263,7 +263,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="allPropagations" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeToken" eType="#//TypeToken"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mask" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorDetection" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>

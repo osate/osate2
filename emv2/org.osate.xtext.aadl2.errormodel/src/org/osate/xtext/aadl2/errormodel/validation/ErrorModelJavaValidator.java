@@ -735,20 +735,24 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkTransitionSourceTypes(ErrorBehaviorTransition ebt) {
 		ErrorBehaviorState ebs = ebt.getSource();
-		if (ebs == null) return;
-		TypeSet ebsTS = ebs.getTypeSet();
-		TypeSet srcTS = ebt.getTypeTokenConstraint();
-		if (ebsTS == null && srcTS == null) return;
-		if (ebsTS == null && srcTS != null) {
-			error(ebt,
-					"Source state "+ebs.getName()+" does not have a type set declared but the transition source specifies "
-							+ EMV2Util.getPrintName(srcTS) );
-		} else
-		if (!EM2TypeSetUtil.contains(ebsTS,
-				srcTS)) {
-			error(ebt,
-					"Source type "+EMV2Util.getPrintName(srcTS)+" is not contained in type set of error behavior state \'"
-							+ ebs.getName() + "\'");
+		if (ebs != null) {
+			TypeSet ebsTS = ebs.getTypeSet();
+			TypeSet srcTS = ebt.getTypeTokenConstraint();
+			if (ebsTS == null && srcTS == null) return;
+			if (ebsTS == null && srcTS != null) {
+				error(ebt,
+						"Source state "+ebs.getName()+" does not have a type set declared but the transition source specifies "
+								+ EMV2Util.getPrintName(srcTS) );
+			} else
+				if (!EM2TypeSetUtil.contains(ebsTS,
+						srcTS)) {
+					error(ebt,
+							"Source type "+EMV2Util.getPrintName(srcTS)+" is not contained in type set of error behavior state \'"
+									+ ebs.getName() + "\'");
+				}
+		} else {
+			// we have an all states without a type constraint
+			// nothing to be checked
 		}
 	}
 

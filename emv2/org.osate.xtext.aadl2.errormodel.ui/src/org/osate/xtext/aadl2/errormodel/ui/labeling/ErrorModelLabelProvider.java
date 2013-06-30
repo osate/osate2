@@ -70,7 +70,7 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 		  return "event "+s+" when";
 		}
 	String text(ErrorBehaviorTransition ele) {
-		String s = ele.isMask()?"mask":ele.getName();
+		String s = ele.isSteadyState()?"steady state":ele.getName();
 		  return "transition "+s+" when";
 		}
 	String text(ErrorModelLibrary ele) {

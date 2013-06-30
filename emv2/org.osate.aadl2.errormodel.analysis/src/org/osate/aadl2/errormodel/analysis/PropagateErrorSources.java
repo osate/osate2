@@ -178,7 +178,7 @@ public class PropagateErrorSources {
 			
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(ci))
 			{
-				if (opc.isMask())
+				if (opc.getTypeToken().isNoError())
 				{
 					continue;
 				}

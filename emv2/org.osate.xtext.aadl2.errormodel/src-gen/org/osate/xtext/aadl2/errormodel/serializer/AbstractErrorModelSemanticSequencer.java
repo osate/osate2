@@ -797,9 +797,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         condition=ConditionExpression 
 	 *         (
 	 *             (target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | 
-	 *             mask?='mask' | 
 	 *             (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+) | 
-	 *             mask?=']'
+	 *             steadyState?=']'
 	 *         )
 	 *     )
 	 */
@@ -1007,10 +1006,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID? 
 	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
 	 *         condition=ConditionExpression? 
-	 *         (
-	 *             ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?='all') typeToken=TypeTokenOrNoError?) | 
-	 *             (outgoing=[ErrorPropagation|ErrorPropagationPoint]? mask?='mask')
-	 *         )
+	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?='all') 
+	 *         typeToken=TypeTokenOrNoError?
 	 *     )
 	 */
 	protected void sequence_OutgoingPropagationCondition(EObject context, OutgoingPropagationCondition semanticObject) {
@@ -1128,7 +1125,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (((target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | mask?='mask') value=BranchValue)
+	 *     (target=[ErrorBehaviorState|ID] targetToken=TypeToken? value=BranchValue)
 	 */
 	protected void sequence_TransitionBranch(EObject context, TransitionBranch semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1191,7 +1188,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     ((type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*)?)
+	 *     ((type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*) | noError?='noerror')
 	 */
 	protected void sequence_TypeTokenOrNoError(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

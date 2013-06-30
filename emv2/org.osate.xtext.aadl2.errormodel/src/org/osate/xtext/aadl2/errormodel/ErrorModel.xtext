@@ -133,7 +133,7 @@ TypeToken returns TypeToken:
 
 TypeTokenOrNoError returns TypeToken:
 	{TypeToken}
-     '(' (( type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])*) | 'noerror') ')'
+     '(' (( type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])*) | noError?='noerror') ')'
 ;
 
 TypeTokenConstraint returns TypeSet:
@@ -290,14 +290,14 @@ ErrorBehaviorTransition returns ErrorBehaviorTransition:
   ((source=[ErrorBehaviorState|ID] (typeTokenConstraint=TypeTokenConstraint)?)
   	| allStates?='all')
    '-[' condition=ConditionExpression ((']->' 
-  (((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?)|mask?='mask')
+  ((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?)
   	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )+ ')')))
-  	| mask ?= ']'
+  	| steadyState ?= ']'
   	)
   ';';
 
 TransitionBranch returns TransitionBranch:  
-	((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?)| mask?='mask') 'with' value=BranchValue
+	(target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?) 'with' value=BranchValue
 ;
 // store real literal as integer, ID as reference to property constant
 BranchValue returns BranchValue: 
@@ -392,9 +392,7 @@ OutgoingPropagationCondition returns OutgoingPropagationCondition:
     	| allStates?='all'
     )
 	'-[' (condition=ConditionExpression)? ']->' 
-	(((outgoing=[ErrorPropagation|ErrorPropagationPoint]|allPropagations?='all' ) (typeToken=TypeTokenOrNoError)?)
-		|((outgoing=[ErrorPropagation|ErrorPropagationPoint])? mask?='mask')
-	)
+	((outgoing=[ErrorPropagation|ErrorPropagationPoint]|allPropagations?='all' ) (typeToken=TypeTokenOrNoError)?)
 	 ';'
 ;
 

@@ -642,13 +642,22 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_TOKEN__TYPE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>No Error</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_TOKEN__NO_ERROR = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Type Token</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE_TOKEN_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int TYPE_TOKEN_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationSetImpl <em>Type Transformation Set</em>}' class.
@@ -2420,22 +2429,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
-   * The feature id for the '<em><b>Mask</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ERROR_BEHAVIOR_TRANSITION__MASK = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
-
-  /**
    * The feature id for the '<em><b>Destination Branches</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
+  int ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
+
+  /**
+   * The feature id for the '<em><b>Steady State</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_BEHAVIOR_TRANSITION__STEADY_STATE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The number of structural features of the '<em>Error Behavior Transition</em>' class.
@@ -2493,22 +2502,13 @@ public interface ErrorModelPackage extends EPackage
   int TRANSITION_BRANCH__TARGET_TOKEN = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Mask</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TRANSITION_BRANCH__MASK = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
-
-  /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TRANSITION_BRANCH__VALUE = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int TRANSITION_BRANCH__VALUE = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Transition Branch</em>' class.
@@ -2517,7 +2517,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TRANSITION_BRANCH_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
+  int TRANSITION_BRANCH_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.BranchValueImpl <em>Branch Value</em>}' class.
@@ -3288,22 +3288,13 @@ public interface ErrorModelPackage extends EPackage
   int OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
-   * The feature id for the '<em><b>Mask</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OUTGOING_PROPAGATION_CONDITION__MASK = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
-
-  /**
    * The number of structural features of the '<em>Outgoing Propagation Condition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OUTGOING_PROPAGATION_CONDITION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 8;
+  int OUTGOING_PROPAGATION_CONDITION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl <em>Error Detection</em>}' class.
@@ -4207,6 +4198,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getTypeToken_Type();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeToken#isNoError <em>No Error</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>No Error</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeToken#isNoError()
+   * @see #getTypeToken()
+   * @generated
+   */
+  EAttribute getTypeToken_NoError();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet <em>Type Transformation Set</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5031,17 +5033,6 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorBehaviorTransition_TargetToken();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isMask <em>Mask</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Mask</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isMask()
-   * @see #getErrorBehaviorTransition()
-   * @generated
-   */
-  EAttribute getErrorBehaviorTransition_Mask();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#getDestinationBranches <em>Destination Branches</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5051,6 +5042,17 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getErrorBehaviorTransition_DestinationBranches();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isSteadyState <em>Steady State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Steady State</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isSteadyState()
+   * @see #getErrorBehaviorTransition()
+   * @generated
+   */
+  EAttribute getErrorBehaviorTransition_SteadyState();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch <em>Transition Branch</em>}'.
@@ -5083,17 +5085,6 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getTransitionBranch_TargetToken();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch#isMask <em>Mask</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Mask</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch#isMask()
-   * @see #getTransitionBranch()
-   * @generated
-   */
-  EAttribute getTransitionBranch_Mask();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch#getValue <em>Value</em>}'.
@@ -5555,17 +5546,6 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getOutgoingPropagationCondition_TypeToken();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isMask <em>Mask</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Mask</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition#isMask()
-   * @see #getOutgoingPropagationCondition()
-   * @generated
-   */
-  EAttribute getOutgoingPropagationCondition_Mask();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection <em>Error Detection</em>}'.
@@ -6185,6 +6165,14 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference TYPE_TOKEN__TYPE = eINSTANCE.getTypeToken_Type();
+
+    /**
+     * The meta object literal for the '<em><b>No Error</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE_TOKEN__NO_ERROR = eINSTANCE.getTypeToken_NoError();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationSetImpl <em>Type Transformation Set</em>}' class.
@@ -6849,20 +6837,20 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN = eINSTANCE.getErrorBehaviorTransition_TargetToken();
 
     /**
-     * The meta object literal for the '<em><b>Mask</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ERROR_BEHAVIOR_TRANSITION__MASK = eINSTANCE.getErrorBehaviorTransition_Mask();
-
-    /**
      * The meta object literal for the '<em><b>Destination Branches</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES = eINSTANCE.getErrorBehaviorTransition_DestinationBranches();
+
+    /**
+     * The meta object literal for the '<em><b>Steady State</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ERROR_BEHAVIOR_TRANSITION__STEADY_STATE = eINSTANCE.getErrorBehaviorTransition_SteadyState();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl <em>Transition Branch</em>}' class.
@@ -6889,14 +6877,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference TRANSITION_BRANCH__TARGET_TOKEN = eINSTANCE.getTransitionBranch_TargetToken();
-
-    /**
-     * The meta object literal for the '<em><b>Mask</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TRANSITION_BRANCH__MASK = eINSTANCE.getTransitionBranch_Mask();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
@@ -7265,14 +7245,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference OUTGOING_PROPAGATION_CONDITION__TYPE_TOKEN = eINSTANCE.getOutgoingPropagationCondition_TypeToken();
-
-    /**
-     * The meta object literal for the '<em><b>Mask</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute OUTGOING_PROPAGATION_CONDITION__MASK = eINSTANCE.getOutgoingPropagationCondition_Mask();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl <em>Error Detection</em>}' class.
