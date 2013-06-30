@@ -946,6 +946,28 @@ public class EMV2Util {
 		return result;
 	}
 	
+	public static Collection<ErrorPropagation> getOutgoingPropagationOrAll(ErrorSource errorSource){
+		Collection<ErrorPropagation> eplist = null;
+		if (errorSource.getOutgoing() != null){
+			eplist = new BasicEList<ErrorPropagation>();
+			eplist.add(errorSource.getOutgoing());
+		} else if (errorSource.isAllOutgoing()){
+			eplist = EMV2Util.getAllOutgoingErrorPropagations(errorSource.getContainingClassifier());
+		}
+		return eplist;
+	}
+	
+	public static Collection<ErrorPropagation> getOutgoingPropagationOrAll(ErrorPath errorPath){
+		Collection<ErrorPropagation> eplist = null;
+		if (errorPath.getOutgoing() != null){
+			eplist = new BasicEList<ErrorPropagation>();
+			eplist.add(errorPath.getOutgoing());
+		} else if (errorPath.isAllOutgoing()){
+			eplist = EMV2Util.getAllOutgoingErrorPropagations(errorPath.getContainingClassifier());
+		}
+		return eplist;
+	}
+	
 	
 	public static ErrorBehaviorState findErrorBehaviorState(Element context, String name){
 		ErrorBehaviorStateMachine ebsm;
