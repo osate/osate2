@@ -105,6 +105,7 @@ public class EM2TypeSetUtil {
 	public static boolean contains(TypeToken constraint, ErrorType type){
 //		if (constraint == null ) return false;
 //		if ( type == null) return true;
+		if (constraint.isNoError()) return false;
 		EList<ErrorType> tsetype = constraint.getType();
 		for (ErrorType errorType : tsetype) {
 			if( contains(errorType,type)) return true;
@@ -122,6 +123,11 @@ public class EM2TypeSetUtil {
 	public static boolean contains(TypeToken constraint, TypeToken token){
 //		if (constraint == null ) return false;
 //		if ( token == null) return true;
+		if (token.isNoError()) return true;
+		if (constraint.isNoError()){
+			if (token.isNoError()) return true;
+			return false;
+		}
 		if (constraint.getType().size() != token.getType().size()) return false;
 		for (ErrorType errorType : token.getType()) {
 			if (!contains(constraint, errorType)) return false;
@@ -142,6 +148,7 @@ public class EM2TypeSetUtil {
 	public static boolean contains(TypeSet ts, TypeToken token){
 		if (ts == null ) return false;
 		if ( token == null) return true;
+		if (token.isNoError()) return true;
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
 		for (TypeToken tselement : ts.getTypeTokens()) {
