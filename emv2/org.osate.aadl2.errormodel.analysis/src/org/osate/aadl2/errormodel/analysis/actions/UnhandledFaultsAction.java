@@ -49,7 +49,10 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -212,6 +215,59 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
 			{
 				propagations.addAll(EMV2Util.getAllConditionElementsFromConditionExpression (ebt));
+			}
+			
+			
+			/**
+			 * Let also check that if a components has an error state machine, all
+			 * states are referenced.
+			 */
+			if (EMV2Util.hasComponentErrorBehavior(componentInstance))
+			{
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
+				{
+					boolean found = false;
+					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+					{
+						if ((ebt.getSource() == ebs) && (ebt.getSource() == ebt.getTarget())) 
+						{
+							found = true;
+						}
+					}
+					if (found == false)
+					{
+						error(componentInstance,"State " + EMV2Util.getPrintName(ebs) + " has no associated transition for component " + componentInstance.getName());
+
+					}
+				}
+			}
+			
+			/**
+			 * Let also check that if a components has an composite error state, all
+			 * states are referenced.
+			 */
+			if (EMV2Util.hasCompositeErrorBehavior(componentInstance))
+			{
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
+				{
+					boolean found = false;
+					for (CompositeErrorBehavior ceb : EMV2Util.getAllCompositeErrorBehaviors (componentInstance))
+					{
+						for (CompositeState cs : ceb.getStates())
+						{
+							if (cs.getState() == ebs)
+							{
+								found = true;
+							}
+						}
+						
+					}
+					if (found == false)
+					{
+						error(componentInstance,"State " + EMV2Util.getPrintName(ebs) + " has no associated transition for composite behavior of component " + componentInstance.getName());
+
+					}
+				}
 			}
 			
 			/**

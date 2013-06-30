@@ -446,6 +446,9 @@ public class EMV2Util {
 		return result;
 	}
 
+	public static Collection<CompositeErrorBehavior> getAllCompositeErrorBehaviors(ComponentInstance ci){
+		return getAllCompositeErrorBehaviors(ci.getComponentClassifier());
+	}
 	
 	/**
 	 * find propagation point including those inherited from classifiers being extended
