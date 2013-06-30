@@ -642,14 +642,47 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkErrorSourceTypes(ErrorSource ef) {
 		ErrorPropagation ep = ef.getOutgoing();
-		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
-				ef.getTypeTokenConstraint())) {
-			error(ef,
-					"Type token constraint "
-							+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
-							+ " is not contained in type set of outgoing propagation "
-							+ EMV2Util.getPrintName(ep)
-							+ EMV2Util.getPrintName(ep.getTypeSet()));
+//		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
+//				ef.getTypeTokenConstraint())) {
+//			error(ef,
+//					"Type token constraint "
+//							+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
+//							+ " is not contained in type set of outgoing propagation "
+//							+ EMV2Util.getPrintName(ep)
+//							+ EMV2Util.getPrintName(ep.getTypeSet()));
+//		}
+		ErrorPropagation epout = ef.getOutgoing();
+		if (epout != null){
+			if (ef.getTypeTokenConstraint() != null) {
+				if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
+						ef.getTypeTokenConstraint())) {
+					error(ef,
+							"Error soruce type constraint "
+									+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
+									+ " is not contained in type set of outgoing propagation "
+									+ EMV2Util.getPrintName(ep)
+									+ EMV2Util.getPrintName(ep.getTypeSet()));
+				}
+			}
+		} else {
+			if (ef.isAllOutgoing() ){
+				// check containment for all of the outgoing propagation points
+				Classifier cl = ef.getContainingClassifier();
+				Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
+				for (ErrorPropagation errorPropagation : eps) {
+					if (ef.getTypeTokenConstraint() != null) {
+						if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(),
+								ef.getTypeTokenConstraint())) {
+							error(ef,
+									"Error soruce type constraint "
+											+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
+											+ " is not contained in type set of outgoing propagation "
+											+ EMV2Util.getPrintName(ep)
+											+ EMV2Util.getPrintName(ep.getTypeSet()));
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -721,16 +754,33 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkErrorSinkTypes(ErrorSink ef) {
 		ErrorPropagation ep = ef.getIncoming();
-		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
-				ef.getTypeTokenConstraint())) {
-			error(ef,
-					"Type token constraint is not contained in type set of incoming propagation \""
-							+ EMV2Util.getPrintName(ep) + "\"");
+		if (ep != null){
+			if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
+					ef.getTypeTokenConstraint())) {
+				error(ef,
+						"Type token constraint is not contained in type set of incoming propagation \""
+								+ EMV2Util.getPrintName(ep) + "\"");
+			}
+		} else {
+			if (ef.isAllIncoming() && ef.getTypeTokenConstraint() != null){
+				// check containment for all of the incoming propagation points
+				Classifier cl = ef.getContainingClassifier();
+				Collection<ErrorPropagation> eps = EMV2Util.getAllIncomingErrorPropagations(cl);
+				for (ErrorPropagation errorPropagation : eps) {
+					if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(),
+							ef.getTypeTokenConstraint())) {
+						error(ef,
+								"Type token constraint is not contained in type set of incoming propagation \""
+										+ EMV2Util.getPrintName(errorPropagation) + "\"");
+					}
+				}
+			}
 		}
 	}
 
 	private void checkErrorPathTypes(ErrorPath ef) {
 		ErrorPropagation epin = ef.getIncoming();
+		if (epin != null){
 		if (ef.getTypeTokenConstraint() != null) {
 			if (!EM2TypeSetUtil.contains(epin.getTypeSet(),
 					ef.getTypeTokenConstraint())) {
@@ -739,23 +789,65 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								+ EMV2Util.getPrintName(epin) + "\"");
 			}
 		}
+		} else {
+			if (ef.isAllIncoming() && ef.getTypeTokenConstraint() != null){
+				// check containment for all of the incoming propagation points
+				Classifier cl = ef.getContainingClassifier();
+				Collection<ErrorPropagation> eps = EMV2Util.getAllIncomingErrorPropagations(cl);
+				for (ErrorPropagation errorPropagation : eps) {
+					if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(),
+							ef.getTypeTokenConstraint())) {
+						error(ef,
+								"Type token constraint is not contained in type set of incoming propagation \""
+										+ EMV2Util.getPrintName(errorPropagation) + "\"");
+					}
+				}
+			}
+		}
 		ErrorPropagation epout = ef.getOutgoing();
-		if (ef.getTargetToken() != null) {
-			if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
-					ef.getTargetToken())) {
-				error(ef,
-						"Target token is not contained in type set of outgoing propagation "
-								+ EMV2Util.getPrintName(epout));
+		if (epout != null){
+			if (ef.getTargetToken() != null) {
+				if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
+						ef.getTargetToken())) {
+					error(ef,
+							"Target token is not contained in type set of outgoing propagation "
+									+ EMV2Util.getPrintName(epout));
+				}
+			} else {
+				// path has not target token so we have to match the incoming constraint
+				if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
+						ef.getTypeTokenConstraint())) {
+					error(ef,
+							"Incoming path type constraint is not contained in type set of outgoing propagation "
+									+ EMV2Util.getPrintName(epout));
+				}
+
 			}
 		} else {
-			// path has not target token so we have to match the incoming constraint
-			if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
-					ef.getTypeTokenConstraint())) {
-				error(ef,
-						"Incoming path type constraint is not contained in type set of outgoing propagation "
-								+ EMV2Util.getPrintName(epout));
+			if (ef.isAllOutgoing() ){
+				// check containment for all of the outgoing propagation points
+				Classifier cl = ef.getContainingClassifier();
+				Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
+				for (ErrorPropagation errorPropagation : eps) {
+					if (ef.getTargetToken() != null) {
+						if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(),
+								ef.getTargetToken())) {
+							error(ef,
+									"Target token is not contained in type set of outgoing propagation "
+											+ EMV2Util.getPrintName(errorPropagation));
+						}
+					} else {
+						// path has not target token so we have to match the incoming constraint
+						if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(),
+								ef.getTypeTokenConstraint())) {
+							error(ef,
+									"Incoming path type constraint is not contained in type set of outgoing propagation "
+											+ EMV2Util.getPrintName(errorPropagation));
+						}
+
+					}
+				}
 			}
-			
 		}
 	}
 
