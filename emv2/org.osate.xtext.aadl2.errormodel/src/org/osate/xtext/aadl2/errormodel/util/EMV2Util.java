@@ -902,16 +902,18 @@ public class EMV2Util {
 		{
 			ErrorPropagation eprop = null;
 			toAdd = ef;
-			
+			boolean isall = false;
 			if (ef instanceof ErrorPath){
 				ErrorPath ep = (ErrorPath)ef;
 				 eprop = ep.getIncoming();
+				 isall = ep.isAllIncoming();
 			} else if (ef instanceof ErrorSink){
 				ErrorSink es = (ErrorSink)ef;
 				eprop =es.getIncoming();
+				isall = es.isAllIncoming();
 			}
-			if (eprop != null && eprop == flowSource){
-				result.add(toAdd);
+			if ((eprop != null&& eprop == flowSource) || isall){
+					result.add(toAdd);
 			}
 		}
 		return result;
@@ -927,14 +929,17 @@ public class EMV2Util {
 		EList<ErrorFlow> result = new BasicEList<ErrorFlow>();
 		for (ErrorFlow ef : efs) {
 			ErrorPropagation eprop = null;
+			boolean isall = false;
 			if (ef instanceof ErrorPath){
 				ErrorPath ep = (ErrorPath)ef;
 				eprop=ep.getOutgoing();
+				 isall = ep.isAllOutgoing();
 			} else if (ef instanceof ErrorSource){
 				ErrorSource es = (ErrorSource)ef;
 				eprop=es.getOutgoing();
+				 isall = es.isAllOutgoing();
 			}
-			if (eprop != null && eprop == flowSource){
+			if ((eprop != null&& eprop == flowSource) || isall){
 				result.add(ef);
 			}
 		}
