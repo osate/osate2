@@ -811,6 +811,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								+ EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
+		/*
+		 * We do not want to check during parsing that
+		 * the outgoing contains ALL the fault from the incoming. That
+		 * might be checked/verified by the unhandled fault.
+		 * This was commented according to a discussion with Brian on June, 30, 2013.
 		if (srccontain != null && dstcontain != null) {
 			if (!EM2TypeSetUtil.contains(srcprop, dstprop)) {
 				error(conn,
@@ -821,7 +826,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								+ EMV2Util.getPrintName(dstprop)
 								+ EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
-		}
+		}*/
+		
 		if (srcCxt instanceof Subcomponent && srcprop == null
 				&& srccontain == null && dstCxt instanceof Subcomponent
 				&& (dstprop != null || dstcontain != null)) {
