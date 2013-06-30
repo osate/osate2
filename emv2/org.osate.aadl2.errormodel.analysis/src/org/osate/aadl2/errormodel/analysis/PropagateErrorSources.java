@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
@@ -221,35 +222,37 @@ public class PropagateErrorSources {
 		}
 		for (ErrorSource errorSource : eslist)
 		{
-			ErrorPropagation ep = errorSource.getOutgoing();
+			Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll(errorSource);
 			TypeSet ts = errorSource.getTypeTokenConstraint();
-			if (ts == null) ep.getTypeSet();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
 			ErrorBehaviorState failureMode = null;
 			if (fmr instanceof ErrorBehaviorState){
 				// XXX TODO how about the other case
 				failureMode = (ErrorBehaviorState) fmr;
 			}
-			EList<TypeToken> result = ts.getTypeTokens();
-					//EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
-			for (TypeToken typeToken : result)
-			{
-
-				String failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:typeToken);
-				
-				if (failureMode == null)
+			for (ErrorPropagation ep : eplist){
+				TypeSet tsep = ep.getTypeSet();
+				EList<TypeToken> result = ts!=null?ts.getTypeTokens():tsep.getTypeTokens();
+				//EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
+				for (TypeToken typeToken : result)
 				{
-					for (int i = 0 ; i < typeToken.getType().size() ; i++)
+
+					String failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:typeToken);
+
+					if (failureMode == null)
 					{
-						if (! handledTypes.contains (typeToken.getType().get(i)))
+						for (int i = 0 ; i < typeToken.getType().size() ; i++)
 						{
-							traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
+							if (! handledTypes.contains (typeToken.getType().get(i)))
+							{
+								traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
+							}
 						}
 					}
-				}
-				else
-				{
-					traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
+					else
+					{
+						traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
+					}
 				}
 			}
 		}
@@ -410,8 +413,6 @@ public class PropagateErrorSources {
 		{
 			return;
 		}
-		
-		
 		/**
 		 * With alreadyTreated, we have a cache that keep track of existing report
 		 * text for each component. For each component, we maintain a list of existing
@@ -489,18 +490,21 @@ public class PropagateErrorSources {
 				}
 			}
 			else if (ef instanceof ErrorPath){ // error path
+				Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll((ErrorPath)ef);
 				if (EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt)){
-					ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
 					TypeToken newtt = EMV2Util.mapToken(tt,ef);
-					traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt));
-					handled = true;
+					for (ErrorPropagation outp : eplist) {
+						traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt));
+						handled = true;
+					}
 				} else {
 					Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(ef.getTypeTokenConstraint(), tt);
 					for (TypeToken typeToken : intersection) {
-						ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
 						TypeToken newtt = EMV2Util.mapToken(typeToken,ef);
-						traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,typeToken));
-						handled = true;
+						for (ErrorPropagation outp : eplist) {
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,typeToken));
+							handled = true;
+						}
 					}
 				}
 			} 
