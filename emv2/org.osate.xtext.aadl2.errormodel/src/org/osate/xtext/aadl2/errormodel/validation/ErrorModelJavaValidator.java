@@ -195,8 +195,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	@Check(CheckType.NORMAL)
-	public void caseOutgoingPropagationCondition(OutgoingPropagationCondition ef) {
-		checkOutgoingTypes(ef);
+	public void caseOutgoingPropagationCondition(OutgoingPropagationCondition opc) {
+		checkOutgoingConditionSourceTypes(opc);
+		checkOutgoingTypes(opc);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -642,15 +643,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkErrorSourceTypes(ErrorSource ef) {
 		ErrorPropagation ep = ef.getOutgoing();
-//		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
-//				ef.getTypeTokenConstraint())) {
-//			error(ef,
-//					"Type token constraint "
-//							+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
-//							+ " is not contained in type set of outgoing propagation "
-//							+ EMV2Util.getPrintName(ep)
-//							+ EMV2Util.getPrintName(ep.getTypeSet()));
-//		}
 		ErrorPropagation epout = ef.getOutgoing();
 		if (epout != null){
 			if (ef.getTypeTokenConstraint() != null) {
@@ -688,15 +680,37 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkOutgoingTypes(OutgoingPropagationCondition opc) {
 		ErrorPropagation ep = opc.getOutgoing();
+		if (ep != null){
 		if (!EM2TypeSetUtil.contains(ep.getTypeSet(),
 				opc.getTypeToken())) {
 			error(opc,
 					"Outgoing error type "+EMV2Util.getPrintName(opc.getTypeToken())+" is not contained in type set of outgoing error propagation specification \'"
 							+ EMV2Util.getPrintName(ep) + "\'");
 		}
+		} else {
+			if (opc.isAllPropagations() ){
+				// check containment for all of the outgoing propagation points
+				Classifier cl = opc.getContainingClassifier();
+				Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
+				for (ErrorPropagation errorPropagation : eps) {
+					if (opc.getTypeToken() != null) {
+						if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(),
+								opc.getTypeToken())) {
+							error(opc,
+									"Outgoing error type "
+											+ EMV2Util.getPrintName(opc.getTypeToken())
+											+ " is not contained in type set of outgoing propagation "
+											+ EMV2Util.getPrintName(errorPropagation)
+											+ EMV2Util.getPrintName(errorPropagation.getTypeSet()));
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private void checkTransitionTargetTypes(ErrorBehaviorTransition ebt) {
+		if (ebt.isSteadyState()) return;
 		ErrorBehaviorState ebs = ebt.getTarget();
 		TypeSet ebsTS = ebs.getTypeSet();
 		TypeToken ebtargetTS = ebt.getTargetToken();
@@ -712,6 +726,25 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					"Target type "+EMV2Util.getPrintName(ebt.getTargetToken())+" is not contained in type set of error behavior state \'"
 							+ ebs.getName() + "\'");
 		}
+	}
+
+	private void checkOutgoingConditionSourceTypes(OutgoingPropagationCondition opc) {
+		ErrorBehaviorState ebs = opc.getState();
+		if (ebs == null) return;
+			TypeSet ebsTS = ebs.getTypeSet();
+			TypeSet srcTS = opc.getTypeTokenConstraint();
+			if (ebsTS == null && srcTS == null) return;
+			if (ebsTS == null && srcTS != null) {
+				error(opc,
+						"Error state "+ebs.getName()+" does not have a type set declared but the outgoing propagation condition has type token "
+								+ EMV2Util.getPrintName(srcTS) );
+			} else
+				if (!EM2TypeSetUtil.contains(ebsTS,
+						srcTS)) {
+					error(opc,
+							"Outgoing condition state type set "+EMV2Util.getPrintName(srcTS)+" is not contained in type set of error behavior state \'"
+									+ ebs.getName() + "\'");
+				}
 	}
 
 	private void checkDetectionSourceTypes(ErrorDetection ebt) {
@@ -735,7 +768,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkTransitionSourceTypes(ErrorBehaviorTransition ebt) {
 		ErrorBehaviorState ebs = ebt.getSource();
-		if (ebs != null) {
+		if (ebs == null) return;
 			TypeSet ebsTS = ebs.getTypeSet();
 			TypeSet srcTS = ebt.getTypeTokenConstraint();
 			if (ebsTS == null && srcTS == null) return;
@@ -750,10 +783,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 							"Source type "+EMV2Util.getPrintName(srcTS)+" is not contained in type set of error behavior state \'"
 									+ ebs.getName() + "\'");
 				}
-		} else {
-			// we have an all states without a type constraint
-			// nothing to be checked
-		}
 	}
 
 	private void checkErrorSinkTypes(ErrorSink ef) {
