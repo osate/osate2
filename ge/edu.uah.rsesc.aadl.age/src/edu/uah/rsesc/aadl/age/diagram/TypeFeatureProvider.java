@@ -48,7 +48,7 @@ public class TypeFeatureProvider extends DefaultFeatureProvider {
 	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		// TODO: check for right domain object instances below
-		if (context.getPictogramElement() instanceof ContainerShape /* && getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof <DomainObject> */) {
+		if (context.getPictogramElement() instanceof ContainerShape) {
 			return  new LayoutDomainObjectFeature(this);
 		}
 		

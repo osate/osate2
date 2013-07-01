@@ -82,7 +82,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 		// Update styles
 		StyleUtil.updateStyles(diagram);
 		
-		// Get the AADL Paclage
+		// Get the AADL Package
 		final NamedElement element = (NamedElement)this.getBusinessObjectForPictogramElement(diagram);
 		if(element == null || !(element instanceof AadlPackage)) {
 			return false;
@@ -181,7 +181,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 		}
 		
 		for(final Connection connection : connectionsToRemove) {
-			System.out.println("DELETING");
 			EcoreUtil.delete(connection, true);
 		}
 	}
