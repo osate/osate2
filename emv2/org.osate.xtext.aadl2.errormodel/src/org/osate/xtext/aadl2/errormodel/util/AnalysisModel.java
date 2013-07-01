@@ -56,12 +56,13 @@ public class AnalysisModel {
 			{
 				continue;
 			}
-			if (ci.getCategory() == ComponentCategory.PROCESS|| ci.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+			if (ci.getCategory() == ComponentCategory.PROCESS|| ci.getCategory() == ComponentCategory.THREAD||
+					ci.getCategory() == ComponentCategory.THREAD_GROUP|| ci.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
 			{
 				populateBindingPaths(ci);
 			}
 		}
-// DEBUG		printPropagationPaths();
+printPropagationPaths();
 	}
 	
 	public AnalysisModel(ComponentInstance root, boolean closest) {
@@ -96,8 +97,9 @@ public class AnalysisModel {
 	public void printPropagationPaths(){
 		EList<PropagationPath> pl = getPropagationPaths();
 		for (PropagationPath propagationPath : pl) {
-			OsateDebug.osateDebug("PP src "+propagationPath.getSrcCI().getComponentInstancePath()+EMV2Util.getPrintName(propagationPath.getPathSrc().getErrorPropagation())+" dst "+
-					propagationPath.getDstCI().getComponentInstancePath()+EMV2Util.getPrintName(propagationPath.getPathSrc().getErrorPropagation())+" conni "+propagationPath.getConnectionInstance().getName());
+			OsateDebug.osateDebug("PP src "+propagationPath.getSrcCI().getComponentInstancePath()+"."+EMV2Util.getPrintName(propagationPath.getPathSrc().getErrorPropagation())+" dst "+
+					propagationPath.getDstCI().getComponentInstancePath()+"."+EMV2Util.getPrintName(propagationPath.getPathSrc().getErrorPropagation())+
+					(propagationPath.getConnectionInstance()!=null?" conni "+propagationPath.getConnectionInstance().getName():""));
 		}
 	}
 	
@@ -302,7 +304,7 @@ public class AnalysisModel {
 		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp, resourcebindingKind);
 
 		if (BRsrcprop != null && BCdstprop != null ){
-			if(EM2TypeSetUtil.contains(BRsrcprop.getTypeSet(), BCdstprop.getTypeSet()))
+			if(EM2TypeSetUtil.contains(BCdstprop.getTypeSet(), BRsrcprop.getTypeSet()))
 			{
 				propagationPaths.add(new PropagationPath(boundResource, BRsrcprop, comp, BCdstprop,null));
 				added = true;
