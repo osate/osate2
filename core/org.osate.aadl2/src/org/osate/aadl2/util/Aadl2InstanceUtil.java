@@ -10,7 +10,10 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -275,6 +278,28 @@ public class Aadl2InstanceUtil {
 			return crlist.get(crlist.indexOf(connref)-1);
 		}
 		return null;
+	}
+
+	
+	public static int getFeatureIndex(FeatureInstance fi){
+		Element fgi = fi.getOwner();
+		if (fgi instanceof FeatureInstance){
+			EList<FeatureInstance> flist = ((FeatureInstance) fgi).getFeatureInstances();
+			return flist.indexOf(fi);
+		}
+		return -1;
+	}
+	
+	public static boolean isSame(FeatureInstance up, FeatureInstance down){
+		if (up.getName().equalsIgnoreCase(down.getName())){
+			return true;
+		}
+		FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)up.getOwner()).getFeature()).getFeatureGroupType();
+		FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance)down.getOwner()).getFeature()).getFeatureGroupType();
+		if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
+			return (getFeatureIndex(up)==getFeatureIndex(down));
+		}
+		return false;
 	}
 
 }
