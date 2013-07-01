@@ -666,7 +666,7 @@ public class EMV2Util {
 		ErrorPropagation res = EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
 		while (res == null&&current.getOwner() instanceof FeatureInstance){
 			current = (FeatureInstance) current.getOwner();
-		return EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
+			res = EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
 		}
 		return res;
 	}
