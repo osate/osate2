@@ -87,7 +87,7 @@
 	</extension>
 
 	<extension point="org.eclipse.ui.startup">
-      <startup class="edu.uah.rsesc.aadl.age.xtext.Initializer">
+      <startup class="edu.uah.rsesc.aadl.age.xtext.AgeXtextUtil$Initializer">
       </startup>
    </extension>
    
