@@ -517,6 +517,7 @@ public class EMV2Util {
 	
 	/**
 	 * Find error propagation in subclause 
+	 * name can be a dotted name
 	 * @param ems
 	 * @param name
 	 * @param dir
@@ -640,14 +641,31 @@ public class EMV2Util {
 		return null;
 	}
 	
+	public static String getFeatureInstancePath(FeatureInstance fi){
+		String res = fi.getName();
+		NamedElement current = fi;
+		while (current.getOwner() instanceof FeatureInstance){
+			current = (NamedElement) current.getOwner();
+			res = current.getName()+"."+res;
+		}
+		return res;
+	}
+	
 	/**
 	 * Get outgoing error propagation associated with feature instance
+	 * Find it for the current feature instance or any enclosing feature instances
 	 * @param fi feature instance
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		return EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), fi.getName());
+		FeatureInstance current = fi;
+		ErrorPropagation res = EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
+		while (res == null&&current.getOwner() instanceof FeatureInstance){
+			current = (FeatureInstance) current.getOwner();
+		return EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
+		}
+		return res;
 	}
 	
 	/**
@@ -657,8 +675,18 @@ public class EMV2Util {
 	 */
 	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), fi.getName());
+		FeatureInstance current = fi;
+		ErrorPropagation res = EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
+		while (res == null&&current.getOwner() instanceof FeatureInstance){
+			current = (FeatureInstance) current.getOwner();
+		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
+		}
+		return res;
 	}
+//	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
+//		ComponentInstance ci = fi.getContainingComponentInstance();
+//		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), fi.getName());
+//	}
 	
 	/**
 	 * Get outgoing error propagation associated with feature instance
@@ -667,7 +695,13 @@ public class EMV2Util {
 	 */
 	public static ErrorPropagation getOutgoingErrorContainment(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		return EMV2Util.findOutgoingErrorContainment(ci.getComponentClassifier(), fi.getName());
+		FeatureInstance current = fi;
+		ErrorPropagation res = EMV2Util.findOutgoingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(current));
+		while (res == null&&current.getOwner() instanceof FeatureInstance){
+			current = (FeatureInstance) current.getOwner();
+		return EMV2Util.findOutgoingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(current));
+		}
+		return res;
 	}
 	
 	/**
@@ -677,7 +711,13 @@ public class EMV2Util {
 	 */
 	public static ErrorPropagation getIncomingErrorContainment(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		return EMV2Util.findIncomingErrorContainment(ci.getComponentClassifier(), fi.getName());
+		FeatureInstance current = fi;
+		ErrorPropagation res = EMV2Util.findIncomingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(current));
+		while (res == null&&current.getOwner() instanceof FeatureInstance){
+			current = (FeatureInstance) current.getOwner();
+		return EMV2Util.findIncomingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(current));
+		}
+		return res;
 	}
 	
 	/**
