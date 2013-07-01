@@ -122,14 +122,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * when going down the hierarchy. This can happen at any level, so we need a
 	 * stack.
 	 */
-	private Stack<Integer> upIndex = new Stack<Integer>();
 	private Stack<FeatureInstance> upFeature = new Stack<FeatureInstance>();
 
 	/**
 	 * Keeps track of indices used when going down into feature groups after we
 	 * run out of indices in the up stack.
 	 */
-	private Stack<Integer> downIndex = new Stack<Integer>();
 	private Stack<FeatureInstance> downFeature = new Stack<FeatureInstance>();
 
 	/**
@@ -854,7 +852,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					dstEnd = resFi;
 				}
 			}
-		} else if (!downIndex.isEmpty()) {
+		} else if (!downFeature.isEmpty()) {
 			// dstEnd is further down in the hierarchy than srcEnd: find feature corresponding to dstEnd
 			// We need to match from the oldest to the latest in stack
 			// This is a down stack, i.e., the highest element got pushed first an dis the oldest.
