@@ -208,7 +208,7 @@ class ConnectionInfo {
 		if (origParent instanceof FeatureInstance){
 			FeatureInstance origParentFI = (FeatureInstance)origParent;
 			if (origParentFI.getOwner() instanceof FeatureInstance){
-				ConnectionInstanceEnd resFI = resolveFeatureInstance((ConnectionInstanceEnd) origParentFI.getOwner(), rootFI);
+				ConnectionInstanceEnd resFI = resolveFeatureInstance((ConnectionInstanceEnd) origParentFI, rootFI);
 				if (resFI != null){
 					parentFI = resFI;
 				}
