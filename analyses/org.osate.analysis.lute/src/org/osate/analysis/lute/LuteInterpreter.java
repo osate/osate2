@@ -72,7 +72,7 @@ public class LuteInterpreter {
 			catch (LuteException e) 
 			{
 				log.error("Command failed: " + e.getMessage());
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}

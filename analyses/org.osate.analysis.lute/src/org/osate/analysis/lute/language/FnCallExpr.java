@@ -102,7 +102,6 @@ public class FnCallExpr extends Expr {
 	{
 		ComponentInstance ret;
 		ret = null;
-		System.out.println (" looking for " + refName);
 		for (Element e : ci.getChildren())
 		{
 			if (e instanceof ComponentInstance)
@@ -135,7 +134,6 @@ public class FnCallExpr extends Expr {
 			result = null;
 
 			
-			System.out.println ("arg=" + argValues.get(0).getClass());
 			if (argValues.get(0) instanceof SetVal)
 			{
 				ArrayList<Val> list = new ArrayList<Val>();
@@ -146,7 +144,10 @@ public class FnCallExpr extends Expr {
 				while (iter.hasNext())
 				{
 					Val val = iter.next();
-					list.add(getProperty (val.getAADL(), property));
+					result = getProperty(val.getAADL(), property);
+					//OsateDebug.osateDebug("result=" + result);
+
+					list.add(result);
 				}
 				result = new SetVal (list);
 			}
@@ -154,6 +155,7 @@ public class FnCallExpr extends Expr {
 			{
 				InstanceObject aadl = argValues.get(0).getAADL();
 				result = getProperty(aadl, property);
+				//OsateDebug.osateDebug("result" + result);
 				if (result == null) { 
 					throw new LuteException("Failed to find property " + property);
 				}
@@ -177,8 +179,7 @@ public class FnCallExpr extends Expr {
 		
 		else if (fn.equals("Is_Bound_To")) {
 			expectArgs(2);
-			System.out.println( argValues.get(0));
-			System.out.println( argValues.get(1));
+
 			InstanceObject s = argValues.get(0).getAADL();
 			InstanceObject t = argValues.get(1).getAADL();
 			return new BoolVal(isBoundTo(s, t));
@@ -205,8 +206,6 @@ public class FnCallExpr extends Expr {
 		} else if (fn.equals("Member")) {
 			expectArgs(2);
 			Val e = argValues.get(0);
-			System.out.println (" e1 = " + e.getClass() );
-			System.out.println (" e2 = " + argValues.get(1).getClass() );
 
 			Collection<Val> set = argValues.get(1).getSet();
 			return new BoolVal(set.contains(e));
@@ -264,11 +263,15 @@ public class FnCallExpr extends Expr {
 		}
 		else if (fn.equals("Sum")) {
 			BigInteger retInt = new BigInteger("0");
+			//OsateDebug.osateDebug("argval" + argValues.get(0));
 			SetVal sv = (SetVal) argValues.get(0);
 			Iterator<Val> iter = sv.getSet().iterator();
 			while (iter.hasNext())
 			{
 				Val tmp = iter.next();
+
+				//OsateDebug.osateDebug("bla1=" + tmp);
+				//OsateDebug.osateDebug("bla2=" + tmp.getInt());
 				retInt = retInt.add(tmp.getInt());
 			}
 			
@@ -338,6 +341,9 @@ public class FnCallExpr extends Expr {
 			expectArgs(2);
 			BigInteger left = argValues.get(0).getInt();
 			BigInteger right = argValues.get(1).getInt();
+			//OsateDebug.osateDebug("left=" + left);
+			//OsateDebug.osateDebug("right=" + right);
+
 			return new BoolVal(left.compareTo(right) < 0);
 			
 		} else if (fn.equals(">=")) {
@@ -447,6 +453,7 @@ public class FnCallExpr extends Expr {
 	}
 
 	private Val AADLPropertyValueToValue(PropertyExpression expr) {
+		//OsateDebug.osateDebug("expr=" + expr);
 		if (expr == null) {
 			return null;
 		} else if (expr instanceof BooleanLiteral) {
@@ -457,7 +464,12 @@ public class FnCallExpr extends Expr {
 			return new StringVal(lit.getValue());
 		} else if (expr instanceof IntegerLiteral) {
 			IntegerLiteral lit = (IntegerLiteral) expr;
-			return new IntVal((long) lit.getScaledValue());
+			// FIXME: JD
+			// the getScaledValue method can raise some issues
+			// when using size.
+			//return new IntVal((long) lit.getScaledValue());
+
+			return new IntVal((long) lit.getValue());
 		} else if (expr instanceof RangeValue) {
 			RangeValue range = (RangeValue) expr;
 			return new RangeVal(

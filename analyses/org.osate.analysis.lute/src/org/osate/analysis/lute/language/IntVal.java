@@ -23,6 +23,8 @@ package org.osate.analysis.lute.language;
 
 import java.math.BigInteger;
 
+import org.osate.aadl2.util.OsateDebug;
+
 
 public class IntVal extends Val {
 	final private BigInteger i;
@@ -34,6 +36,7 @@ public class IntVal extends Val {
 	
 	public IntVal(long i) {
 		super();
+		//OsateDebug.osateDebug("i=" + i);
 		this.i = BigInteger.valueOf(i);
 	}
 	
