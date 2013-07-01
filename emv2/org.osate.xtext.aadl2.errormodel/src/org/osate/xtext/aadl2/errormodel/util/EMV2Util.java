@@ -655,7 +655,7 @@ public class EMV2Util {
 	}
 	
 	/**
-	 * Get outgoing error propagation associated with feature instance
+	 * Get outgoing error propagation associated with feature instance or its enclosing feature instance
 	 * Find it for the current feature instance or any enclosing feature instances
 	 * @param fi feature instance
 	 * @return error propagation
@@ -671,8 +671,18 @@ public class EMV2Util {
 		return res;
 	}
 	
+//	/**
+//	 * Get Outgoing error propagation associated with feature instance 
+//	 * @param fi feature instance
+//	 * @return error propagation
+//	 */
+//	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi){
+//		ComponentInstance ci = fi.getContainingComponentInstance();
+//		return EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(fi));
+//	}
+	
 	/**
-	 * Get incoming error propagation associated with feature instance
+	 * Get incoming error propagation associated with feature instance or its enclosing feature instance
 	 * @param fi feature instance
 	 * @return error propagation
 	 */
@@ -686,13 +696,19 @@ public class EMV2Util {
 		}
 		return res;
 	}
+	
+//	/**
+//	 * Get incoming error propagation associated with feature instance 
+//	 * @param fi feature instance
+//	 * @return error propagation
+//	 */
 //	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
 //		ComponentInstance ci = fi.getContainingComponentInstance();
-//		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), fi.getName());
+//		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(fi));
 //	}
-	
+//	
 	/**
-	 * Get outgoing error propagation associated with feature instance
+	 * Get outgoing error propagation associated with feature instance or its enclosing feature instance
 	 * @param fi feature instance
 	 * @return error propagation
 	 */
@@ -707,8 +723,18 @@ public class EMV2Util {
 		return res;
 	}
 	
+//	/**
+//	 * Get outgoing error containment associated with feature instance 
+//	 * @param fi feature instance
+//	 * @return error propagation
+//	 */
+//	public static ErrorPropagation getOutgoingErrorContainment(FeatureInstance fi){
+//		ComponentInstance ci = fi.getContainingComponentInstance();
+//		return EMV2Util.findOutgoingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(fi));
+//	}
+	
 	/**
-	 * Get incoming error propagation associated with feature instance
+	 * Get incoming error propagation associated with feature instance or its enclosing feature instance
 	 * @param fi feature instance
 	 * @return error propagation
 	 */
@@ -722,6 +748,16 @@ public class EMV2Util {
 		}
 		return res;
 	}
+	
+//	/**
+//	 * Get incoming error containment associated with feature instance 
+//	 * @param fi feature instance
+//	 * @return error propagation
+//	 */
+//	public static ErrorPropagation getIncomingErrorContainment(FeatureInstance fi){
+//		ComponentInstance ci = fi.getContainingComponentInstance();
+//		return EMV2Util.findIncomingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(fi));
+//	}
 	
 	/**
 	 * Get incoming error propagation associated with component instance access
