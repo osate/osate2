@@ -109,6 +109,7 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
@@ -122,14 +123,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * when going down the hierarchy. This can happen at any level, so we need a
 	 * stack.
 	 */
-	private Stack<Integer> upIndex = new Stack<Integer>();
 	private Stack<FeatureInstance> upFeature = new Stack<FeatureInstance>();
 
 	/**
 	 * Keeps track of indices used when going down into feature groups after we
 	 * run out of indices in the up stack.
 	 */
-	private Stack<Integer> downIndex = new Stack<Integer>();
 	private Stack<FeatureInstance> downFeature = new Stack<FeatureInstance>();
 
 	/**
@@ -312,27 +311,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 		}
 	}
-	
-	private int getFeatureIndex(FeatureInstance fi){
-		Element fgi = fi.getOwner();
-		if (fgi instanceof FeatureInstance){
-			EList<FeatureInstance> flist = ((FeatureInstance) fgi).getFeatureInstances();
-			return flist.indexOf(fi);
-		}
-		return -1;
-	}
-	
-	private boolean isSame(FeatureInstance up, FeatureInstance down){
-		if (up.getName().equalsIgnoreCase(down.getName())){
-			return true;
-		}
-		FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)up.getOwner()).getFeature()).getFeatureGroupType();
-		FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance)down.getOwner()).getFeature()).getFeatureGroupType();
-		if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
-			return (getFeatureIndex(up)==getFeatureIndex(down));
-		}
-		return false;
-	}
 
 	/**
 	 * Append a segment to a connection instance.
@@ -415,7 +393,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (fromFi!= null){
 					if (!upFeature.empty()) {
 						FeatureInstance popfi = upFeature.peek();
-						if (!isSame(popfi ,(FeatureInstance)fromFi)) {
+						if (!Aadl2InstanceUtil.isSame(popfi ,(FeatureInstance)fromFi)) {
 							// did not match
 							return;
 						} else {
@@ -659,7 +637,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (downedFeature != null) {
 			// remove from downIndex
 			FeatureInstance popfeature = downFeature.pop();
-			if (!isSame(popfeature,downedFeature)) {
+			if (!Aadl2InstanceUtil.isSame(popfeature,downedFeature)) {
 				// should be the same 
 				warning(ci, "Did not match popped downIndex");
 			}
@@ -685,7 +663,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)upFi.getOwner()).getFeature()).getFeatureGroupType();
 					FeatureGroupType downfgt = ((FeatureGroup)dstFi.getFeature()).getFeatureGroupType();
 					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
-						dstFi = flist.get(getFeatureIndex(upFi));
+						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
 				} else {
 					dstFi = resFi;
@@ -848,13 +826,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)upFi.getOwner()).getFeature()).getFeatureGroupType();
 					FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance) dstEnd).getFeature()).getFeatureGroupType();
 					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
-						dstEnd = flist.get(getFeatureIndex(upFi));
+						dstEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
 				} else {
 					dstEnd = resFi;
 				}
 			}
-		} else if (!downIndex.isEmpty()) {
+		} else if (!downFeature.isEmpty()) {
 			// dstEnd is further down in the hierarchy than srcEnd: find feature corresponding to dstEnd
 			// We need to match from the oldest to the latest in stack
 			// This is a down stack, i.e., the highest element got pushed first an dis the oldest.
@@ -866,15 +844,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)downFi.getOwner()).getFeature()).getFeatureGroupType();
 					FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance) srcEnd).getFeature()).getFeatureGroupType();
 					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
-						dstEnd = flist.get(getFeatureIndex(downFi));
+						dstEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
 					}
 				} else {
 					dstEnd = resFi;
 				}
-//				int idx = downFeature.get(count);
-//				if (idx >= 0 && idx < ((FeatureInstance) srcEnd).getFeatureInstances().size()){
-//					srcEnd = ((FeatureInstance) srcEnd).getFeatureInstances().get(idx);
-//				}
 			}
 		}
 
