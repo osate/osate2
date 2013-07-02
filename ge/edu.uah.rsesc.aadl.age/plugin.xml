@@ -93,12 +93,10 @@
    
 	<extension point="org.eclipse.core.runtime.adapters">
 		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart" class="edu.uah.rsesc.aadl.age.editor.GraphitiEditPartyAdapterFactory">
-			<adapter type="org.eclipse.xtext.ui.editor.model.XtextDocument"/>
-			<adapter type="org.osate.aadl2.Element"/>
+			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 		</factory>
 		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart" class="edu.uah.rsesc.aadl.age.editor.GraphitiEditPartyAdapterFactory">
-			<adapter type="org.eclipse.xtext.ui.editor.model.XtextDocument"/>
-			<adapter type="org.osate.aadl2.Element"/>
+			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 		</factory>
 	</extension>
 </plugin>

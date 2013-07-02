@@ -3,6 +3,7 @@ package edu.uah.rsesc.aadl.age.xtext;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPartListener;
@@ -13,6 +14,9 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.NamedElement;
 
 public class EditorListener implements IPartListener {
 	private ModelListener modelListener;
@@ -49,6 +53,15 @@ public class EditorListener implements IPartListener {
 			final IXtextModelListener newListener = createListener(document);
 			xtextModelListeners.put(document, newListener);
 			editor.getDocument().addModelListener(newListener);
+			
+			// Trigger the initial model changed event
+			document.readOnly(new IUnitOfWork<String, XtextResource>() {
+				@Override
+				public String exec(final XtextResource resource) throws Exception {
+					modelListener.modelChanged(document, resource);
+					return null;
+				}
+			});
 		}
 	}
 	

@@ -234,8 +234,6 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 		final ContainerShape container = (ContainerShape)pe;
        	GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight());
 		
-       	System.out.println("RESIZING");
-       	
 		super.resizeShape(context);
 	}	
 	
