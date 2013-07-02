@@ -156,7 +156,7 @@ public class PropagateErrorSources {
 	{
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		String componentText = generateItemText(ci);
-		List<ErrorType> handledTypes = new ArrayList<ErrorType>();
+		List<TypeToken> handledTypes = new ArrayList<TypeToken>();
 		
 		for (ErrorBehaviorEvent event : EMV2Util.getAllErrorBehaviorEvents(ci))
 		{
@@ -207,11 +207,7 @@ public class PropagateErrorSources {
 					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ts, EMV2Util.getContainingTypeUseContext(ep));
 					for (TypeToken typeToken : result)
 					{
-						for (int i = 0 ; i < typeToken.getType().size() ; i++)
-						{
-							handledTypes.add (typeToken.getType().get(i));
-						}
-						String failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:typeToken);
+						handledTypes.add (typeToken);
 						traceErrorPaths(ci,ep,typeToken,2,componentText+", "+ "internal event " + event.getName());
 					}
 					
@@ -226,9 +222,18 @@ public class PropagateErrorSources {
 			TypeSet ts = errorSource.getTypeTokenConstraint();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
 			ErrorBehaviorState failureMode = null;
+			TypeSet failureTypeSet = null;
 			if (fmr instanceof ErrorBehaviorState){
-				// XXX TODO how about the other case
 				failureMode = (ErrorBehaviorState) fmr;
+				failureTypeSet = failureMode.getTypeSet();
+			} else {
+				// reference to named type set
+				if (fmr instanceof TypeSet){
+					failureTypeSet = (TypeSet)fmr;
+				} else {
+					// or type set constructor
+					failureTypeSet = errorSource.getFailureModeType();
+				}
 			}
 			for (ErrorPropagation ep : eplist){
 				TypeSet tsep = ep.getTypeSet();
@@ -236,23 +241,44 @@ public class PropagateErrorSources {
 				//EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
 				for (TypeToken typeToken : result)
 				{
-
-					String failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:typeToken);
-
-					if (failureMode == null)
+					String failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:(failureTypeSet!=null?failureTypeSet:typeToken));
+					if (failureMode == null&&failureTypeSet==null)
 					{
-						for (int i = 0 ; i < typeToken.getType().size() ; i++)
+						if (! handledTypes.contains (typeToken))
 						{
-							if (! handledTypes.contains (typeToken.getType().get(i)))
-							{
-								traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
-							}
+							traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
 						}
 					}
 					else
 					{
 						traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
 					}
+				}
+			}
+		}
+		
+	}
+
+	/**
+	 * Start with an external incoming error propagation as source
+	 * @param ci component instance
+	 */
+	public void startExternalFlows(ComponentInstance root)
+	{
+		Collection<ErrorPropagation> eplist = EMV2Util.getAllIncomingErrorPropagations(root.getComponentClassifier());
+		String componentText = generateItemText(root);
+		List<ErrorType> handledTypes = new ArrayList<ErrorType>();
+		
+		for (ErrorPropagation errorPropagation : eplist)
+		{
+			for (ErrorPropagation ep : eplist){
+				TypeSet tsep = ep.getTypeSet();
+				EList<TypeToken> result = tsep.getTypeTokens();
+				//EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
+				for (TypeToken typeToken : result)
+				{
+					String failuremodeText = "[External]"+generateOriginalFailureModeText(typeToken);
+					traceErrorPaths(root,ep,typeToken,2,componentText+", "+failuremodeText);
 				}
 			}
 		}
