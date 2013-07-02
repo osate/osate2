@@ -492,9 +492,9 @@ public class PropagateErrorSources {
 			else if (ef instanceof ErrorPath){ // error path
 				Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll((ErrorPath)ef);
 				ErrorPropagation inep = ((ErrorPath)ef).getIncoming();
-				if ((ef.getTypeTokenConstraint()!=null&&EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt))
-						|| (inep != null && EM2TypeSetUtil.contains(inep.getTypeSet(), tt))
-						|| ((ErrorPath)ef).isAllIncoming()){
+				if (ef.getTypeTokenConstraint()!=null?EM2TypeSetUtil.contains(ef.getTypeTokenConstraint(), tt):
+						(inep != null ? EM2TypeSetUtil.contains(inep.getTypeSet(), tt):((ErrorPath)ef).isAllIncoming())
+						){
 					TypeToken newtt = EMV2Util.mapToken(tt,ef);
 					for (ErrorPropagation outp : eplist) {
 						traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt));
