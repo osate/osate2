@@ -527,12 +527,27 @@ public class PropagateErrorSources {
 						handled = true;
 					}
 				} else {
-					Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(ef.getTypeTokenConstraint(), tt);
-					for (TypeToken typeToken : intersection) {
-						TypeToken newtt = EMV2Util.mapToken(typeToken,ef);
-						for (ErrorPropagation outp : eplist) {
-							traceErrorPaths(ci,outp,newtt,depth+1,entryText+", "+generateFailureModeText(ci, ep,typeToken));
-							handled = true;
+					Collection<TypeToken> intersection = null;
+					TypeSet ts = null;
+					if (ef.getTypeTokenConstraint()!=null){
+						ts = ef.getTypeTokenConstraint();
+					} else if (inep != null){
+						ts = inep.getTypeSet();
+					}
+					if (ts != null){
+						intersection=EM2TypeSetUtil.getConstrainedTypeTokens(ts, tt);
+					}
+					if (intersection == null || intersection.isEmpty()){
+						String errorText = ",\""+generateFailureModeText(ci,inep,tt)+" [Not in path type constraint "+EMV2Util.getPrintName(ts)+" ]\"";
+						reportEntry(entryText+errorText, depth);
+						handled = true;
+					} else {
+						for (TypeToken typeToken : intersection) {
+							TypeToken newtt = EMV2Util.mapToken(typeToken,ef);
+							for (ErrorPropagation outp : eplist) {
+								traceErrorPaths(ci,outp,newtt,depth+1,entryText+",\""+generateFailureModeText(ci, ep,typeToken)+" [Type Subset of "+EMV2Util.getPrintName(ts)+" ]\"");
+								handled = true;
+							}
 						}
 					}
 				}
@@ -575,28 +590,46 @@ public class PropagateErrorSources {
 		}
 	}
 	
-	protected void doAllFeatures(ComponentInstance ci, EList<FeatureInstance> filist,ErrorPropagation ep, TypeToken tt, int depth, String entryText){
+	protected boolean doAllFeatures(ComponentInstance ci, EList<FeatureInstance> filist,ErrorPropagation ep, TypeToken tt, int depth, String entryText){
+		boolean handled = false;
 		for (FeatureInstance fi : filist) {
 			if (fi.getDirection().outgoing()){
 				ErrorPropagation outp = EMV2Util.getOutgoingErrorPropagation(fi);
 				if (outp!=null){
 					TypeToken newtt = EMV2Util.mapToken(tt,null);
-					traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
 					if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)){
 						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
+						handled = true;
 					} else {
 						Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
-						for (TypeToken typeToken : intersection) {
-							traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
+						if (intersection.isEmpty()){
+							String errorText = ",\""+generateFailureModeText(ci,outp,newtt)+" [Not in type constraint "+EMV2Util.getPrintName(outp.getTypeSet())+" ]\"";
+							reportEntry(entryText+errorText, depth);
+							handled = true;
+						} else {
+							for (TypeToken typeToken : intersection) {
+								traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOutTypeSubset]");
+								handled = true;
+							}
 						}
 					}
 				} else {
 					if (!fi.getFeatureInstances().isEmpty()){
-						 doAllFeatures(ci, fi.getFeatureInstances(), ep, tt, depth, entryText);
+						 boolean res = doAllFeatures(ci, fi.getFeatureInstances(), ep, tt, depth, entryText);
+						 if (res) {
+							 handled = true;
+						 } else {
+							 // report only for the top feature instance
+							 if (fi.getOwner() instanceof ComponentInstance){
+								String errorText = ","+generateFailureModeText(ci,outp,tt)+" [No feature with out propagation ]";
+								reportEntry(entryText+errorText, depth);
+							 }
+						 }
 					}
 				}
 			}
 		}
+		return handled;
 	}
 }
 
