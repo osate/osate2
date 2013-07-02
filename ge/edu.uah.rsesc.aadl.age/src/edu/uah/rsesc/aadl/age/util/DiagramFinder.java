@@ -18,6 +18,7 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
+import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor;
 
 /**
@@ -57,7 +58,7 @@ class DiagramFinder {
 						// Create a feature provider and check if it is linked to the aadl element
 						final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
 						if(featureProvider != null) {
-							final Object bo = featureProvider.getBusinessObjectForPictogramElement(diagram);
+							final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
 							if(bo != null && bo instanceof NamedElement) {
 								if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
 									matchingDiagramResources.add(resource);	

@@ -2,8 +2,6 @@ package edu.uah.rsesc.aadl.age.patterns;
 
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.IDeleteContext;
-import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -23,17 +21,19 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 
+import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 public class PackageGeneralizationPattern extends AbstractConnectionPattern implements IConnectionPattern {
 	
 	@Override
 	public boolean canAdd(IAddContext context) {
+		final Object unwrappedObj = AadlElementWrapper.unwrap(context.getNewObject());
         if(context instanceof IAddConnectionContext && 
-        		(context.getNewObject() instanceof Realization || 
-        			context.getNewObject() instanceof TypeExtension || 
-        			context.getNewObject() instanceof ImplementationExtension ||
-    				context.getNewObject() instanceof GroupExtension)) {
+        		(unwrappedObj instanceof Realization || 
+    				unwrappedObj instanceof TypeExtension || 
+    				unwrappedObj instanceof ImplementationExtension ||
+    				unwrappedObj instanceof GroupExtension)) {
             return true;
         }
 
@@ -43,13 +43,13 @@ public class PackageGeneralizationPattern extends AbstractConnectionPattern impl
 	@Override
 	public PictogramElement add(IAddContext context) {
 		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
-        final Generalization addedGeneralization = (Generalization)context.getNewObject();
+        final Generalization addedGeneralization = (Generalization)AadlElementWrapper.unwrap(context.getNewObject());
         final IPeCreateService peCreateService = Graphiti.getPeCreateService();
         final Diagram diagram = getDiagram();
         
         // Create the implements connection
         final Connection connection = peCreateService.createFreeFormConnection(diagram);
-        link(connection, addedGeneralization);
+        link(connection, new AadlElementWrapper(addedGeneralization));
 
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());

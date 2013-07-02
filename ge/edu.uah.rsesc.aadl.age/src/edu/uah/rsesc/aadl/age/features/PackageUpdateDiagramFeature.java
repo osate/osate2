@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
+import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -51,6 +52,7 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
+import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
@@ -65,7 +67,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	@Override
 	public IReason updateNeeded(IUpdateContext context) {
 		Log.info("updateNeeded called with context: " + context);
-		return null;
+		return Reason.createTrueReason("");
 	}
 
 	@Override
@@ -83,7 +85,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 		StyleUtil.updateStyles(diagram);
 		
 		// Get the AADL Package
-		final NamedElement element = (NamedElement)this.getBusinessObjectForPictogramElement(diagram);
+		final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
 		if(element == null || !(element instanceof AadlPackage)) {
 			return false;
 		}	
@@ -147,7 +149,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
 		
 		for(final Connection connection : diagram.getConnections()) {
-			final Object bo = (EObject)this.getBusinessObjectForPictogramElement(connection);
+			final Object bo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection));
 			boolean remove = false;
 			if(bo instanceof EObject) {
 				EObject emfBusinesObject = (EObject)bo;
@@ -162,8 +164,8 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 					final Generalization generalization = (Generalization)emfBusinesObject;
 					final Classifier general = generalization.getGeneral();
 					final Classifier specific = generalization.getSpecific();
-					final Object startBo = this.getBusinessObjectForPictogramElement(connection.getStart().getParent());
-					final Object endBo = this.getBusinessObjectForPictogramElement(connection.getEnd().getParent());
+					final Object startBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection.getStart().getParent()));
+					final Object endBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection.getEnd().getParent()));
 										
 					// Remove the object if the objects pointed to don't match the object referenced by the generalization
 					if(!general.equals(startBo) || !specific.equals(endBo)) {
@@ -188,15 +190,19 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	private void removeShapesWithouBusinessObject(final Diagram diagram) {	
 		final List<Shape> shapesToRemove = new ArrayList<Shape>();		
 		for(final Shape shape : diagram.getChildren()) {
-			final Object bo = this.getBusinessObjectForPictogramElement(shape);
-			
-			EObject emfBusinesObject = (EObject)bo;
-			if(emfBusinesObject.eIsProxy()) {
-				emfBusinesObject = EcoreUtil.resolve(emfBusinesObject, OsateResourceUtil.getResourceSet());
-			}
+			final Object bo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(shape));
 
-			if(emfBusinesObject.eIsProxy()) {
+			if(bo == null) {
 				shapesToRemove.add(shape);
+			} else {
+				EObject emfBusinesObject = (EObject)bo;
+				if(emfBusinesObject.eIsProxy()) {
+					emfBusinesObject = EcoreUtil.resolve(emfBusinesObject, OsateResourceUtil.getResourceSet());
+				}
+	
+				if(emfBusinesObject.eIsProxy()) {
+					shapesToRemove.add(shape);
+				}
 			}
 		}
 		
@@ -212,11 +218,11 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 				PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
 				if(pictogramElement == null) {
 					final AddContext addContext = new AddContext();
-					addContext.setNewObject(el);
+					addContext.setNewObject(new AadlElementWrapper(el));
 					addContext.setTargetContainer(diagram);
 					addContext.setX(x);
 					addContext.setY(y);
-
+					
 					final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
 					if(addFeature.canAdd(addContext)) {			
 						pictogramElement = addFeature.add(addContext);
@@ -226,7 +232,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 							x = 0;
 						}
 					}
-				} else {
+				} else {				
 					final UpdateContext updateContext = new UpdateContext(pictogramElement);
 					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
 					// TODO: Call update even if not needed?
@@ -249,7 +255,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	}
 	
 	private void updateRelationships(final Diagram diagram, final Set<NamedElement> elements) {
-		final AadlPackage pkg = (AadlPackage)this.getBusinessObjectForPictogramElement(diagram);
+		final AadlPackage pkg = (AadlPackage)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
 		for(final NamedElement el : elements) {
 			if(el.getNamespace().getOwner() == pkg) {
 				if(el instanceof ComponentType) {
@@ -317,7 +323,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	
 			// Call the add connection feature					
 			final AddConnectionContext addContext = new AddConnectionContext(generalAnchor, specificAnchor);
-			addContext.setNewObject(generalization);
+			addContext.setNewObject(new AadlElementWrapper(generalization));
 			addContext.setTargetContainer(diagram);
 			
 			final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);

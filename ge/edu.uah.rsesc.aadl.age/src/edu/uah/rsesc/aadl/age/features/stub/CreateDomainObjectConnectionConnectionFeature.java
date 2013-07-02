@@ -18,8 +18,6 @@ public class CreateDomainObjectConnectionConnectionFeature extends AbstractCreat
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext context) {
 		// TODO: check for right domain object instance below
-		// return getBusinessObjectForPictogramElement(context.getSourcePictogramElement()) instanceof <DomainObject>;
-
 		return true;
 	}
 
@@ -27,11 +25,6 @@ public class CreateDomainObjectConnectionConnectionFeature extends AbstractCreat
 	public boolean canCreate(ICreateConnectionContext context) {
 		PictogramElement sourcePictogramElement = context.getSourcePictogramElement();
 		PictogramElement targetPictogramElement = context.getTargetPictogramElement();
-
-		// TODO: check for right domain object instance below
-		// if (getBusinessObjectForPictogramElement(sourcePictogramElement) instanceof <DomainObject> && getBusinessObjectForPictogramElement(targetPictogramElement) instanceof <DomainObject>) {
-		//  	return true;
-		// }
 		
 		return sourcePictogramElement != null && targetPictogramElement != null;
 	}

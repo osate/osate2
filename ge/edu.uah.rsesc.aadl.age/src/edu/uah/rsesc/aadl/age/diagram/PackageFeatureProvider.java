@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagram;
 
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
@@ -15,17 +17,23 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.features.PackageUpdateDiagramFeature;
@@ -36,12 +44,19 @@ import edu.uah.rsesc.aadl.age.features.stub.CreateDomainObjectFeature;
 import edu.uah.rsesc.aadl.age.features.stub.LayoutDomainObjectFeature;
 import edu.uah.rsesc.aadl.age.patterns.PackageClassifierPattern;
 import edu.uah.rsesc.aadl.age.patterns.PackageGeneralizationPattern;
+import edu.uah.rsesc.aadl.age.xtext.AgeXtextUtil;
 
 public class PackageFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	public PackageFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
 		addPattern(new PackageClassifierPattern());
 		addConnectionPattern(new PackageGeneralizationPattern());
+		setIndependenceSolver(new IndependenceProvider());
+	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
 	}
 
 	// TODO: Remove when deleting is allowed.
@@ -69,4 +84,31 @@ public class PackageFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return new ICustomFeature[] { new LayoutDiagramFeature(this) };
 	}
 	
+	// Helper methods to hide the fact that we are wrapping our AADL Elements to hide the fact they are EMF objects from Graphiti. See AadlElementWrapper
+	@Override
+	public PictogramElement getPictogramElementForBusinessObject(Object businessObject) {
+		if(businessObject instanceof Element) {
+			businessObject =  new AadlElementWrapper((Element)businessObject);
+		}
+		
+		return super.getPictogramElementForBusinessObject(businessObject);
+	}
+	
+	public PictogramElement[] getAllPictogramElementsForBusinessObject(Object businessObject) {
+		if(businessObject instanceof Element) {
+			businessObject =  new AadlElementWrapper((Element)businessObject);
+		}
+		
+		return super.getAllPictogramElementsForBusinessObject(businessObject);
+	}
+	
+	// TODO: Remove. Hack to handle the fact that getPictogramElement will not use independence solver when working with EObject.
+	// Solutions. Request change to Graphiti(but may have other similar problems) or wrap business objects in another object
+	/*
+	@Override
+	public PictogramElement getPictogramElementForBusinessObject(Object businessObject) {
+		final PictogramElement[] elements = this.getAllPictogramElementsForBusinessObject(businessObject);
+		return elements.length > 0 ? elements[0] : null;		
+	}
+	*/
 }

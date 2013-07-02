@@ -32,6 +32,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
+import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor;
 
 /**
@@ -105,9 +106,7 @@ public class DiagramOpener {
 		final IPeService peService = Graphiti.getPeService();
 		final Diagram diagram = peService.createDiagram(diagramTypeId, namedElement.getQualifiedName(), true);
 		
-		final PictogramLink link = PictogramsFactory.eINSTANCE.createPictogramLink();
-		link.getBusinessObjects().add(namedElement);
-		diagram.setLink(link);
+		GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, new AadlElementWrapper(namedElement));
 		
 		// Create a resource to hold the diagram	
 		final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), buildBaseFilename(namedElement));

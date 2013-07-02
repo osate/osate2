@@ -1,6 +1,7 @@
 package edu.uah.rsesc.aadl.age.patterns;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -30,6 +31,7 @@ import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DeviceClassifier;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.MemoryClassifier;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessClassifier;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.SubprogramClassifier;
@@ -40,6 +42,7 @@ import org.osate.aadl2.ThreadGroupClassifier;
 import org.osate.aadl2.VirtualBusClassifier;
 import org.osate.aadl2.VirtualProcessorClassifier;
 
+import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
@@ -51,7 +54,7 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
-		return mainBusinessObject instanceof Classifier;
+		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Classifier;
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 	
 	@Override
 	public boolean canAdd(final IAddContext context) {
-		if(context.getNewObject() instanceof Classifier) {
+		if(AadlElementWrapper.unwrap(context.getNewObject()) instanceof Classifier) {
 			if(context.getTargetContainer() instanceof Diagram) {
 				return true;
 			}
@@ -78,7 +81,7 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 
 	@Override
 	public PictogramElement add(final IAddContext context) {
-		final Classifier classifier = (Classifier)context.getNewObject();
+		final Classifier classifier = (Classifier)AadlElementWrapper.unwrap(context.getNewObject());
 		final Diagram diagram = getDiagram();
 		
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
@@ -87,7 +90,7 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
         // Create the container shape
         final ContainerShape container = peCreateService.createContainerShape(diagram, true);
    		PropertyUtil.setTypeName(container, getClassifierTypeName(classifier));
-        link(container, classifier);
+        link(container, new AadlElementWrapper(classifier));
         
 		// Determine the label text
         final String labelTxt = getLabelText(classifier);
@@ -116,7 +119,7 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 	@Override
 	public IReason updateNeeded(final IUpdateContext context) {
 		final PictogramElement pe = context.getPictogramElement();
-		final Classifier classifier = (Classifier)getBusinessObjectForPictogramElement(pe);
+		final Classifier classifier = (Classifier)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
 		final String actualTypeName = getClassifierTypeName(classifier);
 		final String storedTypeName = PropertyUtil.getTypeName(pe);	
 		if(!actualTypeName.equals(storedTypeName)) {
@@ -133,7 +136,7 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 	
 	@Override
 	public boolean canUpdate(final IUpdateContext context) {
-		return (context.getPictogramElement() instanceof ContainerShape) && (getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof Classifier);
+		return (context.getPictogramElement() instanceof ContainerShape) && (AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement())) instanceof Classifier);
 	}
 	
 	// TODO: Seems like this could be merged in with the logic from GrpahicsAlgorithmCreator to keep all this logic together
@@ -174,13 +177,13 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 	}
 
 	private String getLabelText(final Classifier classifier) {
-		 return (this.getBusinessObjectForPictogramElement(getDiagram()) == classifier.getNamespace().getOwner()) ? classifier.getName() : classifier.getQualifiedName(); 
+		 return ((NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(getDiagram()))).getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? classifier.getName() : classifier.getQualifiedName(); 
 	}
 	
 	@Override
 	public boolean update(final IUpdateContext context) {
 		final PictogramElement pe = context.getPictogramElement();
-		final Classifier classifier = (Classifier)getBusinessObjectForPictogramElement(pe);
+		final Classifier classifier = (Classifier)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
 		
 		// Update the type name property
 		PropertyUtil.setTypeName(pe, getClassifierTypeName(classifier));
@@ -227,11 +230,12 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 	
 	public void resizeShape(final IResizeShapeContext context) {
 		final PictogramElement pe = context.getPictogramElement();
-		final Object bo = getBusinessObjectForPictogramElement(context.getPictogramElement());
+		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		final ContainerShape container = (ContainerShape)pe;
-		System.out.println("A");
        	GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight());
 		
+       	System.out.println("RESIZING");
+       	
 		super.resizeShape(context);
 	}	
 	

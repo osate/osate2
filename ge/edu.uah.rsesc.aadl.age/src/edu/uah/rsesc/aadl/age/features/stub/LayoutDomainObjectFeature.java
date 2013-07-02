@@ -25,7 +25,7 @@ public class LayoutDomainObjectFeature extends AbstractLayoutFeature implements
 	@Override
 	public boolean canLayout(ILayoutContext context) {
 		// TODO: check for right domain object instances below
-		return context.getPictogramElement() instanceof ContainerShape /* && getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof <DomainObject> */;
+		return context.getPictogramElement() instanceof ContainerShape;
 	}
 
 	@Override
