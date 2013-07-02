@@ -333,7 +333,7 @@ public class PropagateErrorSources {
 		} else if (io instanceof TypeToken){
 			return EMV2Util.getPrintName((TypeToken) io);
 		} else if (io instanceof TypeSet){
-			return EMV2Util.getTableName((TypeSet)io);
+			return "\""+EMV2Util.getPrintName((TypeSet)io)+"\"";
 		} else {
 			return "NoError";
 		}

@@ -2124,10 +2124,6 @@ public class EMV2Util {
 	}
 
 	
-	public static String getTableName(TypeSet ts){
-			return getPrintableName(ts, "/");//\",\"");
-	}
-	
 	public static String getPrintableName(TypeSet ts,String separator){
 		if (ts == null) return "";
 		String res ="{";
