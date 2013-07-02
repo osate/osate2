@@ -101,9 +101,4 @@
 			<adapter type="org.osate.aadl2.Element"/>
 		</factory>
 	</extension>
-	
-	<!-- class="com.xyz.MyFileAdapterFactory" 
-            adaptableType="org.eclipse.core.resources.IFile">
-            <adapter type="com.xyz.MyFile"/>
-   -->
 </plugin>

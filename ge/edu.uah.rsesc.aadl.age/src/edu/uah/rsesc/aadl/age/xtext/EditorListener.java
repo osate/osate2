@@ -1,17 +1,24 @@
 package edu.uah.rsesc.aadl.age.xtext;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
+import org.eclipse.xtext.ui.editor.model.XtextDocument;
 
 public class EditorListener implements IPartListener {
-	private IXtextModelListener modelListener;
+	private ModelListener modelListener;
+	private Map<IXtextDocument, IXtextModelListener> xtextModelListeners = new HashMap<IXtextDocument, IXtextModelListener>();
 	
-	public EditorListener(final IWorkbenchPage activePage, final IXtextModelListener modelListener) {
+	public EditorListener(final IWorkbenchPage activePage, final ModelListener modelListener) {
 		this.modelListener = modelListener;
 		
 		for(final IEditorReference editorRef : activePage.getEditorReferences()) {
@@ -38,7 +45,10 @@ public class EditorListener implements IPartListener {
 	public void partOpened(IWorkbenchPart part) {
 		if(part instanceof XtextEditor) {
 			final XtextEditor editor = (XtextEditor)part;
-			editor.getDocument().addModelListener(modelListener);
+			final IXtextDocument document = editor.getDocument();
+			final IXtextModelListener newListener = createListener(document);
+			xtextModelListeners.put(document, newListener);
+			editor.getDocument().addModelListener(newListener);
 		}
 	}
 	
@@ -46,7 +56,21 @@ public class EditorListener implements IPartListener {
 	public void partClosed(IWorkbenchPart part) {
 		if(part instanceof XtextEditor) {
 			final XtextEditor editor = (XtextEditor)part;
-			editor.getDocument().removeModelListener(modelListener);
+			final IXtextDocument document = editor.getDocument();
+			final IXtextModelListener listener = xtextModelListeners.get(document);
+			if(listener != null) {
+				document.removeModelListener(listener);
+				modelListener.removeDocumentInfo(document);
+			}
 		}
+	}
+	
+	private IXtextModelListener createListener(final IXtextDocument document) {
+		return new IXtextModelListener() {
+			@Override
+			public void modelChanged(final XtextResource resource) {
+				modelListener.modelChanged(document, resource);
+			}
+		};
 	}
 }
