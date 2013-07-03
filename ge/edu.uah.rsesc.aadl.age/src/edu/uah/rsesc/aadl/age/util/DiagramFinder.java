@@ -86,15 +86,17 @@ class DiagramFinder {
 		}
 		
 		try {
-			for(final IResource resource : container.members()) {
-				 if (resource instanceof IContainer) {
-			         findDiagrams((IContainer)resource, diagramFiles);
-			     } else if (resource instanceof IFile) {
-			         final IFile file = (IFile) resource;
-			         if (file.getName().endsWith(AgeDiagramEditor.EXTENSION)) {
-			              diagramFiles.add(file);
-			         }
-			     }
+			if(container.isAccessible()) {
+				for(final IResource resource : container.members()) {
+					 if (resource instanceof IContainer) {
+				         findDiagrams((IContainer)resource, diagramFiles);
+				     } else if (resource instanceof IFile) {
+				         final IFile file = (IFile) resource;
+				         if (file.getName().endsWith(AgeDiagramEditor.EXTENSION)) {
+				              diagramFiles.add(file);
+				         }
+				     }
+				}
 			}
 		} catch (CoreException e) {
 			Log.error("Error finding diagrams", e);
