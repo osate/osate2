@@ -453,6 +453,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (toEnd instanceof Subcomponent) {
 			// connection ends at a shared data, bus, or subprogram (group)
+			connInfo.complete = true;
 			finalizeConnectionInstance(ci.getSystemInstance(), connInfo,
 					ci.findSubcomponentInstance((Subcomponent) toEnd));
 		} else {
@@ -465,7 +466,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (dstFi == null) {
 					error(toCi, "Destination feature " + toFeature.getName() + " not found. No connection created.");
 				} else {
-					connInfo.complete &= true;
+					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, dstFi);
 				}
 			} else
@@ -489,6 +490,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (dstFi == null) {
 					error(toCi, "Destination feature " + toFeature.getName() + " not found. No connection created.");
 				} else {
+					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, dstFi);
 				}
 			} else
@@ -579,6 +581,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 				ComponentImplementation toImpl = InstanceUtil.getComponentImplementation(toCi, 0, classifierCache);
 				if (toImpl == null) {
+					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, toFi);
 				} else {
 					// there is a toImpl
@@ -596,6 +599,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 												+ " to subcomponents. Connection instance ends at "
 												+ ((Subcomponent) toCtx).getName());
 							}
+							connInfo.complete = true;
 							finalizeConnectionInstance(ci, connInfo, toFi);
 						}
 					} else {
@@ -603,6 +607,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						if ((toImpl instanceof ProcessorImplementation || toImpl instanceof DeviceImplementation || toImpl instanceof MemoryImplementation)
 								&&!(toEnd instanceof BusAccess && ((BusAccess)toEnd).getKind() == AccessType.PROVIDES )){
 							final ConnectionInfo clone = connInfo.cloneInfo();
+							clone.complete = true;
 							finalizeConnectionInstance(ci, clone, toFi);
 						}
 						// we have ingoing connections that start with toFeature as End or as Cxt
