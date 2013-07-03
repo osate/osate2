@@ -170,8 +170,6 @@ public class GraphicsAlgorithmCreator {
     			width-horizontalOffset, depth,
     			width-horizontalOffset, height}).setStyle(style);
 
-		// TODO: Shaded portion
-		
 		gaService.setSize(outlinePolygon, width, height);
 		
 		return outlinePolygon;
@@ -283,8 +281,6 @@ public class GraphicsAlgorithmCreator {
 		gaService.setLocationAndSize(bar, circle.getX()-barWidth+1, 0, barWidth, height);
 		bar.setStyle(style);
 		
-		// TODO: Feature Indicators
-				
 		return ga;
 	}
 	

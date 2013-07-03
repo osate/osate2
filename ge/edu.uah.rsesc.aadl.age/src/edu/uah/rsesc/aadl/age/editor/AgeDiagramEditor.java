@@ -1,19 +1,18 @@
 package edu.uah.rsesc.aadl.age.editor;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.graphiti.ui.internal.editor.DomainModelChangeListener;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
-
-import edu.uah.rsesc.aadl.age.diagram.PackageFeatureProvider;
 import edu.uah.rsesc.aadl.age.xtext.AgeXtextUtil;
 import edu.uah.rsesc.aadl.age.xtext.ModelChangeListener;
 
@@ -26,11 +25,7 @@ public class AgeDiagramEditor extends DiagramEditor {
 		public void modelChanged() {
 			// TODO: Check which resource changed.
 			Display.getDefault().asyncExec(new Runnable() {
-				public void run() {
-					// TODO: Fix cast
-				//	((PackageFeatureProvider)getDiagramTypeProvider().getFeatureProvider()).setDomainResourceSet(resource.getResourceSet());
-			
-					
+				public void run() {						
 					// Update the entire diagram
 					// TODO: See if this calls the classifiers update or just the diagram one.. May need to pass lots of items to the update?
 					getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
@@ -51,11 +46,22 @@ public class AgeDiagramEditor extends DiagramEditor {
 	}
 	
 	@Override
+	protected DefaultRefreshBehavior createRefreshBehavior() {
+		return new DefaultRefreshBehavior(this) {
+			protected void autoUpdate() {
+				IDiagramTypeProvider diagramTypeProvider = diagramEditor.getDiagramTypeProvider();
+				Diagram diagram = diagramTypeProvider.getDiagram();
+				IFeatureProvider featureProvider = diagramTypeProvider.getFeatureProvider();
+				IUpdateContext updateCtx = new UpdateContext(diagram);
+				featureProvider.updateIfPossible(updateCtx);
+				refresh();
+			}
+		};
+	}
+	
+	@Override
 	protected void registerBusinessObjectsListener() {
 		AgeXtextUtil.addModelListener(modelListener);
-	//	domainModelListener = new DomainModelChangeListener(this);
-//		TransactionalEditingDomain eDomain = getEditingDomain();
-		//eDomain.addResourceSetListener(domainModelListener);
 	}
 	
 	@Override
@@ -63,5 +69,21 @@ public class AgeDiagramEditor extends DiagramEditor {
 		AgeXtextUtil.removeModelListener(modelListener);
 	}
 	
+	/**
+	 * Implementation of executeFeature that flushes the command stack if a command that cannot be undone is executed.
+	 */
+	@Override
+	public Object executeFeature(IFeature feature, IContext context) {
+		// Execute the feature and flush the command stack if the feature can not be undone.
+		// This will prevent the user being able to perform partial undo's when the features does not support it
+		final boolean canUndo = feature.canUndo(context);
+		final Object ret = super.executeFeature(feature, context);
+		final TransactionalEditingDomain editingDomain = this.getEditingDomain();
+		if(!canUndo) {
+			editingDomain.getCommandStack().flush();	
+		}
+		
+		return ret;
+	}
 	
 }

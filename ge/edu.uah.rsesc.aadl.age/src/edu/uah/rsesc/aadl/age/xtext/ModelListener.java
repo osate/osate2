@@ -36,9 +36,7 @@ public class ModelListener {
 		}
 	}
 	
-	// TODO: Consider rename model changed event(s)... Call on inital xtext editor load
 	// TODO: Rename
-	// TODO: Have a way to remove things from the map... 	
 	public void modelChanged(final IXtextDocument document, final XtextResource resource) {
 		if(resource.getContents().size() > 0) {
 			final EObject obj = resource.getContents().get(0);

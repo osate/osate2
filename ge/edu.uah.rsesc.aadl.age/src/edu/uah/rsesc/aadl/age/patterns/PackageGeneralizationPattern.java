@@ -1,7 +1,9 @@
 package edu.uah.rsesc.aadl.age.patterns;
 
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -12,6 +14,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
+import org.eclipse.graphiti.pattern.ICustomUndoablePattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
@@ -24,7 +27,7 @@ import org.osate.aadl2.TypeExtension;
 import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-public class PackageGeneralizationPattern extends AbstractConnectionPattern implements IConnectionPattern {
+public class PackageGeneralizationPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern {
 	
 	@Override
 	public boolean canAdd(IAddContext context) {
@@ -74,5 +77,23 @@ public class PackageGeneralizationPattern extends AbstractConnectionPattern impl
 	    		-15, -10});
 	    ga.setStyle(style);
 	    return ga;
+	}
+
+	@Override
+	public boolean canUndo(final IFeature feature, final IContext context) {
+		return false;
+	}
+
+	@Override
+	public void undo(final IFeature feature, final IContext context) {
+	}
+
+	@Override
+	public boolean canRedo(final IFeature feature, final IContext context) {
+		return false;
+	}
+
+	@Override
+	public void redo(final IFeature feature, final IContext context) {
 	}
 }

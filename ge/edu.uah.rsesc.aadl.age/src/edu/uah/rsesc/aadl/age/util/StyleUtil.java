@@ -47,11 +47,7 @@ public class StyleUtil {
 		getExtendsStyle(diagram);
 		getGeneralizationArrowHeadStyle(diagram);
 		getClassifierLabelStyle(diagram);
-	}
-	
-	// TODO: Probably want style for each type of shape
-	// TODO: Any way to change only if the styles has been updated
-	// TODO: Will need styles for private vs public?
+	}	
 	
 	private static Style getClassifierStyle(final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
@@ -222,10 +218,8 @@ public class StyleUtil {
         return style;
     }
 	
-	
-	
 	private static Style getStyle(final StyleContainer parentStyle, final String id) {
-		// TODO: Ability to not recreate style each time.. While running this could be really inefficient. Cach in map that will store it in 
+		// TODO: Ability to not recreate style each time.. While running this could be really inefficient. Cache in map that will store it in 
 		// memory until program closes?
 		final IGaService gaService = Graphiti.getGaService();
 

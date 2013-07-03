@@ -15,7 +15,11 @@ import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.xtext.AgeXtextUtil;
 
-// TODO: Document
+/**
+ * Adapter implementation for adapting selections to IAadlPropertySource for integration with the AADL Property Values view.
+ * @author philip.alldredge
+ *
+ */
 public class GraphitiEditPartyAdapterFactory implements IAdapterFactory {
 	@Override
 	public Object getAdapter(Object adaptableObject, @SuppressWarnings("rawtypes") Class adapterType) {

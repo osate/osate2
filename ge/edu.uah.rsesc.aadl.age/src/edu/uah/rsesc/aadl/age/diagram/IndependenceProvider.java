@@ -1,8 +1,6 @@
 package edu.uah.rsesc.aadl.age.diagram;
 
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
-import org.eclipse.xtext.resource.XtextResourceSet;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;

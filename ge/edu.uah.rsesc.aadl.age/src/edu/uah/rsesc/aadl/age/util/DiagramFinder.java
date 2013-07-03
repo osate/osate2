@@ -26,7 +26,7 @@ import edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor;
  * @author philip.alldredge
  *
  */
-//TODO: Need to take project references into account?
+// TODO: Need to take project references into account?
 class DiagramFinder {
 	/**
 	 * Finds resources containing diagrams that represent the specified AADL element

@@ -3,7 +3,6 @@ package edu.uah.rsesc.aadl.age.diagram;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.osate.aadl2.Generalization;
 
 public class PackageDiagramTypeProvider extends AbstractDiagramTypeProvider {
@@ -17,16 +16,10 @@ public class PackageDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	@Override
 	public boolean isAutoUpdateAtStartup() {
 		return true;
-	}
+	}	
 	
-	@Override
-	public boolean isAutoUpdateAtRuntime() {
-		return true;
-	}
-	
-	// Tool behaviors are provided to modify the business object equality check. This is because as of 2013-06-26, the default comparison between
-	// Generalization objects does not work. See https://github.com/osate/osate2-core/issues/250
-	// TODO: Disable after issue is resolved
+	// Tool behaviors are provided to modify the business object equality check. This is needed in the case of Generalization because the owner is one of the defining
+	// characteristics and is not checked by the default check which uses EcoreUtil.equals().
 	private IToolBehaviorProvider[] toolBehaviorProviders;
 	@Override
     public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {

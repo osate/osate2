@@ -3,8 +3,10 @@ package edu.uah.rsesc.aadl.age.patterns;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
@@ -19,6 +21,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.pattern.AbstractPattern;
+import org.eclipse.graphiti.pattern.ICustomUndoablePattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -47,7 +50,7 @@ import edu.uah.rsesc.aadl.age.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-public class PackageClassifierPattern extends AbstractPattern implements IPattern {
+public class PackageClassifierPattern extends AbstractPattern implements IPattern, ICustomUndoablePattern {
 	public PackageClassifierPattern() {
 		super(null);
 	}
@@ -101,7 +104,7 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
         text.setStyle(StyleUtil.getClassifierLabelStyle(diagram));
         
         // Set the size        
-		final int width = Math.max(100, GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont()).getWidth() + 20); 
+		final int width = Math.max(100, GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont()).getWidth() + 30); 
 		final int height = 50; 
 		gaService.setLocationAndSize(text, 0, 0, width, 20);
 				
@@ -111,8 +114,7 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
         
         // Create anchor
         final Anchor anchor = peCreateService.createChopboxAnchor(container);
-        //anchor.setReferencedGraphicsAlgorithm(ga);
-        
+
         return container;
 	}
 	
@@ -261,6 +263,23 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 		}
 		return false;
 	}
-	
+
+	@Override
+	public boolean canUndo(final IFeature feature, final IContext context) {
+		return false;
+	}
+
+	@Override
+	public void undo(final IFeature feature, final IContext context) {
+	}
+
+	@Override
+	public boolean canRedo(final IFeature feature, final IContext context) {
+		return false;
+	}
+
+	@Override
+	public void redo(final IFeature feature, final IContext context) {
+	}	
 	
 }

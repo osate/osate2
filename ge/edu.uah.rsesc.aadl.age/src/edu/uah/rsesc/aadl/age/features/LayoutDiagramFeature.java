@@ -26,6 +26,7 @@ import org.eclipse.draw2d.graph.Node;
 import org.eclipse.draw2d.graph.NodeList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -72,6 +73,11 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	@Override
 	public boolean canExecute(ICustomContext context) {
 		return true;
+	}
+
+	@Override
+	public boolean canUndo(IContext context) {
+		return false;
 	}
 
 	@Override

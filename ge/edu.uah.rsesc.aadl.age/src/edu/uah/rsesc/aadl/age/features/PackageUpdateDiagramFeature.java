@@ -1,22 +1,18 @@
 package edu.uah.rsesc.aadl.age.features;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IAddFeature;
+import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
@@ -32,34 +28,24 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.services.IPeService;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-
 import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-// TODO: Move this out of feature where it runs when the diagram is loaded?
-// (Override DefaultPersistencyBehavior)
-
-public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
+public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
 	public PackageUpdateDiagramFeature(final IFeatureProvider fp) {
 		super(fp);
 	}
@@ -76,7 +62,14 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	}
 	
 	@Override
-	public boolean update(IUpdateContext context) {		
+	public boolean canUndo(IContext context) {
+		System.out.println("CAN UNDO IS CALLED");
+		return false;
+	}
+	
+	@Override
+	public boolean update(IUpdateContext context) {
+		System.out.println("UPDATE IS CALLED");
 		Log.info("update called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
 		final boolean wasEmpty = diagram.getChildren().size() == 0; 
@@ -235,7 +228,8 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 				} else {				
 					final UpdateContext updateContext = new UpdateContext(pictogramElement);
 					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-					// TODO: Call update even if not needed?
+					
+					// Update the classifier regardless of whether it is "needed" or not.
 					if(updateFeature.canUpdate(updateContext)) {
 						updateFeature.update(updateContext);
 					}
@@ -331,5 +325,19 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 				addFeature.add(addContext);
 			}
 		}
+	}
+
+	@Override
+	public void undo(IContext context) {
+		System.out.println("UNDO CALLED");
+	}
+
+	@Override
+	public boolean canRedo(IContext context) {
+		return false;
+	}
+
+	@Override
+	public void redo(IContext context) {	
 	}
 }
