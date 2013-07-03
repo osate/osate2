@@ -1551,14 +1551,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	featureorPPRefs+=FeatureorPPReference)*) ":" not?="not"? direction=PropagationDirection "propagation"
 		//
-		//	typeSet=TypeSetReference ";";
+		//	typeSet=TypeSetReference? ";";
 		public ParserRule getRule() { return rule; }
 
 		//{ErrorPropagation} (kind=PropagationKind | featureorPPRefs+=FeatureorPPReference ("."
 		//
 		//featureorPPRefs+=FeatureorPPReference)*) ":" not?="not"? direction=PropagationDirection "propagation"
 		//
-		//typeSet=TypeSetReference ";"
+		//typeSet=TypeSetReference? ";"
 		public Group getGroup() { return cGroup; }
 
 		//{ErrorPropagation}
@@ -1612,7 +1612,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"propagation"
 		public Keyword getPropagationKeyword_5() { return cPropagationKeyword_5; }
 
-		//typeSet=TypeSetReference
+		//typeSet=TypeSetReference?
 		public Assignment getTypeSetAssignment_6() { return cTypeSetAssignment_6; }
 
 		//TypeSetReference
@@ -5039,7 +5039,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	featureorPPRefs+=FeatureorPPReference)*) ":" not?="not"? direction=PropagationDirection "propagation"
 	//
-	//	typeSet=TypeSetReference ";";
+	//	typeSet=TypeSetReference? ";";
 	public ErrorPropagationElements getErrorPropagationAccess() {
 		return (pErrorPropagation != null) ? pErrorPropagation : (pErrorPropagation = new ErrorPropagationElements());
 	}

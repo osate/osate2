@@ -181,7 +181,7 @@ ErrorPropagation returns ErrorPropagation:
    (  kind=PropagationKind | (featureorPPRefs+=FeatureorPPReference)("." (featureorPPRefs+=FeatureorPPReference))* )
    ':' (not?='not')? (direction=PropagationDirection)  
    'propagation' 
-    typeSet=TypeSetReference
+    (typeSet=TypeSetReference)?
    ';';
 
 FeatureorPPReference returns FeatureorPPReference:

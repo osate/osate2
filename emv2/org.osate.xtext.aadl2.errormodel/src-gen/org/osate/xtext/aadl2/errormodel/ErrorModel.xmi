@@ -663,7 +663,7 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.26"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="propagation"/>
-        <elements xsi:type="xtext:Assignment" feature="typeSet" operator="=">
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeSet" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>

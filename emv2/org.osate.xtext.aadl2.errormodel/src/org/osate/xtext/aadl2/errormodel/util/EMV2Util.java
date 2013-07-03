@@ -2125,7 +2125,7 @@ public class EMV2Util {
 
 	
 	public static String getPrintableName(TypeSet ts,String separator){
-		if (ts == null) return "";
+		if (ts == null) return "<allTypes>";
 		String res ="{";
 		EList<TypeToken> te = ts.getTypeTokens();
 		boolean docomma = false;

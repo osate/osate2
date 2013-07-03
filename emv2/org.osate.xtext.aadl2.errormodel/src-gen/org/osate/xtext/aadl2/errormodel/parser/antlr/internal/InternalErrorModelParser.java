@@ -4640,7 +4640,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorPropagation"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1816:1: ruleErrorPropagation returns [EObject current=null] : ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= KEYWORD_10 ) ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1816:1: ruleErrorPropagation returns [EObject current=null] : ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) )? otherlv_10= KEYWORD_10 ) ;
     public final EObject ruleErrorPropagation() throws RecognitionException {
         EObject current = null;
 
@@ -4663,11 +4663,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1819:28: ( ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= KEYWORD_10 ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1820:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1819:28: ( ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) )? otherlv_10= KEYWORD_10 ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1820:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) )? otherlv_10= KEYWORD_10 )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1820:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= KEYWORD_10 )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1820:2: () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= KEYWORD_10
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1820:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) )? otherlv_10= KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1820:2: () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= KEYWORD_8 ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= KEYWORD_9 ( (lv_not_6_0= KEYWORD_28 ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= KEYWORD_81 ( (lv_typeSet_9_0= ruleTypeSetReference ) )? otherlv_10= KEYWORD_10
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1820:2: ()
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1821:5: 
@@ -4911,38 +4911,49 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_8, grammarAccess.getErrorPropagationAccess().getPropagationKeyword_5());
                 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1930:1: ( (lv_typeSet_9_0= ruleTypeSetReference ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1931:1: (lv_typeSet_9_0= ruleTypeSetReference )
-            {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1931:1: (lv_typeSet_9_0= ruleTypeSetReference )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1932:3: lv_typeSet_9_0= ruleTypeSetReference
-            {
-             
-            	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getTypeSetTypeSetReferenceParserRuleCall_6_0()); 
-            	    
-            pushFollow(FollowSets000.FOLLOW_ruleTypeSetReference_in_ruleErrorPropagation3988);
-            lv_typeSet_9_0=ruleTypeSetReference();
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1930:1: ( (lv_typeSet_9_0= ruleTypeSetReference ) )?
+            int alt45=2;
+            int LA45_0 = input.LA(1);
 
-            state._fsp--;
+            if ( (LA45_0==KEYWORD_13||LA45_0==RULE_ID) ) {
+                alt45=1;
+            }
+            switch (alt45) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1931:1: (lv_typeSet_9_0= ruleTypeSetReference )
+                    {
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1931:1: (lv_typeSet_9_0= ruleTypeSetReference )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1932:3: lv_typeSet_9_0= ruleTypeSetReference
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getTypeSetTypeSetReferenceParserRuleCall_6_0()); 
+                    	    
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetReference_in_ruleErrorPropagation3988);
+                    lv_typeSet_9_0=ruleTypeSetReference();
+
+                    state._fsp--;
 
 
-            	        if (current==null) {
-            	            current = createModelElementForParent(grammarAccess.getErrorPropagationRule());
-            	        }
-                   		set(
-                   			current, 
-                   			"typeSet",
-                    		lv_typeSet_9_0, 
-                    		"TypeSetReference");
-            	        afterParserOrEnumRuleCall();
-            	    
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getErrorPropagationRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"typeSet",
+                            		lv_typeSet_9_0, 
+                            		"TypeSetReference");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+                    break;
 
             }
 
-
-            }
-
-            otherlv_10=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorPropagation4001); 
+            otherlv_10=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorPropagation4002); 
 
                 	newLeafNode(otherlv_10, grammarAccess.getErrorPropagationAccess().getSemicolonKeyword_7());
                 
@@ -4979,13 +4990,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1963:2: iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF
             {
              newCompositeNode(grammarAccess.getFeatureorPPReferenceRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleFeatureorPPReference_in_entryRuleFeatureorPPReference4035);
+            pushFollow(FollowSets000.FOLLOW_ruleFeatureorPPReference_in_entryRuleFeatureorPPReference4036);
             iv_ruleFeatureorPPReference=ruleFeatureorPPReference();
 
             state._fsp--;
 
              current =iv_ruleFeatureorPPReference; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleFeatureorPPReference4045); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleFeatureorPPReference4046); 
 
             }
 
@@ -5026,7 +5037,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getFeatureorPPReferenceRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleFeatureorPPReference4089); 
+            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleFeatureorPPReference4090); 
 
             		newLeafNode(otherlv_0, grammarAccess.getFeatureorPPReferenceAccess().getFeatureorPPNamedElementCrossReference_0()); 
             	
@@ -5066,13 +5077,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:1997:2: iv_rulePropagationDirection= rulePropagationDirection EOF
             {
              newCompositeNode(grammarAccess.getPropagationDirectionRule()); 
-            pushFollow(FollowSets000.FOLLOW_rulePropagationDirection_in_entryRulePropagationDirection4124);
+            pushFollow(FollowSets000.FOLLOW_rulePropagationDirection_in_entryRulePropagationDirection4125);
             iv_rulePropagationDirection=rulePropagationDirection();
 
             state._fsp--;
 
              current =iv_rulePropagationDirection.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationDirection4135); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationDirection4136); 
 
             }
 
@@ -5103,26 +5114,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2009:1: (kw= KEYWORD_20 | kw= KEYWORD_29 )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2009:1: (kw= KEYWORD_20 | kw= KEYWORD_29 )
-            int alt45=2;
-            int LA45_0 = input.LA(1);
+            int alt46=2;
+            int LA46_0 = input.LA(1);
 
-            if ( (LA45_0==KEYWORD_20) ) {
-                alt45=1;
+            if ( (LA46_0==KEYWORD_20) ) {
+                alt46=1;
             }
-            else if ( (LA45_0==KEYWORD_29) ) {
-                alt45=2;
+            else if ( (LA46_0==KEYWORD_29) ) {
+                alt46=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 45, 0, input);
+                    new NoViableAltException("", 46, 0, input);
 
                 throw nvae;
             }
-            switch (alt45) {
+            switch (alt46) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2010:2: kw= KEYWORD_20
                     {
-                    kw=(Token)match(input,KEYWORD_20,FollowSets000.FOLLOW_KEYWORD_20_in_rulePropagationDirection4173); 
+                    kw=(Token)match(input,KEYWORD_20,FollowSets000.FOLLOW_KEYWORD_20_in_rulePropagationDirection4174); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPropagationDirectionAccess().getInKeyword_0()); 
@@ -5133,7 +5144,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2017:2: kw= KEYWORD_29
                     {
-                    kw=(Token)match(input,KEYWORD_29,FollowSets000.FOLLOW_KEYWORD_29_in_rulePropagationDirection4192); 
+                    kw=(Token)match(input,KEYWORD_29,FollowSets000.FOLLOW_KEYWORD_29_in_rulePropagationDirection4193); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPropagationDirectionAccess().getOutKeyword_1()); 
@@ -5175,13 +5186,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2032:2: iv_rulePropagationKind= rulePropagationKind EOF
             {
              newCompositeNode(grammarAccess.getPropagationKindRule()); 
-            pushFollow(FollowSets000.FOLLOW_rulePropagationKind_in_entryRulePropagationKind4232);
+            pushFollow(FollowSets000.FOLLOW_rulePropagationKind_in_entryRulePropagationKind4233);
             iv_rulePropagationKind=rulePropagationKind();
 
             state._fsp--;
 
              current =iv_rulePropagationKind.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationKind4243); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationKind4244); 
 
             }
 
@@ -5212,50 +5223,50 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2044:1: (kw= KEYWORD_74 | kw= KEYWORD_52 | kw= KEYWORD_77 | kw= KEYWORD_60 | kw= KEYWORD_69 | kw= KEYWORD_50 )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2044:1: (kw= KEYWORD_74 | kw= KEYWORD_52 | kw= KEYWORD_77 | kw= KEYWORD_60 | kw= KEYWORD_69 | kw= KEYWORD_50 )
-            int alt46=6;
+            int alt47=6;
             switch ( input.LA(1) ) {
             case KEYWORD_74:
                 {
-                alt46=1;
+                alt47=1;
                 }
                 break;
             case KEYWORD_52:
                 {
-                alt46=2;
+                alt47=2;
                 }
                 break;
             case KEYWORD_77:
                 {
-                alt46=3;
+                alt47=3;
                 }
                 break;
             case KEYWORD_60:
                 {
-                alt46=4;
+                alt47=4;
                 }
                 break;
             case KEYWORD_69:
                 {
-                alt46=5;
+                alt47=5;
                 }
                 break;
             case KEYWORD_50:
                 {
-                alt46=6;
+                alt47=6;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 46, 0, input);
+                    new NoViableAltException("", 47, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt46) {
+            switch (alt47) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2045:2: kw= KEYWORD_74
                     {
-                    kw=(Token)match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_rulePropagationKind4281); 
+                    kw=(Token)match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_rulePropagationKind4282); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPropagationKindAccess().getProcessorKeyword_0()); 
@@ -5266,7 +5277,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2052:2: kw= KEYWORD_52
                     {
-                    kw=(Token)match(input,KEYWORD_52,FollowSets000.FOLLOW_KEYWORD_52_in_rulePropagationKind4300); 
+                    kw=(Token)match(input,KEYWORD_52,FollowSets000.FOLLOW_KEYWORD_52_in_rulePropagationKind4301); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPropagationKindAccess().getMemoryKeyword_1()); 
@@ -5277,7 +5288,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 3 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2059:2: kw= KEYWORD_77
                     {
-                    kw=(Token)match(input,KEYWORD_77,FollowSets000.FOLLOW_KEYWORD_77_in_rulePropagationKind4319); 
+                    kw=(Token)match(input,KEYWORD_77,FollowSets000.FOLLOW_KEYWORD_77_in_rulePropagationKind4320); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPropagationKindAccess().getConnectionKeyword_2()); 
@@ -5288,7 +5299,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 4 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2066:2: kw= KEYWORD_60
                     {
-                    kw=(Token)match(input,KEYWORD_60,FollowSets000.FOLLOW_KEYWORD_60_in_rulePropagationKind4338); 
+                    kw=(Token)match(input,KEYWORD_60,FollowSets000.FOLLOW_KEYWORD_60_in_rulePropagationKind4339); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingKeyword_3()); 
@@ -5299,7 +5310,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 5 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2073:2: kw= KEYWORD_69
                     {
-                    kw=(Token)match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_rulePropagationKind4357); 
+                    kw=(Token)match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_rulePropagationKind4358); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingsKeyword_4()); 
@@ -5310,7 +5321,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 6 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2080:2: kw= KEYWORD_50
                     {
-                    kw=(Token)match(input,KEYWORD_50,FollowSets000.FOLLOW_KEYWORD_50_in_rulePropagationKind4376); 
+                    kw=(Token)match(input,KEYWORD_50,FollowSets000.FOLLOW_KEYWORD_50_in_rulePropagationKind4377); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPropagationKindAccess().getAccessKeyword_5()); 
@@ -5352,13 +5363,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2095:2: iv_ruleErrorFlow= ruleErrorFlow EOF
             {
              newCompositeNode(grammarAccess.getErrorFlowRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorFlow_in_entryRuleErrorFlow4415);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorFlow_in_entryRuleErrorFlow4416);
             iv_ruleErrorFlow=ruleErrorFlow();
 
             state._fsp--;
 
              current =iv_ruleErrorFlow; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorFlow4425); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorFlow4426); 
 
             }
 
@@ -5394,35 +5405,35 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2106:1: (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2106:1: (this_ErrorSource_0= ruleErrorSource | this_ErrorSink_1= ruleErrorSink | this_ErrorPath_2= ruleErrorPath )
-            int alt47=3;
-            int LA47_0 = input.LA(1);
+            int alt48=3;
+            int LA48_0 = input.LA(1);
 
-            if ( (LA47_0==RULE_ID) ) {
-                int LA47_1 = input.LA(2);
+            if ( (LA48_0==RULE_ID) ) {
+                int LA48_1 = input.LA(2);
 
-                if ( (LA47_1==KEYWORD_9) ) {
-                    int LA47_2 = input.LA(3);
+                if ( (LA48_1==KEYWORD_9) ) {
+                    int LA48_2 = input.LA(3);
 
-                    if ( (LA47_2==KEYWORD_41) ) {
+                    if ( (LA48_2==KEYWORD_41) ) {
                         switch ( input.LA(4) ) {
+                        case KEYWORD_33:
+                            {
+                            alt48=3;
+                            }
+                            break;
                         case KEYWORD_35:
                             {
-                            alt47=2;
+                            alt48=2;
                             }
                             break;
                         case KEYWORD_57:
                             {
-                            alt47=1;
-                            }
-                            break;
-                        case KEYWORD_33:
-                            {
-                            alt47=3;
+                            alt48=1;
                             }
                             break;
                         default:
                             NoViableAltException nvae =
-                                new NoViableAltException("", 47, 3, input);
+                                new NoViableAltException("", 48, 3, input);
 
                             throw nvae;
                         }
@@ -5430,32 +5441,32 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 47, 2, input);
+                            new NoViableAltException("", 48, 2, input);
 
                         throw nvae;
                     }
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 47, 1, input);
+                        new NoViableAltException("", 48, 1, input);
 
                     throw nvae;
                 }
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 47, 0, input);
+                    new NoViableAltException("", 48, 0, input);
 
                 throw nvae;
             }
-            switch (alt47) {
+            switch (alt48) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2107:5: this_ErrorSource_0= ruleErrorSource
                     {
                      
                             newCompositeNode(grammarAccess.getErrorFlowAccess().getErrorSourceParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorSource_in_ruleErrorFlow4472);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorSource_in_ruleErrorFlow4473);
                     this_ErrorSource_0=ruleErrorSource();
 
                     state._fsp--;
@@ -5473,7 +5484,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getErrorFlowAccess().getErrorSinkParserRuleCall_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorSink_in_ruleErrorFlow4499);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorSink_in_ruleErrorFlow4500);
                     this_ErrorSink_1=ruleErrorSink();
 
                     state._fsp--;
@@ -5491,7 +5502,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getErrorFlowAccess().getErrorPathParserRuleCall_2()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorPath_in_ruleErrorFlow4526);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorPath_in_ruleErrorFlow4527);
                     this_ErrorPath_2=ruleErrorPath();
 
                     state._fsp--;
@@ -5536,13 +5547,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2145:2: iv_ruleErrorSource= ruleErrorSource EOF
             {
              newCompositeNode(grammarAccess.getErrorSourceRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorSource_in_entryRuleErrorSource4560);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorSource_in_entryRuleErrorSource4561);
             iv_ruleErrorSource=ruleErrorSource();
 
             state._fsp--;
 
              current =iv_ruleErrorSource; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorSource4570); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorSource4571); 
 
             }
 
@@ -5594,7 +5605,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2157:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2158:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorSource4612); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorSource4613); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorSourceAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -5614,35 +5625,35 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorSource4630); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorSource4631); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorSourceAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorSource4642); 
+            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorSource4643); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorSourceAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_57,FollowSets000.FOLLOW_KEYWORD_57_in_ruleErrorSource4654); 
+            otherlv_3=(Token)match(input,KEYWORD_57,FollowSets000.FOLLOW_KEYWORD_57_in_ruleErrorSource4655); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorSourceAccess().getSourceKeyword_3());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2189:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_5_0= KEYWORD_25 ) ) )
-            int alt48=2;
-            int LA48_0 = input.LA(1);
+            int alt49=2;
+            int LA49_0 = input.LA(1);
 
-            if ( (LA48_0==KEYWORD_77||LA48_0==KEYWORD_74||LA48_0==KEYWORD_69||LA48_0==KEYWORD_60||LA48_0==KEYWORD_50||LA48_0==KEYWORD_52||LA48_0==RULE_ID) ) {
-                alt48=1;
+            if ( (LA49_0==KEYWORD_77||LA49_0==KEYWORD_74||LA49_0==KEYWORD_69||LA49_0==KEYWORD_60||LA49_0==KEYWORD_50||LA49_0==KEYWORD_52||LA49_0==RULE_ID) ) {
+                alt49=1;
             }
-            else if ( (LA48_0==KEYWORD_25) ) {
-                alt48=2;
+            else if ( (LA49_0==KEYWORD_25) ) {
+                alt49=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 48, 0, input);
+                    new NoViableAltException("", 49, 0, input);
 
                 throw nvae;
             }
-            switch (alt48) {
+            switch (alt49) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2189:2: ( ( ruleErrorPropagationPoint ) )
                     {
@@ -5660,7 +5671,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorSourceAccess().getOutgoingErrorPropagationCrossReference_4_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleErrorSource4677);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleErrorSource4678);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -5686,7 +5697,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2206:1: (lv_allOutgoing_5_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2207:3: lv_allOutgoing_5_0= KEYWORD_25
                     {
-                    lv_allOutgoing_5_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorSource4702); 
+                    lv_allOutgoing_5_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorSource4703); 
 
                             newLeafNode(lv_allOutgoing_5_0, grammarAccess.getErrorSourceAccess().getAllOutgoingAllKeyword_4_1_0());
                         
@@ -5709,13 +5720,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2221:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
-            int alt49=2;
-            int LA49_0 = input.LA(1);
+            int alt50=2;
+            int LA50_0 = input.LA(1);
 
-            if ( (LA49_0==KEYWORD_13||LA49_0==RULE_ID) ) {
-                alt49=1;
+            if ( (LA50_0==KEYWORD_13||LA50_0==RULE_ID) ) {
+                alt50=1;
             }
-            switch (alt49) {
+            switch (alt50) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2222:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
                     {
@@ -5725,7 +5736,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorSourceAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorSource4735);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorSource4736);
                     lv_typeTokenConstraint_6_0=ruleTypeTokenConstraint();
 
                     state._fsp--;
@@ -5751,37 +5762,37 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2239:3: (otherlv_7= KEYWORD_38 ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetConstructor ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) ) )?
-            int alt52=2;
-            int LA52_0 = input.LA(1);
+            int alt53=2;
+            int LA53_0 = input.LA(1);
 
-            if ( (LA52_0==KEYWORD_38) ) {
-                alt52=1;
+            if ( (LA53_0==KEYWORD_38) ) {
+                alt53=1;
             }
-            switch (alt52) {
+            switch (alt53) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2240:2: otherlv_7= KEYWORD_38 ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetConstructor ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) )
                     {
-                    otherlv_7=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleErrorSource4750); 
+                    otherlv_7=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleErrorSource4751); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getErrorSourceAccess().getWhenKeyword_6_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2244:1: ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetConstructor ) )? ) | ( (lv_failureModeType_10_0= ruleTypeSetConstructor ) ) )
-                    int alt51=2;
-                    int LA51_0 = input.LA(1);
+                    int alt52=2;
+                    int LA52_0 = input.LA(1);
 
-                    if ( (LA51_0==RULE_ID) ) {
-                        alt51=1;
+                    if ( (LA52_0==RULE_ID) ) {
+                        alt52=1;
                     }
-                    else if ( (LA51_0==KEYWORD_13) ) {
-                        alt51=2;
+                    else if ( (LA52_0==KEYWORD_13) ) {
+                        alt52=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 51, 0, input);
+                            new NoViableAltException("", 52, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt51) {
+                    switch (alt52) {
                         case 1 :
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2244:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_failureModeType_9_0= ruleTypeSetConstructor ) )? )
                             {
@@ -5799,7 +5810,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	            current = createModelElement(grammarAccess.getErrorSourceRule());
                             	        }
                                     
-                            otherlv_8=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorSource4771); 
+                            otherlv_8=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorSource4772); 
 
                             		newLeafNode(otherlv_8, grammarAccess.getErrorSourceAccess().getFailureModeReferenceErrorBehaviorStateOrTypeSetCrossReference_6_1_0_0_0()); 
                             	
@@ -5810,13 +5821,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             }
 
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2257:2: ( (lv_failureModeType_9_0= ruleTypeSetConstructor ) )?
-                            int alt50=2;
-                            int LA50_0 = input.LA(1);
+                            int alt51=2;
+                            int LA51_0 = input.LA(1);
 
-                            if ( (LA50_0==KEYWORD_13) ) {
-                                alt50=1;
+                            if ( (LA51_0==KEYWORD_13) ) {
+                                alt51=1;
                             }
-                            switch (alt50) {
+                            switch (alt51) {
                                 case 1 :
                                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2258:1: (lv_failureModeType_9_0= ruleTypeSetConstructor )
                                     {
@@ -5826,7 +5837,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                                      
                                     	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_1_0()); 
                                     	    
-                                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetConstructor_in_ruleErrorSource4792);
+                                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetConstructor_in_ruleErrorSource4793);
                                     lv_failureModeType_9_0=ruleTypeSetConstructor();
 
                                     state._fsp--;
@@ -5869,7 +5880,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                              
                             	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0()); 
                             	    
-                            pushFollow(FollowSets000.FOLLOW_ruleTypeSetConstructor_in_ruleErrorSource4821);
+                            pushFollow(FollowSets000.FOLLOW_ruleTypeSetConstructor_in_ruleErrorSource4822);
                             lv_failureModeType_10_0=ruleTypeSetConstructor();
 
                             state._fsp--;
@@ -5903,7 +5914,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_11=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorSource4837); 
+            otherlv_11=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorSource4838); 
 
                 	newLeafNode(otherlv_11, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7());
                 
@@ -5940,13 +5951,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2311:2: iv_ruleErrorSink= ruleErrorSink EOF
             {
              newCompositeNode(grammarAccess.getErrorSinkRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorSink_in_entryRuleErrorSink4873);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorSink_in_entryRuleErrorSink4874);
             iv_ruleErrorSink=ruleErrorSink();
 
             state._fsp--;
 
              current =iv_ruleErrorSink; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorSink4883); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorSink4884); 
 
             }
 
@@ -5992,7 +6003,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2323:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2324:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorSink4925); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorSink4926); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorSinkAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -6012,35 +6023,35 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorSink4943); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorSink4944); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorSinkAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorSink4955); 
+            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorSink4956); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorSinkAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_35,FollowSets000.FOLLOW_KEYWORD_35_in_ruleErrorSink4967); 
+            otherlv_3=(Token)match(input,KEYWORD_35,FollowSets000.FOLLOW_KEYWORD_35_in_ruleErrorSink4968); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorSinkAccess().getSinkKeyword_3());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2355:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= KEYWORD_25 ) ) )
-            int alt53=2;
-            int LA53_0 = input.LA(1);
+            int alt54=2;
+            int LA54_0 = input.LA(1);
 
-            if ( (LA53_0==KEYWORD_77||LA53_0==KEYWORD_74||LA53_0==KEYWORD_69||LA53_0==KEYWORD_60||LA53_0==KEYWORD_50||LA53_0==KEYWORD_52||LA53_0==RULE_ID) ) {
-                alt53=1;
+            if ( (LA54_0==KEYWORD_77||LA54_0==KEYWORD_74||LA54_0==KEYWORD_69||LA54_0==KEYWORD_60||LA54_0==KEYWORD_50||LA54_0==KEYWORD_52||LA54_0==RULE_ID) ) {
+                alt54=1;
             }
-            else if ( (LA53_0==KEYWORD_25) ) {
-                alt53=2;
+            else if ( (LA54_0==KEYWORD_25) ) {
+                alt54=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 53, 0, input);
+                    new NoViableAltException("", 54, 0, input);
 
                 throw nvae;
             }
-            switch (alt53) {
+            switch (alt54) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2355:2: ( ( ruleErrorPropagationPoint ) )
                     {
@@ -6058,7 +6069,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorSinkAccess().getIncomingErrorPropagationCrossReference_4_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleErrorSink4990);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleErrorSink4991);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -6084,7 +6095,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2372:1: (lv_allIncoming_5_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2373:3: lv_allIncoming_5_0= KEYWORD_25
                     {
-                    lv_allIncoming_5_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorSink5015); 
+                    lv_allIncoming_5_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorSink5016); 
 
                             newLeafNode(lv_allIncoming_5_0, grammarAccess.getErrorSinkAccess().getAllIncomingAllKeyword_4_1_0());
                         
@@ -6107,13 +6118,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2387:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
-            int alt54=2;
-            int LA54_0 = input.LA(1);
+            int alt55=2;
+            int LA55_0 = input.LA(1);
 
-            if ( (LA54_0==KEYWORD_13||LA54_0==RULE_ID) ) {
-                alt54=1;
+            if ( (LA55_0==KEYWORD_13||LA55_0==RULE_ID) ) {
+                alt55=1;
             }
-            switch (alt54) {
+            switch (alt55) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2388:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
                     {
@@ -6123,7 +6134,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorSinkAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorSink5048);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorSink5049);
                     lv_typeTokenConstraint_6_0=ruleTypeTokenConstraint();
 
                     state._fsp--;
@@ -6148,7 +6159,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorSink5062); 
+            otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorSink5063); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getErrorSinkAccess().getSemicolonKeyword_6());
                 
@@ -6185,13 +6196,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2420:2: iv_ruleErrorPath= ruleErrorPath EOF
             {
              newCompositeNode(grammarAccess.getErrorPathRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorPath_in_entryRuleErrorPath5096);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorPath_in_entryRuleErrorPath5097);
             iv_ruleErrorPath=ruleErrorPath();
 
             state._fsp--;
 
              current =iv_ruleErrorPath; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorPath5106); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorPath5107); 
 
             }
 
@@ -6243,7 +6254,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2432:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2433:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPath5148); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPath5149); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorPathAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -6263,35 +6274,35 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorPath5166); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorPath5167); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorPathAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorPath5178); 
+            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorPath5179); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorPathAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_33,FollowSets000.FOLLOW_KEYWORD_33_in_ruleErrorPath5190); 
+            otherlv_3=(Token)match(input,KEYWORD_33,FollowSets000.FOLLOW_KEYWORD_33_in_ruleErrorPath5191); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorPathAccess().getPathKeyword_3());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2464:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allIncoming_5_0= KEYWORD_25 ) ) )
-            int alt55=2;
-            int LA55_0 = input.LA(1);
+            int alt56=2;
+            int LA56_0 = input.LA(1);
 
-            if ( (LA55_0==KEYWORD_77||LA55_0==KEYWORD_74||LA55_0==KEYWORD_69||LA55_0==KEYWORD_60||LA55_0==KEYWORD_50||LA55_0==KEYWORD_52||LA55_0==RULE_ID) ) {
-                alt55=1;
+            if ( (LA56_0==KEYWORD_77||LA56_0==KEYWORD_74||LA56_0==KEYWORD_69||LA56_0==KEYWORD_60||LA56_0==KEYWORD_50||LA56_0==KEYWORD_52||LA56_0==RULE_ID) ) {
+                alt56=1;
             }
-            else if ( (LA55_0==KEYWORD_25) ) {
-                alt55=2;
+            else if ( (LA56_0==KEYWORD_25) ) {
+                alt56=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 55, 0, input);
+                    new NoViableAltException("", 56, 0, input);
 
                 throw nvae;
             }
-            switch (alt55) {
+            switch (alt56) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2464:2: ( ( ruleErrorPropagationPoint ) )
                     {
@@ -6309,7 +6320,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getIncomingErrorPropagationCrossReference_4_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5213);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5214);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -6335,7 +6346,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2481:1: (lv_allIncoming_5_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2482:3: lv_allIncoming_5_0= KEYWORD_25
                     {
-                    lv_allIncoming_5_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorPath5238); 
+                    lv_allIncoming_5_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorPath5239); 
 
                             newLeafNode(lv_allIncoming_5_0, grammarAccess.getErrorPathAccess().getAllIncomingAllKeyword_4_1_0());
                         
@@ -6358,13 +6369,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2496:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
-            int alt56=2;
-            int LA56_0 = input.LA(1);
+            int alt57=2;
+            int LA57_0 = input.LA(1);
 
-            if ( (LA56_0==KEYWORD_13||LA56_0==RULE_ID) ) {
-                alt56=1;
+            if ( (LA57_0==KEYWORD_13||LA57_0==RULE_ID) ) {
+                alt57=1;
             }
-            switch (alt56) {
+            switch (alt57) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2497:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
                     {
@@ -6374,7 +6385,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorPath5271);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorPath5272);
                     lv_typeTokenConstraint_6_0=ruleTypeTokenConstraint();
 
                     state._fsp--;
@@ -6399,27 +6410,27 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,KEYWORD_15,FollowSets000.FOLLOW_KEYWORD_15_in_ruleErrorPath5285); 
+            otherlv_7=(Token)match(input,KEYWORD_15,FollowSets000.FOLLOW_KEYWORD_15_in_ruleErrorPath5286); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getErrorPathAccess().getHyphenMinusGreaterThanSignKeyword_6());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2519:1: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allOutgoing_9_0= KEYWORD_25 ) ) )
-            int alt57=2;
-            int LA57_0 = input.LA(1);
+            int alt58=2;
+            int LA58_0 = input.LA(1);
 
-            if ( (LA57_0==KEYWORD_77||LA57_0==KEYWORD_74||LA57_0==KEYWORD_69||LA57_0==KEYWORD_60||LA57_0==KEYWORD_50||LA57_0==KEYWORD_52||LA57_0==RULE_ID) ) {
-                alt57=1;
+            if ( (LA58_0==KEYWORD_77||LA58_0==KEYWORD_74||LA58_0==KEYWORD_69||LA58_0==KEYWORD_60||LA58_0==KEYWORD_50||LA58_0==KEYWORD_52||LA58_0==RULE_ID) ) {
+                alt58=1;
             }
-            else if ( (LA57_0==KEYWORD_25) ) {
-                alt57=2;
+            else if ( (LA58_0==KEYWORD_25) ) {
+                alt58=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 57, 0, input);
+                    new NoViableAltException("", 58, 0, input);
 
                 throw nvae;
             }
-            switch (alt57) {
+            switch (alt58) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2519:2: ( ( ruleErrorPropagationPoint ) )
                     {
@@ -6437,7 +6448,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getOutgoingErrorPropagationCrossReference_7_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5308);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5309);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -6463,7 +6474,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2536:1: (lv_allOutgoing_9_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2537:3: lv_allOutgoing_9_0= KEYWORD_25
                     {
-                    lv_allOutgoing_9_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorPath5333); 
+                    lv_allOutgoing_9_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorPath5334); 
 
                             newLeafNode(lv_allOutgoing_9_0, grammarAccess.getErrorPathAccess().getAllOutgoingAllKeyword_7_1_0());
                         
@@ -6486,16 +6497,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2551:3: ( ( (lv_targetToken_10_0= ruleTypeToken ) ) | (otherlv_11= KEYWORD_31 otherlv_12= KEYWORD_71 ( ( ruleQEMREF ) ) ) )?
-            int alt58=3;
-            int LA58_0 = input.LA(1);
+            int alt59=3;
+            int LA59_0 = input.LA(1);
 
-            if ( (LA58_0==KEYWORD_2) ) {
-                alt58=1;
+            if ( (LA59_0==KEYWORD_2) ) {
+                alt59=1;
             }
-            else if ( (LA58_0==KEYWORD_31) ) {
-                alt58=2;
+            else if ( (LA59_0==KEYWORD_31) ) {
+                alt59=2;
             }
-            switch (alt58) {
+            switch (alt59) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2551:4: ( (lv_targetToken_10_0= ruleTypeToken ) )
                     {
@@ -6508,7 +6519,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getTargetTokenTypeTokenParserRuleCall_8_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeToken_in_ruleErrorPath5367);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeToken_in_ruleErrorPath5368);
                     lv_targetToken_10_0=ruleTypeToken();
 
                     state._fsp--;
@@ -6539,11 +6550,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2570:6: (otherlv_11= KEYWORD_31 otherlv_12= KEYWORD_71 ( ( ruleQEMREF ) ) )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2571:2: otherlv_11= KEYWORD_31 otherlv_12= KEYWORD_71 ( ( ruleQEMREF ) )
                     {
-                    otherlv_11=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorPath5387); 
+                    otherlv_11=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorPath5388); 
 
                         	newLeafNode(otherlv_11, grammarAccess.getErrorPathAccess().getUseKeyword_8_1_0());
                         
-                    otherlv_12=(Token)match(input,KEYWORD_71,FollowSets000.FOLLOW_KEYWORD_71_in_ruleErrorPath5399); 
+                    otherlv_12=(Token)match(input,KEYWORD_71,FollowSets000.FOLLOW_KEYWORD_71_in_ruleErrorPath5400); 
 
                         	newLeafNode(otherlv_12, grammarAccess.getErrorPathAccess().getMappingsKeyword_8_1_1());
                         
@@ -6561,7 +6572,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorPathAccess().getTypeMappingSetTypeMappingSetCrossReference_8_1_2_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorPath5421);
+                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorPath5422);
                     ruleQEMREF();
 
                     state._fsp--;
@@ -6584,7 +6595,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_14=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorPath5437); 
+            otherlv_14=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorPath5438); 
 
                 	newLeafNode(otherlv_14, grammarAccess.getErrorPathAccess().getSemicolonKeyword_9());
                 
@@ -6621,13 +6632,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2610:2: iv_ruleErrorPropagationPoint= ruleErrorPropagationPoint EOF
             {
              newCompositeNode(grammarAccess.getErrorPropagationPointRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_entryRuleErrorPropagationPoint5472);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_entryRuleErrorPropagationPoint5473);
             iv_ruleErrorPropagationPoint=ruleErrorPropagationPoint();
 
             state._fsp--;
 
              current =iv_ruleErrorPropagationPoint.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorPropagationPoint5483); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorPropagationPoint5484); 
 
             }
 
@@ -6662,29 +6673,29 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2622:1: (this_PropagationKind_0= rulePropagationKind | (this_ID_1= RULE_ID (kw= KEYWORD_8 this_ID_3= RULE_ID )* ) )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2622:1: (this_PropagationKind_0= rulePropagationKind | (this_ID_1= RULE_ID (kw= KEYWORD_8 this_ID_3= RULE_ID )* ) )
-            int alt60=2;
-            int LA60_0 = input.LA(1);
+            int alt61=2;
+            int LA61_0 = input.LA(1);
 
-            if ( (LA60_0==KEYWORD_77||LA60_0==KEYWORD_74||LA60_0==KEYWORD_69||LA60_0==KEYWORD_60||LA60_0==KEYWORD_50||LA60_0==KEYWORD_52) ) {
-                alt60=1;
+            if ( (LA61_0==KEYWORD_77||LA61_0==KEYWORD_74||LA61_0==KEYWORD_69||LA61_0==KEYWORD_60||LA61_0==KEYWORD_50||LA61_0==KEYWORD_52) ) {
+                alt61=1;
             }
-            else if ( (LA60_0==RULE_ID) ) {
-                alt60=2;
+            else if ( (LA61_0==RULE_ID) ) {
+                alt61=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 60, 0, input);
+                    new NoViableAltException("", 61, 0, input);
 
                 throw nvae;
             }
-            switch (alt60) {
+            switch (alt61) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2623:5: this_PropagationKind_0= rulePropagationKind
                     {
                      
                             newCompositeNode(grammarAccess.getErrorPropagationPointAccess().getPropagationKindParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_rulePropagationKind_in_ruleErrorPropagationPoint5530);
+                    pushFollow(FollowSets000.FOLLOW_rulePropagationKind_in_ruleErrorPropagationPoint5531);
                     this_PropagationKind_0=rulePropagationKind();
 
                     state._fsp--;
@@ -6704,7 +6715,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2634:6: (this_ID_1= RULE_ID (kw= KEYWORD_8 this_ID_3= RULE_ID )* )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2634:11: this_ID_1= RULE_ID (kw= KEYWORD_8 this_ID_3= RULE_ID )*
                     {
-                    this_ID_1=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPropagationPoint5557); 
+                    this_ID_1=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPropagationPoint5558); 
 
                     		current.merge(this_ID_1);
                         
@@ -6712,26 +6723,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                         newLeafNode(this_ID_1, grammarAccess.getErrorPropagationPointAccess().getIDTerminalRuleCall_1_0()); 
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2641:1: (kw= KEYWORD_8 this_ID_3= RULE_ID )*
-                    loop59:
+                    loop60:
                     do {
-                        int alt59=2;
-                        int LA59_0 = input.LA(1);
+                        int alt60=2;
+                        int LA60_0 = input.LA(1);
 
-                        if ( (LA59_0==KEYWORD_8) ) {
-                            alt59=1;
+                        if ( (LA60_0==KEYWORD_8) ) {
+                            alt60=1;
                         }
 
 
-                        switch (alt59) {
+                        switch (alt60) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2642:2: kw= KEYWORD_8 this_ID_3= RULE_ID
                     	    {
-                    	    kw=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleErrorPropagationPoint5576); 
+                    	    kw=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleErrorPropagationPoint5577); 
 
                     	            current.merge(kw);
                     	            newLeafNode(kw, grammarAccess.getErrorPropagationPointAccess().getFullStopKeyword_1_1_0()); 
                     	        
-                    	    this_ID_3=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPropagationPoint5591); 
+                    	    this_ID_3=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorPropagationPoint5592); 
 
                     	    		current.merge(this_ID_3);
                     	        
@@ -6743,7 +6754,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop59;
+                    	    break loop60;
                         }
                     } while (true);
 
@@ -6787,13 +6798,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2664:2: iv_rulePropagationPaths= rulePropagationPaths EOF
             {
              newCompositeNode(grammarAccess.getPropagationPathsRule()); 
-            pushFollow(FollowSets000.FOLLOW_rulePropagationPaths_in_entryRulePropagationPaths5638);
+            pushFollow(FollowSets000.FOLLOW_rulePropagationPaths_in_entryRulePropagationPaths5639);
             iv_rulePropagationPaths=rulePropagationPaths();
 
             state._fsp--;
 
              current =iv_rulePropagationPaths; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationPaths5648); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationPaths5649); 
 
             }
 
@@ -6835,27 +6846,27 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2675:1: (otherlv_0= KEYWORD_81 otherlv_1= KEYWORD_46 ( (lv_points_2_0= rulePropagationPoint ) )+ (otherlv_3= KEYWORD_80 ( (lv_connections_4_0= rulePropagationPointConnection ) )+ )? otherlv_5= KEYWORD_27 otherlv_6= KEYWORD_46 otherlv_7= KEYWORD_10 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2676:2: otherlv_0= KEYWORD_81 otherlv_1= KEYWORD_46 ( (lv_points_2_0= rulePropagationPoint ) )+ (otherlv_3= KEYWORD_80 ( (lv_connections_4_0= rulePropagationPointConnection ) )+ )? otherlv_5= KEYWORD_27 otherlv_6= KEYWORD_46 otherlv_7= KEYWORD_10
             {
-            otherlv_0=(Token)match(input,KEYWORD_81,FollowSets000.FOLLOW_KEYWORD_81_in_rulePropagationPaths5686); 
+            otherlv_0=(Token)match(input,KEYWORD_81,FollowSets000.FOLLOW_KEYWORD_81_in_rulePropagationPaths5687); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getPropagationPathsAccess().getPropagationKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_46,FollowSets000.FOLLOW_KEYWORD_46_in_rulePropagationPaths5698); 
+            otherlv_1=(Token)match(input,KEYWORD_46,FollowSets000.FOLLOW_KEYWORD_46_in_rulePropagationPaths5699); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getPropagationPathsAccess().getPathsKeyword_1());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2685:1: ( (lv_points_2_0= rulePropagationPoint ) )+
-            int cnt61=0;
-            loop61:
+            int cnt62=0;
+            loop62:
             do {
-                int alt61=2;
-                int LA61_0 = input.LA(1);
+                int alt62=2;
+                int LA62_0 = input.LA(1);
 
-                if ( (LA61_0==RULE_ID) ) {
-                    alt61=1;
+                if ( (LA62_0==RULE_ID) ) {
+                    alt62=1;
                 }
 
 
-                switch (alt61) {
+                switch (alt62) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2686:1: (lv_points_2_0= rulePropagationPoint )
             	    {
@@ -6865,7 +6876,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getPropagationPathsAccess().getPointsPropagationPointParserRuleCall_2_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_rulePropagationPoint_in_rulePropagationPaths5718);
+            	    pushFollow(FollowSets000.FOLLOW_rulePropagationPoint_in_rulePropagationPaths5719);
             	    lv_points_2_0=rulePropagationPoint();
 
             	    state._fsp--;
@@ -6889,42 +6900,42 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt61 >= 1 ) break loop61;
+            	    if ( cnt62 >= 1 ) break loop62;
                         EarlyExitException eee =
-                            new EarlyExitException(61, input);
+                            new EarlyExitException(62, input);
                         throw eee;
                 }
-                cnt61++;
+                cnt62++;
             } while (true);
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2703:3: (otherlv_3= KEYWORD_80 ( (lv_connections_4_0= rulePropagationPointConnection ) )+ )?
-            int alt63=2;
-            int LA63_0 = input.LA(1);
+            int alt64=2;
+            int LA64_0 = input.LA(1);
 
-            if ( (LA63_0==KEYWORD_80) ) {
-                alt63=1;
+            if ( (LA64_0==KEYWORD_80) ) {
+                alt64=1;
             }
-            switch (alt63) {
+            switch (alt64) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2704:2: otherlv_3= KEYWORD_80 ( (lv_connections_4_0= rulePropagationPointConnection ) )+
                     {
-                    otherlv_3=(Token)match(input,KEYWORD_80,FollowSets000.FOLLOW_KEYWORD_80_in_rulePropagationPaths5733); 
+                    otherlv_3=(Token)match(input,KEYWORD_80,FollowSets000.FOLLOW_KEYWORD_80_in_rulePropagationPaths5734); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getPropagationPathsAccess().getConnectionsKeyword_3_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2708:1: ( (lv_connections_4_0= rulePropagationPointConnection ) )+
-                    int cnt62=0;
-                    loop62:
+                    int cnt63=0;
+                    loop63:
                     do {
-                        int alt62=2;
-                        int LA62_0 = input.LA(1);
+                        int alt63=2;
+                        int LA63_0 = input.LA(1);
 
-                        if ( (LA62_0==RULE_ID) ) {
-                            alt62=1;
+                        if ( (LA63_0==RULE_ID) ) {
+                            alt63=1;
                         }
 
 
-                        switch (alt62) {
+                        switch (alt63) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2709:1: (lv_connections_4_0= rulePropagationPointConnection )
                     	    {
@@ -6934,7 +6945,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getPropagationPathsAccess().getConnectionsPropagationPointConnectionParserRuleCall_3_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_rulePropagationPointConnection_in_rulePropagationPaths5753);
+                    	    pushFollow(FollowSets000.FOLLOW_rulePropagationPointConnection_in_rulePropagationPaths5754);
                     	    lv_connections_4_0=rulePropagationPointConnection();
 
                     	    state._fsp--;
@@ -6958,12 +6969,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt62 >= 1 ) break loop62;
+                    	    if ( cnt63 >= 1 ) break loop63;
                                 EarlyExitException eee =
-                                    new EarlyExitException(62, input);
+                                    new EarlyExitException(63, input);
                                 throw eee;
                         }
-                        cnt62++;
+                        cnt63++;
                     } while (true);
 
 
@@ -6972,15 +6983,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_rulePropagationPaths5769); 
+            otherlv_5=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_rulePropagationPaths5770); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getPropagationPathsAccess().getEndKeyword_4());
                 
-            otherlv_6=(Token)match(input,KEYWORD_46,FollowSets000.FOLLOW_KEYWORD_46_in_rulePropagationPaths5781); 
+            otherlv_6=(Token)match(input,KEYWORD_46,FollowSets000.FOLLOW_KEYWORD_46_in_rulePropagationPaths5782); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getPropagationPathsAccess().getPathsKeyword_5());
                 
-            otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rulePropagationPaths5793); 
+            otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rulePropagationPaths5794); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getPropagationPathsAccess().getSemicolonKeyword_6());
                 
@@ -7017,13 +7028,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2751:2: iv_rulePropagationPoint= rulePropagationPoint EOF
             {
              newCompositeNode(grammarAccess.getPropagationPointRule()); 
-            pushFollow(FollowSets000.FOLLOW_rulePropagationPoint_in_entryRulePropagationPoint5827);
+            pushFollow(FollowSets000.FOLLOW_rulePropagationPoint_in_entryRulePropagationPoint5828);
             iv_rulePropagationPoint=rulePropagationPoint();
 
             state._fsp--;
 
              current =iv_rulePropagationPoint; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationPoint5837); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationPoint5838); 
 
             }
 
@@ -7066,7 +7077,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2763:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2764:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_rulePropagationPoint5879); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_rulePropagationPoint5880); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getPropagationPointAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -7086,19 +7097,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_rulePropagationPoint5897); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_rulePropagationPoint5898); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getPropagationPointAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_81,FollowSets000.FOLLOW_KEYWORD_81_in_rulePropagationPoint5909); 
+            otherlv_2=(Token)match(input,KEYWORD_81,FollowSets000.FOLLOW_KEYWORD_81_in_rulePropagationPoint5910); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getPropagationPointAccess().getPropagationKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_47,FollowSets000.FOLLOW_KEYWORD_47_in_rulePropagationPoint5921); 
+            otherlv_3=(Token)match(input,KEYWORD_47,FollowSets000.FOLLOW_KEYWORD_47_in_rulePropagationPoint5922); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getPropagationPointAccess().getPointKeyword_3());
                 
-            otherlv_4=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rulePropagationPoint5933); 
+            otherlv_4=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rulePropagationPoint5934); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getPropagationPointAccess().getSemicolonKeyword_4());
                 
@@ -7135,13 +7146,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2810:2: iv_rulePropagationPointConnection= rulePropagationPointConnection EOF
             {
              newCompositeNode(grammarAccess.getPropagationPointConnectionRule()); 
-            pushFollow(FollowSets000.FOLLOW_rulePropagationPointConnection_in_entryRulePropagationPointConnection5967);
+            pushFollow(FollowSets000.FOLLOW_rulePropagationPointConnection_in_entryRulePropagationPointConnection5968);
             iv_rulePropagationPointConnection=rulePropagationPointConnection();
 
             state._fsp--;
 
              current =iv_rulePropagationPointConnection; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationPointConnection5977); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropagationPointConnection5978); 
 
             }
 
@@ -7187,7 +7198,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2822:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2823:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_rulePropagationPointConnection6019); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_rulePropagationPointConnection6020); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getPropagationPointConnectionAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -7207,7 +7218,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_rulePropagationPointConnection6037); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_rulePropagationPointConnection6038); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getPropagationPointConnectionAccess().getColonKeyword_1());
                 
@@ -7220,7 +7231,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getPropagationPointConnectionAccess().getSourceQualifiedPropagationPointParserRuleCall_2_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleQualifiedPropagationPoint_in_rulePropagationPointConnection6057);
+            pushFollow(FollowSets000.FOLLOW_ruleQualifiedPropagationPoint_in_rulePropagationPointConnection6058);
             lv_source_2_0=ruleQualifiedPropagationPoint();
 
             state._fsp--;
@@ -7242,7 +7253,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_15,FollowSets000.FOLLOW_KEYWORD_15_in_rulePropagationPointConnection6070); 
+            otherlv_3=(Token)match(input,KEYWORD_15,FollowSets000.FOLLOW_KEYWORD_15_in_rulePropagationPointConnection6071); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getPropagationPointConnectionAccess().getHyphenMinusGreaterThanSignKeyword_3());
                 
@@ -7255,7 +7266,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getPropagationPointConnectionAccess().getTargetQualifiedPropagationPointParserRuleCall_4_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleQualifiedPropagationPoint_in_rulePropagationPointConnection6090);
+            pushFollow(FollowSets000.FOLLOW_ruleQualifiedPropagationPoint_in_rulePropagationPointConnection6091);
             lv_target_4_0=ruleQualifiedPropagationPoint();
 
             state._fsp--;
@@ -7277,7 +7288,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rulePropagationPointConnection6103); 
+            otherlv_5=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rulePropagationPointConnection6104); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getPropagationPointConnectionAccess().getSemicolonKeyword_5());
                 
@@ -7314,13 +7325,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2900:2: iv_ruleQualifiedPropagationPoint= ruleQualifiedPropagationPoint EOF
             {
              newCompositeNode(grammarAccess.getQualifiedPropagationPointRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleQualifiedPropagationPoint_in_entryRuleQualifiedPropagationPoint6137);
+            pushFollow(FollowSets000.FOLLOW_ruleQualifiedPropagationPoint_in_entryRuleQualifiedPropagationPoint6138);
             iv_ruleQualifiedPropagationPoint=ruleQualifiedPropagationPoint();
 
             state._fsp--;
 
              current =iv_ruleQualifiedPropagationPoint; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQualifiedPropagationPoint6147); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQualifiedPropagationPoint6148); 
 
             }
 
@@ -7356,17 +7367,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2911:2: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= KEYWORD_8 )? ( (otherlv_2= RULE_ID ) )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2911:2: ( ( (otherlv_0= RULE_ID ) ) otherlv_1= KEYWORD_8 )?
-            int alt64=2;
-            int LA64_0 = input.LA(1);
+            int alt65=2;
+            int LA65_0 = input.LA(1);
 
-            if ( (LA64_0==RULE_ID) ) {
-                int LA64_1 = input.LA(2);
+            if ( (LA65_0==RULE_ID) ) {
+                int LA65_1 = input.LA(2);
 
-                if ( (LA64_1==KEYWORD_8) ) {
-                    alt64=1;
+                if ( (LA65_1==KEYWORD_8) ) {
+                    alt65=1;
                 }
             }
-            switch (alt64) {
+            switch (alt65) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2911:3: ( (otherlv_0= RULE_ID ) ) otherlv_1= KEYWORD_8
                     {
@@ -7381,7 +7392,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getQualifiedPropagationPointRule());
                     	        }
                             
-                    otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedPropagationPoint6193); 
+                    otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedPropagationPoint6194); 
 
                     		newLeafNode(otherlv_0, grammarAccess.getQualifiedPropagationPointAccess().getSubcomponentSubcomponentCrossReference_0_0_0()); 
                     	
@@ -7391,7 +7402,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleQualifiedPropagationPoint6206); 
+                    otherlv_1=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleQualifiedPropagationPoint6207); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getQualifiedPropagationPointAccess().getFullStopKeyword_0_1());
                         
@@ -7412,7 +7423,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getQualifiedPropagationPointRule());
             	        }
                     
-            otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedPropagationPoint6227); 
+            otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedPropagationPoint6228); 
 
             		newLeafNode(otherlv_2, grammarAccess.getQualifiedPropagationPointAccess().getPropagationPointPropagationPointCrossReference_1_0()); 
             	
@@ -7455,13 +7466,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2952:2: iv_ruleErrorBehaviorStateMachine= ruleErrorBehaviorStateMachine EOF
             {
              newCompositeNode(grammarAccess.getErrorBehaviorStateMachineRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorStateMachine_in_entryRuleErrorBehaviorStateMachine6262);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorStateMachine_in_entryRuleErrorBehaviorStateMachine6263);
             iv_ruleErrorBehaviorStateMachine=ruleErrorBehaviorStateMachine();
 
             state._fsp--;
 
              current =iv_ruleErrorBehaviorStateMachine; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorBehaviorStateMachine6272); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorBehaviorStateMachine6273); 
 
             }
 
@@ -7518,11 +7529,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2963:1: (otherlv_0= KEYWORD_41 otherlv_1= KEYWORD_68 ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= KEYWORD_31 otherlv_4= KEYWORD_49 ( ( ruleQEMREF ) ) (otherlv_6= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_8= KEYWORD_10 )? (otherlv_9= KEYWORD_31 otherlv_10= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_12= KEYWORD_10 )? (otherlv_13= KEYWORD_51 ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= KEYWORD_58 ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= KEYWORD_82 ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= KEYWORD_79 ( (lv_properties_20_0= ruleContainedPropertyAssociation ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_68 otherlv_23= KEYWORD_10 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2964:2: otherlv_0= KEYWORD_41 otherlv_1= KEYWORD_68 ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= KEYWORD_31 otherlv_4= KEYWORD_49 ( ( ruleQEMREF ) ) (otherlv_6= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_8= KEYWORD_10 )? (otherlv_9= KEYWORD_31 otherlv_10= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_12= KEYWORD_10 )? (otherlv_13= KEYWORD_51 ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_15= KEYWORD_58 ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )? (otherlv_17= KEYWORD_82 ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_19= KEYWORD_79 ( (lv_properties_20_0= ruleContainedPropertyAssociation ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_68 otherlv_23= KEYWORD_10
             {
-            otherlv_0=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorBehaviorStateMachine6310); 
+            otherlv_0=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorBehaviorStateMachine6311); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getErrorBehaviorStateMachineAccess().getErrorKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleErrorBehaviorStateMachine6322); 
+            otherlv_1=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleErrorBehaviorStateMachine6323); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
                 
@@ -7532,7 +7543,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2974:1: (lv_name_2_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2975:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorStateMachine6338); 
+            lv_name_2_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorStateMachine6339); 
 
             			newLeafNode(lv_name_2_0, grammarAccess.getErrorBehaviorStateMachineAccess().getNameIDTerminalRuleCall_2_0()); 
             		
@@ -7553,25 +7564,25 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2991:2: (otherlv_3= KEYWORD_31 otherlv_4= KEYWORD_49 ( ( ruleQEMREF ) ) (otherlv_6= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_8= KEYWORD_10 )?
-            int alt66=2;
-            int LA66_0 = input.LA(1);
+            int alt67=2;
+            int LA67_0 = input.LA(1);
 
-            if ( (LA66_0==KEYWORD_31) ) {
-                int LA66_1 = input.LA(2);
+            if ( (LA67_0==KEYWORD_31) ) {
+                int LA67_1 = input.LA(2);
 
-                if ( (LA66_1==KEYWORD_49) ) {
-                    alt66=1;
+                if ( (LA67_1==KEYWORD_49) ) {
+                    alt67=1;
                 }
             }
-            switch (alt66) {
+            switch (alt67) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2992:2: otherlv_3= KEYWORD_31 otherlv_4= KEYWORD_49 ( ( ruleQEMREF ) ) (otherlv_6= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_8= KEYWORD_10
                     {
-                    otherlv_3=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorBehaviorStateMachine6357); 
+                    otherlv_3=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorBehaviorStateMachine6358); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getErrorBehaviorStateMachineAccess().getUseKeyword_3_0());
                         
-                    otherlv_4=(Token)match(input,KEYWORD_49,FollowSets000.FOLLOW_KEYWORD_49_in_ruleErrorBehaviorStateMachine6369); 
+                    otherlv_4=(Token)match(input,KEYWORD_49,FollowSets000.FOLLOW_KEYWORD_49_in_ruleErrorBehaviorStateMachine6370); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getErrorBehaviorStateMachineAccess().getTypesKeyword_3_1());
                         
@@ -7589,7 +7600,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesErrorModelLibraryCrossReference_3_2_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6391);
+                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6392);
                     ruleQEMREF();
 
                     state._fsp--;
@@ -7604,21 +7615,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
 
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3016:2: (otherlv_6= KEYWORD_6 ( ( ruleQEMREF ) ) )*
-                    loop65:
+                    loop66:
                     do {
-                        int alt65=2;
-                        int LA65_0 = input.LA(1);
+                        int alt66=2;
+                        int LA66_0 = input.LA(1);
 
-                        if ( (LA65_0==KEYWORD_6) ) {
-                            alt65=1;
+                        if ( (LA66_0==KEYWORD_6) ) {
+                            alt66=1;
                         }
 
 
-                        switch (alt65) {
+                        switch (alt66) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3017:2: otherlv_6= KEYWORD_6 ( ( ruleQEMREF ) )
                     	    {
-                    	    otherlv_6=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleErrorBehaviorStateMachine6405); 
+                    	    otherlv_6=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleErrorBehaviorStateMachine6406); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getErrorBehaviorStateMachineAccess().getCommaKeyword_3_3_0());
                     	        
@@ -7636,7 +7647,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesErrorModelLibraryCrossReference_3_3_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6427);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6428);
                     	    ruleQEMREF();
 
                     	    state._fsp--;
@@ -7655,11 +7666,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop65;
+                    	    break loop66;
                         }
                     } while (true);
 
-                    otherlv_8=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6442); 
+                    otherlv_8=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6443); 
 
                         	newLeafNode(otherlv_8, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_3_4());
                         
@@ -7670,21 +7681,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3041:3: (otherlv_9= KEYWORD_31 otherlv_10= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_12= KEYWORD_10 )?
-            int alt67=2;
-            int LA67_0 = input.LA(1);
+            int alt68=2;
+            int LA68_0 = input.LA(1);
 
-            if ( (LA67_0==KEYWORD_31) ) {
-                alt67=1;
+            if ( (LA68_0==KEYWORD_31) ) {
+                alt68=1;
             }
-            switch (alt67) {
+            switch (alt68) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3042:2: otherlv_9= KEYWORD_31 otherlv_10= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_12= KEYWORD_10
                     {
-                    otherlv_9=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorBehaviorStateMachine6457); 
+                    otherlv_9=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorBehaviorStateMachine6458); 
 
                         	newLeafNode(otherlv_9, grammarAccess.getErrorBehaviorStateMachineAccess().getUseKeyword_4_0());
                         
-                    otherlv_10=(Token)match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_ruleErrorBehaviorStateMachine6469); 
+                    otherlv_10=(Token)match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_ruleErrorBehaviorStateMachine6470); 
 
                         	newLeafNode(otherlv_10, grammarAccess.getErrorBehaviorStateMachineAccess().getTransformationsKeyword_4_1());
                         
@@ -7702,7 +7713,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTransformationTypeTransformationSetCrossReference_4_2_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6491);
+                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6492);
                     ruleQEMREF();
 
                     state._fsp--;
@@ -7716,7 +7727,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_12=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6504); 
+                    otherlv_12=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6505); 
 
                         	newLeafNode(otherlv_12, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_4_3());
                         
@@ -7727,33 +7738,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3071:3: (otherlv_13= KEYWORD_51 ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+ )?
-            int alt69=2;
-            int LA69_0 = input.LA(1);
+            int alt70=2;
+            int LA70_0 = input.LA(1);
 
-            if ( (LA69_0==KEYWORD_51) ) {
-                alt69=1;
+            if ( (LA70_0==KEYWORD_51) ) {
+                alt70=1;
             }
-            switch (alt69) {
+            switch (alt70) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3072:2: otherlv_13= KEYWORD_51 ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+
                     {
-                    otherlv_13=(Token)match(input,KEYWORD_51,FollowSets000.FOLLOW_KEYWORD_51_in_ruleErrorBehaviorStateMachine6519); 
+                    otherlv_13=(Token)match(input,KEYWORD_51,FollowSets000.FOLLOW_KEYWORD_51_in_ruleErrorBehaviorStateMachine6520); 
 
                         	newLeafNode(otherlv_13, grammarAccess.getErrorBehaviorStateMachineAccess().getEventsKeyword_5_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3076:1: ( (lv_events_14_0= ruleErrorBehaviorEvent ) )+
-                    int cnt68=0;
-                    loop68:
+                    int cnt69=0;
+                    loop69:
                     do {
-                        int alt68=2;
-                        int LA68_0 = input.LA(1);
+                        int alt69=2;
+                        int LA69_0 = input.LA(1);
 
-                        if ( (LA68_0==RULE_ID) ) {
-                            alt68=1;
+                        if ( (LA69_0==RULE_ID) ) {
+                            alt69=1;
                         }
 
 
-                        switch (alt68) {
+                        switch (alt69) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3077:1: (lv_events_14_0= ruleErrorBehaviorEvent )
                     	    {
@@ -7763,7 +7774,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getEventsErrorBehaviorEventParserRuleCall_5_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_ruleErrorBehaviorStateMachine6539);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_ruleErrorBehaviorStateMachine6540);
                     	    lv_events_14_0=ruleErrorBehaviorEvent();
 
                     	    state._fsp--;
@@ -7787,12 +7798,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt68 >= 1 ) break loop68;
+                    	    if ( cnt69 >= 1 ) break loop69;
                                 EarlyExitException eee =
-                                    new EarlyExitException(68, input);
+                                    new EarlyExitException(69, input);
                                 throw eee;
                         }
-                        cnt68++;
+                        cnt69++;
                     } while (true);
 
 
@@ -7802,33 +7813,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3094:5: (otherlv_15= KEYWORD_58 ( (lv_states_16_0= ruleErrorBehaviorState ) )+ )?
-            int alt71=2;
-            int LA71_0 = input.LA(1);
+            int alt72=2;
+            int LA72_0 = input.LA(1);
 
-            if ( (LA71_0==KEYWORD_58) ) {
-                alt71=1;
+            if ( (LA72_0==KEYWORD_58) ) {
+                alt72=1;
             }
-            switch (alt71) {
+            switch (alt72) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3095:2: otherlv_15= KEYWORD_58 ( (lv_states_16_0= ruleErrorBehaviorState ) )+
                     {
-                    otherlv_15=(Token)match(input,KEYWORD_58,FollowSets000.FOLLOW_KEYWORD_58_in_ruleErrorBehaviorStateMachine6556); 
+                    otherlv_15=(Token)match(input,KEYWORD_58,FollowSets000.FOLLOW_KEYWORD_58_in_ruleErrorBehaviorStateMachine6557); 
 
                         	newLeafNode(otherlv_15, grammarAccess.getErrorBehaviorStateMachineAccess().getStatesKeyword_6_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3099:1: ( (lv_states_16_0= ruleErrorBehaviorState ) )+
-                    int cnt70=0;
-                    loop70:
+                    int cnt71=0;
+                    loop71:
                     do {
-                        int alt70=2;
-                        int LA70_0 = input.LA(1);
+                        int alt71=2;
+                        int LA71_0 = input.LA(1);
 
-                        if ( (LA70_0==RULE_ID) ) {
-                            alt70=1;
+                        if ( (LA71_0==RULE_ID) ) {
+                            alt71=1;
                         }
 
 
-                        switch (alt70) {
+                        switch (alt71) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3100:1: (lv_states_16_0= ruleErrorBehaviorState )
                     	    {
@@ -7838,7 +7849,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getStatesErrorBehaviorStateParserRuleCall_6_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorState_in_ruleErrorBehaviorStateMachine6576);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorState_in_ruleErrorBehaviorStateMachine6577);
                     	    lv_states_16_0=ruleErrorBehaviorState();
 
                     	    state._fsp--;
@@ -7862,12 +7873,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt70 >= 1 ) break loop70;
+                    	    if ( cnt71 >= 1 ) break loop71;
                                 EarlyExitException eee =
-                                    new EarlyExitException(70, input);
+                                    new EarlyExitException(71, input);
                                 throw eee;
                         }
-                        cnt70++;
+                        cnt71++;
                     } while (true);
 
 
@@ -7877,33 +7888,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3117:5: (otherlv_17= KEYWORD_82 ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+ )?
-            int alt73=2;
-            int LA73_0 = input.LA(1);
+            int alt74=2;
+            int LA74_0 = input.LA(1);
 
-            if ( (LA73_0==KEYWORD_82) ) {
-                alt73=1;
+            if ( (LA74_0==KEYWORD_82) ) {
+                alt74=1;
             }
-            switch (alt73) {
+            switch (alt74) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3118:2: otherlv_17= KEYWORD_82 ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+
                     {
-                    otherlv_17=(Token)match(input,KEYWORD_82,FollowSets000.FOLLOW_KEYWORD_82_in_ruleErrorBehaviorStateMachine6593); 
+                    otherlv_17=(Token)match(input,KEYWORD_82,FollowSets000.FOLLOW_KEYWORD_82_in_ruleErrorBehaviorStateMachine6594); 
 
                         	newLeafNode(otherlv_17, grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsKeyword_7_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3122:1: ( (lv_transitions_18_0= ruleErrorBehaviorTransition ) )+
-                    int cnt72=0;
-                    loop72:
+                    int cnt73=0;
+                    loop73:
                     do {
-                        int alt72=2;
-                        int LA72_0 = input.LA(1);
+                        int alt73=2;
+                        int LA73_0 = input.LA(1);
 
-                        if ( (LA72_0==KEYWORD_25||LA72_0==RULE_ID) ) {
-                            alt72=1;
+                        if ( (LA73_0==KEYWORD_25||LA73_0==RULE_ID) ) {
+                            alt73=1;
                         }
 
 
-                        switch (alt72) {
+                        switch (alt73) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3123:1: (lv_transitions_18_0= ruleErrorBehaviorTransition )
                     	    {
@@ -7913,7 +7924,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorTransition_in_ruleErrorBehaviorStateMachine6613);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorTransition_in_ruleErrorBehaviorStateMachine6614);
                     	    lv_transitions_18_0=ruleErrorBehaviorTransition();
 
                     	    state._fsp--;
@@ -7937,12 +7948,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt72 >= 1 ) break loop72;
+                    	    if ( cnt73 >= 1 ) break loop73;
                                 EarlyExitException eee =
-                                    new EarlyExitException(72, input);
+                                    new EarlyExitException(73, input);
                                 throw eee;
                         }
-                        cnt72++;
+                        cnt73++;
                     } while (true);
 
 
@@ -7952,33 +7963,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3140:5: (otherlv_19= KEYWORD_79 ( (lv_properties_20_0= ruleContainedPropertyAssociation ) )+ )?
-            int alt75=2;
-            int LA75_0 = input.LA(1);
+            int alt76=2;
+            int LA76_0 = input.LA(1);
 
-            if ( (LA75_0==KEYWORD_79) ) {
-                alt75=1;
+            if ( (LA76_0==KEYWORD_79) ) {
+                alt76=1;
             }
-            switch (alt75) {
+            switch (alt76) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3141:2: otherlv_19= KEYWORD_79 ( (lv_properties_20_0= ruleContainedPropertyAssociation ) )+
                     {
-                    otherlv_19=(Token)match(input,KEYWORD_79,FollowSets000.FOLLOW_KEYWORD_79_in_ruleErrorBehaviorStateMachine6630); 
+                    otherlv_19=(Token)match(input,KEYWORD_79,FollowSets000.FOLLOW_KEYWORD_79_in_ruleErrorBehaviorStateMachine6631); 
 
                         	newLeafNode(otherlv_19, grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesKeyword_8_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3145:1: ( (lv_properties_20_0= ruleContainedPropertyAssociation ) )+
-                    int cnt74=0;
-                    loop74:
+                    int cnt75=0;
+                    loop75:
                     do {
-                        int alt74=2;
-                        int LA74_0 = input.LA(1);
+                        int alt75=2;
+                        int LA75_0 = input.LA(1);
 
-                        if ( (LA74_0==RULE_ID) ) {
-                            alt74=1;
+                        if ( (LA75_0==RULE_ID) ) {
+                            alt75=1;
                         }
 
 
-                        switch (alt74) {
+                        switch (alt75) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3146:1: (lv_properties_20_0= ruleContainedPropertyAssociation )
                     	    {
@@ -7988,7 +7999,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesContainedPropertyAssociationParserRuleCall_8_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleContainedPropertyAssociation_in_ruleErrorBehaviorStateMachine6650);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleContainedPropertyAssociation_in_ruleErrorBehaviorStateMachine6651);
                     	    lv_properties_20_0=ruleContainedPropertyAssociation();
 
                     	    state._fsp--;
@@ -8012,12 +8023,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt74 >= 1 ) break loop74;
+                    	    if ( cnt75 >= 1 ) break loop75;
                                 EarlyExitException eee =
-                                    new EarlyExitException(74, input);
+                                    new EarlyExitException(75, input);
                                 throw eee;
                         }
-                        cnt74++;
+                        cnt75++;
                     } while (true);
 
 
@@ -8026,15 +8037,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_21=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleErrorBehaviorStateMachine6666); 
+            otherlv_21=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleErrorBehaviorStateMachine6667); 
 
                 	newLeafNode(otherlv_21, grammarAccess.getErrorBehaviorStateMachineAccess().getEndKeyword_9());
                 
-            otherlv_22=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleErrorBehaviorStateMachine6678); 
+            otherlv_22=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleErrorBehaviorStateMachine6679); 
 
                 	newLeafNode(otherlv_22, grammarAccess.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_10());
                 
-            otherlv_23=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6690); 
+            otherlv_23=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6691); 
 
                 	newLeafNode(otherlv_23, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_11());
                 
@@ -8071,13 +8082,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3188:2: iv_ruleErrorBehaviorEvent= ruleErrorBehaviorEvent EOF
             {
              newCompositeNode(grammarAccess.getErrorBehaviorEventRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_entryRuleErrorBehaviorEvent6724);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_entryRuleErrorBehaviorEvent6725);
             iv_ruleErrorBehaviorEvent=ruleErrorBehaviorEvent();
 
             state._fsp--;
 
              current =iv_ruleErrorBehaviorEvent; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorBehaviorEvent6734); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorBehaviorEvent6735); 
 
             }
 
@@ -8113,32 +8124,32 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3199:1: (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3199:1: (this_ErrorEvent_0= ruleErrorEvent | this_RepairEvent_1= ruleRepairEvent | this_RecoverEvent_2= ruleRecoverEvent )
-            int alt76=3;
-            int LA76_0 = input.LA(1);
+            int alt77=3;
+            int LA77_0 = input.LA(1);
 
-            if ( (LA76_0==RULE_ID) ) {
-                int LA76_1 = input.LA(2);
+            if ( (LA77_0==RULE_ID) ) {
+                int LA77_1 = input.LA(2);
 
-                if ( (LA76_1==KEYWORD_9) ) {
+                if ( (LA77_1==KEYWORD_9) ) {
                     switch ( input.LA(3) ) {
-                    case KEYWORD_66:
+                    case KEYWORD_56:
                         {
-                        alt76=3;
+                        alt77=2;
                         }
                         break;
                     case KEYWORD_41:
                         {
-                        alt76=1;
+                        alt77=1;
                         }
                         break;
-                    case KEYWORD_56:
+                    case KEYWORD_66:
                         {
-                        alt76=2;
+                        alt77=3;
                         }
                         break;
                     default:
                         NoViableAltException nvae =
-                            new NoViableAltException("", 76, 2, input);
+                            new NoViableAltException("", 77, 2, input);
 
                         throw nvae;
                     }
@@ -8146,25 +8157,25 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 76, 1, input);
+                        new NoViableAltException("", 77, 1, input);
 
                     throw nvae;
                 }
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 76, 0, input);
+                    new NoViableAltException("", 77, 0, input);
 
                 throw nvae;
             }
-            switch (alt76) {
+            switch (alt77) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3200:5: this_ErrorEvent_0= ruleErrorEvent
                     {
                      
                             newCompositeNode(grammarAccess.getErrorBehaviorEventAccess().getErrorEventParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorEvent_in_ruleErrorBehaviorEvent6781);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorEvent_in_ruleErrorBehaviorEvent6782);
                     this_ErrorEvent_0=ruleErrorEvent();
 
                     state._fsp--;
@@ -8182,7 +8193,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getErrorBehaviorEventAccess().getRepairEventParserRuleCall_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleRepairEvent_in_ruleErrorBehaviorEvent6808);
+                    pushFollow(FollowSets000.FOLLOW_ruleRepairEvent_in_ruleErrorBehaviorEvent6809);
                     this_RepairEvent_1=ruleRepairEvent();
 
                     state._fsp--;
@@ -8200,7 +8211,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getErrorBehaviorEventAccess().getRecoverEventParserRuleCall_2()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleRecoverEvent_in_ruleErrorBehaviorEvent6835);
+                    pushFollow(FollowSets000.FOLLOW_ruleRecoverEvent_in_ruleErrorBehaviorEvent6836);
                     this_RecoverEvent_2=ruleRecoverEvent();
 
                     state._fsp--;
@@ -8245,13 +8256,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3238:2: iv_ruleErrorEvent= ruleErrorEvent EOF
             {
              newCompositeNode(grammarAccess.getErrorEventRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorEvent_in_entryRuleErrorEvent6869);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorEvent_in_entryRuleErrorEvent6870);
             iv_ruleErrorEvent=ruleErrorEvent();
 
             state._fsp--;
 
              current =iv_ruleErrorEvent; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorEvent6879); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorEvent6880); 
 
             }
 
@@ -8298,7 +8309,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3250:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3251:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorEvent6921); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorEvent6922); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorEventAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -8318,26 +8329,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorEvent6939); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorEvent6940); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorEventAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorEvent6951); 
+            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleErrorEvent6952); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorEventAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleErrorEvent6963); 
+            otherlv_3=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleErrorEvent6964); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorEventAccess().getEventKeyword_3());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3282:1: ( (lv_typeSet_4_0= ruleTypeSetReference ) )?
-            int alt77=2;
-            int LA77_0 = input.LA(1);
+            int alt78=2;
+            int LA78_0 = input.LA(1);
 
-            if ( (LA77_0==KEYWORD_13||LA77_0==RULE_ID) ) {
-                alt77=1;
+            if ( (LA78_0==KEYWORD_13||LA78_0==RULE_ID) ) {
+                alt78=1;
             }
-            switch (alt77) {
+            switch (alt78) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3283:1: (lv_typeSet_4_0= ruleTypeSetReference )
                     {
@@ -8347,7 +8358,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorEventAccess().getTypeSetTypeSetReferenceParserRuleCall_4_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetReference_in_ruleErrorEvent6983);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetReference_in_ruleErrorEvent6984);
                     lv_typeSet_4_0=ruleTypeSetReference();
 
                     state._fsp--;
@@ -8373,17 +8384,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3300:3: (otherlv_5= KEYWORD_38 ( (lv_condition_6_0= RULE_STRING ) ) )?
-            int alt78=2;
-            int LA78_0 = input.LA(1);
+            int alt79=2;
+            int LA79_0 = input.LA(1);
 
-            if ( (LA78_0==KEYWORD_38) ) {
-                alt78=1;
+            if ( (LA79_0==KEYWORD_38) ) {
+                alt79=1;
             }
-            switch (alt78) {
+            switch (alt79) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3301:2: otherlv_5= KEYWORD_38 ( (lv_condition_6_0= RULE_STRING ) )
                     {
-                    otherlv_5=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleErrorEvent6998); 
+                    otherlv_5=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleErrorEvent6999); 
 
                         	newLeafNode(otherlv_5, grammarAccess.getErrorEventAccess().getWhenKeyword_5_0());
                         
@@ -8393,7 +8404,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3306:1: (lv_condition_6_0= RULE_STRING )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3307:3: lv_condition_6_0= RULE_STRING
                     {
-                    lv_condition_6_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleErrorEvent7014); 
+                    lv_condition_6_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleErrorEvent7015); 
 
                     			newLeafNode(lv_condition_6_0, grammarAccess.getErrorEventAccess().getConditionSTRINGTerminalRuleCall_5_1_0()); 
                     		
@@ -8419,7 +8430,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorEvent7034); 
+            otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorEvent7035); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getErrorEventAccess().getSemicolonKeyword_6());
                 
@@ -8456,13 +8467,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3338:2: iv_ruleRepairEvent= ruleRepairEvent EOF
             {
              newCompositeNode(grammarAccess.getRepairEventRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleRepairEvent_in_entryRuleRepairEvent7068);
+            pushFollow(FollowSets000.FOLLOW_ruleRepairEvent_in_entryRuleRepairEvent7069);
             iv_ruleRepairEvent=ruleRepairEvent();
 
             state._fsp--;
 
              current =iv_ruleRepairEvent; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleRepairEvent7078); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleRepairEvent7079); 
 
             }
 
@@ -8507,7 +8518,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3350:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3351:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRepairEvent7120); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRepairEvent7121); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getRepairEventAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -8527,30 +8538,30 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleRepairEvent7138); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleRepairEvent7139); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getRepairEventAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_56,FollowSets000.FOLLOW_KEYWORD_56_in_ruleRepairEvent7150); 
+            otherlv_2=(Token)match(input,KEYWORD_56,FollowSets000.FOLLOW_KEYWORD_56_in_ruleRepairEvent7151); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getRepairEventAccess().getRepairKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleRepairEvent7162); 
+            otherlv_3=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleRepairEvent7163); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getRepairEventAccess().getEventKeyword_3());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3382:1: (otherlv_4= KEYWORD_38 ( (lv_condition_5_0= RULE_STRING ) ) )?
-            int alt79=2;
-            int LA79_0 = input.LA(1);
+            int alt80=2;
+            int LA80_0 = input.LA(1);
 
-            if ( (LA79_0==KEYWORD_38) ) {
-                alt79=1;
+            if ( (LA80_0==KEYWORD_38) ) {
+                alt80=1;
             }
-            switch (alt79) {
+            switch (alt80) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3383:2: otherlv_4= KEYWORD_38 ( (lv_condition_5_0= RULE_STRING ) )
                     {
-                    otherlv_4=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleRepairEvent7175); 
+                    otherlv_4=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleRepairEvent7176); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getRepairEventAccess().getWhenKeyword_4_0());
                         
@@ -8560,7 +8571,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3388:1: (lv_condition_5_0= RULE_STRING )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3389:3: lv_condition_5_0= RULE_STRING
                     {
-                    lv_condition_5_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleRepairEvent7191); 
+                    lv_condition_5_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleRepairEvent7192); 
 
                     			newLeafNode(lv_condition_5_0, grammarAccess.getRepairEventAccess().getConditionSTRINGTerminalRuleCall_4_1_0()); 
                     		
@@ -8586,7 +8597,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleRepairEvent7211); 
+            otherlv_6=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleRepairEvent7212); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getRepairEventAccess().getSemicolonKeyword_5());
                 
@@ -8623,13 +8634,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3420:2: iv_ruleRecoverEvent= ruleRecoverEvent EOF
             {
              newCompositeNode(grammarAccess.getRecoverEventRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleRecoverEvent_in_entryRuleRecoverEvent7245);
+            pushFollow(FollowSets000.FOLLOW_ruleRecoverEvent_in_entryRuleRecoverEvent7246);
             iv_ruleRecoverEvent=ruleRecoverEvent();
 
             state._fsp--;
 
              current =iv_ruleRecoverEvent; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleRecoverEvent7255); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleRecoverEvent7256); 
 
             }
 
@@ -8676,7 +8687,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3432:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3433:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRecoverEvent7297); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRecoverEvent7298); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getRecoverEventAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -8696,30 +8707,30 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleRecoverEvent7315); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleRecoverEvent7316); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getRecoverEventAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_66,FollowSets000.FOLLOW_KEYWORD_66_in_ruleRecoverEvent7327); 
+            otherlv_2=(Token)match(input,KEYWORD_66,FollowSets000.FOLLOW_KEYWORD_66_in_ruleRecoverEvent7328); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getRecoverEventAccess().getRecoverKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleRecoverEvent7339); 
+            otherlv_3=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleRecoverEvent7340); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getRecoverEventAccess().getEventKeyword_3());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3464:1: (otherlv_4= KEYWORD_38 ( (otherlv_5= RULE_ID ) ) (otherlv_6= KEYWORD_6 ( (otherlv_7= RULE_ID ) ) )* )?
-            int alt81=2;
-            int LA81_0 = input.LA(1);
+            int alt82=2;
+            int LA82_0 = input.LA(1);
 
-            if ( (LA81_0==KEYWORD_38) ) {
-                alt81=1;
+            if ( (LA82_0==KEYWORD_38) ) {
+                alt82=1;
             }
-            switch (alt81) {
+            switch (alt82) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3465:2: otherlv_4= KEYWORD_38 ( (otherlv_5= RULE_ID ) ) (otherlv_6= KEYWORD_6 ( (otherlv_7= RULE_ID ) ) )*
                     {
-                    otherlv_4=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleRecoverEvent7352); 
+                    otherlv_4=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleRecoverEvent7353); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getRecoverEventAccess().getWhenKeyword_4_0());
                         
@@ -8734,7 +8745,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getRecoverEventRule());
                     	        }
                             
-                    otherlv_5=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRecoverEvent7371); 
+                    otherlv_5=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRecoverEvent7372); 
 
                     		newLeafNode(otherlv_5, grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_1_0()); 
                     	
@@ -8745,21 +8756,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
 
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3482:2: (otherlv_6= KEYWORD_6 ( (otherlv_7= RULE_ID ) ) )*
-                    loop80:
+                    loop81:
                     do {
-                        int alt80=2;
-                        int LA80_0 = input.LA(1);
+                        int alt81=2;
+                        int LA81_0 = input.LA(1);
 
-                        if ( (LA80_0==KEYWORD_6) ) {
-                            alt80=1;
+                        if ( (LA81_0==KEYWORD_6) ) {
+                            alt81=1;
                         }
 
 
-                        switch (alt80) {
+                        switch (alt81) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3483:2: otherlv_6= KEYWORD_6 ( (otherlv_7= RULE_ID ) )
                     	    {
-                    	    otherlv_6=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleRecoverEvent7385); 
+                    	    otherlv_6=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleRecoverEvent7386); 
 
                     	        	newLeafNode(otherlv_6, grammarAccess.getRecoverEventAccess().getCommaKeyword_4_2_0());
                     	        
@@ -8774,7 +8785,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    	            current = createModelElement(grammarAccess.getRecoverEventRule());
                     	    	        }
                     	            
-                    	    otherlv_7=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRecoverEvent7404); 
+                    	    otherlv_7=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRecoverEvent7405); 
 
                     	    		newLeafNode(otherlv_7, grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_2_1_0()); 
                     	    	
@@ -8789,7 +8800,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop80;
+                    	    break loop81;
                         }
                     } while (true);
 
@@ -8799,7 +8810,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_8=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleRecoverEvent7421); 
+            otherlv_8=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleRecoverEvent7422); 
 
                 	newLeafNode(otherlv_8, grammarAccess.getRecoverEventAccess().getSemicolonKeyword_5());
                 
@@ -8836,13 +8847,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3515:2: iv_ruleErrorBehaviorState= ruleErrorBehaviorState EOF
             {
              newCompositeNode(grammarAccess.getErrorBehaviorStateRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorState_in_entryRuleErrorBehaviorState7455);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorState_in_entryRuleErrorBehaviorState7456);
             iv_ruleErrorBehaviorState=ruleErrorBehaviorState();
 
             state._fsp--;
 
              current =iv_ruleErrorBehaviorState; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorBehaviorState7465); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorBehaviorState7466); 
 
             }
 
@@ -8887,7 +8898,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3527:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3528:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorState7507); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorState7508); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getErrorBehaviorStateAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -8907,25 +8918,25 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorBehaviorState7525); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorBehaviorState7526); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorBehaviorStateAccess().getColonKeyword_1());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3549:1: ( (lv_intial_2_0= KEYWORD_63 ) )?
-            int alt82=2;
-            int LA82_0 = input.LA(1);
+            int alt83=2;
+            int LA83_0 = input.LA(1);
 
-            if ( (LA82_0==KEYWORD_63) ) {
-                alt82=1;
+            if ( (LA83_0==KEYWORD_63) ) {
+                alt83=1;
             }
-            switch (alt82) {
+            switch (alt83) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3550:1: (lv_intial_2_0= KEYWORD_63 )
                     {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3550:1: (lv_intial_2_0= KEYWORD_63 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3551:3: lv_intial_2_0= KEYWORD_63
                     {
-                    lv_intial_2_0=(Token)match(input,KEYWORD_63,FollowSets000.FOLLOW_KEYWORD_63_in_ruleErrorBehaviorState7543); 
+                    lv_intial_2_0=(Token)match(input,KEYWORD_63,FollowSets000.FOLLOW_KEYWORD_63_in_ruleErrorBehaviorState7544); 
 
                             newLeafNode(lv_intial_2_0, grammarAccess.getErrorBehaviorStateAccess().getIntialInitialKeyword_2_0());
                         
@@ -8944,18 +8955,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_48,FollowSets000.FOLLOW_KEYWORD_48_in_ruleErrorBehaviorState7568); 
+            otherlv_3=(Token)match(input,KEYWORD_48,FollowSets000.FOLLOW_KEYWORD_48_in_ruleErrorBehaviorState7569); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorBehaviorStateAccess().getStateKeyword_3());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3570:1: ( (lv_typeSet_4_0= ruleTypeSetReference ) )?
-            int alt83=2;
-            int LA83_0 = input.LA(1);
+            int alt84=2;
+            int LA84_0 = input.LA(1);
 
-            if ( (LA83_0==KEYWORD_13||LA83_0==RULE_ID) ) {
-                alt83=1;
+            if ( (LA84_0==KEYWORD_13||LA84_0==RULE_ID) ) {
+                alt84=1;
             }
-            switch (alt83) {
+            switch (alt84) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3571:1: (lv_typeSet_4_0= ruleTypeSetReference )
                     {
@@ -8965,7 +8976,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorBehaviorStateAccess().getTypeSetTypeSetReferenceParserRuleCall_4_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetReference_in_ruleErrorBehaviorState7588);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetReference_in_ruleErrorBehaviorState7589);
                     lv_typeSet_4_0=ruleTypeSetReference();
 
                     state._fsp--;
@@ -8990,7 +9001,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorState7602); 
+            otherlv_5=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorState7603); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getErrorBehaviorStateAccess().getSemicolonKeyword_5());
                 
@@ -9027,13 +9038,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3603:2: iv_ruleErrorBehaviorTransition= ruleErrorBehaviorTransition EOF
             {
              newCompositeNode(grammarAccess.getErrorBehaviorTransitionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorTransition_in_entryRuleErrorBehaviorTransition7636);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorTransition_in_entryRuleErrorBehaviorTransition7637);
             iv_ruleErrorBehaviorTransition=ruleErrorBehaviorTransition();
 
             state._fsp--;
 
              current =iv_ruleErrorBehaviorTransition; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorBehaviorTransition7646); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorBehaviorTransition7647); 
 
             }
 
@@ -9088,17 +9099,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3614:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9 )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= KEYWORD_25 ) ) ) otherlv_5= KEYWORD_16 ( (lv_condition_6_0= ruleConditionExpression ) ) ( (otherlv_7= KEYWORD_24 ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | (otherlv_10= KEYWORD_2 ( (lv_destinationBranches_11_0= ruleTransitionBranch ) ) (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+ otherlv_14= KEYWORD_3 ) ) ) | ( (lv_steadyState_15_0= KEYWORD_12 ) ) ) otherlv_16= KEYWORD_10
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3614:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9 )?
-            int alt84=2;
-            int LA84_0 = input.LA(1);
+            int alt85=2;
+            int LA85_0 = input.LA(1);
 
-            if ( (LA84_0==RULE_ID) ) {
-                int LA84_1 = input.LA(2);
+            if ( (LA85_0==RULE_ID) ) {
+                int LA85_1 = input.LA(2);
 
-                if ( (LA84_1==KEYWORD_9) ) {
-                    alt84=1;
+                if ( (LA85_1==KEYWORD_9) ) {
+                    alt85=1;
                 }
             }
-            switch (alt84) {
+            switch (alt85) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3614:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9
                     {
@@ -9108,7 +9119,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3615:1: (lv_name_0_0= RULE_ID )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3616:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7689); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7690); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getErrorBehaviorTransitionAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -9128,7 +9139,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorBehaviorTransition7707); 
+                    otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorBehaviorTransition7708); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getErrorBehaviorTransitionAccess().getColonKeyword_0_1());
                         
@@ -9139,22 +9150,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3637:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= KEYWORD_25 ) ) )
-            int alt86=2;
-            int LA86_0 = input.LA(1);
+            int alt87=2;
+            int LA87_0 = input.LA(1);
 
-            if ( (LA86_0==RULE_ID) ) {
-                alt86=1;
+            if ( (LA87_0==RULE_ID) ) {
+                alt87=1;
             }
-            else if ( (LA86_0==KEYWORD_25) ) {
-                alt86=2;
+            else if ( (LA87_0==KEYWORD_25) ) {
+                alt87=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 86, 0, input);
+                    new NoViableAltException("", 87, 0, input);
 
                 throw nvae;
             }
-            switch (alt86) {
+            switch (alt87) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3637:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
                     {
@@ -9172,7 +9183,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getErrorBehaviorTransitionRule());
                     	        }
                             
-                    otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7730); 
+                    otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7731); 
 
                     		newLeafNode(otherlv_2, grammarAccess.getErrorBehaviorTransitionAccess().getSourceErrorBehaviorStateCrossReference_1_0_0_0()); 
                     	
@@ -9183,13 +9194,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
 
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3650:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
-                    int alt85=2;
-                    int LA85_0 = input.LA(1);
+                    int alt86=2;
+                    int LA86_0 = input.LA(1);
 
-                    if ( (LA85_0==KEYWORD_13||LA85_0==RULE_ID) ) {
-                        alt85=1;
+                    if ( (LA86_0==KEYWORD_13||LA86_0==RULE_ID) ) {
+                        alt86=1;
                     }
-                    switch (alt85) {
+                    switch (alt86) {
                         case 1 :
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3651:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
                             {
@@ -9199,7 +9210,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                              
                             	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0()); 
                             	    
-                            pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorBehaviorTransition7751);
+                            pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorBehaviorTransition7752);
                             lv_typeTokenConstraint_3_0=ruleTypeTokenConstraint();
 
                             state._fsp--;
@@ -9239,7 +9250,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3670:1: (lv_allStates_4_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3671:3: lv_allStates_4_0= KEYWORD_25
                     {
-                    lv_allStates_4_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorBehaviorTransition7778); 
+                    lv_allStates_4_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorBehaviorTransition7779); 
 
                             newLeafNode(lv_allStates_4_0, grammarAccess.getErrorBehaviorTransitionAccess().getAllStatesAllKeyword_1_1_0());
                         
@@ -9261,7 +9272,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_16,FollowSets000.FOLLOW_KEYWORD_16_in_ruleErrorBehaviorTransition7803); 
+            otherlv_5=(Token)match(input,KEYWORD_16,FollowSets000.FOLLOW_KEYWORD_16_in_ruleErrorBehaviorTransition7804); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getErrorBehaviorTransitionAccess().getHyphenMinusLeftSquareBracketKeyword_2());
                 
@@ -9274,7 +9285,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getConditionConditionExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_ruleErrorBehaviorTransition7823);
+            pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_ruleErrorBehaviorTransition7824);
             lv_condition_6_0=ruleConditionExpression();
 
             state._fsp--;
@@ -9297,49 +9308,49 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3708:2: ( (otherlv_7= KEYWORD_24 ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | (otherlv_10= KEYWORD_2 ( (lv_destinationBranches_11_0= ruleTransitionBranch ) ) (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+ otherlv_14= KEYWORD_3 ) ) ) | ( (lv_steadyState_15_0= KEYWORD_12 ) ) )
-            int alt90=2;
-            int LA90_0 = input.LA(1);
+            int alt91=2;
+            int LA91_0 = input.LA(1);
 
-            if ( (LA90_0==KEYWORD_24) ) {
-                alt90=1;
+            if ( (LA91_0==KEYWORD_24) ) {
+                alt91=1;
             }
-            else if ( (LA90_0==KEYWORD_12) ) {
-                alt90=2;
+            else if ( (LA91_0==KEYWORD_12) ) {
+                alt91=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 90, 0, input);
+                    new NoViableAltException("", 91, 0, input);
 
                 throw nvae;
             }
-            switch (alt90) {
+            switch (alt91) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3708:3: (otherlv_7= KEYWORD_24 ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | (otherlv_10= KEYWORD_2 ( (lv_destinationBranches_11_0= ruleTransitionBranch ) ) (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+ otherlv_14= KEYWORD_3 ) ) )
                     {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3708:3: (otherlv_7= KEYWORD_24 ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | (otherlv_10= KEYWORD_2 ( (lv_destinationBranches_11_0= ruleTransitionBranch ) ) (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+ otherlv_14= KEYWORD_3 ) ) )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3709:2: otherlv_7= KEYWORD_24 ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | (otherlv_10= KEYWORD_2 ( (lv_destinationBranches_11_0= ruleTransitionBranch ) ) (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+ otherlv_14= KEYWORD_3 ) )
                     {
-                    otherlv_7=(Token)match(input,KEYWORD_24,FollowSets000.FOLLOW_KEYWORD_24_in_ruleErrorBehaviorTransition7838); 
+                    otherlv_7=(Token)match(input,KEYWORD_24,FollowSets000.FOLLOW_KEYWORD_24_in_ruleErrorBehaviorTransition7839); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getErrorBehaviorTransitionAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4_0_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3713:1: ( ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? ) | (otherlv_10= KEYWORD_2 ( (lv_destinationBranches_11_0= ruleTransitionBranch ) ) (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+ otherlv_14= KEYWORD_3 ) )
-                    int alt89=2;
-                    int LA89_0 = input.LA(1);
+                    int alt90=2;
+                    int LA90_0 = input.LA(1);
 
-                    if ( (LA89_0==RULE_ID) ) {
-                        alt89=1;
+                    if ( (LA90_0==RULE_ID) ) {
+                        alt90=1;
                     }
-                    else if ( (LA89_0==KEYWORD_2) ) {
-                        alt89=2;
+                    else if ( (LA90_0==KEYWORD_2) ) {
+                        alt90=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 89, 0, input);
+                            new NoViableAltException("", 90, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt89) {
+                    switch (alt90) {
                         case 1 :
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3713:2: ( ( (otherlv_8= RULE_ID ) ) ( (lv_targetToken_9_0= ruleTypeToken ) )? )
                             {
@@ -9357,7 +9368,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	            current = createModelElement(grammarAccess.getErrorBehaviorTransitionRule());
                             	        }
                                     
-                            otherlv_8=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7859); 
+                            otherlv_8=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7860); 
 
                             		newLeafNode(otherlv_8, grammarAccess.getErrorBehaviorTransitionAccess().getTargetErrorBehaviorStateCrossReference_4_0_1_0_0_0()); 
                             	
@@ -9368,13 +9379,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             }
 
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3726:2: ( (lv_targetToken_9_0= ruleTypeToken ) )?
-                            int alt87=2;
-                            int LA87_0 = input.LA(1);
+                            int alt88=2;
+                            int LA88_0 = input.LA(1);
 
-                            if ( (LA87_0==KEYWORD_2) ) {
-                                alt87=1;
+                            if ( (LA88_0==KEYWORD_2) ) {
+                                alt88=1;
                             }
-                            switch (alt87) {
+                            switch (alt88) {
                                 case 1 :
                                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3727:1: (lv_targetToken_9_0= ruleTypeToken )
                                     {
@@ -9384,7 +9395,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                                      
                                     	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getTargetTokenTypeTokenParserRuleCall_4_0_1_0_1_0()); 
                                     	    
-                                    pushFollow(FollowSets000.FOLLOW_ruleTypeToken_in_ruleErrorBehaviorTransition7880);
+                                    pushFollow(FollowSets000.FOLLOW_ruleTypeToken_in_ruleErrorBehaviorTransition7881);
                                     lv_targetToken_9_0=ruleTypeToken();
 
                                     state._fsp--;
@@ -9421,7 +9432,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3745:6: (otherlv_10= KEYWORD_2 ( (lv_destinationBranches_11_0= ruleTransitionBranch ) ) (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+ otherlv_14= KEYWORD_3 )
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3746:2: otherlv_10= KEYWORD_2 ( (lv_destinationBranches_11_0= ruleTransitionBranch ) ) (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+ otherlv_14= KEYWORD_3
                             {
-                            otherlv_10=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleErrorBehaviorTransition7902); 
+                            otherlv_10=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleErrorBehaviorTransition7903); 
 
                                 	newLeafNode(otherlv_10, grammarAccess.getErrorBehaviorTransitionAccess().getLeftParenthesisKeyword_4_0_1_1_0());
                                 
@@ -9434,7 +9445,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                              
                             	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getDestinationBranchesTransitionBranchParserRuleCall_4_0_1_1_1_0()); 
                             	    
-                            pushFollow(FollowSets000.FOLLOW_ruleTransitionBranch_in_ruleErrorBehaviorTransition7922);
+                            pushFollow(FollowSets000.FOLLOW_ruleTransitionBranch_in_ruleErrorBehaviorTransition7923);
                             lv_destinationBranches_11_0=ruleTransitionBranch();
 
                             state._fsp--;
@@ -9457,22 +9468,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             }
 
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3768:2: (otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) ) )+
-                            int cnt88=0;
-                            loop88:
+                            int cnt89=0;
+                            loop89:
                             do {
-                                int alt88=2;
-                                int LA88_0 = input.LA(1);
+                                int alt89=2;
+                                int LA89_0 = input.LA(1);
 
-                                if ( (LA88_0==KEYWORD_6) ) {
-                                    alt88=1;
+                                if ( (LA89_0==KEYWORD_6) ) {
+                                    alt89=1;
                                 }
 
 
-                                switch (alt88) {
+                                switch (alt89) {
                             	case 1 :
                             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3769:2: otherlv_12= KEYWORD_6 ( (lv_destinationBranches_13_0= ruleTransitionBranch ) )
                             	    {
-                            	    otherlv_12=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleErrorBehaviorTransition7936); 
+                            	    otherlv_12=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleErrorBehaviorTransition7937); 
 
                             	        	newLeafNode(otherlv_12, grammarAccess.getErrorBehaviorTransitionAccess().getCommaKeyword_4_0_1_1_2_0());
                             	        
@@ -9485,7 +9496,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	     
                             	    	        newCompositeNode(grammarAccess.getErrorBehaviorTransitionAccess().getDestinationBranchesTransitionBranchParserRuleCall_4_0_1_1_2_1_0()); 
                             	    	    
-                            	    pushFollow(FollowSets000.FOLLOW_ruleTransitionBranch_in_ruleErrorBehaviorTransition7956);
+                            	    pushFollow(FollowSets000.FOLLOW_ruleTransitionBranch_in_ruleErrorBehaviorTransition7957);
                             	    lv_destinationBranches_13_0=ruleTransitionBranch();
 
                             	    state._fsp--;
@@ -9512,15 +9523,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt88 >= 1 ) break loop88;
+                            	    if ( cnt89 >= 1 ) break loop89;
                                         EarlyExitException eee =
-                                            new EarlyExitException(88, input);
+                                            new EarlyExitException(89, input);
                                         throw eee;
                                 }
-                                cnt88++;
+                                cnt89++;
                             } while (true);
 
-                            otherlv_14=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleErrorBehaviorTransition7971); 
+                            otherlv_14=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleErrorBehaviorTransition7972); 
 
                                 	newLeafNode(otherlv_14, grammarAccess.getErrorBehaviorTransitionAccess().getRightParenthesisKeyword_4_0_1_1_3());
                                 
@@ -9548,7 +9559,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3798:1: (lv_steadyState_15_0= KEYWORD_12 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3799:3: lv_steadyState_15_0= KEYWORD_12
                     {
-                    lv_steadyState_15_0=(Token)match(input,KEYWORD_12,FollowSets000.FOLLOW_KEYWORD_12_in_ruleErrorBehaviorTransition7998); 
+                    lv_steadyState_15_0=(Token)match(input,KEYWORD_12,FollowSets000.FOLLOW_KEYWORD_12_in_ruleErrorBehaviorTransition7999); 
 
                             newLeafNode(lv_steadyState_15_0, grammarAccess.getErrorBehaviorTransitionAccess().getSteadyStateRightSquareBracketKeyword_4_1_0());
                         
@@ -9570,7 +9581,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_16=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorTransition8023); 
+            otherlv_16=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorBehaviorTransition8024); 
 
                 	newLeafNode(otherlv_16, grammarAccess.getErrorBehaviorTransitionAccess().getSemicolonKeyword_5());
                 
@@ -9607,13 +9618,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3828:2: iv_ruleTransitionBranch= ruleTransitionBranch EOF
             {
              newCompositeNode(grammarAccess.getTransitionBranchRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleTransitionBranch_in_entryRuleTransitionBranch8057);
+            pushFollow(FollowSets000.FOLLOW_ruleTransitionBranch_in_entryRuleTransitionBranch8058);
             iv_ruleTransitionBranch=ruleTransitionBranch();
 
             state._fsp--;
 
              current =iv_ruleTransitionBranch; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleTransitionBranch8067); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleTransitionBranch8068); 
 
             }
 
@@ -9665,7 +9676,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getTransitionBranchRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleTransitionBranch8113); 
+            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleTransitionBranch8114); 
 
             		newLeafNode(otherlv_0, grammarAccess.getTransitionBranchAccess().getTargetErrorBehaviorStateCrossReference_0_0_0()); 
             	
@@ -9676,13 +9687,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3852:2: ( (lv_targetToken_1_0= ruleTypeToken ) )?
-            int alt91=2;
-            int LA91_0 = input.LA(1);
+            int alt92=2;
+            int LA92_0 = input.LA(1);
 
-            if ( (LA91_0==KEYWORD_2) ) {
-                alt91=1;
+            if ( (LA92_0==KEYWORD_2) ) {
+                alt92=1;
             }
-            switch (alt91) {
+            switch (alt92) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3853:1: (lv_targetToken_1_0= ruleTypeToken )
                     {
@@ -9692,7 +9703,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getTransitionBranchAccess().getTargetTokenTypeTokenParserRuleCall_0_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeToken_in_ruleTransitionBranch8134);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeToken_in_ruleTransitionBranch8135);
                     lv_targetToken_1_0=ruleTypeToken();
 
                     state._fsp--;
@@ -9720,7 +9731,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,KEYWORD_39,FollowSets000.FOLLOW_KEYWORD_39_in_ruleTransitionBranch8149); 
+            otherlv_2=(Token)match(input,KEYWORD_39,FollowSets000.FOLLOW_KEYWORD_39_in_ruleTransitionBranch8150); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getTransitionBranchAccess().getWithKeyword_1());
                 
@@ -9733,7 +9744,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getTransitionBranchAccess().getValueBranchValueParserRuleCall_2_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleBranchValue_in_ruleTransitionBranch8169);
+            pushFollow(FollowSets000.FOLLOW_ruleBranchValue_in_ruleTransitionBranch8170);
             lv_value_3_0=ruleBranchValue();
 
             state._fsp--;
@@ -9788,13 +9799,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3903:2: iv_ruleBranchValue= ruleBranchValue EOF
             {
              newCompositeNode(grammarAccess.getBranchValueRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleBranchValue_in_entryRuleBranchValue8204);
+            pushFollow(FollowSets000.FOLLOW_ruleBranchValue_in_entryRuleBranchValue8205);
             iv_ruleBranchValue=ruleBranchValue();
 
             state._fsp--;
 
              current =iv_ruleBranchValue; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleBranchValue8214); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleBranchValue8215); 
 
             }
 
@@ -9840,31 +9851,31 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3920:2: ( ( (lv_realvalue_1_0= RULE_REAL_LIT ) ) | ( ( ruleQEMREF ) ) | ( (lv_others_3_0= KEYWORD_55 ) ) )
-            int alt92=3;
+            int alt93=3;
             switch ( input.LA(1) ) {
             case RULE_REAL_LIT:
                 {
-                alt92=1;
+                alt93=1;
                 }
                 break;
             case RULE_ID:
                 {
-                alt92=2;
+                alt93=2;
                 }
                 break;
             case KEYWORD_55:
                 {
-                alt92=3;
+                alt93=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 92, 0, input);
+                    new NoViableAltException("", 93, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt92) {
+            switch (alt93) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3920:3: ( (lv_realvalue_1_0= RULE_REAL_LIT ) )
                     {
@@ -9874,7 +9885,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3921:1: (lv_realvalue_1_0= RULE_REAL_LIT )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3922:3: lv_realvalue_1_0= RULE_REAL_LIT
                     {
-                    lv_realvalue_1_0=(Token)match(input,RULE_REAL_LIT,FollowSets000.FOLLOW_RULE_REAL_LIT_in_ruleBranchValue8266); 
+                    lv_realvalue_1_0=(Token)match(input,RULE_REAL_LIT,FollowSets000.FOLLOW_RULE_REAL_LIT_in_ruleBranchValue8267); 
 
                     			newLeafNode(lv_realvalue_1_0, grammarAccess.getBranchValueAccess().getRealvalueREAL_LITTerminalRuleCall_1_0_0()); 
                     		
@@ -9914,7 +9925,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getBranchValueAccess().getSymboliclabelPropertyConstantCrossReference_1_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleBranchValue8300);
+                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleBranchValue8301);
                     ruleQEMREF();
 
                     state._fsp--;
@@ -9940,7 +9951,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3956:1: (lv_others_3_0= KEYWORD_55 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3957:3: lv_others_3_0= KEYWORD_55
                     {
-                    lv_others_3_0=(Token)match(input,KEYWORD_55,FollowSets000.FOLLOW_KEYWORD_55_in_ruleBranchValue8325); 
+                    lv_others_3_0=(Token)match(input,KEYWORD_55,FollowSets000.FOLLOW_KEYWORD_55_in_ruleBranchValue8326); 
 
                             newLeafNode(lv_others_3_0, grammarAccess.getBranchValueAccess().getOthersOthersKeyword_1_2_0());
                         
@@ -9995,13 +10006,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3981:2: iv_ruleConnectionErrorBehavior= ruleConnectionErrorBehavior EOF
             {
              newCompositeNode(grammarAccess.getConnectionErrorBehaviorRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleConnectionErrorBehavior_in_entryRuleConnectionErrorBehavior8372);
+            pushFollow(FollowSets000.FOLLOW_ruleConnectionErrorBehavior_in_entryRuleConnectionErrorBehavior8373);
             iv_ruleConnectionErrorBehavior=ruleConnectionErrorBehavior();
 
             state._fsp--;
 
              current =iv_ruleConnectionErrorBehavior; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConnectionErrorBehavior8382); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConnectionErrorBehavior8383); 
 
             }
 
@@ -10044,15 +10055,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3992:1: (otherlv_0= KEYWORD_77 otherlv_1= KEYWORD_41 otherlv_2= KEYWORD_68 () (otherlv_4= KEYWORD_31 otherlv_5= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_7= KEYWORD_10 )? ( (lv_connectionErrorSources_8_0= ruleConnectionErrorSource ) )* otherlv_9= KEYWORD_27 otherlv_10= KEYWORD_77 otherlv_11= KEYWORD_10 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:3993:2: otherlv_0= KEYWORD_77 otherlv_1= KEYWORD_41 otherlv_2= KEYWORD_68 () (otherlv_4= KEYWORD_31 otherlv_5= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_7= KEYWORD_10 )? ( (lv_connectionErrorSources_8_0= ruleConnectionErrorSource ) )* otherlv_9= KEYWORD_27 otherlv_10= KEYWORD_77 otherlv_11= KEYWORD_10
             {
-            otherlv_0=(Token)match(input,KEYWORD_77,FollowSets000.FOLLOW_KEYWORD_77_in_ruleConnectionErrorBehavior8420); 
+            otherlv_0=(Token)match(input,KEYWORD_77,FollowSets000.FOLLOW_KEYWORD_77_in_ruleConnectionErrorBehavior8421); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getConnectionErrorBehaviorAccess().getConnectionKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleConnectionErrorBehavior8432); 
+            otherlv_1=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleConnectionErrorBehavior8433); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getConnectionErrorBehaviorAccess().getErrorKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleConnectionErrorBehavior8444); 
+            otherlv_2=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleConnectionErrorBehavior8445); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getConnectionErrorBehaviorAccess().getBehaviorKeyword_2());
                 
@@ -10068,21 +10079,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4013:2: (otherlv_4= KEYWORD_31 otherlv_5= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_7= KEYWORD_10 )?
-            int alt93=2;
-            int LA93_0 = input.LA(1);
+            int alt94=2;
+            int LA94_0 = input.LA(1);
 
-            if ( (LA93_0==KEYWORD_31) ) {
-                alt93=1;
+            if ( (LA94_0==KEYWORD_31) ) {
+                alt94=1;
             }
-            switch (alt93) {
+            switch (alt94) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4014:2: otherlv_4= KEYWORD_31 otherlv_5= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_7= KEYWORD_10
                     {
-                    otherlv_4=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleConnectionErrorBehavior8466); 
+                    otherlv_4=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleConnectionErrorBehavior8467); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getConnectionErrorBehaviorAccess().getUseKeyword_4_0());
                         
-                    otherlv_5=(Token)match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_ruleConnectionErrorBehavior8478); 
+                    otherlv_5=(Token)match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_ruleConnectionErrorBehavior8479); 
 
                         	newLeafNode(otherlv_5, grammarAccess.getConnectionErrorBehaviorAccess().getTransformationsKeyword_4_1());
                         
@@ -10100,7 +10111,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getConnectionErrorBehaviorAccess().getTypeTransformationSetTypeTransformationSetCrossReference_4_2_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleConnectionErrorBehavior8500);
+                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleConnectionErrorBehavior8501);
                     ruleQEMREF();
 
                     state._fsp--;
@@ -10114,7 +10125,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleConnectionErrorBehavior8513); 
+                    otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleConnectionErrorBehavior8514); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getConnectionErrorBehaviorAccess().getSemicolonKeyword_4_3());
                         
@@ -10125,17 +10136,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4043:3: ( (lv_connectionErrorSources_8_0= ruleConnectionErrorSource ) )*
-            loop94:
+            loop95:
             do {
-                int alt94=2;
-                int LA94_0 = input.LA(1);
+                int alt95=2;
+                int LA95_0 = input.LA(1);
 
-                if ( (LA94_0==RULE_ID) ) {
-                    alt94=1;
+                if ( (LA95_0==RULE_ID) ) {
+                    alt95=1;
                 }
 
 
-                switch (alt94) {
+                switch (alt95) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4044:1: (lv_connectionErrorSources_8_0= ruleConnectionErrorSource )
             	    {
@@ -10145,7 +10156,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getConnectionErrorBehaviorAccess().getConnectionErrorSourcesConnectionErrorSourceParserRuleCall_5_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleConnectionErrorSource_in_ruleConnectionErrorBehavior8535);
+            	    pushFollow(FollowSets000.FOLLOW_ruleConnectionErrorSource_in_ruleConnectionErrorBehavior8536);
             	    lv_connectionErrorSources_8_0=ruleConnectionErrorSource();
 
             	    state._fsp--;
@@ -10169,19 +10180,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop94;
+            	    break loop95;
                 }
             } while (true);
 
-            otherlv_9=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleConnectionErrorBehavior8549); 
+            otherlv_9=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleConnectionErrorBehavior8550); 
 
                 	newLeafNode(otherlv_9, grammarAccess.getConnectionErrorBehaviorAccess().getEndKeyword_6());
                 
-            otherlv_10=(Token)match(input,KEYWORD_77,FollowSets000.FOLLOW_KEYWORD_77_in_ruleConnectionErrorBehavior8561); 
+            otherlv_10=(Token)match(input,KEYWORD_77,FollowSets000.FOLLOW_KEYWORD_77_in_ruleConnectionErrorBehavior8562); 
 
                 	newLeafNode(otherlv_10, grammarAccess.getConnectionErrorBehaviorAccess().getConnectionKeyword_7());
                 
-            otherlv_11=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleConnectionErrorBehavior8573); 
+            otherlv_11=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleConnectionErrorBehavior8574); 
 
                 	newLeafNode(otherlv_11, grammarAccess.getConnectionErrorBehaviorAccess().getSemicolonKeyword_8());
                 
@@ -10218,13 +10229,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4086:2: iv_ruleConnectionErrorSource= ruleConnectionErrorSource EOF
             {
              newCompositeNode(grammarAccess.getConnectionErrorSourceRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleConnectionErrorSource_in_entryRuleConnectionErrorSource8607);
+            pushFollow(FollowSets000.FOLLOW_ruleConnectionErrorSource_in_entryRuleConnectionErrorSource8608);
             iv_ruleConnectionErrorSource=ruleConnectionErrorSource();
 
             state._fsp--;
 
              current =iv_ruleConnectionErrorSource; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConnectionErrorSource8617); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConnectionErrorSource8618); 
 
             }
 
@@ -10274,7 +10285,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4098:1: (lv_name_0_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4099:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleConnectionErrorSource8659); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleConnectionErrorSource8660); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getConnectionErrorSourceAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -10294,35 +10305,35 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleConnectionErrorSource8677); 
+            otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleConnectionErrorSource8678); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getConnectionErrorSourceAccess().getColonKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleConnectionErrorSource8689); 
+            otherlv_2=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleConnectionErrorSource8690); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getConnectionErrorSourceAccess().getErrorKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_57,FollowSets000.FOLLOW_KEYWORD_57_in_ruleConnectionErrorSource8701); 
+            otherlv_3=(Token)match(input,KEYWORD_57,FollowSets000.FOLLOW_KEYWORD_57_in_ruleConnectionErrorSource8702); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getConnectionErrorSourceAccess().getSourceKeyword_3());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4130:1: ( ( (otherlv_4= RULE_ID ) ) | ( (lv_all_5_0= KEYWORD_25 ) ) )
-            int alt95=2;
-            int LA95_0 = input.LA(1);
+            int alt96=2;
+            int LA96_0 = input.LA(1);
 
-            if ( (LA95_0==RULE_ID) ) {
-                alt95=1;
+            if ( (LA96_0==RULE_ID) ) {
+                alt96=1;
             }
-            else if ( (LA95_0==KEYWORD_25) ) {
-                alt95=2;
+            else if ( (LA96_0==KEYWORD_25) ) {
+                alt96=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 95, 0, input);
+                    new NoViableAltException("", 96, 0, input);
 
                 throw nvae;
             }
-            switch (alt95) {
+            switch (alt96) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4130:2: ( (otherlv_4= RULE_ID ) )
                     {
@@ -10337,7 +10348,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
                     	        }
                             
-                    otherlv_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleConnectionErrorSource8721); 
+                    otherlv_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleConnectionErrorSource8722); 
 
                     		newLeafNode(otherlv_4, grammarAccess.getConnectionErrorSourceAccess().getConnectionConnectionCrossReference_4_0_0()); 
                     	
@@ -10359,7 +10370,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4145:1: (lv_all_5_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4146:3: lv_all_5_0= KEYWORD_25
                     {
-                    lv_all_5_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleConnectionErrorSource8746); 
+                    lv_all_5_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleConnectionErrorSource8747); 
 
                             newLeafNode(lv_all_5_0, grammarAccess.getConnectionErrorSourceAccess().getAllAllKeyword_4_1_0());
                         
@@ -10382,13 +10393,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4160:3: ( (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint ) )?
-            int alt96=2;
-            int LA96_0 = input.LA(1);
+            int alt97=2;
+            int LA97_0 = input.LA(1);
 
-            if ( (LA96_0==KEYWORD_13||LA96_0==RULE_ID) ) {
-                alt96=1;
+            if ( (LA97_0==KEYWORD_13||LA97_0==RULE_ID) ) {
+                alt97=1;
             }
-            switch (alt96) {
+            switch (alt97) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4161:1: (lv_typeTokenConstraint_6_0= ruleTypeTokenConstraint )
                     {
@@ -10398,7 +10409,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleConnectionErrorSource8779);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleConnectionErrorSource8780);
                     lv_typeTokenConstraint_6_0=ruleTypeTokenConstraint();
 
                     state._fsp--;
@@ -10424,17 +10435,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4178:3: (otherlv_7= KEYWORD_38 ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) ) )?
-            int alt97=2;
-            int LA97_0 = input.LA(1);
+            int alt98=2;
+            int LA98_0 = input.LA(1);
 
-            if ( (LA97_0==KEYWORD_38) ) {
-                alt97=1;
+            if ( (LA98_0==KEYWORD_38) ) {
+                alt98=1;
             }
-            switch (alt97) {
+            switch (alt98) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4179:2: otherlv_7= KEYWORD_38 ( (lv_failureModeType_8_0= ruleTypeSetConstructor ) )
                     {
-                    otherlv_7=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleConnectionErrorSource8794); 
+                    otherlv_7=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleConnectionErrorSource8795); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getConnectionErrorSourceAccess().getWhenKeyword_6_0());
                         
@@ -10447,7 +10458,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetConstructor_in_ruleConnectionErrorSource8814);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeSetConstructor_in_ruleConnectionErrorSource8815);
                     lv_failureModeType_8_0=ruleTypeSetConstructor();
 
                     state._fsp--;
@@ -10475,7 +10486,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_9=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleConnectionErrorSource8829); 
+            otherlv_9=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleConnectionErrorSource8830); 
 
                 	newLeafNode(otherlv_9, grammarAccess.getConnectionErrorSourceAccess().getSemicolonKeyword_7());
                 
@@ -10512,13 +10523,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4216:2: iv_ruleEBSMUseContext= ruleEBSMUseContext EOF
             {
              newCompositeNode(grammarAccess.getEBSMUseContextRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleEBSMUseContext_in_entryRuleEBSMUseContext8863);
+            pushFollow(FollowSets000.FOLLOW_ruleEBSMUseContext_in_entryRuleEBSMUseContext8864);
             iv_ruleEBSMUseContext=ruleEBSMUseContext();
 
             state._fsp--;
 
              current =iv_ruleEBSMUseContext; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleEBSMUseContext8873); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleEBSMUseContext8874); 
 
             }
 
@@ -10552,7 +10563,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getEBSMUseContextAccess().getErrorModelSubclauseParserRuleCall()); 
                 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorModelSubclause_in_ruleEBSMUseContext8919);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorModelSubclause_in_ruleEBSMUseContext8920);
             this_ErrorModelSubclause_0=ruleErrorModelSubclause();
 
             state._fsp--;
@@ -10591,13 +10602,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4246:2: iv_ruleTypeUseContext= ruleTypeUseContext EOF
             {
              newCompositeNode(grammarAccess.getTypeUseContextRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleTypeUseContext_in_entryRuleTypeUseContext8952);
+            pushFollow(FollowSets000.FOLLOW_ruleTypeUseContext_in_entryRuleTypeUseContext8953);
             iv_ruleTypeUseContext=ruleTypeUseContext();
 
             state._fsp--;
 
              current =iv_ruleTypeUseContext; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleTypeUseContext8962); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleTypeUseContext8963); 
 
             }
 
@@ -10635,21 +10646,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4257:1: (this_TypeTransformationSet_0= ruleTypeTransformationSet | this_TypeMappingSet_1= ruleTypeMappingSet | this_ErrorBehaviorStateMachine_2= ruleErrorBehaviorStateMachine | this_EBSMUseContext_3= ruleEBSMUseContext )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4257:1: (this_TypeTransformationSet_0= ruleTypeTransformationSet | this_TypeMappingSet_1= ruleTypeMappingSet | this_ErrorBehaviorStateMachine_2= ruleErrorBehaviorStateMachine | this_EBSMUseContext_3= ruleEBSMUseContext )
-            int alt98=4;
+            int alt99=4;
             switch ( input.LA(1) ) {
             case KEYWORD_37:
                 {
-                int LA98_1 = input.LA(2);
+                int LA99_1 = input.LA(2);
 
-                if ( (LA98_1==KEYWORD_71) ) {
-                    alt98=2;
+                if ( (LA99_1==KEYWORD_71) ) {
+                    alt99=2;
                 }
-                else if ( (LA98_1==KEYWORD_84) ) {
-                    alt98=1;
+                else if ( (LA99_1==KEYWORD_84) ) {
+                    alt99=1;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 98, 1, input);
+                        new NoViableAltException("", 99, 1, input);
 
                     throw nvae;
                 }
@@ -10657,17 +10668,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 break;
             case KEYWORD_41:
                 {
-                int LA98_2 = input.LA(2);
+                int LA99_2 = input.LA(2);
 
-                if ( (LA98_2==KEYWORD_68) ) {
-                    alt98=3;
+                if ( (LA99_2==KEYWORD_83) ) {
+                    alt99=4;
                 }
-                else if ( (LA98_2==KEYWORD_83) ) {
-                    alt98=4;
+                else if ( (LA99_2==KEYWORD_68) ) {
+                    alt99=3;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 98, 2, input);
+                        new NoViableAltException("", 99, 2, input);
 
                     throw nvae;
                 }
@@ -10681,24 +10692,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             case KEYWORD_73:
             case KEYWORD_31:
                 {
-                alt98=4;
+                alt99=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 98, 0, input);
+                    new NoViableAltException("", 99, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt98) {
+            switch (alt99) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4258:5: this_TypeTransformationSet_0= ruleTypeTransformationSet
                     {
                      
                             newCompositeNode(grammarAccess.getTypeUseContextAccess().getTypeTransformationSetParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeTransformationSet_in_ruleTypeUseContext9009);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeTransformationSet_in_ruleTypeUseContext9010);
                     this_TypeTransformationSet_0=ruleTypeTransformationSet();
 
                     state._fsp--;
@@ -10716,7 +10727,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getTypeUseContextAccess().getTypeMappingSetParserRuleCall_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeMappingSet_in_ruleTypeUseContext9036);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeMappingSet_in_ruleTypeUseContext9037);
                     this_TypeMappingSet_1=ruleTypeMappingSet();
 
                     state._fsp--;
@@ -10734,7 +10745,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getTypeUseContextAccess().getErrorBehaviorStateMachineParserRuleCall_2()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorStateMachine_in_ruleTypeUseContext9063);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorStateMachine_in_ruleTypeUseContext9064);
                     this_ErrorBehaviorStateMachine_2=ruleErrorBehaviorStateMachine();
 
                     state._fsp--;
@@ -10752,7 +10763,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getTypeUseContextAccess().getEBSMUseContextParserRuleCall_3()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleEBSMUseContext_in_ruleTypeUseContext9090);
+                    pushFollow(FollowSets000.FOLLOW_ruleEBSMUseContext_in_ruleTypeUseContext9091);
                     this_EBSMUseContext_3=ruleEBSMUseContext();
 
                     state._fsp--;
@@ -10797,13 +10808,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4306:2: iv_ruleComponentErrorBehavior= ruleComponentErrorBehavior EOF
             {
              newCompositeNode(grammarAccess.getComponentErrorBehaviorRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleComponentErrorBehavior_in_entryRuleComponentErrorBehavior9124);
+            pushFollow(FollowSets000.FOLLOW_ruleComponentErrorBehavior_in_entryRuleComponentErrorBehavior9125);
             iv_ruleComponentErrorBehavior=ruleComponentErrorBehavior();
 
             state._fsp--;
 
              current =iv_ruleComponentErrorBehavior; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleComponentErrorBehavior9134); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleComponentErrorBehavior9135); 
 
             }
 
@@ -10860,15 +10871,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4317:1: (otherlv_0= KEYWORD_72 otherlv_1= KEYWORD_41 otherlv_2= KEYWORD_68 () (otherlv_4= KEYWORD_31 otherlv_5= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_7= KEYWORD_10 )? (otherlv_8= KEYWORD_51 ( (lv_events_9_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_10= KEYWORD_82 ( (lv_transitions_11_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_12= KEYWORD_83 ( (lv_outgoingPropagationConditions_13_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_14= KEYWORD_78 ( (lv_errorDetections_15_0= ruleErrorDetection ) )+ )? (otherlv_16= KEYWORD_32 otherlv_17= KEYWORD_71 ( (lv_errorStateToModeMappings_18_0= ruleErrorStateToModeMapping ) )+ )? otherlv_19= KEYWORD_27 otherlv_20= KEYWORD_72 otherlv_21= KEYWORD_10 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4318:2: otherlv_0= KEYWORD_72 otherlv_1= KEYWORD_41 otherlv_2= KEYWORD_68 () (otherlv_4= KEYWORD_31 otherlv_5= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_7= KEYWORD_10 )? (otherlv_8= KEYWORD_51 ( (lv_events_9_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_10= KEYWORD_82 ( (lv_transitions_11_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_12= KEYWORD_83 ( (lv_outgoingPropagationConditions_13_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_14= KEYWORD_78 ( (lv_errorDetections_15_0= ruleErrorDetection ) )+ )? (otherlv_16= KEYWORD_32 otherlv_17= KEYWORD_71 ( (lv_errorStateToModeMappings_18_0= ruleErrorStateToModeMapping ) )+ )? otherlv_19= KEYWORD_27 otherlv_20= KEYWORD_72 otherlv_21= KEYWORD_10
             {
-            otherlv_0=(Token)match(input,KEYWORD_72,FollowSets000.FOLLOW_KEYWORD_72_in_ruleComponentErrorBehavior9172); 
+            otherlv_0=(Token)match(input,KEYWORD_72,FollowSets000.FOLLOW_KEYWORD_72_in_ruleComponentErrorBehavior9173); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getComponentErrorBehaviorAccess().getComponentKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleComponentErrorBehavior9184); 
+            otherlv_1=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleComponentErrorBehavior9185); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getComponentErrorBehaviorAccess().getErrorKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleComponentErrorBehavior9196); 
+            otherlv_2=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleComponentErrorBehavior9197); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getComponentErrorBehaviorAccess().getBehaviorKeyword_2());
                 
@@ -10884,21 +10895,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4338:2: (otherlv_4= KEYWORD_31 otherlv_5= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_7= KEYWORD_10 )?
-            int alt99=2;
-            int LA99_0 = input.LA(1);
+            int alt100=2;
+            int LA100_0 = input.LA(1);
 
-            if ( (LA99_0==KEYWORD_31) ) {
-                alt99=1;
+            if ( (LA100_0==KEYWORD_31) ) {
+                alt100=1;
             }
-            switch (alt99) {
+            switch (alt100) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4339:2: otherlv_4= KEYWORD_31 otherlv_5= KEYWORD_84 ( ( ruleQEMREF ) ) otherlv_7= KEYWORD_10
                     {
-                    otherlv_4=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleComponentErrorBehavior9218); 
+                    otherlv_4=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleComponentErrorBehavior9219); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getComponentErrorBehaviorAccess().getUseKeyword_4_0());
                         
-                    otherlv_5=(Token)match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_ruleComponentErrorBehavior9230); 
+                    otherlv_5=(Token)match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_ruleComponentErrorBehavior9231); 
 
                         	newLeafNode(otherlv_5, grammarAccess.getComponentErrorBehaviorAccess().getTransformationsKeyword_4_1());
                         
@@ -10916,7 +10927,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getComponentErrorBehaviorAccess().getUseTransformationTypeTransformationSetCrossReference_4_2_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleComponentErrorBehavior9252);
+                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleComponentErrorBehavior9253);
                     ruleQEMREF();
 
                     state._fsp--;
@@ -10930,7 +10941,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleComponentErrorBehavior9265); 
+                    otherlv_7=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleComponentErrorBehavior9266); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getComponentErrorBehaviorAccess().getSemicolonKeyword_4_3());
                         
@@ -10941,33 +10952,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4368:3: (otherlv_8= KEYWORD_51 ( (lv_events_9_0= ruleErrorBehaviorEvent ) )+ )?
-            int alt101=2;
-            int LA101_0 = input.LA(1);
+            int alt102=2;
+            int LA102_0 = input.LA(1);
 
-            if ( (LA101_0==KEYWORD_51) ) {
-                alt101=1;
+            if ( (LA102_0==KEYWORD_51) ) {
+                alt102=1;
             }
-            switch (alt101) {
+            switch (alt102) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4369:2: otherlv_8= KEYWORD_51 ( (lv_events_9_0= ruleErrorBehaviorEvent ) )+
                     {
-                    otherlv_8=(Token)match(input,KEYWORD_51,FollowSets000.FOLLOW_KEYWORD_51_in_ruleComponentErrorBehavior9280); 
+                    otherlv_8=(Token)match(input,KEYWORD_51,FollowSets000.FOLLOW_KEYWORD_51_in_ruleComponentErrorBehavior9281); 
 
                         	newLeafNode(otherlv_8, grammarAccess.getComponentErrorBehaviorAccess().getEventsKeyword_5_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4373:1: ( (lv_events_9_0= ruleErrorBehaviorEvent ) )+
-                    int cnt100=0;
-                    loop100:
+                    int cnt101=0;
+                    loop101:
                     do {
-                        int alt100=2;
-                        int LA100_0 = input.LA(1);
+                        int alt101=2;
+                        int LA101_0 = input.LA(1);
 
-                        if ( (LA100_0==RULE_ID) ) {
-                            alt100=1;
+                        if ( (LA101_0==RULE_ID) ) {
+                            alt101=1;
                         }
 
 
-                        switch (alt100) {
+                        switch (alt101) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4374:1: (lv_events_9_0= ruleErrorBehaviorEvent )
                     	    {
@@ -10977,7 +10988,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getComponentErrorBehaviorAccess().getEventsErrorBehaviorEventParserRuleCall_5_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_ruleComponentErrorBehavior9300);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_ruleComponentErrorBehavior9301);
                     	    lv_events_9_0=ruleErrorBehaviorEvent();
 
                     	    state._fsp--;
@@ -11001,12 +11012,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt100 >= 1 ) break loop100;
+                    	    if ( cnt101 >= 1 ) break loop101;
                                 EarlyExitException eee =
-                                    new EarlyExitException(100, input);
+                                    new EarlyExitException(101, input);
                                 throw eee;
                         }
-                        cnt100++;
+                        cnt101++;
                     } while (true);
 
 
@@ -11016,33 +11027,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4391:5: (otherlv_10= KEYWORD_82 ( (lv_transitions_11_0= ruleErrorBehaviorTransition ) )+ )?
-            int alt103=2;
-            int LA103_0 = input.LA(1);
+            int alt104=2;
+            int LA104_0 = input.LA(1);
 
-            if ( (LA103_0==KEYWORD_82) ) {
-                alt103=1;
+            if ( (LA104_0==KEYWORD_82) ) {
+                alt104=1;
             }
-            switch (alt103) {
+            switch (alt104) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4392:2: otherlv_10= KEYWORD_82 ( (lv_transitions_11_0= ruleErrorBehaviorTransition ) )+
                     {
-                    otherlv_10=(Token)match(input,KEYWORD_82,FollowSets000.FOLLOW_KEYWORD_82_in_ruleComponentErrorBehavior9317); 
+                    otherlv_10=(Token)match(input,KEYWORD_82,FollowSets000.FOLLOW_KEYWORD_82_in_ruleComponentErrorBehavior9318); 
 
                         	newLeafNode(otherlv_10, grammarAccess.getComponentErrorBehaviorAccess().getTransitionsKeyword_6_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4396:1: ( (lv_transitions_11_0= ruleErrorBehaviorTransition ) )+
-                    int cnt102=0;
-                    loop102:
+                    int cnt103=0;
+                    loop103:
                     do {
-                        int alt102=2;
-                        int LA102_0 = input.LA(1);
+                        int alt103=2;
+                        int LA103_0 = input.LA(1);
 
-                        if ( (LA102_0==KEYWORD_25||LA102_0==RULE_ID) ) {
-                            alt102=1;
+                        if ( (LA103_0==KEYWORD_25||LA103_0==RULE_ID) ) {
+                            alt103=1;
                         }
 
 
-                        switch (alt102) {
+                        switch (alt103) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4397:1: (lv_transitions_11_0= ruleErrorBehaviorTransition )
                     	    {
@@ -11052,7 +11063,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getComponentErrorBehaviorAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_6_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorTransition_in_ruleComponentErrorBehavior9337);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorTransition_in_ruleComponentErrorBehavior9338);
                     	    lv_transitions_11_0=ruleErrorBehaviorTransition();
 
                     	    state._fsp--;
@@ -11076,12 +11087,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt102 >= 1 ) break loop102;
+                    	    if ( cnt103 >= 1 ) break loop103;
                                 EarlyExitException eee =
-                                    new EarlyExitException(102, input);
+                                    new EarlyExitException(103, input);
                                 throw eee;
                         }
-                        cnt102++;
+                        cnt103++;
                     } while (true);
 
 
@@ -11091,33 +11102,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4414:5: (otherlv_12= KEYWORD_83 ( (lv_outgoingPropagationConditions_13_0= ruleOutgoingPropagationCondition ) )+ )?
-            int alt105=2;
-            int LA105_0 = input.LA(1);
+            int alt106=2;
+            int LA106_0 = input.LA(1);
 
-            if ( (LA105_0==KEYWORD_83) ) {
-                alt105=1;
+            if ( (LA106_0==KEYWORD_83) ) {
+                alt106=1;
             }
-            switch (alt105) {
+            switch (alt106) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4415:2: otherlv_12= KEYWORD_83 ( (lv_outgoingPropagationConditions_13_0= ruleOutgoingPropagationCondition ) )+
                     {
-                    otherlv_12=(Token)match(input,KEYWORD_83,FollowSets000.FOLLOW_KEYWORD_83_in_ruleComponentErrorBehavior9354); 
+                    otherlv_12=(Token)match(input,KEYWORD_83,FollowSets000.FOLLOW_KEYWORD_83_in_ruleComponentErrorBehavior9355); 
 
                         	newLeafNode(otherlv_12, grammarAccess.getComponentErrorBehaviorAccess().getPropagationsKeyword_7_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4419:1: ( (lv_outgoingPropagationConditions_13_0= ruleOutgoingPropagationCondition ) )+
-                    int cnt104=0;
-                    loop104:
+                    int cnt105=0;
+                    loop105:
                     do {
-                        int alt104=2;
-                        int LA104_0 = input.LA(1);
+                        int alt105=2;
+                        int LA105_0 = input.LA(1);
 
-                        if ( (LA104_0==KEYWORD_25||LA104_0==RULE_ID) ) {
-                            alt104=1;
+                        if ( (LA105_0==KEYWORD_25||LA105_0==RULE_ID) ) {
+                            alt105=1;
                         }
 
 
-                        switch (alt104) {
+                        switch (alt105) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4420:1: (lv_outgoingPropagationConditions_13_0= ruleOutgoingPropagationCondition )
                     	    {
@@ -11127,7 +11138,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getComponentErrorBehaviorAccess().getOutgoingPropagationConditionsOutgoingPropagationConditionParserRuleCall_7_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleOutgoingPropagationCondition_in_ruleComponentErrorBehavior9374);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleOutgoingPropagationCondition_in_ruleComponentErrorBehavior9375);
                     	    lv_outgoingPropagationConditions_13_0=ruleOutgoingPropagationCondition();
 
                     	    state._fsp--;
@@ -11151,12 +11162,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt104 >= 1 ) break loop104;
+                    	    if ( cnt105 >= 1 ) break loop105;
                                 EarlyExitException eee =
-                                    new EarlyExitException(104, input);
+                                    new EarlyExitException(105, input);
                                 throw eee;
                         }
-                        cnt104++;
+                        cnt105++;
                     } while (true);
 
 
@@ -11166,33 +11177,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4437:5: (otherlv_14= KEYWORD_78 ( (lv_errorDetections_15_0= ruleErrorDetection ) )+ )?
-            int alt107=2;
-            int LA107_0 = input.LA(1);
+            int alt108=2;
+            int LA108_0 = input.LA(1);
 
-            if ( (LA107_0==KEYWORD_78) ) {
-                alt107=1;
+            if ( (LA108_0==KEYWORD_78) ) {
+                alt108=1;
             }
-            switch (alt107) {
+            switch (alt108) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4438:2: otherlv_14= KEYWORD_78 ( (lv_errorDetections_15_0= ruleErrorDetection ) )+
                     {
-                    otherlv_14=(Token)match(input,KEYWORD_78,FollowSets000.FOLLOW_KEYWORD_78_in_ruleComponentErrorBehavior9391); 
+                    otherlv_14=(Token)match(input,KEYWORD_78,FollowSets000.FOLLOW_KEYWORD_78_in_ruleComponentErrorBehavior9392); 
 
                         	newLeafNode(otherlv_14, grammarAccess.getComponentErrorBehaviorAccess().getDetectionsKeyword_8_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4442:1: ( (lv_errorDetections_15_0= ruleErrorDetection ) )+
-                    int cnt106=0;
-                    loop106:
+                    int cnt107=0;
+                    loop107:
                     do {
-                        int alt106=2;
-                        int LA106_0 = input.LA(1);
+                        int alt107=2;
+                        int LA107_0 = input.LA(1);
 
-                        if ( (LA106_0==KEYWORD_25||LA106_0==RULE_ID) ) {
-                            alt106=1;
+                        if ( (LA107_0==KEYWORD_25||LA107_0==RULE_ID) ) {
+                            alt107=1;
                         }
 
 
-                        switch (alt106) {
+                        switch (alt107) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4443:1: (lv_errorDetections_15_0= ruleErrorDetection )
                     	    {
@@ -11202,7 +11213,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getComponentErrorBehaviorAccess().getErrorDetectionsErrorDetectionParserRuleCall_8_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorDetection_in_ruleComponentErrorBehavior9411);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorDetection_in_ruleComponentErrorBehavior9412);
                     	    lv_errorDetections_15_0=ruleErrorDetection();
 
                     	    state._fsp--;
@@ -11226,12 +11237,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt106 >= 1 ) break loop106;
+                    	    if ( cnt107 >= 1 ) break loop107;
                                 EarlyExitException eee =
-                                    new EarlyExitException(106, input);
+                                    new EarlyExitException(107, input);
                                 throw eee;
                         }
-                        cnt106++;
+                        cnt107++;
                     } while (true);
 
 
@@ -11241,37 +11252,37 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4460:5: (otherlv_16= KEYWORD_32 otherlv_17= KEYWORD_71 ( (lv_errorStateToModeMappings_18_0= ruleErrorStateToModeMapping ) )+ )?
-            int alt109=2;
-            int LA109_0 = input.LA(1);
+            int alt110=2;
+            int LA110_0 = input.LA(1);
 
-            if ( (LA109_0==KEYWORD_32) ) {
-                alt109=1;
+            if ( (LA110_0==KEYWORD_32) ) {
+                alt110=1;
             }
-            switch (alt109) {
+            switch (alt110) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4461:2: otherlv_16= KEYWORD_32 otherlv_17= KEYWORD_71 ( (lv_errorStateToModeMappings_18_0= ruleErrorStateToModeMapping ) )+
                     {
-                    otherlv_16=(Token)match(input,KEYWORD_32,FollowSets000.FOLLOW_KEYWORD_32_in_ruleComponentErrorBehavior9428); 
+                    otherlv_16=(Token)match(input,KEYWORD_32,FollowSets000.FOLLOW_KEYWORD_32_in_ruleComponentErrorBehavior9429); 
 
                         	newLeafNode(otherlv_16, grammarAccess.getComponentErrorBehaviorAccess().getModeKeyword_9_0());
                         
-                    otherlv_17=(Token)match(input,KEYWORD_71,FollowSets000.FOLLOW_KEYWORD_71_in_ruleComponentErrorBehavior9440); 
+                    otherlv_17=(Token)match(input,KEYWORD_71,FollowSets000.FOLLOW_KEYWORD_71_in_ruleComponentErrorBehavior9441); 
 
                         	newLeafNode(otherlv_17, grammarAccess.getComponentErrorBehaviorAccess().getMappingsKeyword_9_1());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4470:1: ( (lv_errorStateToModeMappings_18_0= ruleErrorStateToModeMapping ) )+
-                    int cnt108=0;
-                    loop108:
+                    int cnt109=0;
+                    loop109:
                     do {
-                        int alt108=2;
-                        int LA108_0 = input.LA(1);
+                        int alt109=2;
+                        int LA109_0 = input.LA(1);
 
-                        if ( (LA108_0==RULE_ID) ) {
-                            alt108=1;
+                        if ( (LA109_0==RULE_ID) ) {
+                            alt109=1;
                         }
 
 
-                        switch (alt108) {
+                        switch (alt109) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4471:1: (lv_errorStateToModeMappings_18_0= ruleErrorStateToModeMapping )
                     	    {
@@ -11281,7 +11292,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getComponentErrorBehaviorAccess().getErrorStateToModeMappingsErrorStateToModeMappingParserRuleCall_9_2_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorStateToModeMapping_in_ruleComponentErrorBehavior9460);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorStateToModeMapping_in_ruleComponentErrorBehavior9461);
                     	    lv_errorStateToModeMappings_18_0=ruleErrorStateToModeMapping();
 
                     	    state._fsp--;
@@ -11305,12 +11316,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt108 >= 1 ) break loop108;
+                    	    if ( cnt109 >= 1 ) break loop109;
                                 EarlyExitException eee =
-                                    new EarlyExitException(108, input);
+                                    new EarlyExitException(109, input);
                                 throw eee;
                         }
-                        cnt108++;
+                        cnt109++;
                     } while (true);
 
 
@@ -11319,15 +11330,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_19=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleComponentErrorBehavior9476); 
+            otherlv_19=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleComponentErrorBehavior9477); 
 
                 	newLeafNode(otherlv_19, grammarAccess.getComponentErrorBehaviorAccess().getEndKeyword_10());
                 
-            otherlv_20=(Token)match(input,KEYWORD_72,FollowSets000.FOLLOW_KEYWORD_72_in_ruleComponentErrorBehavior9488); 
+            otherlv_20=(Token)match(input,KEYWORD_72,FollowSets000.FOLLOW_KEYWORD_72_in_ruleComponentErrorBehavior9489); 
 
                 	newLeafNode(otherlv_20, grammarAccess.getComponentErrorBehaviorAccess().getComponentKeyword_11());
                 
-            otherlv_21=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleComponentErrorBehavior9500); 
+            otherlv_21=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleComponentErrorBehavior9501); 
 
                 	newLeafNode(otherlv_21, grammarAccess.getComponentErrorBehaviorAccess().getSemicolonKeyword_12());
                 
@@ -11364,13 +11375,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4513:2: iv_ruleConditionExpression= ruleConditionExpression EOF
             {
              newCompositeNode(grammarAccess.getConditionExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_entryRuleConditionExpression9534);
+            pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_entryRuleConditionExpression9535);
             iv_ruleConditionExpression=ruleConditionExpression();
 
             state._fsp--;
 
              current =iv_ruleConditionExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConditionExpression9544); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConditionExpression9545); 
 
             }
 
@@ -11410,7 +11421,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getConditionExpressionAccess().getAndExpressionParserRuleCall_0()); 
                 
-            pushFollow(FollowSets000.FOLLOW_ruleAndExpression_in_ruleConditionExpression9591);
+            pushFollow(FollowSets000.FOLLOW_ruleAndExpression_in_ruleConditionExpression9592);
             this_AndExpression_0=ruleAndExpression();
 
             state._fsp--;
@@ -11420,17 +11431,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     afterParserOrEnumRuleCall();
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4533:1: ( () otherlv_2= KEYWORD_21 ( (lv_operands_3_0= ruleAndExpression ) ) )*
-            loop110:
+            loop111:
             do {
-                int alt110=2;
-                int LA110_0 = input.LA(1);
+                int alt111=2;
+                int LA111_0 = input.LA(1);
 
-                if ( (LA110_0==KEYWORD_21) ) {
-                    alt110=1;
+                if ( (LA111_0==KEYWORD_21) ) {
+                    alt111=1;
                 }
 
 
-                switch (alt110) {
+                switch (alt111) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4533:2: () otherlv_2= KEYWORD_21 ( (lv_operands_3_0= ruleAndExpression ) )
             	    {
@@ -11445,7 +11456,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,KEYWORD_21,FollowSets000.FOLLOW_KEYWORD_21_in_ruleConditionExpression9613); 
+            	    otherlv_2=(Token)match(input,KEYWORD_21,FollowSets000.FOLLOW_KEYWORD_21_in_ruleConditionExpression9614); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getConditionExpressionAccess().getOrKeyword_1_1());
             	        
@@ -11458,7 +11469,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getConditionExpressionAccess().getOperandsAndExpressionParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleAndExpression_in_ruleConditionExpression9633);
+            	    pushFollow(FollowSets000.FOLLOW_ruleAndExpression_in_ruleConditionExpression9634);
             	    lv_operands_3_0=ruleAndExpression();
 
             	    state._fsp--;
@@ -11485,7 +11496,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop110;
+            	    break loop111;
                 }
             } while (true);
 
@@ -11522,13 +11533,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4572:2: iv_ruleAndExpression= ruleAndExpression EOF
             {
              newCompositeNode(grammarAccess.getAndExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleAndExpression_in_entryRuleAndExpression9670);
+            pushFollow(FollowSets000.FOLLOW_ruleAndExpression_in_entryRuleAndExpression9671);
             iv_ruleAndExpression=ruleAndExpression();
 
             state._fsp--;
 
              current =iv_ruleAndExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAndExpression9680); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAndExpression9681); 
 
             }
 
@@ -11568,7 +11579,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getAndExpressionAccess().getConditionTermParserRuleCall_0()); 
                 
-            pushFollow(FollowSets000.FOLLOW_ruleConditionTerm_in_ruleAndExpression9727);
+            pushFollow(FollowSets000.FOLLOW_ruleConditionTerm_in_ruleAndExpression9728);
             this_ConditionTerm_0=ruleConditionTerm();
 
             state._fsp--;
@@ -11578,17 +11589,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     afterParserOrEnumRuleCall();
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4592:1: ( () otherlv_2= KEYWORD_26 ( (lv_operands_3_0= ruleConditionTerm ) ) )*
-            loop111:
+            loop112:
             do {
-                int alt111=2;
-                int LA111_0 = input.LA(1);
+                int alt112=2;
+                int LA112_0 = input.LA(1);
 
-                if ( (LA111_0==KEYWORD_26) ) {
-                    alt111=1;
+                if ( (LA112_0==KEYWORD_26) ) {
+                    alt112=1;
                 }
 
 
-                switch (alt111) {
+                switch (alt112) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4592:2: () otherlv_2= KEYWORD_26 ( (lv_operands_3_0= ruleConditionTerm ) )
             	    {
@@ -11603,7 +11614,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,KEYWORD_26,FollowSets000.FOLLOW_KEYWORD_26_in_ruleAndExpression9749); 
+            	    otherlv_2=(Token)match(input,KEYWORD_26,FollowSets000.FOLLOW_KEYWORD_26_in_ruleAndExpression9750); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getAndExpressionAccess().getAndKeyword_1_1());
             	        
@@ -11616,7 +11627,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getAndExpressionAccess().getOperandsConditionTermParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleConditionTerm_in_ruleAndExpression9769);
+            	    pushFollow(FollowSets000.FOLLOW_ruleConditionTerm_in_ruleAndExpression9770);
             	    lv_operands_3_0=ruleConditionTerm();
 
             	    state._fsp--;
@@ -11643,7 +11654,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop111;
+            	    break loop112;
                 }
             } while (true);
 
@@ -11680,13 +11691,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4631:2: iv_ruleOrmoreExpression= ruleOrmoreExpression EOF
             {
              newCompositeNode(grammarAccess.getOrmoreExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleOrmoreExpression_in_entryRuleOrmoreExpression9806);
+            pushFollow(FollowSets000.FOLLOW_ruleOrmoreExpression_in_entryRuleOrmoreExpression9807);
             iv_ruleOrmoreExpression=ruleOrmoreExpression();
 
             state._fsp--;
 
              current =iv_ruleOrmoreExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOrmoreExpression9816); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOrmoreExpression9817); 
 
             }
 
@@ -11737,7 +11748,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getCountINTVALUEParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleOrmoreExpression9862);
+            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleOrmoreExpression9863);
             lv_count_0_0=ruleINTVALUE();
 
             state._fsp--;
@@ -11759,11 +11770,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_54,FollowSets000.FOLLOW_KEYWORD_54_in_ruleOrmoreExpression9875); 
+            otherlv_1=(Token)match(input,KEYWORD_54,FollowSets000.FOLLOW_KEYWORD_54_in_ruleOrmoreExpression9876); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getOrmoreExpressionAccess().getOrmoreKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleOrmoreExpression9887); 
+            otherlv_2=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleOrmoreExpression9888); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getOrmoreExpressionAccess().getLeftParenthesisKeyword_2());
                 
@@ -11776,7 +11787,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleOrmoreExpression9907);
+            pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleOrmoreExpression9908);
             lv_operands_3_0=ruleConditionElement();
 
             state._fsp--;
@@ -11799,21 +11810,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4688:2: (otherlv_4= KEYWORD_6 ( (lv_operands_5_0= ruleConditionElement ) ) )*
-            loop112:
+            loop113:
             do {
-                int alt112=2;
-                int LA112_0 = input.LA(1);
+                int alt113=2;
+                int LA113_0 = input.LA(1);
 
-                if ( (LA112_0==KEYWORD_6) ) {
-                    alt112=1;
+                if ( (LA113_0==KEYWORD_6) ) {
+                    alt113=1;
                 }
 
 
-                switch (alt112) {
+                switch (alt113) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4689:2: otherlv_4= KEYWORD_6 ( (lv_operands_5_0= ruleConditionElement ) )
             	    {
-            	    otherlv_4=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleOrmoreExpression9921); 
+            	    otherlv_4=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleOrmoreExpression9922); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getOrmoreExpressionAccess().getCommaKeyword_4_0());
             	        
@@ -11826,7 +11837,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleOrmoreExpression9941);
+            	    pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleOrmoreExpression9942);
             	    lv_operands_5_0=ruleConditionElement();
 
             	    state._fsp--;
@@ -11853,11 +11864,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop112;
+            	    break loop113;
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleOrmoreExpression9956); 
+            otherlv_6=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleOrmoreExpression9957); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getOrmoreExpressionAccess().getRightParenthesisKeyword_5());
                 
@@ -11894,13 +11905,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4726:2: iv_ruleOrlessExpression= ruleOrlessExpression EOF
             {
              newCompositeNode(grammarAccess.getOrlessExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleOrlessExpression_in_entryRuleOrlessExpression9990);
+            pushFollow(FollowSets000.FOLLOW_ruleOrlessExpression_in_entryRuleOrlessExpression9991);
             iv_ruleOrlessExpression=ruleOrlessExpression();
 
             state._fsp--;
 
              current =iv_ruleOrlessExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOrlessExpression10000); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOrlessExpression10001); 
 
             }
 
@@ -11951,7 +11962,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getOrlessExpressionAccess().getCountINTVALUEParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleOrlessExpression10046);
+            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleOrlessExpression10047);
             lv_count_0_0=ruleINTVALUE();
 
             state._fsp--;
@@ -11973,11 +11984,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_53,FollowSets000.FOLLOW_KEYWORD_53_in_ruleOrlessExpression10059); 
+            otherlv_1=(Token)match(input,KEYWORD_53,FollowSets000.FOLLOW_KEYWORD_53_in_ruleOrlessExpression10060); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getOrlessExpressionAccess().getOrlessKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleOrlessExpression10071); 
+            otherlv_2=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleOrlessExpression10072); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getOrlessExpressionAccess().getLeftParenthesisKeyword_2());
                 
@@ -11990,7 +12001,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getOrlessExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleOrlessExpression10091);
+            pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleOrlessExpression10092);
             lv_operands_3_0=ruleConditionElement();
 
             state._fsp--;
@@ -12013,21 +12024,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4783:2: (otherlv_4= KEYWORD_6 ( (lv_operands_5_0= ruleConditionElement ) ) )*
-            loop113:
+            loop114:
             do {
-                int alt113=2;
-                int LA113_0 = input.LA(1);
+                int alt114=2;
+                int LA114_0 = input.LA(1);
 
-                if ( (LA113_0==KEYWORD_6) ) {
-                    alt113=1;
+                if ( (LA114_0==KEYWORD_6) ) {
+                    alt114=1;
                 }
 
 
-                switch (alt113) {
+                switch (alt114) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4784:2: otherlv_4= KEYWORD_6 ( (lv_operands_5_0= ruleConditionElement ) )
             	    {
-            	    otherlv_4=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleOrlessExpression10105); 
+            	    otherlv_4=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleOrlessExpression10106); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getOrlessExpressionAccess().getCommaKeyword_4_0());
             	        
@@ -12040,7 +12051,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getOrlessExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleOrlessExpression10125);
+            	    pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleOrlessExpression10126);
             	    lv_operands_5_0=ruleConditionElement();
 
             	    state._fsp--;
@@ -12067,11 +12078,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop113;
+            	    break loop114;
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleOrlessExpression10140); 
+            otherlv_6=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleOrlessExpression10141); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getOrlessExpressionAccess().getRightParenthesisKeyword_5());
                 
@@ -12108,13 +12119,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4821:2: iv_ruleConditionTerm= ruleConditionTerm EOF
             {
              newCompositeNode(grammarAccess.getConditionTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleConditionTerm_in_entryRuleConditionTerm10174);
+            pushFollow(FollowSets000.FOLLOW_ruleConditionTerm_in_entryRuleConditionTerm10175);
             iv_ruleConditionTerm=ruleConditionTerm();
 
             state._fsp--;
 
              current =iv_ruleConditionTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConditionTerm10184); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConditionTerm10185); 
 
             }
 
@@ -12154,7 +12165,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4832:1: (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | (otherlv_3= KEYWORD_2 this_ConditionExpression_4= ruleConditionExpression otherlv_5= KEYWORD_3 ) )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4832:1: (this_ConditionElement_0= ruleConditionElement | this_OrmoreExpression_1= ruleOrmoreExpression | this_OrlessExpression_2= ruleOrlessExpression | (otherlv_3= KEYWORD_2 this_ConditionExpression_4= ruleConditionExpression otherlv_5= KEYWORD_3 ) )
-            int alt114=4;
+            int alt115=4;
             switch ( input.LA(1) ) {
             case KEYWORD_77:
             case KEYWORD_74:
@@ -12164,22 +12175,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             case KEYWORD_52:
             case RULE_ID:
                 {
-                alt114=1;
+                alt115=1;
                 }
                 break;
             case RULE_INTEGER_LIT:
                 {
-                int LA114_2 = input.LA(2);
+                int LA115_2 = input.LA(2);
 
-                if ( (LA114_2==KEYWORD_54) ) {
-                    alt114=2;
+                if ( (LA115_2==KEYWORD_54) ) {
+                    alt115=2;
                 }
-                else if ( (LA114_2==KEYWORD_53) ) {
-                    alt114=3;
+                else if ( (LA115_2==KEYWORD_53) ) {
+                    alt115=3;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 114, 2, input);
+                        new NoViableAltException("", 115, 2, input);
 
                     throw nvae;
                 }
@@ -12187,24 +12198,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 break;
             case KEYWORD_2:
                 {
-                alt114=4;
+                alt115=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 114, 0, input);
+                    new NoViableAltException("", 115, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt114) {
+            switch (alt115) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4833:5: this_ConditionElement_0= ruleConditionElement
                     {
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getConditionElementParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleConditionTerm10231);
+                    pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_ruleConditionTerm10232);
                     this_ConditionElement_0=ruleConditionElement();
 
                     state._fsp--;
@@ -12222,7 +12233,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getOrmoreExpressionParserRuleCall_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleOrmoreExpression_in_ruleConditionTerm10258);
+                    pushFollow(FollowSets000.FOLLOW_ruleOrmoreExpression_in_ruleConditionTerm10259);
                     this_OrmoreExpression_1=ruleOrmoreExpression();
 
                     state._fsp--;
@@ -12240,7 +12251,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getOrlessExpressionParserRuleCall_2()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleOrlessExpression_in_ruleConditionTerm10285);
+                    pushFollow(FollowSets000.FOLLOW_ruleOrlessExpression_in_ruleConditionTerm10286);
                     this_OrlessExpression_2=ruleOrlessExpression();
 
                     state._fsp--;
@@ -12258,14 +12269,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4862:6: (otherlv_3= KEYWORD_2 this_ConditionExpression_4= ruleConditionExpression otherlv_5= KEYWORD_3 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4863:2: otherlv_3= KEYWORD_2 this_ConditionExpression_4= ruleConditionExpression otherlv_5= KEYWORD_3
                     {
-                    otherlv_3=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleConditionTerm10304); 
+                    otherlv_3=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleConditionTerm10305); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
                         
                      
                             newCompositeNode(grammarAccess.getConditionTermAccess().getConditionExpressionParserRuleCall_3_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_ruleConditionTerm10325);
+                    pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_ruleConditionTerm10326);
                     this_ConditionExpression_4=ruleConditionExpression();
 
                     state._fsp--;
@@ -12274,7 +12285,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             current = this_ConditionExpression_4;
                             afterParserOrEnumRuleCall();
                         
-                    otherlv_5=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleConditionTerm10337); 
+                    otherlv_5=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleConditionTerm10338); 
 
                         	newLeafNode(otherlv_5, grammarAccess.getConditionTermAccess().getRightParenthesisKeyword_3_2());
                         
@@ -12317,13 +12328,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4891:2: iv_ruleConditionElement= ruleConditionElement EOF
             {
              newCompositeNode(grammarAccess.getConditionElementRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_entryRuleConditionElement10372);
+            pushFollow(FollowSets000.FOLLOW_ruleConditionElement_in_entryRuleConditionElement10373);
             iv_ruleConditionElement=ruleConditionElement();
 
             state._fsp--;
 
              current =iv_ruleConditionElement; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConditionElement10382); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConditionElement10383); 
 
             }
 
@@ -12371,7 +12382,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getConditionElementAccess().getIncomingEventOrPropagationCrossReference_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleConditionElement10430);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleConditionElement10431);
             ruleErrorPropagationPoint();
 
             state._fsp--;
@@ -12386,13 +12397,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4917:2: ( (lv_constraint_1_0= ruleTypeTokenConstraintNoError ) )?
-            int alt115=2;
-            int LA115_0 = input.LA(1);
+            int alt116=2;
+            int LA116_0 = input.LA(1);
 
-            if ( (LA115_0==KEYWORD_13||LA115_0==RULE_ID) ) {
-                alt115=1;
+            if ( (LA116_0==KEYWORD_13||LA116_0==RULE_ID) ) {
+                alt116=1;
             }
-            switch (alt115) {
+            switch (alt116) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4918:1: (lv_constraint_1_0= ruleTypeTokenConstraintNoError )
                     {
@@ -12402,7 +12413,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getConditionElementAccess().getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraintNoError_in_ruleConditionElement10451);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraintNoError_in_ruleConditionElement10452);
                     lv_constraint_1_0=ruleTypeTokenConstraintNoError();
 
                     state._fsp--;
@@ -12460,13 +12471,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4945:2: iv_ruleEventOrPropagation= ruleEventOrPropagation EOF
             {
              newCompositeNode(grammarAccess.getEventOrPropagationRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleEventOrPropagation_in_entryRuleEventOrPropagation10487);
+            pushFollow(FollowSets000.FOLLOW_ruleEventOrPropagation_in_entryRuleEventOrPropagation10488);
             iv_ruleEventOrPropagation=ruleEventOrPropagation();
 
             state._fsp--;
 
              current =iv_ruleEventOrPropagation; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleEventOrPropagation10497); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleEventOrPropagation10498); 
 
             }
 
@@ -12500,55 +12511,55 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4956:1: (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4956:1: (this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent | this_ErrorPropagation_1= ruleErrorPropagation )
-            int alt116=2;
-            int LA116_0 = input.LA(1);
+            int alt117=2;
+            int LA117_0 = input.LA(1);
 
-            if ( (LA116_0==RULE_ID) ) {
-                int LA116_1 = input.LA(2);
+            if ( (LA117_0==RULE_ID) ) {
+                int LA117_1 = input.LA(2);
 
-                if ( (LA116_1==KEYWORD_9) ) {
-                    int LA116_3 = input.LA(3);
+                if ( (LA117_1==KEYWORD_8) ) {
+                    alt117=2;
+                }
+                else if ( (LA117_1==KEYWORD_9) ) {
+                    int LA117_3 = input.LA(3);
 
-                    if ( ((LA116_3>=KEYWORD_28 && LA116_3<=KEYWORD_29)||LA116_3==KEYWORD_20) ) {
-                        alt116=2;
+                    if ( (LA117_3==KEYWORD_66||LA117_3==KEYWORD_56||LA117_3==KEYWORD_41) ) {
+                        alt117=1;
                     }
-                    else if ( (LA116_3==KEYWORD_66||LA116_3==KEYWORD_56||LA116_3==KEYWORD_41) ) {
-                        alt116=1;
+                    else if ( ((LA117_3>=KEYWORD_28 && LA117_3<=KEYWORD_29)||LA117_3==KEYWORD_20) ) {
+                        alt117=2;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 116, 3, input);
+                            new NoViableAltException("", 117, 3, input);
 
                         throw nvae;
                     }
                 }
-                else if ( (LA116_1==KEYWORD_8) ) {
-                    alt116=2;
-                }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 116, 1, input);
+                        new NoViableAltException("", 117, 1, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA116_0==KEYWORD_77||LA116_0==KEYWORD_74||LA116_0==KEYWORD_69||LA116_0==KEYWORD_60||LA116_0==KEYWORD_50||LA116_0==KEYWORD_52) ) {
-                alt116=2;
+            else if ( (LA117_0==KEYWORD_77||LA117_0==KEYWORD_74||LA117_0==KEYWORD_69||LA117_0==KEYWORD_60||LA117_0==KEYWORD_50||LA117_0==KEYWORD_52) ) {
+                alt117=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 116, 0, input);
+                    new NoViableAltException("", 117, 0, input);
 
                 throw nvae;
             }
-            switch (alt116) {
+            switch (alt117) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4957:5: this_ErrorBehaviorEvent_0= ruleErrorBehaviorEvent
                     {
                      
                             newCompositeNode(grammarAccess.getEventOrPropagationAccess().getErrorBehaviorEventParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_ruleEventOrPropagation10544);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_ruleEventOrPropagation10545);
                     this_ErrorBehaviorEvent_0=ruleErrorBehaviorEvent();
 
                     state._fsp--;
@@ -12566,7 +12577,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getEventOrPropagationAccess().getErrorPropagationParserRuleCall_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagation_in_ruleEventOrPropagation10571);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagation_in_ruleEventOrPropagation10572);
                     this_ErrorPropagation_1=ruleErrorPropagation();
 
                     state._fsp--;
@@ -12611,13 +12622,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4985:2: iv_ruleOutgoingPropagationCondition= ruleOutgoingPropagationCondition EOF
             {
              newCompositeNode(grammarAccess.getOutgoingPropagationConditionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleOutgoingPropagationCondition_in_entryRuleOutgoingPropagationCondition10605);
+            pushFollow(FollowSets000.FOLLOW_ruleOutgoingPropagationCondition_in_entryRuleOutgoingPropagationCondition10606);
             iv_ruleOutgoingPropagationCondition=ruleOutgoingPropagationCondition();
 
             state._fsp--;
 
              current =iv_ruleOutgoingPropagationCondition; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOutgoingPropagationCondition10615); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOutgoingPropagationCondition10616); 
 
             }
 
@@ -12664,17 +12675,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4996:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9 )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= KEYWORD_25 ) ) ) otherlv_5= KEYWORD_16 ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= KEYWORD_24 ( ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= KEYWORD_25 ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )? ) otherlv_11= KEYWORD_10
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4996:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9 )?
-            int alt117=2;
-            int LA117_0 = input.LA(1);
+            int alt118=2;
+            int LA118_0 = input.LA(1);
 
-            if ( (LA117_0==RULE_ID) ) {
-                int LA117_1 = input.LA(2);
+            if ( (LA118_0==RULE_ID) ) {
+                int LA118_1 = input.LA(2);
 
-                if ( (LA117_1==KEYWORD_9) ) {
-                    alt117=1;
+                if ( (LA118_1==KEYWORD_9) ) {
+                    alt118=1;
                 }
             }
-            switch (alt117) {
+            switch (alt118) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4996:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9
                     {
@@ -12684,7 +12695,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4997:1: (lv_name_0_0= RULE_ID )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:4998:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleOutgoingPropagationCondition10658); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleOutgoingPropagationCondition10659); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getOutgoingPropagationConditionAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -12704,7 +12715,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleOutgoingPropagationCondition10676); 
+                    otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleOutgoingPropagationCondition10677); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getOutgoingPropagationConditionAccess().getColonKeyword_0_1());
                         
@@ -12715,22 +12726,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5019:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= KEYWORD_25 ) ) )
-            int alt119=2;
-            int LA119_0 = input.LA(1);
+            int alt120=2;
+            int LA120_0 = input.LA(1);
 
-            if ( (LA119_0==RULE_ID) ) {
-                alt119=1;
+            if ( (LA120_0==RULE_ID) ) {
+                alt120=1;
             }
-            else if ( (LA119_0==KEYWORD_25) ) {
-                alt119=2;
+            else if ( (LA120_0==KEYWORD_25) ) {
+                alt120=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 119, 0, input);
+                    new NoViableAltException("", 120, 0, input);
 
                 throw nvae;
             }
-            switch (alt119) {
+            switch (alt120) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5019:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
                     {
@@ -12748,7 +12759,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getOutgoingPropagationConditionRule());
                     	        }
                             
-                    otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleOutgoingPropagationCondition10699); 
+                    otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleOutgoingPropagationCondition10700); 
 
                     		newLeafNode(otherlv_2, grammarAccess.getOutgoingPropagationConditionAccess().getStateErrorBehaviorStateCrossReference_1_0_0_0()); 
                     	
@@ -12759,13 +12770,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
 
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5032:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
-                    int alt118=2;
-                    int LA118_0 = input.LA(1);
+                    int alt119=2;
+                    int LA119_0 = input.LA(1);
 
-                    if ( (LA118_0==KEYWORD_13||LA118_0==RULE_ID) ) {
-                        alt118=1;
+                    if ( (LA119_0==KEYWORD_13||LA119_0==RULE_ID) ) {
+                        alt119=1;
                     }
-                    switch (alt118) {
+                    switch (alt119) {
                         case 1 :
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5033:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
                             {
@@ -12775,7 +12786,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                              
                             	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0()); 
                             	    
-                            pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleOutgoingPropagationCondition10720);
+                            pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleOutgoingPropagationCondition10721);
                             lv_typeTokenConstraint_3_0=ruleTypeTokenConstraint();
 
                             state._fsp--;
@@ -12815,7 +12826,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5052:1: (lv_allStates_4_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5053:3: lv_allStates_4_0= KEYWORD_25
                     {
-                    lv_allStates_4_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleOutgoingPropagationCondition10747); 
+                    lv_allStates_4_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleOutgoingPropagationCondition10748); 
 
                             newLeafNode(lv_allStates_4_0, grammarAccess.getOutgoingPropagationConditionAccess().getAllStatesAllKeyword_1_1_0());
                         
@@ -12837,18 +12848,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_16,FollowSets000.FOLLOW_KEYWORD_16_in_ruleOutgoingPropagationCondition10772); 
+            otherlv_5=(Token)match(input,KEYWORD_16,FollowSets000.FOLLOW_KEYWORD_16_in_ruleOutgoingPropagationCondition10773); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getOutgoingPropagationConditionAccess().getHyphenMinusLeftSquareBracketKeyword_2());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5072:1: ( (lv_condition_6_0= ruleConditionExpression ) )?
-            int alt120=2;
-            int LA120_0 = input.LA(1);
+            int alt121=2;
+            int LA121_0 = input.LA(1);
 
-            if ( (LA120_0==KEYWORD_77||LA120_0==KEYWORD_74||LA120_0==KEYWORD_69||LA120_0==KEYWORD_60||LA120_0==KEYWORD_50||LA120_0==KEYWORD_52||LA120_0==KEYWORD_2||LA120_0==RULE_INTEGER_LIT||LA120_0==RULE_ID) ) {
-                alt120=1;
+            if ( (LA121_0==KEYWORD_77||LA121_0==KEYWORD_74||LA121_0==KEYWORD_69||LA121_0==KEYWORD_60||LA121_0==KEYWORD_50||LA121_0==KEYWORD_52||LA121_0==KEYWORD_2||LA121_0==RULE_INTEGER_LIT||LA121_0==RULE_ID) ) {
+                alt121=1;
             }
-            switch (alt120) {
+            switch (alt121) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5073:1: (lv_condition_6_0= ruleConditionExpression )
                     {
@@ -12858,7 +12869,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getConditionConditionExpressionParserRuleCall_3_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_ruleOutgoingPropagationCondition10792);
+                    pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_ruleOutgoingPropagationCondition10793);
                     lv_condition_6_0=ruleConditionExpression();
 
                     state._fsp--;
@@ -12883,7 +12894,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,KEYWORD_24,FollowSets000.FOLLOW_KEYWORD_24_in_ruleOutgoingPropagationCondition10806); 
+            otherlv_7=(Token)match(input,KEYWORD_24,FollowSets000.FOLLOW_KEYWORD_24_in_ruleOutgoingPropagationCondition10807); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getOutgoingPropagationConditionAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4());
                 
@@ -12891,22 +12902,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5095:2: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= KEYWORD_25 ) ) ) ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )?
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5095:2: ( ( ( ruleErrorPropagationPoint ) ) | ( (lv_allPropagations_9_0= KEYWORD_25 ) ) )
-            int alt121=2;
-            int LA121_0 = input.LA(1);
+            int alt122=2;
+            int LA122_0 = input.LA(1);
 
-            if ( (LA121_0==KEYWORD_77||LA121_0==KEYWORD_74||LA121_0==KEYWORD_69||LA121_0==KEYWORD_60||LA121_0==KEYWORD_50||LA121_0==KEYWORD_52||LA121_0==RULE_ID) ) {
-                alt121=1;
+            if ( (LA122_0==KEYWORD_77||LA122_0==KEYWORD_74||LA122_0==KEYWORD_69||LA122_0==KEYWORD_60||LA122_0==KEYWORD_50||LA122_0==KEYWORD_52||LA122_0==RULE_ID) ) {
+                alt122=1;
             }
-            else if ( (LA121_0==KEYWORD_25) ) {
-                alt121=2;
+            else if ( (LA122_0==KEYWORD_25) ) {
+                alt122=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 121, 0, input);
+                    new NoViableAltException("", 122, 0, input);
 
                 throw nvae;
             }
-            switch (alt121) {
+            switch (alt122) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5095:3: ( ( ruleErrorPropagationPoint ) )
                     {
@@ -12924,7 +12935,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getOutgoingErrorPropagationCrossReference_5_0_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleOutgoingPropagationCondition10830);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagationPoint_in_ruleOutgoingPropagationCondition10831);
                     ruleErrorPropagationPoint();
 
                     state._fsp--;
@@ -12950,7 +12961,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5112:1: (lv_allPropagations_9_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5113:3: lv_allPropagations_9_0= KEYWORD_25
                     {
-                    lv_allPropagations_9_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleOutgoingPropagationCondition10855); 
+                    lv_allPropagations_9_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleOutgoingPropagationCondition10856); 
 
                             newLeafNode(lv_allPropagations_9_0, grammarAccess.getOutgoingPropagationConditionAccess().getAllPropagationsAllKeyword_5_0_1_0());
                         
@@ -12973,13 +12984,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5127:3: ( (lv_typeToken_10_0= ruleTypeTokenOrNoError ) )?
-            int alt122=2;
-            int LA122_0 = input.LA(1);
+            int alt123=2;
+            int LA123_0 = input.LA(1);
 
-            if ( (LA122_0==KEYWORD_2) ) {
-                alt122=1;
+            if ( (LA123_0==KEYWORD_2) ) {
+                alt123=1;
             }
-            switch (alt122) {
+            switch (alt123) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5128:1: (lv_typeToken_10_0= ruleTypeTokenOrNoError )
                     {
@@ -12989,7 +13000,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getOutgoingPropagationConditionAccess().getTypeTokenTypeTokenOrNoErrorParserRuleCall_5_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenOrNoError_in_ruleOutgoingPropagationCondition10888);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenOrNoError_in_ruleOutgoingPropagationCondition10889);
                     lv_typeToken_10_0=ruleTypeTokenOrNoError();
 
                     state._fsp--;
@@ -13017,7 +13028,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_11=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleOutgoingPropagationCondition10903); 
+            otherlv_11=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleOutgoingPropagationCondition10904); 
 
                 	newLeafNode(otherlv_11, grammarAccess.getOutgoingPropagationConditionAccess().getSemicolonKeyword_6());
                 
@@ -13054,13 +13065,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5160:2: iv_ruleErrorDetection= ruleErrorDetection EOF
             {
              newCompositeNode(grammarAccess.getErrorDetectionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorDetection_in_entryRuleErrorDetection10937);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorDetection_in_entryRuleErrorDetection10938);
             iv_ruleErrorDetection=ruleErrorDetection();
 
             state._fsp--;
 
              current =iv_ruleErrorDetection; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorDetection10947); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorDetection10948); 
 
             }
 
@@ -13110,17 +13121,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5171:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9 )? ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= KEYWORD_25 ) ) ) otherlv_5= KEYWORD_16 ( (lv_condition_6_0= ruleConditionExpression ) )? otherlv_7= KEYWORD_24 ( ( (lv_internalDetectionPort_8_0= ruleInternalPort ) ) | ( (otherlv_9= RULE_ID ) ) ) otherlv_10= KEYWORD_1 ( (lv_errorCode_11_0= ruleErrorCodeValue ) )? otherlv_12= KEYWORD_10
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5171:2: ( ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9 )?
-            int alt123=2;
-            int LA123_0 = input.LA(1);
+            int alt124=2;
+            int LA124_0 = input.LA(1);
 
-            if ( (LA123_0==RULE_ID) ) {
-                int LA123_1 = input.LA(2);
+            if ( (LA124_0==RULE_ID) ) {
+                int LA124_1 = input.LA(2);
 
-                if ( (LA123_1==KEYWORD_9) ) {
-                    alt123=1;
+                if ( (LA124_1==KEYWORD_9) ) {
+                    alt124=1;
                 }
             }
-            switch (alt123) {
+            switch (alt124) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5171:3: ( (lv_name_0_0= RULE_ID ) ) otherlv_1= KEYWORD_9
                     {
@@ -13130,7 +13141,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5172:1: (lv_name_0_0= RULE_ID )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5173:3: lv_name_0_0= RULE_ID
                     {
-                    lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorDetection10990); 
+                    lv_name_0_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorDetection10991); 
 
                     			newLeafNode(lv_name_0_0, grammarAccess.getErrorDetectionAccess().getNameIDTerminalRuleCall_0_0_0()); 
                     		
@@ -13150,7 +13161,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorDetection11008); 
+                    otherlv_1=(Token)match(input,KEYWORD_9,FollowSets000.FOLLOW_KEYWORD_9_in_ruleErrorDetection11009); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getErrorDetectionAccess().getColonKeyword_0_1());
                         
@@ -13161,22 +13172,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5194:3: ( ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? ) | ( (lv_allStates_4_0= KEYWORD_25 ) ) )
-            int alt125=2;
-            int LA125_0 = input.LA(1);
+            int alt126=2;
+            int LA126_0 = input.LA(1);
 
-            if ( (LA125_0==RULE_ID) ) {
-                alt125=1;
+            if ( (LA126_0==RULE_ID) ) {
+                alt126=1;
             }
-            else if ( (LA125_0==KEYWORD_25) ) {
-                alt125=2;
+            else if ( (LA126_0==KEYWORD_25) ) {
+                alt126=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 125, 0, input);
+                    new NoViableAltException("", 126, 0, input);
 
                 throw nvae;
             }
-            switch (alt125) {
+            switch (alt126) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5194:4: ( ( (otherlv_2= RULE_ID ) ) ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )? )
                     {
@@ -13194,7 +13205,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getErrorDetectionRule());
                     	        }
                             
-                    otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorDetection11031); 
+                    otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorDetection11032); 
 
                     		newLeafNode(otherlv_2, grammarAccess.getErrorDetectionAccess().getStateErrorBehaviorStateCrossReference_1_0_0_0()); 
                     	
@@ -13205,13 +13216,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
 
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5207:2: ( (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint ) )?
-                    int alt124=2;
-                    int LA124_0 = input.LA(1);
+                    int alt125=2;
+                    int LA125_0 = input.LA(1);
 
-                    if ( (LA124_0==KEYWORD_13||LA124_0==RULE_ID) ) {
-                        alt124=1;
+                    if ( (LA125_0==KEYWORD_13||LA125_0==RULE_ID) ) {
+                        alt125=1;
                     }
-                    switch (alt124) {
+                    switch (alt125) {
                         case 1 :
                             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5208:1: (lv_typeTokenConstraint_3_0= ruleTypeTokenConstraint )
                             {
@@ -13221,7 +13232,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                              
                             	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0()); 
                             	    
-                            pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorDetection11052);
+                            pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleErrorDetection11053);
                             lv_typeTokenConstraint_3_0=ruleTypeTokenConstraint();
 
                             state._fsp--;
@@ -13261,7 +13272,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5227:1: (lv_allStates_4_0= KEYWORD_25 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5228:3: lv_allStates_4_0= KEYWORD_25
                     {
-                    lv_allStates_4_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorDetection11079); 
+                    lv_allStates_4_0=(Token)match(input,KEYWORD_25,FollowSets000.FOLLOW_KEYWORD_25_in_ruleErrorDetection11080); 
 
                             newLeafNode(lv_allStates_4_0, grammarAccess.getErrorDetectionAccess().getAllStatesAllKeyword_1_1_0());
                         
@@ -13283,18 +13294,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_16,FollowSets000.FOLLOW_KEYWORD_16_in_ruleErrorDetection11104); 
+            otherlv_5=(Token)match(input,KEYWORD_16,FollowSets000.FOLLOW_KEYWORD_16_in_ruleErrorDetection11105); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getErrorDetectionAccess().getHyphenMinusLeftSquareBracketKeyword_2());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5247:1: ( (lv_condition_6_0= ruleConditionExpression ) )?
-            int alt126=2;
-            int LA126_0 = input.LA(1);
+            int alt127=2;
+            int LA127_0 = input.LA(1);
 
-            if ( (LA126_0==KEYWORD_77||LA126_0==KEYWORD_74||LA126_0==KEYWORD_69||LA126_0==KEYWORD_60||LA126_0==KEYWORD_50||LA126_0==KEYWORD_52||LA126_0==KEYWORD_2||LA126_0==RULE_INTEGER_LIT||LA126_0==RULE_ID) ) {
-                alt126=1;
+            if ( (LA127_0==KEYWORD_77||LA127_0==KEYWORD_74||LA127_0==KEYWORD_69||LA127_0==KEYWORD_60||LA127_0==KEYWORD_50||LA127_0==KEYWORD_52||LA127_0==KEYWORD_2||LA127_0==RULE_INTEGER_LIT||LA127_0==RULE_ID) ) {
+                alt127=1;
             }
-            switch (alt126) {
+            switch (alt127) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5248:1: (lv_condition_6_0= ruleConditionExpression )
                     {
@@ -13304,7 +13315,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getConditionConditionExpressionParserRuleCall_3_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_ruleErrorDetection11124);
+                    pushFollow(FollowSets000.FOLLOW_ruleConditionExpression_in_ruleErrorDetection11125);
                     lv_condition_6_0=ruleConditionExpression();
 
                     state._fsp--;
@@ -13329,27 +13340,27 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,KEYWORD_24,FollowSets000.FOLLOW_KEYWORD_24_in_ruleErrorDetection11138); 
+            otherlv_7=(Token)match(input,KEYWORD_24,FollowSets000.FOLLOW_KEYWORD_24_in_ruleErrorDetection11139); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getErrorDetectionAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5270:1: ( ( (lv_internalDetectionPort_8_0= ruleInternalPort ) ) | ( (otherlv_9= RULE_ID ) ) )
-            int alt127=2;
-            int LA127_0 = input.LA(1);
+            int alt128=2;
+            int LA128_0 = input.LA(1);
 
-            if ( (LA127_0==KEYWORD_34) ) {
-                alt127=1;
+            if ( (LA128_0==KEYWORD_34) ) {
+                alt128=1;
             }
-            else if ( (LA127_0==RULE_ID) ) {
-                alt127=2;
+            else if ( (LA128_0==RULE_ID) ) {
+                alt128=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 127, 0, input);
+                    new NoViableAltException("", 128, 0, input);
 
                 throw nvae;
             }
-            switch (alt127) {
+            switch (alt128) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5270:2: ( (lv_internalDetectionPort_8_0= ruleInternalPort ) )
                     {
@@ -13362,7 +13373,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getInternalDetectionPortInternalPortParserRuleCall_5_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleInternalPort_in_ruleErrorDetection11159);
+                    pushFollow(FollowSets000.FOLLOW_ruleInternalPort_in_ruleErrorDetection11160);
                     lv_internalDetectionPort_8_0=ruleInternalPort();
 
                     state._fsp--;
@@ -13401,7 +13412,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getErrorDetectionRule());
                     	        }
                             
-                    otherlv_9=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorDetection11185); 
+                    otherlv_9=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorDetection11186); 
 
                     		newLeafNode(otherlv_9, grammarAccess.getErrorDetectionAccess().getDetectionReportingPortPortCrossReference_5_1_0()); 
                     	
@@ -13417,18 +13428,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_10=(Token)match(input,KEYWORD_1,FollowSets000.FOLLOW_KEYWORD_1_in_ruleErrorDetection11199); 
+            otherlv_10=(Token)match(input,KEYWORD_1,FollowSets000.FOLLOW_KEYWORD_1_in_ruleErrorDetection11200); 
 
                 	newLeafNode(otherlv_10, grammarAccess.getErrorDetectionAccess().getExclamationMarkKeyword_6());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5307:1: ( (lv_errorCode_11_0= ruleErrorCodeValue ) )?
-            int alt128=2;
-            int LA128_0 = input.LA(1);
+            int alt129=2;
+            int LA129_0 = input.LA(1);
 
-            if ( (LA128_0==RULE_INTEGER_LIT||(LA128_0>=RULE_STRING && LA128_0<=RULE_ID)) ) {
-                alt128=1;
+            if ( (LA129_0==RULE_INTEGER_LIT||(LA129_0>=RULE_STRING && LA129_0<=RULE_ID)) ) {
+                alt129=1;
             }
-            switch (alt128) {
+            switch (alt129) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5308:1: (lv_errorCode_11_0= ruleErrorCodeValue )
                     {
@@ -13438,7 +13449,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getErrorCodeErrorCodeValueParserRuleCall_7_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleErrorCodeValue_in_ruleErrorDetection11219);
+                    pushFollow(FollowSets000.FOLLOW_ruleErrorCodeValue_in_ruleErrorDetection11220);
                     lv_errorCode_11_0=ruleErrorCodeValue();
 
                     state._fsp--;
@@ -13463,7 +13474,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_12=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorDetection11233); 
+            otherlv_12=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorDetection11234); 
 
                 	newLeafNode(otherlv_12, grammarAccess.getErrorDetectionAccess().getSemicolonKeyword_8());
                 
@@ -13500,13 +13511,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5340:2: iv_ruleErrorCodeValue= ruleErrorCodeValue EOF
             {
              newCompositeNode(grammarAccess.getErrorCodeValueRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorCodeValue_in_entryRuleErrorCodeValue11267);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorCodeValue_in_entryRuleErrorCodeValue11268);
             iv_ruleErrorCodeValue=ruleErrorCodeValue();
 
             state._fsp--;
 
              current =iv_ruleErrorCodeValue; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorCodeValue11277); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorCodeValue11278); 
 
             }
 
@@ -13538,31 +13549,31 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5351:1: ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5351:1: ( ( (lv_intValue_0_0= RULE_INTEGER_LIT ) ) | ( ( ruleQPREF ) ) | ( (lv_enumLiteral_2_0= RULE_STRING ) ) )
-            int alt129=3;
+            int alt130=3;
             switch ( input.LA(1) ) {
             case RULE_INTEGER_LIT:
                 {
-                alt129=1;
+                alt130=1;
                 }
                 break;
             case RULE_ID:
                 {
-                alt129=2;
+                alt130=2;
                 }
                 break;
             case RULE_STRING:
                 {
-                alt129=3;
+                alt130=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 129, 0, input);
+                    new NoViableAltException("", 130, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt129) {
+            switch (alt130) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5351:2: ( (lv_intValue_0_0= RULE_INTEGER_LIT ) )
                     {
@@ -13572,7 +13583,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5352:1: (lv_intValue_0_0= RULE_INTEGER_LIT )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5353:3: lv_intValue_0_0= RULE_INTEGER_LIT
                     {
-                    lv_intValue_0_0=(Token)match(input,RULE_INTEGER_LIT,FollowSets000.FOLLOW_RULE_INTEGER_LIT_in_ruleErrorCodeValue11319); 
+                    lv_intValue_0_0=(Token)match(input,RULE_INTEGER_LIT,FollowSets000.FOLLOW_RULE_INTEGER_LIT_in_ruleErrorCodeValue11320); 
 
                     			newLeafNode(lv_intValue_0_0, grammarAccess.getErrorCodeValueAccess().getIntValueINTEGER_LITTerminalRuleCall_0_0()); 
                     		
@@ -13612,7 +13623,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getErrorCodeValueAccess().getConstantPropertyConstantCrossReference_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_ruleErrorCodeValue11353);
+                    pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_ruleErrorCodeValue11354);
                     ruleQPREF();
 
                     state._fsp--;
@@ -13638,7 +13649,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5387:1: (lv_enumLiteral_2_0= RULE_STRING )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5388:3: lv_enumLiteral_2_0= RULE_STRING
                     {
-                    lv_enumLiteral_2_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleErrorCodeValue11376); 
+                    lv_enumLiteral_2_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleErrorCodeValue11377); 
 
                     			newLeafNode(lv_enumLiteral_2_0, grammarAccess.getErrorCodeValueAccess().getEnumLiteralSTRINGTerminalRuleCall_2_0()); 
                     		
@@ -13694,13 +13705,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5414:2: iv_ruleErrorStateToModeMapping= ruleErrorStateToModeMapping EOF
             {
              newCompositeNode(grammarAccess.getErrorStateToModeMappingRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleErrorStateToModeMapping_in_entryRuleErrorStateToModeMapping11416);
+            pushFollow(FollowSets000.FOLLOW_ruleErrorStateToModeMapping_in_entryRuleErrorStateToModeMapping11417);
             iv_ruleErrorStateToModeMapping=ruleErrorStateToModeMapping();
 
             state._fsp--;
 
              current =iv_ruleErrorStateToModeMapping; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorStateToModeMapping11426); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleErrorStateToModeMapping11427); 
 
             }
 
@@ -13752,7 +13763,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getErrorStateToModeMappingRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11471); 
+            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11472); 
 
             		newLeafNode(otherlv_0, grammarAccess.getErrorStateToModeMappingAccess().getErrorStateErrorBehaviorStateCrossReference_0_0()); 
             	
@@ -13762,15 +13773,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_20,FollowSets000.FOLLOW_KEYWORD_20_in_ruleErrorStateToModeMapping11484); 
+            otherlv_1=(Token)match(input,KEYWORD_20,FollowSets000.FOLLOW_KEYWORD_20_in_ruleErrorStateToModeMapping11485); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getErrorStateToModeMappingAccess().getInKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_45,FollowSets000.FOLLOW_KEYWORD_45_in_ruleErrorStateToModeMapping11496); 
+            otherlv_2=(Token)match(input,KEYWORD_45,FollowSets000.FOLLOW_KEYWORD_45_in_ruleErrorStateToModeMapping11497); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getErrorStateToModeMappingAccess().getModesKeyword_2());
                 
-            otherlv_3=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleErrorStateToModeMapping11508); 
+            otherlv_3=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleErrorStateToModeMapping11509); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getErrorStateToModeMappingAccess().getLeftParenthesisKeyword_3());
                 
@@ -13785,7 +13796,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getErrorStateToModeMappingRule());
             	        }
                     
-            otherlv_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11527); 
+            otherlv_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11528); 
 
             		newLeafNode(otherlv_4, grammarAccess.getErrorStateToModeMappingAccess().getMappedModesModeCrossReference_4_0()); 
             	
@@ -13796,21 +13807,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5466:2: (otherlv_5= KEYWORD_6 ( (otherlv_6= RULE_ID ) ) )*
-            loop130:
+            loop131:
             do {
-                int alt130=2;
-                int LA130_0 = input.LA(1);
+                int alt131=2;
+                int LA131_0 = input.LA(1);
 
-                if ( (LA130_0==KEYWORD_6) ) {
-                    alt130=1;
+                if ( (LA131_0==KEYWORD_6) ) {
+                    alt131=1;
                 }
 
 
-                switch (alt130) {
+                switch (alt131) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5467:2: otherlv_5= KEYWORD_6 ( (otherlv_6= RULE_ID ) )
             	    {
-            	    otherlv_5=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleErrorStateToModeMapping11541); 
+            	    otherlv_5=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleErrorStateToModeMapping11542); 
 
             	        	newLeafNode(otherlv_5, grammarAccess.getErrorStateToModeMappingAccess().getCommaKeyword_5_0());
             	        
@@ -13825,7 +13836,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    	            current = createModelElement(grammarAccess.getErrorStateToModeMappingRule());
             	    	        }
             	            
-            	    otherlv_6=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11560); 
+            	    otherlv_6=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11561); 
 
             	    		newLeafNode(otherlv_6, grammarAccess.getErrorStateToModeMappingAccess().getMappedModesModeCrossReference_5_1_0()); 
             	    	
@@ -13840,15 +13851,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop130;
+            	    break loop131;
                 }
             } while (true);
 
-            otherlv_7=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleErrorStateToModeMapping11575); 
+            otherlv_7=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleErrorStateToModeMapping11576); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getErrorStateToModeMappingAccess().getRightParenthesisKeyword_6());
                 
-            otherlv_8=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorStateToModeMapping11587); 
+            otherlv_8=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorStateToModeMapping11588); 
 
                 	newLeafNode(otherlv_8, grammarAccess.getErrorStateToModeMappingAccess().getSemicolonKeyword_7());
                 
@@ -13885,13 +13896,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5504:2: iv_ruleInternalPort= ruleInternalPort EOF
             {
              newCompositeNode(grammarAccess.getInternalPortRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleInternalPort_in_entryRuleInternalPort11621);
+            pushFollow(FollowSets000.FOLLOW_ruleInternalPort_in_entryRuleInternalPort11622);
             iv_ruleInternalPort=ruleInternalPort();
 
             state._fsp--;
 
              current =iv_ruleInternalPort; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleInternalPort11631); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleInternalPort11632); 
 
             }
 
@@ -13926,11 +13937,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5515:1: (otherlv_0= KEYWORD_34 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5516:2: otherlv_0= KEYWORD_34 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) )
             {
-            otherlv_0=(Token)match(input,KEYWORD_34,FollowSets000.FOLLOW_KEYWORD_34_in_ruleInternalPort11669); 
+            otherlv_0=(Token)match(input,KEYWORD_34,FollowSets000.FOLLOW_KEYWORD_34_in_ruleInternalPort11670); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getInternalPortAccess().getSelfKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleInternalPort11681); 
+            otherlv_1=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleInternalPort11682); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getInternalPortAccess().getFullStopKeyword_1());
                 
@@ -13940,7 +13951,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5526:1: (lv_name_2_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5527:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleInternalPort11697); 
+            lv_name_2_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleInternalPort11698); 
 
             			newLeafNode(lv_name_2_0, grammarAccess.getInternalPortAccess().getNameIDTerminalRuleCall_2_0()); 
             		
@@ -13993,13 +14004,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5553:2: iv_ruleCompositeErrorBehavior= ruleCompositeErrorBehavior EOF
             {
              newCompositeNode(grammarAccess.getCompositeErrorBehaviorRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleCompositeErrorBehavior_in_entryRuleCompositeErrorBehavior11737);
+            pushFollow(FollowSets000.FOLLOW_ruleCompositeErrorBehavior_in_entryRuleCompositeErrorBehavior11738);
             iv_ruleCompositeErrorBehavior=ruleCompositeErrorBehavior();
 
             state._fsp--;
 
              current =iv_ruleCompositeErrorBehavior; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleCompositeErrorBehavior11747); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleCompositeErrorBehavior11748); 
 
             }
 
@@ -14040,15 +14051,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5564:1: (otherlv_0= KEYWORD_73 otherlv_1= KEYWORD_41 otherlv_2= KEYWORD_68 () (otherlv_4= KEYWORD_58 ( (lv_states_5_0= ruleCompositeState ) )+ )? otherlv_6= KEYWORD_27 otherlv_7= KEYWORD_73 otherlv_8= KEYWORD_10 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5565:2: otherlv_0= KEYWORD_73 otherlv_1= KEYWORD_41 otherlv_2= KEYWORD_68 () (otherlv_4= KEYWORD_58 ( (lv_states_5_0= ruleCompositeState ) )+ )? otherlv_6= KEYWORD_27 otherlv_7= KEYWORD_73 otherlv_8= KEYWORD_10
             {
-            otherlv_0=(Token)match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_ruleCompositeErrorBehavior11785); 
+            otherlv_0=(Token)match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_ruleCompositeErrorBehavior11786); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getCompositeErrorBehaviorAccess().getCompositeKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleCompositeErrorBehavior11797); 
+            otherlv_1=(Token)match(input,KEYWORD_41,FollowSets000.FOLLOW_KEYWORD_41_in_ruleCompositeErrorBehavior11798); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getCompositeErrorBehaviorAccess().getErrorKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleCompositeErrorBehavior11809); 
+            otherlv_2=(Token)match(input,KEYWORD_68,FollowSets000.FOLLOW_KEYWORD_68_in_ruleCompositeErrorBehavior11810); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getCompositeErrorBehaviorAccess().getBehaviorKeyword_2());
                 
@@ -14064,33 +14075,33 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5585:2: (otherlv_4= KEYWORD_58 ( (lv_states_5_0= ruleCompositeState ) )+ )?
-            int alt132=2;
-            int LA132_0 = input.LA(1);
+            int alt133=2;
+            int LA133_0 = input.LA(1);
 
-            if ( (LA132_0==KEYWORD_58) ) {
-                alt132=1;
+            if ( (LA133_0==KEYWORD_58) ) {
+                alt133=1;
             }
-            switch (alt132) {
+            switch (alt133) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5586:2: otherlv_4= KEYWORD_58 ( (lv_states_5_0= ruleCompositeState ) )+
                     {
-                    otherlv_4=(Token)match(input,KEYWORD_58,FollowSets000.FOLLOW_KEYWORD_58_in_ruleCompositeErrorBehavior11831); 
+                    otherlv_4=(Token)match(input,KEYWORD_58,FollowSets000.FOLLOW_KEYWORD_58_in_ruleCompositeErrorBehavior11832); 
 
                         	newLeafNode(otherlv_4, grammarAccess.getCompositeErrorBehaviorAccess().getStatesKeyword_4_0());
                         
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5590:1: ( (lv_states_5_0= ruleCompositeState ) )+
-                    int cnt131=0;
-                    loop131:
+                    int cnt132=0;
+                    loop132:
                     do {
-                        int alt131=2;
-                        int LA131_0 = input.LA(1);
+                        int alt132=2;
+                        int LA132_0 = input.LA(1);
 
-                        if ( (LA131_0==KEYWORD_11) ) {
-                            alt131=1;
+                        if ( (LA132_0==KEYWORD_11) ) {
+                            alt132=1;
                         }
 
 
-                        switch (alt131) {
+                        switch (alt132) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5591:1: (lv_states_5_0= ruleCompositeState )
                     	    {
@@ -14100,7 +14111,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getCompositeErrorBehaviorAccess().getStatesCompositeStateParserRuleCall_4_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleCompositeState_in_ruleCompositeErrorBehavior11851);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleCompositeState_in_ruleCompositeErrorBehavior11852);
                     	    lv_states_5_0=ruleCompositeState();
 
                     	    state._fsp--;
@@ -14124,12 +14135,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt131 >= 1 ) break loop131;
+                    	    if ( cnt132 >= 1 ) break loop132;
                                 EarlyExitException eee =
-                                    new EarlyExitException(131, input);
+                                    new EarlyExitException(132, input);
                                 throw eee;
                         }
-                        cnt131++;
+                        cnt132++;
                     } while (true);
 
 
@@ -14138,15 +14149,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleCompositeErrorBehavior11867); 
+            otherlv_6=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleCompositeErrorBehavior11868); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getCompositeErrorBehaviorAccess().getEndKeyword_5());
                 
-            otherlv_7=(Token)match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_ruleCompositeErrorBehavior11879); 
+            otherlv_7=(Token)match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_ruleCompositeErrorBehavior11880); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getCompositeErrorBehaviorAccess().getCompositeKeyword_6());
                 
-            otherlv_8=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleCompositeErrorBehavior11891); 
+            otherlv_8=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleCompositeErrorBehavior11892); 
 
                 	newLeafNode(otherlv_8, grammarAccess.getCompositeErrorBehaviorAccess().getSemicolonKeyword_7());
                 
@@ -14183,13 +14194,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5633:2: iv_ruleCompositeState= ruleCompositeState EOF
             {
              newCompositeNode(grammarAccess.getCompositeStateRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleCompositeState_in_entryRuleCompositeState11925);
+            pushFollow(FollowSets000.FOLLOW_ruleCompositeState_in_entryRuleCompositeState11926);
             iv_ruleCompositeState=ruleCompositeState();
 
             state._fsp--;
 
              current =iv_ruleCompositeState; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleCompositeState11935); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleCompositeState11936); 
 
             }
 
@@ -14230,27 +14241,27 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5644:1: (otherlv_0= KEYWORD_11 ( ( (lv_condition_1_0= ruleSConditionExpression ) ) | ( (lv_others_2_0= KEYWORD_55 ) ) ) otherlv_3= KEYWORD_24 ( (otherlv_4= RULE_ID ) ) ( (lv_typedToken_5_0= ruleTypeToken ) )? otherlv_6= KEYWORD_10 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5645:2: otherlv_0= KEYWORD_11 ( ( (lv_condition_1_0= ruleSConditionExpression ) ) | ( (lv_others_2_0= KEYWORD_55 ) ) ) otherlv_3= KEYWORD_24 ( (otherlv_4= RULE_ID ) ) ( (lv_typedToken_5_0= ruleTypeToken ) )? otherlv_6= KEYWORD_10
             {
-            otherlv_0=(Token)match(input,KEYWORD_11,FollowSets000.FOLLOW_KEYWORD_11_in_ruleCompositeState11973); 
+            otherlv_0=(Token)match(input,KEYWORD_11,FollowSets000.FOLLOW_KEYWORD_11_in_ruleCompositeState11974); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getCompositeStateAccess().getLeftSquareBracketKeyword_0());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5649:1: ( ( (lv_condition_1_0= ruleSConditionExpression ) ) | ( (lv_others_2_0= KEYWORD_55 ) ) )
-            int alt133=2;
-            int LA133_0 = input.LA(1);
+            int alt134=2;
+            int LA134_0 = input.LA(1);
 
-            if ( (LA133_0==KEYWORD_2||LA133_0==RULE_INTEGER_LIT||LA133_0==RULE_ID) ) {
-                alt133=1;
+            if ( (LA134_0==KEYWORD_2||LA134_0==RULE_INTEGER_LIT||LA134_0==RULE_ID) ) {
+                alt134=1;
             }
-            else if ( (LA133_0==KEYWORD_55) ) {
-                alt133=2;
+            else if ( (LA134_0==KEYWORD_55) ) {
+                alt134=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 133, 0, input);
+                    new NoViableAltException("", 134, 0, input);
 
                 throw nvae;
             }
-            switch (alt133) {
+            switch (alt134) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5649:2: ( (lv_condition_1_0= ruleSConditionExpression ) )
                     {
@@ -14263,7 +14274,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getCompositeStateAccess().getConditionSConditionExpressionParserRuleCall_1_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleSConditionExpression_in_ruleCompositeState11994);
+                    pushFollow(FollowSets000.FOLLOW_ruleSConditionExpression_in_ruleCompositeState11995);
                     lv_condition_1_0=ruleSConditionExpression();
 
                     state._fsp--;
@@ -14297,7 +14308,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5669:1: (lv_others_2_0= KEYWORD_55 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5670:3: lv_others_2_0= KEYWORD_55
                     {
-                    lv_others_2_0=(Token)match(input,KEYWORD_55,FollowSets000.FOLLOW_KEYWORD_55_in_ruleCompositeState12019); 
+                    lv_others_2_0=(Token)match(input,KEYWORD_55,FollowSets000.FOLLOW_KEYWORD_55_in_ruleCompositeState12020); 
 
                             newLeafNode(lv_others_2_0, grammarAccess.getCompositeStateAccess().getOthersOthersKeyword_1_1_0());
                         
@@ -14319,7 +14330,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_24,FollowSets000.FOLLOW_KEYWORD_24_in_ruleCompositeState12044); 
+            otherlv_3=(Token)match(input,KEYWORD_24,FollowSets000.FOLLOW_KEYWORD_24_in_ruleCompositeState12045); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getCompositeStateAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_2());
                 
@@ -14334,7 +14345,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getCompositeStateRule());
             	        }
                     
-            otherlv_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleCompositeState12063); 
+            otherlv_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleCompositeState12064); 
 
             		newLeafNode(otherlv_4, grammarAccess.getCompositeStateAccess().getStateErrorBehaviorStateCrossReference_3_0()); 
             	
@@ -14345,13 +14356,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5702:2: ( (lv_typedToken_5_0= ruleTypeToken ) )?
-            int alt134=2;
-            int LA134_0 = input.LA(1);
+            int alt135=2;
+            int LA135_0 = input.LA(1);
 
-            if ( (LA134_0==KEYWORD_2) ) {
-                alt134=1;
+            if ( (LA135_0==KEYWORD_2) ) {
+                alt135=1;
             }
-            switch (alt134) {
+            switch (alt135) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5703:1: (lv_typedToken_5_0= ruleTypeToken )
                     {
@@ -14361,7 +14372,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getCompositeStateAccess().getTypedTokenTypeTokenParserRuleCall_4_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeToken_in_ruleCompositeState12084);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeToken_in_ruleCompositeState12085);
                     lv_typedToken_5_0=ruleTypeToken();
 
                     state._fsp--;
@@ -14386,7 +14397,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleCompositeState12098); 
+            otherlv_6=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleCompositeState12099); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getCompositeStateAccess().getSemicolonKeyword_5());
                 
@@ -14423,13 +14434,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5735:2: iv_ruleSConditionExpression= ruleSConditionExpression EOF
             {
              newCompositeNode(grammarAccess.getSConditionExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSConditionExpression_in_entryRuleSConditionExpression12132);
+            pushFollow(FollowSets000.FOLLOW_ruleSConditionExpression_in_entryRuleSConditionExpression12133);
             iv_ruleSConditionExpression=ruleSConditionExpression();
 
             state._fsp--;
 
              current =iv_ruleSConditionExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSConditionExpression12142); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSConditionExpression12143); 
 
             }
 
@@ -14469,7 +14480,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getSConditionExpressionAccess().getSAndExpressionParserRuleCall_0()); 
                 
-            pushFollow(FollowSets000.FOLLOW_ruleSAndExpression_in_ruleSConditionExpression12189);
+            pushFollow(FollowSets000.FOLLOW_ruleSAndExpression_in_ruleSConditionExpression12190);
             this_SAndExpression_0=ruleSAndExpression();
 
             state._fsp--;
@@ -14479,17 +14490,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     afterParserOrEnumRuleCall();
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5755:1: ( () otherlv_2= KEYWORD_21 ( (lv_operands_3_0= ruleSAndExpression ) ) )*
-            loop135:
+            loop136:
             do {
-                int alt135=2;
-                int LA135_0 = input.LA(1);
+                int alt136=2;
+                int LA136_0 = input.LA(1);
 
-                if ( (LA135_0==KEYWORD_21) ) {
-                    alt135=1;
+                if ( (LA136_0==KEYWORD_21) ) {
+                    alt136=1;
                 }
 
 
-                switch (alt135) {
+                switch (alt136) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5755:2: () otherlv_2= KEYWORD_21 ( (lv_operands_3_0= ruleSAndExpression ) )
             	    {
@@ -14504,7 +14515,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,KEYWORD_21,FollowSets000.FOLLOW_KEYWORD_21_in_ruleSConditionExpression12211); 
+            	    otherlv_2=(Token)match(input,KEYWORD_21,FollowSets000.FOLLOW_KEYWORD_21_in_ruleSConditionExpression12212); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getSConditionExpressionAccess().getOrKeyword_1_1());
             	        
@@ -14517,7 +14528,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getSConditionExpressionAccess().getOperandsSAndExpressionParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleSAndExpression_in_ruleSConditionExpression12231);
+            	    pushFollow(FollowSets000.FOLLOW_ruleSAndExpression_in_ruleSConditionExpression12232);
             	    lv_operands_3_0=ruleSAndExpression();
 
             	    state._fsp--;
@@ -14544,7 +14555,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop135;
+            	    break loop136;
                 }
             } while (true);
 
@@ -14581,13 +14592,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5794:2: iv_ruleSAndExpression= ruleSAndExpression EOF
             {
              newCompositeNode(grammarAccess.getSAndExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSAndExpression_in_entryRuleSAndExpression12268);
+            pushFollow(FollowSets000.FOLLOW_ruleSAndExpression_in_entryRuleSAndExpression12269);
             iv_ruleSAndExpression=ruleSAndExpression();
 
             state._fsp--;
 
              current =iv_ruleSAndExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSAndExpression12278); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSAndExpression12279); 
 
             }
 
@@ -14627,7 +14638,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getSAndExpressionAccess().getSConditionTermParserRuleCall_0()); 
                 
-            pushFollow(FollowSets000.FOLLOW_ruleSConditionTerm_in_ruleSAndExpression12325);
+            pushFollow(FollowSets000.FOLLOW_ruleSConditionTerm_in_ruleSAndExpression12326);
             this_SConditionTerm_0=ruleSConditionTerm();
 
             state._fsp--;
@@ -14637,17 +14648,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     afterParserOrEnumRuleCall();
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5814:1: ( () otherlv_2= KEYWORD_26 ( (lv_operands_3_0= ruleSConditionTerm ) ) )*
-            loop136:
+            loop137:
             do {
-                int alt136=2;
-                int LA136_0 = input.LA(1);
+                int alt137=2;
+                int LA137_0 = input.LA(1);
 
-                if ( (LA136_0==KEYWORD_26) ) {
-                    alt136=1;
+                if ( (LA137_0==KEYWORD_26) ) {
+                    alt137=1;
                 }
 
 
-                switch (alt136) {
+                switch (alt137) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5814:2: () otherlv_2= KEYWORD_26 ( (lv_operands_3_0= ruleSConditionTerm ) )
             	    {
@@ -14662,7 +14673,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,KEYWORD_26,FollowSets000.FOLLOW_KEYWORD_26_in_ruleSAndExpression12347); 
+            	    otherlv_2=(Token)match(input,KEYWORD_26,FollowSets000.FOLLOW_KEYWORD_26_in_ruleSAndExpression12348); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getSAndExpressionAccess().getAndKeyword_1_1());
             	        
@@ -14675,7 +14686,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getSAndExpressionAccess().getOperandsSConditionTermParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleSConditionTerm_in_ruleSAndExpression12367);
+            	    pushFollow(FollowSets000.FOLLOW_ruleSConditionTerm_in_ruleSAndExpression12368);
             	    lv_operands_3_0=ruleSConditionTerm();
 
             	    state._fsp--;
@@ -14702,7 +14713,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop136;
+            	    break loop137;
                 }
             } while (true);
 
@@ -14739,13 +14750,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5853:2: iv_ruleSOrmoreExpression= ruleSOrmoreExpression EOF
             {
              newCompositeNode(grammarAccess.getSOrmoreExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSOrmoreExpression_in_entryRuleSOrmoreExpression12404);
+            pushFollow(FollowSets000.FOLLOW_ruleSOrmoreExpression_in_entryRuleSOrmoreExpression12405);
             iv_ruleSOrmoreExpression=ruleSOrmoreExpression();
 
             state._fsp--;
 
              current =iv_ruleSOrmoreExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSOrmoreExpression12414); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSOrmoreExpression12415); 
 
             }
 
@@ -14796,7 +14807,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSOrmoreExpressionAccess().getCountINTVALUEParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleSOrmoreExpression12460);
+            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleSOrmoreExpression12461);
             lv_count_0_0=ruleINTVALUE();
 
             state._fsp--;
@@ -14818,11 +14829,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_54,FollowSets000.FOLLOW_KEYWORD_54_in_ruleSOrmoreExpression12473); 
+            otherlv_1=(Token)match(input,KEYWORD_54,FollowSets000.FOLLOW_KEYWORD_54_in_ruleSOrmoreExpression12474); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getSOrmoreExpressionAccess().getOrmoreKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleSOrmoreExpression12485); 
+            otherlv_2=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleSOrmoreExpression12486); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getSOrmoreExpressionAccess().getLeftParenthesisKeyword_2());
                 
@@ -14835,7 +14846,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSOrmoreExpressionAccess().getOperandsSConditionElementParserRuleCall_3_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSOrmoreExpression12505);
+            pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSOrmoreExpression12506);
             lv_operands_3_0=ruleSConditionElement();
 
             state._fsp--;
@@ -14858,21 +14869,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5910:2: (otherlv_4= KEYWORD_6 ( (lv_operands_5_0= ruleSConditionElement ) ) )*
-            loop137:
+            loop138:
             do {
-                int alt137=2;
-                int LA137_0 = input.LA(1);
+                int alt138=2;
+                int LA138_0 = input.LA(1);
 
-                if ( (LA137_0==KEYWORD_6) ) {
-                    alt137=1;
+                if ( (LA138_0==KEYWORD_6) ) {
+                    alt138=1;
                 }
 
 
-                switch (alt137) {
+                switch (alt138) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5911:2: otherlv_4= KEYWORD_6 ( (lv_operands_5_0= ruleSConditionElement ) )
             	    {
-            	    otherlv_4=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleSOrmoreExpression12519); 
+            	    otherlv_4=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleSOrmoreExpression12520); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getSOrmoreExpressionAccess().getCommaKeyword_4_0());
             	        
@@ -14885,7 +14896,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getSOrmoreExpressionAccess().getOperandsSConditionElementParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSOrmoreExpression12539);
+            	    pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSOrmoreExpression12540);
             	    lv_operands_5_0=ruleSConditionElement();
 
             	    state._fsp--;
@@ -14912,11 +14923,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop137;
+            	    break loop138;
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleSOrmoreExpression12554); 
+            otherlv_6=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleSOrmoreExpression12555); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getSOrmoreExpressionAccess().getRightParenthesisKeyword_5());
                 
@@ -14953,13 +14964,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:5948:2: iv_ruleSOrlessExpression= ruleSOrlessExpression EOF
             {
              newCompositeNode(grammarAccess.getSOrlessExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSOrlessExpression_in_entryRuleSOrlessExpression12588);
+            pushFollow(FollowSets000.FOLLOW_ruleSOrlessExpression_in_entryRuleSOrlessExpression12589);
             iv_ruleSOrlessExpression=ruleSOrlessExpression();
 
             state._fsp--;
 
              current =iv_ruleSOrlessExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSOrlessExpression12598); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSOrlessExpression12599); 
 
             }
 
@@ -15010,7 +15021,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSOrlessExpressionAccess().getCountINTVALUEParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleSOrlessExpression12644);
+            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleSOrlessExpression12645);
             lv_count_0_0=ruleINTVALUE();
 
             state._fsp--;
@@ -15032,11 +15043,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_53,FollowSets000.FOLLOW_KEYWORD_53_in_ruleSOrlessExpression12657); 
+            otherlv_1=(Token)match(input,KEYWORD_53,FollowSets000.FOLLOW_KEYWORD_53_in_ruleSOrlessExpression12658); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getSOrlessExpressionAccess().getOrlessKeyword_1());
                 
-            otherlv_2=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleSOrlessExpression12669); 
+            otherlv_2=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleSOrlessExpression12670); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getSOrlessExpressionAccess().getLeftParenthesisKeyword_2());
                 
@@ -15049,7 +15060,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSOrlessExpressionAccess().getOperandsSConditionElementParserRuleCall_3_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSOrlessExpression12689);
+            pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSOrlessExpression12690);
             lv_operands_3_0=ruleSConditionElement();
 
             state._fsp--;
@@ -15072,21 +15083,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6005:2: (otherlv_4= KEYWORD_6 ( (lv_operands_5_0= ruleSConditionElement ) ) )*
-            loop138:
+            loop139:
             do {
-                int alt138=2;
-                int LA138_0 = input.LA(1);
+                int alt139=2;
+                int LA139_0 = input.LA(1);
 
-                if ( (LA138_0==KEYWORD_6) ) {
-                    alt138=1;
+                if ( (LA139_0==KEYWORD_6) ) {
+                    alt139=1;
                 }
 
 
-                switch (alt138) {
+                switch (alt139) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6006:2: otherlv_4= KEYWORD_6 ( (lv_operands_5_0= ruleSConditionElement ) )
             	    {
-            	    otherlv_4=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleSOrlessExpression12703); 
+            	    otherlv_4=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleSOrlessExpression12704); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getSOrlessExpressionAccess().getCommaKeyword_4_0());
             	        
@@ -15099,7 +15110,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getSOrlessExpressionAccess().getOperandsSConditionElementParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSOrlessExpression12723);
+            	    pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSOrlessExpression12724);
             	    lv_operands_5_0=ruleSConditionElement();
 
             	    state._fsp--;
@@ -15126,11 +15137,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop138;
+            	    break loop139;
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleSOrlessExpression12738); 
+            otherlv_6=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleSOrlessExpression12739); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getSOrlessExpressionAccess().getRightParenthesisKeyword_5());
                 
@@ -15167,13 +15178,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6043:2: iv_ruleSConditionTerm= ruleSConditionTerm EOF
             {
              newCompositeNode(grammarAccess.getSConditionTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSConditionTerm_in_entryRuleSConditionTerm12772);
+            pushFollow(FollowSets000.FOLLOW_ruleSConditionTerm_in_entryRuleSConditionTerm12773);
             iv_ruleSConditionTerm=ruleSConditionTerm();
 
             state._fsp--;
 
              current =iv_ruleSConditionTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSConditionTerm12782); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSConditionTerm12783); 
 
             }
 
@@ -15213,26 +15224,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6054:1: (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | (otherlv_3= KEYWORD_2 this_SConditionExpression_4= ruleSConditionExpression otherlv_5= KEYWORD_3 ) )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6054:1: (this_SConditionElement_0= ruleSConditionElement | this_SOrmoreExpression_1= ruleSOrmoreExpression | this_SOrlessExpression_2= ruleSOrlessExpression | (otherlv_3= KEYWORD_2 this_SConditionExpression_4= ruleSConditionExpression otherlv_5= KEYWORD_3 ) )
-            int alt139=4;
+            int alt140=4;
             switch ( input.LA(1) ) {
             case RULE_ID:
                 {
-                alt139=1;
+                alt140=1;
                 }
                 break;
             case RULE_INTEGER_LIT:
                 {
-                int LA139_2 = input.LA(2);
+                int LA140_2 = input.LA(2);
 
-                if ( (LA139_2==KEYWORD_53) ) {
-                    alt139=3;
+                if ( (LA140_2==KEYWORD_54) ) {
+                    alt140=2;
                 }
-                else if ( (LA139_2==KEYWORD_54) ) {
-                    alt139=2;
+                else if ( (LA140_2==KEYWORD_53) ) {
+                    alt140=3;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 139, 2, input);
+                        new NoViableAltException("", 140, 2, input);
 
                     throw nvae;
                 }
@@ -15240,24 +15251,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 break;
             case KEYWORD_2:
                 {
-                alt139=4;
+                alt140=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 139, 0, input);
+                    new NoViableAltException("", 140, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt139) {
+            switch (alt140) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6055:5: this_SConditionElement_0= ruleSConditionElement
                     {
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSConditionElementParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSConditionTerm12829);
+                    pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_ruleSConditionTerm12830);
                     this_SConditionElement_0=ruleSConditionElement();
 
                     state._fsp--;
@@ -15275,7 +15286,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSOrmoreExpressionParserRuleCall_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleSOrmoreExpression_in_ruleSConditionTerm12856);
+                    pushFollow(FollowSets000.FOLLOW_ruleSOrmoreExpression_in_ruleSConditionTerm12857);
                     this_SOrmoreExpression_1=ruleSOrmoreExpression();
 
                     state._fsp--;
@@ -15293,7 +15304,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSOrlessExpressionParserRuleCall_2()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleSOrlessExpression_in_ruleSConditionTerm12883);
+                    pushFollow(FollowSets000.FOLLOW_ruleSOrlessExpression_in_ruleSConditionTerm12884);
                     this_SOrlessExpression_2=ruleSOrlessExpression();
 
                     state._fsp--;
@@ -15311,14 +15322,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6084:6: (otherlv_3= KEYWORD_2 this_SConditionExpression_4= ruleSConditionExpression otherlv_5= KEYWORD_3 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6085:2: otherlv_3= KEYWORD_2 this_SConditionExpression_4= ruleSConditionExpression otherlv_5= KEYWORD_3
                     {
-                    otherlv_3=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleSConditionTerm12902); 
+                    otherlv_3=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleSConditionTerm12903); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_3_0());
                         
                      
                             newCompositeNode(grammarAccess.getSConditionTermAccess().getSConditionExpressionParserRuleCall_3_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleSConditionExpression_in_ruleSConditionTerm12923);
+                    pushFollow(FollowSets000.FOLLOW_ruleSConditionExpression_in_ruleSConditionTerm12924);
                     this_SConditionExpression_4=ruleSConditionExpression();
 
                     state._fsp--;
@@ -15327,7 +15338,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             current = this_SConditionExpression_4;
                             afterParserOrEnumRuleCall();
                         
-                    otherlv_5=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleSConditionTerm12935); 
+                    otherlv_5=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleSConditionTerm12936); 
 
                         	newLeafNode(otherlv_5, grammarAccess.getSConditionTermAccess().getRightParenthesisKeyword_3_2());
                         
@@ -15370,13 +15381,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6113:2: iv_ruleSConditionElement= ruleSConditionElement EOF
             {
              newCompositeNode(grammarAccess.getSConditionElementRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_entryRuleSConditionElement12970);
+            pushFollow(FollowSets000.FOLLOW_ruleSConditionElement_in_entryRuleSConditionElement12971);
             iv_ruleSConditionElement=ruleSConditionElement();
 
             state._fsp--;
 
              current =iv_ruleSConditionElement; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSConditionElement12980); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSConditionElement12981); 
 
             }
 
@@ -15415,24 +15426,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6124:2: ( ( (lv_subcomponents_0_0= ruleSubcomponentElement ) ) otherlv_1= KEYWORD_8 )+ ( (otherlv_2= RULE_ID ) ) ( (lv_constraint_3_0= ruleTypeTokenConstraint ) )?
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6124:2: ( ( (lv_subcomponents_0_0= ruleSubcomponentElement ) ) otherlv_1= KEYWORD_8 )+
-            int cnt140=0;
-            loop140:
+            int cnt141=0;
+            loop141:
             do {
-                int alt140=2;
-                int LA140_0 = input.LA(1);
+                int alt141=2;
+                int LA141_0 = input.LA(1);
 
-                if ( (LA140_0==RULE_ID) ) {
-                    int LA140_1 = input.LA(2);
+                if ( (LA141_0==RULE_ID) ) {
+                    int LA141_1 = input.LA(2);
 
-                    if ( (LA140_1==KEYWORD_8) ) {
-                        alt140=1;
+                    if ( (LA141_1==KEYWORD_8) ) {
+                        alt141=1;
                     }
 
 
                 }
 
 
-                switch (alt140) {
+                switch (alt141) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6124:3: ( (lv_subcomponents_0_0= ruleSubcomponentElement ) ) otherlv_1= KEYWORD_8
             	    {
@@ -15445,7 +15456,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getSConditionElementAccess().getSubcomponentsSubcomponentElementParserRuleCall_0_0_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleSubcomponentElement_in_ruleSConditionElement13027);
+            	    pushFollow(FollowSets000.FOLLOW_ruleSubcomponentElement_in_ruleSConditionElement13028);
             	    lv_subcomponents_0_0=ruleSubcomponentElement();
 
             	    state._fsp--;
@@ -15467,7 +15478,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_1=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleSConditionElement13040); 
+            	    otherlv_1=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleSConditionElement13041); 
 
             	        	newLeafNode(otherlv_1, grammarAccess.getSConditionElementAccess().getFullStopKeyword_0_1());
             	        
@@ -15476,12 +15487,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt140 >= 1 ) break loop140;
+            	    if ( cnt141 >= 1 ) break loop141;
                         EarlyExitException eee =
-                            new EarlyExitException(140, input);
+                            new EarlyExitException(141, input);
                         throw eee;
                 }
-                cnt140++;
+                cnt141++;
             } while (true);
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6147:3: ( (otherlv_2= RULE_ID ) )
@@ -15495,7 +15506,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getSConditionElementRule());
             	        }
                     
-            otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleSConditionElement13061); 
+            otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleSConditionElement13062); 
 
             		newLeafNode(otherlv_2, grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateCrossReference_1_0()); 
             	
@@ -15506,13 +15517,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6160:2: ( (lv_constraint_3_0= ruleTypeTokenConstraint ) )?
-            int alt141=2;
-            int LA141_0 = input.LA(1);
+            int alt142=2;
+            int LA142_0 = input.LA(1);
 
-            if ( (LA141_0==KEYWORD_13||LA141_0==RULE_ID) ) {
-                alt141=1;
+            if ( (LA142_0==KEYWORD_13||LA142_0==RULE_ID) ) {
+                alt142=1;
             }
-            switch (alt141) {
+            switch (alt142) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6161:1: (lv_constraint_3_0= ruleTypeTokenConstraint )
                     {
@@ -15522,7 +15533,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getSConditionElementAccess().getConstraintTypeTokenConstraintParserRuleCall_2_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleSConditionElement13082);
+                    pushFollow(FollowSets000.FOLLOW_ruleTypeTokenConstraint_in_ruleSConditionElement13083);
                     lv_constraint_3_0=ruleTypeTokenConstraint();
 
                     state._fsp--;
@@ -15580,13 +15591,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6188:2: iv_ruleSubcomponentElement= ruleSubcomponentElement EOF
             {
              newCompositeNode(grammarAccess.getSubcomponentElementRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSubcomponentElement_in_entryRuleSubcomponentElement13118);
+            pushFollow(FollowSets000.FOLLOW_ruleSubcomponentElement_in_entryRuleSubcomponentElement13119);
             iv_ruleSubcomponentElement=ruleSubcomponentElement();
 
             state._fsp--;
 
              current =iv_ruleSubcomponentElement; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSubcomponentElement13128); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSubcomponentElement13129); 
 
             }
 
@@ -15627,7 +15638,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getSubcomponentElementRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleSubcomponentElement13172); 
+            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleSubcomponentElement13173); 
 
             		newLeafNode(otherlv_0, grammarAccess.getSubcomponentElementAccess().getSubcomponentSubcomponentCrossReference_0()); 
             	
@@ -15667,13 +15678,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6222:2: iv_ruleQEMREF= ruleQEMREF EOF
             {
              newCompositeNode(grammarAccess.getQEMREFRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_entryRuleQEMREF13207);
+            pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_entryRuleQEMREF13208);
             iv_ruleQEMREF=ruleQEMREF();
 
             state._fsp--;
 
              current =iv_ruleQEMREF.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQEMREF13218); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQEMREF13219); 
 
             }
 
@@ -15709,34 +15720,34 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6234:2: (this_ID_0= RULE_ID kw= KEYWORD_18 )* this_ID_2= RULE_ID
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6234:2: (this_ID_0= RULE_ID kw= KEYWORD_18 )*
-            loop142:
+            loop143:
             do {
-                int alt142=2;
-                int LA142_0 = input.LA(1);
+                int alt143=2;
+                int LA143_0 = input.LA(1);
 
-                if ( (LA142_0==RULE_ID) ) {
-                    int LA142_1 = input.LA(2);
+                if ( (LA143_0==RULE_ID) ) {
+                    int LA143_1 = input.LA(2);
 
-                    if ( (LA142_1==KEYWORD_18) ) {
-                        alt142=1;
+                    if ( (LA143_1==KEYWORD_18) ) {
+                        alt143=1;
                     }
 
 
                 }
 
 
-                switch (alt142) {
+                switch (alt143) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6234:7: this_ID_0= RULE_ID kw= KEYWORD_18
             	    {
-            	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQEMREF13259); 
+            	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQEMREF13260); 
 
             	    		current.merge(this_ID_0);
             	        
             	     
             	        newLeafNode(this_ID_0, grammarAccess.getQEMREFAccess().getIDTerminalRuleCall_0_0()); 
             	        
-            	    kw=(Token)match(input,KEYWORD_18,FollowSets000.FOLLOW_KEYWORD_18_in_ruleQEMREF13277); 
+            	    kw=(Token)match(input,KEYWORD_18,FollowSets000.FOLLOW_KEYWORD_18_in_ruleQEMREF13278); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getQEMREFAccess().getColonColonKeyword_0_1()); 
@@ -15746,11 +15757,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop142;
+            	    break loop143;
                 }
             } while (true);
 
-            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQEMREF13294); 
+            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQEMREF13295); 
 
             		current.merge(this_ID_2);
                 
@@ -15791,13 +15802,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6266:2: iv_ruleContainedPropertyAssociation= ruleContainedPropertyAssociation EOF
             {
              newCompositeNode(grammarAccess.getContainedPropertyAssociationRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleContainedPropertyAssociation_in_entryRuleContainedPropertyAssociation13340);
+            pushFollow(FollowSets000.FOLLOW_ruleContainedPropertyAssociation_in_entryRuleContainedPropertyAssociation13341);
             iv_ruleContainedPropertyAssociation=ruleContainedPropertyAssociation();
 
             state._fsp--;
 
              current =iv_ruleContainedPropertyAssociation; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleContainedPropertyAssociation13350); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleContainedPropertyAssociation13351); 
 
             }
 
@@ -15863,7 +15874,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_ruleContainedPropertyAssociation13398);
+            pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_ruleContainedPropertyAssociation13399);
             ruleQPREF();
 
             state._fsp--;
@@ -15878,26 +15889,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6292:2: (otherlv_1= KEYWORD_19 | ( (lv_append_2_0= KEYWORD_23 ) ) )
-            int alt143=2;
-            int LA143_0 = input.LA(1);
+            int alt144=2;
+            int LA144_0 = input.LA(1);
 
-            if ( (LA143_0==KEYWORD_19) ) {
-                alt143=1;
+            if ( (LA144_0==KEYWORD_19) ) {
+                alt144=1;
             }
-            else if ( (LA143_0==KEYWORD_23) ) {
-                alt143=2;
+            else if ( (LA144_0==KEYWORD_23) ) {
+                alt144=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 143, 0, input);
+                    new NoViableAltException("", 144, 0, input);
 
                 throw nvae;
             }
-            switch (alt143) {
+            switch (alt144) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6293:2: otherlv_1= KEYWORD_19
                     {
-                    otherlv_1=(Token)match(input,KEYWORD_19,FollowSets000.FOLLOW_KEYWORD_19_in_ruleContainedPropertyAssociation13412); 
+                    otherlv_1=(Token)match(input,KEYWORD_19,FollowSets000.FOLLOW_KEYWORD_19_in_ruleContainedPropertyAssociation13413); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getContainedPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1_0());
                         
@@ -15913,7 +15924,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6299:1: (lv_append_2_0= KEYWORD_23 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6300:3: lv_append_2_0= KEYWORD_23
                     {
-                    lv_append_2_0=(Token)match(input,KEYWORD_23,FollowSets000.FOLLOW_KEYWORD_23_in_ruleContainedPropertyAssociation13436); 
+                    lv_append_2_0=(Token)match(input,KEYWORD_23,FollowSets000.FOLLOW_KEYWORD_23_in_ruleContainedPropertyAssociation13437); 
 
                             newLeafNode(lv_append_2_0, grammarAccess.getContainedPropertyAssociationAccess().getAppendPlusSignEqualsSignGreaterThanSignKeyword_1_1_0());
                         
@@ -15936,20 +15947,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6314:3: ( (lv_constant_3_0= KEYWORD_70 ) )?
-            int alt144=2;
-            int LA144_0 = input.LA(1);
+            int alt145=2;
+            int LA145_0 = input.LA(1);
 
-            if ( (LA144_0==KEYWORD_70) ) {
-                alt144=1;
+            if ( (LA145_0==KEYWORD_70) ) {
+                alt145=1;
             }
-            switch (alt144) {
+            switch (alt145) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6315:1: (lv_constant_3_0= KEYWORD_70 )
                     {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6315:1: (lv_constant_3_0= KEYWORD_70 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6316:3: lv_constant_3_0= KEYWORD_70
                     {
-                    lv_constant_3_0=(Token)match(input,KEYWORD_70,FollowSets000.FOLLOW_KEYWORD_70_in_ruleContainedPropertyAssociation13467); 
+                    lv_constant_3_0=(Token)match(input,KEYWORD_70,FollowSets000.FOLLOW_KEYWORD_70_in_ruleContainedPropertyAssociation13468); 
 
                             newLeafNode(lv_constant_3_0, grammarAccess.getContainedPropertyAssociationAccess().getConstantConstantKeyword_2_0());
                         
@@ -15980,7 +15991,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleOptionalModalPropertyValue_in_ruleContainedPropertyAssociation13501);
+            pushFollow(FollowSets000.FOLLOW_ruleOptionalModalPropertyValue_in_ruleContainedPropertyAssociation13502);
             lv_ownedValue_4_0=ruleOptionalModalPropertyValue();
 
             state._fsp--;
@@ -16003,21 +16014,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6348:2: (otherlv_5= KEYWORD_6 ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) ) )*
-            loop145:
+            loop146:
             do {
-                int alt145=2;
-                int LA145_0 = input.LA(1);
+                int alt146=2;
+                int LA146_0 = input.LA(1);
 
-                if ( (LA145_0==KEYWORD_6) ) {
-                    alt145=1;
+                if ( (LA146_0==KEYWORD_6) ) {
+                    alt146=1;
                 }
 
 
-                switch (alt145) {
+                switch (alt146) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6349:2: otherlv_5= KEYWORD_6 ( (lv_ownedValue_6_0= ruleOptionalModalPropertyValue ) )
             	    {
-            	    otherlv_5=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleContainedPropertyAssociation13515); 
+            	    otherlv_5=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleContainedPropertyAssociation13516); 
 
             	        	newLeafNode(otherlv_5, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_3_1_0());
             	        
@@ -16030,7 +16041,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_1_1_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleOptionalModalPropertyValue_in_ruleContainedPropertyAssociation13535);
+            	    pushFollow(FollowSets000.FOLLOW_ruleOptionalModalPropertyValue_in_ruleContainedPropertyAssociation13536);
             	    lv_ownedValue_6_0=ruleOptionalModalPropertyValue();
 
             	    state._fsp--;
@@ -16057,7 +16068,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop145;
+            	    break loop146;
                 }
             } while (true);
 
@@ -16065,21 +16076,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6371:5: (otherlv_7= KEYWORD_59 otherlv_8= KEYWORD_22 ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= KEYWORD_6 ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )* )?
-            int alt147=2;
-            int LA147_0 = input.LA(1);
+            int alt148=2;
+            int LA148_0 = input.LA(1);
 
-            if ( (LA147_0==KEYWORD_59) ) {
-                alt147=1;
+            if ( (LA148_0==KEYWORD_59) ) {
+                alt148=1;
             }
-            switch (alt147) {
+            switch (alt148) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6372:2: otherlv_7= KEYWORD_59 otherlv_8= KEYWORD_22 ( (lv_appliesTo_9_0= ruleContainmentPath ) ) (otherlv_10= KEYWORD_6 ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )*
                     {
-                    otherlv_7=(Token)match(input,KEYWORD_59,FollowSets000.FOLLOW_KEYWORD_59_in_ruleContainedPropertyAssociation13552); 
+                    otherlv_7=(Token)match(input,KEYWORD_59,FollowSets000.FOLLOW_KEYWORD_59_in_ruleContainedPropertyAssociation13553); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getContainedPropertyAssociationAccess().getAppliesKeyword_4_0());
                         
-                    otherlv_8=(Token)match(input,KEYWORD_22,FollowSets000.FOLLOW_KEYWORD_22_in_ruleContainedPropertyAssociation13564); 
+                    otherlv_8=(Token)match(input,KEYWORD_22,FollowSets000.FOLLOW_KEYWORD_22_in_ruleContainedPropertyAssociation13565); 
 
                         	newLeafNode(otherlv_8, grammarAccess.getContainedPropertyAssociationAccess().getToKeyword_4_1());
                         
@@ -16092,7 +16103,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_2_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleContainmentPath_in_ruleContainedPropertyAssociation13584);
+                    pushFollow(FollowSets000.FOLLOW_ruleContainmentPath_in_ruleContainedPropertyAssociation13585);
                     lv_appliesTo_9_0=ruleContainmentPath();
 
                     state._fsp--;
@@ -16115,21 +16126,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
 
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6399:2: (otherlv_10= KEYWORD_6 ( (lv_appliesTo_11_0= ruleContainmentPath ) ) )*
-                    loop146:
+                    loop147:
                     do {
-                        int alt146=2;
-                        int LA146_0 = input.LA(1);
+                        int alt147=2;
+                        int LA147_0 = input.LA(1);
 
-                        if ( (LA146_0==KEYWORD_6) ) {
-                            alt146=1;
+                        if ( (LA147_0==KEYWORD_6) ) {
+                            alt147=1;
                         }
 
 
-                        switch (alt146) {
+                        switch (alt147) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6400:2: otherlv_10= KEYWORD_6 ( (lv_appliesTo_11_0= ruleContainmentPath ) )
                     	    {
-                    	    otherlv_10=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleContainedPropertyAssociation13598); 
+                    	    otherlv_10=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleContainedPropertyAssociation13599); 
 
                     	        	newLeafNode(otherlv_10, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_4_3_0());
                     	        
@@ -16142,7 +16153,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getAppliesToContainmentPathParserRuleCall_4_3_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleContainmentPath_in_ruleContainedPropertyAssociation13618);
+                    	    pushFollow(FollowSets000.FOLLOW_ruleContainmentPath_in_ruleContainedPropertyAssociation13619);
                     	    lv_appliesTo_11_0=ruleContainmentPath();
 
                     	    state._fsp--;
@@ -16169,7 +16180,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop146;
+                    	    break loop147;
                         }
                     } while (true);
 
@@ -16180,25 +16191,25 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6422:6: (otherlv_12= KEYWORD_20 otherlv_13= KEYWORD_60 otherlv_14= KEYWORD_2 ( ( ruleQCREF ) ) otherlv_16= KEYWORD_3 )?
-            int alt148=2;
-            int LA148_0 = input.LA(1);
+            int alt149=2;
+            int LA149_0 = input.LA(1);
 
-            if ( (LA148_0==KEYWORD_20) ) {
-                alt148=1;
+            if ( (LA149_0==KEYWORD_20) ) {
+                alt149=1;
             }
-            switch (alt148) {
+            switch (alt149) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6423:2: otherlv_12= KEYWORD_20 otherlv_13= KEYWORD_60 otherlv_14= KEYWORD_2 ( ( ruleQCREF ) ) otherlv_16= KEYWORD_3
                     {
-                    otherlv_12=(Token)match(input,KEYWORD_20,FollowSets000.FOLLOW_KEYWORD_20_in_ruleContainedPropertyAssociation13636); 
+                    otherlv_12=(Token)match(input,KEYWORD_20,FollowSets000.FOLLOW_KEYWORD_20_in_ruleContainedPropertyAssociation13637); 
 
                         	newLeafNode(otherlv_12, grammarAccess.getContainedPropertyAssociationAccess().getInKeyword_5_0());
                         
-                    otherlv_13=(Token)match(input,KEYWORD_60,FollowSets000.FOLLOW_KEYWORD_60_in_ruleContainedPropertyAssociation13648); 
+                    otherlv_13=(Token)match(input,KEYWORD_60,FollowSets000.FOLLOW_KEYWORD_60_in_ruleContainedPropertyAssociation13649); 
 
                         	newLeafNode(otherlv_13, grammarAccess.getContainedPropertyAssociationAccess().getBindingKeyword_5_1());
                         
-                    otherlv_14=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleContainedPropertyAssociation13660); 
+                    otherlv_14=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleContainedPropertyAssociation13661); 
 
                         	newLeafNode(otherlv_14, grammarAccess.getContainedPropertyAssociationAccess().getLeftParenthesisKeyword_5_2());
                         
@@ -16216,7 +16227,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getInBindingClassifierCrossReference_5_3_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQCREF_in_ruleContainedPropertyAssociation13682);
+                    pushFollow(FollowSets000.FOLLOW_ruleQCREF_in_ruleContainedPropertyAssociation13683);
                     ruleQCREF();
 
                     state._fsp--;
@@ -16230,7 +16241,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_16=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleContainedPropertyAssociation13695); 
+                    otherlv_16=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleContainedPropertyAssociation13696); 
 
                         	newLeafNode(otherlv_16, grammarAccess.getContainedPropertyAssociationAccess().getRightParenthesisKeyword_5_4());
                         
@@ -16240,7 +16251,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_17=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleContainedPropertyAssociation13709); 
+            otherlv_17=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleContainedPropertyAssociation13710); 
 
                 	newLeafNode(otherlv_17, grammarAccess.getContainedPropertyAssociationAccess().getSemicolonKeyword_6());
                 
@@ -16277,13 +16288,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6476:2: iv_ruleContainmentPath= ruleContainmentPath EOF
             {
              newCompositeNode(grammarAccess.getContainmentPathRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleContainmentPath_in_entryRuleContainmentPath13747);
+            pushFollow(FollowSets000.FOLLOW_ruleContainmentPath_in_entryRuleContainmentPath13748);
             iv_ruleContainmentPath=ruleContainmentPath();
 
             state._fsp--;
 
              current =iv_ruleContainmentPath; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleContainmentPath13757); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleContainmentPath13758); 
 
             }
 
@@ -16340,7 +16351,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getContainmentPathAccess().getContainmentPathElementContainmentPathElementParserRuleCall_1_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_ruleContainmentPath13812);
+            pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_ruleContainmentPath13813);
             lv_containmentPathElement_1_0=ruleContainmentPathElement();
 
             state._fsp--;
@@ -16363,21 +16374,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6511:2: (otherlv_2= KEYWORD_8 ( (lv_containmentPathElement_3_0= ruleContainmentPathElement ) ) )*
-            loop149:
+            loop150:
             do {
-                int alt149=2;
-                int LA149_0 = input.LA(1);
+                int alt150=2;
+                int LA150_0 = input.LA(1);
 
-                if ( (LA149_0==KEYWORD_8) ) {
-                    alt149=1;
+                if ( (LA150_0==KEYWORD_8) ) {
+                    alt150=1;
                 }
 
 
-                switch (alt149) {
+                switch (alt150) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6512:2: otherlv_2= KEYWORD_8 ( (lv_containmentPathElement_3_0= ruleContainmentPathElement ) )
             	    {
-            	    otherlv_2=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleContainmentPath13826); 
+            	    otherlv_2=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleContainmentPath13827); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getContainmentPathAccess().getFullStopKeyword_2_0());
             	        
@@ -16390,7 +16401,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getContainmentPathAccess().getContainmentPathElementContainmentPathElementParserRuleCall_2_1_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_ruleContainmentPath13846);
+            	    pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_ruleContainmentPath13847);
             	    lv_containmentPathElement_3_0=ruleContainmentPathElement();
 
             	    state._fsp--;
@@ -16417,7 +16428,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop149;
+            	    break loop150;
                 }
             } while (true);
 
@@ -16454,13 +16465,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6546:2: iv_ruleOptionalModalPropertyValue= ruleOptionalModalPropertyValue EOF
             {
              newCompositeNode(grammarAccess.getOptionalModalPropertyValueRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleOptionalModalPropertyValue_in_entryRuleOptionalModalPropertyValue13885);
+            pushFollow(FollowSets000.FOLLOW_ruleOptionalModalPropertyValue_in_entryRuleOptionalModalPropertyValue13886);
             iv_ruleOptionalModalPropertyValue=ruleOptionalModalPropertyValue();
 
             state._fsp--;
 
              current =iv_ruleOptionalModalPropertyValue; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOptionalModalPropertyValue13895); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleOptionalModalPropertyValue13896); 
 
             }
 
@@ -16510,7 +16521,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getOwnedValuePropertyExpressionParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_ruleOptionalModalPropertyValue13941);
+            pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_ruleOptionalModalPropertyValue13942);
             lv_ownedValue_0_0=rulePropertyExpression();
 
             state._fsp--;
@@ -16533,29 +16544,29 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6575:2: (otherlv_1= KEYWORD_20 otherlv_2= KEYWORD_45 otherlv_3= KEYWORD_2 ( (otherlv_4= RULE_ID ) ) (otherlv_5= KEYWORD_6 ( (otherlv_6= RULE_ID ) ) )* otherlv_7= KEYWORD_3 )?
-            int alt151=2;
-            int LA151_0 = input.LA(1);
+            int alt152=2;
+            int LA152_0 = input.LA(1);
 
-            if ( (LA151_0==KEYWORD_20) ) {
-                int LA151_1 = input.LA(2);
+            if ( (LA152_0==KEYWORD_20) ) {
+                int LA152_1 = input.LA(2);
 
-                if ( (LA151_1==KEYWORD_45) ) {
-                    alt151=1;
+                if ( (LA152_1==KEYWORD_45) ) {
+                    alt152=1;
                 }
             }
-            switch (alt151) {
+            switch (alt152) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6576:2: otherlv_1= KEYWORD_20 otherlv_2= KEYWORD_45 otherlv_3= KEYWORD_2 ( (otherlv_4= RULE_ID ) ) (otherlv_5= KEYWORD_6 ( (otherlv_6= RULE_ID ) ) )* otherlv_7= KEYWORD_3
                     {
-                    otherlv_1=(Token)match(input,KEYWORD_20,FollowSets000.FOLLOW_KEYWORD_20_in_ruleOptionalModalPropertyValue13955); 
+                    otherlv_1=(Token)match(input,KEYWORD_20,FollowSets000.FOLLOW_KEYWORD_20_in_ruleOptionalModalPropertyValue13956); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getOptionalModalPropertyValueAccess().getInKeyword_1_0());
                         
-                    otherlv_2=(Token)match(input,KEYWORD_45,FollowSets000.FOLLOW_KEYWORD_45_in_ruleOptionalModalPropertyValue13967); 
+                    otherlv_2=(Token)match(input,KEYWORD_45,FollowSets000.FOLLOW_KEYWORD_45_in_ruleOptionalModalPropertyValue13968); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getOptionalModalPropertyValueAccess().getModesKeyword_1_1());
                         
-                    otherlv_3=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleOptionalModalPropertyValue13979); 
+                    otherlv_3=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleOptionalModalPropertyValue13980); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getOptionalModalPropertyValueAccess().getLeftParenthesisKeyword_1_2());
                         
@@ -16570,7 +16581,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
                     	        }
                             
-                    otherlv_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleOptionalModalPropertyValue13998); 
+                    otherlv_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleOptionalModalPropertyValue13999); 
 
                     		newLeafNode(otherlv_4, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_0()); 
                     	
@@ -16581,21 +16592,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
 
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6603:2: (otherlv_5= KEYWORD_6 ( (otherlv_6= RULE_ID ) ) )*
-                    loop150:
+                    loop151:
                     do {
-                        int alt150=2;
-                        int LA150_0 = input.LA(1);
+                        int alt151=2;
+                        int LA151_0 = input.LA(1);
 
-                        if ( (LA150_0==KEYWORD_6) ) {
-                            alt150=1;
+                        if ( (LA151_0==KEYWORD_6) ) {
+                            alt151=1;
                         }
 
 
-                        switch (alt150) {
+                        switch (alt151) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6604:2: otherlv_5= KEYWORD_6 ( (otherlv_6= RULE_ID ) )
                     	    {
-                    	    otherlv_5=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleOptionalModalPropertyValue14012); 
+                    	    otherlv_5=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleOptionalModalPropertyValue14013); 
 
                     	        	newLeafNode(otherlv_5, grammarAccess.getOptionalModalPropertyValueAccess().getCommaKeyword_1_4_0());
                     	        
@@ -16610,7 +16621,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    	            current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
                     	    	        }
                     	            
-                    	    otherlv_6=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleOptionalModalPropertyValue14031); 
+                    	    otherlv_6=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleOptionalModalPropertyValue14032); 
 
                     	    		newLeafNode(otherlv_6, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_4_1_0()); 
                     	    	
@@ -16625,11 +16636,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop150;
+                    	    break loop151;
                         }
                     } while (true);
 
-                    otherlv_7=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleOptionalModalPropertyValue14046); 
+                    otherlv_7=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleOptionalModalPropertyValue14047); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getOptionalModalPropertyValueAccess().getRightParenthesisKeyword_1_5());
                         
@@ -16672,13 +16683,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6636:2: iv_rulePropertyValue= rulePropertyValue EOF
             {
              newCompositeNode(grammarAccess.getPropertyValueRule()); 
-            pushFollow(FollowSets000.FOLLOW_rulePropertyValue_in_entryRulePropertyValue14082);
+            pushFollow(FollowSets000.FOLLOW_rulePropertyValue_in_entryRulePropertyValue14083);
             iv_rulePropertyValue=rulePropertyValue();
 
             state._fsp--;
 
              current =iv_rulePropertyValue; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropertyValue14092); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropertyValue14093); 
 
             }
 
@@ -16718,7 +16729,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getPropertyValueAccess().getOwnedValuePropertyExpressionParserRuleCall_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_rulePropertyValue14137);
+            pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_rulePropertyValue14138);
             lv_ownedValue_0_0=rulePropertyExpression();
 
             state._fsp--;
@@ -16770,13 +16781,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6675:2: iv_rulePropertyExpression= rulePropertyExpression EOF
             {
              newCompositeNode(grammarAccess.getPropertyExpressionRule()); 
-            pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_entryRulePropertyExpression14171);
+            pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_entryRulePropertyExpression14172);
             iv_rulePropertyExpression=rulePropertyExpression();
 
             state._fsp--;
 
              current =iv_rulePropertyExpression; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropertyExpression14181); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePropertyExpression14182); 
 
             }
 
@@ -16828,16 +16839,16 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6686:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6686:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )
-            int alt152=11;
-            alt152 = dfa152.predict(input);
-            switch (alt152) {
+            int alt153=11;
+            alt153 = dfa153.predict(input);
+            switch (alt153) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6687:5: this_RecordTerm_0= ruleRecordTerm
                     {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getRecordTermParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleRecordTerm_in_rulePropertyExpression14228);
+                    pushFollow(FollowSets000.FOLLOW_ruleRecordTerm_in_rulePropertyExpression14229);
                     this_RecordTerm_0=ruleRecordTerm();
 
                     state._fsp--;
@@ -16855,7 +16866,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getReferenceTermParserRuleCall_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleReferenceTerm_in_rulePropertyExpression14255);
+                    pushFollow(FollowSets000.FOLLOW_ruleReferenceTerm_in_rulePropertyExpression14256);
                     this_ReferenceTerm_1=ruleReferenceTerm();
 
                     state._fsp--;
@@ -16873,7 +16884,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_2()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleComponentClassifierTerm_in_rulePropertyExpression14282);
+                    pushFollow(FollowSets000.FOLLOW_ruleComponentClassifierTerm_in_rulePropertyExpression14283);
                     this_ComponentClassifierTerm_2=ruleComponentClassifierTerm();
 
                     state._fsp--;
@@ -16891,7 +16902,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getComputedTermParserRuleCall_3()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleComputedTerm_in_rulePropertyExpression14309);
+                    pushFollow(FollowSets000.FOLLOW_ruleComputedTerm_in_rulePropertyExpression14310);
                     this_ComputedTerm_3=ruleComputedTerm();
 
                     state._fsp--;
@@ -16909,7 +16920,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getStringTermParserRuleCall_4()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleStringTerm_in_rulePropertyExpression14336);
+                    pushFollow(FollowSets000.FOLLOW_ruleStringTerm_in_rulePropertyExpression14337);
                     this_StringTerm_4=ruleStringTerm();
 
                     state._fsp--;
@@ -16927,7 +16938,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getNumericRangeTermParserRuleCall_5()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleNumericRangeTerm_in_rulePropertyExpression14363);
+                    pushFollow(FollowSets000.FOLLOW_ruleNumericRangeTerm_in_rulePropertyExpression14364);
                     this_NumericRangeTerm_5=ruleNumericRangeTerm();
 
                     state._fsp--;
@@ -16945,7 +16956,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getRealTermParserRuleCall_6()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleRealTerm_in_rulePropertyExpression14390);
+                    pushFollow(FollowSets000.FOLLOW_ruleRealTerm_in_rulePropertyExpression14391);
                     this_RealTerm_6=ruleRealTerm();
 
                     state._fsp--;
@@ -16963,7 +16974,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getIntegerTermParserRuleCall_7()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleIntegerTerm_in_rulePropertyExpression14417);
+                    pushFollow(FollowSets000.FOLLOW_ruleIntegerTerm_in_rulePropertyExpression14418);
                     this_IntegerTerm_7=ruleIntegerTerm();
 
                     state._fsp--;
@@ -16981,7 +16992,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getListTermParserRuleCall_8()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleListTerm_in_rulePropertyExpression14444);
+                    pushFollow(FollowSets000.FOLLOW_ruleListTerm_in_rulePropertyExpression14445);
                     this_ListTerm_8=ruleListTerm();
 
                     state._fsp--;
@@ -16999,7 +17010,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getBooleanLiteralParserRuleCall_9()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleBooleanLiteral_in_rulePropertyExpression14471);
+                    pushFollow(FollowSets000.FOLLOW_ruleBooleanLiteral_in_rulePropertyExpression14472);
                     this_BooleanLiteral_9=ruleBooleanLiteral();
 
                     state._fsp--;
@@ -17017,7 +17028,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleLiteralorReferenceTerm_in_rulePropertyExpression14498);
+                    pushFollow(FollowSets000.FOLLOW_ruleLiteralorReferenceTerm_in_rulePropertyExpression14499);
                     this_LiteralorReferenceTerm_10=ruleLiteralorReferenceTerm();
 
                     state._fsp--;
@@ -17062,13 +17073,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6805:2: iv_ruleLiteralorReferenceTerm= ruleLiteralorReferenceTerm EOF
             {
              newCompositeNode(grammarAccess.getLiteralorReferenceTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleLiteralorReferenceTerm_in_entryRuleLiteralorReferenceTerm14532);
+            pushFollow(FollowSets000.FOLLOW_ruleLiteralorReferenceTerm_in_entryRuleLiteralorReferenceTerm14533);
             iv_ruleLiteralorReferenceTerm=ruleLiteralorReferenceTerm();
 
             state._fsp--;
 
              current =iv_ruleLiteralorReferenceTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleLiteralorReferenceTerm14542); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleLiteralorReferenceTerm14543); 
 
             }
 
@@ -17110,7 +17121,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getLiteralorReferenceTermAccess().getNamedValueAbstractNamedValueCrossReference_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_ruleLiteralorReferenceTerm14589);
+            pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_ruleLiteralorReferenceTerm14590);
             ruleQPREF();
 
             state._fsp--;
@@ -17154,13 +17165,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6841:2: iv_ruleBooleanLiteral= ruleBooleanLiteral EOF
             {
              newCompositeNode(grammarAccess.getBooleanLiteralRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral14623);
+            pushFollow(FollowSets000.FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral14624);
             iv_ruleBooleanLiteral=ruleBooleanLiteral();
 
             state._fsp--;
 
              current =iv_ruleBooleanLiteral; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleBooleanLiteral14633); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleBooleanLiteral14634); 
 
             }
 
@@ -17206,22 +17217,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6858:2: ( ( (lv_value_1_0= KEYWORD_36 ) ) | otherlv_2= KEYWORD_43 )
-            int alt153=2;
-            int LA153_0 = input.LA(1);
+            int alt154=2;
+            int LA154_0 = input.LA(1);
 
-            if ( (LA153_0==KEYWORD_36) ) {
-                alt153=1;
+            if ( (LA154_0==KEYWORD_36) ) {
+                alt154=1;
             }
-            else if ( (LA153_0==KEYWORD_43) ) {
-                alt153=2;
+            else if ( (LA154_0==KEYWORD_43) ) {
+                alt154=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 153, 0, input);
+                    new NoViableAltException("", 154, 0, input);
 
                 throw nvae;
             }
-            switch (alt153) {
+            switch (alt154) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6858:3: ( (lv_value_1_0= KEYWORD_36 ) )
                     {
@@ -17231,7 +17242,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6859:1: (lv_value_1_0= KEYWORD_36 )
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6860:3: lv_value_1_0= KEYWORD_36
                     {
-                    lv_value_1_0=(Token)match(input,KEYWORD_36,FollowSets000.FOLLOW_KEYWORD_36_in_ruleBooleanLiteral14687); 
+                    lv_value_1_0=(Token)match(input,KEYWORD_36,FollowSets000.FOLLOW_KEYWORD_36_in_ruleBooleanLiteral14688); 
 
                             newLeafNode(lv_value_1_0, grammarAccess.getBooleanLiteralAccess().getValueTrueKeyword_1_0_0());
                         
@@ -17253,7 +17264,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6876:2: otherlv_2= KEYWORD_43
                     {
-                    otherlv_2=(Token)match(input,KEYWORD_43,FollowSets000.FOLLOW_KEYWORD_43_in_ruleBooleanLiteral14717); 
+                    otherlv_2=(Token)match(input,KEYWORD_43,FollowSets000.FOLLOW_KEYWORD_43_in_ruleBooleanLiteral14718); 
 
                         	newLeafNode(otherlv_2, grammarAccess.getBooleanLiteralAccess().getFalseKeyword_1_1());
                         
@@ -17296,13 +17307,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6890:2: iv_ruleConstantValue= ruleConstantValue EOF
             {
              newCompositeNode(grammarAccess.getConstantValueRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleConstantValue_in_entryRuleConstantValue14752);
+            pushFollow(FollowSets000.FOLLOW_ruleConstantValue_in_entryRuleConstantValue14753);
             iv_ruleConstantValue=ruleConstantValue();
 
             state._fsp--;
 
              current =iv_ruleConstantValue; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConstantValue14762); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleConstantValue14763); 
 
             }
 
@@ -17344,7 +17355,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getConstantValueAccess().getNamedValuePropertyConstantCrossReference_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_ruleConstantValue14809);
+            pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_ruleConstantValue14810);
             ruleQPREF();
 
             state._fsp--;
@@ -17388,13 +17399,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6926:2: iv_ruleReferenceTerm= ruleReferenceTerm EOF
             {
              newCompositeNode(grammarAccess.getReferenceTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleReferenceTerm_in_entryRuleReferenceTerm14843);
+            pushFollow(FollowSets000.FOLLOW_ruleReferenceTerm_in_entryRuleReferenceTerm14844);
             iv_ruleReferenceTerm=ruleReferenceTerm();
 
             state._fsp--;
 
              current =iv_ruleReferenceTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleReferenceTerm14853); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleReferenceTerm14854); 
 
             }
 
@@ -17437,26 +17448,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6937:1: (otherlv_0= KEYWORD_75 otherlv_1= KEYWORD_2 ( ( (lv_containmentPathElement_2_0= ruleQualifiedContainmentPathElement ) ) otherlv_3= KEYWORD_8 )? ( (lv_containmentPathElement_4_0= ruleContainmentPathElement ) ) (otherlv_5= KEYWORD_8 ( (lv_containmentPathElement_6_0= ruleContainmentPathElement ) ) )* otherlv_7= KEYWORD_3 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6938:2: otherlv_0= KEYWORD_75 otherlv_1= KEYWORD_2 ( ( (lv_containmentPathElement_2_0= ruleQualifiedContainmentPathElement ) ) otherlv_3= KEYWORD_8 )? ( (lv_containmentPathElement_4_0= ruleContainmentPathElement ) ) (otherlv_5= KEYWORD_8 ( (lv_containmentPathElement_6_0= ruleContainmentPathElement ) ) )* otherlv_7= KEYWORD_3
             {
-            otherlv_0=(Token)match(input,KEYWORD_75,FollowSets000.FOLLOW_KEYWORD_75_in_ruleReferenceTerm14891); 
+            otherlv_0=(Token)match(input,KEYWORD_75,FollowSets000.FOLLOW_KEYWORD_75_in_ruleReferenceTerm14892); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getReferenceTermAccess().getReferenceKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleReferenceTerm14903); 
+            otherlv_1=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleReferenceTerm14904); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getReferenceTermAccess().getLeftParenthesisKeyword_1());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6947:1: ( ( (lv_containmentPathElement_2_0= ruleQualifiedContainmentPathElement ) ) otherlv_3= KEYWORD_8 )?
-            int alt154=2;
-            int LA154_0 = input.LA(1);
+            int alt155=2;
+            int LA155_0 = input.LA(1);
 
-            if ( (LA154_0==RULE_ID) ) {
-                int LA154_1 = input.LA(2);
+            if ( (LA155_0==RULE_ID) ) {
+                int LA155_1 = input.LA(2);
 
-                if ( (LA154_1==KEYWORD_18) ) {
-                    alt154=1;
+                if ( (LA155_1==KEYWORD_18) ) {
+                    alt155=1;
                 }
             }
-            switch (alt154) {
+            switch (alt155) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6947:2: ( (lv_containmentPathElement_2_0= ruleQualifiedContainmentPathElement ) ) otherlv_3= KEYWORD_8
                     {
@@ -17469,7 +17480,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getReferenceTermAccess().getContainmentPathElementQualifiedContainmentPathElementParserRuleCall_2_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQualifiedContainmentPathElement_in_ruleReferenceTerm14924);
+                    pushFollow(FollowSets000.FOLLOW_ruleQualifiedContainmentPathElement_in_ruleReferenceTerm14925);
                     lv_containmentPathElement_2_0=ruleQualifiedContainmentPathElement();
 
                     state._fsp--;
@@ -17491,7 +17502,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_3=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleReferenceTerm14937); 
+                    otherlv_3=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleReferenceTerm14938); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getReferenceTermAccess().getFullStopKeyword_2_1());
                         
@@ -17510,7 +17521,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getReferenceTermAccess().getContainmentPathElementContainmentPathElementParserRuleCall_3_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_ruleReferenceTerm14959);
+            pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_ruleReferenceTerm14960);
             lv_containmentPathElement_4_0=ruleContainmentPathElement();
 
             state._fsp--;
@@ -17533,21 +17544,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6988:2: (otherlv_5= KEYWORD_8 ( (lv_containmentPathElement_6_0= ruleContainmentPathElement ) ) )*
-            loop155:
+            loop156:
             do {
-                int alt155=2;
-                int LA155_0 = input.LA(1);
+                int alt156=2;
+                int LA156_0 = input.LA(1);
 
-                if ( (LA155_0==KEYWORD_8) ) {
-                    alt155=1;
+                if ( (LA156_0==KEYWORD_8) ) {
+                    alt156=1;
                 }
 
 
-                switch (alt155) {
+                switch (alt156) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6989:2: otherlv_5= KEYWORD_8 ( (lv_containmentPathElement_6_0= ruleContainmentPathElement ) )
             	    {
-            	    otherlv_5=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleReferenceTerm14973); 
+            	    otherlv_5=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleReferenceTerm14974); 
 
             	        	newLeafNode(otherlv_5, grammarAccess.getReferenceTermAccess().getFullStopKeyword_4_0());
             	        
@@ -17560,7 +17571,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getReferenceTermAccess().getContainmentPathElementContainmentPathElementParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_ruleReferenceTerm14993);
+            	    pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_ruleReferenceTerm14994);
             	    lv_containmentPathElement_6_0=ruleContainmentPathElement();
 
             	    state._fsp--;
@@ -17587,11 +17598,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop155;
+            	    break loop156;
                 }
             } while (true);
 
-            otherlv_7=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleReferenceTerm15008); 
+            otherlv_7=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleReferenceTerm15009); 
 
                 	newLeafNode(otherlv_7, grammarAccess.getReferenceTermAccess().getRightParenthesisKeyword_5());
                 
@@ -17628,13 +17639,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7026:2: iv_ruleRecordTerm= ruleRecordTerm EOF
             {
              newCompositeNode(grammarAccess.getRecordTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleRecordTerm_in_entryRuleRecordTerm15042);
+            pushFollow(FollowSets000.FOLLOW_ruleRecordTerm_in_entryRuleRecordTerm15043);
             iv_ruleRecordTerm=ruleRecordTerm();
 
             state._fsp--;
 
              current =iv_ruleRecordTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleRecordTerm15052); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleRecordTerm15053); 
 
             }
 
@@ -17670,23 +17681,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7037:1: (otherlv_0= KEYWORD_11 ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= KEYWORD_12 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7038:2: otherlv_0= KEYWORD_11 ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+ otherlv_2= KEYWORD_12
             {
-            otherlv_0=(Token)match(input,KEYWORD_11,FollowSets000.FOLLOW_KEYWORD_11_in_ruleRecordTerm15090); 
+            otherlv_0=(Token)match(input,KEYWORD_11,FollowSets000.FOLLOW_KEYWORD_11_in_ruleRecordTerm15091); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getRecordTermAccess().getLeftSquareBracketKeyword_0());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7042:1: ( (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation ) )+
-            int cnt156=0;
-            loop156:
+            int cnt157=0;
+            loop157:
             do {
-                int alt156=2;
-                int LA156_0 = input.LA(1);
+                int alt157=2;
+                int LA157_0 = input.LA(1);
 
-                if ( (LA156_0==RULE_ID) ) {
-                    alt156=1;
+                if ( (LA157_0==RULE_ID) ) {
+                    alt157=1;
                 }
 
 
-                switch (alt156) {
+                switch (alt157) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7043:1: (lv_ownedFieldValue_1_0= ruleFieldPropertyAssociation )
             	    {
@@ -17696,7 +17707,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getRecordTermAccess().getOwnedFieldValueFieldPropertyAssociationParserRuleCall_1_0()); 
             	    	    
-            	    pushFollow(FollowSets000.FOLLOW_ruleFieldPropertyAssociation_in_ruleRecordTerm15110);
+            	    pushFollow(FollowSets000.FOLLOW_ruleFieldPropertyAssociation_in_ruleRecordTerm15111);
             	    lv_ownedFieldValue_1_0=ruleFieldPropertyAssociation();
 
             	    state._fsp--;
@@ -17720,15 +17731,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt156 >= 1 ) break loop156;
+            	    if ( cnt157 >= 1 ) break loop157;
                         EarlyExitException eee =
-                            new EarlyExitException(156, input);
+                            new EarlyExitException(157, input);
                         throw eee;
                 }
-                cnt156++;
+                cnt157++;
             } while (true);
 
-            otherlv_2=(Token)match(input,KEYWORD_12,FollowSets000.FOLLOW_KEYWORD_12_in_ruleRecordTerm15124); 
+            otherlv_2=(Token)match(input,KEYWORD_12,FollowSets000.FOLLOW_KEYWORD_12_in_ruleRecordTerm15125); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getRecordTermAccess().getRightSquareBracketKeyword_2());
                 
@@ -17765,13 +17776,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7077:2: iv_ruleComputedTerm= ruleComputedTerm EOF
             {
              newCompositeNode(grammarAccess.getComputedTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleComputedTerm_in_entryRuleComputedTerm15160);
+            pushFollow(FollowSets000.FOLLOW_ruleComputedTerm_in_entryRuleComputedTerm15161);
             iv_ruleComputedTerm=ruleComputedTerm();
 
             state._fsp--;
 
              current =iv_ruleComputedTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleComputedTerm15170); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleComputedTerm15171); 
 
             }
 
@@ -17807,11 +17818,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7088:1: (otherlv_0= KEYWORD_61 otherlv_1= KEYWORD_2 ( (lv_function_2_0= RULE_ID ) ) otherlv_3= KEYWORD_3 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7089:2: otherlv_0= KEYWORD_61 otherlv_1= KEYWORD_2 ( (lv_function_2_0= RULE_ID ) ) otherlv_3= KEYWORD_3
             {
-            otherlv_0=(Token)match(input,KEYWORD_61,FollowSets000.FOLLOW_KEYWORD_61_in_ruleComputedTerm15208); 
+            otherlv_0=(Token)match(input,KEYWORD_61,FollowSets000.FOLLOW_KEYWORD_61_in_ruleComputedTerm15209); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getComputedTermAccess().getComputeKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleComputedTerm15220); 
+            otherlv_1=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleComputedTerm15221); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getComputedTermAccess().getLeftParenthesisKeyword_1());
                 
@@ -17821,7 +17832,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7099:1: (lv_function_2_0= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7100:3: lv_function_2_0= RULE_ID
             {
-            lv_function_2_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleComputedTerm15236); 
+            lv_function_2_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleComputedTerm15237); 
 
             			newLeafNode(lv_function_2_0, grammarAccess.getComputedTermAccess().getFunctionIDTerminalRuleCall_2_0()); 
             		
@@ -17841,7 +17852,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleComputedTerm15254); 
+            otherlv_3=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleComputedTerm15255); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getComputedTermAccess().getRightParenthesisKeyword_3());
                 
@@ -17878,13 +17889,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7131:2: iv_ruleComponentClassifierTerm= ruleComponentClassifierTerm EOF
             {
              newCompositeNode(grammarAccess.getComponentClassifierTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleComponentClassifierTerm_in_entryRuleComponentClassifierTerm15288);
+            pushFollow(FollowSets000.FOLLOW_ruleComponentClassifierTerm_in_entryRuleComponentClassifierTerm15289);
             iv_ruleComponentClassifierTerm=ruleComponentClassifierTerm();
 
             state._fsp--;
 
              current =iv_ruleComponentClassifierTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleComponentClassifierTerm15298); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleComponentClassifierTerm15299); 
 
             }
 
@@ -17919,11 +17930,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7142:1: (otherlv_0= KEYWORD_76 otherlv_1= KEYWORD_2 ( ( ruleQCREF ) ) otherlv_3= KEYWORD_3 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7143:2: otherlv_0= KEYWORD_76 otherlv_1= KEYWORD_2 ( ( ruleQCREF ) ) otherlv_3= KEYWORD_3
             {
-            otherlv_0=(Token)match(input,KEYWORD_76,FollowSets000.FOLLOW_KEYWORD_76_in_ruleComponentClassifierTerm15336); 
+            otherlv_0=(Token)match(input,KEYWORD_76,FollowSets000.FOLLOW_KEYWORD_76_in_ruleComponentClassifierTerm15337); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getComponentClassifierTermAccess().getClassifierKeyword_0());
                 
-            otherlv_1=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleComponentClassifierTerm15348); 
+            otherlv_1=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleComponentClassifierTerm15349); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getComponentClassifierTermAccess().getLeftParenthesisKeyword_1());
                 
@@ -17941,7 +17952,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getComponentClassifierTermAccess().getClassifierComponentClassifierCrossReference_2_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleQCREF_in_ruleComponentClassifierTerm15370);
+            pushFollow(FollowSets000.FOLLOW_ruleQCREF_in_ruleComponentClassifierTerm15371);
             ruleQCREF();
 
             state._fsp--;
@@ -17955,7 +17966,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleComponentClassifierTerm15383); 
+            otherlv_3=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleComponentClassifierTerm15384); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getComponentClassifierTermAccess().getRightParenthesisKeyword_3());
                 
@@ -17992,13 +18003,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7182:2: iv_ruleListTerm= ruleListTerm EOF
             {
              newCompositeNode(grammarAccess.getListTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleListTerm_in_entryRuleListTerm15417);
+            pushFollow(FollowSets000.FOLLOW_ruleListTerm_in_entryRuleListTerm15418);
             iv_ruleListTerm=ruleListTerm();
 
             state._fsp--;
 
              current =iv_ruleListTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleListTerm15427); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleListTerm15428); 
 
             }
 
@@ -18048,18 +18059,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleListTerm15474); 
+            otherlv_1=(Token)match(input,KEYWORD_2,FollowSets000.FOLLOW_KEYWORD_2_in_ruleListTerm15475); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getListTermAccess().getLeftParenthesisKeyword_1());
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7204:1: ( ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= KEYWORD_6 ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )* )?
-            int alt158=2;
-            int LA158_0 = input.LA(1);
+            int alt159=2;
+            int LA159_0 = input.LA(1);
 
-            if ( (LA158_0==KEYWORD_76||LA158_0==KEYWORD_75||LA158_0==KEYWORD_61||LA158_0==KEYWORD_43||LA158_0==KEYWORD_36||LA158_0==KEYWORD_2||LA158_0==KEYWORD_5||LA158_0==KEYWORD_7||LA158_0==KEYWORD_11||LA158_0==RULE_INTEGER_LIT||LA158_0==RULE_REAL_LIT||(LA158_0>=RULE_STRING && LA158_0<=RULE_ID)) ) {
-                alt158=1;
+            if ( (LA159_0==KEYWORD_76||LA159_0==KEYWORD_75||LA159_0==KEYWORD_61||LA159_0==KEYWORD_43||LA159_0==KEYWORD_36||LA159_0==KEYWORD_2||LA159_0==KEYWORD_5||LA159_0==KEYWORD_7||LA159_0==KEYWORD_11||LA159_0==RULE_INTEGER_LIT||LA159_0==RULE_REAL_LIT||(LA159_0>=RULE_STRING && LA159_0<=RULE_ID)) ) {
+                alt159=1;
             }
-            switch (alt158) {
+            switch (alt159) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7204:2: ( (lv_ownedListElement_2_0= rulePropertyExpression ) ) (otherlv_3= KEYWORD_6 ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )*
                     {
@@ -18072,7 +18083,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_0_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_ruleListTerm15495);
+                    pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_ruleListTerm15496);
                     lv_ownedListElement_2_0=rulePropertyExpression();
 
                     state._fsp--;
@@ -18095,21 +18106,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
 
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7222:2: (otherlv_3= KEYWORD_6 ( (lv_ownedListElement_4_0= rulePropertyExpression ) ) )*
-                    loop157:
+                    loop158:
                     do {
-                        int alt157=2;
-                        int LA157_0 = input.LA(1);
+                        int alt158=2;
+                        int LA158_0 = input.LA(1);
 
-                        if ( (LA157_0==KEYWORD_6) ) {
-                            alt157=1;
+                        if ( (LA158_0==KEYWORD_6) ) {
+                            alt158=1;
                         }
 
 
-                        switch (alt157) {
+                        switch (alt158) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7223:2: otherlv_3= KEYWORD_6 ( (lv_ownedListElement_4_0= rulePropertyExpression ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleListTerm15509); 
+                    	    otherlv_3=(Token)match(input,KEYWORD_6,FollowSets000.FOLLOW_KEYWORD_6_in_ruleListTerm15510); 
 
                     	        	newLeafNode(otherlv_3, grammarAccess.getListTermAccess().getCommaKeyword_2_1_0());
                     	        
@@ -18122,7 +18133,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_1_1_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_ruleListTerm15529);
+                    	    pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_ruleListTerm15530);
                     	    lv_ownedListElement_4_0=rulePropertyExpression();
 
                     	    state._fsp--;
@@ -18149,7 +18160,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop157;
+                    	    break loop158;
                         }
                     } while (true);
 
@@ -18159,7 +18170,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleListTerm15546); 
+            otherlv_5=(Token)match(input,KEYWORD_3,FollowSets000.FOLLOW_KEYWORD_3_in_ruleListTerm15547); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getListTermAccess().getRightParenthesisKeyword_3());
                 
@@ -18196,13 +18207,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7260:2: iv_ruleFieldPropertyAssociation= ruleFieldPropertyAssociation EOF
             {
              newCompositeNode(grammarAccess.getFieldPropertyAssociationRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleFieldPropertyAssociation_in_entryRuleFieldPropertyAssociation15580);
+            pushFollow(FollowSets000.FOLLOW_ruleFieldPropertyAssociation_in_entryRuleFieldPropertyAssociation15581);
             iv_ruleFieldPropertyAssociation=ruleFieldPropertyAssociation();
 
             state._fsp--;
 
              current =iv_ruleFieldPropertyAssociation; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleFieldPropertyAssociation15590); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleFieldPropertyAssociation15591); 
 
             }
 
@@ -18250,7 +18261,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getFieldPropertyAssociationRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleFieldPropertyAssociation15635); 
+            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleFieldPropertyAssociation15636); 
 
             		newLeafNode(otherlv_0, grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyCrossReference_0_0()); 
             	
@@ -18260,7 +18271,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_19,FollowSets000.FOLLOW_KEYWORD_19_in_ruleFieldPropertyAssociation15648); 
+            otherlv_1=(Token)match(input,KEYWORD_19,FollowSets000.FOLLOW_KEYWORD_19_in_ruleFieldPropertyAssociation15649); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getFieldPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1());
                 
@@ -18273,7 +18284,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getFieldPropertyAssociationAccess().getOwnedValuePropertyExpressionParserRuleCall_2_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_ruleFieldPropertyAssociation15668);
+            pushFollow(FollowSets000.FOLLOW_rulePropertyExpression_in_ruleFieldPropertyAssociation15669);
             lv_ownedValue_2_0=rulePropertyExpression();
 
             state._fsp--;
@@ -18295,7 +18306,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleFieldPropertyAssociation15681); 
+            otherlv_3=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleFieldPropertyAssociation15682); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getFieldPropertyAssociationAccess().getSemicolonKeyword_3());
                 
@@ -18332,13 +18343,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7322:2: iv_ruleContainmentPathElement= ruleContainmentPathElement EOF
             {
              newCompositeNode(grammarAccess.getContainmentPathElementRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_entryRuleContainmentPathElement15715);
+            pushFollow(FollowSets000.FOLLOW_ruleContainmentPathElement_in_entryRuleContainmentPathElement15716);
             iv_ruleContainmentPathElement=ruleContainmentPathElement();
 
             state._fsp--;
 
              current =iv_ruleContainmentPathElement; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleContainmentPathElement15725); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleContainmentPathElement15726); 
 
             }
 
@@ -18384,7 +18395,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	            current = createModelElement(grammarAccess.getContainmentPathElementRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleContainmentPathElement15770); 
+            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleContainmentPathElement15771); 
 
             		newLeafNode(otherlv_0, grammarAccess.getContainmentPathElementAccess().getNamedElementNamedElementCrossReference_0_0()); 
             	
@@ -18395,13 +18406,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7346:2: ( (lv_arrayRange_1_0= ruleArrayRange ) )?
-            int alt159=2;
-            int LA159_0 = input.LA(1);
+            int alt160=2;
+            int LA160_0 = input.LA(1);
 
-            if ( (LA159_0==KEYWORD_11) ) {
-                alt159=1;
+            if ( (LA160_0==KEYWORD_11) ) {
+                alt160=1;
             }
-            switch (alt159) {
+            switch (alt160) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7347:1: (lv_arrayRange_1_0= ruleArrayRange )
                     {
@@ -18411,7 +18422,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleArrayRange_in_ruleContainmentPathElement15791);
+                    pushFollow(FollowSets000.FOLLOW_ruleArrayRange_in_ruleContainmentPathElement15792);
                     lv_arrayRange_1_0=ruleArrayRange();
 
                     state._fsp--;
@@ -18469,13 +18480,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7374:2: iv_ruleQualifiedContainmentPathElement= ruleQualifiedContainmentPathElement EOF
             {
              newCompositeNode(grammarAccess.getQualifiedContainmentPathElementRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleQualifiedContainmentPathElement_in_entryRuleQualifiedContainmentPathElement15827);
+            pushFollow(FollowSets000.FOLLOW_ruleQualifiedContainmentPathElement_in_entryRuleQualifiedContainmentPathElement15828);
             iv_ruleQualifiedContainmentPathElement=ruleQualifiedContainmentPathElement();
 
             state._fsp--;
 
              current =iv_ruleQualifiedContainmentPathElement; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQualifiedContainmentPathElement15837); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQualifiedContainmentPathElement15838); 
 
             }
 
@@ -18517,7 +18528,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getQualifiedContainmentPathElementAccess().getNamedElementNamedElementCrossReference_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleQCLREF_in_ruleQualifiedContainmentPathElement15884);
+            pushFollow(FollowSets000.FOLLOW_ruleQCLREF_in_ruleQualifiedContainmentPathElement15885);
             ruleQCLREF();
 
             state._fsp--;
@@ -18561,13 +18572,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7412:2: iv_rulePlusMinus= rulePlusMinus EOF
             {
              newCompositeNode(grammarAccess.getPlusMinusRule()); 
-            pushFollow(FollowSets000.FOLLOW_rulePlusMinus_in_entryRulePlusMinus15921);
+            pushFollow(FollowSets000.FOLLOW_rulePlusMinus_in_entryRulePlusMinus15922);
             iv_rulePlusMinus=rulePlusMinus();
 
             state._fsp--;
 
              current =iv_rulePlusMinus.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePlusMinus15932); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRulePlusMinus15933); 
 
             }
 
@@ -18598,26 +18609,26 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7424:1: (kw= KEYWORD_5 | kw= KEYWORD_7 )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7424:1: (kw= KEYWORD_5 | kw= KEYWORD_7 )
-            int alt160=2;
-            int LA160_0 = input.LA(1);
+            int alt161=2;
+            int LA161_0 = input.LA(1);
 
-            if ( (LA160_0==KEYWORD_5) ) {
-                alt160=1;
+            if ( (LA161_0==KEYWORD_5) ) {
+                alt161=1;
             }
-            else if ( (LA160_0==KEYWORD_7) ) {
-                alt160=2;
+            else if ( (LA161_0==KEYWORD_7) ) {
+                alt161=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 160, 0, input);
+                    new NoViableAltException("", 161, 0, input);
 
                 throw nvae;
             }
-            switch (alt160) {
+            switch (alt161) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7425:2: kw= KEYWORD_5
                     {
-                    kw=(Token)match(input,KEYWORD_5,FollowSets000.FOLLOW_KEYWORD_5_in_rulePlusMinus15970); 
+                    kw=(Token)match(input,KEYWORD_5,FollowSets000.FOLLOW_KEYWORD_5_in_rulePlusMinus15971); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPlusMinusAccess().getPlusSignKeyword_0()); 
@@ -18628,7 +18639,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7432:2: kw= KEYWORD_7
                     {
-                    kw=(Token)match(input,KEYWORD_7,FollowSets000.FOLLOW_KEYWORD_7_in_rulePlusMinus15989); 
+                    kw=(Token)match(input,KEYWORD_7,FollowSets000.FOLLOW_KEYWORD_7_in_rulePlusMinus15990); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getPlusMinusAccess().getHyphenMinusKeyword_1()); 
@@ -18670,13 +18681,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7447:2: iv_ruleStringTerm= ruleStringTerm EOF
             {
              newCompositeNode(grammarAccess.getStringTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleStringTerm_in_entryRuleStringTerm16028);
+            pushFollow(FollowSets000.FOLLOW_ruleStringTerm_in_entryRuleStringTerm16029);
             iv_ruleStringTerm=ruleStringTerm();
 
             state._fsp--;
 
              current =iv_ruleStringTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleStringTerm16038); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleStringTerm16039); 
 
             }
 
@@ -18716,7 +18727,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getStringTermAccess().getValueNoQuoteStringParserRuleCall_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleNoQuoteString_in_ruleStringTerm16083);
+            pushFollow(FollowSets000.FOLLOW_ruleNoQuoteString_in_ruleStringTerm16084);
             lv_value_0_0=ruleNoQuoteString();
 
             state._fsp--;
@@ -18768,13 +18779,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7486:2: iv_ruleNoQuoteString= ruleNoQuoteString EOF
             {
              newCompositeNode(grammarAccess.getNoQuoteStringRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString16118);
+            pushFollow(FollowSets000.FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString16119);
             iv_ruleNoQuoteString=ruleNoQuoteString();
 
             state._fsp--;
 
              current =iv_ruleNoQuoteString.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNoQuoteString16129); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNoQuoteString16130); 
 
             }
 
@@ -18804,7 +18815,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7497:6: (this_STRING_0= RULE_STRING )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7498:5: this_STRING_0= RULE_STRING
             {
-            this_STRING_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleNoQuoteString16168); 
+            this_STRING_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleNoQuoteString16169); 
 
             		current.merge(this_STRING_0);
                 
@@ -18842,13 +18853,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7515:2: iv_ruleArrayRange= ruleArrayRange EOF
             {
              newCompositeNode(grammarAccess.getArrayRangeRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleArrayRange_in_entryRuleArrayRange16211);
+            pushFollow(FollowSets000.FOLLOW_ruleArrayRange_in_entryRuleArrayRange16212);
             iv_ruleArrayRange=ruleArrayRange();
 
             state._fsp--;
 
              current =iv_ruleArrayRange; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleArrayRange16221); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleArrayRange16222); 
 
             }
 
@@ -18898,7 +18909,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_11,FollowSets000.FOLLOW_KEYWORD_11_in_ruleArrayRange16268); 
+            otherlv_1=(Token)match(input,KEYWORD_11,FollowSets000.FOLLOW_KEYWORD_11_in_ruleArrayRange16269); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getArrayRangeAccess().getLeftSquareBracketKeyword_1());
                 
@@ -18911,7 +18922,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getArrayRangeAccess().getLowerBoundINTVALUEParserRuleCall_2_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleArrayRange16288);
+            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleArrayRange16289);
             lv_lowerBound_2_0=ruleINTVALUE();
 
             state._fsp--;
@@ -18934,17 +18945,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7555:2: (otherlv_3= KEYWORD_17 ( (lv_upperBound_4_0= ruleINTVALUE ) ) )?
-            int alt161=2;
-            int LA161_0 = input.LA(1);
+            int alt162=2;
+            int LA162_0 = input.LA(1);
 
-            if ( (LA161_0==KEYWORD_17) ) {
-                alt161=1;
+            if ( (LA162_0==KEYWORD_17) ) {
+                alt162=1;
             }
-            switch (alt161) {
+            switch (alt162) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7556:2: otherlv_3= KEYWORD_17 ( (lv_upperBound_4_0= ruleINTVALUE ) )
                     {
-                    otherlv_3=(Token)match(input,KEYWORD_17,FollowSets000.FOLLOW_KEYWORD_17_in_ruleArrayRange16302); 
+                    otherlv_3=(Token)match(input,KEYWORD_17,FollowSets000.FOLLOW_KEYWORD_17_in_ruleArrayRange16303); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getArrayRangeAccess().getFullStopFullStopKeyword_3_0());
                         
@@ -18957,7 +18968,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getArrayRangeAccess().getUpperBoundINTVALUEParserRuleCall_3_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleArrayRange16322);
+                    pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_ruleArrayRange16323);
                     lv_upperBound_4_0=ruleINTVALUE();
 
                     state._fsp--;
@@ -18985,7 +18996,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,KEYWORD_12,FollowSets000.FOLLOW_KEYWORD_12_in_ruleArrayRange16337); 
+            otherlv_5=(Token)match(input,KEYWORD_12,FollowSets000.FOLLOW_KEYWORD_12_in_ruleArrayRange16338); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getArrayRangeAccess().getRightSquareBracketKeyword_4());
                 
@@ -19022,13 +19033,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7593:2: iv_ruleSignedConstant= ruleSignedConstant EOF
             {
              newCompositeNode(grammarAccess.getSignedConstantRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSignedConstant_in_entryRuleSignedConstant16371);
+            pushFollow(FollowSets000.FOLLOW_ruleSignedConstant_in_entryRuleSignedConstant16372);
             iv_ruleSignedConstant=ruleSignedConstant();
 
             state._fsp--;
 
              current =iv_ruleSignedConstant; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSignedConstant16381); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSignedConstant16382); 
 
             }
 
@@ -19073,7 +19084,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSignedConstantAccess().getOpPlusMinusParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_rulePlusMinus_in_ruleSignedConstant16427);
+            pushFollow(FollowSets000.FOLLOW_rulePlusMinus_in_ruleSignedConstant16428);
             lv_op_0_0=rulePlusMinus();
 
             state._fsp--;
@@ -19104,7 +19115,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSignedConstantAccess().getOwnedPropertyExpressionConstantValueParserRuleCall_1_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleConstantValue_in_ruleSignedConstant16448);
+            pushFollow(FollowSets000.FOLLOW_ruleConstantValue_in_ruleSignedConstant16449);
             lv_ownedPropertyExpression_1_0=ruleConstantValue();
 
             state._fsp--;
@@ -19159,13 +19170,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7650:2: iv_ruleIntegerTerm= ruleIntegerTerm EOF
             {
              newCompositeNode(grammarAccess.getIntegerTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleIntegerTerm_in_entryRuleIntegerTerm16483);
+            pushFollow(FollowSets000.FOLLOW_ruleIntegerTerm_in_entryRuleIntegerTerm16484);
             iv_ruleIntegerTerm=ruleIntegerTerm();
 
             state._fsp--;
 
              current =iv_ruleIntegerTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleIntegerTerm16493); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleIntegerTerm16494); 
 
             }
 
@@ -19209,7 +19220,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getIntegerTermAccess().getValueSignedIntParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleSignedInt_in_ruleIntegerTerm16539);
+            pushFollow(FollowSets000.FOLLOW_ruleSignedInt_in_ruleIntegerTerm16540);
             lv_value_0_0=ruleSignedInt();
 
             state._fsp--;
@@ -19232,13 +19243,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7679:2: ( (otherlv_1= RULE_ID ) )?
-            int alt162=2;
-            int LA162_0 = input.LA(1);
+            int alt163=2;
+            int LA163_0 = input.LA(1);
 
-            if ( (LA162_0==RULE_ID) ) {
-                alt162=1;
+            if ( (LA163_0==RULE_ID) ) {
+                alt163=1;
             }
-            switch (alt162) {
+            switch (alt163) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7680:1: (otherlv_1= RULE_ID )
                     {
@@ -19250,7 +19261,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getIntegerTermRule());
                     	        }
                             
-                    otherlv_1=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleIntegerTerm16559); 
+                    otherlv_1=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleIntegerTerm16560); 
 
                     		newLeafNode(otherlv_1, grammarAccess.getIntegerTermAccess().getUnitUnitLiteralCrossReference_1_0()); 
                     	
@@ -19296,13 +19307,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7702:2: iv_ruleSignedInt= ruleSignedInt EOF
             {
              newCompositeNode(grammarAccess.getSignedIntRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSignedInt_in_entryRuleSignedInt16596);
+            pushFollow(FollowSets000.FOLLOW_ruleSignedInt_in_entryRuleSignedInt16597);
             iv_ruleSignedInt=ruleSignedInt();
 
             state._fsp--;
 
              current =iv_ruleSignedInt.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSignedInt16607); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSignedInt16608); 
 
             }
 
@@ -19337,20 +19348,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7714:2: (kw= KEYWORD_5 | kw= KEYWORD_7 )? this_INTEGER_LIT_2= RULE_INTEGER_LIT
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7714:2: (kw= KEYWORD_5 | kw= KEYWORD_7 )?
-            int alt163=3;
-            int LA163_0 = input.LA(1);
+            int alt164=3;
+            int LA164_0 = input.LA(1);
 
-            if ( (LA163_0==KEYWORD_5) ) {
-                alt163=1;
+            if ( (LA164_0==KEYWORD_5) ) {
+                alt164=1;
             }
-            else if ( (LA163_0==KEYWORD_7) ) {
-                alt163=2;
+            else if ( (LA164_0==KEYWORD_7) ) {
+                alt164=2;
             }
-            switch (alt163) {
+            switch (alt164) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7715:2: kw= KEYWORD_5
                     {
-                    kw=(Token)match(input,KEYWORD_5,FollowSets000.FOLLOW_KEYWORD_5_in_ruleSignedInt16646); 
+                    kw=(Token)match(input,KEYWORD_5,FollowSets000.FOLLOW_KEYWORD_5_in_ruleSignedInt16647); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedIntAccess().getPlusSignKeyword_0_0()); 
@@ -19361,7 +19372,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7722:2: kw= KEYWORD_7
                     {
-                    kw=(Token)match(input,KEYWORD_7,FollowSets000.FOLLOW_KEYWORD_7_in_ruleSignedInt16665); 
+                    kw=(Token)match(input,KEYWORD_7,FollowSets000.FOLLOW_KEYWORD_7_in_ruleSignedInt16666); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedIntAccess().getHyphenMinusKeyword_0_1()); 
@@ -19372,7 +19383,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            this_INTEGER_LIT_2=(Token)match(input,RULE_INTEGER_LIT,FollowSets000.FOLLOW_RULE_INTEGER_LIT_in_ruleSignedInt16682); 
+            this_INTEGER_LIT_2=(Token)match(input,RULE_INTEGER_LIT,FollowSets000.FOLLOW_RULE_INTEGER_LIT_in_ruleSignedInt16683); 
 
             		current.merge(this_INTEGER_LIT_2);
                 
@@ -19413,13 +19424,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7744:2: iv_ruleRealTerm= ruleRealTerm EOF
             {
              newCompositeNode(grammarAccess.getRealTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleRealTerm_in_entryRuleRealTerm16726);
+            pushFollow(FollowSets000.FOLLOW_ruleRealTerm_in_entryRuleRealTerm16727);
             iv_ruleRealTerm=ruleRealTerm();
 
             state._fsp--;
 
              current =iv_ruleRealTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleRealTerm16736); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleRealTerm16737); 
 
             }
 
@@ -19463,7 +19474,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getRealTermAccess().getValueSignedRealParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleSignedReal_in_ruleRealTerm16782);
+            pushFollow(FollowSets000.FOLLOW_ruleSignedReal_in_ruleRealTerm16783);
             lv_value_0_0=ruleSignedReal();
 
             state._fsp--;
@@ -19486,13 +19497,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7773:2: ( (otherlv_1= RULE_ID ) )?
-            int alt164=2;
-            int LA164_0 = input.LA(1);
+            int alt165=2;
+            int LA165_0 = input.LA(1);
 
-            if ( (LA164_0==RULE_ID) ) {
-                alt164=1;
+            if ( (LA165_0==RULE_ID) ) {
+                alt165=1;
             }
-            switch (alt164) {
+            switch (alt165) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7774:1: (otherlv_1= RULE_ID )
                     {
@@ -19504,7 +19515,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	            current = createModelElement(grammarAccess.getRealTermRule());
                     	        }
                             
-                    otherlv_1=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRealTerm16802); 
+                    otherlv_1=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleRealTerm16803); 
 
                     		newLeafNode(otherlv_1, grammarAccess.getRealTermAccess().getUnitUnitLiteralCrossReference_1_0()); 
                     	
@@ -19550,13 +19561,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7796:2: iv_ruleSignedReal= ruleSignedReal EOF
             {
              newCompositeNode(grammarAccess.getSignedRealRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSignedReal_in_entryRuleSignedReal16839);
+            pushFollow(FollowSets000.FOLLOW_ruleSignedReal_in_entryRuleSignedReal16840);
             iv_ruleSignedReal=ruleSignedReal();
 
             state._fsp--;
 
              current =iv_ruleSignedReal.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSignedReal16850); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSignedReal16851); 
 
             }
 
@@ -19591,20 +19602,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7808:2: (kw= KEYWORD_5 | kw= KEYWORD_7 )? this_REAL_LIT_2= RULE_REAL_LIT
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7808:2: (kw= KEYWORD_5 | kw= KEYWORD_7 )?
-            int alt165=3;
-            int LA165_0 = input.LA(1);
+            int alt166=3;
+            int LA166_0 = input.LA(1);
 
-            if ( (LA165_0==KEYWORD_5) ) {
-                alt165=1;
+            if ( (LA166_0==KEYWORD_5) ) {
+                alt166=1;
             }
-            else if ( (LA165_0==KEYWORD_7) ) {
-                alt165=2;
+            else if ( (LA166_0==KEYWORD_7) ) {
+                alt166=2;
             }
-            switch (alt165) {
+            switch (alt166) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7809:2: kw= KEYWORD_5
                     {
-                    kw=(Token)match(input,KEYWORD_5,FollowSets000.FOLLOW_KEYWORD_5_in_ruleSignedReal16889); 
+                    kw=(Token)match(input,KEYWORD_5,FollowSets000.FOLLOW_KEYWORD_5_in_ruleSignedReal16890); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedRealAccess().getPlusSignKeyword_0_0()); 
@@ -19615,7 +19626,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7816:2: kw= KEYWORD_7
                     {
-                    kw=(Token)match(input,KEYWORD_7,FollowSets000.FOLLOW_KEYWORD_7_in_ruleSignedReal16908); 
+                    kw=(Token)match(input,KEYWORD_7,FollowSets000.FOLLOW_KEYWORD_7_in_ruleSignedReal16909); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedRealAccess().getHyphenMinusKeyword_0_1()); 
@@ -19626,7 +19637,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            this_REAL_LIT_2=(Token)match(input,RULE_REAL_LIT,FollowSets000.FOLLOW_RULE_REAL_LIT_in_ruleSignedReal16925); 
+            this_REAL_LIT_2=(Token)match(input,RULE_REAL_LIT,FollowSets000.FOLLOW_RULE_REAL_LIT_in_ruleSignedReal16926); 
 
             		current.merge(this_REAL_LIT_2);
                 
@@ -19667,13 +19678,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7838:2: iv_ruleNumericRangeTerm= ruleNumericRangeTerm EOF
             {
              newCompositeNode(grammarAccess.getNumericRangeTermRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleNumericRangeTerm_in_entryRuleNumericRangeTerm16969);
+            pushFollow(FollowSets000.FOLLOW_ruleNumericRangeTerm_in_entryRuleNumericRangeTerm16970);
             iv_ruleNumericRangeTerm=ruleNumericRangeTerm();
 
             state._fsp--;
 
              current =iv_ruleNumericRangeTerm; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNumericRangeTerm16979); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNumericRangeTerm16980); 
 
             }
 
@@ -19722,7 +19733,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMinimumNumAltParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17025);
+            pushFollow(FollowSets000.FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17026);
             lv_minimum_0_0=ruleNumAlt();
 
             state._fsp--;
@@ -19744,7 +19755,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,KEYWORD_17,FollowSets000.FOLLOW_KEYWORD_17_in_ruleNumericRangeTerm17038); 
+            otherlv_1=(Token)match(input,KEYWORD_17,FollowSets000.FOLLOW_KEYWORD_17_in_ruleNumericRangeTerm17039); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getNumericRangeTermAccess().getFullStopFullStopKeyword_1());
                 
@@ -19757,7 +19768,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMaximumNumAltParserRuleCall_2_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17058);
+            pushFollow(FollowSets000.FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17059);
             lv_maximum_2_0=ruleNumAlt();
 
             state._fsp--;
@@ -19780,17 +19791,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7890:2: (otherlv_3= KEYWORD_40 ( (lv_delta_4_0= ruleNumAlt ) ) )?
-            int alt166=2;
-            int LA166_0 = input.LA(1);
+            int alt167=2;
+            int LA167_0 = input.LA(1);
 
-            if ( (LA166_0==KEYWORD_40) ) {
-                alt166=1;
+            if ( (LA167_0==KEYWORD_40) ) {
+                alt167=1;
             }
-            switch (alt166) {
+            switch (alt167) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7891:2: otherlv_3= KEYWORD_40 ( (lv_delta_4_0= ruleNumAlt ) )
                     {
-                    otherlv_3=(Token)match(input,KEYWORD_40,FollowSets000.FOLLOW_KEYWORD_40_in_ruleNumericRangeTerm17072); 
+                    otherlv_3=(Token)match(input,KEYWORD_40,FollowSets000.FOLLOW_KEYWORD_40_in_ruleNumericRangeTerm17073); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getNumericRangeTermAccess().getDeltaKeyword_3_0());
                         
@@ -19803,7 +19814,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getDeltaNumAltParserRuleCall_3_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17092);
+                    pushFollow(FollowSets000.FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17093);
                     lv_delta_4_0=ruleNumAlt();
 
                     state._fsp--;
@@ -19864,13 +19875,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7923:2: iv_ruleNumAlt= ruleNumAlt EOF
             {
              newCompositeNode(grammarAccess.getNumAltRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleNumAlt_in_entryRuleNumAlt17129);
+            pushFollow(FollowSets000.FOLLOW_ruleNumAlt_in_entryRuleNumAlt17130);
             iv_ruleNumAlt=ruleNumAlt();
 
             state._fsp--;
 
              current =iv_ruleNumAlt; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNumAlt17139); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNumAlt17140); 
 
             }
 
@@ -19908,29 +19919,29 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7934:1: (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue )
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7934:1: (this_RealTerm_0= ruleRealTerm | this_IntegerTerm_1= ruleIntegerTerm | this_SignedConstant_2= ruleSignedConstant | this_ConstantValue_3= ruleConstantValue )
-            int alt167=4;
+            int alt168=4;
             switch ( input.LA(1) ) {
             case KEYWORD_5:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_INTEGER_LIT:
-                    {
-                    alt167=2;
-                    }
-                    break;
                 case RULE_REAL_LIT:
                     {
-                    alt167=1;
+                    alt168=1;
                     }
                     break;
                 case RULE_ID:
                     {
-                    alt167=3;
+                    alt168=3;
+                    }
+                    break;
+                case RULE_INTEGER_LIT:
+                    {
+                    alt168=2;
                     }
                     break;
                 default:
                     NoViableAltException nvae =
-                        new NoViableAltException("", 167, 1, input);
+                        new NoViableAltException("", 168, 1, input);
 
                     throw nvae;
                 }
@@ -19940,24 +19951,24 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             case KEYWORD_7:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_REAL_LIT:
-                    {
-                    alt167=1;
-                    }
-                    break;
                 case RULE_INTEGER_LIT:
                     {
-                    alt167=2;
+                    alt168=2;
                     }
                     break;
                 case RULE_ID:
                     {
-                    alt167=3;
+                    alt168=3;
+                    }
+                    break;
+                case RULE_REAL_LIT:
+                    {
+                    alt168=1;
                     }
                     break;
                 default:
                     NoViableAltException nvae =
-                        new NoViableAltException("", 167, 2, input);
+                        new NoViableAltException("", 168, 2, input);
 
                     throw nvae;
                 }
@@ -19966,34 +19977,34 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 break;
             case RULE_REAL_LIT:
                 {
-                alt167=1;
+                alt168=1;
                 }
                 break;
             case RULE_INTEGER_LIT:
                 {
-                alt167=2;
+                alt168=2;
                 }
                 break;
             case RULE_ID:
                 {
-                alt167=4;
+                alt168=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 167, 0, input);
+                    new NoViableAltException("", 168, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt167) {
+            switch (alt168) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7935:5: this_RealTerm_0= ruleRealTerm
                     {
                      
                             newCompositeNode(grammarAccess.getNumAltAccess().getRealTermParserRuleCall_0()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleRealTerm_in_ruleNumAlt17186);
+                    pushFollow(FollowSets000.FOLLOW_ruleRealTerm_in_ruleNumAlt17187);
                     this_RealTerm_0=ruleRealTerm();
 
                     state._fsp--;
@@ -20011,7 +20022,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getNumAltAccess().getIntegerTermParserRuleCall_1()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleIntegerTerm_in_ruleNumAlt17213);
+                    pushFollow(FollowSets000.FOLLOW_ruleIntegerTerm_in_ruleNumAlt17214);
                     this_IntegerTerm_1=ruleIntegerTerm();
 
                     state._fsp--;
@@ -20029,7 +20040,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getNumAltAccess().getSignedConstantParserRuleCall_2()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleSignedConstant_in_ruleNumAlt17240);
+                    pushFollow(FollowSets000.FOLLOW_ruleSignedConstant_in_ruleNumAlt17241);
                     this_SignedConstant_2=ruleSignedConstant();
 
                     state._fsp--;
@@ -20047,7 +20058,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getNumAltAccess().getConstantValueParserRuleCall_3()); 
                         
-                    pushFollow(FollowSets000.FOLLOW_ruleConstantValue_in_ruleNumAlt17267);
+                    pushFollow(FollowSets000.FOLLOW_ruleConstantValue_in_ruleNumAlt17268);
                     this_ConstantValue_3=ruleConstantValue();
 
                     state._fsp--;
@@ -20092,13 +20103,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7983:2: iv_ruleINTVALUE= ruleINTVALUE EOF
             {
              newCompositeNode(grammarAccess.getINTVALUERule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_entryRuleINTVALUE17302);
+            pushFollow(FollowSets000.FOLLOW_ruleINTVALUE_in_entryRuleINTVALUE17303);
             iv_ruleINTVALUE=ruleINTVALUE();
 
             state._fsp--;
 
              current =iv_ruleINTVALUE.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleINTVALUE17313); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleINTVALUE17314); 
 
             }
 
@@ -20128,7 +20139,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7994:6: (this_INTEGER_LIT_0= RULE_INTEGER_LIT )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:7995:5: this_INTEGER_LIT_0= RULE_INTEGER_LIT
             {
-            this_INTEGER_LIT_0=(Token)match(input,RULE_INTEGER_LIT,FollowSets000.FOLLOW_RULE_INTEGER_LIT_in_ruleINTVALUE17352); 
+            this_INTEGER_LIT_0=(Token)match(input,RULE_INTEGER_LIT,FollowSets000.FOLLOW_RULE_INTEGER_LIT_in_ruleINTVALUE17353); 
 
             		current.merge(this_INTEGER_LIT_0);
                 
@@ -20166,13 +20177,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8012:2: iv_ruleQCLREF= ruleQCLREF EOF
             {
              newCompositeNode(grammarAccess.getQCLREFRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleQCLREF_in_entryRuleQCLREF17396);
+            pushFollow(FollowSets000.FOLLOW_ruleQCLREF_in_entryRuleQCLREF17397);
             iv_ruleQCLREF=ruleQCLREF();
 
             state._fsp--;
 
              current =iv_ruleQCLREF.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQCLREF17407); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQCLREF17408); 
 
             }
 
@@ -20207,19 +20218,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8024:1: (this_ID_0= RULE_ID kw= KEYWORD_18 this_ID_2= RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8024:6: this_ID_0= RULE_ID kw= KEYWORD_18 this_ID_2= RULE_ID
             {
-            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCLREF17447); 
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCLREF17448); 
 
             		current.merge(this_ID_0);
                 
              
                 newLeafNode(this_ID_0, grammarAccess.getQCLREFAccess().getIDTerminalRuleCall_0()); 
                 
-            kw=(Token)match(input,KEYWORD_18,FollowSets000.FOLLOW_KEYWORD_18_in_ruleQCLREF17465); 
+            kw=(Token)match(input,KEYWORD_18,FollowSets000.FOLLOW_KEYWORD_18_in_ruleQCLREF17466); 
 
                     current.merge(kw);
                     newLeafNode(kw, grammarAccess.getQCLREFAccess().getColonColonKeyword_1()); 
                 
-            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCLREF17480); 
+            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCLREF17481); 
 
             		current.merge(this_ID_2);
                 
@@ -20260,13 +20271,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8054:2: iv_ruleQPREF= ruleQPREF EOF
             {
              newCompositeNode(grammarAccess.getQPREFRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_entryRuleQPREF17525);
+            pushFollow(FollowSets000.FOLLOW_ruleQPREF_in_entryRuleQPREF17526);
             iv_ruleQPREF=ruleQPREF();
 
             state._fsp--;
 
              current =iv_ruleQPREF.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQPREF17536); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQPREF17537); 
 
             }
 
@@ -20301,7 +20312,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8066:1: (this_ID_0= RULE_ID (kw= KEYWORD_18 this_ID_2= RULE_ID )? )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8066:6: this_ID_0= RULE_ID (kw= KEYWORD_18 this_ID_2= RULE_ID )?
             {
-            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQPREF17576); 
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQPREF17577); 
 
             		current.merge(this_ID_0);
                 
@@ -20309,22 +20320,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 newLeafNode(this_ID_0, grammarAccess.getQPREFAccess().getIDTerminalRuleCall_0()); 
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8073:1: (kw= KEYWORD_18 this_ID_2= RULE_ID )?
-            int alt168=2;
-            int LA168_0 = input.LA(1);
+            int alt169=2;
+            int LA169_0 = input.LA(1);
 
-            if ( (LA168_0==KEYWORD_18) ) {
-                alt168=1;
+            if ( (LA169_0==KEYWORD_18) ) {
+                alt169=1;
             }
-            switch (alt168) {
+            switch (alt169) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8074:2: kw= KEYWORD_18 this_ID_2= RULE_ID
                     {
-                    kw=(Token)match(input,KEYWORD_18,FollowSets000.FOLLOW_KEYWORD_18_in_ruleQPREF17595); 
+                    kw=(Token)match(input,KEYWORD_18,FollowSets000.FOLLOW_KEYWORD_18_in_ruleQPREF17596); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getQPREFAccess().getColonColonKeyword_1_0()); 
                         
-                    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQPREF17610); 
+                    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQPREF17611); 
 
                     		current.merge(this_ID_2);
                         
@@ -20371,13 +20382,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8096:2: iv_ruleQCREF= ruleQCREF EOF
             {
              newCompositeNode(grammarAccess.getQCREFRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleQCREF_in_entryRuleQCREF17657);
+            pushFollow(FollowSets000.FOLLOW_ruleQCREF_in_entryRuleQCREF17658);
             iv_ruleQCREF=ruleQCREF();
 
             state._fsp--;
 
              current =iv_ruleQCREF.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQCREF17668); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQCREF17669); 
 
             }
 
@@ -20414,34 +20425,34 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8108:2: (this_ID_0= RULE_ID kw= KEYWORD_18 )* this_ID_2= RULE_ID (kw= KEYWORD_8 this_ID_4= RULE_ID )?
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8108:2: (this_ID_0= RULE_ID kw= KEYWORD_18 )*
-            loop169:
+            loop170:
             do {
-                int alt169=2;
-                int LA169_0 = input.LA(1);
+                int alt170=2;
+                int LA170_0 = input.LA(1);
 
-                if ( (LA169_0==RULE_ID) ) {
-                    int LA169_1 = input.LA(2);
+                if ( (LA170_0==RULE_ID) ) {
+                    int LA170_1 = input.LA(2);
 
-                    if ( (LA169_1==KEYWORD_18) ) {
-                        alt169=1;
+                    if ( (LA170_1==KEYWORD_18) ) {
+                        alt170=1;
                     }
 
 
                 }
 
 
-                switch (alt169) {
+                switch (alt170) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8108:7: this_ID_0= RULE_ID kw= KEYWORD_18
             	    {
-            	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCREF17709); 
+            	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCREF17710); 
 
             	    		current.merge(this_ID_0);
             	        
             	     
             	        newLeafNode(this_ID_0, grammarAccess.getQCREFAccess().getIDTerminalRuleCall_0_0()); 
             	        
-            	    kw=(Token)match(input,KEYWORD_18,FollowSets000.FOLLOW_KEYWORD_18_in_ruleQCREF17727); 
+            	    kw=(Token)match(input,KEYWORD_18,FollowSets000.FOLLOW_KEYWORD_18_in_ruleQCREF17728); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getQCREFAccess().getColonColonKeyword_0_1()); 
@@ -20451,11 +20462,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop169;
+            	    break loop170;
                 }
             } while (true);
 
-            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCREF17744); 
+            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCREF17745); 
 
             		current.merge(this_ID_2);
                 
@@ -20463,22 +20474,22 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 newLeafNode(this_ID_2, grammarAccess.getQCREFAccess().getIDTerminalRuleCall_1()); 
                 
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8128:1: (kw= KEYWORD_8 this_ID_4= RULE_ID )?
-            int alt170=2;
-            int LA170_0 = input.LA(1);
+            int alt171=2;
+            int LA171_0 = input.LA(1);
 
-            if ( (LA170_0==KEYWORD_8) ) {
-                alt170=1;
+            if ( (LA171_0==KEYWORD_8) ) {
+                alt171=1;
             }
-            switch (alt170) {
+            switch (alt171) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8129:2: kw= KEYWORD_8 this_ID_4= RULE_ID
                     {
-                    kw=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleQCREF17763); 
+                    kw=(Token)match(input,KEYWORD_8,FollowSets000.FOLLOW_KEYWORD_8_in_ruleQCREF17764); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getQCREFAccess().getFullStopKeyword_2_0()); 
                         
-                    this_ID_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCREF17778); 
+                    this_ID_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQCREF17779); 
 
                     		current.merge(this_ID_4);
                         
@@ -20525,13 +20536,13 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8151:2: iv_ruleSTAR= ruleSTAR EOF
             {
              newCompositeNode(grammarAccess.getSTARRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleSTAR_in_entryRuleSTAR17825);
+            pushFollow(FollowSets000.FOLLOW_ruleSTAR_in_entryRuleSTAR17826);
             iv_ruleSTAR=ruleSTAR();
 
             state._fsp--;
 
              current =iv_ruleSTAR.getText(); 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSTAR17836); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleSTAR17837); 
 
             }
 
@@ -20561,7 +20572,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8162:6: (kw= KEYWORD_4 )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:8164:2: kw= KEYWORD_4
             {
-            kw=(Token)match(input,KEYWORD_4,FollowSets000.FOLLOW_KEYWORD_4_in_ruleSTAR17873); 
+            kw=(Token)match(input,KEYWORD_4,FollowSets000.FOLLOW_KEYWORD_4_in_ruleSTAR17874); 
 
                     current.merge(kw);
                     newLeafNode(kw, grammarAccess.getSTARAccess().getAsteriskKeyword()); 
@@ -20586,23 +20597,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
     // Delegated rules
 
 
-    protected DFA152 dfa152 = new DFA152(this);
-    static final String DFA152_eotS =
+    protected DFA153 dfa153 = new DFA153(this);
+    static final String DFA153_eotS =
         "\25\uffff";
-    static final String DFA152_eofS =
+    static final String DFA153_eofS =
         "\10\uffff\1\17\1\21\1\23\3\uffff\1\17\1\uffff\1\21\3\uffff\1\23";
-    static final String DFA152_minS =
+    static final String DFA153_minS =
         "\1\11\5\uffff\2\131\3\25\3\uffff\1\25\1\uffff\1\25\1\uffff\1\142"+
         "\1\uffff\1\25";
-    static final String DFA152_maxS =
+    static final String DFA153_maxS =
         "\1\142\5\uffff\4\142\1\123\3\uffff\1\123\1\uffff\1\123\1\uffff"+
         "\1\142\1\uffff\1\123";
-    static final String DFA152_acceptS =
+    static final String DFA153_acceptS =
         "\1\uffff\1\1\1\2\1\3\1\4\1\5\5\uffff\1\11\1\12\1\6\1\uffff\1\7"+
         "\1\uffff\1\10\1\uffff\1\13\1\uffff";
-    static final String DFA152_specialS =
+    static final String DFA153_specialS =
         "\25\uffff}>";
-    static final String[] DFA152_transitionS = {
+    static final String[] DFA153_transitionS = {
             "\1\3\6\uffff\1\2\6\uffff\1\4\22\uffff\1\14\12\uffff\1\14\25"+
             "\uffff\1\13\2\uffff\1\6\1\uffff\1\7\3\uffff\1\1\4\uffff\1\11"+
             "\3\uffff\1\10\3\uffff\1\5\1\12",
@@ -20634,34 +20645,34 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             "\3\uffff\1\23"
     };
 
-    static final short[] DFA152_eot = DFA.unpackEncodedString(DFA152_eotS);
-    static final short[] DFA152_eof = DFA.unpackEncodedString(DFA152_eofS);
-    static final char[] DFA152_min = DFA.unpackEncodedStringToUnsignedChars(DFA152_minS);
-    static final char[] DFA152_max = DFA.unpackEncodedStringToUnsignedChars(DFA152_maxS);
-    static final short[] DFA152_accept = DFA.unpackEncodedString(DFA152_acceptS);
-    static final short[] DFA152_special = DFA.unpackEncodedString(DFA152_specialS);
-    static final short[][] DFA152_transition;
+    static final short[] DFA153_eot = DFA.unpackEncodedString(DFA153_eotS);
+    static final short[] DFA153_eof = DFA.unpackEncodedString(DFA153_eofS);
+    static final char[] DFA153_min = DFA.unpackEncodedStringToUnsignedChars(DFA153_minS);
+    static final char[] DFA153_max = DFA.unpackEncodedStringToUnsignedChars(DFA153_maxS);
+    static final short[] DFA153_accept = DFA.unpackEncodedString(DFA153_acceptS);
+    static final short[] DFA153_special = DFA.unpackEncodedString(DFA153_specialS);
+    static final short[][] DFA153_transition;
 
     static {
-        int numStates = DFA152_transitionS.length;
-        DFA152_transition = new short[numStates][];
+        int numStates = DFA153_transitionS.length;
+        DFA153_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA152_transition[i] = DFA.unpackEncodedString(DFA152_transitionS[i]);
+            DFA153_transition[i] = DFA.unpackEncodedString(DFA153_transitionS[i]);
         }
     }
 
-    class DFA152 extends DFA {
+    class DFA153 extends DFA {
 
-        public DFA152(BaseRecognizer recognizer) {
+        public DFA153(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 152;
-            this.eot = DFA152_eot;
-            this.eof = DFA152_eof;
-            this.min = DFA152_min;
-            this.max = DFA152_max;
-            this.accept = DFA152_accept;
-            this.special = DFA152_special;
-            this.transition = DFA152_transition;
+            this.decisionNumber = 153;
+            this.eot = DFA153_eot;
+            this.eof = DFA153_eof;
+            this.min = DFA153_min;
+            this.max = DFA153_max;
+            this.accept = DFA153_accept;
+            this.special = DFA153_special;
+            this.transition = DFA153_transition;
         }
         public String getDescription() {
             return "6686:1: (this_RecordTerm_0= ruleRecordTerm | this_ReferenceTerm_1= ruleReferenceTerm | this_ComponentClassifierTerm_2= ruleComponentClassifierTerm | this_ComputedTerm_3= ruleComputedTerm | this_StringTerm_4= ruleStringTerm | this_NumericRangeTerm_5= ruleNumericRangeTerm | this_RealTerm_6= ruleRealTerm | this_IntegerTerm_7= ruleIntegerTerm | this_ListTerm_8= ruleListTerm | this_BooleanLiteral_9= ruleBooleanLiteral | this_LiteralorReferenceTerm_10= ruleLiteralorReferenceTerm )";
@@ -20851,608 +20862,608 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorPropagation3904 = new BitSet(new long[]{0xC000000000000000L,0x0000000000000080L});
         public static final BitSet FOLLOW_KEYWORD_28_in_ruleErrorPropagation3922 = new BitSet(new long[]{0xC000000000000000L,0x0000000000000080L});
         public static final BitSet FOLLOW_rulePropagationDirection_in_ruleErrorPropagation3955 = new BitSet(new long[]{0x0000000000000080L});
-        public static final BitSet FOLLOW_KEYWORD_81_in_ruleErrorPropagation3968 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400000L});
+        public static final BitSet FOLLOW_KEYWORD_81_in_ruleErrorPropagation3968 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480000L});
         public static final BitSet FOLLOW_ruleTypeSetReference_in_ruleErrorPropagation3988 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorPropagation4001 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleFeatureorPPReference_in_entryRuleFeatureorPPReference4035 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleFeatureorPPReference4045 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleFeatureorPPReference4089 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropagationDirection_in_entryRulePropagationDirection4124 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRulePropagationDirection4135 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_20_in_rulePropagationDirection4173 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_29_in_rulePropagationDirection4192 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropagationKind_in_entryRulePropagationKind4232 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRulePropagationKind4243 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_74_in_rulePropagationKind4281 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_52_in_rulePropagationKind4300 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_77_in_rulePropagationKind4319 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_60_in_rulePropagationKind4338 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_69_in_rulePropagationKind4357 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_50_in_rulePropagationKind4376 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorFlow_in_entryRuleErrorFlow4415 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorFlow4425 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorSource_in_ruleErrorFlow4472 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorSink_in_ruleErrorFlow4499 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorPath_in_ruleErrorFlow4526 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorSource_in_entryRuleErrorSource4560 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorSource4570 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorSource4612 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorSource4630 = new BitSet(new long[]{0x0000010000000000L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorSource4642 = new BitSet(new long[]{0x0000002000000000L});
-        public static final BitSet FOLLOW_KEYWORD_57_in_ruleErrorSource4654 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorSource4677 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480002L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorSource4702 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480002L});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorSource4735 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_38_in_ruleErrorSource4750 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorSource4771 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480000L});
-        public static final BitSet FOLLOW_ruleTypeSetConstructor_in_ruleErrorSource4792 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_ruleTypeSetConstructor_in_ruleErrorSource4821 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorSource4837 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorSink_in_entryRuleErrorSink4873 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorSink4883 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorSink4925 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorSink4943 = new BitSet(new long[]{0x0000010000000000L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorSink4955 = new BitSet(new long[]{0x0010000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_35_in_ruleErrorSink4967 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorSink4990 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480002L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorSink5015 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480002L});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorSink5048 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorSink5062 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorPath_in_entryRuleErrorPath5096 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorPath5106 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPath5148 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorPath5166 = new BitSet(new long[]{0x0000010000000000L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorPath5178 = new BitSet(new long[]{0x0004000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_33_in_ruleErrorPath5190 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5213 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400006L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorPath5238 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400006L});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorPath5271 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-        public static final BitSet FOLLOW_KEYWORD_15_in_ruleErrorPath5285 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5308 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080802L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorPath5333 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080802L});
-        public static final BitSet FOLLOW_ruleTypeToken_in_ruleErrorPath5367 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorPath5387 = new BitSet(new long[]{0x0000000000100000L});
-        public static final BitSet FOLLOW_KEYWORD_71_in_ruleErrorPath5399 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorPath5421 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorPath5437 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_entryRuleErrorPropagationPoint5472 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorPropagationPoint5483 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropagationKind_in_ruleErrorPropagationPoint5530 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPropagationPoint5557 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_8_in_ruleErrorPropagationPoint5576 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPropagationPoint5591 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
-        public static final BitSet FOLLOW_rulePropagationPaths_in_entryRulePropagationPaths5638 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRulePropagationPaths5648 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_81_in_rulePropagationPaths5686 = new BitSet(new long[]{0x0000200000000000L});
-        public static final BitSet FOLLOW_KEYWORD_46_in_rulePropagationPaths5698 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_rulePropagationPoint_in_rulePropagationPaths5718 = new BitSet(new long[]{0x2000000000000040L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_80_in_rulePropagationPaths5733 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_rulePropagationPointConnection_in_rulePropagationPaths5753 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_rulePropagationPaths5769 = new BitSet(new long[]{0x0000200000000000L});
-        public static final BitSet FOLLOW_KEYWORD_46_in_rulePropagationPaths5781 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rulePropagationPaths5793 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropagationPoint_in_entryRulePropagationPoint5827 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRulePropagationPoint5837 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_rulePropagationPoint5879 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_rulePropagationPoint5897 = new BitSet(new long[]{0x0000000000000080L});
-        public static final BitSet FOLLOW_KEYWORD_81_in_rulePropagationPoint5909 = new BitSet(new long[]{0x0000400000000000L});
-        public static final BitSet FOLLOW_KEYWORD_47_in_rulePropagationPoint5921 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rulePropagationPoint5933 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropagationPointConnection_in_entryRulePropagationPointConnection5967 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRulePropagationPointConnection5977 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_rulePropagationPointConnection6019 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_rulePropagationPointConnection6037 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQualifiedPropagationPoint_in_rulePropagationPointConnection6057 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-        public static final BitSet FOLLOW_KEYWORD_15_in_rulePropagationPointConnection6070 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQualifiedPropagationPoint_in_rulePropagationPointConnection6090 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rulePropagationPointConnection6103 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQualifiedPropagationPoint_in_entryRuleQualifiedPropagationPoint6137 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedPropagationPoint6147 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedPropagationPoint6193 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_8_in_ruleQualifiedPropagationPoint6206 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedPropagationPoint6227 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorStateMachine_in_entryRuleErrorBehaviorStateMachine6262 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorBehaviorStateMachine6272 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorBehaviorStateMachine6310 = new BitSet(new long[]{0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_68_in_ruleErrorBehaviorStateMachine6322 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorStateMachine6338 = new BitSet(new long[]{0x2000004080001100L,0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorBehaviorStateMachine6357 = new BitSet(new long[]{0x0001000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_49_in_ruleErrorBehaviorStateMachine6369 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6391 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleErrorBehaviorStateMachine6405 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6427 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6442 = new BitSet(new long[]{0x2000004080001100L,0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorBehaviorStateMachine6457 = new BitSet(new long[]{0x0000000000000010L});
-        public static final BitSet FOLLOW_KEYWORD_84_in_ruleErrorBehaviorStateMachine6469 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6491 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6504 = new BitSet(new long[]{0x2000004080001100L});
-        public static final BitSet FOLLOW_KEYWORD_51_in_ruleErrorBehaviorStateMachine6519 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_ruleErrorBehaviorStateMachine6539 = new BitSet(new long[]{0x2000004000001100L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_58_in_ruleErrorBehaviorStateMachine6556 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorState_in_ruleErrorBehaviorStateMachine6576 = new BitSet(new long[]{0x2000000000001100L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_82_in_ruleErrorBehaviorStateMachine6593 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_ruleErrorBehaviorStateMachine6613 = new BitSet(new long[]{0x2800000000001000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_79_in_ruleErrorBehaviorStateMachine6630 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_ruleErrorBehaviorStateMachine6650 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_ruleErrorBehaviorStateMachine6666 = new BitSet(new long[]{0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_68_in_ruleErrorBehaviorStateMachine6678 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6690 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_entryRuleErrorBehaviorEvent6724 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorBehaviorEvent6734 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorEvent_in_ruleErrorBehaviorEvent6781 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRepairEvent_in_ruleErrorBehaviorEvent6808 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRecoverEvent_in_ruleErrorBehaviorEvent6835 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorEvent_in_entryRuleErrorEvent6869 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorEvent6879 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorEvent6921 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorEvent6939 = new BitSet(new long[]{0x0000010000000000L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorEvent6951 = new BitSet(new long[]{0x0000020000000000L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorEvent6963 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480000L});
-        public static final BitSet FOLLOW_ruleTypeSetReference_in_ruleErrorEvent6983 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_38_in_ruleErrorEvent6998 = new BitSet(new long[]{0x0000000000000000L,0x0000000200000000L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleErrorEvent7014 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorEvent7034 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRepairEvent_in_entryRuleRepairEvent7068 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleRepairEvent7078 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleRepairEvent7120 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleRepairEvent7138 = new BitSet(new long[]{0x0000001000000000L});
-        public static final BitSet FOLLOW_KEYWORD_56_in_ruleRepairEvent7150 = new BitSet(new long[]{0x0000020000000000L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_ruleRepairEvent7162 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_38_in_ruleRepairEvent7175 = new BitSet(new long[]{0x0000000000000000L,0x0000000200000000L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleRepairEvent7191 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleRepairEvent7211 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRecoverEvent_in_entryRuleRecoverEvent7245 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleRecoverEvent7255 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleRecoverEvent7297 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleRecoverEvent7315 = new BitSet(new long[]{0x0000000010000000L});
-        public static final BitSet FOLLOW_KEYWORD_66_in_ruleRecoverEvent7327 = new BitSet(new long[]{0x0000020000000000L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_ruleRecoverEvent7339 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_38_in_ruleRecoverEvent7352 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleRecoverEvent7371 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleRecoverEvent7385 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleRecoverEvent7404 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleRecoverEvent7421 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorState_in_entryRuleErrorBehaviorState7455 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorBehaviorState7465 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorState7507 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorBehaviorState7525 = new BitSet(new long[]{0x0000800002000000L});
-        public static final BitSet FOLLOW_KEYWORD_63_in_ruleErrorBehaviorState7543 = new BitSet(new long[]{0x0000800000000000L});
-        public static final BitSet FOLLOW_KEYWORD_48_in_ruleErrorBehaviorState7568 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480000L});
-        public static final BitSet FOLLOW_ruleTypeSetReference_in_ruleErrorBehaviorState7588 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorState7602 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_entryRuleErrorBehaviorTransition7636 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorBehaviorTransition7646 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7689 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorBehaviorTransition7707 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7730 = new BitSet(new long[]{0x0000000000000000L,0x000000040040000AL});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorBehaviorTransition7751 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorBehaviorTransition7778 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_16_in_ruleErrorBehaviorTransition7803 = new BitSet(new long[]{0x0000000140448400L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleConditionExpression_in_ruleErrorBehaviorTransition7823 = new BitSet(new long[]{0x0400000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_KEYWORD_24_in_ruleErrorBehaviorTransition7838 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000800L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7859 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080800L});
-        public static final BitSet FOLLOW_ruleTypeToken_in_ruleErrorBehaviorTransition7880 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleErrorBehaviorTransition7902 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleTransitionBranch_in_ruleErrorBehaviorTransition7922 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleErrorBehaviorTransition7936 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleTransitionBranch_in_ruleErrorBehaviorTransition7956 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleErrorBehaviorTransition7971 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_12_in_ruleErrorBehaviorTransition7998 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorTransition8023 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleTransitionBranch_in_entryRuleTransitionBranch8057 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleTransitionBranch8067 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleTransitionBranch8113 = new BitSet(new long[]{0x0100000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_ruleTypeToken_in_ruleTransitionBranch8134 = new BitSet(new long[]{0x0100000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_39_in_ruleTransitionBranch8149 = new BitSet(new long[]{0x0000000800000000L,0x0000000420000000L});
-        public static final BitSet FOLLOW_ruleBranchValue_in_ruleTransitionBranch8169 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleBranchValue_in_entryRuleBranchValue8204 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleBranchValue8214 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_REAL_LIT_in_ruleBranchValue8266 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleBranchValue8300 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_55_in_ruleBranchValue8325 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConnectionErrorBehavior_in_entryRuleConnectionErrorBehavior8372 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleConnectionErrorBehavior8382 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_77_in_ruleConnectionErrorBehavior8420 = new BitSet(new long[]{0x0000010000000000L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleConnectionErrorBehavior8432 = new BitSet(new long[]{0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_68_in_ruleConnectionErrorBehavior8444 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000002L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_ruleConnectionErrorBehavior8466 = new BitSet(new long[]{0x0000000000000010L});
-        public static final BitSet FOLLOW_KEYWORD_84_in_ruleConnectionErrorBehavior8478 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleConnectionErrorBehavior8500 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleConnectionErrorBehavior8513 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleConnectionErrorSource_in_ruleConnectionErrorBehavior8535 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_ruleConnectionErrorBehavior8549 = new BitSet(new long[]{0x0000000000000400L});
-        public static final BitSet FOLLOW_KEYWORD_77_in_ruleConnectionErrorBehavior8561 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleConnectionErrorBehavior8573 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConnectionErrorSource_in_entryRuleConnectionErrorSource8607 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleConnectionErrorSource8617 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleConnectionErrorSource8659 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleConnectionErrorSource8677 = new BitSet(new long[]{0x0000010000000000L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleConnectionErrorSource8689 = new BitSet(new long[]{0x0000002000000000L});
-        public static final BitSet FOLLOW_KEYWORD_57_in_ruleConnectionErrorSource8701 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleConnectionErrorSource8721 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480002L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleConnectionErrorSource8746 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480002L});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleConnectionErrorSource8779 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_38_in_ruleConnectionErrorSource8794 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400000L});
-        public static final BitSet FOLLOW_ruleTypeSetConstructor_in_ruleConnectionErrorSource8814 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleConnectionErrorSource8829 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleEBSMUseContext_in_entryRuleEBSMUseContext8863 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleEBSMUseContext8873 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorModelSubclause_in_ruleEBSMUseContext8919 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleTypeUseContext_in_entryRuleTypeUseContext8952 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleTypeUseContext8962 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleTypeTransformationSet_in_ruleTypeUseContext9009 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleTypeMappingSet_in_ruleTypeUseContext9036 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorStateMachine_in_ruleTypeUseContext9063 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleEBSMUseContext_in_ruleTypeUseContext9090 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleComponentErrorBehavior_in_entryRuleComponentErrorBehavior9124 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleComponentErrorBehavior9134 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_72_in_ruleComponentErrorBehavior9172 = new BitSet(new long[]{0x0000010000000000L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleComponentErrorBehavior9184 = new BitSet(new long[]{0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_68_in_ruleComponentErrorBehavior9196 = new BitSet(new long[]{0x2002000080000920L,0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_ruleComponentErrorBehavior9218 = new BitSet(new long[]{0x0000000000000010L});
-        public static final BitSet FOLLOW_KEYWORD_84_in_ruleComponentErrorBehavior9230 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleComponentErrorBehavior9252 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleComponentErrorBehavior9265 = new BitSet(new long[]{0x2002000080000920L});
-        public static final BitSet FOLLOW_KEYWORD_51_in_ruleComponentErrorBehavior9280 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_ruleComponentErrorBehavior9300 = new BitSet(new long[]{0x2002000000000920L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_82_in_ruleComponentErrorBehavior9317 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_ruleComponentErrorBehavior9337 = new BitSet(new long[]{0x2802000000000820L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_83_in_ruleComponentErrorBehavior9354 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleOutgoingPropagationCondition_in_ruleComponentErrorBehavior9374 = new BitSet(new long[]{0x2802000000000800L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_78_in_ruleComponentErrorBehavior9391 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorDetection_in_ruleComponentErrorBehavior9411 = new BitSet(new long[]{0x2802000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_32_in_ruleComponentErrorBehavior9428 = new BitSet(new long[]{0x0000000000100000L});
-        public static final BitSet FOLLOW_KEYWORD_71_in_ruleComponentErrorBehavior9440 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorStateToModeMapping_in_ruleComponentErrorBehavior9460 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_ruleComponentErrorBehavior9476 = new BitSet(new long[]{0x0000000000002000L});
-        public static final BitSet FOLLOW_KEYWORD_72_in_ruleComponentErrorBehavior9488 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleComponentErrorBehavior9500 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConditionExpression_in_entryRuleConditionExpression9534 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleConditionExpression9544 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAndExpression_in_ruleConditionExpression9591 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
-        public static final BitSet FOLLOW_KEYWORD_21_in_ruleConditionExpression9613 = new BitSet(new long[]{0x0000000140448400L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleAndExpression_in_ruleConditionExpression9633 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
-        public static final BitSet FOLLOW_ruleAndExpression_in_entryRuleAndExpression9670 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleAndExpression9680 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConditionTerm_in_ruleAndExpression9727 = new BitSet(new long[]{0x1000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_26_in_ruleAndExpression9749 = new BitSet(new long[]{0x0000000140448400L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleConditionTerm_in_ruleAndExpression9769 = new BitSet(new long[]{0x1000000000000002L});
-        public static final BitSet FOLLOW_ruleOrmoreExpression_in_entryRuleOrmoreExpression9806 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleOrmoreExpression9816 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleOrmoreExpression9862 = new BitSet(new long[]{0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_54_in_ruleOrmoreExpression9875 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleOrmoreExpression9887 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrmoreExpression9907 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleOrmoreExpression9921 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrmoreExpression9941 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleOrmoreExpression9956 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleOrlessExpression_in_entryRuleOrlessExpression9990 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleOrlessExpression10000 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleOrlessExpression10046 = new BitSet(new long[]{0x0000000200000000L});
-        public static final BitSet FOLLOW_KEYWORD_53_in_ruleOrlessExpression10059 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleOrlessExpression10071 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrlessExpression10091 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleOrlessExpression10105 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrlessExpression10125 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleOrlessExpression10140 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConditionTerm_in_entryRuleConditionTerm10174 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleConditionTerm10184 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConditionElement_in_ruleConditionTerm10231 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleOrmoreExpression_in_ruleConditionTerm10258 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleOrlessExpression_in_ruleConditionTerm10285 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleConditionTerm10304 = new BitSet(new long[]{0x0000000140448400L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleConditionExpression_in_ruleConditionTerm10325 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleConditionTerm10337 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConditionElement_in_entryRuleConditionElement10372 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleConditionElement10382 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleConditionElement10430 = new BitSet(new long[]{0x0000000000000002L,0x0000000400400002L});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraintNoError_in_ruleConditionElement10451 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleEventOrPropagation_in_entryRuleEventOrPropagation10487 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleEventOrPropagation10497 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_ruleEventOrPropagation10544 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorPropagation_in_ruleEventOrPropagation10571 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleOutgoingPropagationCondition_in_entryRuleOutgoingPropagationCondition10605 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleOutgoingPropagationCondition10615 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleOutgoingPropagationCondition10658 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleOutgoingPropagationCondition10676 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleOutgoingPropagationCondition10699 = new BitSet(new long[]{0x0000000000000000L,0x000000040040000AL});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleOutgoingPropagationCondition10720 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleOutgoingPropagationCondition10747 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_16_in_ruleOutgoingPropagationCondition10772 = new BitSet(new long[]{0x0400000140448400L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleConditionExpression_in_ruleOutgoingPropagationCondition10792 = new BitSet(new long[]{0x0400000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_24_in_ruleOutgoingPropagationCondition10806 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleOutgoingPropagationCondition10830 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080800L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleOutgoingPropagationCondition10855 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080800L});
-        public static final BitSet FOLLOW_ruleTypeTokenOrNoError_in_ruleOutgoingPropagationCondition10888 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleOutgoingPropagationCondition10903 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorDetection_in_entryRuleErrorDetection10937 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorDetection10947 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorDetection10990 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorDetection11008 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorDetection11031 = new BitSet(new long[]{0x0000000000000000L,0x000000040040000AL});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorDetection11052 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorDetection11079 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_16_in_ruleErrorDetection11104 = new BitSet(new long[]{0x0400000140448400L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleConditionExpression_in_ruleErrorDetection11124 = new BitSet(new long[]{0x0400000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_24_in_ruleErrorDetection11138 = new BitSet(new long[]{0x0008000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleInternalPort_in_ruleErrorDetection11159 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorDetection11185 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-        public static final BitSet FOLLOW_KEYWORD_1_in_ruleErrorDetection11199 = new BitSet(new long[]{0x0000000000000000L,0x0000000602080000L});
-        public static final BitSet FOLLOW_ruleErrorCodeValue_in_ruleErrorDetection11219 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorDetection11233 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorCodeValue_in_entryRuleErrorCodeValue11267 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorCodeValue11277 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_INTEGER_LIT_in_ruleErrorCodeValue11319 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQPREF_in_ruleErrorCodeValue11353 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleErrorCodeValue11376 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorStateToModeMapping_in_entryRuleErrorStateToModeMapping11416 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleErrorStateToModeMapping11426 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11471 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-        public static final BitSet FOLLOW_KEYWORD_20_in_ruleErrorStateToModeMapping11484 = new BitSet(new long[]{0x0000100000000000L});
-        public static final BitSet FOLLOW_KEYWORD_45_in_ruleErrorStateToModeMapping11496 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleErrorStateToModeMapping11508 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11527 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleErrorStateToModeMapping11541 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11560 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleErrorStateToModeMapping11575 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorStateToModeMapping11587 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleInternalPort_in_entryRuleInternalPort11621 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleInternalPort11631 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_34_in_ruleInternalPort11669 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_8_in_ruleInternalPort11681 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleInternalPort11697 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleCompositeErrorBehavior_in_entryRuleCompositeErrorBehavior11737 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleCompositeErrorBehavior11747 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_73_in_ruleCompositeErrorBehavior11785 = new BitSet(new long[]{0x0000010000000000L});
-        public static final BitSet FOLLOW_KEYWORD_41_in_ruleCompositeErrorBehavior11797 = new BitSet(new long[]{0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_68_in_ruleCompositeErrorBehavior11809 = new BitSet(new long[]{0x2000004000000000L});
-        public static final BitSet FOLLOW_KEYWORD_58_in_ruleCompositeErrorBehavior11831 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-        public static final BitSet FOLLOW_ruleCompositeState_in_ruleCompositeErrorBehavior11851 = new BitSet(new long[]{0x2000000000000000L,0x0000000000100000L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_ruleCompositeErrorBehavior11867 = new BitSet(new long[]{0x0000000000004000L});
-        public static final BitSet FOLLOW_KEYWORD_73_in_ruleCompositeErrorBehavior11879 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleCompositeErrorBehavior11891 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleCompositeState_in_entryRuleCompositeState11925 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleCompositeState11935 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_11_in_ruleCompositeState11973 = new BitSet(new long[]{0x0000000800000000L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleSConditionExpression_in_ruleCompositeState11994 = new BitSet(new long[]{0x0400000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_55_in_ruleCompositeState12019 = new BitSet(new long[]{0x0400000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_24_in_ruleCompositeState12044 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleCompositeState12063 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080800L});
-        public static final BitSet FOLLOW_ruleTypeToken_in_ruleCompositeState12084 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleCompositeState12098 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSConditionExpression_in_entryRuleSConditionExpression12132 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSConditionExpression12142 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSAndExpression_in_ruleSConditionExpression12189 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
-        public static final BitSet FOLLOW_KEYWORD_21_in_ruleSConditionExpression12211 = new BitSet(new long[]{0x0000000000000000L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleSAndExpression_in_ruleSConditionExpression12231 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
-        public static final BitSet FOLLOW_ruleSAndExpression_in_entryRuleSAndExpression12268 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSAndExpression12278 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSConditionTerm_in_ruleSAndExpression12325 = new BitSet(new long[]{0x1000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_26_in_ruleSAndExpression12347 = new BitSet(new long[]{0x0000000000000000L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleSConditionTerm_in_ruleSAndExpression12367 = new BitSet(new long[]{0x1000000000000002L});
-        public static final BitSet FOLLOW_ruleSOrmoreExpression_in_entryRuleSOrmoreExpression12404 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSOrmoreExpression12414 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleSOrmoreExpression12460 = new BitSet(new long[]{0x0000000400000000L});
-        public static final BitSet FOLLOW_KEYWORD_54_in_ruleSOrmoreExpression12473 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleSOrmoreExpression12485 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSOrmoreExpression12505 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleSOrmoreExpression12519 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSOrmoreExpression12539 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleSOrmoreExpression12554 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSOrlessExpression_in_entryRuleSOrlessExpression12588 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSOrlessExpression12598 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleSOrlessExpression12644 = new BitSet(new long[]{0x0000000200000000L});
-        public static final BitSet FOLLOW_KEYWORD_53_in_ruleSOrlessExpression12657 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleSOrlessExpression12669 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSOrlessExpression12689 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleSOrlessExpression12703 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSOrlessExpression12723 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleSOrlessExpression12738 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSConditionTerm_in_entryRuleSConditionTerm12772 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSConditionTerm12782 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSConditionTerm12829 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSOrmoreExpression_in_ruleSConditionTerm12856 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSOrlessExpression_in_ruleSConditionTerm12883 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleSConditionTerm12902 = new BitSet(new long[]{0x0000000000000000L,0x0000000402000800L});
-        public static final BitSet FOLLOW_ruleSConditionExpression_in_ruleSConditionTerm12923 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleSConditionTerm12935 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSConditionElement_in_entryRuleSConditionElement12970 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSConditionElement12980 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSubcomponentElement_in_ruleSConditionElement13027 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_8_in_ruleSConditionElement13040 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleSConditionElement13061 = new BitSet(new long[]{0x0000000000000002L,0x0000000400400002L});
-        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleSConditionElement13082 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSubcomponentElement_in_entryRuleSubcomponentElement13118 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSubcomponentElement13128 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleSubcomponentElement13172 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_entryRuleQEMREF13207 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleQEMREF13218 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQEMREF13259 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-        public static final BitSet FOLLOW_KEYWORD_18_in_ruleQEMREF13277 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQEMREF13294 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_entryRuleContainedPropertyAssociation13340 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleContainedPropertyAssociation13350 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQPREF_in_ruleContainedPropertyAssociation13398 = new BitSet(new long[]{0x0200000000000000L,0x0000000000000040L});
-        public static final BitSet FOLLOW_KEYWORD_19_in_ruleContainedPropertyAssociation13412 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
-        public static final BitSet FOLLOW_KEYWORD_23_in_ruleContainedPropertyAssociation13436 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
-        public static final BitSet FOLLOW_KEYWORD_70_in_ruleContainedPropertyAssociation13467 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
-        public static final BitSet FOLLOW_ruleOptionalModalPropertyValue_in_ruleContainedPropertyAssociation13501 = new BitSet(new long[]{0x0000000000200000L,0x0000000000088080L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleContainedPropertyAssociation13515 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
-        public static final BitSet FOLLOW_ruleOptionalModalPropertyValue_in_ruleContainedPropertyAssociation13535 = new BitSet(new long[]{0x0000000000200000L,0x0000000000088080L});
-        public static final BitSet FOLLOW_KEYWORD_59_in_ruleContainedPropertyAssociation13552 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-        public static final BitSet FOLLOW_KEYWORD_22_in_ruleContainedPropertyAssociation13564 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleContainmentPath_in_ruleContainedPropertyAssociation13584 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088080L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleContainedPropertyAssociation13598 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleContainmentPath_in_ruleContainedPropertyAssociation13618 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088080L});
-        public static final BitSet FOLLOW_KEYWORD_20_in_ruleContainedPropertyAssociation13636 = new BitSet(new long[]{0x0000000000400000L});
-        public static final BitSet FOLLOW_KEYWORD_60_in_ruleContainedPropertyAssociation13648 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleContainedPropertyAssociation13660 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQCREF_in_ruleContainedPropertyAssociation13682 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleContainedPropertyAssociation13695 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleContainedPropertyAssociation13709 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleContainmentPath_in_entryRuleContainmentPath13747 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleContainmentPath13757 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleContainmentPathElement_in_ruleContainmentPath13812 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_8_in_ruleContainmentPath13826 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleContainmentPathElement_in_ruleContainmentPath13846 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
-        public static final BitSet FOLLOW_ruleOptionalModalPropertyValue_in_entryRuleOptionalModalPropertyValue13885 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleOptionalModalPropertyValue13895 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropertyExpression_in_ruleOptionalModalPropertyValue13941 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
-        public static final BitSet FOLLOW_KEYWORD_20_in_ruleOptionalModalPropertyValue13955 = new BitSet(new long[]{0x0000100000000000L});
-        public static final BitSet FOLLOW_KEYWORD_45_in_ruleOptionalModalPropertyValue13967 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleOptionalModalPropertyValue13979 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleOptionalModalPropertyValue13998 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleOptionalModalPropertyValue14012 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleOptionalModalPropertyValue14031 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleOptionalModalPropertyValue14046 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropertyValue_in_entryRulePropertyValue14082 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRulePropertyValue14092 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropertyExpression_in_rulePropertyValue14137 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePropertyExpression_in_entryRulePropertyExpression14171 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRulePropertyExpression14181 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRecordTerm_in_rulePropertyExpression14228 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleReferenceTerm_in_rulePropertyExpression14255 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleComponentClassifierTerm_in_rulePropertyExpression14282 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleComputedTerm_in_rulePropertyExpression14309 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleStringTerm_in_rulePropertyExpression14336 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleNumericRangeTerm_in_rulePropertyExpression14363 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRealTerm_in_rulePropertyExpression14390 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleIntegerTerm_in_rulePropertyExpression14417 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleListTerm_in_rulePropertyExpression14444 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleBooleanLiteral_in_rulePropertyExpression14471 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleLiteralorReferenceTerm_in_rulePropertyExpression14498 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleLiteralorReferenceTerm_in_entryRuleLiteralorReferenceTerm14532 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleLiteralorReferenceTerm14542 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQPREF_in_ruleLiteralorReferenceTerm14589 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral14623 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleBooleanLiteral14633 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_36_in_ruleBooleanLiteral14687 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_43_in_ruleBooleanLiteral14717 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConstantValue_in_entryRuleConstantValue14752 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleConstantValue14762 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQPREF_in_ruleConstantValue14809 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleReferenceTerm_in_entryRuleReferenceTerm14843 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleReferenceTerm14853 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_75_in_ruleReferenceTerm14891 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleReferenceTerm14903 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQualifiedContainmentPathElement_in_ruleReferenceTerm14924 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_8_in_ruleReferenceTerm14937 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleContainmentPathElement_in_ruleReferenceTerm14959 = new BitSet(new long[]{0x0000000000000000L,0x0000000000021000L});
-        public static final BitSet FOLLOW_KEYWORD_8_in_ruleReferenceTerm14973 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleContainmentPathElement_in_ruleReferenceTerm14993 = new BitSet(new long[]{0x0000000000000000L,0x0000000000021000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleReferenceTerm15008 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRecordTerm_in_entryRuleRecordTerm15042 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleRecordTerm15052 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_11_in_ruleRecordTerm15090 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleFieldPropertyAssociation_in_ruleRecordTerm15110 = new BitSet(new long[]{0x0000000000000000L,0x0000000400200000L});
-        public static final BitSet FOLLOW_KEYWORD_12_in_ruleRecordTerm15124 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleComputedTerm_in_entryRuleComputedTerm15160 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleComputedTerm15170 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_61_in_ruleComputedTerm15208 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleComputedTerm15220 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleComputedTerm15236 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleComputedTerm15254 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleComponentClassifierTerm_in_entryRuleComponentClassifierTerm15288 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleComponentClassifierTerm15298 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_76_in_ruleComponentClassifierTerm15336 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleComponentClassifierTerm15348 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_ruleQCREF_in_ruleComponentClassifierTerm15370 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleComponentClassifierTerm15383 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleListTerm_in_entryRuleListTerm15417 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleListTerm15427 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_2_in_ruleListTerm15474 = new BitSet(new long[]{0x0020040000890200L,0x0000000622115800L});
-        public static final BitSet FOLLOW_rulePropertyExpression_in_ruleListTerm15495 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_6_in_ruleListTerm15509 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
-        public static final BitSet FOLLOW_rulePropertyExpression_in_ruleListTerm15529 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
-        public static final BitSet FOLLOW_KEYWORD_3_in_ruleListTerm15546 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleFieldPropertyAssociation_in_entryRuleFieldPropertyAssociation15580 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleFieldPropertyAssociation15590 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleFieldPropertyAssociation15635 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-        public static final BitSet FOLLOW_KEYWORD_19_in_ruleFieldPropertyAssociation15648 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
-        public static final BitSet FOLLOW_rulePropertyExpression_in_ruleFieldPropertyAssociation15668 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleFieldPropertyAssociation15681 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleContainmentPathElement_in_entryRuleContainmentPathElement15715 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleContainmentPathElement15725 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleContainmentPathElement15770 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
-        public static final BitSet FOLLOW_ruleArrayRange_in_ruleContainmentPathElement15791 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQualifiedContainmentPathElement_in_entryRuleQualifiedContainmentPathElement15827 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedContainmentPathElement15837 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQCLREF_in_ruleQualifiedContainmentPathElement15884 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePlusMinus_in_entryRulePlusMinus15921 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRulePlusMinus15932 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_5_in_rulePlusMinus15970 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_7_in_rulePlusMinus15989 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleStringTerm_in_entryRuleStringTerm16028 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleStringTerm16038 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleNoQuoteString_in_ruleStringTerm16083 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString16118 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleNoQuoteString16129 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString16168 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleArrayRange_in_entryRuleArrayRange16211 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleArrayRange16221 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_11_in_ruleArrayRange16268 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleArrayRange16288 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200010L});
-        public static final BitSet FOLLOW_KEYWORD_17_in_ruleArrayRange16302 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleArrayRange16322 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_KEYWORD_12_in_ruleArrayRange16337 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSignedConstant_in_entryRuleSignedConstant16371 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSignedConstant16381 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rulePlusMinus_in_ruleSignedConstant16427 = new BitSet(new long[]{0x0000000000000000L,0x0000000422014000L});
-        public static final BitSet FOLLOW_ruleConstantValue_in_ruleSignedConstant16448 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleIntegerTerm_in_entryRuleIntegerTerm16483 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleIntegerTerm16493 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSignedInt_in_ruleIntegerTerm16539 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleIntegerTerm16559 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSignedInt_in_entryRuleSignedInt16596 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSignedInt16607 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_5_in_ruleSignedInt16646 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-        public static final BitSet FOLLOW_KEYWORD_7_in_ruleSignedInt16665 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-        public static final BitSet FOLLOW_RULE_INTEGER_LIT_in_ruleSignedInt16682 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRealTerm_in_entryRuleRealTerm16726 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleRealTerm16736 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSignedReal_in_ruleRealTerm16782 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleRealTerm16802 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSignedReal_in_entryRuleSignedReal16839 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSignedReal16850 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_5_in_ruleSignedReal16889 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
-        public static final BitSet FOLLOW_KEYWORD_7_in_ruleSignedReal16908 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
-        public static final BitSet FOLLOW_RULE_REAL_LIT_in_ruleSignedReal16925 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleNumericRangeTerm_in_entryRuleNumericRangeTerm16969 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleNumericRangeTerm16979 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17025 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-        public static final BitSet FOLLOW_KEYWORD_17_in_ruleNumericRangeTerm17038 = new BitSet(new long[]{0x0000000000000000L,0x0000000422014000L});
-        public static final BitSet FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17058 = new BitSet(new long[]{0x0000008000000002L});
-        public static final BitSet FOLLOW_KEYWORD_40_in_ruleNumericRangeTerm17072 = new BitSet(new long[]{0x0000000000000000L,0x0000000422014000L});
-        public static final BitSet FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17092 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleNumAlt_in_entryRuleNumAlt17129 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleNumAlt17139 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleRealTerm_in_ruleNumAlt17186 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleIntegerTerm_in_ruleNumAlt17213 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSignedConstant_in_ruleNumAlt17240 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleConstantValue_in_ruleNumAlt17267 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleINTVALUE_in_entryRuleINTVALUE17302 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleINTVALUE17313 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_INTEGER_LIT_in_ruleINTVALUE17352 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQCLREF_in_entryRuleQCLREF17396 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleQCLREF17407 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQCLREF17447 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-        public static final BitSet FOLLOW_KEYWORD_18_in_ruleQCLREF17465 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQCLREF17480 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQPREF_in_entryRuleQPREF17525 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleQPREF17536 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQPREF17576 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000020L});
-        public static final BitSet FOLLOW_KEYWORD_18_in_ruleQPREF17595 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQPREF17610 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQCREF_in_entryRuleQCREF17657 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleQCREF17668 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQCREF17709 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-        public static final BitSet FOLLOW_KEYWORD_18_in_ruleQCREF17727 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQCREF17744 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
-        public static final BitSet FOLLOW_KEYWORD_8_in_ruleQCREF17763 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQCREF17778 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleSTAR_in_entryRuleSTAR17825 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleSTAR17836 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_4_in_ruleSTAR17873 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorPropagation4002 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleFeatureorPPReference_in_entryRuleFeatureorPPReference4036 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleFeatureorPPReference4046 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleFeatureorPPReference4090 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropagationDirection_in_entryRulePropagationDirection4125 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRulePropagationDirection4136 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_20_in_rulePropagationDirection4174 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_29_in_rulePropagationDirection4193 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropagationKind_in_entryRulePropagationKind4233 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRulePropagationKind4244 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_74_in_rulePropagationKind4282 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_52_in_rulePropagationKind4301 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_77_in_rulePropagationKind4320 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_60_in_rulePropagationKind4339 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_69_in_rulePropagationKind4358 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_50_in_rulePropagationKind4377 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorFlow_in_entryRuleErrorFlow4416 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorFlow4426 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorSource_in_ruleErrorFlow4473 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorSink_in_ruleErrorFlow4500 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorPath_in_ruleErrorFlow4527 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorSource_in_entryRuleErrorSource4561 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorSource4571 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorSource4613 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorSource4631 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorSource4643 = new BitSet(new long[]{0x0000002000000000L});
+        public static final BitSet FOLLOW_KEYWORD_57_in_ruleErrorSource4655 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorSource4678 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480002L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorSource4703 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480002L});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorSource4736 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_38_in_ruleErrorSource4751 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorSource4772 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480000L});
+        public static final BitSet FOLLOW_ruleTypeSetConstructor_in_ruleErrorSource4793 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_ruleTypeSetConstructor_in_ruleErrorSource4822 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorSource4838 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorSink_in_entryRuleErrorSink4874 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorSink4884 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorSink4926 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorSink4944 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorSink4956 = new BitSet(new long[]{0x0010000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_35_in_ruleErrorSink4968 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorSink4991 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480002L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorSink5016 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480002L});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorSink5049 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorSink5063 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorPath_in_entryRuleErrorPath5097 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorPath5107 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPath5149 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorPath5167 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorPath5179 = new BitSet(new long[]{0x0004000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_33_in_ruleErrorPath5191 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5214 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400006L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorPath5239 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400006L});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorPath5272 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+        public static final BitSet FOLLOW_KEYWORD_15_in_ruleErrorPath5286 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleErrorPath5309 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080802L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorPath5334 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080802L});
+        public static final BitSet FOLLOW_ruleTypeToken_in_ruleErrorPath5368 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorPath5388 = new BitSet(new long[]{0x0000000000100000L});
+        public static final BitSet FOLLOW_KEYWORD_71_in_ruleErrorPath5400 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorPath5422 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorPath5438 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_entryRuleErrorPropagationPoint5473 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorPropagationPoint5484 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropagationKind_in_ruleErrorPropagationPoint5531 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPropagationPoint5558 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_8_in_ruleErrorPropagationPoint5577 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorPropagationPoint5592 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
+        public static final BitSet FOLLOW_rulePropagationPaths_in_entryRulePropagationPaths5639 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRulePropagationPaths5649 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_81_in_rulePropagationPaths5687 = new BitSet(new long[]{0x0000200000000000L});
+        public static final BitSet FOLLOW_KEYWORD_46_in_rulePropagationPaths5699 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rulePropagationPoint_in_rulePropagationPaths5719 = new BitSet(new long[]{0x2000000000000040L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_80_in_rulePropagationPaths5734 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_rulePropagationPointConnection_in_rulePropagationPaths5754 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_rulePropagationPaths5770 = new BitSet(new long[]{0x0000200000000000L});
+        public static final BitSet FOLLOW_KEYWORD_46_in_rulePropagationPaths5782 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rulePropagationPaths5794 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropagationPoint_in_entryRulePropagationPoint5828 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRulePropagationPoint5838 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_rulePropagationPoint5880 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_rulePropagationPoint5898 = new BitSet(new long[]{0x0000000000000080L});
+        public static final BitSet FOLLOW_KEYWORD_81_in_rulePropagationPoint5910 = new BitSet(new long[]{0x0000400000000000L});
+        public static final BitSet FOLLOW_KEYWORD_47_in_rulePropagationPoint5922 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rulePropagationPoint5934 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropagationPointConnection_in_entryRulePropagationPointConnection5968 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRulePropagationPointConnection5978 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_rulePropagationPointConnection6020 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_rulePropagationPointConnection6038 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQualifiedPropagationPoint_in_rulePropagationPointConnection6058 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+        public static final BitSet FOLLOW_KEYWORD_15_in_rulePropagationPointConnection6071 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQualifiedPropagationPoint_in_rulePropagationPointConnection6091 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rulePropagationPointConnection6104 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQualifiedPropagationPoint_in_entryRuleQualifiedPropagationPoint6138 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedPropagationPoint6148 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedPropagationPoint6194 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_8_in_ruleQualifiedPropagationPoint6207 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedPropagationPoint6228 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorStateMachine_in_entryRuleErrorBehaviorStateMachine6263 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorBehaviorStateMachine6273 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorBehaviorStateMachine6311 = new BitSet(new long[]{0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_68_in_ruleErrorBehaviorStateMachine6323 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorStateMachine6339 = new BitSet(new long[]{0x2000004080001100L,0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorBehaviorStateMachine6358 = new BitSet(new long[]{0x0001000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_49_in_ruleErrorBehaviorStateMachine6370 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6392 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleErrorBehaviorStateMachine6406 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6428 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6443 = new BitSet(new long[]{0x2000004080001100L,0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorBehaviorStateMachine6458 = new BitSet(new long[]{0x0000000000000010L});
+        public static final BitSet FOLLOW_KEYWORD_84_in_ruleErrorBehaviorStateMachine6470 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorBehaviorStateMachine6492 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6505 = new BitSet(new long[]{0x2000004080001100L});
+        public static final BitSet FOLLOW_KEYWORD_51_in_ruleErrorBehaviorStateMachine6520 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_ruleErrorBehaviorStateMachine6540 = new BitSet(new long[]{0x2000004000001100L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_58_in_ruleErrorBehaviorStateMachine6557 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorState_in_ruleErrorBehaviorStateMachine6577 = new BitSet(new long[]{0x2000000000001100L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_82_in_ruleErrorBehaviorStateMachine6594 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_ruleErrorBehaviorStateMachine6614 = new BitSet(new long[]{0x2800000000001000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_79_in_ruleErrorBehaviorStateMachine6631 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_ruleErrorBehaviorStateMachine6651 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_ruleErrorBehaviorStateMachine6667 = new BitSet(new long[]{0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_68_in_ruleErrorBehaviorStateMachine6679 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorStateMachine6691 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_entryRuleErrorBehaviorEvent6725 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorBehaviorEvent6735 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorEvent_in_ruleErrorBehaviorEvent6782 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRepairEvent_in_ruleErrorBehaviorEvent6809 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRecoverEvent_in_ruleErrorBehaviorEvent6836 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorEvent_in_entryRuleErrorEvent6870 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorEvent6880 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorEvent6922 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorEvent6940 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleErrorEvent6952 = new BitSet(new long[]{0x0000020000000000L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorEvent6964 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480000L});
+        public static final BitSet FOLLOW_ruleTypeSetReference_in_ruleErrorEvent6984 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_38_in_ruleErrorEvent6999 = new BitSet(new long[]{0x0000000000000000L,0x0000000200000000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleErrorEvent7015 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorEvent7035 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRepairEvent_in_entryRuleRepairEvent7069 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleRepairEvent7079 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRepairEvent7121 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleRepairEvent7139 = new BitSet(new long[]{0x0000001000000000L});
+        public static final BitSet FOLLOW_KEYWORD_56_in_ruleRepairEvent7151 = new BitSet(new long[]{0x0000020000000000L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_ruleRepairEvent7163 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_38_in_ruleRepairEvent7176 = new BitSet(new long[]{0x0000000000000000L,0x0000000200000000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleRepairEvent7192 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleRepairEvent7212 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRecoverEvent_in_entryRuleRecoverEvent7246 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleRecoverEvent7256 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRecoverEvent7298 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleRecoverEvent7316 = new BitSet(new long[]{0x0000000010000000L});
+        public static final BitSet FOLLOW_KEYWORD_66_in_ruleRecoverEvent7328 = new BitSet(new long[]{0x0000020000000000L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_ruleRecoverEvent7340 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_38_in_ruleRecoverEvent7353 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRecoverEvent7372 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleRecoverEvent7386 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRecoverEvent7405 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleRecoverEvent7422 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorState_in_entryRuleErrorBehaviorState7456 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorBehaviorState7466 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorState7508 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorBehaviorState7526 = new BitSet(new long[]{0x0000800002000000L});
+        public static final BitSet FOLLOW_KEYWORD_63_in_ruleErrorBehaviorState7544 = new BitSet(new long[]{0x0000800000000000L});
+        public static final BitSet FOLLOW_KEYWORD_48_in_ruleErrorBehaviorState7569 = new BitSet(new long[]{0x0000000000000000L,0x0000000400480000L});
+        public static final BitSet FOLLOW_ruleTypeSetReference_in_ruleErrorBehaviorState7589 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorState7603 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_entryRuleErrorBehaviorTransition7637 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorBehaviorTransition7647 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7690 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorBehaviorTransition7708 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7731 = new BitSet(new long[]{0x0000000000000000L,0x000000040040000AL});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorBehaviorTransition7752 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorBehaviorTransition7779 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+        public static final BitSet FOLLOW_KEYWORD_16_in_ruleErrorBehaviorTransition7804 = new BitSet(new long[]{0x0000000140448400L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleConditionExpression_in_ruleErrorBehaviorTransition7824 = new BitSet(new long[]{0x0400000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_24_in_ruleErrorBehaviorTransition7839 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000800L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorBehaviorTransition7860 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080800L});
+        public static final BitSet FOLLOW_ruleTypeToken_in_ruleErrorBehaviorTransition7881 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleErrorBehaviorTransition7903 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleTransitionBranch_in_ruleErrorBehaviorTransition7923 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleErrorBehaviorTransition7937 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleTransitionBranch_in_ruleErrorBehaviorTransition7957 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleErrorBehaviorTransition7972 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_12_in_ruleErrorBehaviorTransition7999 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorBehaviorTransition8024 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleTransitionBranch_in_entryRuleTransitionBranch8058 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleTransitionBranch8068 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleTransitionBranch8114 = new BitSet(new long[]{0x0100000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_ruleTypeToken_in_ruleTransitionBranch8135 = new BitSet(new long[]{0x0100000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_39_in_ruleTransitionBranch8150 = new BitSet(new long[]{0x0000000800000000L,0x0000000420000000L});
+        public static final BitSet FOLLOW_ruleBranchValue_in_ruleTransitionBranch8170 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleBranchValue_in_entryRuleBranchValue8205 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleBranchValue8215 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_REAL_LIT_in_ruleBranchValue8267 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleBranchValue8301 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_55_in_ruleBranchValue8326 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConnectionErrorBehavior_in_entryRuleConnectionErrorBehavior8373 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleConnectionErrorBehavior8383 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_77_in_ruleConnectionErrorBehavior8421 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleConnectionErrorBehavior8433 = new BitSet(new long[]{0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_68_in_ruleConnectionErrorBehavior8445 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000002L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_ruleConnectionErrorBehavior8467 = new BitSet(new long[]{0x0000000000000010L});
+        public static final BitSet FOLLOW_KEYWORD_84_in_ruleConnectionErrorBehavior8479 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleConnectionErrorBehavior8501 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleConnectionErrorBehavior8514 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleConnectionErrorSource_in_ruleConnectionErrorBehavior8536 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_ruleConnectionErrorBehavior8550 = new BitSet(new long[]{0x0000000000000400L});
+        public static final BitSet FOLLOW_KEYWORD_77_in_ruleConnectionErrorBehavior8562 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleConnectionErrorBehavior8574 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConnectionErrorSource_in_entryRuleConnectionErrorSource8608 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleConnectionErrorSource8618 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleConnectionErrorSource8660 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleConnectionErrorSource8678 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleConnectionErrorSource8690 = new BitSet(new long[]{0x0000002000000000L});
+        public static final BitSet FOLLOW_KEYWORD_57_in_ruleConnectionErrorSource8702 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleConnectionErrorSource8722 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480002L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleConnectionErrorSource8747 = new BitSet(new long[]{0x0080000000000000L,0x0000000400480002L});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleConnectionErrorSource8780 = new BitSet(new long[]{0x0080000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_38_in_ruleConnectionErrorSource8795 = new BitSet(new long[]{0x0000000000000000L,0x0000000400400000L});
+        public static final BitSet FOLLOW_ruleTypeSetConstructor_in_ruleConnectionErrorSource8815 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleConnectionErrorSource8830 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleEBSMUseContext_in_entryRuleEBSMUseContext8864 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleEBSMUseContext8874 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorModelSubclause_in_ruleEBSMUseContext8920 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleTypeUseContext_in_entryRuleTypeUseContext8953 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleTypeUseContext8963 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleTypeTransformationSet_in_ruleTypeUseContext9010 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleTypeMappingSet_in_ruleTypeUseContext9037 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorStateMachine_in_ruleTypeUseContext9064 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleEBSMUseContext_in_ruleTypeUseContext9091 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleComponentErrorBehavior_in_entryRuleComponentErrorBehavior9125 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleComponentErrorBehavior9135 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_72_in_ruleComponentErrorBehavior9173 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleComponentErrorBehavior9185 = new BitSet(new long[]{0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_68_in_ruleComponentErrorBehavior9197 = new BitSet(new long[]{0x2002000080000920L,0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_ruleComponentErrorBehavior9219 = new BitSet(new long[]{0x0000000000000010L});
+        public static final BitSet FOLLOW_KEYWORD_84_in_ruleComponentErrorBehavior9231 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleComponentErrorBehavior9253 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleComponentErrorBehavior9266 = new BitSet(new long[]{0x2002000080000920L});
+        public static final BitSet FOLLOW_KEYWORD_51_in_ruleComponentErrorBehavior9281 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_ruleComponentErrorBehavior9301 = new BitSet(new long[]{0x2002000000000920L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_82_in_ruleComponentErrorBehavior9318 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_ruleComponentErrorBehavior9338 = new BitSet(new long[]{0x2802000000000820L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_83_in_ruleComponentErrorBehavior9355 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleOutgoingPropagationCondition_in_ruleComponentErrorBehavior9375 = new BitSet(new long[]{0x2802000000000800L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_78_in_ruleComponentErrorBehavior9392 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorDetection_in_ruleComponentErrorBehavior9412 = new BitSet(new long[]{0x2802000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_32_in_ruleComponentErrorBehavior9429 = new BitSet(new long[]{0x0000000000100000L});
+        public static final BitSet FOLLOW_KEYWORD_71_in_ruleComponentErrorBehavior9441 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorStateToModeMapping_in_ruleComponentErrorBehavior9461 = new BitSet(new long[]{0x2000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_ruleComponentErrorBehavior9477 = new BitSet(new long[]{0x0000000000002000L});
+        public static final BitSet FOLLOW_KEYWORD_72_in_ruleComponentErrorBehavior9489 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleComponentErrorBehavior9501 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConditionExpression_in_entryRuleConditionExpression9535 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleConditionExpression9545 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAndExpression_in_ruleConditionExpression9592 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
+        public static final BitSet FOLLOW_KEYWORD_21_in_ruleConditionExpression9614 = new BitSet(new long[]{0x0000000140448400L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleAndExpression_in_ruleConditionExpression9634 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
+        public static final BitSet FOLLOW_ruleAndExpression_in_entryRuleAndExpression9671 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAndExpression9681 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConditionTerm_in_ruleAndExpression9728 = new BitSet(new long[]{0x1000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_26_in_ruleAndExpression9750 = new BitSet(new long[]{0x0000000140448400L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleConditionTerm_in_ruleAndExpression9770 = new BitSet(new long[]{0x1000000000000002L});
+        public static final BitSet FOLLOW_ruleOrmoreExpression_in_entryRuleOrmoreExpression9807 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOrmoreExpression9817 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleOrmoreExpression9863 = new BitSet(new long[]{0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_54_in_ruleOrmoreExpression9876 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleOrmoreExpression9888 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrmoreExpression9908 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleOrmoreExpression9922 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrmoreExpression9942 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleOrmoreExpression9957 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOrlessExpression_in_entryRuleOrlessExpression9991 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOrlessExpression10001 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleOrlessExpression10047 = new BitSet(new long[]{0x0000000200000000L});
+        public static final BitSet FOLLOW_KEYWORD_53_in_ruleOrlessExpression10060 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleOrlessExpression10072 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrlessExpression10092 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleOrlessExpression10106 = new BitSet(new long[]{0x0000000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrlessExpression10126 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleOrlessExpression10141 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConditionTerm_in_entryRuleConditionTerm10175 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleConditionTerm10185 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConditionElement_in_ruleConditionTerm10232 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOrmoreExpression_in_ruleConditionTerm10259 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOrlessExpression_in_ruleConditionTerm10286 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleConditionTerm10305 = new BitSet(new long[]{0x0000000140448400L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleConditionExpression_in_ruleConditionTerm10326 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleConditionTerm10338 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConditionElement_in_entryRuleConditionElement10373 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleConditionElement10383 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleConditionElement10431 = new BitSet(new long[]{0x0000000000000002L,0x0000000400400002L});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraintNoError_in_ruleConditionElement10452 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleEventOrPropagation_in_entryRuleEventOrPropagation10488 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleEventOrPropagation10498 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_ruleEventOrPropagation10545 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorPropagation_in_ruleEventOrPropagation10572 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOutgoingPropagationCondition_in_entryRuleOutgoingPropagationCondition10606 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOutgoingPropagationCondition10616 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleOutgoingPropagationCondition10659 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleOutgoingPropagationCondition10677 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleOutgoingPropagationCondition10700 = new BitSet(new long[]{0x0000000000000000L,0x000000040040000AL});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleOutgoingPropagationCondition10721 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleOutgoingPropagationCondition10748 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+        public static final BitSet FOLLOW_KEYWORD_16_in_ruleOutgoingPropagationCondition10773 = new BitSet(new long[]{0x0400000140448400L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleConditionExpression_in_ruleOutgoingPropagationCondition10793 = new BitSet(new long[]{0x0400000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_24_in_ruleOutgoingPropagationCondition10807 = new BitSet(new long[]{0x0800000140448400L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleErrorPropagationPoint_in_ruleOutgoingPropagationCondition10831 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080800L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleOutgoingPropagationCondition10856 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080800L});
+        public static final BitSet FOLLOW_ruleTypeTokenOrNoError_in_ruleOutgoingPropagationCondition10889 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleOutgoingPropagationCondition10904 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorDetection_in_entryRuleErrorDetection10938 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorDetection10948 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorDetection10991 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_9_in_ruleErrorDetection11009 = new BitSet(new long[]{0x0800000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorDetection11032 = new BitSet(new long[]{0x0000000000000000L,0x000000040040000AL});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleErrorDetection11053 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+        public static final BitSet FOLLOW_KEYWORD_25_in_ruleErrorDetection11080 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+        public static final BitSet FOLLOW_KEYWORD_16_in_ruleErrorDetection11105 = new BitSet(new long[]{0x0400000140448400L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleConditionExpression_in_ruleErrorDetection11125 = new BitSet(new long[]{0x0400000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_24_in_ruleErrorDetection11139 = new BitSet(new long[]{0x0008000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleInternalPort_in_ruleErrorDetection11160 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorDetection11186 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+        public static final BitSet FOLLOW_KEYWORD_1_in_ruleErrorDetection11200 = new BitSet(new long[]{0x0000000000000000L,0x0000000602080000L});
+        public static final BitSet FOLLOW_ruleErrorCodeValue_in_ruleErrorDetection11220 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorDetection11234 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorCodeValue_in_entryRuleErrorCodeValue11268 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorCodeValue11278 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_INTEGER_LIT_in_ruleErrorCodeValue11320 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQPREF_in_ruleErrorCodeValue11354 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleErrorCodeValue11377 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorStateToModeMapping_in_entryRuleErrorStateToModeMapping11417 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleErrorStateToModeMapping11427 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11472 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+        public static final BitSet FOLLOW_KEYWORD_20_in_ruleErrorStateToModeMapping11485 = new BitSet(new long[]{0x0000100000000000L});
+        public static final BitSet FOLLOW_KEYWORD_45_in_ruleErrorStateToModeMapping11497 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleErrorStateToModeMapping11509 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11528 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleErrorStateToModeMapping11542 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleErrorStateToModeMapping11561 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleErrorStateToModeMapping11576 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorStateToModeMapping11588 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleInternalPort_in_entryRuleInternalPort11622 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleInternalPort11632 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_34_in_ruleInternalPort11670 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_8_in_ruleInternalPort11682 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleInternalPort11698 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleCompositeErrorBehavior_in_entryRuleCompositeErrorBehavior11738 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleCompositeErrorBehavior11748 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_73_in_ruleCompositeErrorBehavior11786 = new BitSet(new long[]{0x0000010000000000L});
+        public static final BitSet FOLLOW_KEYWORD_41_in_ruleCompositeErrorBehavior11798 = new BitSet(new long[]{0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_68_in_ruleCompositeErrorBehavior11810 = new BitSet(new long[]{0x2000004000000000L});
+        public static final BitSet FOLLOW_KEYWORD_58_in_ruleCompositeErrorBehavior11832 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+        public static final BitSet FOLLOW_ruleCompositeState_in_ruleCompositeErrorBehavior11852 = new BitSet(new long[]{0x2000000000000000L,0x0000000000100000L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_ruleCompositeErrorBehavior11868 = new BitSet(new long[]{0x0000000000004000L});
+        public static final BitSet FOLLOW_KEYWORD_73_in_ruleCompositeErrorBehavior11880 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleCompositeErrorBehavior11892 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleCompositeState_in_entryRuleCompositeState11926 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleCompositeState11936 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_11_in_ruleCompositeState11974 = new BitSet(new long[]{0x0000000800000000L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleSConditionExpression_in_ruleCompositeState11995 = new BitSet(new long[]{0x0400000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_55_in_ruleCompositeState12020 = new BitSet(new long[]{0x0400000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_24_in_ruleCompositeState12045 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleCompositeState12064 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080800L});
+        public static final BitSet FOLLOW_ruleTypeToken_in_ruleCompositeState12085 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleCompositeState12099 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSConditionExpression_in_entryRuleSConditionExpression12133 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSConditionExpression12143 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSAndExpression_in_ruleSConditionExpression12190 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
+        public static final BitSet FOLLOW_KEYWORD_21_in_ruleSConditionExpression12212 = new BitSet(new long[]{0x0000000000000000L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleSAndExpression_in_ruleSConditionExpression12232 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
+        public static final BitSet FOLLOW_ruleSAndExpression_in_entryRuleSAndExpression12269 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSAndExpression12279 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSConditionTerm_in_ruleSAndExpression12326 = new BitSet(new long[]{0x1000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_26_in_ruleSAndExpression12348 = new BitSet(new long[]{0x0000000000000000L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleSConditionTerm_in_ruleSAndExpression12368 = new BitSet(new long[]{0x1000000000000002L});
+        public static final BitSet FOLLOW_ruleSOrmoreExpression_in_entryRuleSOrmoreExpression12405 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSOrmoreExpression12415 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleSOrmoreExpression12461 = new BitSet(new long[]{0x0000000400000000L});
+        public static final BitSet FOLLOW_KEYWORD_54_in_ruleSOrmoreExpression12474 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleSOrmoreExpression12486 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSOrmoreExpression12506 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleSOrmoreExpression12520 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSOrmoreExpression12540 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleSOrmoreExpression12555 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSOrlessExpression_in_entryRuleSOrlessExpression12589 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSOrlessExpression12599 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleSOrlessExpression12645 = new BitSet(new long[]{0x0000000200000000L});
+        public static final BitSet FOLLOW_KEYWORD_53_in_ruleSOrlessExpression12658 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleSOrlessExpression12670 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSOrlessExpression12690 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleSOrlessExpression12704 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSOrlessExpression12724 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleSOrlessExpression12739 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSConditionTerm_in_entryRuleSConditionTerm12773 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSConditionTerm12783 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSConditionElement_in_ruleSConditionTerm12830 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSOrmoreExpression_in_ruleSConditionTerm12857 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSOrlessExpression_in_ruleSConditionTerm12884 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleSConditionTerm12903 = new BitSet(new long[]{0x0000000000000000L,0x0000000402000800L});
+        public static final BitSet FOLLOW_ruleSConditionExpression_in_ruleSConditionTerm12924 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleSConditionTerm12936 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSConditionElement_in_entryRuleSConditionElement12971 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSConditionElement12981 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSubcomponentElement_in_ruleSConditionElement13028 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_8_in_ruleSConditionElement13041 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleSConditionElement13062 = new BitSet(new long[]{0x0000000000000002L,0x0000000400400002L});
+        public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_ruleSConditionElement13083 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSubcomponentElement_in_entryRuleSubcomponentElement13119 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSubcomponentElement13129 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleSubcomponentElement13173 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_entryRuleQEMREF13208 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleQEMREF13219 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQEMREF13260 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+        public static final BitSet FOLLOW_KEYWORD_18_in_ruleQEMREF13278 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQEMREF13295 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleContainedPropertyAssociation_in_entryRuleContainedPropertyAssociation13341 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleContainedPropertyAssociation13351 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQPREF_in_ruleContainedPropertyAssociation13399 = new BitSet(new long[]{0x0200000000000000L,0x0000000000000040L});
+        public static final BitSet FOLLOW_KEYWORD_19_in_ruleContainedPropertyAssociation13413 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
+        public static final BitSet FOLLOW_KEYWORD_23_in_ruleContainedPropertyAssociation13437 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
+        public static final BitSet FOLLOW_KEYWORD_70_in_ruleContainedPropertyAssociation13468 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
+        public static final BitSet FOLLOW_ruleOptionalModalPropertyValue_in_ruleContainedPropertyAssociation13502 = new BitSet(new long[]{0x0000000000200000L,0x0000000000088080L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleContainedPropertyAssociation13516 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
+        public static final BitSet FOLLOW_ruleOptionalModalPropertyValue_in_ruleContainedPropertyAssociation13536 = new BitSet(new long[]{0x0000000000200000L,0x0000000000088080L});
+        public static final BitSet FOLLOW_KEYWORD_59_in_ruleContainedPropertyAssociation13553 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+        public static final BitSet FOLLOW_KEYWORD_22_in_ruleContainedPropertyAssociation13565 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleContainmentPath_in_ruleContainedPropertyAssociation13585 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088080L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleContainedPropertyAssociation13599 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleContainmentPath_in_ruleContainedPropertyAssociation13619 = new BitSet(new long[]{0x0000000000000000L,0x0000000000088080L});
+        public static final BitSet FOLLOW_KEYWORD_20_in_ruleContainedPropertyAssociation13637 = new BitSet(new long[]{0x0000000000400000L});
+        public static final BitSet FOLLOW_KEYWORD_60_in_ruleContainedPropertyAssociation13649 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleContainedPropertyAssociation13661 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQCREF_in_ruleContainedPropertyAssociation13683 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleContainedPropertyAssociation13696 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleContainedPropertyAssociation13710 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleContainmentPath_in_entryRuleContainmentPath13748 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleContainmentPath13758 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleContainmentPathElement_in_ruleContainmentPath13813 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_8_in_ruleContainmentPath13827 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleContainmentPathElement_in_ruleContainmentPath13847 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
+        public static final BitSet FOLLOW_ruleOptionalModalPropertyValue_in_entryRuleOptionalModalPropertyValue13886 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleOptionalModalPropertyValue13896 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropertyExpression_in_ruleOptionalModalPropertyValue13942 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
+        public static final BitSet FOLLOW_KEYWORD_20_in_ruleOptionalModalPropertyValue13956 = new BitSet(new long[]{0x0000100000000000L});
+        public static final BitSet FOLLOW_KEYWORD_45_in_ruleOptionalModalPropertyValue13968 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleOptionalModalPropertyValue13980 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleOptionalModalPropertyValue13999 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleOptionalModalPropertyValue14013 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleOptionalModalPropertyValue14032 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleOptionalModalPropertyValue14047 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropertyValue_in_entryRulePropertyValue14083 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRulePropertyValue14093 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropertyExpression_in_rulePropertyValue14138 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePropertyExpression_in_entryRulePropertyExpression14172 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRulePropertyExpression14182 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRecordTerm_in_rulePropertyExpression14229 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleReferenceTerm_in_rulePropertyExpression14256 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleComponentClassifierTerm_in_rulePropertyExpression14283 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleComputedTerm_in_rulePropertyExpression14310 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleStringTerm_in_rulePropertyExpression14337 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNumericRangeTerm_in_rulePropertyExpression14364 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRealTerm_in_rulePropertyExpression14391 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleIntegerTerm_in_rulePropertyExpression14418 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleListTerm_in_rulePropertyExpression14445 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleBooleanLiteral_in_rulePropertyExpression14472 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleLiteralorReferenceTerm_in_rulePropertyExpression14499 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleLiteralorReferenceTerm_in_entryRuleLiteralorReferenceTerm14533 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleLiteralorReferenceTerm14543 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQPREF_in_ruleLiteralorReferenceTerm14590 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral14624 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleBooleanLiteral14634 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_36_in_ruleBooleanLiteral14688 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_43_in_ruleBooleanLiteral14718 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConstantValue_in_entryRuleConstantValue14753 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleConstantValue14763 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQPREF_in_ruleConstantValue14810 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleReferenceTerm_in_entryRuleReferenceTerm14844 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleReferenceTerm14854 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_75_in_ruleReferenceTerm14892 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleReferenceTerm14904 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQualifiedContainmentPathElement_in_ruleReferenceTerm14925 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_8_in_ruleReferenceTerm14938 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleContainmentPathElement_in_ruleReferenceTerm14960 = new BitSet(new long[]{0x0000000000000000L,0x0000000000021000L});
+        public static final BitSet FOLLOW_KEYWORD_8_in_ruleReferenceTerm14974 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleContainmentPathElement_in_ruleReferenceTerm14994 = new BitSet(new long[]{0x0000000000000000L,0x0000000000021000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleReferenceTerm15009 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRecordTerm_in_entryRuleRecordTerm15043 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleRecordTerm15053 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_11_in_ruleRecordTerm15091 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleFieldPropertyAssociation_in_ruleRecordTerm15111 = new BitSet(new long[]{0x0000000000000000L,0x0000000400200000L});
+        public static final BitSet FOLLOW_KEYWORD_12_in_ruleRecordTerm15125 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleComputedTerm_in_entryRuleComputedTerm15161 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleComputedTerm15171 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_61_in_ruleComputedTerm15209 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleComputedTerm15221 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleComputedTerm15237 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleComputedTerm15255 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleComponentClassifierTerm_in_entryRuleComponentClassifierTerm15289 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleComponentClassifierTerm15299 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_76_in_ruleComponentClassifierTerm15337 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleComponentClassifierTerm15349 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_ruleQCREF_in_ruleComponentClassifierTerm15371 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleComponentClassifierTerm15384 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleListTerm_in_entryRuleListTerm15418 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleListTerm15428 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_2_in_ruleListTerm15475 = new BitSet(new long[]{0x0020040000890200L,0x0000000622115800L});
+        public static final BitSet FOLLOW_rulePropertyExpression_in_ruleListTerm15496 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_6_in_ruleListTerm15510 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
+        public static final BitSet FOLLOW_rulePropertyExpression_in_ruleListTerm15530 = new BitSet(new long[]{0x0000000000000000L,0x0000000000009000L});
+        public static final BitSet FOLLOW_KEYWORD_3_in_ruleListTerm15547 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleFieldPropertyAssociation_in_entryRuleFieldPropertyAssociation15581 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleFieldPropertyAssociation15591 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleFieldPropertyAssociation15636 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+        public static final BitSet FOLLOW_KEYWORD_19_in_ruleFieldPropertyAssociation15649 = new BitSet(new long[]{0x0020040000890200L,0x0000000622114800L});
+        public static final BitSet FOLLOW_rulePropertyExpression_in_ruleFieldPropertyAssociation15669 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleFieldPropertyAssociation15682 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleContainmentPathElement_in_entryRuleContainmentPathElement15716 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleContainmentPathElement15726 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleContainmentPathElement15771 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
+        public static final BitSet FOLLOW_ruleArrayRange_in_ruleContainmentPathElement15792 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQualifiedContainmentPathElement_in_entryRuleQualifiedContainmentPathElement15828 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedContainmentPathElement15838 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQCLREF_in_ruleQualifiedContainmentPathElement15885 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePlusMinus_in_entryRulePlusMinus15922 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRulePlusMinus15933 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_5_in_rulePlusMinus15971 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_7_in_rulePlusMinus15990 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleStringTerm_in_entryRuleStringTerm16029 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleStringTerm16039 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNoQuoteString_in_ruleStringTerm16084 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString16119 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleNoQuoteString16130 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString16169 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleArrayRange_in_entryRuleArrayRange16212 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleArrayRange16222 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_11_in_ruleArrayRange16269 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleArrayRange16289 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200010L});
+        public static final BitSet FOLLOW_KEYWORD_17_in_ruleArrayRange16303 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+        public static final BitSet FOLLOW_ruleINTVALUE_in_ruleArrayRange16323 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_12_in_ruleArrayRange16338 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSignedConstant_in_entryRuleSignedConstant16372 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSignedConstant16382 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rulePlusMinus_in_ruleSignedConstant16428 = new BitSet(new long[]{0x0000000000000000L,0x0000000422014000L});
+        public static final BitSet FOLLOW_ruleConstantValue_in_ruleSignedConstant16449 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleIntegerTerm_in_entryRuleIntegerTerm16484 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleIntegerTerm16494 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSignedInt_in_ruleIntegerTerm16540 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleIntegerTerm16560 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSignedInt_in_entryRuleSignedInt16597 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSignedInt16608 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_5_in_ruleSignedInt16647 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+        public static final BitSet FOLLOW_KEYWORD_7_in_ruleSignedInt16666 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+        public static final BitSet FOLLOW_RULE_INTEGER_LIT_in_ruleSignedInt16683 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRealTerm_in_entryRuleRealTerm16727 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleRealTerm16737 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSignedReal_in_ruleRealTerm16783 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleRealTerm16803 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSignedReal_in_entryRuleSignedReal16840 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSignedReal16851 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_5_in_ruleSignedReal16890 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
+        public static final BitSet FOLLOW_KEYWORD_7_in_ruleSignedReal16909 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
+        public static final BitSet FOLLOW_RULE_REAL_LIT_in_ruleSignedReal16926 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNumericRangeTerm_in_entryRuleNumericRangeTerm16970 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleNumericRangeTerm16980 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17026 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+        public static final BitSet FOLLOW_KEYWORD_17_in_ruleNumericRangeTerm17039 = new BitSet(new long[]{0x0000000000000000L,0x0000000422014000L});
+        public static final BitSet FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17059 = new BitSet(new long[]{0x0000008000000002L});
+        public static final BitSet FOLLOW_KEYWORD_40_in_ruleNumericRangeTerm17073 = new BitSet(new long[]{0x0000000000000000L,0x0000000422014000L});
+        public static final BitSet FOLLOW_ruleNumAlt_in_ruleNumericRangeTerm17093 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNumAlt_in_entryRuleNumAlt17130 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleNumAlt17140 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleRealTerm_in_ruleNumAlt17187 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleIntegerTerm_in_ruleNumAlt17214 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSignedConstant_in_ruleNumAlt17241 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleConstantValue_in_ruleNumAlt17268 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleINTVALUE_in_entryRuleINTVALUE17303 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleINTVALUE17314 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_INTEGER_LIT_in_ruleINTVALUE17353 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQCLREF_in_entryRuleQCLREF17397 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleQCLREF17408 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQCLREF17448 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+        public static final BitSet FOLLOW_KEYWORD_18_in_ruleQCLREF17466 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQCLREF17481 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQPREF_in_entryRuleQPREF17526 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleQPREF17537 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQPREF17577 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000020L});
+        public static final BitSet FOLLOW_KEYWORD_18_in_ruleQPREF17596 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQPREF17611 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQCREF_in_entryRuleQCREF17658 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleQCREF17669 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQCREF17710 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+        public static final BitSet FOLLOW_KEYWORD_18_in_ruleQCREF17728 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQCREF17745 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
+        public static final BitSet FOLLOW_KEYWORD_8_in_ruleQCREF17764 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQCREF17779 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleSTAR_in_entryRuleSTAR17826 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleSTAR17837 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_4_in_ruleSTAR17874 = new BitSet(new long[]{0x0000000000000002L});
     }
 
 

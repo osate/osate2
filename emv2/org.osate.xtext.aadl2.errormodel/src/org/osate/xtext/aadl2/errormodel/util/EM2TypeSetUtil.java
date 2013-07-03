@@ -146,7 +146,7 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeSet ts, TypeToken token){
-		if (ts == null ) return false;
+		if (ts == null ) return true;
 		if ( token == null) return true;
 		if (token.isNoError()) return true;
 		ts = EMV2Util.resolveAlias(ts);
@@ -186,7 +186,7 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeSet ts, TypeSet subts){
-		if (ts == null ) return false;
+		if (ts == null ) return true;
 		if ( subts == null) return true;
 		ts = EMV2Util.resolveAlias(ts);
 		subts = EMV2Util.resolveAlias(subts);
@@ -206,7 +206,6 @@ public class EM2TypeSetUtil {
 	 */
 	public static boolean contains(ErrorPropagation ep1, ErrorPropagation ep2)
 	{
-		EList<TypeToken> srcTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep1.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep1));
 		EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep2.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep2));
 		for (TypeToken tt : dstTokens)
 		{
@@ -230,7 +229,11 @@ public class EM2TypeSetUtil {
 	 */
 	public static Collection<TypeToken> getConstrainedTypeTokens(TypeSet ts, TypeToken token){
 		BasicEList<TypeToken> result = new BasicEList<TypeToken>();
-		if (ts == null || token == null) return result;
+		if (token == null) return result;
+		if (ts == null ) {
+			result.add(token);
+			return result;
+		}
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
 		for (TypeToken tselement : ts.getTypeTokens()) {
@@ -301,6 +304,9 @@ public class EM2TypeSetUtil {
 	public static EList<TypeToken> generateAllLeafTypeTokens(TypeSet typeSet, TypeUseContext tuc){
 		EList<TypeToken> result = new BasicEList<TypeToken>() ; 
 		EList<TypeToken> newitems = new BasicEList<TypeToken>() ; 
+		if (typeSet == null){
+			return result;
+		}
 		EList<TypeToken> typelist = typeSet.getTypeTokens();
 		for (TypeToken typeSetElement : typelist) {
 			EList<ErrorType> elementtypes = typeSetElement.getType();
