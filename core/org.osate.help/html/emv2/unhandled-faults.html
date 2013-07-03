@@ -383,7 +383,7 @@ end receiver2.i5;
 	
 	
 	
-	<h4>Composite error behavior: check compliance between component state machine and composite error state machine</h4>
+	<h4>C13: Composite error behavior: check compliance between component state machine and composite error state machine</h4>
 	<p>
 	A state can have different definition: in the component error state machine and the composite error
 	state machine. The goal of this check is to make sure that the probability definition
@@ -438,7 +438,7 @@ end receiver2.i5;
 	
 	
 	
-	<h4>Check for undeclared error path</h4>
+	<h4>C14: Check for undeclared error path</h4>
 	<p>
 	Within an architecture, some error path could be missing and not declared, especially
 	when agregating/composing the architecture. This checks aims at discovering such
@@ -514,7 +514,7 @@ end receiver2.i5;
 	
 	
 	
-	<h4>Check that if a component declare an error path, any connection from the associated feature go into a feature which is also an error sink</h4>
+	<h4>C15: Check that if a component declare an error path, any connection from the associated feature go into a feature which is also an error sink</h4>
 	<p>
 	When a component declares an error sink as error flow, the feature can be connected to subcomponent but the ultimate destination must
 	be an error sink. The feature cannot be connected to component that declares a single error flow. Likely, the failure <strong>must be handled</strong>
