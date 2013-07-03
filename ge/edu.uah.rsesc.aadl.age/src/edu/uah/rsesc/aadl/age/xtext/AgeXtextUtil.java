@@ -6,7 +6,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 public class AgeXtextUtil {

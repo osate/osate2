@@ -13,7 +13,6 @@ import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.xtext.AgeXtextUtil;
@@ -52,14 +51,7 @@ public class IndependenceProvider implements IIndependenceSolver {
 		final String[] segs = key.split(" ");
 		if(segs.length < 2) {
 			return null;
-		}
-		
-		// TODO: How to get resource set... When getting classifier.. 
-		// Should be in scope of package that contains the classifier?
-		// What if private and public is split... Will need to do something about that...
-		// Is this actually by package name?
-		
-		// TODO: Update other cases...
+		}		
 		
 		Element aadlElement = null;
 		final String type = segs[0];
@@ -101,15 +93,5 @@ public class IndependenceProvider implements IIndependenceSolver {
 		}
 
 		return aadlElement == null ? null : new AadlElementWrapper(aadlElement);
-	}
-	
-	// TODO: Replace with new methods
-	public AadlPackage getPackage(final String name) {
-		final XtextResourceSet resourceSet = AgeXtextUtil.getResourceSetByQualifiedName(name);
-		if(resourceSet.getResources().size() > 0) {
-			return (AadlPackage)EMFIndexRetrieval.getEObjectOfType(resourceSet.getResources().get(0).getContents().get(0), Aadl2Package.eINSTANCE.getAadlPackage(), name);
-		}
-		
-		return EMFIndexRetrieval.getPackageInWorkspace(name);
 	}
 }
