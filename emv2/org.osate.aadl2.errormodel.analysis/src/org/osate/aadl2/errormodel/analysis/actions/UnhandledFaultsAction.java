@@ -40,6 +40,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -52,6 +53,7 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
@@ -59,6 +61,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
@@ -209,16 +212,11 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 
 		if (EMV2Util.hasComponentErrorBehavior(componentInstance))
 		{
-			EList<ConditionElement> propagations = new BasicEList<ConditionElement>();
-			
-			
-			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-			{
-				propagations.addAll(EMV2Util.getAllConditionElementsFromConditionExpression (ebt));
-			}
+
 			
 			
 			/**
+			 * Rule C5: In the component error behavior, check that we have a transition between each state
 			 * Let also check that if a components has an error state machine, all
 			 * states are referenced.
 			 */
@@ -240,9 +238,12 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 
 					}
 				}
+
 			}
 			
 			/**
+			 * Rule C11: Composite error behavior: indicate the condition for each state of the component
+			 * 
 			 * Let also check that if a components has an composite error state, all
 			 * states are referenced.
 			 */
@@ -270,10 +271,75 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 				}
 			}
 			
+			
+			/**
+			 * Rule C12: Composite error behavior references all subcomponents
+			 */
+			if (EMV2Util.hasCompositeErrorBehavior(componentInstance))
+			{
+				EList<Subcomponent> subcomponents;
+				
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
+				{
+					subcomponents = new BasicEList<Subcomponent>();
+					
+					for (CompositeErrorBehavior ceb : EMV2Util.getAllCompositeErrorBehaviors (componentInstance))
+					{
+						for (CompositeState cs : ceb.getStates())
+						{
+							if (cs.getState() == ebs)
+							{
+								for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (cs))
+								{
+									for (SubcomponentElement se : ce.getSubcomponents())
+									{
+										//OsateDebug.osateDebug("se=" + se.getSubcomponent() );
+										//se.getSubcomponent()
+										if (se != null)
+										{
+											subcomponents.add(se.getSubcomponent());
+										}
+									}
+									//OsateDebug.osateDebug("bla" + ce.getSubcomponents() );
+									
+								}
+							}
+						}
+						
+					}
+					
+					for (ComponentInstance ci : componentInstance.getComponentInstances())
+					{
+						boolean found = false;
+						for (Subcomponent s : subcomponents)
+						{
+							if (s == ci.getSubcomponent())
+							{
+								found = true;
+							}
+						}
+						if (! found)
+						{
+							error(componentInstance,"Component " + ci.getName() + " is not referenced for state " + EMV2Util.getPrintName(ebs) + " in component " + componentInstance.getName() );
+						}
+					}
+				}
+			}
+			
+			
+			
 			/**
 			 * First, we check that if the component has error propagation, it references
 			 * at least ALL error types from ALL incoming propagations.
 			 */
+			EList<ConditionElement> propagations = new BasicEList<ConditionElement>();
+			
+			
+			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+			{
+				propagations.addAll(EMV2Util.getAllConditionElementsFromConditionExpression (ebt));
+			}
+			
 			if (propagations.size() > 0)
 			{
 				for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))

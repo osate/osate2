@@ -48,6 +48,7 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
@@ -1806,6 +1807,13 @@ public class EMV2Util {
 	{
 		EList<ConditionElement> result = new BasicEList<ConditionElement> ();
 		getAllConditionElementsFromConditionExpression (result, ebt.getCondition());
+		return result;
+	}
+	
+	public static Collection<ConditionElement> getAllConditionElementsFromConditionExpression (CompositeState cs)
+	{
+		EList<ConditionElement> result = new BasicEList<ConditionElement> ();
+		getAllConditionElementsFromConditionExpression (result, cs.getCondition());
 		return result;
 	}
 	
