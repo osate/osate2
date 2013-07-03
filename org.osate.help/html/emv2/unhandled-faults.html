@@ -55,11 +55,18 @@ set on the OSATE github area
 	
 	<h4>C1: Error source and error sink compliance</h4>
 	<p>
-	This consist in ensuring that for each error source,
+	This consists in ensuring that for each error source,
 	there is an error sink at the end. We also check
-	that all types propagates from the error source
+	that all types propagated from the error source
 	are handled by the error sink and/or being
 	transformed with an error path.
+	</p>
+	
+	
+	<p>
+		<strong>Note:</strong>
+		when failing, we go through all connection reference of the
+		connection instance to check where the fault is not correctly handled.
 	</p>
 	
 	
@@ -96,13 +103,38 @@ set on the OSATE github area
 			propagation referenced in the conditions
 		</li>
 	</ul>
+
+<pre>
+system implementation receiver2.i5
+annex EMV2 {**
+	use types ErrorLibrary; 
+	use behavior ErrorModelLibrary::Simple;
+	error propagations
+		valuein1 : in propagation {LateDelivery};
+		valueout1 : out propagation {ValueError};
+		valuein2 : in propagation {LateDelivery};
+		valueout2 : out propagation {ValueError};
+	flows
+		f1 : error path valuein1 {LateDelivery} -> valueout1 (ValueError);
+		f3 : error sink valuein2 {LateDelivery}; 
+		f4 : error source valueout2 {ValueError};
+	end propagations;
 	
-	<h4>Check that for all error propagation, we have a sink or path and completeness of all the types</h4>
-	
-	<h4>For all connection instance, check consistency of each connection reference</h4>
-	
-	<h4>In the component error behavior, check that we have a transition between each state.</h4>
-	<p>Corresponds to the liveliness of the state machine.
+	component error behavior
+	propagations
+		p1 : Operational -[]-> valueout1(ValueError); -- Error, this is part of an error path
+		p3 : Operational -[]-> valueout2(ValueError); -- OK
+	end component;
+**};
+end receiver2.i5;
+</pre>
+
+		
+	<h4>C5: In the component error behavior, check that we have a transition between each state.</h4>
+	<p>
+	This corresponds to the liveliness property of the state machine, we check that
+	we do not have dead state. This shall be a warning because some design would require
+	to have dead state. On the other hand, a warning would be useful.
 	</p>
 	<pre>
 	system implementation receiver2.i4
@@ -124,8 +156,11 @@ set on the OSATE github area
 	end receiver2.i4;
 	</pre>
 	
-	<h4>Check completeness of all outgoing error propagation condition: we address and cover all error types</h4>
-	
+	<h4>C6: Check completeness of all outgoing error propagation condition: we address and cover all error types</h4>
+	<p>
+	For all outgoing propagation conditions, we make sure that all outgoing propagation
+	is propagated with the appropriate error type.
+	</p>
 	<pre>
 	system implementation receiver2.i3
 	annex EMV2 {**
@@ -146,8 +181,12 @@ set on the OSATE github area
 	</pre>
 	
 	
-	<h4>Check that when having an error sink, we do not propagate any error</h4>
-	
+	<h4>C7: Check that when having an error sink, we do not propagate any error</h4>
+	<p>
+	For all error sink, we can have a transition that is triggered,
+	but the error sink cannot be part of the error condition
+	of an outgoing error propagation condition.
+	</p>
 	<pre>
 	system implementation receiver2.i1
 	annex EMV2 {**
@@ -170,37 +209,18 @@ set on the OSATE github area
 	end receiver2.i1;
 	</pre>
 	
-	
-	<h4>Check that in a propagation section, the referenced conditions in an expression are declared as an error path</h4>
-	
-	<pre>
-	system implementation receiver2.i2
-	annex EMV2 {**
-		use types ErrorLibrary; 
-		use behavior ErrorModelLibrary::Simple;
-		error propagations
-			valuein1 : in propagation {LateDelivery};
-			valueout1 : out propagation {ValueError};
-			valuein2 : in propagation {LateDelivery};
-			valueout2 : out propagation {ValueError};
-		flows
-			f1 : error path valuein1 {LateDelivery} -> valueout1 (ValueError);
-			f3 : error sink valuein2 {LateDelivery}; 
-			f4 : error source valueout2 {ValueError};
-		end propagations;
-		
-		component error behavior
-		propagations
-			p1 : Operational -[ valuein1{LateDelivery}]-> valueout1(ValueError); -- OK, we have the path
-			p3 : Operational -[ valuein2{LateDelivery}]-> valueout2(ValueError); -- error, we should declare a path here
-		end component;
-	**};
-	end receiver2.i2;
-	</pre>
+
 	
 	
 	
-	<h4>Check that when having an error source, in the propagation section, this can be indicated only without incoming conditions or just with conditions representing event.</h4>
+	<h4>C8: error source can be triggered by propagations only without any incoming error propagation</h4>
+	<p>
+	Check that when having an error source, in the propagation section, this can be indicated only without 
+	incoming conditions or just with conditions representing event. If there is a condition associated
+	to the outgoing propagation condition, the element can be only an event. If there is an incoming
+	error propagation, then, rule C7 will apply.
+	</p>
+	
 	<pre>
 	system implementation receiver2.i5
 	annex EMV2 {**
@@ -226,14 +246,23 @@ set on the OSATE github area
 	end receiver2.i5;
 	</pre>
 	
+	<!--
+	<h4>C9: Check completeness of types of events and makes sure each types trigger a conditions or a propagation (=has an impact on the system)<h4>
+	<p>
+	Make sure that for each error event, we have a reference within the state machine
+	and in the propagation section. In the state nachine
+	</p>
+	-->
 	
-	<h4>Check completeness of types of events and makes sure each types trigger a conditions or a propagation (=has an impact on the system)
 	
 	
 	
-	
-	
-	<h4>Check that there is no transition with the same condition and source state</h4>
+	<h4>C9: Check that there is no transition with the same condition and source state</h4>
+	<p>
+	Each transition in the component error state machine shall be independent. In other
+	word, for each transition going from state S1 to state S2, they might be only one condition similar condition.
+	We can have several transitions from S1 to S2, but their associated condition must be different.
+	</p>
 	<pre>
 	system implementation receiver2.i4
 	annex EMV2 {**
@@ -259,7 +288,12 @@ set on the OSATE github area
 	
 	
 	
-	<h4>Check that for each state, all incoming propagation and all events are referenced</h4>
+	<h4>C10: Check that for each state transition, all elements are referenced</h4>
+	<p>
+	We check that for each transition, all incoming propagations and error events
+	(and their associated types) are correctly addressed.
+	</p>
+	
 	<pre>
 	system implementation receiver2.i6
 	annex EMV2 {**
@@ -288,7 +322,11 @@ set on the OSATE github area
 	
 	
 	
-	<h4>Composite error behavior: indicate the condition for each state of the component</h4>
+	<h4>C11: Composite error behavior: indicate the condition for each state of the component</h4>
+	<p>
+	For each state of the component, we make sure the composite error behavior specifies the condition.
+	This validates the completness of the composite error state.
+	</p>
 	<pre>
 	system implementation assembly.i0
 	subcomponents
@@ -313,7 +351,12 @@ set on the OSATE github area
 	
 	
 	
-	<h4>Composite error behavior: reference all states from all subcomponents</h4>
+	<h4>C12: Composite error behavior references all subcomponents</h4>
+	<p>
+	For each composite error behavior state, we make sure we reference
+	all subcomponent. So, we make sure that the state machine is not ambiguous.
+	</p>
+	
 	<pre>
 	system implementation assembly.i0
 	subcomponents
@@ -340,7 +383,12 @@ set on the OSATE github area
 	
 	
 	
-	<h4>Composite error behavior: check compliance between error state machine and internal events.</h4>
+	<h4>Composite error behavior: check compliance between component state machine and composite error state machine</h4>
+	<p>
+	A state can have different definition: in the component error state machine and the composite error
+	state machine. The goal of this check is to make sure that the probability definition
+	from the component state machine is consistent with the composite state machine.
+	</p>
 	<pre>
 	system implementation assembly.i2
 	subcomponents
@@ -391,7 +439,11 @@ set on the OSATE github area
 	
 	
 	<h4>Check for undeclared error path</h4>
-	
+	<p>
+	Within an architecture, some error path could be missing and not declared, especially
+	when agregating/composing the architecture. This checks aims at discovering such
+	issue and warn the user of some potential missing error path.
+	</p>
 	<pre>
 	package unhandled_faults3
 	
@@ -463,7 +515,11 @@ set on the OSATE github area
 	
 	
 	<h4>Check that if a component declare an error path, any connection from the associated feature go into a feature which is also an error sink</h4>
-	
+	<p>
+	When a component declares an error sink as error flow, the feature can be connected to subcomponent but the ultimate destination must
+	be an error sink. The feature cannot be connected to component that declares a single error flow. Likely, the failure <strong>must be handled</strong>
+	within a subcomponent.
+	</p>	
 	
 	
 	<pre>
