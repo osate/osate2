@@ -50,6 +50,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -61,6 +62,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
@@ -70,6 +72,8 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
+	AnalysisModel model;
+	
 	protected String getMarkerType() {
 		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
 	}
@@ -89,7 +93,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		else return;
 
 		setCSVLog("UnhandledFaults", si);
-		AnalysisModel model = new AnalysisModel(si);
+		model = new AnalysisModel(si);
 		EList<PropagationPath> pathlist = model.getPropagationPaths();
 		for (PropagationPath path : pathlist) {
 			checkPropagationPathErrorTypes(path);
@@ -209,10 +213,38 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	
 	protected void checkComponent(ComponentInstance componentInstance, AnalysisModel model)
 	{
-
+		
 		if (EMV2Util.hasComponentErrorBehavior(componentInstance))
 		{
+			/*
+			 * Rule C7: we do not propagate error with a condition from a sink
+			 */
+			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
+			{
 
+				for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (opc))
+				{
+					if (ce.getIncoming() != null)
+					{
+						for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
+						{
+							if (ef instanceof ErrorSink)
+							{
+								ErrorSink es = (ErrorSink) ef;
+								OsateDebug.osateDebug("esinc" + es.getIncoming() );
+								OsateDebug.osateDebug("ceinc" + ce.getIncoming() );
+								if (es.getIncoming() == ce.getIncoming())
+								{
+									error(componentInstance,"Propagation " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " depends on an error sink");
+
+								}
+							}
+						}
+					}
+					OsateDebug.osateDebug("bla" + ce.getIncoming() );
+					
+				}
+			}
 			
 			
 			/**

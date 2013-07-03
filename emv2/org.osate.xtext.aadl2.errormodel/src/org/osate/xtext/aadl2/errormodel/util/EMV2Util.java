@@ -430,6 +430,12 @@ public class EMV2Util {
 		return result;
 	}
 	
+	public static Collection<ComponentErrorBehavior> getAllComponentErrorBehaviors(ComponentInstance ci)
+	{
+		return getAllComponentErrorBehaviors(ci.getComponentClassifier());
+	}
+
+	
 	/**
 	 * return list of Composite error behaviors including those inherited from classifiers being extended
 	 * @param cl Classifier
@@ -1602,7 +1608,11 @@ public class EMV2Util {
 		return result.values();
 	}
 
-	
+	public static Collection<ErrorFlow> getAllErrorFlows(ComponentInstance ci)
+	{
+		return getAllErrorFlows(ci.getComponentClassifier());
+	}
+
 	
 	/**
 	 * return list of error sources including those inherited from classifiers being extended
@@ -1804,6 +1814,13 @@ public class EMV2Util {
 	 * @return all the condition element related to the behavior transition
 	 */
 	public static Collection<ConditionElement> getAllConditionElementsFromConditionExpression (ErrorBehaviorTransition ebt)
+	{
+		EList<ConditionElement> result = new BasicEList<ConditionElement> ();
+		getAllConditionElementsFromConditionExpression (result, ebt.getCondition());
+		return result;
+	}
+	
+	public static Collection<ConditionElement> getAllConditionElementsFromConditionExpression (OutgoingPropagationCondition ebt)
 	{
 		EList<ConditionElement> result = new BasicEList<ConditionElement> ();
 		getAllConditionElementsFromConditionExpression (result, ebt.getCondition());
