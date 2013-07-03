@@ -613,12 +613,19 @@ public abstract class ComponentImplementationImpl extends
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setExtended(ComponentImplementation newExtended) {
-		// TODO: implement this method to set the 'Extended' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if ( newExtended == null ) {
+			setOwnedExtension( null );
+		}
+		else {
+			if ( getOwnedExtension() == null ) {
+				createOwnedExtension();
+			}
+			
+			getOwnedExtension().setExtended( newExtended );
+		}
 	}
 
 	/**
@@ -727,12 +734,19 @@ public abstract class ComponentImplementationImpl extends
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setType(ComponentType newType) {
-		// TODO: implement this method to set the 'Type' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if ( newType == null ) {
+			setOwnedRealization( null );
+		}
+		else {
+			if ( getOwnedRealization() == null ) {
+				createOwnedRealization();
+			}
+			
+			getOwnedRealization().setImplemented( newType );
+		}
 	}
 
 	/**
