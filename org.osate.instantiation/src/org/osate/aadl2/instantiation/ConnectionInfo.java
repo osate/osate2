@@ -164,9 +164,9 @@ class ConnectionInfo {
 	public ConnectionInstance createConnectionInstance(final String name, final ConnectionInstanceEnd dst) {
 		final ConnectionInstance conni;
 // XXX phf the code below diables out only and in only connection instances
-		if (!across) {
-			return null;
-		}
+//		if (!across) {
+//			return null;
+//		}
 		//OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
 		kind = getKind(dst);
 		// TODO-LW: complete = ...;
@@ -193,7 +193,6 @@ class ConnectionInfo {
 		}
 		conni.setSource(src);
 		conni.setDestination(dst);
-		OsateDebug.osateDebug("Connection "+name+" is complete "+complete);
 		conni.setComplete(across);
 		conni.setKind(kind);
 		return conni;

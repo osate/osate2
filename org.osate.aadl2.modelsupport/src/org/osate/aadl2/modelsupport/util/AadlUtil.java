@@ -1607,14 +1607,6 @@ public final class AadlUtil {
 		}
 	}
 
-	private static EList<Property> getPropertyDefinitions(final Set<PropertySet> propSets) {
-		final EList<Property> result = new BasicEList<Property>();
-		for (PropertySet ps : propSets) {
-			result.addAll(ps.getOwnedProperties());
-		}
-		return result;
-	}
-
 	/**
 	 * determine whether a component instance has subcomponents that can have
 	 * outgoing connections
