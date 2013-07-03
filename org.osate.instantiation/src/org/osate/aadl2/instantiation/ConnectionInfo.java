@@ -194,7 +194,7 @@ class ConnectionInfo {
 		conni.setSource(src);
 		conni.setDestination(dst);
 		OsateDebug.osateDebug("Connection "+name+" is complete "+complete);
-		conni.setComplete(complete);
+		conni.setComplete(across);
 		conni.setKind(kind);
 		return conni;
 	}
