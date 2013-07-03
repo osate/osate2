@@ -170,6 +170,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 		return false;
 	}
+
+	private boolean isOpposite (Feature feature, Connection connection) 
+	{
+		List<Feature> 	features= feature.getAllFeatureRefinements();
+		if (features.contains(connection.getAllSource())){
+			return false;
+		} else {
+			if (connection.isBidirectional()&& features.contains(connection.getAllDestination()) ){
+			// we are going the other way on a bi-directional connection
+			return true;
+			}
+		}
+		return false;
+	}
 		
 	
 	/*
@@ -213,6 +227,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						// process first component of innermost array only
 						instantiateConnections(ci);
 					}
+				} else {
+					instantiateExternalConnections((SystemInstance)ci);
 				}
 				return DONE;
 			}
@@ -240,6 +256,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (parentci instanceof SystemInstance) 
 		{
 			monitor.subTask("Creating connections in  " + ci.getName());
+			// do externally incoming connections starting with system instance
 		}
 
 		if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP)
@@ -307,6 +324,35 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						}
 					}
 				}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Create all connection instances that with an incoming port of the SystemInstance.
+	 * 
+	 * @param ci The component that is the ultimate source; 
+	 */
+	private void instantiateExternalConnections(final SystemInstance ci)  
+	{
+		List<Connection> sysConns = 
+				InstanceUtil.getComponentImplementation(ci, 0, classifierCache).getAllConnections();
+
+		for (FeatureInstance featurei : ci.getFeatureInstances()) 
+		{
+			if (featurei.getDirection().incoming()) 
+			{
+				List<Connection> inConns = filterIngoingConnections(sysConns, featurei.getFeature());
+				for (Connection conn : inConns) 
+				{
+						boolean opposite = isOpposite (featurei.getFeature(), conn);
+
+						appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, ci, opposite);
+						if (monitor.isCanceled()) 
+						{
+							return;
+						}
 				}
 			}
 		}
@@ -1239,46 +1285,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		return result;
 	}
 
-	/**
-	 * Filter connections that enter a subcomponent through one of its features.
-	 * 
-	 * @param connlist all connections in the component instance that contains
-	 *            the subcomponent
-	 * @param sub a subcomponent
-	 * @return those connections from connlist that have a subcomponent feature
-	 *         as their destination
-	 */
-//	private List<Connection> filterIncomingConnections(List<Connection> connlist, Subcomponent sub) {
-//		List<Connection> result = new ArrayList<Connection>(connlist.size());
-//		List<Subcomponent> sclist = sub.getAllSubcomponentRefinements();
-//
-//		for (Connection conn : connlist) {
-//			if (sclist.contains(conn.getAllDestinationContext()) || conn.isBidirectional()
-//					&& sclist.contains(conn.getAllSourceContext())) {
-//				result.add(conn);
-//			}
-//		}
-//		return result;
-//	}
 
 	/**
-	 * get incoming connections for specified feature This method does not work
-	 * on subcomponent, because we need the enclosing subcomponent rather than
-	 * the enclosing component implementation in order to get the subcomponent
-	 * inheritance correct Otherwise the incorrect connections get picked up
-	 * 
+	 * get ingoing connections for specified feature  
 	 * @param incomingconnlist
-	 * @param feature subcomponent feature that is the destination of a
-	 *            connection
+	 * @param feature subcomponent feature that is the source of a connection
 	 * @return connections with feature as destination
 	 */
-	public List<Connection> filterIncomingConnections(List<Connection> incomingconnlist, Feature feature) {
+	public List<Connection> filterIngoingConnections(List<Connection> incomingconnlist, Feature feature) {
 		List<Connection> result = new ArrayList<Connection>(incomingconnlist.size());
 		List<Feature> featurel = feature.getAllFeatureRefinements();
 
 		for (Connection conn : incomingconnlist) {
-			if (featurel.contains(conn.getAllDestination()) || conn.isBidirectional()
-					&& featurel.contains(conn.getAllSource())) {
+			if (featurel.contains(conn.getAllSource()) || conn.isBidirectional()
+					&& featurel.contains(conn.getAllDestination())) {
 				result.add(conn);
 			}
 		}
