@@ -619,21 +619,13 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			for (ComponentInstance subci : subcis) {
 				EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getOutgoingConnectionReferences(subci);
 				for (ConnectionReference connref : connrefs) {
-					ConnectionInstanceEnd srcConnectionInstanceEnd = connref.getSource();
-					ConnectionInstanceEnd dstConnectionInstanceEnd = connref.getDestination();
-//					if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
 						connectionList.add(new ConnectionItem(connref));
-//					}
 				}
 			}
 			// now connections that come from outside the containing component
 			EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getIncomingConnectionReferences(ci);
 			for (ConnectionReference connref : connrefs) {
-				ConnectionInstanceEnd srcConnectionInstanceEnd = connref.getSource();
-				ConnectionInstanceEnd dstConnectionInstanceEnd = connref.getDestination();
-//				if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
 					connectionList.add(new ConnectionItem(connref));
-//				}
 			}
 			// now any incoming or outgoing that are not represented by connection instances
 			ComponentClassifier cl = ci.getComponentClassifier();
@@ -797,30 +789,6 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		return connectionEndInstance;
 	}
 
-
-
-//	protected boolean checkForDuplicateFeatureGroupConnection(ConnectionInstanceEnd src, ConnectionInstanceEnd dst, List<FeatureGroupConnection> featureGroupConnections) {
-//		boolean retValue = false;
-//
-//		if (src instanceof FeatureInstance && dst instanceof FeatureInstance) {
-//			FeatureCategory srcCat = ((FeatureInstance) src).getCategory();
-//			FeatureCategory dstCat = ((FeatureInstance) dst).getCategory();
-//
-//			// Check if the src and dst are both feature groups.
-//			if (srcCat == FeatureCategory.FEATURE_GROUP && dstCat == FeatureCategory.FEATURE_GROUP) {
-//				// XXX new object is created, thus, it will never be found in the featureGroupConnection list
-//				FeatureGroupConnection featureGroupConnection = new FeatureGroupConnection(src, dst);
-//				if (featureGroupConnections.contains(featureGroupConnection)) {
-//					retValue = true; // Duplicate found.
-//				} else {
-//					// No duplicate found.
-//					featureGroupConnections.add(featureGroupConnection);
-//				}
-//			}
-//		}
-//
-//		return retValue;
-//	}
 
 
 	private FeatureAdapterCategory getFeatureCategory(NamedElement feature) {
