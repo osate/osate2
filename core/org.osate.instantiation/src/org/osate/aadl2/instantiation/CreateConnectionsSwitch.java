@@ -895,10 +895,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)downFi.getOwner()).getFeature()).getFeatureGroupType();
 					FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance) srcEnd).getFeature()).getFeatureGroupType();
 					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
-						dstEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
+						srcEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
 					}
 				} else {
-					dstEnd = resFi;
+					srcEnd = resFi;
 				}
 			}
 		}
