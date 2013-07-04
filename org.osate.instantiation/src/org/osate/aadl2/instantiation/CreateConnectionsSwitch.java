@@ -901,6 +901,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					srcEnd = resFi;
 				}
 			}
+			connInfo.src = srcEnd;
 		}
 
 		if (srcEnd instanceof ComponentInstance && dstEnd instanceof ComponentInstance) {
