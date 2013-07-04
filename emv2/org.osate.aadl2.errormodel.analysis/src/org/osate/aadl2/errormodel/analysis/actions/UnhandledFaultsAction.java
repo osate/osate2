@@ -47,6 +47,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -501,6 +502,53 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 				}
 
 			}
+			/**
+			 * End of implementation of C5
+			 */
+			
+			/**
+			 * Rule C6: Check completeness of all outgoing error propagation condition: we address and cover all error types
+			 */
+			if (EMV2Util.hasErrorPropagationsSection(componentInstance))
+			{
+				for (ErrorPropagation ep : EMV2Util.getAllErrorPropagations(componentInstance))
+				{
+					EList<TypeToken> epTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
+	
+					for (TypeToken tt : epTokens)
+					{
+						OsateDebug.osateDebug("check for type" + EMV2Util.getPrintName(tt) );
+						boolean found = false;
+						for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
+						{
+							if (opc.getOutgoing() == ep)
+							{
+								
+								if (EM2TypeSetUtil.contains(opc.getTypeToken(), tt))	
+								{
+									OsateDebug.osateDebug("found" + EMV2Util.getPrintName(tt) );
+
+									found = true;
+								}		
+							}
+						}
+	
+						if (!found)
+						{
+							error(componentInstance,"C6: error propagation " + EMV2Util.getPrintName(ep) + " does not have a corresponding propagation condition for type " + EMV2Util.getPrintName(tt) + "or any other super-type");
+						}
+					}
+					if (ep.getDirection() == DirectionType.OUT)
+					{
+	
+						OsateDebug.osateDebug("blaep=" + ep);
+					}
+				}
+			}
+			/**
+			 * End of implementation of C6
+			 */
+			
 			
 			/**
 			 * Rule C7: we do not propagate error with a condition from a sink
