@@ -1422,7 +1422,7 @@ public class InstantiateModel {
 		ComponentInstance container = conni.getContainingComponentInstance();
 		ConnectionInstance newConn = EcoreUtil.copy(conni);
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
-		ConnectionReference topConnRef = Aadl2InstanceUtil.getAcrossConnectionReference(newConn);
+		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
 		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
 				srcIndices, true);

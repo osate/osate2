@@ -1,15 +1,9 @@
 package org.osate.aadl2.util;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
@@ -184,80 +178,28 @@ public class Aadl2InstanceUtil {
 		}
 		return false;
 	}
-
-	/**
-	 * Find the source endpoint of the connection in the specified component instance
-	 * the endpoint can be a feature instance or a component instance
-	 * The connection instance may go inside the component instance
-	 * @param ci context component instance
-	 * @param conni connection instance
-	 * @return InstanceObject
-	 */
-	public static ConnectionInstanceEnd getSrcEndPointInstance(ComponentInstance ci, ConnectionInstance conni) {
-		for (ConnectionReference connRef : conni.getConnectionReferences()) {
-			if (connRef.getContext() == ci) {
-				return connRef.getSource();
-//				Connection conn = connRef.getConnection();
-//				final ConnectionEnd srcF = conn.getAllSource();
-//				final Context srcCtxt = conn.getAllSourceContext();
-//				final ConnectionInstanceEnd srcInstance = conni.getInstantiatedEndPoint(connRef.getContext(), srcF, srcCtxt);
-//				return srcInstance;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Find the destination endpoint of the connection in the specified component instance
-	 * the endpoint can be a feature instance or a component instance
-	 * The connection instance may go inside the component instance
-	 * @param ci context component instance
-	 * @param conni connection instance
-	 * @return InstanceObject
-	 */
-	public static ConnectionInstanceEnd getDestEndPointInstance(ComponentInstance ci, ConnectionInstance conni) {
-		for (ConnectionReference connRef : conni.getConnectionReferences()) {
-			if (connRef.getContext() == ci.getContainingComponentInstance()) {
-				return connRef.getDestination();
-//				Connection conn = connRef.getConnection();
-//				final ConnectionEnd dstF = conn.getAllDestination();
-//				final Context dstCtxt = conn.getAllDestinationContext();
-//				if (ci.getSubcomponent() == dstCtxt) {
-//					final ConnectionInstanceEnd dstInstance = conni.getInstantiatedEndPoint(connRef.getContext(), dstF,
-//							dstCtxt);
-//					return dstInstance;
-//				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Find the destination endpoint of the connection in the specified component instance
-	 * the endpoint can be a feature instance or a component instance
-	 * The connection instance may go inside the component instance
-	 * @param cilist  component instances that could be the target
-	 * @param conni connection instance
-	 * @return InstanceObject
-	 */
-	public static ConnectionInstanceEnd getDestEndPointInstance(Collection<ComponentInstance> cilist, ConnectionInstance conni) {
-		for (ConnectionReference connRef : conni.getConnectionReferences()) {
-			if (cilist.contains(connRef.getContext()) ) {
-				return connRef.getDestination();
-			}
-		}
-		return null;
-	}
 	
-	
-	public static ConnectionReference getAcrossConnectionReference(ConnectionInstance conni){
+	public static ConnectionReference getTopConnectionReference(ConnectionInstance conni){
 		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
 		for (ConnectionReference connectionReference : connrefs) {
 			ComponentInstance cxt = connectionReference.getContext();
 			if (cxt != connectionReference.getSource().getComponentInstance()
 					&& cxt != connectionReference.getDestination().getComponentInstance()){
+				// going across
 				return connectionReference;
 			}
+		}
+		ConnectionReference connectionReference = connrefs.get(0);
+		ComponentInstance cxt = connectionReference.getContext();
+		if (cxt == connectionReference.getSource().getComponentInstance()){
+			// incoming top conn ref
+			return connectionReference;
+		}
+		connectionReference = connrefs.get(connrefs.size()-1);
+		cxt = connectionReference.getContext();
+		if (cxt == connectionReference.getDestination().getComponentInstance()){
+			// outgoing top conn ref
+			return connectionReference;
 		}
 		return null;
 	}
