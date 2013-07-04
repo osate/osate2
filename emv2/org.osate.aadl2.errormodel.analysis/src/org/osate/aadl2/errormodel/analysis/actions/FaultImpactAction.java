@@ -77,6 +77,8 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 				faultimpact.startErrorFlows(componentInstance);
 			}
 		}
+//		logInfo("\n\nImpact of external error sources");
+//		faultimpact.startExternalFlows(si);
 		faultimpact.saveReport();
 
 		monitor.done();

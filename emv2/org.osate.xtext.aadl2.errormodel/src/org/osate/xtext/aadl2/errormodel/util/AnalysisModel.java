@@ -62,7 +62,7 @@ public class AnalysisModel {
 				populateBindingPaths(ci);
 			}
 		}
-// DEBUG printPropagationPaths();
+ printPropagationPaths();
 	}
 	
 	public AnalysisModel(ComponentInstance root, boolean closest) {
@@ -127,17 +127,19 @@ public class AnalysisModel {
 					srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
 				}
 			} else {
+				// for enclosing components record an outgoing path if there are incoming propagations that need to be passed on
 				if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()
 						&&EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src) != null){
-					// remember the first src with EP
 					EList<FeatureInstance> flist = ((FeatureInstance)src).getContainingComponentInstance().getFeatureInstances();
 					for (FeatureInstance featureInstance : flist) {
 						if (EMV2Util.getIncomingErrorPropagation(featureInstance) != null){
+							// there is an incoming propagation, so we need to deal with outgoing
 							addlconnref.add(connectionReference);
 							break;
 						}
 					}
 				} else if (src instanceof ComponentInstance){
+					// a shared model element 
 					if( EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) != null){
 						addlconnref.add(connectionReference);
 						break;
