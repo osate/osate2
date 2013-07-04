@@ -46,6 +46,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -69,6 +70,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -1576,7 +1578,123 @@ public class EMV2Util {
 	public static Collection<ErrorPropagation> getAllErrorPropagations(ComponentInstance ci){
 		return getAllErrorPropagations(ci.getComponentClassifier());
 	}
+	
+	public static boolean isEqual (ConditionExpression ce1 , ConditionExpression ce2)
+	{
+		if ((ce1 == null) && (ce2 == null))
+		{
+			return true;
+		}
+		
+		if (ce1 == null)
+		{
+			return false;
+		}
+		
+		if (ce2 == null)
+		{
+			return false;
+		}
+		
+		if (ce1.getClass() != ce2.getClass())
+		{
+			return false;
+		}
+		// ConditionElement
+		// AndExpression
+		// SAndExpression
+		// OrlessExpression
+		// SOrExpression
+		// SAndExpression
+		// OrmoreExpression
+		if (ce1 instanceof ConditionElement)
+		{
+			ConditionElement element1 = (ConditionElement) ce1;
+			ConditionElement element2 = (ConditionElement) ce2;
+			return (element1.getIncoming() == element2.getIncoming());
+		}
+		
+		if (ce1 instanceof AndExpression)
+		{
+			AndExpression expr1 = (AndExpression) ce1;
+			AndExpression expr2 = (AndExpression) ce2;
+			if (expr1.getOperands().size() != expr2.getOperands().size())
+			{
+				return false;
+			}
+			
+			for (int i = 0 ; i < expr1.getOperands().size() ; i++)
+			{
+				if (! isEqual (expr1.getOperands().get(i),expr2.getOperands().get(i)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		if (ce1 instanceof OrExpression)
+		{
+			OrExpression expr1 = (OrExpression) ce1;
+			OrExpression expr2 = (OrExpression) ce2;
+			if (expr1.getOperands().size() != expr2.getOperands().size())
+			{
+				return false;
+			}
+			
+			for (int i = 0 ; i < expr1.getOperands().size() ; i++)
+			{
+				if (! isEqual (expr1.getOperands().get(i),expr2.getOperands().get(i)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		
 
+		if (ce1 instanceof SAndExpression)
+		{
+			SAndExpression expr1 = (SAndExpression) ce1;
+			SAndExpression expr2 = (SAndExpression) ce2;
+			if (expr1.getOperands().size() != expr2.getOperands().size())
+			{
+				return false;
+			}
+			
+			for (int i = 0 ; i < expr1.getOperands().size() ; i++)
+			{
+				if (! isEqual (expr1.getOperands().get(i),expr2.getOperands().get(i)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		if (ce1 instanceof SOrExpression)
+		{
+			SOrExpression expr1 = (SOrExpression) ce1;
+			SOrExpression expr2 = (SOrExpression) ce2;
+			if (expr1.getOperands().size() != expr2.getOperands().size())
+			{
+				return false;
+			}
+			
+			for (int i = 0 ; i < expr1.getOperands().size() ; i++)
+			{
+				if (! isEqual (expr1.getOperands().get(i),expr2.getOperands().get(i)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		OsateDebug.osateDebug ("[EMV2Util] isEqual does not handled this class type " + ce1 +"|" + ce2);
+		return false;
+	}
 	
 	/**
 	 * return list of error containments including those inherited from classifiers being extended

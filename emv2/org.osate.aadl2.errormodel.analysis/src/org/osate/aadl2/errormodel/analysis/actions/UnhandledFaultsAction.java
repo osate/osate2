@@ -576,9 +576,38 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					
 				}
 			}
+			/**
+			 * End of implementation of C7
+			 */
+			
+			/**
+			 * Rule C9: Check that there is no transition with the same condition and source state
+			 */
+			for (ErrorBehaviorTransition ebt1 : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+			{	
+				for (ErrorBehaviorTransition ebt2 : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+				{	
+					if ((ebt1 != ebt2) && (ebt1.getSource() == ebt2.getSource()))
+					{
+						if (EMV2Util.isEqual (ebt1.getCondition(), ebt2.getCondition()))
+						{
+							error(componentInstance,"C9: transition " + EMV2Util.getPrintName(ebt1) + " is similar to transition " + EMV2Util.getPrintName(ebt2) +  " in component " + componentInstance.getName());
+
+						}
+					}
+				}	
+			}
+			/**
+			 * End of implementation of C9
+			 */
 			
 			
-		
+			/**
+			 * Rule C10: Check that for each state transition, all elements are referenced
+			 */
+			/**
+			 * End of implementation of C10
+			 */
 			
 			/**
 			 * Rule C11: Composite error behavior: indicate the condition for each state of the component
