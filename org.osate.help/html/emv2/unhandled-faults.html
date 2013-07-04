@@ -72,10 +72,39 @@ set on the OSATE github area
 	
 	<h4>C2: Transitions of error component behavior use all incoming error propagations and error events</h4>
 	<p>
+	To be checked, might be redundant with C2.
+	</p>
+	<p>
 	We make sure that each all transitions having the same state source and state destination
 	use all incoming error propagations and error events. Also, when having incoming error
 	event, this can be only error sink and something referenced within an error path.
 	</p>
+		
+	<pre>
+	system implementation receiver2.i6
+	annex EMV2 {**
+		use types ErrorLibrary; 
+		use behavior ErrorModelLibrary::Simple;
+		error propagations
+			valuein1 : in propagation {ValueError};
+		flows 
+			f4 : error sink valuein1 {ValueError};
+		end propagations;
+		
+		component error behavior
+		events
+			e1 : error event;
+		transitions
+		-- Error : e1 is not referenced
+		-- we should have something like
+		--    t0 : Operational -[e1]-> Operational;
+			t1 : Operational -[ valuein1{ValueError} ]-> Failed; 
+		end component;
+	**};
+	end receiver2.i6;
+	</pre>
+	
+	
 	
 	<h4>C3: Outgoing propagation condition without condition are error source</h4>
 	<p>
@@ -215,6 +244,9 @@ end receiver2.i5;
 	
 	<h4>C8: error source can be triggered by propagations only without any incoming error propagation</h4>
 	<p>
+	To be checked, redundant with C3
+	</p>
+	<p>
 	Check that when having an error source, in the propagation section, this can be indicated only without 
 	incoming conditions or just with conditions representing event. If there is a condition associated
 	to the outgoing propagation condition, the element can be only an event. If there is an incoming
@@ -289,6 +321,9 @@ end receiver2.i5;
 	
 	
 	<h4>C10: Check that for each state transition, all elements are referenced</h4>
+	<p>
+	To be checked, redundant with C2
+	</p>
 	<p>
 	We check that for each transition, all incoming propagations and error events
 	(and their associated types) are correctly addressed.
