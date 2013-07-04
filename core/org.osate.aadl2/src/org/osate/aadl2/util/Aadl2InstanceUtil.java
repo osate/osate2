@@ -92,7 +92,7 @@ public class Aadl2InstanceUtil {
 		for (ConnectionInstance connectionInstance : it) {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
 			ConnectionInstanceEnd dst = connectionInstance.getDestination();
-			if (!containedIn(src, ci) && containedIn(dst, ci)) {
+			if ((!containedIn(src, ci)|| src.getContainingComponentInstance() == ci )&& containedIn(dst, ci)) {
 				EList<ConnectionReference> connreflist = connectionInstance.getConnectionReferences();
 				for (ConnectionReference connectionReference : connreflist) {
 					ComponentInstance pci = connectionReference.getContext();
@@ -124,7 +124,7 @@ public class Aadl2InstanceUtil {
 					Connection conn = connectionReference.getConnection();
 					ConnectionEnd ce = conn.getAllSource();
 					if (pci == ci.getContainingComponentInstance() && ce == f){
-						// add connection if it goers through feature instance
+						// add connection if it goes through feature instance
 						result.add(connectionInstance);
 					}
 				}
