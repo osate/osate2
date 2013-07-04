@@ -34,12 +34,20 @@ public class AnalysisModel {
 	protected EList<ConnectionInstance> connections = new BasicEList<ConnectionInstance>(); // connection instances whose bond resources have a emv2 propagation
 	
 	public AnalysisModel(ComponentInstance root) {
+		this(root, false);
+ printPropagationPaths();
+	}
+	
+	public AnalysisModel(ComponentInstance root, boolean closest) {
 		this.root = root;
 		List<ConnectionInstance> cilist = EcoreUtil2.getAllContentsOfType(root, ConnectionInstance.class);
 		for (ConnectionInstance connectionInstance : cilist) {
-			populateConnectionPropagationPaths(connectionInstance);
+			if (closest){
+			populateShortestConnectionPropagationPaths(connectionInstance);
+			} else {
+				populateConnectionPropagationPaths(connectionInstance);
+			}
 		}
-		
 		/**
 		 * 
 		 * We also browse the list of all component instances.
@@ -60,19 +68,6 @@ public class AnalysisModel {
 					ci.getCategory() == ComponentCategory.THREAD_GROUP|| ci.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
 			{
 				populateBindingPaths(ci);
-			}
-		}
- printPropagationPaths();
-	}
-	
-	public AnalysisModel(ComponentInstance root, boolean closest) {
-		this.root = root;
-		List<ConnectionInstance> cilist = EcoreUtil2.getAllContentsOfType(root, ConnectionInstance.class);
-		for (ConnectionInstance connectionInstance : cilist) {
-			if (closest){
-			populateShortestConnectionPropagationPaths(connectionInstance);
-			} else {
-				populateConnectionPropagationPaths(connectionInstance);
 			}
 		}
 	}
@@ -109,144 +104,184 @@ public class AnalysisModel {
 	 */
 	protected void populateConnectionPropagationPaths(ConnectionInstance connectionInstance){
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
+		if (connrefs.isEmpty()) return;
 		ErrorPropagation srcprop = null;
 		ComponentInstance srcCI = null;
 		ErrorPropagation dstprop = null;
 		ComponentInstance dstCI = null;
-		EList<ConnectionReference> addlconnref = new BasicEList<ConnectionReference>();
+		ConnectionReference first = connrefs.get(0);
+		boolean inonly = (first.getSource().getContainingComponentInstance() == first.getContext());
+		ConnectionReference last = connrefs.get(connrefs.size()-1);
+		boolean outonly = (last.getDestination().getContainingComponentInstance() == last.getContext());
+		EList<ComponentInstance> addlSrcCI = new BasicEList<ComponentInstance>();
+		EList<ErrorPropagation> addlSrcEP = new BasicEList<ErrorPropagation>();
 		for (ConnectionReference connectionReference : connrefs) {
 			ConnectionInstanceEnd src = connectionReference.getSource();
 			ConnectionInstanceEnd dst = connectionReference.getDestination();
 			if (srcprop == null){ 
-				if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()){
-					// remember the first src with EP
-					srcCI = ((FeatureInstance)src).getContainingComponentInstance();
-					srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
+				// remember the first src with EP
+				ErrorPropagation foundEP = null;
+				if( src instanceof FeatureInstance){
+					if (inonly){
+						foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance)src);
+					} else	{
+						foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
+					}  
 				} else if (src instanceof ComponentInstance){
-					srcCI = (ComponentInstance) src;
-					srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
+					// a shared model element 
+					if( inonly){
+						foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
+					} else {
+						foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) ;
+					}
+				}
+				if(foundEP != null){
+					srcprop = foundEP;
+					srcCI = src.getComponentInstance();
 				}
 			} else {
-				// for enclosing components record an outgoing path if there are incoming propagations that need to be passed on
-				if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()
-						&&EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src) != null){
-					EList<FeatureInstance> flist = ((FeatureInstance)src).getContainingComponentInstance().getFeatureInstances();
-					for (FeatureInstance featureInstance : flist) {
-						if (EMV2Util.getIncomingErrorPropagation(featureInstance) != null){
-							// there is an incoming propagation, so we need to deal with outgoing
-							addlconnref.add(connectionReference);
-							break;
-						}
+				// for enclosing components record an outgoing path 
+				// this is because we may have an incoming path ending here.
+				ErrorPropagation foundEP = null;
+				if( src instanceof FeatureInstance){
+					if (inonly){
+						foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance)src);
+					} else {
+						foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
 					}
 				} else if (src instanceof ComponentInstance){
 					// a shared model element 
-					if( EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) != null){
-						addlconnref.add(connectionReference);
-						break;
+					if( inonly){
+						foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
+					} else {
+						foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) ;
 					}
 				}
+				if(foundEP != null){
+					addlSrcEP.add(foundEP);
+					addlSrcCI.add(src.getComponentInstance());
+				}
+
 			}
 			// we have source. now find destination
-			if (dst instanceof FeatureInstance && ((FeatureInstance)dst).getDirection().incoming() ){
-				ErrorPropagation founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance)dst);
-				if (founddst != null){
-					// remember the last destination with EP
-					dstprop = founddst;
-					dstCI = ((FeatureInstance)dst).getContainingComponentInstance();
+			ErrorPropagation founddst=null;
+			if( dst instanceof FeatureInstance){
+				if( outonly){
+					founddst = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)dst);
+				} else {
+					founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance)dst);
 				}
 			} else if (dst instanceof ComponentInstance){
-				ErrorPropagation founddst = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance)dst);
-				if (founddst != null){
-					// remember the last destination with EP
-					dstprop = founddst;
-					dstCI = ((FeatureInstance)dst).getContainingComponentInstance();
+				// a shared model element 
+				if( outonly){
+					founddst = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) dst);
+				} else {
+					founddst = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) dst) ;
 				}
 			}
+			if (founddst != null){
+				// remember the last destination with EP
+				dstprop = founddst;
+				dstCI = dst.getComponentInstance();
+			}
+
 		}
 		if (srcprop!= null && dstprop!=null){
 			PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 			propagationPaths.add(path);
 			subcomponents.add(srcCI);
 			subcomponents.add(dstCI);
-			for (ConnectionReference connref : addlconnref) {
-				ConnectionInstanceEnd src = connref.getSource();
-				if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()){
-					// remember the first src with EP
-					srcCI = ((FeatureInstance)src).getContainingComponentInstance();
-					srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
-				} else if (src instanceof ComponentInstance){
-					srcCI = (ComponentInstance) src;
-					srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
-				}
+			for (int i = 0; i<addlSrcCI.size();i++) {
+				srcCI = addlSrcCI.get(i);
+				srcprop = addlSrcEP.get(i);
 				path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 				propagationPaths.add(path);
 				subcomponents.add(srcCI);
 			}
 		}
 		if (connectionInstance.isBidirectional()){
+			addlSrcCI.clear();
+			addlSrcEP.clear();
 			for (int i= connrefs.size()-1; i>= 0 ;i--) {
 				ConnectionReference connectionReference = connrefs.get(i);
 				ConnectionInstanceEnd dst = connectionReference.getSource();
 				ConnectionInstanceEnd src = connectionReference.getDestination();
 				if (srcprop == null){ 
-					if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()){
-						// remember the first src with EP
-						srcCI = ((FeatureInstance)src).getContainingComponentInstance();
-						srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
+					// remember the first src with EP
+					ErrorPropagation foundEP = null;
+					if( src instanceof FeatureInstance){
+						if (inonly){
+							foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance)src);
+						} else	{
+							foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
+						}  
 					} else if (src instanceof ComponentInstance){
-						srcCI = (ComponentInstance) src;
-						srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
+						// a shared model element 
+						if( inonly){
+							foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
+						} else {
+							foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) ;
+						}
+					}
+					if(foundEP != null){
+						srcprop = foundEP;
+						srcCI = src.getComponentInstance();
 					}
 				} else {
-					if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()
-							&&EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src) != null){
-						// remember the first src with EP
-						EList<FeatureInstance> flist = ((FeatureInstance)src).getContainingComponentInstance().getFeatureInstances();
-						for (FeatureInstance featureInstance : flist) {
-							if (EMV2Util.getIncomingErrorPropagation(featureInstance) != null){
-								addlconnref.add(connectionReference);
-								break;
-							}
+					// for enclosing components record an outgoing path 
+					// this is because we may have an incoming path ending here.
+					ErrorPropagation foundEP = null;
+					if( src instanceof FeatureInstance){
+						if (inonly){
+							foundEP = EMV2Util.getIncomingErrorPropagation((FeatureInstance)src);
+						} else {
+							foundEP = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
 						}
 					} else if (src instanceof ComponentInstance){
-						if( EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) != null){
-							addlconnref.add(connectionReference);
-							break;
+						// a shared model element 
+						if( inonly){
+							foundEP = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) src);
+						} else {
+							foundEP = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) src) ;
 						}
 					}
+					if(foundEP != null){
+						addlSrcEP.add(foundEP);
+						addlSrcCI.add(src.getComponentInstance());
+					}
+
 				}
 				// we have source. now find destination
-				if (dst instanceof FeatureInstance && ((FeatureInstance)dst).getDirection().incoming() ){
-					ErrorPropagation founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance)dst);
-					if (founddst != null){
-						// remember the last destination with EP
-						dstprop = founddst;
-						dstCI = ((FeatureInstance)dst).getContainingComponentInstance();
+				ErrorPropagation founddst=null;
+				if( dst instanceof FeatureInstance){
+					if( outonly){
+						founddst = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)dst);
+					} else {
+						founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance)dst);
 					}
 				} else if (dst instanceof ComponentInstance){
-					ErrorPropagation founddst = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance)dst);
-					if (founddst != null){
-						// remember the last destination with EP
-						dstprop = founddst;
-						dstCI = ((FeatureInstance)dst).getContainingComponentInstance();
+					// a shared model element 
+					if( outonly){
+						founddst = EMV2Util.getOutgoingAccessErrorPropagation((ComponentInstance) dst);
+					} else {
+						founddst = EMV2Util.getIncomingAccessErrorPropagation((ComponentInstance) dst) ;
 					}
 				}
+				if (founddst != null){
+					// remember the last destination with EP
+					dstprop = founddst;
+					dstCI = dst.getComponentInstance();
+				}
+
 			}
 			if (srcprop!= null && dstprop!=null){
 				PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 				propagationPaths.add(path);
 				subcomponents.add(srcCI);
 				subcomponents.add(dstCI);
-				for (ConnectionReference connref : addlconnref) {
-					ConnectionInstanceEnd src = connref.getSource();
-					if( src instanceof FeatureInstance&& ((FeatureInstance)src).getDirection().outgoing()){
-						// remember the first src with EP
-						srcCI = ((FeatureInstance)src).getContainingComponentInstance();
-						srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
-					} else if (src instanceof ComponentInstance){
-						srcCI = (ComponentInstance) src;
-						srcprop = EMV2Util.getOutgoingAccessErrorPropagation(srcCI);
-					}
+				for (int i = 0; i<addlSrcCI.size();i++) {
+					srcCI = addlSrcCI.get(i);
+					srcprop = addlSrcEP.get(i);
 					path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 					propagationPaths.add(path);
 					subcomponents.add(srcCI);
@@ -286,6 +321,9 @@ public class AnalysisModel {
 		} else if (obj instanceof ConnectionInstance){
 			// do connection bindings
 			List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(obj);
+			if (boundresources.isEmpty()){
+				boundresources = InstanceModelUtil.connectedByHardware((ConnectionInstance)obj);
+			}
 			for (ComponentInstance bres : boundresources)
 			{
 				populateBindingPropagationPaths((ConnectionInstance)obj, bres,"binding");
