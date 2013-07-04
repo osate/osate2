@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2012-2013 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -33,6 +33,14 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
+
+
+/**
+ * Also, this class implement the following consistency rule from
+ * the official documentation:
+ * C1, C5, C7, C11, C12 
+ * 
+ */
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -216,7 +224,29 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		
 		if (EMV2Util.hasComponentErrorBehavior(componentInstance))
 		{
-			/*
+			/**
+			 * Rule C3: propagation without a condition
+			 * must propage to an error source
+			 */
+			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
+			{
+				/**
+				 * if the associated condition is null, then, the outgoing propagation
+				 * shoulbd an error source.
+				 */
+				if (opc.getCondition() == null)
+				{
+					if ( EMV2Util.getErrorSource (componentInstance, opc.getOutgoing()) == null)
+					{
+						error(componentInstance,"C3: propagation " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " has no condition and thus, should output to an error source only");
+
+					}
+				}
+				
+			}
+			
+			
+			/**
 			 * Rule C7: we do not propagate error with a condition from a sink
 			 */
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
@@ -231,17 +261,14 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 							if (ef instanceof ErrorSink)
 							{
 								ErrorSink es = (ErrorSink) ef;
-								OsateDebug.osateDebug("esinc" + es.getIncoming() );
-								OsateDebug.osateDebug("ceinc" + ce.getIncoming() );
 								if (es.getIncoming() == ce.getIncoming())
 								{
-									error(componentInstance,"Propagation " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " depends on an error sink");
+									error(componentInstance,"C7: propagation " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " depends on an error sink");
 
 								}
 							}
 						}
 					}
-					OsateDebug.osateDebug("bla" + ce.getIncoming() );
 					
 				}
 			}
@@ -297,7 +324,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					}
 					if (found == false)
 					{
-						error(componentInstance,"State " + EMV2Util.getPrintName(ebs) + " has no associated transition for composite behavior of component " + componentInstance.getName());
+						error(componentInstance,"C11: state " + EMV2Util.getPrintName(ebs) + " has no associated transition for composite behavior of component " + componentInstance.getName());
 
 					}
 				}
@@ -325,14 +352,11 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 								{
 									for (SubcomponentElement se : ce.getSubcomponents())
 									{
-										//OsateDebug.osateDebug("se=" + se.getSubcomponent() );
-										//se.getSubcomponent()
 										if (se != null)
 										{
 											subcomponents.add(se.getSubcomponent());
 										}
 									}
-									//OsateDebug.osateDebug("bla" + ce.getSubcomponents() );
 									
 								}
 							}
@@ -352,7 +376,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						}
 						if (! found)
 						{
-							error(componentInstance,"Component " + ci.getName() + " is not referenced for state " + EMV2Util.getPrintName(ebs) + " in component " + componentInstance.getName() );
+							error(componentInstance,"C12: component " + ci.getName() + " is not referenced for state " + EMV2Util.getPrintName(ebs) + " in component " + componentInstance.getName() );
 						}
 					}
 				}
@@ -412,6 +436,10 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			
 		}
 		
+		
+		/**
+		 * C1: for each error source there is an error sink.
+		 */
 		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
 		{
 			OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));

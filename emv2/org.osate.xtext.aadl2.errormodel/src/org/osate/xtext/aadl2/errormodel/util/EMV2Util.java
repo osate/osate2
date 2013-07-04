@@ -163,6 +163,24 @@ public class EMV2Util {
 	}
 	
 	
+	public static ErrorSource getErrorSource (ComponentInstance ci, ErrorPropagation ep)
+	{;
+		Collection<ErrorFlow> flows = getAllErrorFlows(ci);
+		for (ErrorFlow ef : flows)
+		{
+			if (ef instanceof ErrorSource)
+			{
+				ErrorSource es = (ErrorSource) ef;
+				if (es.getOutgoing() == ep)
+				{
+					return es;
+				}
+					
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Retrieve the type/kind of distribution associated
 	 * with the Occurrence property
