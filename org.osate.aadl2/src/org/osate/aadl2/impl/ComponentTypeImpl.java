@@ -438,12 +438,19 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setExtended(ComponentType newExtended) {
-		// TODO: implement this method to set the 'Extended' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if ( newExtended == null ) {
+			setOwnedExtension( null );
+		}
+		else {
+			if ( getOwnedExtension() == null ) {
+				createOwnedExtension();
+			}
+			
+			getOwnedExtension().setExtended( newExtended );
+		}
 	}
 
 	/**
