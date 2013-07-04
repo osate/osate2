@@ -106,14 +106,14 @@ public class AnalysisModel {
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
 		if (connrefs.isEmpty()) return;
 		ErrorPropagation srcprop = null;
-		ComponentInstance srcCI = null;
+		ConnectionInstanceEnd srcCIE = null;
 		ErrorPropagation dstprop = null;
-		ComponentInstance dstCI = null;
+		ConnectionInstanceEnd dstCIE = null;
 		ConnectionReference first = connrefs.get(0);
 		boolean inonly = (first.getSource().getContainingComponentInstance() == first.getContext());
 		ConnectionReference last = connrefs.get(connrefs.size()-1);
 		boolean outonly = (last.getDestination().getContainingComponentInstance() == last.getContext());
-		EList<ComponentInstance> addlSrcCI = new BasicEList<ComponentInstance>();
+		EList<ConnectionInstanceEnd> addlSrcCIE = new BasicEList<ConnectionInstanceEnd>();
 		EList<ErrorPropagation> addlSrcEP = new BasicEList<ErrorPropagation>();
 		for (ConnectionReference connectionReference : connrefs) {
 			ConnectionInstanceEnd src = connectionReference.getSource();
@@ -137,7 +137,7 @@ public class AnalysisModel {
 				}
 				if(foundEP != null){
 					srcprop = foundEP;
-					srcCI = src.getComponentInstance();
+					srcCIE = src;
 				}
 			} else {
 				// for enclosing components record an outgoing path 
@@ -159,7 +159,7 @@ public class AnalysisModel {
 				}
 				if(foundEP != null){
 					addlSrcEP.add(foundEP);
-					addlSrcCI.add(src.getComponentInstance());
+					addlSrcCIE.add(src);
 				}
 
 			}
@@ -182,25 +182,25 @@ public class AnalysisModel {
 			if (founddst != null){
 				// remember the last destination with EP
 				dstprop = founddst;
-				dstCI = dst.getComponentInstance();
+				dstCIE = dst;
 			}
 
 		}
 		if (srcprop!= null && dstprop!=null){
-			PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+			PropagationPath path = new PropagationPath(srcCIE, srcprop, dstCIE, dstprop,connectionInstance);
 			propagationPaths.add(path);
-			subcomponents.add(srcCI);
-			subcomponents.add(dstCI);
-			for (int i = 0; i<addlSrcCI.size();i++) {
-				srcCI = addlSrcCI.get(i);
+			subcomponents.add(srcCIE.getComponentInstance());
+			subcomponents.add(dstCIE.getComponentInstance());
+			for (int i = 0; i<addlSrcCIE.size();i++) {
+				srcCIE = addlSrcCIE.get(i);
 				srcprop = addlSrcEP.get(i);
-				path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+				path = new PropagationPath(srcCIE, srcprop, dstCIE, dstprop,connectionInstance);
 				propagationPaths.add(path);
-				subcomponents.add(srcCI);
+				subcomponents.add(srcCIE.getComponentInstance());
 			}
 		}
 		if (connectionInstance.isBidirectional()){
-			addlSrcCI.clear();
+			addlSrcCIE.clear();
 			addlSrcEP.clear();
 			for (int i= connrefs.size()-1; i>= 0 ;i--) {
 				ConnectionReference connectionReference = connrefs.get(i);
@@ -225,7 +225,7 @@ public class AnalysisModel {
 					}
 					if(foundEP != null){
 						srcprop = foundEP;
-						srcCI = src.getComponentInstance();
+						srcCIE = src;
 					}
 				} else {
 					// for enclosing components record an outgoing path 
@@ -247,7 +247,7 @@ public class AnalysisModel {
 					}
 					if(foundEP != null){
 						addlSrcEP.add(foundEP);
-						addlSrcCI.add(src.getComponentInstance());
+						addlSrcCIE.add(src);
 					}
 
 				}
@@ -270,21 +270,21 @@ public class AnalysisModel {
 				if (founddst != null){
 					// remember the last destination with EP
 					dstprop = founddst;
-					dstCI = dst.getComponentInstance();
+					dstCIE = dst;
 				}
 
 			}
 			if (srcprop!= null && dstprop!=null){
-				PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+				PropagationPath path = new PropagationPath(srcCIE, srcprop, dstCIE, dstprop,connectionInstance);
 				propagationPaths.add(path);
-				subcomponents.add(srcCI);
-				subcomponents.add(dstCI);
-				for (int i = 0; i<addlSrcCI.size();i++) {
-					srcCI = addlSrcCI.get(i);
+				subcomponents.add(srcCIE.getComponentInstance());
+				subcomponents.add(dstCIE.getComponentInstance());
+				for (int i = 0; i<addlSrcCIE.size();i++) {
+					srcCIE = addlSrcCIE.get(i);
 					srcprop = addlSrcEP.get(i);
-					path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+					path = new PropagationPath(srcCIE, srcprop, dstCIE, dstprop,connectionInstance);
 					propagationPaths.add(path);
-					subcomponents.add(srcCI);
+					subcomponents.add(srcCIE.getComponentInstance());
 				}
 			}
 		}
