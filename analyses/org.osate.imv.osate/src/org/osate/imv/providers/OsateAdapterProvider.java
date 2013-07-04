@@ -77,11 +77,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 	private Map<Object, IAadlElementAdapter> modelElementToAdapterMap;
 
 	private ILabelProvider labelProvider;
+	
+	private boolean doDirectConnections;
 
-	public OsateAdapterProvider()
+	public OsateAdapterProvider(boolean doDirectConnections)
 	{
 		this.modelElementToAdapterMap = new HashMap<Object, IAadlElementAdapter>();
 		this.labelProvider = new FigureLabelProvider();
+		this.doDirectConnections = doDirectConnections;
 	}
 
 	public AadlComponentAdapter getContainerComponentAdapter(Object modelElement, int nesting) {
@@ -376,6 +379,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		IAadlElementAdapter result = null;
 		ConnectionReference connRef = topConnRef;
 		IAadlElementAdapter found = getAadlElementAdapter(connRef.getSource());
+		if (!doDirectConnections) return found;
 		while (found != null){
 			result = found;
 			connRef = Aadl2InstanceUtil.getPreviousConnectionReference(conni, connRef);
@@ -393,6 +397,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		IAadlElementAdapter result = null;
 		ConnectionReference connRef = topConnRef;
 		IAadlElementAdapter found = getAadlElementAdapter(connRef.getDestination());
+		if (!doDirectConnections) return found;
 		while (found != null){
 			result = found;
 			connRef = Aadl2InstanceUtil.getNextConnectionReference(conni, connRef);
@@ -425,14 +430,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			ConnectionItem connectionItem = it.next();
 			ConnectionReference connref = connectionItem.getConnectionReference();
 			if (connref != null){
-				// TODO direct connections
-//				IAadlElementAdapter srcAdapter = getSourceAdapter(connref);
-//				IAadlElementAdapter dstAdapter = getDestinationAdapter(connref);
-
-				ConnectionInstanceEnd src = connref.getSource();
-				IAadlElementAdapter srcAdapter = getAadlElementAdapter(src);
-				ConnectionInstanceEnd dst = connref.getDestination();
-				IAadlElementAdapter dstAdapter = getAadlElementAdapter(dst);
+				IAadlElementAdapter srcAdapter = getSourceAdapter(connref);
+				IAadlElementAdapter dstAdapter = getDestinationAdapter(connref);
 				if(srcAdapter != null && dstAdapter != null) {
 					// Create connection adapter for this connection.
 					AadlConnectionAdapter connectionAdapter = new AadlConnectionAdapter(connref, this.getConnectionDecorationType(connref.getConnection()), this.labelProvider, srcAdapter, dstAdapter);
@@ -457,23 +456,19 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 					Context dstCxt = connectionRef.getAllDestinationContext();
 					Context srcCxt = connectionRef.getAllSourceContext();
 					if (srcCxt instanceof Subcomponent){
-						//					srcAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, srcCxt), (NamedElement)connectionItem.getSrc());
 						srcAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( srcCxt), (NamedElement)connectionItem.getSrc());
 					} else	if (srcCxt instanceof FeatureGroup){
 						srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
 					} else	if (connectionItem.getSrc() instanceof Subcomponent){
-						//					srcAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
 						srcAdapter = this.modelElementToAdapterMap.get((NamedElement)connectionItem.getSrc());
 					} else {
 						srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
 					}
 					if (dstCxt instanceof Subcomponent){
-						//					dstAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, dstCxt), (NamedElement)connectionItem.getDest());
 						dstAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( dstCxt), (NamedElement)connectionItem.getDest());
 					} else	if (dstCxt instanceof FeatureGroup){
 						dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
 					} else if (connectionItem.getDest() instanceof Subcomponent){
-						//					dstAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
 						dstAdapter = this.modelElementToAdapterMap.get( (NamedElement)connectionItem.getDest());
 					} else {
 						dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
@@ -520,23 +515,19 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				Context dstCxt = connectionRef.getAllDestinationContext();
 				Context srcCxt = connectionRef.getAllSourceContext();
 				if (srcCxt instanceof Subcomponent){
-//					srcAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, srcCxt), (NamedElement)connectionItem.getSrc());
 					srcAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( srcCxt), (NamedElement)connectionItem.getSrc());
 				} else	if (srcCxt instanceof FeatureGroup){
 					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
 				} else	if (connectionItem.getSrc() instanceof Subcomponent){
-//					srcAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
 					srcAdapter = this.modelElementToAdapterMap.get((NamedElement)connectionItem.getSrc());
 				} else {
 					srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
 				}
 				if (dstCxt instanceof Subcomponent){
-//					dstAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, dstCxt), (NamedElement)connectionItem.getDest());
 					dstAdapter = this.findFeatureAdapter((AadlComponentAdapter) this.modelElementToAdapterMap.get( dstCxt), (NamedElement)connectionItem.getDest());
 				} else	if (dstCxt instanceof FeatureGroup){
 					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
 				} else if (connectionItem.getDest() instanceof Subcomponent){
-//					dstAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
 					dstAdapter = this.modelElementToAdapterMap.get( (NamedElement)connectionItem.getDest());
 				} else {
 					dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
@@ -608,43 +599,48 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		List<FeatureGroupConnection> featureGroupConnections = new ArrayList<FeatureGroupConnection>();
 		if(element instanceof ComponentInstance){
 			ComponentInstance ci = (ComponentInstance)element;
-			// TODO direct connections
-//			// do it based on connection instances
-//			List<ConnectionInstance> conns = EcoreUtil2.getAllContentsOfType(ci, ConnectionInstance.class);
-//			for (ConnectionInstance connectionInstance : conns) {
-//				connectionList.add(new ConnectionItem(Aadl2InstanceUtil.getAcrossConnectionReference(connectionInstance)));
-//			}
-
-			EList<ComponentInstance> subcis = ci.getComponentInstances();
-			for (ComponentInstance subci : subcis) {
-				EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getOutgoingConnectionReferences(subci);
-				for (ConnectionReference connref : connrefs) {
-						connectionList.add(new ConnectionItem(connref));
+			if (doDirectConnections){
+				// do it based on connection instances
+				List<ConnectionInstance> conns = EcoreUtil2.getAllContentsOfType(ci, ConnectionInstance.class);
+				for (ConnectionInstance connectionInstance : conns) {
+					connectionList.add(new ConnectionItem(Aadl2InstanceUtil.getTopConnectionReference(connectionInstance)));
 				}
-			}
-			// now connections that come from outside the containing component
-			EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getIncomingConnectionReferences(ci);
-			for (ConnectionReference connref : connrefs) {
+			} else {
+				// do conenctions one layer at a time
+				EList<ComponentInstance> subcis = ci.getComponentInstances();
+				for (ComponentInstance subci : subcis) {
+					EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getOutgoingConnectionReferences(subci);
+					for (ConnectionReference connref : connrefs) {
+						connectionList.add(new ConnectionItem(connref));
+					}
+				}
+				// now connections that come from outside the containing component
+				EList<ConnectionReference> connrefs = Aadl2InstanceUtil.getIncomingConnectionReferences(ci);
+				for (ConnectionReference connref : connrefs) {
 					connectionList.add(new ConnectionItem(connref));
-			}
-			// now any incoming or outgoing that are not represented by connection instances
-			ComponentClassifier cl = ci.getComponentClassifier();
-			if (cl instanceof ComponentImplementation){
-				ComponentImplementation cimpl = (ComponentImplementation)cl;
-				List<Connection> connections = cimpl.getAllConnections();
-				for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
-					Connection conn = it.next();
-					if (!(conn.getAllDestinationContext() instanceof Subcomponent)||!(conn.getAllSourceContext() instanceof Subcomponent)){
-						// one end must not be a subcomponent
-						// Get connection source.
-						ConnectionEnd srcEnd = conn.getAllSource();
-						// Get connection destination.
-						ConnectionEnd dstEnd = conn.getAllDestination();
-						if(srcEnd != null && dstEnd != null) {
-							// We need to check for duplicate feature group connections (i.e. only one connection should be returned
-							// for feature group connections.
-							if (!duplicateConnectionItem(connectionList, conn, srcEnd, dstEnd)){
-								connectionList.add(new ConnectionItem(srcEnd, dstEnd, conn));
+				}
+				// XXX this next code is not needed if we have partial connection instances
+				// However any duplciates are getting filtered out, so this code works whether we
+				// enable in/out only connection instances or not
+				// now any incoming or outgoing that are not represented by connection instances
+				ComponentClassifier cl = ci.getComponentClassifier();
+				if (cl instanceof ComponentImplementation){
+					ComponentImplementation cimpl = (ComponentImplementation)cl;
+					List<Connection> connections = cimpl.getAllConnections();
+					for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
+						Connection conn = it.next();
+						if (!(conn.getAllDestinationContext() instanceof Subcomponent)||!(conn.getAllSourceContext() instanceof Subcomponent)){
+							// one end must not be a subcomponent
+							// Get connection source.
+							ConnectionEnd srcEnd = conn.getAllSource();
+							// Get connection destination.
+							ConnectionEnd dstEnd = conn.getAllDestination();
+							if(srcEnd != null && dstEnd != null) {
+								// We need to check for duplicate feature group connections (i.e. only one connection should be returned
+								// for feature group connections.
+								if (!duplicateConnectionItem(connectionList, conn, srcEnd, dstEnd)){
+									connectionList.add(new ConnectionItem(srcEnd, dstEnd, conn));
+								}
 							}
 						}
 					}

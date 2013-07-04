@@ -122,11 +122,14 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 	private ImvEditorToolbar toolbar;
 
 	private IImvModelProvider modelProvider;
+	
+	private boolean doDirectConnections ;
 
 	// Default no-arg constructor.
 	public ImvInstanceEditor() {
 		this.isDirty = true;
 		this.initialized = false;
+		this.doDirectConnections = true;
 	}
 
 	@Override
@@ -350,7 +353,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 		// Label provider.
 		viewer.setContentProvider(new OsateContentProvider());
 		// Content provider.
-		viewer.setAdapterProvider(new OsateAdapterProvider());
+		viewer.setAdapterProvider(new OsateAdapterProvider(doDirectConnections));
 		// Delegate for saving the state of the diagram.
 		viewer.setSaverDelegate(new XmlAadlAdapterSaverDelegate(this.imvDocument));
 		// Delegate for restoring the state of the diagram.
