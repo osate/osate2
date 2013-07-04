@@ -41,6 +41,7 @@ package org.osate.aadl2.errormodel.analysis.actions;
  * C1, C5, C7, C11, C12 
  * 
  */
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -605,6 +606,51 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * Rule C10: Check that for each state transition, all elements are referenced
 			 */
+			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+			{	
+				Collection<ConditionElement> allCE = EMV2Util.getAllConditionElementsFromConditionExpression (ebt);
+				for (ErrorSink es : EMV2Util.getAllErrorSinks(componentInstance))
+				{
+					boolean found = false;
+					for (ConditionElement ce : allCE)
+					{
+						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorPropagation))
+						{
+							if (ce.getIncoming() == es.getIncoming())
+							{
+								found = true;
+							}
+						}
+					}
+					if ( ! found)
+					{
+						error(componentInstance,"C10: transition " + EMV2Util.getPrintName(ebt) + " does not references error sink " + EMV2Util.getPrintName(es) +  " in component " + componentInstance.getName());
+
+					}
+				}
+				
+				
+				for (ErrorBehaviorEvent ebe : EMV2Util.getAllErrorBehaviorEvents(componentInstance))
+				{
+					boolean found = false;
+					for (ConditionElement ce : allCE)
+					{
+						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorEvent))
+						{
+							if (ce.getIncoming() == ebe)
+							{
+								found = true;
+							}
+						}
+					}
+					if ( ! found)
+					{
+						error(componentInstance,"C10: transition " + EMV2Util.getPrintName(ebt) + " does not references error event " + EMV2Util.getPrintName(ebe) +  " in component " + componentInstance.getName());
+
+					}
+				}
+			}
+
 			/**
 			 * End of implementation of C10
 			 */
