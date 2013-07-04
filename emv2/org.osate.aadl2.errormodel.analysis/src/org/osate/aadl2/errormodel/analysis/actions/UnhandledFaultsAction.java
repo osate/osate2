@@ -65,6 +65,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
@@ -224,6 +225,189 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 		
 		if (EMV2Util.hasComponentErrorBehavior(componentInstance))
 		{
+			
+			/**
+			 * C1: for each error source there is an error sink.
+			 */
+			for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
+			{			
+				/**
+				 * 
+				 * In the following, we check that all the types and subtypes for a given components
+				 * are declared as error source for each out propagation. This would be enhanced
+				 * when defining different error sources/path for the same propagation point.
+				 */
+				for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance.getComponentClassifier()))
+				{
+					if (ef instanceof ErrorSink)
+					{
+						ErrorSink es = (ErrorSink)ef;
+						if (es.getIncoming() == ep)
+						{
+			
+							for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep)))
+							{
+			
+								if (! EM2TypeSetUtil.contains (es.getTypeTokenConstraint(), tt))
+								{
+									error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " does not declare " + tt.getType().get(0).getName() + " as error source");
+			
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			
+			for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
+			{
+//				OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
+			
+				/**
+				 * 
+				 * In the following, we check that all the types and subtypes for a given components
+				 * are declared as error source for each out propagation. This would be enhanced
+				 * when defining different error sources/path for the same propagation point.
+				 */
+				for (ErrorSource es : EMV2Util.getAllErrorSources(componentInstance.getComponentClassifier()))
+				{
+					if (es.getOutgoing() == ep)
+					{
+		
+						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep)))
+						{
+		
+							if (! EM2TypeSetUtil.contains (es.getTypeTokenConstraint(), tt))
+							{
+								error(componentInstance,"Outgoing propagation " +EMV2Util.getPrintName(ep) + " does not declare " + tt.getType().get(0).getName() + " as error source");
+		
+							}
+						}
+					}
+				}
+				
+				if (model.getAllPropagationPaths(componentInstance, ep).size() == 0)
+				{
+					error(componentInstance,"Outgoing propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
+
+					//OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " + ep.getName());
+					continue;
+				}
+				
+				for (PropagationPath pp : model.getAllPropagationPaths(componentInstance, ep))
+				{
+					ErrorPropagation ep2 = pp.getPathDst().getErrorPropagation();
+					
+//					OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
+//					OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
+					EList<TypeToken> srcTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
+					EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep2.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
+//				
+//					for (TypeToken tt1 : srcTokens)
+//					{
+//						if (! EM2TypeSetUtil.contains (ep2.getTypeSet(), tt1))
+//						{
+//							error(componentInstance, "Error type " + EMV2Util.getPrintName(tt1)  +  " between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+	//
+//						}
+//						
+//					}
+					for (TypeToken tt1 : dstTokens)
+					{
+						if (! EM2TypeSetUtil.contains (ep.getTypeSet(), tt1))
+						{
+							error(componentInstance, "Type " + EMV2Util.getPrintName(tt1)  +  " is not propagated by the error source " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " but is expected by the error sink " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+
+						}
+						
+					}
+//					if (!(EM2TypeSetUtil.contains(, ep2.getTypeSet()) && EM2TypeSetUtil.contains(ep2.getTypeSet(), ep.getTypeSet())))
+//					{
+//						error(componentInstance, "Some errors are not handled between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+//						continue;
+					
+				}
+			}
+			for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
+			{
+				if (model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0)
+				{
+					error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
+
+					//OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " + ep.getName());
+				}
+			}
+			
+			/**
+			 * End of implementation of C1
+			 */
+			
+			
+			/**
+			 * C2: Transitions of error component behavior use all incoming error propagations and error events
+			 *
+			 * First, we check that if the component has error propagation, it references
+			 * at least ALL error types from ALL incoming propagations.
+			 */
+			
+			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+			{	
+				for (ErrorBehaviorEvent ebe : EMV2Util.getAllErrorBehaviorEvents(componentInstance))
+				{
+					boolean found = false;
+					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (ebt))
+					{
+						if (ce.getIncoming() != null)
+						{
+							if (ce.getIncoming() instanceof ErrorEvent)
+							{
+								ErrorEvent ee = (ErrorEvent) ce.getIncoming();
+								if(ee == ebe)
+								{
+									found = true;
+								}
+							}
+						}
+					}
+					
+					if (!found)
+					{
+						error(componentInstance,"C2: transition " + EMV2Util.getPrintName(ebt) + " in component " + componentInstance.getName() + " does not reference event " + EMV2Util.getPrintName(ebe));
+					}
+				}
+				
+				for (ErrorSink es : EMV2Util.getAllErrorSinks (componentInstance))
+				{
+					boolean found = false;
+					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (ebt))
+					{
+						if (ce.getIncoming() != null)
+						{
+							if (ce.getIncoming() instanceof ErrorPropagation)
+							{
+								ErrorPropagation ep = (ErrorPropagation) ce.getIncoming();
+								if(ep == ce.getIncoming())
+								{
+									found = true;
+								}
+							}
+						}
+					}
+					
+					if (!found)
+					{
+						error(componentInstance,"C2: transition " + EMV2Util.getPrintName(ebt) + " in component " + componentInstance.getName() + " does not reference error sink " + EMV2Util.getPrintName(es));
+					}
+				}
+				
+			}
+			
+			/**
+			 * End of implementation of C2
+			 */
+			
+			
 			/**
 			 * Rule C3: propagation without a condition
 			 * must propage to an error source
@@ -245,6 +429,32 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 				
 			}
 			
+			
+			/**
+			 * Rule C5: In the component error behavior, check that we have a transition between each state
+			 * Let also check that if a components has an error state machine, all
+			 * states are referenced.
+			 */
+			if (EMV2Util.hasComponentErrorBehavior(componentInstance))
+			{
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
+				{
+					boolean found = false;
+					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+					{
+						if ((ebt.getSource() == ebs) && (ebt.getSource() == ebt.getTarget())) 
+						{
+							found = true;
+						}
+					}
+					if (found == false)
+					{
+						error(componentInstance,"State " + EMV2Util.getPrintName(ebs) + " has no associated transition for component " + componentInstance.getName());
+
+					}
+				}
+
+			}
 			
 			/**
 			 * Rule C7: we do not propagate error with a condition from a sink
@@ -274,31 +484,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			}
 			
 			
-			/**
-			 * Rule C5: In the component error behavior, check that we have a transition between each state
-			 * Let also check that if a components has an error state machine, all
-			 * states are referenced.
-			 */
-			if (EMV2Util.hasComponentErrorBehavior(componentInstance))
-			{
-				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
-				{
-					boolean found = false;
-					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-					{
-						if ((ebt.getSource() == ebs) && (ebt.getSource() == ebt.getTarget())) 
-						{
-							found = true;
-						}
-					}
-					if (found == false)
-					{
-						error(componentInstance,"State " + EMV2Util.getPrintName(ebs) + " has no associated transition for component " + componentInstance.getName());
-
-					}
-				}
-
-			}
+		
 			
 			/**
 			 * Rule C11: Composite error behavior: indicate the condition for each state of the component
@@ -383,174 +569,13 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			}
 			
 			
-			
-			/**
-			 * First, we check that if the component has error propagation, it references
-			 * at least ALL error types from ALL incoming propagations.
-			 */
-			EList<ConditionElement> propagations = new BasicEList<ConditionElement>();
-			
-			
-			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-			{
-				propagations.addAll(EMV2Util.getAllConditionElementsFromConditionExpression (ebt));
-			}
-			
-			if (propagations.size() > 0)
-			{
-				for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
-				{
-					EList<TypeToken> leafs = EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
-					EList<TypeToken> tokens = new BasicEList<TypeToken>();
+		
 	
-					for (ConditionElement ce : propagations)
-					{
-						if (ce.getIncoming() instanceof ErrorPropagation)
-						{
-	
-							if (ce.getIncoming() == ep)
-							{						
-								tokens.addAll(EM2TypeSetUtil.generateAllLeafTypeTokens (ce.getConstraint(),EMV2Util.getContainingTypeUseContext((ErrorPropagation)ce.getIncoming())));
-							}
-						}
-	
-					}
-							
-					for (TypeToken tt : leafs)
-					{
-						boolean found = false;
-						for (TypeToken tt2 : tokens)
-						{
-							if (EM2TypeSetUtil.contains(tt, tt2))
-							{
-								found = true;
-							}
-						}
-						if (! found)
-						{
-							error(componentInstance,"Type " +EMV2Util.getPrintName(tt) + " is not associated with a transition on incoming propagation " + EMV2Util.getPrintName(ep));
-						}
-					}
-				}
-			}
-			
 		}
 		
-		
-		/**
-		 * C1: for each error source there is an error sink.
-		 */
-		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
-		{
-			OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
-		
-			/**
-			 * 
-			 * In the following, we check that all the types and subtypes for a given components
-			 * are declared as error source for each out propagation. This would be enhanced
-			 * when defining different error sources/path for the same propagation point.
-			 */
-			for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance.getComponentClassifier()))
-			{
-				if (ef instanceof ErrorSink)
-				{
-					ErrorSink es = (ErrorSink)ef;
-					if (es.getIncoming() == ep)
-					{
-		
-						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep)))
-						{
-		
-							if (! EM2TypeSetUtil.contains (es.getTypeTokenConstraint(), tt))
-							{
-								error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " does not declare " + tt.getType().get(0).getName() + " as error source");
-		
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		
-		for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
-		{
-			OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
-		
-			/**
-			 * 
-			 * In the following, we check that all the types and subtypes for a given components
-			 * are declared as error source for each out propagation. This would be enhanced
-			 * when defining different error sources/path for the same propagation point.
-			 */
-			for (ErrorSource es : EMV2Util.getAllErrorSources(componentInstance.getComponentClassifier()))
-			{
-				if (es.getOutgoing() == ep)
-				{
-	
-					for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep)))
-					{
-	
-						if (! EM2TypeSetUtil.contains (es.getTypeTokenConstraint(), tt))
-						{
-							error(componentInstance,"Outgoing propagation " +EMV2Util.getPrintName(ep) + " does not declare " + tt.getType().get(0).getName() + " as error source");
-	
-						}
-					}
-				}
-			}
-			
-			if (model.getAllPropagationPaths(componentInstance, ep).size() == 0)
-			{
-				error(componentInstance,"Outgoing propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
 
-				//OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " + ep.getName());
-				continue;
-			}
-			
-			for (PropagationPath pp : model.getAllPropagationPaths(componentInstance, ep))
-			{
-				ErrorPropagation ep2 = pp.getPathDst().getErrorPropagation();
-				
-				OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
-				OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
-				EList<TypeToken> srcTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
-				EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep2.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
-//			
-//				for (TypeToken tt1 : srcTokens)
-//				{
-//					if (! EM2TypeSetUtil.contains (ep2.getTypeSet(), tt1))
-//					{
-//						error(componentInstance, "Error type " + EMV2Util.getPrintName(tt1)  +  " between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
-//
-//					}
-//					
-//				}
-				for (TypeToken tt1 : dstTokens)
-				{
-					if (! EM2TypeSetUtil.contains (ep.getTypeSet(), tt1))
-					{
-						error(componentInstance, "Type " + EMV2Util.getPrintName(tt1)  +  " is not propagated by the error source " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " but is expected by the error sink " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+		
 
-					}
-					
-				}
-//				if (!(EM2TypeSetUtil.contains(, ep2.getTypeSet()) && EM2TypeSetUtil.contains(ep2.getTypeSet(), ep.getTypeSet())))
-//				{
-//					error(componentInstance, "Some errors are not handled between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
-//					continue;
-				
-			}
-		}
-		for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
-		{
-			if (model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0)
-			{
-				error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
-
-				//OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " + ep.getName());
-			}
-		}
 	}
 
 

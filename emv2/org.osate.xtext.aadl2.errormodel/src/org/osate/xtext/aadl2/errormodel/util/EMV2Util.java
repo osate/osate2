@@ -1655,6 +1655,37 @@ public class EMV2Util {
 		}
 		return result.values();
 	}
+	
+	
+	/**
+	 * return list of error sinks including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ErrorSource> list of error sinks declared in the flow section
+	 */
+	public static Collection<ErrorSink> getAllErrorSinks(Classifier cl){
+		HashMap<String,ErrorSink> result = new HashMap<String,ErrorSink>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
+			if (eps!= null){
+				EList<ErrorFlow> eflist = eps.getFlows();
+				for (ErrorFlow errorFlow : eflist) {
+					if (errorFlow instanceof ErrorSink){
+						if( !result.containsKey(errorFlow.getName())){
+							result.put(errorFlow.getName(),(ErrorSink)errorFlow);
+						}
+					}
+				}
+			}
+		}
+		return result.values();
+	}
+	
+	public static Collection<ErrorSink> getAllErrorSinks(ComponentInstance ci)
+	{
+		return getAllErrorSinks (ci.getComponentClassifier());
+	}
+
 
 	
 	/**
