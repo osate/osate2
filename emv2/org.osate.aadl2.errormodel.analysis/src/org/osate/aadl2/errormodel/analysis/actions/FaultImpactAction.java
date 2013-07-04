@@ -68,7 +68,8 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 		 * declarative model. If an instance model exists, run it over that too.
 		 */
 		PropagateErrorSources faultimpact = new PropagateErrorSources("FaultImpact", si); // optional third parameter maxLevel
-		faultimpact.reportHeading();
+		faultimpact.reportImpactHeading();
+		faultimpact.reportTableHeading();
 		List<ComponentInstance> cilist = faultimpact.getSubcomponents();
 		for (ComponentInstance componentInstance : cilist) 
 		{
@@ -77,8 +78,7 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 				faultimpact.startErrorFlows(componentInstance);
 			}
 		}
-//		logInfo("\n\nImpact of external error sources");
-//		faultimpact.startExternalFlows(si);
+		faultimpact.startExternalFlows(si);
 		faultimpact.saveReport();
 
 		monitor.done();

@@ -35,7 +35,7 @@ public class AnalysisModel {
 	
 	public AnalysisModel(ComponentInstance root) {
 		this(root, false);
- printPropagationPaths();
+// printPropagationPaths();
 	}
 	
 	public AnalysisModel(ComponentInstance root, boolean closest) {
