@@ -247,12 +247,12 @@ public class PropagateErrorSources {
 					{
 						if (! handledTypes.contains (typeToken))
 						{
-							traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
+							traceErrorPaths(ci,ep,typeToken,2,componentText+","+failuremodeText);
 						}
 					}
 					else
 					{
-						traceErrorPaths(ci,ep,typeToken,2,componentText+", "+failuremodeText);
+						traceErrorPaths(ci,ep,typeToken,2,componentText+","+failuremodeText);
 					}
 				}
 			}
@@ -362,8 +362,8 @@ public class PropagateErrorSources {
 	 */
 	public String generateErrorPropText( ErrorPropagation ep, TypeToken tt){
 			return(
-					(ep!=null?EMV2Util.getPrintName(ep):"")+
-					(tt!=null?" "+EMV2Util.getPrintName(tt):""));
+					(ep!=null?EMV2Util.getPrintName(ep)+" ":"")+
+					(tt!=null?EMV2Util.getPrintName(tt):""));
 	}
 	
 	/**
