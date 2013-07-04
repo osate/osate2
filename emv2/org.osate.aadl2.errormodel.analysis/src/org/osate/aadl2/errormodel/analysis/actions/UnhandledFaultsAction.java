@@ -67,6 +67,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
@@ -228,6 +229,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			
 			/**
 			 * C1: for each error source there is an error sink.
+			 * The error sink handles all the error types form the source.
 			 */
 			for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
 			{			
@@ -410,7 +412,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			
 			/**
 			 * Rule C3: propagation without a condition
-			 * must propage to an error source
+			 * must propagate to an error source declared in the flow.
 			 */
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
 			{
@@ -425,10 +427,54 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						error(componentInstance,"C3: propagation " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " has no condition and thus, should output to an error source only");
 
 					}
-				}
-				
+				}	
 			}
 			
+			/**
+			 * End of implementation of C3
+			 */
+			
+			
+			/**
+			 * Rule C4: Outgoing propagation condition with condition must have an associated flow path
+			 */
+			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
+			{
+				if (opc.getCondition() != null)
+				{
+					boolean found = false;
+					
+					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(opc))
+					{
+						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorPropagation))
+						{
+							ErrorPropagation conditionIncoming = (ErrorPropagation) ce.getIncoming();
+							for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
+							{
+								if (ef instanceof ErrorPath)
+								{
+									ErrorPath ep = (ErrorPath) ef;
+									ErrorPropagation pathIncoming = ep.getIncoming();
+									ErrorPropagation pathOutgoing = ep.getOutgoing();
+
+									if ((conditionIncoming == pathIncoming) && (opc.getOutgoing() == pathOutgoing))
+									{
+										found = true;
+									}
+								}
+							}
+						}
+					}
+					//EMV2Util.getAllConditionElementsFromOutgoingPropagationCondition(opc)
+					if (!found)
+					{
+						error(componentInstance,"C4: outgoing propagation condition " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " does not have error path defined");
+					}
+				}
+			}
+			/**
+			 * End of implementation of C4
+			 */
 			
 			/**
 			 * Rule C5: In the component error behavior, check that we have a transition between each state
