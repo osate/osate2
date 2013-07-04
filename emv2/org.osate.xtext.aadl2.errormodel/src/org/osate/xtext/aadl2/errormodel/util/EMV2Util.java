@@ -668,6 +668,7 @@ public class EMV2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi){
+		if (!fi.getDirection().outgoing()) return null;
 		ComponentInstance ci = fi.getContainingComponentInstance();
 		FeatureInstance current = fi;
 		ErrorPropagation res = EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
@@ -678,15 +679,6 @@ public class EMV2Util {
 		return res;
 	}
 	
-//	/**
-//	 * Get Outgoing error propagation associated with feature instance 
-//	 * @param fi feature instance
-//	 * @return error propagation
-//	 */
-//	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi){
-//		ComponentInstance ci = fi.getContainingComponentInstance();
-//		return EMV2Util.findOutgoingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(fi));
-//	}
 	
 	/**
 	 * Get incoming error propagation associated with feature instance or its enclosing feature instance
@@ -694,6 +686,7 @@ public class EMV2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
+		if (!fi.getDirection().incoming()) return null;
 		ComponentInstance ci = fi.getContainingComponentInstance();
 		FeatureInstance current = fi;
 		ErrorPropagation res = EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(current));
@@ -704,22 +697,13 @@ public class EMV2Util {
 		return res;
 	}
 	
-//	/**
-//	 * Get incoming error propagation associated with feature instance 
-//	 * @param fi feature instance
-//	 * @return error propagation
-//	 */
-//	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
-//		ComponentInstance ci = fi.getContainingComponentInstance();
-//		return EMV2Util.findIncomingErrorPropagation(ci.getComponentClassifier(), getFeatureInstancePath(fi));
-//	}
-//	
 	/**
 	 * Get outgoing error propagation associated with feature instance or its enclosing feature instance
 	 * @param fi feature instance
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingErrorContainment(FeatureInstance fi){
+		if (!fi.getDirection().outgoing()) return null;
 		ComponentInstance ci = fi.getContainingComponentInstance();
 		FeatureInstance current = fi;
 		ErrorPropagation res = EMV2Util.findOutgoingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(current));
@@ -730,15 +714,6 @@ public class EMV2Util {
 		return res;
 	}
 	
-//	/**
-//	 * Get outgoing error containment associated with feature instance 
-//	 * @param fi feature instance
-//	 * @return error propagation
-//	 */
-//	public static ErrorPropagation getOutgoingErrorContainment(FeatureInstance fi){
-//		ComponentInstance ci = fi.getContainingComponentInstance();
-//		return EMV2Util.findOutgoingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(fi));
-//	}
 	
 	/**
 	 * Get incoming error propagation associated with feature instance or its enclosing feature instance
@@ -746,6 +721,7 @@ public class EMV2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getIncomingErrorContainment(FeatureInstance fi){
+		if (!fi.getDirection().incoming()) return null;
 		ComponentInstance ci = fi.getContainingComponentInstance();
 		FeatureInstance current = fi;
 		ErrorPropagation res = EMV2Util.findIncomingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(current));
@@ -756,15 +732,6 @@ public class EMV2Util {
 		return res;
 	}
 	
-//	/**
-//	 * Get incoming error containment associated with feature instance 
-//	 * @param fi feature instance
-//	 * @return error propagation
-//	 */
-//	public static ErrorPropagation getIncomingErrorContainment(FeatureInstance fi){
-//		ComponentInstance ci = fi.getContainingComponentInstance();
-//		return EMV2Util.findIncomingErrorContainment(ci.getComponentClassifier(), getFeatureInstancePath(fi));
-//	}
 	
 	/**
 	 * Get incoming error propagation associated with component instance access
