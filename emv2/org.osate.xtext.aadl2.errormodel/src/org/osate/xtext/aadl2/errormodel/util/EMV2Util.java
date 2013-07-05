@@ -2136,6 +2136,7 @@ public class EMV2Util {
 	}
 	
 	public static String getPrintName(TypeToken tu){
+		if (tu == null) return "";
 		return "{"+getName(tu)+"}";
 	}
 	

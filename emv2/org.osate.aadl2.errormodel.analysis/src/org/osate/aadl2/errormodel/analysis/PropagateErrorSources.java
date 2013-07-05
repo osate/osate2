@@ -46,6 +46,7 @@ import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -136,6 +137,14 @@ public class PropagateErrorSources {
 		}
 		report.addOutputNewline(", More");	
 	}
+	
+	public void reportExternalTableHeading( ){
+		report.addOutput("Root System, External Error Source, 1st Level Effect");
+		for (int i = 2; i <= this.maxLevel; i++) {
+			report.addOutput(", Failure Mode, "+(i==2?"second":i==3?"third":Integer.toString(i)+"th")+" Level Effect");
+		}
+		report.addOutputNewline(", More");	
+	}
 
 	
 	public void reportImpactHeading( ){
@@ -167,7 +176,7 @@ public class PropagateErrorSources {
 	public void startErrorFlows(ComponentInstance ci)
 	{
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
-		String componentText = generateItemText(ci);
+		String componentText = ci.getComponentInstancePath();
 		List<TypeToken> handledTypes = new ArrayList<TypeToken>();
 		
 		for (ErrorBehaviorEvent event : EMV2Util.getAllErrorBehaviorEvents(ci))
@@ -278,23 +287,19 @@ public class PropagateErrorSources {
 	public void startExternalFlows(ComponentInstance root)
 	{
 		Collection<ErrorPropagation> eplist = EMV2Util.getAllIncomingErrorPropagations(root.getComponentClassifier());
-		String componentText = generateItemText(root);
+		String componentText = generateComponentInstanceText(root);
 		if (eplist.isEmpty()) return;
 		reportExternalImpactHeading();
-		reportTableHeading();
+		reportExternalTableHeading();
 		for (ErrorPropagation ep : eplist){
 			FeatureInstance fi = EMV2Util.findFeatureInstance(ep, root);
-			if (fi.getSrcConnectionInstances().isEmpty()){
-				reportEntry("[External Error Source without connection]"+generateErrorPropText(ep), 1);
-			} else {
 			TypeSet tsep = ep.getTypeSet();
 			EList<TypeToken> result = tsep.getTypeTokens();
-			// XXX use this if we want all leaf types: EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
+			// XXX use this if we want all leaf types: EM2TypeSetUtil.generateAllLeafTypeTokens(tsep,EMV2Util.getContainingTypeUseContext(errorSource));
 			for (TypeToken typeToken : result)
 			{
-				String failuremodeText = "[External]"+generateOriginalFailureModeText(typeToken);
+				String failuremodeText = generateErrorPropTypeTokenText(ep,typeToken);
 				traceErrorPaths(root,ep,typeToken,2,componentText+", "+failuremodeText);
-			}
 			}
 		}
 	}
@@ -305,24 +310,37 @@ public class PropagateErrorSources {
 	 * @param ci component instance
 	 * @return String
 	 */
-	public String generateItemText(ConnectionInstanceEnd io)
+	public String generateConnectionInstanceEndText(ConnectionInstanceEnd io)
 	{
-		String result;
-		
 		if (io instanceof FeatureInstance)
 		{
 			FeatureInstance fi = (FeatureInstance)io;
 			ComponentInstance ci = fi.getContainingComponentInstance();
-			result = ci.getQualifiedName()+"."+fi.getName();
-		} else if (io instanceof SystemInstance) {
-			SystemImplementation simpl = ((SystemInstance)io).getSystemImplementation();
-			result = "[system]"+ simpl.getName();
-		} else if (io instanceof ComponentInstance) {
-			result = ((ComponentInstance)io).getComponentInstancePath();
+			String finame = fi.getQualifiedName();
+			return ci.getQualifiedName()+":"+finame;
+		} 
+		if (io instanceof ComponentInstance) {
+			return generateComponentInstanceText((ComponentInstance)io);
 		} else 	{
-			result = io.getName();
+			return io.getName();
 		}
-		return result;
+	}
+	
+	/**
+	 * get the text to be used for the item (Component or system instance)
+	 * that is the source of a failure mode
+	 * @param ci component instance
+	 * @return String
+	 */
+	public String generateComponentInstanceText(ComponentInstance io)
+	{
+		if (io instanceof SystemInstance) {
+			return io.getName();
+//			SystemImplementation simpl = ((SystemInstance)io).getSystemImplementation();
+//			return simpl.getName();
+		} else {
+			return ((ComponentInstance)io).getComponentInstancePath();
+		}
 	}
 	
 	
@@ -351,9 +369,9 @@ public class PropagateErrorSources {
 	 * @param io Instance Object
 	 * @param ep Error Propagation
 	 */
-	public String generatePropagationPointText(ComponentInstance io, ErrorPropagation ep){
-			return(generateItemText(io)+
-					(ep!=null?"."+EMV2Util.getPrintName(ep):""));
+	public String generateComponentPropagationPointText(ComponentInstance io, ErrorPropagation ep){
+			return(generateComponentInstanceText(io)+
+					(ep!=null?":"+EMV2Util.getPrintName(ep):""));
 	}
 	
 	
@@ -364,7 +382,7 @@ public class PropagateErrorSources {
 	 * @param io Instance Object
 	 * @param ep Error Propagation
 	 */
-	public String generateErrorPropText( ErrorPropagation ep, TypeToken tt){
+	public String generateErrorPropTypeTokenText( ErrorPropagation ep, TypeToken tt){
 			return(
 					(ep!=null?EMV2Util.getPrintName(ep):"")+
 					(tt!=null?" "+EMV2Util.getPrintName(tt):""));
@@ -374,9 +392,22 @@ public class PropagateErrorSources {
 	 * report on io object with optional error propagation.
 	 * report on attached ErrorModelState if present
 	 * note: error propagation ep can be null.
+	 * @param io Instance Object
 	 * @param ep Error Propagation
 	 */
-	public String generateErrorPropText( ErrorPropagation ep){
+	public String generateTypeTokenErrorPropText( ErrorPropagation ep, TypeToken tt){
+			return(
+					(tt!=null?EMV2Util.getPrintName(tt):"")+
+					(ep!=null?" "+EMV2Util.getPrintName(ep):""));
+	}
+	
+	/**
+	 * report on io object with optional error propagation.
+	 * report on attached ErrorModelState if present
+	 * note: error propagation ep can be null.
+	 * @param ep Error Propagation
+	 */
+	public String generateErrorPropTypeSetText( ErrorPropagation ep){
 			if (ep == null) return "";
 			TypeSet ts = ep.getTypeSet();
 			return(
@@ -388,11 +419,12 @@ public class PropagateErrorSources {
 	/**
 	 * report on Failure mode.
 	 * note: error propagation ep can be null.
-	 * @param io Instance Object
+	 * @param ci Instance Object
 	 * @param ep Error Propagation
 	 */
 	public String generateFailureModeText( ComponentInstance ci,ErrorPropagation ep, TypeToken tt){
-			return  generateComponentErrorPropText(ci,ep,tt);//generateErrorPropText(ep, tt);
+			return  ci.getComponentInstancePath()+
+					(tt!=null?" "+EMV2Util.getPrintName(tt):"");
 	}
 	
 	/**
@@ -402,8 +434,19 @@ public class PropagateErrorSources {
 	 * @param ep Error Propagation
 	 */
 	public String generateComponentErrorPropText( ComponentInstance ci,ErrorPropagation ep, TypeToken tt){
-			return generateItemText(ci)+"."+
-					generateErrorPropText(ep, tt);
+			return generateComponentInstanceText(ci)+":"+
+					generateErrorPropTypeTokenText(ep, tt);
+	}
+	
+	/**
+	 * report on ci object with optional error propagation.
+	 * note: error propagation ep can be null.
+	 * @param io Instance Object
+	 * @param ep Error Propagation
+	 */
+	public String generateComponentTypeTokenText( ComponentInstance ci, TypeToken tt){
+			return generateComponentInstanceText(ci)+":"+
+					(tt!=null?" "+EMV2Util.getPrintName(tt):"");
 	}
 	
 	
@@ -426,23 +469,36 @@ public class PropagateErrorSources {
 		}
 		if (st.visited(tt)){
 			// we were there before.
-			String effectText = ","+generateErrorPropText(ep,tt);
-			reportEntry(entryText+effectText+" -> <Cycle>,,", depth);
+			String effectText = ","+generateErrorPropTypeTokenText(ep,tt);
+			reportEntry(entryText+effectText+" -> [Propagation Cycle],,", depth);
 			return;
 		} else {
 			st.setVisitToken(tt);
 		}
 		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
-		String effectText = ","+generateErrorPropText(ep,tt);
+		String effectText = ","+generateTypeTokenErrorPropText(ep,tt);
 		if (paths.isEmpty()){
-			reportEntry(entryText+",<incoming propagation>,,", depth);
+			EList<ConnectionInstance> conns = fi.getSrcConnectionInstances();
+			if (conns.isEmpty()){
+				reportEntry(entryText+",[No Outgoing Conn],,", depth);
+			} else {
+				for (ConnectionInstance connectionInstance : conns) {
+					reportEntry(entryText+","+(tt!=null?EMV2Util.getPrintName(tt)+" ":"")+
+				connectionInstance.getName()+"[No In Prop],,", depth);
+				}
+			}
 		} else {
 			for (PropagationPath path : paths) {
 				ComponentInstance destci = path.getDstCI();
 				ErrorPropagation destEP = path.getPathDst().getErrorPropagation();
-				// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-				String connText=" -> "+generateItemText(destci);
-				traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
+				if (destci instanceof SystemInstance){
+					// we have an external propagation (out only connection)
+					String connText=" -> "+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
+					reportEntry(entryText+effectText+connText,depth);
+				} else {
+					String connText=" -> "+generateComponentPropagationPointText(destci, destEP);
+					traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
+				}
 			}
 		}
 		st.removeVisitedToken( tt);
@@ -560,7 +616,7 @@ public class PropagateErrorSources {
 					for (TypeToken typeToken : intersection) {
 						TypeToken newtt = EMV2Util.mapToken(typeToken,ef);
 						for (ErrorPropagation outp : eplist) {
-							traceErrorPaths(ci,outp,newtt,depth+1,entryText+",\""+generateFailureModeText(ci, ep,typeToken)+" [Type Subset of "+EMV2Util.getPrintName(ts)+" ]\"");
+							traceErrorPaths(ci,outp,newtt,depth+1,entryText+",\""+generateFailureModeText(ci, ep,typeToken)+" [Subtype]\"");
 							handled = true;
 						}
 					}
@@ -586,7 +642,7 @@ public class PropagateErrorSources {
 								} else {
 									Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
 									for (TypeToken typeToken : intersection) {
-										traceErrorPaths(ci,outp,typeToken,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt)+" [FlowPathTypeSubset]");
+										traceErrorPaths(ci,outp,typeToken,depth+1,entryText+", "+generateFailureModeText(ci, ep,tt)+" [FlowPath TypeSubset]");
 										handled = true;
 									}
 								}
@@ -607,7 +663,7 @@ public class PropagateErrorSources {
 			}
 		}
 		if (!handled ){
-			String errorText = ","+generateFailureModeText(ci,ep,tt)+" [No outgoing propagations]";
+			String errorText = ","+generateFailureModeText(ci,ep,tt)+" [No Out Prop]";
 			reportEntry(entryText+errorText, depth);
 		}
 	}
@@ -620,7 +676,7 @@ public class PropagateErrorSources {
 				if (outp!=null){
 					TypeToken newtt = EMV2Util.mapToken(tt,null);
 					if (EM2TypeSetUtil.contains(outp.getTypeSet(), newtt)){
-						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOut]");
+						traceErrorPaths(ci,outp,newtt,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [All Out Props]");
 						handled = true;
 					} else {
 						Collection<TypeToken> intersection = EM2TypeSetUtil.getConstrainedTypeTokens(outp.getTypeSet(), newtt);
@@ -630,7 +686,7 @@ public class PropagateErrorSources {
 							handled = true;
 						} else {
 							for (TypeToken typeToken : intersection) {
-								traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [AllOutTypeSubset]");
+								traceErrorPaths(ci,outp,typeToken,depth+1,entryText+","+generateFailureModeText(ci,ep,tt)+" [All Out Subtype]");
 								handled = true;
 							}
 						}
