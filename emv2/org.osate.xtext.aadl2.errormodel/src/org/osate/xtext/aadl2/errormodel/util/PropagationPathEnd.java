@@ -19,17 +19,6 @@ public class PropagationPathEnd {
 
 	public ComponentInstance getComponentInstance() {
 		if( instanceObject instanceof ComponentInstance) return (ComponentInstance)instanceObject;
-		if (instanceObject instanceof FeatureInstance) return instanceObject.getComponentInstance();
-		return null;
-	}
-	
-	public ConnectionInstanceEnd getConnectionInstanceEnd() {
-		if( instanceObject instanceof ConnectionInstanceEnd) return (ConnectionInstanceEnd)instanceObject;
-		return null;
-	}
-	
-	public FeatureInstance getFeatureInstance() {
-		if( instanceObject instanceof FeatureInstance) return (FeatureInstance)instanceObject;
 		return null;
 	}
 

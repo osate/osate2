@@ -18,8 +18,8 @@ public class PropagationPath {
 	
 	
 	public PropagationPath(
-			ConnectionInstanceEnd srcCI, ErrorPropagation srcEP,
-			ConnectionInstanceEnd dstCI, ErrorPropagation dstEP, ConnectionInstance conni) {
+			ComponentInstance srcCI, ErrorPropagation srcEP,
+			ComponentInstance dstCI, ErrorPropagation dstEP, ConnectionInstance conni) {
 		this.pathSrc = new PropagationPathEnd(srcCI, srcEP);
 		this.pathDst = new PropagationPathEnd(dstCI, dstEP);
 		this.conni = conni;
@@ -28,14 +28,14 @@ public class PropagationPath {
 	
 	public PropagationPath(
 			ConnectionInstance srcConni, 
-			ConnectionInstanceEnd dstCI, ErrorPropagation dstEP) {
+			ComponentInstance dstCI, ErrorPropagation dstEP) {
 		this.pathSrc = new PropagationPathEnd(srcConni, null);
 		this.pathDst = new PropagationPathEnd(dstCI, dstEP);
 		this.conni = null;
 	}
 	
 	public PropagationPath(
-			ConnectionInstanceEnd srcCI, ErrorPropagation srcEP,
+			ComponentInstance srcCI, ErrorPropagation srcEP,
 			ConnectionInstance dstConni) {
 		this.pathSrc = new PropagationPathEnd(srcCI, srcEP);
 		this.pathDst = new PropagationPathEnd(dstConni, null);
@@ -53,9 +53,6 @@ public class PropagationPath {
 	public ComponentInstance getSrcCI(){
 			return pathSrc.getComponentInstance();
 	}
-	public ConnectionInstanceEnd getSrcCIE(){
-		return pathSrc.getConnectionInstanceEnd();
-	}
 	
 	public ConnectionInstance getSrcConni(){
 			return pathSrc.getConnectionInstance();
@@ -69,10 +66,6 @@ public class PropagationPath {
 	public ComponentInstance getDstCI()
 	{
 			return pathDst.getComponentInstance();
-	}
-	public ConnectionInstanceEnd getDstCIE()
-	{
-			return pathDst.getConnectionInstanceEnd();
 	}
 	public ConnectionInstance getDstConni(){
 			return pathDst.getConnectionInstance();
