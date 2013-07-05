@@ -527,7 +527,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	
 					for (TypeToken tt : epTokens)
 					{
-						OsateDebug.osateDebug("check for type" + EMV2Util.getPrintName(tt) );
+					//	OsateDebug.osateDebug("check for type" + EMV2Util.getPrintName(tt) );
 						boolean found = false;
 						for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
 						{
@@ -536,7 +536,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 								
 								if (EM2TypeSetUtil.contains(opc.getTypeToken(), tt))	
 								{
-									OsateDebug.osateDebug("found" + EMV2Util.getPrintName(tt) );
+								//	OsateDebug.osateDebug("found" + EMV2Util.getPrintName(tt) );
 
 									found = true;
 								}		
@@ -805,7 +805,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						for (SubcomponentElement se : ce.getSubcomponents())
 						{
 							se.getSubcomponent();
-							OsateDebug.osateDebug("se=" + se);
+							//OsateDebug.osateDebug("se=" + se);
 							PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getReference(),null);
 							if (PA == null)
 							{
@@ -815,7 +815,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 							{
 							//OsateDebug.osateDebug("         PA " + PA);
 								tmp = EMV2Util.getOccurenceValue (PA);
-								OsateDebug.osateDebug("tmp=" + tmp);
+								//OsateDebug.osateDebug("tmp=" + tmp);
 								probabilityComposite = probabilityComposite + tmp;
 							}
 						}
@@ -834,7 +834,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						{
 							//OsateDebug.osateDebug("         PA " + PA);
 							tmp = EMV2Util.getOccurenceValue (PA);
-							OsateDebug.osateDebug("tmp=" + tmp);
+							//OsateDebug.osateDebug("tmp=" + tmp);
 							probabilityBehavior = probabilityBehavior + tmp;							
 						}
 					}
