@@ -978,13 +978,19 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			 */
 			for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
 			{
+				/**
+				 * First, we take all error sink from a component
+				 */
 				if ((componentInstance.getComponentClassifier() instanceof ComponentImplementation) && (ef instanceof ErrorSink))
 				{
 					ErrorSink es = (ErrorSink)ef;
 					Feature src = (Feature) es.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP();
 					ComponentImplementation impl = (ComponentImplementation)componentInstance.getComponentClassifier();
 					//OsateDebug.osateDebug("src="+src);
-
+					
+					/**
+					 * We inspect the connection of the feature related to this error sink
+					 */
 					for (Connection conn : impl.getAllConnections())
 					{
 						//OsateDebug.osateDebug("conn src="+conn.getSource());
@@ -999,6 +1005,13 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 							ConnectedElementImpl ceiDst = (ConnectedElementImpl)conn.getDestination();
 							//OsateDebug.osateDebug("before");
 
+							/**
+							 * Then, we finally check that the feature of the component
+							 * is an error sink. For that, we retrieve the component
+							 * that contains the destination and finally inspect all
+							 * its error flow and check that it declares
+							 * an error sink for this feature.
+							 */
 							if (ceiDst.getConnectionEnd() instanceof Feature)
 							{
 								//OsateDebug.osateDebug("after");
