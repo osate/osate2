@@ -1,5 +1,7 @@
 package org.osate.aadl2.util;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Connection;
@@ -242,6 +244,29 @@ public class Aadl2InstanceUtil {
 			return (getFeatureIndex(up)==getFeatureIndex(down));
 		}
 		return false;
+	}
+	
+	public static Collection<ConnectionInstance> getBidirectionalConnectionInstances(Collection<ConnectionInstance> connList){
+		Collection<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		for (ConnectionInstance connectionInstance : connList) {
+			if (connectionInstance.isBidirectional()){
+				result.add(connectionInstance);
+			}
+		}
+		return result;
+	}
+	
+	public static boolean inOnly(ConnectionInstance conni){
+		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
+		ConnectionReference first = connrefs.get(0);
+		return (first.getSource().getComponentInstance() == first.getContext());
+	}
+	
+	public static boolean outOnly(ConnectionInstance conni){
+		EList<ConnectionReference> connrefs = conni.getConnectionReferences();
+		ConnectionReference last = connrefs.get(connrefs.size()-1);
+		return (last.getDestination().getComponentInstance() == last.getContext());
+
 	}
 
 }
