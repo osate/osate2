@@ -48,6 +48,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
@@ -684,7 +685,9 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					}
 				}
 			}
-			
+			/**
+			 * End of implementation of C11
+			 */
 			
 			/**
 			 * Rule C12: Composite error behavior references all subcomponents
@@ -736,9 +739,123 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					}
 				}
 			}
+			/**
+			 * End of implementation of C12
+			 */
 			
 			
 		
+			/**
+			 * Rule C13: Composite error behavior: check compliance between component state machine and composite error state machine
+			 */
+			if (EMV2Util.hasCompositeErrorBehavior(componentInstance) && EMV2Util.hasComponentErrorBehavior(componentInstance))
+			{
+
+
+				/**
+				 * For each state, we will get all the conditions for both the error behavior
+				 * AND the composite error model.
+				 */
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
+				{
+					EList<ConditionElement> elementsBehavior = new BasicEList<ConditionElement>();
+					EList<ConditionElement> elementsComposite= new BasicEList<ConditionElement>();
+					double probabilityBehavior = 0;
+					double probabilityComposite = 0;
+					double tmp;
+					ContainedNamedElement PA;
+					/**
+					 * We retrieve all the elements within the error behavior specifications
+					 */
+					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
+					{
+						if (ebt.getTarget() == ebs)
+						{
+							elementsBehavior.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(ebt));
+						}
+					}
+					
+					
+					/**
+					 * We retrieve all the elements within the composite error behavior
+					 */
+					for (CompositeErrorBehavior ceb : EMV2Util.getAllCompositeErrorBehaviors (componentInstance))
+					{
+						for (CompositeState cs : ceb.getStates())
+						{
+							if (cs.getState() == ebs)
+							{
+								elementsComposite.addAll(EMV2Util.getAllConditionElementsFromConditionExpression (cs));
+							}
+						}
+					}
+					
+					/**
+					 * FIXME JD
+					 * 
+					 * For now, we just sum the properties but we should introduce something more intelligent to make
+					 * some consistency check and handle the different operators such as and, or, etc.
+					 */
+					for (ConditionElement ce : elementsComposite)
+					{
+						for (SubcomponentElement se : ce.getSubcomponents())
+						{
+							se.getSubcomponent();
+							OsateDebug.osateDebug("se=" + se);
+							PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getReference(),null);
+							if (PA == null)
+							{
+								warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for " + EMV2Util.getPrintName(se) + " and reference " + EMV2Util.getPrintName(ce.getReference()) );
+							}
+							else
+							{
+							//OsateDebug.osateDebug("         PA " + PA);
+								tmp = EMV2Util.getOccurenceValue (PA);
+								OsateDebug.osateDebug("tmp=" + tmp);
+								probabilityComposite = probabilityComposite + tmp;
+							}
+						}
+
+					}
+					
+					for (ConditionElement ce : elementsBehavior)
+					{
+						PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getIncoming(),null);
+						//OsateDebug.osateDebug("         PA " + PA);
+						if (PA == null)
+						{
+							warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for incoming propagation " + EMV2Util.getPrintName(ce.getIncoming()));
+						}
+						else
+						{
+							//OsateDebug.osateDebug("         PA " + PA);
+							tmp = EMV2Util.getOccurenceValue (PA);
+							OsateDebug.osateDebug("tmp=" + tmp);
+							probabilityBehavior = probabilityBehavior + tmp;							
+						}
+					}
+					OsateDebug.osateDebug("State " + ebs.getName() + "probability composite = " + probabilityComposite);
+					OsateDebug.osateDebug("State " + ebs.getName() + "probability behavior  = " + probabilityBehavior);
+					
+					
+					if (probabilityBehavior != probabilityComposite)
+					{
+						error(componentInstance,"C13: in component " + componentInstance.getName() + " inconsistent probability values for state " + ebs.getName() + " (for composite, probability=" + probabilityComposite + " ; for behavior, probability=" + probabilityBehavior + ")");
+					}
+					else
+					{
+						info(componentInstance,"C13: component " + componentInstance.getName() + " has consistent probability values for state " + ebs.getName());
+
+					}
+				}
+			}
+			/**
+			 * End of implementation of C13
+			 */
+			
+			
+			
+			
 	
 		}
 		
