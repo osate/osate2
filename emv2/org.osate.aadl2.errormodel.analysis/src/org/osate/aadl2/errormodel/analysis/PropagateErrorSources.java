@@ -460,24 +460,24 @@ public class PropagateErrorSources {
 //			reportEntry(entryText+" <more>,,", depth);
 //			return;
 //		}
-		FeatureInstance fi = EMV2Util.findFeatureInstance(ep, ci);
-		ErrorModelState st=null;
-		if (fi != null){
-			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
-		} else {
-			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(ci, ErrorModelState.class);
-		}
-		if (st.visited(tt)){
-			// we were there before.
-			String effectText = ","+generateErrorPropTypeTokenText(ep,tt);
-			reportEntry(entryText+effectText+" -> [Propagation Cycle],,", depth);
-			return;
-		} else {
-			st.setVisitToken(tt);
-		}
+//		ErrorModelState st=null;
+//		if (fi != null){
+//			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
+//		} else {
+//			st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(ci, ErrorModelState.class);
+//		}
+//		if (st.visited(tt)){
+//			// we were there before.
+//			String effectText = ","+generateErrorPropTypeTokenText(ep,tt);
+//			reportEntry(entryText+effectText+" -> [Propagation Cycle],,", depth);
+//			return;
+//		} else {
+//			st.setVisitToken(tt);
+//		}
 		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
 		String effectText = ","+generateTypeTokenErrorPropText(ep,tt);
 		if (paths.isEmpty()){
+			FeatureInstance fi = EMV2Util.findFeatureInstance(ep, ci);
 			EList<ConnectionInstance> conns = fi.getSrcConnectionInstances();
 			if (conns.isEmpty()){
 				reportEntry(entryText+",[No Outgoing Conn],,", depth);
@@ -495,13 +495,31 @@ public class PropagateErrorSources {
 					// we have an external propagation (out only connection)
 					String connText=" -> "+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
 					reportEntry(entryText+effectText+connText,depth);
+				} else if (path.getConnectionInstance()!=null&&!path.getConnectionInstance().isComplete()){
+					// outgoing only, but not ending at root
+					String connText=" -> "+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
+					reportEntry(entryText+effectText+connText,depth);
 				} else {
+					FeatureInstance fi = EMV2Util.findFeatureInstance(destEP, destci);
+					ErrorModelState st=null;
+					if (fi != null){
+						st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(fi, ErrorModelState.class);
+					} else {
+						st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(destci, ErrorModelState.class);
+					}
+					if (st.visited(tt)){
+						// we were there before.
+						reportEntry(entryText+effectText+" -> [Propagation Cycle],,", depth);
+						return;
+					} else {
+						st.setVisitToken(tt);
+					}
 					String connText=" -> "+generateComponentPropagationPointText(destci, destEP);
 					traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
+					st.removeVisitedToken( tt);
 				}
 			}
 		}
-		st.removeVisitedToken( tt);
 	}
 	
 	
