@@ -501,14 +501,16 @@ public class EMV2Util {
 
 	
 	/**
-	 * Find error propagation  
-	 * @param ems
+	 * Find error propagation  starting with the specified classifier
+	 * goes up the inheritance hierarchy
+	 * name can be a dotted name
+	 * @param cl the classifier in the context of which we find the error propagation
 	 * @param name
 	 * @param dir
 	 * @return
 	 */
-	public static ErrorPropagation findErrorContainment(ErrorModelSubclause ems, String name, DirectionType dir){
-		Collection<ErrorPropagation> eps  = getAllErrorContainments(ems.getContainingClassifier());
+	public static ErrorPropagation findErrorContainment(Classifier cl, String name, DirectionType dir){
+		Collection<ErrorPropagation> eps  = getAllErrorContainments(cl);
 		for (ErrorPropagation ep : eps){
 			if (dir == null ||ep.getDirection()== dir){
 				// do we need to check (context instanceof QualifiedObservableErrorPropagationPoint)
@@ -529,49 +531,48 @@ public class EMV2Util {
 		return null;
 	}
 	
+	
 	/**
-	 * Find error propagation  in containing classifier
-	 * @param element
+	 * Find error propagation in classifier hierarchy
+	 * name can be a dotted name
+	 * @param elem the context whose containing classifier is searched hierarchically to find the error propagation
 	 * @param name
 	 * @param dir
 	 * @return
 	 */
-	public static ErrorPropagation findErrorPropagation(Element context, String name, DirectionType dir){
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagation(errorModelSubclause, name, dir);
-			if (res != null) return res;
+	public static ErrorPropagation findErrorPropagation(Element elem, String name, DirectionType dir){
+		Classifier cl = elem.getContainingClassifier();
+		if (cl != null){
+			return findErrorPropagation(cl, name, dir);
 		}
 		return null;
 	}
 	
 	/**
-	 * Find error propagation in subclause 
+	 * Find error propagation in classifier hierarchy
 	 * name can be a dotted name
-	 * @param ems
+	 * @param cl the classifier in the context of which we find the error propagation
 	 * @param name
 	 * @param dir
 	 * @return
 	 */
-	public static ErrorPropagation findErrorPropagation(ErrorModelSubclause ems, String name, DirectionType dir){
-		ErrorPropagations eps = ems.getErrorPropagations();
-		if (eps != null){
-			for (ErrorPropagation ep : eps.getPropagations()){
-				if (dir == null ||ep.getDirection()== dir){
-					EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
-					if (!refs.isEmpty()){
-						String refname = "";
-						for (FeatureorPPReference FeatureorPPReference : refs) {
-							if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
-							refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
-						}
-						if (refname.equalsIgnoreCase(name)) return ep;
+	public static ErrorPropagation findErrorPropagation(Classifier cl, String name, DirectionType dir){
+		Collection<ErrorPropagation> eps  = getAllErrorPropagations(cl);
+		for (ErrorPropagation ep : eps){
+			if (dir == null ||ep.getDirection()== dir){
+				EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+				if (!refs.isEmpty()){
+					String refname = "";
+					for (FeatureorPPReference FeatureorPPReference : refs) {
+						if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
+						refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
 					}
-					String kind = ep.getKind();
-					if (kind != null && kind.equalsIgnoreCase(name)&&
-							(dir == null||dir.equals(ep.getDirection()))){
-						return ep;
-					}
+					if (refname.equalsIgnoreCase(name)) return ep;
+				}
+				String kind = ep.getKind();
+				if (kind != null && kind.equalsIgnoreCase(name)&&
+						(dir == null||dir.equals(ep.getDirection()))){
+					return ep;
 				}
 			}
 		}
@@ -581,94 +582,44 @@ public class EMV2Util {
 	
 	/**
 	 * find the incoming error propagation point of the specified name
-	 * @param element the model element in the context of which we find the error propagation
+	 * @param cl the classifier in the context of which we find the error propagation
 	 * @param eppName Name of error propagation point we are looking for
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findIncomingErrorPropagation(Element element, String eppName){
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.IN);
-			if (res != null) return res;
-		}
-		return null;
-	}
-	public static ErrorPropagation findIncomingErrorPropagation(EList<ErrorModelSubclause> emslist, String eppName){
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.IN);
-			if (res != null) return res;
-		}
-		return null;
+	public static ErrorPropagation findIncomingErrorPropagation(Classifier cl, String eppName){
+		return findErrorPropagation(cl, eppName, DirectionType.IN);
 	}
 	
 	
 	/**
 	 * find the outgoing error propagation point of the specified name
-	 * @param element the model element in the context of which we find the error propagation
+	 * @param cl the classifier in the context of which we find the error propagation
 	 * @param eppName Name of error propagation point we are looking for
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findOutgoingErrorPropagation(Element element, String eppName){
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.OUT);
-			if (res != null) return res;
-		}
-		return null;
-	}
-	
-	public static ErrorPropagation findOutgoingErrorPropagation(EList<ErrorModelSubclause> emslist, String eppName){
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorPropagation(errorModelSubclause, eppName, DirectionType.OUT);
-			if (res != null) return res;
-		}
-		return null;
+	public static ErrorPropagation findOutgoingErrorPropagation(Classifier cl, String eppName){
+		return findErrorPropagation(cl, eppName, DirectionType.OUT);
 	}
 	
 	/**
 	 * find the outgoing error containment point of the specified name
-	 * @param element the model element in the context of which we find the error propagation
+	 * @param cl the classifier in the context of which we find the error propagation
 	 * @param eppName Name of error propagation point we are looking for
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findOutgoingErrorContainment(Element element, String eppName){
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorContainment(errorModelSubclause, eppName, DirectionType.OUT);
-			if (res != null) return res;
-		}
-		return null;
-	}
-	
-	public static ErrorPropagation findOutgoingErrorContainment(EList<ErrorModelSubclause> emslist, String eppName){
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorContainment(errorModelSubclause, eppName, DirectionType.OUT);
-			if (res != null) return res;
-		}
-		return null;
+	public static ErrorPropagation findOutgoingErrorContainment(Classifier cl, String eppName){
+		return findErrorContainment(cl, eppName, DirectionType.OUT);
 	}
 	
 	
 	/**
 	 * find the incoming error propagation point of the specified name
-	 * @param element the model element in the context of which we find the error propagation
+	 * @param cl the classifier in the context of which we find the error propagation
 	 * @param eppName Name of error propagation point we are looking for
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findIncomingErrorContainment(Element element, String eppName){
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorContainment(errorModelSubclause, eppName, DirectionType.IN);
-			if (res != null) return res;
-		}
-		return null;
-	}
-	public static ErrorPropagation findIncomingErrorContainment(EList<ErrorModelSubclause> emslist, String eppName){
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorPropagation res = findErrorContainment(errorModelSubclause, eppName, DirectionType.IN);
-			if (res != null) return res;
-		}
-		return null;
+	public static ErrorPropagation findIncomingErrorContainment(Classifier cl, String eppName){
+		return findErrorContainment(cl, eppName, DirectionType.IN);
 	}
 	
 	public static String getFeatureInstancePath(FeatureInstance fi){
@@ -1676,7 +1627,7 @@ public class EMV2Util {
 			if (eps!= null){
 				EList<ErrorPropagation> eflist = eps.getPropagations();
 				for (ErrorPropagation errorProp : eflist) {
-					if (!errorProp.isNot()){
+					if (errorProp.isNot()){
 						String epname = EMV2Util.getPrintName(errorProp);
 						if (!result.containsKey(epname)){
 							result.put(epname,errorProp);

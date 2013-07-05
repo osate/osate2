@@ -890,39 +890,35 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		Context srcCxt = conn.getAllSourceContext();
 		ErrorPropagation srcprop = null;
 		ErrorPropagation srccontain = null;
-		ErrorModelSubclause srcems = null;
+		Classifier srccl = null;
 		String srcname = (src instanceof Subcomponent)?"access":src.getName();
 		if (srcCxt instanceof Subcomponent) {
-			ComponentClassifier cl = ((Subcomponent) srcCxt).getClassifier();
-			srcems = EMV2Util.getFirstEMV2Subclause(cl);
+			srccl = ((Subcomponent) srcCxt).getClassifier();
 		} else if (src instanceof Subcomponent) {
-			ComponentClassifier cl = ((Subcomponent) src).getClassifier();
-			srcems = EMV2Util.getFirstEMV2Subclause(cl);
+			srccl = ((Subcomponent) src).getClassifier();
 		} else {
-			srcems = EMV2Util.getFirstEMV2Subclause(cimpl);
+			srccl = cimpl;
 		}
-		if (srcems != null){
-			srcprop = EMV2Util.findOutgoingErrorPropagation(srcems, srcname);
-			srccontain = EMV2Util.findOutgoingErrorContainment(srcems,srcname);
+		if (srccl != null){
+			srcprop = EMV2Util.findOutgoingErrorPropagation(srccl, srcname);
+			srccontain = EMV2Util.findOutgoingErrorContainment(srccl,srcname);
 		}
 		ConnectionEnd dst = conn.getAllDestination();
 		Context dstCxt = conn.getAllDestinationContext();
-		ErrorModelSubclause dstems = null;
+		Classifier dstcl = null;
 		ErrorPropagation dstprop = null;
 		ErrorPropagation dstcontain = null;
 		String dstname = (dst instanceof Subcomponent)?"access":dst.getName();
 		if (dstCxt instanceof Subcomponent) {
-			ComponentClassifier cl = ((Subcomponent) dstCxt).getClassifier();
-			dstems = EMV2Util.getFirstEMV2Subclause(cl);
+			dstcl = ((Subcomponent) dstCxt).getClassifier();
 		} else if (dst instanceof Subcomponent) {
-				ComponentClassifier cl = ((Subcomponent) dst).getClassifier();
-				dstems = EMV2Util.getFirstEMV2Subclause(cl);
+				dstcl = ((Subcomponent) dst).getClassifier();
 		} else {
-			dstems = EMV2Util.getFirstEMV2Subclause(cimpl);
+			dstcl = cimpl;
 		}
-		if (dstems != null){
-			dstprop = EMV2Util.findIncomingErrorPropagation(dstems, dstname);
-			dstcontain = EMV2Util.findIncomingErrorContainment(dstems,dstname);
+		if (dstcl != null){
+			dstprop = EMV2Util.findIncomingErrorPropagation(dstcl, dstname);
+			dstcontain = EMV2Util.findIncomingErrorContainment(dstcl,dstname);
 		}
 		if (srcprop != null && dstprop != null) {
 			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(),
@@ -936,83 +932,49 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 								+ EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		/*
-		 * We do not want to check during parsing that
-		 * the outgoing contains ALL the fault from the incoming. That
-		 * might be checked/verified by the unhandled fault.
-		 * This was commented according to a discussion with Brian on June, 30, 2013.
 		if (srccontain != null && dstcontain != null) {
-			if (!EM2TypeSetUtil.contains(srcprop, dstprop)) {
+			if (!EM2TypeSetUtil.contains(srcprop.getTypeSet(), dstprop.getTypeSet())) {
 				error(conn,
-						"Outgoing 2containment  "
+						"Outgoing containment  "
 								+ EMV2Util.getPrintName(srcprop)
 								+ EMV2Util.getPrintName(srcprop.getTypeSet())
 								+ " does not contain error types listed by incoming containment "
 								+ EMV2Util.getPrintName(dstprop)
 								+ EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
-		}*/
+		}
+		// TODO comment out once we handle this consistency check at the instance level
+		if (srcCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent){
+			// only when going across
+			if (srccontain == null && dstcontain != null) {
+				warning(conn,
+						"No outgoing containment for incoming containment "
+								+ EMV2Util.getPrintName(dstcontain)
+								+ EMV2Util.getPrintName(dstcontain.getTypeSet()));
+			}
+			if (srcprop != null && dstprop == null ) {
+					warning(conn,
+							"No incoming error propagation for outgoing propagation "
+									+ EMV2Util.getPrintName(srcprop)+ EMV2Util.getPrintName(srcprop.getTypeSet()));
+			}
+		}
 		
-		if (srcCxt instanceof Subcomponent && srcprop == null
-				&& srccontain == null && dstCxt instanceof Subcomponent
-				&& (dstprop != null || dstcontain != null)) {
-			if (srcems != null) {
-				// has an EMV2 subclause but no propagation specification for
-				// the feature
-				warning(conn,
-						"Connection source has no error propagation/containment but target does: "
-								+ (dstprop != null ? EMV2Util
-										.getPrintName(dstprop) : EMV2Util
-										.getPrintName(dstcontain)));
-			} else {
-				// TODO check in instance model for connection end point if no
-				// error model subclause
-				warning(conn,
-						"Connection source has no error model subclause but target does: "
-								+ (dstprop != null ? EMV2Util
-										.getPrintName(dstprop) : EMV2Util
-										.getPrintName(dstcontain))
-								+ ". Please add error model to source or validate against error model of source subcomponents in instance model");
-			}
-		}
-		if (dstCxt instanceof Subcomponent && dstprop == null
-				&& dstCxt instanceof Subcomponent && dstcontain == null
-				&& (srcprop != null || srccontain != null)) {
-			if (dstems != null) {
-				// has an EMV2 subclause but no propagation specification for
-				// the feature
-				warning(conn,
-						"Connection target has no error propagation/containment but source does: "
-								+ (srcprop != null ? EMV2Util
-										.getPrintName(srcprop) : EMV2Util
-										.getPrintName(srccontain)));
-			} else {
-				// TODO check in instance model for connection end point if no
-				// error model subclause
-				warning(conn,
-						"Connection target has no error model subclause but source does: "
-								+ (srcprop != null ? EMV2Util
-										.getPrintName(srcprop) : EMV2Util
-										.getPrintName(srccontain))
-								+ ". Please add error model to target or validate against error model of target subcomponents in instance model");
-			}
-		}
 
 		if (conn.isBidirectional()) {
 			// check for error flow in the opposite direction
-			if (srcems != null) {
-				dstprop = EMV2Util.findIncomingErrorPropagation(srcems,
+			if (srccl != null) {
+				dstprop = EMV2Util.findIncomingErrorPropagation(srccl,
 						srcname);
-				dstcontain = EMV2Util.findIncomingErrorContainment(srcems,
+				dstcontain = EMV2Util.findIncomingErrorContainment(srccl,
 						srcname);
 			} else {
 				dstprop = null;
 				dstcontain = null;
 			}
-			if (dstems != null) {
-				srcprop = EMV2Util.findOutgoingErrorPropagation(dstems,
+			if (dstcl != null) {
+				srcprop = EMV2Util.findOutgoingErrorPropagation(dstcl,
 						dstname);
-				srccontain = EMV2Util.findOutgoingErrorContainment(dstems,
+				srccontain = EMV2Util.findOutgoingErrorContainment(dstcl,
 						dstname);
 			} else {
 				srcprop = null;
@@ -1025,71 +987,36 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					error(conn,
 							"Outgoing propagation  "
 									+ EMV2Util.getPrintName(srcprop)
-									+ EMV2Util.getPrintName(srcprop
-											.getTypeSet())
+									+ EMV2Util.getPrintName(srcprop.getTypeSet())
 									+ " has error types not handled by incoming propagation "
 									+ EMV2Util.getPrintName(dstprop)
-									+ EMV2Util.getPrintName(dstprop
-											.getTypeSet()));
+									+ EMV2Util.getPrintName(dstprop.getTypeSet()));
 				}
 			}
 			if (srccontain != null && dstcontain != null) {
-				if (!EM2TypeSetUtil.contains(dstcontain.getTypeSet(),srccontain.getTypeSet())) {
+				if (!EM2TypeSetUtil.contains(srcprop.getTypeSet(), dstprop.getTypeSet())) {
 					error(conn,
 							"Outgoing containment  "
 									+ EMV2Util.getPrintName(srcprop)
-									+ EMV2Util.getPrintName(srcprop
-											.getTypeSet())
+									+ EMV2Util.getPrintName(srcprop.getTypeSet())
 									+ " does not contain error types listed by incoming containment "
 									+ EMV2Util.getPrintName(dstprop)
-									+ EMV2Util.getPrintName(dstprop
-											.getTypeSet()));
+									+ EMV2Util.getPrintName(dstprop.getTypeSet()));
 				}
 			}
-			if (srcCxt instanceof Subcomponent
-					&& dstCxt instanceof Subcomponent && srcprop == null
-					&& srccontain == null
-					&& (dstprop != null || dstcontain != null)) {
-				if (dstems != null) { // we are doing opposite direction
-					// has an EMV2 subclause but no propagation specification
-					// for the feature
+			// TODO comment out once we handle this consistency check at the instance level
+			if (srcCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent){
+				// only when going across
+				if (srccontain == null && dstcontain != null) {
 					warning(conn,
-							"Connection source has no error propagation/containment but target does: "
-									+ (dstprop != null ? EMV2Util
-											.getPrintName(dstprop) : EMV2Util
-											.getPrintName(dstcontain)));
-				} else {
-					// TODO check in instance model for connection end point if
-					// no error model subclause
-					warning(conn,
-							"Connection source has no error model subclause but target does: "
-									+ (dstprop != null ? EMV2Util
-											.getPrintName(dstprop) : EMV2Util
-											.getPrintName(dstcontain))
-									+ ". Please validate propagations in instance model");
+							"No outgoing containment for incoming containment "
+									+ EMV2Util.getPrintName(dstcontain)
+									+ EMV2Util.getPrintName(dstcontain.getTypeSet()));
 				}
-			}
-			if (dstCxt instanceof Subcomponent
-					&& dstCxt instanceof Subcomponent && dstprop == null
-					&& dstcontain == null
-					&& (srcprop != null || srccontain != null)) {
-				if (dstems != null) {
-					// has an EMV2 subclause but no propagation specification
-					// for the feature
-					warning(conn,
-							"Connection target has no error propagation/containment but source does: "
-									+ (srcprop != null ? EMV2Util
-											.getPrintName(srcprop) : EMV2Util
-											.getPrintName(srccontain)));
-				} else {
-					// TODO check in instance model for connection end point if
-					// no error model subclause
-					warning(conn,
-							"Connection target has no error model subclause but source does: "
-									+ (srcprop != null ? EMV2Util
-											.getPrintName(srcprop) : EMV2Util
-											.getPrintName(srccontain))
-									+ ". Please validate propagations in instance model");
+				if (srcprop != null && dstprop == null ) {
+						warning(conn,
+								"No incoming error propagation for outgoing propagation "
+										+ EMV2Util.getPrintName(srcprop)+ EMV2Util.getPrintName(srcprop.getTypeSet()));
 				}
 			}
 

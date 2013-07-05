@@ -355,8 +355,8 @@ public class AnalysisModel {
 	protected void populateBindingPropagationPaths(ComponentInstance comp, ComponentInstance boundResource,String resourcebindingKind){
 		// source prop kind determined by destination and vice versa (BR = bound resource, BC bound component
 		boolean added = false;
-		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource, "bindings");
-		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp, resourcebindingKind);
+		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(), "bindings");
+		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp.getComponentClassifier(), resourcebindingKind);
 
 		if (BRsrcprop != null && BCdstprop != null ){
 			if(EM2TypeSetUtil.contains(BCdstprop.getTypeSet(), BRsrcprop.getTypeSet()))
@@ -367,8 +367,8 @@ public class AnalysisModel {
 				// error message about mismatch of type set
 			}
 		}
-		ErrorPropagation BCsrcprop = EMV2Util.findOutgoingErrorPropagation(comp,resourcebindingKind );
-		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource, "bindings");
+		ErrorPropagation BCsrcprop = EMV2Util.findOutgoingErrorPropagation(comp.getComponentClassifier(),resourcebindingKind );
+		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(), "bindings");
 		 if (BCsrcprop != null && BRdstprop!=null){
 			 if (EM2TypeSetUtil.contains(BCsrcprop.getTypeSet(), BRdstprop.getTypeSet()))
 			 {
@@ -393,7 +393,7 @@ public class AnalysisModel {
 	protected void populateBindingPropagationPaths(ConnectionInstance conn, ComponentInstance boundResource,String bindingKind){
 		boolean added = false;
 		// source prop kind determined by destination and vice versa (BR = bound resource, BC bound component
-		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource, bindingKind);
+		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(), bindingKind);
 
 		if (BRsrcprop != null  )
 		{
@@ -402,7 +402,7 @@ public class AnalysisModel {
 		} else {
 			// error message about mismatch of type set
 		}
-		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource, bindingKind);
+		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(), bindingKind);
 		if (BRsrcprop != null)
 		{
 			propagationPaths.add(new PropagationPath(conn, boundResource, BRdstprop));
