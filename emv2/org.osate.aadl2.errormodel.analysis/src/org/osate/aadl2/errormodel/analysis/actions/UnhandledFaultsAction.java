@@ -47,7 +47,11 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.AbstractConnectionEnd;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
@@ -55,6 +59,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.impl.ConnectedElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -971,7 +976,81 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * Rule C15: Check that if a component declare an error path, any connection from the associated feature go into a feature which is also an error sink
 			 */
+			for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
+			{
+				if ((componentInstance.getComponentClassifier() instanceof ComponentImplementation) && (ef instanceof ErrorSink))
+				{
+					ErrorSink es = (ErrorSink)ef;
+					Feature src = (Feature) es.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP();
+					ComponentImplementation impl = (ComponentImplementation)componentInstance.getComponentClassifier();
+					//OsateDebug.osateDebug("src="+src);
 
+					for (Connection conn : impl.getAllConnections())
+					{
+						//OsateDebug.osateDebug("conn src="+conn.getSource());
+						ConnectedElementImpl ceiSrc = (ConnectedElementImpl)conn.getSource();
+
+						if (ceiSrc.getConnectionEnd() == src)
+						{
+							boolean found = false;
+
+							AbstractConnectionEnd ace = conn.getDestination();
+							
+							ConnectedElementImpl ceiDst = (ConnectedElementImpl)conn.getDestination();
+							//OsateDebug.osateDebug("before");
+
+							if (ceiDst.getConnectionEnd() instanceof Feature)
+							{
+								//OsateDebug.osateDebug("after");
+
+								Feature featureDst = (Feature)ceiDst.getConnectionEnd();
+								//OsateDebug.osateDebug("feature" + featureDst);
+								//OsateDebug.osateDebug("classifier" + conn.getAllDstContextComponent());
+								Subcomponent sub = (Subcomponent) conn.getAllDstContextComponent();
+								//OsateDebug.osateDebug("sub" + sub.getComponentImplementation());
+								ComponentClassifier cl = null;
+								if (sub.getContainingClassifier() != null)
+								{
+									cl = (ComponentClassifier) sub.getContainingClassifier();
+								}
+								if (sub.getComponentImplementation() != null)
+								{
+									cl = (ComponentClassifier) sub.getComponentImplementation();
+								}
+								
+								for (ErrorFlow ef2 : EMV2Util.getAllErrorFlows(cl))
+								{
+
+									//OsateDebug.osateDebug("ef2="+ef2);
+									if (ef2 instanceof ErrorSink)
+									{
+										//OsateDebug.osateDebug("ef2 error sink="+ef2);
+
+										ErrorSink es2 = (ErrorSink)ef2;
+										Feature dst = (Feature) es2.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP();
+										//OsateDebug.osateDebug("src="+src);
+
+										//OsateDebug.osateDebug("featureDst="+featureDst);
+										//OsateDebug.osateDebug("dst="+dst);
+										if (dst == featureDst)
+										{
+											found = true;
+										}
+									}
+								}
+							}
+							
+							if (! found)
+							{
+								error(componentInstance,"C15: in component " + componentInstance.getName() + " feature " + src.getName() + " is an error sink while it is connected to a non error-sink");
+							}
+							
+							
+						}
+					}
+				}
+					
+			}
 			/**
 			 * End of implementation of C15
 			 */
