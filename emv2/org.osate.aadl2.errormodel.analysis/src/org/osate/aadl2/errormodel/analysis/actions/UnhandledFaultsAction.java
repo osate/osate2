@@ -48,9 +48,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -227,7 +230,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	protected void checkComponent(ComponentInstance componentInstance, AnalysisModel model)
 	{
 		
-		if (EMV2Util.hasComponentErrorBehavior(componentInstance))
+		if (EMV2Util.hasEMV2Subclause(componentInstance))
 		{
 			
 			/**
@@ -540,11 +543,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 							error(componentInstance,"C6: error propagation " + EMV2Util.getPrintName(ep) + " does not have a corresponding propagation condition for type " + EMV2Util.getPrintName(tt) + "or any other super-type");
 						}
 					}
-					if (ep.getDirection() == DirectionType.OUT)
-					{
 	
-						OsateDebug.osateDebug("blaep=" + ep);
-					}
 				}
 			}
 			/**
@@ -834,9 +833,9 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 							probabilityBehavior = probabilityBehavior + tmp;							
 						}
 					}
-					OsateDebug.osateDebug("State " + ebs.getName() + "probability composite = " + probabilityComposite);
-					OsateDebug.osateDebug("State " + ebs.getName() + "probability behavior  = " + probabilityBehavior);
-					
+//					OsateDebug.osateDebug("State " + ebs.getName() + "probability composite = " + probabilityComposite);
+//					OsateDebug.osateDebug("State " + ebs.getName() + "probability behavior  = " + probabilityBehavior);
+//					
 					
 					if (probabilityBehavior != probabilityComposite)
 					{
@@ -855,6 +854,127 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			
 			
 			
+			/**
+			 * Rule C14: Check for undeclared error path
+			 */
+			for (FeatureInstance fi : componentInstance.getFeatureInstances())
+			{
+				Feature srcFeature = null;
+				Feature dstFeature = null;
+				EList<ConnectionInstance> connections = fi.getAllEnclosingConnectionInstances();
+				
+				srcFeature = fi.getFeature();
+				
+				if ( (fi.getDirection() != DirectionType.IN) && (fi.getDirection() != DirectionType.IN_OUT))
+				{
+					continue;
+				}
+				
+				for (ConnectionInstance ci : connections)
+				{
+					//OsateDebug.osateDebug("ci=" + ci);
+					
+					for (ConnectionReference cr : ci.getConnectionReferences())
+					{
+						Connection conn = cr.getConnection();
+						//OsateDebug.osateDebug("conn dest=" + conn.getDestination());
+						if ((conn.getDestination() != null) && (conn.getDestination() instanceof ConnectedElement))
+						{
+							ConnectedElement connected = (ConnectedElement) conn.getDestination();
+							//OsateDebug.osateDebug("connected dest=" + connected.getConnectionEnd());
+							for (FeatureInstance fi2 : componentInstance.getFeatureInstances())
+							{
+								//OsateDebug.osateDebug("fi2=" + fi2.getFeature());
+
+								if ((connected.getConnectionEnd() != null ) && (fi2.getFeature() == connected.getConnectionEnd()) && (fi2.getFeature() != srcFeature))
+								{
+									dstFeature = fi2.getFeature();
+								}
+							}
+			
+							
+						}
+						
+//						for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
+//						{
+//							if (ef instanceof ErrorPath)
+//							{
+//								ErrorPath ep = (ErrorPath) ef;
+//								OsateDebug.osateDebug("ep=" + ep);
+//								OsateDebug.osateDebug("ep in  getref=" + ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP());
+//								OsateDebug.osateDebug("ep out getref=" + ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP());
+//							}
+//						}
+					}
+
+				}
+				
+				if ((dstFeature != null) && (srcFeature != null))
+				{
+					boolean found = false;
+//					OsateDebug.osateDebug("connection between " + srcFeature + " and " + dstFeature);
+					for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
+					{
+						if (ef instanceof ErrorPath)
+						{
+							ErrorPath ep = (ErrorPath) ef;
+//							OsateDebug.osateDebug("ep=" + ep);
+//							OsateDebug.osateDebug("ep in  getref=" + ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP());
+//							OsateDebug.osateDebug("ep out getref=" + ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP());
+							if ((ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP() == srcFeature) &&
+								(ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP() == dstFeature))
+							{
+								found = true;
+							}
+						}
+					}
+					if (! found)
+					{
+						error(componentInstance,"C14: in component " + componentInstance.getName() + " missing flow path between " + srcFeature.getName() + " and " + dstFeature.getName());
+					}
+				}
+
+//				for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
+//				{
+//					if (ef instanceof ErrorPath)
+//					{
+//						ErrorPath ep = (ErrorPath) ef;
+//						OsateDebug.osateDebug("ep=" + ep);
+//						OsateDebug.osateDebug("ep in  getref=" + ep.getIncoming().getFeatureorPPRefs());
+//						OsateDebug.osateDebug("ep out getref=" + ep.getOutgoing().getFeatureorPPRefs());
+//					}
+//					
+//					if (ef instanceof ErrorSink)
+//					{
+//						ErrorSink es = (ErrorSink) ef;
+//						OsateDebug.osateDebug("es in  getref=" + es.getIncoming().getFeatureorPPRefs());
+//
+//						
+//					}
+//					
+//					if (ef instanceof ErrorSource)
+//					{
+//						ErrorSource es = (ErrorSource)ef;
+//						OsateDebug.osateDebug("es out getref=" + es.getOutgoing().getFeatureorPPRefs());
+//
+//					}
+//					
+//				}
+				
+
+			}
+		
+			/**
+			 * End of implementation of C14
+			 */
+			
+			/**
+			 * Rule C15: Check that if a component declare an error path, any connection from the associated feature go into a feature which is also an error sink
+			 */
+
+			/**
+			 * End of implementation of C15
+			 */
 			
 	
 		}
