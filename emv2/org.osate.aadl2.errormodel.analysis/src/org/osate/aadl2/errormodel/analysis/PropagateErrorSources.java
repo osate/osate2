@@ -53,6 +53,7 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -478,11 +479,16 @@ public class PropagateErrorSources {
 		String effectText = ","+generateTypeTokenErrorPropText(ep,tt);
 		if (paths.isEmpty()){
 			FeatureInstance fi = EMV2Util.findFeatureInstance(ep, ci);
-			EList<ConnectionInstance> conns = fi.getSrcConnectionInstances();
-			if (conns.isEmpty()){
-				reportEntry(entryText+",[No Outgoing Conn],,", depth);
+			Collection<ConnectionInstance> conns = fi.getSrcConnectionInstances();
+			Collection<ConnectionInstance> oppositeconns = Aadl2InstanceUtil.getBidirectionalConnectionInstances(fi.getDstConnectionInstances());
+			if (conns.isEmpty()&&oppositeconns.isEmpty()){
+				reportEntry(entryText+",[No Connection],,", depth);
 			} else {
 				for (ConnectionInstance connectionInstance : conns) {
+					reportEntry(entryText+","+(tt!=null?EMV2Util.getPrintName(tt)+" ":"")+
+				connectionInstance.getName()+"[No In Prop],,", depth);
+				}
+				for (ConnectionInstance connectionInstance : oppositeconns) {
 					reportEntry(entryText+","+(tt!=null?EMV2Util.getPrintName(tt)+" ":"")+
 				connectionInstance.getName()+"[No In Prop],,", depth);
 				}
@@ -495,7 +501,7 @@ public class PropagateErrorSources {
 					// we have an external propagation (out only connection)
 					String connText=" -> "+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
 					reportEntry(entryText+effectText+connText,depth);
-				} else if (path.getConnectionInstance()!=null&&!path.getConnectionInstance().isComplete()){
+				} else if (path.getConnectionInstance()!=null&&Aadl2InstanceUtil.outOnly(path.getConnectionInstance())){
 					// outgoing only, but not ending at root
 					String connText=" -> "+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
 					reportEntry(entryText+effectText+connText,depth);

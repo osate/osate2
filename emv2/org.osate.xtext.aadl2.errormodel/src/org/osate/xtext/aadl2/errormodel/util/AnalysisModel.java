@@ -37,7 +37,7 @@ public class AnalysisModel {
 	
 	public AnalysisModel(ComponentInstance root) {
 		this(root, false);
- printPropagationPaths();
+// printPropagationPaths();
 	}
 	
 	public AnalysisModel(ComponentInstance root, boolean closest) {
@@ -118,10 +118,8 @@ public class AnalysisModel {
 		ComponentInstance srcCI = null;
 		ErrorPropagation dstprop = null;
 		ComponentInstance dstCI = null;
-		ConnectionReference first = connrefs.get(0);
-		boolean inonly = (first.getSource().getComponentInstance() == first.getContext());
-		ConnectionReference last = connrefs.get(connrefs.size()-1);
-		boolean outonly = (last.getDestination().getComponentInstance() == last.getContext());
+		boolean inonly = Aadl2InstanceUtil.inOnly(connectionInstance);
+		boolean outonly = Aadl2InstanceUtil.outOnly(connectionInstance);
 		EList<ComponentInstance> addlSrcCI = new BasicEList<ComponentInstance>();
 		EList<ErrorPropagation> addlSrcEP = new BasicEList<ErrorPropagation>();
 		for (ConnectionReference connectionReference : connrefs) {
