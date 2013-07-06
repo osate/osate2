@@ -129,7 +129,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 	public ImvInstanceEditor() {
 		this.isDirty = true;
 		this.initialized = false;
-		this.doDirectConnections = true;
+		this.doDirectConnections = false;
 	}
 
 	@Override
