@@ -1763,6 +1763,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_1_0 = (RuleCall)cFailureModeTypeAssignment_6_1_0_1.eContents().get(0);
 		private final Assignment cFailureModeTypeAssignment_6_1_1 = (Assignment)cAlternatives_6_1.eContents().get(1);
 		private final RuleCall cFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0 = (RuleCall)cFailureModeTypeAssignment_6_1_1.eContents().get(0);
+		private final Assignment cFailureModeDescriptionAssignment_6_1_2 = (Assignment)cAlternatives_6_1.eContents().get(2);
+		private final RuleCall cFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0 = (RuleCall)cFailureModeDescriptionAssignment_6_1_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ErrorSource:
@@ -1771,14 +1773,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
 		//
-		//	failureModeType=TypeSetConstructor? | failureModeType=TypeSetConstructor))? ";";
+		//	failureModeType=TypeSetConstructor? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
 		public ParserRule getRule() { return rule; }
 
 		//name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
 		//
 		//typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
 		//
-		//failureModeType=TypeSetConstructor? | failureModeType=TypeSetConstructor))? ";"
+		//failureModeType=TypeSetConstructor? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -1822,7 +1824,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet] failureModeType=TypeSetConstructor? |
 		//
-		//failureModeType=TypeSetConstructor))?
+		//failureModeType=TypeSetConstructor | failureModeDescription=STRING))?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"when"
@@ -1830,7 +1832,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//failureModeReference=[ErrorBehaviorStateOrTypeSet] failureModeType=TypeSetConstructor? |
 		//
-		//failureModeType=TypeSetConstructor
+		//failureModeType=TypeSetConstructor | failureModeDescription=STRING
 		public Alternatives getAlternatives_6_1() { return cAlternatives_6_1; }
 
 		//failureModeReference=[ErrorBehaviorStateOrTypeSet] failureModeType=TypeSetConstructor?
@@ -1856,6 +1858,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//TypeSetConstructor
 		public RuleCall getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0() { return cFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0; }
+
+		//failureModeDescription=STRING
+		public Assignment getFailureModeDescriptionAssignment_6_1_2() { return cFailureModeDescriptionAssignment_6_1_2; }
+
+		//STRING
+		public RuleCall getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0() { return cFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
@@ -3172,20 +3180,23 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0 = (RuleCall)cTypeTokenConstraintAssignment_5.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cWhenKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cFailureModeTypeAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0 = (RuleCall)cFailureModeTypeAssignment_6_1.eContents().get(0);
+		private final Alternatives cAlternatives_6_1 = (Alternatives)cGroup_6.eContents().get(1);
+		private final Assignment cFailureModeTypeAssignment_6_1_0 = (Assignment)cAlternatives_6_1.eContents().get(0);
+		private final RuleCall cFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0 = (RuleCall)cFailureModeTypeAssignment_6_1_0.eContents().get(0);
+		private final Assignment cFailureModeDescriptionAssignment_6_1_1 = (Assignment)cAlternatives_6_1.eContents().get(1);
+		private final RuleCall cFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0 = (RuleCall)cFailureModeDescriptionAssignment_6_1_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ConnectionErrorSource:
 		//
 		//	name=ID ":" "error" "source" (connection=[aadl2::Connection] | all?="all") typeTokenConstraint=TypeTokenConstraint?
 		//
-		//	("when" failureModeType=TypeSetConstructor)? ";";
+		//	("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
 		public ParserRule getRule() { return rule; }
 
 		//name=ID ":" "error" "source" (connection=[aadl2::Connection] | all?="all") typeTokenConstraint=TypeTokenConstraint?
 		//
-		//("when" failureModeType=TypeSetConstructor)? ";"
+		//("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -3227,17 +3238,26 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//TypeTokenConstraint
 		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0; }
 
-		//("when" failureModeType=TypeSetConstructor)?
+		//("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"when"
 		public Keyword getWhenKeyword_6_0() { return cWhenKeyword_6_0; }
 
+		//failureModeType=TypeSetConstructor | failureModeDescription=STRING
+		public Alternatives getAlternatives_6_1() { return cAlternatives_6_1; }
+
 		//failureModeType=TypeSetConstructor
-		public Assignment getFailureModeTypeAssignment_6_1() { return cFailureModeTypeAssignment_6_1; }
+		public Assignment getFailureModeTypeAssignment_6_1_0() { return cFailureModeTypeAssignment_6_1_0; }
 
 		//TypeSetConstructor
-		public RuleCall getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0() { return cFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0; }
+		public RuleCall getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0() { return cFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0; }
+
+		//failureModeDescription=STRING
+		public Assignment getFailureModeDescriptionAssignment_6_1_1() { return cFailureModeDescriptionAssignment_6_1_1; }
+
+		//STRING
+		public RuleCall getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0() { return cFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
@@ -5108,7 +5128,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
 	//
-	//	failureModeType=TypeSetConstructor? | failureModeType=TypeSetConstructor))? ";";
+	//	failureModeType=TypeSetConstructor? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
 	public ErrorSourceElements getErrorSourceAccess() {
 		return (pErrorSource != null) ? pErrorSource : (pErrorSource = new ErrorSourceElements());
 	}
@@ -5348,7 +5368,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	name=ID ":" "error" "source" (connection=[aadl2::Connection] | all?="all") typeTokenConstraint=TypeTokenConstraint?
 	//
-	//	("when" failureModeType=TypeSetConstructor)? ";";
+	//	("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
 	public ConnectionErrorSourceElements getConnectionErrorSourceAccess() {
 		return (pConnectionErrorSource != null) ? pConnectionErrorSource : (pConnectionErrorSource = new ConnectionErrorSourceElements());
 	}

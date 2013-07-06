@@ -15,6 +15,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#isAllOutgoing <em>All Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeReference <em>Failure Mode Reference</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeType <em>Failure Mode Type</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeDescription <em>Failure Mode Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -127,5 +128,31 @@ public interface ErrorSource extends ErrorFlow
    * @generated
    */
   void setFailureModeType(TypeSet value);
+
+  /**
+   * Returns the value of the '<em><b>Failure Mode Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Failure Mode Description</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Failure Mode Description</em>' attribute.
+   * @see #setFailureModeDescription(String)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorSource_FailureModeDescription()
+   * @model
+   * @generated
+   */
+  String getFailureModeDescription();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeDescription <em>Failure Mode Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Failure Mode Description</em>' attribute.
+   * @see #getFailureModeDescription()
+   * @generated
+   */
+  void setFailureModeDescription(String value);
 
 } // ErrorSource

@@ -3321,6 +3321,12 @@ rule__ErrorSource__Alternatives_6_1
 { after(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_6_1_1()); }
 )
 
+    |(
+{ before(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_2()); }
+(rule__ErrorSource__FailureModeDescriptionAssignment_6_1_2)
+{ after(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_2()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -3574,6 +3580,28 @@ rule__ConnectionErrorSource__Alternatives_4
 { before(grammarAccess.getConnectionErrorSourceAccess().getAllAssignment_4_1()); }
 (rule__ConnectionErrorSource__AllAssignment_4_1)
 { after(grammarAccess.getConnectionErrorSourceAccess().getAllAssignment_4_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ConnectionErrorSource__Alternatives_6_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeAssignment_6_1_0()); }
+(rule__ConnectionErrorSource__FailureModeTypeAssignment_6_1_0)
+{ after(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeAssignment_6_1_0()); }
+)
+
+    |(
+{ before(grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_1()); }
+(rule__ConnectionErrorSource__FailureModeDescriptionAssignment_6_1_1)
+{ after(grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_1()); }
 )
 
 ;
@@ -14897,9 +14925,9 @@ rule__ConnectionErrorSource__Group_6__1__Impl
     }
 :
 (
-{ before(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeAssignment_6_1()); }
-(rule__ConnectionErrorSource__FailureModeTypeAssignment_6_1)
-{ after(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeAssignment_6_1()); }
+{ before(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_6_1()); }
+(rule__ConnectionErrorSource__Alternatives_6_1)
+{ after(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_6_1()); }
 )
 
 ;
@@ -24377,6 +24405,21 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__ErrorSource__FailureModeDescriptionAssignment_6_1_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0()); }
+	RULE_STRING{ after(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__ErrorSink__NameAssignment_0
     @init {
 		int stackSize = keepStackSize();
@@ -25424,14 +25467,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ConnectionErrorSource__FailureModeTypeAssignment_6_1
+rule__ConnectionErrorSource__FailureModeTypeAssignment_6_1_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0()); }
-	ruleTypeSetConstructor{ after(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0()); }
+{ before(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0()); }
+	ruleTypeSetConstructor{ after(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ConnectionErrorSource__FailureModeDescriptionAssignment_6_1_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0()); }
+	RULE_STRING{ after(grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0()); }
 )
 
 ;

@@ -1137,6 +1137,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getErrorSource_FailureModeDescription()
+  {
+    return (EAttribute)errorSourceEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getErrorBehaviorStateOrTypeSet()
   {
     return errorBehaviorStateOrTypeSetEClass;
@@ -1770,6 +1780,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
   public EReference getConnectionErrorSource_FailureModeType()
   {
     return (EReference)connectionErrorSourceEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getConnectionErrorSource_FailureModeDescription()
+  {
+    return (EAttribute)connectionErrorSourceEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -2499,6 +2519,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEAttribute(errorSourceEClass, ERROR_SOURCE__ALL_OUTGOING);
     createEReference(errorSourceEClass, ERROR_SOURCE__FAILURE_MODE_REFERENCE);
     createEReference(errorSourceEClass, ERROR_SOURCE__FAILURE_MODE_TYPE);
+    createEAttribute(errorSourceEClass, ERROR_SOURCE__FAILURE_MODE_DESCRIPTION);
 
     errorBehaviorStateOrTypeSetEClass = createEClass(ERROR_BEHAVIOR_STATE_OR_TYPE_SET);
 
@@ -2581,6 +2602,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__ALL);
     createEReference(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__TYPE_TOKEN_CONSTRAINT);
     createEReference(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__FAILURE_MODE_TYPE);
+    createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION);
 
     ebsmUseContextEClass = createEClass(EBSM_USE_CONTEXT);
 
@@ -2836,6 +2858,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEAttribute(getErrorSource_AllOutgoing(), ecorePackage.getEBoolean(), "allOutgoing", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorSource_FailureModeReference(), this.getErrorBehaviorStateOrTypeSet(), null, "failureModeReference", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorSource_FailureModeType(), this.getTypeSet(), null, "failureModeType", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getErrorSource_FailureModeDescription(), ecorePackage.getEString(), "failureModeDescription", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorBehaviorStateOrTypeSetEClass, ErrorBehaviorStateOrTypeSet.class, "ErrorBehaviorStateOrTypeSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2918,6 +2941,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEAttribute(getConnectionErrorSource_All(), ecorePackage.getEBoolean(), "all", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConnectionErrorSource_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConnectionErrorSource_FailureModeType(), this.getTypeSet(), null, "failureModeType", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getConnectionErrorSource_FailureModeDescription(), ecorePackage.getEString(), "failureModeDescription", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(ebsmUseContextEClass, EBSMUseContext.class, "EBSMUseContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

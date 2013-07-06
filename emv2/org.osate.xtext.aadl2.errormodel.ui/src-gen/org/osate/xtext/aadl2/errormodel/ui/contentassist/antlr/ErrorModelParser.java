@@ -65,6 +65,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getAlternatives_4_0_1(), "rule__ErrorBehaviorTransition__Alternatives_4_0_1");
 					put(grammarAccess.getBranchValueAccess().getAlternatives_1(), "rule__BranchValue__Alternatives_1");
 					put(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_4(), "rule__ConnectionErrorSource__Alternatives_4");
+					put(grammarAccess.getConnectionErrorSourceAccess().getAlternatives_6_1(), "rule__ConnectionErrorSource__Alternatives_6_1");
 					put(grammarAccess.getTypeUseContextAccess().getAlternatives(), "rule__TypeUseContext__Alternatives");
 					put(grammarAccess.getConditionTermAccess().getAlternatives(), "rule__ConditionTerm__Alternatives");
 					put(grammarAccess.getEventOrPropagationAccess().getAlternatives(), "rule__EventOrPropagation__Alternatives");
@@ -324,6 +325,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorSourceAccess().getFailureModeReferenceAssignment_6_1_0_0(), "rule__ErrorSource__FailureModeReferenceAssignment_6_1_0_0");
 					put(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_6_1_0_1(), "rule__ErrorSource__FailureModeTypeAssignment_6_1_0_1");
 					put(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_6_1_1(), "rule__ErrorSource__FailureModeTypeAssignment_6_1_1");
+					put(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_2(), "rule__ErrorSource__FailureModeDescriptionAssignment_6_1_2");
 					put(grammarAccess.getErrorSinkAccess().getNameAssignment_0(), "rule__ErrorSink__NameAssignment_0");
 					put(grammarAccess.getErrorSinkAccess().getIncomingAssignment_4_0(), "rule__ErrorSink__IncomingAssignment_4_0");
 					put(grammarAccess.getErrorSinkAccess().getAllIncomingAssignment_4_1(), "rule__ErrorSink__AllIncomingAssignment_4_1");
@@ -385,7 +387,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConnectionErrorSourceAccess().getConnectionAssignment_4_0(), "rule__ConnectionErrorSource__ConnectionAssignment_4_0");
 					put(grammarAccess.getConnectionErrorSourceAccess().getAllAssignment_4_1(), "rule__ConnectionErrorSource__AllAssignment_4_1");
 					put(grammarAccess.getConnectionErrorSourceAccess().getTypeTokenConstraintAssignment_5(), "rule__ConnectionErrorSource__TypeTokenConstraintAssignment_5");
-					put(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeAssignment_6_1(), "rule__ConnectionErrorSource__FailureModeTypeAssignment_6_1");
+					put(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeAssignment_6_1_0(), "rule__ConnectionErrorSource__FailureModeTypeAssignment_6_1_0");
+					put(grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_1(), "rule__ConnectionErrorSource__FailureModeDescriptionAssignment_6_1_1");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getUseTransformationAssignment_4_2(), "rule__ComponentErrorBehavior__UseTransformationAssignment_4_2");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getEventsAssignment_5_1(), "rule__ComponentErrorBehavior__EventsAssignment_5_1");
 					put(grammarAccess.getComponentErrorBehaviorAccess().getTransitionsAssignment_6_1(), "rule__ComponentErrorBehavior__TransitionsAssignment_6_1");

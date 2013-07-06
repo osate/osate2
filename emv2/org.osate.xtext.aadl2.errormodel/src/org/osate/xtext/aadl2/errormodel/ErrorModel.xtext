@@ -205,7 +205,7 @@ ErrorSource returns ErrorSource:
   	|allOutgoing?='all'
   ) (typeTokenConstraint=TypeTokenConstraint)?
   	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetConstructor )?) 
-  		| (  failureModeType = TypeSetConstructor )
+  		| (  failureModeType = TypeSetConstructor ) | failureModeDescription = STRING
   	) )?
   ';';
  
@@ -317,7 +317,7 @@ ConnectionErrorSource returns ConnectionErrorSource:
 	name=ID ':' 'error' 'source' 
 	(connection=[aadl2::Connection|ID]|all?='all')
 	(typeTokenConstraint=TypeTokenConstraint)?
-  	('when'  (  failureModeType = TypeSetConstructor )
+  	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
   	)?
   	';'
 ;

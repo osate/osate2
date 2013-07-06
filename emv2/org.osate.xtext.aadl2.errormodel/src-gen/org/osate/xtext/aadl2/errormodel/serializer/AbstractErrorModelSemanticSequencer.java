@@ -747,7 +747,12 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (connection=[Connection|ID] | all?='all') typeTokenConstraint=TypeTokenConstraint? failureModeType=TypeSetConstructor?)
+	 *     (
+	 *         name=ID 
+	 *         (connection=[Connection|ID] | all?='all') 
+	 *         typeTokenConstraint=TypeTokenConstraint? 
+	 *         (failureModeType=TypeSetConstructor | failureModeDescription=STRING)?
+	 *     )
 	 */
 	protected void sequence_ConnectionErrorSource(EObject context, ConnectionErrorSource semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -938,7 +943,11 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID 
 	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
-	 *         ((failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetConstructor?) | failureModeType=TypeSetConstructor)?
+	 *         (
+	 *             (failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetConstructor?) | 
+	 *             failureModeType=TypeSetConstructor | 
+	 *             failureModeDescription=STRING
+	 *         )?
 	 *     )
 	 */
 	protected void sequence_ErrorSource(EObject context, ErrorSource semanticObject) {

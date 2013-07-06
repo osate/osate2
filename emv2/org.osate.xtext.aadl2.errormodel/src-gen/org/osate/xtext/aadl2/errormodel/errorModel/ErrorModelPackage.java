@@ -1326,13 +1326,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_SOURCE__FAILURE_MODE_TYPE = ERROR_FLOW_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Failure Mode Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_SOURCE__FAILURE_MODE_DESCRIPTION = ERROR_FLOW_FEATURE_COUNT + 4;
+
+  /**
    * The number of structural features of the '<em>Error Source</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_SOURCE_FEATURE_COUNT = ERROR_FLOW_FEATURE_COUNT + 4;
+  int ERROR_SOURCE_FEATURE_COUNT = ERROR_FLOW_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateOrTypeSetImpl <em>Error Behavior State Or Type Set</em>}' class.
@@ -2712,13 +2721,22 @@ public interface ErrorModelPackage extends EPackage
   int CONNECTION_ERROR_SOURCE__FAILURE_MODE_TYPE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Failure Mode Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
+
+  /**
    * The number of structural features of the '<em>Connection Error Source</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONNECTION_ERROR_SOURCE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
+  int CONNECTION_ERROR_SOURCE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EBSMUseContextImpl <em>EBSM Use Context</em>}' class.
@@ -4541,6 +4559,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorSource_FailureModeType();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeDescription <em>Failure Mode Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Failure Mode Description</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource#getFailureModeDescription()
+   * @see #getErrorSource()
+   * @generated
+   */
+  EAttribute getErrorSource_FailureModeDescription();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet <em>Error Behavior State Or Type Set</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5225,6 +5254,17 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getConnectionErrorSource_FailureModeType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getFailureModeDescription <em>Failure Mode Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Failure Mode Description</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource#getFailureModeDescription()
+   * @see #getConnectionErrorSource()
+   * @generated
+   */
+  EAttribute getConnectionErrorSource_FailureModeDescription();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext <em>EBSM Use Context</em>}'.
@@ -6441,6 +6481,14 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_SOURCE__FAILURE_MODE_TYPE = eINSTANCE.getErrorSource_FailureModeType();
 
     /**
+     * The meta object literal for the '<em><b>Failure Mode Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ERROR_SOURCE__FAILURE_MODE_DESCRIPTION = eINSTANCE.getErrorSource_FailureModeDescription();
+
+    /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateOrTypeSetImpl <em>Error Behavior State Or Type Set</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6987,6 +7035,14 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference CONNECTION_ERROR_SOURCE__FAILURE_MODE_TYPE = eINSTANCE.getConnectionErrorSource_FailureModeType();
+
+    /**
+     * The meta object literal for the '<em><b>Failure Mode Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION = eINSTANCE.getConnectionErrorSource_FailureModeDescription();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EBSMUseContextImpl <em>EBSM Use Context</em>}' class.

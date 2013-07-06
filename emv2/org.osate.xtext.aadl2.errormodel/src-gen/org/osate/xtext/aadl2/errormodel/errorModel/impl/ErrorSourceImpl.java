@@ -27,6 +27,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#isAllOutgoing <em>All Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getFailureModeReference <em>Failure Mode Reference</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getFailureModeType <em>Failure Mode Type</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorSourceImpl#getFailureModeDescription <em>Failure Mode Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,6 +84,26 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * @ordered
    */
   protected TypeSet failureModeType;
+
+  /**
+   * The default value of the '{@link #getFailureModeDescription() <em>Failure Mode Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFailureModeDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String FAILURE_MODE_DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getFailureModeDescription() <em>Failure Mode Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFailureModeDescription()
+   * @generated
+   * @ordered
+   */
+  protected String failureModeDescription = FAILURE_MODE_DESCRIPTION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -267,6 +288,29 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getFailureModeDescription()
+  {
+    return failureModeDescription;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFailureModeDescription(String newFailureModeDescription)
+  {
+    String oldFailureModeDescription = failureModeDescription;
+    failureModeDescription = newFailureModeDescription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_DESCRIPTION, oldFailureModeDescription, failureModeDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -298,6 +342,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
         return basicGetFailureModeReference();
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_TYPE:
         return getFailureModeType();
+      case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_DESCRIPTION:
+        return getFailureModeDescription();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -323,6 +369,9 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
         return;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_TYPE:
         setFailureModeType((TypeSet)newValue);
+        return;
+      case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_DESCRIPTION:
+        setFailureModeDescription((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -350,6 +399,9 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_TYPE:
         setFailureModeType((TypeSet)null);
         return;
+      case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_DESCRIPTION:
+        setFailureModeDescription(FAILURE_MODE_DESCRIPTION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -372,6 +424,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
         return failureModeReference != null;
       case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_TYPE:
         return failureModeType != null;
+      case ErrorModelPackage.ERROR_SOURCE__FAILURE_MODE_DESCRIPTION:
+        return FAILURE_MODE_DESCRIPTION_EDEFAULT == null ? failureModeDescription != null : !FAILURE_MODE_DESCRIPTION_EDEFAULT.equals(failureModeDescription);
     }
     return super.eIsSet(featureID);
   }
@@ -389,6 +443,8 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (allOutgoing: ");
     result.append(allOutgoing);
+    result.append(", failureModeDescription: ");
+    result.append(failureModeDescription);
     result.append(')');
     return result.toString();
   }

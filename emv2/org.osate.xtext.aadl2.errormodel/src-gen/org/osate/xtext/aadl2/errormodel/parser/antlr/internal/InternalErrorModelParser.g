@@ -2291,10 +2291,29 @@ ruleErrorSource returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		lv_failureModeDescription_11_0=RULE_STRING
+		{
+			newLeafNode(lv_failureModeDescription_11_0, grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getErrorSourceRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"failureModeDescription",
+        		lv_failureModeDescription_11_0, 
+        		"STRING");
+	    }
+
+)
 )))?
-	otherlv_11=KEYWORD_10
+	otherlv_12=KEYWORD_10
     {
-    	newLeafNode(otherlv_11, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_12, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7());
     }
 )
 ;
@@ -4180,10 +4199,10 @@ ruleConnectionErrorSource returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getConnectionErrorSourceAccess().getWhenKeyword_6_0());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0()); 
 	    }
 		lv_failureModeType_8_0=ruleTypeSetConstructor		{
 	        if ($current==null) {
@@ -4198,10 +4217,29 @@ ruleConnectionErrorSource returns [EObject current=null]
 	    }
 
 )
-))?
-	otherlv_9=KEYWORD_10
+)
+    |(
+(
+		lv_failureModeDescription_9_0=RULE_STRING
+		{
+			newLeafNode(lv_failureModeDescription_9_0, grammarAccess.getConnectionErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"failureModeDescription",
+        		lv_failureModeDescription_9_0, 
+        		"STRING");
+	    }
+
+)
+)))?
+	otherlv_10=KEYWORD_10
     {
-    	newLeafNode(otherlv_9, grammarAccess.getConnectionErrorSourceAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_10, grammarAccess.getConnectionErrorSourceAccess().getSemicolonKeyword_7());
     }
 )
 ;

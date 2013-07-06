@@ -112,6 +112,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="failureModeReference" eType="#//ErrorBehaviorStateOrTypeSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="failureModeType" eType="#//TypeSet"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failureModeDescription"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorStateOrTypeSet"/>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorSink" eSuperTypes="#//ErrorFlow">
@@ -216,6 +218,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="failureModeType" eType="#//TypeSet"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failureModeDescription"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EBSMUseContext" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element #//TypeUseContext"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeUseContext" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element"/>

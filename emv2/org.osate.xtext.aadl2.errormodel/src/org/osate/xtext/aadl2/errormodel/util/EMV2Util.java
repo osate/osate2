@@ -52,6 +52,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -1496,7 +1498,31 @@ public class EMV2Util {
 	public static Collection<ErrorPropagation> getAllErrorPropagations(ComponentInstance ci){
 		return getAllErrorPropagations(ci.getComponentClassifier());
 	}
+
 	
+	/**
+	 * return list of ConnectionErrorSource including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ConnectionErrorSource> list of ConnectionErrorSource excluding duplicates
+	 */
+	public static Collection<ConnectionErrorSource> getAllConnectionErrorSources(Classifier cl){
+		HashMap<String,ConnectionErrorSource> result = new HashMap<String,ConnectionErrorSource>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ConnectionErrorBehavior ceb = errorModelSubclause.getConnectionBehavior();
+			if (ceb!= null){
+				EList<ConnectionErrorSource> eflist = ceb.getConnectionErrorSources();
+				for (ConnectionErrorSource errorProp : eflist) {
+					String epname = EMV2Util.getPrintName(errorProp);
+					if (!result.containsKey(epname)){
+						result.put(epname,errorProp);
+					}
+				}
+			}
+		}
+		return result.values();
+	}
+
 	public static boolean isEqual (ConditionExpression ce1 , ConditionExpression ce2)
 	{
 		if ((ce1 == null) && (ce2 == null))

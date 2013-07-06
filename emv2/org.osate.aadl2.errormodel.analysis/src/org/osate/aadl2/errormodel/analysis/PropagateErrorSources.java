@@ -44,6 +44,10 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -55,6 +59,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
@@ -257,13 +262,19 @@ public class PropagateErrorSources {
 					failureTypeSet = errorSource.getFailureModeType();
 				}
 			}
+			String failuremodeDesc = errorSource.getFailureModeDescription();
 			for (ErrorPropagation ep : eplist){
 				TypeSet tsep = ep.getTypeSet();
 				EList<TypeToken> result = ts!=null?ts.getTypeTokens():tsep.getTypeTokens();
 				//EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
 				for (TypeToken typeToken : result)
 				{
-					String failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:(failureTypeSet!=null?failureTypeSet:typeToken));
+					String failuremodeText;
+					if (failuremodeDesc == null){
+						failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:(failureTypeSet!=null?failureTypeSet:typeToken));
+					} else {
+						failuremodeText = failuremodeDesc;
+					}
 					if (failureMode == null&&failureTypeSet==null)
 					{
 						if (! handledTypes.contains (typeToken))
@@ -304,6 +315,42 @@ public class PropagateErrorSources {
 			}
 		}
 	}
+	
+
+	/**
+	 * Start with the source of a connection instance
+	 * @param ci component instance
+	 */
+	public void startConnectionSourceFlows(ComponentInstance root)
+	{
+		Collection<ConnectionErrorSource> ceslist = EMV2Util.getAllConnectionErrorSources(root.getComponentClassifier());
+		String componentText = generateComponentInstanceText(root);
+		if (ceslist.isEmpty()) return;
+		reportExternalImpactHeading();
+		reportExternalTableHeading();
+		for (ConnectionErrorSource ces : ceslist){
+			Connection conn = ces.getConnection();
+			// find connection instances that this connection is part of
+			ErrorPropagation ep = null;
+			TypeSet fmType = ces.getFailureModeType();
+			String failuremodeDesc = ces.getFailureModeDescription();
+			TypeSet tsep = ces.getTypeTokenConstraint();
+			EList<TypeToken> result = tsep.getTypeTokens();
+			// XXX use this if we want all leaf types: EM2TypeSetUtil.generateAllLeafTypeTokens(tsep,EMV2Util.getContainingTypeUseContext(errorSource));
+			for (TypeToken typeToken : result)
+			{
+				String failuremodeText;
+				if (failuremodeDesc == null) {
+					failuremodeText = generateOriginalFailureModeText(fmType!=null?fmType:typeToken);
+					} else {
+						failuremodeText = failuremodeDesc;
+					}
+				
+				traceErrorPaths(root,ep,typeToken,2,componentText+", "+failuremodeText);
+			}
+		}
+	}
+
 	
 	/**
 	 * get the text to be used for the item (Component or feature)
