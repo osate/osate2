@@ -2251,6 +2251,7 @@ public class EMV2Util {
 	}
 	
 	public static String getPrintName(TypeSet ts){
+		if (ts.getReference() != null) return " "+ts.getReference().getName()+"="+getPrintableName(ts.getReference(), ", ");
 			return getPrintableName(ts, ", ");
 	}
 	
