@@ -83,12 +83,13 @@ public class EM2TypeSetUtil {
 	public static boolean contains(ErrorType supertype, ErrorType type){
 		if (supertype == null ) return false;
 		if ( type == null) return true;
-		type = EMV2Util.resolveAlias(type);
-		supertype = EMV2Util.resolveAlias(supertype);
+		ErrorType resolvedtype = EMV2Util.resolveAlias(type);
+		ErrorType resolvedsupertype = EMV2Util.resolveAlias(supertype);
 		while (type != null){
-			if (type==supertype){
+			if (type==supertype||type == resolvedsupertype
+					|| resolvedtype == supertype || resolvedtype == resolvedsupertype){
 				return true;
-			} else {
+			}else {
 				type = type.getSuperType();
 			}
 		}
@@ -197,26 +198,6 @@ public class EM2TypeSetUtil {
 		return true;
 	}
 
-//	/**
-//	 * true if errors from ep2 are contains in errors from ep1.
-//	 * This method used ErrorPropagation to expand the TypeSet.
-//	 * @param ep1 ErrorPropagation
-//	 * @param ep2 ErrorPropagation
-//	 * @return boolean
-//	 */
-//	public static boolean contains(ErrorPropagation ep1, ErrorPropagation ep2)
-//	{
-//		EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep2.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep2));
-//		for (TypeToken tt : dstTokens)
-//		{
-//			if (! EM2TypeSetUtil.contains (ep1.getTypeSet(), tt))
-//			{
-//				return false;
-//			}
-//
-//		}
-//		return true;
-//	}
 	
 	
 	/**
