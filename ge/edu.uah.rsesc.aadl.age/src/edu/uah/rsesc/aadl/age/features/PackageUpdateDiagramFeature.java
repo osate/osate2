@@ -72,6 +72,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final boolean wasEmpty = diagram.getChildren().size() == 0; 
 		
 		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
+		System.out.println("CLEARING STYLES");
 		diagram.getStyles().clear();		
 		
 		// Get the AADL Package
@@ -286,7 +287,8 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	}
 	
 	private void updateGeneralization(final Diagram diagram, final Generalization generalization) {
-		if(this.getFeatureProvider().getPictogramElementForBusinessObject(generalization) == null) {
+		final PictogramElement pe = this.getFeatureProvider().getPictogramElementForBusinessObject(generalization);
+		if(pe == null) {
 			final IPeService peService = Graphiti.getPeService();
 			
 			final Classifier generalClassifier = generalization.getGeneral();
@@ -320,6 +322,14 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 			final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
 			if(addFeature.canAdd(addContext)) {
 				addFeature.add(addContext);
+			}
+		} else {	
+			final UpdateContext updateContext = new UpdateContext(pe);
+			final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
+				
+			// Update the generalization regardless of whether it is "needed" or not.
+			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
+				updateFeature.update(updateContext);
 			}
 		}
 	}

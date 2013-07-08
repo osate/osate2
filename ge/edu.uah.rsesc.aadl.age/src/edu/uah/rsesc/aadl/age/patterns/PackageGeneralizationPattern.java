@@ -1,9 +1,13 @@
 package edu.uah.rsesc.aadl.age.patterns;
 
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.impl.Reason;
+import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -27,20 +31,18 @@ import org.osate.aadl2.TypeExtension;
 import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-public class PackageGeneralizationPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern {
+public class PackageGeneralizationPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate {
+	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
+		final Object unwrappedObj = AadlElementWrapper.unwrap(mainBusinessObject);
+		return (unwrappedObj instanceof Realization || 
+    				unwrappedObj instanceof TypeExtension || 
+    				unwrappedObj instanceof ImplementationExtension ||
+    				unwrappedObj instanceof GroupExtension);
+	}
 	
 	@Override
 	public boolean canAdd(IAddContext context) {
-		final Object unwrappedObj = AadlElementWrapper.unwrap(context.getNewObject());
-        if(context instanceof IAddConnectionContext && 
-        		(unwrappedObj instanceof Realization || 
-    				unwrappedObj instanceof TypeExtension || 
-    				unwrappedObj instanceof ImplementationExtension ||
-    				unwrappedObj instanceof GroupExtension)) {
-            return true;
-        }
-
-        return false;
+        return context instanceof IAddConnectionContext && isMainBusinessObjectApplicable(context.getNewObject());
 	}
 
 	@Override
@@ -57,16 +59,26 @@ public class PackageGeneralizationPattern extends AbstractConnectionPattern impl
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());
  
-        final IGaService gaService = Graphiti.getGaService();
-        final Polyline polyline = gaService.createPlainPolyline(connection);
-        final boolean isImplements = addedGeneralization instanceof Realization;
-        final Style style = isImplements ? StyleUtil.getImplementsStyle(diagram) : StyleUtil.getExtendsStyle(diagram);
-        polyline.setStyle(style);
-
-        // Create the arrow
-        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);    
-        createArrow(arrowConnectionDecorator, StyleUtil.getGeneralizationArrowHeadStyle(diagram));
+        createGraphicsAlgorithm(connection, addedGeneralization);
+        createDecorators(connection);
+        
 		return connection;
+	}
+	
+	private void createDecorators(final Connection connection) {
+		connection.getConnectionDecorators().clear();
+		
+		// Create the arrow
+        final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 0.0, true);    
+        createArrow(arrowConnectionDecorator, StyleUtil.getGeneralizationArrowHeadStyle(getDiagram()));
+	}
+	
+	private void createGraphicsAlgorithm(final Connection connection, final Generalization generalization) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Polyline polyline = gaService.createPlainPolyline(connection);
+		final boolean isImplements = generalization instanceof Realization;
+		final Style style = isImplements ? StyleUtil.getImplementsStyle(getDiagram()) : StyleUtil.getExtendsStyle(getDiagram());
+		polyline.setStyle(style);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -77,6 +89,28 @@ public class PackageGeneralizationPattern extends AbstractConnectionPattern impl
 	    		-15, -10});
 	    ga.setStyle(style);
 	    return ga;
+	}
+	
+	@Override
+	public boolean canUpdate(final IUpdateContext context) {
+		final Object bo = this.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		return context.getPictogramElement() instanceof Connection && isMainBusinessObjectApplicable(bo);
+	}
+
+	@Override
+	public IReason updateNeeded(IUpdateContext context) {
+		return Reason.createFalseReason();
+	}
+
+	@Override
+	public boolean update(final IUpdateContext context) {
+		// Rebuild the graphics algorithm and the decorators to ensure they are up to date and to ensure they reference the latest styles.
+		// Old styles are removed when the diagram is updated
+		final Connection connection = (Connection)context.getPictogramElement();
+		final Generalization generalization = (Generalization)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+		createGraphicsAlgorithm(connection, generalization);
+		createDecorators(connection);
+		return true;
 	}
 
 	@Override
