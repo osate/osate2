@@ -25,35 +25,77 @@ import java.util.ListIterator ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference ;
-
-import org.osate.aadl2.Aadl2Package ;
+import org.eclipse.emf.ecore.EObject ;
 import org.osate.aadl2.ArrayDimension ;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.Classifier ;
+import org.osate.aadl2.ClassifierValue ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.Data ;
-import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.Element;
+import org.osate.aadl2.DataClassifier ;
+import org.osate.aadl2.Element ;
 import org.osate.aadl2.Feature ;
-import org.osate.aadl2.ListValue;
+import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.Mode ;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.PackageSection ;
-import org.osate.aadl2.PropertySet ;
+import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
-import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
-import org.osate.aadl2.PropertyExpression ;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 
-import fr.tpt.aadl.annex.behavior.aadlba.*;
-import fr.tpt.aadl.annex.behavior.declarative.*;
-
+import fr.tpt.aadl.annex.behavior.aadlba.Any ;
+import fr.tpt.aadl.annex.behavior.aadlba.AssignmentAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BasicAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionCollection ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActions ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable ;
+import fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeout ;
+import fr.tpt.aadl.annex.behavior.aadlba.DataRepresentation ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchConjunction ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerCondition ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerLogicalExpression ;
+import fr.tpt.aadl.annex.behavior.aadlba.ElementValues ;
+import fr.tpt.aadl.annex.behavior.aadlba.ElseStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.Factor ;
+import fr.tpt.aadl.annex.behavior.aadlba.ForOrForAllStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerRange ;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue ;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant ;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValueVariable ;
+import fr.tpt.aadl.annex.behavior.aadlba.IterativeVariable ;
+import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel ;
+import fr.tpt.aadl.annex.behavior.aadlba.Relation ;
+import fr.tpt.aadl.annex.behavior.aadlba.SimpleExpression ;
+import fr.tpt.aadl.annex.behavior.aadlba.Target ;
+import fr.tpt.aadl.annex.behavior.aadlba.Term ;
+import fr.tpt.aadl.annex.behavior.aadlba.TimedAction ;
+import fr.tpt.aadl.annex.behavior.aadlba.Value ;
+import fr.tpt.aadl.annex.behavior.aadlba.ValueConstant ;
+import fr.tpt.aadl.annex.behavior.aadlba.ValueExpression ;
+import fr.tpt.aadl.annex.behavior.aadlba.ValueVariable ;
+import fr.tpt.aadl.annex.behavior.aadlba.WhileOrDoUntilStatement ;
+import fr.tpt.aadl.annex.behavior.declarative.ArrayableIdentifier ;
+import fr.tpt.aadl.annex.behavior.declarative.CommAction ;
+import fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension ;
+import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorTransition ;
+import fr.tpt.aadl.annex.behavior.declarative.DeclarativeFactory ;
+import fr.tpt.aadl.annex.behavior.declarative.DeclarativeTime ;
+import fr.tpt.aadl.annex.behavior.declarative.Enumeration ;
+import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
+import fr.tpt.aadl.annex.behavior.declarative.NamedValue ;
+import fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement ;
+import fr.tpt.aadl.annex.behavior.declarative.Reference ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
 import fr.tpt.aadl.utils.Aadl2Utils ;
@@ -1325,21 +1367,10 @@ public class AadlBaNameResolver
    {
       PackageSection context = Aadl2Visitors.getContainingPackageSection(_ba);
       
-      // Use deprecated method because when using the default constructor
-      // PropertiesLinkingService doesn't find any propertyset.
-      PropertiesLinkingService pls = PropertyUtils.getPropertiesLinkingService(context) ;                                          
-      
-      NamedElement pt = pls.findPropertyType(context, (AadlBaVisitors.
-                                           INITIALIZE_ENTRYPOINT_PROPERTY_NAME));
-      if(pt==null)
-      {
-        PropertySet ps = pls.findPropertySet(context, TIME_UNITS_PROPERTY_SET);
-        if(ps!=null)
-        {
-          pt = ps.findNamedElement(TIME_UNITS_PROPERTY_ID);
-        }
-      }
-      
+      NamedElement pt = Aadl2Visitors.findElementInPropertySet
+                                           (TIME_UNITS_PROPERTY_ID,
+                                            TIME_UNITS_PROPERTY_SET,
+                                            context) ;
       // Property set Time_Units is found.
       if (pt instanceof org.osate.aadl2.UnitsType)
       {
@@ -1382,36 +1413,16 @@ public class AadlBaNameResolver
 	      packageName = qne.getBaNamespace().getId() ;
 	   }
 
-	   PropertiesLinkingService pls = null ;
-	   
 	   // Now check the type in each current package's sections.
-	   for(Namespace context: _contextsTab)
+	   for(PackageSection context: _contextsTab)
 	   {
-	      // Use a deprecated method because when using the default constructor
-	      // PropertiesLinkingService doesn't find any propertyset.
-	      pls = PropertyUtils.getPropertiesLinkingService(context) ;
+	      ne = Aadl2Visitors.findElementInPackage(qne.getBaName().getId(),
+	                                              packageName, context) ;
 	      
-	      // If namespace is null than the element must be declared in the
-	      // current package.
-	      ne = pls.findNamedElementInAadlPackage(packageName,
-	                                             qne.getBaName().getId(), context);
 	      if(ne == null)
 	      {
-	        // Why this, i don't know ...
-	        EReference reference = Aadl2Package.eINSTANCE.
-	                                                   getNamedValue_NamedValue();
-	        
-	        ne=pls.findNamedElementInPredeclaredPropertySets(qne.getBaName().
-	                                                         getId(),context,
-	                                                         reference);
-	        if(ne==null)
-	        {
-	              PropertySet ps = null;
-	              if(packageName!=null)
-	                ps = pls.findPropertySet(context, packageName);
-	                if(ps!=null)
-	                  ne = ps.findNamedElement(qne.getBaName().getId());
-	        }
+	        ne = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
+	                                                packageName, context) ;
 	      }
 
 	      // An element is found.
