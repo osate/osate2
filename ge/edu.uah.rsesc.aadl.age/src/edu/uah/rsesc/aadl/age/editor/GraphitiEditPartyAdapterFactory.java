@@ -1,14 +1,9 @@
 package edu.uah.rsesc.aadl.age.editor;
 
 import org.eclipse.core.runtime.IAdapterFactory;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
 import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.model.XtextDocument;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 

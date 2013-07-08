@@ -1,8 +1,6 @@
 package edu.uah.rsesc.aadl.age.patterns;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -15,7 +13,6 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -99,9 +96,8 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
         final String labelTxt = getLabelText(classifier);
         
 		// Create label
-        final Shape shape = peCreateService.createShape(container, false);
-        final Text text = gaService.createPlainText(shape, labelTxt);
-        text.setStyle(StyleUtil.getClassifierLabelStyle(diagram));
+        final Shape labelShape = peCreateService.createShape(container, false);
+        final Text text = createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
         // Set the size        
 		final int width = Math.max(100, GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont()).getWidth() + 30); 
@@ -113,9 +109,16 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
         gaService.setLocation(ga, context.getX(), context.getY());
         
         // Create anchor
-        final Anchor anchor = peCreateService.createChopboxAnchor(container);
+        peCreateService.createChopboxAnchor(container);
 
         return container;
+	}
+	
+	private Text createLabelGraphicsAlgorithm(final Shape labelShape, final String labelTxt) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Text text = gaService.createPlainText(labelShape, labelTxt);
+        text.setStyle(StyleUtil.getClassifierLabelStyle(this.getDiagram()));
+        return text;
 	}
 	
 	@Override
@@ -141,7 +144,6 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 		return (context.getPictogramElement() instanceof ContainerShape) && (AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement())) instanceof Classifier);
 	}
 	
-	// TODO: Seems like this could be merged in with the logic from GrpahicsAlgorithmCreator to keep all this logic together
 	private String getClassifierTypeName(final Classifier classifier) {
 		if(classifier instanceof SystemClassifier) {
         	return "system";
@@ -179,7 +181,13 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 	}
 
 	private String getLabelText(final Classifier classifier) {
-		 return ((NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(getDiagram()))).getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? classifier.getName() : classifier.getQualifiedName(); 
+		final Diagram diagram = getDiagram();
+		final NamedElement diagramElement = (NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
+		
+		if(diagramElement == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null)
+			return "";
+		
+		 return diagramElement.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? classifier.getName() : classifier.getQualifiedName(); 
 	}
 	
 	@Override
@@ -198,19 +206,25 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 		Graphiti.getGaLayoutService().setLocation(newGa,  x, y);
 		
 		// Update the label
-		final Text lbl = getLabel((ContainerShape)pe);
-		if(lbl != null) {
-			lbl.setValue(getLabelText(classifier));
-		}
-		
+		final Shape labelShape = getLabelShape((ContainerShape)pe);
+		createLabelGraphicsAlgorithm(labelShape, getLabelText(classifier));
+
 		return true;
 	}
 	
-	private Text getLabel(final ContainerShape cs) {
+	private Shape getLabelShape(final ContainerShape cs) {
 		for(final Shape shape : cs.getChildren()) {
 			if(shape.getGraphicsAlgorithm() instanceof Text) {
-				return (Text)shape.getGraphicsAlgorithm();
+				return shape;
 			}
+		}
+		return null;
+	}
+	
+	private Text getLabel(final ContainerShape cs) {
+		final Shape labelShape = getLabelShape(cs);
+		if(labelShape != null) {
+			return (Text)labelShape.getGraphicsAlgorithm();
 		}
 		return null;
 	}

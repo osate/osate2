@@ -10,10 +10,10 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.eclipse.xtext.ui.editor.model.XtextDocument;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-// Model Listener that delegates the work to registers listeners
+// Model Listener that delegates the work to registered listeners
 public class ModelListener {
 	private class Info {
 		public Info(XtextResourceSet rs, IXtextDocument document) {
@@ -26,17 +26,21 @@ public class ModelListener {
 	}
 	
 	private Map<String, Stack<Info>> packageNameToInfoMap = new HashMap<String, Stack<Info>>();
-	private LinkedList<ModelChangeListener> changeListeners = new LinkedList<ModelChangeListener>();
+	private LinkedList<IXtextModelListener> changeListeners = new LinkedList<IXtextModelListener>();
 
 	public void removeDocumentInfo(final IXtextDocument document) {
 		for(final Stack<Info> infoStack : packageNameToInfoMap.values()) {
 			if(removeDocumentInfo(infoStack, document)) {
+				// If the last xtext editor was just closed, refresh osate's resource set
+				if(infoStack.size() == 0) {
+					OsateResourceUtil.refreshResourceSet();
+				}
+				
 				break;
 			}
 		}
 	}
 	
-	// TODO: Rename
 	public void modelChanged(final IXtextDocument document, final XtextResource resource) {
 		if(resource.getContents().size() > 0) {
 			final EObject obj = resource.getContents().get(0);
@@ -60,8 +64,8 @@ public class ModelListener {
 			}
 			
 			// Call other listeners
-			for(final ModelChangeListener l : changeListeners) {
-				l.modelChanged();
+			for(final IXtextModelListener l : changeListeners) {
+				l.modelChanged(resource);
 			}
 		}
 	}
@@ -76,11 +80,11 @@ public class ModelListener {
 		return infoStack == null || infoStack.size() == 0 ? null : infoStack.peek().document;
 	}
 	
-	public final void addListener(final ModelChangeListener listener) {
+	public final void addListener(final IXtextModelListener listener) {
 		changeListeners.add(listener);
 	}
 	
-	public final void removeListener(final ModelChangeListener listener) {
+	public final void removeListener(final IXtextModelListener listener) {
 		changeListeners.remove(listener);
 	}
 	
@@ -88,7 +92,7 @@ public class ModelListener {
 	 * Searches an info stack for a value and removes it if found. Only removed the first value matching the criteria
 	 * @param infoStack
 	 * @param document
-	 * @return true if an item was removed
+	 * @return the index of the info object removed
 	 */
 	private boolean removeDocumentInfo(final Stack<Info> infoStack, final IXtextDocument document) {
 		final int index = getIndexByDocument(infoStack, document);

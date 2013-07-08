@@ -63,19 +63,17 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	
 	@Override
 	public boolean canUndo(IContext context) {
-		System.out.println("CAN UNDO IS CALLED");
 		return false;
 	}
 	
 	@Override
 	public boolean update(IUpdateContext context) {
-		System.out.println("UPDATE IS CALLED");
 		Log.info("update called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
 		final boolean wasEmpty = diagram.getChildren().size() == 0; 
 		
-		// Update styles
-		StyleUtil.updateStyles(diagram);
+		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
+		diagram.getStyles().clear();		
 		
 		// Get the AADL Package
 		final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
@@ -251,7 +249,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private void updateRelationships(final Diagram diagram, final Set<NamedElement> elements) {
 		final AadlPackage pkg = (AadlPackage)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
 		for(final NamedElement el : elements) {
-			if(el.getNamespace().getOwner() == pkg) {
+			if(el.getNamespace() != null && el.getNamespace().getOwner() == pkg) {
 				if(el instanceof ComponentType) {
 					// Extension
 					final ComponentType ct = (ComponentType)el;
@@ -329,7 +327,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 
 	@Override
 	public void undo(IContext context) {
-		System.out.println("UNDO CALLED");
 	}
 
 	@Override

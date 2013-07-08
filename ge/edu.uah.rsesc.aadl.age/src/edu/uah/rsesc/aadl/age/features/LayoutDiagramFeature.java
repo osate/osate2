@@ -104,7 +104,6 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		return null;
 	}
 
-
 	private CompoundDirectedGraph mapDiagramToGraph() {
 		Map<AnchorContainer, Node> shapeToNode = new HashMap<AnchorContainer, Node>();
 		Diagram d = getDiagram();

@@ -6,7 +6,6 @@ import org.eclipse.core.runtime.Status;
 
 import edu.uah.rsesc.aadl.age.Activator;
 
-
 public class Log {
 	// Logging convenience methods
 	public static void ok(String msg) {

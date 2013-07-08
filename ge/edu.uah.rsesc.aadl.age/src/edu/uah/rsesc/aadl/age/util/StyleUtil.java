@@ -1,239 +1,99 @@
 package edu.uah.rsesc.aadl.age.util;
 
-import org.eclipse.graphiti.mm.StyleContainer;
-import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
-import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.util.ColorConstant;
-import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.ui.PlatformUI;
 
-public class StyleUtil {
-	public static void updateStyles(final Diagram diagram) {
-		getClassifierStyle(diagram);
-		getSystemStyle(diagram, false);
-		getSystemStyle(diagram, true);
-		getProcessStyle(diagram, false);
-		getProcessStyle(diagram, true);
-		getThreadGroupStyle(diagram, false);
-		getThreadGroupStyle(diagram, true);
-		getThreadStyle(diagram, false);
-		getThreadStyle(diagram, true);
-		getSubprogramStyle(diagram, false);
-		getSubprogramStyle(diagram, true);
-		getSubprogramGroupStyle(diagram, false);
-		getSubprogramGroupStyle(diagram, true);
-		getDataStyle(diagram, false);
-		getDataStyle(diagram, true);
-		getAbstractStyle(diagram, false);
-		getAbstractStyle(diagram, true);
-		getVirtualBusStyle(diagram, false);
-		getVirtualBusStyle(diagram, true);
-		getVirtualProcessorStyle(diagram, false);
-		getVirtualProcessorStyle(diagram, true);
-		getBusStyle(diagram, false);
-		getBusStyle(diagram, true);
-		getProcessorStyle(diagram, false);
-		getProcessorStyle(diagram, true);
-		getDeviceStyle(diagram, false);
-		getDeviceStyle(diagram, true);
-		getMemoryStyle(diagram, false);
-		getMemoryStyle(diagram, true);
-		getFeatureGroupStyle(diagram, false);
-		getFeatureGroupStyle(diagram, true);
-		getImplementsStyle(diagram);
-		getExtendsStyle(diagram);
-		getGeneralizationArrowHeadStyle(diagram);
-		getClassifierLabelStyle(diagram);
-	}	
-	
-	private static Style getClassifierStyle(final Diagram diagram) {
-		final IGaService gaService = Graphiti.getGaService();
-        final Style style = getStyle(diagram, "classifer");
-        
-        // Set the style
-        style.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
-        style.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
-        style.setLineStyle(LineStyle.SOLID);
-        style.setLineVisible(true);
-        style.setLineWidth(1);
-        style.setTransparency(0.0);
+import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
-        return style;
-    }
-
-	private static Style getImplementationStyle(final Style baseStyle) {
-		final Style style = getStyle(baseStyle, baseStyle.getId() + "-implementation");
-		style.setLineWidth(2);
-		return style;
+// TODO: Remove entire class
+public class StyleUtil {	
+	private static Style getStyle(final Diagram diagram, final String styleId) {
+		final StyleProvider styleProvider = (StyleProvider)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProvider.class);
+		return styleProvider.getStyle(diagram, styleId);
 	}
-		
-	private static Style getImplementationStyleConditionally(final Style baseStyle, final boolean getImplementation) {
-		return getImplementation ? getImplementationStyle(baseStyle) : baseStyle;
+	private static Style getImplementationStyleConditionally(final Diagram diagram, final String styleId, final boolean getImplementation) {
+		final String finalStyleId = getImplementation ? (styleId + "-implementation") : styleId;
+		return getStyle(diagram, finalStyleId);
 	}
 	
 	public static Style getSystemStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "system");
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "system", isImplementation);
 	}
 	
 	public static Style getProcessStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "process");
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "process", isImplementation);
 	}
 	
 	public static Style getThreadGroupStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "thread-group");
-		style.setLineStyle(LineStyle.DASH);
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "thread-group", isImplementation);
 	}
 	
 	public static Style getThreadStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "thread");
-		style.setLineStyle(LineStyle.DASH);
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "thread", isImplementation);
 	}
 	
 	public static Style getSubprogramStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "subprogram");
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "subprogram", isImplementation);
 	}
 	
 	public static Style getSubprogramGroupStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "subprogram-group");
-		style.setLineStyle(LineStyle.DASH);
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "subprogram-group", isImplementation);
 	}
 	
 	public static Style getDataStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "data");
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "data", isImplementation);
 	}
 	
 	public static Style getAbstractStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "abstract");
-		style.setLineStyle(LineStyle.DASH);
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "abstract", isImplementation);
 	}
 	
 	public static Style getVirtualBusStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "virtual-bus");
-		style.setLineStyle(LineStyle.DASH);
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "virtual-bus", isImplementation);
 	}
 	
 	public static Style getVirtualProcessorStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "virtual-processor");
-		style.setLineStyle(LineStyle.DASH);
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "virtual-proessor", isImplementation);
 	}
 	
 	public static Style getBusStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "bus");
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "bus", isImplementation);
 	}
 	
 	public static Style getProcessorStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "processor");
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "processor", isImplementation);
 	}
 	
 	public static Style getDeviceStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "device");
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "device", isImplementation);
 	}
 	
 	public static Style getMemoryStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "memory");
-		return getImplementationStyleConditionally(style, isImplementation);
+		return getImplementationStyleConditionally(diagram, "memory", isImplementation);
 	}
 	
-	public static Style getFeatureGroupStyle(final Diagram diagram, final boolean isImplementation) {
-		final Style style = getStyle(getClassifierStyle(diagram), "feature-group");
-		style.setBackground(Graphiti.getGaService().manageColor(diagram, ColorConstant.BLACK));
-		return getImplementationStyleConditionally(style, isImplementation);
+	public static Style getFeatureGroupTypeStyle(final Diagram diagram) {
+		return getImplementationStyleConditionally(diagram, "feature-group-type", false);
 	}
 	
 	public static Style getShadedStyle(final Diagram diagram) {
-		final Style style = getStyle(diagram, "shaded");
-		style.setBackground(Graphiti.getGaService().manageColor(diagram, ColorConstant.LIGHT_GRAY));
-		return style;
+		return getStyle(diagram, "shaded");
 	}
 	
 	public static Style getImplementsStyle(final Diagram diagram) {
-		final IGaService gaService = Graphiti.getGaService();
-        final Style style = getStyle(diagram, "implements");
-        
-        // Set the style
-        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
-        style.setLineStyle(LineStyle.DASH);
-        style.setLineVisible(true);
-        style.setLineWidth(2);
-
-        return style;
+		return getStyle(diagram, "implements");
     }
 	
 	public static Style getExtendsStyle(final Diagram diagram) {
-		final IGaService gaService = Graphiti.getGaService();
-        final Style style = getStyle(diagram, "extends");
-        
-        // Set the style
-        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
-        style.setLineStyle(LineStyle.SOLID);
-        style.setLineVisible(true);
-        style.setLineWidth(2);
-
-        return style;
+		return getStyle(diagram, "extends");
     }	
 	
 	public static Style getGeneralizationArrowHeadStyle(final Diagram diagram) {
-		final IGaService gaService = Graphiti.getGaService();
-        final Style style = getStyle(diagram, "generalization-arrowhead");
-        
-        // Set the style
-        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setBackground(gaService.manageColor(diagram, IColorConstant.WHITE));
-        style.setLineStyle(LineStyle.SOLID);
-        style.setLineVisible(true);
-        style.setLineWidth(2);
-
-        return style;
+		return getStyle(diagram, "generalization-arrowhead");
     }
 	
 	public static Style getClassifierLabelStyle(final Diagram diagram) {
-		final IGaService gaService = Graphiti.getGaService();
-        final Style style = getStyle(diagram, "classifier-label");
-        
-        // Set the style
-        style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-        style.setFilled(false);
-        style.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
-        style.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-        style.setFont(gaService.manageDefaultFont(diagram, false, true));
-        
-        return style;
+		return getStyle(diagram, "classifier-label");
     }
-	
-	private static Style getStyle(final StyleContainer parentStyle, final String id) {
-		// TODO: Ability to not recreate style each time.. While running this could be really inefficient. Cache in map that will store it in 
-		// memory until program closes?
-		final IGaService gaService = Graphiti.getGaService();
-
-        // Check if the style already exists
-        Style style = gaService.findStyle(parentStyle, id);
-
-        // Reset it if it does
-        if(style == null) {
-        	style = gaService.createPlainStyle(parentStyle, id);
-        } else {
-        	gaService.resetAll(style);        	
-        }
-        
-		return style;
-        
-	}
 }

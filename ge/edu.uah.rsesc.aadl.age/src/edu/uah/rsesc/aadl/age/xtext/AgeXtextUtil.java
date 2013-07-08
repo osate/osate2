@@ -1,25 +1,88 @@
 package edu.uah.rsesc.aadl.age.xtext;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IStartup;
+import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 public class AgeXtextUtil {
 	private static final ModelListener modelListener = new ModelListener();
 	
+	/**
+	 * Registers listeners to listen to model changes from all Xtext editors and to be notified of newly opened xtext editors.
+	 * @author philip.alldredge
+	 *
+	 */
 	public static class Initializer  implements IStartup {		
 		public void earlyStartup() {
 			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
-					// TODO: This only works for the active page?
-					final IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					activePage.addPartListener(new EditorListener(activePage, modelListener));
+					// Listen for the opening of new windows
+					PlatformUI.getWorkbench().addWindowListener(new IWindowListener() {
+						@Override
+						public void windowActivated(IWorkbenchWindow window) {
+						}
+
+						@Override
+						public void windowDeactivated(IWorkbenchWindow window) {
+						}
+
+						@Override
+						public void windowClosed(IWorkbenchWindow window) {
+						}
+
+						@Override
+						public void windowOpened(IWorkbenchWindow window) {
+							registerListenersForWindow(window);
+						}						
+					});
+					
+					// Register existing windows
+					for(final IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+						registerListenersForWindow(window);		
+					}
 				}
 			});
+		}
+		
+		/**
+		 * Register listeners for the window
+		 * @param window
+		 */
+		private void registerListenersForWindow(final IWorkbenchWindow window) {
+			window.addPageListener(new IPageListener() {
+				@Override
+				public void pageActivated(IWorkbenchPage page) {
+				}
+
+				@Override
+				public void pageClosed(IWorkbenchPage page) {
+				}
+
+				@Override
+				public void pageOpened(IWorkbenchPage page) {
+					registerListenerForPage(page);
+				}				
+			});
+			
+			for(final IWorkbenchPage page : window.getPages()) {
+				registerListenerForPage(page);
+			}
+		}
+		
+		/**
+		 * Register part listeners for a page
+		 * @param page
+		 */
+		private void registerListenerForPage(final IWorkbenchPage page) {
+			page.addPartListener(new EditorListener(page, modelListener));	
 		}
 	}
 	
@@ -45,11 +108,11 @@ public class AgeXtextUtil {
 		return modelListener.getDocument(packageName);
 	}
 	
-	public static void addModelListener(final ModelChangeListener listener) {
+	public static void addModelListener(final IXtextModelListener listener) {
 		modelListener.addListener(listener);
 	}
 	
-	public static void removeModelListener(final ModelChangeListener listener) {
+	public static void removeModelListener(final IXtextModelListener listener) {
 		modelListener.removeListener(listener);
 	}
 }

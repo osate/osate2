@@ -35,7 +35,6 @@ public class TypeFeatureProvider extends DefaultFeatureProvider {
 	
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
-		// TODO: check for right domain object instances below
 		if (context instanceof IAddConnectionContext /* && context.getNewObject() instanceof <DomainObject> */) {
 			return new AddDomainObjectConnectionConnectionFeature(this);
 		} else if (context instanceof IAddContext /* && context.getNewObject() instanceof <DomainObject> */) {
@@ -47,7 +46,6 @@ public class TypeFeatureProvider extends DefaultFeatureProvider {
 	
 	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
-		// TODO: check for right domain object instances below
 		if (context.getPictogramElement() instanceof ContainerShape) {
 			return  new LayoutDomainObjectFeature(this);
 		}

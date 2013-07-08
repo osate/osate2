@@ -62,7 +62,7 @@ public class GraphicsAlgorithmCreator {
         } else if(classifier instanceof MemoryClassifier) {
         	ga = createMemoryGraphicsAlgorithm(container, StyleUtil.getMemoryStyle(diagram, isImplementation), width, height);
         } else if(classifier instanceof FeatureGroupType) {
-        	ga = createFeatureGroupGraphicsAlgorithm(container, StyleUtil.getFeatureGroupStyle(diagram, isImplementation), width, height);
+        	ga = createFeatureGroupGraphicsAlgorithm(container, StyleUtil.getFeatureGroupTypeStyle(diagram), width, height);
         } else {
         	// TODO: Decide how to handle? Don't create shape? Create a generic shape?
         	ga = createDummyGraphicsAlgorithm(container, width, height);

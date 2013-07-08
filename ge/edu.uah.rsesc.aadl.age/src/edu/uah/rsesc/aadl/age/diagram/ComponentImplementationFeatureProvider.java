@@ -35,10 +35,9 @@ public class ComponentImplementationFeatureProvider extends DefaultFeatureProvid
 	
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
-		// TODO: check for right domain object instances below
-		if (context instanceof IAddConnectionContext /* && context.getNewObject() instanceof <DomainObject> */) {
+		if (context instanceof IAddConnectionContext) {
 			return new AddDomainObjectConnectionConnectionFeature(this);
-		} else if (context instanceof IAddContext /* && context.getNewObject() instanceof <DomainObject> */) {
+		} else if (context instanceof IAddContext) {
 			return new AddDomainObjectFeature(this);
 		}
 
@@ -47,7 +46,6 @@ public class ComponentImplementationFeatureProvider extends DefaultFeatureProvid
 	
 	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
-		// TODO: check for right domain object instances below
 		if (context.getPictogramElement() instanceof ContainerShape) {
 			return  new LayoutDomainObjectFeature(this);
 		}

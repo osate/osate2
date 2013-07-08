@@ -1,19 +1,8 @@
 package edu.uah.rsesc.aadl.age;
 
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.transaction.NotificationFilter;
-import org.eclipse.emf.transaction.ResourceSetChangeEvent;
-import org.eclipse.emf.transaction.ResourceSetListener;
-import org.eclipse.emf.transaction.RollbackException;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.xtext.resource.XtextResourceSet;
-import org.osate.core.OsateCorePlugin;
 import org.osgi.framework.BundleContext;
-
-import com.google.inject.Injector;
 
 /**
  * The activator class controls the plug-in life cycle
