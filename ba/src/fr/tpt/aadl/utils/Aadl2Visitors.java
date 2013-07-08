@@ -26,6 +26,9 @@ import java.util.Set ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
+import org.eclipse.emf.ecore.EReference ;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource ;
+import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentImplementation ;
 import org.osate.aadl2.Element ;
@@ -33,9 +36,11 @@ import org.osate.aadl2.Feature ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.Namespace ;
 import org.osate.aadl2.PackageSection ;
+import org.osate.aadl2.PropertySet ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
 import org.osate.aadl2.Subcomponent ;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 
 /**
  * A collection of AADL2 visitors. 
@@ -226,5 +231,106 @@ public class Aadl2Visitors
      }
      
      return result ;
+  }
+  
+  /**
+   * Fetch the service associated to the given package section.
+   * If the package section's resource is a lazy load resource, it gives the
+   * resource's service. 
+   * 
+   * @param context the given package section
+   * @return the service associated to the given package section
+   */
+  public static PropertiesLinkingService getPropertiesLinkingService(PackageSection context)
+  {
+    if(context.eResource() instanceof LazyLinkingResource)
+    {
+      return (PropertiesLinkingService) ((LazyLinkingResource) context
+          .eResource()).getLinkingService() ;
+    }
+    else
+    {
+      return new PropertiesLinkingService() ;
+    }
+  }
+
+  /**
+   * Find an element in a package based on their name from the given point of
+   * view (package section) or return {@code null}.
+   * 
+   * @param elementName the element's name
+   * @param packageName the package's name
+   * @param context the given point of view
+   * @return the element or {@code null}
+   */
+  public static NamedElement findElementInPackage(String elementName,
+                                                  String packageName,
+                                                  PackageSection context)
+  {
+    NamedElement result = null ;
+
+    NamedElement rootContainer = context.getElementRoot() ;
+
+    String currentNamespace = rootContainer.getName() ;
+
+    PropertiesLinkingService pls =
+        Aadl2Visitors.getPropertiesLinkingService(context) ;
+
+    if(packageName == null || currentNamespace.equalsIgnoreCase(packageName))
+    {
+      // The element is declared into the current context.
+      result = pls.findNamedElementInsideAadlPackage(elementName, context) ;
+    }
+    else
+    // The element is defined into an imported package.
+    {
+      result =
+          pls.findNamedElementInAadlPackage(packageName, elementName, context) ;
+    }
+
+    return result ;
+  }
+
+  /**
+   * Find a property in a propertyset based on their name from the given point of
+   * view (package section) or return {@code null}.
+   * 
+   * @param elementName the element's name
+   * @param propertySetName the propertyset's name
+   * @param context the given point of view
+   * @return the property or {@code null}
+   */
+  public static NamedElement findElementInPropertySet(String elementName,
+                                                      String propertySetName,
+                                                      PackageSection context)
+  {
+    NamedElement result = null ;
+
+    PropertiesLinkingService pls =
+        Aadl2Visitors.getPropertiesLinkingService(context) ;
+
+    // First in the predeclared propertysets.
+
+    // Why this, i don't know ...
+    EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue() ;
+
+    result =
+        (NamedElement) pls
+            .findNamedElementInPredeclaredPropertySets(elementName, context,
+                                                       reference) ;
+    // Then in the imported property sets.
+    if(result == null)
+    {
+      PropertySet ps = null ;
+
+      ps = pls.findPropertySet(context, propertySetName) ;
+
+      if(ps != null)
+      {
+        result = ps.findNamedElement(elementName) ;
+      }
+    }
+
+    return result ;
   }
 }
