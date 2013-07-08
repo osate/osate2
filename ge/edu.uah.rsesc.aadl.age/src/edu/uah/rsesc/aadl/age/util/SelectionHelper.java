@@ -14,6 +14,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -110,7 +111,11 @@ public class SelectionHelper {
 			throw new RuntimeException("Unable to retrieve project. Selection is null.");
 		}
 		
-		final IPath projectPath = new Path(selectedObject.eResource().getURI().toPlatformString(true)).uptoSegment(1);
+		return getProject(selectedObject.eResource());
+	}
+	
+	public static IProject getProject(final Resource resource) {
+		final IPath projectPath = new Path(resource.getURI().toPlatformString(true)).uptoSegment(1);
 		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
 		if(projectResource instanceof IProject) {
 			return (IProject)projectResource;

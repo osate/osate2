@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -100,8 +101,9 @@ public class DiagramOpener {
 		
 		GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, new AadlElementWrapper(namedElement));
 		
-		// Create a resource to hold the diagram	
-		final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), buildBaseFilename(namedElement));
+		// Create a resource to hold the diagram
+		final IProject project = SelectionHelper.getProject(namedElement.eResource());
+		final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildBaseFilename(namedElement));
 		
 		// Store the diagram in the resource
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
@@ -131,7 +133,7 @@ public class DiagramOpener {
 	 * @param baseFilename the desired filename of the file that will store the resource. The method will adjust the filename to avoid overwriting an existing file.
 	 * @return the resource containing the new diagram
 	 */
-	private Resource createDiagramResource(final ResourceSet resourceSet, final String baseFilename) { 
+	private Resource createDiagramResource(final ResourceSet resourceSet, final IProject project, final String baseFilename) { 
 		boolean retry;
 		String suffix = "";
 		int tryCount = 1;
@@ -140,7 +142,7 @@ public class DiagramOpener {
 		do
 		{
 			retry = false;
-			final IFolder diagramFolder = SelectionHelper.getProject().getFolder("diagrams/");
+			final IFolder diagramFolder = project.getFolder("diagrams/");
 			final IFile diagramFile = diagramFolder.getFile(baseFilename + suffix + AgeDiagramEditor.EXTENSION);
 			final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 			

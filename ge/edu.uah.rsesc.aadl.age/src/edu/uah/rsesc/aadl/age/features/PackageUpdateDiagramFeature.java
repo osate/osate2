@@ -43,7 +43,6 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import edu.uah.rsesc.aadl.age.diagram.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.Log;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
 	public PackageUpdateDiagramFeature(final IFeatureProvider fp) {

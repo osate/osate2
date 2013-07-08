@@ -31,10 +31,8 @@ public class AgeDiagramEditor extends DiagramEditor {
 			if(resource.getContents().size() > 0) {
 				final EObject contents = resource.getContents().get(0);
 				final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
-				System.out.println(contents);
 				if(contents instanceof NamedElement && bo instanceof NamedElement) {
 					if(((NamedElement)contents).getQualifiedName().equalsIgnoreCase(((NamedElement)bo).getQualifiedName())) {
-						System.out.println("CHANGED");
 						Display.getDefault().asyncExec(new Runnable() {
 							public void run() {						
 								// Update the entire diagram

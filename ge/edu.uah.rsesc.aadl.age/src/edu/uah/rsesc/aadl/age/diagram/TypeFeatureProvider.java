@@ -9,8 +9,6 @@ import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
-
 import edu.uah.rsesc.aadl.age.features.stub.AddDomainObjectConnectionConnectionFeature;
 import edu.uah.rsesc.aadl.age.features.stub.AddDomainObjectFeature;
 import edu.uah.rsesc.aadl.age.features.stub.CreateDomainObjectConnectionConnectionFeature;
@@ -18,7 +16,7 @@ import edu.uah.rsesc.aadl.age.features.stub.CreateDomainObjectFeature;
 import edu.uah.rsesc.aadl.age.features.stub.LayoutDomainObjectFeature;
 
 
-public class TypeFeatureProvider extends DefaultFeatureProvider {
+public class TypeFeatureProvider extends AgeFeatureProvider {
 	public TypeFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
 	}
