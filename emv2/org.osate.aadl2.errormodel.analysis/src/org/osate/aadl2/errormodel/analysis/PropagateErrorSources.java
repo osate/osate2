@@ -78,6 +78,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelStateAdapterFactory;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 /**
  * @author phf
@@ -531,19 +532,32 @@ public class PropagateErrorSources {
 			}
 		} else {
 			for (PropagationPath path : paths) {
-				ComponentInstance destci = path.getDstCI();
-				ErrorPropagation destEP = path.getPathDst().getErrorPropagation();
-				if (destci instanceof SystemInstance){
-					// we have an external propagation (out only connection)
-					String connText=" -> "+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
-					reportEntry(entryText+effectText+connText,depth);
-				} else if (path.getConnectionInstance()!=null&&!path.getConnectionInstance().isComplete()){
-					// outgoing only, but not ending at root
-					String connText=" -> "+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
-					reportEntry(entryText+effectText+connText,depth);
+				EList<PropagationPathEnd> dstEnds;
+				ConnectionInstance dstConni = path.getDstConni();
+				String connSymbol = " -> ";
+				if (dstConni != null){
+					dstEnds = faultModel.getAllPropagationDestinationEnds(dstConni);
+					connSymbol = " -Conn-> ";
+					// XXX TODO merge sender type with contributor type of connection binding
 				} else {
-					String connText=" -> "+generateComponentPropagationPointText(destci, destEP);
-					traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
+					dstEnds = new BasicEList<PropagationPathEnd>();
+					dstEnds.add(path.getPathDst());
+				}
+				for (PropagationPathEnd propagationPathEnd : dstEnds) {
+					ComponentInstance destci = propagationPathEnd.getComponentInstance();
+					ErrorPropagation destEP = propagationPathEnd.getErrorPropagation();
+					if (destci instanceof SystemInstance){
+						// we have an external propagation (out only connection)
+						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
+						reportEntry(entryText+effectText+connText,depth);
+					} else if (path.getConnectionInstance()!=null&&!path.getConnectionInstance().isComplete()){
+						// outgoing only, but not ending at root
+						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
+						reportEntry(entryText+effectText+connText,depth);
+					} else if (destci != null && destEP != null){
+						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP);
+						traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
+					}
 				}
 			}
 		}
