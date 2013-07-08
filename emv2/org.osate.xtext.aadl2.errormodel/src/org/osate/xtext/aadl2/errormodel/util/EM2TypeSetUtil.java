@@ -258,21 +258,19 @@ public class EM2TypeSetUtil {
 	 * add type token for specified error type to newItems. Then add a token
 	 * for each token in existing list with error type added.
 	 * @param newItems list holding the newly added tokens
-	 * @param et error type to be added as single token as well as tokens by combining it with existing tokens
-	 * @param existing existing tokens to which error type et needs to be added
+	 * @param etlist error subtypes of the next product element to be added 
+	 * @return result list
 	 */
-	protected static void addItemSet(EList<TypeToken> newItems, ErrorType et, boolean first){
-		if (first){
-			for (TypeToken typeToken : newItems) {
-				typeToken.getType().add(et);
-			}
-		} else {
-			for (TypeToken typeToken : newItems) {
+	protected static EList<TypeToken> addItemSet(EList<TypeToken> newItems, EList<ErrorType> etlist){
+		EList<TypeToken> result = new BasicEList<TypeToken>();
+		for (TypeToken typeToken : newItems) {
+			for (ErrorType et : etlist){
 				TypeToken tu = EcoreUtil.copy(typeToken);
 				tu.getType().add(et);
-				newItems.add(tu);
+				result.add(tu);
 			}
 		}
+			return result;
 	}
 	
 	
@@ -284,29 +282,27 @@ public class EM2TypeSetUtil {
 	 */
 	public static EList<TypeToken> generateAllLeafTypeTokens(TypeSet typeSet, TypeUseContext tuc){
 		EList<TypeToken> result = new BasicEList<TypeToken>() ; 
-		EList<TypeToken> newitems = new BasicEList<TypeToken>() ; 
 		if (typeSet == null){
 			return result;
 		}
 		EList<TypeToken> typelist = typeSet.getTypeTokens();
 		for (TypeToken typeSetElement : typelist) {
+			// add all leaf nodes
+			EList<TypeToken> newitems = new BasicEList<TypeToken>() ; 
 			EList<ErrorType> elementtypes = typeSetElement.getType();
 			for (ErrorType errorType : elementtypes) {
+				// elements of a product type
 				EList<ErrorType> etlist = getAllLeafSubTypes( errorType,tuc);
 				if (newitems.isEmpty()){
-					// first/single type
+					// first/single type: add all leaves
 					for (ErrorType subType : etlist) {
 						TypeToken token = ErrorModelFactory.eINSTANCE.createTypeToken();
 						token.getType().add(subType);
 						newitems.add(token);
 					}
 				} else {
-					// product type: add other type elements
-					boolean copy = false;
-					for (ErrorType subType : etlist) {
-						addItemSet(newitems, subType, copy);
-						copy = true;
-					}
+					// product type: add other type elements from the product type
+						newitems = addItemSet(newitems, etlist);
 				}
 			}
 			result.addAll(newitems);
@@ -317,7 +313,8 @@ public class EM2TypeSetUtil {
 	
 
 	/**
-	 * Get all error types that are direct subtypes of et.
+	 * Get all error types that are direct subtypes of et or any of its aliases.
+	 * If et is an alias we only find subtypes of the alias or its aliases
 	 * We look for any error type accessible in the TypeUseContext, i.e., subclause, type library, type mapping/xform set
 	 * @param et
 	 * @param tuc
@@ -325,12 +322,29 @@ public class EM2TypeSetUtil {
 	 */
 	public static EList<ErrorType> getSubTypes(ErrorType et, TypeUseContext tuc){
 		UniqueEList<ErrorType> result = new UniqueEList<ErrorType>();
+		ErrorType resolvedet = EMV2Util.resolveAlias(et);
 		for (ErrorModelLibrary etl : EMV2Util.getUseTypes(tuc)) {
 			EList<ErrorType> typeslist = etl.getTypes();
-			for (ErrorType errorType : typeslist) {
-				ErrorType set = EMV2Util.resolveAlias(errorType);
-				if (set.getSuperType() == et){
-					result.add(errorType);
+			for (ErrorType suberrortype : typeslist) {
+				// check if type is a subtype or an alias for which we need to check for subtypes
+				ErrorType resolvedSubErrorType = EMV2Util.resolveAlias(suberrortype);
+				if (resolvedSubErrorType == resolvedet){
+					// subtype is an alias of ET. need to look for its subtypes
+					EList<ErrorType> aliasresult = getSubTypes(suberrortype, tuc);
+					result.addAll(aliasresult);
+				}
+				if (suberrortype.getSuperType() == et){
+					result.add(suberrortype);
+				}
+				ErrorType aliasedsubtype = suberrortype;
+				while (isAlias(aliasedsubtype)){
+					// see if the alias origin is a subtype
+					ErrorType sub = aliasedsubtype.getAliasedType();
+					if (sub.getSuperType() == et){
+						result.add(sub);
+					} else {
+						aliasedsubtype = sub;
+					}
 				}
 			}
 		}
