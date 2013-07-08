@@ -72,7 +72,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final boolean wasEmpty = diagram.getChildren().size() == 0; 
 		
 		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
-		System.out.println("CLEARING STYLES");
 		diagram.getStyles().clear();		
 		
 		// Get the AADL Package
