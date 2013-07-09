@@ -6,7 +6,7 @@ import org.eclipse.ui.PlatformUI;
 
 import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
-// TODO: Remove entire class
+// TODO: Consider removing class
 public class StyleUtil {	
 	private static Style getStyle(final Diagram diagram, final String styleId) {
 		final StyleProvider styleProvider = (StyleProvider)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProvider.class);

@@ -3,8 +3,8 @@
 <plugin>
    <extension-point id="org.uah.rsesc.aadl.age.styles" name="AGE Styles" schema="schema/org.uah.rsesc.aadl.age.styles.exsd"/>
 	<extension point="org.eclipse.ui.commands">
-	   <command id="edu.uah.rsesc.aadl.age.commands.openpackagediagram" name="Open Package Diagram" defaultHandler="edu.uah.rsesc.aadl.age.handlers.OpenPackageDiagramHandler"></command>
-	   <command id="edu.uah.rsesc.aadl.age.commands.openclassifierdiagram" name="Open Classifier Diagram" defaultHandler="edu.uah.rsesc.aadl.age.handlers.OpenClassifierDiagramHandler"></command>
+	   <command id="edu.uah.rsesc.aadl.age.commands.openpackagediagram" name="Open Package Diagram" defaultHandler="edu.uah.rsesc.aadl.age.ui.handlers.OpenPackageDiagramHandler"></command>
+	   <command id="edu.uah.rsesc.aadl.age.commands.openclassifierdiagram" name="Open Classifier Diagram" defaultHandler="edu.uah.rsesc.aadl.age.ui.handlers.OpenClassifierDiagramHandler"></command>
    </extension>
 	   
    <extension point="org.eclipse.ui.menus">
@@ -50,7 +50,7 @@
          point="org.eclipse.graphiti.ui.diagramTypeProviders">
       <diagramTypeProvider
             name="AADL Package Diagram Type Provider"
-            class="edu.uah.rsesc.aadl.age.diagram.PackageDiagramTypeProvider"
+            class="edu.uah.rsesc.aadl.age.diagrams.pkg.PackageDiagramTypeProvider"
             id="edu.uah.rsesc.aadl.age.aadlPackageDiagramTypeProvider">
          <diagramType
                id="edu.uah.rsesc.aadl.age.aadlPackageDiagramType">
@@ -59,7 +59,7 @@
       
       <diagramTypeProvider
             name="AADL Type Diagram Type Provider"
-            class="edu.uah.rsesc.aadl.age.diagram.TypeDiagramTypeProvider"
+            class="edu.uah.rsesc.aadl.age.diagrams.type.TypeDiagramTypeProvider"
             id="edu.uah.rsesc.aadl.age.aadlTypeDiagramTypeProvider">
          <diagramType
                id="edu.uah.rsesc.aadl.age.aadlTypeDiagramType">
@@ -68,7 +68,7 @@
       
       <diagramTypeProvider
             name="AADL Component Implementation Diagram Type Provider"
-            class="edu.uah.rsesc.aadl.age.diagram.ComponentImplementationDiagramTypeProvider"
+            class="edu.uah.rsesc.aadl.age.diagrams.componentImplementation.ComponentImplementationDiagramTypeProvider"
             id="edu.uah.rsesc.aadl.age.aadlComponentImplementationDiagramTypeProvider">
          <diagramType
                id="edu.uah.rsesc.aadl.age.aadlComponentImplementationDiagramType">
@@ -81,7 +81,7 @@
 		<editor
 	  	   id = "edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor"
 	  	   name="AADL Diagram Editor"
-      	   class="edu.uah.rsesc.aadl.age.editor.AgeDiagramEditor"
+      	   class="edu.uah.rsesc.aadl.age.ui.editor.AgeDiagramEditor"
 		   extensions="aadl_diagram"
            contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
            matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy"
@@ -90,55 +90,55 @@
 	</extension>
 
 	<extension point="org.eclipse.ui.startup">
-      <startup class="edu.uah.rsesc.aadl.age.xtext.AgeXtextUtil$Initializer">
+      <startup class="edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil$Initializer">
       </startup>
    </extension>
    
 	<extension point="org.eclipse.core.runtime.adapters">
-		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart" class="edu.uah.rsesc.aadl.age.editor.GraphitiEditPartyAdapterFactory">
+		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart" class="edu.uah.rsesc.aadl.age.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 		</factory>
-		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart" class="edu.uah.rsesc.aadl.age.editor.GraphitiEditPartyAdapterFactory">
+		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart" class="edu.uah.rsesc.aadl.age.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
 		</factory>
 	</extension>
 	
  <extension point="org.uah.rsesc.aadl.age.styles">
- 	<factory class="edu.uah.rsesc.aadl.age.styles.ClassifierStyleFactory" styleId="classifier"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="system"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="system-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="process"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="process-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="subprogram"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="subprogram-implementation"/> 	
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="data"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="data-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="bus"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="bus-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="processor"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="processor-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="device"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="device-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="memory"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.BasicComponentTypeStyleFactory" styleId="memory-implementation"/> 	
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="thread-group"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="thread-group-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="thread"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="thread-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group-implementation"/> 	
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="abstract"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="abstract-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-group"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
- 	<factory class="edu.uah.rsesc.aadl.age.styles.FeatureGroupTypeStyleFactory" styleId="feature-group-type"/> 	
- 	<factory class="edu.uah.rsesc.aadl.age.styles.ShadedStyleFactory" styleId="shadded"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.ImplementsStyleFactory" styleId="implements"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.ExtendsStyleFactory" styleId="extends"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
- 	<factory class="edu.uah.rsesc.aadl.age.styles.ClassifierLabelStyleFactory" styleId="classifier-label"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ClassifierStyleFactory" styleId="classifier"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="system"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="system-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="process"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="process-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="subprogram"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="subprogram-implementation"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="data"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="data-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="bus"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="bus-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="processor"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="processor-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="device"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="device-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="memory"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="memory-implementation"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="thread-group"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="thread-group-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="thread"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="thread-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="subprogram-group-implementation"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="abstract"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="abstract-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-group"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FeatureGroupTypeStyleFactory" styleId="feature-group-type"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ShadedStyleFactory" styleId="shadded"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ImplementsStyleFactory" styleId="implements"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ExtendsStyleFactory" styleId="extends"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ClassifierLabelStyleFactory" styleId="classifier-label"/> 	
  </extension>
  
  <extension
