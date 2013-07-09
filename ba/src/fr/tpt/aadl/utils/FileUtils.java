@@ -155,6 +155,22 @@ public class FileUtils
    */
   public static void deleteFile (File toBeDelete)
   {
+    delete(toBeDelete, true) ;
+  }
+  
+  /**
+   * Delete the contain of the given directory without delete the directory
+   * itself.
+   * 
+   * @param directory the given directory
+   */
+  public static void deleteDirectoryContain(File directory)
+  {
+    delete(directory, false) ;
+  }
+  
+  private static void delete (File toBeDelete, boolean justTheContain)
+  {
     if(toBeDelete.exists())
     {
       if(toBeDelete.isDirectory())
@@ -166,7 +182,10 @@ public class FileUtils
         }
       }
       
-      toBeDelete.delete() ;
+      if (justTheContain)
+      {
+        toBeDelete.delete() ;
+      }
     }
   }
 }
