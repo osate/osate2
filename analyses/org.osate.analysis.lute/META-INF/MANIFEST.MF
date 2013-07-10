@@ -6,15 +6,18 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.analysis.lute.Activator
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
-Require-Bundle: org.osate.aadl2;bundle-version="1.0.0",
- org.osate.aadl2.instantiation;bundle-version="1.0.0",
- org.osate.aadl2.modelsupport;bundle-version="1.0.0",
- org.osate.xtext.aadl2.properties.ui;bundle-version="1.0.0",
- org.eclipse.ui.console;bundle-version="3.5.100"
+Require-Bundle: org.osate.aadl2,
+ org.osate.aadl2.instantiation,
+ org.osate.aadl2.modelsupport,
+ org.osate.xtext.aadl2.properties.ui,
+ org.eclipse.ui.console,
+ org.osate.analysis.architecture,
+ org.osate.ui,
+ org.osate.aadl2.modelsupport,
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Import-Package: org.osate.ui.actions,
  org.osate.ui.dialogs
 Export-Package: org.osate.analysis.lute,
  org.osate.analysis.lute.utils
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6

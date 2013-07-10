@@ -29,7 +29,9 @@
                id="menu.lute"
                label="Lute"
                path="menu.analyses/top.grp">
-            <groupMarker name="stuff.grp"/>
+               <groupMarker name="stuff.grp"/>
+            
+            
              <visibleWhen checkEnabled="false">
             <with variable="activeWorkbenchWindow.activePerspective">
                 <equals value="AADL"/>
