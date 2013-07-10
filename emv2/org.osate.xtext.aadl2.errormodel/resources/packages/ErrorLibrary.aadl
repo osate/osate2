@@ -15,23 +15,50 @@ EarlyServiceStart: type extends ServiceCommission;
 LateServiceTermination: type extends ServiceCommission;
 BoundedItemOmissionSequence: type extends ServiceOmission; 
 BoundedItemOmissionInterval: type extends ServiceOmission; 
-TimingError: type; 
-EarlyDelivery: type extends TimingError; 
-LateDelivery: type extends TimingError; 
-ValueError: type; 
-SubtleValueError: type extends ValueError; 
-BenignValueError: type extends ValueError;
+
+-- Timing Related Errors
+ItemTimingError: type; 
+EarlyDelivery: type extends ItemTimingError; 
+LateDelivery: type extends ItemTimingError; 
+
+SequenceTimingError: type; 
+RateError renames type SequenceTimingError;
+RateJitter: type extends SequenceTimingError; 
+HighRate: type extends SequenceTimingError; 
+LowRate: type extends SequenceTimingError; 
+
+ServiceTimingError : type;
+EarlyService: type extends ServiceTimingError;
+DelayedService: type extends ServiceTimingError;
+
+TimingError renames type ItemTimingError;
+-- TimingError : type set {ItemTimingError, SequenceTimingError, ServiceTimingError};
+
+-- Value Related Errors
+ValueError renames type ItemValueError;
+-- ValueError : type set {ItemValueError, SequenceValueError, ServiceValueError};
+
+ItemValueError: type; 
+SubtleValueError: type extends ItemValueError; 
+BenignValueError: type extends ItemValueError;
 OutOfRange: type extends BenignValueError;
 OutOfBounds: type extends BenignValueError;
 BelowRange: type extends OutOfRange;
 AboveRange: type extends OutOfRange;
-RateError: type; 
-VariableRate: type extends RateError; 
-HighRate: type extends RateError; 
-LowRate: type extends RateError; 
-SequenceError: type;
-ValueChange: type extends SequenceError; 
-OutOfOrder: type extends SequenceError; 
+IncorrectValue : type extends SubtleValueError;
+
+-- Benign and Subtle as type sets
+
+SequenceValueError: type;
+SequenceError renames type SequenceValueError;
+ValueChange: type extends SequenceValueError; 
+OutOfOrder: type extends SequenceValueError; 
+StuckValue: type extends SequenceValueError;
+
+ServiceValueError: type;
+OutOfCalibration : type extends ServiceValueError;
+
+-- replicated service item related errors
 ReplicationError: type; 
 InconsistentValue: type extends ReplicationError; 
 InconsistentApproximateValue: type extends InconsistentValue;
@@ -39,10 +66,10 @@ InconsistentTiming: type extends ReplicationError;
 InconsistentOmission: type extends ReplicationError;
 InconsistentItemOmission: type extends InconsistentOmission;
 InconsistentServiceOmission: type extends InconsistentOmission;
+
 ValueCorruption renames type ValueError;
 SubtleValueCorruption renames type SubtleValueError;
 BenignValueCorruption renames type BenignValueError;
-IncorrectValue renames type ValueError;
 BadValue renames type SubtleValueError;
 EarlyData renames type EarlyDelivery;
 LateData renames type LateDelivery;
@@ -54,6 +81,7 @@ AsymmetricServiceOmission renames type InconsistentServiceOmission;
 SymmetricServiceOmission renames type ServiceOmission;
 AsymmetricTransmissive renames type InconsistentValue;
 SymmetricTransmissive renames type ValueError;
+
 ConcurrencyError: type;
 RaceCondition: type extends ConcurrencyError;
 ReadWriteRace: type extends RaceCondition;
