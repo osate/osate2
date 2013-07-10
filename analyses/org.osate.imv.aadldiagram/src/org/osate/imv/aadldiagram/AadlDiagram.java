@@ -63,6 +63,8 @@ public class AadlDiagram extends FigureCanvas {
 	private AadlComponentAdapter rootAdapter;
 
 	private int nestingLevel = 1;
+	
+	private boolean doDirectConnections = false;
 
 	public AadlDiagram(Composite parent) {
 		super(parent, SWT.DOUBLE_BUFFERED);

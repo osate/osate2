@@ -80,11 +80,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 	
 	private boolean doDirectConnections;
 
-	public OsateAdapterProvider(boolean doDirectConnections)
+	public OsateAdapterProvider()
 	{
 		this.modelElementToAdapterMap = new HashMap<Object, IAadlElementAdapter>();
 		this.labelProvider = new FigureLabelProvider();
-		this.doDirectConnections = doDirectConnections;
+	}
+	
+	public void setDirectConnection(boolean dir){
+		this.doDirectConnections = dir;
 	}
 
 	public AadlComponentAdapter getContainerComponentAdapter(Object modelElement, int nesting) {
@@ -596,7 +599,6 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 	public List<ConnectionItem> getConnections(Object element) {
 		List<ConnectionItem> connectionList = new ArrayList<ConnectionItem>();
-		List<FeatureGroupConnection> featureGroupConnections = new ArrayList<FeatureGroupConnection>();
 		if(element instanceof ComponentInstance){
 			ComponentInstance ci = (ComponentInstance)element;
 			if (doDirectConnections){

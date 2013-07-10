@@ -25,4 +25,6 @@ public interface IImageKeys {
 	public static final String RESIZE_ICON = "icons/window_resize.png";
 	public static final String AUTO_LAYOUT_ICON = "icons/hand.png";
 	public static final String RESIZE_ACTUAL_ICON = "icons/resize_actual.png";
+	public static final String DIRECT_CONNECTION_ICON = "icons/direct_connection.png";
+	public static final String HIERARCHICAL_CONNECTION_ICON = "icons/hierarchical_connection.png";
 }
