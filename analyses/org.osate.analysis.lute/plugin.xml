@@ -6,7 +6,7 @@
 		<actionSet
 			id="org.osate.validation.lute.actionSet"
 			label="Lute Set"
-			visible="false">
+			visible="true">
 
          <menu
                id="menu.osate"
