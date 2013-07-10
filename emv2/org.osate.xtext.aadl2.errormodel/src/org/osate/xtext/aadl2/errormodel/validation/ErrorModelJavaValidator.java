@@ -26,6 +26,7 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -175,7 +176,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseErrorBehaviorTransition(ErrorBehaviorTransition ebt) {
 		checkTransitionSourceTypes(ebt);
-		checkTransitionTargetTypes(ebt);
+		checkTransitionTargetTypes(ebt);		
+		checkBranches(ebt);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -733,6 +735,26 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 							"Target type "+EMV2Util.getPrintName(ebt.getTargetToken())+" is not contained in type set of error behavior state \'"
 									+ ebs.getName() + "\'");
 				}
+		}
+	}
+
+	private void checkBranches(ErrorBehaviorTransition ebt) {
+		EList<TransitionBranch> branches = ebt.getDestinationBranches();
+		boolean foundsteady = false;
+		double prob = 0;
+		for (TransitionBranch transitionBranch : branches) {
+			if (transitionBranch.isSteadyState()){
+				if (foundsteady){
+					error(ebt,"More than one same state branch");
+				} else {
+					foundsteady = true;
+				}
+			}
+			String bv = transitionBranch.getValue().getRealvalue();
+			prob = prob + Double.valueOf(bv);
+		}
+		if (prob < 1 ){
+			error (ebt, "Sum of branch probabilities must be 1");
 		}
 	}
 
