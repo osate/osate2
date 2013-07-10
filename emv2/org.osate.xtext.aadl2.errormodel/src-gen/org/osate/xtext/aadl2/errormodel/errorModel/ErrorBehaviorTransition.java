@@ -22,8 +22,8 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#getTargetToken <em>Target Token</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#getDestinationBranches <em>Destination Branches</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#isSteadyState <em>Steady State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition#getDestinationBranches <em>Destination Branches</em>}</li>
  * </ul>
  * </p>
  *
@@ -190,22 +190,6 @@ public interface ErrorBehaviorTransition extends EObject, NamedElement
   void setTargetToken(TypeToken value);
 
   /**
-   * Returns the value of the '<em><b>Destination Branches</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Destination Branches</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Destination Branches</em>' containment reference list.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorBehaviorTransition_DestinationBranches()
-   * @model containment="true"
-   * @generated
-   */
-  EList<TransitionBranch> getDestinationBranches();
-
-  /**
    * Returns the value of the '<em><b>Steady State</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -230,5 +214,21 @@ public interface ErrorBehaviorTransition extends EObject, NamedElement
    * @generated
    */
   void setSteadyState(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Destination Branches</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Destination Branches</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Destination Branches</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorBehaviorTransition_DestinationBranches()
+   * @model containment="true"
+   * @generated
+   */
+  EList<TransitionBranch> getDestinationBranches();
 
 } // ErrorBehaviorTransition

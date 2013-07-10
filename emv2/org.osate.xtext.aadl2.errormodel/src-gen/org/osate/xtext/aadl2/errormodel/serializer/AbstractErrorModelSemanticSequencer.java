@@ -797,14 +797,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID? 
-	 *         ((source=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
-	 *         condition=ConditionExpression 
 	 *         (
-	 *             (target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | 
-	 *             (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+) | 
-	 *             steadyState?=']'
-	 *         )
+	 *             name=ID? 
+	 *             ((source=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
+	 *             condition=ConditionExpression 
+	 *             ((target=[ErrorBehaviorState|ID] targetToken=TypeToken) | steadyState?='same')
+	 *         ) | 
+	 *         (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+)
 	 *     )
 	 */
 	protected void sequence_ErrorBehaviorTransition(EObject context, ErrorBehaviorTransition semanticObject) {
@@ -1134,7 +1133,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (target=[ErrorBehaviorState|ID] targetToken=TypeToken? value=BranchValue)
+	 *     (((target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | steadyState?='same') value=BranchValue)
 	 */
 	protected void sequence_TransitionBranch(EObject context, TransitionBranch semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

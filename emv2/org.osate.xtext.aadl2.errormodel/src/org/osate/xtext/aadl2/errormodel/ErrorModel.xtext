@@ -289,15 +289,17 @@ ErrorBehaviorTransition returns ErrorBehaviorTransition:
   (name = ID ':')? 
   ((source=[ErrorBehaviorState|ID] (typeTokenConstraint=TypeTokenConstraint)?)
   	| allStates?='all')
-   '-[' condition=ConditionExpression ((']->' 
-  ((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?)
-  	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )+ ')')))
-  	| steadyState ?= ']'
-  	)
+   '-[' condition=ConditionExpression ']->' 
+  (target=[ErrorBehaviorState|ID] (targetToken=TypeToken )| (steadyState ?='same' 'state'))
+  	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )+ ')')
+  	
   ';';
 
 TransitionBranch returns TransitionBranch:  
-	(target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?) 'with' value=BranchValue
+	((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?) 
+	| (steadyState ?='same' 'state'))
+	'with' value=BranchValue 
+	
 ;
 // store real literal as integer, ID as reference to property constant
 BranchValue returns BranchValue: 

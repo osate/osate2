@@ -27,6 +27,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl#getTargetToken <em>Target Token</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl#isSteadyState <em>Steady State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TransitionBranchImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -54,6 +55,26 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * @ordered
    */
   protected TypeToken targetToken;
+
+  /**
+   * The default value of the '{@link #isSteadyState() <em>Steady State</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSteadyState()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean STEADY_STATE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isSteadyState() <em>Steady State</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSteadyState()
+   * @generated
+   * @ordered
+   */
+  protected boolean steadyState = STEADY_STATE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -182,6 +203,29 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isSteadyState()
+  {
+    return steadyState;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSteadyState(boolean newSteadyState)
+  {
+    boolean oldSteadyState = steadyState;
+    steadyState = newSteadyState;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__STEADY_STATE, oldSteadyState, steadyState));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public BranchValue getValue()
   {
     return value;
@@ -258,6 +302,8 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
         return basicGetTarget();
       case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
         return getTargetToken();
+      case ErrorModelPackage.TRANSITION_BRANCH__STEADY_STATE:
+        return isSteadyState();
       case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
         return getValue();
     }
@@ -279,6 +325,9 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
         return;
       case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
         setTargetToken((TypeToken)newValue);
+        return;
+      case ErrorModelPackage.TRANSITION_BRANCH__STEADY_STATE:
+        setSteadyState((Boolean)newValue);
         return;
       case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
         setValue((BranchValue)newValue);
@@ -303,6 +352,9 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
       case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
         setTargetToken((TypeToken)null);
         return;
+      case ErrorModelPackage.TRANSITION_BRANCH__STEADY_STATE:
+        setSteadyState(STEADY_STATE_EDEFAULT);
+        return;
       case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
         setValue((BranchValue)null);
         return;
@@ -324,10 +376,29 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
         return target != null;
       case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
         return targetToken != null;
+      case ErrorModelPackage.TRANSITION_BRANCH__STEADY_STATE:
+        return steadyState != STEADY_STATE_EDEFAULT;
       case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
         return value != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (steadyState: ");
+    result.append(steadyState);
+    result.append(')');
+    return result.toString();
   }
 
 } //TransitionBranchImpl

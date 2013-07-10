@@ -16,6 +16,7 @@ import org.osate.aadl2.Element;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch#getTargetToken <em>Target Token</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch#isSteadyState <em>Steady State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -77,6 +78,32 @@ public interface TransitionBranch extends EObject, Element
    * @generated
    */
   void setTargetToken(TypeToken value);
+
+  /**
+   * Returns the value of the '<em><b>Steady State</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Steady State</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Steady State</em>' attribute.
+   * @see #setSteadyState(boolean)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTransitionBranch_SteadyState()
+   * @model
+   * @generated
+   */
+  boolean isSteadyState();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch#isSteadyState <em>Steady State</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Steady State</em>' attribute.
+   * @see #isSteadyState()
+   * @generated
+   */
+  void setSteadyState(boolean value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.

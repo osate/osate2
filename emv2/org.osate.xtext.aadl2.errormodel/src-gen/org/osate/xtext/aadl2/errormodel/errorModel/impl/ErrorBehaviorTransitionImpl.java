@@ -40,8 +40,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorTransitionImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorTransitionImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorTransitionImpl#getTargetToken <em>Target Token</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorTransitionImpl#getDestinationBranches <em>Destination Branches</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorTransitionImpl#isSteadyState <em>Steady State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorTransitionImpl#getDestinationBranches <em>Destination Branches</em>}</li>
  * </ul>
  * </p>
  *
@@ -120,16 +120,6 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
   protected TypeToken targetToken;
 
   /**
-   * The cached value of the '{@link #getDestinationBranches() <em>Destination Branches</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDestinationBranches()
-   * @generated
-   * @ordered
-   */
-  protected EList<TransitionBranch> destinationBranches;
-
-  /**
    * The default value of the '{@link #isSteadyState() <em>Steady State</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -148,6 +138,16 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * @ordered
    */
   protected boolean steadyState = STEADY_STATE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDestinationBranches() <em>Destination Branches</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDestinationBranches()
+   * @generated
+   * @ordered
+   */
+  protected EList<TransitionBranch> destinationBranches;
 
   /**
    * <!-- begin-user-doc -->
@@ -428,20 +428,6 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<TransitionBranch> getDestinationBranches()
-  {
-    if (destinationBranches == null)
-    {
-      destinationBranches = new EObjectContainmentEList<TransitionBranch>(TransitionBranch.class, this, ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES);
-    }
-    return destinationBranches;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public boolean isSteadyState()
   {
     return steadyState;
@@ -458,6 +444,20 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
     steadyState = newSteadyState;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__STEADY_STATE, oldSteadyState, steadyState));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<TransitionBranch> getDestinationBranches()
+  {
+    if (destinationBranches == null)
+    {
+      destinationBranches = new EObjectContainmentEList<TransitionBranch>(TransitionBranch.class, this, ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES);
+    }
+    return destinationBranches;
   }
 
   /**
@@ -506,10 +506,10 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
         return basicGetTarget();
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN:
         return getTargetToken();
-      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES:
-        return getDestinationBranches();
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__STEADY_STATE:
         return isSteadyState();
+      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES:
+        return getDestinationBranches();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -543,12 +543,12 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN:
         setTargetToken((TypeToken)newValue);
         return;
+      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__STEADY_STATE:
+        setSteadyState((Boolean)newValue);
+        return;
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES:
         getDestinationBranches().clear();
         getDestinationBranches().addAll((Collection<? extends TransitionBranch>)newValue);
-        return;
-      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__STEADY_STATE:
-        setSteadyState((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -582,11 +582,11 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN:
         setTargetToken((TypeToken)null);
         return;
-      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES:
-        getDestinationBranches().clear();
-        return;
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__STEADY_STATE:
         setSteadyState(STEADY_STATE_EDEFAULT);
+        return;
+      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES:
+        getDestinationBranches().clear();
         return;
     }
     super.eUnset(featureID);
@@ -614,10 +614,10 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
         return target != null;
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__TARGET_TOKEN:
         return targetToken != null;
-      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES:
-        return destinationBranches != null && !destinationBranches.isEmpty();
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__STEADY_STATE:
         return steadyState != STEADY_STATE_EDEFAULT;
+      case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION__DESTINATION_BRANCHES:
+        return destinationBranches != null && !destinationBranches.isEmpty();
     }
     return super.eIsSet(featureID);
   }
