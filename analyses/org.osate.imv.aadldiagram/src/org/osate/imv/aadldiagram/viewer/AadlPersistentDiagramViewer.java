@@ -77,20 +77,6 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 	}
 
 
-	public void incrementComponentNestingHandler() {
-			this.getAadlDiagram().incrementNestingLevel();
-			Boolean tmprefresh = forceRefresh;
-			forceRefresh = true;
-			refresh();
-			forceRefresh = tmprefresh;
-//			boolean restore = !this.isElementCached(this.getInput());
-//			this.resetRootAdapter();
-//			if (restore){
-//				AadlComponentAdapter newAdapter = this.getAadlDiagram().getRootAdapter();
-//				this.restore(newAdapter);
-//			}
-	}
-
 	public void showErrors()
 	{
 		IAadlElementAdapter selectedAdapter = this.getAadlDiagram().getSelectedAdapter();
@@ -101,9 +87,7 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 			ErrorUtil.generateAnalysisModel (((ComponentInstance)selectedAdapter.getModelElement()).getSystemInstance());
 			useError = true;
 		}
-		forceRefresh = true;
-		refresh();
-		forceRefresh = false;
+		updateDiagram();
  	}
 	
 	public void hideErrors()
@@ -111,7 +95,7 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 		System.out.println ("hideerror=" );
 
 		useError = false;
-		refresh();
+		updateDiagram();
  	}
 	
 	public static boolean useError ()
@@ -124,29 +108,38 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 		return errorComponent;
 	}
 	
+
+	public void incrementComponentNestingHandler() {
+			this.getAadlDiagram().incrementNestingLevel();
+			updateDiagram();
+	}
+
 	public void decrementComponentNestingHandler() {
 		this.getAadlDiagram().decrementNestingLevel();
-		Boolean tmprefresh = forceRefresh;
-		forceRefresh = true;
-		refresh();
-		forceRefresh = tmprefresh;
+		updateDiagram();
  	}
 	
 	public void directConnectionHandler() {
 		this.getAdapterProvider().setDirectConnection(true);
-		Boolean tmprefresh = forceRefresh;
-		forceRefresh = true;
-		refresh();
-		forceRefresh = tmprefresh;
+		updateDiagram();
  	}
 	
 	public void hierarchicalConnectionHandler() {
 		this.getAdapterProvider().setDirectConnection(false);
+		updateDiagram();
+ 	}
+	
+	public void updateDiagram(){
+		// setinput of Persistent
+		// leaves psoition in place but does not do a update of the coloring
+//		this.setInput(this.getInput());
+		// calls setinput in aadldiagramviewer
+		// force refresh forces recreation of diagram
 		Boolean tmprefresh = forceRefresh;
 		forceRefresh = true;
 		refresh();
 		forceRefresh = tmprefresh;
- 	}
+	}
 
 
 	public void restore(AadlComponentAdapter adapter) {
