@@ -1119,8 +1119,6 @@ public class InstantiateModel {
 				errManager.error(conni, "Too few indices for connection destination");
 				return false;
 			}
-			Integer srci = srcSizes.get(srcOffset);
-			Integer dsti = dstSizes.get(dstOffset);
 			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
 				errManager.error(conni, "Array size mismatch (One_To_One): " + srcSizes.get(srcOffset)
 						+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
@@ -1182,8 +1180,6 @@ public class InstantiateModel {
 					srcIndices.remove(srcOffset);
 				}
 			} else {
-				Integer srci = srcSizes.get(srcOffset);
-				Integer dsti = dstSizes.get(dstOffset);
 				if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
 					errManager.error(conni, "Array size mismatch (" + patternName + "): " + srcSizes.get(srcOffset)
 							+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
