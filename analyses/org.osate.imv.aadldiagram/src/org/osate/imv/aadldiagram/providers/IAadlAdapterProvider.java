@@ -16,4 +16,6 @@ import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 
 public interface IAadlAdapterProvider {
 	public AadlComponentAdapter getContainerComponentAdapter(Object modelElement, int nesting);
+	
+	public void setDirectConnection(boolean dir);
 }

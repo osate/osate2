@@ -74,6 +74,8 @@ public class ImvUiPlugin extends AbstractUIPlugin {
 	     registry.put(IImageKeys.RESIZE_ACTUAL_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.RESIZE_ACTUAL_ICON));
 	     registry.put(IImageKeys.SHOW_ERROR_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.SHOW_ERROR_ICON));
 	     registry.put(IImageKeys.HIDE_ERROR_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.HIDE_ERROR_ICON));
+	     registry.put(IImageKeys.DIRECT_CONNECTION_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.DIRECT_CONNECTION_ICON));
+	     registry.put(IImageKeys.HIERARCHICAL_CONNECTION_ICON, ImvUiPlugin.imageDescriptorFromPlugin(ImvUiPlugin.PLUGIN_ID, IImageKeys.HIERARCHICAL_CONNECTION_ICON));
 
 	}
 

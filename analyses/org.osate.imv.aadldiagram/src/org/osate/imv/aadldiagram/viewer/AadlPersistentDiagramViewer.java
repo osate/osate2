@@ -131,6 +131,22 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 		refresh();
 		forceRefresh = tmprefresh;
  	}
+	
+	public void directConnectionHandler() {
+		this.getAdapterProvider().setDirectConnection(true);
+		Boolean tmprefresh = forceRefresh;
+		forceRefresh = true;
+		refresh();
+		forceRefresh = tmprefresh;
+ 	}
+	
+	public void hierarchicalConnectionHandler() {
+		this.getAdapterProvider().setDirectConnection(false);
+		Boolean tmprefresh = forceRefresh;
+		forceRefresh = true;
+		refresh();
+		forceRefresh = tmprefresh;
+ 	}
 
 
 	public void restore(AadlComponentAdapter adapter) {

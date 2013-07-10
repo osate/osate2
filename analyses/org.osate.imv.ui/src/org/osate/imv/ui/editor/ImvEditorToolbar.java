@@ -25,7 +25,9 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.osate.imv.aadldiagram.providers.IAadlAdapterProvider;
 import org.osate.imv.aadldiagram.viewer.AadlPersistentDiagramViewer;
+import org.osate.imv.providers.OsateAdapterProvider;
 import org.osate.imv.ui.IImageKeys;
 import org.osate.imv.ui.ImvUiPlugin;
 import org.osate.imv.ui.util.GradientHelper;
@@ -153,6 +155,30 @@ public class ImvEditorToolbar extends Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				mevViewer.decrementComponentNestingHandler();
+			}
+		});
+// XXX TODO		
+		// Separator.
+		new ToolItem(toolbar, SWT.SEPARATOR);
+		// direct connection in nested component view
+		ToolItem directConnection = new ToolItem(toolbar, SWT.PUSH);
+		directConnection.setImage(ImvUiPlugin.getDefault().getImageRegistry().get(IImageKeys.DIRECT_CONNECTION_ICON));
+		directConnection.setToolTipText("Direct connections");
+		directConnection.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				mevViewer.directConnectionHandler();
+			}
+		});
+
+		// Hierarchical connection in nested component view
+		ToolItem hierarchicalConnection = new ToolItem(toolbar, SWT.PUSH);
+		hierarchicalConnection.setImage(ImvUiPlugin.getDefault().getImageRegistry().get(IImageKeys.HIERARCHICAL_CONNECTION_ICON));
+		hierarchicalConnection.setToolTipText("Hierarchial connections");
+		hierarchicalConnection.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				mevViewer.hierarchicalConnectionHandler();
 			}
 		});
 		
