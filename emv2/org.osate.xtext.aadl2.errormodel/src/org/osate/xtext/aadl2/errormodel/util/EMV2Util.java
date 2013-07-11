@@ -512,22 +512,27 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorPropagation findErrorContainment(Classifier cl, String name, DirectionType dir){
-		Collection<ErrorPropagation> eps  = getAllErrorContainments(cl);
-		for (ErrorPropagation ep : eps){
-			if (dir == null ||ep.getDirection()== dir){
-				// do we need to check (context instanceof QualifiedObservableErrorPropagationPoint)
-				EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
-				if (!refs.isEmpty()){
-					String refname = "";
-					for (FeatureorPPReference FeatureorPPReference : refs) {
-						if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
-						refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
+			if (eps!= null){
+				EList<ErrorPropagation> eflist = eps.getPropagations();
+				for (ErrorPropagation ep : eflist) {
+					if (ep.isNot()&& ep.getDirection().equals(dir)){
+						EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+						if (!refs.isEmpty()){
+							String refname = "";
+							for (FeatureorPPReference FeatureorPPReference : refs) {
+								if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
+								refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
+							}
+							if (refname.equalsIgnoreCase(name)) return ep;
+						}
+						String kind = ep.getKind();
+						if (kind != null && kind.equalsIgnoreCase(name)&&
+								(dir == null||dir.equals(ep.getDirection()))) return ep;
 					}
-					if (refname.equalsIgnoreCase(name)) return ep;
 				}
-				String kind = ep.getKind();
-				if (kind != null && kind.equalsIgnoreCase(name)&&
-						(dir == null||dir.equals(ep.getDirection()))) return ep;
 			}
 		}
 		return null;
@@ -559,22 +564,28 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static ErrorPropagation findErrorPropagation(Classifier cl, String name, DirectionType dir){
-		Collection<ErrorPropagation> eps  = getAllErrorPropagations(cl);
-		for (ErrorPropagation ep : eps){
-			if (dir == null ||ep.getDirection()== dir){
-				EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
-				if (!refs.isEmpty()){
-					String refname = "";
-					for (FeatureorPPReference FeatureorPPReference : refs) {
-						if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
-						refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
+			if (eps!= null){
+				EList<ErrorPropagation> eflist = eps.getPropagations();
+				for (ErrorPropagation ep : eflist) {
+					if (!ep.isNot() && ep.getDirection().equals(dir)){
+						EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+						if (!refs.isEmpty()){
+							String refname = "";
+							for (FeatureorPPReference FeatureorPPReference : refs) {
+								if (Aadl2Util.isNull(FeatureorPPReference.getFeatureorPP())) return null;
+								refname = refname + (refname.isEmpty()?"":".")+FeatureorPPReference.getFeatureorPP().getName();
+							}
+							if (refname.equalsIgnoreCase(name)) return ep;
+						}
+						String kind = ep.getKind();
+						if (kind != null && kind.equalsIgnoreCase(name)&&
+								(dir == null||dir.equals(ep.getDirection()))){
+							return ep;
+						}
 					}
-					if (refname.equalsIgnoreCase(name)) return ep;
-				}
-				String kind = ep.getKind();
-				if (kind != null && kind.equalsIgnoreCase(name)&&
-						(dir == null||dir.equals(ep.getDirection()))){
-					return ep;
 				}
 			}
 		}
@@ -1444,14 +1455,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorPropagation> list of ErrorPropagations excluding duplicates
 	 */
 	public static Collection<ErrorPropagation> getAllOutgoingErrorPropagations(Classifier cl){
-		Collection<ErrorPropagation> props = getAllErrorPropagations(cl);
-		BasicEList<ErrorPropagation> result = new BasicEList<ErrorPropagation>();
-		for (ErrorPropagation errorPropagation : props) {
-			if (errorPropagation.getDirection().equals(DirectionType.OUT)){
-				result.add(errorPropagation);
-			}
-		}
-		return result;
+		return getAllErrorPropagations(cl,DirectionType.OUT);
 	}
 	
 	/**
@@ -1460,14 +1464,7 @@ public class EMV2Util {
 	 * @return Collection<ErrorPropagation> list of ErrorPropagations excluding duplicates
 	 */
 	public static Collection<ErrorPropagation> getAllIncomingErrorPropagations(Classifier cl){
-		Collection<ErrorPropagation> props = getAllErrorPropagations(cl);
-		BasicEList<ErrorPropagation> result = new BasicEList<ErrorPropagation>();
-		for (ErrorPropagation errorPropagation : props) {
-			if (errorPropagation.getDirection().equals(DirectionType.IN)){
-				result.add(errorPropagation);
-			}
-		}
-		return result;
+		return getAllErrorPropagations(cl,DirectionType.IN);
 	}
 	
 	/**
@@ -1475,7 +1472,7 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @return Collection<ErrorPropagation> list of ErrorPropagation excluding duplicates
 	 */
-	public static Collection<ErrorPropagation> getAllErrorPropagations(Classifier cl){
+	public static Collection<ErrorPropagation> getAllErrorPropagations(Classifier cl,DirectionType dir){
 		HashMap<String,ErrorPropagation> result = new HashMap<String,ErrorPropagation>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1483,7 +1480,7 @@ public class EMV2Util {
 			if (eps!= null){
 				EList<ErrorPropagation> eflist = eps.getPropagations();
 				for (ErrorPropagation errorProp : eflist) {
-					if (!errorProp.isNot()){
+					if (!errorProp.isNot() && errorProp.getDirection().equals(dir)){
 						String epname = EMV2Util.getPrintName(errorProp);
 						if (!result.containsKey(epname)){
 							result.put(epname,errorProp);
@@ -1495,10 +1492,6 @@ public class EMV2Util {
 		return result.values();
 	}
 	
-	public static Collection<ErrorPropagation> getAllErrorPropagations(ComponentInstance ci){
-		return getAllErrorPropagations(ci.getComponentClassifier());
-	}
-
 	
 	/**
 	 * return list of ConnectionErrorSource including those inherited from classifiers being extended
@@ -1645,7 +1638,7 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @return Collection<ErrorPropagation> list of ErrorPropagations excluding duplicates
 	 */
-	public static Collection<ErrorPropagation> getAllErrorContainments(Classifier cl){
+	public static Collection<ErrorPropagation> getAllErrorContainments(Classifier cl,DirectionType dir){
 		HashMap<String,ErrorPropagation> result = new HashMap<String,ErrorPropagation>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1653,7 +1646,7 @@ public class EMV2Util {
 			if (eps!= null){
 				EList<ErrorPropagation> eflist = eps.getPropagations();
 				for (ErrorPropagation errorProp : eflist) {
-					if (errorProp.isNot()){
+					if (errorProp.isNot()&& errorProp.getDirection().equals(dir)){
 						String epname = EMV2Util.getPrintName(errorProp);
 						if (!result.containsKey(epname)){
 							result.put(epname,errorProp);
@@ -2693,11 +2686,19 @@ public class EMV2Util {
 	}
 
 	public static boolean hasErrorPropagations(ComponentInstance ci){
-		return !getAllErrorPropagations(ci.getComponentClassifier()).isEmpty();
+		return hasErrorPropagations(ci.getComponentClassifier());
 	}
 
 	public static boolean hasErrorPropagations(ComponentClassifier cl){
-		return !getAllErrorPropagations(cl).isEmpty();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorPropagations eps = errorModelSubclause.getErrorPropagations();
+			if (eps!= null){
+				EList<ErrorPropagation> eflist = eps.getPropagations();
+				if (!eflist.isEmpty()) return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

@@ -521,7 +521,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			 */
 			if (EMV2Util.hasErrorPropagationsSection(componentInstance))
 			{
-				for (ErrorPropagation ep : EMV2Util.getAllErrorPropagations(componentInstance))
+				for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
 				{
 					EList<TypeToken> epTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
 	
