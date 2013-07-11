@@ -562,7 +562,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		String ss = lln.getText().replaceAll("--.*(\\r|\\n)", "").replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
 		if (!ss.equalsIgnoreCase(cl.getName())) {
 			error(cl, "Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'");
-		}
+// XXX TODO
+//	        IXtextDocument xtextDocument = context.getXtextDocument();
+//	         String firstLetter = xtextDocument.get(issue.getOffset(), 1);
+//	         xtextDocument.replace(issue.getOffset(), 1, 
+//	                               Strings.toFirstUpper(firstLetter));
+	 		}
 	}
 
 	public void checkEndId(ModelUnit mu) {
