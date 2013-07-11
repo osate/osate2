@@ -89,7 +89,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 					if (searchResult != null) return Collections.singletonList(searchResult);
 					searchResult = findTypeSet(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
-					searchResult = EMV2Util.findErrorPropagation(cxtElement, name,null);
+					searchResult = EMV2Util.findErrorPropagation(cxtElement, name,DirectionType.OUT);
 					if (searchResult != null) return Collections.singletonList(searchResult);
 					searchResult = EMV2Util.findPropagationPoint(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
