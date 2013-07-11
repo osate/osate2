@@ -1151,60 +1151,56 @@
       <type metamodel="/0/@metamodelDeclarations.0">
         <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorTransition"/>
       </type>
-      <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:Group">
-          <elements xsi:type="xtext:Group" cardinality="?">
-            <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
-            </elements>
-            <elements xsi:type="xtext:Keyword" value=":"/>
+      <alternatives xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Group" cardinality="?">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
           </elements>
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Group">
-              <elements xsi:type="xtext:Assignment" feature="source" operator="=">
-                <terminal xsi:type="xtext:CrossReference">
-                  <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
-                  </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
-                </terminal>
-              </elements>
-              <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.17"/>
-              </elements>
+          <elements xsi:type="xtext:Keyword" value=":"/>
+        </elements>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="source" operator="=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
+              </terminal>
             </elements>
-            <elements xsi:type="xtext:Assignment" feature="allStates" operator="?=">
-              <terminal xsi:type="xtext:Keyword" value="all"/>
+            <elements xsi:type="xtext:Assignment" cardinality="?" feature="typeTokenConstraint" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.17"/>
             </elements>
           </elements>
-          <elements xsi:type="xtext:Keyword" value="-["/>
-          <elements xsi:type="xtext:Assignment" feature="condition" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.52"/>
-          </elements>
-          <elements xsi:type="xtext:Keyword" value="]->"/>
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Group">
-              <elements xsi:type="xtext:Assignment" feature="target" operator="=">
-                <terminal xsi:type="xtext:CrossReference">
-                  <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
-                  </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
-                </terminal>
-              </elements>
-              <elements xsi:type="xtext:Assignment" feature="targetToken" operator="=">
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
-              </elements>
-            </elements>
-            <elements xsi:type="xtext:Group">
-              <elements xsi:type="xtext:Assignment" feature="steadyState" operator="?=">
-                <terminal xsi:type="xtext:Keyword" value="same"/>
-              </elements>
-              <elements xsi:type="xtext:Keyword" value="state"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" feature="allStates" operator="?=">
+            <terminal xsi:type="xtext:Keyword" value="all"/>
           </elements>
         </elements>
-        <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="-["/>
+        <elements xsi:type="xtext:Assignment" feature="condition" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.52"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="]->"/>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="target" operator="=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorState"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
+              </terminal>
+            </elements>
+            <elements xsi:type="xtext:Assignment" cardinality="?" feature="targetToken" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="steadyState" operator="?=">
+              <terminal xsi:type="xtext:Keyword" value="same"/>
+            </elements>
+            <elements xsi:type="xtext:Keyword" value="state"/>
+          </elements>
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Keyword" value="("/>
             <elements xsi:type="xtext:Assignment" feature="destinationBranches" operator="+=">
@@ -1218,8 +1214,8 @@
             </elements>
             <elements xsi:type="xtext:Keyword" value=")"/>
           </elements>
-          <elements xsi:type="xtext:Keyword" value=";"/>
         </elements>
+        <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TransitionBranch">

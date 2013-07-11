@@ -797,13 +797,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
+	 *         name=ID? 
+	 *         ((source=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
+	 *         condition=ConditionExpression 
 	 *         (
-	 *             name=ID? 
-	 *             ((source=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
-	 *             condition=ConditionExpression 
-	 *             ((target=[ErrorBehaviorState|ID] targetToken=TypeToken) | steadyState?='same')
-	 *         ) | 
-	 *         (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+)
+	 *             (target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | 
+	 *             steadyState?='same' | 
+	 *             (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+)
+	 *         )
 	 *     )
 	 */
 	protected void sequence_ErrorBehaviorTransition(EObject context, ErrorBehaviorTransition semanticObject) {

@@ -290,9 +290,8 @@ ErrorBehaviorTransition returns ErrorBehaviorTransition:
   ((source=[ErrorBehaviorState|ID] (typeTokenConstraint=TypeTokenConstraint)?)
   	| allStates?='all')
    '-[' condition=ConditionExpression ']->' 
-  (target=[ErrorBehaviorState|ID] (targetToken=TypeToken )| (steadyState ?='same' 'state'))
-  	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )+ ')')
-  	
+  ((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?)| (steadyState ?='same' 'state')
+    	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )+ ')'))
   ';';
 
 TransitionBranch returns TransitionBranch:  

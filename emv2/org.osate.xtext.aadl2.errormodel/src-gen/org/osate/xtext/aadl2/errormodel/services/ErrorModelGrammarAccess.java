@@ -2801,185 +2801,177 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class ErrorBehaviorTransitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ErrorBehaviorTransition");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Group cGroup_0_0 = (Group)cGroup_0.eContents().get(0);
-		private final Assignment cNameAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0_0_0 = (RuleCall)cNameAssignment_0_0_0.eContents().get(0);
-		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
-		private final Alternatives cAlternatives_0_1 = (Alternatives)cGroup_0.eContents().get(1);
-		private final Group cGroup_0_1_0 = (Group)cAlternatives_0_1.eContents().get(0);
-		private final Assignment cSourceAssignment_0_1_0_0 = (Assignment)cGroup_0_1_0.eContents().get(0);
-		private final CrossReference cSourceErrorBehaviorStateCrossReference_0_1_0_0_0 = (CrossReference)cSourceAssignment_0_1_0_0.eContents().get(0);
-		private final RuleCall cSourceErrorBehaviorStateIDTerminalRuleCall_0_1_0_0_0_1 = (RuleCall)cSourceErrorBehaviorStateCrossReference_0_1_0_0_0.eContents().get(1);
-		private final Assignment cTypeTokenConstraintAssignment_0_1_0_1 = (Assignment)cGroup_0_1_0.eContents().get(1);
-		private final RuleCall cTypeTokenConstraintTypeTokenConstraintParserRuleCall_0_1_0_1_0 = (RuleCall)cTypeTokenConstraintAssignment_0_1_0_1.eContents().get(0);
-		private final Assignment cAllStatesAssignment_0_1_1 = (Assignment)cAlternatives_0_1.eContents().get(1);
-		private final Keyword cAllStatesAllKeyword_0_1_1_0 = (Keyword)cAllStatesAssignment_0_1_1.eContents().get(0);
-		private final Keyword cHyphenMinusLeftSquareBracketKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
-		private final Assignment cConditionAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
-		private final RuleCall cConditionConditionExpressionParserRuleCall_0_3_0 = (RuleCall)cConditionAssignment_0_3.eContents().get(0);
-		private final Keyword cRightSquareBracketHyphenMinusGreaterThanSignKeyword_0_4 = (Keyword)cGroup_0.eContents().get(4);
-		private final Alternatives cAlternatives_0_5 = (Alternatives)cGroup_0.eContents().get(5);
-		private final Group cGroup_0_5_0 = (Group)cAlternatives_0_5.eContents().get(0);
-		private final Assignment cTargetAssignment_0_5_0_0 = (Assignment)cGroup_0_5_0.eContents().get(0);
-		private final CrossReference cTargetErrorBehaviorStateCrossReference_0_5_0_0_0 = (CrossReference)cTargetAssignment_0_5_0_0.eContents().get(0);
-		private final RuleCall cTargetErrorBehaviorStateIDTerminalRuleCall_0_5_0_0_0_1 = (RuleCall)cTargetErrorBehaviorStateCrossReference_0_5_0_0_0.eContents().get(1);
-		private final Assignment cTargetTokenAssignment_0_5_0_1 = (Assignment)cGroup_0_5_0.eContents().get(1);
-		private final RuleCall cTargetTokenTypeTokenParserRuleCall_0_5_0_1_0 = (RuleCall)cTargetTokenAssignment_0_5_0_1.eContents().get(0);
-		private final Group cGroup_0_5_1 = (Group)cAlternatives_0_5.eContents().get(1);
-		private final Assignment cSteadyStateAssignment_0_5_1_0 = (Assignment)cGroup_0_5_1.eContents().get(0);
-		private final Keyword cSteadyStateSameKeyword_0_5_1_0_0 = (Keyword)cSteadyStateAssignment_0_5_1_0.eContents().get(0);
-		private final Keyword cStateKeyword_0_5_1_1 = (Keyword)cGroup_0_5_1.eContents().get(1);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1_0_0 = (Keyword)cGroup_1_0.eContents().get(0);
-		private final Assignment cDestinationBranchesAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
-		private final RuleCall cDestinationBranchesTransitionBranchParserRuleCall_1_0_1_0 = (RuleCall)cDestinationBranchesAssignment_1_0_1.eContents().get(0);
-		private final Group cGroup_1_0_2 = (Group)cGroup_1_0.eContents().get(2);
-		private final Keyword cCommaKeyword_1_0_2_0 = (Keyword)cGroup_1_0_2.eContents().get(0);
-		private final Assignment cDestinationBranchesAssignment_1_0_2_1 = (Assignment)cGroup_1_0_2.eContents().get(1);
-		private final RuleCall cDestinationBranchesTransitionBranchParserRuleCall_1_0_2_1_0 = (RuleCall)cDestinationBranchesAssignment_1_0_2_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_1_0_3 = (Keyword)cGroup_1_0.eContents().get(3);
-		private final Keyword cSemicolonKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0 = (RuleCall)cNameAssignment_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Assignment cSourceAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
+		private final CrossReference cSourceErrorBehaviorStateCrossReference_1_0_0_0 = (CrossReference)cSourceAssignment_1_0_0.eContents().get(0);
+		private final RuleCall cSourceErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1 = (RuleCall)cSourceErrorBehaviorStateCrossReference_1_0_0_0.eContents().get(1);
+		private final Assignment cTypeTokenConstraintAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
+		private final RuleCall cTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0 = (RuleCall)cTypeTokenConstraintAssignment_1_0_1.eContents().get(0);
+		private final Assignment cAllStatesAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
+		private final Keyword cAllStatesAllKeyword_1_1_0 = (Keyword)cAllStatesAssignment_1_1.eContents().get(0);
+		private final Keyword cHyphenMinusLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cConditionAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cConditionConditionExpressionParserRuleCall_3_0 = (RuleCall)cConditionAssignment_3.eContents().get(0);
+		private final Keyword cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Alternatives cAlternatives_5 = (Alternatives)cGroup.eContents().get(5);
+		private final Group cGroup_5_0 = (Group)cAlternatives_5.eContents().get(0);
+		private final Assignment cTargetAssignment_5_0_0 = (Assignment)cGroup_5_0.eContents().get(0);
+		private final CrossReference cTargetErrorBehaviorStateCrossReference_5_0_0_0 = (CrossReference)cTargetAssignment_5_0_0.eContents().get(0);
+		private final RuleCall cTargetErrorBehaviorStateIDTerminalRuleCall_5_0_0_0_1 = (RuleCall)cTargetErrorBehaviorStateCrossReference_5_0_0_0.eContents().get(1);
+		private final Assignment cTargetTokenAssignment_5_0_1 = (Assignment)cGroup_5_0.eContents().get(1);
+		private final RuleCall cTargetTokenTypeTokenParserRuleCall_5_0_1_0 = (RuleCall)cTargetTokenAssignment_5_0_1.eContents().get(0);
+		private final Group cGroup_5_1 = (Group)cAlternatives_5.eContents().get(1);
+		private final Assignment cSteadyStateAssignment_5_1_0 = (Assignment)cGroup_5_1.eContents().get(0);
+		private final Keyword cSteadyStateSameKeyword_5_1_0_0 = (Keyword)cSteadyStateAssignment_5_1_0.eContents().get(0);
+		private final Keyword cStateKeyword_5_1_1 = (Keyword)cGroup_5_1.eContents().get(1);
+		private final Group cGroup_5_2 = (Group)cAlternatives_5.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
+		private final Assignment cDestinationBranchesAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
+		private final RuleCall cDestinationBranchesTransitionBranchParserRuleCall_5_2_1_0 = (RuleCall)cDestinationBranchesAssignment_5_2_1.eContents().get(0);
+		private final Group cGroup_5_2_2 = (Group)cGroup_5_2.eContents().get(2);
+		private final Keyword cCommaKeyword_5_2_2_0 = (Keyword)cGroup_5_2_2.eContents().get(0);
+		private final Assignment cDestinationBranchesAssignment_5_2_2_1 = (Assignment)cGroup_5_2_2.eContents().get(1);
+		private final RuleCall cDestinationBranchesTransitionBranchParserRuleCall_5_2_2_1_0 = (RuleCall)cDestinationBranchesAssignment_5_2_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5_2_3 = (Keyword)cGroup_5_2.eContents().get(3);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//ErrorBehaviorTransition:
 		//
 		//	(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
 		//
-		//	condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken | steadyState?="same" "state")
+		//	condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
 		//
-		//	| ("(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";";
+		//	| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
 		//
-		//condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken | steadyState?="same" "state")
+		//condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
 		//
-		//| ("(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//
-		//condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken | steadyState?="same" "state")
-		public Group getGroup_0() { return cGroup_0; }
+		//| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";"
+		public Group getGroup() { return cGroup; }
 
 		//(name=ID ":")?
-		public Group getGroup_0_0() { return cGroup_0_0; }
+		public Group getGroup_0() { return cGroup_0; }
 
 		//name=ID
-		public Assignment getNameAssignment_0_0_0() { return cNameAssignment_0_0_0; }
+		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0_0_0() { return cNameIDTerminalRuleCall_0_0_0_0; }
+		public RuleCall getNameIDTerminalRuleCall_0_0_0() { return cNameIDTerminalRuleCall_0_0_0; }
 
 		//":"
-		public Keyword getColonKeyword_0_0_1() { return cColonKeyword_0_0_1; }
+		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
 		//source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all"
-		public Alternatives getAlternatives_0_1() { return cAlternatives_0_1; }
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint?
-		public Group getGroup_0_1_0() { return cGroup_0_1_0; }
-
-		//source=[ErrorBehaviorState]
-		public Assignment getSourceAssignment_0_1_0_0() { return cSourceAssignment_0_1_0_0; }
-
-		//[ErrorBehaviorState]
-		public CrossReference getSourceErrorBehaviorStateCrossReference_0_1_0_0_0() { return cSourceErrorBehaviorStateCrossReference_0_1_0_0_0; }
-
-		//ID
-		public RuleCall getSourceErrorBehaviorStateIDTerminalRuleCall_0_1_0_0_0_1() { return cSourceErrorBehaviorStateIDTerminalRuleCall_0_1_0_0_0_1; }
-
-		//typeTokenConstraint=TypeTokenConstraint?
-		public Assignment getTypeTokenConstraintAssignment_0_1_0_1() { return cTypeTokenConstraintAssignment_0_1_0_1; }
-
-		//TypeTokenConstraint
-		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_0_1_0_1_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_0_1_0_1_0; }
-
-		//allStates?="all"
-		public Assignment getAllStatesAssignment_0_1_1() { return cAllStatesAssignment_0_1_1; }
-
-		//"all"
-		public Keyword getAllStatesAllKeyword_0_1_1_0() { return cAllStatesAllKeyword_0_1_1_0; }
-
-		//"-["
-		public Keyword getHyphenMinusLeftSquareBracketKeyword_0_2() { return cHyphenMinusLeftSquareBracketKeyword_0_2; }
-
-		//condition=ConditionExpression
-		public Assignment getConditionAssignment_0_3() { return cConditionAssignment_0_3; }
-
-		//ConditionExpression
-		public RuleCall getConditionConditionExpressionParserRuleCall_0_3_0() { return cConditionConditionExpressionParserRuleCall_0_3_0; }
-
-		//"]->"
-		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_0_4() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_0_4; }
-
-		//target=[ErrorBehaviorState] targetToken=TypeToken | steadyState?="same" "state"
-		public Alternatives getAlternatives_0_5() { return cAlternatives_0_5; }
-
-		//target=[ErrorBehaviorState] targetToken=TypeToken
-		public Group getGroup_0_5_0() { return cGroup_0_5_0; }
-
-		//target=[ErrorBehaviorState]
-		public Assignment getTargetAssignment_0_5_0_0() { return cTargetAssignment_0_5_0_0; }
-
-		//[ErrorBehaviorState]
-		public CrossReference getTargetErrorBehaviorStateCrossReference_0_5_0_0_0() { return cTargetErrorBehaviorStateCrossReference_0_5_0_0_0; }
-
-		//ID
-		public RuleCall getTargetErrorBehaviorStateIDTerminalRuleCall_0_5_0_0_0_1() { return cTargetErrorBehaviorStateIDTerminalRuleCall_0_5_0_0_0_1; }
-
-		//targetToken=TypeToken
-		public Assignment getTargetTokenAssignment_0_5_0_1() { return cTargetTokenAssignment_0_5_0_1; }
-
-		//TypeToken
-		public RuleCall getTargetTokenTypeTokenParserRuleCall_0_5_0_1_0() { return cTargetTokenTypeTokenParserRuleCall_0_5_0_1_0; }
-
-		//steadyState?="same" "state"
-		public Group getGroup_0_5_1() { return cGroup_0_5_1; }
-
-		//steadyState?="same"
-		public Assignment getSteadyStateAssignment_0_5_1_0() { return cSteadyStateAssignment_0_5_1_0; }
-
-		//"same"
-		public Keyword getSteadyStateSameKeyword_0_5_1_0_0() { return cSteadyStateSameKeyword_0_5_1_0_0; }
-
-		//"state"
-		public Keyword getStateKeyword_0_5_1_1() { return cStateKeyword_0_5_1_1; }
-
-		//("(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";"
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")"
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
+		//source=[ErrorBehaviorState]
+		public Assignment getSourceAssignment_1_0_0() { return cSourceAssignment_1_0_0; }
+
+		//[ErrorBehaviorState]
+		public CrossReference getSourceErrorBehaviorStateCrossReference_1_0_0_0() { return cSourceErrorBehaviorStateCrossReference_1_0_0_0; }
+
+		//ID
+		public RuleCall getSourceErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1() { return cSourceErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1; }
+
+		//typeTokenConstraint=TypeTokenConstraint?
+		public Assignment getTypeTokenConstraintAssignment_1_0_1() { return cTypeTokenConstraintAssignment_1_0_1; }
+
+		//TypeTokenConstraint
+		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0; }
+
+		//allStates?="all"
+		public Assignment getAllStatesAssignment_1_1() { return cAllStatesAssignment_1_1; }
+
+		//"all"
+		public Keyword getAllStatesAllKeyword_1_1_0() { return cAllStatesAllKeyword_1_1_0; }
+
+		//"-["
+		public Keyword getHyphenMinusLeftSquareBracketKeyword_2() { return cHyphenMinusLeftSquareBracketKeyword_2; }
+
+		//condition=ConditionExpression
+		public Assignment getConditionAssignment_3() { return cConditionAssignment_3; }
+
+		//ConditionExpression
+		public RuleCall getConditionConditionExpressionParserRuleCall_3_0() { return cConditionConditionExpressionParserRuleCall_3_0; }
+
+		//"]->"
+		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4; }
+
+		//target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state" | "("
+		//
+		//destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")"
+		public Alternatives getAlternatives_5() { return cAlternatives_5; }
+
+		//target=[ErrorBehaviorState] targetToken=TypeToken?
+		public Group getGroup_5_0() { return cGroup_5_0; }
+
+		//target=[ErrorBehaviorState]
+		public Assignment getTargetAssignment_5_0_0() { return cTargetAssignment_5_0_0; }
+
+		//[ErrorBehaviorState]
+		public CrossReference getTargetErrorBehaviorStateCrossReference_5_0_0_0() { return cTargetErrorBehaviorStateCrossReference_5_0_0_0; }
+
+		//ID
+		public RuleCall getTargetErrorBehaviorStateIDTerminalRuleCall_5_0_0_0_1() { return cTargetErrorBehaviorStateIDTerminalRuleCall_5_0_0_0_1; }
+
+		//targetToken=TypeToken?
+		public Assignment getTargetTokenAssignment_5_0_1() { return cTargetTokenAssignment_5_0_1; }
+
+		//TypeToken
+		public RuleCall getTargetTokenTypeTokenParserRuleCall_5_0_1_0() { return cTargetTokenTypeTokenParserRuleCall_5_0_1_0; }
+
+		//steadyState?="same" "state"
+		public Group getGroup_5_1() { return cGroup_5_1; }
+
+		//steadyState?="same"
+		public Assignment getSteadyStateAssignment_5_1_0() { return cSteadyStateAssignment_5_1_0; }
+
+		//"same"
+		public Keyword getSteadyStateSameKeyword_5_1_0_0() { return cSteadyStateSameKeyword_5_1_0_0; }
+
+		//"state"
+		public Keyword getStateKeyword_5_1_1() { return cStateKeyword_5_1_1; }
+
+		//"(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")"
+		public Group getGroup_5_2() { return cGroup_5_2; }
+
 		//"("
-		public Keyword getLeftParenthesisKeyword_1_0_0() { return cLeftParenthesisKeyword_1_0_0; }
+		public Keyword getLeftParenthesisKeyword_5_2_0() { return cLeftParenthesisKeyword_5_2_0; }
 
 		//destinationBranches+=TransitionBranch
-		public Assignment getDestinationBranchesAssignment_1_0_1() { return cDestinationBranchesAssignment_1_0_1; }
+		public Assignment getDestinationBranchesAssignment_5_2_1() { return cDestinationBranchesAssignment_5_2_1; }
 
 		//TransitionBranch
-		public RuleCall getDestinationBranchesTransitionBranchParserRuleCall_1_0_1_0() { return cDestinationBranchesTransitionBranchParserRuleCall_1_0_1_0; }
+		public RuleCall getDestinationBranchesTransitionBranchParserRuleCall_5_2_1_0() { return cDestinationBranchesTransitionBranchParserRuleCall_5_2_1_0; }
 
 		//("," destinationBranches+=TransitionBranch)+
-		public Group getGroup_1_0_2() { return cGroup_1_0_2; }
+		public Group getGroup_5_2_2() { return cGroup_5_2_2; }
 
 		//","
-		public Keyword getCommaKeyword_1_0_2_0() { return cCommaKeyword_1_0_2_0; }
+		public Keyword getCommaKeyword_5_2_2_0() { return cCommaKeyword_5_2_2_0; }
 
 		//destinationBranches+=TransitionBranch
-		public Assignment getDestinationBranchesAssignment_1_0_2_1() { return cDestinationBranchesAssignment_1_0_2_1; }
+		public Assignment getDestinationBranchesAssignment_5_2_2_1() { return cDestinationBranchesAssignment_5_2_2_1; }
 
 		//TransitionBranch
-		public RuleCall getDestinationBranchesTransitionBranchParserRuleCall_1_0_2_1_0() { return cDestinationBranchesTransitionBranchParserRuleCall_1_0_2_1_0; }
+		public RuleCall getDestinationBranchesTransitionBranchParserRuleCall_5_2_2_1_0() { return cDestinationBranchesTransitionBranchParserRuleCall_5_2_2_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_1_0_3() { return cRightParenthesisKeyword_1_0_3; }
+		public Keyword getRightParenthesisKeyword_5_2_3() { return cRightParenthesisKeyword_5_2_3; }
 
 		//";"
-		public Keyword getSemicolonKeyword_1_1() { return cSemicolonKeyword_1_1; }
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class TransitionBranchElements extends AbstractParserRuleElementFinder {
@@ -5339,9 +5331,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
 	//
-	//	condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken | steadyState?="same" "state")
+	//	condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
 	//
-	//	| ("(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";";
+	//	| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";";
 	public ErrorBehaviorTransitionElements getErrorBehaviorTransitionAccess() {
 		return (pErrorBehaviorTransition != null) ? pErrorBehaviorTransition : (pErrorBehaviorTransition = new ErrorBehaviorTransitionElements());
 	}
