@@ -742,6 +742,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		EList<TransitionBranch> branches = ebt.getDestinationBranches();
 		boolean foundsteady = false;
 		double prob = 0;
+		if (branches.isEmpty()) return;
 		for (TransitionBranch transitionBranch : branches) {
 			if (transitionBranch.isSteadyState()){
 				if (foundsteady){
