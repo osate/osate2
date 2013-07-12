@@ -151,14 +151,14 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		{
 
 			ContainedNamedElement PA = null;
-			ContainedNamedElement Sev = null;
+			ContainedNamedElement Sev = null; 
 			ContainedNamedElement Like = null;
 			PA = EMV2Util.getHazardProperty(ci, null,state,state.getTypeSet());
 			Sev = getSeverityProperty(ci, null,state,state.getTypeSet());
 			Like = getLikelihoodProperty(ci, null,state,state.getTypeSet());
 			if ((PA != null) && (Sev != null) && (Like != null))
 			{
-				reportHazardProperty(ci, PA, Sev, Like, null, state.getTypeSet(), state,report);
+				reportHazardProperty(ci, PA, Sev, Like, state, state.getTypeSet(), state,report);
 			}
 		}
 
