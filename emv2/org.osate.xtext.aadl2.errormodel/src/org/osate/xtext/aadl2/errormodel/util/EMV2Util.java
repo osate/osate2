@@ -54,7 +54,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -70,14 +69,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
-import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -104,8 +101,8 @@ public class EMV2Util {
 		return ci.getComponentClassifier().getAllAnnexSubclauses(EMV2subclauseEClass);
 	}
 	
-	public static ContainedNamedElement getHazardProperty(ComponentInstance ci, Element localContext,Element target, TypeSet ts){
-		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
+	public static EList<ContainedNamedElement> getHazardProperty(ComponentInstance ci, Element localContext,Element target, TypeSet ts){
+		EList<ContainedNamedElement> result =  EMV2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
 		return result;
 	}
 	/**
@@ -121,8 +118,8 @@ public class EMV2Util {
 	 * @param ts				corresponding typeset or null
 	 * @return
 	 */
-	public static ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
+	public static EList<ContainedNamedElement> getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+		EList<ContainedNamedElement> result =  EMV2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
 		return result;
 	}
 	
@@ -168,7 +165,7 @@ public class EMV2Util {
 	
 	
 	public static ErrorSource getErrorSource (ComponentInstance ci, ErrorPropagation ep)
-	{;
+	{
 		Collection<ErrorFlow> flows = getAllErrorFlows(ci);
 		for (ErrorFlow ef : flows)
 		{
@@ -226,32 +223,6 @@ public class EMV2Util {
 	}
 	
 	
-	
-	/**
-	 * get ErrorModelSubclause object that contains the element object.
-	 * @param element error annex element
-	 * @return ErrorModelSubclause
-	 */
-	public static ErrorModelSubclause getContainingErrorModelSubclause(Element element) {
-		EObject container = element;
-		while (container != null && !(container instanceof ErrorModelSubclause))
-			container = container.eContainer();
-		return (ErrorModelSubclause) container;
-	}
-
-	/**
-	 * get error propagations object that contains the element object.
-	 * @param element  error annex element
-	 * @return ErrorPropagations
-	 */
-	public static ErrorPropagations getContainingErrorPropagations(Element element) {
-		EObject container = element;
-		while (container != null && !(container instanceof ErrorPropagations))
-			container = container.eContainer();
-		return (ErrorPropagations) container;
-	}
-
-	
 
 	/**
 	 * get enclosing object within the error annex that has a properties section..
@@ -259,7 +230,7 @@ public class EMV2Util {
 	 * @param element declarative model element or error annex element
 	 * @return ErrorModelLibrary, ErrorBehaviorStateMachine, ErrorModelSubclause
 	 */
-	public static EList<PropertyAssociation> getContainingPropertiesHolder(Element element) {
+	public static EList<PropertyAssociation> getPropertiesInContext(Element element) {
 		EObject container = element;
 		while (container != null ){
 			if (container instanceof ErrorModelSubclause ){
@@ -344,31 +315,6 @@ public class EMV2Util {
 		return null;
 	}
 
-	/**
-	 * get the error model subclause for the specified classifier.
-	 * It effectively returns the first subclause that applies to the classifier.
-	 * This is the subclause that determines the EBSM to be used (specified in use behavior).
-	 * The mthods goes up the extends hierarchy, and in the case of an implementation
-	 * tries its type and the type's hierarchy.
-	 * 
-	 * @param cl Classifier
-	 * @return
-	 */
-	public static ErrorModelSubclause getFirstEMV2Subclause(Classifier cl){
-		if (cl == null) return null;
-		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
-		if (ems != null) return ems;
-		if (cl instanceof ComponentImplementation){
-			ems = getExtendsEMV2Subclause((ComponentImplementation)cl);
-			if (ems != null) return ems;
-			ems = getExtendsEMV2Subclause(((ComponentImplementation)cl).getType());
-			if (ems != null) return ems;
-		} else {
-			ems = getExtendsEMV2Subclause(cl);
-			if (ems != null) return ems;
-		}
-		return null;
-	}
 	
 	/**
 	 * find the first subclause on the classifier or its extends hierarchy.
@@ -440,7 +386,7 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @return Collection<ComponentErrorBehavior> list of ComponentErrorBehavior 
 	 */
-	public static Collection<ComponentErrorBehavior> getAllComponentErrorBehaviors(Classifier cl){
+	public static EList<ComponentErrorBehavior> getAllComponentErrorBehaviors(Classifier cl){
 		EList<ComponentErrorBehavior> result = new BasicEList<ComponentErrorBehavior>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -452,7 +398,7 @@ public class EMV2Util {
 		return result;
 	}
 	
-	public static Collection<ComponentErrorBehavior> getAllComponentErrorBehaviors(ComponentInstance ci)
+	public static EList<ComponentErrorBehavior> getAllComponentErrorBehaviors(ComponentInstance ci)
 	{
 		return getAllComponentErrorBehaviors(ci.getComponentClassifier());
 	}
@@ -463,7 +409,7 @@ public class EMV2Util {
 	 * @param cl Classifier
 	 * @return Collection<CompositeErrorBehavior> list of CompositeErrorBehavior 
 	 */
-	public static Collection<CompositeErrorBehavior> getAllCompositeErrorBehaviors(Classifier cl){
+	public static EList<CompositeErrorBehavior> getAllCompositeErrorBehaviors(Classifier cl){
 		EList<CompositeErrorBehavior> result = new BasicEList<CompositeErrorBehavior>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -475,7 +421,7 @@ public class EMV2Util {
 		return result;
 	}
 
-	public static Collection<CompositeErrorBehavior> getAllCompositeErrorBehaviors(ComponentInstance ci){
+	public static EList<CompositeErrorBehavior> getAllCompositeErrorBehaviors(ComponentInstance ci){
 		return getAllCompositeErrorBehaviors(ci.getComponentClassifier());
 	}
 	
@@ -1013,36 +959,16 @@ public class EMV2Util {
 			ConditionElement tcs = (ConditionElement)context;
 			 EList<SubcomponentElement> sublist = tcs.getSubcomponents();
 			Subcomponent sub = sublist.get(sublist.size()-1).getSubcomponent();
-			ComponentClassifier sc = sub.getAllClassifier();
-			if (sc == null) return null;
-			return findErrorBehaviorStateinUseBehavior( sc,name);
+			ComponentClassifier subcl = sub.getAllClassifier();
+			if (subcl == null) return null;
+			return findErrorBehaviorState( subcl,name);
 		} else {
 			// resolve in local context, which is assumed to be an EBSM
-			ebsm = EMV2Util.getContainingErrorBehaviorStateMachine(context);
-			if (ebsm == null) ebsm = EMV2Util.getUsedErrorBehaviorStateMachine(context);
+			ebsm = EMV2Util.getErrorBehaviorStateMachine(context);
 			return findErrorBehaviorStateInEBSM(ebsm, name);
 		}
 	}
 	
-	/**
-	 * find the first subclause and look for this Use Behavior.
-	 * Since Use behavior is optional it might not find any 
-	 * It will not assume that Use Behavior is inherited
-	 * @param cl
-	 * @param name
-	 * @return
-	 */
-	public static ErrorBehaviorState findErrorBehaviorStateinUseBehavior(Classifier cl, String name){
-		if (cl == null) return null;
-		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
-		// and then do a find on it.
-			ErrorModelSubclause ems = getFirstEMV2Subclause(cl);
-			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-			if (ebsm != null){
-				return findErrorBehaviorStateInEBSM(ebsm, name);
-			}
-			return null;
-	}
 	
 	/**
 	 * find error behavior state in state machine
@@ -1050,7 +976,7 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	public static ErrorBehaviorState findErrorBehaviorStateInEBSM(ErrorBehaviorStateMachine ebsm, String name){
+	private static ErrorBehaviorState findErrorBehaviorStateInEBSM(ErrorBehaviorStateMachine ebsm, String name){
 		if (ebsm != null){
 			EList<ErrorBehaviorState> ebsl= ebsm.getStates();
 			for (ErrorBehaviorState ebs : ebsl){
@@ -1064,91 +990,6 @@ public class EMV2Util {
 		return null;
 	}
 	
-	
-
-	/**
-	 * get the subclause use behavior (EBSM) for the specified classifier.
-     * Does not look in the extends hierarchy
-	 * @param cl CLassifier
-	 * @return ErrorBehaviorStateMachine
-	 */
-	public static ErrorBehaviorStateMachine getOwnUseBehavior(Classifier cl){
-		if (cl == null) return null;
-		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
-		for (AnnexSubclause al : asl){
-			if (al instanceof ErrorModelSubclause){
-				return ((ErrorModelSubclause)al).getUseBehavior();
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * get the subclause use behavior (EBSM) for the specified classifier.
-	 * It effectively returns the first EBSM that applies to the classifier.
-	 * The method goes up the extends hierarchy, and in the case of an implementation
-	 * tries its type and the type's hierarchy.
-	 * 
-	 * @param cl Classifier
-	 * @return
-	 */
-	public static ErrorBehaviorStateMachine getFirstUseBehavior(Classifier cl){
-		if (cl == null) return null;
-		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
-		if (ems != null) {
-			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-			if (ebsm != null)
-				return ebsm;
-		}
-		if (cl instanceof ComponentImplementation){
-			ems = getExtendsEMV2Subclause((ComponentImplementation)cl);
-			if (ems != null) {
-				ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-				if (ebsm != null)
-					return ebsm;
-			}
-			ems = getExtendsEMV2Subclause(((ComponentImplementation)cl).getType());
-			if (ems != null) {
-				ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-				if (ebsm != null)
-					return ebsm;
-			}
-		} else {
-			ems = getExtendsEMV2Subclause(cl);
-			if (ems != null) {
-				ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-				if (ebsm != null)
-					return ebsm;
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 * find the first subclause Use Behavior on the classifier or its extends hierachy.
-	 * When used on a component implementation this method does not go from an implemetnation to a type.
-	 * 
-	 * @param cl
-	 * @return
-	 */
-	public static ErrorBehaviorStateMachine getExtendsUseBehavior(Classifier cl){
-		if (cl == null) return null;
-		ErrorModelSubclause ems = getOwnEMV2Subclause(cl);
-		if (ems != null) {
-			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-			if (ebsm != null)
-				return ebsm;
-		}
-		if (!Aadl2Util.isNull(cl.getExtended())){
-			ems= getExtendsEMV2Subclause(cl.getExtended());
-			if (ems != null) {
-				ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-				if (ebsm != null)
-					return ebsm;
-			}
-		}
-		return null;
-	}
 	
 	
 	/**
@@ -1168,27 +1009,21 @@ public class EMV2Util {
 			return findErrorBehaviorTransitioninUseBehavior(cl, name);
 		} else {
 			// we are inside an error library resolving transition references
-			ErrorBehaviorStateMachine ebsm = EMV2Util.getContainingErrorBehaviorStateMachine(context);
-			if (ebsm == null) ebsm = EMV2Util.getUsedErrorBehaviorStateMachine(context);
+			ErrorBehaviorStateMachine ebsm = EMV2Util.getErrorBehaviorStateMachine(context);
 			return findErrorBehaviorTransitionInEBSM(ebsm, name);
 		}
 	}
 	
 	
 	/**
-	 * find the first subclause and look for this Use Behavior.
-	 * Since Use behavior is optional it might not find any 
-	 * It will not assume that Use Behavior is inherited
-	 * @param cl
+	 * find transition in EBSM specified in use behavior
+	 * @param cl classifier as context of use behavior
 	 * @param name
 	 * @return
 	 */
-	public static ErrorBehaviorTransition findErrorBehaviorTransitioninUseBehavior(Classifier cl, String name){
+	private static ErrorBehaviorTransition findErrorBehaviorTransitioninUseBehavior(Classifier cl, String name){
 		if (cl == null) return null;
-		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
-		// and then do a find on it.
-			ErrorModelSubclause ems = getFirstEMV2Subclause(cl);
-			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
+			ErrorBehaviorStateMachine ebsm = EMV2Util.getErrorBehaviorStateMachine(cl);
 			if (ebsm != null){
 				return findErrorBehaviorTransitionInEBSM(ebsm, name);
 			}
@@ -1203,7 +1038,7 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	public static ErrorBehaviorTransition findErrorBehaviorTransitionInEBSM(ErrorBehaviorStateMachine ebsm, String name){
+	private static ErrorBehaviorTransition findErrorBehaviorTransitionInEBSM(ErrorBehaviorStateMachine ebsm, String name){
 		if (ebsm != null){
 			EList<ErrorBehaviorTransition> ebsl= ebsm.getTransitions();
 			for (ErrorBehaviorTransition ebs : ebsl){
@@ -1223,7 +1058,7 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	public static ErrorBehaviorTransition findErrorBehaviorTransitioninCEB(Classifier cl, String name){
+	private static ErrorBehaviorTransition findErrorBehaviorTransitioninCEB(Classifier cl, String name){
 		if (cl == null) return null;
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1239,7 +1074,7 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	public static ErrorBehaviorTransition findOwnErrorBehaviorTransition(ErrorModelSubclause ems, String name){
+	private static ErrorBehaviorTransition findOwnErrorBehaviorTransition(ErrorModelSubclause ems, String name){
 		if (ems == null) return null;
 		ComponentErrorBehavior ceb = ems.getComponentBehavior();
 		if (ceb != null){
@@ -1251,7 +1086,7 @@ public class EMV2Util {
 		return null;
 	}
 
-	public static ErrorBehaviorEvent findOwnErrorBehaviorEvent(ErrorModelSubclause ems, String name){
+	private static ErrorBehaviorEvent findOwnErrorBehaviorEvent(ErrorModelSubclause ems, String name){
 		if (ems == null) return null;
 		ComponentErrorBehavior ceb = ems.getComponentBehavior();
 		if (ceb != null){
@@ -1270,7 +1105,7 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	public static ErrorBehaviorEvent findErrorBehaviorEventinCEB(Classifier cl, String name){
+	private static ErrorBehaviorEvent findErrorBehaviorEventinCEB(Classifier cl, String name){
 		if (cl == null) return null;
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -1290,44 +1125,16 @@ public class EMV2Util {
 	 */
 	public static ErrorBehaviorEvent findErrorBehaviorEvent(Element context, String name){
 		Classifier cl = context.getContainingClassifier();
-		if (cl != null){
-			// we are not in an error library
-			ErrorBehaviorEvent ebt = findErrorBehaviorEventinCEB(cl, name);
-			if (ebt != null) return ebt;
-			// find it in the EBSM from the use behavior
-			return findErrorBehaviorEventinUseBehavior(cl, name);
-		} else {
-			// we are inside an error library resolving transition references
-			ErrorBehaviorStateMachine ebsm = EMV2Util.getContainingErrorBehaviorStateMachine(context);
-			if (ebsm == null) ebsm = EMV2Util.getUsedErrorBehaviorStateMachine(context);
-			return findErrorBehaviorEventInEBSM(ebsm, name);
-		}
-	}
-	
-	
-	
-	/**
-	 * find the first subclause and look for this Use Behavior.
-	 * Since Use behavior is optional it might not find any 
-	 * It will not assume that Use Behavior is inherited
-	 * @param cl
-	 * @param name
-	 * @return
-	 */
-	public static ErrorBehaviorEvent findErrorBehaviorEventinUseBehavior(Classifier cl, String name){
-		if (cl == null) return null;
-		// XXX if we want to support inherit of Use Behavior we call getClassifierUseBehavior to get the EBSM
-		// and then do a find on it.
-			ErrorModelSubclause ems = getFirstEMV2Subclause(cl);
-			ErrorBehaviorStateMachine ebsm = ems.getUseBehavior();
-			if (ebsm != null){
-				return findErrorBehaviorEventInEBSM(ebsm, name);
-			}
-			return null;
+		// we are not in an error library
+		ErrorBehaviorEvent ebt = findErrorBehaviorEventinCEB(cl, name);
+		if (ebt != null) return ebt;
+		// find it in the EBSM from the context
+		ErrorBehaviorStateMachine ebsm = EMV2Util.getErrorBehaviorStateMachine(context);
+		return findErrorBehaviorEventInEBSM(ebsm, name);
 	}
 
 	
-	public static ErrorBehaviorEvent findErrorBehaviorEventInEBSM(ErrorBehaviorStateMachine ebsm, String name){
+	private static ErrorBehaviorEvent findErrorBehaviorEventInEBSM(ErrorBehaviorStateMachine ebsm, String name){
 		if (ebsm != null){
 			EList<ErrorBehaviorEvent> ebsl= ebsm.getEvents();
 			for (ErrorBehaviorEvent ebs : ebsl){
@@ -1348,7 +1155,7 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	public static ErrorDetection findOwnErrorDetection(ErrorModelSubclause ems, String name){
+	private static ErrorDetection findOwnErrorDetection(ErrorModelSubclause ems, String name){
 		if (ems == null) return null;
 		ComponentErrorBehavior ceb = ems.getComponentBehavior();
 		if (ceb != null){
@@ -1356,23 +1163,6 @@ public class EMV2Util {
 			for (ErrorDetection errorDetection : detections) {
 				if (name.equalsIgnoreCase(errorDetection.getName())) return errorDetection;
 			}
-		}
-		return null;
-	}
-
-	
-	/**
-	 * find the error detection in the component error behavior looking in all inherited subclauses according to extends and type of implementation
-	 * @param cl
-	 * @param name
-	 * @return
-	 */
-	public static ErrorDetection findErrorDetectioninCEB(Classifier cl, String name){
-		if (cl == null) return null;
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			ErrorDetection res = findOwnErrorDetection(errorModelSubclause, name);
-			if (res != null) return res;
 		}
 		return null;
 	}
@@ -1387,10 +1177,11 @@ public class EMV2Util {
 	 */
 	public static ErrorDetection findErrorDetection(Element context, String name){
 		Classifier cl = context.getContainingClassifier();
-		if (cl != null){
-			// we are not in an error library
-			ErrorDetection ebt = findErrorDetectioninCEB(cl, name);
-			 return ebt;
+		if (cl == null) return null;
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorDetection res = findOwnErrorDetection(errorModelSubclause, name);
+			if (res != null) return res;
 		}
 		return null;
 	}
@@ -1402,7 +1193,7 @@ public class EMV2Util {
 	 * @param name
 	 * @return
 	 */
-	public static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems, String name){
+	private static OutgoingPropagationCondition findOwnOutgoingPropagationCondition(ErrorModelSubclause ems, String name){
 		if (ems == null) return null;
 		ComponentErrorBehavior ceb = ems.getComponentBehavior();
 		if (ceb != null){
@@ -1410,23 +1201,6 @@ public class EMV2Util {
 			for (OutgoingPropagationCondition outgoingPropagationCondition : outgoingPs) {
 				if (name.equalsIgnoreCase(outgoingPropagationCondition.getName())) return outgoingPropagationCondition;
 			}
-		}
-		return null;
-	}
-
-	
-	/**
-	 * find the error detection in the component error behavior looking in all inherited subclauses according to extends and type of implementation
-	 * @param cl
-	 * @param name
-	 * @return
-	 */
-	public static OutgoingPropagationCondition findOutgoingPropagationConditioninCEB(Classifier cl, String name){
-		if (cl == null) return null;
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, name);
-			if (res != null) return res;
 		}
 		return null;
 	}
@@ -1441,9 +1215,11 @@ public class EMV2Util {
 	 */
 	public static OutgoingPropagationCondition findOutgoingPropagationCondition(Element context, String name){
 		Classifier cl = context.getContainingClassifier();
-		if (cl != null){
-			// we are not in an error library
-			return findOutgoingPropagationConditioninCEB(cl, name);
+		if (cl == null) return null;
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			OutgoingPropagationCondition res = findOwnOutgoingPropagationCondition(errorModelSubclause, name);
+			if (res != null) return res;
 		}
 		return null;
 	}
@@ -1944,7 +1720,7 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed ErrorBehaviorTransition
 	 * @return Collection<ErrorBehaviorTransition> list of ErrorBehaviorTransition as HashMap for quick lookup of names
 	 */
-	public static HashMap<String,ErrorBehaviorTransition>  getAllErrorBehaviorTransitions(Classifier cl,Collection<ErrorBehaviorTransition> unnamed){
+	private static HashMap<String,ErrorBehaviorTransition>  getAllErrorBehaviorTransitions(Classifier cl,Collection<ErrorBehaviorTransition> unnamed){
 		HashMap<String,ErrorBehaviorTransition> result = new HashMap<String,ErrorBehaviorTransition>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		boolean foundEBSM = false;
@@ -2005,7 +1781,7 @@ public class EMV2Util {
 	 * @param unnamed Collection of unnamed OutgoingPropagationCondition
 	 * @return Collection<ErrorBehaviorTransition> list of OutgoingPropagationCondition as HashMap for quick lookup of names
 	 */
-	public static HashMap<String,OutgoingPropagationCondition>  getAllOutgoingPropagationConditions(Classifier cl,Collection<OutgoingPropagationCondition> unnamed){
+	private static HashMap<String,OutgoingPropagationCondition>  getAllOutgoingPropagationConditions(Classifier cl,Collection<OutgoingPropagationCondition> unnamed){
 		HashMap<String,OutgoingPropagationCondition> result = new HashMap<String,OutgoingPropagationCondition>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
@@ -2018,6 +1794,51 @@ public class EMV2Util {
 					} else{
 						if ( !result.containsKey(ebt.getName())){
 							result.put(ebt.getName(),ebt);
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * return list of CompositeState including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<CompositeState> list of CompositeState 
+	 */
+	public static EList<CompositeState> getAllCompositeStates(Classifier cl){
+		EList<CompositeState> unlist = new BasicEList<CompositeState>();
+		Collection<CompositeState> res = getAllCompositeStates(cl, unlist).values();
+		unlist.addAll(res);
+		return unlist;
+	}
+	
+	public static EList<CompositeState> getAllCompositeStates(ComponentInstance ci)
+	{
+		return getAllCompositeStates(ci.getComponentClassifier());
+	}
+
+	
+	/**
+	 * return list of CompositeState including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @param unnamed Collection of unnamed CompositeState
+	 * @return Collection<CompositeState> list of CompositeState as HashMap for quick lookup of names
+	 */
+	private static HashMap<String,CompositeState>  getAllCompositeStates(Classifier cl,Collection<CompositeState> unnamed){
+		HashMap<String,CompositeState> result = new HashMap<String,CompositeState>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			CompositeErrorBehavior ceb = errorModelSubclause.getCompositeBehavior();
+			if (ceb!= null){
+				EList<CompositeState> eslist = ceb.getStates();
+				for (CompositeState es : eslist) {
+					if (es.getName() == null){
+						unnamed.add(es);
+					} else{
+						if ( !result.containsKey(es.getName())){
+							result.put(es.getName(),es);
 						}
 					}
 				}
@@ -2116,18 +1937,31 @@ public class EMV2Util {
 			container = container.eContainer();
 		return container ;
 	}
-
+	
 	/**
-	 * get the state machine that contains the EM element 
+	 * get Error Behavior State Machine (ebsm) in context  of the element
+	 * This means the ebsm is either an enclosing container or the ebsm is referenced by an enclosing use behavior declaration.
 	 * @param element
-	 * @return ErrorBehaviorStateMachine object or null if element is not inside an EBSM
+	 * @return
 	 */
-	public static ErrorBehaviorStateMachine getContainingErrorBehaviorStateMachine(Element element) {
+	public static ErrorBehaviorStateMachine getErrorBehaviorStateMachine(Element element){
 		EObject container = element;
-		while (container != null && !(container instanceof ErrorBehaviorStateMachine))
+		// find enclosing ebsm
+		while (container != null ){
+			if (container instanceof ErrorBehaviorStateMachine) return (ErrorBehaviorStateMachine) container;
 			container = container.eContainer();
-		return (ErrorBehaviorStateMachine) container;
+		}
+		// now find it in use behavior clause
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			if (ebsm!= null){
+				return ebsm;
+			}
+		}
+		return null;
 	}
+
 
 	/**
 	 * get the enclosing error model library.
@@ -2299,25 +2133,6 @@ public class EMV2Util {
 	}
 
 	/**
-	 * get the EBSM referenced in the enclosing context, i.e., by the
-	 * component error behavior or composite error behavior declaration
-	 * or contained in the element if it is a classifier.
-	 * @param element model object contained in a component or composite error behavior declaration
-	 * @return ErrorBehaviorStateMachine or null
-	 */
-	public static ErrorBehaviorStateMachine getUsedErrorBehaviorStateMachine(EObject element) {
-		if (element instanceof Classifier){
-			Classifier cl = (Classifier)element;
-			 return EMV2Util.getFirstUseBehavior(cl);
-		}
-		EObject container = element;
-		while (container != null && !(container instanceof EBSMUseContext))
-			container = container.eContainer();
-		if (container == null) return null;
-		return getUseBehavior((EBSMUseContext) container);
-	}
-
-	/**
 	 * resolve the errortype if it is an alias, otherwise return the error type
 	 * @param et ErrorType that may be an alias
 	 * @return ErrorType without alias
@@ -2390,23 +2205,6 @@ public class EMV2Util {
 	}
 
 	
-	/**
-	 * get UseBehavior, i.e., the referenced error behavior state machine
-	 * @param context
-	 * @return ErrorBehaviorStateMachine
-	 */
-	public static ErrorBehaviorStateMachine getUseBehavior(EBSMUseContext context){
-		if (context instanceof ErrorModelSubclause) {
-			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
-			for (ErrorModelSubclause errorModelSubclause : emslist) {
-				ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
-				if (ebsm!= null){
-					return ebsm;
-				}
-			}
-		}
-		return null;
-	}
 	
 	/**
 	 * get list of ErrorModelLibraries listed in UseTypes
@@ -2473,15 +2271,16 @@ public class EMV2Util {
 	 * @param propertyName String
 	 * @param ci ComponentInstance the component with the error model element, whose property we are retrieving
 	 * @param localContext Element the object that contains the reference to a target object, or null.
-	 * @param target Element the target object in the error model whose property we retrieve
+	 * @param target Element the target object in the error model whose property we retrieve (the element may carry an error type)
+	 * @param ts Type Set null or any error type in the type set as part of the target error model element
 	 * @return
 	 */
-	public static ContainedNamedElement getProperty(String propertyName, ComponentInstance ci,Element localContext,Element target, TypeSet ts){
-		ContainedNamedElement result = getPropertyInInstanceHierarchy(propertyName,ci,target,localContext, ts);
+	public static EList<ContainedNamedElement> getProperty(String propertyName, ComponentInstance ci,Element localContext,Element target, TypeSet ts){
+		EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName,ci,target,localContext, ts);
 		if (result==null&& localContext != null){
 			// look up in local context of target reference
 			// for example: the flow source in error propagations or transition in component error behavior for a state reference
-			EList<PropertyAssociation> props = EMV2Util.getContainingPropertiesHolder(localContext);
+			EList<PropertyAssociation> props = EMV2Util.getPropertiesInContext(localContext);
 			if (props != null) {
 				result = getProperty(props, propertyName, target,localContext,ts);
 			}
@@ -2489,7 +2288,7 @@ public class EMV2Util {
 		if (result==null){
 			// look up in context of target definition
 			// for example: for a state reference the properties section of the EBSM that defines the state
-			EList<PropertyAssociation> props = EMV2Util.getContainingPropertiesHolder(target);
+			EList<PropertyAssociation> props = EMV2Util.getPropertiesInContext(target);
 			if (props != null) {
 				result = getProperty(props, propertyName, target,localContext,ts);
 			}
@@ -2508,15 +2307,15 @@ public class EMV2Util {
 	 * @param target the error model element (first item in the containment path)
 	 * @return property association
 	 */
-	public static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
+	public static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
 			Element localContext, TypeSet ts){
 		Stack<ComponentInstance> ciStack = new Stack<ComponentInstance>();
 		return getPropertyInInstanceHierarchy(propertyName,ci,target,localContext,ciStack, ts);
 	}
 
-	private static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
+	private static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
 			Element localContext,Stack<ComponentInstance> ciStack, TypeSet ts){
-		ContainedNamedElement result = null;
+		EList<ContainedNamedElement> result = null;
 
 		if ((ci != null ) && (ci.getContainingComponentInstance() != null)) 
 		{
@@ -2526,8 +2325,8 @@ public class EMV2Util {
 		}
 		if ((ci != null) && (result==null))
 		{
-			ErrorModelSubclause ems = EMV2Util.getFirstEMV2Subclause(ci.getComponentClassifier());
-			if (ems != null) {
+			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(ci);
+			for (ErrorModelSubclause ems : emslist) {
 				EList<PropertyAssociation> props = ems.getProperties();
 				result = getProperty(props, propertyName, target, localContext,ciStack,ts);
 			}
@@ -2545,17 +2344,17 @@ public class EMV2Util {
 	 * @param ciStack stack of nested CI
 	 * @return property association
 	 */
-	public static ContainedNamedElement getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
+	public static EList<ContainedNamedElement> getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
 			Element localContext, Stack<ComponentInstance> ciStack, TypeSet ts){
 		if (props == null) return null;
-		ContainedNamedElement result = null;
+		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)){
-				result = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,ciStack,ts);
-				if (result!=null)
-				return result;
+				ContainedNamedElement res = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,ciStack,ts);
+				if (res!=null)
+				result.add(res);
 			}
 		}
 		return result;
@@ -2569,17 +2368,17 @@ public class EMV2Util {
 	 * @param ciStack stack of nested CI
 	 * @return property association
 	 */
-	public static ContainedNamedElement getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
+	public static EList<ContainedNamedElement> getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
 			Element localContext, TypeSet ts){
 		if (props == null) return null;
-		ContainedNamedElement result = null;
+		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)){
-				result = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,null,ts);
-				if (result!=null)
-				return result;
+				ContainedNamedElement res = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,null,ts);
+				if (res!=null)
+				result.add(res);
 			}
 		}
 		return result;
@@ -2660,21 +2459,42 @@ public class EMV2Util {
 	}
 	
 	/**
-	 * get list of error types, one for each containment path
-	 * We assume that each path is of length one
+	 * get error type (last element of containment path, if present
+	 * Otherwise return null
 	 * @param containedNamedElement Containment path
 	 * @return EList<ErrorType>
 	 */
 	public static ErrorType getContainmentErrorType(ContainedNamedElement containedNamedElement){
 			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
-			if (cpes.size()==1){
-				ContainmentPathElement cpe = cpes.get(0);
+			if (!cpes.isEmpty()){
+				ContainmentPathElement cpe = cpes.get(cpes.size()-1);
 				NamedElement appliestome = cpe.getNamedElement();
 				if (appliestome instanceof ErrorType)
 					return((ErrorType)appliestome);
 			}
 		return null;
 	}
+	
+	public static ContainedNamedElement findMatchingType(ContainedNamedElement match, EList<ContainedNamedElement> cnelist){
+		if (cnelist == null || cnelist.isEmpty()) return null;
+		ErrorType et = getContainmentErrorType(match);
+		if (et == null) {
+			if (cnelist.size() == 1){
+				return cnelist.get(0);
+			}
+			return null;
+		} else {
+			// we need to find an entry that supports the type
+			for (ContainedNamedElement containedNamedElement : cnelist) {
+				ErrorType candET = getContainmentErrorType(containedNamedElement);
+				if (EM2TypeSetUtil.contains(candET, et)){
+					return containedNamedElement;
+				}
+			}
+		}
+		return null;
+	}
+
 	
 	/**
 	 * take inheritance into account
@@ -2709,8 +2529,8 @@ public class EMV2Util {
 	 * 				subclause. False otherwise.
 	 */
 	public static boolean hasEMV2Subclause(ComponentClassifier cl){
-		ErrorModelSubclause emsc = getFirstEMV2Subclause(cl);
-		return (emsc != null);
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		return (!emslist.isEmpty());
 	}
 	
 	public static boolean hasErrorPropagationsSection(ComponentInstance ci){
@@ -2760,7 +2580,7 @@ public class EMV2Util {
 	}
 	
 	/**
-	 * retrieve list of component instances that have error propagations specified
+	 * retrieve list of component instances that have EMV2 clauses
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
 	 */

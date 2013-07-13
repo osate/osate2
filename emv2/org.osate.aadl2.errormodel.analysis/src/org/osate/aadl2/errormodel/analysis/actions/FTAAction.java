@@ -88,15 +88,13 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		
 		result = null;
 		FTAUtils.init();
-		ErrorModelSubclause ems = EMV2Util.getFirstEMV2Subclause(systemInstance.getComponentClassifier());
-		ceb = ems.getCompositeBehavior();
+		EList<CompositeState> eslist = EMV2Util.getAllCompositeStates(systemInstance);
 		
 		componentInstances = EMV2Util.getComponentInstancesWithComponentErrorBehavior (systemInstance);
 		componentInstances.addAll(EMV2Util.getComponentInstancesWithErrorPropagations(systemInstance));
 		componentInstances.addAll(EMV2Util.getComponentInstancesWithCompositeErrorBehavior(systemInstance));
-		// TODO may need to be updated to handle inherits from classifier extensions
 		result = new Event ();
-		FTAUtils.fillCompositeBehavior (result, ceb, ERROR_STATE_NAME, systemInstance, componentInstances);
+		FTAUtils.fillCompositeBehavior (result, eslist, ERROR_STATE_NAME, systemInstance, componentInstances);
 		return result;
 	}
 	

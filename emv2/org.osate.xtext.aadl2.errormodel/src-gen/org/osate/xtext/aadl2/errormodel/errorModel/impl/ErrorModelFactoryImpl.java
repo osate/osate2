@@ -98,7 +98,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.BRANCH_VALUE: return createBranchValue();
       case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR: return createConnectionErrorBehavior();
       case ErrorModelPackage.CONNECTION_ERROR_SOURCE: return createConnectionErrorSource();
-      case ErrorModelPackage.EBSM_USE_CONTEXT: return createEBSMUseContext();
       case ErrorModelPackage.TYPE_USE_CONTEXT: return createTypeUseContext();
       case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR: return createComponentErrorBehavior();
       case ErrorModelPackage.CONDITION_EXPRESSION: return createConditionExpression();
@@ -494,17 +493,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ConnectionErrorSourceImpl connectionErrorSource = new ConnectionErrorSourceImpl();
     return connectionErrorSource;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EBSMUseContext createEBSMUseContext()
-  {
-    EBSMUseContextImpl ebsmUseContext = new EBSMUseContextImpl();
-    return ebsmUseContext;
   }
 
   /**

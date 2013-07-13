@@ -1,8 +1,10 @@
 package org.osate2.aadl2.errormodel.analysis.prism;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -155,14 +157,8 @@ public class Util
 					{
 						//OsateDebug.osateDebug("[Utils]       Instance src:" + instanceSource);
 						//OsateDebug.osateDebug("[Utils]       Feature src:" + featureSource);
-
-						ErrorModelSubclause sourceSubclause = EMV2Util.getFirstEMV2Subclause(instanceSource.getComponentClassifier());
-						//OsateDebug.osateDebug("[Utils]       ErrorPropagation src:" + sourceSubclause);
-						if (sourceSubclause.getErrorPropagations() == null)
-						{
-							break;
-						}
-						for (ErrorFlow flow : sourceSubclause.getErrorPropagations().getFlows())
+						Collection<ErrorSource> flows = EMV2Util.getAllErrorSources(instanceSource.getComponentClassifier());
+						for (ErrorFlow flow : flows)
 						{
 
 							if (flow instanceof ErrorSource)
@@ -245,9 +241,10 @@ public class Util
 				ErrorEvent ee = (ErrorEvent) event;
 				//OsateDebug.osateDebug("[Utils]       Event kind:" + ee);
 
-				ContainedNamedElement PA = EMV2Util.getOccurenceDistributionProperty(instance,null,ee,null);
+				EList<ContainedNamedElement> PAlist = EMV2Util.getOccurenceDistributionProperty(instance,null,ee,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
-				
+				if (!PAlist.isEmpty()){
+				ContainedNamedElement PA = PAlist.get(0);
 				/**
 				 * 
 				 * Consistency check for the distribution method
@@ -255,7 +252,7 @@ public class Util
  				 *  1. For DTMC, we are supposed to have fixed probability.
 				 *  2. For CTMC, we are supposed to have poisson/exponential occurence rate.
 				 */
-				if ((Model.getCurrentInstance().getType() == ModelType.DTMC) &&
+				if ((Model.getCurrentInstance().getType() == ModelType.DTMC) && 
 					(! EMV2Util.getOccurenceType(PA).equals("fixed")))
 				{
 					/**
@@ -277,6 +274,7 @@ public class Util
 				}
 
 				res = EMV2Util.getOccurenceValue (PA);
+				}
 			}
 			
 			if ((event != null) && (event instanceof RecoverEvent))
@@ -284,10 +282,10 @@ public class Util
 				RecoverEvent re = (RecoverEvent) event;
 				//OsateDebug.osateDebug("[Utils]       Recover kind:" + re);
 
-				ContainedNamedElement PA = EMV2Util.getOccurenceDistributionProperty(instance,null,re,null);
+				EList<ContainedNamedElement> PAlist = EMV2Util.getOccurenceDistributionProperty(instance,null,re,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
-
-				res = EMV2Util.getOccurenceValue (PA);
+				if (!PAlist.isEmpty())
+				res = EMV2Util.getOccurenceValue (PAlist.get(0));
 			}
 			
 			/**

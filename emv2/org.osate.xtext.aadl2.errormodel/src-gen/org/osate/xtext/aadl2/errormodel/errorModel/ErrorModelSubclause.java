@@ -30,7 +30,7 @@ import org.osate.aadl2.PropertyAssociation;
  * @model
  * @generated
  */
-public interface ErrorModelSubclause extends AnnexSubclause, EBSMUseContext
+public interface ErrorModelSubclause extends AnnexSubclause, TypeUseContext
 {
   /**
    * Returns the value of the '<em><b>Use Types</b></em>' reference list.

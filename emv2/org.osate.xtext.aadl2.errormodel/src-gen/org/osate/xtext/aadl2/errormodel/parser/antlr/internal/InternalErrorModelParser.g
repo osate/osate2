@@ -2257,9 +2257,9 @@ ruleErrorSource returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetReferenceParserRuleCall_6_1_0_1_0()); 
 	    }
-		lv_failureModeType_9_0=ruleTypeSetConstructor		{
+		lv_failureModeType_9_0=ruleTypeSetReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorSourceRule());
 	        }
@@ -2267,7 +2267,7 @@ ruleErrorSource returns [EObject current=null]
        			$current, 
        			"failureModeType",
         		lv_failureModeType_9_0, 
-        		"TypeSetConstructor");
+        		"TypeSetReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2275,28 +2275,9 @@ ruleErrorSource returns [EObject current=null]
 )?)
     |(
 (
-		{ 
-	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0()); 
-	    }
-		lv_failureModeType_10_0=ruleTypeSetConstructor		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getErrorSourceRule());
-	        }
-       		set(
-       			$current, 
-       			"failureModeType",
-        		lv_failureModeType_10_0, 
-        		"TypeSetConstructor");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-    |(
-(
-		lv_failureModeDescription_11_0=RULE_STRING
+		lv_failureModeDescription_10_0=RULE_STRING
 		{
-			newLeafNode(lv_failureModeDescription_11_0, grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0()); 
+			newLeafNode(lv_failureModeDescription_10_0, grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -2305,15 +2286,15 @@ ruleErrorSource returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"failureModeDescription",
-        		lv_failureModeDescription_11_0, 
+        		lv_failureModeDescription_10_0, 
         		"STRING");
 	    }
 
 )
 )))?
-	otherlv_12=KEYWORD_10
+	otherlv_11=KEYWORD_10
     {
-    	newLeafNode(otherlv_12, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_11, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7());
     }
 )
 ;
@@ -4275,36 +4256,6 @@ ruleConnectionErrorSource returns [EObject current=null]
 
 
 
-// Entry rule entryRuleEBSMUseContext
-entryRuleEBSMUseContext returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getEBSMUseContextRule()); }
-	 iv_ruleEBSMUseContext=ruleEBSMUseContext 
-	 { $current=$iv_ruleEBSMUseContext.current; } 
-	 EOF 
-;
-
-// Rule EBSMUseContext
-ruleEBSMUseContext returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-
-    { 
-        newCompositeNode(grammarAccess.getEBSMUseContextAccess().getErrorModelSubclauseParserRuleCall()); 
-    }
-    this_ErrorModelSubclause_0=ruleErrorModelSubclause
-    {
-        $current = $this_ErrorModelSubclause_0.current;
-        afterParserOrEnumRuleCall();
-    }
-
-;
-
-
-
-
-
 // Entry rule entryRuleTypeUseContext
 entryRuleTypeUseContext returns [EObject current=null]
 	:
@@ -4351,11 +4302,11 @@ ruleTypeUseContext returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getTypeUseContextAccess().getEBSMUseContextParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getTypeUseContextAccess().getErrorModelSubclauseParserRuleCall_3()); 
     }
-    this_EBSMUseContext_3=ruleEBSMUseContext
+    this_ErrorModelSubclause_3=ruleErrorModelSubclause
     {
-        $current = $this_EBSMUseContext_3.current;
+        $current = $this_ErrorModelSubclause_3.current;
         afterParserOrEnumRuleCall();
     }
 )
@@ -5706,24 +5657,47 @@ ruleCompositeState returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+(((
 (
-	otherlv_0=KEYWORD_11
+		lv_name_0_0=RULE_ID
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getCompositeStateAccess().getNameIDTerminalRuleCall_0_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getCompositeStateRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ID");
+	    }
+
+)
+)
+	otherlv_1=KEYWORD_9
     {
-    	newLeafNode(otherlv_0, grammarAccess.getCompositeStateAccess().getLeftSquareBracketKeyword_0());
+    	newLeafNode(otherlv_1, grammarAccess.getCompositeStateAccess().getColonKeyword_0_1());
+    }
+)?
+	otherlv_2=KEYWORD_11
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getCompositeStateAccess().getLeftSquareBracketKeyword_1());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCompositeStateAccess().getConditionSConditionExpressionParserRuleCall_1_0_0()); 
+	        newCompositeNode(grammarAccess.getCompositeStateAccess().getConditionSConditionExpressionParserRuleCall_2_0_0()); 
 	    }
-		lv_condition_1_0=ruleSConditionExpression		{
+		lv_condition_3_0=ruleSConditionExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCompositeStateRule());
 	        }
        		set(
        			$current, 
        			"condition",
-        		lv_condition_1_0, 
+        		lv_condition_3_0, 
         		"SConditionExpression");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -5732,10 +5706,10 @@ ruleCompositeState returns [EObject current=null]
 )
     |(
 (
-		lv_others_2_0=
+		lv_others_4_0=
 	KEYWORD_56
     {
-        newLeafNode(lv_others_2_0, grammarAccess.getCompositeStateAccess().getOthersOthersKeyword_1_1_0());
+        newLeafNode(lv_others_4_0, grammarAccess.getCompositeStateAccess().getOthersOthersKeyword_2_1_0());
     }
 
 	    {
@@ -5747,9 +5721,9 @@ ruleCompositeState returns [EObject current=null]
 
 )
 ))
-	otherlv_3=KEYWORD_24
+	otherlv_5=KEYWORD_24
     {
-    	newLeafNode(otherlv_3, grammarAccess.getCompositeStateAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_2());
+    	newLeafNode(otherlv_5, grammarAccess.getCompositeStateAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_3());
     }
 (
 (
@@ -5758,34 +5732,34 @@ ruleCompositeState returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getCompositeStateRule());
 	        }
         }
-	otherlv_4=RULE_ID
+	otherlv_6=RULE_ID
 	{
-		newLeafNode(otherlv_4, grammarAccess.getCompositeStateAccess().getStateErrorBehaviorStateCrossReference_3_0()); 
+		newLeafNode(otherlv_6, grammarAccess.getCompositeStateAccess().getStateErrorBehaviorStateCrossReference_4_0()); 
 	}
 
 )
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCompositeStateAccess().getTypedTokenTypeTokenParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getCompositeStateAccess().getTypedTokenTypeTokenParserRuleCall_5_0()); 
 	    }
-		lv_typedToken_5_0=ruleTypeToken		{
+		lv_typedToken_7_0=ruleTypeToken		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCompositeStateRule());
 	        }
        		set(
        			$current, 
        			"typedToken",
-        		lv_typedToken_5_0, 
+        		lv_typedToken_7_0, 
         		"TypeToken");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )?
-	otherlv_6=KEYWORD_10
+	otherlv_8=KEYWORD_10
     {
-    	newLeafNode(otherlv_6, grammarAccess.getCompositeStateAccess().getSemicolonKeyword_5());
+    	newLeafNode(otherlv_8, grammarAccess.getCompositeStateAccess().getSemicolonKeyword_6());
     }
 )
 ;

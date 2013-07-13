@@ -298,12 +298,10 @@ public class FTAUtils
 					continue;
 				}
 				//OsateDebug.osateDebug("         instance " + relatedInstance);
-				if (EMV2Util.hasCompositeErrorBehavior(relatedInstance))
+				EList<CompositeState> emslist = EMV2Util.getAllCompositeStates(relatedInstance);
+				if (!emslist.isEmpty())
 				{
-					ErrorModelSubclause ems = EMV2Util.getFirstEMV2Subclause(relatedInstance.getComponentClassifier());
-					CompositeErrorBehavior ceb = ems.getCompositeBehavior();
-					Event resultEvent;
-					fillCompositeBehavior(event, ceb, behaviorState.getName(), relatedInstance, componentInstances);
+					fillCompositeBehavior(event, emslist, behaviorState.getName(), relatedInstance, componentInstances);
 					//	public static void fillCompositeBehavior (Event ftaEvent, CompositeErrorBehavior compositeErrorBehavior, String stateName, ComponentInstance relatedInstance, final EList<ComponentInstance> componentInstances)
 					
 				}
@@ -430,14 +428,9 @@ public class FTAUtils
 	}
 	
 	
-	public static void fillCompositeBehavior (Event ftaEvent, CompositeErrorBehavior compositeErrorBehavior, String stateName, ComponentInstance relatedInstance, final EList<ComponentInstance> componentInstances)
+	public static void fillCompositeBehavior (Event ftaEvent, EList<CompositeState> states, String stateName, ComponentInstance relatedInstance, final EList<ComponentInstance> componentInstances)
 	{
-		EList<CompositeState> 		states;
-		int 						nBranches;
-
-		nBranches = 0;
-		states = compositeErrorBehavior.getStates();
-		
+		int nBranches = 0;
 		for (CompositeState state : states)
 		{
 			if (state.getState().getName().equalsIgnoreCase(stateName))
@@ -483,21 +476,16 @@ public class FTAUtils
 	
 	public static String getDescription (ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance)
 	{
-		TypeSet ts;
-		ContainedNamedElement 		PA;
-		ts = null;
-		PA = null;
+		TypeSet ts = behaviorState.getTypeSet();
 		
-		ts = behaviorState.getTypeSet();
+		EList<ContainedNamedElement> PA = EMV2Util.getHazardProperty(relatedComponentInstance,null,behaviorState,ts);
 		
-		PA = EMV2Util.getHazardProperty(relatedComponentInstance,null,behaviorState,ts);
-		
-		if (PA == null)
+		if (PA.isEmpty())
 		{
 			return null;
 		}
-		
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA).getOwnedValues()) {
+		// XXX TODO we may get more than one back, one each for different types
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA.get(0)).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue)
 			{
@@ -520,10 +508,7 @@ public class FTAUtils
 	
 	public static void fillFTAEventfromEventState (Event event, ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance, final EList<ComponentInstance> componentInstances)
 	{
-		TypeSet ts;
-		ContainedNamedElement 		PA;
-		ts = null;
-		PA = null;
+		TypeSet ts= null;
 		
 		if (event == null)
 		{
@@ -550,10 +535,12 @@ public class FTAUtils
 		}
 		
 		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
-		PA = EMV2Util.getOccurenceDistributionProperty(relatedComponentInstance,null,behaviorState,null);
+		EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedComponentInstance,null,behaviorState,null);
 		//OsateDebug.osateDebug("         PA " + PA);
-		double prob = EMV2Util.getOccurenceValue (PA);
+		if (!PA.isEmpty()){
+		double prob = EMV2Util.getOccurenceValue (PA.get(0));
 		event.setProbability(prob);
+		}
 		
 	}
 	

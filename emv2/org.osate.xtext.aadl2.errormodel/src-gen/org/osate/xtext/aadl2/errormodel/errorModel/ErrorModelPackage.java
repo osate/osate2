@@ -2748,43 +2748,6 @@ public interface ErrorModelPackage extends EPackage
   int CONNECTION_ERROR_SOURCE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
-   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EBSMUseContextImpl <em>EBSM Use Context</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.EBSMUseContextImpl
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEBSMUseContext()
-   * @generated
-   */
-  int EBSM_USE_CONTEXT = 34;
-
-  /**
-   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EBSM_USE_CONTEXT__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
-
-  /**
-   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EBSM_USE_CONTEXT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
-
-  /**
-   * The number of structural features of the '<em>EBSM Use Context</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EBSM_USE_CONTEXT_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeUseContextImpl <em>Type Use Context</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2792,7 +2755,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getTypeUseContext()
    * @generated
    */
-  int TYPE_USE_CONTEXT = 35;
+  int TYPE_USE_CONTEXT = 34;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2829,7 +2792,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getComponentErrorBehavior()
    * @generated
    */
-  int COMPONENT_ERROR_BEHAVIOR = 36;
+  int COMPONENT_ERROR_BEHAVIOR = 35;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2920,7 +2883,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConditionExpression()
    * @generated
    */
-  int CONDITION_EXPRESSION = 37;
+  int CONDITION_EXPRESSION = 36;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -2957,7 +2920,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrmoreExpression()
    * @generated
    */
-  int ORMORE_EXPRESSION = 38;
+  int ORMORE_EXPRESSION = 37;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3012,7 +2975,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrlessExpression()
    * @generated
    */
-  int ORLESS_EXPRESSION = 39;
+  int ORLESS_EXPRESSION = 38;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3067,7 +3030,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getConditionElement()
    * @generated
    */
-  int CONDITION_ELEMENT = 40;
+  int CONDITION_ELEMENT = 39;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3140,7 +3103,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEventOrPropagation()
    * @generated
    */
-  int EVENT_OR_PROPAGATION = 41;
+  int EVENT_OR_PROPAGATION = 40;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3204,7 +3167,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOutgoingPropagationCondition()
    * @generated
    */
-  int OUTGOING_PROPAGATION_CONDITION = 42;
+  int OUTGOING_PROPAGATION_CONDITION = 41;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3331,7 +3294,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorDetection()
    * @generated
    */
-  int ERROR_DETECTION = 43;
+  int ERROR_DETECTION = 42;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3458,7 +3421,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorCodeValue()
    * @generated
    */
-  int ERROR_CODE_VALUE = 44;
+  int ERROR_CODE_VALUE = 43;
 
   /**
    * The feature id for the '<em><b>Int Value</b></em>' attribute.
@@ -3504,7 +3467,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorStateToModeMapping()
    * @generated
    */
-  int ERROR_STATE_TO_MODE_MAPPING = 45;
+  int ERROR_STATE_TO_MODE_MAPPING = 44;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3559,7 +3522,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getCompositeErrorBehavior()
    * @generated
    */
-  int COMPOSITE_ERROR_BEHAVIOR = 46;
+  int COMPOSITE_ERROR_BEHAVIOR = 45;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3605,7 +3568,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getCompositeState()
    * @generated
    */
-  int COMPOSITE_STATE = 47;
+  int COMPOSITE_STATE = 46;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3614,7 +3577,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPOSITE_STATE__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+  int COMPOSITE_STATE__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -3623,7 +3586,34 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPOSITE_STATE__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+  int COMPOSITE_STATE__OWNED_COMMENT = Aadl2Package.NAMED_ELEMENT__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPOSITE_STATE__NAME = Aadl2Package.NAMED_ELEMENT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPOSITE_STATE__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
+
+  /**
+   * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPOSITE_STATE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -3632,7 +3622,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPOSITE_STATE__CONDITION = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int COMPOSITE_STATE__CONDITION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Others</b></em>' attribute.
@@ -3641,7 +3631,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPOSITE_STATE__OTHERS = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int COMPOSITE_STATE__OTHERS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>State</b></em>' reference.
@@ -3650,7 +3640,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPOSITE_STATE__STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int COMPOSITE_STATE__STATE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Typed Token</b></em>' containment reference.
@@ -3659,7 +3649,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPOSITE_STATE__TYPED_TOKEN = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int COMPOSITE_STATE__TYPED_TOKEN = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Composite State</em>' class.
@@ -3668,7 +3658,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPOSITE_STATE_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
+  int COMPOSITE_STATE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.SubcomponentElementImpl <em>Subcomponent Element</em>}' class.
@@ -3678,7 +3668,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSubcomponentElement()
    * @generated
    */
-  int SUBCOMPONENT_ELEMENT = 48;
+  int SUBCOMPONENT_ELEMENT = 47;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3724,7 +3714,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrExpression()
    * @generated
    */
-  int OR_EXPRESSION = 49;
+  int OR_EXPRESSION = 48;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3770,7 +3760,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAndExpression()
    * @generated
    */
-  int AND_EXPRESSION = 50;
+  int AND_EXPRESSION = 49;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3816,7 +3806,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSOrExpression()
    * @generated
    */
-  int SOR_EXPRESSION = 51;
+  int SOR_EXPRESSION = 50;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3862,7 +3852,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSAndExpression()
    * @generated
    */
-  int SAND_EXPRESSION = 52;
+  int SAND_EXPRESSION = 51;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5285,16 +5275,6 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EAttribute getConnectionErrorSource_FailureModeDescription();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext <em>EBSM Use Context</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>EBSM Use Context</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext
-   * @generated
-   */
-  EClass getEBSMUseContext();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext <em>Type Use Context</em>}'.
@@ -7071,16 +7051,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EAttribute CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION = eINSTANCE.getConnectionErrorSource_FailureModeDescription();
-
-    /**
-     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EBSMUseContextImpl <em>EBSM Use Context</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.EBSMUseContextImpl
-     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEBSMUseContext()
-     * @generated
-     */
-    EClass EBSM_USE_CONTEXT = eINSTANCE.getEBSMUseContext();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeUseContextImpl <em>Type Use Context</em>}' class.

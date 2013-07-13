@@ -7,7 +7,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="emsc" eType="#//ErrorModelSubclause"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorModelSubclause" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//AnnexSubclause #//EBSMUseContext">
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorModelSubclause" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//AnnexSubclause #//TypeUseContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
         upperBound="-1" eType="#//ErrorModelLibrary"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useBehavior" eType="#//ErrorBehaviorStateMachine"/>
@@ -222,7 +222,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failureModeDescription"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EBSMUseContext" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element #//TypeUseContext"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeUseContext" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentErrorBehavior" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTransformation" eType="#//TypeTransformationSet"/>
@@ -298,7 +297,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//CompositeState" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CompositeState" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//Element">
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeState" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="others" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>

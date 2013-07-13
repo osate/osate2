@@ -33,12 +33,8 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-import java.util.List;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -46,14 +42,10 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate2.aadl2.errormodel.analysis.prism.Model;
 
 public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 	
-	private double 									finalResult;
-	private List<ComponentInstance> 				componentsNames;
 	private static AnalysisErrorReporterManager	 	errorManager;
 	
 	protected String getMarkerType() {
@@ -62,11 +54,6 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 
 	protected String getActionName() {
 		return "PRISM";
-	}
-
-	protected ContainedNamedElement getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result =  EMV2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
-		return result;
 	}
 	
 	

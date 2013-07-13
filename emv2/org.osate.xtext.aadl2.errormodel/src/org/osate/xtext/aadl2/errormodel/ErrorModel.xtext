@@ -33,7 +33,7 @@ NamedElement returns aadl2::NamedElement:
 ErrorModelLibrary| 
 ErrorTypes| ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
 	   | ErrorFlow| ErrorPropagation |OutgoingPropagationCondition
-|PropagationPointConnection | PropagationPoint
+|PropagationPointConnection | PropagationPoint |CompositeState
 	|TypeTransformationSet | TypeMappingSet  | ErrorBehaviorStateMachine
 |ErrorDetection	|  ConnectionErrorSource | EventOrPropagation
 ;
@@ -49,8 +49,8 @@ TypeSetElement|TypeToken
 |ConditionElement|ConnectionErrorBehavior |ErrorPropagations 
 |	ComponentErrorBehavior | CompositeErrorBehavior
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
-|CompositeState	|ErrorStateToModeMapping
-| SubcomponentElement | FeatureorPPReference | EBSMUseContext | TypeUseContext
+	|ErrorStateToModeMapping
+| SubcomponentElement | FeatureorPPReference  | TypeUseContext
 ;
 
 
@@ -204,8 +204,8 @@ ErrorSource returns ErrorSource:
   name=ID ':' 'error' 'source' (outgoing=[ErrorPropagation|ErrorPropagationPoint]
   	|allOutgoing?='all'
   ) (typeTokenConstraint=TypeTokenConstraint)?
-  	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetConstructor )?) 
-  		| (  failureModeType = TypeSetConstructor ) | failureModeDescription = STRING
+  	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetReference )?) 
+  		 | failureModeDescription = STRING
   	) )?
   ';';
  
@@ -323,13 +323,9 @@ ConnectionErrorSource returns ConnectionErrorSource:
   	';'
 ;
 
-EBSMUseContext returns EBSMUseContext:
-	ErrorModelSubclause 
-;
-
 TypeUseContext returns TypeUseContext:
 	TypeTransformationSet | TypeMappingSet |  ErrorBehaviorStateMachine  
-	| EBSMUseContext
+	| ErrorModelSubclause
 ;
 
   
@@ -434,6 +430,7 @@ CompositeErrorBehavior returns CompositeErrorBehavior:
 ; 
 
 CompositeState returns CompositeState:
+    (name = ID ':' )?
 	'[' (condition=SConditionExpression | others?='others') ']->' state=[ErrorBehaviorState|ID] (typedToken=TypeToken)?';';
 
   

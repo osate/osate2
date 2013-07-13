@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.impl.ElementImpl;
+import org.osate.aadl2.impl.NamedElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
@@ -34,7 +34,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *
  * @generated
  */
-public class CompositeStateImpl extends ElementImpl implements CompositeState
+public class CompositeStateImpl extends NamedElementImpl implements CompositeState
 {
   /**
    * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.

@@ -767,7 +767,6 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					double probabilityBehavior = 0;
 					double probabilityComposite = 0;
 					double tmp;
-					ContainedNamedElement PA;
 					/**
 					 * We retrieve all the elements within the error behavior specifications
 					 */
@@ -806,15 +805,15 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						{
 							se.getSubcomponent();
 							//OsateDebug.osateDebug("se=" + se);
-							PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getReference(),null);
-							if (PA == null)
+							EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getReference(),null);
+							if (PA.isEmpty())
 							{
 								warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for " + EMV2Util.getPrintName(se) + " and reference " + EMV2Util.getPrintName(ce.getReference()) );
 							}
 							else
 							{
 							//OsateDebug.osateDebug("         PA " + PA);
-								tmp = EMV2Util.getOccurenceValue (PA);
+								tmp = EMV2Util.getOccurenceValue (PA.get(0));
 								//OsateDebug.osateDebug("tmp=" + tmp);
 								probabilityComposite = probabilityComposite + tmp;
 							}
@@ -824,16 +823,16 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					
 					for (ConditionElement ce : elementsBehavior)
 					{
-						PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getIncoming(),null);
+						EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getIncoming(),null);
 						//OsateDebug.osateDebug("         PA " + PA);
-						if (PA == null)
+						if (PA.isEmpty())
 						{
 							warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for incoming propagation " + EMV2Util.getPrintName(ce.getIncoming()));
 						}
 						else
 						{
 							//OsateDebug.osateDebug("         PA " + PA);
-							tmp = EMV2Util.getOccurenceValue (PA);
+							tmp = EMV2Util.getOccurenceValue (PA.get(0));
 							//OsateDebug.osateDebug("tmp=" + tmp);
 							probabilityBehavior = probabilityBehavior + tmp;							
 						}

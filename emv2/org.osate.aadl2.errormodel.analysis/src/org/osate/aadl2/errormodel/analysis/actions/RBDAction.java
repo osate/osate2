@@ -61,6 +61,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public final class RBDAction extends AaxlReadOnlyActionAsJob {
@@ -77,51 +78,50 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	}
 
 	
-	private static ComponentInstance findInstance (EList<ComponentInstance> instances, String name)
+	private static ComponentInstance findInstance (ComponentInstance root, EList<SubcomponentElement> subcomponentElements)
 	{
-		for (ComponentInstance ci : instances)
+		ComponentInstance container = root;
+		for (SubcomponentElement se : subcomponentElements)
 		{
-			if (ci.getName().equalsIgnoreCase(name))
-			{
-				return ci;
-			}
+			Subcomponent sub = se.getSubcomponent();
+			container = container.findSubcomponentInstance(sub);
+			if (container == null) return null;
 		}
 		
-		return null;
+		return container;
 	}
 	
-	private double handleElement (final ConditionElement conditionElement, final EList<ComponentInstance> componentInstances)
+	private double handleElement (final ConditionElement conditionElement, final ComponentInstance root)
 	{
 		double result = 0;
-		
-		ErrorBehaviorState behaviorState = conditionElement.getReference();
 
-		for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
+		ErrorBehaviorState behaviorState = conditionElement.getReference();
+		TypeSet ts = conditionElement.getConstraint();
+
+		ComponentInstance relatedInstance = findInstance(root, conditionElement.getSubcomponents());
+		//OsateDebug.osateDebug("         instance " + relatedInstance);
+
+		if (relatedInstance != null && ! this.componentsNames.contains(relatedInstance))
 		{
-			Subcomponent subcomponent = subcomponentElement.getSubcomponent();
-			//OsateDebug.osateDebug("      subcomponent " + subcomponent);
-			ComponentInstance relatedInstance = findInstance(componentInstances, subcomponent.getName());
-			//OsateDebug.osateDebug("         instance " + relatedInstance);
-			
-			if (relatedInstance != null && ! this.componentsNames.contains(relatedInstance))
-			{
-				this.componentsNames.add (relatedInstance);
-			}
-			
-			if (behaviorState != null)
-			{
-				//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-				ContainedNamedElement PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
-				//OsateDebug.osateDebug("         PA " + PA);
-				result = EMV2Util.getOccurenceValue (PA);
+			this.componentsNames.add (relatedInstance);
+		}
+
+		if (behaviorState != null)
+		{
+			//OsateDebug.osateDebug("         behaviorState " + behaviorState);
+			EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,ts);
+			//OsateDebug.osateDebug("         PA " + PA);
+			if (!PA.isEmpty()){
+				// XXX TODO handle values on subtypes (list > 1)
+				result = EMV2Util.getOccurenceValue (PA.get(0));
 			}
 		}
-		
+
 		return result;
 	}
 	
 	
-	private double handleCondition (final ConditionExpression cond, final EList<ComponentInstance> componentInstances)
+	private double handleCondition (final ConditionExpression cond, final ComponentInstance root)
 	{
 		double result = 0;
 		double tmp;
@@ -129,7 +129,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		
 		if (cond instanceof ConditionElement)
 		{
-			return handleElement((ConditionElement)cond, componentInstances);
+			return handleElement((ConditionElement)cond, root);
 		}
 		
 		if (cond instanceof SOrExpression)
@@ -138,7 +138,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			for (ConditionExpression conditionExpression : sor.getOperands())
 			{
 				//OsateDebug.osateDebug("      operand=" + conditionExpression);
-				result += handleCondition (conditionExpression, componentInstances);
+				result += handleCondition (conditionExpression, root);
 			}
 		}
 		
@@ -147,7 +147,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			SAndExpression sae = (SAndExpression)cond;
 			for (ConditionExpression conditionExpression : sae.getOperands())
 			{
-				tmp = handleCondition (conditionExpression, componentInstances);
+				tmp = handleCondition (conditionExpression, root);
 				if (result == 0)
 				{
 					result = tmp;
@@ -163,18 +163,10 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	
 	public void processRootSystem (SystemInstance systemInstance)
 	{
-		EList<CompositeState> 		states;
-		CompositeErrorBehavior 		ceb;
-		EList<ComponentInstance> 	componentInstances;
 		double						probabilityTemp;
 		double 						toRemove;
-		
-		ErrorModelSubclause ems = EMV2Util.getFirstEMV2Subclause(systemInstance.getComponentClassifier());
-		ceb = ems.getCompositeBehavior();
-		
-		componentInstances = EMV2Util.getComponentInstancesWithEMV2Subclause(systemInstance);
-		// TODO may need to be updated to handle inherits from classifier extensions
-		states = ceb.getStates();
+
+		EList<CompositeState> states = EMV2Util.getAllCompositeStates(systemInstance);
 		
 		probabilityTemp  = 0;
 		toRemove		 = 0;
@@ -182,7 +174,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		{
 			if (state.getState().getName().equalsIgnoreCase(ERROR_STATE_NAME))
 			{
-				probabilityTemp = handleCondition (state.getCondition(), componentInstances);
+				probabilityTemp = handleCondition (state.getCondition(), systemInstance);
 			//	OsateDebug.osateDebug("temp=" + probabilityTemp);
 				finalResult = finalResult + probabilityTemp;
 				if (toRemove == 0)

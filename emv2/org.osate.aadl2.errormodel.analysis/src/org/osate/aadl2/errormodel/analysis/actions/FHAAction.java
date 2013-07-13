@@ -104,15 +104,15 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 
-	protected ContainedNamedElement getSeverityProperty(ComponentInstance ci, Element localContext,Element target, TypeSet ts){
-		ContainedNamedElement result = EMV2Util.getProperty("MILSTD882::Severity",ci,localContext,target,ts);
+	protected EList<ContainedNamedElement> getSeverityProperty(ComponentInstance ci, Element localContext,Element target, TypeSet ts){
+		EList<ContainedNamedElement> result = EMV2Util.getProperty("MILSTD882::Severity",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("ARP4761::Severity",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("EMV2::Severity",ci,localContext,target,ts);
 		return result;
 	}
 	
-	protected ContainedNamedElement getLikelihoodProperty(ComponentInstance ci, NamedElement localContext,Element target, TypeSet ts){
-		ContainedNamedElement result = EMV2Util.getProperty("MILSTD882::Likelihood",ci,localContext,target,ts);
+	protected EList<ContainedNamedElement> getLikelihoodProperty(ComponentInstance ci, NamedElement localContext,Element target, TypeSet ts){
+		EList<ContainedNamedElement> result = EMV2Util.getProperty("MILSTD882::Likelihood",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("ARP4761::Likelihood",ci,localContext,target,ts);
 		if (result==null)result = EMV2Util.getProperty("EMV2::Likelihood",ci,localContext,target,ts);
 		return result;
@@ -131,15 +131,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				if (condElement.getIncoming() instanceof ErrorEvent)
 				{
 					ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
-					ContainedNamedElement PA = null;
-					ContainedNamedElement Sev = null;
-					ContainedNamedElement Like = null;
-					PA = EMV2Util.getHazardProperty(ci, null,errorEvent,errorEvent.getTypeSet());
-					Sev = getSeverityProperty(ci, null,errorEvent,errorEvent.getTypeSet());
-					Like = getLikelihoodProperty(ci, null,errorEvent,errorEvent.getTypeSet());
-					if ((PA != null) && (Sev != null) && (Like != null))
+					EList<ContainedNamedElement> PA  = EMV2Util.getHazardProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+					EList<ContainedNamedElement> Sev = getSeverityProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+					EList<ContainedNamedElement> Like = getLikelihoodProperty(ci, null,errorEvent,errorEvent.getTypeSet());
+					for (ContainedNamedElement hazProp: PA)
 					{
-						reportHazardProperty(ci, PA, Sev, Like, null, errorEvent.getTypeSet(), errorEvent,report);
+						reportHazardProperty(ci, hazProp, EMV2Util.findMatchingType(hazProp, Sev), EMV2Util.findMatchingType(hazProp, Like), null, errorEvent.getTypeSet(), errorEvent,report);
 					}
 				}
 				//condElement.getIncoming()
@@ -150,15 +147,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci))
 		{
 
-			ContainedNamedElement PA = null;
-			ContainedNamedElement Sev = null; 
-			ContainedNamedElement Like = null;
-			PA = EMV2Util.getHazardProperty(ci, null,state,state.getTypeSet());
-			Sev = getSeverityProperty(ci, null,state,state.getTypeSet());
-			Like = getLikelihoodProperty(ci, null,state,state.getTypeSet());
-			if ((PA != null) && (Sev != null) && (Like != null))
+			EList<ContainedNamedElement> PA = EMV2Util.getHazardProperty(ci, null,state,state.getTypeSet());
+			EList<ContainedNamedElement> Sev = getSeverityProperty(ci, null,state,state.getTypeSet());
+			EList<ContainedNamedElement> Like = getLikelihoodProperty(ci, null,state,state.getTypeSet());
+			for (ContainedNamedElement hazProp: PA)
 			{
-				reportHazardProperty(ci, PA, Sev, Like, state, state.getTypeSet(), state,report);
+				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingType(hazProp, Sev), EMV2Util.findMatchingType(hazProp, Like), state, state.getTypeSet(), state,report);
 			}
 		}
 
@@ -168,9 +162,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-			ContainedNamedElement HazardPA = null;
-			ContainedNamedElement Sev = null;
-			ContainedNamedElement Like = null;
+			EList<ContainedNamedElement> HazardPA = null;
+			EList<ContainedNamedElement> Sev = null;
+			EList<ContainedNamedElement> Like = null;
 			TypeSet ts = null;
 			ErrorBehaviorState failureMode = null;
 			Element target =null;
@@ -207,8 +201,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				target = errorSource;
 				localContext = null;
 			}
-			if (HazardPA==null) return;
-			reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext,report);
+			for (ContainedNamedElement hazProp: HazardPA)
+			{
+				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingType(hazProp, Sev), EMV2Util.findMatchingType(hazProp, Like), target, ts, localContext,report);
+			}
 		}
 	}
 	

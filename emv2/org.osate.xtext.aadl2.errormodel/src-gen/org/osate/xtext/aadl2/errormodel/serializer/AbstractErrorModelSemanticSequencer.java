@@ -279,7 +279,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				else break;
 			case ErrorModelPackage.COMPOSITE_STATE:
 				if(context == grammarAccess.getCompositeStateRule() ||
-				   context == grammarAccess.getElementRule()) {
+				   context == grammarAccess.getNamedElementRule()) {
 					sequence_CompositeState(context, (CompositeState) semanticObject); 
 					return; 
 				}
@@ -381,7 +381,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				else break;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE:
 				if(context == grammarAccess.getAnnexSubclauseRule() ||
-				   context == grammarAccess.getEBSMUseContextRule() ||
 				   context == grammarAccess.getElementRule() ||
 				   context == grammarAccess.getErrorModelSubclauseRule() ||
 				   context == grammarAccess.getModalElementRule() ||
@@ -711,7 +710,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     ((condition=SConditionExpression | others?='others') state=[ErrorBehaviorState|ID] typedToken=TypeToken?)
+	 *     (name=ID? (condition=SConditionExpression | others?='others') state=[ErrorBehaviorState|ID] typedToken=TypeToken?)
 	 */
 	protected void sequence_CompositeState(EObject context, CompositeState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -943,11 +942,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID 
 	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
-	 *         (
-	 *             (failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetConstructor?) | 
-	 *             failureModeType=TypeSetConstructor | 
-	 *             failureModeDescription=STRING
-	 *         )?
+	 *         ((failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetReference?) | failureModeDescription=STRING)?
 	 *     )
 	 */
 	protected void sequence_ErrorSource(EObject context, ErrorSource semanticObject) {

@@ -329,15 +329,6 @@ public interface ErrorModelFactory extends EFactory
   ConnectionErrorSource createConnectionErrorSource();
 
   /**
-   * Returns a new object of class '<em>EBSM Use Context</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>EBSM Use Context</em>'.
-   * @generated
-   */
-  EBSMUseContext createEBSMUseContext();
-
-  /**
    * Returns a new object of class '<em>Type Use Context</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

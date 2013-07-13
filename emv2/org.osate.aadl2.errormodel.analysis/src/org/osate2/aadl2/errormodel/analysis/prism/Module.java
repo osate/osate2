@@ -1,6 +1,7 @@
 package org.osate2.aadl2.errormodel.analysis.prism;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -340,22 +341,6 @@ public class Module {
 	 */
 	public Module process ()
 	{
-
-		ErrorBehaviorStateMachine useStateMachine = null;
-		ErrorPropagations propagations = null;
-		ErrorModelSubclause errorModelSubclause = null;
-		
-	
-		errorModelSubclause = EMV2Util.getFirstEMV2Subclause (aadlComponent.getComponentClassifier());
-		
-		if (errorModelSubclause == null)
-		{
-			return this;
-		}
-
-		CompositeErrorBehavior compositeErrorBehavior = errorModelSubclause.getCompositeBehavior();
-		useStateMachine = errorModelSubclause.getUseBehavior();
-		
 		/**
 		 * Here, we map the states of the error state machine
 		 * into a number. For that, we add the corresponding
@@ -365,36 +350,35 @@ public class Module {
 		 * case for the default state that is always associated
 		 * with 0.
 		 */
-		if (useStateMachine != null)
-		{
-			int stateIndex = 1;
-			int stateValue;
-			for (ErrorBehaviorState state : useStateMachine.getStates())
-			{
-				stateValue = stateIndex;
-				if (state.isIntial())
-				{
-					stateValue = 0;
-				}
-				else
-				{
-					stateValue = stateIndex++;
-				}
-				statesMap.put(state.getName(), stateValue);
+		Collection<ErrorBehaviorState> errorStates = EMV2Util.getAllErrorBehaviorStates(aadlComponent.getComponentClassifier());
 
-				/**
-				 * Add an helper formula to easily know if the component reach a given state or not
-				 * It generates formulas such as
-				 * formula COMPONENT_IS_STATENAME = COMPONENT_STATE_VAR = STATE_VALUE
-				 */
-				Expression fe = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent)), new Terminal (""+stateValue));
-				Formula f = new Formula (Util.getComponentName(aadlComponent)+"_is_"+state.getName().toLowerCase(), fe);
-				this.formulas.add (f);
+		int stateIndex = 1;
+		int stateValue;
+		for (ErrorBehaviorState state : errorStates)
+		{
+			stateValue = stateIndex;
+			if (state.isIntial())
+			{
+				stateValue = 0;
 			}
-			this.nStates = useStateMachine.getStates().size();
+			else
+			{
+				stateValue = stateIndex++;
+			}
+			statesMap.put(state.getName(), stateValue);
+
+			/**
+			 * Add an helper formula to easily know if the component reach a given state or not
+			 * It generates formulas such as
+			 * formula COMPONENT_IS_STATENAME = COMPONENT_STATE_VAR = STATE_VALUE
+			 */
+			Expression fe = new Equal (new Terminal (Util.getComponentStateVariableName(aadlComponent)), new Terminal (""+stateValue));
+			Formula f = new Formula (Util.getComponentName(aadlComponent)+"_is_"+state.getName().toLowerCase(), fe);
+			this.formulas.add (f);
 		}
-		
-		
+		this.nStates = errorStates.size();
+
+
 		/**
 		 * Here, we see if we have any error propagation.
 		 * If yes, then, we declare a variable for each OUT port.
@@ -402,64 +386,56 @@ public class Module {
 		 * error types propagated. The variable has a value 0 if no error
 		 * is propagated.
 		 */
-		if ((errorModelSubclause != null) && (errorModelSubclause.getErrorPropagations() != null))
+		Collection<ErrorPropagation> outprops = EMV2Util.getAllOutgoingErrorPropagations(aadlComponent.getComponentClassifier());
+		for (ErrorPropagation ep : outprops)
 		{
-			propagations = errorModelSubclause.getErrorPropagations();
-			for (ErrorPropagation ep : propagations.getPropagations())
+			Map<String,Integer> tmpMap = new HashMap<String,Integer>();
+			int errorVal = 1;
+			TypeSet ts = ep.getTypeSet();
+			for (TypeToken tt : ts.getTypeTokens())
 			{
-			
-				/**
-				 * For each incoming propagation point, we add a variable for the component.
-				 * This variable might be updated/changed by other components connected
-				 * to this incoming propagation.
-				 */
-				if (ep.getDirection().incoming())
+				for (ErrorType et : tt.getType())
 				{
-					for (FeatureorPPReference fr : ep.getFeatureorPPRefs())
-					{
-						NamedElement feature = fr.getFeatureorPP();
-						
-						int errorVal = 1;
-						TypeSet ts = ep.getTypeSet();
-						for (TypeToken tt : ts.getTypeTokens())
-						{
-							for (ErrorType et : tt.getType())
-							{
-								this.associatedModel.addErrorType (et.getName());
-								Expression e  = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())),
-										        new Terminal (""+errorVal++));
-								
-								Formula f = new Formula (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())+"_get_" + et.getName().toLowerCase() , e);
-								this.formulas.add (f);
-							}
 
-							this.associatedModel.getGlobals().put (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName()), errorVal - 1);
-
-						}
-					}
-				}
-				
-				
-				if (ep.getDirection().outgoing())
-				{
-					Map<String,Integer> tmpMap = new HashMap<String,Integer>();
-					int errorVal = 1;
-					TypeSet ts = ep.getTypeSet();
-					for (TypeToken tt : ts.getTypeTokens())
-					{
-						for (ErrorType et : tt.getType())
-						{
-
-							this.associatedModel.addErrorType (et.getName());
-							tmpMap.put(et.getName(), errorVal++);
-						}
-
-					}
+					this.associatedModel.addErrorType (et.getName());
+					tmpMap.put(et.getName(), errorVal++);
 				}
 			}
 		}
-		
-		
+		Collection<ErrorPropagation> inprops = EMV2Util.getAllIncomingErrorPropagations(aadlComponent.getComponentClassifier());
+		for (ErrorPropagation ep : inprops)
+		{
+
+			/**
+			 * For each incoming propagation point, we add a variable for the component.
+			 * This variable might be updated/changed by other components connected
+			 * to this incoming propagation.
+			 */
+			for (FeatureorPPReference fr : ep.getFeatureorPPRefs())
+			{
+				NamedElement feature = fr.getFeatureorPP();
+
+				int errorVal = 1;
+				TypeSet ts = ep.getTypeSet();
+				for (TypeToken tt : ts.getTypeTokens())
+				{
+					for (ErrorType et : tt.getType())
+					{
+						this.associatedModel.addErrorType (et.getName());
+						Expression e  = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())),
+								new Terminal (""+errorVal++));
+
+						Formula f = new Formula (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())+"_get_" + et.getName().toLowerCase() , e);
+						this.formulas.add (f);
+					}
+
+					this.associatedModel.getGlobals().put (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName()), errorVal - 1);
+
+				}
+			}
+		}
+
+
 		/**
 		 * For each statement of the composite error behavior
 		 * we map it into a formula so that we can use it for making
@@ -467,19 +443,16 @@ public class Module {
 		 * For each composite state, we have something like
 		 * 
 		 */
-		if (compositeErrorBehavior != null)
-		{
-			EList<CompositeState> states = compositeErrorBehavior.getStates();
-			int n = 0;
-			
-			for (CompositeState state : states)
-			{
-				Expression e = handleCompositeCondition (state.getCondition());
+		Collection<CompositeState> compositestates = EMV2Util.getAllCompositeStates(aadlComponent.getComponentClassifier());
+		int n = 0;
 
-				Formula f = new Formula (Util.getComponentName(aadlComponent)+"_is_" + state.getState().getName().toLowerCase() + n, e);
-				this.formulas.add (f);
-				n++;
-			}
+		for (CompositeState state : compositestates)
+		{
+			Expression e = handleCompositeCondition (state.getCondition());
+
+			Formula f = new Formula (Util.getComponentName(aadlComponent)+"_is_" + state.getState().getName().toLowerCase() + n, e);
+			this.formulas.add (f);
+			n++;
 		}
 
 
@@ -497,7 +470,6 @@ public class Module {
 		{
 			handleOutgoingPropagationCondition (opc);
 		}
-
 		return this;
 	}
 	

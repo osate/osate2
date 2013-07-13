@@ -251,11 +251,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createConnectionErrorSourceAdapter();
       }
       @Override
-      public Adapter caseEBSMUseContext(EBSMUseContext object)
-      {
-        return createEBSMUseContextAdapter();
-      }
-      @Override
       public Adapter caseTypeUseContext(TypeUseContext object)
       {
         return createTypeUseContextAdapter();
@@ -898,21 +893,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createConnectionErrorSourceAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext <em>EBSM Use Context</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext
-   * @generated
-   */
-  public Adapter createEBSMUseContextAdapter()
   {
     return null;
   }

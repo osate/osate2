@@ -90,9 +90,8 @@ public class ErrorModelSwitch<T> extends Switch<T>
         ErrorModelSubclause errorModelSubclause = (ErrorModelSubclause)theEObject;
         T result = caseErrorModelSubclause(errorModelSubclause);
         if (result == null) result = caseAnnexSubclause(errorModelSubclause);
-        if (result == null) result = caseEBSMUseContext(errorModelSubclause);
-        if (result == null) result = caseModalElement(errorModelSubclause);
         if (result == null) result = caseTypeUseContext(errorModelSubclause);
+        if (result == null) result = caseModalElement(errorModelSubclause);
         if (result == null) result = caseNamedElement(errorModelSubclause);
         if (result == null) result = caseElement(errorModelSubclause);
         if (result == null) result = defaultCase(theEObject);
@@ -392,15 +391,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ErrorModelPackage.EBSM_USE_CONTEXT:
-      {
-        EBSMUseContext ebsmUseContext = (EBSMUseContext)theEObject;
-        T result = caseEBSMUseContext(ebsmUseContext);
-        if (result == null) result = caseTypeUseContext(ebsmUseContext);
-        if (result == null) result = caseElement(ebsmUseContext);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ErrorModelPackage.TYPE_USE_CONTEXT:
       {
         TypeUseContext typeUseContext = (TypeUseContext)theEObject;
@@ -506,6 +496,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
       {
         CompositeState compositeState = (CompositeState)theEObject;
         T result = caseCompositeState(compositeState);
+        if (result == null) result = caseNamedElement(compositeState);
         if (result == null) result = caseElement(compositeState);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -1098,22 +1089,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseConnectionErrorSource(ConnectionErrorSource object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>EBSM Use Context</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>EBSM Use Context</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEBSMUseContext(EBSMUseContext object)
   {
     return null;
   }

@@ -20,7 +20,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.EBSMUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -312,13 +311,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass connectionErrorSourceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass ebsmUseContextEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1807,16 +1799,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getEBSMUseContext()
-  {
-    return ebsmUseContextEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getTypeUseContext()
   {
     return typeUseContextEClass;
@@ -2615,8 +2597,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__FAILURE_MODE_TYPE);
     createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION);
 
-    ebsmUseContextEClass = createEClass(EBSM_USE_CONTEXT);
-
     typeUseContextEClass = createEClass(TYPE_USE_CONTEXT);
 
     componentErrorBehaviorEClass = createEClass(COMPONENT_ERROR_BEHAVIOR);
@@ -2730,7 +2710,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     // Add supertypes to classes
     errorModelSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
-    errorModelSubclauseEClass.getESuperTypes().add(this.getEBSMUseContext());
+    errorModelSubclauseEClass.getESuperTypes().add(this.getTypeUseContext());
     errorModelLibraryEClass.getESuperTypes().add(theAadl2Package.getAnnexLibrary());
     errorTypesEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorTypeEClass.getESuperTypes().add(this.getErrorTypes());
@@ -2768,8 +2748,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     transitionBranchEClass.getESuperTypes().add(theAadl2Package.getElement());
     connectionErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
     connectionErrorSourceEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
-    ebsmUseContextEClass.getESuperTypes().add(theAadl2Package.getElement());
-    ebsmUseContextEClass.getESuperTypes().add(this.getTypeUseContext());
     typeUseContextEClass.getESuperTypes().add(theAadl2Package.getElement());
     componentErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
     conditionExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2784,7 +2762,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorDetectionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorStateToModeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
     compositeErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
-    compositeStateEClass.getESuperTypes().add(theAadl2Package.getElement());
+    compositeStateEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     subcomponentElementEClass.getESuperTypes().add(theAadl2Package.getElement());
     orExpressionEClass.getESuperTypes().add(this.getConditionExpression());
     andExpressionEClass.getESuperTypes().add(this.getConditionExpression());
@@ -2954,8 +2932,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getConnectionErrorSource_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConnectionErrorSource_FailureModeType(), this.getTypeSet(), null, "failureModeType", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getConnectionErrorSource_FailureModeDescription(), ecorePackage.getEString(), "failureModeDescription", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(ebsmUseContextEClass, EBSMUseContext.class, "EBSMUseContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(typeUseContextEClass, TypeUseContext.class, "TypeUseContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

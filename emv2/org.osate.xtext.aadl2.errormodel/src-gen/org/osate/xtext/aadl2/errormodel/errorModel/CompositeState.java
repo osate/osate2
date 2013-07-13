@@ -4,7 +4,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +25,7 @@ import org.osate.aadl2.Element;
  * @model
  * @generated
  */
-public interface CompositeState extends EObject, Element
+public interface CompositeState extends EObject, NamedElement
 {
   /**
    * Returns the value of the '<em><b>Condition</b></em>' containment reference.
