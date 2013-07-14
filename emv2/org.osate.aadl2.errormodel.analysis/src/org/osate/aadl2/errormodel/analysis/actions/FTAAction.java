@@ -87,7 +87,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		Event						result;
 		
 		result = null;
-		FTAUtils.init();
+		FTAUtils.init(systemInstance);
 		EList<CompositeState> eslist = EMV2Util.getAllCompositeStates(systemInstance);
 		
 		componentInstances = EMV2Util.getComponentInstancesWithComponentErrorBehavior (systemInstance);
