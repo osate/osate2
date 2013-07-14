@@ -462,7 +462,7 @@ SConditionTerm returns ConditionExpression:
 
   
 SConditionElement returns ConditionElement:
-	(subcomponents+=SubcomponentElement '.')+ reference=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?
+	(subcomponents+=SubcomponentElement '.')+ state=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?
 ;
 
 SubcomponentElement returns SubcomponentElement:

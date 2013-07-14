@@ -17,7 +17,7 @@ import org.osate.aadl2.Element;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getSubcomponents <em>Subcomponents</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState <em>State</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,29 +96,29 @@ public interface ConditionElement extends Element, ConditionExpression
   EList<SubcomponentElement> getSubcomponents();
 
   /**
-   * Returns the value of the '<em><b>Reference</b></em>' reference.
+   * Returns the value of the '<em><b>State</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Reference</em>' reference isn't clear,
+   * If the meaning of the '<em>State</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Reference</em>' reference.
-   * @see #setReference(ErrorBehaviorState)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_Reference()
+   * @return the value of the '<em>State</em>' reference.
+   * @see #setState(ErrorBehaviorState)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getConditionElement_State()
    * @model
    * @generated
    */
-  ErrorBehaviorState getReference();
+  ErrorBehaviorState getState();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getReference <em>Reference</em>}' reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState <em>State</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Reference</em>' reference.
-   * @see #getReference()
+   * @param value the new value of the '<em>State</em>' reference.
+   * @see #getState()
    * @generated
    */
-  void setReference(ErrorBehaviorState value);
+  void setState(ErrorBehaviorState value);
 
 } // ConditionElement

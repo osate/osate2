@@ -15586,7 +15586,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     
             otherlv_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleSConditionElement13103); 
 
-            		newLeafNode(otherlv_2, grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateCrossReference_1_0()); 
+            		newLeafNode(otherlv_2, grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateCrossReference_1_0()); 
             	
 
             }

@@ -1084,7 +1084,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (subcomponents+=SubcomponentElement+ reference=[ErrorBehaviorState|ID] constraint=TypeTokenConstraint?)
+	 *     (subcomponents+=SubcomponentElement+ state=[ErrorBehaviorState|ID] constraint=TypeTokenConstraint?)
 	 */
 	protected void sequence_SConditionElement(EObject context, ConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

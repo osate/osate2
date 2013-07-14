@@ -36,7 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getSubcomponents <em>Subcomponents</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConditionElementImpl#getState <em>State</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,14 +75,14 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
   protected EList<SubcomponentElement> subcomponents;
 
   /**
-   * The cached value of the '{@link #getReference() <em>Reference</em>}' reference.
+   * The cached value of the '{@link #getState() <em>State</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getReference()
+   * @see #getState()
    * @generated
    * @ordered
    */
-  protected ErrorBehaviorState reference;
+  protected ErrorBehaviorState state;
 
   /**
    * <!-- begin-user-doc -->
@@ -215,19 +215,19 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorBehaviorState getReference()
+  public ErrorBehaviorState getState()
   {
-    if (reference != null && reference.eIsProxy())
+    if (state != null && state.eIsProxy())
     {
-      InternalEObject oldReference = (InternalEObject)reference;
-      reference = (ErrorBehaviorState)eResolveProxy(oldReference);
-      if (reference != oldReference)
+      InternalEObject oldState = (InternalEObject)state;
+      state = (ErrorBehaviorState)eResolveProxy(oldState);
+      if (state != oldState)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.CONDITION_ELEMENT__REFERENCE, oldReference, reference));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.CONDITION_ELEMENT__STATE, oldState, state));
       }
     }
-    return reference;
+    return state;
   }
 
   /**
@@ -235,9 +235,9 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorBehaviorState basicGetReference()
+  public ErrorBehaviorState basicGetState()
   {
-    return reference;
+    return state;
   }
 
   /**
@@ -245,12 +245,12 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setReference(ErrorBehaviorState newReference)
+  public void setState(ErrorBehaviorState newState)
   {
-    ErrorBehaviorState oldReference = reference;
-    reference = newReference;
+    ErrorBehaviorState oldState = state;
+    state = newState;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__REFERENCE, oldReference, reference));
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONDITION_ELEMENT__STATE, oldState, state));
   }
 
   /**
@@ -288,9 +288,9 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
         return getConstraint();
       case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
         return getSubcomponents();
-      case ErrorModelPackage.CONDITION_ELEMENT__REFERENCE:
-        if (resolve) return getReference();
-        return basicGetReference();
+      case ErrorModelPackage.CONDITION_ELEMENT__STATE:
+        if (resolve) return getState();
+        return basicGetState();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -316,8 +316,8 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
         getSubcomponents().clear();
         getSubcomponents().addAll((Collection<? extends SubcomponentElement>)newValue);
         return;
-      case ErrorModelPackage.CONDITION_ELEMENT__REFERENCE:
-        setReference((ErrorBehaviorState)newValue);
+      case ErrorModelPackage.CONDITION_ELEMENT__STATE:
+        setState((ErrorBehaviorState)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -342,8 +342,8 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
       case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
         getSubcomponents().clear();
         return;
-      case ErrorModelPackage.CONDITION_ELEMENT__REFERENCE:
-        setReference((ErrorBehaviorState)null);
+      case ErrorModelPackage.CONDITION_ELEMENT__STATE:
+        setState((ErrorBehaviorState)null);
         return;
     }
     super.eUnset(featureID);
@@ -365,8 +365,8 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
         return constraint != null;
       case ErrorModelPackage.CONDITION_ELEMENT__SUBCOMPONENTS:
         return subcomponents != null && !subcomponents.isEmpty();
-      case ErrorModelPackage.CONDITION_ELEMENT__REFERENCE:
-        return reference != null;
+      case ErrorModelPackage.CONDITION_ELEMENT__STATE:
+        return state != null;
     }
     return super.eIsSet(featureID);
   }

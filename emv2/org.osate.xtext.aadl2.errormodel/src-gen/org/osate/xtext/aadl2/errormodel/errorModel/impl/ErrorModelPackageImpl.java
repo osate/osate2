@@ -1989,7 +1989,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConditionElement_Reference()
+  public EReference getConditionElement_State()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(3);
   }
@@ -2621,7 +2621,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(conditionElementEClass, CONDITION_ELEMENT__INCOMING);
     createEReference(conditionElementEClass, CONDITION_ELEMENT__CONSTRAINT);
     createEReference(conditionElementEClass, CONDITION_ELEMENT__SUBCOMPONENTS);
-    createEReference(conditionElementEClass, CONDITION_ELEMENT__REFERENCE);
+    createEReference(conditionElementEClass, CONDITION_ELEMENT__STATE);
 
     eventOrPropagationEClass = createEClass(EVENT_OR_PROPAGATION);
 
@@ -2957,7 +2957,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getConditionElement_Incoming(), this.getEventOrPropagation(), null, "incoming", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConditionElement_Constraint(), this.getTypeSet(), null, "constraint", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConditionElement_Subcomponents(), this.getSubcomponentElement(), null, "subcomponents", null, 0, -1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionElement_Reference(), this.getErrorBehaviorState(), null, "reference", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConditionElement_State(), this.getErrorBehaviorState(), null, "state", null, 0, 1, ConditionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eventOrPropagationEClass, EventOrPropagation.class, "EventOrPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

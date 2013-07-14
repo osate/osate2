@@ -52773,31 +52773,31 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__SConditionElement__Group__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19734:1: rule__SConditionElement__Group__1__Impl : ( ( rule__SConditionElement__ReferenceAssignment_1 ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19734:1: rule__SConditionElement__Group__1__Impl : ( ( rule__SConditionElement__StateAssignment_1 ) ) ;
     public final void rule__SConditionElement__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19738:1: ( ( ( rule__SConditionElement__ReferenceAssignment_1 ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19739:1: ( ( rule__SConditionElement__ReferenceAssignment_1 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19738:1: ( ( ( rule__SConditionElement__StateAssignment_1 ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19739:1: ( ( rule__SConditionElement__StateAssignment_1 ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19739:1: ( ( rule__SConditionElement__ReferenceAssignment_1 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19740:1: ( rule__SConditionElement__ReferenceAssignment_1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19739:1: ( ( rule__SConditionElement__StateAssignment_1 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19740:1: ( rule__SConditionElement__StateAssignment_1 )
             {
-             before(grammarAccess.getSConditionElementAccess().getReferenceAssignment_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19741:1: ( rule__SConditionElement__ReferenceAssignment_1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19741:2: rule__SConditionElement__ReferenceAssignment_1
+             before(grammarAccess.getSConditionElementAccess().getStateAssignment_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19741:1: ( rule__SConditionElement__StateAssignment_1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:19741:2: rule__SConditionElement__StateAssignment_1
             {
-            pushFollow(FollowSets001.FOLLOW_rule__SConditionElement__ReferenceAssignment_1_in_rule__SConditionElement__Group__1__Impl39875);
-            rule__SConditionElement__ReferenceAssignment_1();
+            pushFollow(FollowSets001.FOLLOW_rule__SConditionElement__StateAssignment_1_in_rule__SConditionElement__Group__1__Impl39875);
+            rule__SConditionElement__StateAssignment_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getSConditionElementAccess().getReferenceAssignment_1()); 
+             after(grammarAccess.getSConditionElementAccess().getStateAssignment_1()); 
 
             }
 
@@ -70223,9 +70223,9 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__SConditionElement__SubcomponentsAssignment_0_0"
 
 
-    // $ANTLR start "rule__SConditionElement__ReferenceAssignment_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:26557:1: rule__SConditionElement__ReferenceAssignment_1 : ( ( RULE_ID ) ) ;
-    public final void rule__SConditionElement__ReferenceAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__SConditionElement__StateAssignment_1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:26557:1: rule__SConditionElement__StateAssignment_1 : ( ( RULE_ID ) ) ;
+    public final void rule__SConditionElement__StateAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -70236,17 +70236,17 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:26562:1: ( ( RULE_ID ) )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:26563:1: ( RULE_ID )
             {
-             before(grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateCrossReference_1_0()); 
+             before(grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateCrossReference_1_0()); 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:26564:1: ( RULE_ID )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:26565:1: RULE_ID
             {
-             before(grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateIDTerminalRuleCall_1_0_1()); 
-            match(input,RULE_ID,FollowSets002.FOLLOW_RULE_ID_in_rule__SConditionElement__ReferenceAssignment_153520); 
-             after(grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateIDTerminalRuleCall_1_0_1()); 
+             before(grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateIDTerminalRuleCall_1_0_1()); 
+            match(input,RULE_ID,FollowSets002.FOLLOW_RULE_ID_in_rule__SConditionElement__StateAssignment_153520); 
+             after(grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateIDTerminalRuleCall_1_0_1()); 
 
             }
 
-             after(grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateCrossReference_1_0()); 
+             after(grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateCrossReference_1_0()); 
 
             }
 
@@ -70265,7 +70265,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__SConditionElement__ReferenceAssignment_1"
+    // $ANTLR end "rule__SConditionElement__StateAssignment_1"
 
 
     // $ANTLR start "rule__SConditionElement__ConstraintAssignment_2"
@@ -73998,7 +73998,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__SConditionElement__Group_0__0_in_rule__SConditionElement__Group__0__Impl39812 = new BitSet(new long[]{0x0000000000000002L,0x0000000800000000L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group__1__Impl_in_rule__SConditionElement__Group__139845 = new BitSet(new long[]{0x0000000000000000L,0x0000000800800004L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group__2_in_rule__SConditionElement__Group__139848 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__SConditionElement__ReferenceAssignment_1_in_rule__SConditionElement__Group__1__Impl39875 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__SConditionElement__StateAssignment_1_in_rule__SConditionElement__Group__1__Impl39875 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group__2__Impl_in_rule__SConditionElement__Group__239905 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionElement__ConstraintAssignment_2_in_rule__SConditionElement__Group__2__Impl39932 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__SConditionElement__Group_0__0__Impl_in_rule__SConditionElement__Group_0__039969 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
@@ -74494,7 +74494,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_ruleSConditionElement_in_rule__SOrlessExpression__OperandsAssignment_353423 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleSConditionElement_in_rule__SOrlessExpression__OperandsAssignment_4_153454 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleSubcomponentElement_in_rule__SConditionElement__SubcomponentsAssignment_0_053485 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_rule__SConditionElement__ReferenceAssignment_153520 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_rule__SConditionElement__StateAssignment_153520 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleTypeTokenConstraint_in_rule__SConditionElement__ConstraintAssignment_253555 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_rule__SubcomponentElement__SubcomponentAssignment53590 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQPREF_in_rule__ContainedPropertyAssociation__PropertyAssignment_053629 = new BitSet(new long[]{0x0000000000000002L});

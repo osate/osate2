@@ -189,7 +189,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/incoming"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/constraint"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/subcomponents"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/reference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ConditionElement/state"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//EventOrPropagation"/>
     <genClasses ecoreClass="ErrorModel.ecore#//OutgoingPropagationCondition">

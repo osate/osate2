@@ -19737,9 +19737,9 @@ rule__SConditionElement__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getSConditionElementAccess().getReferenceAssignment_1()); }
-(rule__SConditionElement__ReferenceAssignment_1)
-{ after(grammarAccess.getSConditionElementAccess().getReferenceAssignment_1()); }
+{ before(grammarAccess.getSConditionElementAccess().getStateAssignment_1()); }
+(rule__SConditionElement__StateAssignment_1)
+{ after(grammarAccess.getSConditionElementAccess().getStateAssignment_1()); }
 )
 
 ;
@@ -26554,18 +26554,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__SConditionElement__ReferenceAssignment_1
+rule__SConditionElement__StateAssignment_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateCrossReference_1_0()); }
+{ before(grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateCrossReference_1_0()); }
 (
-{ before(grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateIDTerminalRuleCall_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateIDTerminalRuleCall_1_0_1()); }
+{ before(grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateIDTerminalRuleCall_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateIDTerminalRuleCall_1_0_1()); }
 )
-{ after(grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateCrossReference_1_0()); }
+{ after(grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateCrossReference_1_0()); }
 )
 
 ;

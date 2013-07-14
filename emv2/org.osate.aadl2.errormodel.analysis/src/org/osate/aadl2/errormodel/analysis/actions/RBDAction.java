@@ -95,7 +95,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 	{
 		double result = 0;
 
-		ErrorBehaviorState behaviorState = conditionElement.getReference();
+		ErrorBehaviorState behaviorState = conditionElement.getState();
 		TypeSet ts = conditionElement.getConstraint();
 
 		ComponentInstance relatedInstance = findInstance(root, conditionElement.getSubcomponents());

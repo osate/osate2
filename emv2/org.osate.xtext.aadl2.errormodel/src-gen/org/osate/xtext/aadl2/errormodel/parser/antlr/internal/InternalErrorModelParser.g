@@ -6192,7 +6192,7 @@ ruleSConditionElement returns [EObject current=null]
         }
 	otherlv_2=RULE_ID
 	{
-		newLeafNode(otherlv_2, grammarAccess.getSConditionElementAccess().getReferenceErrorBehaviorStateCrossReference_1_0()); 
+		newLeafNode(otherlv_2, grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateCrossReference_1_0()); 
 	}
 
 )

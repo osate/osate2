@@ -253,7 +253,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponents" upperBound="-1"
         eType="#//SubcomponentElement" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//ErrorBehaviorState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ErrorBehaviorState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventOrPropagation" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="OutgoingPropagationCondition" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">

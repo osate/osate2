@@ -285,7 +285,7 @@ public class Module {
 	private Expression handleElement (final ConditionElement conditionElement)
 	{
 
-		ErrorBehaviorState behaviorState = conditionElement.getReference();
+		ErrorBehaviorState behaviorState = conditionElement.getState();
 
 		for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
 		{

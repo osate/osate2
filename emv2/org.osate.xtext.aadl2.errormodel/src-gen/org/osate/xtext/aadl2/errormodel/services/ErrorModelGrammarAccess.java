@@ -4540,18 +4540,18 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cSubcomponentsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
 		private final RuleCall cSubcomponentsSubcomponentElementParserRuleCall_0_0_0 = (RuleCall)cSubcomponentsAssignment_0_0.eContents().get(0);
 		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cReferenceAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cReferenceErrorBehaviorStateCrossReference_1_0 = (CrossReference)cReferenceAssignment_1.eContents().get(0);
-		private final RuleCall cReferenceErrorBehaviorStateIDTerminalRuleCall_1_0_1 = (RuleCall)cReferenceErrorBehaviorStateCrossReference_1_0.eContents().get(1);
+		private final Assignment cStateAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cStateErrorBehaviorStateCrossReference_1_0 = (CrossReference)cStateAssignment_1.eContents().get(0);
+		private final RuleCall cStateErrorBehaviorStateIDTerminalRuleCall_1_0_1 = (RuleCall)cStateErrorBehaviorStateCrossReference_1_0.eContents().get(1);
 		private final Assignment cConstraintAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cConstraintTypeTokenConstraintParserRuleCall_2_0 = (RuleCall)cConstraintAssignment_2.eContents().get(0);
 		
 		//SConditionElement returns ConditionElement:
 		//
-		//	(subcomponents+=SubcomponentElement ".")+ reference=[ErrorBehaviorState] constraint=TypeTokenConstraint?;
+		//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?;
 		public ParserRule getRule() { return rule; }
 
-		//(subcomponents+=SubcomponentElement ".")+ reference=[ErrorBehaviorState] constraint=TypeTokenConstraint?
+		//(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?
 		public Group getGroup() { return cGroup; }
 
 		//(subcomponents+=SubcomponentElement ".")+
@@ -4566,14 +4566,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"."
 		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
 
-		//reference=[ErrorBehaviorState]
-		public Assignment getReferenceAssignment_1() { return cReferenceAssignment_1; }
+		//state=[ErrorBehaviorState]
+		public Assignment getStateAssignment_1() { return cStateAssignment_1; }
 
 		//[ErrorBehaviorState]
-		public CrossReference getReferenceErrorBehaviorStateCrossReference_1_0() { return cReferenceErrorBehaviorStateCrossReference_1_0; }
+		public CrossReference getStateErrorBehaviorStateCrossReference_1_0() { return cStateErrorBehaviorStateCrossReference_1_0; }
 
 		//ID
-		public RuleCall getReferenceErrorBehaviorStateIDTerminalRuleCall_1_0_1() { return cReferenceErrorBehaviorStateIDTerminalRuleCall_1_0_1; }
+		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_1_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_1_0_1; }
 
 		//constraint=TypeTokenConstraint?
 		public Assignment getConstraintAssignment_2() { return cConstraintAssignment_2; }
@@ -5641,7 +5641,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//SConditionElement returns ConditionElement:
 	//
-	//	(subcomponents+=SubcomponentElement ".")+ reference=[ErrorBehaviorState] constraint=TypeTokenConstraint?;
+	//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?;
 	public SConditionElementElements getSConditionElementAccess() {
 		return (pSConditionElement != null) ? pSConditionElement : (pSConditionElement = new SConditionElementElements());
 	}

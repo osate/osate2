@@ -805,10 +805,10 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						{
 							se.getSubcomponent();
 							//OsateDebug.osateDebug("se=" + se);
-							EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getReference(),null);
+							EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getState(),null);
 							if (PA.isEmpty())
 							{
-								warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for " + EMV2Util.getPrintName(se) + " and reference " + EMV2Util.getPrintName(ce.getReference()) );
+								warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for " + EMV2Util.getPrintName(se) + " and state " + EMV2Util.getPrintName(ce.getState()) );
 							}
 							else
 							{

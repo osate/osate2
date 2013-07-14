@@ -238,6 +238,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkConditionElementType(ConditionElement conditionElement) {
 		EventOrPropagation ep = conditionElement.getIncoming();
+		ErrorBehaviorState es = conditionElement.getState();
 		TypeSet triggerTS = null;
 		String triggerName = "";
 		if (ep instanceof ErrorPropagation){
@@ -246,11 +247,15 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		} else if (ep instanceof ErrorEvent){
 			triggerTS = ((ErrorEvent)ep).getTypeSet();
 			triggerName = "event "+((ErrorBehaviorEvent)ep).getName();
+		} else if (es != null){
+			triggerTS = es.getTypeSet();
+			triggerName = "state "+((ErrorBehaviorEvent)ep).getName();
 		}
 		TypeSet condTS = conditionElement.getConstraint();
 		if (triggerTS == null&&condTS == null) return;
-		if (triggerTS == null && condTS != null){
-			error(conditionElement,"Condition has type contraint but referenced "+triggerName+" does not.");
+		if (triggerTS == null && condTS != null&& es == null){
+			// it is ok for a state not to have a type set.
+			error(conditionElement,"Condition has type constraint but referenced "+triggerName+" does not.");
 		} else 
 		if (!EM2TypeSetUtil.contains(triggerTS,
 				condTS)) {

@@ -445,7 +445,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_3(), "rule__SOrlessExpression__OperandsAssignment_3");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_4_1(), "rule__SOrlessExpression__OperandsAssignment_4_1");
 					put(grammarAccess.getSConditionElementAccess().getSubcomponentsAssignment_0_0(), "rule__SConditionElement__SubcomponentsAssignment_0_0");
-					put(grammarAccess.getSConditionElementAccess().getReferenceAssignment_1(), "rule__SConditionElement__ReferenceAssignment_1");
+					put(grammarAccess.getSConditionElementAccess().getStateAssignment_1(), "rule__SConditionElement__StateAssignment_1");
 					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_2(), "rule__SConditionElement__ConstraintAssignment_2");
 					put(grammarAccess.getSubcomponentElementAccess().getSubcomponentAssignment(), "rule__SubcomponentElement__SubcomponentAssignment");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getPropertyAssignment_0(), "rule__ContainedPropertyAssociation__PropertyAssignment_0");

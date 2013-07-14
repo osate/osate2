@@ -145,18 +145,18 @@ public class FTAUtils
 
 		cl = relatedInstance.getComponentClassifier();
 
-		OsateDebug.osateDebug("relatedInstance" + relatedInstance);
-		OsateDebug.osateDebug("condition ref" + conditionElement.getReference());
-		OsateDebug.osateDebug("Classifier=" + cl);
+//		OsateDebug.osateDebug("relatedInstance" + relatedInstance);
+//		OsateDebug.osateDebug("condition state" + conditionElement.getState());
+//		OsateDebug.osateDebug("Classifier=" + cl);
 		
 		if (EMV2Util.hasComponentErrorBehavior(relatedInstance))
 		{
 			Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(cl);
 			for (ErrorBehaviorTransition t : transitions)
 			{
-				OsateDebug.osateDebug( " trans = " + t + "|" + t.getName());
-				OsateDebug.osateDebug("target="  + t.getTarget().getName());
-				OsateDebug.osateDebug("condition="  + t.getCondition());
+//				OsateDebug.osateDebug( " trans = " + t + "|" + t.getName());
+//				OsateDebug.osateDebug("target="  + t.getTarget().getName());
+//				OsateDebug.osateDebug("condition="  + t.getCondition());
 				if (t.getCondition() instanceof ConditionElement)
 				{
 					ConditionElement ce = (ConditionElement) t.getCondition();
@@ -285,7 +285,7 @@ public class FTAUtils
 			
 			conditionElement = (ConditionElement) cond;
 
-			ErrorBehaviorState behaviorState = conditionElement.getReference();
+			ErrorBehaviorState behaviorState = conditionElement.getState();
 
 			for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
 			{

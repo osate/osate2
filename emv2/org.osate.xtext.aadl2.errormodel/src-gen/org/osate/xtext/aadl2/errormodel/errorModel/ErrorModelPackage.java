@@ -3078,13 +3078,13 @@ public interface ErrorModelPackage extends EPackage
   int CONDITION_ELEMENT__SUBCOMPONENTS = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Reference</b></em>' reference.
+   * The feature id for the '<em><b>State</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONDITION_ELEMENT__REFERENCE = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int CONDITION_ELEMENT__STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Condition Element</em>' class.
@@ -5480,15 +5480,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getConditionElement_Subcomponents();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getReference <em>Reference</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState <em>State</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Reference</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getReference()
+   * @return the meta object for the reference '<em>State</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement#getState()
    * @see #getConditionElement()
    * @generated
    */
-  EReference getConditionElement_Reference();
+  EReference getConditionElement_State();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation <em>Event Or Propagation</em>}'.
@@ -7217,12 +7217,12 @@ public interface ErrorModelPackage extends EPackage
     EReference CONDITION_ELEMENT__SUBCOMPONENTS = eINSTANCE.getConditionElement_Subcomponents();
 
     /**
-     * The meta object literal for the '<em><b>Reference</b></em>' reference feature.
+     * The meta object literal for the '<em><b>State</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CONDITION_ELEMENT__REFERENCE = eINSTANCE.getConditionElement_Reference();
+    EReference CONDITION_ELEMENT__STATE = eINSTANCE.getConditionElement_State();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.EventOrPropagationImpl <em>Event Or Propagation</em>}' class.
