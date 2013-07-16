@@ -25,6 +25,8 @@ public class ParseUtil {
 		if ((annexName != null)&&(annexNSName != null))
 		{
 //			OsateDebug.osateDebug("called setAnnexNSURI with " + annexName + annexNSName);
+			annexName = annexName.toLowerCase();
+			if (annexNS.get(annexName) == null)
 			annexNS.put(annexName, annexNSName);
 		}	
 	}
@@ -32,7 +34,7 @@ public class ParseUtil {
 	public static String getAnnexNS(String annexName)
 	{
 		String ns;
-		
+		annexName = annexName.toLowerCase();
 		ns = annexNS.get(annexName);
 //		if ((annexName!=null) && (ns != null))
 //		{

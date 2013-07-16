@@ -67,6 +67,8 @@ import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.annexsupport.AnnexParserRegistry;
+import org.osate.annexsupport.AnnexRegistry;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IAadlWorkspace;
@@ -3721,9 +3723,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (PropertyOwner appliesTo : pd.getAppliesTos()) {
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
-				if (appliesTo instanceof MetaclassReference
-						&& ((MetaclassReference) appliesTo).getMetaclass() != null) {
+				if (appliesTo instanceof MetaclassReference&&((MetaclassReference) appliesTo).getAnnexName()!=null){
+					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+						if (((MetaclassReference) appliesTo).getMetaclass() != null) {
 				}
+			}
 			} catch (IllegalArgumentException e) {
 //				e.printStackTrace();
 				String msg = e.getMessage();
