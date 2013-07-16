@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
@@ -347,27 +348,76 @@ public class FTAUtils
 
 			ErrorBehaviorState behaviorState = conditionElement.getState();
 
+			/**
+			 * First, we see if the condition is bound to any other subcomponent
+			 * So, if it comes from an incoming propagation
+			 */
 			if (conditionElement.getSubcomponents().size() == 0)
 			{
 				if (conditionElement.getIncoming() instanceof ErrorPropagation)
 				{
-					ErrorPropagation ep = (ErrorPropagation) conditionElement.getIncoming();
-					event.setEventType(EventType.EVENT);
+					List<Event> toAdd = new ArrayList<Event>();
+					Event tmpEvent;
 					
-					if (ep.getFeatureorPPRefs() instanceof Feature)
+					ErrorPropagation ep = (ErrorPropagation) conditionElement.getIncoming();
+					
+
+					for (FeatureorPPReference fppr : ep.getFeatureorPPRefs())
 					{
-						event.setName(((Feature)ep.getFeatureorPPRefs()).getName());
+							//OsateDebug.osateDebug("BLA" + fppr.getFeatureorPP());
+						tmpEvent = new Event();
+						tmpEvent.setEventType(EventType.EVENT);
+						tmpEvent.setName(fppr.getFeatureorPP().getName());
+						toAdd.add(tmpEvent);
+					}
+//						event.setName("unknown fault");
+					
+//					
+//					for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(relatedComponentInstance, ep))
+//					{
+//						ComponentInstance ciSource = ppe.getComponentInstance();
+//						Collection<OutgoingPropagationCondition> outConditions = EMV2Util.getAllOutgoingPropagationConditions(ciSource);
+//						if (outConditions)
+//						OsateDebug.osateDebug("ppe="+ppe.getComponentInstance());
+//						
+//					}
+//					for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(relatedComponentInstance))
+//					{
+//						if (opc.getState() == resultingBehaviorState)
+//						{
+//							OsateDebug.osateDebug("BLA=" + opc.getOutgoing().getName());
+//						}
+//					}
+					
+					for (CompositeState cs : EMV2Util.getAllCompositeStates(relatedComponentInstance))
+					{
+						if (cs.getState() == resultingBehaviorState)
+						{
+							tmpEvent = new Event();
+
+							handleCondition (tmpEvent, resultingBehaviorState, relatedComponentInstance, cs.getCondition(), componentInstances);
+							toAdd.add(tmpEvent);
+							
+							//OsateDebug.osateDebug("BLA2=" + cs.getState());
+
+						}
+					}
+					
+					if (toAdd.size() == 1)
+					{
+						event.setName(toAdd.get(0).getName());
+						event.setEventType(toAdd.get(0).getEventType());
 					}
 					else
 					{
-						for (FeatureorPPReference fppr : ep.getFeatureorPPRefs())
+						event.setEventType(EventType.OR);
+						for (Event e : toAdd)
 						{
-							//OsateDebug.osateDebug("BLA" + fppr.getFeatureorPP());
-
-							event.setName(fppr.getFeatureorPP().getName());
+							event.addSubEvent(e);
 						}
-//						event.setName("unknown fault");
 					}
+						
+
 				}
 				if (conditionElement.getIncoming() instanceof ErrorEvent)
 				{
@@ -378,6 +428,10 @@ public class FTAUtils
 			}
 			else
 			{
+			/**
+			 * Here, the condition is associated to some subcomponent so we assume
+			 * it is associated with another composite error states. 
+			 */
 				for (SubcomponentElement subcomponentElement : conditionElement.getSubcomponents())
 				{
 					Subcomponent subcomponent = subcomponentElement.getSubcomponent();
