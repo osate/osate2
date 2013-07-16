@@ -206,7 +206,7 @@ public class PropagateErrorSources {
 			
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(ci))
 			{
-				if (opc.getTypeToken().isNoError())
+				if (opc.getTypeToken() != null && opc.getTypeToken().isNoError())
 				{
 					continue;
 				}
@@ -265,26 +265,28 @@ public class PropagateErrorSources {
 			String failuremodeDesc = errorSource.getFailureModeDescription();
 			for (ErrorPropagation ep : eplist){
 				TypeSet tsep = ep.getTypeSet();
-				EList<TypeToken> result = ts!=null?ts.getTypeTokens():tsep.getTypeTokens();
-				//EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
-				for (TypeToken typeToken : result)
-				{
-					String failuremodeText;
-					if (failuremodeDesc == null){
-						failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:(failureTypeSet!=null?failureTypeSet:typeToken));
-					} else {
-						failuremodeText = failuremodeDesc;
-					}
-					if (failureMode == null&&failureTypeSet==null)
+				if (ts != null || tsep != null){
+					EList<TypeToken> result = ts!=null?ts.getTypeTokens():tsep.getTypeTokens();
+					//EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
+					for (TypeToken typeToken : result)
 					{
-						if (! handledTypes.contains (typeToken))
+						String failuremodeText;
+						if (failuremodeDesc == null){
+							failuremodeText = generateOriginalFailureModeText(failureMode!=null?failureMode:(failureTypeSet!=null?failureTypeSet:typeToken));
+						} else {
+							failuremodeText = failuremodeDesc;
+						}
+						if (failureMode == null&&failureTypeSet==null)
+						{
+							if (! handledTypes.contains (typeToken))
+							{
+								traceErrorPaths(ci,ep,typeToken,2,componentText+","+failuremodeText);
+							}
+						}
+						else
 						{
 							traceErrorPaths(ci,ep,typeToken,2,componentText+","+failuremodeText);
 						}
-					}
-					else
-					{
-						traceErrorPaths(ci,ep,typeToken,2,componentText+","+failuremodeText);
 					}
 				}
 			}
@@ -306,12 +308,14 @@ public class PropagateErrorSources {
 		for (ErrorPropagation ep : eplist){
 			FeatureInstance fi = EMV2Util.findFeatureInstance(ep, root);
 			TypeSet tsep = ep.getTypeSet();
-			EList<TypeToken> result = tsep.getTypeTokens();
-			// XXX use this if we want all leaf types: EM2TypeSetUtil.generateAllLeafTypeTokens(tsep,EMV2Util.getContainingTypeUseContext(errorSource));
-			for (TypeToken typeToken : result)
-			{
-				String failuremodeText = generateErrorPropTypeTokenText(ep,typeToken);
-				traceErrorPaths(root,ep,typeToken,2,componentText+", "+failuremodeText);
+			if (tsep != null){
+				EList<TypeToken> result = tsep.getTypeTokens();
+				// XXX use this if we want all leaf types: EM2TypeSetUtil.generateAllLeafTypeTokens(tsep,EMV2Util.getContainingTypeUseContext(errorSource));
+				for (TypeToken typeToken : result)
+				{
+					String failuremodeText = generateErrorPropTypeTokenText(ep,typeToken);
+					traceErrorPaths(root,ep,typeToken,2,componentText+", "+failuremodeText);
+				}
 			}
 		}
 	}
