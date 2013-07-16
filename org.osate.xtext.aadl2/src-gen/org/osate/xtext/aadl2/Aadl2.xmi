@@ -9473,33 +9473,64 @@
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:Keyword" value="system"/>
-        <elements xsi:type="xtext:Keyword" value="thread"/>
-        <elements xsi:type="xtext:Keyword" value="group"/>
-        <elements xsi:type="xtext:Keyword" value="process"/>
-        <elements xsi:type="xtext:Keyword" value="data"/>
-        <elements xsi:type="xtext:Keyword" value="processor"/>
-        <elements xsi:type="xtext:Keyword" value="memory"/>
-        <elements xsi:type="xtext:Keyword" value="device"/>
-        <elements xsi:type="xtext:Keyword" value="bus"/>
-        <elements xsi:type="xtext:Keyword" value="virtual"/>
-        <elements xsi:type="xtext:Keyword" value="subprogram"/>
-        <elements xsi:type="xtext:Keyword" value="feature"/>
-        <elements xsi:type="xtext:Keyword" value="package"/>
-        <elements xsi:type="xtext:Keyword" value="parameter"/>
-        <elements xsi:type="xtext:Keyword" value="port"/>
-        <elements xsi:type="xtext:Keyword" value="calls"/>
-        <elements xsi:type="xtext:Keyword" value="event"/>
-        <elements xsi:type="xtext:Keyword" value="flow"/>
-        <elements xsi:type="xtext:Keyword" value="implementation"/>
-        <elements xsi:type="xtext:Keyword" value="type"/>
-        <elements xsi:type="xtext:Keyword" value="mode"/>
-        <elements xsi:type="xtext:Keyword" value="prototype"/>
-        <elements xsi:type="xtext:Keyword" value="to"/>
-        <elements xsi:type="xtext:Keyword" value="end"/>
         <elements xsi:type="xtext:Keyword" value="abstract"/>
         <elements xsi:type="xtext:Keyword" value="access"/>
+        <elements xsi:type="xtext:Keyword" value="annex"/>
+        <elements xsi:type="xtext:Keyword" value="applies"/>
+        <elements xsi:type="xtext:Keyword" value="bus"/>
+        <elements xsi:type="xtext:Keyword" value="calls"/>
         <elements xsi:type="xtext:Keyword" value="classifier"/>
+        <elements xsi:type="xtext:Keyword" value="connections"/>
+        <elements xsi:type="xtext:Keyword" value="constant"/>
+        <elements xsi:type="xtext:Keyword" value="data"/>
+        <elements xsi:type="xtext:Keyword" value="device"/>
+        <elements xsi:type="xtext:Keyword" value="end"/>
+        <elements xsi:type="xtext:Keyword" value="enumeration"/>
+        <elements xsi:type="xtext:Keyword" value="event"/>
+        <elements xsi:type="xtext:Keyword" value="extends"/>
+        <elements xsi:type="xtext:Keyword" value="feature"/>
+        <elements xsi:type="xtext:Keyword" value="features"/>
+        <elements xsi:type="xtext:Keyword" value="flow"/>
+        <elements xsi:type="xtext:Keyword" value="flows"/>
+        <elements xsi:type="xtext:Keyword" value="group"/>
+        <elements xsi:type="xtext:Keyword" value="implementation"/>
+        <elements xsi:type="xtext:Keyword" value="in"/>
+        <elements xsi:type="xtext:Keyword" value="inherit"/>
+        <elements xsi:type="xtext:Keyword" value="initial"/>
+        <elements xsi:type="xtext:Keyword" value="inverse"/>
+        <elements xsi:type="xtext:Keyword" value="is"/>
+        <elements xsi:type="xtext:Keyword" value="list"/>
+        <elements xsi:type="xtext:Keyword" value="memory"/>
+        <elements xsi:type="xtext:Keyword" value="mode"/>
+        <elements xsi:type="xtext:Keyword" value="modes"/>
+        <elements xsi:type="xtext:Keyword" value="none"/>
+        <elements xsi:type="xtext:Keyword" value="of"/>
+        <elements xsi:type="xtext:Keyword" value="out"/>
+        <elements xsi:type="xtext:Keyword" value="package"/>
+        <elements xsi:type="xtext:Keyword" value="parameter"/>
+        <elements xsi:type="xtext:Keyword" value="path"/>
+        <elements xsi:type="xtext:Keyword" value="port"/>
+        <elements xsi:type="xtext:Keyword" value="private"/>
+        <elements xsi:type="xtext:Keyword" value="process"/>
+        <elements xsi:type="xtext:Keyword" value="processor"/>
+        <elements xsi:type="xtext:Keyword" value="prototypes"/>
+        <elements xsi:type="xtext:Keyword" value="provides"/>
+        <elements xsi:type="xtext:Keyword" value="public"/>
+        <elements xsi:type="xtext:Keyword" value="refined"/>
+        <elements xsi:type="xtext:Keyword" value="renames"/>
+        <elements xsi:type="xtext:Keyword" value="requires"/>
+        <elements xsi:type="xtext:Keyword" value="self"/>
+        <elements xsi:type="xtext:Keyword" value="set"/>
+        <elements xsi:type="xtext:Keyword" value="sink"/>
+        <elements xsi:type="xtext:Keyword" value="source"/>
+        <elements xsi:type="xtext:Keyword" value="subcomponents"/>
+        <elements xsi:type="xtext:Keyword" value="subprogram"/>
+        <elements xsi:type="xtext:Keyword" value="system"/>
+        <elements xsi:type="xtext:Keyword" value="thread"/>
+        <elements xsi:type="xtext:Keyword" value="type"/>
+        <elements xsi:type="xtext:Keyword" value="to"/>
+        <elements xsi:type="xtext:Keyword" value="virtual"/>
+        <elements xsi:type="xtext:Keyword" value="with"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="PNAME">
