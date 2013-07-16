@@ -942,7 +942,11 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID 
 	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
-	 *         ((failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetReference?) | failureModeDescription=STRING)?
+	 *         (
+	 *             (failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetReference?) | 
+	 *             failureModeType=TypeSetConstructor | 
+	 *             failureModeDescription=STRING
+	 *         )?
 	 *     )
 	 */
 	protected void sequence_ErrorSource(EObject context, ErrorSource semanticObject) {

@@ -3289,9 +3289,15 @@ rule__ErrorSource__Alternatives_6_1
 )
 
     |(
-{ before(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_1()); }
-(rule__ErrorSource__FailureModeDescriptionAssignment_6_1_1)
-{ after(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_1()); }
+{ before(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_6_1_1()); }
+(rule__ErrorSource__FailureModeTypeAssignment_6_1_1)
+{ after(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_6_1_1()); }
+)
+
+    |(
+{ before(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_2()); }
+(rule__ErrorSource__FailureModeDescriptionAssignment_6_1_2)
+{ after(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_2()); }
 )
 
 ;
@@ -24553,14 +24559,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ErrorSource__FailureModeDescriptionAssignment_6_1_1
+rule__ErrorSource__FailureModeTypeAssignment_6_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0()); }
-	RULE_STRING{ after(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0()); }
+{ before(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0()); }
+	ruleTypeSetConstructor{ after(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ErrorSource__FailureModeDescriptionAssignment_6_1_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0()); }
+	RULE_STRING{ after(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0()); }
 )
 
 ;

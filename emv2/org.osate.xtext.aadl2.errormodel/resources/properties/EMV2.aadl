@@ -4,7 +4,9 @@ property set EMV2
   is
   
 OccurrenceDistribution : EMV2::DistributionSpecification
-	  applies to (all); -- (error propagation, error source, error behavior event)
+	  applies to ({emv2}**error propagation, {emv2}**error source, {emv2}**error behavior event
+	  ,{emv2}**error behavior state,{emv2}**error type,{emv2}**type set);
+   
 
 --needed to separate the property "Occurrence" from its type declaration
 --so other properties may have that type
@@ -32,26 +34,30 @@ DurationDistributionSpecification : type record (
 	Duration : Time_Range;
 	Distribution : EMV2::DistributionFunction;); 
 	  
-DurationDistribution : EMV2::DurationDistributionSpecification applies to (all); -- (Repair Event, Recover Event);
+DurationDistribution : EMV2::DurationDistributionSpecification applies to ({emv2}**Repair Event, {emv2}**Recover Event);
 
 -- A PropagationTimeDelay property indicates the delay in propagating and error as a distribution over a time interval. 
 -- For example, as a property associated with a connection it indicates the time delay of the error propagation.
 
 PropagationTimeDelay: EMV2::DurationDistributionSpecification
-    applies to (all); --(connection, propagation point connection);
+    applies to (connection, {emv2}**propagation point connection);
 
 StateKind : EMV2::StateKindEnum
-	  applies to (all); -- (error behavior state);
+	  applies to ({emv2}**error behavior state);
 
 StateKindEnum: type enumeration (Working, NonWorking);
 
+-- Indicates whether an error type is detectable
+Detectable : aadlboolean
+	  applies to ({emv2}**error behavior state, {emv2}**error propagation, {emv2}**error type, {emv2}**type set); 
+ 
 
 -- The FaultKind property allows the user to specify whether an error source, 
 -- i.e., the occurrence of a fault activation or a propagation is due to a design fault or an operational fault. 
 -- Design faults are faults that could be eliminated at design time, but if present result in an error. 
 -- Operational faults are faults that inherently occur during operation and should be detected and managed during operation.
 FaultKind : EMV2::FaultKindEnum
-	  applies to (all); -- error event, error propagation, error type, type set, type token); 
+	  applies to ( {emv2}**error event, {emv2}**error propagation, {emv2}**error type, {emv2}**type set); 
 
 FaultKindEnum: type enumeration (Design, Operational);
 
@@ -62,7 +68,8 @@ FaultKindEnum: type enumeration (Design, Operational);
 -- In a discrete event system a transient error may last over several discrete events, e.g., a corrupted message may be sent over multiple periods. 
 -- A singleton error occurs in the context of a single discrete event. For example, a divide by zero error may be specific to a computation on a particular input.
 Persistence : EMV2::PersistenceEnum
-	  applies to (all); -- (error type, type token, type set, error behavior state, error behavior event, error propagation);
+	  applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
+	  {emv2}**error behavior event, {emv2}**error propagation);
 
 PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 
@@ -89,6 +96,8 @@ Hazard: record
   	comment : aadlstring;) applies to (all);
   	
 DetectionMechanism : aadlstring applies to (all); 
+
+Description : aadlstring applies to (all); 
 
 
 end EMV2;

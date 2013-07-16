@@ -205,7 +205,7 @@ ErrorSource returns ErrorSource:
   	|allOutgoing?='all'
   ) (typeTokenConstraint=TypeTokenConstraint)?
   	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetReference )?) 
-  		 | failureModeDescription = STRING
+  	| ( failureModeType = TypeSetConstructor )	 | failureModeDescription = STRING
   	) )?
   ';';
  

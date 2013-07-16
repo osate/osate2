@@ -326,7 +326,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorSourceAccess().getTypeTokenConstraintAssignment_5(), "rule__ErrorSource__TypeTokenConstraintAssignment_5");
 					put(grammarAccess.getErrorSourceAccess().getFailureModeReferenceAssignment_6_1_0_0(), "rule__ErrorSource__FailureModeReferenceAssignment_6_1_0_0");
 					put(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_6_1_0_1(), "rule__ErrorSource__FailureModeTypeAssignment_6_1_0_1");
-					put(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_1(), "rule__ErrorSource__FailureModeDescriptionAssignment_6_1_1");
+					put(grammarAccess.getErrorSourceAccess().getFailureModeTypeAssignment_6_1_1(), "rule__ErrorSource__FailureModeTypeAssignment_6_1_1");
+					put(grammarAccess.getErrorSourceAccess().getFailureModeDescriptionAssignment_6_1_2(), "rule__ErrorSource__FailureModeDescriptionAssignment_6_1_2");
 					put(grammarAccess.getErrorSinkAccess().getNameAssignment_0(), "rule__ErrorSink__NameAssignment_0");
 					put(grammarAccess.getErrorSinkAccess().getIncomingAssignment_4_0(), "rule__ErrorSink__IncomingAssignment_4_0");
 					put(grammarAccess.getErrorSinkAccess().getAllIncomingAssignment_4_1(), "rule__ErrorSink__AllIncomingAssignment_4_1");

@@ -756,6 +756,9 @@
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
               </elements>
             </elements>
+            <elements xsi:type="xtext:Assignment" feature="failureModeType" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.11"/>
+            </elements>
             <elements xsi:type="xtext:Assignment" feature="failureModeDescription" operator="=">
               <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.47"/>
             </elements>

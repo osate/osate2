@@ -2275,9 +2275,28 @@ ruleErrorSource returns [EObject current=null]
 )?)
     |(
 (
-		lv_failureModeDescription_10_0=RULE_STRING
+		{ 
+	        newCompositeNode(grammarAccess.getErrorSourceAccess().getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_1_0()); 
+	    }
+		lv_failureModeType_10_0=ruleTypeSetConstructor		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getErrorSourceRule());
+	        }
+       		set(
+       			$current, 
+       			"failureModeType",
+        		lv_failureModeType_10_0, 
+        		"TypeSetConstructor");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    |(
+(
+		lv_failureModeDescription_11_0=RULE_STRING
 		{
-			newLeafNode(lv_failureModeDescription_10_0, grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0()); 
+			newLeafNode(lv_failureModeDescription_11_0, grammarAccess.getErrorSourceAccess().getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_2_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -2286,15 +2305,15 @@ ruleErrorSource returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"failureModeDescription",
-        		lv_failureModeDescription_10_0, 
+        		lv_failureModeDescription_11_0, 
         		"STRING");
 	    }
 
 )
 )))?
-	otherlv_11=KEYWORD_10
+	otherlv_12=KEYWORD_10
     {
-    	newLeafNode(otherlv_11, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_12, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7());
     }
 )
 ;
