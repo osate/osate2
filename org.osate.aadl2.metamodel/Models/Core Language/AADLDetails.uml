@@ -589,6 +589,11 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Data-DataType-ownedSubprogramAccess-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="Components-Process-ProcessType-ownedDataAccess" name="ownedDataAccess" type="Features-DataAccess" aggregation="composite" association="Components-Process-A_processType_ownedDataAccess">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Process-ProcessType-ownedDataAccess-_upperValue" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Process-ProcessType-ownedDataAccess-_lowerValue"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
           <ownedAttribute xmi:id="Components-Data-DataType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" type="Features-SubprogramGroupAccess" aggregation="composite" association="Components-Data-A_dataType_ownedSubprogramGroupAccess">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Data-DataType-ownedSubprogramGroupAccess-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Data-DataType-ownedSubprogramGroupAccess-_lowerValue"/>
@@ -626,6 +631,12 @@
           <ownedEnd xmi:id="Components-Data-A_dataImplementation_dataType-implementation" name="implementation" type="Components-Data-DataImplementation" association="Components-Data-A_dataImplementation_dataType">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Data-A_dataImplementation_dataType-implementation-_upperValue" value="*"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Data-A_dataImplementation_dataType-implementation-_lowerValue"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_eQ-sYO55EeKIMopdmF_FFA" name="A_dataType_ownedDataAccess" memberEnd="_eQ-sYe55EeKIMopdmF_FFA Features-FeatureGroupType-ownedDataAccess">
+          <ownedEnd xmi:id="_eQ-sYe55EeKIMopdmF_FFA" name="owner" type="Components-Data-DataType" association="_eQ-sYO55EeKIMopdmF_FFA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_eQ-sYu55EeKIMopdmF_FFA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_eQ-sY-55EeKIMopdmF_FFA"/>
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="Components-Data-A_dataType_ownedSubprogramAccess" name="A_dataType_ownedSubprogramAccess" memberEnd="Components-Data-A_dataType_ownedSubprogramAccess-owner Components-Data-DataType-ownedSubprogramAccess">
@@ -666,12 +677,6 @@
           <generalization xmi:id="_Z3OOQKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_eQ-sYO55EeKIMopdmF_FFA" name="A_dataType_ownedDataAccess" memberEnd="_eQ-sYe55EeKIMopdmF_FFA Features-FeatureGroupType-ownedDataAccess">
-          <ownedEnd xmi:id="_eQ-sYe55EeKIMopdmF_FFA" name="owner" type="Components-Data-DataType" association="_eQ-sYO55EeKIMopdmF_FFA">
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_eQ-sYu55EeKIMopdmF_FFA" value="1"/>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_eQ-sY-55EeKIMopdmF_FFA"/>
-          </ownedEnd>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Device" name="Device">
@@ -1125,7 +1130,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Process-A_processType_ownedEventPort-owner-_lowerValue"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="Components-Process-A_processType_ownedDataAccess" name="A_processType_ownedDataAccess" memberEnd="Components-Process-A_processType_ownedDataAccess-owner Components-Process-ProcessType-ownedDataAccess">
+        <packagedElement xmi:type="uml:Association" xmi:id="Components-Process-A_processType_ownedDataAccess" name="A_processType_ownedDataAccess" memberEnd="Components-Process-A_processType_ownedDataAccess-owner Components-Process-ProcessType-ownedDataAccess Components-Process-ProcessType-ownedDataAccess">
           <ownedEnd xmi:id="Components-Process-A_processType_ownedDataAccess-owner" name="owner" type="Components-Process-ProcessType" association="Components-Process-A_processType_ownedDataAccess">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-Process-A_processType_ownedDataAccess-owner-_upperValue" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Process-A_processType_ownedDataAccess-owner-_lowerValue"/>
