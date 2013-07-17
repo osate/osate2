@@ -1,11 +1,11 @@
 package org.osate.xtext.aadl2.ui.propertyview.associationwizard.assistant;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -19,6 +19,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierType;
@@ -32,7 +33,6 @@ public class ClassifierAssistant extends AbstractAssistant
 {
 	private final ClassifierType type;
 	private final NamedElement holder;
-	private final ArrayList<String> metaclassReferenceNames;
 	private final HashMap<AadlPackage, HashSet<Classifier>> validClassifiers;
 	
 	private Label noClassifiersLabel = null;
@@ -42,9 +42,7 @@ public class ClassifierAssistant extends AbstractAssistant
 		super(parent, listener);
 		this.type = type;
 		this.holder = holder;
-		metaclassReferenceNames = new ArrayList<String>();
 		validClassifiers = new HashMap<AadlPackage, HashSet<Classifier>>();
-		fillMetaclassReferenceNames();
 		fillValidClassifiers();
 		layoutComponents();
 	}
@@ -62,10 +60,29 @@ public class ClassifierAssistant extends AbstractAssistant
 	
 	private void addAllToValidClassifiers(AadlPackage aadlPackage, EList<Classifier> classifiers) {
 		for (Classifier classifier : classifiers) {
-			String classifierName = classifier.eClass().getName().toLowerCase().replace("type", "").replace("implementation", "");
-			if (type.getClassifierReferences().size() == 0 || metaclassReferenceNames.contains(classifierName))
+			if (type.getClassifierReferences().size() == 0 || isValidMetaclass(classifier.eClass()))
 				addToValidClassifiers(aadlPackage, classifier);
 		}
+	}
+	
+	private boolean isValidMetaclass(EClass classifierMetaclass)
+	{
+		for (MetaclassReference metaclassReference : type.getClassifierReferences())
+		{
+			EClass acceptableMetaclass = metaclassReference.getMetaclass();
+			if (acceptableMetaclass.isSuperTypeOf(classifierMetaclass) && checkAbstract(acceptableMetaclass, classifierMetaclass))
+				return true;
+		}
+		return false;
+	}
+	
+	private boolean checkAbstract(EClass acceptableMetaclass, EClass classifierMetaclass)
+	{
+		if (Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(classifierMetaclass))
+		{
+			return Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(acceptableMetaclass);
+		}
+		return true;
 	}
 	
 	private void addToValidClassifiers(AadlPackage aadlPackage, Classifier classifier) {
@@ -75,11 +92,6 @@ public class ClassifierAssistant extends AbstractAssistant
 			validClassifiers.put(aadlPackage, setForCurrentPackage);
 		}
 		setForCurrentPackage.add(classifier);
-	}
-	
-	private void fillMetaclassReferenceNames() {
-		for (MetaclassReference metaclassReference : type.getClassifierReferences())
-			metaclassReferenceNames.add(metaclassReference.getMetaclass().getName().toLowerCase().replace("classifier", ""));
 	}
 	
 	private void layoutComponents() {
