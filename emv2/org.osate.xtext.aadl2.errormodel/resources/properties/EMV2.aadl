@@ -4,7 +4,7 @@ property set EMV2
   is
   
 OccurrenceDistribution : EMV2::DistributionSpecification
-	  applies to ({emv2}**error propagation, {emv2}**error source, {emv2}**error behavior event
+	  applies to ({emv2}**error propagation, {emv2}**error flow, {emv2}**error behavior event
 	  ,{emv2}**error behavior state,{emv2}**error type,{emv2}**type set);
    
 
@@ -48,8 +48,8 @@ StateKind : EMV2::StateKindEnum
 StateKindEnum: type enumeration (Working, NonWorking);
 
 -- Indicates whether an error type is detectable
-Detectable : aadlboolean
-	  applies to ({emv2}**error behavior state, {emv2}**error propagation, {emv2}**error type, {emv2}**type set); 
+DetectionMechanism : aadlstring
+	  applies to ({emv2}**error detection); 
  
 
 -- The FaultKind property allows the user to specify whether an error source, 
@@ -76,14 +76,16 @@ PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 -- The severity property value indicates the severity of the hazard ranging from 1 (high) to 5 (low). 
 -- MIL-STD 882D suggests descriptive labels (Catastrophic, Critical, Marginal, Negligible) (See property set MILSTD882). 
 -- ARP 4761 defines descriptive labels (Catastrophic, Hazardous, Major, Minor, NoEffect) (See property set ARP4761).
-Severity : inherit aadlinteger applies to (all);
+Severity : inherit aadlinteger applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
+	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
 -- A likelihood property value indicates the likelihood with which the hazard occurs. 
 -- Likelihood is expressed in terms of levels ranging from A (high) to E (low). 
 -- Each level typically has an associated probability of occurrence (p) threshold. 
 -- MIL-STD 882D suggests likelihood levels (Frequent: p>10e-1, Probable: 10e-1 > p > 10e-2, Occasional: 10e-2 > p > 10e-3, Remote: 10e-3 > p > 10e-6, Improbable: p < 10e-6) for probability of occurrence over the life of an item. 
 -- In the context of ARP 4761 or DO178 defines descriptive labels (Probable: p > 10e-5, Remote: 10e-5 > p > 10e-7, ExtremelyRemote: 10e-7 < p > 10e-9, ExtremelyImprobable: p < 10e-9) for probability of occurrence per operational hour.
-Likelihood : inherit enumeration (A, B, C, D, E) applies to (all);
+Likelihood : inherit enumeration (A, B, C, D, E) applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
+	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
 Hazard: record
   (crossreference: aadlstring;
@@ -93,9 +95,8 @@ Hazard: record
   	description : aadlstring;
   	verificationmethod : aadlstring;
   	risk : aadlstring;
-  	comment : aadlstring;) applies to (all);
-  	
-DetectionMechanism : aadlstring applies to (all); 
+  	comment : aadlstring;) applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
+	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
 Description : aadlstring applies to (all); 
 
