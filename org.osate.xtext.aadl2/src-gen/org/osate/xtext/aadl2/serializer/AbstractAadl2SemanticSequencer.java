@@ -1912,6 +1912,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             noFeatures?='none' | 
 	 *             (
 	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
 	 *                 ownedSubprogramAccess+=SubprogramAccess | 
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature

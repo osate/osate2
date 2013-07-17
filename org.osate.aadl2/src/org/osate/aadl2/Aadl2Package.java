@@ -19532,13 +19532,22 @@ public interface Aadl2Package extends EPackage {
 	int DATA_TYPE__OWNED_SUBPROGRAM_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Owned Data Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_TYPE__OWNED_DATA_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 1;
+	int DATA_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS = COMPONENT_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Data Type</em>' class.
@@ -19547,7 +19556,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 2;
+	int DATA_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -37993,6 +38002,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getDataType_OwnedSubprogramAccess();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.DataType#getOwnedDataAccesses <em>Owned Data Access</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Owned Data Access</em>'.
+	 * @see org.osate.aadl2.DataType#getOwnedDataAccesses()
+	 * @see #getDataType()
+	 * @generated
+	 */
+	EReference getDataType_OwnedDataAccess();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.DataType#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}'.

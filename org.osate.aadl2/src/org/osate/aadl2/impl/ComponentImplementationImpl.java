@@ -616,15 +616,14 @@ public abstract class ComponentImplementationImpl extends
 	 * @generated NOT
 	 */
 	public void setExtended(ComponentImplementation newExtended) {
-		if ( newExtended == null ) {
-			setOwnedExtension( null );
-		}
-		else {
-			if ( getOwnedExtension() == null ) {
+		if (newExtended == null) {
+			setOwnedExtension(null);
+		} else {
+			if (getOwnedExtension() == null) {
 				createOwnedExtension();
 			}
-			
-			getOwnedExtension().setExtended( newExtended );
+
+			getOwnedExtension().setExtended(newExtended);
 		}
 	}
 
@@ -664,11 +663,11 @@ public abstract class ComponentImplementationImpl extends
 	public EList<Connection> getOwnedConnections() {
 		// DONE: Implemented
 		// DB: The returned list must be an EStructuralFeature.Setting
-		final EList<Connection> connections = new NonNotifyingEObjectEList<Connection>(	Connection.class,
-																						this,
-																						Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION );
-//		BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(
-//				Connection.class);
+		final EList<Connection> connections = new NonNotifyingEObjectEList<Connection>(
+				Connection.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION);
+		//		BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(
+		//				Connection.class);
 		connections.addAll(getOwnedAccessConnections());
 		connections.addAll(getOwnedFeatureConnections());
 		connections.addAll(getOwnedFeatureGroupConnections());
@@ -737,15 +736,14 @@ public abstract class ComponentImplementationImpl extends
 	 * @generated NOT
 	 */
 	public void setType(ComponentType newType) {
-		if ( newType == null ) {
-			setOwnedRealization( null );
-		}
-		else {
-			if ( getOwnedRealization() == null ) {
+		if (newType == null) {
+			setOwnedRealization(null);
+		} else {
+			if (getOwnedRealization() == null) {
 				createOwnedRealization();
 			}
-			
-			getOwnedRealization().setImplemented( newType );
+
+			getOwnedRealization().setImplemented(newType);
 		}
 	}
 

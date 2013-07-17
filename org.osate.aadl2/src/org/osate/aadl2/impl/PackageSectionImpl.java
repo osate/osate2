@@ -675,7 +675,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements
 		// EMF compare computes a difference between the package section since the package has been renamed. 
 		// Removing exception throw for now.
 		//throw new UnsupportedOperationException(
-			//	"Cannot set name of package secton.");
+		//	"Cannot set name of package secton.");
 	}
 
 	/**

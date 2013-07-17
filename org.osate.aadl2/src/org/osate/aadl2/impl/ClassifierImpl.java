@@ -267,14 +267,13 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	@Override
 	public EList<NamedElement> getMembers() {
 		// DB This should be an EStructuralFeature.Setting
-//		BasicEList<NamedElement> results = new BasicEList<NamedElement>(
-//				getMembersGen());
-		final EList<NamedElement> results = new NonNotifyingEObjectEList<NamedElement>( NamedElement.class,
-																						this,
-																						Aadl2Package.CLASSIFIER__MEMBER);
+		//		BasicEList<NamedElement> results = new BasicEList<NamedElement>(
+		//				getMembersGen());
+		final EList<NamedElement> results = new NonNotifyingEObjectEList<NamedElement>(
+				NamedElement.class, this, Aadl2Package.CLASSIFIER__MEMBER);
 		results.addAll(getMembersGen());
-		results.addAll(getInheritedMembers());		
-		
+		results.addAll(getInheritedMembers());
+
 		return results;
 	}
 
@@ -388,12 +387,12 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 				NamedElement.class);
 		// members to be returned
 		// DB The returned list must be an EStructuralFeature.Setting
-//		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(
-//				NamedElement.class);
+		//		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(
+		//				NamedElement.class);
 		//		final EList<Classifier> list = new BasicEList<Classifier>();
-		final EList<NamedElement> tmp = new NonNotifyingEObjectEList<NamedElement>(	NamedElement.class,
-																					this,
-																					Aadl2Package.CLASSIFIER__INHERITED_MEMBER );
+		final EList<NamedElement> tmp = new NonNotifyingEObjectEList<NamedElement>(
+				NamedElement.class, this,
+				Aadl2Package.CLASSIFIER__INHERITED_MEMBER);
 		cls.add(this);
 		for (Generalization g : getGeneralizations()) {
 			Classifier cl = g.getGeneral();

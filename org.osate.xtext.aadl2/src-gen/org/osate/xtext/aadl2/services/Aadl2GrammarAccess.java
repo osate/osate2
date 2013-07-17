@@ -6156,12 +6156,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_4_1_1 = (Alternatives)cAlternatives_4_1.eContents().get(1);
 		private final Assignment cOwnedFeatureGroupAssignment_4_1_1_0 = (Assignment)cAlternatives_4_1_1.eContents().get(0);
 		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_4_1_1_0.eContents().get(0);
-		private final Assignment cOwnedSubprogramAccessAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
-		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedSubprogramAccessAssignment_4_1_1_1.eContents().get(0);
-		private final Assignment cOwnedSubprogramGroupAccessAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
-		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_4_1_1_2.eContents().get(0);
-		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
-		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_3.eContents().get(0);
+		private final Assignment cOwnedDataAccessAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
+		private final RuleCall cOwnedDataAccessDataAccessParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedDataAccessAssignment_4_1_1_1.eContents().get(0);
+		private final Assignment cOwnedSubprogramAccessAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
+		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedSubprogramAccessAssignment_4_1_1_2.eContents().get(0);
+		private final Assignment cOwnedSubprogramGroupAccessAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
+		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_4_1_1_3.eContents().get(0);
+		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_4 = (Assignment)cAlternatives_4_1_1.eContents().get(4);
+		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_4_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_4.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cFlowsKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Alternatives cAlternatives_5_1 = (Alternatives)cGroup_5.eContents().get(1);
@@ -6212,13 +6214,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//
-		//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+		//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//
-		//	ownedAbstractFeature+=AbstractFeature)+))? ("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none"
+		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
 		//
-		//	";"))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
+		//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
 		//
-		//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//
 		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//
@@ -6231,13 +6233,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 		//
-		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+		//ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//
-		//ownedAbstractFeature+=AbstractFeature)+))? ("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none"
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
 		//
-		//";"))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
+		//(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
 		//
-		//ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+		//"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//
 		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		//
@@ -6318,17 +6320,21 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//Prototype
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
 
-		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
+		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess |
 		//
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
+		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+		//
+		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"features"
 		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
 
-		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
+		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess |
 		//
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+		//
+		//ownedAbstractFeature+=AbstractFeature)+
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
 		//noFeatures?="none" ";"
@@ -6343,7 +6349,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_4_1_0_1() { return cSemicolonKeyword_4_1_0_1; }
 
-		//(ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
+		//(ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
 		public Alternatives getAlternatives_4_1_1() { return cAlternatives_4_1_1; }
@@ -6354,23 +6360,29 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FeatureGroup
 		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0; }
 
+		//ownedDataAccess+=DataAccess
+		public Assignment getOwnedDataAccessAssignment_4_1_1_1() { return cOwnedDataAccessAssignment_4_1_1_1; }
+
+		//DataAccess
+		public RuleCall getOwnedDataAccessDataAccessParserRuleCall_4_1_1_1_0() { return cOwnedDataAccessDataAccessParserRuleCall_4_1_1_1_0; }
+
 		//ownedSubprogramAccess+=SubprogramAccess
-		public Assignment getOwnedSubprogramAccessAssignment_4_1_1_1() { return cOwnedSubprogramAccessAssignment_4_1_1_1; }
+		public Assignment getOwnedSubprogramAccessAssignment_4_1_1_2() { return cOwnedSubprogramAccessAssignment_4_1_1_2; }
 
 		//SubprogramAccess
-		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_1_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_1_0; }
+		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_2_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_2_0; }
 
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess
-		public Assignment getOwnedSubprogramGroupAccessAssignment_4_1_1_2() { return cOwnedSubprogramGroupAccessAssignment_4_1_1_2; }
+		public Assignment getOwnedSubprogramGroupAccessAssignment_4_1_1_3() { return cOwnedSubprogramGroupAccessAssignment_4_1_1_3; }
 
 		//SubprogramGroupAccess
-		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_2_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_2_0; }
+		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_3_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_3_0; }
 
 		//ownedAbstractFeature+=AbstractFeature
-		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_3() { return cOwnedAbstractFeatureAssignment_4_1_1_3; }
+		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_4() { return cOwnedAbstractFeatureAssignment_4_1_1_4; }
 
 		//AbstractFeature
-		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_3_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_3_0; }
+		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_4_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_4_0; }
 
 		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
@@ -27127,13 +27139,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
 	//
-	//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+	//	ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//
-	//	ownedAbstractFeature+=AbstractFeature)+))? ("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none"
+	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))? ("flows"
 	//
-	//	";"))? ("requires" "modes" ownedMode+=RequiresMode+ | "modes" ((ownedMode+=Mode |
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
 	//
-	//	ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 	//
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//
