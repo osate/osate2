@@ -476,7 +476,7 @@ ruleErrorModelSubclause returns [EObject current=null]
     {
     	newLeafNode(otherlv_39, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_11());
     }
-)(
+)?(
 	otherlv_40=KEYWORD_74
     {
     	newLeafNode(otherlv_40, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_5_0());

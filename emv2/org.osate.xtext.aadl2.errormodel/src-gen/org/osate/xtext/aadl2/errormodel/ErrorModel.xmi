@@ -153,7 +153,7 @@
           <elements xsi:type="xtext:Keyword" value="propagations"/>
           <elements xsi:type="xtext:Keyword" value=";"/>
         </elements>
-        <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="component"/>
           <elements xsi:type="xtext:Keyword" value="error"/>
           <elements xsi:type="xtext:Keyword" value="behavior"/>

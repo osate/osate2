@@ -77,7 +77,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
     ( errorStateToModeMappings+=ErrorStateToModeMapping )+ )?
    'end' 'component' ';'
   	
-  )
+  )?
   (
 	'composite' 'error' 'behavior' 
    ( 'states' 

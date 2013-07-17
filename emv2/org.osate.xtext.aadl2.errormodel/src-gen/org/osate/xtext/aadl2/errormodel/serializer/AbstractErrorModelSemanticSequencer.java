@@ -803,12 +803,14 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         (propagations+=ErrorPropagation* flows+=ErrorFlow*)? 
-	 *         useTransformation=[TypeTransformationSet|QEMREF]? 
-	 *         events+=ErrorBehaviorEvent* 
-	 *         transitions+=ErrorBehaviorTransition* 
-	 *         outgoingPropagationConditions+=OutgoingPropagationCondition* 
-	 *         errorDetections+=ErrorDetection* 
-	 *         errorStateToModeMappings+=ErrorStateToModeMapping* 
+	 *         (
+	 *             useTransformation=[TypeTransformationSet|QEMREF]? 
+	 *             events+=ErrorBehaviorEvent* 
+	 *             transitions+=ErrorBehaviorTransition* 
+	 *             outgoingPropagationConditions+=OutgoingPropagationCondition* 
+	 *             errorDetections+=ErrorDetection* 
+	 *             errorStateToModeMappings+=ErrorStateToModeMapping*
+	 *         )? 
 	 *         states+=CompositeState* 
 	 *         (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)? 
 	 *         (points+=PropagationPoint+ connections+=PropagationPointConnection*)? 

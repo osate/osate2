@@ -4149,7 +4149,7 @@ rule__ErrorModelSubclause__Group__4__Impl
 :
 (
 { before(grammarAccess.getErrorModelSubclauseAccess().getGroup_4()); }
-(rule__ErrorModelSubclause__Group_4__0)
+(rule__ErrorModelSubclause__Group_4__0)?
 { after(grammarAccess.getErrorModelSubclauseAccess().getGroup_4()); }
 )
 
