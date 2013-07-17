@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#getTypeTokens <em>Type Tokens</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#getAliasedType <em>Aliased Type</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#isNoError <em>No Error</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,5 +92,31 @@ public interface TypeSet extends ErrorTypes, ErrorBehaviorStateOrTypeSet
    * @generated
    */
   void setReference(TypeSet value);
+
+  /**
+   * Returns the value of the '<em><b>No Error</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>No Error</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>No Error</em>' attribute.
+   * @see #setNoError(boolean)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeSet_NoError()
+   * @model
+   * @generated
+   */
+  boolean isNoError();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#isNoError <em>No Error</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>No Error</em>' attribute.
+   * @see #isNoError()
+   * @generated
+   */
+  void setNoError(boolean value);
 
 } // TypeSet

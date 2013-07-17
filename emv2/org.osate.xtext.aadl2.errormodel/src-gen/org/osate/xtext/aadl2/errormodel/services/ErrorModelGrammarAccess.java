@@ -1290,15 +1290,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cTypeSetAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cNoerrorKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cNoErrorAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cNoErrorNoerrorKeyword_2_0 = (Keyword)cNoErrorAssignment_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//NoError returns TypeSet:
 		//
-		//	{TypeSet} "{" "noerror" "}";
+		//	{TypeSet} "{" noError?="noerror" "}";
 		public ParserRule getRule() { return rule; }
 
-		//{TypeSet} "{" "noerror" "}"
+		//{TypeSet} "{" noError?="noerror" "}"
 		public Group getGroup() { return cGroup; }
 
 		//{TypeSet}
@@ -1307,8 +1308,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
 
+		//noError?="noerror"
+		public Assignment getNoErrorAssignment_2() { return cNoErrorAssignment_2; }
+
 		//"noerror"
-		public Keyword getNoerrorKeyword_2() { return cNoerrorKeyword_2; }
+		public Keyword getNoErrorNoerrorKeyword_2_0() { return cNoErrorNoerrorKeyword_2_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
@@ -1915,16 +1919,15 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cProcessorKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cMemoryKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		private final Keyword cConnectionKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
-		private final Keyword cBindingKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
-		private final Keyword cBindingsKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
-		private final Keyword cAccessKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
+		private final Keyword cBindingsKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cAccessKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
 		
 		//PropagationKind:
 		//
-		//	"processor" | "memory" | "connection" | "binding" | "bindings" | "access";
+		//	"processor" | "memory" | "connection" | "bindings" | "access";
 		public ParserRule getRule() { return rule; }
 
-		//"processor" | "memory" | "connection" | "binding" | "bindings" | "access"
+		//"processor" | "memory" | "connection" | "bindings" | "access"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"processor"
@@ -1936,14 +1939,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"connection"
 		public Keyword getConnectionKeyword_2() { return cConnectionKeyword_2; }
 
-		//"binding"
-		public Keyword getBindingKeyword_3() { return cBindingKeyword_3; }
-
 		//"bindings"
-		public Keyword getBindingsKeyword_4() { return cBindingsKeyword_4; }
+		public Keyword getBindingsKeyword_3() { return cBindingsKeyword_3; }
 
 		//"access"
-		public Keyword getAccessKeyword_5() { return cAccessKeyword_5; }
+		public Keyword getAccessKeyword_4() { return cAccessKeyword_4; }
 	}
 
 	public class ErrorFlowElements extends AbstractParserRuleElementFinder {
@@ -4426,55 +4426,91 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class SConditionElementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SConditionElement");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Assignment cSubcomponentsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cSubcomponentsSubcomponentElementParserRuleCall_0_0_0 = (RuleCall)cSubcomponentsAssignment_0_0.eContents().get(0);
-		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cStateAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cStateErrorBehaviorStateCrossReference_1_0 = (CrossReference)cStateAssignment_1.eContents().get(0);
-		private final RuleCall cStateErrorBehaviorStateIDTerminalRuleCall_1_0_1 = (RuleCall)cStateErrorBehaviorStateCrossReference_1_0.eContents().get(1);
-		private final Assignment cConstraintAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cConstraintTypeTokenConstraintParserRuleCall_2_0 = (RuleCall)cConstraintAssignment_2.eContents().get(0);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Group cGroup_0_0 = (Group)cGroup_0.eContents().get(0);
+		private final Assignment cSubcomponentsAssignment_0_0_0 = (Assignment)cGroup_0_0.eContents().get(0);
+		private final RuleCall cSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0 = (RuleCall)cSubcomponentsAssignment_0_0_0.eContents().get(0);
+		private final Keyword cFullStopKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
+		private final Assignment cStateAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final CrossReference cStateErrorBehaviorStateCrossReference_0_1_0 = (CrossReference)cStateAssignment_0_1.eContents().get(0);
+		private final RuleCall cStateErrorBehaviorStateIDTerminalRuleCall_0_1_0_1 = (RuleCall)cStateErrorBehaviorStateCrossReference_0_1_0.eContents().get(1);
+		private final Assignment cConstraintAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cConstraintTypeTokenConstraintParserRuleCall_0_2_0 = (RuleCall)cConstraintAssignment_0_2.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Keyword cInKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+		private final Assignment cIncomingAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
+		private final CrossReference cIncomingErrorPropagationCrossReference_1_1_0_0 = (CrossReference)cIncomingAssignment_1_1_0.eContents().get(0);
+		private final RuleCall cIncomingErrorPropagationErrorPropagationPointParserRuleCall_1_1_0_0_1 = (RuleCall)cIncomingErrorPropagationCrossReference_1_1_0_0.eContents().get(1);
+		private final Assignment cConstraintAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0 = (RuleCall)cConstraintAssignment_1_1_1.eContents().get(0);
 		
-		////	|
-		// //  	(incoming=[ErrorPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?)
-		//
-		//
 		//SConditionElement returns ConditionElement:
 		//
-		//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?;
+		//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
+		//
+		//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
 		public ParserRule getRule() { return rule; }
 
-		//(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?
-		public Group getGroup() { return cGroup; }
+		//(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
+		//
+		//(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//(subcomponents+=SubcomponentElement ".")+
+		//(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?
 		public Group getGroup_0() { return cGroup_0; }
 
+		//(subcomponents+=SubcomponentElement ".")+
+		public Group getGroup_0_0() { return cGroup_0_0; }
+
 		//subcomponents+=SubcomponentElement
-		public Assignment getSubcomponentsAssignment_0_0() { return cSubcomponentsAssignment_0_0; }
+		public Assignment getSubcomponentsAssignment_0_0_0() { return cSubcomponentsAssignment_0_0_0; }
 
 		//SubcomponentElement
-		public RuleCall getSubcomponentsSubcomponentElementParserRuleCall_0_0_0() { return cSubcomponentsSubcomponentElementParserRuleCall_0_0_0; }
+		public RuleCall getSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0() { return cSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0; }
 
 		//"."
-		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
+		public Keyword getFullStopKeyword_0_0_1() { return cFullStopKeyword_0_0_1; }
 
 		//state=[ErrorBehaviorState]
-		public Assignment getStateAssignment_1() { return cStateAssignment_1; }
+		public Assignment getStateAssignment_0_1() { return cStateAssignment_0_1; }
 
 		//[ErrorBehaviorState]
-		public CrossReference getStateErrorBehaviorStateCrossReference_1_0() { return cStateErrorBehaviorStateCrossReference_1_0; }
+		public CrossReference getStateErrorBehaviorStateCrossReference_0_1_0() { return cStateErrorBehaviorStateCrossReference_0_1_0; }
 
 		//ID
-		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_1_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_1_0_1; }
+		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_0_1_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_0_1_0_1; }
 
 		//constraint=TypeTokenConstraint?
-		public Assignment getConstraintAssignment_2() { return cConstraintAssignment_2; }
+		public Assignment getConstraintAssignment_0_2() { return cConstraintAssignment_0_2; }
 
 		//TypeTokenConstraint
-		public RuleCall getConstraintTypeTokenConstraintParserRuleCall_2_0() { return cConstraintTypeTokenConstraintParserRuleCall_2_0; }
+		public RuleCall getConstraintTypeTokenConstraintParserRuleCall_0_2_0() { return cConstraintTypeTokenConstraintParserRuleCall_0_2_0; }
+
+		//"in" (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"in"
+		public Keyword getInKeyword_1_0() { return cInKeyword_1_0; }
+
+		//incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//incoming=[ErrorPropagation|ErrorPropagationPoint]
+		public Assignment getIncomingAssignment_1_1_0() { return cIncomingAssignment_1_1_0; }
+
+		//[ErrorPropagation|ErrorPropagationPoint]
+		public CrossReference getIncomingErrorPropagationCrossReference_1_1_0_0() { return cIncomingErrorPropagationCrossReference_1_1_0_0; }
+
+		//ErrorPropagationPoint
+		public RuleCall getIncomingErrorPropagationErrorPropagationPointParserRuleCall_1_1_0_0_1() { return cIncomingErrorPropagationErrorPropagationPointParserRuleCall_1_1_0_0_1; }
+
+		//constraint=TypeTokenConstraintNoError?
+		public Assignment getConstraintAssignment_1_1_1() { return cConstraintAssignment_1_1_1; }
+
+		//TypeTokenConstraintNoError
+		public RuleCall getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0() { return cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0; }
 	}
 
 	public class SubcomponentElementElements extends AbstractParserRuleElementFinder {
@@ -4843,7 +4879,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//NoError returns TypeSet:
 	//
-	//	{TypeSet} "{" "noerror" "}";
+	//	{TypeSet} "{" noError?="noerror" "}";
 	public NoErrorElements getNoErrorAccess() {
 		return (pNoError != null) ? pNoError : (pNoError = new NoErrorElements());
 	}
@@ -4983,7 +5019,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropagationKind:
 	//
-	//	"processor" | "memory" | "connection" | "binding" | "bindings" | "access";
+	//	"processor" | "memory" | "connection" | "bindings" | "access";
 	public PropagationKindElements getPropagationKindAccess() {
 		return (pPropagationKind != null) ? pPropagationKind : (pPropagationKind = new PropagationKindElements());
 	}
@@ -5470,13 +5506,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSConditionTermAccess().getRule();
 	}
 
-	////	|
-	// //  	(incoming=[ErrorPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?)
-	//
-	//
 	//SConditionElement returns ConditionElement:
 	//
-	//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?;
+	//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
+	//
+	//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
 	public SConditionElementElements getSConditionElementAccess() {
 		return (pSConditionElement != null) ? pSConditionElement : (pSConditionElement = new SConditionElementElements());
 	}

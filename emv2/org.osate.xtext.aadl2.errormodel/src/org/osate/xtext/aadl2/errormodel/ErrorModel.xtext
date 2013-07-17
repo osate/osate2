@@ -160,7 +160,7 @@ TypeSetElement returns TypeToken :
 
 NoError returns TypeSet:
 	{TypeSet}
-	'{' 'noerror' '}'
+	'{' noError?='noerror' '}'
 ;
 
 TypeToken returns TypeToken:
@@ -219,7 +219,7 @@ FeatureorPPReference returns FeatureorPPReference:
    
 PropagationDirection returns aadl2::DirectionType: 'in' | 'out' ;
 
-PropagationKind  : ('processor'|'memory'|'connection'|'binding' | 'bindings'|'access'); 
+PropagationKind  : ('processor'|'memory'|'connection' | 'bindings'|'access'); 
 
 // enum does not work as  
 //enum PropKind : PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'
@@ -451,8 +451,8 @@ SConditionTerm returns ConditionExpression:
   
 SConditionElement returns ConditionElement:
 	((subcomponents+=SubcomponentElement '.')+ state=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?)
-//	|
-//  	(incoming=[ErrorPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?)
+	|
+  	'in' (incoming=[ErrorPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?)
   ;
 
 SubcomponentElement returns SubcomponentElement:

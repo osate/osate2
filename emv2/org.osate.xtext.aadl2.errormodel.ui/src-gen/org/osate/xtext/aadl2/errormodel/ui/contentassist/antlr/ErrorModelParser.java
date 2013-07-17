@@ -76,6 +76,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorCodeValueAccess().getAlternatives(), "rule__ErrorCodeValue__Alternatives");
 					put(grammarAccess.getCompositeStateAccess().getAlternatives_2(), "rule__CompositeState__Alternatives_2");
 					put(grammarAccess.getSConditionTermAccess().getAlternatives(), "rule__SConditionTerm__Alternatives");
+					put(grammarAccess.getSConditionElementAccess().getAlternatives(), "rule__SConditionElement__Alternatives");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAlternatives_1(), "rule__ContainedPropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyExpressionAccess().getAlternatives(), "rule__PropertyExpression__Alternatives");
@@ -211,8 +212,10 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSOrlessExpressionAccess().getGroup(), "rule__SOrlessExpression__Group__0");
 					put(grammarAccess.getSOrlessExpressionAccess().getGroup_4(), "rule__SOrlessExpression__Group_4__0");
 					put(grammarAccess.getSConditionTermAccess().getGroup_3(), "rule__SConditionTerm__Group_3__0");
-					put(grammarAccess.getSConditionElementAccess().getGroup(), "rule__SConditionElement__Group__0");
 					put(grammarAccess.getSConditionElementAccess().getGroup_0(), "rule__SConditionElement__Group_0__0");
+					put(grammarAccess.getSConditionElementAccess().getGroup_0_0(), "rule__SConditionElement__Group_0_0__0");
+					put(grammarAccess.getSConditionElementAccess().getGroup_1(), "rule__SConditionElement__Group_1__0");
+					put(grammarAccess.getSConditionElementAccess().getGroup_1_1(), "rule__SConditionElement__Group_1_1__0");
 					put(grammarAccess.getQEMREFAccess().getGroup(), "rule__QEMREF__Group__0");
 					put(grammarAccess.getQEMREFAccess().getGroup_0(), "rule__QEMREF__Group_0__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");
@@ -301,6 +304,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeSetReferenceAccess().getReferenceAssignment_0(), "rule__TypeSetReference__ReferenceAssignment_0");
 					put(grammarAccess.getTypeSetElementAccess().getTypeAssignment_0(), "rule__TypeSetElement__TypeAssignment_0");
 					put(grammarAccess.getTypeSetElementAccess().getTypeAssignment_1_1(), "rule__TypeSetElement__TypeAssignment_1_1");
+					put(grammarAccess.getNoErrorAccess().getNoErrorAssignment_2(), "rule__NoError__NoErrorAssignment_2");
 					put(grammarAccess.getTypeTokenAccess().getTypeAssignment_2(), "rule__TypeToken__TypeAssignment_2");
 					put(grammarAccess.getTypeTokenAccess().getTypeAssignment_3_1(), "rule__TypeToken__TypeAssignment_3_1");
 					put(grammarAccess.getTypeTokenOrNoErrorAccess().getTypeAssignment_2_0_0(), "rule__TypeTokenOrNoError__TypeAssignment_2_0_0");
@@ -440,9 +444,11 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSOrlessExpressionAccess().getCountAssignment_0(), "rule__SOrlessExpression__CountAssignment_0");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_3(), "rule__SOrlessExpression__OperandsAssignment_3");
 					put(grammarAccess.getSOrlessExpressionAccess().getOperandsAssignment_4_1(), "rule__SOrlessExpression__OperandsAssignment_4_1");
-					put(grammarAccess.getSConditionElementAccess().getSubcomponentsAssignment_0_0(), "rule__SConditionElement__SubcomponentsAssignment_0_0");
-					put(grammarAccess.getSConditionElementAccess().getStateAssignment_1(), "rule__SConditionElement__StateAssignment_1");
-					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_2(), "rule__SConditionElement__ConstraintAssignment_2");
+					put(grammarAccess.getSConditionElementAccess().getSubcomponentsAssignment_0_0_0(), "rule__SConditionElement__SubcomponentsAssignment_0_0_0");
+					put(grammarAccess.getSConditionElementAccess().getStateAssignment_0_1(), "rule__SConditionElement__StateAssignment_0_1");
+					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_0_2(), "rule__SConditionElement__ConstraintAssignment_0_2");
+					put(grammarAccess.getSConditionElementAccess().getIncomingAssignment_1_1_0(), "rule__SConditionElement__IncomingAssignment_1_1_0");
+					put(grammarAccess.getSConditionElementAccess().getConstraintAssignment_1_1_1(), "rule__SConditionElement__ConstraintAssignment_1_1_1");
 					put(grammarAccess.getSubcomponentElementAccess().getSubcomponentAssignment(), "rule__SubcomponentElement__SubcomponentAssignment");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getPropertyAssignment_0(), "rule__ContainedPropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getAppendAssignment_1_1(), "rule__ContainedPropertyAssociation__AppendAssignment_1_1");

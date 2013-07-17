@@ -31,6 +31,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getTypeTokens <em>Type Tokens</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getAliasedType <em>Aliased Type</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeSetImpl#isNoError <em>No Error</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,26 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
    * @ordered
    */
   protected TypeSet reference;
+
+  /**
+   * The default value of the '{@link #isNoError() <em>No Error</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isNoError()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean NO_ERROR_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isNoError() <em>No Error</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isNoError()
+   * @generated
+   * @ordered
+   */
+  protected boolean noError = NO_ERROR_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -194,6 +215,29 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isNoError()
+  {
+    return noError;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNoError(boolean newNoError)
+  {
+    boolean oldNoError = noError;
+    noError = newNoError;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TYPE_SET__NO_ERROR, oldNoError, noError));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -223,6 +267,8 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
       case ErrorModelPackage.TYPE_SET__REFERENCE:
         if (resolve) return getReference();
         return basicGetReference();
+      case ErrorModelPackage.TYPE_SET__NO_ERROR:
+        return isNoError();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -248,6 +294,9 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
       case ErrorModelPackage.TYPE_SET__REFERENCE:
         setReference((TypeSet)newValue);
         return;
+      case ErrorModelPackage.TYPE_SET__NO_ERROR:
+        setNoError((Boolean)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -271,6 +320,9 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
       case ErrorModelPackage.TYPE_SET__REFERENCE:
         setReference((TypeSet)null);
         return;
+      case ErrorModelPackage.TYPE_SET__NO_ERROR:
+        setNoError(NO_ERROR_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -291,8 +343,27 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
         return aliasedType != null;
       case ErrorModelPackage.TYPE_SET__REFERENCE:
         return reference != null;
+      case ErrorModelPackage.TYPE_SET__NO_ERROR:
+        return noError != NO_ERROR_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (noError: ");
+    result.append(noError);
+    result.append(')');
+    return result.toString();
   }
 
 } //TypeSetImpl

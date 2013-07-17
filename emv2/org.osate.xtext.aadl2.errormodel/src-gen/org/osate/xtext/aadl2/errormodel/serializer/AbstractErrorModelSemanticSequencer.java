@@ -572,10 +572,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_NoError(context, (TypeSet) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getTypeTokenConstraintNoErrorRule()) {
+					sequence_NoError_TypeSetConstructor_TypeTokenConstraintNoError(context, (TypeSet) semanticObject); 
+					return; 
+				}
 				else if(context == grammarAccess.getTypeSetConstructorRule() ||
 				   context == grammarAccess.getTypeSetReferenceRule() ||
-				   context == grammarAccess.getTypeTokenConstraintRule() ||
-				   context == grammarAccess.getTypeTokenConstraintNoErrorRule()) {
+				   context == grammarAccess.getTypeTokenConstraintRule()) {
 					sequence_TypeSetConstructor(context, (TypeSet) semanticObject); 
 					return; 
 				}
@@ -907,9 +910,18 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     {TypeSet}
+	 *     noError?='noerror'
 	 */
 	protected void sequence_NoError(EObject context, TypeSet semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | noError?='noerror')
+	 */
+	protected void sequence_NoError_TypeSetConstructor_TypeTokenConstraintNoError(EObject context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1003,7 +1015,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (subcomponents+=SubcomponentElement+ state=[ErrorBehaviorState|ID] constraint=TypeTokenConstraint?)
+	 *     (
+	 *         (subcomponents+=SubcomponentElement+ state=[ErrorBehaviorState|ID] constraint=TypeTokenConstraint?) | 
+	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+	 *     )
 	 */
 	protected void sequence_SConditionElement(EObject context, ConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

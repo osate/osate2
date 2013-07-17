@@ -1394,12 +1394,23 @@ ruleNoError returns [EObject current=null]
     {
     	newLeafNode(otherlv_1, grammarAccess.getNoErrorAccess().getLeftCurlyBracketKeyword_1());
     }
-
-	otherlv_2=KEYWORD_66
+(
+(
+		lv_noError_2_0=
+	KEYWORD_66
     {
-    	newLeafNode(otherlv_2, grammarAccess.getNoErrorAccess().getNoerrorKeyword_2());
+        newLeafNode(lv_noError_2_0, grammarAccess.getNoErrorAccess().getNoErrorNoerrorKeyword_2_0());
     }
 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getNoErrorRule());
+	        }
+       		setWithLastConsumed($current, "noError", true, "noerror");
+	    }
+
+)
+)
 	otherlv_3=KEYWORD_14
     {
     	newLeafNode(otherlv_3, grammarAccess.getNoErrorAccess().getRightCurlyBracketKeyword_3());
@@ -2323,24 +2334,17 @@ rulePropagationKind returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRul
     }
 
     |
-	kw=KEYWORD_61 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingKeyword_3()); 
-    }
-
-    |
 	kw=KEYWORD_70 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingsKeyword_4()); 
+        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getBindingsKeyword_3()); 
     }
 
     |
 	kw=KEYWORD_51 
     {
         $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getAccessKeyword_5()); 
+        newLeafNode(kw, grammarAccess.getPropagationKindAccess().getAccessKeyword_4()); 
     }
 )
     ;
@@ -5960,10 +5964,10 @@ ruleSConditionElement returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(((
+((((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSConditionElementAccess().getSubcomponentsSubcomponentElementParserRuleCall_0_0_0()); 
+	        newCompositeNode(grammarAccess.getSConditionElementAccess().getSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0()); 
 	    }
 		lv_subcomponents_0_0=ruleSubcomponentElement		{
 	        if ($current==null) {
@@ -5981,7 +5985,7 @@ ruleSConditionElement returns [EObject current=null]
 )
 	otherlv_1=KEYWORD_8
     {
-    	newLeafNode(otherlv_1, grammarAccess.getSConditionElementAccess().getFullStopKeyword_0_1());
+    	newLeafNode(otherlv_1, grammarAccess.getSConditionElementAccess().getFullStopKeyword_0_0_1());
     }
 )+(
 (
@@ -5992,14 +5996,14 @@ ruleSConditionElement returns [EObject current=null]
         }
 	otherlv_2=RULE_ID
 	{
-		newLeafNode(otherlv_2, grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateCrossReference_1_0()); 
+		newLeafNode(otherlv_2, grammarAccess.getSConditionElementAccess().getStateErrorBehaviorStateCrossReference_0_1_0()); 
 	}
 
 )
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSConditionElementAccess().getConstraintTypeTokenConstraintParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getSConditionElementAccess().getConstraintTypeTokenConstraintParserRuleCall_0_2_0()); 
 	    }
 		lv_constraint_3_0=ruleTypeTokenConstraint		{
 	        if ($current==null) {
@@ -6015,6 +6019,45 @@ ruleSConditionElement returns [EObject current=null]
 
 )
 )?)
+    |(
+	otherlv_4=KEYWORD_20
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getSConditionElementAccess().getInKeyword_1_0());
+    }
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSConditionElementRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getSConditionElementAccess().getIncomingErrorPropagationCrossReference_1_1_0_0()); 
+	    }
+		ruleErrorPropagationPoint		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSConditionElementAccess().getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0()); 
+	    }
+		lv_constraint_6_0=ruleTypeTokenConstraintNoError		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSConditionElementRule());
+	        }
+       		set(
+       			$current, 
+       			"constraint",
+        		lv_constraint_6_0, 
+        		"TypeTokenConstraintNoError");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?)))
 ;
 
 
