@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlString;
+import org.osate.aadl2.ClassifierType;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberType;
@@ -19,6 +20,8 @@ public class AssistantFactory
 			return new EnumerationAssistant(parent, (EnumerationType)type, listener);
 		else if (type instanceof AadlBoolean)
 			return new BooleanAssistant(parent, listener);
+		else if (type instanceof ClassifierType)
+			return new ClassifierAssistant(parent, (ClassifierType)type, holder, listener);
 		else if (type instanceof AadlString)
 			return new StringAssistant(parent, listener);
 		else if (type instanceof NumberType) {
