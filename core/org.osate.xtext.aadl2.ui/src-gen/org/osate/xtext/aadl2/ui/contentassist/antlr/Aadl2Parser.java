@@ -1673,9 +1673,10 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataTypeAccess().getOwnedPrototypeAssignment_3_1_1(), "rule__DataType__OwnedPrototypeAssignment_3_1_1");
 					put(grammarAccess.getDataTypeAccess().getNoFeaturesAssignment_4_1_0_0(), "rule__DataType__NoFeaturesAssignment_4_1_0_0");
 					put(grammarAccess.getDataTypeAccess().getOwnedFeatureGroupAssignment_4_1_1_0(), "rule__DataType__OwnedFeatureGroupAssignment_4_1_1_0");
-					put(grammarAccess.getDataTypeAccess().getOwnedSubprogramAccessAssignment_4_1_1_1(), "rule__DataType__OwnedSubprogramAccessAssignment_4_1_1_1");
-					put(grammarAccess.getDataTypeAccess().getOwnedSubprogramGroupAccessAssignment_4_1_1_2(), "rule__DataType__OwnedSubprogramGroupAccessAssignment_4_1_1_2");
-					put(grammarAccess.getDataTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_3(), "rule__DataType__OwnedAbstractFeatureAssignment_4_1_1_3");
+					put(grammarAccess.getDataTypeAccess().getOwnedDataAccessAssignment_4_1_1_1(), "rule__DataType__OwnedDataAccessAssignment_4_1_1_1");
+					put(grammarAccess.getDataTypeAccess().getOwnedSubprogramAccessAssignment_4_1_1_2(), "rule__DataType__OwnedSubprogramAccessAssignment_4_1_1_2");
+					put(grammarAccess.getDataTypeAccess().getOwnedSubprogramGroupAccessAssignment_4_1_1_3(), "rule__DataType__OwnedSubprogramGroupAccessAssignment_4_1_1_3");
+					put(grammarAccess.getDataTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_4(), "rule__DataType__OwnedAbstractFeatureAssignment_4_1_1_4");
 					put(grammarAccess.getDataTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__DataType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getDataTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__DataType__NoFlowsAssignment_5_1_1_0");
 					put(grammarAccess.getDataTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__DataType__OwnedModeAssignment_6_0_2");

@@ -46,6 +46,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.DataType#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
+ *   <li>{@link org.osate.aadl2.DataType#getOwnedDataAccesses <em>Owned Data Access</em>}</li>
  *   <li>{@link org.osate.aadl2.DataType#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
  * </ul>
  * </p>
@@ -86,6 +87,38 @@ public interface DataType extends ComponentType, DataClassifier, CallContext {
 	 * @generated
 	 */
 	SubprogramAccess createOwnedSubprogramAccess();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Data Access</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.DataAccess}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Data Access</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Data Access</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getDataType_OwnedDataAccess()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<DataAccess> getOwnedDataAccesses();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.DataAccess} and appends it to the '<em><b>Owned Data Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.DataAccess}.
+	 * @see #getOwnedDataAccesses()
+	 * @generated
+	 */
+	DataAccess createOwnedDataAccess();
 
 	/**
 	 * Returns the value of the '<em><b>Owned Subprogram Group Access</b></em>' containment reference list.

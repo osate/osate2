@@ -441,15 +441,14 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 	 * @generated NOT
 	 */
 	public void setExtended(ComponentType newExtended) {
-		if ( newExtended == null ) {
-			setOwnedExtension( null );
-		}
-		else {
-			if ( getOwnedExtension() == null ) {
+		if (newExtended == null) {
+			setOwnedExtension(null);
+		} else {
+			if (getOwnedExtension() == null) {
 				createOwnedExtension();
 			}
-			
-			getOwnedExtension().setExtended( newExtended );
+
+			getOwnedExtension().setExtended(newExtended);
 		}
 	}
 

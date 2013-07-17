@@ -137,6 +137,7 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements
 		}
 		return super.eIsSet(featureID);
 	}
+
 	/**
 	 * Returns the name of the package.
 	 */

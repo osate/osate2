@@ -261,18 +261,18 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 				metaclass = Aadl2Package.eINSTANCE.getNamedElement();
 				return metaclass;
 			}
-			if (metaclassName.toString().equalsIgnoreCase("package")) 
-			{
+			if (metaclassName.toString().equalsIgnoreCase("package")) {
 				//Related to bug 241
 				// Make the property taken as for a "all"
 				metaclass = Aadl2Package.eINSTANCE.getNamedElement();
 				return metaclass;
 			}
 			EPackage pack = Aadl2Package.eINSTANCE;
-			if (getAnnexName()!=null ){
+			if (getAnnexName() != null) {
 				pack = getAnnexEPackage(getAnnexName());
 			}
-			EClassifier searchResult = pack.getEClassifier(metaclassName.toString());
+			EClassifier searchResult = pack.getEClassifier(metaclassName
+					.toString());
 			if (searchResult instanceof EClass) {
 				EClass searchResultAsEClass = (EClass) searchResult;
 				if (Aadl2Package.eINSTANCE.getNamedElement().isSuperTypeOf(
@@ -281,7 +281,9 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 				else
 					errorMessage = "' is not a 'named element' or a subtype of 'named element'";
 			} else
-				errorMessage = "' is not the name of a "+(getAnnexName()==null?"AADL2":getAnnexName())+" meta class";
+				errorMessage = "' is not the name of a "
+						+ (getAnnexName() == null ? "AADL2" : getAnnexName())
+						+ " meta class";
 			if (errorMessage != null) {
 				StringBuilder errorMessageBuilder = new StringBuilder("'");
 				for (Iterator<String> iter = getMetaclassNames().iterator(); iter
@@ -297,17 +299,15 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 		}
 		return metaclass;
 	}
-	
-	public EPackage getAnnexEPackage(String annexname)
-	{
+
+	public EPackage getAnnexEPackage(String annexname) {
 
 		String NSURI = ParseUtil.getAnnexNS(annexname);
-		if (NSURI != null)
-		{
+		if (NSURI != null) {
 			EPackage pack = EPackage.Registry.INSTANCE.getEPackage(NSURI);
 			return pack;
 		}
-		
+
 		return Aadl2Package.eINSTANCE;
 	}
 

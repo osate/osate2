@@ -458,7 +458,7 @@ DataType returns aadl2::DataType:
 	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') 
 	| (
-	ownedFeatureGroup+=FeatureGroup| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	ownedFeatureGroup+=FeatureGroup| ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ )
 	 )?

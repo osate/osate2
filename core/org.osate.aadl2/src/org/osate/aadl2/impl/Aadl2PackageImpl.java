@@ -6685,8 +6685,17 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDataType_OwnedSubprogramGroupAccess() {
+	public EReference getDataType_OwnedDataAccess() {
 		return (EReference) getDataType().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDataType_OwnedSubprogramGroupAccess() {
+		return (EReference) getDataType().getEStructuralFeatures().get(2);
 	}
 
 	/**
