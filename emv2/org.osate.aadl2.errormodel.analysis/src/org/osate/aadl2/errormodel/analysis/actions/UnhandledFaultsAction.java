@@ -69,8 +69,6 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -492,7 +490,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			 * Let also check that if a components has an error state machine, all
 			 * states are referenced.
 			 */
-			if (EMV2Util.hasComponentErrorBehavior(componentInstance))
+			if (EMV2Util.hasComponentErrorBehaviorStates(componentInstance))
 			{
 				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
 				{
@@ -519,7 +517,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * Rule C6: Check completeness of all outgoing error propagation condition: we address and cover all error types
 			 */
-			if (EMV2Util.hasErrorPropagationsSection(componentInstance))
+			if (EMV2Util.hasErrorPropagations(componentInstance))
 			{
 				for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
 				{
@@ -671,16 +669,12 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
 				{
 					boolean found = false;
-					for (CompositeErrorBehavior ceb : EMV2Util.getAllCompositeErrorBehaviors (componentInstance))
+					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance))
 					{
-						for (CompositeState cs : ceb.getStates())
-						{
 							if (cs.getState() == ebs)
 							{
 								found = true;
 							}
-						}
-						
 					}
 					if (found == false)
 					{
@@ -703,27 +697,23 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
 				{
 					subcomponents = new BasicEList<Subcomponent>();
-					
-					for (CompositeErrorBehavior ceb : EMV2Util.getAllCompositeErrorBehaviors (componentInstance))
+
+					for (CompositeState cs : EMV2Util.getAllCompositeStates (componentInstance))
 					{
-						for (CompositeState cs : ceb.getStates())
+						if (cs.getState() == ebs)
 						{
-							if (cs.getState() == ebs)
+							for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (cs))
 							{
-								for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (cs))
+								for (SubcomponentElement se : ce.getSubcomponents())
 								{
-									for (SubcomponentElement se : ce.getSubcomponents())
+									if (se != null)
 									{
-										if (se != null)
-										{
-											subcomponents.add(se.getSubcomponent());
-										}
+										subcomponents.add(se.getSubcomponent());
 									}
-									
 								}
 							}
 						}
-						
+
 					}
 					
 					for (ComponentInstance ci : componentInstance.getComponentInstances())
@@ -752,7 +742,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * Rule C13: Composite error behavior: check compliance between component state machine and composite error state machine
 			 */
-			if (EMV2Util.hasCompositeErrorBehavior(componentInstance) && EMV2Util.hasComponentErrorBehavior(componentInstance))
+			if (EMV2Util.hasCompositeErrorBehavior(componentInstance) && EMV2Util.hasComponentErrorBehaviorStates(componentInstance))
 			{
 
 
@@ -782,15 +772,12 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					/**
 					 * We retrieve all the elements within the composite error behavior
 					 */
-					for (CompositeErrorBehavior ceb : EMV2Util.getAllCompositeErrorBehaviors (componentInstance))
+					for ( CompositeState cs : EMV2Util.getAllCompositeStates (componentInstance))
 					{
-						for (CompositeState cs : ceb.getStates())
-						{
 							if (cs.getState() == ebs)
 							{
 								elementsComposite.addAll(EMV2Util.getAllConditionElementsFromConditionExpression (cs));
 							}
-						}
 					}
 					
 					/**

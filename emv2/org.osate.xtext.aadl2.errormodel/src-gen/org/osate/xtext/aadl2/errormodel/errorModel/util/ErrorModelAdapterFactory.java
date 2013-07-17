@@ -136,11 +136,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createTypeMappingAdapter();
       }
       @Override
-      public Adapter caseErrorPropagations(ErrorPropagations object)
-      {
-        return createErrorPropagationsAdapter();
-      }
-      @Override
       public Adapter caseErrorPropagation(ErrorPropagation object)
       {
         return createErrorPropagationAdapter();
@@ -174,11 +169,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseErrorPath(ErrorPath object)
       {
         return createErrorPathAdapter();
-      }
-      @Override
-      public Adapter casePropagationPaths(PropagationPaths object)
-      {
-        return createPropagationPathsAdapter();
       }
       @Override
       public Adapter casePropagationPoint(PropagationPoint object)
@@ -241,11 +231,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createBranchValueAdapter();
       }
       @Override
-      public Adapter caseConnectionErrorBehavior(ConnectionErrorBehavior object)
-      {
-        return createConnectionErrorBehaviorAdapter();
-      }
-      @Override
       public Adapter caseConnectionErrorSource(ConnectionErrorSource object)
       {
         return createConnectionErrorSourceAdapter();
@@ -254,11 +239,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseTypeUseContext(TypeUseContext object)
       {
         return createTypeUseContextAdapter();
-      }
-      @Override
-      public Adapter caseComponentErrorBehavior(ComponentErrorBehavior object)
-      {
-        return createComponentErrorBehaviorAdapter();
       }
       @Override
       public Adapter caseConditionExpression(ConditionExpression object)
@@ -304,11 +284,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseErrorStateToModeMapping(ErrorStateToModeMapping object)
       {
         return createErrorStateToModeMappingAdapter();
-      }
-      @Override
-      public Adapter caseCompositeErrorBehavior(CompositeErrorBehavior object)
-      {
-        return createCompositeErrorBehaviorAdapter();
       }
       @Override
       public Adapter caseCompositeState(CompositeState object)
@@ -553,21 +528,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations <em>Error Propagations</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations
-   * @generated
-   */
-  public Adapter createErrorPropagationsAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation <em>Error Propagation</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -668,21 +628,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createErrorPathAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths <em>Propagation Paths</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths
-   * @generated
-   */
-  public Adapter createPropagationPathsAdapter()
   {
     return null;
   }
@@ -868,21 +813,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior <em>Connection Error Behavior</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior
-   * @generated
-   */
-  public Adapter createConnectionErrorBehaviorAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource <em>Connection Error Source</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -908,21 +838,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTypeUseContextAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior <em>Component Error Behavior</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior
-   * @generated
-   */
-  public Adapter createComponentErrorBehaviorAdapter()
   {
     return null;
   }
@@ -1058,21 +973,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createErrorStateToModeMappingAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior <em>Composite Error Behavior</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior
-   * @generated
-   */
-  public Adapter createCompositeErrorBehaviorAdapter()
   {
     return null;
   }

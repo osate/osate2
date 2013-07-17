@@ -44,10 +44,9 @@ ErrorModelSubclause
 
 Element returns aadl2::Element:
 TypeSetElement|TypeToken 
-|TypeTransformation|TypeMapping|PropagationPaths
+|TypeTransformation|TypeMapping
 |QualifiedPropagationPoint|TransitionBranch
-|ConditionElement|ConnectionErrorBehavior |ErrorPropagations 
-|	ComponentErrorBehavior | CompositeErrorBehavior
+|ConditionElement
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 	|ErrorStateToModeMapping
 | SubcomponentElement | FeatureorPPReference  | TypeUseContext
@@ -58,11 +57,49 @@ ErrorModelSubclause returns ErrorModelSubclause:
      {ErrorModelSubclause}//'{**' 
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
    ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
-	    ( errorPropagations=ErrorPropagations)?
-	    (componentBehavior=ComponentErrorBehavior)?
-		(compositeBehavior=CompositeErrorBehavior )?
-		( connectionBehavior=ConnectionErrorBehavior	)?
-		( propagationPaths=PropagationPaths)?
+  (    'error' 'propagations'
+   (propagations+=ErrorPropagation)* 
+   ( 'flows'
+   (flows+=ErrorFlow)+)? 
+   'end' 'propagations' ';'
+  )?
+  (
+  		'component' 'error' 'behavior' 
+   ('use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF] ';')?
+  ( 'events' (events+=ErrorBehaviorEvent )+ )?
+   (  'transitions' 
+    ( transitions+=ErrorBehaviorTransition )+ )?
+   (  'propagations'
+    ( outgoingPropagationConditions+=OutgoingPropagationCondition )+ )?
+   (  'detections'
+    ( errorDetections+=ErrorDetection )+ )?
+   (  'mode' 'mappings'
+    ( errorStateToModeMappings+=ErrorStateToModeMapping )+ )?
+   'end' 'component' ';'
+  	
+  )
+  (
+	'composite' 'error' 'behavior' 
+   ( 'states' 
+    ( states+=CompositeState )+ 
+    )?
+   'end' 'composite' ';'
+  )?
+  (
+  		'connection' 'error' 'behavior'
+	('use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+	( connectionErrorSources+= ConnectionErrorSource )*
+	'end' 'connection' ';'
+  	
+  )?
+  (
+  		'propagation' 'paths' 
+	( points+=PropagationPoint)+
+	('connections'
+	( connections+=PropagationPointConnection)+
+	)?
+	'end' 'paths' ';'
+  )?
     ('properties'
  	(properties+=ContainedPropertyAssociation )+)?
 //	'**}'
@@ -167,14 +204,6 @@ TypeMapping returns TypeMapping:
 	 source=TypeTokenConstraint '->' target=TypeToken ';'
 ;
 
-ErrorPropagations returns ErrorPropagations: 
-   'error' 'propagations'
-   {ErrorPropagations}
-   (propagations+=ErrorPropagation)* 
-   ( 'flows'
-   (flows+=ErrorFlow)+)? 
-   'end' 'propagations' ';'
-   ;
    
 ErrorPropagation returns ErrorPropagation:
 	{ErrorPropagation}
@@ -225,14 +254,6 @@ ErrorPropagationPoint :
    PropagationKind | (ID  ('.' ID)*)
    ;
 
-PropagationPaths returns PropagationPaths:
-	'propagation' 'paths' 
-	( points+=PropagationPoint)+
-	('connections'
-	( connections+=PropagationPointConnection)+
-	)?
-	'end' 'paths' ';'
-;
    
 PropagationPoint returns PropagationPoint:
     name=ID ':' 'propagation' 'point'  
@@ -306,14 +327,6 @@ BranchValue returns BranchValue:
    ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::PropertyConstant|QEMREF]) | (others?='others'));
 
 
-ConnectionErrorBehavior returns ConnectionErrorBehavior:
-	'connection' 'error' 'behavior'
-	{ConnectionErrorBehavior}
-	('use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
-	( connectionErrorSources+= ConnectionErrorSource )*
-	'end' 'connection' ';'
-;
-
 ConnectionErrorSource returns ConnectionErrorSource:
 	name=ID ':' 'error' 'source' 
 	(connection=[aadl2::Connection|ID]|all?='all')
@@ -328,22 +341,6 @@ TypeUseContext returns TypeUseContext:
 	| ErrorModelSubclause
 ;
 
-  
-ComponentErrorBehavior returns ComponentErrorBehavior: 
-	'component' 'error' 'behavior' 
-	{ComponentErrorBehavior}
-   ('use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF] ';')?
-  ( 'events' (events+=ErrorBehaviorEvent )+ )?
-   (  'transitions' 
-    ( transitions+=ErrorBehaviorTransition )+ )?
-   (  'propagations'
-    ( outgoingPropagationConditions+=OutgoingPropagationCondition )+ )?
-   (  'detections'
-    ( errorDetections+=ErrorDetection )+ )?
-   (  'mode' 'mappings'
-    ( errorStateToModeMappings+=ErrorStateToModeMapping )+ )?
-   'end' 'component' ';'
-;  
  
  
  // condition expression for component specific transitions 
@@ -420,15 +417,6 @@ InternalPort returns aadl2::InternalEvent:
 	 'self' '.' name=ID
 ;
 
-CompositeErrorBehavior returns CompositeErrorBehavior: 
-	'composite' 'error' 'behavior' 
-	{CompositeErrorBehavior}
-   ( 'states' 
-    ( states+=CompositeState )+ 
-    )?
-   'end' 'composite' ';'
-; 
-
 CompositeState returns CompositeState:
     (name = ID ':' )?
 	'[' (condition=SConditionExpression | others?='others') ']->' state=[ErrorBehaviorState|ID] (typedToken=TypeToken)?';';
@@ -462,8 +450,10 @@ SConditionTerm returns ConditionExpression:
 
   
 SConditionElement returns ConditionElement:
-	(subcomponents+=SubcomponentElement '.')+ state=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?
-;
+	((subcomponents+=SubcomponentElement '.')+ state=[ErrorBehaviorState|ID] (constraint=TypeTokenConstraint)?)
+//	|
+//  	(incoming=[ErrorPropagation|ErrorPropagationPoint] ( constraint=TypeTokenConstraintNoError )?)
+  ;
 
 SubcomponentElement returns SubcomponentElement:
 	subcomponent = [aadl2::Subcomponent|ID]

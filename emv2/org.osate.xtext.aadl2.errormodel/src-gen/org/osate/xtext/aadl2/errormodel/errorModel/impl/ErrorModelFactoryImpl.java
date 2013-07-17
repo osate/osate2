@@ -75,7 +75,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.TYPE_TRANSFORMATION: return createTypeTransformation();
       case ErrorModelPackage.TYPE_MAPPING_SET: return createTypeMappingSet();
       case ErrorModelPackage.TYPE_MAPPING: return createTypeMapping();
-      case ErrorModelPackage.ERROR_PROPAGATIONS: return createErrorPropagations();
       case ErrorModelPackage.ERROR_PROPAGATION: return createErrorPropagation();
       case ErrorModelPackage.FEATUREOR_PP_REFERENCE: return createFeatureorPPReference();
       case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
@@ -83,7 +82,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET: return createErrorBehaviorStateOrTypeSet();
       case ErrorModelPackage.ERROR_SINK: return createErrorSink();
       case ErrorModelPackage.ERROR_PATH: return createErrorPath();
-      case ErrorModelPackage.PROPAGATION_PATHS: return createPropagationPaths();
       case ErrorModelPackage.PROPAGATION_POINT: return createPropagationPoint();
       case ErrorModelPackage.PROPAGATION_POINT_CONNECTION: return createPropagationPointConnection();
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT: return createQualifiedPropagationPoint();
@@ -96,10 +94,8 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION: return createErrorBehaviorTransition();
       case ErrorModelPackage.TRANSITION_BRANCH: return createTransitionBranch();
       case ErrorModelPackage.BRANCH_VALUE: return createBranchValue();
-      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR: return createConnectionErrorBehavior();
       case ErrorModelPackage.CONNECTION_ERROR_SOURCE: return createConnectionErrorSource();
       case ErrorModelPackage.TYPE_USE_CONTEXT: return createTypeUseContext();
-      case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR: return createComponentErrorBehavior();
       case ErrorModelPackage.CONDITION_EXPRESSION: return createConditionExpression();
       case ErrorModelPackage.ORMORE_EXPRESSION: return createOrmoreExpression();
       case ErrorModelPackage.ORLESS_EXPRESSION: return createOrlessExpression();
@@ -109,7 +105,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_DETECTION: return createErrorDetection();
       case ErrorModelPackage.ERROR_CODE_VALUE: return createErrorCodeValue();
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: return createErrorStateToModeMapping();
-      case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR: return createCompositeErrorBehavior();
       case ErrorModelPackage.COMPOSITE_STATE: return createCompositeState();
       case ErrorModelPackage.SUBCOMPONENT_ELEMENT: return createSubcomponentElement();
       case ErrorModelPackage.OR_EXPRESSION: return createOrExpression();
@@ -247,17 +242,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorPropagations createErrorPropagations()
-  {
-    ErrorPropagationsImpl errorPropagations = new ErrorPropagationsImpl();
-    return errorPropagations;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ErrorPropagation createErrorPropagation()
   {
     ErrorPropagationImpl errorPropagation = new ErrorPropagationImpl();
@@ -328,17 +312,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorPathImpl errorPath = new ErrorPathImpl();
     return errorPath;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropagationPaths createPropagationPaths()
-  {
-    PropagationPathsImpl propagationPaths = new PropagationPathsImpl();
-    return propagationPaths;
   }
 
   /**
@@ -478,17 +451,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public ConnectionErrorBehavior createConnectionErrorBehavior()
-  {
-    ConnectionErrorBehaviorImpl connectionErrorBehavior = new ConnectionErrorBehaviorImpl();
-    return connectionErrorBehavior;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ConnectionErrorSource createConnectionErrorSource()
   {
     ConnectionErrorSourceImpl connectionErrorSource = new ConnectionErrorSourceImpl();
@@ -504,17 +466,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     TypeUseContextImpl typeUseContext = new TypeUseContextImpl();
     return typeUseContext;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComponentErrorBehavior createComponentErrorBehavior()
-  {
-    ComponentErrorBehaviorImpl componentErrorBehavior = new ComponentErrorBehaviorImpl();
-    return componentErrorBehavior;
   }
 
   /**
@@ -614,17 +565,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorStateToModeMappingImpl errorStateToModeMapping = new ErrorStateToModeMappingImpl();
     return errorStateToModeMapping;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public CompositeErrorBehavior createCompositeErrorBehavior()
-  {
-    CompositeErrorBehaviorImpl compositeErrorBehavior = new CompositeErrorBehaviorImpl();
-    return compositeErrorBehavior;
   }
 
   /**

@@ -13,12 +13,9 @@ import org.osate.aadl2.Aadl2Package;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -36,7 +33,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
@@ -48,7 +44,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
@@ -156,13 +151,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass errorPropagationsEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass errorPropagationEClass = null;
 
   /**
@@ -206,13 +194,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass errorPathEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass propagationPathsEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -303,13 +284,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass connectionErrorBehaviorEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass connectionErrorSourceEClass = null;
 
   /**
@@ -318,13 +292,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass typeUseContextEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass componentErrorBehaviorEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -388,13 +355,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass errorStateToModeMappingEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass compositeErrorBehaviorEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -569,7 +529,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelSubclause_ErrorPropagations()
+  public EReference getErrorModelSubclause_Propagations()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(2);
   }
@@ -579,7 +539,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelSubclause_ComponentBehavior()
+  public EReference getErrorModelSubclause_Flows()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(3);
   }
@@ -589,7 +549,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelSubclause_CompositeBehavior()
+  public EReference getErrorModelSubclause_UseTransformation()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(4);
   }
@@ -599,7 +559,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelSubclause_ConnectionBehavior()
+  public EReference getErrorModelSubclause_Events()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(5);
   }
@@ -609,7 +569,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelSubclause_PropagationPaths()
+  public EReference getErrorModelSubclause_Transitions()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(6);
   }
@@ -619,9 +579,89 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelSubclause_Properties()
+  public EReference getErrorModelSubclause_OutgoingPropagationConditions()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelSubclause_ErrorDetections()
+  {
+    return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelSubclause_ErrorStateToModeMappings()
+  {
+    return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelSubclause_States()
+  {
+    return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelSubclause_TypeTransformationSet()
+  {
+    return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(11);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelSubclause_ConnectionErrorSources()
+  {
+    return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(12);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelSubclause_Points()
+  {
+    return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(13);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelSubclause_Connections()
+  {
+    return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(14);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorModelSubclause_Properties()
+  {
+    return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(15);
   }
 
   /**
@@ -949,36 +989,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getErrorPropagations()
-  {
-    return errorPropagationsEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getErrorPropagations_Propagations()
-  {
-    return (EReference)errorPropagationsEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getErrorPropagations_Flows()
-  {
-    return (EReference)errorPropagationsEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getErrorPropagation()
   {
     return errorPropagationEClass;
@@ -1242,36 +1252,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
   public EReference getErrorPath_TypeMappingSet()
   {
     return (EReference)errorPathEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPropagationPaths()
-  {
-    return propagationPathsEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPropagationPaths_Points()
-  {
-    return (EReference)propagationPathsEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPropagationPaths_Connections()
-  {
-    return (EReference)propagationPathsEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1709,36 +1689,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConnectionErrorBehavior()
-  {
-    return connectionErrorBehaviorEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConnectionErrorBehavior_TypeTransformationSet()
-  {
-    return (EReference)connectionErrorBehaviorEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConnectionErrorBehavior_ConnectionErrorSources()
-  {
-    return (EReference)connectionErrorBehaviorEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getConnectionErrorSource()
   {
     return connectionErrorSourceEClass;
@@ -1802,76 +1752,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
   public EClass getTypeUseContext()
   {
     return typeUseContextEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getComponentErrorBehavior()
-  {
-    return componentErrorBehaviorEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getComponentErrorBehavior_UseTransformation()
-  {
-    return (EReference)componentErrorBehaviorEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getComponentErrorBehavior_Events()
-  {
-    return (EReference)componentErrorBehaviorEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getComponentErrorBehavior_Transitions()
-  {
-    return (EReference)componentErrorBehaviorEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getComponentErrorBehavior_OutgoingPropagationConditions()
-  {
-    return (EReference)componentErrorBehaviorEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getComponentErrorBehavior_ErrorDetections()
-  {
-    return (EReference)componentErrorBehaviorEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getComponentErrorBehavior_ErrorStateToModeMappings()
-  {
-    return (EReference)componentErrorBehaviorEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -2239,26 +2119,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCompositeErrorBehavior()
-  {
-    return compositeErrorBehaviorEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getCompositeErrorBehavior_States()
-  {
-    return (EReference)compositeErrorBehaviorEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getCompositeState()
   {
     return compositeStateEClass;
@@ -2441,11 +2301,19 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorModelSubclauseEClass = createEClass(ERROR_MODEL_SUBCLAUSE);
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__USE_TYPES);
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR);
-    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS);
-    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR);
-    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR);
-    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR);
-    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__PROPAGATIONS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__FLOWS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__EVENTS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__TRANSITIONS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__STATES);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__POINTS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__CONNECTIONS);
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__PROPERTIES);
 
     errorModelLibraryEClass = createEClass(ERROR_MODEL_LIBRARY);
@@ -2489,10 +2357,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(typeMappingEClass, TYPE_MAPPING__SOURCE);
     createEReference(typeMappingEClass, TYPE_MAPPING__TARGET);
 
-    errorPropagationsEClass = createEClass(ERROR_PROPAGATIONS);
-    createEReference(errorPropagationsEClass, ERROR_PROPAGATIONS__PROPAGATIONS);
-    createEReference(errorPropagationsEClass, ERROR_PROPAGATIONS__FLOWS);
-
     errorPropagationEClass = createEClass(ERROR_PROPAGATION);
     createEAttribute(errorPropagationEClass, ERROR_PROPAGATION__KIND);
     createEReference(errorPropagationEClass, ERROR_PROPAGATION__FEATUREOR_PP_REFS);
@@ -2526,10 +2390,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEAttribute(errorPathEClass, ERROR_PATH__ALL_OUTGOING);
     createEReference(errorPathEClass, ERROR_PATH__TARGET_TOKEN);
     createEReference(errorPathEClass, ERROR_PATH__TYPE_MAPPING_SET);
-
-    propagationPathsEClass = createEClass(PROPAGATION_PATHS);
-    createEReference(propagationPathsEClass, PROPAGATION_PATHS__POINTS);
-    createEReference(propagationPathsEClass, PROPAGATION_PATHS__CONNECTIONS);
 
     propagationPointEClass = createEClass(PROPAGATION_POINT);
 
@@ -2586,10 +2446,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(branchValueEClass, BRANCH_VALUE__SYMBOLICLABEL);
     createEAttribute(branchValueEClass, BRANCH_VALUE__OTHERS);
 
-    connectionErrorBehaviorEClass = createEClass(CONNECTION_ERROR_BEHAVIOR);
-    createEReference(connectionErrorBehaviorEClass, CONNECTION_ERROR_BEHAVIOR__TYPE_TRANSFORMATION_SET);
-    createEReference(connectionErrorBehaviorEClass, CONNECTION_ERROR_BEHAVIOR__CONNECTION_ERROR_SOURCES);
-
     connectionErrorSourceEClass = createEClass(CONNECTION_ERROR_SOURCE);
     createEReference(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__CONNECTION);
     createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__ALL);
@@ -2598,14 +2454,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION);
 
     typeUseContextEClass = createEClass(TYPE_USE_CONTEXT);
-
-    componentErrorBehaviorEClass = createEClass(COMPONENT_ERROR_BEHAVIOR);
-    createEReference(componentErrorBehaviorEClass, COMPONENT_ERROR_BEHAVIOR__USE_TRANSFORMATION);
-    createEReference(componentErrorBehaviorEClass, COMPONENT_ERROR_BEHAVIOR__EVENTS);
-    createEReference(componentErrorBehaviorEClass, COMPONENT_ERROR_BEHAVIOR__TRANSITIONS);
-    createEReference(componentErrorBehaviorEClass, COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS);
-    createEReference(componentErrorBehaviorEClass, COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS);
-    createEReference(componentErrorBehaviorEClass, COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS);
 
     conditionExpressionEClass = createEClass(CONDITION_EXPRESSION);
 
@@ -2651,9 +2499,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorStateToModeMappingEClass = createEClass(ERROR_STATE_TO_MODE_MAPPING);
     createEReference(errorStateToModeMappingEClass, ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE);
     createEReference(errorStateToModeMappingEClass, ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES);
-
-    compositeErrorBehaviorEClass = createEClass(COMPOSITE_ERROR_BEHAVIOR);
-    createEReference(compositeErrorBehaviorEClass, COMPOSITE_ERROR_BEHAVIOR__STATES);
 
     compositeStateEClass = createEClass(COMPOSITE_STATE);
     createEReference(compositeStateEClass, COMPOSITE_STATE__CONDITION);
@@ -2723,7 +2568,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     typeMappingSetEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     typeMappingSetEClass.getESuperTypes().add(this.getTypeUseContext());
     typeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
-    errorPropagationsEClass.getESuperTypes().add(theAadl2Package.getElement());
     errorPropagationEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorPropagationEClass.getESuperTypes().add(this.getEventOrPropagation());
     featureorPPReferenceEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2731,7 +2575,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorSourceEClass.getESuperTypes().add(this.getErrorFlow());
     errorSinkEClass.getESuperTypes().add(this.getErrorFlow());
     errorPathEClass.getESuperTypes().add(this.getErrorFlow());
-    propagationPathsEClass.getESuperTypes().add(theAadl2Package.getElement());
     propagationPointEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     propagationPointConnectionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     qualifiedPropagationPointEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2746,10 +2589,8 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorBehaviorStateEClass.getESuperTypes().add(this.getErrorBehaviorStateOrTypeSet());
     errorBehaviorTransitionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     transitionBranchEClass.getESuperTypes().add(theAadl2Package.getElement());
-    connectionErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
     connectionErrorSourceEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     typeUseContextEClass.getESuperTypes().add(theAadl2Package.getElement());
-    componentErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
     conditionExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());
     ormoreExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());
     ormoreExpressionEClass.getESuperTypes().add(this.getConditionExpression());
@@ -2761,7 +2602,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     outgoingPropagationConditionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorDetectionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorStateToModeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
-    compositeErrorBehaviorEClass.getESuperTypes().add(theAadl2Package.getElement());
     compositeStateEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     subcomponentElementEClass.getESuperTypes().add(theAadl2Package.getElement());
     orExpressionEClass.getESuperTypes().add(this.getConditionExpression());
@@ -2777,11 +2617,19 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEClass(errorModelSubclauseEClass, ErrorModelSubclause.class, "ErrorModelSubclause", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getErrorModelSubclause_UseTypes(), this.getErrorModelLibrary(), null, "useTypes", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelSubclause_UseBehavior(), this.getErrorBehaviorStateMachine(), null, "useBehavior", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorModelSubclause_ErrorPropagations(), this.getErrorPropagations(), null, "errorPropagations", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorModelSubclause_ComponentBehavior(), this.getComponentErrorBehavior(), null, "componentBehavior", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorModelSubclause_CompositeBehavior(), this.getCompositeErrorBehavior(), null, "compositeBehavior", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorModelSubclause_ConnectionBehavior(), this.getConnectionErrorBehavior(), null, "connectionBehavior", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorModelSubclause_PropagationPaths(), this.getPropagationPaths(), null, "propagationPaths", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_Propagations(), this.getErrorPropagation(), null, "propagations", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_Flows(), this.getErrorFlow(), null, "flows", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_UseTransformation(), this.getTypeTransformationSet(), null, "useTransformation", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_Events(), this.getErrorBehaviorEvent(), null, "events", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_Transitions(), this.getErrorBehaviorTransition(), null, "transitions", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_OutgoingPropagationConditions(), this.getOutgoingPropagationCondition(), null, "outgoingPropagationConditions", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_ErrorDetections(), this.getErrorDetection(), null, "errorDetections", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_ErrorStateToModeMappings(), this.getErrorStateToModeMapping(), null, "errorStateToModeMappings", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_States(), this.getCompositeState(), null, "states", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_TypeTransformationSet(), this.getTypeTransformationSet(), null, "typeTransformationSet", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_ConnectionErrorSources(), this.getConnectionErrorSource(), null, "connectionErrorSources", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_Points(), this.getPropagationPoint(), null, "points", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_Connections(), this.getPropagationPointConnection(), null, "connections", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelSubclause_Properties(), theAadl2Package.getPropertyAssociation(), null, "properties", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorModelLibraryEClass, ErrorModelLibrary.class, "ErrorModelLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2825,10 +2673,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getTypeMapping_Source(), this.getTypeSet(), null, "source", null, 0, 1, TypeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTypeMapping_Target(), this.getTypeToken(), null, "target", null, 0, 1, TypeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(errorPropagationsEClass, ErrorPropagations.class, "ErrorPropagations", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getErrorPropagations_Propagations(), this.getErrorPropagation(), null, "propagations", null, 0, -1, ErrorPropagations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorPropagations_Flows(), this.getErrorFlow(), null, "flows", null, 0, -1, ErrorPropagations.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(errorPropagationEClass, ErrorPropagation.class, "ErrorPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getErrorPropagation_Kind(), ecorePackage.getEString(), "kind", null, 0, 1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorPropagation_FeatureorPPRefs(), this.getFeatureorPPReference(), null, "featureorPPRefs", null, 0, -1, ErrorPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2862,10 +2706,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEAttribute(getErrorPath_AllOutgoing(), ecorePackage.getEBoolean(), "allOutgoing", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorPath_TargetToken(), this.getTypeToken(), null, "targetToken", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorPath_TypeMappingSet(), this.getTypeMappingSet(), null, "typeMappingSet", null, 0, 1, ErrorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(propagationPathsEClass, PropagationPaths.class, "PropagationPaths", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropagationPaths_Points(), this.getPropagationPoint(), null, "points", null, 0, -1, PropagationPaths.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPropagationPaths_Connections(), this.getPropagationPointConnection(), null, "connections", null, 0, -1, PropagationPaths.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propagationPointEClass, PropagationPoint.class, "PropagationPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2922,10 +2762,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getBranchValue_Symboliclabel(), theAadl2Package.getPropertyConstant(), null, "symboliclabel", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getBranchValue_Others(), ecorePackage.getEBoolean(), "others", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(connectionErrorBehaviorEClass, ConnectionErrorBehavior.class, "ConnectionErrorBehavior", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConnectionErrorBehavior_TypeTransformationSet(), this.getTypeTransformationSet(), null, "typeTransformationSet", null, 0, 1, ConnectionErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConnectionErrorBehavior_ConnectionErrorSources(), this.getConnectionErrorSource(), null, "connectionErrorSources", null, 0, -1, ConnectionErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(connectionErrorSourceEClass, ConnectionErrorSource.class, "ConnectionErrorSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getConnectionErrorSource_Connection(), theAadl2Package.getConnection(), null, "connection", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getConnectionErrorSource_All(), ecorePackage.getEBoolean(), "all", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2934,14 +2770,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEAttribute(getConnectionErrorSource_FailureModeDescription(), ecorePackage.getEString(), "failureModeDescription", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeUseContextEClass, TypeUseContext.class, "TypeUseContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(componentErrorBehaviorEClass, ComponentErrorBehavior.class, "ComponentErrorBehavior", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getComponentErrorBehavior_UseTransformation(), this.getTypeTransformationSet(), null, "useTransformation", null, 0, 1, ComponentErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getComponentErrorBehavior_Events(), this.getErrorBehaviorEvent(), null, "events", null, 0, -1, ComponentErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getComponentErrorBehavior_Transitions(), this.getErrorBehaviorTransition(), null, "transitions", null, 0, -1, ComponentErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getComponentErrorBehavior_OutgoingPropagationConditions(), this.getOutgoingPropagationCondition(), null, "outgoingPropagationConditions", null, 0, -1, ComponentErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getComponentErrorBehavior_ErrorDetections(), this.getErrorDetection(), null, "errorDetections", null, 0, -1, ComponentErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getComponentErrorBehavior_ErrorStateToModeMappings(), this.getErrorStateToModeMapping(), null, "errorStateToModeMappings", null, 0, -1, ComponentErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(conditionExpressionEClass, ConditionExpression.class, "ConditionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2987,9 +2815,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEClass(errorStateToModeMappingEClass, ErrorStateToModeMapping.class, "ErrorStateToModeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getErrorStateToModeMapping_ErrorState(), this.getErrorBehaviorState(), null, "errorState", null, 0, 1, ErrorStateToModeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorStateToModeMapping_MappedModes(), theAadl2Package.getMode(), null, "mappedModes", null, 0, -1, ErrorStateToModeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(compositeErrorBehaviorEClass, CompositeErrorBehavior.class, "CompositeErrorBehavior", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCompositeErrorBehavior_States(), this.getCompositeState(), null, "states", null, 0, -1, CompositeErrorBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(compositeStateEClass, CompositeState.class, "CompositeState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCompositeState_Condition(), this.getConditionExpression(), null, "condition", null, 0, 1, CompositeState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

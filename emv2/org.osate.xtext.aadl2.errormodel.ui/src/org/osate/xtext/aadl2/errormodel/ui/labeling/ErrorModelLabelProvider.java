@@ -20,14 +20,11 @@ package org.osate.xtext.aadl2.errormodel.ui.labeling;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
@@ -90,19 +87,10 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 		}
 
 
-	String text(ErrorPropagations ele) {
-		  return "Error Propagations";
-		}
 	String text(ErrorPropagation ele) {
 		  return (ele.isNot()?"not ":"")+"propagation "+
 	EMV2Util.getPrintName(ele)
 	;
-		}
-	String text(ComponentErrorBehavior ele) {
-		  return "Component error behavior";
-		}
-	String text(CompositeErrorBehavior ele) {
-		  return "Composite error behavior";
 		}
 //
 //    String image(MyModel ele) {

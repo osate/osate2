@@ -22,15 +22,22 @@ import org.osate.aadl2.PropertyAssociation;
 
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,11 +48,19 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPaths;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseBehavior <em>Use Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getErrorPropagations <em>Error Propagations</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getComponentBehavior <em>Component Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getCompositeBehavior <em>Composite Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnectionBehavior <em>Connection Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPropagationPaths <em>Propagation Paths</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPropagations <em>Propagations</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getFlows <em>Flows</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTransformation <em>Use Transformation</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getOutgoingPropagationConditions <em>Outgoing Propagation Conditions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getErrorDetections <em>Error Detections</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getErrorStateToModeMappings <em>Error State To Mode Mappings</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getStates <em>States</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeTransformationSet <em>Type Transformation Set</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnectionErrorSources <em>Connection Error Sources</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPoints <em>Points</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnections <em>Connections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
@@ -75,54 +90,134 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   protected ErrorBehaviorStateMachine useBehavior;
 
   /**
-   * The cached value of the '{@link #getErrorPropagations() <em>Error Propagations</em>}' containment reference.
+   * The cached value of the '{@link #getPropagations() <em>Propagations</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getErrorPropagations()
+   * @see #getPropagations()
    * @generated
    * @ordered
    */
-  protected ErrorPropagations errorPropagations;
+  protected EList<ErrorPropagation> propagations;
 
   /**
-   * The cached value of the '{@link #getComponentBehavior() <em>Component Behavior</em>}' containment reference.
+   * The cached value of the '{@link #getFlows() <em>Flows</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getComponentBehavior()
+   * @see #getFlows()
    * @generated
    * @ordered
    */
-  protected ComponentErrorBehavior componentBehavior;
+  protected EList<ErrorFlow> flows;
 
   /**
-   * The cached value of the '{@link #getCompositeBehavior() <em>Composite Behavior</em>}' containment reference.
+   * The cached value of the '{@link #getUseTransformation() <em>Use Transformation</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCompositeBehavior()
+   * @see #getUseTransformation()
    * @generated
    * @ordered
    */
-  protected CompositeErrorBehavior compositeBehavior;
+  protected TypeTransformationSet useTransformation;
 
   /**
-   * The cached value of the '{@link #getConnectionBehavior() <em>Connection Behavior</em>}' containment reference.
+   * The cached value of the '{@link #getEvents() <em>Events</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConnectionBehavior()
+   * @see #getEvents()
    * @generated
    * @ordered
    */
-  protected ConnectionErrorBehavior connectionBehavior;
+  protected EList<ErrorBehaviorEvent> events;
 
   /**
-   * The cached value of the '{@link #getPropagationPaths() <em>Propagation Paths</em>}' containment reference.
+   * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPropagationPaths()
+   * @see #getTransitions()
    * @generated
    * @ordered
    */
-  protected PropagationPaths propagationPaths;
+  protected EList<ErrorBehaviorTransition> transitions;
+
+  /**
+   * The cached value of the '{@link #getOutgoingPropagationConditions() <em>Outgoing Propagation Conditions</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOutgoingPropagationConditions()
+   * @generated
+   * @ordered
+   */
+  protected EList<OutgoingPropagationCondition> outgoingPropagationConditions;
+
+  /**
+   * The cached value of the '{@link #getErrorDetections() <em>Error Detections</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getErrorDetections()
+   * @generated
+   * @ordered
+   */
+  protected EList<ErrorDetection> errorDetections;
+
+  /**
+   * The cached value of the '{@link #getErrorStateToModeMappings() <em>Error State To Mode Mappings</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getErrorStateToModeMappings()
+   * @generated
+   * @ordered
+   */
+  protected EList<ErrorStateToModeMapping> errorStateToModeMappings;
+
+  /**
+   * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStates()
+   * @generated
+   * @ordered
+   */
+  protected EList<CompositeState> states;
+
+  /**
+   * The cached value of the '{@link #getTypeTransformationSet() <em>Type Transformation Set</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTypeTransformationSet()
+   * @generated
+   * @ordered
+   */
+  protected TypeTransformationSet typeTransformationSet;
+
+  /**
+   * The cached value of the '{@link #getConnectionErrorSources() <em>Connection Error Sources</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConnectionErrorSources()
+   * @generated
+   * @ordered
+   */
+  protected EList<ConnectionErrorSource> connectionErrorSources;
+
+  /**
+   * The cached value of the '{@link #getPoints() <em>Points</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPoints()
+   * @generated
+   * @ordered
+   */
+  protected EList<PropagationPoint> points;
+
+  /**
+   * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConnections()
+   * @generated
+   * @ordered
+   */
+  protected EList<PropagationPointConnection> connections;
 
   /**
    * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
@@ -217,9 +312,13 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public ErrorPropagations getErrorPropagations()
+  public EList<ErrorPropagation> getPropagations()
   {
-    return errorPropagations;
+    if (propagations == null)
+    {
+      propagations = new EObjectContainmentEList<ErrorPropagation>(ErrorPropagation.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS);
+    }
+    return propagations;
   }
 
   /**
@@ -227,16 +326,70 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetErrorPropagations(ErrorPropagations newErrorPropagations, NotificationChain msgs)
+  public EList<ErrorFlow> getFlows()
   {
-    ErrorPropagations oldErrorPropagations = errorPropagations;
-    errorPropagations = newErrorPropagations;
+    if (flows == null)
+    {
+      flows = new EObjectContainmentEList<ErrorFlow>(ErrorFlow.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS);
+    }
+    return flows;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeTransformationSet getUseTransformation()
+  {
+    if (useTransformation != null && useTransformation.eIsProxy())
+    {
+      InternalEObject oldUseTransformation = (InternalEObject)useTransformation;
+      useTransformation = (TypeTransformationSet)eResolveProxy(oldUseTransformation);
+      if (useTransformation != oldUseTransformation)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION, oldUseTransformation, useTransformation));
+      }
+    }
+    return useTransformation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeTransformationSet basicGetUseTransformation()
+  {
+    return useTransformation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setUseTransformation(TypeTransformationSet newUseTransformation)
+  {
+    TypeTransformationSet oldUseTransformation = useTransformation;
+    useTransformation = newUseTransformation;
     if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION, oldUseTransformation, useTransformation));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ErrorBehaviorEvent> getEvents()
+  {
+    if (events == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS, oldErrorPropagations, newErrorPropagations);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      events = new EObjectContainmentEList<ErrorBehaviorEvent>(ErrorBehaviorEvent.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__EVENTS);
     }
-    return msgs;
+    return events;
   }
 
   /**
@@ -244,20 +397,13 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setErrorPropagations(ErrorPropagations newErrorPropagations)
+  public EList<ErrorBehaviorTransition> getTransitions()
   {
-    if (newErrorPropagations != errorPropagations)
+    if (transitions == null)
     {
-      NotificationChain msgs = null;
-      if (errorPropagations != null)
-        msgs = ((InternalEObject)errorPropagations).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS, null, msgs);
-      if (newErrorPropagations != null)
-        msgs = ((InternalEObject)newErrorPropagations).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS, null, msgs);
-      msgs = basicSetErrorPropagations(newErrorPropagations, msgs);
-      if (msgs != null) msgs.dispatch();
+      transitions = new EObjectContainmentEList<ErrorBehaviorTransition>(ErrorBehaviorTransition.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TRANSITIONS);
     }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS, newErrorPropagations, newErrorPropagations));
+    return transitions;
   }
 
   /**
@@ -265,9 +411,13 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentErrorBehavior getComponentBehavior()
+  public EList<OutgoingPropagationCondition> getOutgoingPropagationConditions()
   {
-    return componentBehavior;
+    if (outgoingPropagationConditions == null)
+    {
+      outgoingPropagationConditions = new EObjectContainmentEList<OutgoingPropagationCondition>(OutgoingPropagationCondition.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS);
+    }
+    return outgoingPropagationConditions;
   }
 
   /**
@@ -275,16 +425,98 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetComponentBehavior(ComponentErrorBehavior newComponentBehavior, NotificationChain msgs)
+  public EList<ErrorDetection> getErrorDetections()
   {
-    ComponentErrorBehavior oldComponentBehavior = componentBehavior;
-    componentBehavior = newComponentBehavior;
+    if (errorDetections == null)
+    {
+      errorDetections = new EObjectContainmentEList<ErrorDetection>(ErrorDetection.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS);
+    }
+    return errorDetections;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ErrorStateToModeMapping> getErrorStateToModeMappings()
+  {
+    if (errorStateToModeMappings == null)
+    {
+      errorStateToModeMappings = new EObjectContainmentEList<ErrorStateToModeMapping>(ErrorStateToModeMapping.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS);
+    }
+    return errorStateToModeMappings;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<CompositeState> getStates()
+  {
+    if (states == null)
+    {
+      states = new EObjectContainmentEList<CompositeState>(CompositeState.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES);
+    }
+    return states;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeTransformationSet getTypeTransformationSet()
+  {
+    if (typeTransformationSet != null && typeTransformationSet.eIsProxy())
+    {
+      InternalEObject oldTypeTransformationSet = (InternalEObject)typeTransformationSet;
+      typeTransformationSet = (TypeTransformationSet)eResolveProxy(oldTypeTransformationSet);
+      if (typeTransformationSet != oldTypeTransformationSet)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET, oldTypeTransformationSet, typeTransformationSet));
+      }
+    }
+    return typeTransformationSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeTransformationSet basicGetTypeTransformationSet()
+  {
+    return typeTransformationSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTypeTransformationSet(TypeTransformationSet newTypeTransformationSet)
+  {
+    TypeTransformationSet oldTypeTransformationSet = typeTransformationSet;
+    typeTransformationSet = newTypeTransformationSet;
     if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET, oldTypeTransformationSet, typeTransformationSet));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ConnectionErrorSource> getConnectionErrorSources()
+  {
+    if (connectionErrorSources == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR, oldComponentBehavior, newComponentBehavior);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      connectionErrorSources = new EObjectContainmentEList<ConnectionErrorSource>(ConnectionErrorSource.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES);
     }
-    return msgs;
+    return connectionErrorSources;
   }
 
   /**
@@ -292,20 +524,13 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setComponentBehavior(ComponentErrorBehavior newComponentBehavior)
+  public EList<PropagationPoint> getPoints()
   {
-    if (newComponentBehavior != componentBehavior)
+    if (points == null)
     {
-      NotificationChain msgs = null;
-      if (componentBehavior != null)
-        msgs = ((InternalEObject)componentBehavior).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR, null, msgs);
-      if (newComponentBehavior != null)
-        msgs = ((InternalEObject)newComponentBehavior).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR, null, msgs);
-      msgs = basicSetComponentBehavior(newComponentBehavior, msgs);
-      if (msgs != null) msgs.dispatch();
+      points = new EObjectContainmentEList<PropagationPoint>(PropagationPoint.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS);
     }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR, newComponentBehavior, newComponentBehavior));
+    return points;
   }
 
   /**
@@ -313,143 +538,13 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public CompositeErrorBehavior getCompositeBehavior()
+  public EList<PropagationPointConnection> getConnections()
   {
-    return compositeBehavior;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetCompositeBehavior(CompositeErrorBehavior newCompositeBehavior, NotificationChain msgs)
-  {
-    CompositeErrorBehavior oldCompositeBehavior = compositeBehavior;
-    compositeBehavior = newCompositeBehavior;
-    if (eNotificationRequired())
+    if (connections == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR, oldCompositeBehavior, newCompositeBehavior);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      connections = new EObjectContainmentEList<PropagationPointConnection>(PropagationPointConnection.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCompositeBehavior(CompositeErrorBehavior newCompositeBehavior)
-  {
-    if (newCompositeBehavior != compositeBehavior)
-    {
-      NotificationChain msgs = null;
-      if (compositeBehavior != null)
-        msgs = ((InternalEObject)compositeBehavior).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR, null, msgs);
-      if (newCompositeBehavior != null)
-        msgs = ((InternalEObject)newCompositeBehavior).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR, null, msgs);
-      msgs = basicSetCompositeBehavior(newCompositeBehavior, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR, newCompositeBehavior, newCompositeBehavior));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ConnectionErrorBehavior getConnectionBehavior()
-  {
-    return connectionBehavior;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetConnectionBehavior(ConnectionErrorBehavior newConnectionBehavior, NotificationChain msgs)
-  {
-    ConnectionErrorBehavior oldConnectionBehavior = connectionBehavior;
-    connectionBehavior = newConnectionBehavior;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR, oldConnectionBehavior, newConnectionBehavior);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setConnectionBehavior(ConnectionErrorBehavior newConnectionBehavior)
-  {
-    if (newConnectionBehavior != connectionBehavior)
-    {
-      NotificationChain msgs = null;
-      if (connectionBehavior != null)
-        msgs = ((InternalEObject)connectionBehavior).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR, null, msgs);
-      if (newConnectionBehavior != null)
-        msgs = ((InternalEObject)newConnectionBehavior).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR, null, msgs);
-      msgs = basicSetConnectionBehavior(newConnectionBehavior, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR, newConnectionBehavior, newConnectionBehavior));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropagationPaths getPropagationPaths()
-  {
-    return propagationPaths;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetPropagationPaths(PropagationPaths newPropagationPaths, NotificationChain msgs)
-  {
-    PropagationPaths oldPropagationPaths = propagationPaths;
-    propagationPaths = newPropagationPaths;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS, oldPropagationPaths, newPropagationPaths);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPropagationPaths(PropagationPaths newPropagationPaths)
-  {
-    if (newPropagationPaths != propagationPaths)
-    {
-      NotificationChain msgs = null;
-      if (propagationPaths != null)
-        msgs = ((InternalEObject)propagationPaths).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS, null, msgs);
-      if (newPropagationPaths != null)
-        msgs = ((InternalEObject)newPropagationPaths).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS, null, msgs);
-      msgs = basicSetPropagationPaths(newPropagationPaths, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS, newPropagationPaths, newPropagationPaths));
+    return connections;
   }
 
   /**
@@ -476,16 +571,28 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS:
-        return basicSetErrorPropagations(null, msgs);
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR:
-        return basicSetComponentBehavior(null, msgs);
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
-        return basicSetCompositeBehavior(null, msgs);
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
-        return basicSetConnectionBehavior(null, msgs);
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
-        return basicSetPropagationPaths(null, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
+        return ((InternalEList<?>)getPropagations()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
+        return ((InternalEList<?>)getFlows()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__EVENTS:
+        return ((InternalEList<?>)getEvents()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TRANSITIONS:
+        return ((InternalEList<?>)getTransitions()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS:
+        return ((InternalEList<?>)getOutgoingPropagationConditions()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS:
+        return ((InternalEList<?>)getErrorDetections()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS:
+        return ((InternalEList<?>)getErrorStateToModeMappings()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES:
+        return ((InternalEList<?>)getStates()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES:
+        return ((InternalEList<?>)getConnectionErrorSources()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
+        return ((InternalEList<?>)getPoints()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
+        return ((InternalEList<?>)getConnections()).basicRemove(otherEnd, msgs);
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
     }
@@ -507,16 +614,34 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         if (resolve) return getUseBehavior();
         return basicGetUseBehavior();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS:
-        return getErrorPropagations();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR:
-        return getComponentBehavior();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
-        return getCompositeBehavior();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
-        return getConnectionBehavior();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
-        return getPropagationPaths();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
+        return getPropagations();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
+        return getFlows();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION:
+        if (resolve) return getUseTransformation();
+        return basicGetUseTransformation();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__EVENTS:
+        return getEvents();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TRANSITIONS:
+        return getTransitions();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS:
+        return getOutgoingPropagationConditions();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS:
+        return getErrorDetections();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS:
+        return getErrorStateToModeMappings();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES:
+        return getStates();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET:
+        if (resolve) return getTypeTransformationSet();
+        return basicGetTypeTransformationSet();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES:
+        return getConnectionErrorSources();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
+        return getPoints();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
+        return getConnections();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         return getProperties();
     }
@@ -541,20 +666,55 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)newValue);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS:
-        setErrorPropagations((ErrorPropagations)newValue);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
+        getPropagations().clear();
+        getPropagations().addAll((Collection<? extends ErrorPropagation>)newValue);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR:
-        setComponentBehavior((ComponentErrorBehavior)newValue);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
+        getFlows().clear();
+        getFlows().addAll((Collection<? extends ErrorFlow>)newValue);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
-        setCompositeBehavior((CompositeErrorBehavior)newValue);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION:
+        setUseTransformation((TypeTransformationSet)newValue);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
-        setConnectionBehavior((ConnectionErrorBehavior)newValue);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__EVENTS:
+        getEvents().clear();
+        getEvents().addAll((Collection<? extends ErrorBehaviorEvent>)newValue);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
-        setPropagationPaths((PropagationPaths)newValue);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TRANSITIONS:
+        getTransitions().clear();
+        getTransitions().addAll((Collection<? extends ErrorBehaviorTransition>)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS:
+        getOutgoingPropagationConditions().clear();
+        getOutgoingPropagationConditions().addAll((Collection<? extends OutgoingPropagationCondition>)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS:
+        getErrorDetections().clear();
+        getErrorDetections().addAll((Collection<? extends ErrorDetection>)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS:
+        getErrorStateToModeMappings().clear();
+        getErrorStateToModeMappings().addAll((Collection<? extends ErrorStateToModeMapping>)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES:
+        getStates().clear();
+        getStates().addAll((Collection<? extends CompositeState>)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET:
+        setTypeTransformationSet((TypeTransformationSet)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES:
+        getConnectionErrorSources().clear();
+        getConnectionErrorSources().addAll((Collection<? extends ConnectionErrorSource>)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
+        getPoints().clear();
+        getPoints().addAll((Collection<? extends PropagationPoint>)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
+        getConnections().clear();
+        getConnections().addAll((Collection<? extends PropagationPointConnection>)newValue);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         getProperties().clear();
@@ -580,20 +740,44 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)null);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS:
-        setErrorPropagations((ErrorPropagations)null);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
+        getPropagations().clear();
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR:
-        setComponentBehavior((ComponentErrorBehavior)null);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
+        getFlows().clear();
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
-        setCompositeBehavior((CompositeErrorBehavior)null);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION:
+        setUseTransformation((TypeTransformationSet)null);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
-        setConnectionBehavior((ConnectionErrorBehavior)null);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__EVENTS:
+        getEvents().clear();
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
-        setPropagationPaths((PropagationPaths)null);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TRANSITIONS:
+        getTransitions().clear();
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS:
+        getOutgoingPropagationConditions().clear();
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS:
+        getErrorDetections().clear();
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS:
+        getErrorStateToModeMappings().clear();
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES:
+        getStates().clear();
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET:
+        setTypeTransformationSet((TypeTransformationSet)null);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES:
+        getConnectionErrorSources().clear();
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
+        getPoints().clear();
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
+        getConnections().clear();
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         getProperties().clear();
@@ -616,16 +800,32 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return useTypes != null && !useTypes.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         return useBehavior != null;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_PROPAGATIONS:
-        return errorPropagations != null;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR:
-        return componentBehavior != null;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR:
-        return compositeBehavior != null;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_BEHAVIOR:
-        return connectionBehavior != null;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION_PATHS:
-        return propagationPaths != null;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
+        return propagations != null && !propagations.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
+        return flows != null && !flows.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION:
+        return useTransformation != null;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__EVENTS:
+        return events != null && !events.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TRANSITIONS:
+        return transitions != null && !transitions.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS:
+        return outgoingPropagationConditions != null && !outgoingPropagationConditions.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS:
+        return errorDetections != null && !errorDetections.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS:
+        return errorStateToModeMappings != null && !errorStateToModeMappings.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES:
+        return states != null && !states.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET:
+        return typeTransformationSet != null;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES:
+        return connectionErrorSources != null && !connectionErrorSources.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
+        return points != null && !points.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
+        return connections != null && !connections.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         return properties != null && !properties.isEmpty();
     }

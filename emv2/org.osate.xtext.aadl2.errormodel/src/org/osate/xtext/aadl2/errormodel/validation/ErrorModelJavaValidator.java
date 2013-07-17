@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
@@ -26,7 +25,6 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -39,7 +37,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
@@ -141,16 +138,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
+		checkOnePropagationAndContainmentPoint(subclause);
 		Collection<NamedElement> names = EMV2Util.getAllNamedElements(subclause);
 		EList<NamedElement> doubles = EMV2Util.findDoubleNamedElementsInList(names);
 		for (NamedElement namedElement : doubles) {
 			error(namedElement, namedElement.getName()+" has duplicate error propagations.");
 		}
-	}
-
-	@Check(CheckType.NORMAL)
-	public void caseErrorPropagations(ErrorPropagations errorPropagations) {
-		checkOnePropagationAndContainmentPoint(errorPropagations);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -273,8 +266,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkOnePropagationAndContainmentPoint(
-			ErrorPropagations errorPropagations) {
-		EList<ErrorPropagation> eps = errorPropagations.getPropagations();
+			ErrorModelSubclause ems) {
+		EList<ErrorPropagation> eps = ems.getPropagations();
 		int epssize = eps.size();
 		for (int i = 0; i < epssize - 1; i++) {
 			ErrorPropagation ep1 = eps.get(i);

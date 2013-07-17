@@ -37,6 +37,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
@@ -52,7 +53,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
@@ -81,8 +81,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 	public Event processRootSystem (SystemInstance systemInstance)
 	{
 		EList<CompositeState> 		states;
-		CompositeErrorBehavior 		ceb;
-		EList<ComponentInstance> 	componentInstances;
+		EList<ComponentInstance> 	componentInstances = new UniqueEList<ComponentInstance>();
 		
 		Event						result;
 		
@@ -90,7 +89,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 		FTAUtils.init(systemInstance);
 		EList<CompositeState> eslist = EMV2Util.getAllCompositeStates(systemInstance);
 		
-		componentInstances = EMV2Util.getComponentInstancesWithComponentErrorBehavior (systemInstance);
+		componentInstances.addAll(EMV2Util.getComponentInstancesWithComponentErrorBehaviorStates(systemInstance));
 		componentInstances.addAll(EMV2Util.getComponentInstancesWithErrorPropagations(systemInstance));
 		componentInstances.addAll(EMV2Util.getComponentInstancesWithCompositeErrorBehavior(systemInstance));
 		result = new Event ();

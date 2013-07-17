@@ -181,14 +181,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ErrorModelPackage.ERROR_PROPAGATIONS:
-      {
-        ErrorPropagations errorPropagations = (ErrorPropagations)theEObject;
-        T result = caseErrorPropagations(errorPropagations);
-        if (result == null) result = caseElement(errorPropagations);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ErrorModelPackage.ERROR_PROPAGATION:
       {
         ErrorPropagation errorPropagation = (ErrorPropagation)theEObject;
@@ -250,14 +242,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = caseErrorFlow(errorPath);
         if (result == null) result = caseNamedElement(errorPath);
         if (result == null) result = caseElement(errorPath);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ErrorModelPackage.PROPAGATION_PATHS:
-      {
-        PropagationPaths propagationPaths = (PropagationPaths)theEObject;
-        T result = casePropagationPaths(propagationPaths);
-        if (result == null) result = caseElement(propagationPaths);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -374,14 +358,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ErrorModelPackage.CONNECTION_ERROR_BEHAVIOR:
-      {
-        ConnectionErrorBehavior connectionErrorBehavior = (ConnectionErrorBehavior)theEObject;
-        T result = caseConnectionErrorBehavior(connectionErrorBehavior);
-        if (result == null) result = caseElement(connectionErrorBehavior);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ErrorModelPackage.CONNECTION_ERROR_SOURCE:
       {
         ConnectionErrorSource connectionErrorSource = (ConnectionErrorSource)theEObject;
@@ -396,14 +372,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         TypeUseContext typeUseContext = (TypeUseContext)theEObject;
         T result = caseTypeUseContext(typeUseContext);
         if (result == null) result = caseElement(typeUseContext);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR:
-      {
-        ComponentErrorBehavior componentErrorBehavior = (ComponentErrorBehavior)theEObject;
-        T result = caseComponentErrorBehavior(componentErrorBehavior);
-        if (result == null) result = caseElement(componentErrorBehavior);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -481,14 +449,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         ErrorStateToModeMapping errorStateToModeMapping = (ErrorStateToModeMapping)theEObject;
         T result = caseErrorStateToModeMapping(errorStateToModeMapping);
         if (result == null) result = caseElement(errorStateToModeMapping);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR:
-      {
-        CompositeErrorBehavior compositeErrorBehavior = (CompositeErrorBehavior)theEObject;
-        T result = caseCompositeErrorBehavior(compositeErrorBehavior);
-        if (result == null) result = caseElement(compositeErrorBehavior);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -726,22 +686,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Error Propagations</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Error Propagations</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseErrorPropagations(ErrorPropagations object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Error Propagation</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -849,22 +793,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseErrorPath(ErrorPath object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Propagation Paths</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Propagation Paths</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePropagationPaths(PropagationPaths object)
   {
     return null;
   }
@@ -1062,22 +990,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Connection Error Behavior</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Connection Error Behavior</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseConnectionErrorBehavior(ConnectionErrorBehavior object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Connection Error Source</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1105,22 +1017,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseTypeUseContext(TypeUseContext object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Component Error Behavior</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Component Error Behavior</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseComponentErrorBehavior(ComponentErrorBehavior object)
   {
     return null;
   }
@@ -1265,22 +1161,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseErrorStateToModeMapping(ErrorStateToModeMapping object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Composite Error Behavior</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Composite Error Behavior</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseCompositeErrorBehavior(CompositeErrorBehavior object)
   {
     return null;
   }

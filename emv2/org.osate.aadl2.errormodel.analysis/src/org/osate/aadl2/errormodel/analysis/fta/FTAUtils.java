@@ -19,7 +19,6 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
@@ -157,7 +156,7 @@ public class FTAUtils
 //		OsateDebug.osateDebug("condition state" + conditionElement.getState());
 //		OsateDebug.osateDebug("Classifier=" + cl);
 		
-		if (EMV2Util.hasComponentErrorBehavior(relatedInstance))
+		if (EMV2Util.hasComponentErrorBehaviorTransitions(relatedInstance))
 		{
 			Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(cl);
 			for (ErrorBehaviorTransition t : transitions)

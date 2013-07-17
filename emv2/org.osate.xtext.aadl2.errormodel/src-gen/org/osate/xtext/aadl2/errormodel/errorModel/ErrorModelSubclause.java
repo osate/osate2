@@ -17,11 +17,19 @@ import org.osate.aadl2.PropertyAssociation;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorPropagations <em>Error Propagations</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getComponentBehavior <em>Component Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getCompositeBehavior <em>Composite Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionBehavior <em>Connection Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagationPaths <em>Propagation Paths</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagations <em>Propagations</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getFlows <em>Flows</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTransformation <em>Use Transformation</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getOutgoingPropagationConditions <em>Outgoing Propagation Conditions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorDetections <em>Error Detections</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorStateToModeMappings <em>Error State To Mode Mappings</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getStates <em>States</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeTransformationSet <em>Type Transformation Set</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionErrorSources <em>Connection Error Sources</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPoints <em>Points</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnections <em>Connections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
@@ -75,134 +83,232 @@ public interface ErrorModelSubclause extends AnnexSubclause, TypeUseContext
   void setUseBehavior(ErrorBehaviorStateMachine value);
 
   /**
-   * Returns the value of the '<em><b>Error Propagations</b></em>' containment reference.
+   * Returns the value of the '<em><b>Propagations</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Error Propagations</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Propagations</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Error Propagations</em>' containment reference.
-   * @see #setErrorPropagations(ErrorPropagations)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ErrorPropagations()
+   * @return the value of the '<em>Propagations</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Propagations()
    * @model containment="true"
    * @generated
    */
-  ErrorPropagations getErrorPropagations();
+  EList<ErrorPropagation> getPropagations();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorPropagations <em>Error Propagations</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Error Propagations</em>' containment reference.
-   * @see #getErrorPropagations()
-   * @generated
-   */
-  void setErrorPropagations(ErrorPropagations value);
-
-  /**
-   * Returns the value of the '<em><b>Component Behavior</b></em>' containment reference.
+   * Returns the value of the '<em><b>Flows</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Component Behavior</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Flows</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Component Behavior</em>' containment reference.
-   * @see #setComponentBehavior(ComponentErrorBehavior)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ComponentBehavior()
+   * @return the value of the '<em>Flows</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Flows()
    * @model containment="true"
    * @generated
    */
-  ComponentErrorBehavior getComponentBehavior();
+  EList<ErrorFlow> getFlows();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getComponentBehavior <em>Component Behavior</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Component Behavior</em>' containment reference.
-   * @see #getComponentBehavior()
-   * @generated
-   */
-  void setComponentBehavior(ComponentErrorBehavior value);
-
-  /**
-   * Returns the value of the '<em><b>Composite Behavior</b></em>' containment reference.
+   * Returns the value of the '<em><b>Use Transformation</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Composite Behavior</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Use Transformation</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Composite Behavior</em>' containment reference.
-   * @see #setCompositeBehavior(CompositeErrorBehavior)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_CompositeBehavior()
-   * @model containment="true"
+   * @return the value of the '<em>Use Transformation</em>' reference.
+   * @see #setUseTransformation(TypeTransformationSet)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_UseTransformation()
+   * @model
    * @generated
    */
-  CompositeErrorBehavior getCompositeBehavior();
+  TypeTransformationSet getUseTransformation();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getCompositeBehavior <em>Composite Behavior</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTransformation <em>Use Transformation</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Composite Behavior</em>' containment reference.
-   * @see #getCompositeBehavior()
+   * @param value the new value of the '<em>Use Transformation</em>' reference.
+   * @see #getUseTransformation()
    * @generated
    */
-  void setCompositeBehavior(CompositeErrorBehavior value);
+  void setUseTransformation(TypeTransformationSet value);
 
   /**
-   * Returns the value of the '<em><b>Connection Behavior</b></em>' containment reference.
+   * Returns the value of the '<em><b>Events</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Connection Behavior</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Events</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Connection Behavior</em>' containment reference.
-   * @see #setConnectionBehavior(ConnectionErrorBehavior)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ConnectionBehavior()
+   * @return the value of the '<em>Events</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Events()
    * @model containment="true"
    * @generated
    */
-  ConnectionErrorBehavior getConnectionBehavior();
+  EList<ErrorBehaviorEvent> getEvents();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionBehavior <em>Connection Behavior</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Connection Behavior</em>' containment reference.
-   * @see #getConnectionBehavior()
-   * @generated
-   */
-  void setConnectionBehavior(ConnectionErrorBehavior value);
-
-  /**
-   * Returns the value of the '<em><b>Propagation Paths</b></em>' containment reference.
+   * Returns the value of the '<em><b>Transitions</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Propagation Paths</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Transitions</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Propagation Paths</em>' containment reference.
-   * @see #setPropagationPaths(PropagationPaths)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_PropagationPaths()
+   * @return the value of the '<em>Transitions</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Transitions()
    * @model containment="true"
    * @generated
    */
-  PropagationPaths getPropagationPaths();
+  EList<ErrorBehaviorTransition> getTransitions();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagationPaths <em>Propagation Paths</em>}' containment reference.
+   * Returns the value of the '<em><b>Outgoing Propagation Conditions</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition}.
    * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Outgoing Propagation Conditions</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Propagation Paths</em>' containment reference.
-   * @see #getPropagationPaths()
+   * @return the value of the '<em>Outgoing Propagation Conditions</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_OutgoingPropagationConditions()
+   * @model containment="true"
    * @generated
    */
-  void setPropagationPaths(PropagationPaths value);
+  EList<OutgoingPropagationCondition> getOutgoingPropagationConditions();
+
+  /**
+   * Returns the value of the '<em><b>Error Detections</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Error Detections</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Error Detections</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ErrorDetections()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ErrorDetection> getErrorDetections();
+
+  /**
+   * Returns the value of the '<em><b>Error State To Mode Mappings</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Error State To Mode Mappings</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Error State To Mode Mappings</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ErrorStateToModeMappings()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ErrorStateToModeMapping> getErrorStateToModeMappings();
+
+  /**
+   * Returns the value of the '<em><b>States</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeState}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>States</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>States</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_States()
+   * @model containment="true"
+   * @generated
+   */
+  EList<CompositeState> getStates();
+
+  /**
+   * Returns the value of the '<em><b>Type Transformation Set</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type Transformation Set</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type Transformation Set</em>' reference.
+   * @see #setTypeTransformationSet(TypeTransformationSet)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_TypeTransformationSet()
+   * @model
+   * @generated
+   */
+  TypeTransformationSet getTypeTransformationSet();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeTransformationSet <em>Type Transformation Set</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type Transformation Set</em>' reference.
+   * @see #getTypeTransformationSet()
+   * @generated
+   */
+  void setTypeTransformationSet(TypeTransformationSet value);
+
+  /**
+   * Returns the value of the '<em><b>Connection Error Sources</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Connection Error Sources</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Connection Error Sources</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_ConnectionErrorSources()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ConnectionErrorSource> getConnectionErrorSources();
+
+  /**
+   * Returns the value of the '<em><b>Points</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Points</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Points</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Points()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PropagationPoint> getPoints();
+
+  /**
+   * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Connections</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Connections</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Connections()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PropagationPointConnection> getConnections();
 
   /**
    * Returns the value of the '<em><b>Properties</b></em>' containment reference list.

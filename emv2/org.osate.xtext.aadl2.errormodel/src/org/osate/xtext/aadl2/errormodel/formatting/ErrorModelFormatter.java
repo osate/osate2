@@ -105,12 +105,12 @@ public class ErrorModelFormatter extends AbstractDeclarativeFormatter {
 	      c.setIndentationIncrement().after(f.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
 //	      c.setLinewrap().after(f.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
 
-	      c.setLinewrap().after(f.getErrorPropagationsAccess().getPropagationsKeyword_1());
-	      c.setIndentationIncrement().after(f.getErrorPropagationsAccess().getPropagationsKeyword_1());
-	      c.setLinewrap().after(f.getComponentErrorBehaviorAccess().getBehaviorKeyword_2());
-	      c.setIndentationIncrement().after(f.getComponentErrorBehaviorAccess().getBehaviorKeyword_2());
-	      c.setLinewrap().after(f.getCompositeErrorBehaviorAccess().getBehaviorKeyword_2());
-	      c.setIndentationIncrement().after(f.getCompositeErrorBehaviorAccess().getBehaviorKeyword_2());
+//	      c.setLinewrap().after(f.getErrorPropagationsAccess().getPropagationsKeyword_1());
+//	      c.setIndentationIncrement().after(f.getErrorPropagationsAccess().getPropagationsKeyword_1());
+//	      c.setLinewrap().after(f.getComponentErrorBehaviorAccess().getBehaviorKeyword_2());
+//	      c.setIndentationIncrement().after(f.getComponentErrorBehaviorAccess().getBehaviorKeyword_2());
+//	      c.setLinewrap().after(f.getCompositeErrorBehaviorAccess().getBehaviorKeyword_2());
+//	      c.setIndentationIncrement().after(f.getCompositeErrorBehaviorAccess().getBehaviorKeyword_2());
 
 
 		// It's usually a good idea to activate the following three statements.

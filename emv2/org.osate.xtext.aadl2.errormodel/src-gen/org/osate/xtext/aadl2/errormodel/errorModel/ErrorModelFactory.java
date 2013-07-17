@@ -122,15 +122,6 @@ public interface ErrorModelFactory extends EFactory
   TypeMapping createTypeMapping();
 
   /**
-   * Returns a new object of class '<em>Error Propagations</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Error Propagations</em>'.
-   * @generated
-   */
-  ErrorPropagations createErrorPropagations();
-
-  /**
    * Returns a new object of class '<em>Error Propagation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -192,15 +183,6 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   ErrorPath createErrorPath();
-
-  /**
-   * Returns a new object of class '<em>Propagation Paths</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Propagation Paths</em>'.
-   * @generated
-   */
-  PropagationPaths createPropagationPaths();
 
   /**
    * Returns a new object of class '<em>Propagation Point</em>'.
@@ -311,15 +293,6 @@ public interface ErrorModelFactory extends EFactory
   BranchValue createBranchValue();
 
   /**
-   * Returns a new object of class '<em>Connection Error Behavior</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Connection Error Behavior</em>'.
-   * @generated
-   */
-  ConnectionErrorBehavior createConnectionErrorBehavior();
-
-  /**
    * Returns a new object of class '<em>Connection Error Source</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -336,15 +309,6 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   TypeUseContext createTypeUseContext();
-
-  /**
-   * Returns a new object of class '<em>Component Error Behavior</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Component Error Behavior</em>'.
-   * @generated
-   */
-  ComponentErrorBehavior createComponentErrorBehavior();
 
   /**
    * Returns a new object of class '<em>Condition Expression</em>'.
@@ -426,15 +390,6 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   ErrorStateToModeMapping createErrorStateToModeMapping();
-
-  /**
-   * Returns a new object of class '<em>Composite Error Behavior</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Composite Error Behavior</em>'.
-   * @generated
-   */
-  CompositeErrorBehavior createCompositeErrorBehavior();
 
   /**
    * Returns a new object of class '<em>Composite State</em>'.
