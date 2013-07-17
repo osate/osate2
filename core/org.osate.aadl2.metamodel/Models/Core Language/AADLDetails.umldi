@@ -2874,7 +2874,7 @@
           <contained xsi:type="di:EdgeObjectOffset" xmi:id="_KONQMLRkEeCUlOZHyZaJRw" id="stereotypeEdgeObject"/>
         </contained>
       </diagrams>
-      <diagrams xmi:id="_bwelQMqHEdyKYZzlwMzlvQ" position="0,0" size="100,100" name="Features in Data Types" viewport="-132,64">
+      <diagrams xmi:id="_bwelQMqHEdyKYZzlwMzlvQ" position="0,0" size="100,100" name="Features in Data Types" viewport="0,0">
         <property xmi:id="_bx0pEMqHEdyKYZzlwMzlvQ" key="pageFormatName" value="A4"/>
         <property xmi:id="_bx0pEcqHEdyKYZzlwMzlvQ" key="diagramWidth" value="840"/>
         <property xmi:id="_bx0pEsqHEdyKYZzlwMzlvQ" key="diagramHeight" value="1188"/>
