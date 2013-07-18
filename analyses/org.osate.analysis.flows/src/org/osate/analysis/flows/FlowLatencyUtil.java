@@ -179,6 +179,13 @@ public class FlowLatencyUtil {
 					res = res + lat;
 				} 
 			}
+			else if (ref.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR){
+				// add processor-based latency
+				lat = GetProperties.getLatencyinMicroSec(ref);
+				if (lat > 0.0){
+					res = res + lat;
+				} 
+			}
 			prevComp = ref;
 		}
 		// add last access connection latency
@@ -194,12 +201,19 @@ public class FlowLatencyUtil {
 
 	public static ComponentInstance getHardwareComponent(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
+		ComponentInstance p;
 		if (ci.getCategory() == ComponentCategory.DEVICE){
 			return ci;
 		}
 		List cil = GetProperties.getActualProcessorBinding(ci);
 		if (cil.isEmpty()) return null;
-		return (ComponentInstance)cil.get(0);
+		p = (ComponentInstance) cil.get(0);
+//		if (p.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+//		{
+//			return p.getContainingComponentInstance();
+//		}
+		
+		return p;
 	}
 
 	/**
