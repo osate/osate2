@@ -525,13 +525,15 @@ public class PropagateErrorSources {
 		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
 		String effectText = ","+generateTypeTokenErrorPropText(ep,tt);
 		if (paths.isEmpty()){
-			EList<ConnectionInstance> conns = fi.getSrcConnectionInstances();
-			if (conns.isEmpty()){
-				reportEntry(entryText+",[No Outgoing Conn],,", depth);
-			} else {
-				for (ConnectionInstance connectionInstance : conns) {
-					reportEntry(entryText+","+(tt!=null?EMV2Util.getPrintName(tt)+" ":"")+
-				connectionInstance.getName()+"[No In Prop],,", depth);
+			if (fi != null){
+				EList<ConnectionInstance> conns = fi.getSrcConnectionInstances();
+				if (conns.isEmpty()){
+					reportEntry(entryText+",[No Outgoing Conn],,", depth);
+				} else {
+					for (ConnectionInstance connectionInstance : conns) {
+						reportEntry(entryText+","+(tt!=null?EMV2Util.getPrintName(tt)+" ":"")+
+								connectionInstance.getName()+"[No In Prop],,", depth);
+					}
 				}
 			}
 		} else {

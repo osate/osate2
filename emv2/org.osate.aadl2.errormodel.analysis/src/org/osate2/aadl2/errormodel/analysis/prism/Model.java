@@ -9,6 +9,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
@@ -169,7 +170,7 @@ public class Model
 	 * @param ppe The propagationPathEnd from the propagation path
 	 * @et        The corresponding error type that must be mapped.
 	 */
-	public int getErrorTypeCode (PropagationPathEnd ppe, ErrorType et)
+	public int getErrorTypeCode (PropagationPathEnd ppe, ErrorTypes et)
 	{
 		String errorTypeKey;
 		String propagationKey;

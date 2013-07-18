@@ -124,6 +124,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.FAST)
 	public void caseTypeToken(TypeToken tt) {
 		checkTypeTokenUniqueTypes(tt);
+		checkTypeTokenSingleTypeSet(tt);
 	}
 
 	@Check(CheckType.FAST)
@@ -400,14 +401,28 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkTypeTokenUniqueTypes(TypeToken ts) {
 		HashSet<ErrorType> sourceTypes = new HashSet<ErrorType>();
-		for (ErrorType et : ts.getType()) {
-			ErrorType root = EM2TypeSetUtil.rootType(et);
-			if (sourceTypes.contains(root)) {
-				error(et,
-						"Another element type has same root type "
-								+ root.getName() + " as " + et.getName());
-			} else {
-				sourceTypes.add(et);
+		for (ErrorTypes et : ts.getType()) {
+			if (et instanceof ErrorType){
+				ErrorType root = EM2TypeSetUtil.rootType((ErrorType)et);
+				if (sourceTypes.contains(root)) {
+					error(et,
+							"Another element type has same root type "
+									+ root.getName() + " as " + et.getName());
+				} else {
+					sourceTypes.add((ErrorType)et);
+				}
+			}
+		}
+	}
+
+	private void checkTypeTokenSingleTypeSet(TypeToken ts) {
+		EList<ErrorTypes> ets = ts.getType();
+		if (ets.size()>1){
+			ErrorTypes first = ets.get(0);
+			if (first instanceof TypeSet){
+			error(ts,
+					"Type product contains type set "
+							+ first.getName() );
 			}
 		}
 	}

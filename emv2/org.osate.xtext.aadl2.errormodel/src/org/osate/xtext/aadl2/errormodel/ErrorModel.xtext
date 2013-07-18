@@ -150,17 +150,22 @@ TypeSetConstructor returns TypeSet:
           ;
 
 TypeSetReference returns TypeSet: 
-     reference=[TypeSet|QEMREF] | TypeSetConstructor
+     TypeSetConstructor
           ;
 
       
 TypeSetElement returns TypeToken :
-	type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])*
+	type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorType|QEMREF])*
 ;
 
-NoError returns TypeSet:
+NoErrorTypeSet returns TypeSet:
 	{TypeSet}
-	'{' noError?='noerror' '}'
+	'{' typeTokens+=NoErrorTypeToken '}'
+;
+
+NoErrorTypeToken returns TypeToken:
+	{TypeToken}
+	noError?='noerror'
 ;
 
 TypeToken returns TypeToken:
@@ -169,8 +174,7 @@ TypeToken returns TypeToken:
 ;
 
 TypeTokenOrNoError returns TypeToken:
-	{TypeToken}
-     '(' (( type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])*) | noError?='noerror') ')'
+	TypeToken | '(' NoErrorTypeToken ')'
 ;
 
 TypeTokenConstraint returns TypeSet:
@@ -178,7 +182,7 @@ TypeTokenConstraint returns TypeSet:
 ;
 
 TypeTokenConstraintNoError returns TypeSet:
-	TypeSetReference | NoError
+	TypeSetReference | NoErrorTypeSet
 ;
 
 TypeTransformationSet returns TypeTransformationSet: 

@@ -21,6 +21,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
@@ -242,7 +243,7 @@ public class Module {
 				NamedElement connectedFeature =  ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP();
 
 
-				ErrorType et = opc.getTypeToken().getType().get(0);
+				ErrorTypes et = opc.getTypeToken().getType().get(0);
 				//OsateDebug.osateDebug("TYPE" + et.getName() +";state=" + targetState.getName());
 				
 				if (reset)
@@ -392,7 +393,7 @@ public class Module {
 			TypeSet ts = ep.getTypeSet();
 			for (TypeToken tt : ts.getTypeTokens())
 			{
-				for (ErrorType et : tt.getType())
+				for (ErrorTypes et : tt.getType())
 				{
 
 					this.associatedModel.addErrorType (et.getName());
@@ -417,7 +418,7 @@ public class Module {
 				TypeSet ts = ep.getTypeSet();
 				for (TypeToken tt : ts.getTypeTokens())
 				{
-					for (ErrorType et : tt.getType())
+					for (ErrorTypes et : tt.getType())
 					{
 						this.associatedModel.addErrorType (et.getName());
 						Expression e  = new Equal (new Terminal (Util.getComponentIncomingPropagationVariableName(this.aadlComponent, feature.getName())),
@@ -543,10 +544,9 @@ public class Module {
 					NamedElement connectedFeature =  ppe.getErrorPropagation().getFeatureorPPRefs().get(0).getFeatureorPP();
 
 
-					ErrorType et = incomingErrorPropagation.getTypeSet().getTypeTokens().get(0).getType().get(0);
+					ErrorTypes et = incomingErrorPropagation.getTypeSet().getTypeTokens().get(0).getType().get(0);
 
-					if ((conditionElement.getConstraint().getReference() == null) &&
-					    conditionElement.getConstraint().getTypeTokens().isEmpty())
+					if (conditionElement.getConstraint().getTypeTokens().isEmpty())
 					{
 						errorTypeValue = 0;
 					}

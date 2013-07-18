@@ -2002,7 +2002,6 @@ public class EMV2Util {
 	}
 	
 	public static String getPrintName(TypeSet ts){
-		if (ts.getReference() != null) return " "+ts.getReference().getName()+"="+getPrintableName(ts.getReference(), ", ");
 			return getPrintableName(ts, ", ");
 	}
 	
@@ -2018,11 +2017,11 @@ public class EMV2Util {
 		EList<TypeToken> te = ts.getTypeTokens();
 		boolean docomma = false;
 		for (TypeToken typeSetElement : te) {
-			 EList<ErrorType> et = typeSetElement.getType();
+			 EList<ErrorTypes> et = typeSetElement.getType();
 			if (docomma) res = res+separator; else docomma = true;
 			if (et != null&& !et.isEmpty()){
 				boolean doproduct = false;
-				for (ErrorType errorType : et) {
+				for (ErrorTypes errorType : et) {
 					if (doproduct) res = res+"*"; else doproduct = true;
 					res = res + errorType.getName();
 				}
@@ -2039,10 +2038,10 @@ public class EMV2Util {
 	public static String getName(TypeToken tu){
 		if (tu == null) return "";
 		String res ="";
-		EList<ErrorType> te = tu.getType();
-		boolean docomma = false;
-		for (ErrorType et : te) {
-			if (docomma) res = res+"*"; else docomma = true;
+		EList<ErrorTypes> te = tu.getType();
+		boolean dostar = false;
+		for (ErrorTypes et : te) {
+			if (dostar) res = res+"*"; else dostar = true;
 			res = res + et.getName();
 		}
 		return res;
@@ -2076,9 +2075,6 @@ public class EMV2Util {
 	 */
 	public static TypeSet resolveAlias(TypeSet typeset){
 		if (Aadl2Util.isNull(typeset)) return null;
-		if (!Aadl2Util.isNull(typeset.getReference())){
-			typeset = typeset.getReference();
-		}
 		while (!Aadl2Util.isNull(typeset.getAliasedType())){
 			typeset = typeset.getAliasedType();
 		}
@@ -2687,6 +2683,17 @@ public class EMV2Util {
 			}
 		}
 		return false;
+	}
+	
+	public static PropagationPoint getPropagationPoint(ErrorPropagation ep){
+		EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+		if (!refs.isEmpty()){
+			FeatureorPPReference ref = refs.get(0);
+			if (ref instanceof PropagationPoint){
+				return (PropagationPoint)ref;
+			}
+		}
+		return null;
 	}
 	
 

@@ -568,12 +568,12 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.TYPE_SET:
-				if(context == grammarAccess.getNoErrorRule()) {
-					sequence_NoError(context, (TypeSet) semanticObject); 
+				if(context == grammarAccess.getNoErrorTypeSetRule()) {
+					sequence_NoErrorTypeSet(context, (TypeSet) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getTypeTokenConstraintNoErrorRule()) {
-					sequence_NoError_TypeSetConstructor_TypeTokenConstraintNoError(context, (TypeSet) semanticObject); 
+					sequence_NoErrorTypeSet_TypeSetConstructor_TypeTokenConstraintNoError(context, (TypeSet) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getTypeSetConstructorRule() ||
@@ -595,12 +595,16 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_Element_TypeSetElement_TypeToken(context, (TypeToken) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getTypeSetElementRule()) {
-					sequence_TypeSetElement(context, (TypeToken) semanticObject); 
+				else if(context == grammarAccess.getNoErrorTypeTokenRule()) {
+					sequence_NoErrorTypeToken(context, (TypeToken) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getTypeTokenOrNoErrorRule()) {
-					sequence_TypeTokenOrNoError(context, (TypeToken) semanticObject); 
+					sequence_NoErrorTypeToken_TypeToken_TypeTokenOrNoError(context, (TypeToken) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getTypeSetElementRule()) {
+					sequence_TypeSetElement(context, (TypeToken) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getTypeTokenRule()) {
@@ -689,7 +693,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     ((type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*) | (type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*))
+	 *     ((type+=[ErrorTypes|QEMREF] type+=[ErrorType|QEMREF]*) | (type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*))
 	 */
 	protected void sequence_Element_TypeSetElement_TypeToken(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -910,18 +914,36 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     noError?='noerror'
+	 *     typeTokens+=NoErrorTypeToken
 	 */
-	protected void sequence_NoError(EObject context, TypeSet semanticObject) {
+	protected void sequence_NoErrorTypeSet(EObject context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | noError?='noerror')
+	 *     ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | typeTokens+=NoErrorTypeToken)
 	 */
-	protected void sequence_NoError_TypeSetConstructor_TypeTokenConstraintNoError(EObject context, TypeSet semanticObject) {
+	protected void sequence_NoErrorTypeSet_TypeSetConstructor_TypeTokenConstraintNoError(EObject context, TypeSet semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     noError?='noerror'
+	 */
+	protected void sequence_NoErrorTypeToken(EObject context, TypeToken semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*) | noError?='noerror')
+	 */
+	protected void sequence_NoErrorTypeToken_TypeToken_TypeTokenOrNoError(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1117,18 +1139,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*)
+	 *     (type+=[ErrorTypes|QEMREF] type+=[ErrorType|QEMREF]*)
 	 */
 	protected void sequence_TypeSetElement(EObject context, TypeToken semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ((type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*) | noError?='noerror')
-	 */
-	protected void sequence_TypeTokenOrNoError(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

@@ -659,31 +659,13 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_SET__ALIASED_TYPE = ERROR_TYPES_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Reference</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_SET__REFERENCE = ERROR_TYPES_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>No Error</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_SET__NO_ERROR = ERROR_TYPES_FEATURE_COUNT + 3;
-
-  /**
    * The number of structural features of the '<em>Type Set</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE_SET_FEATURE_COUNT = ERROR_TYPES_FEATURE_COUNT + 4;
+  int TYPE_SET_FEATURE_COUNT = ERROR_TYPES_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTokenImpl <em>Type Token</em>}' class.
@@ -4050,28 +4032,6 @@ public interface ErrorModelPackage extends EPackage
   EReference getTypeSet_AliasedType();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#getReference <em>Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Reference</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#getReference()
-   * @see #getTypeSet()
-   * @generated
-   */
-  EReference getTypeSet_Reference();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#isNoError <em>No Error</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>No Error</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#isNoError()
-   * @see #getTypeSet()
-   * @generated
-   */
-  EAttribute getTypeSet_NoError();
-
-  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeToken <em>Type Token</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5928,22 +5888,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference TYPE_SET__ALIASED_TYPE = eINSTANCE.getTypeSet_AliasedType();
-
-    /**
-     * The meta object literal for the '<em><b>Reference</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TYPE_SET__REFERENCE = eINSTANCE.getTypeSet_Reference();
-
-    /**
-     * The meta object literal for the '<em><b>No Error</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TYPE_SET__NO_ERROR = eINSTANCE.getTypeSet_NoError();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTokenImpl <em>Type Token</em>}' class.

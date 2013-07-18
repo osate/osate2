@@ -29,7 +29,7 @@ public interface TypeToken extends EObject, Element
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorType}.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Type</em>' reference list isn't clear,
@@ -41,7 +41,7 @@ public interface TypeToken extends EObject, Element
    * @model
    * @generated
    */
-  EList<ErrorType> getType();
+  EList<ErrorTypes> getType();
 
   /**
    * Returns the value of the '<em><b>No Error</b></em>' attribute.

@@ -96,6 +96,24 @@ public class EM2TypeSetUtil {
 		return false;
 	}
 	
+	public static boolean contains(ErrorTypes constraint, ErrorType type){
+		if (constraint instanceof ErrorType) return contains((ErrorType)constraint,type);
+		if (constraint instanceof TypeSet) return contains((TypeSet)constraint,type);
+		return false;
+	}
+	
+	public static boolean contains(TypeToken constraint, ErrorTypes type){
+		if (type instanceof ErrorType) return contains(constraint,(ErrorType)type);
+		if (type instanceof TypeSet) return contains(constraint,(TypeSet)type);
+		return true;
+	}
+	
+	public static boolean contains(ErrorTypes constraint, ErrorTypes type){
+		if (type instanceof ErrorType) return contains(constraint,(ErrorType)type);
+		if (type instanceof TypeSet) return contains(constraint,(TypeSet)type);
+		return false;
+	}
+	
 	/**
 	 * true if TypeToken constraint contains ErrorType type as one of its product elements
 	 * aliases are resolved before the error types are compared
@@ -107,8 +125,8 @@ public class EM2TypeSetUtil {
 //		if (constraint == null ) return false;
 //		if ( type == null) return true;
 		if (constraint.isNoError()) return false;
-		EList<ErrorType> tsetype = constraint.getType();
-		for (ErrorType errorType : tsetype) {
+		EList<ErrorTypes> tsetype = constraint.getType();
+		for (ErrorTypes errorType : tsetype) {
 			if( contains(errorType,type)) return true;
 		}
 		return false;
@@ -130,7 +148,7 @@ public class EM2TypeSetUtil {
 			return false;
 		}
 		if (constraint.getType().size() != token.getType().size()) return false;
-		for (ErrorType errorType : token.getType()) {
+		for (ErrorTypes errorType : token.getType()) {
 			if (!contains(constraint, errorType)) return false;
 		}	
 		return true;
@@ -155,6 +173,28 @@ public class EM2TypeSetUtil {
 		for (TypeToken tselement : ts.getTypeTokens()) {
 			if (tselement.getType().size() == toksize){
 				if( contains(tselement,token)) return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * true if TypeSet ts contains TypeToken token
+	 * The type set can represent a constraint
+	 * aliases are resolved before the error types are compared
+	 * @param ts TypeSet
+	 * @param token TypeToken
+	 * @return boolean
+	 */
+	public static boolean contains(TypeToken token,TypeSet ts ){
+		if (ts == null ) return true;
+		if ( token == null) return true;
+		if (token.isNoError()) return false;
+		ts = EMV2Util.resolveAlias(ts);
+		int toksize = token.getType().size();
+		for (TypeToken tselement : ts.getTypeTokens()) {
+			if (tselement.getType().size() == toksize){
+				if( contains(token,tselement)) return true;
 			}
 		}
 		return false;
@@ -235,12 +275,12 @@ public class EM2TypeSetUtil {
 	 */
 	protected static void getConstrainedTypeTokens(TypeToken constraint, TypeToken token, Collection<TypeToken> result){
 		int toksize = token.getType().size();
-		EList<ErrorType> toklist = token.getType();
-		EList<ErrorType> conlist = constraint.getType();
+		EList<ErrorTypes> toklist = token.getType();
+		EList<ErrorTypes> conlist = constraint.getType();
 		TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
 		for (int i = 0 ; i < toksize; i++) {
-			ErrorType toktype = toklist.get(i);
-			ErrorType contype = conlist.get(i);
+			ErrorTypes toktype = toklist.get(i);
+			ErrorTypes contype = conlist.get(i);
 			if (contains(toktype,contype)){
 				tt.getType().add(contype);
 			} else if (contains(contype, toktype)){
@@ -289,20 +329,22 @@ public class EM2TypeSetUtil {
 		for (TypeToken typeSetElement : typelist) {
 			// add all leaf nodes
 			EList<TypeToken> newitems = new BasicEList<TypeToken>() ; 
-			EList<ErrorType> elementtypes = typeSetElement.getType();
-			for (ErrorType errorType : elementtypes) {
-				// elements of a product type
-				EList<ErrorType> etlist = getAllLeafSubTypes( errorType,tuc);
-				if (newitems.isEmpty()){
-					// first/single type: add all leaves
-					for (ErrorType subType : etlist) {
-						TypeToken token = ErrorModelFactory.eINSTANCE.createTypeToken();
-						token.getType().add(subType);
-						newitems.add(token);
-					}
-				} else {
-					// product type: add other type elements from the product type
+			EList<ErrorTypes> elementtypes = typeSetElement.getType();
+			for (ErrorTypes errorType : elementtypes) {
+				if (errorType instanceof ErrorType){
+					// elements of a product type
+					EList<ErrorType> etlist = getAllLeafSubTypes( (ErrorType)errorType,tuc);
+					if (newitems.isEmpty()){
+						// first/single type: add all leaves
+						for (ErrorType subType : etlist) {
+							TypeToken token = ErrorModelFactory.eINSTANCE.createTypeToken();
+							token.getType().add(subType);
+							newitems.add(token);
+						}
+					} else {
+						// product type: add other type elements from the product type
 						newitems = addItemSet(newitems, etlist);
+					}
 				}
 			}
 			result.addAll(newitems);

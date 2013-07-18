@@ -22,6 +22,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -173,7 +174,7 @@ public class Util
 								{
 									TypeSet ts = errorSource.getTypeTokenConstraint();
 									TypeToken tt = ts.getTypeTokens().get(0);
-									ErrorType et = tt.getType().get(0);
+									ErrorTypes et = tt.getType().get(0);
 									//OsateDebug.osateDebug("[Utils]       ErrorSource token:" + et);
 									Expression e = new Equal (new Terminal (Util.getFeatureName(instanceSource, EMV2Util.getPrintName(ep))),
 						        		    				  new Terminal ("" + Model.getCurrentInstance().getErrorTypeCode(ppe, errorSource.getTypeTokenConstraint().getTypeTokens().get(0).getType().get(0))));

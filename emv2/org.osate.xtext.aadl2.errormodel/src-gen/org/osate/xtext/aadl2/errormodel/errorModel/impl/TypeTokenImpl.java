@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
@@ -44,7 +44,7 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
    * @generated
    * @ordered
    */
-  protected EList<ErrorType> type;
+  protected EList<ErrorTypes> type;
 
   /**
    * The default value of the '{@link #isNoError() <em>No Error</em>}' attribute.
@@ -92,11 +92,11 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ErrorType> getType()
+  public EList<ErrorTypes> getType()
   {
     if (type == null)
     {
-      type = new EObjectResolvingEList<ErrorType>(ErrorType.class, this, ErrorModelPackage.TYPE_TOKEN__TYPE);
+      type = new EObjectResolvingEList<ErrorTypes>(ErrorTypes.class, this, ErrorModelPackage.TYPE_TOKEN__TYPE);
     }
     return type;
   }
@@ -155,7 +155,7 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
     {
       case ErrorModelPackage.TYPE_TOKEN__TYPE:
         getType().clear();
-        getType().addAll((Collection<? extends ErrorType>)newValue);
+        getType().addAll((Collection<? extends ErrorTypes>)newValue);
         return;
       case ErrorModelPackage.TYPE_TOKEN__NO_ERROR:
         setNoError((Boolean)newValue);
