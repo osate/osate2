@@ -141,6 +141,10 @@ public class FTAUtils
 		}
 	}
 	
+	public static String buildHash (ComponentInstance instance, ErrorBehaviorState ebs)
+	{
+		return "##" + instance + "##" + instance.getComponentClassifier().getName() + "##" + ebs.getName() + "##";
+	}
 	
 	public static List<Event> findIncomingPropagations (ComponentInstance relatedInstance, ConditionElement conditionElement, EList<ComponentInstance> componentInstances)
 	{
@@ -149,9 +153,9 @@ public class FTAUtils
 		
 		propagations = new ArrayList<Event>();
 		
-
+		
 		cl = relatedInstance.getComponentClassifier();
-
+		OsateDebug.osateDebug("[FTAUtils] findIncomingPropagations on: " + relatedInstance);
 //		OsateDebug.osateDebug("relatedInstance" + relatedInstance);
 //		OsateDebug.osateDebug("condition state" + conditionElement.getState());
 //		OsateDebug.osateDebug("Classifier=" + cl);
@@ -247,7 +251,7 @@ public class FTAUtils
 										newEvent.setName (newEventName);
 										newEvent.setEventType(EventType.EVENT);
 										propagations.add(newEvent);
-										OsateDebug.osateDebug("ep="  + ep);
+										OsateDebug.osateDebug("[FTAUtils] findIncomingPropagations ep="  + ep);
 									}
 								}
 								
@@ -339,6 +343,8 @@ public class FTAUtils
 			                            final ConditionExpression cond, 
 			                            final EList<ComponentInstance> componentInstances)
 	{
+		
+		OsateDebug.osateDebug("[FTAUtils] handleCondition on " + relatedComponentInstance +"/" + resultingBehaviorState.getName());
 		if (cond instanceof ConditionElement)
 		{
 			ConditionElement conditionElement;
