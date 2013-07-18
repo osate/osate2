@@ -1281,9 +1281,9 @@ ruleTypeSetReference returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-
+(
     { 
-        newCompositeNode(grammarAccess.getTypeSetReferenceAccess().getTypeSetConstructorParserRuleCall()); 
+        newCompositeNode(grammarAccess.getTypeSetReferenceAccess().getTypeSetConstructorParserRuleCall_0()); 
     }
     this_TypeSetConstructor_0=ruleTypeSetConstructor
     {
@@ -1291,6 +1291,91 @@ ruleTypeSetReference returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 
+    |
+    { 
+        newCompositeNode(grammarAccess.getTypeSetReferenceAccess().getTypeSetIDParserRuleCall_1()); 
+    }
+    this_TypeSetID_1=ruleTypeSetID
+    {
+        $current = $this_TypeSetID_1.current;
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleTypeSetID
+entryRuleTypeSetID returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getTypeSetIDRule()); }
+	 iv_ruleTypeSetID=ruleTypeSetID 
+	 { $current=$iv_ruleTypeSetID.current; } 
+	 EOF 
+;
+
+// Rule TypeSetID
+ruleTypeSetID returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTypeSetIDAccess().getTypeTokensTypeSetAsElementParserRuleCall_0()); 
+	    }
+		lv_typeTokens_0_0=ruleTypeSetAsElement		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTypeSetIDRule());
+	        }
+       		add(
+       			$current, 
+       			"typeTokens",
+        		lv_typeTokens_0_0, 
+        		"TypeSetAsElement");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleTypeSetAsElement
+entryRuleTypeSetAsElement returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getTypeSetAsElementRule()); }
+	 iv_ruleTypeSetAsElement=ruleTypeSetAsElement 
+	 { $current=$iv_ruleTypeSetAsElement.current; } 
+	 EOF 
+;
+
+// Rule TypeSetAsElement
+ruleTypeSetAsElement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTypeSetAsElementRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getTypeSetAsElementAccess().getTypeTypeSetCrossReference_0()); 
+	    }
+		ruleQEMREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
 ;
 
 

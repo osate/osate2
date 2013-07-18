@@ -1213,15 +1213,61 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class TypeSetReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeSetReference");
-		private final RuleCall cTypeSetConstructorParserRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cTypeSetConstructorParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cTypeSetIDParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//TypeSetReference returns TypeSet:
 		//
-		//	TypeSetConstructor;
+		//	TypeSetConstructor | TypeSetID;
 		public ParserRule getRule() { return rule; }
 
+		//TypeSetConstructor | TypeSetID
+		public Alternatives getAlternatives() { return cAlternatives; }
+
 		//TypeSetConstructor
-		public RuleCall getTypeSetConstructorParserRuleCall() { return cTypeSetConstructorParserRuleCall; }
+		public RuleCall getTypeSetConstructorParserRuleCall_0() { return cTypeSetConstructorParserRuleCall_0; }
+
+		//TypeSetID
+		public RuleCall getTypeSetIDParserRuleCall_1() { return cTypeSetIDParserRuleCall_1; }
+	}
+
+	public class TypeSetIDElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeSetID");
+		private final Assignment cTypeTokensAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cTypeTokensTypeSetAsElementParserRuleCall_0 = (RuleCall)cTypeTokensAssignment.eContents().get(0);
+		
+		//TypeSetID returns TypeSet:
+		//
+		//	typeTokens+=TypeSetAsElement;
+		public ParserRule getRule() { return rule; }
+
+		//typeTokens+=TypeSetAsElement
+		public Assignment getTypeTokensAssignment() { return cTypeTokensAssignment; }
+
+		//TypeSetAsElement
+		public RuleCall getTypeTokensTypeSetAsElementParserRuleCall_0() { return cTypeTokensTypeSetAsElementParserRuleCall_0; }
+	}
+
+	public class TypeSetAsElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeSetAsElement");
+		private final Assignment cTypeAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cTypeTypeSetCrossReference_0 = (CrossReference)cTypeAssignment.eContents().get(0);
+		private final RuleCall cTypeTypeSetQEMREFParserRuleCall_0_1 = (RuleCall)cTypeTypeSetCrossReference_0.eContents().get(1);
+		
+		//TypeSetAsElement returns TypeToken:
+		//
+		//	type+=[TypeSet|QEMREF];
+		public ParserRule getRule() { return rule; }
+
+		//type+=[TypeSet|QEMREF]
+		public Assignment getTypeAssignment() { return cTypeAssignment; }
+
+		//[TypeSet|QEMREF]
+		public CrossReference getTypeTypeSetCrossReference_0() { return cTypeTypeSetCrossReference_0; }
+
+		//QEMREF
+		public RuleCall getTypeTypeSetQEMREFParserRuleCall_0_1() { return cTypeTypeSetQEMREFParserRuleCall_0_1; }
 	}
 
 	public class TypeSetElementElements extends AbstractParserRuleElementFinder {
@@ -4547,6 +4593,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private TypeSetDefinitionElements pTypeSetDefinition;
 	private TypeSetConstructorElements pTypeSetConstructor;
 	private TypeSetReferenceElements pTypeSetReference;
+	private TypeSetIDElements pTypeSetID;
+	private TypeSetAsElementElements pTypeSetAsElement;
 	private TypeSetElementElements pTypeSetElement;
 	private NoErrorTypeSetElements pNoErrorTypeSet;
 	private NoErrorTypeTokenElements pNoErrorTypeToken;
@@ -4827,13 +4875,35 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeSetReference returns TypeSet:
 	//
-	//	TypeSetConstructor;
+	//	TypeSetConstructor | TypeSetID;
 	public TypeSetReferenceElements getTypeSetReferenceAccess() {
 		return (pTypeSetReference != null) ? pTypeSetReference : (pTypeSetReference = new TypeSetReferenceElements());
 	}
 	
 	public ParserRule getTypeSetReferenceRule() {
 		return getTypeSetReferenceAccess().getRule();
+	}
+
+	//TypeSetID returns TypeSet:
+	//
+	//	typeTokens+=TypeSetAsElement;
+	public TypeSetIDElements getTypeSetIDAccess() {
+		return (pTypeSetID != null) ? pTypeSetID : (pTypeSetID = new TypeSetIDElements());
+	}
+	
+	public ParserRule getTypeSetIDRule() {
+		return getTypeSetIDAccess().getRule();
+	}
+
+	//TypeSetAsElement returns TypeToken:
+	//
+	//	type+=[TypeSet|QEMREF];
+	public TypeSetAsElementElements getTypeSetAsElementAccess() {
+		return (pTypeSetAsElement != null) ? pTypeSetAsElement : (pTypeSetAsElement = new TypeSetAsElementElements());
+	}
+	
+	public ParserRule getTypeSetAsElementRule() {
+		return getTypeSetAsElementAccess().getRule();
 	}
 
 	//TypeSetElement returns TypeToken:

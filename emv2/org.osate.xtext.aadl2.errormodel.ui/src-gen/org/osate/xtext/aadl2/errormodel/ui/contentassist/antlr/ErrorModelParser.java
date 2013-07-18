@@ -44,6 +44,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorTypesAccess().getAlternatives(), "rule__ErrorTypes__Alternatives");
 					put(grammarAccess.getTypeDefinitionAccess().getAlternatives_1(), "rule__TypeDefinition__Alternatives_1");
 					put(grammarAccess.getTypeSetDefinitionAccess().getAlternatives_1(), "rule__TypeSetDefinition__Alternatives_1");
+					put(grammarAccess.getTypeSetReferenceAccess().getAlternatives(), "rule__TypeSetReference__Alternatives");
 					put(grammarAccess.getTypeTokenOrNoErrorAccess().getAlternatives(), "rule__TypeTokenOrNoError__Alternatives");
 					put(grammarAccess.getTypeTokenConstraintNoErrorAccess().getAlternatives(), "rule__TypeTokenConstraintNoError__Alternatives");
 					put(grammarAccess.getErrorPropagationAccess().getAlternatives_1(), "rule__ErrorPropagation__Alternatives_1");
@@ -299,6 +300,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeSetDefinitionAccess().getAliasedTypeAssignment_1_1_3(), "rule__TypeSetDefinition__AliasedTypeAssignment_1_1_3");
 					put(grammarAccess.getTypeSetConstructorAccess().getTypeTokensAssignment_1(), "rule__TypeSetConstructor__TypeTokensAssignment_1");
 					put(grammarAccess.getTypeSetConstructorAccess().getTypeTokensAssignment_2_1(), "rule__TypeSetConstructor__TypeTokensAssignment_2_1");
+					put(grammarAccess.getTypeSetIDAccess().getTypeTokensAssignment(), "rule__TypeSetID__TypeTokensAssignment");
+					put(grammarAccess.getTypeSetAsElementAccess().getTypeAssignment(), "rule__TypeSetAsElement__TypeAssignment");
 					put(grammarAccess.getTypeSetElementAccess().getTypeAssignment_0(), "rule__TypeSetElement__TypeAssignment_0");
 					put(grammarAccess.getTypeSetElementAccess().getTypeAssignment_1_1(), "rule__TypeSetElement__TypeAssignment_1_1");
 					put(grammarAccess.getNoErrorTypeSetAccess().getTypeTokensAssignment_2(), "rule__NoErrorTypeSet__TypeTokensAssignment_2");

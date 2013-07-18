@@ -573,13 +573,16 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else if(context == grammarAccess.getTypeTokenConstraintNoErrorRule()) {
-					sequence_NoErrorTypeSet_TypeSetConstructor_TypeTokenConstraintNoError(context, (TypeSet) semanticObject); 
+					sequence_NoErrorTypeSet_TypeSetConstructor_TypeSetID_TypeTokenConstraintNoError(context, (TypeSet) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getTypeSetConstructorRule() ||
-				   context == grammarAccess.getTypeSetReferenceRule() ||
-				   context == grammarAccess.getTypeTokenConstraintRule()) {
+				else if(context == grammarAccess.getTypeSetConstructorRule()) {
 					sequence_TypeSetConstructor(context, (TypeSet) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getTypeSetReferenceRule() ||
+				   context == grammarAccess.getTypeTokenConstraintRule()) {
+					sequence_TypeSetConstructor_TypeSetID_TypeSetReference(context, (TypeSet) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getErrorBehaviorStateOrTypeSetRule() ||
@@ -587,6 +590,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				   context == grammarAccess.getNamedElementRule() ||
 				   context == grammarAccess.getTypeSetDefinitionRule()) {
 					sequence_TypeSetDefinition(context, (TypeSet) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getTypeSetIDRule()) {
+					sequence_TypeSetID(context, (TypeSet) semanticObject); 
 					return; 
 				}
 				else break;
@@ -601,6 +608,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else if(context == grammarAccess.getTypeTokenOrNoErrorRule()) {
 					sequence_NoErrorTypeToken_TypeToken_TypeTokenOrNoError(context, (TypeToken) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getTypeSetAsElementRule()) {
+					sequence_TypeSetAsElement(context, (TypeToken) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getTypeSetElementRule()) {
@@ -923,9 +934,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | typeTokens+=NoErrorTypeToken)
+	 *     ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | typeTokens+=TypeSetAsElement | typeTokens+=NoErrorTypeToken)
 	 */
-	protected void sequence_NoErrorTypeSet_TypeSetConstructor_TypeTokenConstraintNoError(EObject context, TypeSet semanticObject) {
+	protected void sequence_NoErrorTypeSet_TypeSetConstructor_TypeSetID_TypeTokenConstraintNoError(EObject context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1121,9 +1132,27 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     type+=[TypeSet|QEMREF]
+	 */
+	protected void sequence_TypeSetAsElement(EObject context, TypeToken semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (typeTokens+=TypeSetElement typeTokens+=TypeSetElement*)
 	 */
 	protected void sequence_TypeSetConstructor(EObject context, TypeSet semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | typeTokens+=TypeSetAsElement)
+	 */
+	protected void sequence_TypeSetConstructor_TypeSetID_TypeSetReference(EObject context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1142,6 +1171,15 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (type+=[ErrorTypes|QEMREF] type+=[ErrorType|QEMREF]*)
 	 */
 	protected void sequence_TypeSetElement(EObject context, TypeToken semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     typeTokens+=TypeSetAsElement
+	 */
+	protected void sequence_TypeSetID(EObject context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
