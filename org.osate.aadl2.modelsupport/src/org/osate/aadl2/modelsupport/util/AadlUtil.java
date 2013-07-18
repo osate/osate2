@@ -240,7 +240,7 @@ public final class AadlUtil {
 
 					if (n != null && n.length() > 0 && name.equalsIgnoreCase(n)) {
 						if (o instanceof FeatureInstance){
-							if(((FeatureInstance)o).getIndex() ==idx) return (NamedElement) o;
+							if(((FeatureInstance)o).getIndex() == 0 || ((FeatureInstance)o).getIndex() ==idx) return (NamedElement) o;
 						} else {
 							return (NamedElement) o;
 						}
