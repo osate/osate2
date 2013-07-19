@@ -155,7 +155,7 @@ public class FTAUtils
 		
 		
 		cl = relatedInstance.getComponentClassifier();
-		OsateDebug.osateDebug("[FTAUtils] findIncomingPropagations on: " + relatedInstance);
+//		OsateDebug.osateDebug("[FTAUtils] findIncomingPropagations on: " + relatedInstance);
 //		OsateDebug.osateDebug("relatedInstance" + relatedInstance);
 //		OsateDebug.osateDebug("condition state" + conditionElement.getState());
 //		OsateDebug.osateDebug("Classifier=" + cl);
@@ -344,7 +344,7 @@ public class FTAUtils
 			                            final EList<ComponentInstance> componentInstances)
 	{
 		
-		OsateDebug.osateDebug("[FTAUtils] handleCondition on " + relatedComponentInstance +"/" + resultingBehaviorState.getName());
+		//OsateDebug.osateDebug("[FTAUtils] handleCondition on " + relatedComponentInstance.getName() +"/" + resultingBehaviorState.getName());
 		if (cond instanceof ConditionElement)
 		{
 			ConditionElement conditionElement;
@@ -447,11 +447,19 @@ public class FTAUtils
 					{
 						continue;
 					}
-					//OsateDebug.osateDebug("         instance " + relatedInstance);
+					ErrorBehaviorState ebsTarget = conditionElement.getState();
+					String targetStateName = ebsTarget.getName();
+					if (conditionElement.getConstraint() != null)
+					{
+						
+						targetStateName += conditionElement.getConstraint().getTypeTokens().get(0).getType().get(0).getName();
+					}
+					OsateDebug.osateDebug("[FTAUtils] handleCondition targetStateName=" + targetStateName + " on " + relatedInstance.getName());
 					EList<CompositeState> emslist = EMV2Util.getAllCompositeStates(relatedInstance);
+					
 					if (!emslist.isEmpty())
 					{
-						fillCompositeBehavior(event, emslist, behaviorState.getName(), relatedInstance, componentInstances);
+						fillCompositeBehavior(event, emslist, targetStateName, relatedInstance, componentInstances);
 						//	public static void fillCompositeBehavior (Event ftaEvent, CompositeErrorBehavior compositeErrorBehavior, String stateName, ComponentInstance relatedInstance, final EList<ComponentInstance> componentInstances)
 						
 					}
@@ -599,7 +607,17 @@ public class FTAUtils
 		
 		for (CompositeState state : states)
 		{
-			if (state.getState().getName().equalsIgnoreCase(stateName))
+			
+			String originalStateName = state.getState().getName();
+			if (state.getTypedToken() != null)
+			{
+				
+				originalStateName += state.getTypedToken().getType().get(0).getName();
+			}
+			
+			OsateDebug.osateDebug("[FTAUtils] fillCompositeBehavior on " + relatedInstance.getName() +  " looking for="+ stateName +"|browsing state name=" + originalStateName);
+			
+			if (originalStateName.equalsIgnoreCase(stateName))
 			{
 				
 				ErrorBehaviorState ebs = (ErrorBehaviorState) state.getState();
