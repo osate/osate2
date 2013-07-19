@@ -83,6 +83,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 						cxtElement = ne;
 					}
 				}
+				if (cxtElement == null){
+					cxtElement = EMV2Util.getContainingErrorModelLibrary((ContainmentPathElement)context);
+				}
 				// find annex subclause as context for error model identifier lookup
 				if (!Aadl2Util.isNull(cxtElement)){
 					searchResult = findErrorType(cxtElement, name);
