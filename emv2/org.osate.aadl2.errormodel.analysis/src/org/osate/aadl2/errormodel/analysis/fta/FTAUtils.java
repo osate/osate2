@@ -218,7 +218,7 @@ public class FTAUtils
 												Event subEvent = new Event();
 												subEvent.setName ("sub");
 												subEvent.setEventType(EventType.EVENT);
-												handleCondition (subEvent,ebs,ciSource,ebt.getCondition(),componentInstances);
+												handleCondition (subEvent,ebs,ciSource,ebt.getCondition(),componentInstances, true);
 												
 												
 													
@@ -341,7 +341,8 @@ public class FTAUtils
 			                            final ErrorBehaviorState resultingBehaviorState, 
 			                            final ComponentInstance relatedComponentInstance,
 			                            final ConditionExpression cond, 
-			                            final EList<ComponentInstance> componentInstances)
+			                            final EList<ComponentInstance> componentInstances,
+			                            final boolean exploreRelativeCompositeStates)
 	{
 		
 		//OsateDebug.osateDebug("[FTAUtils] handleCondition on " + relatedComponentInstance.getName() +"/" + resultingBehaviorState.getName());
@@ -394,17 +395,21 @@ public class FTAUtils
 //						}
 //					}
 					
-					for (CompositeState cs : EMV2Util.getAllCompositeStates(relatedComponentInstance))
+					
+					if (exploreRelativeCompositeStates)
 					{
-						if (cs.getState() == resultingBehaviorState)
+						for (CompositeState cs : EMV2Util.getAllCompositeStates(relatedComponentInstance))
 						{
-							tmpEvent = new Event();
-
-							handleCondition (tmpEvent, resultingBehaviorState, relatedComponentInstance, cs.getCondition(), componentInstances);
-							toAdd.add(tmpEvent);
-							
-							//OsateDebug.osateDebug("BLA2=" + cs.getState());
-
+							if (cs.getState() == resultingBehaviorState)
+							{
+								tmpEvent = new Event();
+	
+								handleCondition (tmpEvent, resultingBehaviorState, relatedComponentInstance, cs.getCondition(), componentInstances, true);
+								toAdd.add(tmpEvent);
+								
+								//OsateDebug.osateDebug("BLA2=" + cs.getState());
+	
+							}
 						}
 					}
 					
@@ -530,7 +535,7 @@ public class FTAUtils
 				//OsateDebug.osateDebug("      operand=" + conditionExpression);
 				//result += handleCondition (conditionExpression, componentInstances);
 				Event resultEvent = new Event ();
-				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances);
+				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances, exploreRelativeCompositeStates);
 				event.addSubEvent(resultEvent);
 			}
 		}
@@ -569,7 +574,7 @@ public class FTAUtils
 				//OsateDebug.osateDebug("      operand=" + conditionExpression);
 				//result += handleCondition (conditionExpression, componentInstances);
 				Event resultEvent = new Event ();
-				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances);
+				handleCondition(resultEvent, resultingBehaviorState, relatedComponentInstance, conditionExpression, componentInstances, exploreRelativeCompositeStates);
 				if (conditionExpression instanceof SAndExpression)
 				{
 					for (Event e : resultEvent.getSubEvents())
@@ -632,7 +637,7 @@ public class FTAUtils
 					targetEvent = ftaEvent;
 				}
 				FTAUtils.fillFTAEventfromEventState (targetEvent, ebs, relatedInstance, componentInstances);
-				FTAUtils.handleCondition (targetEvent, ebs, relatedInstance, state.getCondition(), componentInstances);
+				FTAUtils.handleCondition (targetEvent, ebs, relatedInstance, state.getCondition(), componentInstances, false);
 				if (nBranches > 1)
 				{
 					ftaEvent.addSubEvent(targetEvent);
