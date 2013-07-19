@@ -208,10 +208,10 @@ public class FlowLatencyUtil {
 		List cil = GetProperties.getActualProcessorBinding(ci);
 		if (cil.isEmpty()) return null;
 		p = (ComponentInstance) cil.get(0);
-//		if (p.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-//		{
-//			return p.getContainingComponentInstance();
-//		}
+		if (p.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+		{
+			return p.getContainingComponentInstance();
+		}
 		
 		return p;
 	}
