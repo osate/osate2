@@ -10,6 +10,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeType;
+import org.osate.aadl2.ReferenceType;
 
 public class AssistantFactory
 {
@@ -22,6 +23,8 @@ public class AssistantFactory
 			return new BooleanAssistant(parent, listener);
 		else if (type instanceof ClassifierType)
 			return new ClassifierAssistant(parent, (ClassifierType)type, holder, listener);
+		else if (type instanceof ReferenceType)
+			return new ReferenceAssistant(parent, (ReferenceType)type, holder, listener);
 		else if (type instanceof AadlString)
 			return new StringAssistant(parent, listener);
 		else if (type instanceof NumberType) {
