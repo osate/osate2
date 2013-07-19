@@ -69,7 +69,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 				EList<ContainmentPathElement> list = path
 						.getContainmentPathElements();
 				int idx = list.indexOf(context);
-				Element cxtElement = ((ContainmentPathElement) context).getContainingClassifier();
+				Element cxtElement  = ((ContainmentPathElement) context).getContainingClassifier();
 				if (idx > 0) {
 					// find next element in namespace of previous element
 					ContainmentPathElement el = list.get(idx - 1);
@@ -83,9 +83,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 						cxtElement = ne;
 					}
 				}
-				if (cxtElement == null){
-					cxtElement = EMV2Util.getContainingErrorModelLibrary((ContainmentPathElement)context);
-				}
+				if (cxtElement == null) cxtElement = (ContainmentPathElement)context;
 				// find annex subclause as context for error model identifier lookup
 				if (!Aadl2Util.isNull(cxtElement)){
 					searchResult = findErrorType(cxtElement, name);
