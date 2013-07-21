@@ -42,6 +42,7 @@ abstract public class AnnexProxy {
 	protected static final String ATT_ID = "id";
 	protected static final String ATT_NAME = "name";
 	protected static final String ATT_ANNEXNAME = "annexName";
+	protected static final String ATT_ANNEXNSURI = "annexNSURI";
 	protected static final String ATT_CLASS = "class";
 
 	protected final IConfigurationElement configElem;

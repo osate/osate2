@@ -838,6 +838,10 @@ public class PropertyUtils {
  		if (ph == null) {
 			throw new IllegalArgumentException("NamedElement ph cannot be null.");
 		}
+ 		if (pd == null)
+ 		{
+ 			throw new PropertyNotPresentException (ph, pd, "Property not defined for " + ph.getQualifiedName());
+ 		}
 		PropertyExpression res = ph.getSimplePropertyValue(pd);
 		if (res instanceof NamedValue){
 			AbstractNamedValue nv = ((NamedValue)res).getNamedValue();

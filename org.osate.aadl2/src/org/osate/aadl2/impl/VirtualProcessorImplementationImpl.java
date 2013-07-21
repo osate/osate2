@@ -240,13 +240,11 @@ public class VirtualProcessorImplementationImpl extends
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void setType(ComponentType newType) {
-		// TODO: implement this method to set the 'Type' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		super.setType(newType);
 	}
 
 	/**

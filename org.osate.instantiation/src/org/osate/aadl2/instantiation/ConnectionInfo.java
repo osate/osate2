@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -24,6 +26,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
@@ -100,6 +103,7 @@ class ConnectionInfo {
 		final ConnectionEnd dest = opposite ? newSeg.getAllSource() : newSeg.getAllDestination();
 		final boolean goingUp = !(dstCtx instanceof Subcomponent);
 		final boolean goingDown = !(srcCtx instanceof Subcomponent);
+		// TODO can we do these checks on the instance information
 
 		if (srcFi != null) {
 			sources.add(srcFi);
@@ -159,10 +163,10 @@ class ConnectionInfo {
 
 	public ConnectionInstance createConnectionInstance(final String name, final ConnectionInstanceEnd dst) {
 		final ConnectionInstance conni;
-
-		if (!across) {
-			return null;
-		}
+// XXX phf the code below diables out only and in only connection instances
+//		if (!across) {
+//			return null;
+//		}
 		//OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
 		kind = getKind(dst);
 		// TODO-LW: complete = ...;
@@ -173,20 +177,50 @@ class ConnectionInfo {
 		Iterator<ComponentInstance> ctxIter = contexts.iterator();
 		Iterator<ConnectionInstanceEnd> srcIter = sources.iterator();
 		Iterator<ConnectionInstanceEnd> dstIter = destinations.iterator();
+		ConnectionInstanceEnd dosrc = src;
+		ConnectionInstanceEnd dodst = null;
 		while (connIter.hasNext()) 
 		{
 			ConnectionReference connRef = conni.createConnectionReference();
 
 			connRef.setConnection(connIter.next());
 			connRef.setContext(ctxIter.next());
-			connRef.setSource(srcIter.next());
-			connRef.setDestination(dstIter.next());
+			ConnectionInstanceEnd srcit = srcIter.next();
+			connRef.setSource(dosrc);
+			dodst = resolveFeatureInstance(dosrc, dstIter.next());
+			connRef.setDestination(dodst);
+			dosrc = dodst;
 		}
 		conni.setSource(src);
 		conni.setDestination(dst);
-		conni.setComplete(complete);
+		conni.setComplete(across);
 		conni.setKind(kind);
 		return conni;
+	}
+	
+	public ConnectionInstanceEnd resolveFeatureInstance(ConnectionInstanceEnd origCIE, ConnectionInstanceEnd rootCIE){
+		if (origCIE instanceof ComponentInstance||rootCIE instanceof ComponentInstance) return rootCIE;
+		FeatureInstance rootFI = (FeatureInstance)rootCIE;
+		if (rootFI.getFeatureInstances().isEmpty()) return rootCIE;
+		ConnectionInstanceEnd parentFI = rootFI;
+		FeatureInstance origFI = (FeatureInstance) origCIE;
+		Element origParent = origFI.getOwner();
+		if (origParent instanceof FeatureInstance){
+			FeatureInstance origParentFI = (FeatureInstance)origParent;
+			if (origParentFI.getOwner() instanceof FeatureInstance){
+				ConnectionInstanceEnd resFI = resolveFeatureInstance((ConnectionInstanceEnd) origParentFI, rootFI);
+				if (resFI != null){
+					parentFI = resFI;
+				}
+			}
+			EList<FeatureInstance> filist = ((FeatureInstance)parentFI).getFeatureInstances();
+			for (FeatureInstance featureInstance : filist) {
+				if (Aadl2InstanceUtil.isSame(origFI, featureInstance)){
+					return featureInstance;
+				}
+			}
+		}
+		return origFI;
 	}
 
 	private ConnectionKind getKind(ConnectionInstanceEnd dst) {

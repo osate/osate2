@@ -1676,6 +1676,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				}
 			}
 		}
+		if (prototype == null) return null;
 		while (prototype.getConstrainingFeatureGroupType() == null
 				&& prototype.getRefined() != null) {
 			// TODO: Need to check that the feature group prototype refines a

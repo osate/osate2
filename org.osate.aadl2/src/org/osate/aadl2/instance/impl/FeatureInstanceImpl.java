@@ -684,7 +684,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
-	public String getPathName() {
+	public String getFullName() {
 		String array = "";
 		if (getIndex() > 0) {
 			array = "[" + getIndex() + "]";

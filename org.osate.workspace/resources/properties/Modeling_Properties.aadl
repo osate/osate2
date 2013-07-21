@@ -12,7 +12,7 @@ property set Modeling_Properties is
 	Classifier_Substitution_Rule: inherit enumeration (Classifier_Match, Type_Extension, Signature_Match)
 		applies to (classifier, subcomponent, feature);
 	
-	Implemented_As: classifier (system implementation)
+	Implemented_As: classifier (system implementation, abstract implementation)
 		applies to (memory, bus, virtual bus, device, virtual processor, processor, system);
 	
 	Prototype_Substitution_Rule: inherit enumeration (Classifier_Match, Type_Extension, Signature_Match)

@@ -266,7 +266,13 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements
 				Classifier.class, this,
 				Aadl2Package.CONNECTION__FEATURING_CLASSIFIER);
 		//		BasicEList<Classifier> list = new BasicEList<Classifier>();
-		list.add(getContainingClassifier());
+
+		final Classifier classifier = getContainingClassifier();
+		// DB the list does not allow null values.
+		if (classifier != null) {
+			list.add(classifier);
+		}
+
 		return list;
 	}
 

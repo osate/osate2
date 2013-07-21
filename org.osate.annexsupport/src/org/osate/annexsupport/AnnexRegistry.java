@@ -40,6 +40,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
  * @author lwrage
@@ -69,7 +70,8 @@ public abstract class AnnexRegistry {
 		public static final String ANNEX_HIGHLIGHTER_EXT_ID = "highlighter";
 		
 
-	private static final String ATT_ANNEXNAME = "annexName";
+		private static final String ATT_ANNEXNAME = "annexName";
+		private static final String ATT_ANNEXNSURI = "annexNSURI";
 
 	private static final Map registries = new HashMap();
 
@@ -122,10 +124,13 @@ public abstract class AnnexRegistry {
 			
 			for (int j = 0; j < configElems.length; j++) {
 				String annexName = configElems[j].getAttribute(ATT_ANNEXNAME);
-				
+				String annexNSURI = configElems[j].getAttribute(ATT_ANNEXNSURI);
+
 				if (extensions.get(annexName) != null) {
 					AnnexPlugin.logError("Duplicate extension: " + extensionId + ", annex " + annexName, null);
 				} else {
+					ParseUtil.setAnnexNS(annexName, annexNSURI);
+
 					extensions.put(annexName.toLowerCase(), createProxy(configElems[j]));
 				}
 			}

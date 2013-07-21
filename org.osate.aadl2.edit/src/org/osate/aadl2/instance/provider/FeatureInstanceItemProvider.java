@@ -264,11 +264,7 @@ public class FeatureInstanceItemProvider extends
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FeatureInstance) object).getName();
-		long index = ((FeatureInstance) object).getIndex();
-		if (index > 0) {
-			label += " [" + index + "]";
-		}
+		String label = ((FeatureInstance) object).getFullName();
 		return label == null || label.length() == 0 ? getString("_UI_FeatureInstance_type") : //$NON-NLS-1$
 				getString("_UI_FeatureInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}

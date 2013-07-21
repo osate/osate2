@@ -458,7 +458,7 @@ DataType returns aadl2::DataType:
 	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') 
 	| (
-	ownedFeatureGroup+=FeatureGroup| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
+	ownedFeatureGroup+=FeatureGroup| ownedDataAccess+=DataAccess | ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ )
 	 )?
@@ -2031,16 +2031,23 @@ RealRange returns aadl2::NumericRange:
 
 
 CoreKeyWord :
-	'system' | 'thread' | 'group' | 'process' | 'data' | 'processor' | 'memory' | 'device' | 'bus' 
-	 | 'virtual' | 'subprogram' | 'feature' |'package'|'parameter'
-	| 'port' |'calls' |'event'|'flow'|'implementation'|'type'|'mode'|'prototype'|'to' |'end'
-	| 'abstract' |'access'|'classifier'
-	// the next ones are filtered as they could be used in an annex
-//	 |'reference' | 'connections' |'constant'|'delta'
-//	| 'and' | 'all' | 'annex' | 'applies' |'binding'|'boolean'|'enumeration'|'path'|'private'
-//	|'extends'|'false'|'features'|'flows'|'in'|'inherit'|'initial'|'integer'|'inverse'|'is'|'list'|'modes'|'none'
-//	|'not'
-	// more to come if we have annex parsers 
+//	'system' | 'thread' | 'group' | 'process' | 'data' | 'processor' | 'memory' | 'device' | 'bus' 
+//	 | 'virtual' | 'subprogram' | 'feature' |'package'|'parameter'
+//	| 'port' |'calls' |'event'|'flow'|'implementation'|'type'|'mode'|'prototype'|'to' |'end'
+//	| 'abstract' |'access'|'classifier'
+//	|'sink'|'source'|'path'|'set'
+//	       
+	'abstract' |'access' | 'annex'| 'applies' 
+	| 'bus' |'calls' |'classifier'| 'connections' |'constant'| 'data'| 'device'
+	|'end' |'enumeration'|'event'|'extends'
+	| 'feature'|'features'|'flow'|'flows'
+	| 'group'|'implementation'|'in'|'inherit'|'initial'|'inverse'|'is'|'list'
+	| 'memory'|'mode'|'modes'|'none'|'of'|'out'|'package'|'parameter'|'path'| 'port'|'private'
+	| 'process'  | 'processor'
+	|'prototypes'|'provides'|'public'
+	|'refined'|'renames'|'requires'|'self'|'set'|'sink'|'source'
+	|'subcomponents'| 'subprogram'|'system'| 'thread'|'type'|'to'|'virtual'|'with'
+//// properties grammar	|'properties'|'property'|'delta'|'false'|'not'| 'and'|'or'|'range'|'record'|'reference'|'true'|'type'|'units'
 ;
 
 

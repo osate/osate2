@@ -40,6 +40,7 @@
 package org.osate.ui.actions;
 
 
+import java.io.ObjectInputStream.GetField;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,6 +68,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.WriteToFile;
@@ -122,6 +124,9 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	private Object currentSelection = null;
 
+	
+	/** Get the name of the action to display in the Job, etc. */
+	protected abstract String getActionName();
 
 	
 	/* The rest of the fields are only accessed once the analysis job has
@@ -137,6 +142,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	private AnalysisErrorReporterManager errManager;
 	
 	protected WriteToFile csvlog = null;
+	
+	protected StringBuffer summaryReport ; 
 	
 
 	/**
@@ -209,9 +216,9 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 
 	protected final void actionBody(final IProgressMonitor monitor, final Element root) {
 		final Resource resource = root.eResource();
-		final Bundle theBundle = getBundle();
 		errManager = new AnalysisErrorReporterManager(
 				getAnalysisErrorReporterFactory());
+		summaryReport = new StringBuffer();
 		
 		// Root cannot be null (see above)
 		// init the context object. It is used by the lookup methods for initializing property references
@@ -675,15 +682,34 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		logError(msg);
 	}
 	
+	
+
+	public final void error(final ComponentInstance obj, final String msg){
+		errManager.error(obj, msg);
+		logError(obj, msg);
+	}
+	
 	/**
 	 * log error message on object as result of action.
 	 * @param msg The error message
 	 */
-	public final void logError( final String msg){
+	public final void logError( final String msg)
+	{
 		if (csvlog != null)
-		csvlog.addOutputNewline("ERROR: "+msg);
+		{
+			csvlog.addOutputNewline("\"ERROR: "+msg +"\"");
+		}
 	}
-
+	
+	public final void logError(ComponentInstance ci, final String msg)
+	{
+		if (csvlog != null)
+		{
+			csvlog.addOutputNewline("Component Instance: " + ci.getName() + ",\"ERROR: "+msg+"\"");
+		}
+	}
+	
+	
 	/**
 	 * Log warning message on object as result of action.
 	 * @param msg The warning message
@@ -731,6 +757,47 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		errManager.info(obj, msg);
 		logInfo(msg);
 	}
+	
+
+	public void errorSummary(final NamedElement obj, String somName, String msg) {
+		if (somName != null&& !somName.isEmpty() && !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		errManager.error(obj,msg);
+		summaryReport.append("** "+msg+"\n");
+	}
+
+	public void warningSummary(final NamedElement obj, String somName, String msg) {
+		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		errManager.warning(obj, msg);
+		summaryReport.append("* " +msg+"\n");
+	}
+
+	public void infoSummary(final NamedElement obj, String somName, String msg) {
+		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
+			msg = " in SystemMode " + somName + ": " + msg;
+		}
+		errManager.info(obj, msg);
+		summaryReport.append(msg+"\n");
+	}
+
+	public void infoSummaryReportOnly(Element obj, String somName, String msg) {
+		if (somName != null && !somName.isEmpty()&& !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		summaryReport.append(msg+"\n");
+	}
+
+
+	public String getResultsMessages() {
+		synchronized (summaryReport) {
+			return summaryReport.toString();
+		}
+	}
+	
+
 	
 	/**
 	 * Report an internal error in the operation of the action.
@@ -806,7 +873,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected boolean finalizeAction() {
 		if (csvlog != null){
-			csvlog.saveToFile();
+			csvlog.saveToFile(getActionName()+" Report\n\n"+summaryReport.toString());
 		}
 		return true;
 	}

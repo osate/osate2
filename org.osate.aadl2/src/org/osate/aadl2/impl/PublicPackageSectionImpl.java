@@ -137,4 +137,14 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements
 		}
 		return super.eIsSet(featureID);
 	}
+
+	/**
+	 * Returns the name of the package.
+	 */
+	@Override
+	public String getName() {
+		// DB: Add the public suffix like it is done for the private package section so that a public package section
+		// has a different name than the package.
+		return super.getName() + "_public";
+	}
 } // PublicPackageSectionImpl

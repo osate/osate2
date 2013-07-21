@@ -189,6 +189,10 @@
        </topic>
        <topic href="html/emv2/fha.html" label="Fault and Hazard Analysis">
        </topic>
+       <topic href="html/emv2/unhandled-faults.html" label="Unhandled Faults">
+       </topic>
+        <topic href="html/emv2/fault-impact.html" label="Fault Impact">
+       </topic>
        <topic href="html/emv2/fta.html" label="Fault-Tree Analysis">
        </topic>
        <topic href="html/emv2/rbd.html" label="Reliability Block Diagram">

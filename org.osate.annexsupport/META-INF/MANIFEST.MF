@@ -10,7 +10,10 @@ Export-Package: org.osate.annexsupport
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.osate.workspace,
- org.osate.aadl2,
- org.osate.aadl2.modelsupport
+ org.osate.aadl2.modelsupport;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.osate.aadl2,
+ org.osate.aadl2.instance,
+ org.osate.aadl2.instance.util,
+ org.osate.aadl2.parsesupport

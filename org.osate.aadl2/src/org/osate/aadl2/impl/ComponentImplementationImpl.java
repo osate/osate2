@@ -50,7 +50,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
@@ -85,6 +84,7 @@ import org.osate.aadl2.operations.ComponentImplementationOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
@@ -613,12 +613,18 @@ public abstract class ComponentImplementationImpl extends
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setExtended(ComponentImplementation newExtended) {
-		// TODO: implement this method to set the 'Extended' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (newExtended == null) {
+			setOwnedExtension(null);
+		} else {
+			if (getOwnedExtension() == null) {
+				createOwnedExtension();
+			}
+
+			getOwnedExtension().setExtended(newExtended);
+		}
 	}
 
 	/**
@@ -656,8 +662,12 @@ public abstract class ComponentImplementationImpl extends
 	 */
 	public EList<Connection> getOwnedConnections() {
 		// DONE: Implemented
-		BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(
-				Connection.class);
+		// DB: The returned list must be an EStructuralFeature.Setting
+		final EList<Connection> connections = new NonNotifyingEObjectEList<Connection>(
+				Connection.class, this,
+				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION);
+		//		BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(
+		//				Connection.class);
 		connections.addAll(getOwnedAccessConnections());
 		connections.addAll(getOwnedFeatureConnections());
 		connections.addAll(getOwnedFeatureGroupConnections());
@@ -723,12 +733,18 @@ public abstract class ComponentImplementationImpl extends
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setType(ComponentType newType) {
-		// TODO: implement this method to set the 'Type' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (newType == null) {
+			setOwnedRealization(null);
+		} else {
+			if (getOwnedRealization() == null) {
+				createOwnedRealization();
+			}
+
+			getOwnedRealization().setImplemented(newType);
+		}
 	}
 
 	/**
