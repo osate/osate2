@@ -220,6 +220,36 @@ public final class AadlUtil {
 		}
 		return null;
 	}
+	/**
+	 * find (first) Named Element matching name in the Elist; any elements that
+	 * are not NamedElements are skipped.
+	 * 
+	 * @param el Collection of NamedElements
+	 * @param name String
+	 * @return NamedElement
+	 */
+	public static NamedElement findNamedElementInList(Collection<?> el, String name, long idx) {
+		if (el != null) {
+			Iterator<?> it = el.iterator();
+
+			while (it.hasNext()) {
+				Object o = it.next();
+
+				if (o instanceof NamedElement) {
+					String n = ((NamedElement) o).getName();
+
+					if (n != null && n.length() > 0 && name.equalsIgnoreCase(n)) {
+						if (o instanceof FeatureInstance){
+							if(((FeatureInstance)o).getIndex() == 0 || ((FeatureInstance)o).getIndex() ==idx) return (NamedElement) o;
+						} else {
+							return (NamedElement) o;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * find all Named Elements matching name in the Elist; any elements that are
@@ -1605,14 +1635,6 @@ public final class AadlUtil {
 			} catch (CoreException e) {
 			}
 		}
-	}
-
-	private static EList<Property> getPropertyDefinitions(final Set<PropertySet> propSets) {
-		final EList<Property> result = new BasicEList<Property>();
-		for (PropertySet ps : propSets) {
-			result.addAll(ps.getOwnedProperties());
-		}
-		return result;
 	}
 
 	/**

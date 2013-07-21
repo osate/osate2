@@ -13,8 +13,12 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser;
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.commands.CreatePropertyAssociationCommand;
 
@@ -81,6 +85,14 @@ public class PropertyAssociationWizard extends Wizard {
 					}
 					newAssociation.setAppend(activePropertyValueWizardPage.isAppendSelected());
 					newAssociation.setConstant(activePropertyValueWizardPage.isConstantSelected());
+					PropertySet propertySet = (PropertySet)propertyDefinitionWizardPage.getSelectedDefinition().getElementRoot();
+					if (!AadlUtil.isImportedPropertySet(propertySet, holder)) {
+						Namespace context = AadlUtil.getContainingTopLevelNamespace(holder);
+						if (context instanceof PropertySet)
+							((PropertySet)context).getImportedUnits().add(propertySet);
+						else
+							((PackageSection)context).getImportedUnits().add(propertySet);
+					}
 				}
 			});
 			OsateResourceUtil.save(holder.eResource());
@@ -98,6 +110,8 @@ public class PropertyAssociationWizard extends Wizard {
 			newAssociation.setAppend(activePropertyValueWizardPage.isAppendSelected());
 			newAssociation.setConstant(activePropertyValueWizardPage.isConstantSelected());
 		}
+		if (activePropertyValueWizardPage instanceof PropertyValueWizardPage)
+			propertyValueWizardPage.recordDialogSettings();
 		return true;
 	}
 	

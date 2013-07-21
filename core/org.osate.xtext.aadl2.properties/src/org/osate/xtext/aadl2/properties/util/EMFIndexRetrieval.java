@@ -120,7 +120,7 @@ public class EMFIndexRetrieval {
 	 * @return AADL package
 	 */
 	 public static AadlPackage getPackageInWorkspace(String pname,XtextResourceSet resourceSet){
-		 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+		 IResourceDescriptions rds= rdp.getResourceDescriptions(resourceSet);
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 if (eod.getName().toString().equalsIgnoreCase(pname)) {
@@ -712,7 +712,33 @@ public class EMFIndexRetrieval {
 			return result;
 		}
 
+		/**
+		 * Gets an object by qualified name by looking it up in the EMF Index
+		 * @param name the qualified name of the object to find
+		 * @return the object or null if it can not be found.
+		 */
+		public static EObject getObjectByQualifiedName(final String name){
+			return getObjectByQualifiedName(name, OsateResourceUtil.getResourceSet());
+		}
 
+		/**
+		 * Gets an object by qualified name by looking it up in the EMF Index
+		 * @param name the qualified name of the object
+		 * @param resourceSet the resource set that contains the model
+		 * @return the object or null
+		 */
+		public static EObject getObjectByQualifiedName(final String name, final XtextResourceSet resourceSet){
+			final IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
+			final Iterable<IEObjectDescription> objects = rds.getExportedObjects();
+			for (final IEObjectDescription eod : objects) {
+				if (eod.getQualifiedName().toString().equalsIgnoreCase(name)) {
+					EObject res = eod.getEObjectOrProxy();
+					res = EcoreUtil.resolve(res, resourceSet);
+					if (!Aadl2Util.isNull(res)) return res;
+				}
+			}
+			return null;
+		}
 
 	
 }

@@ -56,6 +56,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -63,12 +65,15 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
@@ -76,6 +81,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
@@ -83,10 +89,12 @@ import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.impl.DeviceImpl;
 import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -101,6 +109,7 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
@@ -114,13 +123,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * when going down the hierarchy. This can happen at any level, so we need a
 	 * stack.
 	 */
-	private Stack<Integer> upIndex = new Stack<Integer>();
+	private Stack<FeatureInstance> upFeature = new Stack<FeatureInstance>();
 
 	/**
 	 * Keeps track of indices used when going down into feature groups after we
 	 * run out of indices in the up stack.
 	 */
-	private Stack<Integer> downIndex = new Stack<Integer>();
+	private Stack<FeatureInstance> downFeature = new Stack<FeatureInstance>();
 
 	/**
 	 * A classifier for an instance object when it is a prototype in the
@@ -146,16 +155,33 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		this.classifierCache = classifierCache;
 	}
 
+	private boolean isOpposite (Feature feature, Subcomponent sub,Connection connection) 
+	{
+		List<Feature> 	features= feature.getAllFeatureRefinements();
+		EList<Subcomponent> subs = sub.getAllSubcomponentRefinements();
+		if (features.contains(connection.getAllSource())&& subs.contains(connection.getAllSourceContext())){
+			return false;
+		} else {
+			if (connection.isBidirectional()&& features.contains(connection.getAllDestination())&&
+				subs.contains(connection.getAllDestinationContext()) ){
+			// we are going the other way on a bi-directional connection
+			return true;
+			}
+		}
+		return false;
+	}
+
 	private boolean isOpposite (Feature feature, Connection connection) 
 	{
 		List<Feature> 	features= feature.getAllFeatureRefinements();
 		if (features.contains(connection.getAllSource())){
 			return false;
-		} else if (connection.isBidirectional()&& features.contains(connection.getAllDestination())){
+		} else {
+			if (connection.isBidirectional()&& features.contains(connection.getAllDestination()) ){
 			// we are going the other way on a bi-directional connection
 			return true;
+			}
 		}
-		
 		return false;
 	}
 		
@@ -201,6 +227,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						// process first component of innermost array only
 						instantiateConnections(ci);
 					}
+				} else {
+					instantiateExternalConnections((SystemInstance)ci);
 				}
 				return DONE;
 			}
@@ -228,6 +256,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (parentci instanceof SystemInstance) 
 		{
 			monitor.subTask("Creating connections in  " + ci.getName());
+			// do externally incoming connections starting with system instance
 		}
 
 		if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP)
@@ -253,9 +282,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
 			boolean hasOutgoingFeatureSubcomponents = 
 					AadlUtil.hasOutgoingFeatureSubcomponents(ci.getComponentInstances());
-
+			FeatureInstance prevFi = null;
 			for (FeatureInstance featurei : ci.getFeatureInstances()) 
 			{
+				if (prevFi == null || !prevFi.getName().equalsIgnoreCase(featurei.getName())){
 				Feature feature = featurei.getFeature();
 				// TODO warning if subcomponents with outgoing features exist
 				if (AadlUtil.hasOutgoingFeatures(featurei)) 
@@ -265,8 +295,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					boolean destinationFromInside = false;
 
 					// warn if there's an incomplete connection
-					if (cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR
-							&& hasOutgoingFeatureSubcomponents) {
+					if (hasOutgoingFeatureSubcomponents&&
+							((cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR)
+							// in case of a provides bus access we want to start from the bus.
+							|| ((cat == PROCESSOR || cat == DEVICE || cat == ComponentCategory.MEMORY)
+							&& feature instanceof BusAccess&& ((BusAccess)feature).getKind() == AccessType.PROVIDES))) {
 						connectedInside = isConnectionEnd(insideSubConns, feature);
 						destinationFromInside = isDestination(insideSubConns, feature);
 					}
@@ -279,24 +312,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						// conn is first segment if it can't continue inside the subcomponent
 						if (!(destinationFromInside || conn.isBidirectional() && connectedInside)) 
 						{
-							// TODO-LW: check if this logic is correct
+							prevFi = featurei;
 							
-							boolean opposite = isOpposite (feature, conn);
-//								if (outcomingConns.isEmpty() && !outgoingConns.isEmpty()) {
-//									if (f instanceof FeatureGroup) {
-//										warning(featurei,
-//												"Connection instance starts in enclosing component: Feature group "
-//														+ featurei.getName()
-//														+ " has no connection from/to subcomponents of " + ci.getName()
-//														+ " but external connections.");
-//									} else {
-//										warning(featurei,
-//												"Connection instance starts in enclosing component: Outgoing feature "
-//														+ featurei.getName()
-//														+ " has no connection from subcomponents of " + ci.getName()
-//														+ " but external connections.");
-//									}
-//								}
+							boolean opposite = isOpposite (feature, sub, conn);
 
 							appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, parentci, opposite);
 							if (monitor.isCanceled()) 
@@ -305,6 +323,36 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							}
 						}
 					}
+				}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Create all connection instances that with an incoming port of the SystemInstance.
+	 * 
+	 * @param ci The component that is the ultimate source; 
+	 */
+	private void instantiateExternalConnections(final SystemInstance ci)  
+	{
+		List<Connection> sysConns = 
+				InstanceUtil.getComponentImplementation(ci, 0, classifierCache).getAllConnections();
+
+		for (FeatureInstance featurei : ci.getFeatureInstances()) 
+		{
+			if (featurei.getDirection().incoming()) 
+			{
+				List<Connection> inConns = filterIngoingConnections(sysConns, featurei.getFeature());
+				for (Connection conn : inConns) 
+				{
+						boolean opposite = isOpposite (featurei.getFeature(), conn);
+
+						appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, ci, opposite);
+						if (monitor.isCanceled()) 
+						{
+							return;
+						}
 				}
 			}
 		}
@@ -335,9 +383,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		final boolean dstEmpty = toCtx instanceof Subcomponent && toCi.getComponentInstances().isEmpty();
 		ConnectionInstanceEnd fromFi = null;
 		ConnectionInstanceEnd toFi = null;
-		int pushedIdx = -1;
-		int poppedIdx = -1;
-		int downedIdx = -1;
+		FeatureInstance pushedFeature = null;
+		FeatureInstance poppedFeature = null;
+		FeatureInstance downedFeature = null;
 
 		/*
 		 * FIX JD
@@ -382,28 +430,30 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			if (fromCtx instanceof FeatureGroup) {
 				// TODO phf: find index and compare with stack
-				int idx = ((FeatureGroup) fromCtx).getIndexOf((Feature) fromEnd);
-				if (!upIndex.empty()) {
-					int popidx = upIndex.peek();
-					if (idx != popidx) {
-						// did not match
-						return;
-					} else {
-						poppedIdx = upIndex.pop();
-					}
-				} else {
-					downIndex.push(idx);
-					downedIdx = idx;
-				}
 				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList(ci.getFeatureInstances(),
 						fromCtx.getName());
 				if (fgi != null) {
 					fiList = fgi.getFeatureInstances();
+					fromFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, fromEnd.getName());
+				}
+				if (fromFi!= null){
+					if (!upFeature.empty()) {
+						FeatureInstance popfi = upFeature.peek();
+						if (!Aadl2InstanceUtil.isSame(popfi ,(FeatureInstance)fromFi)) {
+							// did not match
+							return;
+						} else {
+							poppedFeature = upFeature.pop();
+						}
+					} else {
+						downFeature.push((FeatureInstance)fromFi);
+						downedFeature = (FeatureInstance)fromFi;
+					}
 				}
 			} else {
 				fiList = (fromCi != null ? fromCi : ci).getFeatureInstances();
+				fromFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, fromEnd.getName());
 			}
-			fromFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, fromEnd.getName());
 		} else {
 			fromFi = ci.findSubcomponentInstance((Subcomponent)fromEnd);
 		}
@@ -411,25 +461,21 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			List<FeatureInstance> fiList = null;
 
 			if (toCtx instanceof FeatureGroup) {
-				// TODO phf: find index and add to stack
-				int idx = ((FeatureGroup) toCtx).getIndexOf((Feature) toEnd);
-				if (idx != -1) {
-					upIndex.push(idx);
-					pushedIdx = idx;
-				} else {
-					// should not happen
-					warning(ci, toEnd.getName() + " not a feature in feature group.");
-				}
 
 				FeatureInstance fgi = (FeatureInstance) AadlUtil.findNamedElementInList(ci.getFeatureInstances(),
 						toCtx.getName());
 				if (fgi != null) {
 					fiList = fgi.getFeatureInstances();
+					toFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, toEnd.getName());
+				}
+				if (toFi != null){
+						upFeature.push((FeatureInstance)toFi);
+						pushedFeature = (FeatureInstance)toFi;
 				}
 			} else {
 				fiList = (toCi != null ? toCi : ci).getFeatureInstances();
+				toFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, toEnd.getName());
 			}
-			toFi = (FeatureInstance) AadlUtil.findNamedElementInList(fiList, toEnd.getName());
 		} else {
 			toFi = ci.findSubcomponentInstance((Subcomponent)toEnd);
 		}
@@ -453,6 +499,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (toEnd instanceof Subcomponent) {
 			// connection ends at a shared data, bus, or subprogram (group)
+			connInfo.complete = true;
 			finalizeConnectionInstance(ci.getSystemInstance(), connInfo,
 					ci.findSubcomponentInstance((Subcomponent) toEnd));
 		} else {
@@ -465,7 +512,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (dstFi == null) {
 					error(toCi, "Destination feature " + toFeature.getName() + " not found. No connection created.");
 				} else {
-					connInfo.complete &= true;
+					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, dstFi);
 				}
 			} else
@@ -489,6 +536,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (dstFi == null) {
 					error(toCi, "Destination feature " + toFeature.getName() + " not found. No connection created.");
 				} else {
+					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, dstFi);
 				}
 			} else
@@ -519,12 +567,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					List<Connection> conns = filterOutgoingConnections(parentConns, toFeature, ci.getSubcomponent());
 
 					if (conns.isEmpty() && !didModeTransitionConnection) {
-						// PropertyValue reqconn =
-						// ((Feature)dest).getSimplePropertyValue(PredeclaredPropertyNames.REQUIRED_CONNECTION);
-						// if (reqconn instanceof TRUE){
-						//warning(ci, "Connection declaration to enclosing component ends with feature " + toFeature.getName()
-						//		+ " for subcomponent " + ci.getName() + ". Connection instance not created.");
-						// }
 
 						// TODO phf: we should not create the instance while we are only outgoing
 						// if we do toFeature may point to the feature group rather than the feature of the feature group
@@ -585,6 +627,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 				ComponentImplementation toImpl = InstanceUtil.getComponentImplementation(toCi, 0, classifierCache);
 				if (toImpl == null) {
+					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, toFi);
 				} else {
 					// there is a toImpl
@@ -595,9 +638,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						List<Subcomponent> subs = toImpl.getAllSubcomponents();
 
 						if (!subs.isEmpty()) {
-							// PropertyValue reqconn =
-							// ((Feature)dest).getSimplePropertyValue(PredeclaredPropertyNames.REQUIRED_CONNECTION);
-							// if (reqconn instanceof TRUE){
 							if (!isValidFinalComponent(toCtx)) {
 								warning(ci,
 										"No connection declaration from feature " + toEnd.getName() + " of component "
@@ -605,10 +645,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 												+ " to subcomponents. Connection instance ends at "
 												+ ((Subcomponent) toCtx).getName());
 							}
-							// }
+							connInfo.complete = true;
 							finalizeConnectionInstance(ci, connInfo, toFi);
 						}
 					} else {
+						// we may need to stop at the processor in addition to going in
+						if ((toImpl instanceof ProcessorImplementation || toImpl instanceof DeviceImplementation || toImpl instanceof MemoryImplementation)
+								&&!(toEnd instanceof BusAccess && ((BusAccess)toEnd).getKind() == AccessType.PROVIDES )){
+							final ConnectionInfo clone = connInfo.cloneInfo();
+							clone.complete = true;
+							finalizeConnectionInstance(ci, clone, toFi);
+						}
 						// we have ingoing connections that start with toFeature as End or as Cxt
 						for (Connection nextConn : conns) {
 							final ConnectionInfo clone = connInfo.cloneInfo();
@@ -623,26 +670,26 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 			}
 		}
-		if (pushedIdx != -1) {
-			if (!upIndex.empty()) {
-				upIndex.pop();
+		if (pushedFeature != null) {
+			if (!upFeature.empty()) {
+				upFeature.pop();
 			} else {
 				warning(ci, "Popping from empty upindex");
 			}
 		}
-		if (poppedIdx != -1) {
-			if (downIndex.empty()) {
-				upIndex.push(poppedIdx);
+		if (poppedFeature != null) {
+			if (downFeature.empty()) {
+				upFeature.push(poppedFeature);
 			} else {
 				// remove from downIndex
 				warning(ci, "Trying to push back on while downIndex is not empty");
 			}
 		}
-		if (downedIdx != -1) {
+		if (downedFeature != null) {
 			// remove from downIndex
-			int popidx = downIndex.pop();
-			if (popidx != downedIdx) {
-				// should be the same index
+			FeatureInstance popfeature = downFeature.pop();
+			if (!Aadl2InstanceUtil.isSame(popfeature,downedFeature)) {
+				// should be the same 
 				warning(ci, "Did not match popped downIndex");
 			}
 		}
@@ -655,13 +702,23 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	protected void finalizeConnectionInstance(ComponentInstance parentci, final ConnectionInfo connInfo,
 			ConnectionInstanceEnd dstEnd) {
 
-		int idx = -1;
+		FeatureInstance  upFi = null;
 		if (dstEnd instanceof FeatureInstance){
 			FeatureInstance dstFi = (FeatureInstance)dstEnd;
 
-			if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP && !upIndex.isEmpty()) {
-				idx = upIndex.pop();
-				dstFi = dstFi.getFeatureInstances().get(idx);
+			if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP && !upFeature.isEmpty()) {
+				upFi = upFeature.pop();
+				EList<FeatureInstance> flist = dstFi.getFeatureInstances();
+				FeatureInstance resFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
+				if (resFi == null){  // do index only if we have inverse feature groups and they have their own element names
+					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)upFi.getOwner()).getFeature()).getFeatureGroupType();
+					FeatureGroupType downfgt = ((FeatureGroup)dstFi.getFeature()).getFeatureGroupType();
+					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
+						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
+					}
+				} else {
+					dstFi = resFi;
+				}
 			}
 			if (connInfo.src instanceof FeatureInstance) {
 				FeatureInstance srcFi = (FeatureInstance) connInfo.src;
@@ -685,8 +742,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				error(parentci.getSystemInstance(), "Connection source is neither a feature nor a component: "
 						+ connInfo.src.getInstanceObjectPath() + " => " + connInfo.src.getInstanceObjectPath());
 			}
-			if (idx != -1) {
-				upIndex.push(idx);
+			if (upFi  != null) {
+				upFeature.push(upFi );
 			}
 		} else {
 			// Component Instance
@@ -715,6 +772,27 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected ConnectionInstance addConnectionInstance(final SystemInstance systemInstance,
 			final ConnectionInfo connInfo, final ConnectionInstanceEnd dstI) {
+		// check for duplicate connection instance
+
+		// with arrays we can get duplicates that we don't need
+		ComponentInstance container = connInfo.container;
+
+		if (container == null) {
+			container = systemInstance;
+		}
+		for (ConnectionInstance test : container.getConnectionInstances()) {
+			// check for duplicates and do not create
+			if (connInfo.src == test.getSource() && dstI == test.getDestination()){
+				return null;
+			}
+			// the next lines determine whether a connection is bi-directional and set a flag rather than creating a second connection instance
+			if (connInfo.src == test.getDestination() && dstI == test.getSource()&& test.getKind() == ConnectionKind.ACCESS_CONNECTION){
+				test.setBidirectional(true);
+				return test;
+			}
+		}
+		boolean duplicate = false;
+
 		// Generate a name for the connection
 		String containerPath = (connInfo.container != null) ? connInfo.container.getInstanceObjectPath() : systemInstance.getName();
 		int len =  containerPath.length() + 1 ;
@@ -732,81 +810,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			sb.append(dstPath);
 		}
 
-		// with arrays we can get duplicates that we don't need
-		boolean duplicate = false;
-		ComponentInstance container = connInfo.container;
-
-		if (container == null) {
-			container = systemInstance;
-		}
-		for (ConnectionInstance test : container.getConnectionInstances()) {
-			int connssize = connInfo.connections.size();
-			if (connssize == test.getConnectionReferences().size()) {
-				Iterator<Connection> conns = connInfo.connections.iterator();
-				Iterator<Boolean> oppos = connInfo.opposites.iterator();
-				Iterator<ConnectionReference> testRefs = test.getConnectionReferences().iterator();
-
-				duplicate = true;
-				while (conns.hasNext()) {
-					Connection t = testRefs.next().getConnection();
-					Connection conn = conns.next();
-					boolean oppo = oppos.next();
-					if (t != conn) {
-						duplicate = false;
-						break;
-					} else {
-						// if it is only one connection and it is the same
-						// check whether we are going in opposite directions
-						if (connssize == 1){
-							if (oppo){
-								// non-matching src/dst
-								ConnectionInstanceEnd tsrc = test.getSource();
-								if (tsrc instanceof FeatureInstance){
-									// does the top feature (FG) match the source
-									// then we are ok since the new one goes the other way
-									tsrc = getTopFeatureInstance((FeatureInstance)tsrc);
-									Feature srcf = ((FeatureInstance)tsrc).getFeature();
-									if (t.getAllSource() == srcf){
-										duplicate = false;
-										break;
-									}
-								} else if (tsrc instanceof ComponentInstance){
-									// does the top feature (FG) match the source
-									// then we are ok since the new one goes the other way
-									Subcomponent srcsub = ((ComponentInstance)tsrc).getSubcomponent();
-									if (t.getAllSource() == srcsub){
-										duplicate = false;
-										break;
-									}
-								}
-							} else {
-								// non-matching src/src
-								ConnectionInstanceEnd tsrc = test.getSource();
-								if (tsrc instanceof FeatureInstance){
-									// do the sources not match. the original must be opposite, so we are ok
-									tsrc = getTopFeatureInstance((FeatureInstance)tsrc);
-									Feature srcf = ((FeatureInstance)tsrc).getFeature();
-									if (t.getAllSource() != srcf){
-										duplicate = false;
-										break;
-									}
-								} else if (tsrc instanceof ComponentInstance){
-									// does the top feature (FG) match the source
-									// then we are ok since the new one goes the other way
-									Subcomponent srcsub = ((ComponentInstance)tsrc).getSubcomponent();
-									if (t.getAllSource() != srcsub){
-										duplicate = false;
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if (duplicate)
-				break;
-		}
 		ConnectionInstance conni = null;
 		if (!duplicate) {
 			conni = connInfo.createConnectionInstance(sb.toString(), dstI);
@@ -862,23 +865,43 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private void balanceFeatureGroupEnds(final ComponentInstance parentci, final ConnectionInfo connInfo,
 			ConnectionInstanceEnd srcEnd, ConnectionInstanceEnd dstEnd) {
 
-		if (!upIndex.isEmpty()) {
+		if (!upFeature.isEmpty()) {
 			// dstEnd is higher up in the hierarchy than srcEnd:
 			// we need to match from latest to the oldest in stack
 			// going down into the FG nesting hierarchy
-			for (int count = upIndex.size() - 1; count >= 0; count--) {
-				dstEnd = ((FeatureInstance) dstEnd).getFeatureInstances().get(upIndex.get(count));
+			for (int count = upFeature.size() - 1; count >= 0; count--) {
+				EList<FeatureInstance> flist = ((FeatureInstance) dstEnd).getFeatureInstances();
+				FeatureInstance upFi = upFeature.get(count);
+				FeatureInstance resFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
+				if (resFi == null){  // do index only if we have inverse feature groups and they have their own element names
+					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)upFi.getOwner()).getFeature()).getFeatureGroupType();
+					FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance) dstEnd).getFeature()).getFeatureGroupType();
+					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
+						dstEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
+					}
+				} else {
+					dstEnd = resFi;
+				}
 			}
-		} else if (!downIndex.isEmpty()) {
+		} else if (!downFeature.isEmpty()) {
 			// dstEnd is further down in the hierarchy than srcEnd: find feature corresponding to dstEnd
 			// We need to match from the oldest to the latest in stack
 			// This is a down stack, i.e., the highest element got pushed first an dis the oldest.
-			for (int count = 0 ; count <downIndex.size() ; count++) {
-				int idx = downIndex.get(count);
-				if (idx >= 0 && idx < ((FeatureInstance) srcEnd).getFeatureInstances().size()){
-					srcEnd = ((FeatureInstance) srcEnd).getFeatureInstances().get(idx);
+			for (int count = 0 ; count <downFeature.size() ; count++) {
+				FeatureInstance downFi = downFeature.get(count);
+				EList<FeatureInstance> flist = ((FeatureInstance) srcEnd).getFeatureInstances();
+				FeatureInstance resFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, downFi.getName());
+				if (resFi == null){  // do index only if we have inverse feature groups and they have their own element names
+					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)downFi.getOwner()).getFeature()).getFeatureGroupType();
+					FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance) srcEnd).getFeature()).getFeatureGroupType();
+					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
+						srcEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
+					}
+				} else {
+					srcEnd = resFi;
 				}
 			}
+			connInfo.src = srcEnd;
 		}
 
 		if (srcEnd instanceof ComponentInstance && dstEnd instanceof ComponentInstance) {
@@ -1143,7 +1166,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							new BasicEList<ModeInstance>(Collections.singletonList(mi)));
 				}
 				if (conni.getInSystemOperationModes().isEmpty()) {
-					warning(conni.getContainingComponentInstance(), "Connection " + conni.getPathName() + " was removed because it is not active in any system operation mode");
+					warning(conni.getContainingComponentInstance(), "Connection " + conni.getName() + " was removed because it is not active in any system operation mode");
 					EcoreUtil.delete(conni);
 				}
 				break;
@@ -1263,46 +1286,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		return result;
 	}
 
-	/**
-	 * Filter connections that enter a subcomponent through one of its features.
-	 * 
-	 * @param connlist all connections in the component instance that contains
-	 *            the subcomponent
-	 * @param sub a subcomponent
-	 * @return those connections from connlist that have a subcomponent feature
-	 *         as their destination
-	 */
-//	private List<Connection> filterIncomingConnections(List<Connection> connlist, Subcomponent sub) {
-//		List<Connection> result = new ArrayList<Connection>(connlist.size());
-//		List<Subcomponent> sclist = sub.getAllSubcomponentRefinements();
-//
-//		for (Connection conn : connlist) {
-//			if (sclist.contains(conn.getAllDestinationContext()) || conn.isBidirectional()
-//					&& sclist.contains(conn.getAllSourceContext())) {
-//				result.add(conn);
-//			}
-//		}
-//		return result;
-//	}
 
 	/**
-	 * get incoming connections for specified feature This method does not work
-	 * on subcomponent, because we need the enclosing subcomponent rather than
-	 * the enclosing component implementation in order to get the subcomponent
-	 * inheritance correct Otherwise the incorrect connections get picked up
-	 * 
+	 * get ingoing connections for specified feature  
 	 * @param incomingconnlist
-	 * @param feature subcomponent feature that is the destination of a
-	 *            connection
+	 * @param feature subcomponent feature that is the source of a connection
 	 * @return connections with feature as destination
 	 */
-	public List<Connection> filterIncomingConnections(List<Connection> incomingconnlist, Feature feature) {
+	public List<Connection> filterIngoingConnections(List<Connection> incomingconnlist, Feature feature) {
 		List<Connection> result = new ArrayList<Connection>(incomingconnlist.size());
 		List<Feature> featurel = feature.getAllFeatureRefinements();
 
 		for (Connection conn : incomingconnlist) {
-			if (featurel.contains(conn.getAllDestination()) || conn.isBidirectional()
-					&& featurel.contains(conn.getAllSource())) {
+			if (featurel.contains(conn.getAllSource()) || conn.isBidirectional()
+					&& featurel.contains(conn.getAllDestination())) {
 				result.add(conn);
 			}
 		}

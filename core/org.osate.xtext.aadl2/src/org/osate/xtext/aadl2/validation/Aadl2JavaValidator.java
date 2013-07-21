@@ -67,6 +67,8 @@ import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.annexsupport.AnnexParserRegistry;
+import org.osate.annexsupport.AnnexRegistry;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IAadlWorkspace;
@@ -85,12 +87,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
-		checkEndId(componentImplementation);
 		checkComponentImplementationUniqueNames(componentImplementation);
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);
 		checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(componentImplementation);
 		checkModeSpecificFlowImplementations(componentImplementation);
+		checkEndId(componentImplementation);
 	}
 
 	@Check(CheckType.FAST)
@@ -102,10 +104,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseComponentType(ComponentType componentType) {
-		checkEndId(componentType);
 		checkComponentTypeUniqueNames(componentType);
 		checkComponentTypeModes(componentType);
 		checkForInheritedFeatureArrays(componentType);
+		checkEndId(componentType);
 	}
 
 	@Check(CheckType.FAST)
@@ -371,9 +373,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupType(FeatureGroupType featureGroupType) {
-		checkEndId(featureGroupType);
 		checkForChainedInverseFeatureGroupTypes(featureGroupType);
 		checkFeatureGroupTypeUniqueNames(featureGroupType);
+		checkEndId(featureGroupType);
 	}
 
 	@Check(CheckType.FAST)
@@ -469,9 +471,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkEndId(pack);
 	}
 
-	@Check(CheckType.FAST)
+	@Check(CheckType.NORMAL)
 	public void caseClassifier(Classifier cl) {
 		checkExtendCycles(cl);
+//		checkEndId(cl);
 	}
 
 
@@ -561,7 +564,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		String ss = lln.getText().replaceAll("--.*(\\r|\\n)", "").replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
 		if (!ss.equalsIgnoreCase(cl.getName())) {
 			error(cl, "Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'");
-		}
+// XXX TODO
+//	        IXtextDocument xtextDocument = context.getXtextDocument();
+//	         String firstLetter = xtextDocument.get(issue.getOffset(), 1);
+//	         xtextDocument.replace(issue.getOffset(), 1, 
+//	                               Strings.toFirstUpper(firstLetter));
+	 		}
 	}
 
 	public void checkEndId(ModelUnit mu) {
@@ -2382,17 +2390,31 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Element e = feature.getOwner();
 		if (e instanceof ComponentType){
 			ComponentType componentType = (ComponentType) e;
-			if (!(componentType instanceof AbstractType) && !(componentType instanceof ThreadType) && !(componentType instanceof DataType)&& !(componentType instanceof MemoryType)
-					&& !(componentType instanceof BusType)&& !(componentType instanceof DeviceType) && !(componentType instanceof ProcessorType)) {
+			if (!(componentType instanceof AbstractType) && 
+			    !(componentType instanceof ThreadType) && 
+			    !(componentType instanceof DataType)&& 
+			    !(componentType instanceof MemoryType) && 
+			    !(componentType instanceof BusType)&&
+			    // JD : allow for system type as well
+			    !(componentType instanceof SystemType) && 
+			    !(componentType instanceof DeviceType) && 
+			    !(componentType instanceof ProcessorType)) {
 				if (!feature.getArrayDimensions().isEmpty()) {
 					error(feature,
-							"Feature arrays can only be declared for abstract, thread, device, bus, data, memory, and processor classifiers.");
-				} else if (feature instanceof FeatureGroup){
-					FeatureGroup fg = (FeatureGroup) feature;
+							"Feature arrays can only be declared for abstract, thread, device, bus, data, memory, system and processor classifiers.");
+					return;
+				} 
+			}
+			if (feature instanceof FeatureGroup){
+				// feature array can either be on the feature group declaration or on
+				// on features inside the feature group type of the feature group.
+				// Having it on both would lead to a multi-dimensional feature array.
+				FeatureGroup fg = (FeatureGroup) feature;
+				if (!fg.getArrayDimensions().isEmpty()){
 					FeatureGroupType fgt = fg.getAllFeatureGroupType();
 					if (containsFeatureArrays(fgt)){
 						error(feature,
-								"Feature group contains feature arrays. They are can only be declared for abstract, thread, device, bus, data, memory, and processor classifiers.");
+								"Feature group declared as array contains feature arrays. The resulting feature array would be multi-dimensional.");
 					}
 				}
 			}
@@ -3056,14 +3078,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ) {
 			if (!AadlUtil.isokClassifierSubstitutionMatch(originalClassifier, refinedClassifier))
-				error(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Classifier Match'");
+				warning(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Classifier Match'");
 		}
 		else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
 			if (!AadlUtil.isokClassifierSubstitutionTypeExtension(originalClassifier, refinedClassifier))
-				error(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Type Extension'");
+				warning(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Type Extension'");
 		}
 		else if (ModelingProperties.SIGNATURE_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-			warning(target, "Signature Match checking in clasifier substitution of refinement check not implemented yet.");
+			info(target, "Signature Match checking in clasifier substitution of refinement check not implemented yet.");
 		}
 	}
 
@@ -3118,7 +3140,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		) {
 			if (srcDirection == DirectionType.IN && dstDirection == DirectionType.IN
 					|| srcDirection == DirectionType.OUT && dstDirection == DirectionType.OUT) {
-				error(connection, "Source and destination directions do not allow any flow.");
+				error(connection, "Source and destination directions do not match up.");
 			}
 		} else if ((srcContext instanceof Subcomponent || dstContext instanceof Subcomponent)||
 			       (srcContext instanceof SubprogramCall || dstContext instanceof SubprogramCall)) {
@@ -3701,9 +3723,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (PropertyOwner appliesTo : pd.getAppliesTos()) {
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
-				if (appliesTo instanceof MetaclassReference
-						&& ((MetaclassReference) appliesTo).getMetaclass() != null) {
+				if (appliesTo instanceof MetaclassReference&&((MetaclassReference) appliesTo).getAnnexName()!=null){
+					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+						if (((MetaclassReference) appliesTo).getMetaclass() != null) {
 				}
+			}
 			} catch (IllegalArgumentException e) {
 //				e.printStackTrace();
 				String msg = e.getMessage();
@@ -4802,6 +4826,13 @@ public boolean hasExtendCycles(Classifier cl) {
 							" subset of the outgoing features in the opposite feature group.");
 				}
 			}
+			// does not work because of ports in both directions. WOuld have to be subset
+//			else if (ModelingProperties.TYPE_EXTENSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+//				if (!testIfFeatureGroupTypeExtension(destinationType, sourceType)) {
+//					error(connection, "The type "+ sourceType.getQualifiedName() +" of '" + source.getName() + "' is not a type extension of type "+ destinationType.getQualifiedName() +" of '" + destination.getName()+"'");
+//				}
+//			}
+
 		}
 		else { //up or down hierarchy
 			boolean cxtFGIsInverse = false;
@@ -4871,6 +4902,28 @@ public boolean hasExtendCycles(Classifier cl) {
 							" group.");
 				}
 			}
+			// works
+//			else if (ModelingProperties.TYPE_EXTENSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+//				FeatureGroup innerFeatureGroup;
+//				FeatureGroupType innerFeatureGroupType;
+//				FeatureGroup outerFeatureGroup;
+//				FeatureGroupType outerFeatureGroupType;
+//				if (connection.getAllSourceContext() instanceof Subcomponent) {
+//					innerFeatureGroup = source;
+//					innerFeatureGroupType = sourceType;
+//					outerFeatureGroup = destination;
+//					outerFeatureGroupType = destinationType;
+//				}
+//				else {
+//					outerFeatureGroup = source;
+//					outerFeatureGroupType = sourceType;
+//					innerFeatureGroup = destination;
+//					innerFeatureGroupType = destinationType;
+//				}
+//				if (!testIfFeatureGroupTypeExtension(innerFeatureGroupType, outerFeatureGroupType)) {
+//					error(connection, "The type "+ outerFeatureGroupType.getQualifiedName() +" of '" + outerFeatureGroup.getName() + "' is not a type extension of type "+ outerFeatureGroupType.getQualifiedName() +" of '" + outerFeatureGroup.getName()+"'");
+//				}
+//			}
 		}
 	}
 	
@@ -4898,11 +4951,11 @@ public boolean hasExtendCycles(Classifier cl) {
 			// fg must be the same (both inverse or both not inverse)
 			return (source.isInverse() && destination.isInverse())||(!source.isInverse() && !destination.isInverse());
 		}
-		if (isSameInExtends(sourceType, sourceType)){
+		if (isSameInExtends(sourceType, destinationType)){
 			// they have a common FGT root
 			return (source.isInverse() && !destination.isInverse())||(!source.isInverse() && destination.isInverse());
 		}
-		return true;
+		return false;
 	}
 	
 	public boolean isInverseOfInExtends(FeatureGroupType srcpgt,FeatureGroupType dstpgt) {
@@ -4941,6 +4994,16 @@ public boolean hasExtendCycles(Classifier cl) {
 		return false;
 	}
 
+	
+	private boolean testIfFeatureGroupTypeExtension(FeatureGroupType originalType, FeatureGroupType extendedType) {
+		if (originalType == extendedType.getExtended()) {
+			return true;
+		}
+		if (extendedType.getInverse() != null && originalType == extendedType.getInverse()){
+			return true;
+		}
+		return false;
+	}
 	
 	private boolean testIfFeatureGroupTypesAreIdentical(FeatureGroup source, FeatureGroupType sourceType, FeatureGroup destination, FeatureGroupType destinationType) {
 		if (sourceType == destinationType) {
@@ -5034,7 +5097,7 @@ public boolean hasExtendCycles(Classifier cl) {
 					//feature group type has inverse and feature is defined in the inverse FGT
 					innerDirection = innerDirection.getInverseDirection();
 				}
-				if (innerDirection.incoming()) {
+//				if (innerDirection.incoming()) {
 					//need to find incoming feature in outer feature group
 					boolean matchingFeatureFound = false;
 					for (Feature outerFeature : outerType.getAllFeatures()) {
@@ -5048,8 +5111,8 @@ public boolean hasExtendCycles(Classifier cl) {
 									//feature group type has inverse and feature is defined in the inverse FGT
 									outerDirection = outerDirection.getInverseDirection();
 								}
-								if (!outerDirection.incoming())
-									return false;
+//								if (!outerDirection.incoming())
+//									return false;
 								if (!innerFeature.eClass().equals(outerFeature.eClass()))
 									return false;
 							}
@@ -5059,47 +5122,47 @@ public boolean hasExtendCycles(Classifier cl) {
 					}
 					if (!matchingFeatureFound)
 						return false;
-				}
+//				}
 			}
 		}
 		
-		for (Feature outerFeature : outerType.getAllFeatures()) {
-			if (outerFeature instanceof DirectedFeature) {
-				DirectionType outerDirection = ((DirectedFeature)outerFeature).getDirection();
-				if (isOuterFGInverse)
-					outerDirection = outerDirection.getInverseDirection();
-				if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
-					//feature group type has inverse and feature is defined in the inverse FGT
-					outerDirection = outerDirection.getInverseDirection();
-				}
-				if (outerDirection.outgoing()) {
-					//need to find outgoing feature in inner feature group
-					boolean matchingFeatureFound = false;
-					for (Feature innerFeature : innerType.getAllFeatures()) {
-						if (outerFeature.getName().equalsIgnoreCase(innerFeature.getName())) {
-							matchingFeatureFound = true;
-							if (innerFeature instanceof DirectedFeature) {
-								DirectionType innerDirection = ((DirectedFeature)innerFeature).getDirection();
-								if (isInnerFGInverse)
-									innerDirection = innerDirection.getInverseDirection();
-								if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
-									//feature group type has inverse and feature is defined in the inverse FGT
-									innerDirection = innerDirection.getInverseDirection();
-								}
-								if (!innerDirection.outgoing())
-									return false;
-								if (!outerFeature.eClass().equals(innerFeature.eClass()))
-									return false;
-							}
-							else
-								return false;
-						}
-					}
-					if (!matchingFeatureFound)
-						return false;
-				}
-			}
-		}
+//		for (Feature outerFeature : outerType.getAllFeatures()) {
+//			if (outerFeature instanceof DirectedFeature) {
+//				DirectionType outerDirection = ((DirectedFeature)outerFeature).getDirection();
+//				if (isOuterFGInverse)
+//					outerDirection = outerDirection.getInverseDirection();
+//				if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
+//					//feature group type has inverse and feature is defined in the inverse FGT
+//					outerDirection = outerDirection.getInverseDirection();
+//				}
+//				if (outerDirection.outgoing()) {
+//					//need to find outgoing feature in inner feature group
+//					boolean matchingFeatureFound = false;
+//					for (Feature innerFeature : innerType.getAllFeatures()) {
+//						if (outerFeature.getName().equalsIgnoreCase(innerFeature.getName())) {
+//							matchingFeatureFound = true;
+//							if (innerFeature instanceof DirectedFeature) {
+//								DirectionType innerDirection = ((DirectedFeature)innerFeature).getDirection();
+//								if (isInnerFGInverse)
+//									innerDirection = innerDirection.getInverseDirection();
+//								if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
+//									//feature group type has inverse and feature is defined in the inverse FGT
+//									innerDirection = innerDirection.getInverseDirection();
+//								}
+//								if (!innerDirection.outgoing())
+//									return false;
+//								if (!outerFeature.eClass().equals(innerFeature.eClass()))
+//									return false;
+//							}
+//							else
+//								return false;
+//						}
+//					}
+//					if (!matchingFeatureFound)
+//						return false;
+//				}
+//			}
+//		}
 		
 		return true;
 	}

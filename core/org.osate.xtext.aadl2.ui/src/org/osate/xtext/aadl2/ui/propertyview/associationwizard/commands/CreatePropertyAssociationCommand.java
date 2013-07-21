@@ -6,9 +6,13 @@ import org.eclipse.emf.common.command.AbstractCommand;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 /**
  * Command used by PropertyAssociationWizard to create a new PropertyAssociation and add
@@ -58,6 +62,14 @@ public class CreatePropertyAssociationCommand extends AbstractCommand {
 		mpv.setOwnedValue(propertyExpression);
 		if (modes != null) {
 			mpv.getInModes().addAll(modes);
+		}
+		PropertySet propertySet = (PropertySet)definition.getElementRoot();
+		if (!AadlUtil.isImportedPropertySet(propertySet, holder)) {
+			Namespace context = AadlUtil.getContainingTopLevelNamespace(holder);
+			if (context instanceof PropertySet)
+				((PropertySet)context).getImportedUnits().add(propertySet);
+			else
+				((PackageSection)context).getImportedUnits().add(propertySet);
 		}
 	}
 	

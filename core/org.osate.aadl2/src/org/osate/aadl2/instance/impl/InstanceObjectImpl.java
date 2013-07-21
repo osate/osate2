@@ -140,13 +140,9 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 		}
 		final String path = ((InstanceObject) eContainer)
 				.getInstanceObjectPath();
-		final String localname = getPathName();
+		final String localname = getFullName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
-	}
-
-	public String getPathName() {
-		return getName();
 	}
 
 	/*
@@ -160,7 +156,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 		}
 		final String path = ((InstanceObject) eContainer)
 				.getComponentInstancePath();
-		final String localname = getPathName();
+		final String localname = getFullName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
 	}

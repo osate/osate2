@@ -25,10 +25,12 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 public class WriteToFile {
 	
 	UnparseText textBuffer ;
+	String reportFolder;
 	String reportType;
 	EObject root;
 	String fileExtension;
 	Boolean saved = false;
+	String suffix = null;
 	
 	public WriteToFile(String reporttype, EObject root){
 		this.reportType = reporttype;
@@ -36,12 +38,38 @@ public class WriteToFile {
 		this.textBuffer = new UnparseText();
 		this.fileExtension = "csv";
 	}
-	
+
 	public WriteToFile(String reporttype, EObject root, String extension){
 		this.reportType = reporttype;
 		this.root = root;
 		this.textBuffer = new UnparseText();
 		this.fileExtension = extension;
+	}
+	
+	public WriteToFile(String reportfolder, String reporttype, EObject root){
+		this.reportFolder = reportfolder;
+		this.reportType = reporttype;
+		this.root = root;
+		this.textBuffer = new UnparseText();
+		this.fileExtension = "csv";
+	}
+
+	public WriteToFile(String reportfolder,String reporttype, EObject root, String extension){
+		this.reportFolder = reportfolder;
+		this.reportType = reporttype;
+		this.root = root;
+		this.textBuffer = new UnparseText();
+		this.fileExtension = extension;
+	}
+	
+	public void setReportFolder (String s)
+	{
+		this.reportFolder = s;
+	}
+	
+	public void setSuffix (String s)
+	{
+		this.suffix = s;
 	}
 	
 	public void setFileExtension (String fe)
@@ -77,27 +105,42 @@ public class WriteToFile {
 		if (root instanceof InstanceObject){
 			path = path.removeFileExtension();
 			String filename = path.lastSegment()+"__"+reporttype;
+			if (this.suffix != null)
+			{
+				filename = filename + suffix;
+			}
 			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		} else {
 			String filename = path.lastSegment()+reporttype;
+			if (this.suffix != null)
+			{
+				filename = filename + suffix;
+			}
 			path = path.removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
 		}
+
 		path = path.addFileExtension(this.fileExtension);
 		return path;
 	}
 	
+	
 	/**
 	 * Writes content as csv report
-	 * @param root
-	 * @param content
 	 */	
 	public void saveToFile(){
+		saveToFile("");
+	}	
+	
+	/**
+	 * Writes content as csv report prefixed with summary text.
+	 */	
+	public void saveToFile(String summary){
 		if (saved) return;
 		IPath path = getReportPath(reportType,root);
 		if (path != null) {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 			if (file != null) {
-				final InputStream input = new ByteArrayInputStream(textBuffer.getParseOutput().getBytes());
+				final InputStream input = new ByteArrayInputStream((summary+textBuffer.getParseOutput()).getBytes());
 				try {
 					if (file.exists()) {
 						file.setContents(input, true, true, null);

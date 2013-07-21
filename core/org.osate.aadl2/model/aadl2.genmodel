@@ -909,6 +909,8 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//DataType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//DataType/ownedSubprogramAccess"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//DataType/ownedDataAccess"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//DataType/ownedSubprogramGroupAccess"/>
     </genClasses>

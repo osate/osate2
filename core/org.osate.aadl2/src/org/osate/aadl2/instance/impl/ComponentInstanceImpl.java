@@ -1051,7 +1051,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
-	public String getPathName() {
+	public String getFullName() {
 		String array = "";
 		for (Long i : getIndices()) {
 			if (i > 0)

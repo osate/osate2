@@ -83,6 +83,10 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 					sequence_ContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getQualifiedContainmentPathElementRule()) {
+					sequence_QualifiedContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
+					return; 
+				}
 				else break;
 			case Aadl2Package.INTEGER_LITERAL:
 				if(context == grammarAccess.getIntegerTermRule() ||
@@ -379,6 +383,15 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	/**
 	 * Constraint:
+	 *     namedElement=[NamedElement|QCLREF]
+	 */
+	protected void sequence_QualifiedContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (value=SignedReal unit=[UnitLiteral|ID]?)
 	 */
 	protected void sequence_RealTerm(EObject context, RealLiteral semanticObject) {
@@ -397,7 +410,11 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	/**
 	 * Constraint:
-	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
+	 *     (
+	 *         containmentPathElement+=QualifiedContainmentPathElement? 
+	 *         containmentPathElement+=ContainmentPathElement 
+	 *         containmentPathElement+=ContainmentPathElement*
+	 *     )
 	 */
 	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

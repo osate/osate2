@@ -34,5 +34,45 @@
             type="aail2"
             class="org.osate.aadl2.instance.util.InstanceResourceFactoryImpl"/>
    </extension>
-
+<!--   
+   Begin code related to the sphinx integration.
+-->
+   
+   <extension point="org.eclipse.emf.ecore.content_parser">
+      <parser 
+      		class="org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl" 
+      		contentTypeIdentifier="org.osate.aadl2.aaxlFiles"/>
+   </extension>
+   
+   <extension point="org.eclipse.core.contenttype.contentTypes">
+      <content-type 
+      		priority="normal" 
+      		name="%_UI_AAXL_content_type" 
+      		id="org.osate.aadl2.aaxlFiles" 
+      		file-extensions="aaxl, aaxl2" 
+      		base-type="org.eclipse.emf.ecore.xmi">
+      	<describer class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
+      		<parameter 
+      			name="namespace" 
+      			value="http://aadl.info/AADL/2.0(/\w+)*"/>
+      		<parameter 
+      			name="kind" 
+      			value="xmi"/>
+      	</describer>
+      </content-type>
+   </extension>
+   
+   <extension point="org.eclipse.core.contenttype.contentTypes">
+      <content-type 
+      		priority="normal" 
+      		name="%_UI_AADL_content_type" 
+      		id="org.osate.aadl2.aadlFiles" 
+      		file-extensions="aadl, aadl2" 
+      		base-type="org.eclipse.core.runtime.text" 
+      		default-charset="UTF-8"> 
+      </content-type>
+   </extension>
+<!--  
+ end code related to the sphinx integration.
+-->
 </plugin>

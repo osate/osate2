@@ -1378,6 +1378,10 @@
         ordered="false" upperBound="-1" eType="#//SubprogramAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataAccess" ordered="false"
+        upperBound="-1" eType="#//DataAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
         ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>

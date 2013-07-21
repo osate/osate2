@@ -1,5 +1,10 @@
 package org.osate.aadl2.parsesupport;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.osate.aadl2.util.OsateDebug;
+
 public class ParseUtil {
     
 	private static final char UNDERLINE = '_';
@@ -8,6 +13,36 @@ public class ParseUtil {
 	private static final char PLUS = '+';
 	private static final char MINUS = '-';
 
+	private static Map<String,String> annexNS = new HashMap<String,String>();
+	
+	/**
+	 * Trick to get rid of an additional dependency to annexsupport
+	 * @param annexName
+	 * @param annexNSName
+	 */
+	public static void setAnnexNS(String annexName, String annexNSName)
+	{
+		if ((annexName != null)&&(annexNSName != null))
+		{
+//			OsateDebug.osateDebug("called setAnnexNSURI with " + annexName + annexNSName);
+			annexName = annexName.toLowerCase();
+			if (annexNS.get(annexName) == null)
+			annexNS.put(annexName, annexNSName);
+		}	
+	}
+	
+	public static String getAnnexNS(String annexName)
+	{
+		String ns;
+		annexName = annexName.toLowerCase();
+		ns = annexNS.get(annexName);
+//		if ((annexName!=null) && (ns != null))
+//		{
+//			OsateDebug.osateDebug("called getAnnexNSURI with " + annexName + ns);
+//		}
+		return ns;
+	}
+	
 	/**
 	 * Parse a string representation of an aadlinteger.
 	 * @param stringValue The string to parse.
