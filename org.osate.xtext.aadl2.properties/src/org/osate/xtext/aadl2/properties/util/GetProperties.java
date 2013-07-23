@@ -358,8 +358,8 @@ public class GetProperties {
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
 	}
 	
-	public static boolean getBusLoopBack(final NamedElement ne){
-		Property loopback = lookupPropertyDefinition(ne,SEI._NAME, SEI.BUS_LOOPBACK);
+	public static boolean isBroadcastProtocol(final NamedElement ne){
+		Property loopback = lookupPropertyDefinition(ne,SEI._NAME, SEI.BROADCAST_PROTOCOL);
 		try {
 			return PropertyUtils.getBooleanValue(ne, loopback);
 		} catch (Exception e) {
