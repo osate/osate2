@@ -378,7 +378,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	protected void checkBandWidthLoad(final ComponentInstance curBus, String somName) {
 		UnitLiteral kbspsliteral = GetProperties.getKBytespsUnitLiteral(curBus);
 		double Buscapacity = GetProperties.getBandWidthCapacityInKbps(curBus, 0.0);
-//		boolean loopback = GetProperties.getBusLoopBack(curBus);
+		boolean doBroadcast = GetProperties.isBroadcastProtocol(curBus);
 		SystemInstance root = curBus.getSystemInstance();
 		double totalBandWidth = 0.0;
 		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
@@ -395,6 +395,9 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 				budgetedConnections.add(obj);
 				}
 			}
+		}
+		if (doBroadcast){
+			budgetedConnections = filterSameSourceConnections(budgetedConnections);
 		}
 		if (Buscapacity == 0){
 			if (!budgetedConnections.isEmpty()){
@@ -540,5 +543,26 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			errManager.logInfo(obj.getFullName()+", "+budgetmsg+actualmsg+msg);
 		}
 
+	}
+	
+	protected EList<ConnectionInstance> filterSameSourceConnections (EList<ConnectionInstance> connections){
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		for (ConnectionInstance conni : connections) {
+			if (!hasConnectionSource(result, conni)){
+				result.add(conni);
+			}
+		}
+		return result;
+	}
+	
+	protected boolean hasConnectionSource(EList<ConnectionInstance> connections, ConnectionInstance conni){
+		ConnectionInstanceEnd src = conni.getSource();
+		for (ConnectionInstance connectionInstance : connections) {
+			if (connectionInstance.getSource() == src){
+				return true;
+			}
+		}
+		return false;
+		
 	}
 }
