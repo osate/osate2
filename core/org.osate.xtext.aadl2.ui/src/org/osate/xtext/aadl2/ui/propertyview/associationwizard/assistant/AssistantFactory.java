@@ -6,6 +6,7 @@ import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.ClassifierType;
 import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.ListType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.PropertyType;
@@ -27,6 +28,8 @@ public class AssistantFactory
 			return new ReferenceAssistant(parent, (ReferenceType)type, holder, listener);
 		else if (type instanceof AadlString)
 			return new StringAssistant(parent, listener);
+		else if (type instanceof ListType)
+			return new ListAssistant(parent, (ListType)type, serializer, holder, listener);
 		else if (type instanceof NumberType) {
 			NumberType numType = (NumberType)type;
 			if (numType.getUnitsType() == null)
