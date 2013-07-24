@@ -487,6 +487,13 @@ public class AnalysisModel {
 		return result;
 	}
 	
+	/**
+	 * return all propagation paths out of the outgoing error propagation
+	 * we assume that any type token to be propagated meets the ep type constraint
+	 * @param ci
+	 * @param outEP
+	 * @return
+	 */
 	public EList<PropagationPath> getAllPropagationPaths(ComponentInstance ci, ErrorPropagation outEP){
 		EList<PropagationPath> result= new BasicEList<PropagationPath>();
 		for (PropagationPath propagationPathRecord : propagationPaths) {

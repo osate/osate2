@@ -18,6 +18,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 
 public class EM2TypeSetUtil {
@@ -165,8 +167,8 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeSet ts, TypeToken token){
-		if (ts == null ) return true;
-		if ( token == null) return true;
+		if (ts == null ) return false;
+		if ( token == null) return false;
 		if (token.isNoError()) return true;
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
@@ -187,8 +189,8 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeToken token,TypeSet ts ){
-		if (ts == null ) return true;
-		if ( token == null) return true;
+		if (ts == null ) return false;
+		if ( token == null) return false;
 		if (token.isNoError()) return false;
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
@@ -210,7 +212,7 @@ public class EM2TypeSetUtil {
 	 */
 	public static boolean contains(TypeSet ts, ErrorType et){
 		if (ts == null ) return false;
-		if ( et == null) return true;
+		if ( et == null) return false;
 		ts = EMV2Util.resolveAlias(ts);
 		for (TypeToken tselement : ts.getTypeTokens()) {
 				if( contains(tselement,et)) return true;
@@ -227,8 +229,8 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeSet ts, TypeSet subts){
-		if (ts == null ) return true;
-		if ( subts == null) return true;
+		if (ts == null ) return false;
+		if ( subts == null) return false;
 		ts = EMV2Util.resolveAlias(ts);
 		subts = EMV2Util.resolveAlias(subts);
 		EList<TypeToken> subelements = subts.getTypeTokens();
@@ -427,7 +429,7 @@ public class EM2TypeSetUtil {
 	 * The result token is currently that from the mapping rule and is not expected to be modified
 	 * @param token TypeToken
 	 * @param tms TypeMappingSet
-	 * @return result TypeToken
+	 * @return result TypeToken or null if no mapping
 	 */
 	public static TypeToken mapTypeToken(TypeToken token, TypeMappingSet tms){
 		EList<TypeMapping> tmlist = tms.getMapping();
@@ -437,7 +439,66 @@ public class EM2TypeSetUtil {
 				return typeMapping.getTarget();
 			}
 		}
-		return token;
+		return null;
+	}
+	
+	/**
+	 * map a TypeToken from the target type token to the first type token in the source type set according to the TypeMappingSet.
+	 * The original token is not modified.
+	 * The result token is currently that from the mapping rule and is not expected to be modified
+	 * @param token TypeToken
+	 * @param tms TypeMappingSet
+	 * @return result TypeToken or null if no mapping found
+	 */
+	public static TypeToken reverseMapTypeToken(TypeToken token, TypeMappingSet tms){
+		EList<TypeMapping> tmlist = tms.getMapping();
+		for (TypeMapping typeMapping : tmlist) {
+			TypeSet src = typeMapping.getSource();
+			TypeToken trg = typeMapping.getTarget();
+			if (contains(trg,token)){
+				return src.getTypeTokens().get(0);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * map a TypeToken into a target type token according to the TypeTransformationSet.
+	 * The original token is not modified.
+	 * The result token is currently that from the mapping rule and is not expected to be modified
+	 * @param token TypeToken
+	 * @param tts TypeTransformationSet
+	 * @return result TypeToken
+	 */
+	public static TypeToken mapTypeToken(TypeToken token, TypeTransformationSet tts){
+		EList<TypeTransformation> ttlist = tts.getTransformation();
+		for (TypeTransformation typeXform : ttlist) {
+			TypeSet src = typeXform.getSource();
+			if (contains(src,token)){
+				return typeXform.getTarget();
+			}
+		}
+		return null;
+	}
+	/**
+	 * map a TypeToken into a target type token according to the TypeTransformationSet.
+	 * The original token is not modified.
+	 * The result token is currently that from the mapping rule and is not expected to be modified
+	 * @param srctoken TypeToken
+	 * @param contributortoken TypeToken
+	 * @param tts TypeTransformationSet
+	 * @return result TypeToken
+	 */
+	public static TypeToken mapTypeToken(TypeToken srctoken, TypeToken contributortoken,TypeTransformationSet tts){
+		EList<TypeTransformation> ttlist = tts.getTransformation();
+		for (TypeTransformation typeXform : ttlist) {
+			TypeSet src = typeXform.getSource();
+			TypeSet contrib = typeXform.getContributor();
+			if (contains(src,srctoken)&& contains(contrib,contributortoken)){
+				return typeXform.getTarget();
+			}
+		}
+		return null;
 	}
 
 

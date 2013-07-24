@@ -39,11 +39,13 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
@@ -1476,6 +1478,41 @@ public class EMV2Util {
 
 	
 	/**
+	 * return type transformation set to be used for connections.
+	 * Looks for use transformations in classifier or inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return TypeTransformationSet 
+	 */
+	public static TypeTransformationSet getAllTypeTransformationSet(ComponentInstance ci){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(ci);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			TypeTransformationSet tts = errorModelSubclause.getTypeTransformationSet();
+			if (tts != null) return tts;
+		}
+		return null;
+	}
+	
+	/**
+	 * return type mapping set to be used for bindings other than connection bindings.
+	 * Looks for use type equivalence in classifier or inherited from classifiers being extended
+	 * Also look in parent component instances, i.e., the equivalence mapping is inherited down the component hierarchy
+	 * @param ci Component Instance
+	 * @return TypeMappingSet 
+	 */
+	public static TypeMappingSet getAllTypeEquivalenceMapping(ComponentInstance ci){
+		while (ci != null){
+			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(ci);
+			for (ErrorModelSubclause errorModelSubclause : emslist) {
+				TypeMappingSet tms = errorModelSubclause.getTypeEquivalence();
+				if (tms != null) return tms;
+			}
+			ci = ci.getContainingComponentInstance();
+		}
+		return null;
+	}
+
+	
+	/**
 	 * return list of propagation points including those inherited from classifiers being extended
 	 * @param cl Classifier
 	 * @return Collection<PropagationPoint> list of propagation points as HashMap for quick lookup of names
@@ -1493,7 +1530,6 @@ public class EMV2Util {
 		}
 		return result.values();
 	}
-
 	
 	
 	/**
@@ -2104,6 +2140,10 @@ public class EMV2Util {
 		if (path instanceof ConnectionInstance){
 			if (sourceToken != null){
 				// TODO lookup type transformations for connections and use them to determine target type
+				ConnectionReference connref = Aadl2InstanceUtil.getTopConnectionReference((ConnectionInstance)path);
+				ComponentInstance parentci = connref.getContext();
+				TypeTransformationSet tts = getAllTypeTransformationSet(parentci);
+				result = EM2TypeSetUtil.mapTypeToken(sourceToken, tts);
 			}
 		} else if (path instanceof ErrorPath){
 			ErrorPath epath = (ErrorPath)path;

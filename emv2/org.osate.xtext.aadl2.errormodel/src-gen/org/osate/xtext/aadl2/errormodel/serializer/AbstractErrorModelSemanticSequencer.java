@@ -830,6 +830,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             errorStateToModeMappings+=ErrorStateToModeMapping*
 	 *         )? 
 	 *         states+=CompositeState* 
+	 *         typeEquivalence=[TypeMappingSet|QEMREF]? 
 	 *         (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)? 
 	 *         (points+=PropagationPoint+ connections+=PropagationPointConnection*)? 
 	 *         properties+=ContainedPropertyAssociation*

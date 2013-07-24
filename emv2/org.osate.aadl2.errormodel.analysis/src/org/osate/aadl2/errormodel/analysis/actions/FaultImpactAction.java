@@ -42,6 +42,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 
 public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 	protected String getMarkerType() {

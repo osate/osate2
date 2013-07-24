@@ -70,10 +70,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelStateAdapterFactory;
@@ -245,6 +248,7 @@ public class PropagateErrorSources {
 		}
 		for (ErrorSource errorSource : eslist)
 		{
+			EMSUtil.unsetAll(ci.getSystemInstance());
 			Collection<ErrorPropagation> eplist = EMV2Util.getOutgoingPropagationOrAll(errorSource);
 			TypeSet ts = errorSource.getTypeTokenConstraint();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
@@ -306,6 +310,7 @@ public class PropagateErrorSources {
 		reportExternalImpactHeading();
 		reportExternalTableHeading();
 		for (ErrorPropagation ep : eplist){
+			EMSUtil.unsetAll(root);
 			FeatureInstance fi = EMV2Util.findFeatureInstance(ep, root);
 			TypeSet tsep = ep.getTypeSet();
 			if (tsep != null){
@@ -426,6 +431,19 @@ public class PropagateErrorSources {
 					(ep!=null?":"+EMV2Util.getPrintName(ep):""));
 	}
 	
+	/**
+	 * report on io object with optional error propagation.
+	 * report on attached ErrorModelState if present
+	 * note: error propagation ep can be null.
+	 * @param io Instance Object
+	 * @param ep Error Propagation
+	 */
+	public String generateComponentPropagationPointTypeTokenText(ComponentInstance io, ErrorPropagation ep, TypeToken tt){
+			return(generateComponentInstanceText(io)+
+					(ep!=null?":"+EMV2Util.getPrintName(ep):"")+
+					(tt!=null?" "+EMV2Util.getPrintName(tt):""));
+	}
+	
 	
 	/**
 	 * report on io object with optional error propagation.
@@ -538,13 +556,52 @@ public class PropagateErrorSources {
 			}
 		} else {
 			for (PropagationPath path : paths) {
+				ConnectionInstance pathConni = path.getConnectionInstance();
+				TypeMappingSet typeEquivalence = EMV2Util.getAllTypeEquivalenceMapping(ci.getContainingComponentInstance());
+				TypeToken mappedtt = tt;
+				TypeToken resulttt = tt;
+				TypeToken xformedtt = tt;
+				if (typeEquivalence !=null){
+					mappedtt = EM2TypeSetUtil.mapTypeToken(tt, typeEquivalence);
+					if (mappedtt != null){
+						resulttt = mappedtt;
+					}
+				}
+				if (pathConni!=null){
+					// find the connection transformation rules if we have a connection path
+					ComponentInstance contextCI = pathConni.getComponentInstance();
+					TypeTransformationSet tts = EMV2Util.getAllTypeTransformationSet(contextCI);
+					// TODO find contributor type token by looking for the state/out prop type.
+					if (tts != null){
+						xformedtt = EM2TypeSetUtil.mapTypeToken(tt, null, tts);
+						if (xformedtt == null && mappedtt != null){
+							xformedtt = EM2TypeSetUtil.mapTypeToken(mappedtt, null, tts);
+						}
+						if (xformedtt!= null){
+							resulttt = xformedtt;
+						}
+					}
+				}
 				EList<PropagationPathEnd> dstEnds;
 				ConnectionInstance dstConni = path.getDstConni();
 				String connSymbol = " -> ";
 				if (dstConni != null){
+					// we have a connection binding path with a connection instance as target
 					dstEnds = faultModel.getAllPropagationDestinationEnds(dstConni);
 					connSymbol = " -Conn-> ";
-					// XXX TODO merge sender type with contributor type of connection binding
+					// find the connection transformation rules
+					ComponentInstance contextCI = dstConni.getComponentInstance();
+					TypeTransformationSet tts = EMV2Util.getAllTypeTransformationSet(contextCI);
+					// TODO find source type token by looking for the state/out prop type.
+					if (tts != null){
+					 xformedtt = EM2TypeSetUtil.mapTypeToken(null, tt, tts);
+					 if (xformedtt == null && mappedtt != null){
+						 xformedtt = EM2TypeSetUtil.mapTypeToken(null,mappedtt,  tts);
+					 }
+					 if (xformedtt!= null){
+						 resulttt = xformedtt;
+					 }
+					}
 				} else {
 					dstEnds = new BasicEList<PropagationPathEnd>();
 					dstEnds.add(path.getPathDst());
@@ -552,6 +609,20 @@ public class PropagateErrorSources {
 				for (PropagationPathEnd propagationPathEnd : dstEnds) {
 					ComponentInstance destci = propagationPathEnd.getComponentInstance();
 					ErrorPropagation destEP = propagationPathEnd.getErrorPropagation();
+					TypeSet dstTS = destEP.getTypeSet();
+					TypeToken targettt = null;
+					if (EM2TypeSetUtil.contains(dstTS, tt)){
+						targettt = tt;
+					} else if (mappedtt != null&&EM2TypeSetUtil.contains(dstTS, mappedtt)){
+						targettt = mappedtt;
+					} else if (xformedtt!= null&&EM2TypeSetUtil.contains(dstTS, xformedtt)){
+						targettt = xformedtt;
+					}
+					if (targettt == null){
+						// type token or mapped/xformed type token is not contained in incoming EP
+						String connText=connSymbol+generateComponentPropagationPointTypeTokenText(destci, destEP,resulttt)+" [Unhandled Type]";
+						reportEntry(entryText+effectText+connText,depth);
+					} else
 					if (destci instanceof SystemInstance){
 						// we have an external propagation (out only connection)
 						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
@@ -562,7 +633,7 @@ public class PropagateErrorSources {
 						reportEntry(entryText+effectText+connText,depth);
 					} else if (destci != null && destEP != null){
 						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP);
-						traceErrorFlows(destci, destEP, tt, depth, entryText+effectText+connText);
+						traceErrorFlows(destci, destEP, targettt, depth, entryText+effectText+connText);
 					}
 				}
 			}

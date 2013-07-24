@@ -85,6 +85,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
     )?
    'end' 'composite' ';'
   )?
+  ('use' 'type' 'equivalence' typeEquivalence=[TypeMappingSet|QEMREF] ';')?
   (
   		'connection' 'error' 'behavior'
 	('use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?

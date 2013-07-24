@@ -26,6 +26,7 @@ import org.osate.aadl2.PropertyAssociation;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorDetections <em>Error Detections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getErrorStateToModeMappings <em>Error State To Mode Mappings</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getStates <em>States</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeEquivalence <em>Type Equivalence</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeTransformationSet <em>Type Transformation Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionErrorSources <em>Connection Error Sources</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPoints <em>Points</em>}</li>
@@ -235,6 +236,32 @@ public interface ErrorModelSubclause extends AnnexSubclause, TypeUseContext
    * @generated
    */
   EList<CompositeState> getStates();
+
+  /**
+   * Returns the value of the '<em><b>Type Equivalence</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type Equivalence</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type Equivalence</em>' reference.
+   * @see #setTypeEquivalence(TypeMappingSet)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_TypeEquivalence()
+   * @model
+   * @generated
+   */
+  TypeMappingSet getTypeEquivalence();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeEquivalence <em>Type Equivalence</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type Equivalence</em>' reference.
+   * @see #getTypeEquivalence()
+   * @generated
+   */
+  void setTypeEquivalence(TypeMappingSet value);
 
   /**
    * Returns the value of the '<em><b>Type Transformation Set</b></em>' reference.

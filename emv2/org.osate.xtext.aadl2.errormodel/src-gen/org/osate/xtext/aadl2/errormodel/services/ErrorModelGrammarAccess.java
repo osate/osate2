@@ -358,37 +358,45 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCompositeKeyword_5_5 = (Keyword)cGroup_5.eContents().get(5);
 		private final Keyword cSemicolonKeyword_5_6 = (Keyword)cGroup_5.eContents().get(6);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cConnectionKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Keyword cErrorKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
-		private final Keyword cBehaviorKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
-		private final Group cGroup_6_3 = (Group)cGroup_6.eContents().get(3);
-		private final Keyword cUseKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
-		private final Keyword cTransformationsKeyword_6_3_1 = (Keyword)cGroup_6_3.eContents().get(1);
-		private final Assignment cTypeTransformationSetAssignment_6_3_2 = (Assignment)cGroup_6_3.eContents().get(2);
-		private final CrossReference cTypeTransformationSetTypeTransformationSetCrossReference_6_3_2_0 = (CrossReference)cTypeTransformationSetAssignment_6_3_2.eContents().get(0);
-		private final RuleCall cTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_6_3_2_0_1 = (RuleCall)cTypeTransformationSetTypeTransformationSetCrossReference_6_3_2_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_6_3_3 = (Keyword)cGroup_6_3.eContents().get(3);
-		private final Assignment cConnectionErrorSourcesAssignment_6_4 = (Assignment)cGroup_6.eContents().get(4);
-		private final RuleCall cConnectionErrorSourcesConnectionErrorSourceParserRuleCall_6_4_0 = (RuleCall)cConnectionErrorSourcesAssignment_6_4.eContents().get(0);
-		private final Keyword cEndKeyword_6_5 = (Keyword)cGroup_6.eContents().get(5);
-		private final Keyword cConnectionKeyword_6_6 = (Keyword)cGroup_6.eContents().get(6);
-		private final Keyword cSemicolonKeyword_6_7 = (Keyword)cGroup_6.eContents().get(7);
+		private final Keyword cUseKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Keyword cTypeKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final Keyword cEquivalenceKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
+		private final Assignment cTypeEquivalenceAssignment_6_3 = (Assignment)cGroup_6.eContents().get(3);
+		private final CrossReference cTypeEquivalenceTypeMappingSetCrossReference_6_3_0 = (CrossReference)cTypeEquivalenceAssignment_6_3.eContents().get(0);
+		private final RuleCall cTypeEquivalenceTypeMappingSetQEMREFParserRuleCall_6_3_0_1 = (RuleCall)cTypeEquivalenceTypeMappingSetCrossReference_6_3_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_6_4 = (Keyword)cGroup_6.eContents().get(4);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cPropagationKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Keyword cPathsKeyword_7_1 = (Keyword)cGroup_7.eContents().get(1);
-		private final Assignment cPointsAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
-		private final RuleCall cPointsPropagationPointParserRuleCall_7_2_0 = (RuleCall)cPointsAssignment_7_2.eContents().get(0);
+		private final Keyword cConnectionKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Keyword cErrorKeyword_7_1 = (Keyword)cGroup_7.eContents().get(1);
+		private final Keyword cBehaviorKeyword_7_2 = (Keyword)cGroup_7.eContents().get(2);
 		private final Group cGroup_7_3 = (Group)cGroup_7.eContents().get(3);
-		private final Keyword cConnectionsKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
-		private final Assignment cConnectionsAssignment_7_3_1 = (Assignment)cGroup_7_3.eContents().get(1);
-		private final RuleCall cConnectionsPropagationPointConnectionParserRuleCall_7_3_1_0 = (RuleCall)cConnectionsAssignment_7_3_1.eContents().get(0);
-		private final Keyword cEndKeyword_7_4 = (Keyword)cGroup_7.eContents().get(4);
-		private final Keyword cPathsKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
-		private final Keyword cSemicolonKeyword_7_6 = (Keyword)cGroup_7.eContents().get(6);
+		private final Keyword cUseKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
+		private final Keyword cTransformationsKeyword_7_3_1 = (Keyword)cGroup_7_3.eContents().get(1);
+		private final Assignment cTypeTransformationSetAssignment_7_3_2 = (Assignment)cGroup_7_3.eContents().get(2);
+		private final CrossReference cTypeTransformationSetTypeTransformationSetCrossReference_7_3_2_0 = (CrossReference)cTypeTransformationSetAssignment_7_3_2.eContents().get(0);
+		private final RuleCall cTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_3_2_0_1 = (RuleCall)cTypeTransformationSetTypeTransformationSetCrossReference_7_3_2_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_7_3_3 = (Keyword)cGroup_7_3.eContents().get(3);
+		private final Assignment cConnectionErrorSourcesAssignment_7_4 = (Assignment)cGroup_7.eContents().get(4);
+		private final RuleCall cConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_4_0 = (RuleCall)cConnectionErrorSourcesAssignment_7_4.eContents().get(0);
+		private final Keyword cEndKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
+		private final Keyword cConnectionKeyword_7_6 = (Keyword)cGroup_7.eContents().get(6);
+		private final Keyword cSemicolonKeyword_7_7 = (Keyword)cGroup_7.eContents().get(7);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cPropertiesKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cPropertiesAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_8_1_0 = (RuleCall)cPropertiesAssignment_8_1.eContents().get(0);
+		private final Keyword cPropagationKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Keyword cPathsKeyword_8_1 = (Keyword)cGroup_8.eContents().get(1);
+		private final Assignment cPointsAssignment_8_2 = (Assignment)cGroup_8.eContents().get(2);
+		private final RuleCall cPointsPropagationPointParserRuleCall_8_2_0 = (RuleCall)cPointsAssignment_8_2.eContents().get(0);
+		private final Group cGroup_8_3 = (Group)cGroup_8.eContents().get(3);
+		private final Keyword cConnectionsKeyword_8_3_0 = (Keyword)cGroup_8_3.eContents().get(0);
+		private final Assignment cConnectionsAssignment_8_3_1 = (Assignment)cGroup_8_3.eContents().get(1);
+		private final RuleCall cConnectionsPropagationPointConnectionParserRuleCall_8_3_1_0 = (RuleCall)cConnectionsAssignment_8_3_1.eContents().get(0);
+		private final Keyword cEndKeyword_8_4 = (Keyword)cGroup_8.eContents().get(4);
+		private final Keyword cPathsKeyword_8_5 = (Keyword)cGroup_8.eContents().get(5);
+		private final Keyword cSemicolonKeyword_8_6 = (Keyword)cGroup_8.eContents().get(6);
+		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
+		private final Keyword cPropertiesKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Assignment cPropertiesAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_9_1_0 = (RuleCall)cPropertiesAssignment_9_1.eContents().get(0);
 		
 		////	'**}'
 		// ErrorModelSubclause: //'{**' 
@@ -406,13 +414,15 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error"
 		//
-		//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" "behavior" ("use"
+		//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("use" "type" "equivalence"
 		//
-		//	"transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
+		//	typeEquivalence=[TypeMappingSet|QEMREF] ";")? ("connection" "error" "behavior" ("use" "transformations"
 		//
-		//	connectionErrorSources+=ConnectionErrorSource* "end" "connection" ";")? ("propagation" "paths"
+		//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//
-		//	points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
+		//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint+ ("connections"
+		//
+		//	connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
 		//
 		//	properties+=ContainedPropertyAssociation+)?;
 		public ParserRule getRule() { return rule; }
@@ -432,13 +442,15 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error"
 		//
-		//"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" "behavior" ("use"
+		//"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("use" "type" "equivalence"
 		//
-		//"transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
+		//typeEquivalence=[TypeMappingSet|QEMREF] ";")? ("connection" "error" "behavior" ("use" "transformations"
 		//
-		//connectionErrorSources+=ConnectionErrorSource* "end" "connection" ";")? ("propagation" "paths"
+		//typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//
-		//points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
+		//"connection" ";")? ("propagation" "paths" points+=PropagationPoint+ ("connections"
+		//
+		//connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
 		//
 		//properties+=ContainedPropertyAssociation+)?
 		public Group getGroup() { return cGroup; }
@@ -684,105 +696,129 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_6() { return cSemicolonKeyword_5_6; }
 
+		//("use" "type" "equivalence" typeEquivalence=[TypeMappingSet|QEMREF] ";")?
+		public Group getGroup_6() { return cGroup_6; }
+
+		//"use"
+		public Keyword getUseKeyword_6_0() { return cUseKeyword_6_0; }
+
+		//"type"
+		public Keyword getTypeKeyword_6_1() { return cTypeKeyword_6_1; }
+
+		//"equivalence"
+		public Keyword getEquivalenceKeyword_6_2() { return cEquivalenceKeyword_6_2; }
+
+		//typeEquivalence=[TypeMappingSet|QEMREF]
+		public Assignment getTypeEquivalenceAssignment_6_3() { return cTypeEquivalenceAssignment_6_3; }
+
+		//[TypeMappingSet|QEMREF]
+		public CrossReference getTypeEquivalenceTypeMappingSetCrossReference_6_3_0() { return cTypeEquivalenceTypeMappingSetCrossReference_6_3_0; }
+
+		//QEMREF
+		public RuleCall getTypeEquivalenceTypeMappingSetQEMREFParserRuleCall_6_3_0_1() { return cTypeEquivalenceTypeMappingSetQEMREFParserRuleCall_6_3_0_1; }
+
+		//";"
+		public Keyword getSemicolonKeyword_6_4() { return cSemicolonKeyword_6_4; }
+
 		//("connection" "error" "behavior" ("use" "transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
 		//
 		//connectionErrorSources+=ConnectionErrorSource* "end" "connection" ";")?
-		public Group getGroup_6() { return cGroup_6; }
+		public Group getGroup_7() { return cGroup_7; }
 
 		//"connection"
-		public Keyword getConnectionKeyword_6_0() { return cConnectionKeyword_6_0; }
+		public Keyword getConnectionKeyword_7_0() { return cConnectionKeyword_7_0; }
 
 		//"error"
-		public Keyword getErrorKeyword_6_1() { return cErrorKeyword_6_1; }
+		public Keyword getErrorKeyword_7_1() { return cErrorKeyword_7_1; }
 
 		//"behavior"
-		public Keyword getBehaviorKeyword_6_2() { return cBehaviorKeyword_6_2; }
+		public Keyword getBehaviorKeyword_7_2() { return cBehaviorKeyword_7_2; }
 
 		//("use" "transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
-		public Group getGroup_6_3() { return cGroup_6_3; }
+		public Group getGroup_7_3() { return cGroup_7_3; }
 
 		//"use"
-		public Keyword getUseKeyword_6_3_0() { return cUseKeyword_6_3_0; }
+		public Keyword getUseKeyword_7_3_0() { return cUseKeyword_7_3_0; }
 
 		//"transformations"
-		public Keyword getTransformationsKeyword_6_3_1() { return cTransformationsKeyword_6_3_1; }
+		public Keyword getTransformationsKeyword_7_3_1() { return cTransformationsKeyword_7_3_1; }
 
 		//typeTransformationSet=[TypeTransformationSet|QEMREF]
-		public Assignment getTypeTransformationSetAssignment_6_3_2() { return cTypeTransformationSetAssignment_6_3_2; }
+		public Assignment getTypeTransformationSetAssignment_7_3_2() { return cTypeTransformationSetAssignment_7_3_2; }
 
 		//[TypeTransformationSet|QEMREF]
-		public CrossReference getTypeTransformationSetTypeTransformationSetCrossReference_6_3_2_0() { return cTypeTransformationSetTypeTransformationSetCrossReference_6_3_2_0; }
+		public CrossReference getTypeTransformationSetTypeTransformationSetCrossReference_7_3_2_0() { return cTypeTransformationSetTypeTransformationSetCrossReference_7_3_2_0; }
 
 		//QEMREF
-		public RuleCall getTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_6_3_2_0_1() { return cTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_6_3_2_0_1; }
+		public RuleCall getTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_3_2_0_1() { return cTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_3_2_0_1; }
 
 		//";"
-		public Keyword getSemicolonKeyword_6_3_3() { return cSemicolonKeyword_6_3_3; }
+		public Keyword getSemicolonKeyword_7_3_3() { return cSemicolonKeyword_7_3_3; }
 
 		//connectionErrorSources+=ConnectionErrorSource*
-		public Assignment getConnectionErrorSourcesAssignment_6_4() { return cConnectionErrorSourcesAssignment_6_4; }
+		public Assignment getConnectionErrorSourcesAssignment_7_4() { return cConnectionErrorSourcesAssignment_7_4; }
 
 		//ConnectionErrorSource
-		public RuleCall getConnectionErrorSourcesConnectionErrorSourceParserRuleCall_6_4_0() { return cConnectionErrorSourcesConnectionErrorSourceParserRuleCall_6_4_0; }
+		public RuleCall getConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_4_0() { return cConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_4_0; }
 
 		//"end"
-		public Keyword getEndKeyword_6_5() { return cEndKeyword_6_5; }
+		public Keyword getEndKeyword_7_5() { return cEndKeyword_7_5; }
 
 		//"connection"
-		public Keyword getConnectionKeyword_6_6() { return cConnectionKeyword_6_6; }
+		public Keyword getConnectionKeyword_7_6() { return cConnectionKeyword_7_6; }
 
 		//";"
-		public Keyword getSemicolonKeyword_6_7() { return cSemicolonKeyword_6_7; }
+		public Keyword getSemicolonKeyword_7_7() { return cSemicolonKeyword_7_7; }
 
 		//("propagation" "paths" points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths"
 		//
 		//";")?
-		public Group getGroup_7() { return cGroup_7; }
-
-		//"propagation"
-		public Keyword getPropagationKeyword_7_0() { return cPropagationKeyword_7_0; }
-
-		//"paths"
-		public Keyword getPathsKeyword_7_1() { return cPathsKeyword_7_1; }
-
-		//points+=PropagationPoint+
-		public Assignment getPointsAssignment_7_2() { return cPointsAssignment_7_2; }
-
-		//PropagationPoint
-		public RuleCall getPointsPropagationPointParserRuleCall_7_2_0() { return cPointsPropagationPointParserRuleCall_7_2_0; }
-
-		//("connections" connections+=PropagationPointConnection+)?
-		public Group getGroup_7_3() { return cGroup_7_3; }
-
-		//"connections"
-		public Keyword getConnectionsKeyword_7_3_0() { return cConnectionsKeyword_7_3_0; }
-
-		//connections+=PropagationPointConnection+
-		public Assignment getConnectionsAssignment_7_3_1() { return cConnectionsAssignment_7_3_1; }
-
-		//PropagationPointConnection
-		public RuleCall getConnectionsPropagationPointConnectionParserRuleCall_7_3_1_0() { return cConnectionsPropagationPointConnectionParserRuleCall_7_3_1_0; }
-
-		//"end"
-		public Keyword getEndKeyword_7_4() { return cEndKeyword_7_4; }
-
-		//"paths"
-		public Keyword getPathsKeyword_7_5() { return cPathsKeyword_7_5; }
-
-		//";"
-		public Keyword getSemicolonKeyword_7_6() { return cSemicolonKeyword_7_6; }
-
-		//("properties" properties+=ContainedPropertyAssociation+)?
 		public Group getGroup_8() { return cGroup_8; }
 
+		//"propagation"
+		public Keyword getPropagationKeyword_8_0() { return cPropagationKeyword_8_0; }
+
+		//"paths"
+		public Keyword getPathsKeyword_8_1() { return cPathsKeyword_8_1; }
+
+		//points+=PropagationPoint+
+		public Assignment getPointsAssignment_8_2() { return cPointsAssignment_8_2; }
+
+		//PropagationPoint
+		public RuleCall getPointsPropagationPointParserRuleCall_8_2_0() { return cPointsPropagationPointParserRuleCall_8_2_0; }
+
+		//("connections" connections+=PropagationPointConnection+)?
+		public Group getGroup_8_3() { return cGroup_8_3; }
+
+		//"connections"
+		public Keyword getConnectionsKeyword_8_3_0() { return cConnectionsKeyword_8_3_0; }
+
+		//connections+=PropagationPointConnection+
+		public Assignment getConnectionsAssignment_8_3_1() { return cConnectionsAssignment_8_3_1; }
+
+		//PropagationPointConnection
+		public RuleCall getConnectionsPropagationPointConnectionParserRuleCall_8_3_1_0() { return cConnectionsPropagationPointConnectionParserRuleCall_8_3_1_0; }
+
+		//"end"
+		public Keyword getEndKeyword_8_4() { return cEndKeyword_8_4; }
+
+		//"paths"
+		public Keyword getPathsKeyword_8_5() { return cPathsKeyword_8_5; }
+
+		//";"
+		public Keyword getSemicolonKeyword_8_6() { return cSemicolonKeyword_8_6; }
+
+		//("properties" properties+=ContainedPropertyAssociation+)?
+		public Group getGroup_9() { return cGroup_9; }
+
 		//"properties"
-		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
+		public Keyword getPropertiesKeyword_9_0() { return cPropertiesKeyword_9_0; }
 
 		//properties+=ContainedPropertyAssociation+
-		public Assignment getPropertiesAssignment_8_1() { return cPropertiesAssignment_8_1; }
+		public Assignment getPropertiesAssignment_9_1() { return cPropertiesAssignment_9_1; }
 
 		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_8_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_8_1_0; }
+		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_9_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_9_1_0; }
 	}
 
 	public class ErrorModelLibraryElements extends AbstractParserRuleElementFinder {
@@ -2389,16 +2425,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ID ("." ID)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getIDTerminalRuleCall_1_0() { return cIDTerminalRuleCall_1_0; }
 
-		//("." ID)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1_1() { return cGroup_1_1; }
 
-		//"."
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getFullStopKeyword_1_1_0() { return cFullStopKeyword_1_1_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getIDTerminalRuleCall_1_1_1() { return cIDTerminalRuleCall_1_1_1; }
 	}
 
@@ -2412,30 +2448,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPointKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//PropagationPoint:
-		//
-		//	name=ID ":" "propagation" "point" ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "propagation" "point" ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//"propagation"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getPropagationKeyword_2() { return cPropagationKeyword_2; }
 
-		//"point"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getPointKeyword_3() { return cPointKeyword_3; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
@@ -2452,39 +2486,37 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetQualifiedPropagationPointParserRuleCall_4_0 = (RuleCall)cTargetAssignment_4.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//PropagationPointConnection:
-		//
-		//	name=ID ":" source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//source=QualifiedPropagationPoint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getSourceAssignment_2() { return cSourceAssignment_2; }
 
-		//QualifiedPropagationPoint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSourceQualifiedPropagationPointParserRuleCall_2_0() { return cSourceQualifiedPropagationPointParserRuleCall_2_0; }
 
-		//"->"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getHyphenMinusGreaterThanSignKeyword_3() { return cHyphenMinusGreaterThanSignKeyword_3; }
 
-		//target=QualifiedPropagationPoint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTargetAssignment_4() { return cTargetAssignment_4; }
 
-		//QualifiedPropagationPoint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTargetQualifiedPropagationPointParserRuleCall_4_0() { return cTargetQualifiedPropagationPointParserRuleCall_4_0; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
@@ -2500,36 +2532,34 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cPropagationPointPropagationPointCrossReference_1_0 = (CrossReference)cPropagationPointAssignment_1.eContents().get(0);
 		private final RuleCall cPropagationPointPropagationPointIDTerminalRuleCall_1_0_1 = (RuleCall)cPropagationPointPropagationPointCrossReference_1_0.eContents().get(1);
 		
-		//QualifiedPropagationPoint:
-		//
-		//	(subcomponent=[aadl2::Subcomponent] ".")? propagationPoint=[PropagationPoint];
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//(subcomponent=[aadl2::Subcomponent] ".")? propagationPoint=[PropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//(subcomponent=[aadl2::Subcomponent] ".")?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0() { return cGroup_0; }
 
-		//subcomponent=[aadl2::Subcomponent]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getSubcomponentAssignment_0_0() { return cSubcomponentAssignment_0_0; }
 
-		//[aadl2::Subcomponent]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getSubcomponentSubcomponentCrossReference_0_0_0() { return cSubcomponentSubcomponentCrossReference_0_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSubcomponentSubcomponentIDTerminalRuleCall_0_0_0_1() { return cSubcomponentSubcomponentIDTerminalRuleCall_0_0_0_1; }
 
-		//"."
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
 
-		//propagationPoint=[PropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getPropagationPointAssignment_1() { return cPropagationPointAssignment_1; }
 
-		//[PropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getPropagationPointPropagationPointCrossReference_1_0() { return cPropagationPointPropagationPointCrossReference_1_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getPropagationPointPropagationPointIDTerminalRuleCall_1_0_1() { return cPropagationPointPropagationPointIDTerminalRuleCall_1_0_1; }
 	}
 
@@ -2579,154 +2609,136 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cBehaviorKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		private final Keyword cSemicolonKeyword_11 = (Keyword)cGroup.eContents().get(11);
 		
-		//ErrorBehaviorStateMachine:
-		//
-		//	"error" "behavior" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
-		//
-		//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
-		//
-		//	useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)? ("states"
-		//
-		//	states+=ErrorBehaviorState+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("properties"
-		//
-		//	properties+=ContainedPropertyAssociation+)? "end" "behavior" ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//"error" "behavior" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
-		//
-		//useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
-		//
-		//useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)? ("states"
-		//
-		//states+=ErrorBehaviorState+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("properties"
-		//
-		//properties+=ContainedPropertyAssociation+)? "end" "behavior" ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//"error"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getErrorKeyword_0() { return cErrorKeyword_0; }
 
-		//"behavior"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getBehaviorKeyword_1() { return cBehaviorKeyword_1; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] ("," useTypes+=[ErrorModelLibrary|QEMREF])* ";")?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"use"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getUseKeyword_3_0() { return cUseKeyword_3_0; }
 
-		//"types"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getTypesKeyword_3_1() { return cTypesKeyword_3_1; }
 
-		//useTypes+=[ErrorModelLibrary|QEMREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getUseTypesAssignment_3_2() { return cUseTypesAssignment_3_2; }
 
-		//[ErrorModelLibrary|QEMREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getUseTypesErrorModelLibraryCrossReference_3_2_0() { return cUseTypesErrorModelLibraryCrossReference_3_2_0; }
 
-		//QEMREF
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getUseTypesErrorModelLibraryQEMREFParserRuleCall_3_2_0_1() { return cUseTypesErrorModelLibraryQEMREFParserRuleCall_3_2_0_1; }
 
-		//("," useTypes+=[ErrorModelLibrary|QEMREF])*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_3_3() { return cGroup_3_3; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getCommaKeyword_3_3_0() { return cCommaKeyword_3_3_0; }
 
-		//useTypes+=[ErrorModelLibrary|QEMREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getUseTypesAssignment_3_3_1() { return cUseTypesAssignment_3_3_1; }
 
-		//[ErrorModelLibrary|QEMREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getUseTypesErrorModelLibraryCrossReference_3_3_1_0() { return cUseTypesErrorModelLibraryCrossReference_3_3_1_0; }
 
-		//QEMREF
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getUseTypesErrorModelLibraryQEMREFParserRuleCall_3_3_1_0_1() { return cUseTypesErrorModelLibraryQEMREFParserRuleCall_3_3_1_0_1; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_3_4() { return cSemicolonKeyword_3_4; }
 
-		//("use" "transformations" useTransformation+=[TypeTransformationSet|QEMREF] ";")?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//"use"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getUseKeyword_4_0() { return cUseKeyword_4_0; }
 
-		//"transformations"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getTransformationsKeyword_4_1() { return cTransformationsKeyword_4_1; }
 
-		//useTransformation+=[TypeTransformationSet|QEMREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getUseTransformationAssignment_4_2() { return cUseTransformationAssignment_4_2; }
 
-		//[TypeTransformationSet|QEMREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getUseTransformationTypeTransformationSetCrossReference_4_2_0() { return cUseTransformationTypeTransformationSetCrossReference_4_2_0; }
 
-		//QEMREF
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getUseTransformationTypeTransformationSetQEMREFParserRuleCall_4_2_0_1() { return cUseTransformationTypeTransformationSetQEMREFParserRuleCall_4_2_0_1; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_4_3() { return cSemicolonKeyword_4_3; }
 
-		//("events" events+=ErrorBehaviorEvent+)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_5() { return cGroup_5; }
 
-		//"events"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getEventsKeyword_5_0() { return cEventsKeyword_5_0; }
 
-		//events+=ErrorBehaviorEvent+
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getEventsAssignment_5_1() { return cEventsAssignment_5_1; }
 
-		//ErrorBehaviorEvent
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getEventsErrorBehaviorEventParserRuleCall_5_1_0() { return cEventsErrorBehaviorEventParserRuleCall_5_1_0; }
 
-		//("states" states+=ErrorBehaviorState+)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_6() { return cGroup_6; }
 
-		//"states"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getStatesKeyword_6_0() { return cStatesKeyword_6_0; }
 
-		//states+=ErrorBehaviorState+
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getStatesAssignment_6_1() { return cStatesAssignment_6_1; }
 
-		//ErrorBehaviorState
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getStatesErrorBehaviorStateParserRuleCall_6_1_0() { return cStatesErrorBehaviorStateParserRuleCall_6_1_0; }
 
-		//("transitions" transitions+=ErrorBehaviorTransition+)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_7() { return cGroup_7; }
 
-		//"transitions"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getTransitionsKeyword_7_0() { return cTransitionsKeyword_7_0; }
 
-		//transitions+=ErrorBehaviorTransition+
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTransitionsAssignment_7_1() { return cTransitionsAssignment_7_1; }
 
-		//ErrorBehaviorTransition
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0() { return cTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0; }
 
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_8() { return cGroup_8; }
 
-		//"properties"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
-		//properties+=ContainedPropertyAssociation+
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getPropertiesAssignment_8_1() { return cPropertiesAssignment_8_1; }
 
-		//ContainedPropertyAssociation
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_8_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_8_1_0; }
 
-		//"end"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getEndKeyword_9() { return cEndKeyword_9; }
 
-		//"behavior"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getBehaviorKeyword_10() { return cBehaviorKeyword_10; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_11() { return cSemicolonKeyword_11; }
 	}
 
@@ -2737,21 +2749,19 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRepairEventParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cRecoverEventParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		//ErrorBehaviorEvent:
-		//
-		//	ErrorEvent | RepairEvent | RecoverEvent;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//ErrorEvent | RepairEvent | RecoverEvent
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ErrorEvent
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getErrorEventParserRuleCall_0() { return cErrorEventParserRuleCall_0; }
 
-		//RepairEvent
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getRepairEventParserRuleCall_1() { return cRepairEventParserRuleCall_1; }
 
-		//RecoverEvent
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getRecoverEventParserRuleCall_2() { return cRecoverEventParserRuleCall_2; }
 	}
 
@@ -2771,49 +2781,46 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionSTRINGTerminalRuleCall_5_1_0 = (RuleCall)cConditionAssignment_5_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//// add event condition 
-		// ErrorEvent:
-		//
-		//	name=ID ":" "error" "event" typeSet=TypeSetReference? ("when" condition=STRING)? ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "error" "event" typeSet=TypeSetReference? ("when" condition=STRING)? ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//"error"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getErrorKeyword_2() { return cErrorKeyword_2; }
 
-		//"event"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getEventKeyword_3() { return cEventKeyword_3; }
 
-		//typeSet=TypeSetReference?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTypeSetAssignment_4() { return cTypeSetAssignment_4; }
 
-		//TypeSetReference
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeSetTypeSetReferenceParserRuleCall_4_0() { return cTypeSetTypeSetReferenceParserRuleCall_4_0; }
 
-		//("when" condition=STRING)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_5() { return cGroup_5; }
 
-		//"when"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getWhenKeyword_5_0() { return cWhenKeyword_5_0; }
 
-		//condition=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConditionAssignment_5_1() { return cConditionAssignment_5_1; }
 
-		//STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionSTRINGTerminalRuleCall_5_1_0() { return cConditionSTRINGTerminalRuleCall_5_1_0; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
@@ -2831,43 +2838,40 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cConditionAssignment_4_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		////add repair initiator 
-		// RepairEvent:
-		//
-		//	name=ID ":" "repair" "event" ("when" condition=STRING)? ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "repair" "event" ("when" condition=STRING)? ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//"repair"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRepairKeyword_2() { return cRepairKeyword_2; }
 
-		//"event"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getEventKeyword_3() { return cEventKeyword_3; }
 
-		//("when" condition=STRING)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//"when"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getWhenKeyword_4_0() { return cWhenKeyword_4_0; }
 
-		//condition=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConditionAssignment_4_1() { return cConditionAssignment_4_1; }
 
-		//STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionSTRINGTerminalRuleCall_4_1_0() { return cConditionSTRINGTerminalRuleCall_4_1_0; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
@@ -2891,61 +2895,58 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionNamedElementIDTerminalRuleCall_4_2_1_0_1 = (RuleCall)cConditionNamedElementCrossReference_4_2_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		////add recover initiator 
-		// RecoverEvent:
-		//
-		//	name=ID ":" "recover" "event" ("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)? ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "recover" "event" ("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)? ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//"recover"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRecoverKeyword_2() { return cRecoverKeyword_2; }
 
-		//"event"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getEventKeyword_3() { return cEventKeyword_3; }
 
-		//("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//"when"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getWhenKeyword_4_0() { return cWhenKeyword_4_0; }
 
-		//condition+=[aadl2::NamedElement]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConditionAssignment_4_1() { return cConditionAssignment_4_1; }
 
-		//[aadl2::NamedElement]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getConditionNamedElementCrossReference_4_1_0() { return cConditionNamedElementCrossReference_4_1_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionNamedElementIDTerminalRuleCall_4_1_0_1() { return cConditionNamedElementIDTerminalRuleCall_4_1_0_1; }
 
-		//("," condition+=[aadl2::NamedElement])*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_4_2() { return cGroup_4_2; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
 
-		//condition+=[aadl2::NamedElement]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConditionAssignment_4_2_1() { return cConditionAssignment_4_2_1; }
 
-		//[aadl2::NamedElement]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getConditionNamedElementCrossReference_4_2_1_0() { return cConditionNamedElementCrossReference_4_2_1_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionNamedElementIDTerminalRuleCall_4_2_1_0_1() { return cConditionNamedElementIDTerminalRuleCall_4_2_1_0_1; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
@@ -2962,39 +2963,37 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeSetTypeSetReferenceParserRuleCall_4_0 = (RuleCall)cTypeSetAssignment_4.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//ErrorBehaviorState:
-		//
-		//	name=ID ":" intial?="initial"? "state" typeSet=TypeSetReference? ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" intial?="initial"? "state" typeSet=TypeSetReference? ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//intial?="initial"?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getIntialAssignment_2() { return cIntialAssignment_2; }
 
-		//"initial"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getIntialInitialKeyword_2_0() { return cIntialInitialKeyword_2_0; }
 
-		//"state"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getStateKeyword_3() { return cStateKeyword_3; }
 
-		//typeSet=TypeSetReference?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTypeSetAssignment_4() { return cTypeSetAssignment_4; }
 
-		//TypeSetReference
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeSetTypeSetReferenceParserRuleCall_4_0() { return cTypeSetTypeSetReferenceParserRuleCall_4_0; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
@@ -3040,136 +3039,124 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_5_2_3 = (Keyword)cGroup_5_2.eContents().get(3);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//ErrorBehaviorTransition:
-		//
-		//	(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//
-		//	condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
-		//
-		//	| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//
-		//condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
-		//
-		//| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//(name=ID ":")?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0() { return cGroup_0; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0_0() { return cNameIDTerminalRuleCall_0_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
-		//source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
-		//source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//source=[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getSourceAssignment_1_0_0() { return cSourceAssignment_1_0_0; }
 
-		//[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getSourceErrorBehaviorStateCrossReference_1_0_0_0() { return cSourceErrorBehaviorStateCrossReference_1_0_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSourceErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1() { return cSourceErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1; }
 
-		//typeTokenConstraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTypeTokenConstraintAssignment_1_0_1() { return cTypeTokenConstraintAssignment_1_0_1; }
 
-		//TypeTokenConstraint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0; }
 
-		//allStates?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getAllStatesAssignment_1_1() { return cAllStatesAssignment_1_1; }
 
-		//"all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getAllStatesAllKeyword_1_1_0() { return cAllStatesAllKeyword_1_1_0; }
 
-		//"-["
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getHyphenMinusLeftSquareBracketKeyword_2() { return cHyphenMinusLeftSquareBracketKeyword_2; }
 
-		//condition=ConditionExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConditionAssignment_3() { return cConditionAssignment_3; }
 
-		//ConditionExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionConditionExpressionParserRuleCall_3_0() { return cConditionConditionExpressionParserRuleCall_3_0; }
 
-		//"]->"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4; }
 
-		//target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state" | "("
-		//
-		//destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
-		//target=[ErrorBehaviorState] targetToken=TypeToken?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_5_0() { return cGroup_5_0; }
 
-		//target=[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTargetAssignment_5_0_0() { return cTargetAssignment_5_0_0; }
 
-		//[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getTargetErrorBehaviorStateCrossReference_5_0_0_0() { return cTargetErrorBehaviorStateCrossReference_5_0_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTargetErrorBehaviorStateIDTerminalRuleCall_5_0_0_0_1() { return cTargetErrorBehaviorStateIDTerminalRuleCall_5_0_0_0_1; }
 
-		//targetToken=TypeToken?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTargetTokenAssignment_5_0_1() { return cTargetTokenAssignment_5_0_1; }
 
-		//TypeToken
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTargetTokenTypeTokenParserRuleCall_5_0_1_0() { return cTargetTokenTypeTokenParserRuleCall_5_0_1_0; }
 
-		//steadyState?="same" "state"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_5_1() { return cGroup_5_1; }
 
-		//steadyState?="same"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getSteadyStateAssignment_5_1_0() { return cSteadyStateAssignment_5_1_0; }
 
-		//"same"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSteadyStateSameKeyword_5_1_0_0() { return cSteadyStateSameKeyword_5_1_0_0; }
 
-		//"state"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getStateKeyword_5_1_1() { return cStateKeyword_5_1_1; }
 
-		//"(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_5_2() { return cGroup_5_2; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftParenthesisKeyword_5_2_0() { return cLeftParenthesisKeyword_5_2_0; }
 
-		//destinationBranches+=TransitionBranch
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getDestinationBranchesAssignment_5_2_1() { return cDestinationBranchesAssignment_5_2_1; }
 
-		//TransitionBranch
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getDestinationBranchesTransitionBranchParserRuleCall_5_2_1_0() { return cDestinationBranchesTransitionBranchParserRuleCall_5_2_1_0; }
 
-		//("," destinationBranches+=TransitionBranch)+
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_5_2_2() { return cGroup_5_2_2; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getCommaKeyword_5_2_2_0() { return cCommaKeyword_5_2_2_0; }
 
-		//destinationBranches+=TransitionBranch
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getDestinationBranchesAssignment_5_2_2_1() { return cDestinationBranchesAssignment_5_2_2_1; }
 
-		//TransitionBranch
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getDestinationBranchesTransitionBranchParserRuleCall_5_2_2_1_0() { return cDestinationBranchesTransitionBranchParserRuleCall_5_2_2_1_0; }
 
-		//")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightParenthesisKeyword_5_2_3() { return cRightParenthesisKeyword_5_2_3; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
@@ -3191,54 +3178,52 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cValueBranchValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
-		//TransitionBranch:
-		//
-		//	(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state") "with" value=BranchValue;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state") "with" value=BranchValue
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
-		//target=[ErrorBehaviorState] targetToken=TypeToken?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0_0() { return cGroup_0_0; }
 
-		//target=[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTargetAssignment_0_0_0() { return cTargetAssignment_0_0_0; }
 
-		//[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getTargetErrorBehaviorStateCrossReference_0_0_0_0() { return cTargetErrorBehaviorStateCrossReference_0_0_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTargetErrorBehaviorStateIDTerminalRuleCall_0_0_0_0_1() { return cTargetErrorBehaviorStateIDTerminalRuleCall_0_0_0_0_1; }
 
-		//targetToken=TypeToken?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTargetTokenAssignment_0_0_1() { return cTargetTokenAssignment_0_0_1; }
 
-		//TypeToken
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTargetTokenTypeTokenParserRuleCall_0_0_1_0() { return cTargetTokenTypeTokenParserRuleCall_0_0_1_0; }
 
-		//steadyState?="same" "state"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0_1() { return cGroup_0_1; }
 
-		//steadyState?="same"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getSteadyStateAssignment_0_1_0() { return cSteadyStateAssignment_0_1_0; }
 
-		//"same"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSteadyStateSameKeyword_0_1_0_0() { return cSteadyStateSameKeyword_0_1_0_0; }
 
-		//"state"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getStateKeyword_0_1_1() { return cStateKeyword_0_1_1; }
 
-		//"with"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getWithKeyword_1() { return cWithKeyword_1; }
 
-		//value=BranchValue
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
-		//BranchValue
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getValueBranchValueParserRuleCall_2_0() { return cValueBranchValueParserRuleCall_2_0; }
 	}
 
@@ -3255,40 +3240,37 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOthersAssignment_1_2 = (Assignment)cAlternatives_1.eContents().get(2);
 		private final Keyword cOthersOthersKeyword_1_2_0 = (Keyword)cOthersAssignment_1_2.eContents().get(0);
 		
-		//// store real literal as integer, ID as reference to property constant
-		// BranchValue:
-		//
-		//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::PropertyConstant|QEMREF] | others?="others");
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::PropertyConstant|QEMREF] | others?="others")
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//{BranchValue}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Action getBranchValueAction_0() { return cBranchValueAction_0; }
 
-		//realvalue=REAL_LIT | symboliclabel=[aadl2::PropertyConstant|QEMREF] | others?="others"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
-		//realvalue=REAL_LIT
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getRealvalueAssignment_1_0() { return cRealvalueAssignment_1_0; }
 
-		//REAL_LIT
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getRealvalueREAL_LITTerminalRuleCall_1_0_0() { return cRealvalueREAL_LITTerminalRuleCall_1_0_0; }
 
-		//symboliclabel=[aadl2::PropertyConstant|QEMREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getSymboliclabelAssignment_1_1() { return cSymboliclabelAssignment_1_1; }
 
-		//[aadl2::PropertyConstant|QEMREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getSymboliclabelPropertyConstantCrossReference_1_1_0() { return cSymboliclabelPropertyConstantCrossReference_1_1_0; }
 
-		//QEMREF
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSymboliclabelPropertyConstantQEMREFParserRuleCall_1_1_0_1() { return cSymboliclabelPropertyConstantQEMREFParserRuleCall_1_1_0_1; }
 
-		//others?="others"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOthersAssignment_1_2() { return cOthersAssignment_1_2; }
 
-		//"others"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getOthersOthersKeyword_1_2_0() { return cOthersOthersKeyword_1_2_0; }
 	}
 
@@ -3317,79 +3299,73 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0 = (RuleCall)cFailureModeDescriptionAssignment_6_1_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		//ConnectionErrorSource:
-		//
-		//	name=ID ":" "error" "source" (connection=[aadl2::Connection] | all?="all") typeTokenConstraint=TypeTokenConstraint?
-		//
-		//	("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "error" "source" (connection=[aadl2::Connection] | all?="all") typeTokenConstraint=TypeTokenConstraint?
-		//
-		//("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//"error"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getErrorKeyword_2() { return cErrorKeyword_2; }
 
-		//"source"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSourceKeyword_3() { return cSourceKeyword_3; }
 
-		//connection=[aadl2::Connection] | all?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
-		//connection=[aadl2::Connection]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConnectionAssignment_4_0() { return cConnectionAssignment_4_0; }
 
-		//[aadl2::Connection]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getConnectionConnectionCrossReference_4_0_0() { return cConnectionConnectionCrossReference_4_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConnectionConnectionIDTerminalRuleCall_4_0_0_1() { return cConnectionConnectionIDTerminalRuleCall_4_0_0_1; }
 
-		//all?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getAllAssignment_4_1() { return cAllAssignment_4_1; }
 
-		//"all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getAllAllKeyword_4_1_0() { return cAllAllKeyword_4_1_0; }
 
-		//typeTokenConstraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTypeTokenConstraintAssignment_5() { return cTypeTokenConstraintAssignment_5; }
 
-		//TypeTokenConstraint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_5_0; }
 
-		//("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_6() { return cGroup_6; }
 
-		//"when"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getWhenKeyword_6_0() { return cWhenKeyword_6_0; }
 
-		//failureModeType=TypeSetConstructor | failureModeDescription=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_6_1() { return cAlternatives_6_1; }
 
-		//failureModeType=TypeSetConstructor
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getFailureModeTypeAssignment_6_1_0() { return cFailureModeTypeAssignment_6_1_0; }
 
-		//TypeSetConstructor
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0() { return cFailureModeTypeTypeSetConstructorParserRuleCall_6_1_0_0; }
 
-		//failureModeDescription=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getFailureModeDescriptionAssignment_6_1_1() { return cFailureModeDescriptionAssignment_6_1_1; }
 
-		//STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0() { return cFailureModeDescriptionSTRINGTerminalRuleCall_6_1_1_0; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
 	}
 
@@ -3401,24 +3377,22 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorBehaviorStateMachineParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cErrorModelSubclauseParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
-		//TypeUseContext:
-		//
-		//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorModelSubclause;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorModelSubclause
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//TypeTransformationSet
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeTransformationSetParserRuleCall_0() { return cTypeTransformationSetParserRuleCall_0; }
 
-		//TypeMappingSet
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeMappingSetParserRuleCall_1() { return cTypeMappingSetParserRuleCall_1; }
 
-		//ErrorBehaviorStateMachine
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getErrorBehaviorStateMachineParserRuleCall_2() { return cErrorBehaviorStateMachineParserRuleCall_2; }
 
-		//ErrorModelSubclause
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getErrorModelSubclauseParserRuleCall_3() { return cErrorModelSubclauseParserRuleCall_3; }
 	}
 
@@ -3432,34 +3406,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperandsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperandsAndExpressionParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
 		
-		//// condition expression for component specific transitions 
-		// // based on error events and incoming propagations
-		//
-		//
-		//ConditionExpression:
-		//
-		//	AndExpression ({OrExpression.operands+=current} "or" operands+=AndExpression)*;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//AndExpression ({OrExpression.operands+=current} "or" operands+=AndExpression)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//AndExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getAndExpressionParserRuleCall_0() { return cAndExpressionParserRuleCall_0; }
 
-		//({OrExpression.operands+=current} "or" operands+=AndExpression)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{OrExpression.operands+=current}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Action getOrExpressionOperandsAction_1_0() { return cOrExpressionOperandsAction_1_0; }
 
-		//"or"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getOrKeyword_1_1() { return cOrKeyword_1_1; }
 
-		//operands+=AndExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_1_2() { return cOperandsAssignment_1_2; }
 
-		//AndExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsAndExpressionParserRuleCall_1_2_0() { return cOperandsAndExpressionParserRuleCall_1_2_0; }
 	}
 
@@ -3473,30 +3441,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperandsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperandsConditionTermParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
 		
-		//AndExpression returns ConditionExpression:
-		//
-		//	ConditionTerm ({AndExpression.operands+=current} "and" operands+=ConditionTerm)*;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//ConditionTerm ({AndExpression.operands+=current} "and" operands+=ConditionTerm)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//ConditionTerm
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionTermParserRuleCall_0() { return cConditionTermParserRuleCall_0; }
 
-		//({AndExpression.operands+=current} "and" operands+=ConditionTerm)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{AndExpression.operands+=current}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Action getAndExpressionOperandsAction_1_0() { return cAndExpressionOperandsAction_1_0; }
 
-		//"and"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getAndKeyword_1_1() { return cAndKeyword_1_1; }
 
-		//operands+=ConditionTerm
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_1_2() { return cOperandsAssignment_1_2; }
 
-		//ConditionTerm
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsConditionTermParserRuleCall_1_2_0() { return cOperandsConditionTermParserRuleCall_1_2_0; }
 	}
 
@@ -3515,45 +3481,43 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOperandsConditionElementParserRuleCall_4_1_0 = (RuleCall)cOperandsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//OrmoreExpression:
-		//
-		//	count=INTVALUE "ormore" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//count=INTVALUE "ormore" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//count=INTVALUE
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getCountAssignment_0() { return cCountAssignment_0; }
 
-		//INTVALUE
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getCountINTVALUEParserRuleCall_0_0() { return cCountINTVALUEParserRuleCall_0_0; }
 
-		//"ormore"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getOrmoreKeyword_1() { return cOrmoreKeyword_1; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 
-		//operands+=ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_3() { return cOperandsAssignment_3; }
 
-		//ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsConditionElementParserRuleCall_3_0() { return cOperandsConditionElementParserRuleCall_3_0; }
 
-		//("," operands+=ConditionElement)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 
-		//operands+=ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_4_1() { return cOperandsAssignment_4_1; }
 
-		//ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsConditionElementParserRuleCall_4_1_0() { return cOperandsConditionElementParserRuleCall_4_1_0; }
 
-		//")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 	}
 
@@ -3572,45 +3536,43 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOperandsConditionElementParserRuleCall_4_1_0 = (RuleCall)cOperandsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//OrlessExpression:
-		//
-		//	count=INTVALUE "orless" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//count=INTVALUE "orless" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//count=INTVALUE
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getCountAssignment_0() { return cCountAssignment_0; }
 
-		//INTVALUE
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getCountINTVALUEParserRuleCall_0_0() { return cCountINTVALUEParserRuleCall_0_0; }
 
-		//"orless"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getOrlessKeyword_1() { return cOrlessKeyword_1; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 
-		//operands+=ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_3() { return cOperandsAssignment_3; }
 
-		//ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsConditionElementParserRuleCall_3_0() { return cOperandsConditionElementParserRuleCall_3_0; }
 
-		//("," operands+=ConditionElement)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 
-		//operands+=ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_4_1() { return cOperandsAssignment_4_1; }
 
-		//ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsConditionElementParserRuleCall_4_1_0() { return cOperandsConditionElementParserRuleCall_4_1_0; }
 
-		//")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 	}
 
@@ -3625,33 +3587,31 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionExpressionParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
 		
-		//ConditionTerm returns ConditionExpression:
-		//
-		//	ConditionElement | OrmoreExpression | OrlessExpression | "(" ConditionExpression ")";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//ConditionElement | OrmoreExpression | OrlessExpression | "(" ConditionExpression ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionElementParserRuleCall_0() { return cConditionElementParserRuleCall_0; }
 
-		//OrmoreExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOrmoreExpressionParserRuleCall_1() { return cOrmoreExpressionParserRuleCall_1; }
 
-		//OrlessExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOrlessExpressionParserRuleCall_2() { return cOrlessExpressionParserRuleCall_2; }
 
-		//"(" ConditionExpression ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
 
-		//ConditionExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionExpressionParserRuleCall_3_1() { return cConditionExpressionParserRuleCall_3_1; }
 
-		//")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
 	}
 
@@ -3664,32 +3624,25 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cConstraintAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_0 = (RuleCall)cConstraintAssignment_1.eContents().get(0);
 		
-		//ConditionElement: // ( subcomponent=[Subcomponent|ID] '.' )* or ?
-		// incoming=[EventOrPropagation|ErrorPropagationPoint]
-		//
-		//	constraint=TypeTokenConstraintNoError?;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//// ( subcomponent=[Subcomponent|ID] '.' )* or ?
-		// incoming=[EventOrPropagation|ErrorPropagationPoint]
-		//
-		//constraint=TypeTokenConstraintNoError?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//// ( subcomponent=[Subcomponent|ID] '.' )* or ?
-		// incoming=[EventOrPropagation|ErrorPropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getIncomingAssignment_0() { return cIncomingAssignment_0; }
 
-		//[EventOrPropagation|ErrorPropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getIncomingEventOrPropagationCrossReference_0_0() { return cIncomingEventOrPropagationCrossReference_0_0; }
 
-		//ErrorPropagationPoint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getIncomingEventOrPropagationErrorPropagationPointParserRuleCall_0_0_1() { return cIncomingEventOrPropagationErrorPropagationPointParserRuleCall_0_0_1; }
 
-		//constraint=TypeTokenConstraintNoError?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConstraintAssignment_1() { return cConstraintAssignment_1; }
 
-		//TypeTokenConstraintNoError
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_0() { return cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_0; }
 	}
 
@@ -3699,18 +3652,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorBehaviorEventParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cErrorPropagationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//EventOrPropagation:
-		//
-		//	ErrorBehaviorEvent | ErrorPropagation;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//ErrorBehaviorEvent | ErrorPropagation
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ErrorBehaviorEvent
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getErrorBehaviorEventParserRuleCall_0() { return cErrorBehaviorEventParserRuleCall_0; }
 
-		//ErrorPropagation
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getErrorPropagationParserRuleCall_1() { return cErrorPropagationParserRuleCall_1; }
 	}
 
@@ -3745,101 +3696,91 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeTokenTypeTokenOrNoErrorParserRuleCall_5_1_0 = (RuleCall)cTypeTokenAssignment_5_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//OutgoingPropagationCondition:
-		//
-		//	(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//
-		//	condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all")
-		//
-		//	typeToken=TypeTokenOrNoError?) ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//
-		//condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all")
-		//
-		//typeToken=TypeTokenOrNoError?) ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//(name=ID ":")?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0() { return cGroup_0; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0_0() { return cNameIDTerminalRuleCall_0_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
-		//state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
-		//state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//state=[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getStateAssignment_1_0_0() { return cStateAssignment_1_0_0; }
 
-		//[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getStateErrorBehaviorStateCrossReference_1_0_0_0() { return cStateErrorBehaviorStateCrossReference_1_0_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1; }
 
-		//typeTokenConstraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTypeTokenConstraintAssignment_1_0_1() { return cTypeTokenConstraintAssignment_1_0_1; }
 
-		//TypeTokenConstraint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0; }
 
-		//allStates?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getAllStatesAssignment_1_1() { return cAllStatesAssignment_1_1; }
 
-		//"all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getAllStatesAllKeyword_1_1_0() { return cAllStatesAllKeyword_1_1_0; }
 
-		//"-["
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getHyphenMinusLeftSquareBracketKeyword_2() { return cHyphenMinusLeftSquareBracketKeyword_2; }
 
-		//condition=ConditionExpression?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConditionAssignment_3() { return cConditionAssignment_3; }
 
-		//ConditionExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionConditionExpressionParserRuleCall_3_0() { return cConditionConditionExpressionParserRuleCall_3_0; }
 
-		//"]->"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4; }
 
-		//(outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all") typeToken=TypeTokenOrNoError?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_5() { return cGroup_5; }
 
-		//outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_5_0() { return cAlternatives_5_0; }
 
-		//outgoing=[ErrorPropagation|ErrorPropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOutgoingAssignment_5_0_0() { return cOutgoingAssignment_5_0_0; }
 
-		//[ErrorPropagation|ErrorPropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getOutgoingErrorPropagationCrossReference_5_0_0_0() { return cOutgoingErrorPropagationCrossReference_5_0_0_0; }
 
-		//ErrorPropagationPoint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_1() { return cOutgoingErrorPropagationErrorPropagationPointParserRuleCall_5_0_0_0_1; }
 
-		//allPropagations?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getAllPropagationsAssignment_5_0_1() { return cAllPropagationsAssignment_5_0_1; }
 
-		//"all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getAllPropagationsAllKeyword_5_0_1_0() { return cAllPropagationsAllKeyword_5_0_1_0; }
 
-		//typeToken=TypeTokenOrNoError?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTypeTokenAssignment_5_1() { return cTypeTokenAssignment_5_1; }
 
-		//TypeTokenOrNoError
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeTokenTypeTokenOrNoErrorParserRuleCall_5_1_0() { return cTypeTokenTypeTokenOrNoErrorParserRuleCall_5_1_0; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
@@ -3874,101 +3815,91 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorCodeErrorCodeValueParserRuleCall_7_0 = (RuleCall)cErrorCodeAssignment_7.eContents().get(0);
 		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
-		//ErrorDetection:
-		//
-		//	(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//
-		//	condition=ConditionExpression? "]->" (internalDetectionPort=InternalPort | detectionReportingPort=[aadl2::Port]) "!"
-		//
-		//	errorCode=ErrorCodeValue? ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//
-		//condition=ConditionExpression? "]->" (internalDetectionPort=InternalPort | detectionReportingPort=[aadl2::Port]) "!"
-		//
-		//errorCode=ErrorCodeValue? ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//(name=ID ":")?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0() { return cGroup_0; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0_0() { return cNameIDTerminalRuleCall_0_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
-		//state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
-		//state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//state=[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getStateAssignment_1_0_0() { return cStateAssignment_1_0_0; }
 
-		//[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getStateErrorBehaviorStateCrossReference_1_0_0_0() { return cStateErrorBehaviorStateCrossReference_1_0_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_1_0_0_0_1; }
 
-		//typeTokenConstraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTypeTokenConstraintAssignment_1_0_1() { return cTypeTokenConstraintAssignment_1_0_1; }
 
-		//TypeTokenConstraint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0() { return cTypeTokenConstraintTypeTokenConstraintParserRuleCall_1_0_1_0; }
 
-		//allStates?="all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getAllStatesAssignment_1_1() { return cAllStatesAssignment_1_1; }
 
-		//"all"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getAllStatesAllKeyword_1_1_0() { return cAllStatesAllKeyword_1_1_0; }
 
-		//"-["
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getHyphenMinusLeftSquareBracketKeyword_2() { return cHyphenMinusLeftSquareBracketKeyword_2; }
 
-		//condition=ConditionExpression?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConditionAssignment_3() { return cConditionAssignment_3; }
 
-		//ConditionExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionConditionExpressionParserRuleCall_3_0() { return cConditionConditionExpressionParserRuleCall_3_0; }
 
-		//"]->"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4; }
 
-		//internalDetectionPort=InternalPort | detectionReportingPort=[aadl2::Port]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_5() { return cAlternatives_5; }
 
-		//internalDetectionPort=InternalPort
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getInternalDetectionPortAssignment_5_0() { return cInternalDetectionPortAssignment_5_0; }
 
-		//InternalPort
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getInternalDetectionPortInternalPortParserRuleCall_5_0_0() { return cInternalDetectionPortInternalPortParserRuleCall_5_0_0; }
 
-		//detectionReportingPort=[aadl2::Port]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getDetectionReportingPortAssignment_5_1() { return cDetectionReportingPortAssignment_5_1; }
 
-		//[aadl2::Port]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getDetectionReportingPortPortCrossReference_5_1_0() { return cDetectionReportingPortPortCrossReference_5_1_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getDetectionReportingPortPortIDTerminalRuleCall_5_1_0_1() { return cDetectionReportingPortPortIDTerminalRuleCall_5_1_0_1; }
 
-		//"!"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getExclamationMarkKeyword_6() { return cExclamationMarkKeyword_6; }
 
-		//errorCode=ErrorCodeValue?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getErrorCodeAssignment_7() { return cErrorCodeAssignment_7; }
 
-		//ErrorCodeValue
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getErrorCodeErrorCodeValueParserRuleCall_7_0() { return cErrorCodeErrorCodeValueParserRuleCall_7_0; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
 	}
 
@@ -3983,33 +3914,31 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cEnumLiteralAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final RuleCall cEnumLiteralSTRINGTerminalRuleCall_2_0 = (RuleCall)cEnumLiteralAssignment_2.eContents().get(0);
 		
-		//ErrorCodeValue:
-		//
-		//	intValue=INTEGER_LIT | constant=[aadl2::PropertyConstant|QPREF] | enumLiteral=STRING;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//intValue=INTEGER_LIT | constant=[aadl2::PropertyConstant|QPREF] | enumLiteral=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//intValue=INTEGER_LIT
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getIntValueAssignment_0() { return cIntValueAssignment_0; }
 
-		//INTEGER_LIT
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getIntValueINTEGER_LITTerminalRuleCall_0_0() { return cIntValueINTEGER_LITTerminalRuleCall_0_0; }
 
-		//constant=[aadl2::PropertyConstant|QPREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConstantAssignment_1() { return cConstantAssignment_1; }
 
-		//[aadl2::PropertyConstant|QPREF]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getConstantPropertyConstantCrossReference_1_0() { return cConstantPropertyConstantCrossReference_1_0; }
 
-		//QPREF
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConstantPropertyConstantQPREFParserRuleCall_1_0_1() { return cConstantPropertyConstantQPREFParserRuleCall_1_0_1; }
 
-		//enumLiteral=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getEnumLiteralAssignment_2() { return cEnumLiteralAssignment_2; }
 
-		//STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getEnumLiteralSTRINGTerminalRuleCall_2_0() { return cEnumLiteralSTRINGTerminalRuleCall_2_0; }
 	}
 
@@ -4033,62 +3962,58 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		//ErrorStateToModeMapping:
-		//
-		//	errorState=[ErrorBehaviorState] "in" "modes" "(" mappedModes+=[aadl2::Mode] ("," mappedModes+=[aadl2::Mode])* ")"
-		//
-		//	";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//errorState=[ErrorBehaviorState] "in" "modes" "(" mappedModes+=[aadl2::Mode] ("," mappedModes+=[aadl2::Mode])* ")" ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//errorState=[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getErrorStateAssignment_0() { return cErrorStateAssignment_0; }
 
-		//[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getErrorStateErrorBehaviorStateCrossReference_0_0() { return cErrorStateErrorBehaviorStateCrossReference_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getErrorStateErrorBehaviorStateIDTerminalRuleCall_0_0_1() { return cErrorStateErrorBehaviorStateIDTerminalRuleCall_0_0_1; }
 
-		//"in"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getInKeyword_1() { return cInKeyword_1; }
 
-		//"modes"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getModesKeyword_2() { return cModesKeyword_2; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 
-		//mappedModes+=[aadl2::Mode]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getMappedModesAssignment_4() { return cMappedModesAssignment_4; }
 
-		//[aadl2::Mode]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getMappedModesModeCrossReference_4_0() { return cMappedModesModeCrossReference_4_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getMappedModesModeIDTerminalRuleCall_4_0_1() { return cMappedModesModeIDTerminalRuleCall_4_0_1; }
 
-		//("," mappedModes+=[aadl2::Mode])*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_5() { return cGroup_5; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
 
-		//mappedModes+=[aadl2::Mode]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getMappedModesAssignment_5_1() { return cMappedModesAssignment_5_1; }
 
-		//[aadl2::Mode]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getMappedModesModeCrossReference_5_1_0() { return cMappedModesModeCrossReference_5_1_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getMappedModesModeIDTerminalRuleCall_5_1_0_1() { return cMappedModesModeIDTerminalRuleCall_5_1_0_1; }
 
-		//")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
 	}
 
@@ -4100,24 +4025,22 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		
-		//InternalPort returns aadl2::InternalEvent:
-		//
-		//	"self" "." name=ID;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//"self" "." name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//"self"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSelfKeyword_0() { return cSelfKeyword_0; }
 
-		//"."
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 	}
 
@@ -4142,67 +4065,61 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypedTokenTypeTokenParserRuleCall_5_0 = (RuleCall)cTypedTokenAssignment_5.eContents().get(0);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//CompositeState:
-		//
-		//	(name=ID ":")? "[" (condition=SConditionExpression | others?="others") "]->" state=[ErrorBehaviorState]
-		//
-		//	typedToken=TypeToken? ";";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//(name=ID ":")? "[" (condition=SConditionExpression | others?="others") "]->" state=[ErrorBehaviorState]
-		//
-		//typedToken=TypeToken? ";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//(name=ID ":")?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0() { return cGroup_0; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getNameIDTerminalRuleCall_0_0_0() { return cNameIDTerminalRuleCall_0_0_0; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
-		//"["
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//condition=SConditionExpression | others?="others"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//condition=SConditionExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConditionAssignment_2_0() { return cConditionAssignment_2_0; }
 
-		//SConditionExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConditionSConditionExpressionParserRuleCall_2_0_0() { return cConditionSConditionExpressionParserRuleCall_2_0_0; }
 
-		//others?="others"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOthersAssignment_2_1() { return cOthersAssignment_2_1; }
 
-		//"others"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getOthersOthersKeyword_2_1_0() { return cOthersOthersKeyword_2_1_0; }
 
-		//"]->"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_3() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_3; }
 
-		//state=[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getStateAssignment_4() { return cStateAssignment_4; }
 
-		//[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getStateErrorBehaviorStateCrossReference_4_0() { return cStateErrorBehaviorStateCrossReference_4_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_4_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_4_0_1; }
 
-		//typedToken=TypeToken?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getTypedTokenAssignment_5() { return cTypedTokenAssignment_5; }
 
-		//TypeToken
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getTypedTokenTypeTokenParserRuleCall_5_0() { return cTypedTokenTypeTokenParserRuleCall_5_0; }
 
-		//";"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
@@ -4216,34 +4133,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperandsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperandsSAndExpressionParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
 		
-		//// condition expressions for composite states
-		// // based on states only  
-		// SConditionExpression returns
-		//
-		//ConditionExpression:
-		//
-		//	SAndExpression ({SOrExpression.operands+=current} "or" operands+=SAndExpression)*;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//SAndExpression ({SOrExpression.operands+=current} "or" operands+=SAndExpression)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//SAndExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSAndExpressionParserRuleCall_0() { return cSAndExpressionParserRuleCall_0; }
 
-		//({SOrExpression.operands+=current} "or" operands+=SAndExpression)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{SOrExpression.operands+=current}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Action getSOrExpressionOperandsAction_1_0() { return cSOrExpressionOperandsAction_1_0; }
 
-		//"or"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getOrKeyword_1_1() { return cOrKeyword_1_1; }
 
-		//operands+=SAndExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_1_2() { return cOperandsAssignment_1_2; }
 
-		//SAndExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsSAndExpressionParserRuleCall_1_2_0() { return cOperandsSAndExpressionParserRuleCall_1_2_0; }
 	}
 
@@ -4257,30 +4168,28 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperandsAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
 		private final RuleCall cOperandsSConditionTermParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
 		
-		//SAndExpression returns ConditionExpression:
-		//
-		//	SConditionTerm ({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//SConditionTerm ({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//SConditionTerm
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSConditionTermParserRuleCall_0() { return cSConditionTermParserRuleCall_0; }
 
-		//({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//{SAndExpression.operands+=current}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Action getSAndExpressionOperandsAction_1_0() { return cSAndExpressionOperandsAction_1_0; }
 
-		//"and"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getAndKeyword_1_1() { return cAndKeyword_1_1; }
 
-		//operands+=SConditionTerm
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_1_2() { return cOperandsAssignment_1_2; }
 
-		//SConditionTerm
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsSConditionTermParserRuleCall_1_2_0() { return cOperandsSConditionTermParserRuleCall_1_2_0; }
 	}
 
@@ -4299,45 +4208,43 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOperandsSConditionElementParserRuleCall_4_1_0 = (RuleCall)cOperandsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//SOrmoreExpression returns OrmoreExpression:
-		//
-		//	count=INTVALUE "ormore" "(" operands+=SConditionElement ("," operands+=SConditionElement)* ")";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//count=INTVALUE "ormore" "(" operands+=SConditionElement ("," operands+=SConditionElement)* ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//count=INTVALUE
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getCountAssignment_0() { return cCountAssignment_0; }
 
-		//INTVALUE
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getCountINTVALUEParserRuleCall_0_0() { return cCountINTVALUEParserRuleCall_0_0; }
 
-		//"ormore"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getOrmoreKeyword_1() { return cOrmoreKeyword_1; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 
-		//operands+=SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_3() { return cOperandsAssignment_3; }
 
-		//SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsSConditionElementParserRuleCall_3_0() { return cOperandsSConditionElementParserRuleCall_3_0; }
 
-		//("," operands+=SConditionElement)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 
-		//operands+=SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_4_1() { return cOperandsAssignment_4_1; }
 
-		//SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsSConditionElementParserRuleCall_4_1_0() { return cOperandsSConditionElementParserRuleCall_4_1_0; }
 
-		//")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 	}
 
@@ -4356,45 +4263,43 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOperandsSConditionElementParserRuleCall_4_1_0 = (RuleCall)cOperandsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//SOrlessExpression returns OrlessExpression:
-		//
-		//	count=INTVALUE "orless" "(" operands+=SConditionElement ("," operands+=SConditionElement)* ")";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//count=INTVALUE "orless" "(" operands+=SConditionElement ("," operands+=SConditionElement)* ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//count=INTVALUE
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getCountAssignment_0() { return cCountAssignment_0; }
 
-		//INTVALUE
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getCountINTVALUEParserRuleCall_0_0() { return cCountINTVALUEParserRuleCall_0_0; }
 
-		//"orless"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getOrlessKeyword_1() { return cOrlessKeyword_1; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 
-		//operands+=SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_3() { return cOperandsAssignment_3; }
 
-		//SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsSConditionElementParserRuleCall_3_0() { return cOperandsSConditionElementParserRuleCall_3_0; }
 
-		//("," operands+=SConditionElement)*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_4() { return cGroup_4; }
 
-		//","
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 
-		//operands+=SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getOperandsAssignment_4_1() { return cOperandsAssignment_4_1; }
 
-		//SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getOperandsSConditionElementParserRuleCall_4_1_0() { return cOperandsSConditionElementParserRuleCall_4_1_0; }
 
-		//")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 	}
 
@@ -4409,33 +4314,31 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSConditionExpressionParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
 		
-		//SConditionTerm returns ConditionExpression:
-		//
-		//	SConditionElement | SOrmoreExpression | SOrlessExpression | "(" SConditionExpression ")";
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//SConditionElement | SOrmoreExpression | SOrlessExpression | "(" SConditionExpression ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//SConditionElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSConditionElementParserRuleCall_0() { return cSConditionElementParserRuleCall_0; }
 
-		//SOrmoreExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSOrmoreExpressionParserRuleCall_1() { return cSOrmoreExpressionParserRuleCall_1; }
 
-		//SOrlessExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSOrlessExpressionParserRuleCall_2() { return cSOrlessExpressionParserRuleCall_2; }
 
-		//"(" SConditionExpression ")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"("
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
 
-		//SConditionExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSConditionExpressionParserRuleCall_3_1() { return cSConditionExpressionParserRuleCall_3_1; }
 
-		//")"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
 	}
 
@@ -4461,70 +4364,64 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cConstraintAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
 		private final RuleCall cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0 = (RuleCall)cConstraintAssignment_1_1_1.eContents().get(0);
 		
-		//SConditionElement returns ConditionElement:
-		//
-		//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
-		//
-		//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
-		//
-		//(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0() { return cGroup_0; }
 
-		//(subcomponents+=SubcomponentElement ".")+
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0_0() { return cGroup_0_0; }
 
-		//subcomponents+=SubcomponentElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getSubcomponentsAssignment_0_0_0() { return cSubcomponentsAssignment_0_0_0; }
 
-		//SubcomponentElement
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0() { return cSubcomponentsSubcomponentElementParserRuleCall_0_0_0_0; }
 
-		//"."
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getFullStopKeyword_0_0_1() { return cFullStopKeyword_0_0_1; }
 
-		//state=[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getStateAssignment_0_1() { return cStateAssignment_0_1; }
 
-		//[ErrorBehaviorState]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getStateErrorBehaviorStateCrossReference_0_1_0() { return cStateErrorBehaviorStateCrossReference_0_1_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getStateErrorBehaviorStateIDTerminalRuleCall_0_1_0_1() { return cStateErrorBehaviorStateIDTerminalRuleCall_0_1_0_1; }
 
-		//constraint=TypeTokenConstraint?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConstraintAssignment_0_2() { return cConstraintAssignment_0_2; }
 
-		//TypeTokenConstraint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConstraintTypeTokenConstraintParserRuleCall_0_2_0() { return cConstraintTypeTokenConstraintParserRuleCall_0_2_0; }
 
-		//"in" (incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?)
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"in"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getInKeyword_1_0() { return cInKeyword_1_0; }
 
-		//incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_1_1() { return cGroup_1_1; }
 
-		//incoming=[ErrorPropagation|ErrorPropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getIncomingAssignment_1_1_0() { return cIncomingAssignment_1_1_0; }
 
-		//[ErrorPropagation|ErrorPropagationPoint]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getIncomingErrorPropagationCrossReference_1_1_0_0() { return cIncomingErrorPropagationCrossReference_1_1_0_0; }
 
-		//ErrorPropagationPoint
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getIncomingErrorPropagationErrorPropagationPointParserRuleCall_1_1_0_0_1() { return cIncomingErrorPropagationErrorPropagationPointParserRuleCall_1_1_0_0_1; }
 
-		//constraint=TypeTokenConstraintNoError?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getConstraintAssignment_1_1_1() { return cConstraintAssignment_1_1_1; }
 
-		//TypeTokenConstraintNoError
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0() { return cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_0; }
 	}
 
@@ -4534,18 +4431,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cSubcomponentSubcomponentCrossReference_0 = (CrossReference)cSubcomponentAssignment.eContents().get(0);
 		private final RuleCall cSubcomponentSubcomponentIDTerminalRuleCall_0_1 = (RuleCall)cSubcomponentSubcomponentCrossReference_0.eContents().get(1);
 		
-		//SubcomponentElement:
-		//
-		//	subcomponent=[aadl2::Subcomponent];
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//subcomponent=[aadl2::Subcomponent]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Assignment getSubcomponentAssignment() { return cSubcomponentAssignment; }
 
-		//[aadl2::Subcomponent]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public CrossReference getSubcomponentSubcomponentCrossReference_0() { return cSubcomponentSubcomponentCrossReference_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getSubcomponentSubcomponentIDTerminalRuleCall_0_1() { return cSubcomponentSubcomponentIDTerminalRuleCall_0_1; }
 	}
 
@@ -4557,25 +4452,22 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
-		////('.' ID )?;
-		// QEMREF:
-		//
-		//	(ID "::")* ID;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public ParserRule getRule() { return rule; }
 
-		//(ID "::")* ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup() { return cGroup; }
 
-		//(ID "::")*
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Group getGroup_0() { return cGroup_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
 
-		//"::"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public Keyword getColonColonKeyword_0_1() { return cColonColonKeyword_0_1; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
 	}
 	
@@ -4692,16 +4584,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	/// *
-	// * Note about symbolic labels as values for occurrence probability:
-	// * Use property constant. The core allows it instead of an actual number.
-	// * The tools generating stochastic models from such specification can interpret the constant name as the desired label.
-	// * /
-	//
-	//// allow either of the two to be the root. Needed dummy 'library' keyword
-	// ErrorModelGrammarRoot:
-	//
-	//	"library" eml=ErrorModelLibrary | emsc=ErrorModelSubclause;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorModelGrammarRootElements getErrorModelGrammarRootAccess() {
 		return (pErrorModelGrammarRoot != null) ? pErrorModelGrammarRoot : (pErrorModelGrammarRoot = new ErrorModelGrammarRootElements());
 	}
@@ -4710,9 +4593,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorModelGrammarRootAccess().getRule();
 	}
 
-	//AnnexLibrary returns aadl2::AnnexLibrary:
-	//
-	//	ErrorModelLibrary;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public AnnexLibraryElements getAnnexLibraryAccess() {
 		return (pAnnexLibrary != null) ? pAnnexLibrary : (pAnnexLibrary = new AnnexLibraryElements());
 	}
@@ -4721,9 +4602,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getAnnexLibraryAccess().getRule();
 	}
 
-	//AnnexSubclause returns aadl2::AnnexSubclause:
-	//
-	//	ErrorModelSubclause;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public AnnexSubclauseElements getAnnexSubclauseAccess() {
 		return (pAnnexSubclause != null) ? pAnnexSubclause : (pAnnexSubclause = new AnnexSubclauseElements());
 	}
@@ -4732,15 +4611,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getAnnexSubclauseAccess().getRule();
 	}
 
-	//NamedElement returns aadl2::NamedElement:
-	//
-	//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
-	//
-	//	ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint | CompositeState |
-	//
-	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource |
-	//
-	//	EventOrPropagation;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public NamedElementElements getNamedElementAccess() {
 		return (pNamedElement != null) ? pNamedElement : (pNamedElement = new NamedElementElements());
 	}
@@ -4749,9 +4620,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getNamedElementAccess().getRule();
 	}
 
-	//ModalElement returns aadl2::ModalElement:
-	//
-	//	ErrorModelSubclause;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ModalElementElements getModalElementAccess() {
 		return (pModalElement != null) ? pModalElement : (pModalElement = new ModalElementElements());
 	}
@@ -4760,13 +4629,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getModalElementAccess().getRule();
 	}
 
-	//Element returns aadl2::Element:
-	//
-	//	TypeSetElement | TypeToken | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch |
-	//
-	//	ConditionElement | ConditionExpression | OrmoreExpression | OrlessExpression | OutgoingPropagationCondition |
-	//
-	//	ErrorStateToModeMapping | SubcomponentElement | FeatureorPPReference | TypeUseContext;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ElementElements getElementAccess() {
 		return (pElement != null) ? pElement : (pElement = new ElementElements());
 	}
@@ -4775,31 +4638,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getElementAccess().getRule();
 	}
 
-	////	'**}'
-	// ErrorModelSubclause: //'{**' 
-	// {ErrorModelSubclause} ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
-	//
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "behavior" useBehavior=[ErrorBehaviorStateMachine|QEMREF] ";")?
-	//
-	//	("error" "propagations" propagations+=ErrorPropagation* ("flows" flows+=ErrorFlow+)? "end" "propagations" ";")?
-	//
-	//	("component" "error" "behavior" ("use" "transformations" useTransformation=[TypeTransformationSet|QEMREF] ";")?
-	//
-	//	("events" events+=ErrorBehaviorEvent+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("propagations"
-	//
-	//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)?
-	//
-	//	("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error"
-	//
-	//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" "behavior" ("use"
-	//
-	//	"transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
-	//
-	//	connectionErrorSources+=ConnectionErrorSource* "end" "connection" ";")? ("propagation" "paths"
-	//
-	//	points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
-	//
-	//	properties+=ContainedPropertyAssociation+)?;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorModelSubclauseElements getErrorModelSubclauseAccess() {
 		return (pErrorModelSubclause != null) ? pErrorModelSubclause : (pErrorModelSubclause = new ErrorModelSubclauseElements());
 	}
@@ -4808,17 +4647,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorModelSubclauseAccess().getRule();
 	}
 
-	////	'**}'
-	// ErrorModelLibrary:
-	//
-	//	{ErrorModelLibrary} //    '{**' 
-	// ("error" "types" ("extends" extends+=[ErrorModelLibrary|QEMREF] (","
-	//
-	//	extends+=[ErrorModelLibrary|QEMREF])* "with")? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties"
-	//
-	//	properties+=ContainedPropertyAssociation+)? "end" "types" ";")? behaviors+=ErrorBehaviorStateMachine*
-	//
-	//	mappings+=TypeMappingSet* transformations+=TypeTransformationSet*;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorModelLibraryElements getErrorModelLibraryAccess() {
 		return (pErrorModelLibrary != null) ? pErrorModelLibrary : (pErrorModelLibrary = new ErrorModelLibraryElements());
 	}
@@ -4827,9 +4656,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorModelLibraryAccess().getRule();
 	}
 
-	//ErrorTypes:
-	//
-	//	TypeDefinition | TypeSetDefinition;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorTypesElements getErrorTypesAccess() {
 		return (pErrorTypes != null) ? pErrorTypes : (pErrorTypes = new ErrorTypesElements());
 	}
@@ -4838,9 +4665,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorTypesAccess().getRule();
 	}
 
-	//TypeDefinition returns ErrorType:
-	//
-	//	name=ID (":" "type" ("extends" superType=[ErrorType|QEMREF])? | "renames" "type" aliasedType=[ErrorType|QEMREF]) ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeDefinitionElements getTypeDefinitionAccess() {
 		return (pTypeDefinition != null) ? pTypeDefinition : (pTypeDefinition = new TypeDefinitionElements());
 	}
@@ -4849,11 +4674,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeDefinitionAccess().getRule();
 	}
 
-	//TypeSetDefinition returns TypeSet:
-	//
-	//	name=ID (":" "type" "set" "{" typeTokens+=TypeSetElement ("," typeTokens+=TypeSetElement)* "}" | "renames" "type"
-	//
-	//	"set" aliasedType=[TypeSet|QEMREF]) ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeSetDefinitionElements getTypeSetDefinitionAccess() {
 		return (pTypeSetDefinition != null) ? pTypeSetDefinition : (pTypeSetDefinition = new TypeSetDefinitionElements());
 	}
@@ -4862,9 +4683,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeSetDefinitionAccess().getRule();
 	}
 
-	//TypeSetConstructor returns TypeSet:
-	//
-	//	"{" typeTokens+=TypeSetElement ("," typeTokens+=TypeSetElement)* "}";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeSetConstructorElements getTypeSetConstructorAccess() {
 		return (pTypeSetConstructor != null) ? pTypeSetConstructor : (pTypeSetConstructor = new TypeSetConstructorElements());
 	}
@@ -4873,9 +4692,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeSetConstructorAccess().getRule();
 	}
 
-	//TypeSetReference returns TypeSet:
-	//
-	//	TypeSetConstructor | TypeSetID;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeSetReferenceElements getTypeSetReferenceAccess() {
 		return (pTypeSetReference != null) ? pTypeSetReference : (pTypeSetReference = new TypeSetReferenceElements());
 	}
@@ -4884,9 +4701,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeSetReferenceAccess().getRule();
 	}
 
-	//TypeSetID returns TypeSet:
-	//
-	//	typeTokens+=TypeSetAsElement;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeSetIDElements getTypeSetIDAccess() {
 		return (pTypeSetID != null) ? pTypeSetID : (pTypeSetID = new TypeSetIDElements());
 	}
@@ -4895,9 +4710,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeSetIDAccess().getRule();
 	}
 
-	//TypeSetAsElement returns TypeToken:
-	//
-	//	type+=[TypeSet|QEMREF];
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeSetAsElementElements getTypeSetAsElementAccess() {
 		return (pTypeSetAsElement != null) ? pTypeSetAsElement : (pTypeSetAsElement = new TypeSetAsElementElements());
 	}
@@ -4906,9 +4719,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeSetAsElementAccess().getRule();
 	}
 
-	//TypeSetElement returns TypeToken:
-	//
-	//	type+=[ErrorTypes|QEMREF] ("*" type+=[ErrorType|QEMREF])*;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeSetElementElements getTypeSetElementAccess() {
 		return (pTypeSetElement != null) ? pTypeSetElement : (pTypeSetElement = new TypeSetElementElements());
 	}
@@ -4917,9 +4728,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeSetElementAccess().getRule();
 	}
 
-	//NoErrorTypeSet returns TypeSet:
-	//
-	//	{TypeSet} "{" typeTokens+=NoErrorTypeToken "}";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public NoErrorTypeSetElements getNoErrorTypeSetAccess() {
 		return (pNoErrorTypeSet != null) ? pNoErrorTypeSet : (pNoErrorTypeSet = new NoErrorTypeSetElements());
 	}
@@ -4928,9 +4737,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getNoErrorTypeSetAccess().getRule();
 	}
 
-	//NoErrorTypeToken returns TypeToken:
-	//
-	//	{TypeToken} noError?="noerror";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public NoErrorTypeTokenElements getNoErrorTypeTokenAccess() {
 		return (pNoErrorTypeToken != null) ? pNoErrorTypeToken : (pNoErrorTypeToken = new NoErrorTypeTokenElements());
 	}
@@ -4939,9 +4746,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getNoErrorTypeTokenAccess().getRule();
 	}
 
-	//TypeToken:
-	//
-	//	{TypeToken} "(" type+=[ErrorType|QEMREF] ("*" type+=[ErrorType|QEMREF])* ")";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeTokenElements getTypeTokenAccess() {
 		return (pTypeToken != null) ? pTypeToken : (pTypeToken = new TypeTokenElements());
 	}
@@ -4950,9 +4755,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTokenAccess().getRule();
 	}
 
-	//TypeTokenOrNoError returns TypeToken:
-	//
-	//	TypeToken | "(" NoErrorTypeToken ")";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeTokenOrNoErrorElements getTypeTokenOrNoErrorAccess() {
 		return (pTypeTokenOrNoError != null) ? pTypeTokenOrNoError : (pTypeTokenOrNoError = new TypeTokenOrNoErrorElements());
 	}
@@ -4961,9 +4764,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTokenOrNoErrorAccess().getRule();
 	}
 
-	//TypeTokenConstraint returns TypeSet:
-	//
-	//	TypeSetReference;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeTokenConstraintElements getTypeTokenConstraintAccess() {
 		return (pTypeTokenConstraint != null) ? pTypeTokenConstraint : (pTypeTokenConstraint = new TypeTokenConstraintElements());
 	}
@@ -4972,9 +4773,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTokenConstraintAccess().getRule();
 	}
 
-	//TypeTokenConstraintNoError returns TypeSet:
-	//
-	//	TypeSetReference | NoErrorTypeSet;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeTokenConstraintNoErrorElements getTypeTokenConstraintNoErrorAccess() {
 		return (pTypeTokenConstraintNoError != null) ? pTypeTokenConstraintNoError : (pTypeTokenConstraintNoError = new TypeTokenConstraintNoErrorElements());
 	}
@@ -4983,11 +4782,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTokenConstraintNoErrorAccess().getRule();
 	}
 
-	//TypeTransformationSet:
-	//
-	//	"type" "transformations" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
-	//
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? transformation+=TypeTransformation+ "end" "transformations" ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeTransformationSetElements getTypeTransformationSetAccess() {
 		return (pTypeTransformationSet != null) ? pTypeTransformationSet : (pTypeTransformationSet = new TypeTransformationSetElements());
 	}
@@ -4996,9 +4791,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTransformationSetAccess().getRule();
 	}
 
-	//TypeTransformation:
-	//
-	//	source=TypeTokenConstraintNoError "-[" contributor=TypeTokenConstraintNoError "]->" target=TypeToken ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeTransformationElements getTypeTransformationAccess() {
 		return (pTypeTransformation != null) ? pTypeTransformation : (pTypeTransformation = new TypeTransformationElements());
 	}
@@ -5007,11 +4800,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeTransformationAccess().getRule();
 	}
 
-	//TypeMappingSet:
-	//
-	//	"type" "mappings" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
-	//
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? mapping+=TypeMapping+ "end" "mappings" ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeMappingSetElements getTypeMappingSetAccess() {
 		return (pTypeMappingSet != null) ? pTypeMappingSet : (pTypeMappingSet = new TypeMappingSetElements());
 	}
@@ -5020,9 +4809,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeMappingSetAccess().getRule();
 	}
 
-	//TypeMapping:
-	//
-	//	source=TypeTokenConstraint "->" target=TypeToken ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeMappingElements getTypeMappingAccess() {
 		return (pTypeMapping != null) ? pTypeMapping : (pTypeMapping = new TypeMappingElements());
 	}
@@ -5031,13 +4818,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeMappingAccess().getRule();
 	}
 
-	//ErrorPropagation:
-	//
-	//	{ErrorPropagation} (kind=PropagationKind | featureorPPRefs+=FeatureorPPReference ("."
-	//
-	//	featureorPPRefs+=FeatureorPPReference)*) ":" not?="not"? direction=PropagationDirection "propagation"
-	//
-	//	typeSet=TypeSetReference? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorPropagationElements getErrorPropagationAccess() {
 		return (pErrorPropagation != null) ? pErrorPropagation : (pErrorPropagation = new ErrorPropagationElements());
 	}
@@ -5046,9 +4827,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorPropagationAccess().getRule();
 	}
 
-	//FeatureorPPReference:
-	//
-	//	featureorPP=[aadl2::NamedElement];
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public FeatureorPPReferenceElements getFeatureorPPReferenceAccess() {
 		return (pFeatureorPPReference != null) ? pFeatureorPPReference : (pFeatureorPPReference = new FeatureorPPReferenceElements());
 	}
@@ -5057,9 +4836,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getFeatureorPPReferenceAccess().getRule();
 	}
 
-	//PropagationDirection returns aadl2::DirectionType:
-	//
-	//	"in" | "out";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public PropagationDirectionElements getPropagationDirectionAccess() {
 		return (pPropagationDirection != null) ? pPropagationDirection : (pPropagationDirection = new PropagationDirectionElements());
 	}
@@ -5068,9 +4845,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropagationDirectionAccess().getRule();
 	}
 
-	//PropagationKind:
-	//
-	//	"processor" | "memory" | "connection" | "bindings" | "access";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public PropagationKindElements getPropagationKindAccess() {
 		return (pPropagationKind != null) ? pPropagationKind : (pPropagationKind = new PropagationKindElements());
 	}
@@ -5079,19 +4854,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropagationKindAccess().getRule();
 	}
 
-	//// enum does not work as  
-	//
-	//
-	////enum PropKind : PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'
-	//
-	//
-	////	            |VIRTUALBUS='virtual bus'|VIRTUALPROCESSOR='virtual processor'|BINDING='binding' | BINDINGS='bindings'|ACCESS='access'
-	//
-	//
-	////;
-	// ErrorFlow:
-	//
-	//	ErrorSource | ErrorSink | ErrorPath;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorFlowElements getErrorFlowAccess() {
 		return (pErrorFlow != null) ? pErrorFlow : (pErrorFlow = new ErrorFlowElements());
 	}
@@ -5100,13 +4863,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorFlowAccess().getRule();
 	}
 
-	//ErrorSource:
-	//
-	//	name=ID ":" "error" "source" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
-	//
-	//	typeTokenConstraint=TypeTokenConstraint? ("when" (failureModeReference=[ErrorBehaviorStateOrTypeSet]
-	//
-	//	failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorSourceElements getErrorSourceAccess() {
 		return (pErrorSource != null) ? pErrorSource : (pErrorSource = new ErrorSourceElements());
 	}
@@ -5115,9 +4872,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorSourceAccess().getRule();
 	}
 
-	//ErrorBehaviorStateOrTypeSet:
-	//
-	//	ErrorBehaviorState | TypeSetDefinition;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorBehaviorStateOrTypeSetElements getErrorBehaviorStateOrTypeSetAccess() {
 		return (pErrorBehaviorStateOrTypeSet != null) ? pErrorBehaviorStateOrTypeSet : (pErrorBehaviorStateOrTypeSet = new ErrorBehaviorStateOrTypeSetElements());
 	}
@@ -5126,11 +4881,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorBehaviorStateOrTypeSetAccess().getRule();
 	}
 
-	//ErrorSink:
-	//
-	//	name=ID ":" "error" "sink" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
-	//
-	//	typeTokenConstraint=TypeTokenConstraint? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorSinkElements getErrorSinkAccess() {
 		return (pErrorSink != null) ? pErrorSink : (pErrorSink = new ErrorSinkElements());
 	}
@@ -5139,13 +4890,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorSinkAccess().getRule();
 	}
 
-	//ErrorPath:
-	//
-	//	name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
-	//
-	//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
-	//
-	//	allOutgoing?="all") (targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorPathElements getErrorPathAccess() {
 		return (pErrorPath != null) ? pErrorPath : (pErrorPath = new ErrorPathElements());
 	}
@@ -5154,10 +4899,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorPathAccess().getRule();
 	}
 
-	//// reference to error propagation  
-	// ErrorPropagationPoint:
-	//
-	//	PropagationKind | ID ("." ID)*;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorPropagationPointElements getErrorPropagationPointAccess() {
 		return (pErrorPropagationPoint != null) ? pErrorPropagationPoint : (pErrorPropagationPoint = new ErrorPropagationPointElements());
 	}
@@ -5166,9 +4908,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorPropagationPointAccess().getRule();
 	}
 
-	//PropagationPoint:
-	//
-	//	name=ID ":" "propagation" "point" ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public PropagationPointElements getPropagationPointAccess() {
 		return (pPropagationPoint != null) ? pPropagationPoint : (pPropagationPoint = new PropagationPointElements());
 	}
@@ -5177,9 +4917,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropagationPointAccess().getRule();
 	}
 
-	//PropagationPointConnection:
-	//
-	//	name=ID ":" source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public PropagationPointConnectionElements getPropagationPointConnectionAccess() {
 		return (pPropagationPointConnection != null) ? pPropagationPointConnection : (pPropagationPointConnection = new PropagationPointConnectionElements());
 	}
@@ -5188,9 +4926,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropagationPointConnectionAccess().getRule();
 	}
 
-	//QualifiedPropagationPoint:
-	//
-	//	(subcomponent=[aadl2::Subcomponent] ".")? propagationPoint=[PropagationPoint];
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public QualifiedPropagationPointElements getQualifiedPropagationPointAccess() {
 		return (pQualifiedPropagationPoint != null) ? pQualifiedPropagationPoint : (pQualifiedPropagationPoint = new QualifiedPropagationPointElements());
 	}
@@ -5199,17 +4935,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getQualifiedPropagationPointAccess().getRule();
 	}
 
-	//ErrorBehaviorStateMachine:
-	//
-	//	"error" "behavior" name=ID ("use" "types" useTypes+=[ErrorModelLibrary|QEMREF] (","
-	//
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "transformations"
-	//
-	//	useTransformation+=[TypeTransformationSet|QEMREF] ";")? ("events" events+=ErrorBehaviorEvent+)? ("states"
-	//
-	//	states+=ErrorBehaviorState+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("properties"
-	//
-	//	properties+=ContainedPropertyAssociation+)? "end" "behavior" ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorBehaviorStateMachineElements getErrorBehaviorStateMachineAccess() {
 		return (pErrorBehaviorStateMachine != null) ? pErrorBehaviorStateMachine : (pErrorBehaviorStateMachine = new ErrorBehaviorStateMachineElements());
 	}
@@ -5218,9 +4944,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorBehaviorStateMachineAccess().getRule();
 	}
 
-	//ErrorBehaviorEvent:
-	//
-	//	ErrorEvent | RepairEvent | RecoverEvent;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorBehaviorEventElements getErrorBehaviorEventAccess() {
 		return (pErrorBehaviorEvent != null) ? pErrorBehaviorEvent : (pErrorBehaviorEvent = new ErrorBehaviorEventElements());
 	}
@@ -5229,10 +4953,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorBehaviorEventAccess().getRule();
 	}
 
-	//// add event condition 
-	// ErrorEvent:
-	//
-	//	name=ID ":" "error" "event" typeSet=TypeSetReference? ("when" condition=STRING)? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorEventElements getErrorEventAccess() {
 		return (pErrorEvent != null) ? pErrorEvent : (pErrorEvent = new ErrorEventElements());
 	}
@@ -5241,10 +4962,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorEventAccess().getRule();
 	}
 
-	////add repair initiator 
-	// RepairEvent:
-	//
-	//	name=ID ":" "repair" "event" ("when" condition=STRING)? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public RepairEventElements getRepairEventAccess() {
 		return (pRepairEvent != null) ? pRepairEvent : (pRepairEvent = new RepairEventElements());
 	}
@@ -5253,10 +4971,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getRepairEventAccess().getRule();
 	}
 
-	////add recover initiator 
-	// RecoverEvent:
-	//
-	//	name=ID ":" "recover" "event" ("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public RecoverEventElements getRecoverEventAccess() {
 		return (pRecoverEvent != null) ? pRecoverEvent : (pRecoverEvent = new RecoverEventElements());
 	}
@@ -5265,9 +4980,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getRecoverEventAccess().getRule();
 	}
 
-	//ErrorBehaviorState:
-	//
-	//	name=ID ":" intial?="initial"? "state" typeSet=TypeSetReference? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorBehaviorStateElements getErrorBehaviorStateAccess() {
 		return (pErrorBehaviorState != null) ? pErrorBehaviorState : (pErrorBehaviorState = new ErrorBehaviorStateElements());
 	}
@@ -5276,13 +4989,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorBehaviorStateAccess().getRule();
 	}
 
-	//ErrorBehaviorTransition:
-	//
-	//	(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-	//
-	//	condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
-	//
-	//	| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorBehaviorTransitionElements getErrorBehaviorTransitionAccess() {
 		return (pErrorBehaviorTransition != null) ? pErrorBehaviorTransition : (pErrorBehaviorTransition = new ErrorBehaviorTransitionElements());
 	}
@@ -5291,9 +4998,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorBehaviorTransitionAccess().getRule();
 	}
 
-	//TransitionBranch:
-	//
-	//	(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state") "with" value=BranchValue;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TransitionBranchElements getTransitionBranchAccess() {
 		return (pTransitionBranch != null) ? pTransitionBranch : (pTransitionBranch = new TransitionBranchElements());
 	}
@@ -5302,10 +5007,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTransitionBranchAccess().getRule();
 	}
 
-	//// store real literal as integer, ID as reference to property constant
-	// BranchValue:
-	//
-	//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::PropertyConstant|QEMREF] | others?="others");
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public BranchValueElements getBranchValueAccess() {
 		return (pBranchValue != null) ? pBranchValue : (pBranchValue = new BranchValueElements());
 	}
@@ -5314,11 +5016,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getBranchValueAccess().getRule();
 	}
 
-	//ConnectionErrorSource:
-	//
-	//	name=ID ":" "error" "source" (connection=[aadl2::Connection] | all?="all") typeTokenConstraint=TypeTokenConstraint?
-	//
-	//	("when" (failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ConnectionErrorSourceElements getConnectionErrorSourceAccess() {
 		return (pConnectionErrorSource != null) ? pConnectionErrorSource : (pConnectionErrorSource = new ConnectionErrorSourceElements());
 	}
@@ -5327,9 +5025,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getConnectionErrorSourceAccess().getRule();
 	}
 
-	//TypeUseContext:
-	//
-	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorModelSubclause;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TypeUseContextElements getTypeUseContextAccess() {
 		return (pTypeUseContext != null) ? pTypeUseContext : (pTypeUseContext = new TypeUseContextElements());
 	}
@@ -5338,13 +5034,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTypeUseContextAccess().getRule();
 	}
 
-	//// condition expression for component specific transitions 
-	// // based on error events and incoming propagations
-	//
-	//
-	//ConditionExpression:
-	//
-	//	AndExpression ({OrExpression.operands+=current} "or" operands+=AndExpression)*;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ConditionExpressionElements getConditionExpressionAccess() {
 		return (pConditionExpression != null) ? pConditionExpression : (pConditionExpression = new ConditionExpressionElements());
 	}
@@ -5353,9 +5043,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getConditionExpressionAccess().getRule();
 	}
 
-	//AndExpression returns ConditionExpression:
-	//
-	//	ConditionTerm ({AndExpression.operands+=current} "and" operands+=ConditionTerm)*;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public AndExpressionElements getAndExpressionAccess() {
 		return (pAndExpression != null) ? pAndExpression : (pAndExpression = new AndExpressionElements());
 	}
@@ -5364,9 +5052,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getAndExpressionAccess().getRule();
 	}
 
-	//OrmoreExpression:
-	//
-	//	count=INTVALUE "ormore" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public OrmoreExpressionElements getOrmoreExpressionAccess() {
 		return (pOrmoreExpression != null) ? pOrmoreExpression : (pOrmoreExpression = new OrmoreExpressionElements());
 	}
@@ -5375,9 +5061,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getOrmoreExpressionAccess().getRule();
 	}
 
-	//OrlessExpression:
-	//
-	//	count=INTVALUE "orless" "(" operands+=ConditionElement ("," operands+=ConditionElement)* ")";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public OrlessExpressionElements getOrlessExpressionAccess() {
 		return (pOrlessExpression != null) ? pOrlessExpression : (pOrlessExpression = new OrlessExpressionElements());
 	}
@@ -5386,9 +5070,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getOrlessExpressionAccess().getRule();
 	}
 
-	//ConditionTerm returns ConditionExpression:
-	//
-	//	ConditionElement | OrmoreExpression | OrlessExpression | "(" ConditionExpression ")";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ConditionTermElements getConditionTermAccess() {
 		return (pConditionTerm != null) ? pConditionTerm : (pConditionTerm = new ConditionTermElements());
 	}
@@ -5397,10 +5079,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getConditionTermAccess().getRule();
 	}
 
-	//ConditionElement: // ( subcomponent=[Subcomponent|ID] '.' )* or ?
-	// incoming=[EventOrPropagation|ErrorPropagationPoint]
-	//
-	//	constraint=TypeTokenConstraintNoError?;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ConditionElementElements getConditionElementAccess() {
 		return (pConditionElement != null) ? pConditionElement : (pConditionElement = new ConditionElementElements());
 	}
@@ -5409,9 +5088,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getConditionElementAccess().getRule();
 	}
 
-	//EventOrPropagation:
-	//
-	//	ErrorBehaviorEvent | ErrorPropagation;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public EventOrPropagationElements getEventOrPropagationAccess() {
 		return (pEventOrPropagation != null) ? pEventOrPropagation : (pEventOrPropagation = new EventOrPropagationElements());
 	}
@@ -5420,13 +5097,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getEventOrPropagationAccess().getRule();
 	}
 
-	//OutgoingPropagationCondition:
-	//
-	//	(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-	//
-	//	condition=ConditionExpression? "]->" ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?="all")
-	//
-	//	typeToken=TypeTokenOrNoError?) ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public OutgoingPropagationConditionElements getOutgoingPropagationConditionAccess() {
 		return (pOutgoingPropagationCondition != null) ? pOutgoingPropagationCondition : (pOutgoingPropagationCondition = new OutgoingPropagationConditionElements());
 	}
@@ -5435,13 +5106,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getOutgoingPropagationConditionAccess().getRule();
 	}
 
-	//ErrorDetection:
-	//
-	//	(name=ID ":")? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-	//
-	//	condition=ConditionExpression? "]->" (internalDetectionPort=InternalPort | detectionReportingPort=[aadl2::Port]) "!"
-	//
-	//	errorCode=ErrorCodeValue? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorDetectionElements getErrorDetectionAccess() {
 		return (pErrorDetection != null) ? pErrorDetection : (pErrorDetection = new ErrorDetectionElements());
 	}
@@ -5450,9 +5115,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorDetectionAccess().getRule();
 	}
 
-	//ErrorCodeValue:
-	//
-	//	intValue=INTEGER_LIT | constant=[aadl2::PropertyConstant|QPREF] | enumLiteral=STRING;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorCodeValueElements getErrorCodeValueAccess() {
 		return (pErrorCodeValue != null) ? pErrorCodeValue : (pErrorCodeValue = new ErrorCodeValueElements());
 	}
@@ -5461,11 +5124,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorCodeValueAccess().getRule();
 	}
 
-	//ErrorStateToModeMapping:
-	//
-	//	errorState=[ErrorBehaviorState] "in" "modes" "(" mappedModes+=[aadl2::Mode] ("," mappedModes+=[aadl2::Mode])* ")"
-	//
-	//	";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public ErrorStateToModeMappingElements getErrorStateToModeMappingAccess() {
 		return (pErrorStateToModeMapping != null) ? pErrorStateToModeMapping : (pErrorStateToModeMapping = new ErrorStateToModeMappingElements());
 	}
@@ -5474,9 +5133,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorStateToModeMappingAccess().getRule();
 	}
 
-	//InternalPort returns aadl2::InternalEvent:
-	//
-	//	"self" "." name=ID;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public InternalPortElements getInternalPortAccess() {
 		return (pInternalPort != null) ? pInternalPort : (pInternalPort = new InternalPortElements());
 	}
@@ -5485,11 +5142,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getInternalPortAccess().getRule();
 	}
 
-	//CompositeState:
-	//
-	//	(name=ID ":")? "[" (condition=SConditionExpression | others?="others") "]->" state=[ErrorBehaviorState]
-	//
-	//	typedToken=TypeToken? ";";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public CompositeStateElements getCompositeStateAccess() {
 		return (pCompositeState != null) ? pCompositeState : (pCompositeState = new CompositeStateElements());
 	}
@@ -5498,13 +5151,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getCompositeStateAccess().getRule();
 	}
 
-	//// condition expressions for composite states
-	// // based on states only  
-	// SConditionExpression returns
-	//
-	//ConditionExpression:
-	//
-	//	SAndExpression ({SOrExpression.operands+=current} "or" operands+=SAndExpression)*;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public SConditionExpressionElements getSConditionExpressionAccess() {
 		return (pSConditionExpression != null) ? pSConditionExpression : (pSConditionExpression = new SConditionExpressionElements());
 	}
@@ -5513,9 +5160,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSConditionExpressionAccess().getRule();
 	}
 
-	//SAndExpression returns ConditionExpression:
-	//
-	//	SConditionTerm ({SAndExpression.operands+=current} "and" operands+=SConditionTerm)*;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public SAndExpressionElements getSAndExpressionAccess() {
 		return (pSAndExpression != null) ? pSAndExpression : (pSAndExpression = new SAndExpressionElements());
 	}
@@ -5524,9 +5169,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSAndExpressionAccess().getRule();
 	}
 
-	//SOrmoreExpression returns OrmoreExpression:
-	//
-	//	count=INTVALUE "ormore" "(" operands+=SConditionElement ("," operands+=SConditionElement)* ")";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public SOrmoreExpressionElements getSOrmoreExpressionAccess() {
 		return (pSOrmoreExpression != null) ? pSOrmoreExpression : (pSOrmoreExpression = new SOrmoreExpressionElements());
 	}
@@ -5535,9 +5178,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSOrmoreExpressionAccess().getRule();
 	}
 
-	//SOrlessExpression returns OrlessExpression:
-	//
-	//	count=INTVALUE "orless" "(" operands+=SConditionElement ("," operands+=SConditionElement)* ")";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public SOrlessExpressionElements getSOrlessExpressionAccess() {
 		return (pSOrlessExpression != null) ? pSOrlessExpression : (pSOrlessExpression = new SOrlessExpressionElements());
 	}
@@ -5546,9 +5187,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSOrlessExpressionAccess().getRule();
 	}
 
-	//SConditionTerm returns ConditionExpression:
-	//
-	//	SConditionElement | SOrmoreExpression | SOrlessExpression | "(" SConditionExpression ")";
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public SConditionTermElements getSConditionTermAccess() {
 		return (pSConditionTerm != null) ? pSConditionTerm : (pSConditionTerm = new SConditionTermElements());
 	}
@@ -5557,11 +5196,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSConditionTermAccess().getRule();
 	}
 
-	//SConditionElement returns ConditionElement:
-	//
-	//	(subcomponents+=SubcomponentElement ".")+ state=[ErrorBehaviorState] constraint=TypeTokenConstraint? | "in"
-	//
-	//	(incoming=[ErrorPropagation|ErrorPropagationPoint] constraint=TypeTokenConstraintNoError?);
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public SConditionElementElements getSConditionElementAccess() {
 		return (pSConditionElement != null) ? pSConditionElement : (pSConditionElement = new SConditionElementElements());
 	}
@@ -5570,9 +5205,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSConditionElementAccess().getRule();
 	}
 
-	//SubcomponentElement:
-	//
-	//	subcomponent=[aadl2::Subcomponent];
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public SubcomponentElementElements getSubcomponentElementAccess() {
 		return (pSubcomponentElement != null) ? pSubcomponentElement : (pSubcomponentElement = new SubcomponentElementElements());
 	}
@@ -5581,24 +5214,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getSubcomponentElementAccess().getRule();
 	}
 
-	//terminal SL_COMMENT:
-	//
-	//	"--" !("\n" | "\r")* ("\r"? "\n")?;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TerminalRule getSL_COMMENTRule() {
 		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
 	} 
 
-	//terminal INTEGER_LIT:
-	//
-	//	"0".."9"+;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public TerminalRule getINTEGER_LITRule() {
 		return (tINTEGER_LIT != null) ? tINTEGER_LIT : (tINTEGER_LIT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INTEGER_LIT"));
 	} 
 
-	////('.' ID )?;
-	// QEMREF:
-	//
-	//	(ID "::")* ID;
+	//org.eclipse.xtext.resource.ClasspathUriResolutionException: java.lang.IllegalStateException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/xtext/aadl2/errormodel/ErrorModel.xtext'
 	public QEMREFElements getQEMREFAccess() {
 		return (pQEMREF != null) ? pQEMREF : (pQEMREF = new QEMREFElements());
 	}
