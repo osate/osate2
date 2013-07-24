@@ -373,7 +373,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorModelSubclause"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:143:1: ruleErrorModelSubclause returns [EObject current=null] : ( () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_10= KEYWORD_10 )? (otherlv_11= KEYWORD_42 otherlv_12= KEYWORD_85 ( (lv_propagations_13_0= ruleErrorPropagation ) )* (otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+ )? otherlv_16= KEYWORD_27 otherlv_17= KEYWORD_85 otherlv_18= KEYWORD_10 )? (otherlv_19= KEYWORD_73 otherlv_20= KEYWORD_42 otherlv_21= KEYWORD_69 (otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10 )? (otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+ )? (otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+ )? otherlv_37= KEYWORD_27 otherlv_38= KEYWORD_73 otherlv_39= KEYWORD_10 )? (otherlv_40= KEYWORD_74 otherlv_41= KEYWORD_42 otherlv_42= KEYWORD_69 (otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+ )? otherlv_45= KEYWORD_27 otherlv_46= KEYWORD_74 otherlv_47= KEYWORD_10 )? (otherlv_48= KEYWORD_31 otherlv_49= KEYWORD_38 otherlv_50= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )? ) ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:143:1: ruleErrorModelSubclause returns [EObject current=null] : ( () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_38 otherlv_9= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_11= KEYWORD_10 )? (otherlv_12= KEYWORD_31 otherlv_13= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_15= KEYWORD_10 )? (otherlv_16= KEYWORD_42 otherlv_17= KEYWORD_85 ( (lv_propagations_18_0= ruleErrorPropagation ) )* (otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_85 otherlv_23= KEYWORD_10 )? (otherlv_24= KEYWORD_73 otherlv_25= KEYWORD_42 otherlv_26= KEYWORD_69 (otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10 )? (otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+ )? (otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+ )? otherlv_42= KEYWORD_27 otherlv_43= KEYWORD_73 otherlv_44= KEYWORD_10 )? (otherlv_45= KEYWORD_74 otherlv_46= KEYWORD_42 otherlv_47= KEYWORD_69 (otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+ )? otherlv_50= KEYWORD_27 otherlv_51= KEYWORD_74 otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )? ) ;
     public final EObject ruleErrorModelSubclause() throws RecognitionException {
         EObject current = null;
 
@@ -383,38 +383,38 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         Token otherlv_6=null;
         Token otherlv_7=null;
         Token otherlv_8=null;
-        Token otherlv_10=null;
+        Token otherlv_9=null;
         Token otherlv_11=null;
         Token otherlv_12=null;
-        Token otherlv_14=null;
+        Token otherlv_13=null;
+        Token otherlv_15=null;
         Token otherlv_16=null;
         Token otherlv_17=null;
-        Token otherlv_18=null;
         Token otherlv_19=null;
-        Token otherlv_20=null;
         Token otherlv_21=null;
         Token otherlv_22=null;
         Token otherlv_23=null;
+        Token otherlv_24=null;
         Token otherlv_25=null;
         Token otherlv_26=null;
+        Token otherlv_27=null;
         Token otherlv_28=null;
         Token otherlv_30=null;
-        Token otherlv_32=null;
-        Token otherlv_34=null;
+        Token otherlv_31=null;
+        Token otherlv_33=null;
         Token otherlv_35=null;
         Token otherlv_37=null;
-        Token otherlv_38=null;
         Token otherlv_39=null;
         Token otherlv_40=null;
-        Token otherlv_41=null;
         Token otherlv_42=null;
         Token otherlv_43=null;
+        Token otherlv_44=null;
         Token otherlv_45=null;
         Token otherlv_46=null;
         Token otherlv_47=null;
         Token otherlv_48=null;
-        Token otherlv_49=null;
         Token otherlv_50=null;
+        Token otherlv_51=null;
         Token otherlv_52=null;
         Token otherlv_53=null;
         Token otherlv_54=null;
@@ -432,21 +432,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         Token otherlv_70=null;
         Token otherlv_71=null;
         Token otherlv_72=null;
-        EObject lv_propagations_13_0 = null;
+        EObject lv_propagations_18_0 = null;
 
-        EObject lv_flows_15_0 = null;
+        EObject lv_flows_20_0 = null;
 
-        EObject lv_events_27_0 = null;
+        EObject lv_events_32_0 = null;
 
-        EObject lv_transitions_29_0 = null;
+        EObject lv_transitions_34_0 = null;
 
-        EObject lv_outgoingPropagationConditions_31_0 = null;
+        EObject lv_outgoingPropagationConditions_36_0 = null;
 
-        EObject lv_errorDetections_33_0 = null;
+        EObject lv_errorDetections_38_0 = null;
 
-        EObject lv_errorStateToModeMappings_36_0 = null;
+        EObject lv_errorStateToModeMappings_41_0 = null;
 
-        EObject lv_states_44_0 = null;
+        EObject lv_states_49_0 = null;
 
         EObject lv_connectionErrorSources_60_0 = null;
 
@@ -460,11 +460,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:146:28: ( ( () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_10= KEYWORD_10 )? (otherlv_11= KEYWORD_42 otherlv_12= KEYWORD_85 ( (lv_propagations_13_0= ruleErrorPropagation ) )* (otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+ )? otherlv_16= KEYWORD_27 otherlv_17= KEYWORD_85 otherlv_18= KEYWORD_10 )? (otherlv_19= KEYWORD_73 otherlv_20= KEYWORD_42 otherlv_21= KEYWORD_69 (otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10 )? (otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+ )? (otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+ )? otherlv_37= KEYWORD_27 otherlv_38= KEYWORD_73 otherlv_39= KEYWORD_10 )? (otherlv_40= KEYWORD_74 otherlv_41= KEYWORD_42 otherlv_42= KEYWORD_69 (otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+ )? otherlv_45= KEYWORD_27 otherlv_46= KEYWORD_74 otherlv_47= KEYWORD_10 )? (otherlv_48= KEYWORD_31 otherlv_49= KEYWORD_38 otherlv_50= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )? ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:147:1: ( () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_10= KEYWORD_10 )? (otherlv_11= KEYWORD_42 otherlv_12= KEYWORD_85 ( (lv_propagations_13_0= ruleErrorPropagation ) )* (otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+ )? otherlv_16= KEYWORD_27 otherlv_17= KEYWORD_85 otherlv_18= KEYWORD_10 )? (otherlv_19= KEYWORD_73 otherlv_20= KEYWORD_42 otherlv_21= KEYWORD_69 (otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10 )? (otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+ )? (otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+ )? otherlv_37= KEYWORD_27 otherlv_38= KEYWORD_73 otherlv_39= KEYWORD_10 )? (otherlv_40= KEYWORD_74 otherlv_41= KEYWORD_42 otherlv_42= KEYWORD_69 (otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+ )? otherlv_45= KEYWORD_27 otherlv_46= KEYWORD_74 otherlv_47= KEYWORD_10 )? (otherlv_48= KEYWORD_31 otherlv_49= KEYWORD_38 otherlv_50= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )? )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:146:28: ( ( () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_38 otherlv_9= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_11= KEYWORD_10 )? (otherlv_12= KEYWORD_31 otherlv_13= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_15= KEYWORD_10 )? (otherlv_16= KEYWORD_42 otherlv_17= KEYWORD_85 ( (lv_propagations_18_0= ruleErrorPropagation ) )* (otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_85 otherlv_23= KEYWORD_10 )? (otherlv_24= KEYWORD_73 otherlv_25= KEYWORD_42 otherlv_26= KEYWORD_69 (otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10 )? (otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+ )? (otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+ )? otherlv_42= KEYWORD_27 otherlv_43= KEYWORD_73 otherlv_44= KEYWORD_10 )? (otherlv_45= KEYWORD_74 otherlv_46= KEYWORD_42 otherlv_47= KEYWORD_69 (otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+ )? otherlv_50= KEYWORD_27 otherlv_51= KEYWORD_74 otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )? ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:147:1: ( () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_38 otherlv_9= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_11= KEYWORD_10 )? (otherlv_12= KEYWORD_31 otherlv_13= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_15= KEYWORD_10 )? (otherlv_16= KEYWORD_42 otherlv_17= KEYWORD_85 ( (lv_propagations_18_0= ruleErrorPropagation ) )* (otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_85 otherlv_23= KEYWORD_10 )? (otherlv_24= KEYWORD_73 otherlv_25= KEYWORD_42 otherlv_26= KEYWORD_69 (otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10 )? (otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+ )? (otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+ )? otherlv_42= KEYWORD_27 otherlv_43= KEYWORD_73 otherlv_44= KEYWORD_10 )? (otherlv_45= KEYWORD_74 otherlv_46= KEYWORD_42 otherlv_47= KEYWORD_69 (otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+ )? otherlv_50= KEYWORD_27 otherlv_51= KEYWORD_74 otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )? )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:147:1: ( () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_10= KEYWORD_10 )? (otherlv_11= KEYWORD_42 otherlv_12= KEYWORD_85 ( (lv_propagations_13_0= ruleErrorPropagation ) )* (otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+ )? otherlv_16= KEYWORD_27 otherlv_17= KEYWORD_85 otherlv_18= KEYWORD_10 )? (otherlv_19= KEYWORD_73 otherlv_20= KEYWORD_42 otherlv_21= KEYWORD_69 (otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10 )? (otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+ )? (otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+ )? otherlv_37= KEYWORD_27 otherlv_38= KEYWORD_73 otherlv_39= KEYWORD_10 )? (otherlv_40= KEYWORD_74 otherlv_41= KEYWORD_42 otherlv_42= KEYWORD_69 (otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+ )? otherlv_45= KEYWORD_27 otherlv_46= KEYWORD_74 otherlv_47= KEYWORD_10 )? (otherlv_48= KEYWORD_31 otherlv_49= KEYWORD_38 otherlv_50= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )? )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:147:2: () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_10= KEYWORD_10 )? (otherlv_11= KEYWORD_42 otherlv_12= KEYWORD_85 ( (lv_propagations_13_0= ruleErrorPropagation ) )* (otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+ )? otherlv_16= KEYWORD_27 otherlv_17= KEYWORD_85 otherlv_18= KEYWORD_10 )? (otherlv_19= KEYWORD_73 otherlv_20= KEYWORD_42 otherlv_21= KEYWORD_69 (otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10 )? (otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+ )? (otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+ )? otherlv_37= KEYWORD_27 otherlv_38= KEYWORD_73 otherlv_39= KEYWORD_10 )? (otherlv_40= KEYWORD_74 otherlv_41= KEYWORD_42 otherlv_42= KEYWORD_69 (otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+ )? otherlv_45= KEYWORD_27 otherlv_46= KEYWORD_74 otherlv_47= KEYWORD_10 )? (otherlv_48= KEYWORD_31 otherlv_49= KEYWORD_38 otherlv_50= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )?
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:147:1: ( () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_38 otherlv_9= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_11= KEYWORD_10 )? (otherlv_12= KEYWORD_31 otherlv_13= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_15= KEYWORD_10 )? (otherlv_16= KEYWORD_42 otherlv_17= KEYWORD_85 ( (lv_propagations_18_0= ruleErrorPropagation ) )* (otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_85 otherlv_23= KEYWORD_10 )? (otherlv_24= KEYWORD_73 otherlv_25= KEYWORD_42 otherlv_26= KEYWORD_69 (otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10 )? (otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+ )? (otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+ )? otherlv_42= KEYWORD_27 otherlv_43= KEYWORD_73 otherlv_44= KEYWORD_10 )? (otherlv_45= KEYWORD_74 otherlv_46= KEYWORD_42 otherlv_47= KEYWORD_69 (otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+ )? otherlv_50= KEYWORD_27 otherlv_51= KEYWORD_74 otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )? )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:147:2: () (otherlv_1= KEYWORD_31 otherlv_2= KEYWORD_50 ( ( ruleQEMREF ) ) (otherlv_4= KEYWORD_6 ( ( ruleQEMREF ) ) )* otherlv_6= KEYWORD_10 )? (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_38 otherlv_9= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_11= KEYWORD_10 )? (otherlv_12= KEYWORD_31 otherlv_13= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_15= KEYWORD_10 )? (otherlv_16= KEYWORD_42 otherlv_17= KEYWORD_85 ( (lv_propagations_18_0= ruleErrorPropagation ) )* (otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_85 otherlv_23= KEYWORD_10 )? (otherlv_24= KEYWORD_73 otherlv_25= KEYWORD_42 otherlv_26= KEYWORD_69 (otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10 )? (otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+ )? (otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+ )? otherlv_42= KEYWORD_27 otherlv_43= KEYWORD_73 otherlv_44= KEYWORD_10 )? (otherlv_45= KEYWORD_74 otherlv_46= KEYWORD_42 otherlv_47= KEYWORD_69 (otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+ )? otherlv_50= KEYWORD_27 otherlv_51= KEYWORD_74 otherlv_52= KEYWORD_10 )? (otherlv_53= KEYWORD_78 otherlv_54= KEYWORD_42 otherlv_55= KEYWORD_69 (otherlv_56= KEYWORD_31 otherlv_57= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_59= KEYWORD_10 )? ( (lv_connectionErrorSources_60_0= ruleConnectionErrorSource ) )* otherlv_61= KEYWORD_27 otherlv_62= KEYWORD_78 otherlv_63= KEYWORD_10 )? (otherlv_64= KEYWORD_83 otherlv_65= KEYWORD_47 ( (lv_points_66_0= rulePropagationPoint ) )+ (otherlv_67= KEYWORD_81 ( (lv_connections_68_0= rulePropagationPointConnection ) )+ )? otherlv_69= KEYWORD_27 otherlv_70= KEYWORD_47 otherlv_71= KEYWORD_10 )? (otherlv_72= KEYWORD_80 ( (lv_properties_73_0= ruleContainedPropertyAssociation ) )+ )?
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:147:2: ()
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:148:5: 
@@ -594,34 +594,38 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:203:3: (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_10= KEYWORD_10 )?
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:203:3: (otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_38 otherlv_9= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_11= KEYWORD_10 )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
             if ( (LA4_0==KEYWORD_31) ) {
                 int LA4_1 = input.LA(2);
 
-                if ( (LA4_1==KEYWORD_69) ) {
+                if ( (LA4_1==KEYWORD_38) ) {
                     alt4=1;
                 }
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:204:2: otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_10= KEYWORD_10
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:204:2: otherlv_7= KEYWORD_31 otherlv_8= KEYWORD_38 otherlv_9= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_11= KEYWORD_10
                     {
                     otherlv_7=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause367); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_2_0());
                         
-                    otherlv_8=(Token)match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause379); 
+                    otherlv_8=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleErrorModelSubclause379); 
 
-                        	newLeafNode(otherlv_8, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_2_1());
+                        	newLeafNode(otherlv_8, grammarAccess.getErrorModelSubclauseAccess().getTypeKeyword_2_1());
                         
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:213:1: ( ( ruleQEMREF ) )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:214:1: ( ruleQEMREF )
+                    otherlv_9=(Token)match(input,KEYWORD_82,FollowSets000.FOLLOW_KEYWORD_82_in_ruleErrorModelSubclause391); 
+
+                        	newLeafNode(otherlv_9, grammarAccess.getErrorModelSubclauseAccess().getEquivalenceKeyword_2_2());
+                        
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:218:1: ( ( ruleQEMREF ) )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:219:1: ( ruleQEMREF )
                     {
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:214:1: ( ruleQEMREF )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:215:3: ruleQEMREF
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:219:1: ( ruleQEMREF )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:220:3: ruleQEMREF
                     {
 
                     			if (current==null) {
@@ -629,9 +633,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	        }
                             
                      
-                    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineCrossReference_2_2_0()); 
+                    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetCrossReference_2_3_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause401);
+                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause413);
                     ruleQEMREF();
 
                     state._fsp--;
@@ -645,9 +649,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_10=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause414); 
+                    otherlv_11=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause426); 
 
-                        	newLeafNode(otherlv_10, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_2_3());
+                        	newLeafNode(otherlv_11, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_2_4());
                         
 
                     }
@@ -655,48 +659,105 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:233:3: (otherlv_11= KEYWORD_42 otherlv_12= KEYWORD_85 ( (lv_propagations_13_0= ruleErrorPropagation ) )* (otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+ )? otherlv_16= KEYWORD_27 otherlv_17= KEYWORD_85 otherlv_18= KEYWORD_10 )?
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:238:3: (otherlv_12= KEYWORD_31 otherlv_13= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_15= KEYWORD_10 )?
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-            if ( (LA8_0==KEYWORD_42) ) {
-                alt8=1;
+            if ( (LA5_0==KEYWORD_31) ) {
+                alt5=1;
             }
-            switch (alt8) {
+            switch (alt5) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:234:2: otherlv_11= KEYWORD_42 otherlv_12= KEYWORD_85 ( (lv_propagations_13_0= ruleErrorPropagation ) )* (otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+ )? otherlv_16= KEYWORD_27 otherlv_17= KEYWORD_85 otherlv_18= KEYWORD_10
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:239:2: otherlv_12= KEYWORD_31 otherlv_13= KEYWORD_69 ( ( ruleQEMREF ) ) otherlv_15= KEYWORD_10
                     {
-                    otherlv_11=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause429); 
+                    otherlv_12=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause441); 
 
-                        	newLeafNode(otherlv_11, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_3_0());
+                        	newLeafNode(otherlv_12, grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_3_0());
                         
-                    otherlv_12=(Token)match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause441); 
+                    otherlv_13=(Token)match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause453); 
 
-                        	newLeafNode(otherlv_12, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_3_1());
+                        	newLeafNode(otherlv_13, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_3_1());
                         
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:243:1: ( (lv_propagations_13_0= ruleErrorPropagation ) )*
-                    loop5:
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:248:1: ( ( ruleQEMREF ) )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:249:1: ( ruleQEMREF )
+                    {
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:249:1: ( ruleQEMREF )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:250:3: ruleQEMREF
+                    {
+
+                    			if (current==null) {
+                    	            current = createModelElement(grammarAccess.getErrorModelSubclauseRule());
+                    	        }
+                            
+                     
+                    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineCrossReference_3_2_0()); 
+                    	    
+                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause475);
+                    ruleQEMREF();
+
+                    state._fsp--;
+
+                     
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+                    otherlv_15=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause488); 
+
+                        	newLeafNode(otherlv_15, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_3_3());
+                        
+
+                    }
+                    break;
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:268:3: (otherlv_16= KEYWORD_42 otherlv_17= KEYWORD_85 ( (lv_propagations_18_0= ruleErrorPropagation ) )* (otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_85 otherlv_23= KEYWORD_10 )?
+            int alt9=2;
+            int LA9_0 = input.LA(1);
+
+            if ( (LA9_0==KEYWORD_42) ) {
+                alt9=1;
+            }
+            switch (alt9) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:269:2: otherlv_16= KEYWORD_42 otherlv_17= KEYWORD_85 ( (lv_propagations_18_0= ruleErrorPropagation ) )* (otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+ )? otherlv_21= KEYWORD_27 otherlv_22= KEYWORD_85 otherlv_23= KEYWORD_10
+                    {
+                    otherlv_16=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause503); 
+
+                        	newLeafNode(otherlv_16, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_4_0());
+                        
+                    otherlv_17=(Token)match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause515); 
+
+                        	newLeafNode(otherlv_17, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_1());
+                        
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:278:1: ( (lv_propagations_18_0= ruleErrorPropagation ) )*
+                    loop6:
                     do {
-                        int alt5=2;
-                        int LA5_0 = input.LA(1);
+                        int alt6=2;
+                        int LA6_0 = input.LA(1);
 
-                        if ( (LA5_0==KEYWORD_78||LA5_0==KEYWORD_75||LA5_0==KEYWORD_70||LA5_0==KEYWORD_51||LA5_0==KEYWORD_53||LA5_0==RULE_ID) ) {
-                            alt5=1;
+                        if ( (LA6_0==KEYWORD_78||LA6_0==KEYWORD_75||LA6_0==KEYWORD_70||LA6_0==KEYWORD_51||LA6_0==KEYWORD_53||LA6_0==RULE_ID) ) {
+                            alt6=1;
                         }
 
 
-                        switch (alt5) {
+                        switch (alt6) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:244:1: (lv_propagations_13_0= ruleErrorPropagation )
+                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:279:1: (lv_propagations_18_0= ruleErrorPropagation )
                     	    {
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:244:1: (lv_propagations_13_0= ruleErrorPropagation )
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:245:3: lv_propagations_13_0= ruleErrorPropagation
+                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:279:1: (lv_propagations_18_0= ruleErrorPropagation )
+                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:280:3: lv_propagations_18_0= ruleErrorPropagation
                     	    {
                     	     
-                    	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getPropagationsErrorPropagationParserRuleCall_3_2_0()); 
+                    	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getPropagationsErrorPropagationParserRuleCall_4_2_0()); 
                     	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagation_in_ruleErrorModelSubclause461);
-                    	    lv_propagations_13_0=ruleErrorPropagation();
+                    	    pushFollow(FollowSets000.FOLLOW_ruleErrorPropagation_in_ruleErrorModelSubclause535);
+                    	    lv_propagations_18_0=ruleErrorPropagation();
 
                     	    state._fsp--;
 
@@ -707,7 +768,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	           		add(
                     	           			current, 
                     	           			"propagations",
-                    	            		lv_propagations_13_0, 
+                    	            		lv_propagations_18_0, 
                     	            		"ErrorPropagation");
                     	    	        afterParserOrEnumRuleCall();
                     	    	    
@@ -719,49 +780,49 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop5;
+                    	    break loop6;
                         }
                     } while (true);
 
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:261:3: (otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+ )?
-                    int alt7=2;
-                    int LA7_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:296:3: (otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+ )?
+                    int alt8=2;
+                    int LA8_0 = input.LA(1);
 
-                    if ( (LA7_0==KEYWORD_45) ) {
-                        alt7=1;
+                    if ( (LA8_0==KEYWORD_45) ) {
+                        alt8=1;
                     }
-                    switch (alt7) {
+                    switch (alt8) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:262:2: otherlv_14= KEYWORD_45 ( (lv_flows_15_0= ruleErrorFlow ) )+
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:297:2: otherlv_19= KEYWORD_45 ( (lv_flows_20_0= ruleErrorFlow ) )+
                             {
-                            otherlv_14=(Token)match(input,KEYWORD_45,FollowSets000.FOLLOW_KEYWORD_45_in_ruleErrorModelSubclause476); 
+                            otherlv_19=(Token)match(input,KEYWORD_45,FollowSets000.FOLLOW_KEYWORD_45_in_ruleErrorModelSubclause550); 
 
-                                	newLeafNode(otherlv_14, grammarAccess.getErrorModelSubclauseAccess().getFlowsKeyword_3_3_0());
+                                	newLeafNode(otherlv_19, grammarAccess.getErrorModelSubclauseAccess().getFlowsKeyword_4_3_0());
                                 
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:266:1: ( (lv_flows_15_0= ruleErrorFlow ) )+
-                            int cnt6=0;
-                            loop6:
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:301:1: ( (lv_flows_20_0= ruleErrorFlow ) )+
+                            int cnt7=0;
+                            loop7:
                             do {
-                                int alt6=2;
-                                int LA6_0 = input.LA(1);
+                                int alt7=2;
+                                int LA7_0 = input.LA(1);
 
-                                if ( (LA6_0==RULE_ID) ) {
-                                    alt6=1;
+                                if ( (LA7_0==RULE_ID) ) {
+                                    alt7=1;
                                 }
 
 
-                                switch (alt6) {
+                                switch (alt7) {
                             	case 1 :
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:267:1: (lv_flows_15_0= ruleErrorFlow )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:302:1: (lv_flows_20_0= ruleErrorFlow )
                             	    {
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:267:1: (lv_flows_15_0= ruleErrorFlow )
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:268:3: lv_flows_15_0= ruleErrorFlow
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:302:1: (lv_flows_20_0= ruleErrorFlow )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:303:3: lv_flows_20_0= ruleErrorFlow
                             	    {
                             	     
-                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getFlowsErrorFlowParserRuleCall_3_3_1_0()); 
+                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getFlowsErrorFlowParserRuleCall_4_3_1_0()); 
                             	    	    
-                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorFlow_in_ruleErrorModelSubclause496);
-                            	    lv_flows_15_0=ruleErrorFlow();
+                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorFlow_in_ruleErrorModelSubclause570);
+                            	    lv_flows_20_0=ruleErrorFlow();
 
                             	    state._fsp--;
 
@@ -772,7 +833,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	           		add(
                             	           			current, 
                             	           			"flows",
-                            	            		lv_flows_15_0, 
+                            	            		lv_flows_20_0, 
                             	            		"ErrorFlow");
                             	    	        afterParserOrEnumRuleCall();
                             	    	    
@@ -784,12 +845,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt6 >= 1 ) break loop6;
+                            	    if ( cnt7 >= 1 ) break loop7;
                                         EarlyExitException eee =
-                                            new EarlyExitException(6, input);
+                                            new EarlyExitException(7, input);
                                         throw eee;
                                 }
-                                cnt6++;
+                                cnt7++;
                             } while (true);
 
 
@@ -798,17 +859,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_16=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause512); 
+                    otherlv_21=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause586); 
 
-                        	newLeafNode(otherlv_16, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_3_4());
+                        	newLeafNode(otherlv_21, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_4_4());
                         
-                    otherlv_17=(Token)match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause524); 
+                    otherlv_22=(Token)match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause598); 
 
-                        	newLeafNode(otherlv_17, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_3_5());
+                        	newLeafNode(otherlv_22, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_5());
                         
-                    otherlv_18=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause536); 
+                    otherlv_23=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause610); 
 
-                        	newLeafNode(otherlv_18, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_3_6());
+                        	newLeafNode(otherlv_23, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_6());
                         
 
                     }
@@ -816,53 +877,53 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:299:3: (otherlv_19= KEYWORD_73 otherlv_20= KEYWORD_42 otherlv_21= KEYWORD_69 (otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10 )? (otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+ )? (otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+ )? otherlv_37= KEYWORD_27 otherlv_38= KEYWORD_73 otherlv_39= KEYWORD_10 )?
-            int alt20=2;
-            int LA20_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:334:3: (otherlv_24= KEYWORD_73 otherlv_25= KEYWORD_42 otherlv_26= KEYWORD_69 (otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10 )? (otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+ )? (otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+ )? otherlv_42= KEYWORD_27 otherlv_43= KEYWORD_73 otherlv_44= KEYWORD_10 )?
+            int alt21=2;
+            int LA21_0 = input.LA(1);
 
-            if ( (LA20_0==KEYWORD_73) ) {
-                alt20=1;
+            if ( (LA21_0==KEYWORD_73) ) {
+                alt21=1;
             }
-            switch (alt20) {
+            switch (alt21) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:300:2: otherlv_19= KEYWORD_73 otherlv_20= KEYWORD_42 otherlv_21= KEYWORD_69 (otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10 )? (otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+ )? (otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+ )? otherlv_37= KEYWORD_27 otherlv_38= KEYWORD_73 otherlv_39= KEYWORD_10
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:335:2: otherlv_24= KEYWORD_73 otherlv_25= KEYWORD_42 otherlv_26= KEYWORD_69 (otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10 )? (otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+ )? (otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+ )? (otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+ )? (otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+ )? (otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+ )? otherlv_42= KEYWORD_27 otherlv_43= KEYWORD_73 otherlv_44= KEYWORD_10
                     {
-                    otherlv_19=(Token)match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_ruleErrorModelSubclause551); 
+                    otherlv_24=(Token)match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_ruleErrorModelSubclause625); 
 
-                        	newLeafNode(otherlv_19, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_4_0());
+                        	newLeafNode(otherlv_24, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_5_0());
                         
-                    otherlv_20=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause563); 
+                    otherlv_25=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause637); 
 
-                        	newLeafNode(otherlv_20, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_4_1());
+                        	newLeafNode(otherlv_25, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_5_1());
                         
-                    otherlv_21=(Token)match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause575); 
+                    otherlv_26=(Token)match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause649); 
 
-                        	newLeafNode(otherlv_21, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_4_2());
+                        	newLeafNode(otherlv_26, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_5_2());
                         
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:314:1: (otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10 )?
-                    int alt9=2;
-                    int LA9_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:349:1: (otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10 )?
+                    int alt10=2;
+                    int LA10_0 = input.LA(1);
 
-                    if ( (LA9_0==KEYWORD_31) ) {
-                        alt9=1;
+                    if ( (LA10_0==KEYWORD_31) ) {
+                        alt10=1;
                     }
-                    switch (alt9) {
+                    switch (alt10) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:315:2: otherlv_22= KEYWORD_31 otherlv_23= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_25= KEYWORD_10
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:350:2: otherlv_27= KEYWORD_31 otherlv_28= KEYWORD_86 ( ( ruleQEMREF ) ) otherlv_30= KEYWORD_10
                             {
-                            otherlv_22=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause588); 
+                            otherlv_27=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause662); 
 
-                                	newLeafNode(otherlv_22, grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_4_3_0());
+                                	newLeafNode(otherlv_27, grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_5_3_0());
                                 
-                            otherlv_23=(Token)match(input,KEYWORD_86,FollowSets000.FOLLOW_KEYWORD_86_in_ruleErrorModelSubclause600); 
+                            otherlv_28=(Token)match(input,KEYWORD_86,FollowSets000.FOLLOW_KEYWORD_86_in_ruleErrorModelSubclause674); 
 
-                                	newLeafNode(otherlv_23, grammarAccess.getErrorModelSubclauseAccess().getTransformationsKeyword_4_3_1());
+                                	newLeafNode(otherlv_28, grammarAccess.getErrorModelSubclauseAccess().getTransformationsKeyword_5_3_1());
                                 
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:324:1: ( ( ruleQEMREF ) )
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:325:1: ( ruleQEMREF )
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:359:1: ( ( ruleQEMREF ) )
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:360:1: ( ruleQEMREF )
                             {
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:325:1: ( ruleQEMREF )
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:326:3: ruleQEMREF
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:360:1: ( ruleQEMREF )
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:361:3: ruleQEMREF
                             {
 
                             			if (current==null) {
@@ -870,9 +931,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	        }
                                     
                              
-                            	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetCrossReference_4_3_2_0()); 
+                            	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetCrossReference_5_3_2_0()); 
                             	    
-                            pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause622);
+                            pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause696);
                             ruleQEMREF();
 
                             state._fsp--;
@@ -886,9 +947,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_25=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause635); 
+                            otherlv_30=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause709); 
 
-                                	newLeafNode(otherlv_25, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_3_3());
+                                	newLeafNode(otherlv_30, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_3_3());
                                 
 
                             }
@@ -896,45 +957,45 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:344:3: (otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+ )?
-                    int alt11=2;
-                    int LA11_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:379:3: (otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+ )?
+                    int alt12=2;
+                    int LA12_0 = input.LA(1);
 
-                    if ( (LA11_0==KEYWORD_52) ) {
-                        alt11=1;
+                    if ( (LA12_0==KEYWORD_52) ) {
+                        alt12=1;
                     }
-                    switch (alt11) {
+                    switch (alt12) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:345:2: otherlv_26= KEYWORD_52 ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:380:2: otherlv_31= KEYWORD_52 ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+
                             {
-                            otherlv_26=(Token)match(input,KEYWORD_52,FollowSets000.FOLLOW_KEYWORD_52_in_ruleErrorModelSubclause650); 
+                            otherlv_31=(Token)match(input,KEYWORD_52,FollowSets000.FOLLOW_KEYWORD_52_in_ruleErrorModelSubclause724); 
 
-                                	newLeafNode(otherlv_26, grammarAccess.getErrorModelSubclauseAccess().getEventsKeyword_4_4_0());
+                                	newLeafNode(otherlv_31, grammarAccess.getErrorModelSubclauseAccess().getEventsKeyword_5_4_0());
                                 
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:349:1: ( (lv_events_27_0= ruleErrorBehaviorEvent ) )+
-                            int cnt10=0;
-                            loop10:
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:384:1: ( (lv_events_32_0= ruleErrorBehaviorEvent ) )+
+                            int cnt11=0;
+                            loop11:
                             do {
-                                int alt10=2;
-                                int LA10_0 = input.LA(1);
+                                int alt11=2;
+                                int LA11_0 = input.LA(1);
 
-                                if ( (LA10_0==RULE_ID) ) {
-                                    alt10=1;
+                                if ( (LA11_0==RULE_ID) ) {
+                                    alt11=1;
                                 }
 
 
-                                switch (alt10) {
+                                switch (alt11) {
                             	case 1 :
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:350:1: (lv_events_27_0= ruleErrorBehaviorEvent )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:385:1: (lv_events_32_0= ruleErrorBehaviorEvent )
                             	    {
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:350:1: (lv_events_27_0= ruleErrorBehaviorEvent )
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:351:3: lv_events_27_0= ruleErrorBehaviorEvent
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:385:1: (lv_events_32_0= ruleErrorBehaviorEvent )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:386:3: lv_events_32_0= ruleErrorBehaviorEvent
                             	    {
                             	     
-                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getEventsErrorBehaviorEventParserRuleCall_4_4_1_0()); 
+                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getEventsErrorBehaviorEventParserRuleCall_5_4_1_0()); 
                             	    	    
-                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_ruleErrorModelSubclause670);
-                            	    lv_events_27_0=ruleErrorBehaviorEvent();
+                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorEvent_in_ruleErrorModelSubclause744);
+                            	    lv_events_32_0=ruleErrorBehaviorEvent();
 
                             	    state._fsp--;
 
@@ -945,7 +1006,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	           		add(
                             	           			current, 
                             	           			"events",
-                            	            		lv_events_27_0, 
+                            	            		lv_events_32_0, 
                             	            		"ErrorBehaviorEvent");
                             	    	        afterParserOrEnumRuleCall();
                             	    	    
@@ -957,12 +1018,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt10 >= 1 ) break loop10;
+                            	    if ( cnt11 >= 1 ) break loop11;
                                         EarlyExitException eee =
-                                            new EarlyExitException(10, input);
+                                            new EarlyExitException(11, input);
                                         throw eee;
                                 }
-                                cnt10++;
+                                cnt11++;
                             } while (true);
 
 
@@ -971,45 +1032,45 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:367:5: (otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+ )?
-                    int alt13=2;
-                    int LA13_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:402:5: (otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+ )?
+                    int alt14=2;
+                    int LA14_0 = input.LA(1);
 
-                    if ( (LA13_0==KEYWORD_84) ) {
-                        alt13=1;
+                    if ( (LA14_0==KEYWORD_84) ) {
+                        alt14=1;
                     }
-                    switch (alt13) {
+                    switch (alt14) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:368:2: otherlv_28= KEYWORD_84 ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:403:2: otherlv_33= KEYWORD_84 ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+
                             {
-                            otherlv_28=(Token)match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_ruleErrorModelSubclause687); 
+                            otherlv_33=(Token)match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_ruleErrorModelSubclause761); 
 
-                                	newLeafNode(otherlv_28, grammarAccess.getErrorModelSubclauseAccess().getTransitionsKeyword_4_5_0());
+                                	newLeafNode(otherlv_33, grammarAccess.getErrorModelSubclauseAccess().getTransitionsKeyword_5_5_0());
                                 
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:372:1: ( (lv_transitions_29_0= ruleErrorBehaviorTransition ) )+
-                            int cnt12=0;
-                            loop12:
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:407:1: ( (lv_transitions_34_0= ruleErrorBehaviorTransition ) )+
+                            int cnt13=0;
+                            loop13:
                             do {
-                                int alt12=2;
-                                int LA12_0 = input.LA(1);
+                                int alt13=2;
+                                int LA13_0 = input.LA(1);
 
-                                if ( (LA12_0==KEYWORD_25||LA12_0==RULE_ID) ) {
-                                    alt12=1;
+                                if ( (LA13_0==KEYWORD_25||LA13_0==RULE_ID) ) {
+                                    alt13=1;
                                 }
 
 
-                                switch (alt12) {
+                                switch (alt13) {
                             	case 1 :
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:373:1: (lv_transitions_29_0= ruleErrorBehaviorTransition )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:408:1: (lv_transitions_34_0= ruleErrorBehaviorTransition )
                             	    {
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:373:1: (lv_transitions_29_0= ruleErrorBehaviorTransition )
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:374:3: lv_transitions_29_0= ruleErrorBehaviorTransition
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:408:1: (lv_transitions_34_0= ruleErrorBehaviorTransition )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:409:3: lv_transitions_34_0= ruleErrorBehaviorTransition
                             	    {
                             	     
-                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_4_5_1_0()); 
+                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_5_5_1_0()); 
                             	    	    
-                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorTransition_in_ruleErrorModelSubclause707);
-                            	    lv_transitions_29_0=ruleErrorBehaviorTransition();
+                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorBehaviorTransition_in_ruleErrorModelSubclause781);
+                            	    lv_transitions_34_0=ruleErrorBehaviorTransition();
 
                             	    state._fsp--;
 
@@ -1020,7 +1081,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	           		add(
                             	           			current, 
                             	           			"transitions",
-                            	            		lv_transitions_29_0, 
+                            	            		lv_transitions_34_0, 
                             	            		"ErrorBehaviorTransition");
                             	    	        afterParserOrEnumRuleCall();
                             	    	    
@@ -1032,12 +1093,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt12 >= 1 ) break loop12;
+                            	    if ( cnt13 >= 1 ) break loop13;
                                         EarlyExitException eee =
-                                            new EarlyExitException(12, input);
+                                            new EarlyExitException(13, input);
                                         throw eee;
                                 }
-                                cnt12++;
+                                cnt13++;
                             } while (true);
 
 
@@ -1046,45 +1107,45 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:390:5: (otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+ )?
-                    int alt15=2;
-                    int LA15_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:425:5: (otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+ )?
+                    int alt16=2;
+                    int LA16_0 = input.LA(1);
 
-                    if ( (LA15_0==KEYWORD_85) ) {
-                        alt15=1;
+                    if ( (LA16_0==KEYWORD_85) ) {
+                        alt16=1;
                     }
-                    switch (alt15) {
+                    switch (alt16) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:391:2: otherlv_30= KEYWORD_85 ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:426:2: otherlv_35= KEYWORD_85 ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+
                             {
-                            otherlv_30=(Token)match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause724); 
+                            otherlv_35=(Token)match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause798); 
 
-                                	newLeafNode(otherlv_30, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_6_0());
+                                	newLeafNode(otherlv_35, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_5_6_0());
                                 
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:395:1: ( (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition ) )+
-                            int cnt14=0;
-                            loop14:
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:430:1: ( (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition ) )+
+                            int cnt15=0;
+                            loop15:
                             do {
-                                int alt14=2;
-                                int LA14_0 = input.LA(1);
+                                int alt15=2;
+                                int LA15_0 = input.LA(1);
 
-                                if ( (LA14_0==KEYWORD_25||LA14_0==RULE_ID) ) {
-                                    alt14=1;
+                                if ( (LA15_0==KEYWORD_25||LA15_0==RULE_ID) ) {
+                                    alt15=1;
                                 }
 
 
-                                switch (alt14) {
+                                switch (alt15) {
                             	case 1 :
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:396:1: (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:431:1: (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition )
                             	    {
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:396:1: (lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition )
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:397:3: lv_outgoingPropagationConditions_31_0= ruleOutgoingPropagationCondition
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:431:1: (lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:432:3: lv_outgoingPropagationConditions_36_0= ruleOutgoingPropagationCondition
                             	    {
                             	     
-                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsOutgoingPropagationConditionParserRuleCall_4_6_1_0()); 
+                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsOutgoingPropagationConditionParserRuleCall_5_6_1_0()); 
                             	    	    
-                            	    pushFollow(FollowSets000.FOLLOW_ruleOutgoingPropagationCondition_in_ruleErrorModelSubclause744);
-                            	    lv_outgoingPropagationConditions_31_0=ruleOutgoingPropagationCondition();
+                            	    pushFollow(FollowSets000.FOLLOW_ruleOutgoingPropagationCondition_in_ruleErrorModelSubclause818);
+                            	    lv_outgoingPropagationConditions_36_0=ruleOutgoingPropagationCondition();
 
                             	    state._fsp--;
 
@@ -1095,7 +1156,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	           		add(
                             	           			current, 
                             	           			"outgoingPropagationConditions",
-                            	            		lv_outgoingPropagationConditions_31_0, 
+                            	            		lv_outgoingPropagationConditions_36_0, 
                             	            		"OutgoingPropagationCondition");
                             	    	        afterParserOrEnumRuleCall();
                             	    	    
@@ -1107,12 +1168,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt14 >= 1 ) break loop14;
+                            	    if ( cnt15 >= 1 ) break loop15;
                                         EarlyExitException eee =
-                                            new EarlyExitException(14, input);
+                                            new EarlyExitException(15, input);
                                         throw eee;
                                 }
-                                cnt14++;
+                                cnt15++;
                             } while (true);
 
 
@@ -1121,45 +1182,45 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:413:5: (otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+ )?
-                    int alt17=2;
-                    int LA17_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:448:5: (otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+ )?
+                    int alt18=2;
+                    int LA18_0 = input.LA(1);
 
-                    if ( (LA17_0==KEYWORD_79) ) {
-                        alt17=1;
+                    if ( (LA18_0==KEYWORD_79) ) {
+                        alt18=1;
                     }
-                    switch (alt17) {
+                    switch (alt18) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:414:2: otherlv_32= KEYWORD_79 ( (lv_errorDetections_33_0= ruleErrorDetection ) )+
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:449:2: otherlv_37= KEYWORD_79 ( (lv_errorDetections_38_0= ruleErrorDetection ) )+
                             {
-                            otherlv_32=(Token)match(input,KEYWORD_79,FollowSets000.FOLLOW_KEYWORD_79_in_ruleErrorModelSubclause761); 
+                            otherlv_37=(Token)match(input,KEYWORD_79,FollowSets000.FOLLOW_KEYWORD_79_in_ruleErrorModelSubclause835); 
 
-                                	newLeafNode(otherlv_32, grammarAccess.getErrorModelSubclauseAccess().getDetectionsKeyword_4_7_0());
+                                	newLeafNode(otherlv_37, grammarAccess.getErrorModelSubclauseAccess().getDetectionsKeyword_5_7_0());
                                 
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:418:1: ( (lv_errorDetections_33_0= ruleErrorDetection ) )+
-                            int cnt16=0;
-                            loop16:
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:453:1: ( (lv_errorDetections_38_0= ruleErrorDetection ) )+
+                            int cnt17=0;
+                            loop17:
                             do {
-                                int alt16=2;
-                                int LA16_0 = input.LA(1);
+                                int alt17=2;
+                                int LA17_0 = input.LA(1);
 
-                                if ( (LA16_0==KEYWORD_25||LA16_0==RULE_ID) ) {
-                                    alt16=1;
+                                if ( (LA17_0==KEYWORD_25||LA17_0==RULE_ID) ) {
+                                    alt17=1;
                                 }
 
 
-                                switch (alt16) {
+                                switch (alt17) {
                             	case 1 :
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:419:1: (lv_errorDetections_33_0= ruleErrorDetection )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:454:1: (lv_errorDetections_38_0= ruleErrorDetection )
                             	    {
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:419:1: (lv_errorDetections_33_0= ruleErrorDetection )
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:420:3: lv_errorDetections_33_0= ruleErrorDetection
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:454:1: (lv_errorDetections_38_0= ruleErrorDetection )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:455:3: lv_errorDetections_38_0= ruleErrorDetection
                             	    {
                             	     
-                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsErrorDetectionParserRuleCall_4_7_1_0()); 
+                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsErrorDetectionParserRuleCall_5_7_1_0()); 
                             	    	    
-                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorDetection_in_ruleErrorModelSubclause781);
-                            	    lv_errorDetections_33_0=ruleErrorDetection();
+                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorDetection_in_ruleErrorModelSubclause855);
+                            	    lv_errorDetections_38_0=ruleErrorDetection();
 
                             	    state._fsp--;
 
@@ -1170,7 +1231,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	           		add(
                             	           			current, 
                             	           			"errorDetections",
-                            	            		lv_errorDetections_33_0, 
+                            	            		lv_errorDetections_38_0, 
                             	            		"ErrorDetection");
                             	    	        afterParserOrEnumRuleCall();
                             	    	    
@@ -1182,12 +1243,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt16 >= 1 ) break loop16;
+                            	    if ( cnt17 >= 1 ) break loop17;
                                         EarlyExitException eee =
-                                            new EarlyExitException(16, input);
+                                            new EarlyExitException(17, input);
                                         throw eee;
                                 }
-                                cnt16++;
+                                cnt17++;
                             } while (true);
 
 
@@ -1196,49 +1257,49 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:436:5: (otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+ )?
-                    int alt19=2;
-                    int LA19_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:471:5: (otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+ )?
+                    int alt20=2;
+                    int LA20_0 = input.LA(1);
 
-                    if ( (LA19_0==KEYWORD_32) ) {
-                        alt19=1;
+                    if ( (LA20_0==KEYWORD_32) ) {
+                        alt20=1;
                     }
-                    switch (alt19) {
+                    switch (alt20) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:437:2: otherlv_34= KEYWORD_32 otherlv_35= KEYWORD_72 ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:472:2: otherlv_39= KEYWORD_32 otherlv_40= KEYWORD_72 ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+
                             {
-                            otherlv_34=(Token)match(input,KEYWORD_32,FollowSets000.FOLLOW_KEYWORD_32_in_ruleErrorModelSubclause798); 
+                            otherlv_39=(Token)match(input,KEYWORD_32,FollowSets000.FOLLOW_KEYWORD_32_in_ruleErrorModelSubclause872); 
 
-                                	newLeafNode(otherlv_34, grammarAccess.getErrorModelSubclauseAccess().getModeKeyword_4_8_0());
+                                	newLeafNode(otherlv_39, grammarAccess.getErrorModelSubclauseAccess().getModeKeyword_5_8_0());
                                 
-                            otherlv_35=(Token)match(input,KEYWORD_72,FollowSets000.FOLLOW_KEYWORD_72_in_ruleErrorModelSubclause810); 
+                            otherlv_40=(Token)match(input,KEYWORD_72,FollowSets000.FOLLOW_KEYWORD_72_in_ruleErrorModelSubclause884); 
 
-                                	newLeafNode(otherlv_35, grammarAccess.getErrorModelSubclauseAccess().getMappingsKeyword_4_8_1());
+                                	newLeafNode(otherlv_40, grammarAccess.getErrorModelSubclauseAccess().getMappingsKeyword_5_8_1());
                                 
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:446:1: ( (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping ) )+
-                            int cnt18=0;
-                            loop18:
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:481:1: ( (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping ) )+
+                            int cnt19=0;
+                            loop19:
                             do {
-                                int alt18=2;
-                                int LA18_0 = input.LA(1);
+                                int alt19=2;
+                                int LA19_0 = input.LA(1);
 
-                                if ( (LA18_0==RULE_ID) ) {
-                                    alt18=1;
+                                if ( (LA19_0==RULE_ID) ) {
+                                    alt19=1;
                                 }
 
 
-                                switch (alt18) {
+                                switch (alt19) {
                             	case 1 :
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:447:1: (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:482:1: (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping )
                             	    {
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:447:1: (lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping )
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:448:3: lv_errorStateToModeMappings_36_0= ruleErrorStateToModeMapping
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:482:1: (lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:483:3: lv_errorStateToModeMappings_41_0= ruleErrorStateToModeMapping
                             	    {
                             	     
-                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsErrorStateToModeMappingParserRuleCall_4_8_2_0()); 
+                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsErrorStateToModeMappingParserRuleCall_5_8_2_0()); 
                             	    	    
-                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorStateToModeMapping_in_ruleErrorModelSubclause830);
-                            	    lv_errorStateToModeMappings_36_0=ruleErrorStateToModeMapping();
+                            	    pushFollow(FollowSets000.FOLLOW_ruleErrorStateToModeMapping_in_ruleErrorModelSubclause904);
+                            	    lv_errorStateToModeMappings_41_0=ruleErrorStateToModeMapping();
 
                             	    state._fsp--;
 
@@ -1249,7 +1310,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	           		add(
                             	           			current, 
                             	           			"errorStateToModeMappings",
-                            	            		lv_errorStateToModeMappings_36_0, 
+                            	            		lv_errorStateToModeMappings_41_0, 
                             	            		"ErrorStateToModeMapping");
                             	    	        afterParserOrEnumRuleCall();
                             	    	    
@@ -1261,12 +1322,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt18 >= 1 ) break loop18;
+                            	    if ( cnt19 >= 1 ) break loop19;
                                         EarlyExitException eee =
-                                            new EarlyExitException(18, input);
+                                            new EarlyExitException(19, input);
                                         throw eee;
                                 }
-                                cnt18++;
+                                cnt19++;
                             } while (true);
 
 
@@ -1275,17 +1336,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_37=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause846); 
+                    otherlv_42=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause920); 
 
-                        	newLeafNode(otherlv_37, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_4_9());
+                        	newLeafNode(otherlv_42, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_5_9());
                         
-                    otherlv_38=(Token)match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_ruleErrorModelSubclause858); 
+                    otherlv_43=(Token)match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_ruleErrorModelSubclause932); 
 
-                        	newLeafNode(otherlv_38, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_4_10());
+                        	newLeafNode(otherlv_43, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_5_10());
                         
-                    otherlv_39=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause870); 
+                    otherlv_44=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause944); 
 
-                        	newLeafNode(otherlv_39, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_11());
+                        	newLeafNode(otherlv_44, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_11());
                         
 
                     }
@@ -1293,68 +1354,68 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:479:3: (otherlv_40= KEYWORD_74 otherlv_41= KEYWORD_42 otherlv_42= KEYWORD_69 (otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+ )? otherlv_45= KEYWORD_27 otherlv_46= KEYWORD_74 otherlv_47= KEYWORD_10 )?
-            int alt23=2;
-            int LA23_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:514:3: (otherlv_45= KEYWORD_74 otherlv_46= KEYWORD_42 otherlv_47= KEYWORD_69 (otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+ )? otherlv_50= KEYWORD_27 otherlv_51= KEYWORD_74 otherlv_52= KEYWORD_10 )?
+            int alt24=2;
+            int LA24_0 = input.LA(1);
 
-            if ( (LA23_0==KEYWORD_74) ) {
-                alt23=1;
+            if ( (LA24_0==KEYWORD_74) ) {
+                alt24=1;
             }
-            switch (alt23) {
+            switch (alt24) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:480:2: otherlv_40= KEYWORD_74 otherlv_41= KEYWORD_42 otherlv_42= KEYWORD_69 (otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+ )? otherlv_45= KEYWORD_27 otherlv_46= KEYWORD_74 otherlv_47= KEYWORD_10
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:515:2: otherlv_45= KEYWORD_74 otherlv_46= KEYWORD_42 otherlv_47= KEYWORD_69 (otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+ )? otherlv_50= KEYWORD_27 otherlv_51= KEYWORD_74 otherlv_52= KEYWORD_10
                     {
-                    otherlv_40=(Token)match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_ruleErrorModelSubclause885); 
+                    otherlv_45=(Token)match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_ruleErrorModelSubclause959); 
 
-                        	newLeafNode(otherlv_40, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_5_0());
+                        	newLeafNode(otherlv_45, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_6_0());
                         
-                    otherlv_41=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause897); 
+                    otherlv_46=(Token)match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause971); 
 
-                        	newLeafNode(otherlv_41, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_5_1());
+                        	newLeafNode(otherlv_46, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_6_1());
                         
-                    otherlv_42=(Token)match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause909); 
+                    otherlv_47=(Token)match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause983); 
 
-                        	newLeafNode(otherlv_42, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_5_2());
+                        	newLeafNode(otherlv_47, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_6_2());
                         
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:494:1: (otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+ )?
-                    int alt22=2;
-                    int LA22_0 = input.LA(1);
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:529:1: (otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+ )?
+                    int alt23=2;
+                    int LA23_0 = input.LA(1);
 
-                    if ( (LA22_0==KEYWORD_59) ) {
-                        alt22=1;
+                    if ( (LA23_0==KEYWORD_59) ) {
+                        alt23=1;
                     }
-                    switch (alt22) {
+                    switch (alt23) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:495:2: otherlv_43= KEYWORD_59 ( (lv_states_44_0= ruleCompositeState ) )+
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:530:2: otherlv_48= KEYWORD_59 ( (lv_states_49_0= ruleCompositeState ) )+
                             {
-                            otherlv_43=(Token)match(input,KEYWORD_59,FollowSets000.FOLLOW_KEYWORD_59_in_ruleErrorModelSubclause922); 
+                            otherlv_48=(Token)match(input,KEYWORD_59,FollowSets000.FOLLOW_KEYWORD_59_in_ruleErrorModelSubclause996); 
 
-                                	newLeafNode(otherlv_43, grammarAccess.getErrorModelSubclauseAccess().getStatesKeyword_5_3_0());
+                                	newLeafNode(otherlv_48, grammarAccess.getErrorModelSubclauseAccess().getStatesKeyword_6_3_0());
                                 
-                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:499:1: ( (lv_states_44_0= ruleCompositeState ) )+
-                            int cnt21=0;
-                            loop21:
+                            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:534:1: ( (lv_states_49_0= ruleCompositeState ) )+
+                            int cnt22=0;
+                            loop22:
                             do {
-                                int alt21=2;
-                                int LA21_0 = input.LA(1);
+                                int alt22=2;
+                                int LA22_0 = input.LA(1);
 
-                                if ( (LA21_0==KEYWORD_11||LA21_0==RULE_ID) ) {
-                                    alt21=1;
+                                if ( (LA22_0==KEYWORD_11||LA22_0==RULE_ID) ) {
+                                    alt22=1;
                                 }
 
 
-                                switch (alt21) {
+                                switch (alt22) {
                             	case 1 :
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:500:1: (lv_states_44_0= ruleCompositeState )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:535:1: (lv_states_49_0= ruleCompositeState )
                             	    {
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:500:1: (lv_states_44_0= ruleCompositeState )
-                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:501:3: lv_states_44_0= ruleCompositeState
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:535:1: (lv_states_49_0= ruleCompositeState )
+                            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:536:3: lv_states_49_0= ruleCompositeState
                             	    {
                             	     
-                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getStatesCompositeStateParserRuleCall_5_3_1_0()); 
+                            	    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getStatesCompositeStateParserRuleCall_6_3_1_0()); 
                             	    	    
-                            	    pushFollow(FollowSets000.FOLLOW_ruleCompositeState_in_ruleErrorModelSubclause942);
-                            	    lv_states_44_0=ruleCompositeState();
+                            	    pushFollow(FollowSets000.FOLLOW_ruleCompositeState_in_ruleErrorModelSubclause1016);
+                            	    lv_states_49_0=ruleCompositeState();
 
                             	    state._fsp--;
 
@@ -1365,7 +1426,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	           		add(
                             	           			current, 
                             	           			"states",
-                            	            		lv_states_44_0, 
+                            	            		lv_states_49_0, 
                             	            		"CompositeState");
                             	    	        afterParserOrEnumRuleCall();
                             	    	    
@@ -1377,12 +1438,12 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt21 >= 1 ) break loop21;
+                            	    if ( cnt22 >= 1 ) break loop22;
                                         EarlyExitException eee =
-                                            new EarlyExitException(21, input);
+                                            new EarlyExitException(22, input);
                                         throw eee;
                                 }
-                                cnt21++;
+                                cnt22++;
                             } while (true);
 
 
@@ -1391,78 +1452,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_45=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause958); 
+                    otherlv_50=(Token)match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause1032); 
 
-                        	newLeafNode(otherlv_45, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_5_4());
+                        	newLeafNode(otherlv_50, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_6_4());
                         
-                    otherlv_46=(Token)match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_ruleErrorModelSubclause970); 
+                    otherlv_51=(Token)match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_ruleErrorModelSubclause1044); 
 
-                        	newLeafNode(otherlv_46, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_5_5());
+                        	newLeafNode(otherlv_51, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_6_5());
                         
-                    otherlv_47=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause982); 
-
-                        	newLeafNode(otherlv_47, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_6());
-                        
-
-                    }
-                    break;
-
-            }
-
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:532:3: (otherlv_48= KEYWORD_31 otherlv_49= KEYWORD_38 otherlv_50= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_52= KEYWORD_10 )?
-            int alt24=2;
-            int LA24_0 = input.LA(1);
-
-            if ( (LA24_0==KEYWORD_31) ) {
-                alt24=1;
-            }
-            switch (alt24) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:533:2: otherlv_48= KEYWORD_31 otherlv_49= KEYWORD_38 otherlv_50= KEYWORD_82 ( ( ruleQEMREF ) ) otherlv_52= KEYWORD_10
-                    {
-                    otherlv_48=(Token)match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause997); 
-
-                        	newLeafNode(otherlv_48, grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_6_0());
-                        
-                    otherlv_49=(Token)match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_ruleErrorModelSubclause1009); 
-
-                        	newLeafNode(otherlv_49, grammarAccess.getErrorModelSubclauseAccess().getTypeKeyword_6_1());
-                        
-                    otherlv_50=(Token)match(input,KEYWORD_82,FollowSets000.FOLLOW_KEYWORD_82_in_ruleErrorModelSubclause1021); 
-
-                        	newLeafNode(otherlv_50, grammarAccess.getErrorModelSubclauseAccess().getEquivalenceKeyword_6_2());
-                        
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:547:1: ( ( ruleQEMREF ) )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:548:1: ( ruleQEMREF )
-                    {
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:548:1: ( ruleQEMREF )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:549:3: ruleQEMREF
-                    {
-
-                    			if (current==null) {
-                    	            current = createModelElement(grammarAccess.getErrorModelSubclauseRule());
-                    	        }
-                            
-                     
-                    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetCrossReference_6_3_0()); 
-                    	    
-                    pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause1043);
-                    ruleQEMREF();
-
-                    state._fsp--;
-
-                     
-                    	        afterParserOrEnumRuleCall();
-                    	    
-
-                    }
-
-
-                    }
-
                     otherlv_52=(Token)match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause1056); 
 
-                        	newLeafNode(otherlv_52, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_4());
+                        	newLeafNode(otherlv_52, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_6());
                         
 
                     }
@@ -20595,11 +20595,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         "\1\12\5\uffff\2\133\3\26\3\uffff\1\26\1\uffff\1\26\1\uffff\1\144"+
         "\1\uffff\1\26";
     static final String DFA157_maxS =
-        "\1\144\5\uffff\4\144\1\125\3\uffff\1\125\1\uffff\1\125\1\uffff"+
-        "\1\144\1\uffff\1\125";
+        "\1\144\5\uffff\4\144\1\125\3\uffff\1\125\1\uffff\1\125\1\uffff\1"+
+        "\144\1\uffff\1\125";
     static final String DFA157_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\5\uffff\1\11\1\12\1\6\1\uffff\1\7"+
-        "\1\uffff\1\10\1\uffff\1\13\1\uffff";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\5\uffff\1\11\1\12\1\6\1\uffff\1\7\1"+
+        "\uffff\1\10\1\uffff\1\13\1\uffff";
     static final String DFA157_specialS =
         "\25\uffff}>";
     static final String[] DFA157_transitionS = {
@@ -20684,51 +20684,51 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_KEYWORD_6_in_ruleErrorModelSubclause315 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
         public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause337 = new BitSet(new long[]{0x0000000000000000L,0x0000000000220000L});
         public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause352 = new BitSet(new long[]{0x000002000000E902L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause367 = new BitSet(new long[]{0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause379 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause401 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause414 = new BitSet(new long[]{0x000002000000E902L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause429 = new BitSet(new long[]{0x0000000000000020L});
-        public static final BitSet FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause441 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleErrorPropagation_in_ruleErrorModelSubclause461 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
-        public static final BitSet FOLLOW_KEYWORD_45_in_ruleErrorModelSubclause476 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleErrorFlow_in_ruleErrorModelSubclause496 = new BitSet(new long[]{0x8000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause512 = new BitSet(new long[]{0x0000000000000020L});
-        public static final BitSet FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause524 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause536 = new BitSet(new long[]{0x000000000000E902L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_73_in_ruleErrorModelSubclause551 = new BitSet(new long[]{0x0000020000000000L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause563 = new BitSet(new long[]{0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause575 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause588 = new BitSet(new long[]{0x0000000000000010L});
-        public static final BitSet FOLLOW_KEYWORD_86_in_ruleErrorModelSubclause600 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause622 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause635 = new BitSet(new long[]{0x8004000100001220L});
-        public static final BitSet FOLLOW_KEYWORD_52_in_ruleErrorModelSubclause650 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_ruleErrorModelSubclause670 = new BitSet(new long[]{0x8004000000001220L,0x0000001000000000L});
-        public static final BitSet FOLLOW_KEYWORD_84_in_ruleErrorModelSubclause687 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_ruleErrorModelSubclause707 = new BitSet(new long[]{0xA004000000001020L,0x0000001000000000L});
-        public static final BitSet FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause724 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleOutgoingPropagationCondition_in_ruleErrorModelSubclause744 = new BitSet(new long[]{0xA004000000001000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_KEYWORD_79_in_ruleErrorModelSubclause761 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleErrorDetection_in_ruleErrorModelSubclause781 = new BitSet(new long[]{0xA004000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_KEYWORD_32_in_ruleErrorModelSubclause798 = new BitSet(new long[]{0x0000000000200000L});
-        public static final BitSet FOLLOW_KEYWORD_72_in_ruleErrorModelSubclause810 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleErrorStateToModeMapping_in_ruleErrorModelSubclause830 = new BitSet(new long[]{0x8000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause846 = new BitSet(new long[]{0x0000000000004000L});
-        public static final BitSet FOLLOW_KEYWORD_73_in_ruleErrorModelSubclause858 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause870 = new BitSet(new long[]{0x000000000000A902L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_74_in_ruleErrorModelSubclause885 = new BitSet(new long[]{0x0000020000000000L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause897 = new BitSet(new long[]{0x0000000000040000L});
-        public static final BitSet FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause909 = new BitSet(new long[]{0x8000008000000000L});
-        public static final BitSet FOLLOW_KEYWORD_59_in_ruleErrorModelSubclause922 = new BitSet(new long[]{0x0000000000000000L,0x0000001000400000L});
-        public static final BitSet FOLLOW_ruleCompositeState_in_ruleErrorModelSubclause942 = new BitSet(new long[]{0x8000000000000000L,0x0000001000400000L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause958 = new BitSet(new long[]{0x0000000000008000L});
-        public static final BitSet FOLLOW_KEYWORD_74_in_ruleErrorModelSubclause970 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause982 = new BitSet(new long[]{0x0000000000002902L,0x0000000000000008L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause997 = new BitSet(new long[]{0x0100000000000000L});
-        public static final BitSet FOLLOW_KEYWORD_38_in_ruleErrorModelSubclause1009 = new BitSet(new long[]{0x0000000000000080L});
-        public static final BitSet FOLLOW_KEYWORD_82_in_ruleErrorModelSubclause1021 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause1043 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause367 = new BitSet(new long[]{0x0100000000000000L});
+        public static final BitSet FOLLOW_KEYWORD_38_in_ruleErrorModelSubclause379 = new BitSet(new long[]{0x0000000000000080L});
+        public static final BitSet FOLLOW_KEYWORD_82_in_ruleErrorModelSubclause391 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause413 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause426 = new BitSet(new long[]{0x000002000000E902L,0x0000000000000008L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause441 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause453 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause475 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause488 = new BitSet(new long[]{0x000002000000E902L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause503 = new BitSet(new long[]{0x0000000000000020L});
+        public static final BitSet FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause515 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleErrorPropagation_in_ruleErrorModelSubclause535 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
+        public static final BitSet FOLLOW_KEYWORD_45_in_ruleErrorModelSubclause550 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleErrorFlow_in_ruleErrorModelSubclause570 = new BitSet(new long[]{0x8000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause586 = new BitSet(new long[]{0x0000000000000020L});
+        public static final BitSet FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause598 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause610 = new BitSet(new long[]{0x000000000000E902L});
+        public static final BitSet FOLLOW_KEYWORD_73_in_ruleErrorModelSubclause625 = new BitSet(new long[]{0x0000020000000000L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause637 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause649 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_ruleErrorModelSubclause662 = new BitSet(new long[]{0x0000000000000010L});
+        public static final BitSet FOLLOW_KEYWORD_86_in_ruleErrorModelSubclause674 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause696 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause709 = new BitSet(new long[]{0x8004000100001220L});
+        public static final BitSet FOLLOW_KEYWORD_52_in_ruleErrorModelSubclause724 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_ruleErrorModelSubclause744 = new BitSet(new long[]{0x8004000000001220L,0x0000001000000000L});
+        public static final BitSet FOLLOW_KEYWORD_84_in_ruleErrorModelSubclause761 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_ruleErrorModelSubclause781 = new BitSet(new long[]{0xA004000000001020L,0x0000001000000000L});
+        public static final BitSet FOLLOW_KEYWORD_85_in_ruleErrorModelSubclause798 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleOutgoingPropagationCondition_in_ruleErrorModelSubclause818 = new BitSet(new long[]{0xA004000000001000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_KEYWORD_79_in_ruleErrorModelSubclause835 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleErrorDetection_in_ruleErrorModelSubclause855 = new BitSet(new long[]{0xA004000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_KEYWORD_32_in_ruleErrorModelSubclause872 = new BitSet(new long[]{0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_72_in_ruleErrorModelSubclause884 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_ruleErrorStateToModeMapping_in_ruleErrorModelSubclause904 = new BitSet(new long[]{0x8000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause920 = new BitSet(new long[]{0x0000000000004000L});
+        public static final BitSet FOLLOW_KEYWORD_73_in_ruleErrorModelSubclause932 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause944 = new BitSet(new long[]{0x000000000000A902L});
+        public static final BitSet FOLLOW_KEYWORD_74_in_ruleErrorModelSubclause959 = new BitSet(new long[]{0x0000020000000000L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause971 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_KEYWORD_69_in_ruleErrorModelSubclause983 = new BitSet(new long[]{0x8000008000000000L});
+        public static final BitSet FOLLOW_KEYWORD_59_in_ruleErrorModelSubclause996 = new BitSet(new long[]{0x0000000000000000L,0x0000001000400000L});
+        public static final BitSet FOLLOW_ruleCompositeState_in_ruleErrorModelSubclause1016 = new BitSet(new long[]{0x8000000000000000L,0x0000001000400000L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_ruleErrorModelSubclause1032 = new BitSet(new long[]{0x0000000000008000L});
+        public static final BitSet FOLLOW_KEYWORD_74_in_ruleErrorModelSubclause1044 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
         public static final BitSet FOLLOW_KEYWORD_10_in_ruleErrorModelSubclause1056 = new BitSet(new long[]{0x0000000000002902L});
         public static final BitSet FOLLOW_KEYWORD_78_in_ruleErrorModelSubclause1071 = new BitSet(new long[]{0x0000020000000000L});
         public static final BitSet FOLLOW_KEYWORD_42_in_ruleErrorModelSubclause1083 = new BitSet(new long[]{0x0000000000040000L});

@@ -169,13 +169,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_SUBCLAUSE__USE_TYPES = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Type Equivalence</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Use Behavior</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
+  int ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Propagations</b></em>' containment reference list.
@@ -184,7 +193,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__PROPAGATIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 2;
+  int ERROR_MODEL_SUBCLAUSE__PROPAGATIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Flows</b></em>' containment reference list.
@@ -193,7 +202,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__FLOWS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 3;
+  int ERROR_MODEL_SUBCLAUSE__FLOWS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Use Transformation</b></em>' reference.
@@ -202,7 +211,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 4;
+  int ERROR_MODEL_SUBCLAUSE__USE_TRANSFORMATION = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Events</b></em>' containment reference list.
@@ -211,7 +220,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__EVENTS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 5;
+  int ERROR_MODEL_SUBCLAUSE__EVENTS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Transitions</b></em>' containment reference list.
@@ -220,7 +229,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__TRANSITIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 6;
+  int ERROR_MODEL_SUBCLAUSE__TRANSITIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Outgoing Propagation Conditions</b></em>' containment reference list.
@@ -229,7 +238,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 7;
+  int ERROR_MODEL_SUBCLAUSE__OUTGOING_PROPAGATION_CONDITIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Error Detections</b></em>' containment reference list.
@@ -238,7 +247,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 8;
+  int ERROR_MODEL_SUBCLAUSE__ERROR_DETECTIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Error State To Mode Mappings</b></em>' containment reference list.
@@ -247,7 +256,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 9;
+  int ERROR_MODEL_SUBCLAUSE__ERROR_STATE_TO_MODE_MAPPINGS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 10;
 
   /**
    * The feature id for the '<em><b>States</b></em>' containment reference list.
@@ -256,16 +265,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__STATES = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 10;
-
-  /**
-   * The feature id for the '<em><b>Type Equivalence</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 11;
+  int ERROR_MODEL_SUBCLAUSE__STATES = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 11;
 
   /**
    * The feature id for the '<em><b>Type Transformation Set</b></em>' reference.
@@ -3715,6 +3715,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorModelSubclause_UseTypes();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeEquivalence <em>Type Equivalence</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type Equivalence</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeEquivalence()
+   * @see #getErrorModelSubclause()
+   * @generated
+   */
+  EReference getErrorModelSubclause_TypeEquivalence();
+
+  /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3823,17 +3834,6 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getErrorModelSubclause_States();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeEquivalence <em>Type Equivalence</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type Equivalence</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeEquivalence()
-   * @see #getErrorModelSubclause()
-   * @generated
-   */
-  EReference getErrorModelSubclause_TypeEquivalence();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeTransformationSet <em>Type Transformation Set</em>}'.
@@ -5662,6 +5662,14 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_MODEL_SUBCLAUSE__USE_TYPES = eINSTANCE.getErrorModelSubclause_UseTypes();
 
     /**
+     * The meta object literal for the '<em><b>Type Equivalence</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE = eINSTANCE.getErrorModelSubclause_TypeEquivalence();
+
+    /**
      * The meta object literal for the '<em><b>Use Behavior</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5740,14 +5748,6 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference ERROR_MODEL_SUBCLAUSE__STATES = eINSTANCE.getErrorModelSubclause_States();
-
-    /**
-     * The meta object literal for the '<em><b>Type Equivalence</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE = eINSTANCE.getErrorModelSubclause_TypeEquivalence();
 
     /**
      * The meta object literal for the '<em><b>Type Transformation Set</b></em>' reference feature.

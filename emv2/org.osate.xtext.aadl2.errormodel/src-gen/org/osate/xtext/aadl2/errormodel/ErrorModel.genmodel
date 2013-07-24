@@ -4,7 +4,7 @@
     editorDirectory="/org.osate.xtext.aadl2.errormodel.editor/src" modelPluginID="org.osate.xtext.aadl2.errormodel"
     forceOverwrite="true" modelName="ErrorModel" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.errormodel.edit"
-    editorPluginID="org.osate.xtext.aadl2.errormodel.editor" runtimeVersion="2.8"
+    editorPluginID="org.osate.xtext.aadl2.errormodel.editor" runtimeVersion="2.9"
     usedGenPackages="../../../../../../../org.osate.aadl2/model/aadl2-nouml.genmodel#//aadl2">
   <genPackages prefix="ErrorModel" basePackage="org.osate.xtext.aadl2.errormodel"
       resource="XML" disposableProviderFactory="true" ecorePackage="ErrorModel.ecore#/">
@@ -14,6 +14,7 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorModelSubclause">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/useTypes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/typeEquivalence"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/useBehavior"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/propagations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/flows"/>
@@ -24,7 +25,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/errorDetections"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/errorStateToModeMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/states"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/typeEquivalence"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/typeTransformationSet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/connectionErrorSources"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorModelSubclause/points"/>

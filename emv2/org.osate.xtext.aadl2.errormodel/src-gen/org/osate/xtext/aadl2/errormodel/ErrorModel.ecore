@@ -10,6 +10,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ErrorModelSubclause" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//AnnexSubclause #//TypeUseContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
         upperBound="-1" eType="#//ErrorModelLibrary"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeEquivalence" eType="#//TypeMappingSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useBehavior" eType="#//ErrorBehaviorStateMachine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagations" upperBound="-1"
         eType="#//ErrorPropagation" containment="true"/>
@@ -28,7 +29,6 @@
         upperBound="-1" eType="#//ErrorStateToModeMapping" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//CompositeState" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeEquivalence" eType="#//TypeMappingSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTransformationSet"
         eType="#//TypeTransformationSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionErrorSources"

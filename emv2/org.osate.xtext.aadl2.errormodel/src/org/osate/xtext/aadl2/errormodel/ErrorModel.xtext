@@ -56,6 +56,7 @@ TypeSetElement|TypeToken
 ErrorModelSubclause returns ErrorModelSubclause:
      {ErrorModelSubclause}//'{**' 
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
+   ('use' 'type' 'equivalence' typeEquivalence=[TypeMappingSet|QEMREF] ';')?
    ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
   (    'error' 'propagations'
    (propagations+=ErrorPropagation)* 
@@ -85,7 +86,6 @@ ErrorModelSubclause returns ErrorModelSubclause:
     )?
    'end' 'composite' ';'
   )?
-  ('use' 'type' 'equivalence' typeEquivalence=[TypeMappingSet|QEMREF] ';')?
   (
   		'connection' 'error' 'behavior'
 	('use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?

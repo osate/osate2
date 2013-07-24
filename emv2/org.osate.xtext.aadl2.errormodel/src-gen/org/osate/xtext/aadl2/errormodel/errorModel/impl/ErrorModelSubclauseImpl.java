@@ -48,6 +48,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTypes <em>Use Types</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeEquivalence <em>Type Equivalence</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseBehavior <em>Use Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getFlows <em>Flows</em>}</li>
@@ -58,7 +59,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getErrorDetections <em>Error Detections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getErrorStateToModeMappings <em>Error State To Mode Mappings</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getStates <em>States</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeEquivalence <em>Type Equivalence</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeTransformationSet <em>Type Transformation Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnectionErrorSources <em>Connection Error Sources</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPoints <em>Points</em>}</li>
@@ -80,6 +80,16 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * @ordered
    */
   protected EList<ErrorModelLibrary> useTypes;
+
+  /**
+   * The cached value of the '{@link #getTypeEquivalence() <em>Type Equivalence</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTypeEquivalence()
+   * @generated
+   * @ordered
+   */
+  protected TypeMappingSet typeEquivalence;
 
   /**
    * The cached value of the '{@link #getUseBehavior() <em>Use Behavior</em>}' reference.
@@ -182,16 +192,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   protected EList<CompositeState> states;
 
   /**
-   * The cached value of the '{@link #getTypeEquivalence() <em>Type Equivalence</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTypeEquivalence()
-   * @generated
-   * @ordered
-   */
-  protected TypeMappingSet typeEquivalence;
-
-  /**
    * The cached value of the '{@link #getTypeTransformationSet() <em>Type Transformation Set</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -274,6 +274,49 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       useTypes = new EObjectResolvingEList<ErrorModelLibrary>(ErrorModelLibrary.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES);
     }
     return useTypes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeMappingSet getTypeEquivalence()
+  {
+    if (typeEquivalence != null && typeEquivalence.eIsProxy())
+    {
+      InternalEObject oldTypeEquivalence = (InternalEObject)typeEquivalence;
+      typeEquivalence = (TypeMappingSet)eResolveProxy(oldTypeEquivalence);
+      if (typeEquivalence != oldTypeEquivalence)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE, oldTypeEquivalence, typeEquivalence));
+      }
+    }
+    return typeEquivalence;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeMappingSet basicGetTypeEquivalence()
+  {
+    return typeEquivalence;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTypeEquivalence(TypeMappingSet newTypeEquivalence)
+  {
+    TypeMappingSet oldTypeEquivalence = typeEquivalence;
+    typeEquivalence = newTypeEquivalence;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE, oldTypeEquivalence, typeEquivalence));
   }
 
   /**
@@ -479,49 +522,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeMappingSet getTypeEquivalence()
-  {
-    if (typeEquivalence != null && typeEquivalence.eIsProxy())
-    {
-      InternalEObject oldTypeEquivalence = (InternalEObject)typeEquivalence;
-      typeEquivalence = (TypeMappingSet)eResolveProxy(oldTypeEquivalence);
-      if (typeEquivalence != oldTypeEquivalence)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE, oldTypeEquivalence, typeEquivalence));
-      }
-    }
-    return typeEquivalence;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TypeMappingSet basicGetTypeEquivalence()
-  {
-    return typeEquivalence;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTypeEquivalence(TypeMappingSet newTypeEquivalence)
-  {
-    TypeMappingSet oldTypeEquivalence = typeEquivalence;
-    typeEquivalence = newTypeEquivalence;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE, oldTypeEquivalence, typeEquivalence));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public TypeTransformationSet getTypeTransformationSet()
   {
     if (typeTransformationSet != null && typeTransformationSet.eIsProxy())
@@ -666,6 +666,9 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
     {
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES:
         return getUseTypes();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
+        if (resolve) return getTypeEquivalence();
+        return basicGetTypeEquivalence();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         if (resolve) return getUseBehavior();
         return basicGetUseBehavior();
@@ -688,9 +691,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return getErrorStateToModeMappings();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES:
         return getStates();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
-        if (resolve) return getTypeEquivalence();
-        return basicGetTypeEquivalence();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET:
         if (resolve) return getTypeTransformationSet();
         return basicGetTypeTransformationSet();
@@ -720,6 +720,9 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES:
         getUseTypes().clear();
         getUseTypes().addAll((Collection<? extends ErrorModelLibrary>)newValue);
+        return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
+        setTypeEquivalence((TypeMappingSet)newValue);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)newValue);
@@ -759,9 +762,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         getStates().clear();
         getStates().addAll((Collection<? extends CompositeState>)newValue);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
-        setTypeEquivalence((TypeMappingSet)newValue);
-        return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET:
         setTypeTransformationSet((TypeTransformationSet)newValue);
         return;
@@ -798,6 +798,9 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES:
         getUseTypes().clear();
         return;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
+        setTypeEquivalence((TypeMappingSet)null);
+        return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)null);
         return;
@@ -827,9 +830,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES:
         getStates().clear();
-        return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
-        setTypeEquivalence((TypeMappingSet)null);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET:
         setTypeTransformationSet((TypeTransformationSet)null);
@@ -862,6 +862,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
     {
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES:
         return useTypes != null && !useTypes.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
+        return typeEquivalence != null;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         return useBehavior != null;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
@@ -882,8 +884,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return errorStateToModeMappings != null && !errorStateToModeMappings.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATES:
         return states != null && !states.isEmpty();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
-        return typeEquivalence != null;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET:
         return typeTransformationSet != null;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES:
