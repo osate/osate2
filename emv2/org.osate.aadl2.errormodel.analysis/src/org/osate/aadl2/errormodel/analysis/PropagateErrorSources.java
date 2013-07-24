@@ -788,15 +788,15 @@ public class PropagateErrorSources {
 						} else {
 							// do all since we have a flow sink
 							EList<FeatureInstance> filist = ci.getFeatureInstances();
-							boolean res = doAllFeatures(ci, filist, ep, tt, depth, entryText);
+							boolean res = doAllOutPropagationsOrFeatures(ci, filist, ep, tt, depth, entryText);
 							if (res) handled = true;
 						}
 					}
 				}
 			} else {
-				// now all outgoing connections since we did not find flows
+				// now all outgoing propagations or features since we did not find flows
 				EList<FeatureInstance> filist = ci.getFeatureInstances();
-				boolean res = doAllFeatures(ci, filist, ep, tt, depth, entryText);
+				boolean res = doAllOutPropagationsOrFeatures(ci, filist, ep, tt, depth, entryText);
 				if (res) handled = true;
 			}
 		}
@@ -806,7 +806,7 @@ public class PropagateErrorSources {
 		}
 	}
 	
-	protected boolean doAllFeatures(ComponentInstance ci, EList<FeatureInstance> filist,ErrorPropagation ep, TypeToken tt, int depth, String entryText){
+	protected boolean doAllOutPropagationsOrFeatures(ComponentInstance ci, EList<FeatureInstance> filist,ErrorPropagation ep, TypeToken tt, int depth, String entryText){
 		boolean handled = false;
 		for (FeatureInstance fi : filist) {
 			if (fi.getDirection().outgoing()){
@@ -831,7 +831,7 @@ public class PropagateErrorSources {
 					}
 				} else {
 					if (!fi.getFeatureInstances().isEmpty()){
-						 boolean res = doAllFeatures(ci, fi.getFeatureInstances(), ep, tt, depth, entryText);
+						 boolean res = doAllOutPropagationsOrFeatures(ci, fi.getFeatureInstances(), ep, tt, depth, entryText);
 						 if (res) {
 							 handled = true;
 						 } else {
