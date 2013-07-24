@@ -361,24 +361,24 @@ public class AnalysisModel {
 		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp.getComponentClassifier(), resourcebindingKind);
 
 		if (BRsrcprop != null && BCdstprop != null ){
-			if(EM2TypeSetUtil.contains(BCdstprop.getTypeSet(), BRsrcprop.getTypeSet()))
-			{
+//			if(EM2TypeSetUtil.contains(BCdstprop.getTypeSet(), BRsrcprop.getTypeSet()))
+//			{
 				propagationPaths.add(new PropagationPath(boundResource, BRsrcprop, comp, BCdstprop,null));
 				added = true;
-			} else {
-				// error message about mismatch of type set
-			}
+//			} else {
+//				// error message about mismatch of type set
+//			}
 		}
 		ErrorPropagation BCsrcprop = EMV2Util.findOutgoingErrorPropagation(comp.getComponentClassifier(),resourcebindingKind );
 		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(), "bindings");
 		 if (BCsrcprop != null && BRdstprop!=null){
-			 if (EM2TypeSetUtil.contains(BCsrcprop.getTypeSet(), BRdstprop.getTypeSet()))
-			 {
+//			 if (EM2TypeSetUtil.contains(BCsrcprop.getTypeSet(), BRdstprop.getTypeSet()))
+//			 {
 				 propagationPaths.add(new PropagationPath(comp, BCsrcprop, boundResource, BRdstprop,null));
 				 added = true;
-			 } else {
-				 // error message about mismatch of type set
-			 }
+//			 } else {
+//				 // error message about mismatch of type set
+//			 }
 		 }
 		if (added){
 			subcomponents.add(comp);
@@ -405,7 +405,7 @@ public class AnalysisModel {
 			// error message about mismatch of type set
 		}
 		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(), bindingKind);
-		if (BRsrcprop != null)
+		if (BRdstprop != null)
 		{
 			propagationPaths.add(new PropagationPath(conn, boundResource, BRdstprop));
 			added = true;
