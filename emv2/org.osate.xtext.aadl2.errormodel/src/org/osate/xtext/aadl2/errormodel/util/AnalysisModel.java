@@ -66,7 +66,7 @@ public class AnalysisModel {
 			{
 				continue;
 			}
-			if (ci.getCategory() == ComponentCategory.PROCESS|| ci.getCategory() == ComponentCategory.THREAD||
+			if (ci.getCategory() == ComponentCategory.PROCESS|| ci.getCategory() == ComponentCategory.SYSTEM|| ci.getCategory() == ComponentCategory.THREAD||
 					ci.getCategory() == ComponentCategory.THREAD_GROUP|| ci.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
 			{
 				populateBindingPaths(ci);
