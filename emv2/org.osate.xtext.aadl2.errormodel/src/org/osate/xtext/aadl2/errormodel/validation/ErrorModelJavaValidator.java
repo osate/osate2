@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
@@ -67,6 +68,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.FAST)
 	public void caseErrorPropagation(ErrorPropagation errorPropagation) {
 		checkDirectionType(errorPropagation);
+		checkTypePropagationAndContainment(errorPropagation);
 	}
 
 	@Check(CheckType.FAST)
@@ -145,6 +147,14 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		for (NamedElement namedElement : doubles) {
 			error(namedElement, namedElement.getName()+" has duplicate error propagations.");
 		}
+//		 Collection<ErrorPropagation> ins = EMV2Util.getAllIncomingErrorPropagations(subclause.getContainingClassifier());
+//		 for (ErrorPropagation errorPropagation : ins) {
+//				checkTypePropagationAndContainment(errorPropagation);
+//		}
+//		 Collection<ErrorPropagation> outs = EMV2Util.getAllOutgoingErrorPropagations(subclause.getContainingClassifier());
+//		 for (ErrorPropagation errorPropagation : outs) {
+//				checkTypePropagationAndContainment(errorPropagation);
+//		}
 	}
 
 	@Check(CheckType.NORMAL)
@@ -264,6 +274,17 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			if (!(pd.getName().equalsIgnoreCase(portd.getName()) || portd == DirectionType.IN_OUT))
 				error(errorPropagation,
 						"Propagation direction does not match port direction.");
+	}
+
+	private void checkTypePropagationAndContainment(
+			ErrorPropagation ep) {
+		if (!ep.isNot()) return;
+		ErrorPropagation epopposite = EMV2Util.findErrorPropagation(ep.getContainingClassifier(), EMV2Util.getPrintName(ep), ep.getDirection());
+		BasicEList<TypeToken> res = EM2TypeSetUtil.getTypeSetIntersection(ep.getTypeSet(), epopposite.getTypeSet());
+		if ( !res.isEmpty()){
+//				EM2TypeSetUtil.contains(ep.getTypeSet(), epopposite.getTypeSet()) || EM2TypeSetUtil.contains(epopposite.getTypeSet(), ep.getTypeSet())){
+			error(ep, "Error propagation and containment "+EMV2Util.getPrintName(ep)+" have a common error type or type product "+EMV2Util.getPrintName(res));
+		}
 	}
 
 	private void checkOnePropagationAndContainmentPoint(
@@ -778,7 +799,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
 					ef.getTypeTokenConstraint())) {
 				error(ef,
-						"Error soruce type constraint "
+						"Error source type constraint "
 								+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
 								+ " is not contained in type set of outgoing propagation "
 								+ EMV2Util.getPrintName(ep)
@@ -792,7 +813,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(),
 						ef.getTypeTokenConstraint())) {
 					error(ef,
-							"Error soruce type constraint "
+							"Error source type constraint "
 									+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
 									+ " is not contained in type set of outgoing propagation "
 									+ EMV2Util.getPrintName(ep)

@@ -236,6 +236,30 @@ public class EM2TypeSetUtil {
 	
 	
 	/**
+	 * returns all tokens that are common to both type sets 
+	 * aliases are resolved before the error types are compared
+	 * @param ts1 TypeSet
+	 * @param ts2 TypeSet
+	 * @return list TypeToken
+	 */
+	public static BasicEList<TypeToken> getTypeSetIntersection(TypeSet ts1, TypeSet ts2){
+		BasicEList<TypeToken> result = new BasicEList<TypeToken>();
+		if (ts1 == null||ts2==null) return result;
+		ts1 = EMV2Util.resolveAlias(ts1);
+		ts2 = EMV2Util.resolveAlias(ts2);
+		for (TypeToken tselement1 : ts1.getTypeTokens()) {
+			int toksize = tselement1.getType().size();
+			for (TypeToken tselement2 : ts2.getTypeTokens()) {
+				if (tselement2.getType().size() == toksize){
+					getConstrainedTypeTokens(tselement1, tselement2, result);
+				}
+			}
+		}
+		return result;
+	}
+	
+	
+	/**
 	 * returns all subtypes of the token that are in TypeSet ts 
 	 * The type set can represent a constraint
 	 * aliases are resolved before the error types are compared

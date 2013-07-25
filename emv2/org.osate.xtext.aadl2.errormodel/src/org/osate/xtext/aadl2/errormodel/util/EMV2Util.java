@@ -2038,7 +2038,9 @@ public class EMV2Util {
 	}
 	
 	public static String getPrintName(TypeSet ts){
-			return getPrintableName(ts, ", ");
+		if (ts == null) return "<allTypes>";
+		EList<TypeToken> tel = ts.getTypeTokens();
+		return getPrintName(tel);
 	}
 	
 	
@@ -2046,25 +2048,6 @@ public class EMV2Util {
 			return AadlUtil.getContainingPackage(eml).getName();
 	}
 
-	
-	public static String getPrintableName(TypeSet ts,String separator){
-		if (ts == null) return "<allTypes>";
-		String res ="{";
-		EList<TypeToken> te = ts.getTypeTokens();
-		boolean docomma = false;
-		for (TypeToken typeSetElement : te) {
-			 EList<ErrorTypes> et = typeSetElement.getType();
-			if (docomma) res = res+separator; else docomma = true;
-			if (et != null&& !et.isEmpty()){
-				boolean doproduct = false;
-				for (ErrorTypes errorType : et) {
-					if (doproduct) res = res+"*"; else doproduct = true;
-					res = res + errorType.getName();
-				}
-			}
-		}
-		return res+"}";
-	}
 	
 	public static String getPrintName(TypeToken tu){
 		if (tu == null) return "";
@@ -2084,11 +2067,20 @@ public class EMV2Util {
 	}
 	
 	public static String getPrintName(EList<TypeToken> tul){
-		String res ="(";
-		for (TypeToken tu : tul) {
-			res = res + "\n "+getPrintName(tu);
+		boolean docomma = false;
+		String res ="{";
+		for (TypeToken typeSetElement : tul) {
+			 EList<ErrorTypes> et = typeSetElement.getType();
+			if (docomma) res = res+','; else docomma = true;
+			if (et != null&& !et.isEmpty()){
+				boolean doproduct = false;
+				for (ErrorTypes errorType : et) {
+					if (doproduct) res = res+"*"; else doproduct = true;
+					res = res + errorType.getName();
+				}
+			}
 		}
-		return res+"\n)";
+		return res+"}";
 	}
 
 	/**
