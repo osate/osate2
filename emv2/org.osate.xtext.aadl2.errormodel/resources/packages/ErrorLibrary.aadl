@@ -9,15 +9,16 @@ error types
 ServiceError: type;
 ItemOmission: type extends ServiceError; 
 ServiceOmission: type extends ServiceError;
-BoundedOmissionSequence: type extends ServiceError; 
+SequenceOmission: type extends ServiceError;
+BoundedOmissionSequence: type extends SequenceOmission; 
 TransientServiceOmission: type extends BoundedOmissionSequence;
 LateServiceStart: type extends BoundedOmissionSequence;
 EarlyServiceTermination: type extends BoundedOmissionSequence;
+BoundedOmissionInterval: type extends SequenceOmission; 
 ItemComission: type extends ServiceError; 
 ServiceCommission: type extends ServiceError;
 EarlyServiceStart: type extends ServiceError;
 LateServiceTermination: type extends ServiceError;
-BoundedOmissionInterval: type extends ServiceOmission; 
 
 --timing related errors
 TimingRelatedErrors: type set {ItemTimingError, SequenceTimingError, ServiceTimingError};
@@ -77,7 +78,7 @@ AsymmetricReplicatesError: type extends ReplicationError;
 AsymmetricValue: type extends AsymmetricReplicatesError; 
 AsymmetricApproximateValue: type extends AsymmetricValue;
 AsymmetricExactValue: type extends AsymmetricValue;
-AsymmetricTiming: type extends AsymmetricValue; 
+AsymmetricTiming: type extends AsymmetricReplicatesError; 
 AsymmetricOmission: type extends AsymmetricReplicatesError;
 AsymmetricItemOmission: type extends AsymmetricOmission;
 AsymmetricServiceOmission: type extends AsymmetricOmission;
@@ -86,7 +87,7 @@ SymmetricReplicatesError: type extends ReplicationError;
 SymmetricValue: type extends SymmetricReplicatesError; 
 SymmetricApproximateValue: type extends SymmetricValue;
 SymmetricExactValue: type extends SymmetricValue;
-SymmetricTiming: type extends SymmetricValue; 
+SymmetricTiming: type extends SymmetricReplicatesError; 
 SymmetricOmission: type extends SymmetricReplicatesError;
 SymmetricItemOmission: type extends SymmetricOmission;
 SymmetricServiceOmission: type extends SymmetricOmission;
