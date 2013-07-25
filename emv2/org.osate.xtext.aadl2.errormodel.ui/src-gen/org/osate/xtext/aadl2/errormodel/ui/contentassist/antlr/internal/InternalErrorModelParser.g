@@ -11036,7 +11036,7 @@ rule__ErrorPropagation__Group__6__Impl
 :
 (
 { before(grammarAccess.getErrorPropagationAccess().getTypeSetAssignment_6()); }
-(rule__ErrorPropagation__TypeSetAssignment_6)?
+(rule__ErrorPropagation__TypeSetAssignment_6)
 { after(grammarAccess.getErrorPropagationAccess().getTypeSetAssignment_6()); }
 )
 

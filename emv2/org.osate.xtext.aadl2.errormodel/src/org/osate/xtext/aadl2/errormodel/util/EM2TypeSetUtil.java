@@ -83,8 +83,7 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(ErrorType supertype, ErrorType type){
-		if (supertype == null ) return false;
-		if ( type == null) return true;
+		if (supertype == null || type == null) return false;
 		ErrorType resolvedtype = EMV2Util.resolveAlias(type);
 		ErrorType resolvedsupertype = EMV2Util.resolveAlias(supertype);
 		while (type != null){
@@ -124,8 +123,7 @@ public class EM2TypeSetUtil {
 	 * @return
 	 */
 	public static boolean contains(TypeToken constraint, ErrorType type){
-//		if (constraint == null ) return false;
-//		if ( type == null) return true;
+		if (constraint == null || type == null) return false;
 		if (constraint.isNoError()) return false;
 		EList<ErrorTypes> tsetype = constraint.getType();
 		for (ErrorTypes errorType : tsetype) {
@@ -142,8 +140,7 @@ public class EM2TypeSetUtil {
 	 * @return
 	 */
 	public static boolean contains(TypeToken constraint, TypeToken token){
-//		if (constraint == null ) return false;
-//		if ( token == null) return true;
+		if (constraint == null || token == null) return false;
 		if (token.isNoError()) return true;
 		if (constraint.isNoError()){
 			if (token.isNoError()) return true;
@@ -167,8 +164,7 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeSet ts, TypeToken token){
-		if (ts == null ) return false;
-		if ( token == null) return false;
+		if (ts == null || token == null) return false;
 		if (token.isNoError()) return true;
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
@@ -189,8 +185,7 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeToken token,TypeSet ts ){
-		if (ts == null ) return false;
-		if ( token == null) return false;
+		if (ts == null || token == null) return false;
 		if (token.isNoError()) return false;
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
@@ -211,8 +206,7 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeSet ts, ErrorType et){
-		if (ts == null ) return false;
-		if ( et == null) return false;
+		if (ts == null || et == null) return false;
 		ts = EMV2Util.resolveAlias(ts);
 		for (TypeToken tselement : ts.getTypeTokens()) {
 				if( contains(tselement,et)) return true;
@@ -229,8 +223,7 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean contains(TypeSet ts, TypeSet subts){
-		if (ts == null ) return false;
-		if ( subts == null) return false;
+		if (ts == null || subts == null) return false;
 		ts = EMV2Util.resolveAlias(ts);
 		subts = EMV2Util.resolveAlias(subts);
 		EList<TypeToken> subelements = subts.getTypeTokens();

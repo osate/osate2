@@ -862,7 +862,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (kind=PropagationKind | (featureorPPRefs+=FeatureorPPReference featureorPPRefs+=FeatureorPPReference*)) 
 	 *         not?='not'? 
 	 *         direction=PropagationDirection 
-	 *         typeSet=TypeSetReference?
+	 *         typeSet=TypeSetReference
 	 *     )
 	 */
 	protected void sequence_ErrorPropagation(EObject context, ErrorPropagation semanticObject) {

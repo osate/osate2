@@ -2326,7 +2326,7 @@ ruleErrorPropagation returns [EObject current=null]
 	    }
 
 )
-)?
+)
 	otherlv_10=KEYWORD_10
     {
     	newLeafNode(otherlv_10, grammarAccess.getErrorPropagationAccess().getSemicolonKeyword_7());
