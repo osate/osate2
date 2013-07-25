@@ -12762,7 +12762,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             if ( (LA46_0==KEYWORD_31) ) {
                 int LA46_1 = input.LA(2);
 
-                if ( (LA46_1==KEYWORD_69) ) {
+                if ( (LA46_1==KEYWORD_38) ) {
                     alt46=1;
                 }
             }
@@ -12859,7 +12859,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             int alt47=2;
             int LA47_0 = input.LA(1);
 
-            if ( (LA47_0==KEYWORD_42) ) {
+            if ( (LA47_0==KEYWORD_31) ) {
                 alt47=1;
             }
             switch (alt47) {
@@ -12955,7 +12955,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             int alt48=2;
             int LA48_0 = input.LA(1);
 
-            if ( (LA48_0==KEYWORD_73) ) {
+            if ( (LA48_0==KEYWORD_42) ) {
                 alt48=1;
             }
             switch (alt48) {
@@ -13051,7 +13051,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             int alt49=2;
             int LA49_0 = input.LA(1);
 
-            if ( (LA49_0==KEYWORD_74) ) {
+            if ( (LA49_0==KEYWORD_73) ) {
                 alt49=1;
             }
             switch (alt49) {
@@ -13147,7 +13147,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             int alt50=2;
             int LA50_0 = input.LA(1);
 
-            if ( (LA50_0==KEYWORD_31) ) {
+            if ( (LA50_0==KEYWORD_74) ) {
                 alt50=1;
             }
             switch (alt50) {
@@ -14147,21 +14147,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_2__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4691:1: rule__ErrorModelSubclause__Group_2__1__Impl : ( KEYWORD_69 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4691:1: rule__ErrorModelSubclause__Group_2__1__Impl : ( KEYWORD_38 ) ;
     public final void rule__ErrorModelSubclause__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4695:1: ( ( KEYWORD_69 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4696:1: ( KEYWORD_69 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4695:1: ( ( KEYWORD_38 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4696:1: ( KEYWORD_38 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4696:1: ( KEYWORD_69 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4697:1: KEYWORD_69
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4696:1: ( KEYWORD_38 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4697:1: KEYWORD_38
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_2_1()); 
-            match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_2__1__Impl10277); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_2_1()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getTypeKeyword_2_1()); 
+            match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_rule__ErrorModelSubclause__Group_2__1__Impl10277); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTypeKeyword_2_1()); 
 
             }
 
@@ -14222,31 +14222,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_2__2__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4722:1: rule__ErrorModelSubclause__Group_2__2__Impl : ( ( rule__ErrorModelSubclause__UseBehaviorAssignment_2_2 ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4722:1: rule__ErrorModelSubclause__Group_2__2__Impl : ( KEYWORD_82 ) ;
     public final void rule__ErrorModelSubclause__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4726:1: ( ( ( rule__ErrorModelSubclause__UseBehaviorAssignment_2_2 ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4727:1: ( ( rule__ErrorModelSubclause__UseBehaviorAssignment_2_2 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4726:1: ( ( KEYWORD_82 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4727:1: ( KEYWORD_82 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4727:1: ( ( rule__ErrorModelSubclause__UseBehaviorAssignment_2_2 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4728:1: ( rule__ErrorModelSubclause__UseBehaviorAssignment_2_2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4727:1: ( KEYWORD_82 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4728:1: KEYWORD_82
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorAssignment_2_2()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4729:1: ( rule__ErrorModelSubclause__UseBehaviorAssignment_2_2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4729:2: rule__ErrorModelSubclause__UseBehaviorAssignment_2_2
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__UseBehaviorAssignment_2_2_in_rule__ErrorModelSubclause__Group_2__2__Impl10338);
-            rule__ErrorModelSubclause__UseBehaviorAssignment_2_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorAssignment_2_2()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getEquivalenceKeyword_2_2()); 
+            match(input,KEYWORD_82,FollowSets000.FOLLOW_KEYWORD_82_in_rule__ErrorModelSubclause__Group_2__2__Impl10339); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getEquivalenceKeyword_2_2()); 
 
             }
 
@@ -14269,17 +14259,22 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_2__3"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4739:1: rule__ErrorModelSubclause__Group_2__3 : rule__ErrorModelSubclause__Group_2__3__Impl ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4741:1: rule__ErrorModelSubclause__Group_2__3 : rule__ErrorModelSubclause__Group_2__3__Impl rule__ErrorModelSubclause__Group_2__4 ;
     public final void rule__ErrorModelSubclause__Group_2__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4743:1: ( rule__ErrorModelSubclause__Group_2__3__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4744:2: rule__ErrorModelSubclause__Group_2__3__Impl
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4745:1: ( rule__ErrorModelSubclause__Group_2__3__Impl rule__ErrorModelSubclause__Group_2__4 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4746:2: rule__ErrorModelSubclause__Group_2__3__Impl rule__ErrorModelSubclause__Group_2__4
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_2__3__Impl_in_rule__ErrorModelSubclause__Group_2__310368);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_2__3__Impl_in_rule__ErrorModelSubclause__Group_2__310370);
             rule__ErrorModelSubclause__Group_2__3__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_2__4_in_rule__ErrorModelSubclause__Group_2__310373);
+            rule__ErrorModelSubclause__Group_2__4();
 
             state._fsp--;
 
@@ -14302,21 +14297,31 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_2__3__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4750:1: rule__ErrorModelSubclause__Group_2__3__Impl : ( KEYWORD_10 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4753:1: rule__ErrorModelSubclause__Group_2__3__Impl : ( ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3 ) ) ;
     public final void rule__ErrorModelSubclause__Group_2__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4754:1: ( ( KEYWORD_10 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4755:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4757:1: ( ( ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3 ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4758:1: ( ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3 ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4755:1: ( KEYWORD_10 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4756:1: KEYWORD_10
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4758:1: ( ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4759:1: ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3 )
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_2_3()); 
-            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_2__3__Impl10396); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_2_3()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceAssignment_2_3()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4760:1: ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4760:2: rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3_in_rule__ErrorModelSubclause__Group_2__3__Impl10400);
+            rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceAssignment_2_3()); 
 
             }
 
@@ -14338,22 +14343,92 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorModelSubclause__Group_2__3__Impl"
 
 
+    // $ANTLR start "rule__ErrorModelSubclause__Group_2__4"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4770:1: rule__ErrorModelSubclause__Group_2__4 : rule__ErrorModelSubclause__Group_2__4__Impl ;
+    public final void rule__ErrorModelSubclause__Group_2__4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4774:1: ( rule__ErrorModelSubclause__Group_2__4__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4775:2: rule__ErrorModelSubclause__Group_2__4__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_2__4__Impl_in_rule__ErrorModelSubclause__Group_2__410430);
+            rule__ErrorModelSubclause__Group_2__4__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_2__4"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_2__4__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4781:1: rule__ErrorModelSubclause__Group_2__4__Impl : ( KEYWORD_10 ) ;
+    public final void rule__ErrorModelSubclause__Group_2__4__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4785:1: ( ( KEYWORD_10 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4786:1: ( KEYWORD_10 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4786:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4787:1: KEYWORD_10
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_2_4()); 
+            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_2__4__Impl10458); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_2_4()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_2__4__Impl"
+
+
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4777:1: rule__ErrorModelSubclause__Group_3__0 : rule__ErrorModelSubclause__Group_3__0__Impl rule__ErrorModelSubclause__Group_3__1 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4810:1: rule__ErrorModelSubclause__Group_3__0 : rule__ErrorModelSubclause__Group_3__0__Impl rule__ErrorModelSubclause__Group_3__1 ;
     public final void rule__ErrorModelSubclause__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4781:1: ( rule__ErrorModelSubclause__Group_3__0__Impl rule__ErrorModelSubclause__Group_3__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4782:2: rule__ErrorModelSubclause__Group_3__0__Impl rule__ErrorModelSubclause__Group_3__1
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4814:1: ( rule__ErrorModelSubclause__Group_3__0__Impl rule__ErrorModelSubclause__Group_3__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4815:2: rule__ErrorModelSubclause__Group_3__0__Impl rule__ErrorModelSubclause__Group_3__1
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__0__Impl_in_rule__ErrorModelSubclause__Group_3__010435);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__0__Impl_in_rule__ErrorModelSubclause__Group_3__010499);
             rule__ErrorModelSubclause__Group_3__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__1_in_rule__ErrorModelSubclause__Group_3__010438);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__1_in_rule__ErrorModelSubclause__Group_3__010502);
             rule__ErrorModelSubclause__Group_3__1();
 
             state._fsp--;
@@ -14377,21 +14452,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4789:1: rule__ErrorModelSubclause__Group_3__0__Impl : ( KEYWORD_42 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4822:1: rule__ErrorModelSubclause__Group_3__0__Impl : ( KEYWORD_31 ) ;
     public final void rule__ErrorModelSubclause__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4793:1: ( ( KEYWORD_42 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4794:1: ( KEYWORD_42 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4826:1: ( ( KEYWORD_31 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4827:1: ( KEYWORD_31 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4794:1: ( KEYWORD_42 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4795:1: KEYWORD_42
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4827:1: ( KEYWORD_31 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4828:1: KEYWORD_31
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_3_0()); 
-            match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_3__0__Impl10466); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_3_0()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_3_0()); 
+            match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_3__0__Impl10530); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_3_0()); 
 
             }
 
@@ -14414,21 +14489,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4808:1: rule__ErrorModelSubclause__Group_3__1 : rule__ErrorModelSubclause__Group_3__1__Impl rule__ErrorModelSubclause__Group_3__2 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4841:1: rule__ErrorModelSubclause__Group_3__1 : rule__ErrorModelSubclause__Group_3__1__Impl rule__ErrorModelSubclause__Group_3__2 ;
     public final void rule__ErrorModelSubclause__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4812:1: ( rule__ErrorModelSubclause__Group_3__1__Impl rule__ErrorModelSubclause__Group_3__2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4813:2: rule__ErrorModelSubclause__Group_3__1__Impl rule__ErrorModelSubclause__Group_3__2
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4845:1: ( rule__ErrorModelSubclause__Group_3__1__Impl rule__ErrorModelSubclause__Group_3__2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4846:2: rule__ErrorModelSubclause__Group_3__1__Impl rule__ErrorModelSubclause__Group_3__2
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__1__Impl_in_rule__ErrorModelSubclause__Group_3__110497);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__1__Impl_in_rule__ErrorModelSubclause__Group_3__110561);
             rule__ErrorModelSubclause__Group_3__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__2_in_rule__ErrorModelSubclause__Group_3__110500);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__2_in_rule__ErrorModelSubclause__Group_3__110564);
             rule__ErrorModelSubclause__Group_3__2();
 
             state._fsp--;
@@ -14452,21 +14527,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4820:1: rule__ErrorModelSubclause__Group_3__1__Impl : ( KEYWORD_85 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4853:1: rule__ErrorModelSubclause__Group_3__1__Impl : ( KEYWORD_69 ) ;
     public final void rule__ErrorModelSubclause__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4824:1: ( ( KEYWORD_85 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4825:1: ( KEYWORD_85 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4857:1: ( ( KEYWORD_69 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4858:1: ( KEYWORD_69 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4825:1: ( KEYWORD_85 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4826:1: KEYWORD_85
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4858:1: ( KEYWORD_69 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4859:1: KEYWORD_69
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_3_1()); 
-            match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_3__1__Impl10528); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_3_1()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_3_1()); 
+            match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_3__1__Impl10592); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_3_1()); 
 
             }
 
@@ -14489,21 +14564,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4839:1: rule__ErrorModelSubclause__Group_3__2 : rule__ErrorModelSubclause__Group_3__2__Impl rule__ErrorModelSubclause__Group_3__3 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4872:1: rule__ErrorModelSubclause__Group_3__2 : rule__ErrorModelSubclause__Group_3__2__Impl rule__ErrorModelSubclause__Group_3__3 ;
     public final void rule__ErrorModelSubclause__Group_3__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4843:1: ( rule__ErrorModelSubclause__Group_3__2__Impl rule__ErrorModelSubclause__Group_3__3 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4844:2: rule__ErrorModelSubclause__Group_3__2__Impl rule__ErrorModelSubclause__Group_3__3
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4876:1: ( rule__ErrorModelSubclause__Group_3__2__Impl rule__ErrorModelSubclause__Group_3__3 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4877:2: rule__ErrorModelSubclause__Group_3__2__Impl rule__ErrorModelSubclause__Group_3__3
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__2__Impl_in_rule__ErrorModelSubclause__Group_3__210559);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__2__Impl_in_rule__ErrorModelSubclause__Group_3__210623);
             rule__ErrorModelSubclause__Group_3__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__3_in_rule__ErrorModelSubclause__Group_3__210562);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__3_in_rule__ErrorModelSubclause__Group_3__210626);
             rule__ErrorModelSubclause__Group_3__3();
 
             state._fsp--;
@@ -14527,49 +14602,31 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__2__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4851:1: rule__ErrorModelSubclause__Group_3__2__Impl : ( ( rule__ErrorModelSubclause__PropagationsAssignment_3_2 )* ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4884:1: rule__ErrorModelSubclause__Group_3__2__Impl : ( ( rule__ErrorModelSubclause__UseBehaviorAssignment_3_2 ) ) ;
     public final void rule__ErrorModelSubclause__Group_3__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4855:1: ( ( ( rule__ErrorModelSubclause__PropagationsAssignment_3_2 )* ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4856:1: ( ( rule__ErrorModelSubclause__PropagationsAssignment_3_2 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4888:1: ( ( ( rule__ErrorModelSubclause__UseBehaviorAssignment_3_2 ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4889:1: ( ( rule__ErrorModelSubclause__UseBehaviorAssignment_3_2 ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4856:1: ( ( rule__ErrorModelSubclause__PropagationsAssignment_3_2 )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4857:1: ( rule__ErrorModelSubclause__PropagationsAssignment_3_2 )*
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4889:1: ( ( rule__ErrorModelSubclause__UseBehaviorAssignment_3_2 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4890:1: ( rule__ErrorModelSubclause__UseBehaviorAssignment_3_2 )
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsAssignment_3_2()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4858:1: ( rule__ErrorModelSubclause__PropagationsAssignment_3_2 )*
-            loop55:
-            do {
-                int alt55=2;
-                int LA55_0 = input.LA(1);
+             before(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorAssignment_3_2()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4891:1: ( rule__ErrorModelSubclause__UseBehaviorAssignment_3_2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4891:2: rule__ErrorModelSubclause__UseBehaviorAssignment_3_2
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__UseBehaviorAssignment_3_2_in_rule__ErrorModelSubclause__Group_3__2__Impl10653);
+            rule__ErrorModelSubclause__UseBehaviorAssignment_3_2();
 
-                if ( (LA55_0==KEYWORD_78||LA55_0==KEYWORD_75||LA55_0==KEYWORD_70||LA55_0==KEYWORD_51||LA55_0==KEYWORD_53||LA55_0==RULE_ID) ) {
-                    alt55=1;
-                }
+            state._fsp--;
 
 
-                switch (alt55) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4858:2: rule__ErrorModelSubclause__PropagationsAssignment_3_2
-            	    {
-            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__PropagationsAssignment_3_2_in_rule__ErrorModelSubclause__Group_3__2__Impl10589);
-            	    rule__ErrorModelSubclause__PropagationsAssignment_3_2();
+            }
 
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop55;
-                }
-            } while (true);
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsAssignment_3_2()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorAssignment_3_2()); 
 
             }
 
@@ -14592,22 +14649,17 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__3"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4868:1: rule__ErrorModelSubclause__Group_3__3 : rule__ErrorModelSubclause__Group_3__3__Impl rule__ErrorModelSubclause__Group_3__4 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4901:1: rule__ErrorModelSubclause__Group_3__3 : rule__ErrorModelSubclause__Group_3__3__Impl ;
     public final void rule__ErrorModelSubclause__Group_3__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4872:1: ( rule__ErrorModelSubclause__Group_3__3__Impl rule__ErrorModelSubclause__Group_3__4 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4873:2: rule__ErrorModelSubclause__Group_3__3__Impl rule__ErrorModelSubclause__Group_3__4
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4905:1: ( rule__ErrorModelSubclause__Group_3__3__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4906:2: rule__ErrorModelSubclause__Group_3__3__Impl
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__3__Impl_in_rule__ErrorModelSubclause__Group_3__310620);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__3__Impl_in_rule__ErrorModelSubclause__Group_3__310683);
             rule__ErrorModelSubclause__Group_3__3__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__4_in_rule__ErrorModelSubclause__Group_3__310623);
-            rule__ErrorModelSubclause__Group_3__4();
 
             state._fsp--;
 
@@ -14630,42 +14682,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__3__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4880:1: rule__ErrorModelSubclause__Group_3__3__Impl : ( ( rule__ErrorModelSubclause__Group_3_3__0 )? ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4912:1: rule__ErrorModelSubclause__Group_3__3__Impl : ( KEYWORD_10 ) ;
     public final void rule__ErrorModelSubclause__Group_3__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4884:1: ( ( ( rule__ErrorModelSubclause__Group_3_3__0 )? ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4885:1: ( ( rule__ErrorModelSubclause__Group_3_3__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4916:1: ( ( KEYWORD_10 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4917:1: ( KEYWORD_10 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4885:1: ( ( rule__ErrorModelSubclause__Group_3_3__0 )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4886:1: ( rule__ErrorModelSubclause__Group_3_3__0 )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4917:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4918:1: KEYWORD_10
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_3_3()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4887:1: ( rule__ErrorModelSubclause__Group_3_3__0 )?
-            int alt56=2;
-            int LA56_0 = input.LA(1);
-
-            if ( (LA56_0==KEYWORD_45) ) {
-                alt56=1;
-            }
-            switch (alt56) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4887:2: rule__ErrorModelSubclause__Group_3_3__0
-                    {
-                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3_3__0_in_rule__ErrorModelSubclause__Group_3__3__Impl10650);
-                    rule__ErrorModelSubclause__Group_3_3__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_3_3()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_3_3()); 
+            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_3__3__Impl10711); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_3_3()); 
 
             }
 
@@ -14687,440 +14718,22 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorModelSubclause__Group_3__3__Impl"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3__4"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4897:1: rule__ErrorModelSubclause__Group_3__4 : rule__ErrorModelSubclause__Group_3__4__Impl rule__ErrorModelSubclause__Group_3__5 ;
-    public final void rule__ErrorModelSubclause__Group_3__4() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4901:1: ( rule__ErrorModelSubclause__Group_3__4__Impl rule__ErrorModelSubclause__Group_3__5 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4902:2: rule__ErrorModelSubclause__Group_3__4__Impl rule__ErrorModelSubclause__Group_3__5
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__4__Impl_in_rule__ErrorModelSubclause__Group_3__410681);
-            rule__ErrorModelSubclause__Group_3__4__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__5_in_rule__ErrorModelSubclause__Group_3__410684);
-            rule__ErrorModelSubclause__Group_3__5();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3__4"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3__4__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4909:1: rule__ErrorModelSubclause__Group_3__4__Impl : ( KEYWORD_27 ) ;
-    public final void rule__ErrorModelSubclause__Group_3__4__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4913:1: ( ( KEYWORD_27 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4914:1: ( KEYWORD_27 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4914:1: ( KEYWORD_27 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4915:1: KEYWORD_27
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_3_4()); 
-            match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_3__4__Impl10712); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_3_4()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3__4__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3__5"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4928:1: rule__ErrorModelSubclause__Group_3__5 : rule__ErrorModelSubclause__Group_3__5__Impl rule__ErrorModelSubclause__Group_3__6 ;
-    public final void rule__ErrorModelSubclause__Group_3__5() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4932:1: ( rule__ErrorModelSubclause__Group_3__5__Impl rule__ErrorModelSubclause__Group_3__6 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4933:2: rule__ErrorModelSubclause__Group_3__5__Impl rule__ErrorModelSubclause__Group_3__6
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__5__Impl_in_rule__ErrorModelSubclause__Group_3__510743);
-            rule__ErrorModelSubclause__Group_3__5__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__6_in_rule__ErrorModelSubclause__Group_3__510746);
-            rule__ErrorModelSubclause__Group_3__6();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3__5"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3__5__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4940:1: rule__ErrorModelSubclause__Group_3__5__Impl : ( KEYWORD_85 ) ;
-    public final void rule__ErrorModelSubclause__Group_3__5__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4944:1: ( ( KEYWORD_85 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4945:1: ( KEYWORD_85 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4945:1: ( KEYWORD_85 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4946:1: KEYWORD_85
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_3_5()); 
-            match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_3__5__Impl10774); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_3_5()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3__5__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3__6"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4959:1: rule__ErrorModelSubclause__Group_3__6 : rule__ErrorModelSubclause__Group_3__6__Impl ;
-    public final void rule__ErrorModelSubclause__Group_3__6() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4963:1: ( rule__ErrorModelSubclause__Group_3__6__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4964:2: rule__ErrorModelSubclause__Group_3__6__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3__6__Impl_in_rule__ErrorModelSubclause__Group_3__610805);
-            rule__ErrorModelSubclause__Group_3__6__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3__6"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3__6__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4970:1: rule__ErrorModelSubclause__Group_3__6__Impl : ( KEYWORD_10 ) ;
-    public final void rule__ErrorModelSubclause__Group_3__6__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4974:1: ( ( KEYWORD_10 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4975:1: ( KEYWORD_10 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4975:1: ( KEYWORD_10 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4976:1: KEYWORD_10
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_3_6()); 
-            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_3__6__Impl10833); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_3_6()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3__6__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3_3__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5003:1: rule__ErrorModelSubclause__Group_3_3__0 : rule__ErrorModelSubclause__Group_3_3__0__Impl rule__ErrorModelSubclause__Group_3_3__1 ;
-    public final void rule__ErrorModelSubclause__Group_3_3__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5007:1: ( rule__ErrorModelSubclause__Group_3_3__0__Impl rule__ErrorModelSubclause__Group_3_3__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5008:2: rule__ErrorModelSubclause__Group_3_3__0__Impl rule__ErrorModelSubclause__Group_3_3__1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3_3__0__Impl_in_rule__ErrorModelSubclause__Group_3_3__010878);
-            rule__ErrorModelSubclause__Group_3_3__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3_3__1_in_rule__ErrorModelSubclause__Group_3_3__010881);
-            rule__ErrorModelSubclause__Group_3_3__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3_3__0"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3_3__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5015:1: rule__ErrorModelSubclause__Group_3_3__0__Impl : ( KEYWORD_45 ) ;
-    public final void rule__ErrorModelSubclause__Group_3_3__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5019:1: ( ( KEYWORD_45 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5020:1: ( KEYWORD_45 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5020:1: ( KEYWORD_45 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5021:1: KEYWORD_45
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getFlowsKeyword_3_3_0()); 
-            match(input,KEYWORD_45,FollowSets000.FOLLOW_KEYWORD_45_in_rule__ErrorModelSubclause__Group_3_3__0__Impl10909); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getFlowsKeyword_3_3_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3_3__0__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3_3__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5034:1: rule__ErrorModelSubclause__Group_3_3__1 : rule__ErrorModelSubclause__Group_3_3__1__Impl ;
-    public final void rule__ErrorModelSubclause__Group_3_3__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5038:1: ( rule__ErrorModelSubclause__Group_3_3__1__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5039:2: rule__ErrorModelSubclause__Group_3_3__1__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_3_3__1__Impl_in_rule__ErrorModelSubclause__Group_3_3__110940);
-            rule__ErrorModelSubclause__Group_3_3__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3_3__1"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_3_3__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5045:1: rule__ErrorModelSubclause__Group_3_3__1__Impl : ( ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )* ) ) ;
-    public final void rule__ErrorModelSubclause__Group_3_3__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5049:1: ( ( ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )* ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5050:1: ( ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )* ) )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5050:1: ( ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )* ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5051:1: ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )* )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5051:1: ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5052:1: ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_3_3_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5053:1: ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5053:2: rule__ErrorModelSubclause__FlowsAssignment_3_3_1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_3_3_1_in_rule__ErrorModelSubclause__Group_3_3__1__Impl10969);
-            rule__ErrorModelSubclause__FlowsAssignment_3_3_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_3_3_1()); 
-
-            }
-
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5056:1: ( ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5057:1: ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )*
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_3_3_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5058:1: ( rule__ErrorModelSubclause__FlowsAssignment_3_3_1 )*
-            loop57:
-            do {
-                int alt57=2;
-                int LA57_0 = input.LA(1);
-
-                if ( (LA57_0==RULE_ID) ) {
-                    alt57=1;
-                }
-
-
-                switch (alt57) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5058:2: rule__ErrorModelSubclause__FlowsAssignment_3_3_1
-            	    {
-            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_3_3_1_in_rule__ErrorModelSubclause__Group_3_3__1__Impl10981);
-            	    rule__ErrorModelSubclause__FlowsAssignment_3_3_1();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop57;
-                }
-            } while (true);
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_3_3_1()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_3_3__1__Impl"
-
-
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5073:1: rule__ErrorModelSubclause__Group_4__0 : rule__ErrorModelSubclause__Group_4__0__Impl rule__ErrorModelSubclause__Group_4__1 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4939:1: rule__ErrorModelSubclause__Group_4__0 : rule__ErrorModelSubclause__Group_4__0__Impl rule__ErrorModelSubclause__Group_4__1 ;
     public final void rule__ErrorModelSubclause__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5077:1: ( rule__ErrorModelSubclause__Group_4__0__Impl rule__ErrorModelSubclause__Group_4__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5078:2: rule__ErrorModelSubclause__Group_4__0__Impl rule__ErrorModelSubclause__Group_4__1
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4943:1: ( rule__ErrorModelSubclause__Group_4__0__Impl rule__ErrorModelSubclause__Group_4__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4944:2: rule__ErrorModelSubclause__Group_4__0__Impl rule__ErrorModelSubclause__Group_4__1
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__0__Impl_in_rule__ErrorModelSubclause__Group_4__011018);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__0__Impl_in_rule__ErrorModelSubclause__Group_4__010750);
             rule__ErrorModelSubclause__Group_4__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__1_in_rule__ErrorModelSubclause__Group_4__011021);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__1_in_rule__ErrorModelSubclause__Group_4__010753);
             rule__ErrorModelSubclause__Group_4__1();
 
             state._fsp--;
@@ -15144,21 +14757,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5085:1: rule__ErrorModelSubclause__Group_4__0__Impl : ( KEYWORD_73 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4951:1: rule__ErrorModelSubclause__Group_4__0__Impl : ( KEYWORD_42 ) ;
     public final void rule__ErrorModelSubclause__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5089:1: ( ( KEYWORD_73 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5090:1: ( KEYWORD_73 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4955:1: ( ( KEYWORD_42 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4956:1: ( KEYWORD_42 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5090:1: ( KEYWORD_73 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5091:1: KEYWORD_73
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4956:1: ( KEYWORD_42 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4957:1: KEYWORD_42
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_4_0()); 
-            match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_4__0__Impl11049); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_4_0()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_4_0()); 
+            match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_4__0__Impl10781); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_4_0()); 
 
             }
 
@@ -15181,21 +14794,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5104:1: rule__ErrorModelSubclause__Group_4__1 : rule__ErrorModelSubclause__Group_4__1__Impl rule__ErrorModelSubclause__Group_4__2 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4970:1: rule__ErrorModelSubclause__Group_4__1 : rule__ErrorModelSubclause__Group_4__1__Impl rule__ErrorModelSubclause__Group_4__2 ;
     public final void rule__ErrorModelSubclause__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5108:1: ( rule__ErrorModelSubclause__Group_4__1__Impl rule__ErrorModelSubclause__Group_4__2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5109:2: rule__ErrorModelSubclause__Group_4__1__Impl rule__ErrorModelSubclause__Group_4__2
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4974:1: ( rule__ErrorModelSubclause__Group_4__1__Impl rule__ErrorModelSubclause__Group_4__2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4975:2: rule__ErrorModelSubclause__Group_4__1__Impl rule__ErrorModelSubclause__Group_4__2
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__1__Impl_in_rule__ErrorModelSubclause__Group_4__111080);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__1__Impl_in_rule__ErrorModelSubclause__Group_4__110812);
             rule__ErrorModelSubclause__Group_4__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__2_in_rule__ErrorModelSubclause__Group_4__111083);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__2_in_rule__ErrorModelSubclause__Group_4__110815);
             rule__ErrorModelSubclause__Group_4__2();
 
             state._fsp--;
@@ -15219,21 +14832,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5116:1: rule__ErrorModelSubclause__Group_4__1__Impl : ( KEYWORD_42 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4982:1: rule__ErrorModelSubclause__Group_4__1__Impl : ( KEYWORD_85 ) ;
     public final void rule__ErrorModelSubclause__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5120:1: ( ( KEYWORD_42 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5121:1: ( KEYWORD_42 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4986:1: ( ( KEYWORD_85 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4987:1: ( KEYWORD_85 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5121:1: ( KEYWORD_42 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5122:1: KEYWORD_42
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4987:1: ( KEYWORD_85 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4988:1: KEYWORD_85
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_4_1()); 
-            match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_4__1__Impl11111); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_4_1()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_1()); 
+            match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_4__1__Impl10843); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_1()); 
 
             }
 
@@ -15256,21 +14869,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5135:1: rule__ErrorModelSubclause__Group_4__2 : rule__ErrorModelSubclause__Group_4__2__Impl rule__ErrorModelSubclause__Group_4__3 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5001:1: rule__ErrorModelSubclause__Group_4__2 : rule__ErrorModelSubclause__Group_4__2__Impl rule__ErrorModelSubclause__Group_4__3 ;
     public final void rule__ErrorModelSubclause__Group_4__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5139:1: ( rule__ErrorModelSubclause__Group_4__2__Impl rule__ErrorModelSubclause__Group_4__3 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5140:2: rule__ErrorModelSubclause__Group_4__2__Impl rule__ErrorModelSubclause__Group_4__3
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5005:1: ( rule__ErrorModelSubclause__Group_4__2__Impl rule__ErrorModelSubclause__Group_4__3 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5006:2: rule__ErrorModelSubclause__Group_4__2__Impl rule__ErrorModelSubclause__Group_4__3
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__2__Impl_in_rule__ErrorModelSubclause__Group_4__211142);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__2__Impl_in_rule__ErrorModelSubclause__Group_4__210874);
             rule__ErrorModelSubclause__Group_4__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__3_in_rule__ErrorModelSubclause__Group_4__211145);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__3_in_rule__ErrorModelSubclause__Group_4__210877);
             rule__ErrorModelSubclause__Group_4__3();
 
             state._fsp--;
@@ -15294,21 +14907,49 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__2__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5147:1: rule__ErrorModelSubclause__Group_4__2__Impl : ( KEYWORD_69 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5013:1: rule__ErrorModelSubclause__Group_4__2__Impl : ( ( rule__ErrorModelSubclause__PropagationsAssignment_4_2 )* ) ;
     public final void rule__ErrorModelSubclause__Group_4__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5151:1: ( ( KEYWORD_69 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5152:1: ( KEYWORD_69 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5017:1: ( ( ( rule__ErrorModelSubclause__PropagationsAssignment_4_2 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5018:1: ( ( rule__ErrorModelSubclause__PropagationsAssignment_4_2 )* )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5152:1: ( KEYWORD_69 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5153:1: KEYWORD_69
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5018:1: ( ( rule__ErrorModelSubclause__PropagationsAssignment_4_2 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5019:1: ( rule__ErrorModelSubclause__PropagationsAssignment_4_2 )*
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_4_2()); 
-            match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_4__2__Impl11173); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_4_2()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsAssignment_4_2()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5020:1: ( rule__ErrorModelSubclause__PropagationsAssignment_4_2 )*
+            loop55:
+            do {
+                int alt55=2;
+                int LA55_0 = input.LA(1);
+
+                if ( (LA55_0==KEYWORD_78||LA55_0==KEYWORD_75||LA55_0==KEYWORD_70||LA55_0==KEYWORD_51||LA55_0==KEYWORD_53||LA55_0==RULE_ID) ) {
+                    alt55=1;
+                }
+
+
+                switch (alt55) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5020:2: rule__ErrorModelSubclause__PropagationsAssignment_4_2
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__PropagationsAssignment_4_2_in_rule__ErrorModelSubclause__Group_4__2__Impl10904);
+            	    rule__ErrorModelSubclause__PropagationsAssignment_4_2();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop55;
+                }
+            } while (true);
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsAssignment_4_2()); 
 
             }
 
@@ -15331,21 +14972,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__3"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5166:1: rule__ErrorModelSubclause__Group_4__3 : rule__ErrorModelSubclause__Group_4__3__Impl rule__ErrorModelSubclause__Group_4__4 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5030:1: rule__ErrorModelSubclause__Group_4__3 : rule__ErrorModelSubclause__Group_4__3__Impl rule__ErrorModelSubclause__Group_4__4 ;
     public final void rule__ErrorModelSubclause__Group_4__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5170:1: ( rule__ErrorModelSubclause__Group_4__3__Impl rule__ErrorModelSubclause__Group_4__4 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5171:2: rule__ErrorModelSubclause__Group_4__3__Impl rule__ErrorModelSubclause__Group_4__4
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5034:1: ( rule__ErrorModelSubclause__Group_4__3__Impl rule__ErrorModelSubclause__Group_4__4 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5035:2: rule__ErrorModelSubclause__Group_4__3__Impl rule__ErrorModelSubclause__Group_4__4
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__3__Impl_in_rule__ErrorModelSubclause__Group_4__311204);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__3__Impl_in_rule__ErrorModelSubclause__Group_4__310935);
             rule__ErrorModelSubclause__Group_4__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__4_in_rule__ErrorModelSubclause__Group_4__311207);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__4_in_rule__ErrorModelSubclause__Group_4__310938);
             rule__ErrorModelSubclause__Group_4__4();
 
             state._fsp--;
@@ -15369,31 +15010,31 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__3__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5178:1: rule__ErrorModelSubclause__Group_4__3__Impl : ( ( rule__ErrorModelSubclause__Group_4_3__0 )? ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5042:1: rule__ErrorModelSubclause__Group_4__3__Impl : ( ( rule__ErrorModelSubclause__Group_4_3__0 )? ) ;
     public final void rule__ErrorModelSubclause__Group_4__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5182:1: ( ( ( rule__ErrorModelSubclause__Group_4_3__0 )? ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5183:1: ( ( rule__ErrorModelSubclause__Group_4_3__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5046:1: ( ( ( rule__ErrorModelSubclause__Group_4_3__0 )? ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5047:1: ( ( rule__ErrorModelSubclause__Group_4_3__0 )? )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5183:1: ( ( rule__ErrorModelSubclause__Group_4_3__0 )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5184:1: ( rule__ErrorModelSubclause__Group_4_3__0 )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5047:1: ( ( rule__ErrorModelSubclause__Group_4_3__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5048:1: ( rule__ErrorModelSubclause__Group_4_3__0 )?
             {
              before(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_3()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5185:1: ( rule__ErrorModelSubclause__Group_4_3__0 )?
-            int alt58=2;
-            int LA58_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5049:1: ( rule__ErrorModelSubclause__Group_4_3__0 )?
+            int alt56=2;
+            int LA56_0 = input.LA(1);
 
-            if ( (LA58_0==KEYWORD_31) ) {
-                alt58=1;
+            if ( (LA56_0==KEYWORD_45) ) {
+                alt56=1;
             }
-            switch (alt58) {
+            switch (alt56) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5185:2: rule__ErrorModelSubclause__Group_4_3__0
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5049:2: rule__ErrorModelSubclause__Group_4_3__0
                     {
-                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__0_in_rule__ErrorModelSubclause__Group_4__3__Impl11234);
+                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__0_in_rule__ErrorModelSubclause__Group_4__3__Impl10965);
                     rule__ErrorModelSubclause__Group_4_3__0();
 
                     state._fsp--;
@@ -15427,21 +15068,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__4"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5195:1: rule__ErrorModelSubclause__Group_4__4 : rule__ErrorModelSubclause__Group_4__4__Impl rule__ErrorModelSubclause__Group_4__5 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5059:1: rule__ErrorModelSubclause__Group_4__4 : rule__ErrorModelSubclause__Group_4__4__Impl rule__ErrorModelSubclause__Group_4__5 ;
     public final void rule__ErrorModelSubclause__Group_4__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5199:1: ( rule__ErrorModelSubclause__Group_4__4__Impl rule__ErrorModelSubclause__Group_4__5 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5200:2: rule__ErrorModelSubclause__Group_4__4__Impl rule__ErrorModelSubclause__Group_4__5
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5063:1: ( rule__ErrorModelSubclause__Group_4__4__Impl rule__ErrorModelSubclause__Group_4__5 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5064:2: rule__ErrorModelSubclause__Group_4__4__Impl rule__ErrorModelSubclause__Group_4__5
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__4__Impl_in_rule__ErrorModelSubclause__Group_4__411265);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__4__Impl_in_rule__ErrorModelSubclause__Group_4__410996);
             rule__ErrorModelSubclause__Group_4__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__5_in_rule__ErrorModelSubclause__Group_4__411268);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__5_in_rule__ErrorModelSubclause__Group_4__410999);
             rule__ErrorModelSubclause__Group_4__5();
 
             state._fsp--;
@@ -15465,42 +15106,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__4__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5207:1: rule__ErrorModelSubclause__Group_4__4__Impl : ( ( rule__ErrorModelSubclause__Group_4_4__0 )? ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5071:1: rule__ErrorModelSubclause__Group_4__4__Impl : ( KEYWORD_27 ) ;
     public final void rule__ErrorModelSubclause__Group_4__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5211:1: ( ( ( rule__ErrorModelSubclause__Group_4_4__0 )? ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5212:1: ( ( rule__ErrorModelSubclause__Group_4_4__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5075:1: ( ( KEYWORD_27 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5076:1: ( KEYWORD_27 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5212:1: ( ( rule__ErrorModelSubclause__Group_4_4__0 )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5213:1: ( rule__ErrorModelSubclause__Group_4_4__0 )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5076:1: ( KEYWORD_27 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5077:1: KEYWORD_27
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_4()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5214:1: ( rule__ErrorModelSubclause__Group_4_4__0 )?
-            int alt59=2;
-            int LA59_0 = input.LA(1);
-
-            if ( (LA59_0==KEYWORD_52) ) {
-                alt59=1;
-            }
-            switch (alt59) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5214:2: rule__ErrorModelSubclause__Group_4_4__0
-                    {
-                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_4__0_in_rule__ErrorModelSubclause__Group_4__4__Impl11295);
-                    rule__ErrorModelSubclause__Group_4_4__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_4()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_4_4()); 
+            match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_4__4__Impl11027); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_4_4()); 
 
             }
 
@@ -15523,21 +15143,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__5"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5224:1: rule__ErrorModelSubclause__Group_4__5 : rule__ErrorModelSubclause__Group_4__5__Impl rule__ErrorModelSubclause__Group_4__6 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5090:1: rule__ErrorModelSubclause__Group_4__5 : rule__ErrorModelSubclause__Group_4__5__Impl rule__ErrorModelSubclause__Group_4__6 ;
     public final void rule__ErrorModelSubclause__Group_4__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5228:1: ( rule__ErrorModelSubclause__Group_4__5__Impl rule__ErrorModelSubclause__Group_4__6 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5229:2: rule__ErrorModelSubclause__Group_4__5__Impl rule__ErrorModelSubclause__Group_4__6
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5094:1: ( rule__ErrorModelSubclause__Group_4__5__Impl rule__ErrorModelSubclause__Group_4__6 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5095:2: rule__ErrorModelSubclause__Group_4__5__Impl rule__ErrorModelSubclause__Group_4__6
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__5__Impl_in_rule__ErrorModelSubclause__Group_4__511326);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__5__Impl_in_rule__ErrorModelSubclause__Group_4__511058);
             rule__ErrorModelSubclause__Group_4__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__6_in_rule__ErrorModelSubclause__Group_4__511329);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__6_in_rule__ErrorModelSubclause__Group_4__511061);
             rule__ErrorModelSubclause__Group_4__6();
 
             state._fsp--;
@@ -15561,42 +15181,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__5__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5236:1: rule__ErrorModelSubclause__Group_4__5__Impl : ( ( rule__ErrorModelSubclause__Group_4_5__0 )? ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5102:1: rule__ErrorModelSubclause__Group_4__5__Impl : ( KEYWORD_85 ) ;
     public final void rule__ErrorModelSubclause__Group_4__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5240:1: ( ( ( rule__ErrorModelSubclause__Group_4_5__0 )? ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5241:1: ( ( rule__ErrorModelSubclause__Group_4_5__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5106:1: ( ( KEYWORD_85 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5107:1: ( KEYWORD_85 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5241:1: ( ( rule__ErrorModelSubclause__Group_4_5__0 )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5242:1: ( rule__ErrorModelSubclause__Group_4_5__0 )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5107:1: ( KEYWORD_85 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5108:1: KEYWORD_85
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_5()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5243:1: ( rule__ErrorModelSubclause__Group_4_5__0 )?
-            int alt60=2;
-            int LA60_0 = input.LA(1);
-
-            if ( (LA60_0==KEYWORD_84) ) {
-                alt60=1;
-            }
-            switch (alt60) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5243:2: rule__ErrorModelSubclause__Group_4_5__0
-                    {
-                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_5__0_in_rule__ErrorModelSubclause__Group_4__5__Impl11356);
-                    rule__ErrorModelSubclause__Group_4_5__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_5()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_5()); 
+            match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_4__5__Impl11089); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_5()); 
 
             }
 
@@ -15619,22 +15218,17 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__6"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5253:1: rule__ErrorModelSubclause__Group_4__6 : rule__ErrorModelSubclause__Group_4__6__Impl rule__ErrorModelSubclause__Group_4__7 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5121:1: rule__ErrorModelSubclause__Group_4__6 : rule__ErrorModelSubclause__Group_4__6__Impl ;
     public final void rule__ErrorModelSubclause__Group_4__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5257:1: ( rule__ErrorModelSubclause__Group_4__6__Impl rule__ErrorModelSubclause__Group_4__7 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5258:2: rule__ErrorModelSubclause__Group_4__6__Impl rule__ErrorModelSubclause__Group_4__7
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5125:1: ( rule__ErrorModelSubclause__Group_4__6__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5126:2: rule__ErrorModelSubclause__Group_4__6__Impl
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__6__Impl_in_rule__ErrorModelSubclause__Group_4__611387);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__6__Impl_in_rule__ErrorModelSubclause__Group_4__611120);
             rule__ErrorModelSubclause__Group_4__6__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__7_in_rule__ErrorModelSubclause__Group_4__611390);
-            rule__ErrorModelSubclause__Group_4__7();
 
             state._fsp--;
 
@@ -15657,42 +15251,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4__6__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5265:1: rule__ErrorModelSubclause__Group_4__6__Impl : ( ( rule__ErrorModelSubclause__Group_4_6__0 )? ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5132:1: rule__ErrorModelSubclause__Group_4__6__Impl : ( KEYWORD_10 ) ;
     public final void rule__ErrorModelSubclause__Group_4__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5269:1: ( ( ( rule__ErrorModelSubclause__Group_4_6__0 )? ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5270:1: ( ( rule__ErrorModelSubclause__Group_4_6__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5136:1: ( ( KEYWORD_10 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5137:1: ( KEYWORD_10 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5270:1: ( ( rule__ErrorModelSubclause__Group_4_6__0 )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5271:1: ( rule__ErrorModelSubclause__Group_4_6__0 )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5137:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5138:1: KEYWORD_10
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_6()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5272:1: ( rule__ErrorModelSubclause__Group_4_6__0 )?
-            int alt61=2;
-            int LA61_0 = input.LA(1);
-
-            if ( (LA61_0==KEYWORD_85) ) {
-                alt61=1;
-            }
-            switch (alt61) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5272:2: rule__ErrorModelSubclause__Group_4_6__0
-                    {
-                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_6__0_in_rule__ErrorModelSubclause__Group_4__6__Impl11417);
-                    rule__ErrorModelSubclause__Group_4_6__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_6()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_6()); 
+            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_4__6__Impl11148); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_6()); 
 
             }
 
@@ -15714,434 +15287,22 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorModelSubclause__Group_4__6__Impl"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__7"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5282:1: rule__ErrorModelSubclause__Group_4__7 : rule__ErrorModelSubclause__Group_4__7__Impl rule__ErrorModelSubclause__Group_4__8 ;
-    public final void rule__ErrorModelSubclause__Group_4__7() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5286:1: ( rule__ErrorModelSubclause__Group_4__7__Impl rule__ErrorModelSubclause__Group_4__8 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5287:2: rule__ErrorModelSubclause__Group_4__7__Impl rule__ErrorModelSubclause__Group_4__8
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__7__Impl_in_rule__ErrorModelSubclause__Group_4__711448);
-            rule__ErrorModelSubclause__Group_4__7__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__8_in_rule__ErrorModelSubclause__Group_4__711451);
-            rule__ErrorModelSubclause__Group_4__8();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__7"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__7__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5294:1: rule__ErrorModelSubclause__Group_4__7__Impl : ( ( rule__ErrorModelSubclause__Group_4_7__0 )? ) ;
-    public final void rule__ErrorModelSubclause__Group_4__7__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5298:1: ( ( ( rule__ErrorModelSubclause__Group_4_7__0 )? ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5299:1: ( ( rule__ErrorModelSubclause__Group_4_7__0 )? )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5299:1: ( ( rule__ErrorModelSubclause__Group_4_7__0 )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5300:1: ( rule__ErrorModelSubclause__Group_4_7__0 )?
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_7()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5301:1: ( rule__ErrorModelSubclause__Group_4_7__0 )?
-            int alt62=2;
-            int LA62_0 = input.LA(1);
-
-            if ( (LA62_0==KEYWORD_79) ) {
-                alt62=1;
-            }
-            switch (alt62) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5301:2: rule__ErrorModelSubclause__Group_4_7__0
-                    {
-                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_7__0_in_rule__ErrorModelSubclause__Group_4__7__Impl11478);
-                    rule__ErrorModelSubclause__Group_4_7__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_7()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__7__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__8"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5311:1: rule__ErrorModelSubclause__Group_4__8 : rule__ErrorModelSubclause__Group_4__8__Impl rule__ErrorModelSubclause__Group_4__9 ;
-    public final void rule__ErrorModelSubclause__Group_4__8() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5315:1: ( rule__ErrorModelSubclause__Group_4__8__Impl rule__ErrorModelSubclause__Group_4__9 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5316:2: rule__ErrorModelSubclause__Group_4__8__Impl rule__ErrorModelSubclause__Group_4__9
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__8__Impl_in_rule__ErrorModelSubclause__Group_4__811509);
-            rule__ErrorModelSubclause__Group_4__8__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__9_in_rule__ErrorModelSubclause__Group_4__811512);
-            rule__ErrorModelSubclause__Group_4__9();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__8"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__8__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5323:1: rule__ErrorModelSubclause__Group_4__8__Impl : ( ( rule__ErrorModelSubclause__Group_4_8__0 )? ) ;
-    public final void rule__ErrorModelSubclause__Group_4__8__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5327:1: ( ( ( rule__ErrorModelSubclause__Group_4_8__0 )? ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5328:1: ( ( rule__ErrorModelSubclause__Group_4_8__0 )? )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5328:1: ( ( rule__ErrorModelSubclause__Group_4_8__0 )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5329:1: ( rule__ErrorModelSubclause__Group_4_8__0 )?
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_8()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5330:1: ( rule__ErrorModelSubclause__Group_4_8__0 )?
-            int alt63=2;
-            int LA63_0 = input.LA(1);
-
-            if ( (LA63_0==KEYWORD_32) ) {
-                alt63=1;
-            }
-            switch (alt63) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5330:2: rule__ErrorModelSubclause__Group_4_8__0
-                    {
-                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_8__0_in_rule__ErrorModelSubclause__Group_4__8__Impl11539);
-                    rule__ErrorModelSubclause__Group_4_8__0();
-
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_4_8()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__8__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__9"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5340:1: rule__ErrorModelSubclause__Group_4__9 : rule__ErrorModelSubclause__Group_4__9__Impl rule__ErrorModelSubclause__Group_4__10 ;
-    public final void rule__ErrorModelSubclause__Group_4__9() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5344:1: ( rule__ErrorModelSubclause__Group_4__9__Impl rule__ErrorModelSubclause__Group_4__10 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5345:2: rule__ErrorModelSubclause__Group_4__9__Impl rule__ErrorModelSubclause__Group_4__10
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__9__Impl_in_rule__ErrorModelSubclause__Group_4__911570);
-            rule__ErrorModelSubclause__Group_4__9__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__10_in_rule__ErrorModelSubclause__Group_4__911573);
-            rule__ErrorModelSubclause__Group_4__10();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__9"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__9__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5352:1: rule__ErrorModelSubclause__Group_4__9__Impl : ( KEYWORD_27 ) ;
-    public final void rule__ErrorModelSubclause__Group_4__9__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5356:1: ( ( KEYWORD_27 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5357:1: ( KEYWORD_27 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5357:1: ( KEYWORD_27 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5358:1: KEYWORD_27
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_4_9()); 
-            match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_4__9__Impl11601); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_4_9()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__9__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__10"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5371:1: rule__ErrorModelSubclause__Group_4__10 : rule__ErrorModelSubclause__Group_4__10__Impl rule__ErrorModelSubclause__Group_4__11 ;
-    public final void rule__ErrorModelSubclause__Group_4__10() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5375:1: ( rule__ErrorModelSubclause__Group_4__10__Impl rule__ErrorModelSubclause__Group_4__11 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5376:2: rule__ErrorModelSubclause__Group_4__10__Impl rule__ErrorModelSubclause__Group_4__11
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__10__Impl_in_rule__ErrorModelSubclause__Group_4__1011632);
-            rule__ErrorModelSubclause__Group_4__10__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__11_in_rule__ErrorModelSubclause__Group_4__1011635);
-            rule__ErrorModelSubclause__Group_4__11();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__10"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__10__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5383:1: rule__ErrorModelSubclause__Group_4__10__Impl : ( KEYWORD_73 ) ;
-    public final void rule__ErrorModelSubclause__Group_4__10__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5387:1: ( ( KEYWORD_73 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5388:1: ( KEYWORD_73 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5388:1: ( KEYWORD_73 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5389:1: KEYWORD_73
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_4_10()); 
-            match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_4__10__Impl11663); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_4_10()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__10__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__11"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5402:1: rule__ErrorModelSubclause__Group_4__11 : rule__ErrorModelSubclause__Group_4__11__Impl ;
-    public final void rule__ErrorModelSubclause__Group_4__11() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5406:1: ( rule__ErrorModelSubclause__Group_4__11__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5407:2: rule__ErrorModelSubclause__Group_4__11__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4__11__Impl_in_rule__ErrorModelSubclause__Group_4__1111694);
-            rule__ErrorModelSubclause__Group_4__11__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__11"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4__11__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5413:1: rule__ErrorModelSubclause__Group_4__11__Impl : ( KEYWORD_10 ) ;
-    public final void rule__ErrorModelSubclause__Group_4__11__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5417:1: ( ( KEYWORD_10 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5418:1: ( KEYWORD_10 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5418:1: ( KEYWORD_10 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5419:1: KEYWORD_10
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_11()); 
-            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_4__11__Impl11722); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_11()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4__11__Impl"
-
-
     // $ANTLR start "rule__ErrorModelSubclause__Group_4_3__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5456:1: rule__ErrorModelSubclause__Group_4_3__0 : rule__ErrorModelSubclause__Group_4_3__0__Impl rule__ErrorModelSubclause__Group_4_3__1 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5165:1: rule__ErrorModelSubclause__Group_4_3__0 : rule__ErrorModelSubclause__Group_4_3__0__Impl rule__ErrorModelSubclause__Group_4_3__1 ;
     public final void rule__ErrorModelSubclause__Group_4_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5460:1: ( rule__ErrorModelSubclause__Group_4_3__0__Impl rule__ErrorModelSubclause__Group_4_3__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5461:2: rule__ErrorModelSubclause__Group_4_3__0__Impl rule__ErrorModelSubclause__Group_4_3__1
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5169:1: ( rule__ErrorModelSubclause__Group_4_3__0__Impl rule__ErrorModelSubclause__Group_4_3__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5170:2: rule__ErrorModelSubclause__Group_4_3__0__Impl rule__ErrorModelSubclause__Group_4_3__1
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__0__Impl_in_rule__ErrorModelSubclause__Group_4_3__011777);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__0__Impl_in_rule__ErrorModelSubclause__Group_4_3__011193);
             rule__ErrorModelSubclause__Group_4_3__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__1_in_rule__ErrorModelSubclause__Group_4_3__011780);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__1_in_rule__ErrorModelSubclause__Group_4_3__011196);
             rule__ErrorModelSubclause__Group_4_3__1();
 
             state._fsp--;
@@ -16165,21 +15326,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4_3__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5468:1: rule__ErrorModelSubclause__Group_4_3__0__Impl : ( KEYWORD_31 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5177:1: rule__ErrorModelSubclause__Group_4_3__0__Impl : ( KEYWORD_45 ) ;
     public final void rule__ErrorModelSubclause__Group_4_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5472:1: ( ( KEYWORD_31 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5473:1: ( KEYWORD_31 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5181:1: ( ( KEYWORD_45 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5182:1: ( KEYWORD_45 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5473:1: ( KEYWORD_31 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5474:1: KEYWORD_31
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5182:1: ( KEYWORD_45 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5183:1: KEYWORD_45
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_4_3_0()); 
-            match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_4_3__0__Impl11808); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_4_3_0()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getFlowsKeyword_4_3_0()); 
+            match(input,KEYWORD_45,FollowSets000.FOLLOW_KEYWORD_45_in_rule__ErrorModelSubclause__Group_4_3__0__Impl11224); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getFlowsKeyword_4_3_0()); 
 
             }
 
@@ -16202,22 +15363,17 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4_3__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5487:1: rule__ErrorModelSubclause__Group_4_3__1 : rule__ErrorModelSubclause__Group_4_3__1__Impl rule__ErrorModelSubclause__Group_4_3__2 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5196:1: rule__ErrorModelSubclause__Group_4_3__1 : rule__ErrorModelSubclause__Group_4_3__1__Impl ;
     public final void rule__ErrorModelSubclause__Group_4_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5491:1: ( rule__ErrorModelSubclause__Group_4_3__1__Impl rule__ErrorModelSubclause__Group_4_3__2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5492:2: rule__ErrorModelSubclause__Group_4_3__1__Impl rule__ErrorModelSubclause__Group_4_3__2
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5200:1: ( rule__ErrorModelSubclause__Group_4_3__1__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5201:2: rule__ErrorModelSubclause__Group_4_3__1__Impl
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__1__Impl_in_rule__ErrorModelSubclause__Group_4_3__111839);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__1__Impl_in_rule__ErrorModelSubclause__Group_4_3__111255);
             rule__ErrorModelSubclause__Group_4_3__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__2_in_rule__ErrorModelSubclause__Group_4_3__111842);
-            rule__ErrorModelSubclause__Group_4_3__2();
 
             state._fsp--;
 
@@ -16240,21 +15396,74 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_4_3__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5499:1: rule__ErrorModelSubclause__Group_4_3__1__Impl : ( KEYWORD_86 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5207:1: rule__ErrorModelSubclause__Group_4_3__1__Impl : ( ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )* ) ) ;
     public final void rule__ErrorModelSubclause__Group_4_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5503:1: ( ( KEYWORD_86 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5504:1: ( KEYWORD_86 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5211:1: ( ( ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )* ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5212:1: ( ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )* ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5504:1: ( KEYWORD_86 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5505:1: KEYWORD_86
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5212:1: ( ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5213:1: ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 ) ) ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )* )
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTransformationsKeyword_4_3_1()); 
-            match(input,KEYWORD_86,FollowSets000.FOLLOW_KEYWORD_86_in_rule__ErrorModelSubclause__Group_4_3__1__Impl11870); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getTransformationsKeyword_4_3_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5213:1: ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5214:1: ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_4_3_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5215:1: ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5215:2: rule__ErrorModelSubclause__FlowsAssignment_4_3_1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_4_3_1_in_rule__ErrorModelSubclause__Group_4_3__1__Impl11284);
+            rule__ErrorModelSubclause__FlowsAssignment_4_3_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_4_3_1()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5218:1: ( ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5219:1: ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )*
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_4_3_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5220:1: ( rule__ErrorModelSubclause__FlowsAssignment_4_3_1 )*
+            loop57:
+            do {
+                int alt57=2;
+                int LA57_0 = input.LA(1);
+
+                if ( (LA57_0==RULE_ID) ) {
+                    alt57=1;
+                }
+
+
+                switch (alt57) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5220:2: rule__ErrorModelSubclause__FlowsAssignment_4_3_1
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_4_3_1_in_rule__ErrorModelSubclause__Group_4_3__1__Impl11296);
+            	    rule__ErrorModelSubclause__FlowsAssignment_4_3_1();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop57;
+                }
+            } while (true);
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_4_3_1()); 
+
+            }
+
 
             }
 
@@ -16276,1242 +15485,22 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorModelSubclause__Group_4_3__1__Impl"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_3__2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5518:1: rule__ErrorModelSubclause__Group_4_3__2 : rule__ErrorModelSubclause__Group_4_3__2__Impl rule__ErrorModelSubclause__Group_4_3__3 ;
-    public final void rule__ErrorModelSubclause__Group_4_3__2() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5522:1: ( rule__ErrorModelSubclause__Group_4_3__2__Impl rule__ErrorModelSubclause__Group_4_3__3 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5523:2: rule__ErrorModelSubclause__Group_4_3__2__Impl rule__ErrorModelSubclause__Group_4_3__3
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__2__Impl_in_rule__ErrorModelSubclause__Group_4_3__211901);
-            rule__ErrorModelSubclause__Group_4_3__2__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__3_in_rule__ErrorModelSubclause__Group_4_3__211904);
-            rule__ErrorModelSubclause__Group_4_3__3();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_3__2"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_3__2__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5530:1: rule__ErrorModelSubclause__Group_4_3__2__Impl : ( ( rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2 ) ) ;
-    public final void rule__ErrorModelSubclause__Group_4_3__2__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5534:1: ( ( ( rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2 ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5535:1: ( ( rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2 ) )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5535:1: ( ( rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5536:1: ( rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2 )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationAssignment_4_3_2()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5537:1: ( rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5537:2: rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2_in_rule__ErrorModelSubclause__Group_4_3__2__Impl11931);
-            rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationAssignment_4_3_2()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_3__2__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_3__3"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5547:1: rule__ErrorModelSubclause__Group_4_3__3 : rule__ErrorModelSubclause__Group_4_3__3__Impl ;
-    public final void rule__ErrorModelSubclause__Group_4_3__3() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5551:1: ( rule__ErrorModelSubclause__Group_4_3__3__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5552:2: rule__ErrorModelSubclause__Group_4_3__3__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_3__3__Impl_in_rule__ErrorModelSubclause__Group_4_3__311961);
-            rule__ErrorModelSubclause__Group_4_3__3__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_3__3"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_3__3__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5558:1: rule__ErrorModelSubclause__Group_4_3__3__Impl : ( KEYWORD_10 ) ;
-    public final void rule__ErrorModelSubclause__Group_4_3__3__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5562:1: ( ( KEYWORD_10 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5563:1: ( KEYWORD_10 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5563:1: ( KEYWORD_10 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5564:1: KEYWORD_10
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_3_3()); 
-            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_4_3__3__Impl11989); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_4_3_3()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_3__3__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_4__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5585:1: rule__ErrorModelSubclause__Group_4_4__0 : rule__ErrorModelSubclause__Group_4_4__0__Impl rule__ErrorModelSubclause__Group_4_4__1 ;
-    public final void rule__ErrorModelSubclause__Group_4_4__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5589:1: ( rule__ErrorModelSubclause__Group_4_4__0__Impl rule__ErrorModelSubclause__Group_4_4__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5590:2: rule__ErrorModelSubclause__Group_4_4__0__Impl rule__ErrorModelSubclause__Group_4_4__1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_4__0__Impl_in_rule__ErrorModelSubclause__Group_4_4__012028);
-            rule__ErrorModelSubclause__Group_4_4__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_4__1_in_rule__ErrorModelSubclause__Group_4_4__012031);
-            rule__ErrorModelSubclause__Group_4_4__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_4__0"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_4__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5597:1: rule__ErrorModelSubclause__Group_4_4__0__Impl : ( KEYWORD_52 ) ;
-    public final void rule__ErrorModelSubclause__Group_4_4__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5601:1: ( ( KEYWORD_52 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5602:1: ( KEYWORD_52 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5602:1: ( KEYWORD_52 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5603:1: KEYWORD_52
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getEventsKeyword_4_4_0()); 
-            match(input,KEYWORD_52,FollowSets000.FOLLOW_KEYWORD_52_in_rule__ErrorModelSubclause__Group_4_4__0__Impl12059); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getEventsKeyword_4_4_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_4__0__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_4__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5616:1: rule__ErrorModelSubclause__Group_4_4__1 : rule__ErrorModelSubclause__Group_4_4__1__Impl ;
-    public final void rule__ErrorModelSubclause__Group_4_4__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5620:1: ( rule__ErrorModelSubclause__Group_4_4__1__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5621:2: rule__ErrorModelSubclause__Group_4_4__1__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_4__1__Impl_in_rule__ErrorModelSubclause__Group_4_4__112090);
-            rule__ErrorModelSubclause__Group_4_4__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_4__1"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_4__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5627:1: rule__ErrorModelSubclause__Group_4_4__1__Impl : ( ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )* ) ) ;
-    public final void rule__ErrorModelSubclause__Group_4_4__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5631:1: ( ( ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )* ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5632:1: ( ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )* ) )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5632:1: ( ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )* ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5633:1: ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )* )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5633:1: ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5634:1: ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getEventsAssignment_4_4_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5635:1: ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5635:2: rule__ErrorModelSubclause__EventsAssignment_4_4_1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__EventsAssignment_4_4_1_in_rule__ErrorModelSubclause__Group_4_4__1__Impl12119);
-            rule__ErrorModelSubclause__EventsAssignment_4_4_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getEventsAssignment_4_4_1()); 
-
-            }
-
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5638:1: ( ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5639:1: ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )*
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getEventsAssignment_4_4_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5640:1: ( rule__ErrorModelSubclause__EventsAssignment_4_4_1 )*
-            loop64:
-            do {
-                int alt64=2;
-                int LA64_0 = input.LA(1);
-
-                if ( (LA64_0==RULE_ID) ) {
-                    alt64=1;
-                }
-
-
-                switch (alt64) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5640:2: rule__ErrorModelSubclause__EventsAssignment_4_4_1
-            	    {
-            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__EventsAssignment_4_4_1_in_rule__ErrorModelSubclause__Group_4_4__1__Impl12131);
-            	    rule__ErrorModelSubclause__EventsAssignment_4_4_1();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop64;
-                }
-            } while (true);
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getEventsAssignment_4_4_1()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_4__1__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_5__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5655:1: rule__ErrorModelSubclause__Group_4_5__0 : rule__ErrorModelSubclause__Group_4_5__0__Impl rule__ErrorModelSubclause__Group_4_5__1 ;
-    public final void rule__ErrorModelSubclause__Group_4_5__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5659:1: ( rule__ErrorModelSubclause__Group_4_5__0__Impl rule__ErrorModelSubclause__Group_4_5__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5660:2: rule__ErrorModelSubclause__Group_4_5__0__Impl rule__ErrorModelSubclause__Group_4_5__1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_5__0__Impl_in_rule__ErrorModelSubclause__Group_4_5__012168);
-            rule__ErrorModelSubclause__Group_4_5__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_5__1_in_rule__ErrorModelSubclause__Group_4_5__012171);
-            rule__ErrorModelSubclause__Group_4_5__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_5__0"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_5__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5667:1: rule__ErrorModelSubclause__Group_4_5__0__Impl : ( KEYWORD_84 ) ;
-    public final void rule__ErrorModelSubclause__Group_4_5__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5671:1: ( ( KEYWORD_84 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5672:1: ( KEYWORD_84 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5672:1: ( KEYWORD_84 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5673:1: KEYWORD_84
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTransitionsKeyword_4_5_0()); 
-            match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_rule__ErrorModelSubclause__Group_4_5__0__Impl12199); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getTransitionsKeyword_4_5_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_5__0__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_5__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5686:1: rule__ErrorModelSubclause__Group_4_5__1 : rule__ErrorModelSubclause__Group_4_5__1__Impl ;
-    public final void rule__ErrorModelSubclause__Group_4_5__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5690:1: ( rule__ErrorModelSubclause__Group_4_5__1__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5691:2: rule__ErrorModelSubclause__Group_4_5__1__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_5__1__Impl_in_rule__ErrorModelSubclause__Group_4_5__112230);
-            rule__ErrorModelSubclause__Group_4_5__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_5__1"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_5__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5697:1: rule__ErrorModelSubclause__Group_4_5__1__Impl : ( ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )* ) ) ;
-    public final void rule__ErrorModelSubclause__Group_4_5__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5701:1: ( ( ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )* ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5702:1: ( ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )* ) )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5702:1: ( ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )* ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5703:1: ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )* )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5703:1: ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5704:1: ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTransitionsAssignment_4_5_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5705:1: ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5705:2: rule__ErrorModelSubclause__TransitionsAssignment_4_5_1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_4_5_1_in_rule__ErrorModelSubclause__Group_4_5__1__Impl12259);
-            rule__ErrorModelSubclause__TransitionsAssignment_4_5_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getTransitionsAssignment_4_5_1()); 
-
-            }
-
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5708:1: ( ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5709:1: ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )*
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTransitionsAssignment_4_5_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5710:1: ( rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 )*
-            loop65:
-            do {
-                int alt65=2;
-                int LA65_0 = input.LA(1);
-
-                if ( (LA65_0==KEYWORD_25||LA65_0==RULE_ID) ) {
-                    alt65=1;
-                }
-
-
-                switch (alt65) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5710:2: rule__ErrorModelSubclause__TransitionsAssignment_4_5_1
-            	    {
-            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_4_5_1_in_rule__ErrorModelSubclause__Group_4_5__1__Impl12271);
-            	    rule__ErrorModelSubclause__TransitionsAssignment_4_5_1();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop65;
-                }
-            } while (true);
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getTransitionsAssignment_4_5_1()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_5__1__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_6__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5725:1: rule__ErrorModelSubclause__Group_4_6__0 : rule__ErrorModelSubclause__Group_4_6__0__Impl rule__ErrorModelSubclause__Group_4_6__1 ;
-    public final void rule__ErrorModelSubclause__Group_4_6__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5729:1: ( rule__ErrorModelSubclause__Group_4_6__0__Impl rule__ErrorModelSubclause__Group_4_6__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5730:2: rule__ErrorModelSubclause__Group_4_6__0__Impl rule__ErrorModelSubclause__Group_4_6__1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_6__0__Impl_in_rule__ErrorModelSubclause__Group_4_6__012308);
-            rule__ErrorModelSubclause__Group_4_6__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_6__1_in_rule__ErrorModelSubclause__Group_4_6__012311);
-            rule__ErrorModelSubclause__Group_4_6__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_6__0"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_6__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5737:1: rule__ErrorModelSubclause__Group_4_6__0__Impl : ( KEYWORD_85 ) ;
-    public final void rule__ErrorModelSubclause__Group_4_6__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5741:1: ( ( KEYWORD_85 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5742:1: ( KEYWORD_85 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5742:1: ( KEYWORD_85 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5743:1: KEYWORD_85
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_6_0()); 
-            match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_4_6__0__Impl12339); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_4_6_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_6__0__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_6__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5756:1: rule__ErrorModelSubclause__Group_4_6__1 : rule__ErrorModelSubclause__Group_4_6__1__Impl ;
-    public final void rule__ErrorModelSubclause__Group_4_6__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5760:1: ( rule__ErrorModelSubclause__Group_4_6__1__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5761:2: rule__ErrorModelSubclause__Group_4_6__1__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_6__1__Impl_in_rule__ErrorModelSubclause__Group_4_6__112370);
-            rule__ErrorModelSubclause__Group_4_6__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_6__1"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_6__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5767:1: rule__ErrorModelSubclause__Group_4_6__1__Impl : ( ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )* ) ) ;
-    public final void rule__ErrorModelSubclause__Group_4_6__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5771:1: ( ( ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )* ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5772:1: ( ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )* ) )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5772:1: ( ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )* ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5773:1: ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )* )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5773:1: ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5774:1: ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsAssignment_4_6_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5775:1: ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5775:2: rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1_in_rule__ErrorModelSubclause__Group_4_6__1__Impl12399);
-            rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsAssignment_4_6_1()); 
-
-            }
-
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5778:1: ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5779:1: ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )*
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsAssignment_4_6_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5780:1: ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 )*
-            loop66:
-            do {
-                int alt66=2;
-                int LA66_0 = input.LA(1);
-
-                if ( (LA66_0==KEYWORD_25||LA66_0==RULE_ID) ) {
-                    alt66=1;
-                }
-
-
-                switch (alt66) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5780:2: rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1
-            	    {
-            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1_in_rule__ErrorModelSubclause__Group_4_6__1__Impl12411);
-            	    rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop66;
-                }
-            } while (true);
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsAssignment_4_6_1()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_6__1__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_7__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5795:1: rule__ErrorModelSubclause__Group_4_7__0 : rule__ErrorModelSubclause__Group_4_7__0__Impl rule__ErrorModelSubclause__Group_4_7__1 ;
-    public final void rule__ErrorModelSubclause__Group_4_7__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5799:1: ( rule__ErrorModelSubclause__Group_4_7__0__Impl rule__ErrorModelSubclause__Group_4_7__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5800:2: rule__ErrorModelSubclause__Group_4_7__0__Impl rule__ErrorModelSubclause__Group_4_7__1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_7__0__Impl_in_rule__ErrorModelSubclause__Group_4_7__012448);
-            rule__ErrorModelSubclause__Group_4_7__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_7__1_in_rule__ErrorModelSubclause__Group_4_7__012451);
-            rule__ErrorModelSubclause__Group_4_7__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_7__0"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_7__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5807:1: rule__ErrorModelSubclause__Group_4_7__0__Impl : ( KEYWORD_79 ) ;
-    public final void rule__ErrorModelSubclause__Group_4_7__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5811:1: ( ( KEYWORD_79 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5812:1: ( KEYWORD_79 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5812:1: ( KEYWORD_79 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5813:1: KEYWORD_79
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getDetectionsKeyword_4_7_0()); 
-            match(input,KEYWORD_79,FollowSets000.FOLLOW_KEYWORD_79_in_rule__ErrorModelSubclause__Group_4_7__0__Impl12479); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getDetectionsKeyword_4_7_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_7__0__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_7__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5826:1: rule__ErrorModelSubclause__Group_4_7__1 : rule__ErrorModelSubclause__Group_4_7__1__Impl ;
-    public final void rule__ErrorModelSubclause__Group_4_7__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5830:1: ( rule__ErrorModelSubclause__Group_4_7__1__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5831:2: rule__ErrorModelSubclause__Group_4_7__1__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_7__1__Impl_in_rule__ErrorModelSubclause__Group_4_7__112510);
-            rule__ErrorModelSubclause__Group_4_7__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_7__1"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_7__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5837:1: rule__ErrorModelSubclause__Group_4_7__1__Impl : ( ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )* ) ) ;
-    public final void rule__ErrorModelSubclause__Group_4_7__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5841:1: ( ( ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )* ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5842:1: ( ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )* ) )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5842:1: ( ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )* ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5843:1: ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )* )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5843:1: ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5844:1: ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_4_7_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5845:1: ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5845:2: rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1_in_rule__ErrorModelSubclause__Group_4_7__1__Impl12539);
-            rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_4_7_1()); 
-
-            }
-
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5848:1: ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5849:1: ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )*
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_4_7_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5850:1: ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 )*
-            loop67:
-            do {
-                int alt67=2;
-                int LA67_0 = input.LA(1);
-
-                if ( (LA67_0==KEYWORD_25||LA67_0==RULE_ID) ) {
-                    alt67=1;
-                }
-
-
-                switch (alt67) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5850:2: rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1
-            	    {
-            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1_in_rule__ErrorModelSubclause__Group_4_7__1__Impl12551);
-            	    rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop67;
-                }
-            } while (true);
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_4_7_1()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_7__1__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_8__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5865:1: rule__ErrorModelSubclause__Group_4_8__0 : rule__ErrorModelSubclause__Group_4_8__0__Impl rule__ErrorModelSubclause__Group_4_8__1 ;
-    public final void rule__ErrorModelSubclause__Group_4_8__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5869:1: ( rule__ErrorModelSubclause__Group_4_8__0__Impl rule__ErrorModelSubclause__Group_4_8__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5870:2: rule__ErrorModelSubclause__Group_4_8__0__Impl rule__ErrorModelSubclause__Group_4_8__1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_8__0__Impl_in_rule__ErrorModelSubclause__Group_4_8__012588);
-            rule__ErrorModelSubclause__Group_4_8__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_8__1_in_rule__ErrorModelSubclause__Group_4_8__012591);
-            rule__ErrorModelSubclause__Group_4_8__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_8__0"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_8__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5877:1: rule__ErrorModelSubclause__Group_4_8__0__Impl : ( KEYWORD_32 ) ;
-    public final void rule__ErrorModelSubclause__Group_4_8__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5881:1: ( ( KEYWORD_32 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5882:1: ( KEYWORD_32 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5882:1: ( KEYWORD_32 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5883:1: KEYWORD_32
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getModeKeyword_4_8_0()); 
-            match(input,KEYWORD_32,FollowSets000.FOLLOW_KEYWORD_32_in_rule__ErrorModelSubclause__Group_4_8__0__Impl12619); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getModeKeyword_4_8_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_8__0__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_8__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5896:1: rule__ErrorModelSubclause__Group_4_8__1 : rule__ErrorModelSubclause__Group_4_8__1__Impl rule__ErrorModelSubclause__Group_4_8__2 ;
-    public final void rule__ErrorModelSubclause__Group_4_8__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5900:1: ( rule__ErrorModelSubclause__Group_4_8__1__Impl rule__ErrorModelSubclause__Group_4_8__2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5901:2: rule__ErrorModelSubclause__Group_4_8__1__Impl rule__ErrorModelSubclause__Group_4_8__2
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_8__1__Impl_in_rule__ErrorModelSubclause__Group_4_8__112650);
-            rule__ErrorModelSubclause__Group_4_8__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_8__2_in_rule__ErrorModelSubclause__Group_4_8__112653);
-            rule__ErrorModelSubclause__Group_4_8__2();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_8__1"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_8__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5908:1: rule__ErrorModelSubclause__Group_4_8__1__Impl : ( KEYWORD_72 ) ;
-    public final void rule__ErrorModelSubclause__Group_4_8__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5912:1: ( ( KEYWORD_72 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5913:1: ( KEYWORD_72 )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5913:1: ( KEYWORD_72 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5914:1: KEYWORD_72
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getMappingsKeyword_4_8_1()); 
-            match(input,KEYWORD_72,FollowSets000.FOLLOW_KEYWORD_72_in_rule__ErrorModelSubclause__Group_4_8__1__Impl12681); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getMappingsKeyword_4_8_1()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_8__1__Impl"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_8__2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5927:1: rule__ErrorModelSubclause__Group_4_8__2 : rule__ErrorModelSubclause__Group_4_8__2__Impl ;
-    public final void rule__ErrorModelSubclause__Group_4_8__2() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5931:1: ( rule__ErrorModelSubclause__Group_4_8__2__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5932:2: rule__ErrorModelSubclause__Group_4_8__2__Impl
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_4_8__2__Impl_in_rule__ErrorModelSubclause__Group_4_8__212712);
-            rule__ErrorModelSubclause__Group_4_8__2__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_8__2"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__Group_4_8__2__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5938:1: rule__ErrorModelSubclause__Group_4_8__2__Impl : ( ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )* ) ) ;
-    public final void rule__ErrorModelSubclause__Group_4_8__2__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5942:1: ( ( ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )* ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5943:1: ( ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )* ) )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5943:1: ( ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )* ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5944:1: ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )* )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5944:1: ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5945:1: ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_4_8_2()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5946:1: ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5946:2: rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2_in_rule__ErrorModelSubclause__Group_4_8__2__Impl12741);
-            rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_4_8_2()); 
-
-            }
-
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5949:1: ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5950:1: ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )*
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_4_8_2()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5951:1: ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 )*
-            loop68:
-            do {
-                int alt68=2;
-                int LA68_0 = input.LA(1);
-
-                if ( (LA68_0==RULE_ID) ) {
-                    alt68=1;
-                }
-
-
-                switch (alt68) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5951:2: rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2
-            	    {
-            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2_in_rule__ErrorModelSubclause__Group_4_8__2__Impl12753);
-            	    rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop68;
-                }
-            } while (true);
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_4_8_2()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__Group_4_8__2__Impl"
-
-
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5968:1: rule__ErrorModelSubclause__Group_5__0 : rule__ErrorModelSubclause__Group_5__0__Impl rule__ErrorModelSubclause__Group_5__1 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5235:1: rule__ErrorModelSubclause__Group_5__0 : rule__ErrorModelSubclause__Group_5__0__Impl rule__ErrorModelSubclause__Group_5__1 ;
     public final void rule__ErrorModelSubclause__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5972:1: ( rule__ErrorModelSubclause__Group_5__0__Impl rule__ErrorModelSubclause__Group_5__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5973:2: rule__ErrorModelSubclause__Group_5__0__Impl rule__ErrorModelSubclause__Group_5__1
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5239:1: ( rule__ErrorModelSubclause__Group_5__0__Impl rule__ErrorModelSubclause__Group_5__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5240:2: rule__ErrorModelSubclause__Group_5__0__Impl rule__ErrorModelSubclause__Group_5__1
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__0__Impl_in_rule__ErrorModelSubclause__Group_5__012792);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__0__Impl_in_rule__ErrorModelSubclause__Group_5__011333);
             rule__ErrorModelSubclause__Group_5__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__1_in_rule__ErrorModelSubclause__Group_5__012795);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__1_in_rule__ErrorModelSubclause__Group_5__011336);
             rule__ErrorModelSubclause__Group_5__1();
 
             state._fsp--;
@@ -17535,21 +15524,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5980:1: rule__ErrorModelSubclause__Group_5__0__Impl : ( KEYWORD_74 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5247:1: rule__ErrorModelSubclause__Group_5__0__Impl : ( KEYWORD_73 ) ;
     public final void rule__ErrorModelSubclause__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5984:1: ( ( KEYWORD_74 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5985:1: ( KEYWORD_74 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5251:1: ( ( KEYWORD_73 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5252:1: ( KEYWORD_73 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5985:1: ( KEYWORD_74 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5986:1: KEYWORD_74
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5252:1: ( KEYWORD_73 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5253:1: KEYWORD_73
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_5_0()); 
-            match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_5__0__Impl12823); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_5_0()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_5_0()); 
+            match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_5__0__Impl11364); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_5_0()); 
 
             }
 
@@ -17572,21 +15561,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5999:1: rule__ErrorModelSubclause__Group_5__1 : rule__ErrorModelSubclause__Group_5__1__Impl rule__ErrorModelSubclause__Group_5__2 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5266:1: rule__ErrorModelSubclause__Group_5__1 : rule__ErrorModelSubclause__Group_5__1__Impl rule__ErrorModelSubclause__Group_5__2 ;
     public final void rule__ErrorModelSubclause__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6003:1: ( rule__ErrorModelSubclause__Group_5__1__Impl rule__ErrorModelSubclause__Group_5__2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6004:2: rule__ErrorModelSubclause__Group_5__1__Impl rule__ErrorModelSubclause__Group_5__2
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5270:1: ( rule__ErrorModelSubclause__Group_5__1__Impl rule__ErrorModelSubclause__Group_5__2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5271:2: rule__ErrorModelSubclause__Group_5__1__Impl rule__ErrorModelSubclause__Group_5__2
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__1__Impl_in_rule__ErrorModelSubclause__Group_5__112854);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__1__Impl_in_rule__ErrorModelSubclause__Group_5__111395);
             rule__ErrorModelSubclause__Group_5__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__2_in_rule__ErrorModelSubclause__Group_5__112857);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__2_in_rule__ErrorModelSubclause__Group_5__111398);
             rule__ErrorModelSubclause__Group_5__2();
 
             state._fsp--;
@@ -17610,20 +15599,20 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6011:1: rule__ErrorModelSubclause__Group_5__1__Impl : ( KEYWORD_42 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5278:1: rule__ErrorModelSubclause__Group_5__1__Impl : ( KEYWORD_42 ) ;
     public final void rule__ErrorModelSubclause__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6015:1: ( ( KEYWORD_42 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6016:1: ( KEYWORD_42 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5282:1: ( ( KEYWORD_42 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5283:1: ( KEYWORD_42 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6016:1: ( KEYWORD_42 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6017:1: KEYWORD_42
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5283:1: ( KEYWORD_42 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5284:1: KEYWORD_42
             {
              before(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_5_1()); 
-            match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_5__1__Impl12885); 
+            match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_5__1__Impl11426); 
              after(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_5_1()); 
 
             }
@@ -17647,21 +15636,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6030:1: rule__ErrorModelSubclause__Group_5__2 : rule__ErrorModelSubclause__Group_5__2__Impl rule__ErrorModelSubclause__Group_5__3 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5297:1: rule__ErrorModelSubclause__Group_5__2 : rule__ErrorModelSubclause__Group_5__2__Impl rule__ErrorModelSubclause__Group_5__3 ;
     public final void rule__ErrorModelSubclause__Group_5__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6034:1: ( rule__ErrorModelSubclause__Group_5__2__Impl rule__ErrorModelSubclause__Group_5__3 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6035:2: rule__ErrorModelSubclause__Group_5__2__Impl rule__ErrorModelSubclause__Group_5__3
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5301:1: ( rule__ErrorModelSubclause__Group_5__2__Impl rule__ErrorModelSubclause__Group_5__3 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5302:2: rule__ErrorModelSubclause__Group_5__2__Impl rule__ErrorModelSubclause__Group_5__3
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__2__Impl_in_rule__ErrorModelSubclause__Group_5__212916);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__2__Impl_in_rule__ErrorModelSubclause__Group_5__211457);
             rule__ErrorModelSubclause__Group_5__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__3_in_rule__ErrorModelSubclause__Group_5__212919);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__3_in_rule__ErrorModelSubclause__Group_5__211460);
             rule__ErrorModelSubclause__Group_5__3();
 
             state._fsp--;
@@ -17685,20 +15674,20 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__2__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6042:1: rule__ErrorModelSubclause__Group_5__2__Impl : ( KEYWORD_69 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5309:1: rule__ErrorModelSubclause__Group_5__2__Impl : ( KEYWORD_69 ) ;
     public final void rule__ErrorModelSubclause__Group_5__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6046:1: ( ( KEYWORD_69 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6047:1: ( KEYWORD_69 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5313:1: ( ( KEYWORD_69 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5314:1: ( KEYWORD_69 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6047:1: ( KEYWORD_69 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6048:1: KEYWORD_69
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5314:1: ( KEYWORD_69 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5315:1: KEYWORD_69
             {
              before(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_5_2()); 
-            match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_5__2__Impl12947); 
+            match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_5__2__Impl11488); 
              after(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_5_2()); 
 
             }
@@ -17722,21 +15711,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__3"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6061:1: rule__ErrorModelSubclause__Group_5__3 : rule__ErrorModelSubclause__Group_5__3__Impl rule__ErrorModelSubclause__Group_5__4 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5328:1: rule__ErrorModelSubclause__Group_5__3 : rule__ErrorModelSubclause__Group_5__3__Impl rule__ErrorModelSubclause__Group_5__4 ;
     public final void rule__ErrorModelSubclause__Group_5__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6065:1: ( rule__ErrorModelSubclause__Group_5__3__Impl rule__ErrorModelSubclause__Group_5__4 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6066:2: rule__ErrorModelSubclause__Group_5__3__Impl rule__ErrorModelSubclause__Group_5__4
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5332:1: ( rule__ErrorModelSubclause__Group_5__3__Impl rule__ErrorModelSubclause__Group_5__4 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5333:2: rule__ErrorModelSubclause__Group_5__3__Impl rule__ErrorModelSubclause__Group_5__4
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__3__Impl_in_rule__ErrorModelSubclause__Group_5__312978);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__3__Impl_in_rule__ErrorModelSubclause__Group_5__311519);
             rule__ErrorModelSubclause__Group_5__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__4_in_rule__ErrorModelSubclause__Group_5__312981);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__4_in_rule__ErrorModelSubclause__Group_5__311522);
             rule__ErrorModelSubclause__Group_5__4();
 
             state._fsp--;
@@ -17760,31 +15749,31 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__3__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6073:1: rule__ErrorModelSubclause__Group_5__3__Impl : ( ( rule__ErrorModelSubclause__Group_5_3__0 )? ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5340:1: rule__ErrorModelSubclause__Group_5__3__Impl : ( ( rule__ErrorModelSubclause__Group_5_3__0 )? ) ;
     public final void rule__ErrorModelSubclause__Group_5__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6077:1: ( ( ( rule__ErrorModelSubclause__Group_5_3__0 )? ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6078:1: ( ( rule__ErrorModelSubclause__Group_5_3__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5344:1: ( ( ( rule__ErrorModelSubclause__Group_5_3__0 )? ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5345:1: ( ( rule__ErrorModelSubclause__Group_5_3__0 )? )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6078:1: ( ( rule__ErrorModelSubclause__Group_5_3__0 )? )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6079:1: ( rule__ErrorModelSubclause__Group_5_3__0 )?
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5345:1: ( ( rule__ErrorModelSubclause__Group_5_3__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5346:1: ( rule__ErrorModelSubclause__Group_5_3__0 )?
             {
              before(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_3()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6080:1: ( rule__ErrorModelSubclause__Group_5_3__0 )?
-            int alt69=2;
-            int LA69_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5347:1: ( rule__ErrorModelSubclause__Group_5_3__0 )?
+            int alt58=2;
+            int LA58_0 = input.LA(1);
 
-            if ( (LA69_0==KEYWORD_59) ) {
-                alt69=1;
+            if ( (LA58_0==KEYWORD_31) ) {
+                alt58=1;
             }
-            switch (alt69) {
+            switch (alt58) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6080:2: rule__ErrorModelSubclause__Group_5_3__0
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5347:2: rule__ErrorModelSubclause__Group_5_3__0
                     {
-                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__0_in_rule__ErrorModelSubclause__Group_5__3__Impl13008);
+                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__0_in_rule__ErrorModelSubclause__Group_5__3__Impl11549);
                     rule__ErrorModelSubclause__Group_5_3__0();
 
                     state._fsp--;
@@ -17818,21 +15807,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__4"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6090:1: rule__ErrorModelSubclause__Group_5__4 : rule__ErrorModelSubclause__Group_5__4__Impl rule__ErrorModelSubclause__Group_5__5 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5357:1: rule__ErrorModelSubclause__Group_5__4 : rule__ErrorModelSubclause__Group_5__4__Impl rule__ErrorModelSubclause__Group_5__5 ;
     public final void rule__ErrorModelSubclause__Group_5__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6094:1: ( rule__ErrorModelSubclause__Group_5__4__Impl rule__ErrorModelSubclause__Group_5__5 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6095:2: rule__ErrorModelSubclause__Group_5__4__Impl rule__ErrorModelSubclause__Group_5__5
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5361:1: ( rule__ErrorModelSubclause__Group_5__4__Impl rule__ErrorModelSubclause__Group_5__5 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5362:2: rule__ErrorModelSubclause__Group_5__4__Impl rule__ErrorModelSubclause__Group_5__5
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__4__Impl_in_rule__ErrorModelSubclause__Group_5__413039);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__4__Impl_in_rule__ErrorModelSubclause__Group_5__411580);
             rule__ErrorModelSubclause__Group_5__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__5_in_rule__ErrorModelSubclause__Group_5__413042);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__5_in_rule__ErrorModelSubclause__Group_5__411583);
             rule__ErrorModelSubclause__Group_5__5();
 
             state._fsp--;
@@ -17856,21 +15845,42 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__4__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6102:1: rule__ErrorModelSubclause__Group_5__4__Impl : ( KEYWORD_27 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5369:1: rule__ErrorModelSubclause__Group_5__4__Impl : ( ( rule__ErrorModelSubclause__Group_5_4__0 )? ) ;
     public final void rule__ErrorModelSubclause__Group_5__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6106:1: ( ( KEYWORD_27 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6107:1: ( KEYWORD_27 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5373:1: ( ( ( rule__ErrorModelSubclause__Group_5_4__0 )? ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5374:1: ( ( rule__ErrorModelSubclause__Group_5_4__0 )? )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6107:1: ( KEYWORD_27 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6108:1: KEYWORD_27
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5374:1: ( ( rule__ErrorModelSubclause__Group_5_4__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5375:1: ( rule__ErrorModelSubclause__Group_5_4__0 )?
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_5_4()); 
-            match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_5__4__Impl13070); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_5_4()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_4()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5376:1: ( rule__ErrorModelSubclause__Group_5_4__0 )?
+            int alt59=2;
+            int LA59_0 = input.LA(1);
+
+            if ( (LA59_0==KEYWORD_52) ) {
+                alt59=1;
+            }
+            switch (alt59) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5376:2: rule__ErrorModelSubclause__Group_5_4__0
+                    {
+                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_4__0_in_rule__ErrorModelSubclause__Group_5__4__Impl11610);
+                    rule__ErrorModelSubclause__Group_5_4__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_4()); 
 
             }
 
@@ -17893,21 +15903,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__5"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6121:1: rule__ErrorModelSubclause__Group_5__5 : rule__ErrorModelSubclause__Group_5__5__Impl rule__ErrorModelSubclause__Group_5__6 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5386:1: rule__ErrorModelSubclause__Group_5__5 : rule__ErrorModelSubclause__Group_5__5__Impl rule__ErrorModelSubclause__Group_5__6 ;
     public final void rule__ErrorModelSubclause__Group_5__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6125:1: ( rule__ErrorModelSubclause__Group_5__5__Impl rule__ErrorModelSubclause__Group_5__6 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6126:2: rule__ErrorModelSubclause__Group_5__5__Impl rule__ErrorModelSubclause__Group_5__6
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5390:1: ( rule__ErrorModelSubclause__Group_5__5__Impl rule__ErrorModelSubclause__Group_5__6 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5391:2: rule__ErrorModelSubclause__Group_5__5__Impl rule__ErrorModelSubclause__Group_5__6
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__5__Impl_in_rule__ErrorModelSubclause__Group_5__513101);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__5__Impl_in_rule__ErrorModelSubclause__Group_5__511641);
             rule__ErrorModelSubclause__Group_5__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__6_in_rule__ErrorModelSubclause__Group_5__513104);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__6_in_rule__ErrorModelSubclause__Group_5__511644);
             rule__ErrorModelSubclause__Group_5__6();
 
             state._fsp--;
@@ -17931,21 +15941,42 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__5__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6133:1: rule__ErrorModelSubclause__Group_5__5__Impl : ( KEYWORD_74 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5398:1: rule__ErrorModelSubclause__Group_5__5__Impl : ( ( rule__ErrorModelSubclause__Group_5_5__0 )? ) ;
     public final void rule__ErrorModelSubclause__Group_5__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6137:1: ( ( KEYWORD_74 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6138:1: ( KEYWORD_74 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5402:1: ( ( ( rule__ErrorModelSubclause__Group_5_5__0 )? ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5403:1: ( ( rule__ErrorModelSubclause__Group_5_5__0 )? )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6138:1: ( KEYWORD_74 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6139:1: KEYWORD_74
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5403:1: ( ( rule__ErrorModelSubclause__Group_5_5__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5404:1: ( rule__ErrorModelSubclause__Group_5_5__0 )?
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_5_5()); 
-            match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_5__5__Impl13132); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_5_5()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_5()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5405:1: ( rule__ErrorModelSubclause__Group_5_5__0 )?
+            int alt60=2;
+            int LA60_0 = input.LA(1);
+
+            if ( (LA60_0==KEYWORD_84) ) {
+                alt60=1;
+            }
+            switch (alt60) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5405:2: rule__ErrorModelSubclause__Group_5_5__0
+                    {
+                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_5__0_in_rule__ErrorModelSubclause__Group_5__5__Impl11671);
+                    rule__ErrorModelSubclause__Group_5_5__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_5()); 
 
             }
 
@@ -17968,17 +15999,22 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__6"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6152:1: rule__ErrorModelSubclause__Group_5__6 : rule__ErrorModelSubclause__Group_5__6__Impl ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5415:1: rule__ErrorModelSubclause__Group_5__6 : rule__ErrorModelSubclause__Group_5__6__Impl rule__ErrorModelSubclause__Group_5__7 ;
     public final void rule__ErrorModelSubclause__Group_5__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6156:1: ( rule__ErrorModelSubclause__Group_5__6__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6157:2: rule__ErrorModelSubclause__Group_5__6__Impl
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5419:1: ( rule__ErrorModelSubclause__Group_5__6__Impl rule__ErrorModelSubclause__Group_5__7 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5420:2: rule__ErrorModelSubclause__Group_5__6__Impl rule__ErrorModelSubclause__Group_5__7
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__6__Impl_in_rule__ErrorModelSubclause__Group_5__613163);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__6__Impl_in_rule__ErrorModelSubclause__Group_5__611702);
             rule__ErrorModelSubclause__Group_5__6__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__7_in_rule__ErrorModelSubclause__Group_5__611705);
+            rule__ErrorModelSubclause__Group_5__7();
 
             state._fsp--;
 
@@ -18001,21 +16037,42 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5__6__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6163:1: rule__ErrorModelSubclause__Group_5__6__Impl : ( KEYWORD_10 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5427:1: rule__ErrorModelSubclause__Group_5__6__Impl : ( ( rule__ErrorModelSubclause__Group_5_6__0 )? ) ;
     public final void rule__ErrorModelSubclause__Group_5__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6167:1: ( ( KEYWORD_10 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6168:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5431:1: ( ( ( rule__ErrorModelSubclause__Group_5_6__0 )? ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5432:1: ( ( rule__ErrorModelSubclause__Group_5_6__0 )? )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6168:1: ( KEYWORD_10 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6169:1: KEYWORD_10
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5432:1: ( ( rule__ErrorModelSubclause__Group_5_6__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5433:1: ( rule__ErrorModelSubclause__Group_5_6__0 )?
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_6()); 
-            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_5__6__Impl13191); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_6()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_6()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5434:1: ( rule__ErrorModelSubclause__Group_5_6__0 )?
+            int alt61=2;
+            int LA61_0 = input.LA(1);
+
+            if ( (LA61_0==KEYWORD_85) ) {
+                alt61=1;
+            }
+            switch (alt61) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5434:2: rule__ErrorModelSubclause__Group_5_6__0
+                    {
+                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_6__0_in_rule__ErrorModelSubclause__Group_5__6__Impl11732);
+                    rule__ErrorModelSubclause__Group_5_6__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_6()); 
 
             }
 
@@ -18037,22 +16094,434 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorModelSubclause__Group_5__6__Impl"
 
 
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__7"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5444:1: rule__ErrorModelSubclause__Group_5__7 : rule__ErrorModelSubclause__Group_5__7__Impl rule__ErrorModelSubclause__Group_5__8 ;
+    public final void rule__ErrorModelSubclause__Group_5__7() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5448:1: ( rule__ErrorModelSubclause__Group_5__7__Impl rule__ErrorModelSubclause__Group_5__8 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5449:2: rule__ErrorModelSubclause__Group_5__7__Impl rule__ErrorModelSubclause__Group_5__8
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__7__Impl_in_rule__ErrorModelSubclause__Group_5__711763);
+            rule__ErrorModelSubclause__Group_5__7__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__8_in_rule__ErrorModelSubclause__Group_5__711766);
+            rule__ErrorModelSubclause__Group_5__8();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__7"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__7__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5456:1: rule__ErrorModelSubclause__Group_5__7__Impl : ( ( rule__ErrorModelSubclause__Group_5_7__0 )? ) ;
+    public final void rule__ErrorModelSubclause__Group_5__7__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5460:1: ( ( ( rule__ErrorModelSubclause__Group_5_7__0 )? ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5461:1: ( ( rule__ErrorModelSubclause__Group_5_7__0 )? )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5461:1: ( ( rule__ErrorModelSubclause__Group_5_7__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5462:1: ( rule__ErrorModelSubclause__Group_5_7__0 )?
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_7()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5463:1: ( rule__ErrorModelSubclause__Group_5_7__0 )?
+            int alt62=2;
+            int LA62_0 = input.LA(1);
+
+            if ( (LA62_0==KEYWORD_79) ) {
+                alt62=1;
+            }
+            switch (alt62) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5463:2: rule__ErrorModelSubclause__Group_5_7__0
+                    {
+                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_7__0_in_rule__ErrorModelSubclause__Group_5__7__Impl11793);
+                    rule__ErrorModelSubclause__Group_5_7__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_7()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__7__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__8"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5473:1: rule__ErrorModelSubclause__Group_5__8 : rule__ErrorModelSubclause__Group_5__8__Impl rule__ErrorModelSubclause__Group_5__9 ;
+    public final void rule__ErrorModelSubclause__Group_5__8() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5477:1: ( rule__ErrorModelSubclause__Group_5__8__Impl rule__ErrorModelSubclause__Group_5__9 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5478:2: rule__ErrorModelSubclause__Group_5__8__Impl rule__ErrorModelSubclause__Group_5__9
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__8__Impl_in_rule__ErrorModelSubclause__Group_5__811824);
+            rule__ErrorModelSubclause__Group_5__8__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__9_in_rule__ErrorModelSubclause__Group_5__811827);
+            rule__ErrorModelSubclause__Group_5__9();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__8"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__8__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5485:1: rule__ErrorModelSubclause__Group_5__8__Impl : ( ( rule__ErrorModelSubclause__Group_5_8__0 )? ) ;
+    public final void rule__ErrorModelSubclause__Group_5__8__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5489:1: ( ( ( rule__ErrorModelSubclause__Group_5_8__0 )? ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5490:1: ( ( rule__ErrorModelSubclause__Group_5_8__0 )? )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5490:1: ( ( rule__ErrorModelSubclause__Group_5_8__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5491:1: ( rule__ErrorModelSubclause__Group_5_8__0 )?
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_8()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5492:1: ( rule__ErrorModelSubclause__Group_5_8__0 )?
+            int alt63=2;
+            int LA63_0 = input.LA(1);
+
+            if ( (LA63_0==KEYWORD_32) ) {
+                alt63=1;
+            }
+            switch (alt63) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5492:2: rule__ErrorModelSubclause__Group_5_8__0
+                    {
+                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_8__0_in_rule__ErrorModelSubclause__Group_5__8__Impl11854);
+                    rule__ErrorModelSubclause__Group_5_8__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_5_8()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__8__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__9"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5502:1: rule__ErrorModelSubclause__Group_5__9 : rule__ErrorModelSubclause__Group_5__9__Impl rule__ErrorModelSubclause__Group_5__10 ;
+    public final void rule__ErrorModelSubclause__Group_5__9() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5506:1: ( rule__ErrorModelSubclause__Group_5__9__Impl rule__ErrorModelSubclause__Group_5__10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5507:2: rule__ErrorModelSubclause__Group_5__9__Impl rule__ErrorModelSubclause__Group_5__10
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__9__Impl_in_rule__ErrorModelSubclause__Group_5__911885);
+            rule__ErrorModelSubclause__Group_5__9__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__10_in_rule__ErrorModelSubclause__Group_5__911888);
+            rule__ErrorModelSubclause__Group_5__10();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__9"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__9__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5514:1: rule__ErrorModelSubclause__Group_5__9__Impl : ( KEYWORD_27 ) ;
+    public final void rule__ErrorModelSubclause__Group_5__9__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5518:1: ( ( KEYWORD_27 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5519:1: ( KEYWORD_27 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5519:1: ( KEYWORD_27 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5520:1: KEYWORD_27
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_5_9()); 
+            match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_5__9__Impl11916); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_5_9()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__9__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__10"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5533:1: rule__ErrorModelSubclause__Group_5__10 : rule__ErrorModelSubclause__Group_5__10__Impl rule__ErrorModelSubclause__Group_5__11 ;
+    public final void rule__ErrorModelSubclause__Group_5__10() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5537:1: ( rule__ErrorModelSubclause__Group_5__10__Impl rule__ErrorModelSubclause__Group_5__11 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5538:2: rule__ErrorModelSubclause__Group_5__10__Impl rule__ErrorModelSubclause__Group_5__11
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__10__Impl_in_rule__ErrorModelSubclause__Group_5__1011947);
+            rule__ErrorModelSubclause__Group_5__10__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__11_in_rule__ErrorModelSubclause__Group_5__1011950);
+            rule__ErrorModelSubclause__Group_5__11();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__10"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__10__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5545:1: rule__ErrorModelSubclause__Group_5__10__Impl : ( KEYWORD_73 ) ;
+    public final void rule__ErrorModelSubclause__Group_5__10__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5549:1: ( ( KEYWORD_73 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5550:1: ( KEYWORD_73 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5550:1: ( KEYWORD_73 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5551:1: KEYWORD_73
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_5_10()); 
+            match(input,KEYWORD_73,FollowSets000.FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_5__10__Impl11978); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_5_10()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__10__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__11"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5564:1: rule__ErrorModelSubclause__Group_5__11 : rule__ErrorModelSubclause__Group_5__11__Impl ;
+    public final void rule__ErrorModelSubclause__Group_5__11() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5568:1: ( rule__ErrorModelSubclause__Group_5__11__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5569:2: rule__ErrorModelSubclause__Group_5__11__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5__11__Impl_in_rule__ErrorModelSubclause__Group_5__1112009);
+            rule__ErrorModelSubclause__Group_5__11__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__11"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5__11__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5575:1: rule__ErrorModelSubclause__Group_5__11__Impl : ( KEYWORD_10 ) ;
+    public final void rule__ErrorModelSubclause__Group_5__11__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5579:1: ( ( KEYWORD_10 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5580:1: ( KEYWORD_10 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5580:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5581:1: KEYWORD_10
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_11()); 
+            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_5__11__Impl12037); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_11()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5__11__Impl"
+
+
     // $ANTLR start "rule__ErrorModelSubclause__Group_5_3__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6196:1: rule__ErrorModelSubclause__Group_5_3__0 : rule__ErrorModelSubclause__Group_5_3__0__Impl rule__ErrorModelSubclause__Group_5_3__1 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5618:1: rule__ErrorModelSubclause__Group_5_3__0 : rule__ErrorModelSubclause__Group_5_3__0__Impl rule__ErrorModelSubclause__Group_5_3__1 ;
     public final void rule__ErrorModelSubclause__Group_5_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6200:1: ( rule__ErrorModelSubclause__Group_5_3__0__Impl rule__ErrorModelSubclause__Group_5_3__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6201:2: rule__ErrorModelSubclause__Group_5_3__0__Impl rule__ErrorModelSubclause__Group_5_3__1
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5622:1: ( rule__ErrorModelSubclause__Group_5_3__0__Impl rule__ErrorModelSubclause__Group_5_3__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5623:2: rule__ErrorModelSubclause__Group_5_3__0__Impl rule__ErrorModelSubclause__Group_5_3__1
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__0__Impl_in_rule__ErrorModelSubclause__Group_5_3__013236);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__0__Impl_in_rule__ErrorModelSubclause__Group_5_3__012092);
             rule__ErrorModelSubclause__Group_5_3__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__1_in_rule__ErrorModelSubclause__Group_5_3__013239);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__1_in_rule__ErrorModelSubclause__Group_5_3__012095);
             rule__ErrorModelSubclause__Group_5_3__1();
 
             state._fsp--;
@@ -18076,21 +16545,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5_3__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6208:1: rule__ErrorModelSubclause__Group_5_3__0__Impl : ( KEYWORD_59 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5630:1: rule__ErrorModelSubclause__Group_5_3__0__Impl : ( KEYWORD_31 ) ;
     public final void rule__ErrorModelSubclause__Group_5_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6212:1: ( ( KEYWORD_59 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6213:1: ( KEYWORD_59 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5634:1: ( ( KEYWORD_31 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5635:1: ( KEYWORD_31 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6213:1: ( KEYWORD_59 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6214:1: KEYWORD_59
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5635:1: ( KEYWORD_31 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5636:1: KEYWORD_31
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getStatesKeyword_5_3_0()); 
-            match(input,KEYWORD_59,FollowSets000.FOLLOW_KEYWORD_59_in_rule__ErrorModelSubclause__Group_5_3__0__Impl13267); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getStatesKeyword_5_3_0()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_5_3_0()); 
+            match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_5_3__0__Impl12123); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_5_3_0()); 
 
             }
 
@@ -18113,17 +16582,22 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5_3__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6227:1: rule__ErrorModelSubclause__Group_5_3__1 : rule__ErrorModelSubclause__Group_5_3__1__Impl ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5649:1: rule__ErrorModelSubclause__Group_5_3__1 : rule__ErrorModelSubclause__Group_5_3__1__Impl rule__ErrorModelSubclause__Group_5_3__2 ;
     public final void rule__ErrorModelSubclause__Group_5_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6231:1: ( rule__ErrorModelSubclause__Group_5_3__1__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6232:2: rule__ErrorModelSubclause__Group_5_3__1__Impl
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5653:1: ( rule__ErrorModelSubclause__Group_5_3__1__Impl rule__ErrorModelSubclause__Group_5_3__2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5654:2: rule__ErrorModelSubclause__Group_5_3__1__Impl rule__ErrorModelSubclause__Group_5_3__2
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__1__Impl_in_rule__ErrorModelSubclause__Group_5_3__113298);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__1__Impl_in_rule__ErrorModelSubclause__Group_5_3__112154);
             rule__ErrorModelSubclause__Group_5_3__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__2_in_rule__ErrorModelSubclause__Group_5_3__112157);
+            rule__ErrorModelSubclause__Group_5_3__2();
 
             state._fsp--;
 
@@ -18146,74 +16620,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_5_3__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6238:1: rule__ErrorModelSubclause__Group_5_3__1__Impl : ( ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )* ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5661:1: rule__ErrorModelSubclause__Group_5_3__1__Impl : ( KEYWORD_86 ) ;
     public final void rule__ErrorModelSubclause__Group_5_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6242:1: ( ( ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )* ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6243:1: ( ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5665:1: ( ( KEYWORD_86 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5666:1: ( KEYWORD_86 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6243:1: ( ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )* ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6244:1: ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5666:1: ( KEYWORD_86 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5667:1: KEYWORD_86
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6244:1: ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6245:1: ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_5_3_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6246:1: ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6246:2: rule__ErrorModelSubclause__StatesAssignment_5_3_1
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__StatesAssignment_5_3_1_in_rule__ErrorModelSubclause__Group_5_3__1__Impl13327);
-            rule__ErrorModelSubclause__StatesAssignment_5_3_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_5_3_1()); 
-
-            }
-
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6249:1: ( ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )* )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6250:1: ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )*
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_5_3_1()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6251:1: ( rule__ErrorModelSubclause__StatesAssignment_5_3_1 )*
-            loop70:
-            do {
-                int alt70=2;
-                int LA70_0 = input.LA(1);
-
-                if ( (LA70_0==KEYWORD_11||LA70_0==RULE_ID) ) {
-                    alt70=1;
-                }
-
-
-                switch (alt70) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6251:2: rule__ErrorModelSubclause__StatesAssignment_5_3_1
-            	    {
-            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__StatesAssignment_5_3_1_in_rule__ErrorModelSubclause__Group_5_3__1__Impl13339);
-            	    rule__ErrorModelSubclause__StatesAssignment_5_3_1();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop70;
-                }
-            } while (true);
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_5_3_1()); 
-
-            }
-
+             before(grammarAccess.getErrorModelSubclauseAccess().getTransformationsKeyword_5_3_1()); 
+            match(input,KEYWORD_86,FollowSets000.FOLLOW_KEYWORD_86_in_rule__ErrorModelSubclause__Group_5_3__1__Impl12185); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTransformationsKeyword_5_3_1()); 
 
             }
 
@@ -18235,22 +16656,1242 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorModelSubclause__Group_5_3__1__Impl"
 
 
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_3__2"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5680:1: rule__ErrorModelSubclause__Group_5_3__2 : rule__ErrorModelSubclause__Group_5_3__2__Impl rule__ErrorModelSubclause__Group_5_3__3 ;
+    public final void rule__ErrorModelSubclause__Group_5_3__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5684:1: ( rule__ErrorModelSubclause__Group_5_3__2__Impl rule__ErrorModelSubclause__Group_5_3__3 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5685:2: rule__ErrorModelSubclause__Group_5_3__2__Impl rule__ErrorModelSubclause__Group_5_3__3
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__2__Impl_in_rule__ErrorModelSubclause__Group_5_3__212216);
+            rule__ErrorModelSubclause__Group_5_3__2__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__3_in_rule__ErrorModelSubclause__Group_5_3__212219);
+            rule__ErrorModelSubclause__Group_5_3__3();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_3__2"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_3__2__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5692:1: rule__ErrorModelSubclause__Group_5_3__2__Impl : ( ( rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2 ) ) ;
+    public final void rule__ErrorModelSubclause__Group_5_3__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5696:1: ( ( ( rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2 ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5697:1: ( ( rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2 ) )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5697:1: ( ( rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5698:1: ( rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2 )
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationAssignment_5_3_2()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5699:1: ( rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5699:2: rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2_in_rule__ErrorModelSubclause__Group_5_3__2__Impl12246);
+            rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationAssignment_5_3_2()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_3__2__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_3__3"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5709:1: rule__ErrorModelSubclause__Group_5_3__3 : rule__ErrorModelSubclause__Group_5_3__3__Impl ;
+    public final void rule__ErrorModelSubclause__Group_5_3__3() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5713:1: ( rule__ErrorModelSubclause__Group_5_3__3__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5714:2: rule__ErrorModelSubclause__Group_5_3__3__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_3__3__Impl_in_rule__ErrorModelSubclause__Group_5_3__312276);
+            rule__ErrorModelSubclause__Group_5_3__3__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_3__3"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_3__3__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5720:1: rule__ErrorModelSubclause__Group_5_3__3__Impl : ( KEYWORD_10 ) ;
+    public final void rule__ErrorModelSubclause__Group_5_3__3__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5724:1: ( ( KEYWORD_10 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5725:1: ( KEYWORD_10 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5725:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5726:1: KEYWORD_10
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_3_3()); 
+            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_5_3__3__Impl12304); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_3_3()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_3__3__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_4__0"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5747:1: rule__ErrorModelSubclause__Group_5_4__0 : rule__ErrorModelSubclause__Group_5_4__0__Impl rule__ErrorModelSubclause__Group_5_4__1 ;
+    public final void rule__ErrorModelSubclause__Group_5_4__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5751:1: ( rule__ErrorModelSubclause__Group_5_4__0__Impl rule__ErrorModelSubclause__Group_5_4__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5752:2: rule__ErrorModelSubclause__Group_5_4__0__Impl rule__ErrorModelSubclause__Group_5_4__1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_4__0__Impl_in_rule__ErrorModelSubclause__Group_5_4__012343);
+            rule__ErrorModelSubclause__Group_5_4__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_4__1_in_rule__ErrorModelSubclause__Group_5_4__012346);
+            rule__ErrorModelSubclause__Group_5_4__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_4__0"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_4__0__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5759:1: rule__ErrorModelSubclause__Group_5_4__0__Impl : ( KEYWORD_52 ) ;
+    public final void rule__ErrorModelSubclause__Group_5_4__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5763:1: ( ( KEYWORD_52 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5764:1: ( KEYWORD_52 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5764:1: ( KEYWORD_52 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5765:1: KEYWORD_52
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getEventsKeyword_5_4_0()); 
+            match(input,KEYWORD_52,FollowSets000.FOLLOW_KEYWORD_52_in_rule__ErrorModelSubclause__Group_5_4__0__Impl12374); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getEventsKeyword_5_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_4__0__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_4__1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5778:1: rule__ErrorModelSubclause__Group_5_4__1 : rule__ErrorModelSubclause__Group_5_4__1__Impl ;
+    public final void rule__ErrorModelSubclause__Group_5_4__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5782:1: ( rule__ErrorModelSubclause__Group_5_4__1__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5783:2: rule__ErrorModelSubclause__Group_5_4__1__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_4__1__Impl_in_rule__ErrorModelSubclause__Group_5_4__112405);
+            rule__ErrorModelSubclause__Group_5_4__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_4__1"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_4__1__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5789:1: rule__ErrorModelSubclause__Group_5_4__1__Impl : ( ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )* ) ) ;
+    public final void rule__ErrorModelSubclause__Group_5_4__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5793:1: ( ( ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )* ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5794:1: ( ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )* ) )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5794:1: ( ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5795:1: ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 ) ) ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )* )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5795:1: ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5796:1: ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getEventsAssignment_5_4_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5797:1: ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5797:2: rule__ErrorModelSubclause__EventsAssignment_5_4_1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__EventsAssignment_5_4_1_in_rule__ErrorModelSubclause__Group_5_4__1__Impl12434);
+            rule__ErrorModelSubclause__EventsAssignment_5_4_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getEventsAssignment_5_4_1()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5800:1: ( ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5801:1: ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )*
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getEventsAssignment_5_4_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5802:1: ( rule__ErrorModelSubclause__EventsAssignment_5_4_1 )*
+            loop64:
+            do {
+                int alt64=2;
+                int LA64_0 = input.LA(1);
+
+                if ( (LA64_0==RULE_ID) ) {
+                    alt64=1;
+                }
+
+
+                switch (alt64) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5802:2: rule__ErrorModelSubclause__EventsAssignment_5_4_1
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__EventsAssignment_5_4_1_in_rule__ErrorModelSubclause__Group_5_4__1__Impl12446);
+            	    rule__ErrorModelSubclause__EventsAssignment_5_4_1();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop64;
+                }
+            } while (true);
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getEventsAssignment_5_4_1()); 
+
+            }
+
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_4__1__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_5__0"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5817:1: rule__ErrorModelSubclause__Group_5_5__0 : rule__ErrorModelSubclause__Group_5_5__0__Impl rule__ErrorModelSubclause__Group_5_5__1 ;
+    public final void rule__ErrorModelSubclause__Group_5_5__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5821:1: ( rule__ErrorModelSubclause__Group_5_5__0__Impl rule__ErrorModelSubclause__Group_5_5__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5822:2: rule__ErrorModelSubclause__Group_5_5__0__Impl rule__ErrorModelSubclause__Group_5_5__1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_5__0__Impl_in_rule__ErrorModelSubclause__Group_5_5__012483);
+            rule__ErrorModelSubclause__Group_5_5__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_5__1_in_rule__ErrorModelSubclause__Group_5_5__012486);
+            rule__ErrorModelSubclause__Group_5_5__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_5__0"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_5__0__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5829:1: rule__ErrorModelSubclause__Group_5_5__0__Impl : ( KEYWORD_84 ) ;
+    public final void rule__ErrorModelSubclause__Group_5_5__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5833:1: ( ( KEYWORD_84 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5834:1: ( KEYWORD_84 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5834:1: ( KEYWORD_84 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5835:1: KEYWORD_84
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getTransitionsKeyword_5_5_0()); 
+            match(input,KEYWORD_84,FollowSets000.FOLLOW_KEYWORD_84_in_rule__ErrorModelSubclause__Group_5_5__0__Impl12514); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTransitionsKeyword_5_5_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_5__0__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_5__1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5848:1: rule__ErrorModelSubclause__Group_5_5__1 : rule__ErrorModelSubclause__Group_5_5__1__Impl ;
+    public final void rule__ErrorModelSubclause__Group_5_5__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5852:1: ( rule__ErrorModelSubclause__Group_5_5__1__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5853:2: rule__ErrorModelSubclause__Group_5_5__1__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_5__1__Impl_in_rule__ErrorModelSubclause__Group_5_5__112545);
+            rule__ErrorModelSubclause__Group_5_5__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_5__1"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_5__1__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5859:1: rule__ErrorModelSubclause__Group_5_5__1__Impl : ( ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )* ) ) ;
+    public final void rule__ErrorModelSubclause__Group_5_5__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5863:1: ( ( ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )* ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5864:1: ( ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )* ) )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5864:1: ( ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5865:1: ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 ) ) ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )* )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5865:1: ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5866:1: ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getTransitionsAssignment_5_5_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5867:1: ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5867:2: rule__ErrorModelSubclause__TransitionsAssignment_5_5_1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_5_5_1_in_rule__ErrorModelSubclause__Group_5_5__1__Impl12574);
+            rule__ErrorModelSubclause__TransitionsAssignment_5_5_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getTransitionsAssignment_5_5_1()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5870:1: ( ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5871:1: ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )*
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getTransitionsAssignment_5_5_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5872:1: ( rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 )*
+            loop65:
+            do {
+                int alt65=2;
+                int LA65_0 = input.LA(1);
+
+                if ( (LA65_0==KEYWORD_25||LA65_0==RULE_ID) ) {
+                    alt65=1;
+                }
+
+
+                switch (alt65) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5872:2: rule__ErrorModelSubclause__TransitionsAssignment_5_5_1
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_5_5_1_in_rule__ErrorModelSubclause__Group_5_5__1__Impl12586);
+            	    rule__ErrorModelSubclause__TransitionsAssignment_5_5_1();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop65;
+                }
+            } while (true);
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getTransitionsAssignment_5_5_1()); 
+
+            }
+
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_5__1__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_6__0"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5887:1: rule__ErrorModelSubclause__Group_5_6__0 : rule__ErrorModelSubclause__Group_5_6__0__Impl rule__ErrorModelSubclause__Group_5_6__1 ;
+    public final void rule__ErrorModelSubclause__Group_5_6__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5891:1: ( rule__ErrorModelSubclause__Group_5_6__0__Impl rule__ErrorModelSubclause__Group_5_6__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5892:2: rule__ErrorModelSubclause__Group_5_6__0__Impl rule__ErrorModelSubclause__Group_5_6__1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_6__0__Impl_in_rule__ErrorModelSubclause__Group_5_6__012623);
+            rule__ErrorModelSubclause__Group_5_6__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_6__1_in_rule__ErrorModelSubclause__Group_5_6__012626);
+            rule__ErrorModelSubclause__Group_5_6__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_6__0"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_6__0__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5899:1: rule__ErrorModelSubclause__Group_5_6__0__Impl : ( KEYWORD_85 ) ;
+    public final void rule__ErrorModelSubclause__Group_5_6__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5903:1: ( ( KEYWORD_85 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5904:1: ( KEYWORD_85 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5904:1: ( KEYWORD_85 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5905:1: KEYWORD_85
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_5_6_0()); 
+            match(input,KEYWORD_85,FollowSets000.FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_5_6__0__Impl12654); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_5_6_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_6__0__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_6__1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5918:1: rule__ErrorModelSubclause__Group_5_6__1 : rule__ErrorModelSubclause__Group_5_6__1__Impl ;
+    public final void rule__ErrorModelSubclause__Group_5_6__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5922:1: ( rule__ErrorModelSubclause__Group_5_6__1__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5923:2: rule__ErrorModelSubclause__Group_5_6__1__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_6__1__Impl_in_rule__ErrorModelSubclause__Group_5_6__112685);
+            rule__ErrorModelSubclause__Group_5_6__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_6__1"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_6__1__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5929:1: rule__ErrorModelSubclause__Group_5_6__1__Impl : ( ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )* ) ) ;
+    public final void rule__ErrorModelSubclause__Group_5_6__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5933:1: ( ( ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )* ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5934:1: ( ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )* ) )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5934:1: ( ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5935:1: ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 ) ) ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )* )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5935:1: ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5936:1: ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsAssignment_5_6_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5937:1: ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5937:2: rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1_in_rule__ErrorModelSubclause__Group_5_6__1__Impl12714);
+            rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsAssignment_5_6_1()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5940:1: ( ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5941:1: ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )*
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsAssignment_5_6_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5942:1: ( rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 )*
+            loop66:
+            do {
+                int alt66=2;
+                int LA66_0 = input.LA(1);
+
+                if ( (LA66_0==KEYWORD_25||LA66_0==RULE_ID) ) {
+                    alt66=1;
+                }
+
+
+                switch (alt66) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5942:2: rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1_in_rule__ErrorModelSubclause__Group_5_6__1__Impl12726);
+            	    rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop66;
+                }
+            } while (true);
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsAssignment_5_6_1()); 
+
+            }
+
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_6__1__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_7__0"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5957:1: rule__ErrorModelSubclause__Group_5_7__0 : rule__ErrorModelSubclause__Group_5_7__0__Impl rule__ErrorModelSubclause__Group_5_7__1 ;
+    public final void rule__ErrorModelSubclause__Group_5_7__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5961:1: ( rule__ErrorModelSubclause__Group_5_7__0__Impl rule__ErrorModelSubclause__Group_5_7__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5962:2: rule__ErrorModelSubclause__Group_5_7__0__Impl rule__ErrorModelSubclause__Group_5_7__1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_7__0__Impl_in_rule__ErrorModelSubclause__Group_5_7__012763);
+            rule__ErrorModelSubclause__Group_5_7__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_7__1_in_rule__ErrorModelSubclause__Group_5_7__012766);
+            rule__ErrorModelSubclause__Group_5_7__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_7__0"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_7__0__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5969:1: rule__ErrorModelSubclause__Group_5_7__0__Impl : ( KEYWORD_79 ) ;
+    public final void rule__ErrorModelSubclause__Group_5_7__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5973:1: ( ( KEYWORD_79 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5974:1: ( KEYWORD_79 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5974:1: ( KEYWORD_79 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5975:1: KEYWORD_79
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getDetectionsKeyword_5_7_0()); 
+            match(input,KEYWORD_79,FollowSets000.FOLLOW_KEYWORD_79_in_rule__ErrorModelSubclause__Group_5_7__0__Impl12794); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getDetectionsKeyword_5_7_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_7__0__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_7__1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5988:1: rule__ErrorModelSubclause__Group_5_7__1 : rule__ErrorModelSubclause__Group_5_7__1__Impl ;
+    public final void rule__ErrorModelSubclause__Group_5_7__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5992:1: ( rule__ErrorModelSubclause__Group_5_7__1__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5993:2: rule__ErrorModelSubclause__Group_5_7__1__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_7__1__Impl_in_rule__ErrorModelSubclause__Group_5_7__112825);
+            rule__ErrorModelSubclause__Group_5_7__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_7__1"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_7__1__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:5999:1: rule__ErrorModelSubclause__Group_5_7__1__Impl : ( ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )* ) ) ;
+    public final void rule__ErrorModelSubclause__Group_5_7__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6003:1: ( ( ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )* ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6004:1: ( ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )* ) )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6004:1: ( ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6005:1: ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 ) ) ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )* )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6005:1: ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6006:1: ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_5_7_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6007:1: ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6007:2: rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1_in_rule__ErrorModelSubclause__Group_5_7__1__Impl12854);
+            rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_5_7_1()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6010:1: ( ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6011:1: ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )*
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_5_7_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6012:1: ( rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 )*
+            loop67:
+            do {
+                int alt67=2;
+                int LA67_0 = input.LA(1);
+
+                if ( (LA67_0==KEYWORD_25||LA67_0==RULE_ID) ) {
+                    alt67=1;
+                }
+
+
+                switch (alt67) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6012:2: rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1_in_rule__ErrorModelSubclause__Group_5_7__1__Impl12866);
+            	    rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop67;
+                }
+            } while (true);
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_5_7_1()); 
+
+            }
+
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_7__1__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_8__0"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6027:1: rule__ErrorModelSubclause__Group_5_8__0 : rule__ErrorModelSubclause__Group_5_8__0__Impl rule__ErrorModelSubclause__Group_5_8__1 ;
+    public final void rule__ErrorModelSubclause__Group_5_8__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6031:1: ( rule__ErrorModelSubclause__Group_5_8__0__Impl rule__ErrorModelSubclause__Group_5_8__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6032:2: rule__ErrorModelSubclause__Group_5_8__0__Impl rule__ErrorModelSubclause__Group_5_8__1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_8__0__Impl_in_rule__ErrorModelSubclause__Group_5_8__012903);
+            rule__ErrorModelSubclause__Group_5_8__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_8__1_in_rule__ErrorModelSubclause__Group_5_8__012906);
+            rule__ErrorModelSubclause__Group_5_8__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_8__0"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_8__0__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6039:1: rule__ErrorModelSubclause__Group_5_8__0__Impl : ( KEYWORD_32 ) ;
+    public final void rule__ErrorModelSubclause__Group_5_8__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6043:1: ( ( KEYWORD_32 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6044:1: ( KEYWORD_32 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6044:1: ( KEYWORD_32 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6045:1: KEYWORD_32
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getModeKeyword_5_8_0()); 
+            match(input,KEYWORD_32,FollowSets000.FOLLOW_KEYWORD_32_in_rule__ErrorModelSubclause__Group_5_8__0__Impl12934); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getModeKeyword_5_8_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_8__0__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_8__1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6058:1: rule__ErrorModelSubclause__Group_5_8__1 : rule__ErrorModelSubclause__Group_5_8__1__Impl rule__ErrorModelSubclause__Group_5_8__2 ;
+    public final void rule__ErrorModelSubclause__Group_5_8__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6062:1: ( rule__ErrorModelSubclause__Group_5_8__1__Impl rule__ErrorModelSubclause__Group_5_8__2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6063:2: rule__ErrorModelSubclause__Group_5_8__1__Impl rule__ErrorModelSubclause__Group_5_8__2
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_8__1__Impl_in_rule__ErrorModelSubclause__Group_5_8__112965);
+            rule__ErrorModelSubclause__Group_5_8__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_8__2_in_rule__ErrorModelSubclause__Group_5_8__112968);
+            rule__ErrorModelSubclause__Group_5_8__2();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_8__1"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_8__1__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6070:1: rule__ErrorModelSubclause__Group_5_8__1__Impl : ( KEYWORD_72 ) ;
+    public final void rule__ErrorModelSubclause__Group_5_8__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6074:1: ( ( KEYWORD_72 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6075:1: ( KEYWORD_72 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6075:1: ( KEYWORD_72 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6076:1: KEYWORD_72
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getMappingsKeyword_5_8_1()); 
+            match(input,KEYWORD_72,FollowSets000.FOLLOW_KEYWORD_72_in_rule__ErrorModelSubclause__Group_5_8__1__Impl12996); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getMappingsKeyword_5_8_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_8__1__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_8__2"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6089:1: rule__ErrorModelSubclause__Group_5_8__2 : rule__ErrorModelSubclause__Group_5_8__2__Impl ;
+    public final void rule__ErrorModelSubclause__Group_5_8__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6093:1: ( rule__ErrorModelSubclause__Group_5_8__2__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6094:2: rule__ErrorModelSubclause__Group_5_8__2__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_5_8__2__Impl_in_rule__ErrorModelSubclause__Group_5_8__213027);
+            rule__ErrorModelSubclause__Group_5_8__2__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_8__2"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_5_8__2__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6100:1: rule__ErrorModelSubclause__Group_5_8__2__Impl : ( ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )* ) ) ;
+    public final void rule__ErrorModelSubclause__Group_5_8__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6104:1: ( ( ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )* ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6105:1: ( ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )* ) )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6105:1: ( ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6106:1: ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 ) ) ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )* )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6106:1: ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6107:1: ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_5_8_2()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6108:1: ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6108:2: rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2_in_rule__ErrorModelSubclause__Group_5_8__2__Impl13056);
+            rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_5_8_2()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6111:1: ( ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6112:1: ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )*
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_5_8_2()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6113:1: ( rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 )*
+            loop68:
+            do {
+                int alt68=2;
+                int LA68_0 = input.LA(1);
+
+                if ( (LA68_0==RULE_ID) ) {
+                    alt68=1;
+                }
+
+
+                switch (alt68) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6113:2: rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2_in_rule__ErrorModelSubclause__Group_5_8__2__Impl13068);
+            	    rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop68;
+                }
+            } while (true);
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_5_8_2()); 
+
+            }
+
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_5_8__2__Impl"
+
+
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__0"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6266:1: rule__ErrorModelSubclause__Group_6__0 : rule__ErrorModelSubclause__Group_6__0__Impl rule__ErrorModelSubclause__Group_6__1 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6130:1: rule__ErrorModelSubclause__Group_6__0 : rule__ErrorModelSubclause__Group_6__0__Impl rule__ErrorModelSubclause__Group_6__1 ;
     public final void rule__ErrorModelSubclause__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6270:1: ( rule__ErrorModelSubclause__Group_6__0__Impl rule__ErrorModelSubclause__Group_6__1 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6271:2: rule__ErrorModelSubclause__Group_6__0__Impl rule__ErrorModelSubclause__Group_6__1
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6134:1: ( rule__ErrorModelSubclause__Group_6__0__Impl rule__ErrorModelSubclause__Group_6__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6135:2: rule__ErrorModelSubclause__Group_6__0__Impl rule__ErrorModelSubclause__Group_6__1
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__0__Impl_in_rule__ErrorModelSubclause__Group_6__013376);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__0__Impl_in_rule__ErrorModelSubclause__Group_6__013107);
             rule__ErrorModelSubclause__Group_6__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__1_in_rule__ErrorModelSubclause__Group_6__013379);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__1_in_rule__ErrorModelSubclause__Group_6__013110);
             rule__ErrorModelSubclause__Group_6__1();
 
             state._fsp--;
@@ -18274,21 +17915,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__0__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6278:1: rule__ErrorModelSubclause__Group_6__0__Impl : ( KEYWORD_31 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6142:1: rule__ErrorModelSubclause__Group_6__0__Impl : ( KEYWORD_74 ) ;
     public final void rule__ErrorModelSubclause__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6282:1: ( ( KEYWORD_31 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6283:1: ( KEYWORD_31 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6146:1: ( ( KEYWORD_74 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6147:1: ( KEYWORD_74 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6283:1: ( KEYWORD_31 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6284:1: KEYWORD_31
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6147:1: ( KEYWORD_74 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6148:1: KEYWORD_74
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_6_0()); 
-            match(input,KEYWORD_31,FollowSets000.FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_6__0__Impl13407); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_6_0()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_6_0()); 
+            match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_6__0__Impl13138); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_6_0()); 
 
             }
 
@@ -18311,21 +17952,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6297:1: rule__ErrorModelSubclause__Group_6__1 : rule__ErrorModelSubclause__Group_6__1__Impl rule__ErrorModelSubclause__Group_6__2 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6161:1: rule__ErrorModelSubclause__Group_6__1 : rule__ErrorModelSubclause__Group_6__1__Impl rule__ErrorModelSubclause__Group_6__2 ;
     public final void rule__ErrorModelSubclause__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6301:1: ( rule__ErrorModelSubclause__Group_6__1__Impl rule__ErrorModelSubclause__Group_6__2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6302:2: rule__ErrorModelSubclause__Group_6__1__Impl rule__ErrorModelSubclause__Group_6__2
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6165:1: ( rule__ErrorModelSubclause__Group_6__1__Impl rule__ErrorModelSubclause__Group_6__2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6166:2: rule__ErrorModelSubclause__Group_6__1__Impl rule__ErrorModelSubclause__Group_6__2
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__1__Impl_in_rule__ErrorModelSubclause__Group_6__113438);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__1__Impl_in_rule__ErrorModelSubclause__Group_6__113169);
             rule__ErrorModelSubclause__Group_6__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__2_in_rule__ErrorModelSubclause__Group_6__113441);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__2_in_rule__ErrorModelSubclause__Group_6__113172);
             rule__ErrorModelSubclause__Group_6__2();
 
             state._fsp--;
@@ -18349,21 +17990,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__1__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6309:1: rule__ErrorModelSubclause__Group_6__1__Impl : ( KEYWORD_38 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6173:1: rule__ErrorModelSubclause__Group_6__1__Impl : ( KEYWORD_42 ) ;
     public final void rule__ErrorModelSubclause__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6313:1: ( ( KEYWORD_38 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6314:1: ( KEYWORD_38 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6177:1: ( ( KEYWORD_42 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6178:1: ( KEYWORD_42 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6314:1: ( KEYWORD_38 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6315:1: KEYWORD_38
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6178:1: ( KEYWORD_42 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6179:1: KEYWORD_42
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTypeKeyword_6_1()); 
-            match(input,KEYWORD_38,FollowSets000.FOLLOW_KEYWORD_38_in_rule__ErrorModelSubclause__Group_6__1__Impl13469); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getTypeKeyword_6_1()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_6_1()); 
+            match(input,KEYWORD_42,FollowSets000.FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_6__1__Impl13200); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_6_1()); 
 
             }
 
@@ -18386,21 +18027,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6328:1: rule__ErrorModelSubclause__Group_6__2 : rule__ErrorModelSubclause__Group_6__2__Impl rule__ErrorModelSubclause__Group_6__3 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6192:1: rule__ErrorModelSubclause__Group_6__2 : rule__ErrorModelSubclause__Group_6__2__Impl rule__ErrorModelSubclause__Group_6__3 ;
     public final void rule__ErrorModelSubclause__Group_6__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6332:1: ( rule__ErrorModelSubclause__Group_6__2__Impl rule__ErrorModelSubclause__Group_6__3 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6333:2: rule__ErrorModelSubclause__Group_6__2__Impl rule__ErrorModelSubclause__Group_6__3
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6196:1: ( rule__ErrorModelSubclause__Group_6__2__Impl rule__ErrorModelSubclause__Group_6__3 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6197:2: rule__ErrorModelSubclause__Group_6__2__Impl rule__ErrorModelSubclause__Group_6__3
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__2__Impl_in_rule__ErrorModelSubclause__Group_6__213500);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__2__Impl_in_rule__ErrorModelSubclause__Group_6__213231);
             rule__ErrorModelSubclause__Group_6__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__3_in_rule__ErrorModelSubclause__Group_6__213503);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__3_in_rule__ErrorModelSubclause__Group_6__213234);
             rule__ErrorModelSubclause__Group_6__3();
 
             state._fsp--;
@@ -18424,21 +18065,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__2__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6340:1: rule__ErrorModelSubclause__Group_6__2__Impl : ( KEYWORD_82 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6204:1: rule__ErrorModelSubclause__Group_6__2__Impl : ( KEYWORD_69 ) ;
     public final void rule__ErrorModelSubclause__Group_6__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6344:1: ( ( KEYWORD_82 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6345:1: ( KEYWORD_82 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6208:1: ( ( KEYWORD_69 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6209:1: ( KEYWORD_69 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6345:1: ( KEYWORD_82 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6346:1: KEYWORD_82
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6209:1: ( KEYWORD_69 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6210:1: KEYWORD_69
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getEquivalenceKeyword_6_2()); 
-            match(input,KEYWORD_82,FollowSets000.FOLLOW_KEYWORD_82_in_rule__ErrorModelSubclause__Group_6__2__Impl13531); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getEquivalenceKeyword_6_2()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_6_2()); 
+            match(input,KEYWORD_69,FollowSets000.FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_6__2__Impl13262); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_6_2()); 
 
             }
 
@@ -18461,21 +18102,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__3"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6359:1: rule__ErrorModelSubclause__Group_6__3 : rule__ErrorModelSubclause__Group_6__3__Impl rule__ErrorModelSubclause__Group_6__4 ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6223:1: rule__ErrorModelSubclause__Group_6__3 : rule__ErrorModelSubclause__Group_6__3__Impl rule__ErrorModelSubclause__Group_6__4 ;
     public final void rule__ErrorModelSubclause__Group_6__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6363:1: ( rule__ErrorModelSubclause__Group_6__3__Impl rule__ErrorModelSubclause__Group_6__4 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6364:2: rule__ErrorModelSubclause__Group_6__3__Impl rule__ErrorModelSubclause__Group_6__4
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6227:1: ( rule__ErrorModelSubclause__Group_6__3__Impl rule__ErrorModelSubclause__Group_6__4 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6228:2: rule__ErrorModelSubclause__Group_6__3__Impl rule__ErrorModelSubclause__Group_6__4
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__3__Impl_in_rule__ErrorModelSubclause__Group_6__313562);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__3__Impl_in_rule__ErrorModelSubclause__Group_6__313293);
             rule__ErrorModelSubclause__Group_6__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__4_in_rule__ErrorModelSubclause__Group_6__313565);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__4_in_rule__ErrorModelSubclause__Group_6__313296);
             rule__ErrorModelSubclause__Group_6__4();
 
             state._fsp--;
@@ -18499,31 +18140,42 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__3__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6371:1: rule__ErrorModelSubclause__Group_6__3__Impl : ( ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3 ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6235:1: rule__ErrorModelSubclause__Group_6__3__Impl : ( ( rule__ErrorModelSubclause__Group_6_3__0 )? ) ;
     public final void rule__ErrorModelSubclause__Group_6__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6375:1: ( ( ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3 ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6376:1: ( ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6239:1: ( ( ( rule__ErrorModelSubclause__Group_6_3__0 )? ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6240:1: ( ( rule__ErrorModelSubclause__Group_6_3__0 )? )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6376:1: ( ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6377:1: ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6240:1: ( ( rule__ErrorModelSubclause__Group_6_3__0 )? )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6241:1: ( rule__ErrorModelSubclause__Group_6_3__0 )?
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceAssignment_6_3()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6378:1: ( rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6378:2: rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3
-            {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3_in_rule__ErrorModelSubclause__Group_6__3__Impl13592);
-            rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3();
+             before(grammarAccess.getErrorModelSubclauseAccess().getGroup_6_3()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6242:1: ( rule__ErrorModelSubclause__Group_6_3__0 )?
+            int alt69=2;
+            int LA69_0 = input.LA(1);
 
-            state._fsp--;
+            if ( (LA69_0==KEYWORD_59) ) {
+                alt69=1;
+            }
+            switch (alt69) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6242:2: rule__ErrorModelSubclause__Group_6_3__0
+                    {
+                    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6_3__0_in_rule__ErrorModelSubclause__Group_6__3__Impl13323);
+                    rule__ErrorModelSubclause__Group_6_3__0();
 
+                    state._fsp--;
+
+
+                    }
+                    break;
 
             }
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceAssignment_6_3()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getGroup_6_3()); 
 
             }
 
@@ -18546,17 +18198,22 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__4"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6388:1: rule__ErrorModelSubclause__Group_6__4 : rule__ErrorModelSubclause__Group_6__4__Impl ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6252:1: rule__ErrorModelSubclause__Group_6__4 : rule__ErrorModelSubclause__Group_6__4__Impl rule__ErrorModelSubclause__Group_6__5 ;
     public final void rule__ErrorModelSubclause__Group_6__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6392:1: ( rule__ErrorModelSubclause__Group_6__4__Impl )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6393:2: rule__ErrorModelSubclause__Group_6__4__Impl
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6256:1: ( rule__ErrorModelSubclause__Group_6__4__Impl rule__ErrorModelSubclause__Group_6__5 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6257:2: rule__ErrorModelSubclause__Group_6__4__Impl rule__ErrorModelSubclause__Group_6__5
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__4__Impl_in_rule__ErrorModelSubclause__Group_6__413622);
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__4__Impl_in_rule__ErrorModelSubclause__Group_6__413354);
             rule__ErrorModelSubclause__Group_6__4__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__5_in_rule__ErrorModelSubclause__Group_6__413357);
+            rule__ErrorModelSubclause__Group_6__5();
 
             state._fsp--;
 
@@ -18579,21 +18236,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_6__4__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6399:1: rule__ErrorModelSubclause__Group_6__4__Impl : ( KEYWORD_10 ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6264:1: rule__ErrorModelSubclause__Group_6__4__Impl : ( KEYWORD_27 ) ;
     public final void rule__ErrorModelSubclause__Group_6__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6403:1: ( ( KEYWORD_10 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6404:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6268:1: ( ( KEYWORD_27 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6269:1: ( KEYWORD_27 )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6404:1: ( KEYWORD_10 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6405:1: KEYWORD_10
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6269:1: ( KEYWORD_27 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6270:1: KEYWORD_27
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_4()); 
-            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_6__4__Impl13650); 
-             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_4()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_6_4()); 
+            match(input,KEYWORD_27,FollowSets000.FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_6__4__Impl13385); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_6_4()); 
 
             }
 
@@ -18613,6 +18270,349 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         return ;
     }
     // $ANTLR end "rule__ErrorModelSubclause__Group_6__4__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_6__5"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6283:1: rule__ErrorModelSubclause__Group_6__5 : rule__ErrorModelSubclause__Group_6__5__Impl rule__ErrorModelSubclause__Group_6__6 ;
+    public final void rule__ErrorModelSubclause__Group_6__5() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6287:1: ( rule__ErrorModelSubclause__Group_6__5__Impl rule__ErrorModelSubclause__Group_6__6 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6288:2: rule__ErrorModelSubclause__Group_6__5__Impl rule__ErrorModelSubclause__Group_6__6
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__5__Impl_in_rule__ErrorModelSubclause__Group_6__513416);
+            rule__ErrorModelSubclause__Group_6__5__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__6_in_rule__ErrorModelSubclause__Group_6__513419);
+            rule__ErrorModelSubclause__Group_6__6();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_6__5"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_6__5__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6295:1: rule__ErrorModelSubclause__Group_6__5__Impl : ( KEYWORD_74 ) ;
+    public final void rule__ErrorModelSubclause__Group_6__5__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6299:1: ( ( KEYWORD_74 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6300:1: ( KEYWORD_74 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6300:1: ( KEYWORD_74 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6301:1: KEYWORD_74
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_6_5()); 
+            match(input,KEYWORD_74,FollowSets000.FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_6__5__Impl13447); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_6_5()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_6__5__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_6__6"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6314:1: rule__ErrorModelSubclause__Group_6__6 : rule__ErrorModelSubclause__Group_6__6__Impl ;
+    public final void rule__ErrorModelSubclause__Group_6__6() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6318:1: ( rule__ErrorModelSubclause__Group_6__6__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6319:2: rule__ErrorModelSubclause__Group_6__6__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6__6__Impl_in_rule__ErrorModelSubclause__Group_6__613478);
+            rule__ErrorModelSubclause__Group_6__6__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_6__6"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_6__6__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6325:1: rule__ErrorModelSubclause__Group_6__6__Impl : ( KEYWORD_10 ) ;
+    public final void rule__ErrorModelSubclause__Group_6__6__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6329:1: ( ( KEYWORD_10 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6330:1: ( KEYWORD_10 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6330:1: ( KEYWORD_10 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6331:1: KEYWORD_10
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_6()); 
+            match(input,KEYWORD_10,FollowSets000.FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_6__6__Impl13506); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_6()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_6__6__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_6_3__0"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6358:1: rule__ErrorModelSubclause__Group_6_3__0 : rule__ErrorModelSubclause__Group_6_3__0__Impl rule__ErrorModelSubclause__Group_6_3__1 ;
+    public final void rule__ErrorModelSubclause__Group_6_3__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6362:1: ( rule__ErrorModelSubclause__Group_6_3__0__Impl rule__ErrorModelSubclause__Group_6_3__1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6363:2: rule__ErrorModelSubclause__Group_6_3__0__Impl rule__ErrorModelSubclause__Group_6_3__1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6_3__0__Impl_in_rule__ErrorModelSubclause__Group_6_3__013551);
+            rule__ErrorModelSubclause__Group_6_3__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6_3__1_in_rule__ErrorModelSubclause__Group_6_3__013554);
+            rule__ErrorModelSubclause__Group_6_3__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_6_3__0"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_6_3__0__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6370:1: rule__ErrorModelSubclause__Group_6_3__0__Impl : ( KEYWORD_59 ) ;
+    public final void rule__ErrorModelSubclause__Group_6_3__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6374:1: ( ( KEYWORD_59 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6375:1: ( KEYWORD_59 )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6375:1: ( KEYWORD_59 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6376:1: KEYWORD_59
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getStatesKeyword_6_3_0()); 
+            match(input,KEYWORD_59,FollowSets000.FOLLOW_KEYWORD_59_in_rule__ErrorModelSubclause__Group_6_3__0__Impl13582); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getStatesKeyword_6_3_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_6_3__0__Impl"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_6_3__1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6389:1: rule__ErrorModelSubclause__Group_6_3__1 : rule__ErrorModelSubclause__Group_6_3__1__Impl ;
+    public final void rule__ErrorModelSubclause__Group_6_3__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6393:1: ( rule__ErrorModelSubclause__Group_6_3__1__Impl )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6394:2: rule__ErrorModelSubclause__Group_6_3__1__Impl
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__Group_6_3__1__Impl_in_rule__ErrorModelSubclause__Group_6_3__113613);
+            rule__ErrorModelSubclause__Group_6_3__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_6_3__1"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__Group_6_3__1__Impl"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6400:1: rule__ErrorModelSubclause__Group_6_3__1__Impl : ( ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )* ) ) ;
+    public final void rule__ErrorModelSubclause__Group_6_3__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6404:1: ( ( ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )* ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6405:1: ( ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )* ) )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6405:1: ( ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )* ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6406:1: ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 ) ) ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )* )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6406:1: ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6407:1: ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_6_3_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6408:1: ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6408:2: rule__ErrorModelSubclause__StatesAssignment_6_3_1
+            {
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__StatesAssignment_6_3_1_in_rule__ErrorModelSubclause__Group_6_3__1__Impl13642);
+            rule__ErrorModelSubclause__StatesAssignment_6_3_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_6_3_1()); 
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6411:1: ( ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )* )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6412:1: ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )*
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_6_3_1()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6413:1: ( rule__ErrorModelSubclause__StatesAssignment_6_3_1 )*
+            loop70:
+            do {
+                int alt70=2;
+                int LA70_0 = input.LA(1);
+
+                if ( (LA70_0==KEYWORD_11||LA70_0==RULE_ID) ) {
+                    alt70=1;
+                }
+
+
+                switch (alt70) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:6413:2: rule__ErrorModelSubclause__StatesAssignment_6_3_1
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__StatesAssignment_6_3_1_in_rule__ErrorModelSubclause__Group_6_3__1__Impl13654);
+            	    rule__ErrorModelSubclause__StatesAssignment_6_3_1();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop70;
+                }
+            } while (true);
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_6_3_1()); 
+
+            }
+
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__Group_6_3__1__Impl"
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_7__0"
@@ -62820,9 +62820,9 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorModelSubclause__UseTypesAssignment_1_3_1"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__UseBehaviorAssignment_2_2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23606:1: rule__ErrorModelSubclause__UseBehaviorAssignment_2_2 : ( ( ruleQEMREF ) ) ;
-    public final void rule__ErrorModelSubclause__UseBehaviorAssignment_2_2() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23606:1: rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3 : ( ( ruleQEMREF ) ) ;
+    public final void rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -62833,21 +62833,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23611:1: ( ( ruleQEMREF ) )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23612:1: ( ruleQEMREF )
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineCrossReference_2_2_0()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetCrossReference_2_3_0()); 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23613:1: ( ruleQEMREF )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23614:1: ruleQEMREF
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_2_2_0_1()); 
-            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseBehaviorAssignment_2_247480);
+             before(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetQEMREFParserRuleCall_2_3_0_1()); 
+            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_347480);
             ruleQEMREF();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_2_2_0_1()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetQEMREFParserRuleCall_2_3_0_1()); 
 
             }
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineCrossReference_2_2_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetCrossReference_2_3_0()); 
 
             }
 
@@ -62866,29 +62866,78 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__UseBehaviorAssignment_2_2"
+    // $ANTLR end "rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__PropagationsAssignment_3_2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23625:1: rule__ErrorModelSubclause__PropagationsAssignment_3_2 : ( ruleErrorPropagation ) ;
-    public final void rule__ErrorModelSubclause__PropagationsAssignment_3_2() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__UseBehaviorAssignment_3_2"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23625:1: rule__ErrorModelSubclause__UseBehaviorAssignment_3_2 : ( ( ruleQEMREF ) ) ;
+    public final void rule__ErrorModelSubclause__UseBehaviorAssignment_3_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23629:1: ( ( ruleErrorPropagation ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23630:1: ( ruleErrorPropagation )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23629:1: ( ( ( ruleQEMREF ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23630:1: ( ( ruleQEMREF ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23630:1: ( ruleErrorPropagation )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23631:1: ruleErrorPropagation
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23630:1: ( ( ruleQEMREF ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23631:1: ( ruleQEMREF )
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsErrorPropagationParserRuleCall_3_2_0()); 
-            pushFollow(FollowSets002.FOLLOW_ruleErrorPropagation_in_rule__ErrorModelSubclause__PropagationsAssignment_3_247515);
+             before(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineCrossReference_3_2_0()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23632:1: ( ruleQEMREF )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23633:1: ruleQEMREF
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_3_2_0_1()); 
+            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseBehaviorAssignment_3_247519);
+            ruleQEMREF();
+
+            state._fsp--;
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_3_2_0_1()); 
+
+            }
+
+             after(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineCrossReference_3_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ErrorModelSubclause__UseBehaviorAssignment_3_2"
+
+
+    // $ANTLR start "rule__ErrorModelSubclause__PropagationsAssignment_4_2"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23644:1: rule__ErrorModelSubclause__PropagationsAssignment_4_2 : ( ruleErrorPropagation ) ;
+    public final void rule__ErrorModelSubclause__PropagationsAssignment_4_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23648:1: ( ( ruleErrorPropagation ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23649:1: ( ruleErrorPropagation )
+            {
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23649:1: ( ruleErrorPropagation )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23650:1: ruleErrorPropagation
+            {
+             before(grammarAccess.getErrorModelSubclauseAccess().getPropagationsErrorPropagationParserRuleCall_4_2_0()); 
+            pushFollow(FollowSets002.FOLLOW_ruleErrorPropagation_in_rule__ErrorModelSubclause__PropagationsAssignment_4_247554);
             ruleErrorPropagation();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsErrorPropagationParserRuleCall_3_2_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getPropagationsErrorPropagationParserRuleCall_4_2_0()); 
 
             }
 
@@ -62907,29 +62956,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__PropagationsAssignment_3_2"
+    // $ANTLR end "rule__ErrorModelSubclause__PropagationsAssignment_4_2"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__FlowsAssignment_3_3_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23640:1: rule__ErrorModelSubclause__FlowsAssignment_3_3_1 : ( ruleErrorFlow ) ;
-    public final void rule__ErrorModelSubclause__FlowsAssignment_3_3_1() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__FlowsAssignment_4_3_1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23659:1: rule__ErrorModelSubclause__FlowsAssignment_4_3_1 : ( ruleErrorFlow ) ;
+    public final void rule__ErrorModelSubclause__FlowsAssignment_4_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23644:1: ( ( ruleErrorFlow ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23645:1: ( ruleErrorFlow )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23663:1: ( ( ruleErrorFlow ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23664:1: ( ruleErrorFlow )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23645:1: ( ruleErrorFlow )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23646:1: ruleErrorFlow
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23664:1: ( ruleErrorFlow )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23665:1: ruleErrorFlow
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getFlowsErrorFlowParserRuleCall_3_3_1_0()); 
-            pushFollow(FollowSets002.FOLLOW_ruleErrorFlow_in_rule__ErrorModelSubclause__FlowsAssignment_3_3_147546);
+             before(grammarAccess.getErrorModelSubclauseAccess().getFlowsErrorFlowParserRuleCall_4_3_1_0()); 
+            pushFollow(FollowSets002.FOLLOW_ruleErrorFlow_in_rule__ErrorModelSubclause__FlowsAssignment_4_3_147585);
             ruleErrorFlow();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getFlowsErrorFlowParserRuleCall_3_3_1_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getFlowsErrorFlowParserRuleCall_4_3_1_0()); 
 
             }
 
@@ -62948,37 +62997,37 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__FlowsAssignment_3_3_1"
+    // $ANTLR end "rule__ErrorModelSubclause__FlowsAssignment_4_3_1"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23655:1: rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2 : ( ( ruleQEMREF ) ) ;
-    public final void rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23674:1: rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2 : ( ( ruleQEMREF ) ) ;
+    public final void rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23659:1: ( ( ( ruleQEMREF ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23660:1: ( ( ruleQEMREF ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23678:1: ( ( ( ruleQEMREF ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23679:1: ( ( ruleQEMREF ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23660:1: ( ( ruleQEMREF ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23661:1: ( ruleQEMREF )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23679:1: ( ( ruleQEMREF ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23680:1: ( ruleQEMREF )
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetCrossReference_4_3_2_0()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23662:1: ( ruleQEMREF )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23663:1: ruleQEMREF
+             before(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetCrossReference_5_3_2_0()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23681:1: ( ruleQEMREF )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23682:1: ruleQEMREF
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetQEMREFParserRuleCall_4_3_2_0_1()); 
-            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTransformationAssignment_4_3_247581);
+             before(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetQEMREFParserRuleCall_5_3_2_0_1()); 
+            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTransformationAssignment_5_3_247620);
             ruleQEMREF();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetQEMREFParserRuleCall_4_3_2_0_1()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetQEMREFParserRuleCall_5_3_2_0_1()); 
 
             }
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetCrossReference_4_3_2_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getUseTransformationTypeTransformationSetCrossReference_5_3_2_0()); 
 
             }
 
@@ -62997,29 +63046,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2"
+    // $ANTLR end "rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__EventsAssignment_4_4_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23674:1: rule__ErrorModelSubclause__EventsAssignment_4_4_1 : ( ruleErrorBehaviorEvent ) ;
-    public final void rule__ErrorModelSubclause__EventsAssignment_4_4_1() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__EventsAssignment_5_4_1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23693:1: rule__ErrorModelSubclause__EventsAssignment_5_4_1 : ( ruleErrorBehaviorEvent ) ;
+    public final void rule__ErrorModelSubclause__EventsAssignment_5_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23678:1: ( ( ruleErrorBehaviorEvent ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23679:1: ( ruleErrorBehaviorEvent )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23697:1: ( ( ruleErrorBehaviorEvent ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23698:1: ( ruleErrorBehaviorEvent )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23679:1: ( ruleErrorBehaviorEvent )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23680:1: ruleErrorBehaviorEvent
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23698:1: ( ruleErrorBehaviorEvent )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23699:1: ruleErrorBehaviorEvent
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getEventsErrorBehaviorEventParserRuleCall_4_4_1_0()); 
-            pushFollow(FollowSets002.FOLLOW_ruleErrorBehaviorEvent_in_rule__ErrorModelSubclause__EventsAssignment_4_4_147616);
+             before(grammarAccess.getErrorModelSubclauseAccess().getEventsErrorBehaviorEventParserRuleCall_5_4_1_0()); 
+            pushFollow(FollowSets002.FOLLOW_ruleErrorBehaviorEvent_in_rule__ErrorModelSubclause__EventsAssignment_5_4_147655);
             ruleErrorBehaviorEvent();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getEventsErrorBehaviorEventParserRuleCall_4_4_1_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getEventsErrorBehaviorEventParserRuleCall_5_4_1_0()); 
 
             }
 
@@ -63038,29 +63087,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__EventsAssignment_4_4_1"
+    // $ANTLR end "rule__ErrorModelSubclause__EventsAssignment_5_4_1"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__TransitionsAssignment_4_5_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23689:1: rule__ErrorModelSubclause__TransitionsAssignment_4_5_1 : ( ruleErrorBehaviorTransition ) ;
-    public final void rule__ErrorModelSubclause__TransitionsAssignment_4_5_1() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__TransitionsAssignment_5_5_1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23708:1: rule__ErrorModelSubclause__TransitionsAssignment_5_5_1 : ( ruleErrorBehaviorTransition ) ;
+    public final void rule__ErrorModelSubclause__TransitionsAssignment_5_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23693:1: ( ( ruleErrorBehaviorTransition ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23694:1: ( ruleErrorBehaviorTransition )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23712:1: ( ( ruleErrorBehaviorTransition ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23713:1: ( ruleErrorBehaviorTransition )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23694:1: ( ruleErrorBehaviorTransition )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23695:1: ruleErrorBehaviorTransition
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23713:1: ( ruleErrorBehaviorTransition )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23714:1: ruleErrorBehaviorTransition
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_4_5_1_0()); 
-            pushFollow(FollowSets002.FOLLOW_ruleErrorBehaviorTransition_in_rule__ErrorModelSubclause__TransitionsAssignment_4_5_147647);
+             before(grammarAccess.getErrorModelSubclauseAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_5_5_1_0()); 
+            pushFollow(FollowSets002.FOLLOW_ruleErrorBehaviorTransition_in_rule__ErrorModelSubclause__TransitionsAssignment_5_5_147686);
             ruleErrorBehaviorTransition();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_4_5_1_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_5_5_1_0()); 
 
             }
 
@@ -63079,29 +63128,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__TransitionsAssignment_4_5_1"
+    // $ANTLR end "rule__ErrorModelSubclause__TransitionsAssignment_5_5_1"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23704:1: rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1 : ( ruleOutgoingPropagationCondition ) ;
-    public final void rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23723:1: rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1 : ( ruleOutgoingPropagationCondition ) ;
+    public final void rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23708:1: ( ( ruleOutgoingPropagationCondition ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23709:1: ( ruleOutgoingPropagationCondition )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23727:1: ( ( ruleOutgoingPropagationCondition ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23728:1: ( ruleOutgoingPropagationCondition )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23709:1: ( ruleOutgoingPropagationCondition )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23710:1: ruleOutgoingPropagationCondition
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23728:1: ( ruleOutgoingPropagationCondition )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23729:1: ruleOutgoingPropagationCondition
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsOutgoingPropagationConditionParserRuleCall_4_6_1_0()); 
-            pushFollow(FollowSets002.FOLLOW_ruleOutgoingPropagationCondition_in_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_147678);
+             before(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsOutgoingPropagationConditionParserRuleCall_5_6_1_0()); 
+            pushFollow(FollowSets002.FOLLOW_ruleOutgoingPropagationCondition_in_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_147717);
             ruleOutgoingPropagationCondition();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsOutgoingPropagationConditionParserRuleCall_4_6_1_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getOutgoingPropagationConditionsOutgoingPropagationConditionParserRuleCall_5_6_1_0()); 
 
             }
 
@@ -63120,29 +63169,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1"
+    // $ANTLR end "rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23719:1: rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1 : ( ruleErrorDetection ) ;
-    public final void rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23738:1: rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1 : ( ruleErrorDetection ) ;
+    public final void rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23723:1: ( ( ruleErrorDetection ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23724:1: ( ruleErrorDetection )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23742:1: ( ( ruleErrorDetection ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23743:1: ( ruleErrorDetection )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23724:1: ( ruleErrorDetection )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23725:1: ruleErrorDetection
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23743:1: ( ruleErrorDetection )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23744:1: ruleErrorDetection
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsErrorDetectionParserRuleCall_4_7_1_0()); 
-            pushFollow(FollowSets002.FOLLOW_ruleErrorDetection_in_rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_147709);
+             before(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsErrorDetectionParserRuleCall_5_7_1_0()); 
+            pushFollow(FollowSets002.FOLLOW_ruleErrorDetection_in_rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_147748);
             ruleErrorDetection();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsErrorDetectionParserRuleCall_4_7_1_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsErrorDetectionParserRuleCall_5_7_1_0()); 
 
             }
 
@@ -63161,29 +63210,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1"
+    // $ANTLR end "rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23734:1: rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2 : ( ruleErrorStateToModeMapping ) ;
-    public final void rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23753:1: rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2 : ( ruleErrorStateToModeMapping ) ;
+    public final void rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23738:1: ( ( ruleErrorStateToModeMapping ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23739:1: ( ruleErrorStateToModeMapping )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23757:1: ( ( ruleErrorStateToModeMapping ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23758:1: ( ruleErrorStateToModeMapping )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23739:1: ( ruleErrorStateToModeMapping )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23740:1: ruleErrorStateToModeMapping
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23758:1: ( ruleErrorStateToModeMapping )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23759:1: ruleErrorStateToModeMapping
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsErrorStateToModeMappingParserRuleCall_4_8_2_0()); 
-            pushFollow(FollowSets002.FOLLOW_ruleErrorStateToModeMapping_in_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_247740);
+             before(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsErrorStateToModeMappingParserRuleCall_5_8_2_0()); 
+            pushFollow(FollowSets002.FOLLOW_ruleErrorStateToModeMapping_in_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_247779);
             ruleErrorStateToModeMapping();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsErrorStateToModeMappingParserRuleCall_4_8_2_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsErrorStateToModeMappingParserRuleCall_5_8_2_0()); 
 
             }
 
@@ -63202,29 +63251,29 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2"
+    // $ANTLR end "rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__StatesAssignment_5_3_1"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23749:1: rule__ErrorModelSubclause__StatesAssignment_5_3_1 : ( ruleCompositeState ) ;
-    public final void rule__ErrorModelSubclause__StatesAssignment_5_3_1() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__StatesAssignment_6_3_1"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23768:1: rule__ErrorModelSubclause__StatesAssignment_6_3_1 : ( ruleCompositeState ) ;
+    public final void rule__ErrorModelSubclause__StatesAssignment_6_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23753:1: ( ( ruleCompositeState ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23754:1: ( ruleCompositeState )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23772:1: ( ( ruleCompositeState ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23773:1: ( ruleCompositeState )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23754:1: ( ruleCompositeState )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23755:1: ruleCompositeState
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23773:1: ( ruleCompositeState )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23774:1: ruleCompositeState
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getStatesCompositeStateParserRuleCall_5_3_1_0()); 
-            pushFollow(FollowSets002.FOLLOW_ruleCompositeState_in_rule__ErrorModelSubclause__StatesAssignment_5_3_147771);
+             before(grammarAccess.getErrorModelSubclauseAccess().getStatesCompositeStateParserRuleCall_6_3_1_0()); 
+            pushFollow(FollowSets002.FOLLOW_ruleCompositeState_in_rule__ErrorModelSubclause__StatesAssignment_6_3_147810);
             ruleCompositeState();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getStatesCompositeStateParserRuleCall_5_3_1_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getStatesCompositeStateParserRuleCall_6_3_1_0()); 
 
             }
 
@@ -63243,56 +63292,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__StatesAssignment_5_3_1"
-
-
-    // $ANTLR start "rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23764:1: rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3 : ( ( ruleQEMREF ) ) ;
-    public final void rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23768:1: ( ( ( ruleQEMREF ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23769:1: ( ( ruleQEMREF ) )
-            {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23769:1: ( ( ruleQEMREF ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23770:1: ( ruleQEMREF )
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetCrossReference_6_3_0()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23771:1: ( ruleQEMREF )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23772:1: ruleQEMREF
-            {
-             before(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetQEMREFParserRuleCall_6_3_0_1()); 
-            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_347806);
-            ruleQEMREF();
-
-            state._fsp--;
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetQEMREFParserRuleCall_6_3_0_1()); 
-
-            }
-
-             after(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceTypeMappingSetCrossReference_6_3_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3"
+    // $ANTLR end "rule__ErrorModelSubclause__StatesAssignment_6_3_1"
 
 
     // $ANTLR start "rule__ErrorModelSubclause__TypeTransformationSetAssignment_7_3_2"
@@ -72867,162 +72867,162 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_6_in_rule__ErrorModelSubclause__Group_1_3__0__Impl10092 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_1_3__1__Impl_in_rule__ErrorModelSubclause__Group_1_3__110123 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__UseTypesAssignment_1_3_1_in_rule__ErrorModelSubclause__Group_1_3__1__Impl10150 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__0__Impl_in_rule__ErrorModelSubclause__Group_2__010184 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__0__Impl_in_rule__ErrorModelSubclause__Group_2__010184 = new BitSet(new long[]{0x0100000000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__1_in_rule__ErrorModelSubclause__Group_2__010187 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_2__0__Impl10215 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__1__Impl_in_rule__ErrorModelSubclause__Group_2__110246 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__1__Impl_in_rule__ErrorModelSubclause__Group_2__110246 = new BitSet(new long[]{0x0000000000000080L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__2_in_rule__ErrorModelSubclause__Group_2__110249 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_2__1__Impl10277 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__2__Impl_in_rule__ErrorModelSubclause__Group_2__210308 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_KEYWORD_38_in_rule__ErrorModelSubclause__Group_2__1__Impl10277 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__2__Impl_in_rule__ErrorModelSubclause__Group_2__210308 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__3_in_rule__ErrorModelSubclause__Group_2__210311 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__UseBehaviorAssignment_2_2_in_rule__ErrorModelSubclause__Group_2__2__Impl10338 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__3__Impl_in_rule__ErrorModelSubclause__Group_2__310368 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_2__3__Impl10396 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__0__Impl_in_rule__ErrorModelSubclause__Group_3__010435 = new BitSet(new long[]{0x0000000000000020L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__1_in_rule__ErrorModelSubclause__Group_3__010438 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_3__0__Impl10466 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__1__Impl_in_rule__ErrorModelSubclause__Group_3__110497 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__2_in_rule__ErrorModelSubclause__Group_3__110500 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_3__1__Impl10528 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__2__Impl_in_rule__ErrorModelSubclause__Group_3__210559 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__3_in_rule__ErrorModelSubclause__Group_3__210562 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PropagationsAssignment_3_2_in_rule__ErrorModelSubclause__Group_3__2__Impl10589 = new BitSet(new long[]{0x0000000280090802L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__3__Impl_in_rule__ErrorModelSubclause__Group_3__310620 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__4_in_rule__ErrorModelSubclause__Group_3__310623 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3_3__0_in_rule__ErrorModelSubclause__Group_3__3__Impl10650 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__4__Impl_in_rule__ErrorModelSubclause__Group_3__410681 = new BitSet(new long[]{0x0000000000000020L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__5_in_rule__ErrorModelSubclause__Group_3__410684 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_3__4__Impl10712 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__5__Impl_in_rule__ErrorModelSubclause__Group_3__510743 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__6_in_rule__ErrorModelSubclause__Group_3__510746 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_3__5__Impl10774 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__6__Impl_in_rule__ErrorModelSubclause__Group_3__610805 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_3__6__Impl10833 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3_3__0__Impl_in_rule__ErrorModelSubclause__Group_3_3__010878 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3_3__1_in_rule__ErrorModelSubclause__Group_3_3__010881 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_45_in_rule__ErrorModelSubclause__Group_3_3__0__Impl10909 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3_3__1__Impl_in_rule__ErrorModelSubclause__Group_3_3__110940 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_3_3_1_in_rule__ErrorModelSubclause__Group_3_3__1__Impl10969 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_3_3_1_in_rule__ErrorModelSubclause__Group_3_3__1__Impl10981 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__0__Impl_in_rule__ErrorModelSubclause__Group_4__011018 = new BitSet(new long[]{0x0000020000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__1_in_rule__ErrorModelSubclause__Group_4__011021 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_4__0__Impl11049 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__1__Impl_in_rule__ErrorModelSubclause__Group_4__111080 = new BitSet(new long[]{0x0000000000040000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__2_in_rule__ErrorModelSubclause__Group_4__111083 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_4__1__Impl11111 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__2__Impl_in_rule__ErrorModelSubclause__Group_4__211142 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__3_in_rule__ErrorModelSubclause__Group_4__211145 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_4__2__Impl11173 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__3__Impl_in_rule__ErrorModelSubclause__Group_4__311204 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__4_in_rule__ErrorModelSubclause__Group_4__311207 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__0_in_rule__ErrorModelSubclause__Group_4__3__Impl11234 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__4__Impl_in_rule__ErrorModelSubclause__Group_4__411265 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__5_in_rule__ErrorModelSubclause__Group_4__411268 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_4__0_in_rule__ErrorModelSubclause__Group_4__4__Impl11295 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__5__Impl_in_rule__ErrorModelSubclause__Group_4__511326 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__6_in_rule__ErrorModelSubclause__Group_4__511329 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_5__0_in_rule__ErrorModelSubclause__Group_4__5__Impl11356 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__6__Impl_in_rule__ErrorModelSubclause__Group_4__611387 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__7_in_rule__ErrorModelSubclause__Group_4__611390 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_6__0_in_rule__ErrorModelSubclause__Group_4__6__Impl11417 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__7__Impl_in_rule__ErrorModelSubclause__Group_4__711448 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__8_in_rule__ErrorModelSubclause__Group_4__711451 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_7__0_in_rule__ErrorModelSubclause__Group_4__7__Impl11478 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__8__Impl_in_rule__ErrorModelSubclause__Group_4__811509 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__9_in_rule__ErrorModelSubclause__Group_4__811512 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_8__0_in_rule__ErrorModelSubclause__Group_4__8__Impl11539 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__9__Impl_in_rule__ErrorModelSubclause__Group_4__911570 = new BitSet(new long[]{0x0000000000004000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__10_in_rule__ErrorModelSubclause__Group_4__911573 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_4__9__Impl11601 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__10__Impl_in_rule__ErrorModelSubclause__Group_4__1011632 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__11_in_rule__ErrorModelSubclause__Group_4__1011635 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_4__10__Impl11663 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__11__Impl_in_rule__ErrorModelSubclause__Group_4__1111694 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_4__11__Impl11722 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__0__Impl_in_rule__ErrorModelSubclause__Group_4_3__011777 = new BitSet(new long[]{0x0000000000000010L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__1_in_rule__ErrorModelSubclause__Group_4_3__011780 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_4_3__0__Impl11808 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__1__Impl_in_rule__ErrorModelSubclause__Group_4_3__111839 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__2_in_rule__ErrorModelSubclause__Group_4_3__111842 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_86_in_rule__ErrorModelSubclause__Group_4_3__1__Impl11870 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__2__Impl_in_rule__ErrorModelSubclause__Group_4_3__211901 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__3_in_rule__ErrorModelSubclause__Group_4_3__211904 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__UseTransformationAssignment_4_3_2_in_rule__ErrorModelSubclause__Group_4_3__2__Impl11931 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__3__Impl_in_rule__ErrorModelSubclause__Group_4_3__311961 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_4_3__3__Impl11989 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_4__0__Impl_in_rule__ErrorModelSubclause__Group_4_4__012028 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_4__1_in_rule__ErrorModelSubclause__Group_4_4__012031 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_52_in_rule__ErrorModelSubclause__Group_4_4__0__Impl12059 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_4__1__Impl_in_rule__ErrorModelSubclause__Group_4_4__112090 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__EventsAssignment_4_4_1_in_rule__ErrorModelSubclause__Group_4_4__1__Impl12119 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__EventsAssignment_4_4_1_in_rule__ErrorModelSubclause__Group_4_4__1__Impl12131 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_5__0__Impl_in_rule__ErrorModelSubclause__Group_4_5__012168 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_5__1_in_rule__ErrorModelSubclause__Group_4_5__012171 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_84_in_rule__ErrorModelSubclause__Group_4_5__0__Impl12199 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_5__1__Impl_in_rule__ErrorModelSubclause__Group_4_5__112230 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_4_5_1_in_rule__ErrorModelSubclause__Group_4_5__1__Impl12259 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_4_5_1_in_rule__ErrorModelSubclause__Group_4_5__1__Impl12271 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_6__0__Impl_in_rule__ErrorModelSubclause__Group_4_6__012308 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_6__1_in_rule__ErrorModelSubclause__Group_4_6__012311 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_4_6__0__Impl12339 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_6__1__Impl_in_rule__ErrorModelSubclause__Group_4_6__112370 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1_in_rule__ErrorModelSubclause__Group_4_6__1__Impl12399 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_1_in_rule__ErrorModelSubclause__Group_4_6__1__Impl12411 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_7__0__Impl_in_rule__ErrorModelSubclause__Group_4_7__012448 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_7__1_in_rule__ErrorModelSubclause__Group_4_7__012451 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_79_in_rule__ErrorModelSubclause__Group_4_7__0__Impl12479 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_7__1__Impl_in_rule__ErrorModelSubclause__Group_4_7__112510 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1_in_rule__ErrorModelSubclause__Group_4_7__1__Impl12539 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_1_in_rule__ErrorModelSubclause__Group_4_7__1__Impl12551 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_8__0__Impl_in_rule__ErrorModelSubclause__Group_4_8__012588 = new BitSet(new long[]{0x0000000000200000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_8__1_in_rule__ErrorModelSubclause__Group_4_8__012591 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_32_in_rule__ErrorModelSubclause__Group_4_8__0__Impl12619 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_8__1__Impl_in_rule__ErrorModelSubclause__Group_4_8__112650 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_8__2_in_rule__ErrorModelSubclause__Group_4_8__112653 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_72_in_rule__ErrorModelSubclause__Group_4_8__1__Impl12681 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_8__2__Impl_in_rule__ErrorModelSubclause__Group_4_8__212712 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2_in_rule__ErrorModelSubclause__Group_4_8__2__Impl12741 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_2_in_rule__ErrorModelSubclause__Group_4_8__2__Impl12753 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__0__Impl_in_rule__ErrorModelSubclause__Group_5__012792 = new BitSet(new long[]{0x0000020000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__1_in_rule__ErrorModelSubclause__Group_5__012795 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_5__0__Impl12823 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__1__Impl_in_rule__ErrorModelSubclause__Group_5__112854 = new BitSet(new long[]{0x0000000000040000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__2_in_rule__ErrorModelSubclause__Group_5__112857 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_5__1__Impl12885 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__2__Impl_in_rule__ErrorModelSubclause__Group_5__212916 = new BitSet(new long[]{0x8000008000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__3_in_rule__ErrorModelSubclause__Group_5__212919 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_5__2__Impl12947 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__3__Impl_in_rule__ErrorModelSubclause__Group_5__312978 = new BitSet(new long[]{0x8000008000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__4_in_rule__ErrorModelSubclause__Group_5__312981 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__0_in_rule__ErrorModelSubclause__Group_5__3__Impl13008 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__4__Impl_in_rule__ErrorModelSubclause__Group_5__413039 = new BitSet(new long[]{0x0000000000008000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__5_in_rule__ErrorModelSubclause__Group_5__413042 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_5__4__Impl13070 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__5__Impl_in_rule__ErrorModelSubclause__Group_5__513101 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__6_in_rule__ErrorModelSubclause__Group_5__513104 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_5__5__Impl13132 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__6__Impl_in_rule__ErrorModelSubclause__Group_5__613163 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_5__6__Impl13191 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__0__Impl_in_rule__ErrorModelSubclause__Group_5_3__013236 = new BitSet(new long[]{0x0000000000000000L,0x0000001000400000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__1_in_rule__ErrorModelSubclause__Group_5_3__013239 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_59_in_rule__ErrorModelSubclause__Group_5_3__0__Impl13267 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__1__Impl_in_rule__ErrorModelSubclause__Group_5_3__113298 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__StatesAssignment_5_3_1_in_rule__ErrorModelSubclause__Group_5_3__1__Impl13327 = new BitSet(new long[]{0x0000000000000002L,0x0000001000400000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__StatesAssignment_5_3_1_in_rule__ErrorModelSubclause__Group_5_3__1__Impl13339 = new BitSet(new long[]{0x0000000000000002L,0x0000001000400000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__0__Impl_in_rule__ErrorModelSubclause__Group_6__013376 = new BitSet(new long[]{0x0100000000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__1_in_rule__ErrorModelSubclause__Group_6__013379 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_6__0__Impl13407 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__1__Impl_in_rule__ErrorModelSubclause__Group_6__113438 = new BitSet(new long[]{0x0000000000000080L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__2_in_rule__ErrorModelSubclause__Group_6__113441 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_38_in_rule__ErrorModelSubclause__Group_6__1__Impl13469 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__2__Impl_in_rule__ErrorModelSubclause__Group_6__213500 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__3_in_rule__ErrorModelSubclause__Group_6__213503 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_82_in_rule__ErrorModelSubclause__Group_6__2__Impl13531 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__3__Impl_in_rule__ErrorModelSubclause__Group_6__313562 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__4_in_rule__ErrorModelSubclause__Group_6__313565 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_3_in_rule__ErrorModelSubclause__Group_6__3__Impl13592 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__4__Impl_in_rule__ErrorModelSubclause__Group_6__413622 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_6__4__Impl13650 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_82_in_rule__ErrorModelSubclause__Group_2__2__Impl10339 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__3__Impl_in_rule__ErrorModelSubclause__Group_2__310370 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__4_in_rule__ErrorModelSubclause__Group_2__310373 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3_in_rule__ErrorModelSubclause__Group_2__3__Impl10400 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_2__4__Impl_in_rule__ErrorModelSubclause__Group_2__410430 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_2__4__Impl10458 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__0__Impl_in_rule__ErrorModelSubclause__Group_3__010499 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__1_in_rule__ErrorModelSubclause__Group_3__010502 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_3__0__Impl10530 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__1__Impl_in_rule__ErrorModelSubclause__Group_3__110561 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__2_in_rule__ErrorModelSubclause__Group_3__110564 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_3__1__Impl10592 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__2__Impl_in_rule__ErrorModelSubclause__Group_3__210623 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__3_in_rule__ErrorModelSubclause__Group_3__210626 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__UseBehaviorAssignment_3_2_in_rule__ErrorModelSubclause__Group_3__2__Impl10653 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__3__Impl_in_rule__ErrorModelSubclause__Group_3__310683 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_3__3__Impl10711 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__0__Impl_in_rule__ErrorModelSubclause__Group_4__010750 = new BitSet(new long[]{0x0000000000000020L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__1_in_rule__ErrorModelSubclause__Group_4__010753 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_4__0__Impl10781 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__1__Impl_in_rule__ErrorModelSubclause__Group_4__110812 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__2_in_rule__ErrorModelSubclause__Group_4__110815 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_4__1__Impl10843 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__2__Impl_in_rule__ErrorModelSubclause__Group_4__210874 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__3_in_rule__ErrorModelSubclause__Group_4__210877 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__PropagationsAssignment_4_2_in_rule__ErrorModelSubclause__Group_4__2__Impl10904 = new BitSet(new long[]{0x0000000280090802L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__3__Impl_in_rule__ErrorModelSubclause__Group_4__310935 = new BitSet(new long[]{0x8000100280090800L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__4_in_rule__ErrorModelSubclause__Group_4__310938 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__0_in_rule__ErrorModelSubclause__Group_4__3__Impl10965 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__4__Impl_in_rule__ErrorModelSubclause__Group_4__410996 = new BitSet(new long[]{0x0000000000000020L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__5_in_rule__ErrorModelSubclause__Group_4__410999 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_4__4__Impl11027 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__5__Impl_in_rule__ErrorModelSubclause__Group_4__511058 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__6_in_rule__ErrorModelSubclause__Group_4__511061 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_4__5__Impl11089 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__6__Impl_in_rule__ErrorModelSubclause__Group_4__611120 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_4__6__Impl11148 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__0__Impl_in_rule__ErrorModelSubclause__Group_4_3__011193 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__1_in_rule__ErrorModelSubclause__Group_4_3__011196 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_45_in_rule__ErrorModelSubclause__Group_4_3__0__Impl11224 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4_3__1__Impl_in_rule__ErrorModelSubclause__Group_4_3__111255 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_4_3_1_in_rule__ErrorModelSubclause__Group_4_3__1__Impl11284 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__FlowsAssignment_4_3_1_in_rule__ErrorModelSubclause__Group_4_3__1__Impl11296 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__0__Impl_in_rule__ErrorModelSubclause__Group_5__011333 = new BitSet(new long[]{0x0000020000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__1_in_rule__ErrorModelSubclause__Group_5__011336 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_5__0__Impl11364 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__1__Impl_in_rule__ErrorModelSubclause__Group_5__111395 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__2_in_rule__ErrorModelSubclause__Group_5__111398 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_5__1__Impl11426 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__2__Impl_in_rule__ErrorModelSubclause__Group_5__211457 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__3_in_rule__ErrorModelSubclause__Group_5__211460 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_5__2__Impl11488 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__3__Impl_in_rule__ErrorModelSubclause__Group_5__311519 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__4_in_rule__ErrorModelSubclause__Group_5__311522 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__0_in_rule__ErrorModelSubclause__Group_5__3__Impl11549 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__4__Impl_in_rule__ErrorModelSubclause__Group_5__411580 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__5_in_rule__ErrorModelSubclause__Group_5__411583 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_4__0_in_rule__ErrorModelSubclause__Group_5__4__Impl11610 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__5__Impl_in_rule__ErrorModelSubclause__Group_5__511641 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__6_in_rule__ErrorModelSubclause__Group_5__511644 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_5__0_in_rule__ErrorModelSubclause__Group_5__5__Impl11671 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__6__Impl_in_rule__ErrorModelSubclause__Group_5__611702 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__7_in_rule__ErrorModelSubclause__Group_5__611705 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_6__0_in_rule__ErrorModelSubclause__Group_5__6__Impl11732 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__7__Impl_in_rule__ErrorModelSubclause__Group_5__711763 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__8_in_rule__ErrorModelSubclause__Group_5__711766 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_7__0_in_rule__ErrorModelSubclause__Group_5__7__Impl11793 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__8__Impl_in_rule__ErrorModelSubclause__Group_5__811824 = new BitSet(new long[]{0x8004000100001220L,0x0000000000000008L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__9_in_rule__ErrorModelSubclause__Group_5__811827 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_8__0_in_rule__ErrorModelSubclause__Group_5__8__Impl11854 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__9__Impl_in_rule__ErrorModelSubclause__Group_5__911885 = new BitSet(new long[]{0x0000000000004000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__10_in_rule__ErrorModelSubclause__Group_5__911888 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_5__9__Impl11916 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__10__Impl_in_rule__ErrorModelSubclause__Group_5__1011947 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__11_in_rule__ErrorModelSubclause__Group_5__1011950 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_73_in_rule__ErrorModelSubclause__Group_5__10__Impl11978 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5__11__Impl_in_rule__ErrorModelSubclause__Group_5__1112009 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_5__11__Impl12037 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__0__Impl_in_rule__ErrorModelSubclause__Group_5_3__012092 = new BitSet(new long[]{0x0000000000000010L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__1_in_rule__ErrorModelSubclause__Group_5_3__012095 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_31_in_rule__ErrorModelSubclause__Group_5_3__0__Impl12123 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__1__Impl_in_rule__ErrorModelSubclause__Group_5_3__112154 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__2_in_rule__ErrorModelSubclause__Group_5_3__112157 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_86_in_rule__ErrorModelSubclause__Group_5_3__1__Impl12185 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__2__Impl_in_rule__ErrorModelSubclause__Group_5_3__212216 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__3_in_rule__ErrorModelSubclause__Group_5_3__212219 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__UseTransformationAssignment_5_3_2_in_rule__ErrorModelSubclause__Group_5_3__2__Impl12246 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_3__3__Impl_in_rule__ErrorModelSubclause__Group_5_3__312276 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_5_3__3__Impl12304 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_4__0__Impl_in_rule__ErrorModelSubclause__Group_5_4__012343 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_4__1_in_rule__ErrorModelSubclause__Group_5_4__012346 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_52_in_rule__ErrorModelSubclause__Group_5_4__0__Impl12374 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_4__1__Impl_in_rule__ErrorModelSubclause__Group_5_4__112405 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__EventsAssignment_5_4_1_in_rule__ErrorModelSubclause__Group_5_4__1__Impl12434 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__EventsAssignment_5_4_1_in_rule__ErrorModelSubclause__Group_5_4__1__Impl12446 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_5__0__Impl_in_rule__ErrorModelSubclause__Group_5_5__012483 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_5__1_in_rule__ErrorModelSubclause__Group_5_5__012486 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_84_in_rule__ErrorModelSubclause__Group_5_5__0__Impl12514 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_5__1__Impl_in_rule__ErrorModelSubclause__Group_5_5__112545 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_5_5_1_in_rule__ErrorModelSubclause__Group_5_5__1__Impl12574 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TransitionsAssignment_5_5_1_in_rule__ErrorModelSubclause__Group_5_5__1__Impl12586 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_6__0__Impl_in_rule__ErrorModelSubclause__Group_5_6__012623 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_6__1_in_rule__ErrorModelSubclause__Group_5_6__012626 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_85_in_rule__ErrorModelSubclause__Group_5_6__0__Impl12654 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_6__1__Impl_in_rule__ErrorModelSubclause__Group_5_6__112685 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1_in_rule__ErrorModelSubclause__Group_5_6__1__Impl12714 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_1_in_rule__ErrorModelSubclause__Group_5_6__1__Impl12726 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_7__0__Impl_in_rule__ErrorModelSubclause__Group_5_7__012763 = new BitSet(new long[]{0x2000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_7__1_in_rule__ErrorModelSubclause__Group_5_7__012766 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_79_in_rule__ErrorModelSubclause__Group_5_7__0__Impl12794 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_7__1__Impl_in_rule__ErrorModelSubclause__Group_5_7__112825 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1_in_rule__ErrorModelSubclause__Group_5_7__1__Impl12854 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1_in_rule__ErrorModelSubclause__Group_5_7__1__Impl12866 = new BitSet(new long[]{0x2000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_8__0__Impl_in_rule__ErrorModelSubclause__Group_5_8__012903 = new BitSet(new long[]{0x0000000000200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_8__1_in_rule__ErrorModelSubclause__Group_5_8__012906 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_32_in_rule__ErrorModelSubclause__Group_5_8__0__Impl12934 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_8__1__Impl_in_rule__ErrorModelSubclause__Group_5_8__112965 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_8__2_in_rule__ErrorModelSubclause__Group_5_8__112968 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_72_in_rule__ErrorModelSubclause__Group_5_8__1__Impl12996 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_5_8__2__Impl_in_rule__ErrorModelSubclause__Group_5_8__213027 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2_in_rule__ErrorModelSubclause__Group_5_8__2__Impl13056 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2_in_rule__ErrorModelSubclause__Group_5_8__2__Impl13068 = new BitSet(new long[]{0x0000000000000002L,0x0000001000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__0__Impl_in_rule__ErrorModelSubclause__Group_6__013107 = new BitSet(new long[]{0x0000020000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__1_in_rule__ErrorModelSubclause__Group_6__013110 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_6__0__Impl13138 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__1__Impl_in_rule__ErrorModelSubclause__Group_6__113169 = new BitSet(new long[]{0x0000000000040000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__2_in_rule__ErrorModelSubclause__Group_6__113172 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_42_in_rule__ErrorModelSubclause__Group_6__1__Impl13200 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__2__Impl_in_rule__ErrorModelSubclause__Group_6__213231 = new BitSet(new long[]{0x8000008000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__3_in_rule__ErrorModelSubclause__Group_6__213234 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_69_in_rule__ErrorModelSubclause__Group_6__2__Impl13262 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__3__Impl_in_rule__ErrorModelSubclause__Group_6__313293 = new BitSet(new long[]{0x8000008000000000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__4_in_rule__ErrorModelSubclause__Group_6__313296 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__0_in_rule__ErrorModelSubclause__Group_6__3__Impl13323 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__4__Impl_in_rule__ErrorModelSubclause__Group_6__413354 = new BitSet(new long[]{0x0000000000008000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__5_in_rule__ErrorModelSubclause__Group_6__413357 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_27_in_rule__ErrorModelSubclause__Group_6__4__Impl13385 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__5__Impl_in_rule__ErrorModelSubclause__Group_6__513416 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__6_in_rule__ErrorModelSubclause__Group_6__513419 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_74_in_rule__ErrorModelSubclause__Group_6__5__Impl13447 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6__6__Impl_in_rule__ErrorModelSubclause__Group_6__613478 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_6__6__Impl13506 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__0__Impl_in_rule__ErrorModelSubclause__Group_6_3__013551 = new BitSet(new long[]{0x0000000000000000L,0x0000001000400000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__1_in_rule__ErrorModelSubclause__Group_6_3__013554 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KEYWORD_59_in_rule__ErrorModelSubclause__Group_6_3__0__Impl13582 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_6_3__1__Impl_in_rule__ErrorModelSubclause__Group_6_3__113613 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__StatesAssignment_6_3_1_in_rule__ErrorModelSubclause__Group_6_3__1__Impl13642 = new BitSet(new long[]{0x0000000000000002L,0x0000001000400000L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__StatesAssignment_6_3_1_in_rule__ErrorModelSubclause__Group_6_3__1__Impl13654 = new BitSet(new long[]{0x0000000000000002L,0x0000001000400000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7__0__Impl_in_rule__ErrorModelSubclause__Group_7__013691 = new BitSet(new long[]{0x0000020000000000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_7__1_in_rule__ErrorModelSubclause__Group_7__013694 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_78_in_rule__ErrorModelSubclause__Group_7__0__Impl13722 = new BitSet(new long[]{0x0000000000000002L});
@@ -74489,17 +74489,17 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_ruleErrorModelSubclause_in_rule__ErrorModelGrammarRoot__EmscAssignment_147367 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTypesAssignment_1_247402 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTypesAssignment_1_3_147441 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseBehaviorAssignment_2_247480 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorPropagation_in_rule__ErrorModelSubclause__PropagationsAssignment_3_247515 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorFlow_in_rule__ErrorModelSubclause__FlowsAssignment_3_3_147546 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTransformationAssignment_4_3_247581 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_rule__ErrorModelSubclause__EventsAssignment_4_4_147616 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_rule__ErrorModelSubclause__TransitionsAssignment_4_5_147647 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleOutgoingPropagationCondition_in_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_4_6_147678 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorDetection_in_rule__ErrorModelSubclause__ErrorDetectionsAssignment_4_7_147709 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleErrorStateToModeMapping_in_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_4_8_247740 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleCompositeState_in_rule__ErrorModelSubclause__StatesAssignment_5_3_147771 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__TypeEquivalenceAssignment_6_347806 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_347480 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseBehaviorAssignment_3_247519 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorPropagation_in_rule__ErrorModelSubclause__PropagationsAssignment_4_247554 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorFlow_in_rule__ErrorModelSubclause__FlowsAssignment_4_3_147585 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTransformationAssignment_5_3_247620 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorEvent_in_rule__ErrorModelSubclause__EventsAssignment_5_4_147655 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorBehaviorTransition_in_rule__ErrorModelSubclause__TransitionsAssignment_5_5_147686 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleOutgoingPropagationCondition_in_rule__ErrorModelSubclause__OutgoingPropagationConditionsAssignment_5_6_147717 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorDetection_in_rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_147748 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleErrorStateToModeMapping_in_rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_247779 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleCompositeState_in_rule__ErrorModelSubclause__StatesAssignment_6_3_147810 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__TypeTransformationSetAssignment_7_3_247845 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleConnectionErrorSource_in_rule__ErrorModelSubclause__ConnectionErrorSourcesAssignment_7_447880 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rulePropagationPoint_in_rule__ErrorModelSubclause__PointsAssignment_8_247911 = new BitSet(new long[]{0x0000000000000002L});
