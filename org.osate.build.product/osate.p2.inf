@@ -1,8 +1,8 @@
 instructions.configure=\
   addRepository(type:0,name:OSATE,enabled:true,location:http${#58}//aadl.info/aadl/osate/testing/update-site);\
   addRepository(type:1,name:OSATE,enabled:true,location:http${#58}//aadl.info/aadl/osate/testing/update-site);\
-  addRepository(type:0,name:Juno,enabled:true,location:http${#58}//download.eclipse.org/releases/kepler);\
-  addRepository(type:1,name:Juno,enabled:true,location:http${#58}//download.eclipse.org/releases/kepler);\
+  addRepository(type:0,name:Kepler,enabled:true,location:http${#58}//download.eclipse.org/releases/kepler);\
+  addRepository(type:1,name:Kepler,enabled:true,location:http${#58}//download.eclipse.org/releases/kepler);\
   addRepository(type:0,name:Subclipse,enabled:true,location:http${#58}//subclipse.tigris.org/update_1.8.x);\
   addRepository(type:1,name:Subclipse,enabled:true,location:http${#58}//subclipse.tigris.org/update_1.8.x);\
   addRepository(type:0,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/4.3);\
