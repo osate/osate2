@@ -11,6 +11,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RecordType;
 import org.osate.aadl2.ReferenceType;
 
 public class AssistantFactory
@@ -30,6 +31,8 @@ public class AssistantFactory
 			return new StringAssistant(parent, listener);
 		else if (type instanceof ListType)
 			return new ListAssistant(parent, (ListType)type, serializer, holder, listener);
+		else if (type instanceof RecordType)
+			return new RecordAssistant(parent, (RecordType)type, serializer, holder, listener);
 		else if (type instanceof NumberType) {
 			NumberType numType = (NumberType)type;
 			if (numType.getUnitsType() == null)
