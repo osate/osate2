@@ -24,7 +24,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 	public AgeFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
-		setIndependenceSolver(new IndependenceProvider());
+		setIndependenceSolver(new IndependenceProvider(this));
 	}
 	
 	// TODO: Remove when deleting is allowed. Just returns false for now. As of 07/03/13, connection patterns do not handle remove and delete features.

@@ -5,7 +5,8 @@ import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
 import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.osate.aadl2.NamedElement;
-import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
+// TODO: Renable when patch is merged
+//import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
@@ -31,6 +32,8 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 		// Unwrap the object
 		bo = AadlElementWrapper.unwrap(bo);
 		
+		// TODO: Renable when merged
+		/*
 		// If the business object is an AADL Element
 		if(bo instanceof NamedElement && IAadlPropertySource.class.equals(adapterType)) {
 			final NamedElement namedElement = (NamedElement)bo;			
@@ -49,6 +52,7 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 				}				
 			};
 		}
+		*/
 
 		return null;
 	}
@@ -56,6 +60,7 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Class[] getAdapterList() {
-		return new Class[] { IAadlPropertySource.class };
+		// TODO: Renable when patch is merged
+		return new Class[] { };//IAadlPropertySource.class };
 	}
 }

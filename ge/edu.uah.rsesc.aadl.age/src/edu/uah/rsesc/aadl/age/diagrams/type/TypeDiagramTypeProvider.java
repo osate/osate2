@@ -7,7 +7,6 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AgeDiagramTypeProvider;
  */
 public class TypeDiagramTypeProvider extends AgeDiagramTypeProvider {
 	public TypeDiagramTypeProvider() {
-		super();
 		setFeatureProvider(new TypeFeatureProvider(this));
 	}
 }

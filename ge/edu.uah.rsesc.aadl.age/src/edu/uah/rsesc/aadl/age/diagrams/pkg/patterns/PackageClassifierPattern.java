@@ -1,10 +1,8 @@
 package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
@@ -17,9 +15,6 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.pattern.AbstractPattern;
-import org.eclipse.graphiti.pattern.ICustomUndoablePattern;
-import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
@@ -43,35 +38,20 @@ import org.osate.aadl2.VirtualBusClassifier;
 import org.osate.aadl2.VirtualProcessorClassifier;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-public class PackageClassifierPattern extends AbstractPattern implements IPattern, ICustomUndoablePattern {
-	public PackageClassifierPattern() {
-		super(null);
-	}
-
+public class PackageClassifierPattern extends AgePattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Classifier;
 	}
 
 	@Override
-	protected boolean isPatternControlled(final PictogramElement pictogramElement) {
-		final Object domainObject = getBusinessObjectForPictogramElement(pictogramElement);
-	    return isMainBusinessObjectApplicable(domainObject);
-	}
-
-	@Override
-	protected boolean isPatternRoot(final PictogramElement pictogramElement) {
-		final Object domainObject = getBusinessObjectForPictogramElement(pictogramElement);
-	    return isMainBusinessObjectApplicable(domainObject);
-	}
-	
-	@Override
 	public boolean canAdd(final IAddContext context) {
-		if(AadlElementWrapper.unwrap(context.getNewObject()) instanceof Classifier) {
+		if(isMainBusinessObjectApplicable(context.getNewObject())) {
 			if(context.getTargetContainer() instanceof Diagram) {
 				return true;
 			}
@@ -277,23 +257,4 @@ public class PackageClassifierPattern extends AbstractPattern implements IPatter
 		}
 		return false;
 	}
-
-	@Override
-	public boolean canUndo(final IFeature feature, final IContext context) {
-		return false;
-	}
-
-	@Override
-	public void undo(final IFeature feature, final IContext context) {
-	}
-
-	@Override
-	public boolean canRedo(final IFeature feature, final IContext context) {
-		return false;
-	}
-
-	@Override
-	public void redo(final IFeature feature, final IContext context) {
-	}	
-	
 }

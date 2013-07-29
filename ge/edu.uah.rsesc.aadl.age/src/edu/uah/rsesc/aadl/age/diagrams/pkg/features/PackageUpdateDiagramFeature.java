@@ -53,7 +53,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	
 	@Override
 	public IReason updateNeeded(IUpdateContext context) {
-		Log.info("updateNeeded called with context: " + context);
 		return Reason.createTrueReason("");
 	}
 
@@ -69,7 +68,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	
 	@Override
 	public boolean update(IUpdateContext context) {
-		Log.info("update called with context: " + context);
+		Log.info("called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
 		final boolean wasEmpty = diagram.getChildren().size() == 0; 
 		

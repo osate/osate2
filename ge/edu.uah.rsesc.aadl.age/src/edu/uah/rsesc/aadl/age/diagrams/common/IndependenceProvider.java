@@ -1,21 +1,37 @@
 package edu.uah.rsesc.aadl.age.diagrams.common;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.impl.IIndependenceSolver;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
+import edu.uah.rsesc.aadl.age.util.Log;
 
 class IndependenceProvider implements IIndependenceSolver {
+	private IFeatureProvider featureProvider;
+	private boolean gettingDiagramObj = false; // Flag to indicate which code path to use. Needed because the independence provider needs to get the object for the diagram which would otherwise result in endless recursion
+	
+	public IndependenceProvider(final IFeatureProvider featureProvider) {
+		this.featureProvider = featureProvider;
+	}
+	
 	@Override
 	public String getKeyForBusinessObject(Object bo) {
 		bo = AadlElementWrapper.unwrap(bo);
@@ -32,6 +48,8 @@ class IndependenceProvider implements IIndependenceSolver {
 				return "implementation_extension " + ((ImplementationExtension)bo).getSpecific().getQualifiedName();
 			} else if(bo instanceof GroupExtension) {
 				return "group_extension " + ((GroupExtension)bo).getSpecific().getQualifiedName();
+			} else if(bo instanceof Feature) {
+				return "feature " + ((Feature)bo).getQualifiedName();
 			} else {
 				return null;
 			}
@@ -39,57 +57,167 @@ class IndependenceProvider implements IIndependenceSolver {
 		
 		return null;
 	}
-
-	@Override
-	public Object getBusinessObjectForKey(String key) {
-		if(key == null) {
-			return null;
-		}
-		
+	
+	// Returns the named element for a key from a diagram object
+	private NamedElement getDiagramElement(final String key) {
 		final String[] segs = key.split(" ");
 		if(segs.length < 2) {
 			return null;
-		}		
+		}
 		
-		Element aadlElement = null;
-		final String type = segs[0];
 		final String name = segs[1];
-		Element classifier;
-		switch(type) {
-		case "package":
-		case "classifier":
-			aadlElement = (Element)EMFIndexRetrieval.getObjectByQualifiedName(name, AgeXtextUtil.getResourceSetByQualifiedName(name));
-			break;
-
-		case "realization":
-			classifier = (Element)EMFIndexRetrieval.getObjectByQualifiedName(name, AgeXtextUtil.getResourceSetByQualifiedName(name));
-			if(classifier instanceof ComponentImplementation) {
-				aadlElement = ((ComponentImplementation)classifier).getOwnedRealization();
-			}	
-			break;
-			
-		case "type_extension":
-			classifier = (Element)EMFIndexRetrieval.getObjectByQualifiedName(name, AgeXtextUtil.getResourceSetByQualifiedName(name));
-			if(classifier instanceof ComponentType) {
-				aadlElement = ((ComponentType)classifier).getOwnedExtension();
-			}
-			break;
 		
-		case "implementation_extension":
-			classifier = (Element)EMFIndexRetrieval.getObjectByQualifiedName(name, AgeXtextUtil.getResourceSetByQualifiedName(name));
-			if(classifier instanceof ComponentImplementation) {
-				aadlElement = ((ComponentImplementation)classifier).getOwnedExtension();
-			}
-			break;
+		return (NamedElement)EMFIndexRetrieval.getObjectByQualifiedName(name, AgeXtextUtil.getResourceSetByQualifiedName(name));
+	}
 			
-		case "group_extension":
-			classifier = (Element)EMFIndexRetrieval.getObjectByQualifiedName(name, AgeXtextUtil.getResourceSetByQualifiedName(name));
-			if(classifier instanceof FeatureGroupType) {
-				aadlElement = ((FeatureGroupType)classifier).getOwnedExtension();
-			}
-			break;
+	private AadlPackage getPackage() {
+		final Diagram diagram = featureProvider.getDiagramTypeProvider().getDiagram();
+		gettingDiagramObj = true;
+		final NamedElement diagramElement = (NamedElement)featureProvider.getBusinessObjectForPictogramElement(diagram);
+		gettingDiagramObj = false;
+		
+		if(diagramElement == null) {
+			return null;
 		}
 
-		return aadlElement == null ? null : new AadlElementWrapper(aadlElement);
+		final Element pkg = diagramElement.getNamespace().getOwner();
+		if(pkg instanceof AadlPackage)
+			return (AadlPackage)pkg;
+		
+		return null;
 	}
+	@Override
+	public Object getBusinessObjectForKey(String key) {	
+		if(key == null) {
+			return null;
+		}
+
+		// Check if we are trying to get the element corresponding to the diagram
+		if(gettingDiagramObj) {
+			return getDiagramElement(key);
+		} else {
+			final AadlPackage pkg = getPackage();
+			if(pkg == null) {
+				return null;
+			}
+			
+			// Get the resource set
+			final XtextResourceSet resourceSet = AgeXtextUtil.getResourceSetByQualifiedName(pkg.getQualifiedName());
+			if(resourceSet == null) {
+				return null;
+			}
+			
+			final String[] segs = key.split(" ");
+			if(segs.length < 2) {
+				return null;
+			}		
+			
+			Element aadlElement = null; // The AADL Element that is returned
+			final String type = segs[0];
+			final String qualifiedName = segs[1];
+			final Element relevantElement = getNamedElementByQualifiedName(resourceSet, qualifiedName);
+			
+			switch(type) {
+			case "package":
+			case "classifier":
+			case "feature":
+				aadlElement = relevantElement;
+				break;
+			
+			case "realization":
+				if(relevantElement instanceof ComponentImplementation) {
+					aadlElement = ((ComponentImplementation)relevantElement).getOwnedRealization();
+				}	
+				break;
+				
+			case "type_extension":
+				if(relevantElement instanceof ComponentType) {
+					aadlElement = ((ComponentType)relevantElement).getOwnedExtension();
+				}
+				break;
+			
+			case "implementation_extension":
+				if(relevantElement instanceof ComponentImplementation) {
+					aadlElement = ((ComponentImplementation)relevantElement).getOwnedExtension();
+				}
+				break;
+				
+			case "group_extension":
+				if(relevantElement instanceof FeatureGroupType) {
+					aadlElement = ((FeatureGroupType)relevantElement).getOwnedExtension();
+				}
+				break;
+				
+			default:
+				Log.error("Unhandled case: " + type);
+			}
+	
+			return aadlElement == null ? null : new AadlElementWrapper(aadlElement);
+		}
+	}
+	
+	private NamedElement getNamedElementByQualifiedName(final XtextResourceSet resourceSet, final String qualifiedName) {
+		final String[] segs = qualifiedName.split("::");
+		final String pkgName = segs[0];
+		final String path = segs[1];
+		
+		// Find the package
+		final AadlPackage pkg = getPackage(resourceSet, pkgName);
+		if(pkg == null) {
+			return null;
+		}
+		
+		// Check the public section first then the private
+		final String[] pathSegs = path.split("\\.");
+		NamedElement element = findNamedElement(pkg.getPublicSection(), pathSegs);
+		if(element == null) {
+			element =  findNamedElement(pkg.getPrivateSection(), pathSegs);
+		}
+		
+		return element;
+	}
+	
+	private NamedElement findNamedElement(final Namespace namespace, final String[] pathSegs) {
+		NamedElement element = namespace;
+		for(final String seg : pathSegs) {
+			NamedElement matchingMember = null;
+			if(element instanceof Namespace) {
+				for(final NamedElement member : ((Namespace)element).getMembers()) {
+					if(member.getName().equalsIgnoreCase(seg)) {
+						matchingMember = member;
+						break;
+					}
+				}
+			}			
+			
+			element = matchingMember;
+			
+			if(element == null) { 
+				break; 
+			}
+		}
+		
+		return element;
+	}
+	
+	private AadlPackage getPackage(final XtextResourceSet resourceSet, final String name) {
+		// Look for the resource that contains the package
+		for(final Resource resource : resourceSet.getResources()) {
+			if(resource.getContents().size() > 0) {
+				final EObject obj = resource.getContents().get(0);
+				if(obj instanceof AadlPackage) {
+					final AadlPackage pkg = ((AadlPackage)obj);
+					if(pkg.getName().equalsIgnoreCase(name)) {
+						return pkg;
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	// TODO: Test the retrieval of a element in a references package
+	
+	
 }

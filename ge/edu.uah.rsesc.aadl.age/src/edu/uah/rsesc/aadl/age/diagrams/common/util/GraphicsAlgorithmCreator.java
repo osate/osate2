@@ -128,7 +128,7 @@ public class GraphicsAlgorithmCreator {
 	}
 	
 	private static GraphicsAlgorithm createBusGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
-		final int arrowHeadWidth = Math.max(height/2, 20);
+		final int arrowHeadWidth = Math.max(Math.min(width, height)/4, 20);
 		final int arrowHeadVerticalExtensionSize = height/4;
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(container, 

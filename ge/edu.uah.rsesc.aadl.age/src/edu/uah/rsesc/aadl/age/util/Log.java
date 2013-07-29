@@ -9,23 +9,29 @@ import edu.uah.rsesc.aadl.age.Activator;
 public class Log {
 	// Logging convenience methods
 	public static void ok(String msg) {
-		getLog().log(new Status(IStatus.OK, Activator.PLUGIN_ID, 0, msg, null));
+		log(IStatus.OK, msg, null);
 	}
 	
 	public static void info(String msg) {
-		getLog().log(new Status(IStatus.INFO, Activator.PLUGIN_ID, 0, msg, null));
+		log(IStatus.INFO, msg, null);
 	}
 	
 	public static void warning(String msg) {
-		getLog().log(new Status(IStatus.WARNING, Activator.PLUGIN_ID, 0, msg, null));
+		log(IStatus.WARNING, msg, null);
 	}
 	
 	public static void error(String msg) {
-		getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, 0, msg, null));
+		log(IStatus.ERROR, msg, null);
 	}
 	
 	public static void error(String msg, Throwable ex) {
-		getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, 0, msg, ex));
+		log(IStatus.ERROR, msg, ex);
+	}
+	
+	private static void log(final int severity, final String msg, final Throwable ex) {
+		final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		final String msgPrefix = (stackTrace.length > 3) ? (stackTrace[3].getClassName() + "." + stackTrace[3].getMethodName() + "(): ") : "";
+		getLog().log(new Status(severity, Activator.PLUGIN_ID, 0, msgPrefix + msg, ex));
 	}
 	
 	private static ILog getLog() {
