@@ -256,7 +256,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			triggerName = "state "+((ErrorBehaviorEvent)ep).getName();
 		}
 		TypeSet condTS = conditionElement.getConstraint();
-		if (triggerTS == null&&condTS == null) return;
+		if (condTS == null) return;
 		if (triggerTS == null && condTS != null&& es == null){
 			// it is ok for a state not to have a type set.
 			error(conditionElement,"Condition has type constraint but referenced "+triggerName+" does not.");
@@ -677,7 +677,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (ebs != null){
 			TypeSet ebsTS = ebs.getTypeSet();
 			TypeToken ebtargetTS = ebt.getTargetToken();
-			if (ebsTS == null && ebtargetTS == null) return;
+			if ( ebtargetTS == null) return;
 			if (ebsTS == null && ebtargetTS != null) {
 				error(ebt,
 						"Target state "+ebs.getName()+" does not have a type set declared but the transition target specifies "
@@ -719,7 +719,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (ebs != null){
 			TypeSet ebsTS = ebs.getTypeSet();
 			TypeToken ebtargetTS = ebt.getTargetToken();
-			if (ebsTS == null && ebtargetTS == null) return;
+			if ( ebtargetTS == null) return;
 			if (ebsTS == null && ebtargetTS != null) {
 				error(ebt,
 						"Target state "+ebs.getName()+" does not have a type set declared but the transition target specifies "
@@ -739,7 +739,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (ebs == null) return;
 			TypeSet ebsTS = ebs.getTypeSet();
 			TypeSet srcTS = opc.getTypeTokenConstraint();
-			if (ebsTS == null && srcTS == null) return;
+			if ( srcTS == null) return;
 			if (ebsTS == null && srcTS != null) {
 				error(opc,
 						"Error state "+ebs.getName()+" does not have a type set declared but the outgoing propagation condition has type token "
@@ -758,7 +758,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (ebs == null) return;
 		TypeSet ebsTS = ebs.getTypeSet();
 		TypeSet srcTS = ebt.getTypeTokenConstraint();
-		if (ebsTS == null && srcTS == null) return;
+		if ( srcTS == null) return;
 		if (ebsTS == null && srcTS != null) {
 			error(ebt,
 					"Source state "+ebs.getName()+" does not have a type set declared but the detection source specifies "
@@ -777,7 +777,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (ebs == null) return;
 			TypeSet ebsTS = ebs.getTypeSet();
 			TypeSet srcTS = ebt.getTypeTokenConstraint();
-			if (ebsTS == null && srcTS == null) return;
+			if ( srcTS == null) return;
 			if (ebsTS == null && srcTS != null) {
 				error(ebt,
 						"Source state "+ebs.getName()+" does not have a type set declared but the transition source specifies "
@@ -793,7 +793,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	
 	private void checkErrorSourceTypes(ErrorSource ef) {
 		if (ef.getTypeTokenConstraint()==null) return;
-		ErrorPropagation ep = ef.getOutgoing();
 		ErrorPropagation epout = ef.getOutgoing();
 		if (epout != null){
 			if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
@@ -802,8 +801,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						"Error source type constraint "
 								+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
 								+ " is not contained in type set of outgoing propagation "
-								+ EMV2Util.getPrintName(ep)
-								+ EMV2Util.getPrintName(ep.getTypeSet()));
+								+ EMV2Util.getPrintName(epout)
+								+ EMV2Util.getPrintName(epout.getTypeSet()));
 			}
 		} else {
 			// check containment for all of the outgoing propagation points
@@ -816,8 +815,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 							"Error source type constraint "
 									+ EMV2Util.getPrintName(ef.getTypeTokenConstraint())
 									+ " is not contained in type set of outgoing propagation "
-									+ EMV2Util.getPrintName(ep)
-									+ EMV2Util.getPrintName(ep.getTypeSet()));
+									+ EMV2Util.getPrintName(errorPropagation)
+									+ EMV2Util.getPrintName(errorPropagation.getTypeSet()));
 				}
 			}
 		}
