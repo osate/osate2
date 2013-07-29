@@ -80,9 +80,14 @@ class IndependenceProvider implements IIndependenceSolver {
 			return null;
 		}
 
-		final Element pkg = diagramElement.getNamespace().getOwner();
-		if(pkg instanceof AadlPackage)
-			return (AadlPackage)pkg;
+		if(diagramElement instanceof AadlPackage) {
+			return (AadlPackage)diagramElement;
+		} else {
+			final Element pkg = diagramElement.getNamespace().getOwner();
+			if(pkg instanceof AadlPackage) {
+				return (AadlPackage)pkg;
+			}
+		}
 		
 		return null;
 	}
@@ -159,7 +164,6 @@ class IndependenceProvider implements IIndependenceSolver {
 	private NamedElement getNamedElementByQualifiedName(final XtextResourceSet resourceSet, final String qualifiedName) {
 		final String[] segs = qualifiedName.split("::");
 		final String pkgName = segs[0];
-		final String path = segs[1];
 		
 		// Find the package
 		final AadlPackage pkg = getPackage(resourceSet, pkgName);
@@ -167,7 +171,12 @@ class IndependenceProvider implements IIndependenceSolver {
 			return null;
 		}
 		
+		if(segs.length == 1) { 
+			return pkg;
+		}
+		
 		// Check the public section first then the private
+		final String path = segs[1];
 		final String[] pathSegs = path.split("\\.");
 		NamedElement element = findNamedElement(pkg.getPublicSection(), pathSegs);
 		if(element == null) {
@@ -216,8 +225,4 @@ class IndependenceProvider implements IIndependenceSolver {
 		
 		return null;
 	}
-	
-	// TODO: Test the retrieval of a element in a references package
-	
-	
 }
