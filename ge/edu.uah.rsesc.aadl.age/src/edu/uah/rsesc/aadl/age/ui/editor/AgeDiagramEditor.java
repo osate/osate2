@@ -16,6 +16,7 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -32,7 +33,11 @@ public class AgeDiagramEditor extends DiagramEditor {
 				final EObject contents = resource.getContents().get(0);
 				final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
 				if(contents instanceof NamedElement && bo instanceof NamedElement) {
-					if(((NamedElement)contents).getQualifiedName().equalsIgnoreCase(((NamedElement)bo).getQualifiedName())) {
+					final NamedElement namedElement = (NamedElement)bo;
+					final String resourceContentsName = ((NamedElement)contents).getQualifiedName();
+					final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
+
+					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
 						Display.getDefault().asyncExec(new Runnable() {
 							public void run() {						
 								// Update the entire diagram

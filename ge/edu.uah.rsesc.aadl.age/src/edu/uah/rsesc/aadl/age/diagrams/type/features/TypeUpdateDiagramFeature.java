@@ -1,28 +1,32 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.features;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
-import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
@@ -58,6 +62,8 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 
 		final Diagram diagram = getDiagram();
 		
+		System.out.println("UPDATING");
+		
 		// TODO: Easier to put the features on the sides?
 		// How to snap?
 		/*
@@ -72,21 +78,35 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		
 		// TODO: Logic for clearing styles. TODO: Share between diagrams?
 		
+		// Remove shapes that are invalid
+		removeShapesWithoutBusinessObjects(diagram);
+		
 		// Update Features
 		
 		// TODO: For now, just add all features. Work on updating later
 		int y = 50;
 		for(final NamedElement el : classifier.getOwnedMembers()) {
 			if(el instanceof Feature) {
-				final AddContext addContext = new AddContext();
-				addContext.setNewObject(new AadlElementWrapper(el));
-				addContext.setTargetContainer(diagram);
-				addContext.setX(0);
-				addContext.setY(y);
-				final IAddFeature feature = this.getFeatureProvider().getAddFeature(addContext);
-				if(feature != null && feature.canAdd(addContext)) {
-					feature.execute(addContext);
-					y += 50;
+				final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
+				if(pictogramElement == null) {
+					final AddContext addContext = new AddContext();
+					addContext.setNewObject(new AadlElementWrapper(el));
+					addContext.setTargetContainer(diagram);
+					addContext.setX(0);
+					addContext.setY(y);
+					final IAddFeature feature = this.getFeatureProvider().getAddFeature(addContext);
+					if(feature != null && feature.canAdd(addContext)) {
+						feature.execute(addContext);
+						y += 50;
+					}
+				} else {
+					final UpdateContext updateContext = new UpdateContext(pictogramElement);
+					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
+					
+					// Update the classifier regardless of whether it is "needed" or not.
+					if(updateFeature.canUpdate(updateContext)) {
+						updateFeature.update(updateContext);
+					}
 				}
 			}
 		}
@@ -110,6 +130,31 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		return false;
 	}
 
+	// TODO: Share implementation with Update diagram feature
+	private void removeShapesWithoutBusinessObjects(final Diagram diagram) {	
+		final List<Shape> shapesToRemove = new ArrayList<Shape>();		
+		for(final Shape shape : diagram.getChildren()) {
+			final Object bo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(shape));
+
+			if(bo == null) {
+				shapesToRemove.add(shape);
+			} else {
+				EObject emfBusinesObject = (EObject)bo;
+				if(emfBusinesObject.eIsProxy()) {
+					emfBusinesObject = EcoreUtil.resolve(emfBusinesObject, OsateResourceUtil.getResourceSet());
+				}
+	
+				if(emfBusinesObject.eIsProxy()) {
+					shapesToRemove.add(shape);
+				}
+			}
+		}
+		
+		for(final Shape shape : shapesToRemove) {
+			EcoreUtil.delete(shape, true);			
+		}
+	}
+	
 	@Override
 	public void undo(final IContext context) {
 	}

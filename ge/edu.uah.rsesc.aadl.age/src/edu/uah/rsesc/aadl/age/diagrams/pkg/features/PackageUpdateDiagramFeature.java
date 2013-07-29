@@ -72,6 +72,9 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final Diagram diagram = (Diagram)context.getPictogramElement();
 		final boolean wasEmpty = diagram.getChildren().size() == 0; 
 		
+		
+		System.out.println("UPDATING");
+		
 		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
 		diagram.getStyles().clear();		
 		
@@ -86,7 +89,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		removeInvalidGeneralizations(diagram);
 		
 		// Prune Invalid Shapes
-		removeShapesWithouBusinessObject(diagram);
+		removeShapesWithoutBusinessObjects(diagram);
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();
@@ -178,7 +181,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		}
 	}
 	
-	private void removeShapesWithouBusinessObject(final Diagram diagram) {	
+	private void removeShapesWithoutBusinessObjects(final Diagram diagram) {	
 		final List<Shape> shapesToRemove = new ArrayList<Shape>();		
 		for(final Shape shape : diagram.getChildren()) {
 			final Object bo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(shape));

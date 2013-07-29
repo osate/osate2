@@ -65,13 +65,25 @@ public class PackageClassifierPattern extends AgePattern {
 		final Diagram diagram = getDiagram();
 		
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		final IGaService gaService = Graphiti.getGaService();
 
         // Create the container shape
         final ContainerShape container = peCreateService.createContainerShape(diagram, true);
    		PropertyUtil.setTypeName(container, getClassifierTypeName(classifier));
         link(container, new AadlElementWrapper(classifier));
         
+		// Create the GA and inner Shape
+        createGaAndInnerShapes(container, classifier, context.getX(), context.getY());
+        
+        // Create anchor
+        peCreateService.createChopboxAnchor(container);
+
+        return container;
+	}
+	
+	private void createGaAndInnerShapes(final ContainerShape container, final Classifier classifier, int x, int y) {
+		final IGaService gaService = Graphiti.getGaService();
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		
 		// Determine the label text
         final String labelTxt = getLabelText(classifier);
         
@@ -85,13 +97,8 @@ public class PackageClassifierPattern extends AgePattern {
 		gaService.setLocationAndSize(text, 0, 0, width, 20);
 				
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, diagram, classifier, width, height);        
-        gaService.setLocation(ga, context.getX(), context.getY());
-        
-        // Create anchor
-        peCreateService.createChopboxAnchor(container);
-
-        return container;
+        final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, getDiagram(), classifier, width, height);        
+        gaService.setLocation(ga, x, y);
 	}
 	
 	private Text createLabelGraphicsAlgorithm(final Shape labelShape, final String labelTxt) {
@@ -178,16 +185,13 @@ public class PackageClassifierPattern extends AgePattern {
 		// Update the type name property
 		PropertyUtil.setTypeName(pe, getClassifierTypeName(classifier));
 		
-		// Update the graphical algorithm
-		final GraphicsAlgorithm currentGa = pe.getGraphicsAlgorithm();
-		final int x = currentGa.getX();
-		final int y = currentGa.getY();
-		final GraphicsAlgorithm newGa = GraphicsAlgorithmCreator.createGraphicsAlgorithm((ContainerShape)pe, getDiagram(), classifier, currentGa.getWidth(), currentGa.getHeight());
-		Graphiti.getGaLayoutService().setLocation(newGa,  x, y);
-		
-		// Update the label
-		final Shape labelShape = getLabelShape((ContainerShape)pe);
-		createLabelGraphicsAlgorithm(labelShape, getLabelText(classifier));
+		if(pe instanceof ContainerShape) {
+			// Remove child shapes
+			((ContainerShape) pe).getChildren().clear();
+			
+			// Recreate the child shapes and the graphics algorithm for the shape
+			createGaAndInnerShapes((ContainerShape)pe, classifier, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());
+		}
 
 		return true;
 	}

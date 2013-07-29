@@ -15,6 +15,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.MemoryClassifier;
 import org.osate.aadl2.ProcessClassifier;
@@ -73,6 +74,14 @@ public class GraphicsAlgorithmCreator {
         }
         
         return ga;
+	}
+	
+	public static GraphicsAlgorithm createGraphicsAlgorithm(final Shape container, final Diagram diagram, final Feature feature) {
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
+        gaService.setSize(ga, 10, 10);
+        
+		return ga;
 	}
 	
 	private static GraphicsAlgorithm createDummyGraphicsAlgorithm(final ContainerShape containerShape, int width, int height) {
