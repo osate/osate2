@@ -67,6 +67,7 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexParseResult;
@@ -192,7 +193,14 @@ public class AnnexParserAgent  extends LazyLinker {
 		}
 		List<DefaultAnnexSubclause> asl=AnnexUtil.getAllDefaultAnnexSubclauses(model);
 		for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
+			
 			INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSubclause);
+			
+			if (node == null)
+			{
+				OsateDebug.osateDebug ("Annex not found for code: " + defaultAnnexSubclause.getSourceText());
+				continue;
+			}
 			int offset = node.getOffset();
 			int line = node.getStartLine();
 			String sourceText = defaultAnnexSubclause.getSourceText();
