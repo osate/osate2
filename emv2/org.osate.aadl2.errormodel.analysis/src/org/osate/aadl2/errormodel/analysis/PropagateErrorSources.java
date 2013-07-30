@@ -546,7 +546,7 @@ public class PropagateErrorSources {
 			if (fi != null){
 				EList<ConnectionInstance> conns = fi.getSrcConnectionInstances();
 				if (conns.isEmpty()){
-					reportEntry(entryText+",[No Outgoing Conn],,", depth);
+					reportEntry(entryText+","+generateTypeTokenErrorPropText(ep,tt)+" -> [No Outgoing Conn],,", depth);
 				} else {
 					for (ConnectionInstance connectionInstance : conns) {
 						reportEntry(entryText+","+(tt!=null?EMV2Util.getPrintName(tt)+" ":"")+
@@ -801,7 +801,7 @@ public class PropagateErrorSources {
 			}
 		}
 		if (!handled ){
-			String errorText = ","+generateFailureModeText(ci,ep,tt)+" [No Out Prop]";
+			String errorText = ","+generateFailureModeText(ci,ep,tt)+" [Effect without Target]";
 			reportEntry(entryText+errorText, depth);
 		}
 	}
