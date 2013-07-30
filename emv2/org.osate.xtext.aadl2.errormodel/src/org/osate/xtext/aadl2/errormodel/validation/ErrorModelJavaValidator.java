@@ -1038,14 +1038,14 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			// only when going across
 			if (srccontain == null && dstcontain != null) {
 				warning(conn,
-						"No outgoing containment for incoming containment "
+						"No outgoing containment from "+srcCxt.getName()+" for incoming containment "
 								+ EMV2Util.getPrintName(dstcontain)
-								+ EMV2Util.getPrintName(dstcontain.getTypeSet()));
+								+ EMV2Util.getPrintName(dstcontain.getTypeSet())+". Check for Unhandled Faults.");
 			}
 			if (srcprop != null && dstprop == null ) {
 					warning(conn,
-							"No incoming error propagation for outgoing propagation "
-									+ EMV2Util.getPrintName(srcprop)+ EMV2Util.getPrintName(srcprop.getTypeSet()));
+							"No incoming error propagation from "+dstCxt.getName()+" for outgoing propagation "
+									+ EMV2Util.getPrintName(srcprop)+ EMV2Util.getPrintName(srcprop.getTypeSet())+". Check for Unhandled Faults.");
 			}
 		}
 		
