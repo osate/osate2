@@ -57,6 +57,7 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
+import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -627,7 +628,8 @@ public class PropagateErrorSources {
 						// we have an external propagation (out only connection)
 						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
 						reportEntry(entryText+effectText+connText,depth);
-					} else if (path.getConnectionInstance()!=null&&!path.getConnectionInstance().isComplete()){
+					} else if (pathConni!=null&&Aadl2InstanceUtil.outOnly(pathConni)&&
+							!pathConni.isComplete()){
 						// outgoing only, but not ending at root
 						String connText=connSymbol+generateComponentPropagationPointText(destci, destEP)+" [External Effect]";
 						reportEntry(entryText+effectText+connText,depth);
