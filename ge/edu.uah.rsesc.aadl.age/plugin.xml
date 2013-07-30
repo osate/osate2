@@ -138,7 +138,7 @@
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ImplementsStyleFactory" styleId="implements"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ExtendsStyleFactory" styleId="extends"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
- 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ClassifierLabelStyleFactory" styleId="classifier-label"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.LabelStyleFactory" styleId="label"/> 	
  </extension>
  
  <extension

@@ -93,7 +93,7 @@ public class StyleUtil {
 		return getStyle(diagram, "generalization-arrowhead");
     }
 	
-	public static Style getClassifierLabelStyle(final Diagram diagram) {
-		return getStyle(diagram, "classifier-label");
+	public static Style getLabelStyle(final Diagram diagram) {
+		return getStyle(diagram, "label");
     }
 }

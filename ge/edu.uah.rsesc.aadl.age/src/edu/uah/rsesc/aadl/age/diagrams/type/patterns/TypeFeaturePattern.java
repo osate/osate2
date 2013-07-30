@@ -10,7 +10,6 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -20,7 +19,6 @@ import org.osate.aadl2.Feature;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 /**
  * Pattern for controlling Feature shapes
@@ -48,28 +46,10 @@ public class TypeFeaturePattern extends AgePattern {
 	public boolean canResizeShape(final IResizeShapeContext ctx) {
 		return false;
 	}
-	
+
 	@Override
-	public PictogramElement add(final IAddContext context) {
-		final Feature feature = (Feature)AadlElementWrapper.unwrap(context.getNewObject());
-		final Diagram diagram = getDiagram();
-		
-		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-
-		// Create the container shape
-        final ContainerShape container = peCreateService.createContainerShape(diagram, true);
-        link(container, new AadlElementWrapper(feature));
-        
-        createGaAndInnerShapes(container, feature, context.getX(), context.getY());
-           
-        // Create anchor
-        peCreateService.createChopboxAnchor(container);        
-
-        return container;
-        
-	}
-	
-	private void createGaAndInnerShapes(final ContainerShape container, final Feature feature, int x, int y) {
+	protected void createGaAndInnerShapes(final ContainerShape container, final Object bo, int x, int y) {
+		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
@@ -78,7 +58,7 @@ public class TypeFeaturePattern extends AgePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(container, false);
-        final Text label = createLabelGraphicsAlgorithm(labelShape, labelTxt);
+        final Text label = GraphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
         
         // Set the size        
         final IDimension labelSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, label.getStyle().getFont());
@@ -109,39 +89,9 @@ public class TypeFeaturePattern extends AgePattern {
 	public final String getLabelText(final Feature feature) {
 		return feature.getName();
 	}
-	
-	// TODO: Have a generic label style and share between all patterns	
-	private Text createLabelGraphicsAlgorithm(final Shape labelShape, final String labelTxt) {
-		final IGaService gaService = Graphiti.getGaService();
-		final Text text = gaService.createPlainText(labelShape, labelTxt);
-        text.setStyle(StyleUtil.getClassifierLabelStyle(this.getDiagram()));
-        return text;
-	}
-	
-	@Override
-	public boolean canUpdate(final IUpdateContext context) {
-		return isMainBusinessObjectApplicable(getBusinessObjectForPictogramElement(context.getPictogramElement()));
-	}
-	
+		
 	@Override
 	public IReason updateNeeded(final IUpdateContext context) {
 		return Reason.createFalseReason();
-	}
-	
-	@Override
-	public boolean update(final IUpdateContext context) {
-		// Cause problems for connections?
-		final PictogramElement pe = context.getPictogramElement();
-		final Feature feature = (Feature)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
-	
-		if(pe instanceof ContainerShape) {
-			// Remove child shapes
-			((ContainerShape) pe).getChildren().clear();
-			
-			// Recreate the child shapes and the graphics algorithm for the shape
-			createGaAndInnerShapes((ContainerShape)pe, feature, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());
-		}
-
-		return true;
 	}
 }

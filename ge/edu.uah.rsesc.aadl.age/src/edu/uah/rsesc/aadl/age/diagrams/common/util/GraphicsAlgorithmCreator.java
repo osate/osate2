@@ -3,6 +3,7 @@ package edu.uah.rsesc.aadl.age.diagrams.common.util;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -32,8 +33,16 @@ import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Eventually replace with an extension mechanism similar to the ones for styles. Goal would be to allow sharing of graphics algorithms, sharing symbols, and 
 // allowing flexibility such as allowing the user to override symbols for particular shapes. In that case may move out of common package.
+// Some methods may not be included in such a system(such as createLabel*) but that is TBD
 public class GraphicsAlgorithmCreator {
-	public static GraphicsAlgorithm createGraphicsAlgorithm(final ContainerShape container, final Diagram diagram, final Classifier classifier, final int width, final int height) {
+	public static Text createLabelGraphicsAlgorithm(final Shape labelShape, final Diagram diagram, final String labelTxt) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Text text = gaService.createPlainText(labelShape, labelTxt);
+        text.setStyle(StyleUtil.getLabelStyle(diagram));
+        return text;
+	}
+	
+	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final ContainerShape container, final Diagram diagram, final Classifier classifier, final int width, final int height) {
 		final boolean isImplementation = classifier instanceof ComponentImplementation;
         
 		// TODO: Replace with a map?

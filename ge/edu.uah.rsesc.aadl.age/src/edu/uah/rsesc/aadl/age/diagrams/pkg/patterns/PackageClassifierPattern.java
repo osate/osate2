@@ -3,9 +3,7 @@ package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
-import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
@@ -41,7 +39,6 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 public class PackageClassifierPattern extends AgePattern {
 	@Override
@@ -58,29 +55,10 @@ public class PackageClassifierPattern extends AgePattern {
 		}
 		return false;
 	}
-
-	@Override
-	public PictogramElement add(final IAddContext context) {
-		final Classifier classifier = (Classifier)AadlElementWrapper.unwrap(context.getNewObject());
-		final Diagram diagram = getDiagram();
-		
-		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-
-        // Create the container shape
-        final ContainerShape container = peCreateService.createContainerShape(diagram, true);
-   		PropertyUtil.setTypeName(container, getClassifierTypeName(classifier));
-        link(container, new AadlElementWrapper(classifier));
-        
-		// Create the GA and inner Shape
-        createGaAndInnerShapes(container, classifier, context.getX(), context.getY());
-        
-        // Create anchor
-        peCreateService.createChopboxAnchor(container);
-
-        return container;
-	}
 	
-	private void createGaAndInnerShapes(final ContainerShape container, final Classifier classifier, int x, int y) {
+	@Override
+	protected void createGaAndInnerShapes(final ContainerShape container, final Object bo, int x, int y) {
+		final Classifier classifier = (Classifier)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
@@ -89,7 +67,7 @@ public class PackageClassifierPattern extends AgePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(container, false);
-        final Text text = createLabelGraphicsAlgorithm(labelShape, labelTxt);
+        final Text text = GraphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
         
         // Set the size        
 		final int width = Math.max(100, GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont()).getWidth() + 30); 
@@ -97,17 +75,10 @@ public class PackageClassifierPattern extends AgePattern {
 		gaService.setLocationAndSize(text, 0, 0, width, 20);
 				
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, getDiagram(), classifier, width, height);        
+        final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, getDiagram(), classifier, width, height);        
         gaService.setLocation(ga, x, y);
 	}
-	
-	private Text createLabelGraphicsAlgorithm(final Shape labelShape, final String labelTxt) {
-		final IGaService gaService = Graphiti.getGaService();
-		final Text text = gaService.createPlainText(labelShape, labelTxt);
-        text.setStyle(StyleUtil.getClassifierLabelStyle(this.getDiagram()));
-        return text;
-	}
-	
+
 	@Override
 	public IReason updateNeeded(final IUpdateContext context) {
 		final PictogramElement pe = context.getPictogramElement();
@@ -124,11 +95,6 @@ public class PackageClassifierPattern extends AgePattern {
 		}
 
 		return Reason.createFalseReason();
-	}
-	
-	@Override
-	public boolean canUpdate(final IUpdateContext context) {
-		return (context.getPictogramElement() instanceof ContainerShape) && (AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement())) instanceof Classifier);
 	}
 	
 	private String getClassifierTypeName(final Classifier classifier) {
@@ -178,22 +144,9 @@ public class PackageClassifierPattern extends AgePattern {
 	}
 	
 	@Override
-	public boolean update(final IUpdateContext context) {
-		final PictogramElement pe = context.getPictogramElement();
-		final Classifier classifier = (Classifier)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
-		
+	public void setShapeProperties(final ContainerShape container, final Object bo) {
 		// Update the type name property
-		PropertyUtil.setTypeName(pe, getClassifierTypeName(classifier));
-		
-		if(pe instanceof ContainerShape) {
-			// Remove child shapes
-			((ContainerShape) pe).getChildren().clear();
-			
-			// Recreate the child shapes and the graphics algorithm for the shape
-			createGaAndInnerShapes((ContainerShape)pe, classifier, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());
-		}
-
-		return true;
+		PropertyUtil.setTypeName(container, getClassifierTypeName((Classifier)bo));
 	}
 	
 	private Shape getLabelShape(final ContainerShape cs) {
@@ -214,16 +167,6 @@ public class PackageClassifierPattern extends AgePattern {
 	}
 	
 	@Override
-	public boolean canRemove(final IRemoveContext context) {
-		return false;
-	}	
-	
-	@Override
-	public boolean canDelete(final IDeleteContext context) {
-		return false;
-	}
-
-	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
 		return super.canResizeShape(context);
 	}
@@ -232,7 +175,7 @@ public class PackageClassifierPattern extends AgePattern {
 		final PictogramElement pe = context.getPictogramElement();
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		final ContainerShape container = (ContainerShape)pe;
-       	GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight());
+       	GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight());
 		
 		super.resizeShape(context);
 	}	

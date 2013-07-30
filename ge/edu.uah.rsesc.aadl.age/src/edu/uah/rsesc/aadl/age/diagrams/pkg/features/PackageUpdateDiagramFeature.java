@@ -25,7 +25,6 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
@@ -44,6 +43,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
@@ -89,7 +89,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		removeInvalidGeneralizations(diagram);
 		
 		// Prune Invalid Shapes
-		removeShapesWithoutBusinessObjects(diagram);
+		UpdateHelper.removeShapesWithoutBusinessObjects(diagram, getFeatureProvider());
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();
@@ -178,30 +178,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		
 		for(final Connection connection : connectionsToRemove) {
 			EcoreUtil.delete(connection, true);
-		}
-	}
-	
-	private void removeShapesWithoutBusinessObjects(final Diagram diagram) {	
-		final List<Shape> shapesToRemove = new ArrayList<Shape>();		
-		for(final Shape shape : diagram.getChildren()) {
-			final Object bo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(shape));
-
-			if(bo == null) {
-				shapesToRemove.add(shape);
-			} else {
-				EObject emfBusinesObject = (EObject)bo;
-				if(emfBusinesObject.eIsProxy()) {
-					emfBusinesObject = EcoreUtil.resolve(emfBusinesObject, OsateResourceUtil.getResourceSet());
-				}
-	
-				if(emfBusinesObject.eIsProxy()) {
-					shapesToRemove.add(shape);
-				}
-			}
-		}
-		
-		for(final Shape shape : shapesToRemove) {
-			EcoreUtil.delete(shape, true);			
 		}
 	}
 	
