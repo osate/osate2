@@ -7,18 +7,22 @@ import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.Log;
 
@@ -69,16 +73,22 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		ga.setFilled(false);
 		*/
 		
-		// TODO: Logic for clearing styles. TODO: Share between diagrams?
-		
+		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
+		diagram.getStyles().clear();	
+				
 		// Remove shapes that are invalid
-		UpdateHelper.removeShapesWithoutBusinessObjects(diagram, getFeatureProvider());
+		UpdateHelper.removeInvalidShapes(diagram, getFeatureProvider());
 		
-		// Update Features
+		// TODO: Remove invalid connections
+		// BO not valid.
+		// Anchors invalid
+		// etc
 		
-		// TODO: For now, just add all features. Work on updating later
+		// Create/Update Shapes	
+		// TODO: Ensure flow specifications are not created here... only shape features..
 		int y = 50;
 		for(final NamedElement el : classifier.getOwnedMembers()) {
+			//if(el instanceof Feature || (el instanceof FlowSpecification && (((FlowSpecification)el).getKind() == FlowKind.SOURCE || ((FlowSpecification)el).getKind() == FlowKind.SINK))) {
 			if(el instanceof Feature) {
 				final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
 				if(pictogramElement == null) {
@@ -93,6 +103,41 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 						y += 50;
 					}
 				} else {
+					// TODO: Don't allow updating of connections!
+					
+					final UpdateContext updateContext = new UpdateContext(pictogramElement);
+					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
+					
+					// Update the classifier regardless of whether it is "needed" or not.
+					if(updateFeature.canUpdate(updateContext)) {
+						updateFeature.update(updateContext);
+					}
+				}
+			} else { // TODO: Remove
+				//fs.getKind() == FlowKind.PATH
+				//System.out.println("UNHANDLED: " + el);
+			}
+		}
+		
+		// Create/Update Connections
+		for(final NamedElement el : classifier.getOwnedMembers()) {
+			if(el instanceof FlowSpecification) {
+				final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
+				if(pictogramElement == null) {					
+					final FlowSpecification fs = (FlowSpecification)el;
+					final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, getFeatureProvider());
+					
+					if(anchors != null) {
+						final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
+						addContext.setNewObject(new AadlElementWrapper(fs));
+						addContext.setTargetContainer(diagram);
+						
+						final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
+						if(addFeature.canAdd(addContext)) {
+							addFeature.add(addContext);
+						}
+					}
+				} else {
 					final UpdateContext updateContext = new UpdateContext(pictogramElement);
 					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
 					
@@ -102,11 +147,7 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 					}
 				}
 			}
-		}
-		
-		// TODO: Repeat for flows, etc.
-		
-		// TODO: Multiple paths? Features before flows?
+		}		
 		
 		// Features
 		// Bus/Data Access

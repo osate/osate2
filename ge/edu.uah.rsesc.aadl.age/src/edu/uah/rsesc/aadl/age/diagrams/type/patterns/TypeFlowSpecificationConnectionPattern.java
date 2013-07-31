@@ -1,5 +1,6 @@
-package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
+package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -18,70 +19,80 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.services.IPeService;
-import org.osate.aadl2.Generalization;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.TypeExtension;
-
+import org.osate.aadl2.FlowSpecification;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-public class PackageGeneralizationPattern extends AgeConnectionPattern {
+// TODO: Update styles, etc
+public class TypeFlowSpecificationConnectionPattern  extends AgeConnectionPattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
-		final Object unwrappedObj = AadlElementWrapper.unwrap(mainBusinessObject);
-		return (unwrappedObj instanceof Realization || 
-    				unwrappedObj instanceof TypeExtension || 
-    				unwrappedObj instanceof ImplementationExtension ||
-    				unwrappedObj instanceof GroupExtension);
+		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof FlowSpecification;
 	}
 
 	@Override
 	public PictogramElement add(IAddContext context) {
 		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
-        final Generalization addedGeneralization = (Generalization)AadlElementWrapper.unwrap(context.getNewObject());
+        final FlowSpecification fs = (FlowSpecification)AadlElementWrapper.unwrap(context.getNewObject());
         final IPeCreateService peCreateService = Graphiti.getPeCreateService();
         final Diagram diagram = getDiagram();
         
         // Create the implements connection
         final Connection connection = peCreateService.createFreeFormConnection(diagram);
-        link(connection, new AadlElementWrapper(addedGeneralization));
+        link(connection, new AadlElementWrapper(fs));
 
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());
  
-        createGraphicsAlgorithm(connection, addedGeneralization);
-        createDecorators(connection);
+        createGraphicsAlgorithm(connection);
+        createDecorators(connection, fs);
         
 		return connection;
 	}
 	
-	private void createDecorators(final Connection connection) {
+	private void createDecorators(final Connection connection, final FlowSpecification fs) {
 		connection.getConnectionDecorators().clear();
 		
-		// Create the arrow
-        final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 0.0, true);    
-        createArrow(arrowConnectionDecorator, StyleUtil.getGeneralizationArrowHeadStyle(getDiagram()));
+		// TODO: Simply have decorator style instead of arrowhead?
+		switch(fs.getKind()) {
+		case PATH:
+			// Create the arrow
+	        final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 1.0, true);    
+	        createArrow(arrowConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
+			break;
+			
+		case SOURCE:
+		case SINK:
+			final ConnectionDecorator vbarConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 1.0, true);
+			createVbar(vbarConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
+			break;
+		}
 	}
 	
-	private void createGraphicsAlgorithm(final Connection connection, final Generalization generalization) {
+	private void createGraphicsAlgorithm(final Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final boolean isImplements = generalization instanceof Realization;
-		final Style style = isImplements ? StyleUtil.getImplementsStyle(getDiagram()) : StyleUtil.getExtendsStyle(getDiagram());
+		final Style style = StyleUtil.getFlowSpecificationStyle(getDiagram());
 		polyline.setStyle(style);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
 	    final IGaService gaService = Graphiti.getGaService();
 	    final GraphicsAlgorithm ga = gaService.createPlainPolygon(gaContainer, new int[] {
-	    		-15, 10, 
-	    		0, 0, 
-	    		-15, -10});
+	    		-6, 4, 
+	    		2, 0, 
+	    		-6, -4});
+	    ga.setStyle(style);
+	    return ga;
+	}
+	
+	private GraphicsAlgorithm createVbar(final GraphicsAlgorithmContainer gaContainer, final Style style) {
+	    final IGaService gaService = Graphiti.getGaService();
+	    final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] {
+	    		0, 8,
+	    		0, -8});
 	    ga.setStyle(style);
 	    return ga;
 	}
@@ -102,15 +113,15 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		// Rebuild the graphics algorithm and the decorators to ensure they are up to date and to ensure they reference the latest styles.
 		// Old styles are removed when the diagram is updated
 		final Connection connection = (Connection)context.getPictogramElement();
-		final Generalization generalization = (Generalization)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-		
-		// Update the anchors
-		final Anchor[] anchors = AnchorUtil.getAnchorsForGeneralization(generalization, getFeatureProvider());
+		final FlowSpecification fs = (FlowSpecification)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+
+		// Update anchors
+		final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, this.getFeatureProvider());
 		connection.setStart(anchors[0]);
 		connection.setEnd(anchors[1]);
-				
-		createGraphicsAlgorithm(connection, generalization);
-		createDecorators(connection);
+		
+		createGraphicsAlgorithm(connection);
+		createDecorators(connection, fs);
 		
 		return true;
 	}

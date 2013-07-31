@@ -13,6 +13,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.NamedElement;
@@ -32,6 +33,7 @@ class IndependenceProvider implements IIndependenceSolver {
 		this.featureProvider = featureProvider;
 	}
 	
+	// TODO: Consider simplify naming scheme since in most cases, a qualified name is all that is needed
 	@Override
 	public String getKeyForBusinessObject(Object bo) {
 		bo = AadlElementWrapper.unwrap(bo);
@@ -50,6 +52,8 @@ class IndependenceProvider implements IIndependenceSolver {
 				return "group_extension " + ((GroupExtension)bo).getSpecific().getQualifiedName();
 			} else if(bo instanceof Feature) {
 				return "feature " + ((Feature)bo).getQualifiedName();
+			} else if(bo instanceof FlowSpecification) {
+				return "flow_specification " + ((FlowSpecification)bo).getQualifiedName();
 			} else {
 				return null;
 			}
@@ -126,6 +130,7 @@ class IndependenceProvider implements IIndependenceSolver {
 			case "package":
 			case "classifier":
 			case "feature":
+			case "flow_specification":
 				aadlElement = relevantElement;
 				break;
 			

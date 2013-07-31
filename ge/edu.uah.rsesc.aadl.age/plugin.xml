@@ -136,8 +136,10 @@
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FeatureGroupTypeStyleFactory" styleId="feature-group-type"/> 	
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ShadedStyleFactory" styleId="shadded"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ImplementsStyleFactory" styleId="implements"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FlowSpecificationStyleFactory" styleId="flow_specification"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ExtendsStyleFactory" styleId="extends"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FlowSpecificationArrowheadStyleFactory" styleId="flow_specification-arrowhead"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.LabelStyleFactory" styleId="label"/> 	
  </extension>
  

@@ -1,5 +1,6 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
+import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
@@ -18,6 +19,7 @@ import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DeviceClassifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.MemoryClassifier;
 import org.osate.aadl2.ProcessClassifier;
 import org.osate.aadl2.ProcessorClassifier;
@@ -35,9 +37,9 @@ import edu.uah.rsesc.aadl.age.util.StyleUtil;
 // allowing flexibility such as allowing the user to override symbols for particular shapes. In that case may move out of common package.
 // Some methods may not be included in such a system(such as createLabel*) but that is TBD
 public class GraphicsAlgorithmCreator {
-	public static Text createLabelGraphicsAlgorithm(final Shape labelShape, final Diagram diagram, final String labelTxt) {
+	public static Text createLabelGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final String labelTxt) {
 		final IGaService gaService = Graphiti.getGaService();
-		final Text text = gaService.createPlainText(labelShape, labelTxt);
+		final Text text = gaService.createPlainText(container, labelTxt);
         text.setStyle(StyleUtil.getLabelStyle(diagram));
         return text;
 	}
@@ -86,6 +88,15 @@ public class GraphicsAlgorithmCreator {
 	}
 	
 	public static GraphicsAlgorithm createGraphicsAlgorithm(final Shape container, final Diagram diagram, final Feature feature) {
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
+        gaService.setSize(ga, 10, 10);
+        
+		return ga;
+	}
+	
+	public static GraphicsAlgorithm createGraphicsAlgorithm(final Shape container, final Diagram diagram, final FlowSpecification fs) {
+		// TODO: Draw appropriate shape
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
         gaService.setSize(ga, 10, 10);

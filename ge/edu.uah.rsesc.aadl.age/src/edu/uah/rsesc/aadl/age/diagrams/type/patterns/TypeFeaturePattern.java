@@ -18,7 +18,9 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Feature;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 
 /**
  * Pattern for controlling Feature shapes
@@ -26,6 +28,11 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
  * @author philip.alldredge
  */
 public class TypeFeaturePattern extends AgePattern {
+	private static final String featureShapeName = "feature";	
+	public static final String connectorAnchorName = "connector";
+	public static final String sourceAnchorName = "source";
+	public static final String sinkAnchorName = "sink";
+	
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Feature;
@@ -66,8 +73,9 @@ public class TypeFeaturePattern extends AgePattern {
 		
 		// Create symbol
         final Shape featureShape = peCreateService.createShape(container, false);
+        PropertyUtil.setName(featureShape, featureShapeName);
         final GraphicsAlgorithm featureGa = GraphicsAlgorithmCreator.createGraphicsAlgorithm(featureShape, getDiagram(), feature);
-        gaService.setLocation(featureGa,  0,  labelSize.getHeight());
+        gaService.setLocation(featureGa, 0, labelSize.getHeight());
                 
 		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds				
         final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
@@ -76,6 +84,36 @@ public class TypeFeaturePattern extends AgePattern {
         // Set size as appropriate
         gaService.setLocationAndSize(ga, x, y, Math.max(getWidth(label), getWidth(featureShape.getGraphicsAlgorithm())), 
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
+	}
+	
+	@Override
+	protected void updateAnchors(final ContainerShape container) {
+		super.updateAnchors(container);
+
+		final GraphicsAlgorithm featureGa = getFeatureShape(container).getGraphicsAlgorithm();
+		final int connectorX = featureGa.getX() + (featureGa.getWidth() / 2);
+		final int connectorY = featureGa.getY() + (featureGa.getHeight() / 2);
+		
+		// Create anchors
+		// Connector
+		// TODO: Determine position of anchors based on position of feature in the diagram/parent
+		AnchorUtil.createOrUpdateFixPointAnchor(container, connectorAnchorName, connectorX, connectorY); 
+		AnchorUtil.createOrUpdateFixPointAnchor(container, sourceAnchorName, connectorX - 50, connectorY);
+		AnchorUtil.createOrUpdateFixPointAnchor(container, sinkAnchorName, connectorX + 50, connectorY);
+	}
+
+	public Shape getFeatureShape(final ContainerShape container) {
+		return getChildShapeByName(container, featureShapeName);
+	}
+	
+	private Shape getChildShapeByName(final ContainerShape container, final String name) {
+		for(final Shape shape : container.getChildren()) {
+			if(name.equals(PropertyUtil.getName(shape))) {
+				return shape;
+			}
+		}
+		
+		return null;
 	}
 	
 	private int getWidth(final GraphicsAlgorithm ga) {

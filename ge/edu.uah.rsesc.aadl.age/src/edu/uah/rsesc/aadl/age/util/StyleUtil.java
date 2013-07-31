@@ -85,12 +85,20 @@ public class StyleUtil {
 		return getStyle(diagram, "implements");
     }
 	
+	public static Style getFlowSpecificationStyle(final Diagram diagram) {
+		return getStyle(diagram, "flow_specification");
+    }
+	
 	public static Style getExtendsStyle(final Diagram diagram) {
 		return getStyle(diagram, "extends");
     }	
 	
 	public static Style getGeneralizationArrowHeadStyle(final Diagram diagram) {
 		return getStyle(diagram, "generalization-arrowhead");
+    }
+	
+	public static Style getFlowSpecificationArrowHeadStyle(final Diagram diagram) {
+		return getStyle(diagram, "flow_specification-arrowhead");
     }
 	
 	public static Style getLabelStyle(final Diagram diagram) {

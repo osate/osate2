@@ -8,11 +8,13 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.TypeUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeFeaturePattern;
+import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeFlowSpecificationConnectionPattern;
 
 public class TypeFeatureProvider extends AgeFeatureProvider {
 	public TypeFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
 		this.addPattern(new TypeFeaturePattern());
+		this.addConnectionPattern(new TypeFlowSpecificationConnectionPattern());
 	}
 
 	@Override

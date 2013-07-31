@@ -16,6 +16,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Element;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 
 /**
  * Base class for all shape patterns for AGE. Contains logic shared between all shape patterns.
@@ -23,6 +24,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
  *
  */
 public abstract class AgePattern extends AbstractPattern implements IPattern, ICustomUndoablePattern {
+	public static final String chopboxAnchorName = "chopbox";
+	
 	public AgePattern() {
 		super(null);
 	}
@@ -85,14 +88,18 @@ public abstract class AgePattern extends AbstractPattern implements IPattern, IC
 
 		// Create the GA and inner Shape
         createGaAndInnerShapes(container, element, context.getX(), context.getY());
-        
-        // Create anchor
-        // TODO: Reevaluate when to create an anchor, etc. Delegate to child classes?
-        peCreateService.createChopboxAnchor(container);
-        
-        this.setShapeProperties(container, element);
+        updateAnchors(container);
+        setShapeProperties(container, element);
         
         return container;
+	}
+	
+	/**
+	 * Creates anchors. If they already exist, then they are updated.
+	 * @param container
+	 */
+	protected void updateAnchors(final ContainerShape container) {
+		AnchorUtil.createOrUpdateChopboxAnchor(container, chopboxAnchorName);
 	}
 	
 	@Override
@@ -109,6 +116,8 @@ public abstract class AgePattern extends AbstractPattern implements IPattern, IC
 			
 			// Recreate the child shapes and the graphics algorithm for the shape
 			createGaAndInnerShapes((ContainerShape)pe, bo, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());
+			
+			updateAnchors(container);
 			
 			setShapeProperties(container, bo);
 		}

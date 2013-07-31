@@ -43,6 +43,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.Log;
 
@@ -89,7 +90,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		removeInvalidGeneralizations(diagram);
 		
 		// Prune Invalid Shapes
-		UpdateHelper.removeShapesWithoutBusinessObjects(diagram, getFeatureProvider());
+		UpdateHelper.removeInvalidShapes(diagram, getFeatureProvider());
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();
@@ -268,33 +269,10 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private void updateGeneralization(final Diagram diagram, final Generalization generalization) {
 		final PictogramElement pe = this.getFeatureProvider().getPictogramElementForBusinessObject(generalization);
 		if(pe == null) {
-			final IPeService peService = Graphiti.getPeService();
-			
-			final Classifier generalClassifier = generalization.getGeneral();
-			final Classifier specificClassifier = generalization.getSpecific();
-
-			// Get the pictogram objects for them
-			final PictogramElement generalPictogramEl = this.getFeatureProvider().getPictogramElementForBusinessObject(generalClassifier);
-			final PictogramElement specificPictogramEl = this.getFeatureProvider().getPictogramElementForBusinessObject(specificClassifier);
-			
-			if(generalPictogramEl == null) {
-				throw new RuntimeException("Unhandled case, referenced general classifier is not in diagram. " + generalClassifier.getQualifiedName());
-			}
-			
-			if(specificPictogramEl == null) {
-				throw new RuntimeException("Unhandled case, referenced specific classifier is not in diagram. " + specificClassifier.getQualifiedName());
-			}
-	
-			// Get anchors
-			final Anchor generalAnchor = peService.getChopboxAnchor((AnchorContainer)generalPictogramEl);
-			final Anchor specificAnchor = peService.getChopboxAnchor((AnchorContainer)specificPictogramEl);
-			
-			if(generalAnchor == null || specificAnchor == null) {
-				throw new RuntimeException("Unhandled case. Unable to get chopbox anchor for pictogram elements");
-			}
+			final Anchor[] anchors = AnchorUtil.getAnchorsForGeneralization(generalization, getFeatureProvider());
 	
 			// Call the add connection feature					
-			final AddConnectionContext addContext = new AddConnectionContext(generalAnchor, specificAnchor);
+			final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
 			addContext.setNewObject(new AadlElementWrapper(generalization));
 			addContext.setTargetContainer(diagram);
 			
