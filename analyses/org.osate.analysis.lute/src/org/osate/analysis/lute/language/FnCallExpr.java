@@ -487,7 +487,7 @@ public class FnCallExpr extends Expr {
 			if (nv.getNamedValue() instanceof EnumerationLiteral)
 			{
 				EnumerationLiteral el = (EnumerationLiteral) nv.getNamedValue();
-				return new StringVal (el.getName());
+				return new StringVal (el.getName().toLowerCase());
 			}
 			throw new LuteException("NamedValue not implemented now " + nv );
 		}
