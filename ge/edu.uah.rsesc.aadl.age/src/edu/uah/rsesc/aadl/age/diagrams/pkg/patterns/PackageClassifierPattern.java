@@ -36,11 +36,12 @@ import org.osate.aadl2.VirtualBusClassifier;
 import org.osate.aadl2.VirtualProcessorClassifier;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeLeafShapePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 
-public class PackageClassifierPattern extends AgePattern {
+public class PackageClassifierPattern extends AgeLeafShapePattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Classifier;

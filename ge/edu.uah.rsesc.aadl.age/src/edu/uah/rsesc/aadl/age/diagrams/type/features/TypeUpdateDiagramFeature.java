@@ -12,9 +12,13 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Feature;
@@ -23,6 +27,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.Log;
 
@@ -57,110 +62,32 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		final Classifier classifier = getClassifier(context);
 	//	System.out.println(classifier);
 
-		final Diagram diagram = getDiagram();
-		
-		System.out.println("UPDATING");
-		
+		final Diagram diagram = getDiagram();	
 		// TODO: Easier to put the features on the sides?
-		// How to snap?
-		/*
-		// TODO: Update graphics for the classifier
-		// TODO: Size
-		IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		final ContainerShape container = peCreateService.createContainerShape(diagram, true);
-		final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createGraphicsAlgorithm(container, diagram, classifier, 1000, 1000);
-		Graphiti.getGaLayoutService().setLocation(ga, 0, 0);
-		ga.setFilled(false);
-		*/
+		// How to snap?		
 		
 		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
 		diagram.getStyles().clear();	
 				
 		// Remove shapes that are invalid
 		UpdateHelper.removeInvalidShapes(diagram, getFeatureProvider());
-		
-		// TODO: Remove invalid connections
-		// BO not valid.
-		// Anchors invalid
-		// etc
-		
-		// Create/Update Shapes	
-		// TODO: Ensure flow specifications are not created here... only shape features..
-		int y = 50;
-		for(final NamedElement el : classifier.getOwnedMembers()) {
-			//if(el instanceof Feature || (el instanceof FlowSpecification && (((FlowSpecification)el).getKind() == FlowKind.SOURCE || ((FlowSpecification)el).getKind() == FlowKind.SINK))) {
-			if(el instanceof Feature) {
-				final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
-				if(pictogramElement == null) {
-					final AddContext addContext = new AddContext();
-					addContext.setNewObject(new AadlElementWrapper(el));
-					addContext.setTargetContainer(diagram);
-					addContext.setX(0);
-					addContext.setY(y);
-					final IAddFeature feature = this.getFeatureProvider().getAddFeature(addContext);
-					if(feature != null && feature.canAdd(addContext)) {
-						feature.execute(addContext);
-						y += 50;
-					}
-				} else {
-					// TODO: Don't allow updating of connections!
-					
-					final UpdateContext updateContext = new UpdateContext(pictogramElement);
-					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-					
-					// Update the classifier regardless of whether it is "needed" or not.
-					if(updateFeature.canUpdate(updateContext)) {
-						updateFeature.update(updateContext);
-					}
-				}
-			} else { // TODO: Remove
-				//fs.getKind() == FlowKind.PATH
-				//System.out.println("UNHANDLED: " + el);
+
+		// Add/Update the shape for the classifier
+		{
+			final AddContext addContext = new AddContext();
+			addContext.setNewObject(new AadlElementWrapper(classifier));
+			addContext.setTargetContainer(diagram);
+			addContext.setX(50);
+			addContext.setY(20);
+			addContext.setWidth(500);
+			addContext.setHeight(500);
+			final IAddFeature feature = this.getFeatureProvider().getAddFeature(addContext);
+			if(feature != null && feature.canAdd(addContext)) {
+				feature.execute(addContext);
 			}
+			// TODO: Handle update instead of always adding
 		}
-		
-		// Create/Update Connections
-		for(final NamedElement el : classifier.getOwnedMembers()) {
-			if(el instanceof FlowSpecification) {
-				final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
-				if(pictogramElement == null) {					
-					final FlowSpecification fs = (FlowSpecification)el;
-					final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, getFeatureProvider());
-					
-					if(anchors != null) {
-						final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-						addContext.setNewObject(new AadlElementWrapper(fs));
-						addContext.setTargetContainer(diagram);
-						
-						final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
-						if(addFeature.canAdd(addContext)) {
-							addFeature.add(addContext);
-						}
-					}
-				} else {
-					final UpdateContext updateContext = new UpdateContext(pictogramElement);
-					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-					
-					// Update the classifier regardless of whether it is "needed" or not.
-					if(updateFeature.canUpdate(updateContext)) {
-						updateFeature.update(updateContext);
-					}
-				}
-			}
-		}		
-		
-		// Features
-		// Bus/Data Access
-		// In/Out/In Out Ports
-		// Feature Groups
-		// Arrays
-				
-		// Flow sources
-		// Flow Sinks
-		// Flow Paths
-		// Prototypes
-		// Refinements
-		
+
 		return false;
 	}
 

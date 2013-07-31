@@ -26,12 +26,12 @@ public class AnchorUtil {
 	public static Anchor getAnchorByName(final PictogramElement pe, final String name) {
 		if(pe instanceof AnchorContainer) {
 			for(final Anchor anchor : ((AnchorContainer)pe).getAnchors()) {
-				if(PropertyUtil.getName(anchor).equals(name)) {
+				if(name.equals(PropertyUtil.getName(anchor))) {
 					return anchor;
 				}
 			}	
 		}
-	
+
 		return null;
 	}
 	

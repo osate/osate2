@@ -3,6 +3,7 @@ package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
@@ -17,6 +18,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Feature;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeLeafShapePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
@@ -27,7 +29,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
  * Note: Child shapes are recreated during updates so they should not be referenced.
  * @author philip.alldredge
  */
-public class TypeFeaturePattern extends AgePattern {
+public class TypeFeaturePattern extends AgeLeafShapePattern {
 	private static final String featureShapeName = "feature";	
 	public static final String connectorAnchorName = "connector";
 	public static final String sourceAnchorName = "source";
@@ -41,9 +43,11 @@ public class TypeFeaturePattern extends AgePattern {
 	@Override
 	public boolean canAdd(final IAddContext context) {
 		if(isMainBusinessObjectApplicable(context.getNewObject())) {
-			if(context.getTargetContainer() instanceof Diagram) {
+			// TODO: Check if the target container is the root classifier
+			return true;
+			/*if(context.getTargetContainer() instanceof Diagram) {
 				return true;
-			}
+			}*/
 		}
 		
 		return false;
@@ -52,6 +56,20 @@ public class TypeFeaturePattern extends AgePattern {
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext ctx) {
 		return false;
+	}
+	
+	@Override
+	protected void preMoveShape(final IMoveShapeContext context) {
+		super.preMoveShape(context);
+		
+		System.out.println("PREMOVE");
+		System.out.println(context.getTargetContainer().getGraphicsAlgorithm().getWidth());
+		System.out.println(context.getX());
+		
+		
+		// TODO: Need to get width of the diagram. Since it expands there may not really be one...
+		// May need a shape and a GA for the shape being edited
+		
 	}
 
 	@Override
@@ -74,7 +92,7 @@ public class TypeFeaturePattern extends AgePattern {
 		// Create symbol
         final Shape featureShape = peCreateService.createShape(container, false);
         PropertyUtil.setName(featureShape, featureShapeName);
-        final GraphicsAlgorithm featureGa = GraphicsAlgorithmCreator.createGraphicsAlgorithm(featureShape, getDiagram(), feature);
+        final GraphicsAlgorithm featureGa = GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature);
         gaService.setLocation(featureGa, 0, labelSize.getHeight());
                 
 		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds				

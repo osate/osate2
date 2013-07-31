@@ -87,10 +87,27 @@ public class GraphicsAlgorithmCreator {
         return ga;
 	}
 	
-	public static GraphicsAlgorithm createGraphicsAlgorithm(final Shape container, final Diagram diagram, final Feature feature) {
+	public static GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape container, final Diagram diagram, final Feature feature) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
         gaService.setSize(ga, 10, 10);
+        
+        // TODO: Implement graphics for various cases.
+        // TODO: The shape will depend on where the feature is located in relation to it's parent. (Which side)
+        
+        //System.out.println(feature);
+        
+        // Abstract Feature
+        // In Abstract Feature
+        // Out Abstract Feature
+        // In Data Port
+        // In Event Port
+        // In Event Data Port
+        // Out Data Port
+        // Out Event Port
+        // out Event Data Port
+        // Provides Bus Access
+        // Requires Bus Access
         
 		return ga;
 	}
