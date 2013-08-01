@@ -106,8 +106,10 @@ public class GraphicsAlgorithmCreator {
         // Out Data Port
         // Out Event Port
         // out Event Data Port
-        // Provides Bus Access
-        // Requires Bus Access
+        // Provides Bus/Data Access
+        // Requires Bus/Data Access
+        // Provides Subprogram Access
+        // Requires Subprogram Access
         
 		return ga;
 	}

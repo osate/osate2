@@ -3,14 +3,15 @@ package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -19,7 +20,6 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Feature;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeLeafShapePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
@@ -62,18 +62,47 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	protected void preMoveShape(final IMoveShapeContext context) {
 		super.preMoveShape(context);
 		
-		System.out.println("PREMOVE");
-		System.out.println(context.getTargetContainer().getGraphicsAlgorithm().getWidth());
-		System.out.println(context.getX());
+		final Shape shape = context.getShape();
+		final int containerWidth = shape.getContainer().getGraphicsAlgorithm().getWidth();
+		final boolean isLeft = context.getX() < containerWidth/2;
+		final MoveShapeContext mutableContext = (MoveShapeContext)context;
+		mutableContext.setX(isLeft ? 0 : containerWidth-shape.getGraphicsAlgorithm().getWidth());
 		
-		
-		// TODO: Need to get width of the diagram. Since it expands there may not really be one...
-		// May need a shape and a GA for the shape being edited
-		
+		//super.layout(context)
+	}
+
+	@Override 
+	protected void postMoveShape(final IMoveShapeContext context) {
+		super.postMoveShape(context);
+		final ContainerShape shape = (ContainerShape)context.getShape();
+		layout(shape);
+		updateAnchors(shape);
 	}
 
 	@Override
-	protected void createGaAndInnerShapes(final ContainerShape container, final Object bo, int x, int y) {
+	public boolean canLayout(final ILayoutContext context) {
+		return isPatternControlled(context.getPictogramElement());
+	}
+	
+	@Override
+	public boolean layout(final ILayoutContext context) {
+		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
+		layout(shape);
+		
+		return false;
+	}
+	
+	private void layout(final ContainerShape shape) {
+		final GraphicsAlgorithm containerGa = shape.getContainer().getGraphicsAlgorithm();
+		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+		final Shape featureShape = getFeatureShape(shape);
+		final GraphicsAlgorithm featureGa = featureShape.getGraphicsAlgorithm();
+		final boolean isLeft = shapeGa.getX() < containerGa.getWidth()/2;
+		featureGa.setX(isLeft ? 0 : shapeGa.getWidth()-featureGa.getWidth());
+	}
+	
+	@Override
+	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {
 		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
@@ -82,7 +111,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
         final String labelTxt = getLabelText(feature);
         
 		// Create label
-        final Shape labelShape = peCreateService.createShape(container, false);
+        final Shape labelShape = peCreateService.createShape(shape, false);
         final Text label = GraphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
         
         // Set the size        
@@ -90,34 +119,38 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		gaService.setLocationAndSize(label, 0, 0, labelSize.getWidth(), labelSize.getHeight());
 		
 		// Create symbol
-        final Shape featureShape = peCreateService.createShape(container, false);
+        final Shape featureShape = peCreateService.createShape(shape, false);
         PropertyUtil.setName(featureShape, featureShapeName);
         final GraphicsAlgorithm featureGa = GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature);
         gaService.setLocation(featureGa, 0, labelSize.getHeight());
                 
 		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds				
-        final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
+        final GraphicsAlgorithm ga = gaService.createPlainRectangle(shape);
         ga.setTransparency(1.0);
 
         // Set size as appropriate
         gaService.setLocationAndSize(ga, x, y, Math.max(getWidth(label), getWidth(featureShape.getGraphicsAlgorithm())), 
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
+        
+        layout(shape);
 	}
 	
 	@Override
-	protected void updateAnchors(final ContainerShape container) {
-		super.updateAnchors(container);
+	protected void updateAnchors(final ContainerShape shape) {
+		super.updateAnchors(shape);
 
-		final GraphicsAlgorithm featureGa = getFeatureShape(container).getGraphicsAlgorithm();
+		final GraphicsAlgorithm featureGa = getFeatureShape(shape).getGraphicsAlgorithm();		
+		final boolean isLeft = shape.getGraphicsAlgorithm().getX() < shape.getContainer().getGraphicsAlgorithm().getWidth()/2;
 		final int connectorX = featureGa.getX() + (featureGa.getWidth() / 2);
 		final int connectorY = featureGa.getY() + (featureGa.getHeight() / 2);
+		final int sourceOffset = isLeft ? 50 : -50;
+		final int sinkOffset = isLeft ? -50 : 50;
 		
 		// Create anchors
 		// Connector
-		// TODO: Determine position of anchors based on position of feature in the diagram/parent
-		AnchorUtil.createOrUpdateFixPointAnchor(container, connectorAnchorName, connectorX, connectorY); 
-		AnchorUtil.createOrUpdateFixPointAnchor(container, sourceAnchorName, connectorX - 50, connectorY);
-		AnchorUtil.createOrUpdateFixPointAnchor(container, sinkAnchorName, connectorX + 50, connectorY);
+		AnchorUtil.createOrUpdateFixPointAnchor(shape, connectorAnchorName, connectorX, connectorY); 
+		AnchorUtil.createOrUpdateFixPointAnchor(shape, sourceAnchorName, connectorX + sourceOffset, connectorY);
+		AnchorUtil.createOrUpdateFixPointAnchor(shape, sinkAnchorName, connectorX + sinkOffset, connectorY);
 	}
 
 	public Shape getFeatureShape(final ContainerShape container) {

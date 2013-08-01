@@ -1,6 +1,5 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -11,7 +10,6 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -26,7 +24,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Update styles, etc
-public class TypeFlowSpecificationConnectionPattern  extends AgeConnectionPattern {
+public class TypeFlowSpecificationConnectionPattern extends AgeConnectionPattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof FlowSpecification;
@@ -94,6 +92,7 @@ public class TypeFlowSpecificationConnectionPattern  extends AgeConnectionPatter
 	    		0, 8,
 	    		0, -8});
 	    ga.setStyle(style);
+
 	    return ga;
 	}
 	

@@ -37,7 +37,6 @@ import org.osate.aadl2.VirtualProcessorClassifier;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeLeafShapePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 
@@ -58,7 +57,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	}
 	
 	@Override
-	protected void createGaAndInnerShapes(final ContainerShape container, final Object bo, int x, int y) {
+	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {
 		final Classifier classifier = (Classifier)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
@@ -67,7 +66,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
         final String labelTxt = getLabelText(classifier);
         
 		// Create label
-        final Shape labelShape = peCreateService.createShape(container, false);
+        final Shape labelShape = peCreateService.createShape(shape, false);
         final Text text = GraphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
         
         // Set the size        
@@ -76,7 +75,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		gaService.setLocationAndSize(text, 0, 0, width, 20);
 				
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, getDiagram(), classifier, width, height);        
+        final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, width, height);        
         gaService.setLocation(ga, x, y);
 	}
 
@@ -145,9 +144,9 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	}
 	
 	@Override
-	public void setShapeProperties(final ContainerShape container, final Object bo) {
+	public void setShapeProperties(final ContainerShape shape, final Object bo) {
 		// Update the type name property
-		PropertyUtil.setTypeName(container, getClassifierTypeName((Classifier)bo));
+		PropertyUtil.setTypeName(shape, getClassifierTypeName((Classifier)bo));
 	}
 	
 	private Shape getLabelShape(final ContainerShape cs) {
