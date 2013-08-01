@@ -12,7 +12,6 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
@@ -23,6 +22,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.dialogs.FilteredTree;
+import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.NamedElement;
@@ -39,7 +40,7 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 	private final PropertyDefinitionSelectionChangedListener listener;
 	private final ISerializer serializer;
 	
-	private TreeViewer definitionsViewer = null;
+	private FilteredTree definitionsTree = null;
 	
 	public PropertyDefinitionWizardPage(NamedElement holder, ISerializer serializer, PropertyDefinitionSelectionChangedListener listener) {
 		super("Property Definition Wizard Page");
@@ -55,9 +56,25 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 		
-		definitionsViewer = new TreeViewer(composite, SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION);
-		definitionsViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		Tree tree = definitionsViewer.getTree();
+		definitionsTree = new FilteredTree(composite, SWT.SINGLE | SWT.BORDER | SWT.FULL_SELECTION, new PatternFilter()
+		{
+			@Override
+			public boolean isElementSelectable(Object element)
+			{
+				return element instanceof Property;
+			}
+			
+			@Override
+			protected boolean isLeafMatch(Viewer viewer, Object element)
+			{
+				if (element instanceof Property)
+					return wordMatches(((Property)element).getName().replaceAll("_", " "));
+				else
+					return false;
+			}
+		}, true);
+		definitionsTree.getViewer().getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		Tree tree = definitionsTree.getViewer().getTree();
 		TableLayout tableLayout = new TableLayout();
 		tree.setLayout(tableLayout);
 		tree.setLinesVisible(true);
@@ -71,7 +88,7 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 		column.setText(COLUMN_PROPERTY_TYPE);
 		tableLayout.addColumnData(new ColumnWeightData(1, true));
 		
-		definitionsViewer.setContentProvider(new ITreeContentProvider() {
+		definitionsTree.getViewer().setContentProvider(new ITreeContentProvider() {
 			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			}
@@ -89,7 +106,7 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 			@Override
 			public Object getParent(Object element) {
 				if (element instanceof PropertySet)
-					return definitionsViewer.getInput();
+					return definitionsTree.getViewer().getInput();
 				else if (element instanceof Property)
 					return ((Property)element).eContainer();
 				else
@@ -124,7 +141,7 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 					return null;
 			}
 		});
-		definitionsViewer.setLabelProvider(new ITableLabelProvider() {
+		definitionsTree.getViewer().setLabelProvider(new ITableLabelProvider() {
 			@Override
 			public void removeListener(ILabelProviderListener listener) {
 			}
@@ -164,7 +181,7 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 				return null;
 			}
 		});
-		definitionsViewer.setSorter(new ViewerSorter() {
+		definitionsTree.getViewer().setSorter(new ViewerSorter() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public int compare(Viewer viewer, Object e1, Object e2) {
@@ -172,11 +189,11 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 				return getComparator().compare(((NamedElement)e1).getName(), ((NamedElement)e2).getName());
 			}
 		});
-		definitionsViewer.setInput(EMFIndexRetrieval.getAllPropertySetsInWorkspace(holder));
-		definitionsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+		definitionsTree.getViewer().setInput(EMFIndexRetrieval.getAllPropertySetsInWorkspace(holder));
+		definitionsTree.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				Object selectedElement = ((IStructuredSelection)definitionsViewer.getSelection()).getFirstElement();
+				Object selectedElement = ((IStructuredSelection)definitionsTree.getViewer().getSelection()).getFirstElement();
 				if (selectedElement instanceof Property) {
 					setPageComplete(true);
 					listener.propertyDefinitionSelectionChanged();
@@ -186,12 +203,12 @@ public class PropertyDefinitionWizardPage extends WizardPage {
 			}
 		});
 		
-		setPageComplete(((IStructuredSelection)definitionsViewer.getSelection()).getFirstElement() instanceof Property);
+		setPageComplete(((IStructuredSelection)definitionsTree.getViewer().getSelection()).getFirstElement() instanceof Property);
 		setControl(composite);
 	}
 	
 	public Property getSelectedDefinition() {
-		return (Property)((IStructuredSelection)definitionsViewer.getSelection()).getFirstElement();
+		return (Property)((IStructuredSelection)definitionsTree.getViewer().getSelection()).getFirstElement();
 	}
 	
 	//Used to determine if the PropertySet ps should be displayed in the tree.
