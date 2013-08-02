@@ -18,10 +18,12 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Feature;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeLeafShapePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 
 /**
@@ -67,14 +69,22 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		final boolean isLeft = context.getX() < containerWidth/2;
 		final MoveShapeContext mutableContext = (MoveShapeContext)context;
 		mutableContext.setX(isLeft ? 0 : containerWidth-shape.getGraphicsAlgorithm().getWidth());
-		
-		//super.layout(context)
 	}
 
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
 		super.postMoveShape(context);
 		final ContainerShape shape = (ContainerShape)context.getShape();
+		
+		// Recreate the graphics algorithm
+		final IGaService gaService = Graphiti.getGaService();
+		
+		// Recreate the graphics algorithm
+		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
+		final int x = shape.getGraphicsAlgorithm().getX();
+		final int y = shape.getGraphicsAlgorithm().getY();
+		createGaAndInnerShapes(shape, bo, x, y);
+		
 		layout(shape);
 		updateAnchors(shape);
 	}
@@ -93,11 +103,10 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	private void layout(final ContainerShape shape) {
-		final GraphicsAlgorithm containerGa = shape.getContainer().getGraphicsAlgorithm();
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		final Shape featureShape = getFeatureShape(shape);
 		final GraphicsAlgorithm featureGa = featureShape.getGraphicsAlgorithm();
-		final boolean isLeft = shapeGa.getX() < containerGa.getWidth()/2;
+		final boolean isLeft = isLeft(shape);
 		featureGa.setX(isLeft ? 0 : shapeGa.getWidth()-featureGa.getWidth());
 	}
 	
@@ -107,8 +116,16 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
+		// Remove child shapes
+		shape.getChildren().clear();
+					
+		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds	of the child shapes			
+        final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
+        gaService.setLocation(ga, x, y);
+        final boolean isLeft = isLeft(shape);
+        
 		// Determine the label text
-        final String labelTxt = getLabelText(feature);
+        final String labelTxt = getLabelText(feature);        
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
@@ -116,22 +133,23 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
         
         // Set the size        
         final IDimension labelSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, label.getStyle().getFont());
-		gaService.setLocationAndSize(label, 0, 0, labelSize.getWidth(), labelSize.getHeight());
-		
+		gaService.setLocationAndSize(label, 0, 0, labelSize.getWidth(), labelSize.getHeight());		
+        
 		// Create symbol
         final Shape featureShape = peCreateService.createShape(shape, false);
         PropertyUtil.setName(featureShape, featureShapeName);
         final GraphicsAlgorithm featureGa = GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature);
+        if(!isLeft) {
+    		GraphicsAlgorithmUtil.mirror(featureGa);
+        }
         gaService.setLocation(featureGa, 0, labelSize.getHeight());
                 
-		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds				
-        final GraphicsAlgorithm ga = gaService.createPlainRectangle(shape);
-        ga.setTransparency(1.0);
+		
 
         // Set size as appropriate
-        gaService.setLocationAndSize(ga, x, y, Math.max(getWidth(label), getWidth(featureShape.getGraphicsAlgorithm())), 
+        gaService.setSize(ga, Math.max(getWidth(label), getWidth(featureShape.getGraphicsAlgorithm())), 
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
-        
+
         layout(shape);
 	}
 	
@@ -140,7 +158,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		super.updateAnchors(shape);
 
 		final GraphicsAlgorithm featureGa = getFeatureShape(shape).getGraphicsAlgorithm();		
-		final boolean isLeft = shape.getGraphicsAlgorithm().getX() < shape.getContainer().getGraphicsAlgorithm().getWidth()/2;
+		final boolean isLeft = isLeft(shape);
 		final int connectorX = featureGa.getX() + (featureGa.getWidth() / 2);
 		final int connectorY = featureGa.getY() + (featureGa.getHeight() / 2);
 		final int sourceOffset = isLeft ? 50 : -50;
@@ -183,4 +201,9 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	public IReason updateNeeded(final IUpdateContext context) {
 		return Reason.createFalseReason();
 	}
+	
+	private boolean isLeft(final ContainerShape shape) {
+		return shape.getGraphicsAlgorithm().getX() < shape.getContainer().getGraphicsAlgorithm().getWidth()/2;
+	}
+	
 }

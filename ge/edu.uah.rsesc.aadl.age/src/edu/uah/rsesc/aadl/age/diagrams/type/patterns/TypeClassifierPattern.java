@@ -1,5 +1,10 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -11,6 +16,7 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -21,12 +27,15 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 /**
  * A pattern that controls the type shape that contains all the other shapes in the type diagram
@@ -80,15 +89,15 @@ public class TypeClassifierPattern extends AgePattern {
         
         return container;
 	}
-	
-	private void refresh(final ContainerShape container, final Classifier classifier) {
-		// TODO: Remove invalid connections
-		// BO not valid.
-		// Anchors invalid
-		// etc
+
+	private void refresh(final ContainerShape shape, final Classifier classifier) {
+		// Remove invalid flow specifications from the diagram
+		removeInvalidFlowSpecifications(getDiagram());
+		
+		// Remove invalid features
+		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
 		
 		// Create/Update Shapes	
-		// TODO: Ensure flow specifications are not created here... only shape features..
 		int y = 25;
 		for(final NamedElement el : classifier.getOwnedMembers()) {
 			if(el instanceof Feature) {
@@ -96,17 +105,15 @@ public class TypeClassifierPattern extends AgePattern {
 				if(pictogramElement == null) {
 					final AddContext addContext = new AddContext();
 					addContext.setNewObject(new AadlElementWrapper(el));
-					addContext.setTargetContainer(container);
+					addContext.setTargetContainer(shape);
 					addContext.setX(0);
 					addContext.setY(y);
 					final IAddFeature feature = this.getFeatureProvider().getAddFeature(addContext);
 					if(feature != null && feature.canAdd(addContext)) {
-						feature.execute(addContext);
-						y += 30;
+						final PictogramElement pe = feature.add(addContext);
+						y += pe.getGraphicsAlgorithm().getHeight() + 5;
 					}
 				} else {
-					// TODO: Don't allow updating of connections!
-					
 					final UpdateContext updateContext = new UpdateContext(pictogramElement);
 					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
 					
@@ -115,66 +122,58 @@ public class TypeClassifierPattern extends AgePattern {
 						updateFeature.update(updateContext);
 					}
 				}
-			} else { // TODO: Remove
-				//fs.getKind() == FlowKind.PATH
-				//System.out.println("UNHANDLED: " + el);
 			}
 		}
 		
 		// Create/Update Connections
 		for(final NamedElement el : classifier.getOwnedMembers()) {
 			if(el instanceof FlowSpecification) {
-				final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
-				if(pictogramElement == null) {					
-					final FlowSpecification fs = (FlowSpecification)el;
-					final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, getFeatureProvider());
-					
-					if(anchors != null) {
-						final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-						addContext.setNewObject(new AadlElementWrapper(fs));
-						addContext.setTargetContainer(container);
+				final FlowSpecification fs = (FlowSpecification)el;
+
+				// Only show flow specifications that re not in any modes
+				if(fs.getAllInModes().size() == 0) {				
+					final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
+					if(pictogramElement == null) {			
+						final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, getFeatureProvider());
 						
-						final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
-						if(addFeature.canAdd(addContext)) {
-							addFeature.add(addContext);
+						if(anchors != null) {
+							final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
+							addContext.setNewObject(new AadlElementWrapper(fs));
+							addContext.setTargetContainer(shape);
+							
+							final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
+							if(addFeature.canAdd(addContext)) {
+								addFeature.add(addContext);
+							}
 						}
-					}
-				} else {
-					final UpdateContext updateContext = new UpdateContext(pictogramElement);
-					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-					
-					// Update the classifier regardless of whether it is "needed" or not.
-					if(updateFeature.canUpdate(updateContext)) {
-						updateFeature.update(updateContext);
+					} else {
+						final UpdateContext updateContext = new UpdateContext(pictogramElement);
+						final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
+						
+						// Update the classifier regardless of whether it is "needed" or not.
+						if(updateFeature.canUpdate(updateContext)) {
+							updateFeature.update(updateContext);
+						}
 					}
 				}
 			}
-		}		
+		}
 		
-		// Features
-		// Bus/Data Access
-		// In/Out/In Out Ports
-		// Feature Groups
-		// Arrays
-				
-		// Prototypes
-		// Refinements
-		
-		// TODO: Adjust size. Width and height
+		// Adjust size. Width and height
 		final IGaService gaService = Graphiti.getGaService();
-		GraphicsAlgorithm ga = container.getGraphicsAlgorithm();
+		GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		final int prevX = ga.getX();
 		final int prevY = ga.getY();
 		
-		// TODO: Calculate max height
+		// Calculate max height
 		int maxHeight = 300;
-		for(final Shape shape : container.getChildren()) {
-			final GraphicsAlgorithm childGa = shape.getGraphicsAlgorithm();
+		for(final Shape childShape : shape.getChildren()) {
+			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight());
 		}
 		
 		// Create a new graphics Algorithm
-		ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, getDiagram(), classifier, ga.getWidth(), maxHeight+25);        
+		ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, ga.getWidth(), maxHeight+25);        
         gaService.setLocation(ga, prevX, prevY);
 	}
 	
@@ -187,8 +186,36 @@ public class TypeClassifierPattern extends AgePattern {
 			this.refresh((ContainerShape)pe, classifier);
 		}
 		return true;
-	}
+	}	
 	
-	// TODO: Finish implementing
-	// TODO: Resize when children added.. Will update get called?
+	private void removeInvalidFlowSpecifications(final Diagram diagram) {
+		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
+		
+		for(final Connection connection : diagram.getConnections()) {
+			final Object bo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection));
+			boolean remove = false;
+			if(bo instanceof EObject) {
+				if(bo instanceof FlowSpecification) {
+					final FlowSpecification fs = (FlowSpecification)bo;
+					
+					// Remove the object if the flow specification is not available in all modes
+					if(fs.getAllInModes().size() != 0) {
+						remove = true;
+					}
+				}
+			} else {
+				// Remove the object if the business object was not an EObject
+				remove = true;
+			}
+			
+			if(remove) {
+				connectionsToRemove.add(connection);
+			}
+		}
+		
+		// Remove the connections
+		for(final Connection connection : connectionsToRemove) {
+			EcoreUtil.delete(connection, true);
+		}
+	}
 }

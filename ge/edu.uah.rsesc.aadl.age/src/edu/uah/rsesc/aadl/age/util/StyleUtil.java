@@ -104,4 +104,28 @@ public class StyleUtil {
 	public static Style getLabelStyle(final Diagram diagram) {
 		return getStyle(diagram, "label");
     }
+	
+	public static Style getFeatureStyle(final Diagram diagram) {
+		return getStyle(diagram, "feature");
+    }
+	
+	public static Style getSubprogramAccessStyle(final Diagram diagram) {
+		return getStyle(diagram, "subprogram_access");
+    }
+	
+	public static Style getSubprogramGroupAccessStyle(final Diagram diagram) {
+		return getStyle(diagram, "subprogram_group_access");
+    }
+	
+	public static Style getBackgroundStyle(final Diagram diagram) {
+		return getStyle(diagram, "background");
+    }
+	
+	public static Style getFeatureGroupLargeCircleStyle(final Diagram diagram) {
+		return getStyle(diagram, "feature_group_large_circle");
+    }
+	
+	public static Style getFeatureGroupSmallCircleStyle(final Diagram diagram) {
+		return getStyle(diagram, "feature_group_small_circle");
+    }
 }

@@ -35,6 +35,8 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
+// TODO: Implement a layout feature that will work for all diagram types. Need to take into account children(sometimes), "Cycles" caused by flow specification sources and sinks,
+
 // Taken from example linked from Graphiti FAQ
 // May be replaced with an improved implementation in the future
 /**
@@ -126,6 +128,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		for (Connection connection : connections) {
 			AnchorContainer source = connection.getStart().getParent();
 			AnchorContainer target = connection.getEnd().getParent();
+
 			Edge edge = new Edge(shapeToNode.get(source), shapeToNode.get(target));
 			edge.data = connection;
 			edgeList.add(edge);

@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -20,16 +21,16 @@ public class UpdateHelper {
 	 * @param diagram
 	 * @param fp
 	 */
-	public static void removeInvalidShapes(final Diagram diagram, final IFeatureProvider fp) {	
+	public static void removeInvalidShapes(final ContainerShape shape, final IFeatureProvider fp) {	
 		final List<Shape> shapesToRemove = new ArrayList<Shape>();		
-		for(final Shape shape : diagram.getChildren()) {
+		for(final Shape childShape : shape.getChildren()) {
 			// Check if the shape has a business object and can be updated
-			final Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(shape));
-			final UpdateContext updateContext = new UpdateContext(shape);
+			final Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(childShape));
+			final UpdateContext updateContext = new UpdateContext(childShape);
 			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
 			
 			if(bo == null || updateFeature == null || (updateFeature != null && !updateFeature.canUpdate(updateContext))) {
-				shapesToRemove.add(shape);
+				shapesToRemove.add(childShape);
 			} else {
 				EObject emfBusinesObject = (EObject)bo;
 				if(emfBusinesObject.eIsProxy()) {
@@ -37,13 +38,13 @@ public class UpdateHelper {
 				}
 	
 				if(emfBusinesObject.eIsProxy()) {
-					shapesToRemove.add(shape);
+					shapesToRemove.add(childShape);
 				}
 			}
 		}
 		
-		for(final Shape shape : shapesToRemove) {
-			EcoreUtil.delete(shape, true);			
+		for(final Shape childShape : shapesToRemove) {
+			EcoreUtil.delete(childShape, true);			
 		}
 	}
 }

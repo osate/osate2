@@ -1,5 +1,6 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -18,6 +19,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.FlowSpecification;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
@@ -116,11 +118,18 @@ public class TypeFlowSpecificationConnectionPattern extends AgeConnectionPattern
 
 		// Update anchors
 		final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, this.getFeatureProvider());
-		connection.setStart(anchors[0]);
-		connection.setEnd(anchors[1]);
-		
-		createGraphicsAlgorithm(connection);
-		createDecorators(connection, fs);
+		if(anchors == null) {
+			connection.setStart(null);
+			connection.setEnd(null);
+			EcoreUtil.remove(connection);
+		}
+		else {
+			connection.setStart(anchors[0]);
+			connection.setEnd(anchors[1]);
+			
+			createGraphicsAlgorithm(connection);
+			createDecorators(connection, fs);
+		}
 		
 		return true;
 	}

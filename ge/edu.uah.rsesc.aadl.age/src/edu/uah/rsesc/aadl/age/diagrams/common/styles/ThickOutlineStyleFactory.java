@@ -9,7 +9,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 
 import edu.uah.rsesc.aadl.age.styles.StyleFactory;
 
-public class FlowSpecificationStyleFactory implements StyleFactory {
+public class ThickOutlineStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
@@ -17,8 +17,9 @@ public class FlowSpecificationStyleFactory implements StyleFactory {
 		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
         style.setBackground(gaService.manageColor(diagram, IColorConstant.BLACK));
         style.setLineStyle(LineStyle.SOLID);
+        style.setFilled(false);
         style.setLineVisible(true);
-        style.setLineWidth(2);
+        style.setLineWidth(5);
 		return style;
 	}
 }

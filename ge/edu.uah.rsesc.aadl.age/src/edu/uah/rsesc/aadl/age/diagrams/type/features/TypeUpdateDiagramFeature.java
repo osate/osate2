@@ -4,15 +4,19 @@ import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
+import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.Log;
@@ -59,7 +63,8 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		UpdateHelper.removeInvalidShapes(diagram, getFeatureProvider());
 
 		// Add/Update the shape for the classifier
-		{
+		final PictogramElement pe = getFeatureProvider().getPictogramElementForBusinessObject(classifier);
+		if(pe == null) {
 			final AddContext addContext = new AddContext();
 			addContext.setNewObject(new AadlElementWrapper(classifier));
 			addContext.setTargetContainer(diagram);
@@ -71,7 +76,14 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 			if(feature != null && feature.canAdd(addContext)) {
 				feature.execute(addContext);
 			}
-			// TODO: Handle update instead of always adding
+		} else {
+			final UpdateContext updateContext = new UpdateContext(pe);
+			final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
+			
+			// Update the classifier regardless of whether it is "needed" or not.
+			if(updateFeature.canUpdate(updateContext)) {
+				updateFeature.update(updateContext);
+			}
 		}
 
 		return false;

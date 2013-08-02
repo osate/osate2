@@ -136,11 +136,17 @@
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FeatureGroupTypeStyleFactory" styleId="feature-group-type"/> 	
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ShadedStyleFactory" styleId="shadded"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ImplementsStyleFactory" styleId="implements"/>
- 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FlowSpecificationStyleFactory" styleId="flow_specification"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="flow_specification"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ExtendsStyleFactory" styleId="extends"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
- 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FlowSpecificationArrowheadStyleFactory" styleId="flow_specification-arrowhead"/>
- 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.LabelStyleFactory" styleId="label"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="flow_specification-arrowhead"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="feature"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.LabelStyleFactory" styleId="label"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ThickOutlineStyleFactory" styleId="feature_group_large_circle"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="feature_group_small_circle"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BackgroundStyleFactory" styleId="background"/>
  </extension>
  
  <extension

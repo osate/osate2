@@ -161,7 +161,7 @@ public class AnchorUtil {
 		}
 		
 		if(a1 == null || a2 == null) {
-			throw new RuntimeException("Unhandled case. Unable to get anchors");
+			return null;
 		}
 		
 		return new Anchor[] {a1, a2};

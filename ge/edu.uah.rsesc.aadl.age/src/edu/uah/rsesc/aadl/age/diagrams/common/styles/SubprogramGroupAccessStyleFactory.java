@@ -9,12 +9,12 @@ import org.eclipse.graphiti.util.IColorConstant;
 
 import edu.uah.rsesc.aadl.age.styles.StyleFactory;
 
-public class FlowSpecificationArrowheadStyleFactory implements StyleFactory {
+public class SubprogramGroupAccessStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Style style = gaService.createPlainStyle(diagram, styleId);
-		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+		style.setForeground(gaService.manageColor(diagram, IColorConstant.WHITE));
         style.setBackground(gaService.manageColor(diagram, IColorConstant.BLACK));
         style.setLineStyle(LineStyle.SOLID);
         style.setLineVisible(true);

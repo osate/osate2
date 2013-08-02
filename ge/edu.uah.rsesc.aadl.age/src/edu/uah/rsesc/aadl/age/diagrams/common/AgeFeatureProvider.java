@@ -1,5 +1,8 @@
 package edu.uah.rsesc.aadl.age.diagrams.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
@@ -18,7 +21,6 @@ import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.osate.aadl2.Element;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
@@ -40,10 +42,17 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	@Override
 	public ICustomFeature[] getCustomFeatures(final ICustomContext context) {
-		return new ICustomFeature[] { 
-				new LayoutDiagramFeature(this), 
-				new DrillDownFeature(this) 
-				};
+		final ArrayList<ICustomFeature> features = new ArrayList<ICustomFeature>();
+		addCustomFeatures(features);
+		return features.toArray(new ICustomFeature[] {});
+	}
+	
+	/**
+	 * Method used to additively build a list of custom features. Subclasses can override to add additional custom features while including those supported by parent classes.
+	 * @param features
+	 */
+	protected void addCustomFeatures(final List<ICustomFeature> features) {
+		features.add(new DrillDownFeature(this));
 	}
 	
 	@Override
