@@ -2298,7 +2298,7 @@ public class EMV2Util {
 	 */
 	public static EList<ContainedNamedElement> getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
 			Element localContext, Stack<ComponentInstance> ciStack, TypeSet ts){
-		if (props == null) return null;
+		if (props.isEmpty()  ) return null;
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
