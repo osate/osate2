@@ -4,24 +4,24 @@ package ErrorLibrary
 public
 annex EMV2 {**
 error types 
---CommonErrors: type set { ServiceRelatedError, TimingRelatedError, ValueRelatedError, ReplicationError, ConcurrencyError};
+CommonErrors: type set { ServiceError, TimingRelatedError, ValueRelatedError, ReplicationError, ConcurrencyError};
 --service related errors
 ServiceError: type;
 ItemOmission: type extends ServiceError; 
 ServiceOmission: type extends ServiceError;
 SequenceOmission: type extends ServiceError;
-BoundedOmissionSequence: type extends SequenceOmission; 
-TransientServiceOmission: type extends BoundedOmissionSequence;
-LateServiceStart: type extends BoundedOmissionSequence;
-EarlyServiceTermination: type extends BoundedOmissionSequence;
+TransientServiceOmission: type extends SequenceOmission;
+LateServiceStart: type extends SequenceOmission;
+EarlyServiceTermination: type extends SequenceOmission;
 BoundedOmissionInterval: type extends SequenceOmission; 
 ItemComission: type extends ServiceError; 
 ServiceCommission: type extends ServiceError;
-EarlyServiceStart: type extends ServiceError;
-LateServiceTermination: type extends ServiceError;
+SequenceCommission: type extends ServiceError;
+EarlyServiceStart: type extends SequenceCommission;
+LateServiceTermination: type extends SequenceCommission;
 
 --timing related errors
-TimingRelatedErrors: type set {ItemTimingError, SequenceTimingError, ServiceTimingError};
+TimingRelatedError: type set {ItemTimingError, SequenceTimingError, ServiceTimingError};
 -- Item timing errors
 ItemTimingError: type; 
 EarlyDelivery: type extends ItemTimingError; 
@@ -44,6 +44,8 @@ LateData renames type LowRate;
 ServiceTimeShift renames type ServiceTimingError;
  
 --value related errors
+ValueRelatedError: type set {ItemValueError, SequenceValueError, ServiceValueError};
+-- item value errors
 ItemValueError: type; 
 UndetectableValueError: type extends ItemValueError; 
 DetectableValueError: type extends ItemValueError; 
@@ -64,7 +66,7 @@ OutOfCalibration: type extends ServiceValueError;
 ValueError renames type ItemValueError;
 IncorrectValue renames type ItemValueError;
 ValueCorruption renames type ItemValueError;
-BadValue renames type UndetectableValueError;
+BadValue renames type ItemValueError;
 SequenceError renames type SequenceValueError;
 
 SubtleValueError renames type UndetectableValueError;
@@ -94,6 +96,8 @@ SymmetricServiceOmission: type extends SymmetricOmission;
 
 -- aliases for replication
 InconsistentValue renames type AsymmetricValue;
+InconsistentTiming renames type AsymmetricTiming;
+InconsistentOmission renames type AsymmetricOmission;
 InconsistentItemOmission renames type AsymmetricItemOmission;
 InconsistentServiceOmission renames type AsymmetricServiceOmission;
 AsymmetricTransmissive renames type AsymmetricValue;
