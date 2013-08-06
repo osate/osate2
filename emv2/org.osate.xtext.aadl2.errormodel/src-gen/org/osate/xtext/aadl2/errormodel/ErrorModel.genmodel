@@ -126,7 +126,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorEvent/condition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//RepairEvent">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//RepairEvent/condition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//RepairEvent/condition"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//RecoverEvent">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//RecoverEvent/condition"/>

@@ -3692,26 +3692,39 @@ ruleRepairEvent returns [EObject current=null]
     }
 (
 (
-		lv_condition_5_0=RULE_STRING
 		{
-			newLeafNode(lv_condition_5_0, grammarAccess.getRepairEventAccess().getConditionSTRINGTerminalRuleCall_4_1_0()); 
-		}
-		{
-	        if ($current==null) {
+			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getRepairEventRule());
 	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"condition",
-        		lv_condition_5_0, 
-        		"STRING");
-	    }
+        }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getRepairEventAccess().getConditionNamedElementCrossReference_4_1_0()); 
+	}
 
 )
-))?
-	otherlv_6=KEYWORD_10
+)(
+	otherlv_6=KEYWORD_6
     {
-    	newLeafNode(otherlv_6, grammarAccess.getRepairEventAccess().getSemicolonKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getRepairEventAccess().getCommaKeyword_4_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRepairEventRule());
+	        }
+        }
+	otherlv_7=RULE_ID
+	{
+		newLeafNode(otherlv_7, grammarAccess.getRepairEventAccess().getConditionNamedElementCrossReference_4_2_1_0()); 
+	}
+
+)
+))*)?
+	otherlv_8=KEYWORD_10
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getRepairEventAccess().getSemicolonKeyword_5());
     }
 )
 ;

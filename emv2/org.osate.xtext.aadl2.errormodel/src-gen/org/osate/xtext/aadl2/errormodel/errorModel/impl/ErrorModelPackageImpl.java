@@ -1449,9 +1449,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRepairEvent_Condition()
+  public EReference getRepairEvent_Condition()
   {
-    return (EAttribute)repairEventEClass.getEStructuralFeatures().get(0);
+    return (EReference)repairEventEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2416,7 +2416,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEAttribute(errorEventEClass, ERROR_EVENT__CONDITION);
 
     repairEventEClass = createEClass(REPAIR_EVENT);
-    createEAttribute(repairEventEClass, REPAIR_EVENT__CONDITION);
+    createEReference(repairEventEClass, REPAIR_EVENT__CONDITION);
 
     recoverEventEClass = createEClass(RECOVER_EVENT);
     createEReference(recoverEventEClass, RECOVER_EVENT__CONDITION);
@@ -2732,7 +2732,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEAttribute(getErrorEvent_Condition(), ecorePackage.getEString(), "condition", null, 0, 1, ErrorEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(repairEventEClass, RepairEvent.class, "RepairEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getRepairEvent_Condition(), ecorePackage.getEString(), "condition", null, 0, 1, RepairEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRepairEvent_Condition(), theAadl2Package.getNamedElement(), null, "condition", null, 0, -1, RepairEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(recoverEventEClass, RecoverEvent.class, "RecoverEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRecoverEvent_Condition(), theAadl2Package.getNamedElement(), null, "condition", null, 0, -1, RecoverEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

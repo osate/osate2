@@ -2864,16 +2864,21 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cWhenKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Assignment cConditionAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cConditionSTRINGTerminalRuleCall_4_1_0 = (RuleCall)cConditionAssignment_4_1.eContents().get(0);
+		private final CrossReference cConditionNamedElementCrossReference_4_1_0 = (CrossReference)cConditionAssignment_4_1.eContents().get(0);
+		private final RuleCall cConditionNamedElementIDTerminalRuleCall_4_1_0_1 = (RuleCall)cConditionNamedElementCrossReference_4_1_0.eContents().get(1);
+		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
+		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
+		private final Assignment cConditionAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
+		private final CrossReference cConditionNamedElementCrossReference_4_2_1_0 = (CrossReference)cConditionAssignment_4_2_1.eContents().get(0);
+		private final RuleCall cConditionNamedElementIDTerminalRuleCall_4_2_1_0_1 = (RuleCall)cConditionNamedElementCrossReference_4_2_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		////add repair initiator 
-		// RepairEvent:
+		//RepairEvent:
 		//
-		//	name=ID ":" "repair" "event" ("when" condition=STRING)? ";";
+		//	name=ID ":" "repair" "event" ("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "repair" "event" ("when" condition=STRING)? ";"
+		//name=ID ":" "repair" "event" ("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -2891,17 +2896,35 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"event"
 		public Keyword getEventKeyword_3() { return cEventKeyword_3; }
 
-		//("when" condition=STRING)?
+		//("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"when"
 		public Keyword getWhenKeyword_4_0() { return cWhenKeyword_4_0; }
 
-		//condition=STRING
+		//condition+=[aadl2::NamedElement]
 		public Assignment getConditionAssignment_4_1() { return cConditionAssignment_4_1; }
 
-		//STRING
-		public RuleCall getConditionSTRINGTerminalRuleCall_4_1_0() { return cConditionSTRINGTerminalRuleCall_4_1_0; }
+		//[aadl2::NamedElement]
+		public CrossReference getConditionNamedElementCrossReference_4_1_0() { return cConditionNamedElementCrossReference_4_1_0; }
+
+		//ID
+		public RuleCall getConditionNamedElementIDTerminalRuleCall_4_1_0_1() { return cConditionNamedElementIDTerminalRuleCall_4_1_0_1; }
+
+		//("," condition+=[aadl2::NamedElement])*
+		public Group getGroup_4_2() { return cGroup_4_2; }
+
+		//","
+		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
+
+		//condition+=[aadl2::NamedElement]
+		public Assignment getConditionAssignment_4_2_1() { return cConditionAssignment_4_2_1; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getConditionNamedElementCrossReference_4_2_1_0() { return cConditionNamedElementCrossReference_4_2_1_0; }
+
+		//ID
+		public RuleCall getConditionNamedElementIDTerminalRuleCall_4_2_1_0_1() { return cConditionNamedElementIDTerminalRuleCall_4_2_1_0_1; }
 
 		//";"
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
@@ -5279,10 +5302,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getErrorEventAccess().getRule();
 	}
 
-	////add repair initiator 
-	// RepairEvent:
+	//RepairEvent:
 	//
-	//	name=ID ":" "repair" "event" ("when" condition=STRING)? ";";
+	//	name=ID ":" "repair" "event" ("when" condition+=[aadl2::NamedElement] ("," condition+=[aadl2::NamedElement])*)? ";";
 	public RepairEventElements getRepairEventAccess() {
 		return (pRepairEvent != null) ? pRepairEvent : (pRepairEvent = new RepairEventElements());
 	}

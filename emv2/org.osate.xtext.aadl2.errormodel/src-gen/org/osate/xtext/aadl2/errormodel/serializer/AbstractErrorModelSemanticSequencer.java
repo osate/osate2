@@ -1031,7 +1031,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID condition=STRING?)
+	 *     (name=ID (condition+=[NamedElement|ID] condition+=[NamedElement|ID]*)?)
 	 */
 	protected void sequence_RepairEvent(EObject context, RepairEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

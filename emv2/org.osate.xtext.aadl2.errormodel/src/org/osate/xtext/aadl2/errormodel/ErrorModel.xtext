@@ -303,8 +303,10 @@ ErrorEvent returns ErrorEvent:
     
 RepairEvent returns RepairEvent:
     name=ID ':' 'repair' 'event' 
-    ('when' condition=STRING)?
-    ';'; //add repair initiator 
+    ('when' condition+=[aadl2::NamedElement|ID]
+    	( "," condition+=[aadl2::NamedElement|ID])*
+    )?
+    ';';  
     
 RecoverEvent returns RecoverEvent:
     name=ID ':' 'recover' 'event' 

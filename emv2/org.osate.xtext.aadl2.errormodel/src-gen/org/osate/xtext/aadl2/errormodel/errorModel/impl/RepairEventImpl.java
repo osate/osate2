@@ -2,11 +2,15 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.osate.aadl2.NamedElement;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
@@ -27,24 +31,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEvent
 {
   /**
-   * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected static final String CONDITION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCondition()
-   * @generated
-   * @ordered
-   */
-  protected String condition = CONDITION_EDEFAULT;
+  protected EList<NamedElement> condition;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,22 +66,13 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getCondition()
+  public EList<NamedElement> getCondition()
   {
+    if (condition == null)
+    {
+      condition = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ErrorModelPackage.REPAIR_EVENT__CONDITION);
+    }
     return condition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCondition(String newCondition)
-  {
-    String oldCondition = condition;
-    condition = newCondition;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.REPAIR_EVENT__CONDITION, oldCondition, condition));
   }
 
   /**
@@ -111,13 +96,15 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
       case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-        setCondition((String)newValue);
+        getCondition().clear();
+        getCondition().addAll((Collection<? extends NamedElement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -134,7 +121,7 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
     switch (featureID)
     {
       case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-        setCondition(CONDITION_EDEFAULT);
+        getCondition().clear();
         return;
     }
     super.eUnset(featureID);
@@ -151,26 +138,9 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
     switch (featureID)
     {
       case ErrorModelPackage.REPAIR_EVENT__CONDITION:
-        return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
+        return condition != null && !condition.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (condition: ");
-    result.append(condition);
-    result.append(')');
-    return result.toString();
   }
 
 } //RepairEventImpl

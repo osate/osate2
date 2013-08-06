@@ -2118,7 +2118,7 @@ public interface ErrorModelPackage extends EPackage
   int REPAIR_EVENT__OWNED_PROPERTY_ASSOCIATION = ERROR_BEHAVIOR_EVENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
-   * The feature id for the '<em><b>Condition</b></em>' attribute.
+   * The feature id for the '<em><b>Condition</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -4715,15 +4715,15 @@ public interface ErrorModelPackage extends EPackage
   EClass getRepairEvent();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent#getCondition <em>Condition</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent#getCondition <em>Condition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Condition</em>'.
+   * @return the meta object for the reference list '<em>Condition</em>'.
    * @see org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent#getCondition()
    * @see #getRepairEvent()
    * @generated
    */
-  EAttribute getRepairEvent_Condition();
+  EReference getRepairEvent_Condition();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent <em>Recover Event</em>}'.
@@ -6452,12 +6452,12 @@ public interface ErrorModelPackage extends EPackage
     EClass REPAIR_EVENT = eINSTANCE.getRepairEvent();
 
     /**
-     * The meta object literal for the '<em><b>Condition</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Condition</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute REPAIR_EVENT__CONDITION = eINSTANCE.getRepairEvent_Condition();
+    EReference REPAIR_EVENT__CONDITION = eINSTANCE.getRepairEvent_Condition();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RecoverEventImpl <em>Recover Event</em>}' class.
