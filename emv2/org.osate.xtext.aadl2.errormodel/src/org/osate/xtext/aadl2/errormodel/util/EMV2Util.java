@@ -17,6 +17,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ContainedNamedElement;
@@ -82,6 +83,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.AndExpressionImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class EMV2Util {
 	
@@ -117,6 +120,22 @@ public class EMV2Util {
 	 */
 	public static EList<ContainedNamedElement> getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
 		EList<ContainedNamedElement> result =  EMV2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
+		
+		if (result.size() == 0)
+		{
+			if ((ci.getComponentClassifier().getCategory() == ComponentCategory.PROCESS)||
+					(ci.getComponentClassifier().getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) ||
+					(ci.getComponentClassifier().getCategory() == ComponentCategory.SYSTEM))
+			{
+				List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding(ci);
+				ComponentInstance cpu = cpus.isEmpty() ? null : cpus.get(0);
+				if (cpu != null)
+				{
+					return getOccurenceDistributionProperty(cpu, localContext, target, ts);
+				}
+			}
+			
+		}
 		return result;
 	}
 	

@@ -50,6 +50,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -98,7 +99,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		TypeSet ts = conditionElement.getConstraint();
 
 		ComponentInstance relatedInstance = findInstance(root, conditionElement.getSubcomponents());
-		//OsateDebug.osateDebug("         instance " + relatedInstance);
+		OsateDebug.osateDebug("         instance " + relatedInstance);
 
 		if (relatedInstance != null && ! this.componentsNames.contains(relatedInstance))
 		{
@@ -108,7 +109,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		if (behaviorState != null)
 		{
 			//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-			EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,ts);
+			EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
 			//OsateDebug.osateDebug("         PA " + PA);
 			if (!PA.isEmpty()){
 				// XXX TODO handle values on subtypes (list > 1)
