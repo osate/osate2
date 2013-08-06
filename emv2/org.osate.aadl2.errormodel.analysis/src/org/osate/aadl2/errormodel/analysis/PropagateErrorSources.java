@@ -803,7 +803,7 @@ public class PropagateErrorSources {
 			}
 		}
 		if (!handled ){
-			String errorText = ","+generateFailureModeText(ci,ep,tt)+" [Effect without Target]";
+			String errorText = ","+generateFailureModeText(ci,ep,tt)+" [Failure Effect]";
 			reportEntry(entryText+errorText, depth);
 		}
 	}
