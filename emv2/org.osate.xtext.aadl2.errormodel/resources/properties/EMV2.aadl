@@ -57,7 +57,7 @@ DetectionMechanism : aadlstring
 -- Design faults are faults that could be eliminated at design time, but if present result in an error. 
 -- Operational faults are faults that inherently occur during operation and should be detected and managed during operation.
 FaultKind : EMV2::FaultKindEnum
-	  applies to ( {emv2}**error event, {emv2}**error propagation, {emv2}**error type, {emv2}**type set); 
+	  applies to ( {emv2}**error event, {emv2}**error propagation, {emv2}**error source, {emv2}**error type, {emv2}**type set); 
 
 FaultKindEnum: type enumeration (Design, Operational);
 
