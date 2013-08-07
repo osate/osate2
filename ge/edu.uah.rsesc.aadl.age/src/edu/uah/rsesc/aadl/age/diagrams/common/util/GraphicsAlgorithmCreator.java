@@ -6,7 +6,6 @@ import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -29,7 +28,6 @@ import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.MemoryClassifier;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessClassifier;
@@ -57,7 +55,7 @@ public class GraphicsAlgorithmCreator {
         return text;
 	}
 	
-	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final ContainerShape container, final Diagram diagram, final Classifier classifier, final int width, final int height) {
+	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final Classifier classifier, final int width, final int height) {
 		final boolean isImplementation = classifier instanceof ComponentImplementation;
         
 		// TODO: Replace with a map?
@@ -91,7 +89,7 @@ public class GraphicsAlgorithmCreator {
         } else if(classifier instanceof MemoryClassifier) {
         	ga = createMemoryGraphicsAlgorithm(container, StyleUtil.getMemoryStyle(diagram, isImplementation), width, height);
         } else if(classifier instanceof FeatureGroupType) {
-        	ga = createFeatureGroupTypeGraphicsAlgorithm(container, StyleUtil.getFeatureGroupTypeStyle(diagram), width, height);
+        	ga = createFeatureGroupGraphicsAlgorithm(container, diagram, width, height);
         } else {
         	// TODO: Decide how to handle? Don't create shape? Create a generic shape?
         	ga = createDummyGraphicsAlgorithm(container, width, height);
@@ -103,8 +101,6 @@ public class GraphicsAlgorithmCreator {
 	public static GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape container, final Diagram diagram, final Feature feature) {
 		final IGaService gaService = Graphiti.getGaService();
         
-		// TODO: Handle mirroring the direction of the port arrows
-		
         // Abstract Feature
 		GraphicsAlgorithm ga;	
 		
@@ -186,12 +182,12 @@ public class GraphicsAlgorithmCreator {
         	}
         	
         	if(eventGa != null) {
-        		eventGa.setStyle(style);;
+        		eventGa.setStyle(style);
         	}
         	
             ga.setStyle(style);
             gaService.setSize(ga,  width, height);
-            
+            GraphicsAlgorithmUtil.shrink(ga);
 		}
 		else if(feature instanceof AbstractFeature) { // Abstract Feature
 			final Style style = StyleUtil.getFeatureStyle(diagram);
@@ -220,6 +216,7 @@ public class GraphicsAlgorithmCreator {
             	gaService.setLocation(circleGa, ga.getWidth()-circleGa.getWidth(), 5);
                 directionGa.setStyle(style);   	
             }
+            GraphicsAlgorithmUtil.shrink(ga);
         } else if(feature instanceof Access) {
         	final Access access = (Access)feature;
         	final AccessType accessType = access.getKind();
@@ -253,6 +250,7 @@ public class GraphicsAlgorithmCreator {
                 			0, 0});
             		symbolGa.setStyle(style); 
         		}        		
+        		GraphicsAlgorithmUtil.shrink(ga);
         	} else if(access instanceof SubprogramAccess || access instanceof SubprogramGroupAccess) {
         		final Style style = access instanceof SubprogramAccess ? StyleUtil.getSubprogramAccessStyle(diagram) : StyleUtil.getSubprogramGroupAccessStyle(diagram);
         		width = 35;
@@ -282,7 +280,9 @@ public class GraphicsAlgorithmCreator {
         	}
         	
         	gaService.setSize(ga,  width, height);
+        	GraphicsAlgorithmUtil.shrink(ga);
         } else if(feature instanceof FeatureGroup) {
+        	// TODO: Remove or merge with work in Type Feature Pattern
         	// Issue: The current method of rendering the compact feature group symbol relies on writing a color that matches this background. This can effectively erase lines drawn,
         	// by the parent shape.
         	// TODO: Eventually implement semi-circle rendering, render from SVG, or use an alternative shape.
@@ -316,25 +316,18 @@ public class GraphicsAlgorithmCreator {
 		// TODO: Consider adjusting things so that the width and height are always such that the feature can be centered appropriately...
 		// TODO: Consider selection will be based off the outer Ga size so that may be a bad idea
 	
+		
+		
 		return ga;
 	}
 	
-	public static GraphicsAlgorithm createGraphicsAlgorithm(final Shape container, final Diagram diagram, final FlowSpecification fs) {
-		// TODO: Draw appropriate shape
-		final IGaService gaService = Graphiti.getGaService();
-		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
-        gaService.setSize(ga, 10, 10);
-        
-		return ga;
-	}
-	
-	private static GraphicsAlgorithm createDummyGraphicsAlgorithm(final ContainerShape containerShape, int width, int height) {
+	private static GraphicsAlgorithm createDummyGraphicsAlgorithm(final GraphicsAlgorithmContainer containerShape, int width, int height) {
 		final RoundedRectangle roundedRectangle = Graphiti.getGaService().createPlainRoundedRectangle(containerShape, 5, 5);
         Graphiti.getGaService().setSize(roundedRectangle, width, height);
         return roundedRectangle;
 	}
 	
-	private static GraphicsAlgorithm createSystemGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createSystemGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRoundedRectangle(container, 5, 5);
     	gaService.setSize(ga, width, height);
@@ -342,21 +335,21 @@ public class GraphicsAlgorithmCreator {
     	return ga;
 	}
 	
-	private static GraphicsAlgorithm createProcessGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createProcessGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		final GraphicsAlgorithm ga = createParallelogram(container, width, height, 20);
 		ga.setStyle(style);
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createThreadGroupGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createThreadGroupGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		return createSystemGraphicsAlgorithm(container, style, width, height);
 	}
 	
-	private static GraphicsAlgorithm createThreadGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createThreadGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		return createProcessGraphicsAlgorithm(container, style, width, height);
 	}
 	
-	private static GraphicsAlgorithm createSubprogramGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createSubprogramGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainEllipse(container);
     	gaService.setSize(ga, width, height);
@@ -364,11 +357,11 @@ public class GraphicsAlgorithmCreator {
     	return ga;
 	}
 	
-	private static GraphicsAlgorithm createSubprogramGroupGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createSubprogramGroupGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		return createSubprogramGraphicsAlgorithm(container, style, width, height);
 	}
 	
-	private static GraphicsAlgorithm createDataGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createDataGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
     	gaService.setSize(ga, width, height);
@@ -376,11 +369,11 @@ public class GraphicsAlgorithmCreator {
     	return ga;
 	}
 	
-	private static GraphicsAlgorithm createAbstractGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createAbstractGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		return createDataGraphicsAlgorithm(container, style, width, height);
 	}
 	
-	private static GraphicsAlgorithm createBusGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createBusGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		final int arrowHeadWidth = Math.max(Math.min(width, height)/4, 20);
 		final int arrowHeadVerticalExtensionSize = height/4;
 		final IGaService gaService = Graphiti.getGaService();
@@ -401,7 +394,7 @@ public class GraphicsAlgorithmCreator {
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createProcessorGraphicsAlgorithm(final ContainerShape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createProcessorGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		final int horizontalOffset = 10;
 		final int depth = 12;
 		final IGaService gaService = Graphiti.getGaService();
@@ -433,7 +426,7 @@ public class GraphicsAlgorithmCreator {
 	}
 	
 	// TODO: Avoid hardcoded numbers. Especially repeated	
-	private static GraphicsAlgorithm createDeviceGraphicsAlgorithm(final ContainerShape container, final Style style, final Style shadedStyle, final int width, final int height) {
+	private static GraphicsAlgorithm createDeviceGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final Style shadedStyle, final int width, final int height) {
 		final int padding = 4;
 		final IGaService gaService = Graphiti.getGaService();
 		
@@ -486,7 +479,7 @@ public class GraphicsAlgorithmCreator {
 		return outline;
 	}
 	
-	private static GraphicsAlgorithm createMemoryGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+	private static GraphicsAlgorithm createMemoryGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		final  int ellipseHeight = 20;
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
@@ -518,8 +511,9 @@ public class GraphicsAlgorithmCreator {
 		
 		return ga;
 	}
-	
-	private static GraphicsAlgorithm createFeatureGroupTypeGraphicsAlgorithm(final Shape container, final Style style, final int width, final int height) {
+
+	public static GraphicsAlgorithm createFeatureGroupGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final int width, final int height) {
+		final Style style = StyleUtil.getFeatureGroupStyle(diagram);
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
 		final int circleSize = Math.min(width/4, height/4);
@@ -541,7 +535,7 @@ public class GraphicsAlgorithmCreator {
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createParallelogram(final Shape container, final int width, final int height, int horizontalOffset) {
+	private static GraphicsAlgorithm createParallelogram(final GraphicsAlgorithmContainer container, final int width, final int height, int horizontalOffset) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(container, 
     			new int[] {

@@ -10,7 +10,7 @@ import org.eclipse.ui.PlatformUI;
 import edu.uah.rsesc.aadl.age.styles.StyleFactory;
 import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
-public class FeatureGroupTypeStyleFactory implements StyleFactory {
+public class FeatureGroupStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();

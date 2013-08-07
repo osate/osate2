@@ -3,6 +3,7 @@ package edu.uah.rsesc.aadl.age.diagrams.common;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.osate.aadl2.Generalization;
@@ -41,6 +42,11 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
             	 
             	    return super.getDoubleClickFeature(context);
             	 }
+            	
+            	@Override
+            	public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
+					return null;
+            	}
             }};
         }
         return toolBehaviorProviders;

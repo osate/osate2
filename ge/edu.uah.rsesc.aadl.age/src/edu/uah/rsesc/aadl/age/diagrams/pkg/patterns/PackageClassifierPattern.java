@@ -57,10 +57,13 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	}
 	
 	@Override
-	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {
+	protected void refreshGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {
 		final Classifier classifier = (Classifier)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		
+		// Remove child shapes
+		shape.getChildren().clear();
 		
 		// Determine the label text
         final String labelTxt = getLabelText(classifier);

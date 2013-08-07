@@ -35,4 +35,61 @@ public class GraphicsAlgorithmUtil {
 			mirror(rootGa, childGa);
 		}
 	}
+	
+	// TODO: Make note of when this method causes issues(out of bounds drawing)
+	public static void shrink(final GraphicsAlgorithm ga) {
+		int minX = Integer.MAX_VALUE;
+		int maxX = Integer.MIN_VALUE;
+		int minY = Integer.MAX_VALUE;
+		int maxY = Integer.MIN_VALUE;
+	
+		// Determine the min/max x/y of all children.
+		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+			if(childGa instanceof Polyline) {
+				shrinkPolyline((Polyline)childGa);
+			}
+			
+			minX = Math.min(minX, childGa.getX());
+			maxX = Math.max(maxX, childGa.getX()+childGa.getWidth());
+			minY = Math.min(minY, childGa.getY());
+			maxY = Math.max(maxY, childGa.getY()+childGa.getHeight());
+		}
+		
+		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+			childGa.setX(childGa.getX() - minX);
+			childGa.setY(childGa.getY() - minY);
+		}
+		
+		ga.setX(ga.getX() + minX);
+		ga.setY(ga.getY() + minY);
+		ga.setWidth(maxX - minX);
+		ga.setHeight(maxY - minY);
+	}
+	
+	// TODO: Rename?
+	/**
+	 * @param polyline
+	 */
+	private static void shrinkPolyline(final Polyline polyline) {
+		int minX = Integer.MAX_VALUE;
+		int maxX = Integer.MIN_VALUE;
+		int minY = Integer.MAX_VALUE;
+		int maxY = Integer.MIN_VALUE;
+		for(final Point p : polyline.getPoints()) {
+			minX = Math.min(minX, p.getX());
+			maxX = Math.max(maxX, p.getX());
+			minY = Math.min(minY, p.getY());
+			maxY = Math.max(maxY, p.getY());
+		}
+		
+		for(final Point p : polyline.getPoints()) {
+			p.setX(p.getX()-minX);
+			p.setY(p.getY()-minY);
+		}
+		
+		polyline.setX(polyline.getX() + minX);
+		polyline.setY(polyline.getY() + minY);
+		polyline.setWidth(maxX-minX);
+		polyline.setHeight(maxY-minY);
+	}
 }

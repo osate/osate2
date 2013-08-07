@@ -4,17 +4,21 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.services.IPeService;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
 
+import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeFeaturePattern;
 
 /**
@@ -41,7 +45,7 @@ public class AnchorUtil {
 
 		if(retrievedAnchor == null) {
 			final ChopboxAnchor anchor = peCreateService.createChopboxAnchor(container);
-	        PropertyUtil.setName(anchor, "center");
+	        PropertyUtil.setName(anchor, name);
 	        return anchor;
 		}
 		else if(retrievedAnchor instanceof ChopboxAnchor) {
@@ -52,15 +56,15 @@ public class AnchorUtil {
 		}        
 	}
 	
-	public static FixPointAnchor createOrUpdateFixPointAnchor(final AnchorContainer container, final String name, final int x, final int y) {
+	public static FixPointAnchor createOrUpdateFixPointAnchor(final AnchorContainer shape, final String name, final int x, final int y) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		final IGaService gaService = Graphiti.getGaService();
 		
 		// Create or get the anchor by name
-		final Anchor retrievedAnchor = getAnchorByName(container, name);
+		final Anchor retrievedAnchor = getAnchorByName(shape, name);
 		final FixPointAnchor anchor;
 		if(retrievedAnchor == null) {
-			anchor = peCreateService.createFixPointAnchor(container);
+			anchor = peCreateService.createFixPointAnchor(shape);
 			PropertyUtil.setName(anchor, name);			
 		} else {
 			if(!(retrievedAnchor instanceof FixPointAnchor)) {
@@ -121,38 +125,30 @@ public class AnchorUtil {
 		Anchor a1 = null;
 		Anchor a2 = null;
 		
+		final PictogramElement inPe = getPictogramElement(fs.getInEnd(), fp);
+		final PictogramElement outPe = getPictogramElement(fs.getOutEnd(), fp);
+		
 		// Determine the anchors to use for the connection
 		switch(fs.getKind()) {
 		case PATH:
 			{
-				final Feature inFeature = fs.getInEnd().getFeature();
-				final Feature outFeature = fs.getOutEnd().getFeature();				
-				final PictogramElement inPe = fp.getPictogramElementForBusinessObject(inFeature);
-				final PictogramElement outPe = fp.getPictogramElementForBusinessObject(outFeature);
-				if(inPe instanceof AnchorContainer && outPe instanceof AnchorContainer) {
-					a1 = getAnchorByName(inPe, TypeFeaturePattern.connectorAnchorName);
-					a2 = getAnchorByName(outPe, TypeFeaturePattern.connectorAnchorName);
-				}
+				a1 = getAnchorByName(inPe, TypeFeaturePattern.innerConnectorAnchorName);
+				a2 = getAnchorByName(outPe, TypeFeaturePattern.innerConnectorAnchorName);
 				break;
 			}
 			
 		case SOURCE:
 			{
-				final Feature outFeature = fs.getOutEnd().getFeature();				
-				final PictogramElement outPe = fp.getPictogramElementForBusinessObject(outFeature);
-				a1 = getAnchorByName(outPe, TypeFeaturePattern.connectorAnchorName);
-				a2 = getAnchorByName(outPe, TypeFeaturePattern.sourceAnchorName);	
-				break;							
+				a1 = getAnchorByName(outPe, TypeFeaturePattern.innerConnectorAnchorName);
+				a2 = getAnchorByName(outPe, TypeFeaturePattern.flowSpecificationAnchorName);	
+				break;
 			}
-			
-			
+
 		case SINK:
 			{
-				final Feature inFeature = fs.getInEnd().getFeature();
-				final PictogramElement inPe = fp.getPictogramElementForBusinessObject(inFeature);
-				a1 = getAnchorByName(inPe, TypeFeaturePattern.connectorAnchorName);
-				a2 = getAnchorByName(inPe, TypeFeaturePattern.sinkAnchorName);
-				break;
+				a1 = getAnchorByName(inPe, TypeFeaturePattern.innerConnectorAnchorName);
+				a2 = getAnchorByName(inPe, TypeFeaturePattern.flowSpecificationAnchorName);	
+				break;		
 			}
 			
 		default:
@@ -165,5 +161,31 @@ public class AnchorUtil {
 		}
 		
 		return new Anchor[] {a1, a2};
+	}
+	
+	private static PictogramElement getPictogramElement(final FlowEnd fe, final IFeatureProvider fp) {
+		if(fe == null) {
+			return null;
+		}
+		
+		if(fe.getContext() instanceof FeatureGroup) {
+			final FeatureGroup fg = (FeatureGroup)fe.getContext();
+			final PictogramElement fgPe = fp.getPictogramElementForBusinessObject(fg);
+			if(fgPe instanceof ContainerShape) {
+				final ContainerShape fgCs = TypeFeaturePattern.getFeatureShape((ContainerShape)fgPe);
+				for(final Shape child : fgCs.getChildren()) {
+					final Object childObj = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(child));
+					if(childObj == fe.getFeature()) {
+						return child;
+					}
+				}
+			}
+			
+		} else {
+			return fp.getPictogramElementForBusinessObject(fe.getFeature());
+		}
+		
+		
+		return null;
 	}
 }

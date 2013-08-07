@@ -9,6 +9,7 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -23,6 +24,7 @@ import org.osate.aadl2.FlowSpecification;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Update styles, etc
@@ -53,22 +55,57 @@ public class TypeFlowSpecificationConnectionPattern extends AgeConnectionPattern
 	}
 	
 	private void createDecorators(final Connection connection, final FlowSpecification fs) {
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		
+		// Before removing all the decorators, get position of the label(if one exists)
+		int labelX = 5;
+		int labelY = 10;
+		for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
+			if(d.getGraphicsAlgorithm() instanceof Text) {
+				final Text text = (Text)d.getGraphicsAlgorithm();
+				labelX = text.getX();
+				labelY = text.getY();
+			}
+		}
+		
 		connection.getConnectionDecorators().clear();
 		
 		// TODO: Simply have decorator style instead of arrowhead?
 		switch(fs.getKind()) {
 		case PATH:
-			// Create the arrow
-	        final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 1.0, true);    
-	        createArrow(arrowConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
-			break;
+			{
+				// Create the arrow
+		        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
+		        createArrow(arrowConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
+				break;
+			}
 			
 		case SOURCE:
+			{
+				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
+				createArrow(arrowConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));
+				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
+				createVbar(vbarConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
+				break;
+			}
+			
 		case SINK:
-			final ConnectionDecorator vbarConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 1.0, true);
-			createVbar(vbarConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
-			break;
+			{
+				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
+				GraphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram())));
+				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
+				createVbar(vbarConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
+				break;
+			}
 		}
+		
+		// Create Label
+		final IGaService gaService = Graphiti.getGaService();
+		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
+		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
+		text.setStyle(StyleUtil.getLabelStyle(getDiagram()));
+		gaService.setLocation(text, labelX, labelY);
+	    text.setValue(fs.getName());
 	}
 	
 	private void createGraphicsAlgorithm(final Connection connection) {

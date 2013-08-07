@@ -73,8 +73,8 @@ public class StyleUtil {
 		return getImplementationStyleConditionally(diagram, "memory", isImplementation);
 	}
 	
-	public static Style getFeatureGroupTypeStyle(final Diagram diagram) {
-		return getImplementationStyleConditionally(diagram, "feature-group-type", false);
+	public static Style getFeatureGroupStyle(final Diagram diagram) {
+		return getImplementationStyleConditionally(diagram, "feature-group", false);
 	}
 	
 	public static Style getShadedStyle(final Diagram diagram) {

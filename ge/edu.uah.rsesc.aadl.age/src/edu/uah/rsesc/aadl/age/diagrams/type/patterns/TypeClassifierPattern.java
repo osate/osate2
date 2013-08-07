@@ -27,15 +27,14 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.Generalization;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 /**
  * A pattern that controls the type shape that contains all the other shapes in the type diagram
@@ -111,13 +110,13 @@ public class TypeClassifierPattern extends AgePattern {
 					final IAddFeature feature = this.getFeatureProvider().getAddFeature(addContext);
 					if(feature != null && feature.canAdd(addContext)) {
 						final PictogramElement pe = feature.add(addContext);
-						y += pe.getGraphicsAlgorithm().getHeight() + 5;
+						y += pe.getGraphicsAlgorithm().getHeight() + 10;
 					}
 				} else {
 					final UpdateContext updateContext = new UpdateContext(pictogramElement);
 					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
 					
-					// Update the classifier regardless of whether it is "needed" or not.
+					// Update the shape regardless of whether it is "needed" or not.
 					if(updateFeature.canUpdate(updateContext)) {
 						updateFeature.update(updateContext);
 					}
@@ -150,7 +149,7 @@ public class TypeClassifierPattern extends AgePattern {
 						final UpdateContext updateContext = new UpdateContext(pictogramElement);
 						final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
 						
-						// Update the classifier regardless of whether it is "needed" or not.
+						// Update the connection regardless of whether it is "needed" or not.
 						if(updateFeature.canUpdate(updateContext)) {
 							updateFeature.update(updateContext);
 						}
@@ -164,6 +163,7 @@ public class TypeClassifierPattern extends AgePattern {
 		GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		final int prevX = ga.getX();
 		final int prevY = ga.getY();
+		final int width = ga.getWidth();
 		
 		// Calculate max height
 		int maxHeight = 300;
@@ -173,8 +173,14 @@ public class TypeClassifierPattern extends AgePattern {
 		}
 		
 		// Create a new graphics Algorithm
-		ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, ga.getWidth(), maxHeight+25);        
-        gaService.setLocation(ga, prevX, prevY);
+		// Disable code to create the shape based on the type of classifier and simply make everything a rectangle for now. Avoids issue of features not being in reasonable positions.
+		//GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(ga, getDiagram(), classifier, width, maxHeight+25);
+		//gaService.setLocation(ga, prevX, prevY);
+		
+		ga = gaService.createRectangle(shape);
+		ga.setStyle(StyleUtil.getSystemStyle(getDiagram(), false));
+		gaService.setLocationAndSize(ga, prevX, prevY, width, maxHeight+25);
+
 	}
 	
 	@Override

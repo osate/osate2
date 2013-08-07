@@ -133,7 +133,7 @@
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-group"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
- 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FeatureGroupTypeStyleFactory" styleId="feature-group-type"/> 	
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FeatureGroupStyleFactory" styleId="feature-group"/> 	
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ShadedStyleFactory" styleId="shadded"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ImplementsStyleFactory" styleId="implements"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="flow_specification"/>
@@ -144,6 +144,7 @@
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.LabelStyleFactory" styleId="label"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
+ 	<!-- TODO: Remove Feature gorup circles? -->
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ThickOutlineStyleFactory" styleId="feature_group_large_circle"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="feature_group_small_circle"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BackgroundStyleFactory" styleId="background"/>
