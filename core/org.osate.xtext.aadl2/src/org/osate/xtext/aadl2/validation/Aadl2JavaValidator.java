@@ -3507,16 +3507,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (flow.getOutEnd() != null)
 			outFeature = flow.getOutEnd().getFeature();
 		if (inFeature instanceof BusAccess || inFeature instanceof SubprogramAccess
-				|| inFeature instanceof SubprogramGroupAccess || inFeature instanceof AbstractFeature) {
+				|| inFeature instanceof SubprogramGroupAccess ) {
 			error(flow.getInEnd(), '\''
 					+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
-					+ inFeature.getName() + "' must be a port, parameter, data access, or feature group.");
+					+ inFeature.getName() + "' must be a port, parameter, data access, feature group, or abstract feature.");
 		}
 		if (outFeature instanceof BusAccess || outFeature instanceof SubprogramAccess
-				|| outFeature instanceof SubprogramGroupAccess || outFeature instanceof AbstractFeature) {
+				|| outFeature instanceof SubprogramGroupAccess ) {
 			error(flow.getOutEnd(), '\''
 					+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "")
-					+ outFeature.getName() + "' must be a port, parameter, data access, or feature group.");
+					+ outFeature.getName() + "' must be a port, parameter, data access, feature group, or abstract feature.");
 		}
 	}
 
