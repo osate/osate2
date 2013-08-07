@@ -59,6 +59,7 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//TypeTransformation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformation/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//TypeTransformation/allSources"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformation/contributor"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//TypeTransformation/target"/>
     </genClasses>

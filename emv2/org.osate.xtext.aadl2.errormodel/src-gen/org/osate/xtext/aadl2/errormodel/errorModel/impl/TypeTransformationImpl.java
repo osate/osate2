@@ -25,6 +25,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationImpl#isAllSources <em>All Sources</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationImpl#getContributor <em>Contributor</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeTransformationImpl#getTarget <em>Target</em>}</li>
  * </ul>
@@ -43,6 +44,26 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * @ordered
    */
   protected TypeSet source;
+
+  /**
+   * The default value of the '{@link #isAllSources() <em>All Sources</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAllSources()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ALL_SOURCES_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAllSources() <em>All Sources</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAllSources()
+   * @generated
+   * @ordered
+   */
+  protected boolean allSources = ALL_SOURCES_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getContributor() <em>Contributor</em>}' containment reference.
@@ -131,6 +152,29 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TYPE_TRANSFORMATION__SOURCE, newSource, newSource));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAllSources()
+  {
+    return allSources;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAllSources(boolean newAllSources)
+  {
+    boolean oldAllSources = allSources;
+    allSources = newAllSources;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TYPE_TRANSFORMATION__ALL_SOURCES, oldAllSources, allSources));
   }
 
   /**
@@ -261,6 +305,8 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
     {
       case ErrorModelPackage.TYPE_TRANSFORMATION__SOURCE:
         return getSource();
+      case ErrorModelPackage.TYPE_TRANSFORMATION__ALL_SOURCES:
+        return isAllSources();
       case ErrorModelPackage.TYPE_TRANSFORMATION__CONTRIBUTOR:
         return getContributor();
       case ErrorModelPackage.TYPE_TRANSFORMATION__TARGET:
@@ -281,6 +327,9 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
     {
       case ErrorModelPackage.TYPE_TRANSFORMATION__SOURCE:
         setSource((TypeSet)newValue);
+        return;
+      case ErrorModelPackage.TYPE_TRANSFORMATION__ALL_SOURCES:
+        setAllSources((Boolean)newValue);
         return;
       case ErrorModelPackage.TYPE_TRANSFORMATION__CONTRIBUTOR:
         setContributor((TypeSet)newValue);
@@ -305,6 +354,9 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
       case ErrorModelPackage.TYPE_TRANSFORMATION__SOURCE:
         setSource((TypeSet)null);
         return;
+      case ErrorModelPackage.TYPE_TRANSFORMATION__ALL_SOURCES:
+        setAllSources(ALL_SOURCES_EDEFAULT);
+        return;
       case ErrorModelPackage.TYPE_TRANSFORMATION__CONTRIBUTOR:
         setContributor((TypeSet)null);
         return;
@@ -327,12 +379,31 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
     {
       case ErrorModelPackage.TYPE_TRANSFORMATION__SOURCE:
         return source != null;
+      case ErrorModelPackage.TYPE_TRANSFORMATION__ALL_SOURCES:
+        return allSources != ALL_SOURCES_EDEFAULT;
       case ErrorModelPackage.TYPE_TRANSFORMATION__CONTRIBUTOR:
         return contributor != null;
       case ErrorModelPackage.TYPE_TRANSFORMATION__TARGET:
         return target != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (allSources: ");
+    result.append(allSources);
+    result.append(')');
+    return result.toString();
   }
 
 } //TypeTransformationImpl

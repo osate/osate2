@@ -15,6 +15,7 @@ import org.osate.aadl2.Element;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#isAllSources <em>All Sources</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getContributor <em>Contributor</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getTarget <em>Target</em>}</li>
  * </ul>
@@ -51,6 +52,32 @@ public interface TypeTransformation extends EObject, Element
    * @generated
    */
   void setSource(TypeSet value);
+
+  /**
+   * Returns the value of the '<em><b>All Sources</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>All Sources</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>All Sources</em>' attribute.
+   * @see #setAllSources(boolean)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeTransformation_AllSources()
+   * @model
+   * @generated
+   */
+  boolean isAllSources();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#isAllSources <em>All Sources</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>All Sources</em>' attribute.
+   * @see #isAllSources()
+   * @generated
+   */
+  void setAllSources(boolean value);
 
   /**
    * Returns the value of the '<em><b>Contributor</b></em>' containment reference.

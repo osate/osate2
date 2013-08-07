@@ -851,13 +851,22 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_TRANSFORMATION__SOURCE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>All Sources</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_TRANSFORMATION__ALL_SOURCES = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Contributor</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE_TRANSFORMATION__CONTRIBUTOR = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int TYPE_TRANSFORMATION__CONTRIBUTOR = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -866,7 +875,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_TRANSFORMATION__TARGET = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int TYPE_TRANSFORMATION__TARGET = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Type Transformation</em>' class.
@@ -875,7 +884,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPE_TRANSFORMATION_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
+  int TYPE_TRANSFORMATION_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.TypeMappingSetImpl <em>Type Mapping Set</em>}' class.
@@ -4137,6 +4146,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getTypeTransformation_Source();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#isAllSources <em>All Sources</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>All Sources</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#isAllSources()
+   * @see #getTypeTransformation()
+   * @generated
+   */
+  EAttribute getTypeTransformation_AllSources();
+
+  /**
    * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation#getContributor <em>Contributor</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5986,6 +6006,14 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference TYPE_TRANSFORMATION__SOURCE = eINSTANCE.getTypeTransformation_Source();
+
+    /**
+     * The meta object literal for the '<em><b>All Sources</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE_TRANSFORMATION__ALL_SOURCES = eINSTANCE.getTypeTransformation_AllSources();
 
     /**
      * The meta object literal for the '<em><b>Contributor</b></em>' containment reference feature.

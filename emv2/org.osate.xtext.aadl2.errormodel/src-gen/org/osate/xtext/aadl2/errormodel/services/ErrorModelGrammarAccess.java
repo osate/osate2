@@ -1637,8 +1637,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	public class TypeTransformationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TypeTransformation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cSourceAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cSourceTypeTokenConstraintNoErrorParserRuleCall_0_0 = (RuleCall)cSourceAssignment_0.eContents().get(0);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Assignment cSourceAssignment_0_0 = (Assignment)cAlternatives_0.eContents().get(0);
+		private final RuleCall cSourceTypeTokenConstraintNoErrorParserRuleCall_0_0_0 = (RuleCall)cSourceAssignment_0_0.eContents().get(0);
+		private final Assignment cAllSourcesAssignment_0_1 = (Assignment)cAlternatives_0.eContents().get(1);
+		private final Keyword cAllSourcesAllKeyword_0_1_0 = (Keyword)cAllSourcesAssignment_0_1.eContents().get(0);
 		private final Keyword cHyphenMinusLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cContributorAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cContributorTypeTokenConstraintNoErrorParserRuleCall_2_0 = (RuleCall)cContributorAssignment_2.eContents().get(0);
@@ -1649,22 +1652,35 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TypeTransformation:
 		//
-		//	source=TypeTokenConstraintNoError "-[" contributor=TypeTokenConstraintNoError "]->" target=TypeToken ";";
+		//	(source=TypeTokenConstraintNoError | allSources?="all") "-[" contributor=TypeTokenConstraintNoError? "]->"
+		//
+		//	target=TypeToken ";";
 		public ParserRule getRule() { return rule; }
 
-		//source=TypeTokenConstraintNoError "-[" contributor=TypeTokenConstraintNoError "]->" target=TypeToken ";"
+		//(source=TypeTokenConstraintNoError | allSources?="all") "-[" contributor=TypeTokenConstraintNoError? "]->"
+		//
+		//target=TypeToken ";"
 		public Group getGroup() { return cGroup; }
 
+		//source=TypeTokenConstraintNoError | allSources?="all"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
 		//source=TypeTokenConstraintNoError
-		public Assignment getSourceAssignment_0() { return cSourceAssignment_0; }
+		public Assignment getSourceAssignment_0_0() { return cSourceAssignment_0_0; }
 
 		//TypeTokenConstraintNoError
-		public RuleCall getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0() { return cSourceTypeTokenConstraintNoErrorParserRuleCall_0_0; }
+		public RuleCall getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0_0() { return cSourceTypeTokenConstraintNoErrorParserRuleCall_0_0_0; }
+
+		//allSources?="all"
+		public Assignment getAllSourcesAssignment_0_1() { return cAllSourcesAssignment_0_1; }
+
+		//"all"
+		public Keyword getAllSourcesAllKeyword_0_1_0() { return cAllSourcesAllKeyword_0_1_0; }
 
 		//"-["
 		public Keyword getHyphenMinusLeftSquareBracketKeyword_1() { return cHyphenMinusLeftSquareBracketKeyword_1; }
 
-		//contributor=TypeTokenConstraintNoError
+		//contributor=TypeTokenConstraintNoError?
 		public Assignment getContributorAssignment_2() { return cContributorAssignment_2; }
 
 		//TypeTokenConstraintNoError
@@ -5059,7 +5075,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeTransformation:
 	//
-	//	source=TypeTokenConstraintNoError "-[" contributor=TypeTokenConstraintNoError "]->" target=TypeToken ";";
+	//	(source=TypeTokenConstraintNoError | allSources?="all") "-[" contributor=TypeTokenConstraintNoError? "]->"
+	//
+	//	target=TypeToken ";";
 	public TypeTransformationElements getTypeTransformationAccess() {
 		return (pTypeTransformation != null) ? pTypeTransformation : (pTypeTransformation = new TypeTransformationElements());
 	}

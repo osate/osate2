@@ -3066,6 +3066,28 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__TypeTransformation__Alternatives_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTypeTransformationAccess().getSourceAssignment_0_0()); }
+(rule__TypeTransformation__SourceAssignment_0_0)
+{ after(grammarAccess.getTypeTransformationAccess().getSourceAssignment_0_0()); }
+)
+
+    |(
+{ before(grammarAccess.getTypeTransformationAccess().getAllSourcesAssignment_0_1()); }
+(rule__TypeTransformation__AllSourcesAssignment_0_1)
+{ after(grammarAccess.getTypeTransformationAccess().getAllSourcesAssignment_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__ErrorPropagation__Alternatives_1
     @init {
 		int stackSize = keepStackSize();
@@ -10050,9 +10072,9 @@ rule__TypeTransformation__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getTypeTransformationAccess().getSourceAssignment_0()); }
-(rule__TypeTransformation__SourceAssignment_0)
-{ after(grammarAccess.getTypeTransformationAccess().getSourceAssignment_0()); }
+{ before(grammarAccess.getTypeTransformationAccess().getAlternatives_0()); }
+(rule__TypeTransformation__Alternatives_0)
+{ after(grammarAccess.getTypeTransformationAccess().getAlternatives_0()); }
 )
 
 ;
@@ -10111,7 +10133,7 @@ rule__TypeTransformation__Group__2__Impl
 :
 (
 { before(grammarAccess.getTypeTransformationAccess().getContributorAssignment_2()); }
-(rule__TypeTransformation__ContributorAssignment_2)
+(rule__TypeTransformation__ContributorAssignment_2)?
 { after(grammarAccess.getTypeTransformationAccess().getContributorAssignment_2()); }
 )
 
@@ -24444,14 +24466,37 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__TypeTransformation__SourceAssignment_0
+rule__TypeTransformation__SourceAssignment_0_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getTypeTransformationAccess().getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0()); }
-	ruleTypeTokenConstraintNoError{ after(grammarAccess.getTypeTransformationAccess().getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0()); }
+{ before(grammarAccess.getTypeTransformationAccess().getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0_0()); }
+	ruleTypeTokenConstraintNoError{ after(grammarAccess.getTypeTransformationAccess().getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__TypeTransformation__AllSourcesAssignment_0_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTypeTransformationAccess().getAllSourcesAllKeyword_0_1_0()); }
+(
+{ before(grammarAccess.getTypeTransformationAccess().getAllSourcesAllKeyword_0_1_0()); }
+
+	KEYWORD_25 
+
+{ after(grammarAccess.getTypeTransformationAccess().getAllSourcesAllKeyword_0_1_0()); }
+)
+
+{ after(grammarAccess.getTypeTransformationAccess().getAllSourcesAllKeyword_0_1_0()); }
 )
 
 ;

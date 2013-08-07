@@ -1205,7 +1205,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (source=TypeTokenConstraintNoError contributor=TypeTokenConstraintNoError target=TypeToken)
+	 *     ((source=TypeTokenConstraintNoError | allSources?='all') contributor=TypeTokenConstraintNoError? target=TypeToken)
 	 */
 	protected void sequence_TypeTransformation(EObject context, TypeTransformation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

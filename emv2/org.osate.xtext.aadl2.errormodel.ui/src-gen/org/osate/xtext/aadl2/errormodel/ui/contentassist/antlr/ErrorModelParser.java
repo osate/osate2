@@ -47,6 +47,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeSetReferenceAccess().getAlternatives(), "rule__TypeSetReference__Alternatives");
 					put(grammarAccess.getTypeTokenOrNoErrorAccess().getAlternatives(), "rule__TypeTokenOrNoError__Alternatives");
 					put(grammarAccess.getTypeTokenConstraintNoErrorAccess().getAlternatives(), "rule__TypeTokenConstraintNoError__Alternatives");
+					put(grammarAccess.getTypeTransformationAccess().getAlternatives_0(), "rule__TypeTransformation__Alternatives_0");
 					put(grammarAccess.getErrorPropagationAccess().getAlternatives_1(), "rule__ErrorPropagation__Alternatives_1");
 					put(grammarAccess.getPropagationDirectionAccess().getAlternatives(), "rule__PropagationDirection__Alternatives");
 					put(grammarAccess.getPropagationKindAccess().getAlternatives(), "rule__PropagationKind__Alternatives");
@@ -315,7 +316,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeTransformationSetAccess().getUseTypesAssignment_3_2(), "rule__TypeTransformationSet__UseTypesAssignment_3_2");
 					put(grammarAccess.getTypeTransformationSetAccess().getUseTypesAssignment_3_3_1(), "rule__TypeTransformationSet__UseTypesAssignment_3_3_1");
 					put(grammarAccess.getTypeTransformationSetAccess().getTransformationAssignment_4(), "rule__TypeTransformationSet__TransformationAssignment_4");
-					put(grammarAccess.getTypeTransformationAccess().getSourceAssignment_0(), "rule__TypeTransformation__SourceAssignment_0");
+					put(grammarAccess.getTypeTransformationAccess().getSourceAssignment_0_0(), "rule__TypeTransformation__SourceAssignment_0_0");
+					put(grammarAccess.getTypeTransformationAccess().getAllSourcesAssignment_0_1(), "rule__TypeTransformation__AllSourcesAssignment_0_1");
 					put(grammarAccess.getTypeTransformationAccess().getContributorAssignment_2(), "rule__TypeTransformation__ContributorAssignment_2");
 					put(grammarAccess.getTypeTransformationAccess().getTargetAssignment_4(), "rule__TypeTransformation__TargetAssignment_4");
 					put(grammarAccess.getTypeMappingSetAccess().getNameAssignment_2(), "rule__TypeMappingSet__NameAssignment_2");

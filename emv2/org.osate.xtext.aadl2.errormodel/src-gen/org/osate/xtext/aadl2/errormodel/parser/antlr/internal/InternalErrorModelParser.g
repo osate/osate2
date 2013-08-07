@@ -1909,10 +1909,10 @@ ruleTypeTransformation returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
+(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTypeTransformationAccess().getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0()); 
+	        newCompositeNode(grammarAccess.getTypeTransformationAccess().getSourceTypeTokenConstraintNoErrorParserRuleCall_0_0_0()); 
 	    }
 		lv_source_0_0=ruleTypeTokenConstraintNoError		{
 	        if ($current==null) {
@@ -1928,55 +1928,72 @@ ruleTypeTransformation returns [EObject current=null]
 
 )
 )
-	otherlv_1=KEYWORD_16
+    |(
+(
+		lv_allSources_1_0=
+	KEYWORD_25
     {
-    	newLeafNode(otherlv_1, grammarAccess.getTypeTransformationAccess().getHyphenMinusLeftSquareBracketKeyword_1());
+        newLeafNode(lv_allSources_1_0, grammarAccess.getTypeTransformationAccess().getAllSourcesAllKeyword_0_1_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTypeTransformationRule());
+	        }
+       		setWithLastConsumed($current, "allSources", true, "all");
+	    }
+
+)
+))
+	otherlv_2=KEYWORD_16
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getTypeTransformationAccess().getHyphenMinusLeftSquareBracketKeyword_1());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getTypeTransformationAccess().getContributorTypeTokenConstraintNoErrorParserRuleCall_2_0()); 
 	    }
-		lv_contributor_2_0=ruleTypeTokenConstraintNoError		{
+		lv_contributor_3_0=ruleTypeTokenConstraintNoError		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTypeTransformationRule());
 	        }
        		set(
        			$current, 
        			"contributor",
-        		lv_contributor_2_0, 
+        		lv_contributor_3_0, 
         		"TypeTokenConstraintNoError");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-	otherlv_3=KEYWORD_24
+)?
+	otherlv_4=KEYWORD_24
     {
-    	newLeafNode(otherlv_3, grammarAccess.getTypeTransformationAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_3());
+    	newLeafNode(otherlv_4, grammarAccess.getTypeTransformationAccess().getRightSquareBracketHyphenMinusGreaterThanSignKeyword_3());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getTypeTransformationAccess().getTargetTypeTokenParserRuleCall_4_0()); 
 	    }
-		lv_target_4_0=ruleTypeToken		{
+		lv_target_5_0=ruleTypeToken		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTypeTransformationRule());
 	        }
        		set(
        			$current, 
        			"target",
-        		lv_target_4_0, 
+        		lv_target_5_0, 
         		"TypeToken");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )
-	otherlv_5=KEYWORD_10
+	otherlv_6=KEYWORD_10
     {
-    	newLeafNode(otherlv_5, grammarAccess.getTypeTransformationAccess().getSemicolonKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getTypeTransformationAccess().getSemicolonKeyword_5());
     }
 )
 ;

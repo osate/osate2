@@ -909,9 +909,19 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getTypeTransformation_AllSources()
+  {
+    return (EAttribute)typeTransformationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getTypeTransformation_Contributor()
   {
-    return (EReference)typeTransformationEClass.getEStructuralFeatures().get(1);
+    return (EReference)typeTransformationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -921,7 +931,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    */
   public EReference getTypeTransformation_Target()
   {
-    return (EReference)typeTransformationEClass.getEStructuralFeatures().get(2);
+    return (EReference)typeTransformationEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -2346,6 +2356,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     typeTransformationEClass = createEClass(TYPE_TRANSFORMATION);
     createEReference(typeTransformationEClass, TYPE_TRANSFORMATION__SOURCE);
+    createEAttribute(typeTransformationEClass, TYPE_TRANSFORMATION__ALL_SOURCES);
     createEReference(typeTransformationEClass, TYPE_TRANSFORMATION__CONTRIBUTOR);
     createEReference(typeTransformationEClass, TYPE_TRANSFORMATION__TARGET);
 
@@ -2662,6 +2673,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     initEClass(typeTransformationEClass, TypeTransformation.class, "TypeTransformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTypeTransformation_Source(), this.getTypeSet(), null, "source", null, 0, 1, TypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTypeTransformation_AllSources(), ecorePackage.getEBoolean(), "allSources", null, 0, 1, TypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTypeTransformation_Contributor(), this.getTypeSet(), null, "contributor", null, 0, 1, TypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTypeTransformation_Target(), this.getTypeToken(), null, "target", null, 0, 1, TypeTransformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
