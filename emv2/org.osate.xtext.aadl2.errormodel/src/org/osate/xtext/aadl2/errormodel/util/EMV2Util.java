@@ -2481,6 +2481,7 @@ public class EMV2Util {
 	}
 
 	public static boolean hasErrorPropagations(ComponentClassifier cl){
+		if (cl == null) return false;
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
@@ -2497,6 +2498,7 @@ public class EMV2Util {
 	 * 				subclause. False otherwise.
 	 */
 	public static boolean hasEMV2Subclause(ComponentClassifier cl){
+		if (cl == null) return false;
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		return (!emslist.isEmpty());
 	}

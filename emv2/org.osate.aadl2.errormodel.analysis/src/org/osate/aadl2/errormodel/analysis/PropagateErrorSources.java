@@ -522,7 +522,7 @@ public class PropagateErrorSources {
 	
 	
 	/**
-	 * traverse through the destination of the connection instance 
+	 * traverse to the destination of the propagation path 
 	 * @param conni
 	 */
 	protected void traceErrorPaths(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText){
