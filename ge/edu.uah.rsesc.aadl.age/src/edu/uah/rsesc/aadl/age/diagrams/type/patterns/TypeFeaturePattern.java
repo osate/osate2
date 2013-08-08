@@ -1,28 +1,19 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
-
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
-import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -99,17 +90,8 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	protected void postMoveShape(final IMoveShapeContext context) {
 		super.postMoveShape(context);
 		final ContainerShape shape = (ContainerShape)context.getShape();		
-	
-		// Recreate the graphics algorithm
-		//final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
-		//final int x = shape.getGraphicsAlgorithm().getX();
-		//final int y = shape.getGraphicsAlgorithm().getY();
 
-		//refreshGaAndInnerShapes(shape, bo, x, y);
-		
 		layoutAll(shape);
-		
-		//layout(shape); // Done by refresh Ga And Inner Shapes
 		updateAnchors(shape);
 	}
 
@@ -138,26 +120,9 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		
 		// Feature groups
 		if(feature instanceof FeatureGroup) {
-			if(isLeft) {
-				
-			} else {
-				
-			}
-			
 			if(isLeft != wasLeft) {
 				GraphicsAlgorithmUtil.mirror(featureGa);
 			}
-			//featureGa.setWidth(500);
-			/*
-			 * mirror
-			
-		} else {
-			// TODO: Cleanup
-			GraphicsAlgorithmUtil.mirror(fgGa);
-			featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
-			GraphicsAlgorithmUtil.mirror(fgGa);
-		}
-		*/
 			
 			if(isLeft) {
 				featureGa.setX(0);
@@ -209,8 +174,8 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	
 
 	@Override
-	protected void refreshGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y) {
-		refreshGaAndInnerShapes(shape, bo, x, y, 0);
+	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y) {
+		createGaAndInnerShapes(shape, bo, x, y, 0);
 	}
 
 	/**
@@ -221,7 +186,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	 * @param y
 	 * @param callDepth
 	 */
-	private void refreshGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y, final int callDepth) {
+	private void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y, final int callDepth) {
 		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();		
@@ -285,7 +250,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 			        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
 			        }
 					
-			        refreshGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
+			        createGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
 			        final GraphicsAlgorithm childFeatureGa = childFeatureContainer.getGraphicsAlgorithm();
 			        childY += childFeatureGa.getHeight() + 5;
 			        maxChildWidth = Math.max(maxChildWidth, childFeatureGa.getWidth());
@@ -315,7 +280,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
         gaService.setSize(ga, Math.max(getWidth(label), getWidth(featureShape.getGraphicsAlgorithm())), 
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
 
-        layoutAll(shape); // TODO: Ideally would only layout each shape one.. This will cause it to happen multiple times
+        layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times
         
 	}
 	
@@ -409,6 +374,5 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		final int x = shapeGa.getX() + shapeGa.getWidth()/2;
 		final boolean result = x < shape.getContainer().getGraphicsAlgorithm().getWidth()/2;
 		return result;
-	}
-	
+	}	
 }

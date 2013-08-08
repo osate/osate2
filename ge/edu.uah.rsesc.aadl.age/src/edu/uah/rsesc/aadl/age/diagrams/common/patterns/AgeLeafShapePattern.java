@@ -28,7 +28,7 @@ public abstract class AgeLeafShapePattern extends AgePattern {
         link(container, new AadlElementWrapper(element));
 
 		// Create the GA and inner Shape
-        refreshGaAndInnerShapes(container, element, context.getX(), context.getY());
+        createGaAndInnerShapes(container, element, context.getX(), context.getY());
         updateAnchors(container);
         setShapeProperties(container, element);
         
@@ -52,7 +52,7 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 			final ContainerShape container = (ContainerShape)pe;		
 		
 			// Update/Recreate the child shapes and the graphics algorithm for the shape
-			refreshGaAndInnerShapes((ContainerShape)pe, bo, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());
+			createGaAndInnerShapes((ContainerShape)pe, bo, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());
 			
 			updateAnchors(container);
 			
@@ -76,5 +76,5 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 	 * @param x
 	 * @param y
 	 */
-	protected abstract void refreshGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y);
+	protected abstract void createGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y);
 }

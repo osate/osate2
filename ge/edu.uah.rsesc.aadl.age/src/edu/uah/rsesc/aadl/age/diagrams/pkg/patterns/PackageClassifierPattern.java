@@ -57,7 +57,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	}
 	
 	@Override
-	protected void refreshGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {
+	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {
 		final Classifier classifier = (Classifier)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
