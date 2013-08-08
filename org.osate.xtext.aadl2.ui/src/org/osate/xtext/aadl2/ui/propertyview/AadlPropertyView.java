@@ -10,8 +10,12 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.IPostSelectionProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
@@ -24,6 +28,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.PageBook;
@@ -51,7 +56,7 @@ import com.google.inject.Inject;
  * 
  * @author aarong
  */
-public class AadlPropertyView extends ViewPart implements ISelectionListener {
+public class AadlPropertyView extends ViewPart {
 	private static final String SHOW_UNDEFINED_TRUE_TOOL_TIP = "Click to hide undefined properties";
 	private static final String SHOW_UNDEFINED_FALSE_TOOL_TIP = "Click to show undefined properties";
 	
@@ -115,6 +120,12 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	@Inject
 	private ILinker linker;
 	
+	private PropertyViewSelectionListener selectionListener = new PropertyViewSelectionListener();
+	
+	private PropertyViewPartListener partListener = new PropertyViewPartListener();
+	
+	private PropertyViewSelectionChangedListener selectionChangedListener = new PropertyViewSelectionChangedListener();
+	
 	@Override
 	public void createPartControl(final Composite parent) {
 		pageBook = new PageBook(parent, SWT.NULL);
@@ -142,10 +153,18 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		
 		// Show the "nothing to show" page by default
 		pageBook.showPage(noPropertiesLabel);
-		getSite().getPage().addSelectionListener(this);
+		getSite().getPage().addSelectionListener(selectionListener);
+		getSite().getPage().addPartListener(partListener);
 		createActions();
 		fillToolbar();
 //		createContextMenu();
+	}
+	
+	@Override
+	public void dispose()
+	{
+		getSite().getPage().removeSelectionListener(selectionListener);
+		getSite().getPage().removePartListener(partListener);
 	}
 	
 	private void showTree() {
@@ -201,11 +220,51 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		treeViewer.getControl().setFocus();
 	}
 	
-	/*
-	 * Change the view when the selection changes.
+	private NamedElement getCurrentElement() {
+		NamedElement element = null;
+		if (currentSelectionUri != null)
+			element = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(currentSelectionUri, true);
+		return element;
+	}
+	
+	/**
+	 * Update the view's contents.
 	 */
-	@Override
-	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+	private void updateView() {
+		if (currentSelectionUri != null) {
+			buildNewModel(getCurrentElement());
+			showTree();
+			addNewPropertyAssociationToolbarAction.setEnabled(true);
+		}
+		else {
+			showNoProperties();
+			addNewPropertyAssociationToolbarAction.setEnabled(false);
+		}
+	}
+	
+	private void buildNewModel(NamedElement element) {
+		if (element != null) {
+			model.rebuildModel(element);
+			Display.getDefault().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					treeViewer.refresh();
+					treeViewer.expandAll();
+				}
+			});
+		}
+	}
+	
+	private Shell getShell() {
+		return getViewSite().getWorkbenchWindow().getShell();
+	}
+	
+	private CommandStack getCommandStack() {
+		return (editingDomain == null) ? null : editingDomain.getCommandStack();
+	}
+	
+	private void updateSelection(IWorkbenchPart part, ISelection selection)
+	{
 		EObject currentSelection = null;
 		if (!selection.isEmpty()) {
 			if (part instanceof XtextEditor && selection instanceof ITextSelection) {
@@ -254,46 +313,68 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		updateView();
 	}
 	
-	private NamedElement getCurrentElement() {
-		NamedElement element = null;
-		if (currentSelectionUri != null)
-			element = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(currentSelectionUri, true);
-		return element;
-	}
-	
-	/**
-	 * Update the view's contents.
-	 */
-	private void updateView() {
-		if (currentSelectionUri != null) {
-			buildNewModel(getCurrentElement());
-			showTree();
-			addNewPropertyAssociationToolbarAction.setEnabled(true);
-		}
-		else {
-			showNoProperties();
-			addNewPropertyAssociationToolbarAction.setEnabled(false);
+	private class PropertyViewSelectionListener implements ISelectionListener
+	{
+		/*
+		 * Change the view when the selection changes.
+		 */
+		@Override
+		public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+			updateSelection(part, selection);
 		}
 	}
 	
-	private void buildNewModel(NamedElement element) {
-		if (element != null) {
-			model.rebuildModel(element);
-			Display.getDefault().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					treeViewer.refresh();
-					treeViewer.expandAll();
+	private class PropertyViewPartListener implements IPartListener
+	{
+		@Override
+		public void partOpened(IWorkbenchPart part)
+		{
+		}
+		
+		@Override
+		public void partDeactivated(IWorkbenchPart part)
+		{
+			if (part instanceof XtextEditor)
+			{
+				ISelectionProvider selectionProvider = ((XtextEditor)part).getInternalSourceViewer().getSelectionProvider();
+				if (selectionProvider instanceof IPostSelectionProvider)
+					((IPostSelectionProvider)selectionProvider).removePostSelectionChangedListener(selectionChangedListener);
+			}
+		}
+		
+		@Override
+		public void partClosed(IWorkbenchPart part)
+		{
+		}
+		
+		@Override
+		public void partBroughtToTop(IWorkbenchPart part)
+		{
+		}
+		
+		@Override
+		public void partActivated(IWorkbenchPart part)
+		{
+			if (part instanceof XtextEditor)
+			{
+				ISelectionProvider selectionProvider = ((XtextEditor)part).getInternalSourceViewer().getSelectionProvider();
+				if (selectionProvider instanceof IPostSelectionProvider)
+				{
+					((IPostSelectionProvider)selectionProvider).addPostSelectionChangedListener(selectionChangedListener);
+					selectionChangedListener.activeEditor = (XtextEditor)part;
 				}
-			});
+			}
 		}
 	}
 	
-	private Shell getShell() {
-		return getViewSite().getWorkbenchWindow().getShell();
-	}
-	
-	private CommandStack getCommandStack() {
-		return (editingDomain == null) ? null : editingDomain.getCommandStack();
+	private class PropertyViewSelectionChangedListener implements ISelectionChangedListener
+	{
+		private XtextEditor activeEditor;
+		
+		@Override
+		public void selectionChanged(SelectionChangedEvent event)
+		{
+			updateSelection(activeEditor, event.getSelection());
+		}
 	}
 }
