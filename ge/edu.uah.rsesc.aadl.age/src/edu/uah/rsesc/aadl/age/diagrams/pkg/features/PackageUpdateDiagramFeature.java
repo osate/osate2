@@ -70,9 +70,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final Diagram diagram = (Diagram)context.getPictogramElement();
 		final boolean wasEmpty = diagram.getChildren().size() == 0; 
 		
-		
-		System.out.println("UPDATING");
-		
 		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
 		diagram.getStyles().clear();		
 		

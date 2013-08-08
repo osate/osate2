@@ -14,7 +14,7 @@ public class GraphicsAlgorithmUtil {
 	}
 	
 	/**
-	 * Mirrors agraphics algorithm in the x axis
+	 * Mirrors graphics algorithm in the x axis
 	 * @param rootGa the graphics algorithm that will be treated at the top level graphics algorithm. The top level graphics algorithm will not be moved.
 	 * @param ga the graphics algorithm to mirror
 	 */

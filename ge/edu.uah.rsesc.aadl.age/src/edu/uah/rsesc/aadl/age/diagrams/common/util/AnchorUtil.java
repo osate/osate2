@@ -64,7 +64,6 @@ public class AnchorUtil {
 		final Anchor retrievedAnchor = getAnchorByName(shape, name);
 		final FixPointAnchor anchor;
 		if(retrievedAnchor == null) {
-			System.out.println("CREATING: " + shape + " - " + name);
 			anchor = peCreateService.createFixPointAnchor(shape);
 			PropertyUtil.setName(anchor, name);
 			// Theoretically this could be done for the retrieved anchor as well to ensure it has the proper graphical algorithm. Practically it causes problem for Graphiti

@@ -101,13 +101,13 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		final ContainerShape shape = (ContainerShape)context.getShape();		
 	
 		// Recreate the graphics algorithm
-		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
-		final int x = shape.getGraphicsAlgorithm().getX();
-		final int y = shape.getGraphicsAlgorithm().getY();
+		//final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
+		//final int x = shape.getGraphicsAlgorithm().getX();
+		//final int y = shape.getGraphicsAlgorithm().getY();
 
-		refreshGaAndInnerShapes(shape, bo, x, y);
+		//refreshGaAndInnerShapes(shape, bo, x, y);
 		
-		//layoutAll(shape);
+		layoutAll(shape);
 		
 		//layout(shape); // Done by refresh Ga And Inner Shapes
 		updateAnchors(shape);
@@ -128,13 +128,60 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 
 	private void layout(final ContainerShape shape) {
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
-		final Shape featureShape = getFeatureShape(shape);
+		final ContainerShape featureShape = getFeatureShape(shape);
 		final GraphicsAlgorithm featureGa = featureShape.getGraphicsAlgorithm();
+		final Feature feature = (Feature)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
 		
 		final boolean wasLeft = PropertyUtil.getIsLeft(shape);
 		final boolean isLeft = isLeft(shape);
 		PropertyUtil.setIsLeft(shape, isLeft);
 		
+		// Feature groups
+		if(feature instanceof FeatureGroup) {
+			if(isLeft) {
+				
+			} else {
+				
+			}
+			
+			if(isLeft != wasLeft) {
+				GraphicsAlgorithmUtil.mirror(featureGa);
+			}
+			//featureGa.setWidth(500);
+			/*
+			 * mirror
+			
+		} else {
+			// TODO: Cleanup
+			GraphicsAlgorithmUtil.mirror(fgGa);
+			featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
+			GraphicsAlgorithmUtil.mirror(fgGa);
+		}
+		*/
+			
+			if(isLeft) {
+				featureGa.setX(0);
+				// Set Position of All Children
+				for(final Shape child : featureShape.getChildren()) {
+					child.getGraphicsAlgorithm().setX(featureGroupSymbolWidth);
+				}
+			} else {
+				// Set Position of the Graphics Algorithm
+				featureGa.setX(featureGa.getWidth()-featureGroupSymbolWidth);
+				
+				// Set Position of All Children
+				for(final Shape child : featureShape.getChildren()) {
+					child.getGraphicsAlgorithm().setX(featureGa.getWidth()-child.getGraphicsAlgorithm().getWidth()-featureGroupSymbolWidth);
+				}
+			}
+		} else {
+			// Features
+	        if(isLeft != wasLeft) {
+	    		GraphicsAlgorithmUtil.mirror(featureGa);
+	        }
+		}
+		
+		// All
 		featureGa.setX(isLeft ? 0 : shapeGa.getWidth()-featureGa.getWidth());
 		final Shape labelShape = getLabelShape(shape);
 		
@@ -152,12 +199,12 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	private void layoutAll(final ContainerShape shape) {
-		layout(shape);
-		
-		// Layout the children
+		// Layout the children first
 		for(final Shape child : getFeatureShape(shape).getChildren()) {
-			layout((ContainerShape)child);
+			layoutAll((ContainerShape)child);
 		}
+		
+		layout(shape);
 	}
 	
 
@@ -192,7 +239,6 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
         final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
         gaService.setLocation(ga, x, y);
         PropertyUtil.setIsLeft(shape, true);
-        final boolean isLeft = isLeft(shape);
         
 		if(callDepth > 2) {
 			return;
@@ -249,41 +295,17 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 				final GraphicsAlgorithm fgGa = GraphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, getDiagram(), featureGroupSymbolWidth, childY + 25);
 				GraphicsAlgorithmUtil.shrink(fgGa);
 				final int fgWidth = maxChildWidth+featureGroupSymbolWidth;
-				if(isLeft) {
-					// TODO: Consider changing how symbol is created to assume left like the other symbols...
-					GraphicsAlgorithmUtil.mirror(fgGa);					
-				} else {
-					// TODO: Cleanup
-					GraphicsAlgorithmUtil.mirror(fgGa);
-					featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
-					GraphicsAlgorithmUtil.mirror(fgGa);
-				}
+
+				// CLEAN-UP: Consider changing how symbol is created to assume left like the other symbols...
+				GraphicsAlgorithmUtil.mirror(fgGa);					
+
 				featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
-				
-				if(isLeft) {
-					fgGa.setX(0);
-					// Set Position of All Children
-					for(final Shape child : featureShape.getChildren()) {
-						child.getGraphicsAlgorithm().setX(featureGroupSymbolWidth);
-					}
-				} else {
-					// Set Position of the Graphics Algorithm
-					fgGa.setX(fgGa.getWidth()-featureGroupSymbolWidth);
-					
-					// Set Position of All Children
-					for(final Shape child : featureShape.getChildren()) {
-						child.getGraphicsAlgorithm().setX(fgGa.getWidth()-child.getGraphicsAlgorithm().getWidth()-featureGroupSymbolWidth);
-					}
-				}
 			}
 		} else {
 			featureShape.getChildren().clear();
 			
 			// Create symbol
-	        final GraphicsAlgorithm featureGa = GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature);
-	        if(!isLeft) {
-	    		GraphicsAlgorithmUtil.mirror(featureGa);
-	        }
+			GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature);
 		}
 		
 		// Position the feature shape
@@ -293,7 +315,8 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
         gaService.setSize(ga, Math.max(getWidth(label), getWidth(featureShape.getGraphicsAlgorithm())), 
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
 
-        layout(shape);
+        layoutAll(shape); // TODO: Ideally would only layout each shape one.. This will cause it to happen multiple times
+        
 	}
 	
 	private ContainerShape getChildFeatureContainer(final ContainerShape featureShape, final Feature childFeature) {

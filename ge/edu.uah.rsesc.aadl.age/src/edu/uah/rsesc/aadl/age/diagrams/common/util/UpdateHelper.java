@@ -43,7 +43,6 @@ public class UpdateHelper {
 		}
 		
 		for(final Shape childShape : shapesToRemove) {
-			System.out.println("REMOVING");
 			EcoreUtil.delete(childShape, true);			
 		}
 	}
