@@ -89,7 +89,8 @@ public class GraphicsAlgorithmCreator {
         } else if(classifier instanceof MemoryClassifier) {
         	ga = createMemoryGraphicsAlgorithm(container, StyleUtil.getMemoryStyle(diagram, isImplementation), width, height);
         } else if(classifier instanceof FeatureGroupType) {
-        	ga = createFeatureGroupGraphicsAlgorithm(container, diagram, width, height);
+        	ga = createFeatureGroupGraphicsAlgorithm(container, diagram, Math.min(width/3, height/3), height);
+        	ga.setWidth(width);
         } else {
         	// TODO: Decide how to handle? Don't create shape? Create a generic shape?
         	ga = createDummyGraphicsAlgorithm(container, width, height);
@@ -516,8 +517,8 @@ public class GraphicsAlgorithmCreator {
 		final Style style = StyleUtil.getFeatureGroupStyle(diagram);
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
-		final int circleSize = Math.min(width/4, height/4);
-		final int barWidth = circleSize/2;
+		final int circleSize = width*2/3;
+		final int barWidth = width - circleSize;
 		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
 		ga.setFilled(false);		
@@ -529,7 +530,7 @@ public class GraphicsAlgorithmCreator {
 		
 		// Bar
 		final GraphicsAlgorithm bar = gaService.createPlainRectangle(ga);
-		gaService.setLocationAndSize(bar, circle.getX()-barWidth+1, 0, barWidth, height);
+		gaService.setLocationAndSize(bar, circle.getX()-barWidth, 0, barWidth, height);
 		bar.setStyle(style);
 		
 		return ga;

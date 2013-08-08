@@ -22,6 +22,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -49,6 +50,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	private static final String labelShapeName = "label";	
 	public static final String innerConnectorAnchorName = "innerConnector";
 	public static final String flowSpecificationAnchorName = "flowSpecification";
+	private static final int featureGroupSymbolWidth = 30;
 	
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
@@ -56,11 +58,13 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	@Override
-	public boolean canMoveShape(IMoveShapeContext ctx) {
+	public boolean canMoveShape(final IMoveShapeContext ctx) {
 		if(ctx.getPictogramElement() instanceof Shape){
 			final Shape shape = (Shape)ctx.getPictogramElement();
 			// TODO: Add support for moving features within a feature group
-			return shape.getContainer().getContainer() instanceof Diagram;			
+			if(shape.getContainer().getContainer() instanceof Diagram) {
+				return super.canMoveShape(ctx);
+			}
 		}
 		
 		return false;
@@ -100,9 +104,12 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
 		final int x = shape.getGraphicsAlgorithm().getX();
 		final int y = shape.getGraphicsAlgorithm().getY();
+
 		refreshGaAndInnerShapes(shape, bo, x, y);
 		
-		layout(shape);
+		//layoutAll(shape);
+		
+		//layout(shape); // Done by refresh Ga And Inner Shapes
 		updateAnchors(shape);
 	}
 
@@ -118,12 +125,16 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		
 		return false;
 	}
-	
+
 	private void layout(final ContainerShape shape) {
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		final Shape featureShape = getFeatureShape(shape);
 		final GraphicsAlgorithm featureGa = featureShape.getGraphicsAlgorithm();
-		final boolean isLeft = isLeft(shape);		
+		
+		final boolean wasLeft = PropertyUtil.getIsLeft(shape);
+		final boolean isLeft = isLeft(shape);
+		PropertyUtil.setIsLeft(shape, isLeft);
+		
 		featureGa.setX(isLeft ? 0 : shapeGa.getWidth()-featureGa.getWidth());
 		final Shape labelShape = getLabelShape(shape);
 		
@@ -139,45 +150,22 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 			shapeGa.setX(isLeft ? 0 : containerWidth-shape.getGraphicsAlgorithm().getWidth());
 		}
 	}
+	
+	private void layoutAll(final ContainerShape shape) {
+		layout(shape);
+		
+		// Layout the children
+		for(final Shape child : getFeatureShape(shape).getChildren()) {
+			layout((ContainerShape)child);
+		}
+	}
+	
 
 	@Override
 	protected void refreshGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y) {
 		refreshGaAndInnerShapes(shape, bo, x, y, 0);
 	}
-	
-	// TODO: WIP
-	/**
-	 * Returns all the connections that use anchors contained in a shape's descendants
-	 * @param shape
-	 * @param diagram
-	 */
-	/*
-	private Set<Connection> getAllConnectionsRelatedToChildren(final ContainerShape shape, final Diagram diagram) {
-		final Set<Connection> connections = new HashSet<Connection>();
-		
-		for(final Shape child : ((ContainerShape)shape).getChildren()) {
-			getAllRelatedConnections(child, diagram, connections);
-		}
-		
-		// Return the results
-		return connections;
-	}
-	
-	private void getAllRelatedConnections(final Shape shape, final Diagram diagram, final Set<Connection> connections) {
-		// Add Anchors to the List
-		for(final Anchor a : shape.getAnchors()) {
-			connections.addAll(a.getIncomingConnections());
-			connections.addAll(a.getOutgoingConnections());
-		}
-		
-		// Check children
-		if(shape instanceof ContainerShape) {
-			for(final Shape child : ((ContainerShape)shape).getChildren()) {
-				getAllRelatedConnections(child, diagram, connections);
-			}
-		}
-	}
-	*/
+
 	/**
 	 * Version of createGaAndInnerShapes that limits recursion
 	 * @param shape
@@ -189,13 +177,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	private void refreshGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y, final int callDepth) {
 		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
-		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		
-		// TODO: Make a list of all the connections that need updating...
-		// TODO: Get anchors in shape and children
-		// TODO: Get all connections in the diagram that reference one of the anchors
-		//final Set<Connection> relatedConnections = getAllConnectionsRelatedToChildren(shape, getDiagram());
-		// TODO: Consider adding this capability to the update helper
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();		
 		
 		// Remove all children except for the feature shape
 		final Iterator<Shape> childIt = shape.getChildren().iterator();
@@ -209,6 +191,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds	of the child shapes			
         final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
         gaService.setLocation(ga, x, y);
+        PropertyUtil.setIsLeft(shape, true);
         final boolean isLeft = isLeft(shape);
         
 		if(callDepth > 2) {
@@ -239,13 +222,11 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)feature;
-			
-			// TODO: Handle removing children or whatever needs to be done
+
 			if(fg.getFeatureGroupType() == null) {
 				featureShape.getChildren().clear();
 				gaService.createInvisibleRectangle(featureShape);
-			}
-			else {
+			} else {
 				int childY = 0;
 				int maxChildWidth = 0;
 				for(final Feature childFeature : fg.getFeatureGroupType().getAllFeatures()) {
@@ -256,10 +237,8 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 			        	// Create the container shape
 			        	childFeatureContainer = peCreateService.createContainerShape(featureShape, true);
 			        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
-			        } else {
-			        	UpdateHelper.removeInvalidShapes(childFeatureContainer, getFeatureProvider());
 			        }
-			        
+					
 			        refreshGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
 			        final GraphicsAlgorithm childFeatureGa = childFeatureContainer.getGraphicsAlgorithm();
 			        childY += childFeatureGa.getHeight() + 5;
@@ -267,12 +246,11 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 				}
 				
 				// Create the feature group graphics algorithm
-				final GraphicsAlgorithm fgGa = GraphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, getDiagram(), 80, childY + 25);
+				final GraphicsAlgorithm fgGa = GraphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, getDiagram(), featureGroupSymbolWidth, childY + 25);
 				GraphicsAlgorithmUtil.shrink(fgGa);
-				final int fgSymbolWidth = fgGa.getWidth();
-				final int fgWidth = Math.max(maxChildWidth+fgSymbolWidth,  fgSymbolWidth);
-				
+				final int fgWidth = maxChildWidth+featureGroupSymbolWidth;
 				if(isLeft) {
+					// TODO: Consider changing how symbol is created to assume left like the other symbols...
 					GraphicsAlgorithmUtil.mirror(fgGa);					
 				} else {
 					// TODO: Cleanup
@@ -282,25 +260,21 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 				}
 				featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
 				
-				if(isLeft) {					
+				if(isLeft) {
+					fgGa.setX(0);
 					// Set Position of All Children
 					for(final Shape child : featureShape.getChildren()) {
-						child.getGraphicsAlgorithm().setX(fgSymbolWidth);
+						child.getGraphicsAlgorithm().setX(featureGroupSymbolWidth);
 					}
 				} else {
 					// Set Position of the Graphics Algorithm
-					fgGa.setX(fgGa.getWidth()-fgSymbolWidth);
+					fgGa.setX(fgGa.getWidth()-featureGroupSymbolWidth);
 					
 					// Set Position of All Children
 					for(final Shape child : featureShape.getChildren()) {
-						child.getGraphicsAlgorithm().setX(fgGa.getWidth()-child.getGraphicsAlgorithm().getWidth()-fgSymbolWidth);
+						child.getGraphicsAlgorithm().setX(fgGa.getWidth()-child.getGraphicsAlgorithm().getWidth()-featureGroupSymbolWidth);
 					}
 				}
-				
-				// Update the anchors of the children
-				//for(final Shape child : featureShape.getChildren()) {
-				//	updateAnchors((ContainerShape)child);
-				//}
 			}
 		} else {
 			featureShape.getChildren().clear();
@@ -320,18 +294,6 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
 
         layout(shape);
-        
-        // Update related connections
-        /*
-        for(final Connection c: relatedConnections) {
-        	final UpdateContext updateContext = new UpdateContext(c);
-			final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-			
-			// Update the connection
-			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
-				updateFeature.update(updateContext);
-			}
-        }*/
 	}
 	
 	private ContainerShape getChildFeatureContainer(final ContainerShape featureShape, final Feature childFeature) {
@@ -348,19 +310,21 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 	protected void updateAnchors(final ContainerShape shape) {
 		super.updateAnchors(shape);
 
+		final Feature feature = (Feature)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));		
 		final GraphicsAlgorithm featureGa = getFeatureShape(shape).getGraphicsAlgorithm();
 		final boolean isLeft = isLeft(shape);
-		final int innerConnectorX = featureGa.getX() + (isLeft ? featureGa.getWidth() : 0);
-		final int connectorY = featureGa.getY() + (featureGa.getHeight() / 2);
-		final int offset = isLeft ? 50 : -50;
 		
+		final int featureWidth = feature instanceof FeatureGroup ? featureGroupSymbolWidth : featureGa.getWidth();
+		final int innerConnectorX = featureGa.getX() + (isLeft ? featureWidth : featureGa.getWidth() - featureWidth);
+		final int connectorY = feature instanceof FeatureGroup ? featureGa.getHeight() - 5 : featureGa.getY() + (featureGa.getHeight() / 2);
+		final int offset = isLeft ? 50 : -50;
+
 		// Create anchors
 		// Connector
 		AnchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, innerConnectorX, connectorY);
 		AnchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerConnectorX + offset, connectorY);
 		
 		// Update the anchors of the children
-		// TODO: Check if feature group?
 		for(final Shape child : getFeatureShape(shape).getChildren()) {
 			updateAnchors((ContainerShape)child);
 		}
