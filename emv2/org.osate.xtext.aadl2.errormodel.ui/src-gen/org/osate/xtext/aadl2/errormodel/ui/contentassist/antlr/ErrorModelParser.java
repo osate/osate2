@@ -104,7 +104,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_6(), "rule__ErrorModelSubclause__Group_6__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_6_3(), "rule__ErrorModelSubclause__Group_6_3__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_7(), "rule__ErrorModelSubclause__Group_7__0");
-					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_7_3(), "rule__ErrorModelSubclause__Group_7_3__0");
+					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_7_2(), "rule__ErrorModelSubclause__Group_7_2__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_8(), "rule__ErrorModelSubclause__Group_8__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_8_3(), "rule__ErrorModelSubclause__Group_8_3__0");
 					put(grammarAccess.getErrorModelSubclauseAccess().getGroup_9(), "rule__ErrorModelSubclause__Group_9__0");
@@ -282,8 +282,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorModelSubclauseAccess().getErrorDetectionsAssignment_5_7_1(), "rule__ErrorModelSubclause__ErrorDetectionsAssignment_5_7_1");
 					put(grammarAccess.getErrorModelSubclauseAccess().getErrorStateToModeMappingsAssignment_5_8_2(), "rule__ErrorModelSubclause__ErrorStateToModeMappingsAssignment_5_8_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getStatesAssignment_6_3_1(), "rule__ErrorModelSubclause__StatesAssignment_6_3_1");
-					put(grammarAccess.getErrorModelSubclauseAccess().getTypeTransformationSetAssignment_7_3_2(), "rule__ErrorModelSubclause__TypeTransformationSetAssignment_7_3_2");
-					put(grammarAccess.getErrorModelSubclauseAccess().getConnectionErrorSourcesAssignment_7_4(), "rule__ErrorModelSubclause__ConnectionErrorSourcesAssignment_7_4");
+					put(grammarAccess.getErrorModelSubclauseAccess().getTypeTransformationSetAssignment_7_2_2(), "rule__ErrorModelSubclause__TypeTransformationSetAssignment_7_2_2");
+					put(grammarAccess.getErrorModelSubclauseAccess().getConnectionErrorSourcesAssignment_7_3(), "rule__ErrorModelSubclause__ConnectionErrorSourcesAssignment_7_3");
 					put(grammarAccess.getErrorModelSubclauseAccess().getPointsAssignment_8_2(), "rule__ErrorModelSubclause__PointsAssignment_8_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getConnectionsAssignment_8_3_1(), "rule__ErrorModelSubclause__ConnectionsAssignment_8_3_1");
 					put(grammarAccess.getErrorModelSubclauseAccess().getPropertiesAssignment_9_1(), "rule__ErrorModelSubclause__PropertiesAssignment_9_1");

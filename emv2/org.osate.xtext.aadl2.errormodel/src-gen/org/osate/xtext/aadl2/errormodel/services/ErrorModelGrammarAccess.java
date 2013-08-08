@@ -368,19 +368,18 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cConnectionKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Keyword cErrorKeyword_7_1 = (Keyword)cGroup_7.eContents().get(1);
-		private final Keyword cBehaviorKeyword_7_2 = (Keyword)cGroup_7.eContents().get(2);
-		private final Group cGroup_7_3 = (Group)cGroup_7.eContents().get(3);
-		private final Keyword cUseKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
-		private final Keyword cTransformationsKeyword_7_3_1 = (Keyword)cGroup_7_3.eContents().get(1);
-		private final Assignment cTypeTransformationSetAssignment_7_3_2 = (Assignment)cGroup_7_3.eContents().get(2);
-		private final CrossReference cTypeTransformationSetTypeTransformationSetCrossReference_7_3_2_0 = (CrossReference)cTypeTransformationSetAssignment_7_3_2.eContents().get(0);
-		private final RuleCall cTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_3_2_0_1 = (RuleCall)cTypeTransformationSetTypeTransformationSetCrossReference_7_3_2_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_7_3_3 = (Keyword)cGroup_7_3.eContents().get(3);
-		private final Assignment cConnectionErrorSourcesAssignment_7_4 = (Assignment)cGroup_7.eContents().get(4);
-		private final RuleCall cConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_4_0 = (RuleCall)cConnectionErrorSourcesAssignment_7_4.eContents().get(0);
-		private final Keyword cEndKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
-		private final Keyword cConnectionKeyword_7_6 = (Keyword)cGroup_7.eContents().get(6);
-		private final Keyword cSemicolonKeyword_7_7 = (Keyword)cGroup_7.eContents().get(7);
+		private final Group cGroup_7_2 = (Group)cGroup_7.eContents().get(2);
+		private final Keyword cUseKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
+		private final Keyword cTransformationsKeyword_7_2_1 = (Keyword)cGroup_7_2.eContents().get(1);
+		private final Assignment cTypeTransformationSetAssignment_7_2_2 = (Assignment)cGroup_7_2.eContents().get(2);
+		private final CrossReference cTypeTransformationSetTypeTransformationSetCrossReference_7_2_2_0 = (CrossReference)cTypeTransformationSetAssignment_7_2_2.eContents().get(0);
+		private final RuleCall cTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_2_2_0_1 = (RuleCall)cTypeTransformationSetTypeTransformationSetCrossReference_7_2_2_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_7_2_3 = (Keyword)cGroup_7_2.eContents().get(3);
+		private final Assignment cConnectionErrorSourcesAssignment_7_3 = (Assignment)cGroup_7.eContents().get(3);
+		private final RuleCall cConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_3_0 = (RuleCall)cConnectionErrorSourcesAssignment_7_3.eContents().get(0);
+		private final Keyword cEndKeyword_7_4 = (Keyword)cGroup_7.eContents().get(4);
+		private final Keyword cConnectionKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
+		private final Keyword cSemicolonKeyword_7_6 = (Keyword)cGroup_7.eContents().get(6);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
 		private final Keyword cPropagationKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
 		private final Keyword cPathsKeyword_8_1 = (Keyword)cGroup_8.eContents().get(1);
@@ -416,13 +415,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error"
 		//
-		//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" "behavior" ("use"
+		//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 		//
-		//	"transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
+		//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//
-		//	connectionErrorSources+=ConnectionErrorSource* "end" "connection" ";")? ("propagation" "paths"
+		//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint+ ("connections"
 		//
-		//	points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
+		//	connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
 		//
 		//	properties+=ContainedPropertyAssociation+)?;
 		public ParserRule getRule() { return rule; }
@@ -444,13 +443,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error"
 		//
-		//"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" "behavior" ("use"
+		//"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 		//
-		//"transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
+		//typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//
-		//connectionErrorSources+=ConnectionErrorSource* "end" "connection" ";")? ("propagation" "paths"
+		//"connection" ";")? ("propagation" "paths" points+=PropagationPoint+ ("connections"
 		//
-		//points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
+		//connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
 		//
 		//properties+=ContainedPropertyAssociation+)?
 		public Group getGroup() { return cGroup; }
@@ -720,7 +719,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_6_6() { return cSemicolonKeyword_6_6; }
 
-		//("connection" "error" "behavior" ("use" "transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
+		//("connection" "error" ("use" "transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
 		//
 		//connectionErrorSources+=ConnectionErrorSource* "end" "connection" ";")?
 		public Group getGroup_7() { return cGroup_7; }
@@ -731,44 +730,41 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"error"
 		public Keyword getErrorKeyword_7_1() { return cErrorKeyword_7_1; }
 
-		//"behavior"
-		public Keyword getBehaviorKeyword_7_2() { return cBehaviorKeyword_7_2; }
-
 		//("use" "transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
-		public Group getGroup_7_3() { return cGroup_7_3; }
+		public Group getGroup_7_2() { return cGroup_7_2; }
 
 		//"use"
-		public Keyword getUseKeyword_7_3_0() { return cUseKeyword_7_3_0; }
+		public Keyword getUseKeyword_7_2_0() { return cUseKeyword_7_2_0; }
 
 		//"transformations"
-		public Keyword getTransformationsKeyword_7_3_1() { return cTransformationsKeyword_7_3_1; }
+		public Keyword getTransformationsKeyword_7_2_1() { return cTransformationsKeyword_7_2_1; }
 
 		//typeTransformationSet=[TypeTransformationSet|QEMREF]
-		public Assignment getTypeTransformationSetAssignment_7_3_2() { return cTypeTransformationSetAssignment_7_3_2; }
+		public Assignment getTypeTransformationSetAssignment_7_2_2() { return cTypeTransformationSetAssignment_7_2_2; }
 
 		//[TypeTransformationSet|QEMREF]
-		public CrossReference getTypeTransformationSetTypeTransformationSetCrossReference_7_3_2_0() { return cTypeTransformationSetTypeTransformationSetCrossReference_7_3_2_0; }
+		public CrossReference getTypeTransformationSetTypeTransformationSetCrossReference_7_2_2_0() { return cTypeTransformationSetTypeTransformationSetCrossReference_7_2_2_0; }
 
 		//QEMREF
-		public RuleCall getTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_3_2_0_1() { return cTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_3_2_0_1; }
+		public RuleCall getTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_2_2_0_1() { return cTypeTransformationSetTypeTransformationSetQEMREFParserRuleCall_7_2_2_0_1; }
 
 		//";"
-		public Keyword getSemicolonKeyword_7_3_3() { return cSemicolonKeyword_7_3_3; }
+		public Keyword getSemicolonKeyword_7_2_3() { return cSemicolonKeyword_7_2_3; }
 
 		//connectionErrorSources+=ConnectionErrorSource*
-		public Assignment getConnectionErrorSourcesAssignment_7_4() { return cConnectionErrorSourcesAssignment_7_4; }
+		public Assignment getConnectionErrorSourcesAssignment_7_3() { return cConnectionErrorSourcesAssignment_7_3; }
 
 		//ConnectionErrorSource
-		public RuleCall getConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_4_0() { return cConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_4_0; }
+		public RuleCall getConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_3_0() { return cConnectionErrorSourcesConnectionErrorSourceParserRuleCall_7_3_0; }
 
 		//"end"
-		public Keyword getEndKeyword_7_5() { return cEndKeyword_7_5; }
+		public Keyword getEndKeyword_7_4() { return cEndKeyword_7_4; }
 
 		//"connection"
-		public Keyword getConnectionKeyword_7_6() { return cConnectionKeyword_7_6; }
+		public Keyword getConnectionKeyword_7_5() { return cConnectionKeyword_7_5; }
 
 		//";"
-		public Keyword getSemicolonKeyword_7_7() { return cSemicolonKeyword_7_7; }
+		public Keyword getSemicolonKeyword_7_6() { return cSemicolonKeyword_7_6; }
 
 		//("propagation" "paths" points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths"
 		//
@@ -4868,13 +4864,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error"
 	//
-	//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" "behavior" ("use"
+	//	"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 	//
-	//	"transformations" typeTransformationSet=[TypeTransformationSet|QEMREF] ";")?
+	//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 	//
-	//	connectionErrorSources+=ConnectionErrorSource* "end" "connection" ";")? ("propagation" "paths"
+	//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint+ ("connections"
 	//
-	//	points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
+	//	connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
 	//
 	//	properties+=ContainedPropertyAssociation+)?;
 	public ErrorModelSubclauseElements getErrorModelSubclauseAccess() {

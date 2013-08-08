@@ -236,7 +236,6 @@
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="connection"/>
           <elements xsi:type="xtext:Keyword" value="error"/>
-          <elements xsi:type="xtext:Keyword" value="behavior"/>
           <elements xsi:type="xtext:Group" cardinality="?">
             <elements xsi:type="xtext:Keyword" value="use"/>
             <elements xsi:type="xtext:Keyword" value="transformations"/>

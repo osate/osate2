@@ -87,7 +87,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
    'end' 'composite' ';'
   )?
   (
-  		'connection' 'error' 'behavior'
+  		'connection' 'error' 
 	('use' 'transformations' typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
 	( connectionErrorSources+= ConnectionErrorSource )*
 	'end' 'connection' ';'
