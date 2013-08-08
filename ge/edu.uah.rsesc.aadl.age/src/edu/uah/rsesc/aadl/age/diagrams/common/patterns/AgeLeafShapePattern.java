@@ -37,10 +37,10 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 	
 	/**
 	 * Creates anchors. If they already exist, then they are updated.
-	 * @param container
+	 * @param shape
 	 */
-	protected void updateAnchors(final ContainerShape container) {
-		AnchorUtil.createOrUpdateChopboxAnchor(container, chopboxAnchorName);
+	protected void updateAnchors(final ContainerShape shape) {
+		AnchorUtil.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
 	}
 	
 	@Override

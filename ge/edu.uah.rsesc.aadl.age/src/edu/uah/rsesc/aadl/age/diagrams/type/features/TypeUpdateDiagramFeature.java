@@ -53,7 +53,6 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 	//	System.out.println(classifier);
 
 		final Diagram diagram = getDiagram();	
-		// TODO: Easier to put the features on the sides?
 		// How to snap?		
 		
 		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.

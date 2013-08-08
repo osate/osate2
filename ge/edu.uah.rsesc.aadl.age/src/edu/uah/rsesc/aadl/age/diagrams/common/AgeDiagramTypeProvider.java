@@ -4,6 +4,7 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.osate.aadl2.Generalization;
@@ -43,8 +44,21 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
             	    return super.getDoubleClickFeature(context);
             	 }
             	
+            	/**
+            	 * Override of getSelection that checks the shape and containers and returns the first shape with a business object. Allows using active objects without them being
+            	 * selectable.
+            	 */
             	@Override
             	public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
+            		if(originalPe instanceof Shape) {
+            			// Return the first shape that has a business object
+            			Shape shape = (Shape)originalPe;
+            			while(this.getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null && shape != null) {
+            				shape = shape.getContainer();
+            			}
+
+            			return shape;
+            		}
 					return null;
             	}
             }};

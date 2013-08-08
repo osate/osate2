@@ -65,7 +65,11 @@ public class AnchorUtil {
 		final FixPointAnchor anchor;
 		if(retrievedAnchor == null) {
 			anchor = peCreateService.createFixPointAnchor(shape);
-			PropertyUtil.setName(anchor, name);			
+			PropertyUtil.setName(anchor, name);
+			
+			// Theoretically this could be done for the retrieved anchor as well to ensure it has the proper graphical algorithm. Practically it causes problem for Graphiti
+			// for an unknown reason when moving feature groups. We do it only when creating the anchor for that reason
+			gaService.createInvisibleRectangle(anchor);
 		} else {
 			if(!(retrievedAnchor instanceof FixPointAnchor)) {
 				throw new RuntimeException("Retrieved anchor is of invalid type: " + retrievedAnchor.getClass().getName());	
@@ -75,7 +79,6 @@ public class AnchorUtil {
 		}
 
 		// Configure the anchor
-        gaService.createInvisibleRectangle(anchor);
         anchor.setLocation(gaService.createPoint(x, y));
         anchor.setUseAnchorLocationAsConnectionEndpoint(true);
         

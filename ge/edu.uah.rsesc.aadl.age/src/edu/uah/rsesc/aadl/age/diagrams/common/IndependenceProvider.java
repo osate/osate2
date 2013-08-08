@@ -25,6 +25,8 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 import edu.uah.rsesc.aadl.age.util.Log;
 
+// NOTE: There is an issue where there could be confusion over which element is being referenced. Qualified names are not always unique. Features and Component Implementations could conflict
+// TODO: Expand check so that it ensures that the element being retrieved is of the expected type to reduce likelihood of problems if a reliable solutation can not be found.
 class IndependenceProvider implements IIndependenceSolver {
 	private IFeatureProvider featureProvider;
 	private boolean gettingDiagramObj = false; // Flag to indicate which code path to use. Needed because the independence provider needs to get the object for the diagram which would otherwise result in endless recursion
@@ -190,28 +192,39 @@ class IndependenceProvider implements IIndependenceSolver {
 		
 		return element;
 	}
-	
+
 	private NamedElement findNamedElement(final Namespace namespace, final String[] pathSegs) {
-		NamedElement element = namespace;
-		for(final String seg : pathSegs) {
-			NamedElement matchingMember = null;
-			if(element instanceof Namespace) {
-				for(final NamedElement member : ((Namespace)element).getMembers()) {
-					if(member.getName().equalsIgnoreCase(seg)) {
-						matchingMember = member;
-						break;
-					}
-				}
-			}			
-			
-			element = matchingMember;
-			
-			if(element == null) { 
-				break; 
-			}
+		return findNamedElement(namespace, pathSegs, 0);
+	}
+	
+	private NamedElement findNamedElement(final NamedElement element, final String[] pathSegs, final int i) {
+		if(i >= pathSegs.length) {
+			return element;
 		}
 		
-		return element;
+		final String seg = pathSegs[i];
+		if(element instanceof Namespace) {
+			for(final NamedElement member : ((Namespace)element).getMembers()) {
+				if(member.getName().equalsIgnoreCase(seg)) {
+					NamedElement result = findNamedElement(member, pathSegs, i+1);
+					if(result != null) {
+						return result;
+					}
+				} 
+				
+				// Handle Component Implementations
+				if(((i+1) < pathSegs.length) && member.getName().contains(".")) {
+					if(member.getName().equalsIgnoreCase(pathSegs[i] + "." + pathSegs[i+1])) {
+						NamedElement result = findNamedElement(member, pathSegs, i+2);
+						if(result != null) {
+							return result;
+						}
+					}
+				}
+			}
+		}			
+		
+		return null;
 	}
 	
 	private AadlPackage getPackage(final XtextResourceSet resourceSet, final String name) {
