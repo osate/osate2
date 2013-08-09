@@ -13,13 +13,18 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.services.IPeService;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeFeaturePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 
 /**
  * Class the contains miscellaneous methods for dealing with anchors
@@ -117,6 +122,32 @@ public class AnchorUtil {
 		return new Anchor[] {generalAnchor, specificAnchor};
 	}
 	
+	
+	// TODO: Document arguments
+	public static Anchor[] getAnchorsForConnection(final ComponentImplementation componentImplementation, final Connection connection, final IFeatureProvider fp) {
+		Anchor a1 = null;
+		Anchor a2 = null;
+		
+		// Get the pictogram elements for the source and destination of the connection
+		final PictogramElement sourcePe = getPictogramElement(componentImplementation, connection.getAllSource(), connection.getAllSourceContext(), connection.getAllSrcContextComponent(), fp);
+		final PictogramElement destPe = getPictogramElement(componentImplementation, connection.getAllDestination(), connection.getAllDestinationContext(), connection.getAllDstContextComponent(), fp);
+		
+		// TODO: Consider using different anchor
+		if(sourcePe == null || !(sourcePe instanceof AnchorContainer) || destPe == null || !(destPe instanceof AnchorContainer)) {
+			return null;
+		}
+		
+		final IPeService peService = Graphiti.getPeService();
+		a1 = peService.getChopboxAnchor((AnchorContainer)sourcePe);
+		a2 = peService.getChopboxAnchor((AnchorContainer)destPe);
+		
+		if(a1 == null || a2 == null) {
+			return null;
+		}
+
+		return new Anchor[] {a1, a2};
+	}
+	
 	/**
 	 * 
 	 * @param fs
@@ -127,29 +158,29 @@ public class AnchorUtil {
 		Anchor a1 = null;
 		Anchor a2 = null;
 		
-		final PictogramElement inPe = getPictogramElement(fs.getInEnd(), fp);
-		final PictogramElement outPe = getPictogramElement(fs.getOutEnd(), fp);
+		final PictogramElement inPe = getPictogramElement(fs.getAllInEnd(), fp);
+		final PictogramElement outPe = getPictogramElement(fs.getAllOutEnd(), fp);
 		
 		// Determine the anchors to use for the connection
 		switch(fs.getKind()) {
 		case PATH:
 			{
-				a1 = getAnchorByName(inPe, TypeFeaturePattern.innerConnectorAnchorName);
-				a2 = getAnchorByName(outPe, TypeFeaturePattern.innerConnectorAnchorName);
+				a1 = getAnchorByName(inPe, FeaturePattern.innerConnectorAnchorName);
+				a2 = getAnchorByName(outPe, FeaturePattern.innerConnectorAnchorName);
 				break;
 			}
 			
 		case SOURCE:
 			{
-				a1 = getAnchorByName(outPe, TypeFeaturePattern.innerConnectorAnchorName);
-				a2 = getAnchorByName(outPe, TypeFeaturePattern.flowSpecificationAnchorName);	
+				a1 = getAnchorByName(outPe, FeaturePattern.innerConnectorAnchorName);
+				a2 = getAnchorByName(outPe, FeaturePattern.flowSpecificationAnchorName);	
 				break;
 			}
 
 		case SINK:
 			{
-				a1 = getAnchorByName(inPe, TypeFeaturePattern.innerConnectorAnchorName);
-				a2 = getAnchorByName(inPe, TypeFeaturePattern.flowSpecificationAnchorName);	
+				a1 = getAnchorByName(inPe, FeaturePattern.innerConnectorAnchorName);
+				a2 = getAnchorByName(inPe, FeaturePattern.flowSpecificationAnchorName);	
 				break;		
 			}
 			
@@ -165,6 +196,67 @@ public class AnchorUtil {
 		return new Anchor[] {a1, a2};
 	}
 	
+	/**
+	 * 
+	 * @param componentImplementation the component implementation to use as a context for resolving the connection end if necessary
+	 * @param ce
+	 * @param context
+	 * @param contextComponent
+	 * @param fp
+	 * @return
+	 */
+	private static PictogramElement getPictogramElement(final ComponentImplementation componentImplementation, final ConnectionEnd ce, final Context context, final NamedElement contextComponent, final IFeatureProvider fp) {
+		if(ce == null) {
+			return null;
+		}
+		
+		// Get the PE for the context component
+		PictogramElement pe = null;
+		if(contextComponent != null) {
+			pe = fp.getPictogramElementForBusinessObject(contextComponent);
+			if(pe == null || !(pe instanceof ContainerShape)) {
+				return null;
+			}
+		} 
+		
+		if(context != null && contextComponent != context) {
+			if(pe == null) {			
+				// TODO: Throw exception? Unhandled case. Context without context component
+				return null;
+			} else {
+				// Get the shape for the context
+				pe = ShapeHelper.getDescendantShapeByElement((ContainerShape)pe, context, fp);
+				if(pe == null || !(pe instanceof ContainerShape)) {
+					return null;
+				}
+			}
+		}
+		
+		// If the connection end did not have a context
+		if(pe == null) {
+			pe = fp.getPictogramElementForBusinessObject(componentImplementation);
+			if(pe == null || !(pe instanceof ContainerShape)) {
+				return null;
+			}
+		}
+		
+		// Get Descendant PE
+		pe = ShapeHelper.getDescendantShapeByElement((ContainerShape)pe, ce, fp);
+		
+		// CLEAN-UP: Clarify or remove comments
+		// Case: Just CE is valid. (Probably a feature? could be a component)
+		// Return it's PE
+		
+		// Case: CE is valid. Context and context component is the same.
+		// Get the PE of Context. Retrieve PE of the child of the context PE for CE.
+		
+		// Case: CE is valid. Context is a subcomponent. Context is a feature group
+		// 
+
+		return pe;
+	}
+	
+	// TODO: Look into if this is specific enough. Could the feature group be ambigious. For example subcomponents with the same feature group.
 	private static PictogramElement getPictogramElement(final FlowEnd fe, final IFeatureProvider fp) {
 		if(fe == null) {
 			return null;
@@ -174,7 +266,7 @@ public class AnchorUtil {
 			final FeatureGroup fg = (FeatureGroup)fe.getContext();
 			final PictogramElement fgPe = fp.getPictogramElementForBusinessObject(fg);
 			if(fgPe instanceof ContainerShape) {
-				final ContainerShape fgCs = TypeFeaturePattern.getFeatureShape((ContainerShape)fgPe);
+				final ContainerShape fgCs = FeaturePattern.getFeatureShape((ContainerShape)fgPe);
 				for(final Shape child : fgCs.getChildren()) {
 					final Object childObj = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(child));
 					if(childObj == fe.getFeature()) {

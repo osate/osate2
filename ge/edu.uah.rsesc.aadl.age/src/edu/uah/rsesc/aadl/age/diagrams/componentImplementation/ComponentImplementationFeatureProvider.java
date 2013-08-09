@@ -1,55 +1,32 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation;
 
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.ICreateConnectionFeature;
-import org.eclipse.graphiti.features.ICreateFeature;
-import org.eclipse.graphiti.features.ILayoutFeature;
-import org.eclipse.graphiti.features.context.IAddConnectionContext;
-import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.ILayoutContext;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.features.IUpdateFeature;
+import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
-import edu.uah.rsesc.aadl.age.diagrams.common.features.stub.AddDomainObjectConnectionConnectionFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.features.stub.AddDomainObjectFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.features.stub.CreateDomainObjectConnectionConnectionFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.features.stub.CreateDomainObjectFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.features.stub.LayoutDomainObjectFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.ComponentImplementationUpdateDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ComponentImplementationPattern;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.SubcomponentPattern;
 
 
 public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 	public ComponentImplementationFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
+		this.addPattern(new ComponentImplementationPattern());
+		this.addPattern(new SubcomponentPattern());
+		this.addPattern(new FeaturePattern());
 	}
 
 	@Override
-	public ICreateFeature[] getCreateFeatures() {
-		return new ICreateFeature[] {new CreateDomainObjectFeature(this)};
-	}
-	
-	@Override
-	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
-		return new ICreateConnectionFeature[] {new CreateDomainObjectConnectionConnectionFeature(this)};
-	}
-	
-	@Override
-	public IAddFeature getAddFeature(IAddContext context) {
-		if (context instanceof IAddConnectionContext) {
-			return new AddDomainObjectConnectionConnectionFeature(this);
-		} else if (context instanceof IAddContext) {
-			return new AddDomainObjectFeature(this);
-		}
-
-		return super.getAddFeature(context);
-	}
-	
-	@Override
-	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
-		if (context.getPictogramElement() instanceof ContainerShape) {
-			return  new LayoutDomainObjectFeature(this);
-		}
-	
-		return super.getLayoutFeature(context);
+	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
+	   PictogramElement pictogramElement = context.getPictogramElement();
+	   if(pictogramElement instanceof Diagram) {
+		   return new ComponentImplementationUpdateDiagramFeature(this);
+	   }
+	   return super.getUpdateFeature(context);
 	}
 }

@@ -19,6 +19,7 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Realization;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TypeExtension;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
@@ -43,7 +44,9 @@ class IndependenceProvider implements IIndependenceSolver {
 			if(bo instanceof AadlPackage) {
 				return "package " + ((AadlPackage)bo).getQualifiedName();				
 			} else if(bo instanceof Classifier) {
-				return "classifier " + ((Classifier)bo).getQualifiedName();	
+				return "classifier " + ((Classifier)bo).getQualifiedName();
+			} else if(bo instanceof Subcomponent) {
+				return "subcomponent " + ((Subcomponent)bo).getQualifiedName();
 			} else if(bo instanceof Realization) {
 				return "realization " + ((Realization)bo).getSpecific().getQualifiedName();
 			} else if(bo instanceof TypeExtension) {
@@ -131,6 +134,7 @@ class IndependenceProvider implements IIndependenceSolver {
 			switch(type) {
 			case "package":
 			case "classifier":
+			case "subcomponent":
 			case "feature":
 			case "flow_specification":
 				aadlElement = relevantElement;
@@ -205,22 +209,25 @@ class IndependenceProvider implements IIndependenceSolver {
 		final String seg = pathSegs[i];
 		if(element instanceof Namespace) {
 			for(final NamedElement member : ((Namespace)element).getMembers()) {
-				if(member.getName().equalsIgnoreCase(seg)) {
-					NamedElement result = findNamedElement(member, pathSegs, i+1);
-					if(result != null) {
-						return result;
-					}
-				} 
-				
-				// Handle Component Implementations
-				if(((i+1) < pathSegs.length) && member.getName().contains(".")) {
-					if(member.getName().equalsIgnoreCase(pathSegs[i] + "." + pathSegs[i+1])) {
-						NamedElement result = findNamedElement(member, pathSegs, i+2);
+				final String name = member.getName();
+				if(name != null) {
+					if(name.equalsIgnoreCase(seg)) {
+						final NamedElement result = findNamedElement(member, pathSegs, i+1);
 						if(result != null) {
 							return result;
 						}
+					} 
+					
+					// Handle Component Implementations
+					if(((i+1) < pathSegs.length) && name.contains(".")) {
+						if(name.equalsIgnoreCase(pathSegs[i] + "." + pathSegs[i+1])) {
+							final NamedElement result = findNamedElement(member, pathSegs, i+2);
+							if(result != null) {
+								return result;
+							}
+						}
 					}
-				}
+				}				
 			}
 		}			
 		

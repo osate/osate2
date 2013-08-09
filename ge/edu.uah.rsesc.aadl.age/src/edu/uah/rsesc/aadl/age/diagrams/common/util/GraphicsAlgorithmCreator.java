@@ -55,6 +55,15 @@ public class GraphicsAlgorithmCreator {
         return text;
 	}
 	
+	/**
+	 * Creates a graphics algorithm representing a specified classifer. If the classifier is null then a generic representation is returned.
+	 * @param container
+	 * @param diagram
+	 * @param classifier
+	 * @param width
+	 * @param height
+	 * @return
+	 */
 	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final Classifier classifier, final int width, final int height) {
 		final boolean isImplementation = classifier instanceof ComponentImplementation;
         
@@ -92,7 +101,7 @@ public class GraphicsAlgorithmCreator {
         	ga = createFeatureGroupGraphicsAlgorithm(container, diagram, Math.min(width/3, height/3), height);
         	ga.setWidth(width);
         } else {
-        	// TODO: Decide how to handle? Don't create shape? Create a generic shape?
+        	// Create a generic shape
         	ga = createDummyGraphicsAlgorithm(container, width, height);
         }
         

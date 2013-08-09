@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
+package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
 import java.util.Iterator;
 
@@ -20,17 +20,17 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
-import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeLeafShapePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 /**
@@ -38,7 +38,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
  * Note: Child shapes are recreated during updates so they should not be referenced.
  * @author philip.alldredge
  */
-public class TypeFeaturePattern extends AgeLeafShapePattern {
+public class FeaturePattern extends AgeLeafShapePattern {
 	private static final String featureShapeName = "feature";
 	private static final String labelShapeName = "label";	
 	public static final String innerConnectorAnchorName = "innerConnector";
@@ -243,7 +243,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 				int childY = 0;
 				int maxChildWidth = 0;
 				for(final Feature childFeature : fg.getFeatureGroupType().getAllFeatures()) {
-					ContainerShape childFeatureContainer = getChildFeatureContainer(featureShape, childFeature);
+					ContainerShape childFeatureContainer = ShapeHelper.getChildShapeByElement(featureShape, childFeature, getFeatureProvider());
 					
 					// Get existing shape instead of always creating
 					if(childFeatureContainer == null) {
@@ -285,17 +285,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
         layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times
         
 	}
-	
-	private ContainerShape getChildFeatureContainer(final ContainerShape featureShape, final Feature childFeature) {
-		for(final Shape c : featureShape.getChildren()) {
-			if(AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(c)) == childFeature) {
-				return (ContainerShape)c;
-			}
-		}
-		
-		return null;
-	}
-	
+
 	@Override
 	protected void updateAnchors(final ContainerShape shape) {
 		super.updateAnchors(shape);
@@ -365,7 +355,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 			}
 			
 			final Object containerBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(container));
-			if(containerBo instanceof Classifier) {
+			if(containerBo instanceof Classifier || containerBo instanceof Subcomponent) {
 				break;
 			}
 			shape = container;
@@ -374,7 +364,14 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		// Check if it is on the left or the right of the classifier
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		final int x = shapeGa.getX() + shapeGa.getWidth()/2;
-		final boolean result = x < shape.getContainer().getGraphicsAlgorithm().getWidth()/2;
+		final GraphicsAlgorithm containerGa = shape.getContainer().getGraphicsAlgorithm();
+		
+		// Handle the case that isLeft is caused before the container is initialized
+		if(containerGa == null) {
+			return true;
+		}
+		
+		final boolean result = x < containerGa.getWidth()/2;
 		return result;
 	}	
 }
