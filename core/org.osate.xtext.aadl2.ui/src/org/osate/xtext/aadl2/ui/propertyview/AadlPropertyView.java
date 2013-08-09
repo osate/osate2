@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.ui.propertyview;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -39,6 +40,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.NamedElement;
@@ -125,6 +127,10 @@ public class AadlPropertyView extends ViewPart {
 	private PropertyViewPartListener partListener = new PropertyViewPartListener();
 	
 	private PropertyViewSelectionChangedListener selectionChangedListener = new PropertyViewSelectionChangedListener();
+	
+	private PropertyViewXtextModelListener xtextModelListener = new PropertyViewXtextModelListener();
+	
+	private ResourceSet resourceSetFromModelListener = null;
 	
 	@Override
 	public void createPartControl(final Composite parent) {
@@ -223,7 +229,12 @@ public class AadlPropertyView extends ViewPart {
 	private NamedElement getCurrentElement() {
 		NamedElement element = null;
 		if (currentSelectionUri != null)
-			element = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(currentSelectionUri, true);
+		{
+			if (resourceSetFromModelListener == null)
+				element = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(currentSelectionUri, true);
+			else
+				element = (NamedElement)resourceSetFromModelListener.getEObject(currentSelectionUri, true);
+		}
 		return element;
 	}
 	
@@ -265,6 +276,8 @@ public class AadlPropertyView extends ViewPart {
 	
 	private void updateSelection(IWorkbenchPart part, ISelection selection)
 	{
+		if (xtextDocument != null)
+			xtextDocument.removeModelListener(xtextModelListener);
 		EObject currentSelection = null;
 		if (!selection.isEmpty()) {
 			if (part instanceof XtextEditor && selection instanceof ITextSelection) {
@@ -308,6 +321,8 @@ public class AadlPropertyView extends ViewPart {
 			currentSelectionUri = null;
 			editingDomain = null;
 		}
+		if (xtextDocument != null)
+			xtextDocument.addModelListener(xtextModelListener);
 		
 		// Update the view page
 		updateView();
@@ -375,6 +390,15 @@ public class AadlPropertyView extends ViewPart {
 		public void selectionChanged(SelectionChangedEvent event)
 		{
 			updateSelection(activeEditor, event.getSelection());
+		}
+	}
+	
+	private class PropertyViewXtextModelListener implements IXtextModelListener
+	{
+		@Override
+		public void modelChanged(XtextResource resource)
+		{
+			resourceSetFromModelListener = resource.getResourceSet();
 		}
 	}
 }
