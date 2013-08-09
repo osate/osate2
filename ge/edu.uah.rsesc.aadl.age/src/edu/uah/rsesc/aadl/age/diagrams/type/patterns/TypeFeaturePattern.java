@@ -1,6 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 
 import java.util.Iterator;
+
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -19,6 +20,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
@@ -190,7 +192,7 @@ public class TypeFeaturePattern extends AgeLeafShapePattern {
 		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();		
-		
+
 		// Remove all children except for the feature shape
 		final Iterator<Shape> childIt = shape.getChildren().iterator();
 		ContainerShape featureShape = getFeatureShape(shape);

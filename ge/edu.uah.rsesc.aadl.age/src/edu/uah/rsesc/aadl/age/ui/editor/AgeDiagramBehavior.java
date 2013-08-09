@@ -37,7 +37,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 
 					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
 						Display.getDefault().asyncExec(new Runnable() {
-							public void run() {						
+							public void run() {			
 								// Update the entire diagram
 								getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
 							}

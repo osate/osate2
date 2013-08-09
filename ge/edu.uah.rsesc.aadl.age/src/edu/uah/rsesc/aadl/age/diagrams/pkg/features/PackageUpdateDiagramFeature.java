@@ -130,7 +130,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 			final CustomContext customContext = new CustomContext();
 			new LayoutDiagramFeature(this.getFeatureProvider()).execute(customContext);
 		}
-				
+
 		return false;
 	}
 	

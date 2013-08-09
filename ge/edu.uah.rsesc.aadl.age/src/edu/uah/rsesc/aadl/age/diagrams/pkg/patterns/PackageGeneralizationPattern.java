@@ -69,9 +69,13 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	private void createGraphicsAlgorithm(final Connection connection, final Generalization generalization) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
+		setGraphicsAlgorithmStyle(polyline, generalization);
+	}
+	
+	private void setGraphicsAlgorithmStyle(final GraphicsAlgorithm ga, final Generalization generalization) {
 		final boolean isImplements = generalization instanceof Realization;
 		final Style style = isImplements ? StyleUtil.getImplementsStyle(getDiagram()) : StyleUtil.getExtendsStyle(getDiagram());
-		polyline.setStyle(style);
+		ga.setStyle(style);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -106,8 +110,11 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		final Anchor[] anchors = AnchorUtil.getAnchorsForGeneralization(generalization, getFeatureProvider());
 		connection.setStart(anchors[0]);
 		connection.setEnd(anchors[1]);
-				
-		createGraphicsAlgorithm(connection, generalization);
+
+		// CLEAN-UP: As of 8/9/13 updating the graphics algorithm is causing the generalizations to disappear on the 2nd update(1st update after the initial load). Unknown cause.
+		// First noticed after updating to Kepler. So for now, we just set the style sinec strictly speaking, recreating the graphics algorithm isn't necessary.
+		//createGraphicsAlgorithm(connection, generalization);
+		setGraphicsAlgorithmStyle(connection.getGraphicsAlgorithm(), generalization);
 		createDecorators(connection);
 		
 		return true;
