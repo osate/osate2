@@ -109,7 +109,7 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		if (behaviorState != null)
 		{
 			//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-			EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,null,behaviorState,null);
+			EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,behaviorState,null);
 			//OsateDebug.osateDebug("         PA " + PA);
 			if (!PA.isEmpty()){
 				// XXX TODO handle values on subtypes (list > 1)

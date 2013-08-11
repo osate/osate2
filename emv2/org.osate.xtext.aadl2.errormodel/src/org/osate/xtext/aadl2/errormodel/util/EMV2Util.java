@@ -101,8 +101,8 @@ public class EMV2Util {
 		return ci.getComponentClassifier().getAllAnnexSubclauses(EMV2subclauseEClass);
 	}
 	
-	public static EList<ContainedNamedElement> getHazardProperty(ComponentInstance ci, Element localContext,Element target, TypeSet ts){
-		EList<ContainedNamedElement> result =  EMV2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
+	public static EList<ContainedNamedElement> getHazardProperty(ComponentInstance ci, Element target, TypeSet ts){
+		EList<ContainedNamedElement> result =  EMV2Util.getProperty("EMV2::hazard",ci,target,ts);
 		return result;
 	}
 	/**
@@ -118,12 +118,13 @@ public class EMV2Util {
 	 * @param ts				corresponding typeset or null
 	 * @return
 	 */
-	public static EList<ContainedNamedElement> getOccurenceDistributionProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		EList<ContainedNamedElement> result =  EMV2Util.getProperty("EMV2::OccurrenceDistribution",ci,localContext,target,ts);
+	public static EList<ContainedNamedElement> getOccurenceDistributionProperty(ComponentInstance ci, NamedElement target, TypeSet ts){
+		EList<ContainedNamedElement> result =  EMV2Util.getProperty("EMV2::OccurrenceDistribution",ci,target,ts);
 		
 		if (result.size() == 0)
 		{
 			if ((ci.getComponentClassifier().getCategory() == ComponentCategory.PROCESS)||
+					(ci.getComponentClassifier().getCategory() == ComponentCategory.ABSTRACT) ||
 					(ci.getComponentClassifier().getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) ||
 					(ci.getComponentClassifier().getCategory() == ComponentCategory.SYSTEM))
 			{
@@ -131,7 +132,7 @@ public class EMV2Util {
 				ComponentInstance cpu = cpus.isEmpty() ? null : cpus.get(0);
 				if (cpu != null)
 				{
-					return getOccurenceDistributionProperty(cpu, localContext, target, ts);
+					return getOccurenceDistributionProperty(cpu,  target, ts);
 				}
 			}
 			
@@ -1631,7 +1632,7 @@ public class EMV2Util {
 			}
 
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	public static Collection<ErrorBehaviorState> getAllErrorBehaviorStates(ComponentInstance ci)
@@ -2241,27 +2242,18 @@ public class EMV2Util {
 	 * In that case there is no local context for the state reference.
 	 * @param propertyName String
 	 * @param ci ComponentInstance the component with the error model element, whose property we are retrieving
-	 * @param localContext Element the object that contains the reference to a target object, or null.
 	 * @param target Element the target object in the error model whose property we retrieve (the element may carry an error type)
 	 * @param ts Type Set null or any error type in the type set as part of the target error model element
 	 * @return
 	 */
-	public static EList<ContainedNamedElement> getProperty(String propertyName, ComponentInstance ci,Element localContext,Element target, TypeSet ts){
-		EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName,ci,target,localContext, ts);
-		if (result==null&& localContext != null){
-			// look up in local context of target reference
-			// for example: the flow source in error propagations or transition in component error behavior for a state reference
-			EList<PropertyAssociation> props = EMV2Util.getPropertiesInContext(localContext);
-			if (props != null) {
-				result = getProperty(props, propertyName, target,localContext,ts);
-			}
-		}
-		if (result==null){
+	public static EList<ContainedNamedElement> getProperty(String propertyName, ComponentInstance ci,Element target, TypeSet ts){
+		EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName,ci,target, ts);
+		if (result.isEmpty()){
 			// look up in context of target definition
 			// for example: for a state reference the properties section of the EBSM that defines the state
 			EList<PropertyAssociation> props = EMV2Util.getPropertiesInContext(target);
 			if (props != null) {
-				result = getProperty(props, propertyName, target,localContext,ts);
+				result = getProperty(props, propertyName, target,ts);
 			}
 		}
 		return result;
@@ -2273,57 +2265,70 @@ public class EMV2Util {
 	 * in the annex subclause properties section.
 	 * Here we come down the component instance hierarchy to find the outmost property association
 	 * in the properties section of the annex subclauses. Those are the ones that can override down the component hierarchy.
-	 * @param props list of property associations from the properties section in the error model
 	 * @param propertyName name of property we are looking for
-	 * @param target the error model element (first item in the containment path)
-	 * @return property association
+	 * @param ci component instance whose EM element has the property
+	 * @param target the error model element (which is optionally followed by a type that is contained in the typeset ts
+	 * @param ts the type set
+	 * @return Containmentpath of the PA that matches the parameters.
+	 * we return the path because the PA applies to more than element
 	 */
 	public static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
-			Element localContext, TypeSet ts){
+			TypeSet ts){
 		Stack<ComponentInstance> ciStack = new Stack<ComponentInstance>();
-		return getPropertyInInstanceHierarchy(propertyName,ci,target,localContext,ciStack, ts);
+		return getPropertyInInstanceHierarchy(propertyName,ci,target,ciStack, ts);
 	}
 
+	/**
+	 * recurse up the component hierarchy to look for the PA from the outside in.
+	 * @param propertyName
+	 * @param ci the component instance whose subclause property section we are looking for the proeprty
+	 * @param target
+	 * @param localContext
+	 * @param ciStack stack of CIS that are down the hierarchy towards the target emv2 subclause
+	 * @param ts
+	 * @return
+	 */
 	private static EList<ContainedNamedElement> getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,Element target, 
-			Element localContext,Stack<ComponentInstance> ciStack, TypeSet ts){
-		EList<ContainedNamedElement> result = null;
-
-		if ((ci != null ) && (ci.getContainingComponentInstance() != null)) 
-		{
-			ciStack.push(ci);
-			result = getPropertyInInstanceHierarchy(propertyName, ci.getContainingComponentInstance(), target,localContext,ciStack,ts);
-			ciStack.pop();
-		}
-		if ((ci != null) && (result==null))
-		{
-			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(ci);
-			for (ErrorModelSubclause ems : emslist) {
-				EList<PropertyAssociation> props = ems.getProperties();
-				result = getProperty(props, propertyName, target, localContext,ciStack,ts);
+			Stack<ComponentInstance> ciStack, TypeSet ts){
+		if (ci != null ) {
+			if (ci.getContainingComponentInstance() != null){
+				ciStack.push(ci);
+				EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName, ci.getContainingComponentInstance(), target,ciStack,ts);
+				ciStack.pop();
+				return result;
+			} else {
+				EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(ci);
+				for (ErrorModelSubclause ems : emslist) {
+					EList<PropertyAssociation> props = ems.getProperties();
+					EList<ContainedNamedElement>result = getProperty(props, propertyName, target, ciStack,ts);
+					if (!result.isEmpty()){
+						return result;
+					}
+				}
 			}
 		}
-		return result;
+		return new BasicEList<ContainedNamedElement>();
 	}
 
 
 	
 	/**
 	 * retrieve an error model property (such as Hazard) attached to an error model element.
-	 * @param props list of property associations from the properties section in the error model
+	 * @param props list of property associations from the properties section in the error model of ci
 	 * @param propertyName name of property we are looking for
 	 * @param target the error model element
-	 * @param ciStack stack of nested CI
-	 * @return property association
+	 * @param ciStack stack of nested CI below the ci of the props; those names may show up in the path
+	 * @return list of paths
 	 */
 	public static EList<ContainedNamedElement> getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
-			Element localContext, Stack<ComponentInstance> ciStack, TypeSet ts){
-		if (props.isEmpty()  ) return null;
+			 Stack<ComponentInstance> ciStack, TypeSet ts){
+		if (props.isEmpty()  ) return new BasicEList<ContainedNamedElement>();
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)){
-				ContainedNamedElement res = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,ciStack,ts);
+				ContainedNamedElement res = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,ciStack,ts);
 				if (res!=null)
 				result.add(res);
 			}
@@ -2340,19 +2345,31 @@ public class EMV2Util {
 	 * @return property association
 	 */
 	public static EList<ContainedNamedElement> getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
-			Element localContext, TypeSet ts){
+			 TypeSet ts){
 		if (props == null) return null;
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)){
-				ContainedNamedElement res = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,null,ts);
+				ContainedNamedElement res = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,null,ts);
 				if (res!=null)
 				result.add(res);
 			}
 		}
 		return result;
+	}
+	
+	private static boolean matchCIStack(Stack<ComponentInstance> ciStack,EList<ContainmentPathElement> cpes){
+		int offset = ciStack.size()-1;
+		for (int i = 0; i< ciStack.size(); i++){
+			ComponentInstance cisci = ciStack.get(i);
+			ContainmentPathElement cpesci = cpes.get(offset-i);
+			if (ciStack.get(i).getSubcomponent() != cpes.get(offset-i).getNamedElement()){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**
@@ -2364,10 +2381,11 @@ public class EMV2Util {
 	 * @param ciStack ComponentInstance in instance model hierarchy with the error model element, whose property we are retrieving
 	 * @param localContext Element the object that contains the reference to a target object, or null.
 	 * @param target Element the target object in the error model whose property we retrieve
+	 * @param ts type set that must contain the last element if it is a type
 	 * @return ContainedNamedElement the containment path that matches
 	 */
 	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, Element target, 
-			Element localContext,Stack<ComponentInstance> ciStack, TypeSet ts ){
+			Stack<ComponentInstance> ciStack, TypeSet ts ){
 		if (ciStack == null)
 		{
 			return null;
@@ -2375,56 +2393,35 @@ public class EMV2Util {
 		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
 		for (ContainedNamedElement containedNamedElement : applies) {
 			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
-			int targetsize = (ciStack.size()+1+(localContext==null?0:1));
-			boolean match = true;
-			if (cpes.size() == targetsize || cpes.size()== targetsize+1){
-				for (int i = 0; i< ciStack.size(); i++){
-					if (ciStack.get(i).getSubcomponent() != cpes.get(i).getNamedElement()){
-						match = false;
-						break;
-					}
-				}
-				if (match) {
+			if (matchCIStack(ciStack, cpes)) {
 				// we are past the component portion of the path
-				NamedElement targetel = cpes.get(cpes.size()-1).getNamedElement();
-				// check on the last element
-				boolean typematch = true;
-				if (targetel instanceof ErrorTypes){
-					// it points to an error type or type set
-					if (ts !=null){
-						if (targetel instanceof ErrorType){
-							// we refer to a type
-							if (!EM2TypeSetUtil.contains(ts, (ErrorType)targetel)){
-								typematch = false;
-							}
-						} else if (targetel instanceof TypeSet){
-							// we refer to a type
-							if (!EM2TypeSetUtil.contains(ts, (TypeSet)targetel)){
-								typematch = false;
-							}
-						}
-					}
-					if (typematch){
-						targetel = cpes.get(cpes.size()-2).getNamedElement();
-						if (targetel == target)
-							return containedNamedElement;
-					}
+				NamedElement typeelement =null;
+				NamedElement lastel = null;
+				if (ts != null){
+					if (cpes.size()<3) continue;
+					typeelement = cpes.get(cpes.size()-1).getNamedElement();
+					lastel = cpes.get(cpes.size()-2).getNamedElement();
 				} else {
-					// last element should be target element
-					if ( target == targetel){
-						if (localContext != null){
-							// make sure the local context matches the previous element in the path
-							NamedElement localContextme = cpes.get(cpes.size()-2).getNamedElement();
-							if ( localContext == localContextme){
-								return containedNamedElement;
-							}
-						} else {
-							return containedNamedElement;
+					if (cpes.size()<2) continue;
+					lastel = cpes.get(cpes.size()-1).getNamedElement();
+				}
+				if (typeelement != null){
+					if (typeelement instanceof ErrorType){
+						// we refer to a type
+						if (!EM2TypeSetUtil.contains((ErrorType)lastel,ts)){
+							continue;
+						}
+					} else if (typeelement instanceof TypeSet){
+						// we refer to a type
+						if (!EM2TypeSetUtil.contains((TypeSet)lastel,ts)){
+							// skip to next iteration
+							continue;
 						}
 					}
 				}
-				}
+				if (lastel != target) continue;
 			}
+			return containedNamedElement;
 		}
 		return null;
 	}

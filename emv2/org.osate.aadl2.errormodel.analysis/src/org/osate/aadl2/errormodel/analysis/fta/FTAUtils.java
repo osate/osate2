@@ -652,7 +652,7 @@ public class FTAUtils
 	{
 		TypeSet ts = behaviorState.getTypeSet();
 		
-		EList<ContainedNamedElement> PA = EMV2Util.getHazardProperty(relatedComponentInstance,null,behaviorState,ts);
+		EList<ContainedNamedElement> PA = EMV2Util.getHazardProperty(relatedComponentInstance,behaviorState,ts);
 		
 		if (PA.isEmpty())
 		{
@@ -709,7 +709,7 @@ public class FTAUtils
 		}
 		
 		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
-		EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedComponentInstance,null,behaviorState,null);
+		EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedComponentInstance,behaviorState,null);
 		//OsateDebug.osateDebug("         PA " + PA);
 		if (!PA.isEmpty()){
 		double prob = EMV2Util.getOccurenceValue (PA.get(0));

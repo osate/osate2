@@ -242,7 +242,7 @@ public class Util
 				ErrorEvent ee = (ErrorEvent) event;
 				//OsateDebug.osateDebug("[Utils]       Event kind:" + ee);
 
-				EList<ContainedNamedElement> PAlist = EMV2Util.getOccurenceDistributionProperty(instance,null,ee,null);
+				EList<ContainedNamedElement> PAlist = EMV2Util.getOccurenceDistributionProperty(instance,ee,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
 				if (!PAlist.isEmpty()){
 				ContainedNamedElement PA = PAlist.get(0);
@@ -283,7 +283,7 @@ public class Util
 				RecoverEvent re = (RecoverEvent) event;
 				//OsateDebug.osateDebug("[Utils]       Recover kind:" + re);
 
-				EList<ContainedNamedElement> PAlist = EMV2Util.getOccurenceDistributionProperty(instance,null,re,null);
+				EList<ContainedNamedElement> PAlist = EMV2Util.getOccurenceDistributionProperty(instance,re,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
 				if (!PAlist.isEmpty())
 				res = EMV2Util.getOccurenceValue (PAlist.get(0));

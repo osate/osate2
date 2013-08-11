@@ -792,7 +792,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						{
 							se.getSubcomponent();
 							//OsateDebug.osateDebug("se=" + se);
-							EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getState(),null);
+							EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,ce.getState(),null);
 							if (PA.isEmpty())
 							{
 								warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for " + EMV2Util.getPrintName(se) + " and state " + EMV2Util.getPrintName(ce.getState()) );
@@ -810,7 +810,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					
 					for (ConditionElement ce : elementsBehavior)
 					{
-						EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,null,ce.getIncoming(),null);
+						EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,ce.getIncoming(),null);
 						//OsateDebug.osateDebug("         PA " + PA);
 						if (PA.isEmpty())
 						{
