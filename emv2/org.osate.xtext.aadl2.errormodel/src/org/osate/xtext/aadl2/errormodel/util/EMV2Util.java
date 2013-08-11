@@ -351,6 +351,19 @@ public class EMV2Util {
 		return null;
 	}
 	
+	/**
+	 * return first error model subclause that has a use types and return the list of libraries
+	 * @param cl
+	 * @return EList<ErrorModelLibrary>
+	 */
+	public static EList<ErrorModelLibrary> getErrorModelSubclauseWithUseTypes(Classifier cl){
+		EList<ErrorModelSubclause> result = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : result) {
+			return errorModelSubclause.getUseTypes();
+		}
+		return null;
+	}
+	
 
 	/**
 	 * Check to see if all NamedElements in the Elist have a unique name. 
@@ -2192,6 +2205,7 @@ public class EMV2Util {
 					return eml;
 				}
 			}
+			return null;
 		}
 		if (context instanceof TypeTransformationSet) return ((TypeTransformationSet)context).getUseTypes();
 		if (context instanceof TypeMappingSet) return ((TypeMappingSet)context).getUseTypes();
