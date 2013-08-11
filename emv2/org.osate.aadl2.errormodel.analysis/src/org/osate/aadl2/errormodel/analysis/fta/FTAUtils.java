@@ -36,6 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -652,7 +653,7 @@ public class FTAUtils
 	{
 		TypeSet ts = behaviorState.getTypeSet();
 		
-		EList<ContainedNamedElement> PA = EMV2Util.getHazardProperty(relatedComponentInstance,behaviorState,ts);
+		EList<ContainedNamedElement> PA = EMV2Properties.getHazardProperty(relatedComponentInstance,behaviorState,ts);
 		
 		if (PA.isEmpty())
 		{
@@ -709,10 +710,10 @@ public class FTAUtils
 		}
 		
 		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
-		EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedComponentInstance,behaviorState,null);
+		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,behaviorState,null);
 		//OsateDebug.osateDebug("         PA " + PA);
 		if (!PA.isEmpty()){
-		double prob = EMV2Util.getOccurenceValue (PA.get(0));
+		double prob = EMV2Properties.getOccurenceValue (PA.get(0));
 		event.setProbability(prob);
 		}
 		

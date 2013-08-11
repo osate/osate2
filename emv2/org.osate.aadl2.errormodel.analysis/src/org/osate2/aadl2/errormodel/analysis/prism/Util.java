@@ -27,6 +27,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 import org.osate2.aadl2.errormodel.analysis.prism.expression.Equal;
@@ -242,7 +243,7 @@ public class Util
 				ErrorEvent ee = (ErrorEvent) event;
 				//OsateDebug.osateDebug("[Utils]       Event kind:" + ee);
 
-				EList<ContainedNamedElement> PAlist = EMV2Util.getOccurenceDistributionProperty(instance,ee,null);
+				EList<ContainedNamedElement> PAlist = EMV2Properties.getOccurenceDistributionProperty(instance,ee,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
 				if (!PAlist.isEmpty()){
 				ContainedNamedElement PA = PAlist.get(0);
@@ -254,7 +255,7 @@ public class Util
 				 *  2. For CTMC, we are supposed to have poisson/exponential occurence rate.
 				 */
 				if ((Model.getCurrentInstance().getType() == ModelType.DTMC) && 
-					(! EMV2Util.getOccurenceType(PA).equals("fixed")))
+					(! EMV2Properties.getOccurenceType(PA).equals("fixed")))
 				{
 					/**
 					 * Have to find out why the reportWarning does not work right now.
@@ -264,17 +265,17 @@ public class Util
 				}
 				
 				if ((Model.getCurrentInstance().getType() == ModelType.CTMC) &&
-					(! EMV2Util.getOccurenceType(PA).equals("poisson")) &&
-					(! EMV2Util.getOccurenceType(PA).equals(EMV2Util.INVALID_OCCURRENCE_TYPE)))
+					(! EMV2Properties.getOccurenceType(PA).equals("poisson")) &&
+					(! EMV2Properties.getOccurenceType(PA).equals(EMV2Properties.INVALID_OCCURRENCE_TYPE)))
 				{
 					/**
 					 * Have to find out why the reportWarning does not work right now.
 					 */
-					OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance + " found=" + EMV2Util.getOccurenceType(PA));
+					OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance + " found=" + EMV2Properties.getOccurenceType(PA));
 					PRISMAction.reportWarning(instance, "Distribution occurence should be set to poisson for CTMC generation");
 				}
 
-				res = EMV2Util.getOccurenceValue (PA);
+				res = EMV2Properties.getOccurenceValue (PA);
 				}
 			}
 			
@@ -283,10 +284,10 @@ public class Util
 				RecoverEvent re = (RecoverEvent) event;
 				//OsateDebug.osateDebug("[Utils]       Recover kind:" + re);
 
-				EList<ContainedNamedElement> PAlist = EMV2Util.getOccurenceDistributionProperty(instance,re,null);
+				EList<ContainedNamedElement> PAlist = EMV2Properties.getOccurenceDistributionProperty(instance,re,null);
 				//OsateDebug.osateDebug("[Utils]       PA :" + PA);
 				if (!PAlist.isEmpty())
-				res = EMV2Util.getOccurenceValue (PAlist.get(0));
+				res = EMV2Properties.getOccurenceValue (PAlist.get(0));
 			}
 			
 			/**

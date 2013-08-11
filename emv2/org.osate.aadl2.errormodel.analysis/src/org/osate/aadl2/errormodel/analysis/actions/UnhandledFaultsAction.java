@@ -86,6 +86,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
@@ -792,7 +793,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						{
 							se.getSubcomponent();
 							//OsateDebug.osateDebug("se=" + se);
-							EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,ce.getState(),null);
+							EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,ce.getState(),null);
 							if (PA.isEmpty())
 							{
 								warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for " + EMV2Util.getPrintName(se) + " and state " + EMV2Util.getPrintName(ce.getState()) );
@@ -800,7 +801,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 							else
 							{
 							//OsateDebug.osateDebug("         PA " + PA);
-								tmp = EMV2Util.getOccurenceValue (PA.get(0));
+								tmp = EMV2Properties.getOccurenceValue (PA.get(0));
 								//OsateDebug.osateDebug("tmp=" + tmp);
 								probabilityComposite = probabilityComposite + tmp;
 							}
@@ -810,7 +811,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 					
 					for (ConditionElement ce : elementsBehavior)
 					{
-						EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(componentInstance,ce.getIncoming(),null);
+						EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,ce.getIncoming(),null);
 						//OsateDebug.osateDebug("         PA " + PA);
 						if (PA.isEmpty())
 						{
@@ -819,7 +820,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 						else
 						{
 							//OsateDebug.osateDebug("         PA " + PA);
-							tmp = EMV2Util.getOccurenceValue (PA.get(0));
+							tmp = EMV2Properties.getOccurenceValue (PA.get(0));
 							//OsateDebug.osateDebug("tmp=" + tmp);
 							probabilityBehavior = probabilityBehavior + tmp;							
 						}

@@ -62,6 +62,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public final class RBDAction extends AaxlReadOnlyActionAsJob {
@@ -109,11 +110,11 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		if (behaviorState != null)
 		{
 			//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-			EList<ContainedNamedElement> PA = EMV2Util.getOccurenceDistributionProperty(relatedInstance,behaviorState,null);
+			EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,behaviorState,null);
 			//OsateDebug.osateDebug("         PA " + PA);
 			if (!PA.isEmpty()){
 				// XXX TODO handle values on subtypes (list > 1)
-				result = EMV2Util.getOccurenceValue (PA.get(0));
+				result = EMV2Properties.getOccurenceValue (PA.get(0));
 			}
 		}
 
