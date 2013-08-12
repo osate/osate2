@@ -368,16 +368,15 @@ public class EMV2Properties {
 				ciStack.push(ci);
 				EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName, ci.getContainingComponentInstance(), target,ciStack,ts);
 				ciStack.pop();
-				return result;
-			} else {
-				// deals with inherited properties by walking subclause inheritance
-				EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
-				for (ErrorModelSubclause ems : emslist) {
-					EList<PropertyAssociation> props = ems.getProperties();
-					EList<ContainedNamedElement>result = getMatchingPropertiesInList(props, propertyName, target, ciStack,ts);
-					if (!result.isEmpty()){
-						return result;
-					}
+				if (!result.isEmpty()) return result;
+			} 
+			// deals with inherited properties by walking subclause inheritance
+			EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
+			for (ErrorModelSubclause ems : emslist) {
+				EList<PropertyAssociation> props = ems.getProperties();
+				EList<ContainedNamedElement>result = getMatchingPropertiesInList(props, propertyName, target, ciStack,ts);
+				if (!result.isEmpty()){
+					return result;
 				}
 			}
 		}
