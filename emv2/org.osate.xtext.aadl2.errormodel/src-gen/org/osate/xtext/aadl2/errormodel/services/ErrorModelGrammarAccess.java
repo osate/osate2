@@ -4090,28 +4090,32 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cErrorStateAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cErrorStateErrorBehaviorStateCrossReference_0_0 = (CrossReference)cErrorStateAssignment_0.eContents().get(0);
 		private final RuleCall cErrorStateErrorBehaviorStateIDTerminalRuleCall_0_0_1 = (RuleCall)cErrorStateErrorBehaviorStateCrossReference_0_0.eContents().get(1);
-		private final Keyword cInKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cModesKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cMappedModesAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cMappedModesModeCrossReference_4_0 = (CrossReference)cMappedModesAssignment_4.eContents().get(0);
-		private final RuleCall cMappedModesModeIDTerminalRuleCall_4_0_1 = (RuleCall)cMappedModesModeCrossReference_4_0.eContents().get(1);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cMappedModesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final CrossReference cMappedModesModeCrossReference_5_1_0 = (CrossReference)cMappedModesAssignment_5_1.eContents().get(0);
-		private final RuleCall cMappedModesModeIDTerminalRuleCall_5_1_0_1 = (RuleCall)cMappedModesModeCrossReference_5_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cTypeTokenAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTypeTokenTypeTokenParserRuleCall_1_0 = (RuleCall)cTypeTokenAssignment_1.eContents().get(0);
+		private final Keyword cInKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cModesKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cLeftParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cMappedModesAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cMappedModesModeCrossReference_5_0 = (CrossReference)cMappedModesAssignment_5.eContents().get(0);
+		private final RuleCall cMappedModesModeIDTerminalRuleCall_5_0_1 = (RuleCall)cMappedModesModeCrossReference_5_0.eContents().get(1);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cCommaKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cMappedModesAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final CrossReference cMappedModesModeCrossReference_6_1_0 = (CrossReference)cMappedModesAssignment_6_1.eContents().get(0);
+		private final RuleCall cMappedModesModeIDTerminalRuleCall_6_1_0_1 = (RuleCall)cMappedModesModeCrossReference_6_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//ErrorStateToModeMapping:
 		//
-		//	errorState=[ErrorBehaviorState] "in" "modes" "(" mappedModes+=[aadl2::Mode] ("," mappedModes+=[aadl2::Mode])* ")"
+		//	errorState=[ErrorBehaviorState] typeToken=TypeToken? "in" "modes" "(" mappedModes+=[aadl2::Mode] (","
 		//
-		//	";";
+		//	mappedModes+=[aadl2::Mode])* ")" ";";
 		public ParserRule getRule() { return rule; }
 
-		//errorState=[ErrorBehaviorState] "in" "modes" "(" mappedModes+=[aadl2::Mode] ("," mappedModes+=[aadl2::Mode])* ")" ";"
+		//errorState=[ErrorBehaviorState] typeToken=TypeToken? "in" "modes" "(" mappedModes+=[aadl2::Mode] (","
+		//
+		//mappedModes+=[aadl2::Mode])* ")" ";"
 		public Group getGroup() { return cGroup; }
 
 		//errorState=[ErrorBehaviorState]
@@ -4123,44 +4127,50 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getErrorStateErrorBehaviorStateIDTerminalRuleCall_0_0_1() { return cErrorStateErrorBehaviorStateIDTerminalRuleCall_0_0_1; }
 
+		//typeToken=TypeToken?
+		public Assignment getTypeTokenAssignment_1() { return cTypeTokenAssignment_1; }
+
+		//TypeToken
+		public RuleCall getTypeTokenTypeTokenParserRuleCall_1_0() { return cTypeTokenTypeTokenParserRuleCall_1_0; }
+
 		//"in"
-		public Keyword getInKeyword_1() { return cInKeyword_1; }
+		public Keyword getInKeyword_2() { return cInKeyword_2; }
 
 		//"modes"
-		public Keyword getModesKeyword_2() { return cModesKeyword_2; }
+		public Keyword getModesKeyword_3() { return cModesKeyword_3; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		public Keyword getLeftParenthesisKeyword_4() { return cLeftParenthesisKeyword_4; }
 
 		//mappedModes+=[aadl2::Mode]
-		public Assignment getMappedModesAssignment_4() { return cMappedModesAssignment_4; }
+		public Assignment getMappedModesAssignment_5() { return cMappedModesAssignment_5; }
 
 		//[aadl2::Mode]
-		public CrossReference getMappedModesModeCrossReference_4_0() { return cMappedModesModeCrossReference_4_0; }
+		public CrossReference getMappedModesModeCrossReference_5_0() { return cMappedModesModeCrossReference_5_0; }
 
 		//ID
-		public RuleCall getMappedModesModeIDTerminalRuleCall_4_0_1() { return cMappedModesModeIDTerminalRuleCall_4_0_1; }
+		public RuleCall getMappedModesModeIDTerminalRuleCall_5_0_1() { return cMappedModesModeIDTerminalRuleCall_5_0_1; }
 
 		//("," mappedModes+=[aadl2::Mode])*
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_6() { return cGroup_6; }
 
 		//","
-		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
+		public Keyword getCommaKeyword_6_0() { return cCommaKeyword_6_0; }
 
 		//mappedModes+=[aadl2::Mode]
-		public Assignment getMappedModesAssignment_5_1() { return cMappedModesAssignment_5_1; }
+		public Assignment getMappedModesAssignment_6_1() { return cMappedModesAssignment_6_1; }
 
 		//[aadl2::Mode]
-		public CrossReference getMappedModesModeCrossReference_5_1_0() { return cMappedModesModeCrossReference_5_1_0; }
+		public CrossReference getMappedModesModeCrossReference_6_1_0() { return cMappedModesModeCrossReference_6_1_0; }
 
 		//ID
-		public RuleCall getMappedModesModeIDTerminalRuleCall_5_1_0_1() { return cMappedModesModeIDTerminalRuleCall_5_1_0_1; }
+		public RuleCall getMappedModesModeIDTerminalRuleCall_6_1_0_1() { return cMappedModesModeIDTerminalRuleCall_6_1_0_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
 
 		//";"
-		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
 	}
 
 	public class InternalPortElements extends AbstractParserRuleElementFinder {
@@ -5537,9 +5547,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorStateToModeMapping:
 	//
-	//	errorState=[ErrorBehaviorState] "in" "modes" "(" mappedModes+=[aadl2::Mode] ("," mappedModes+=[aadl2::Mode])* ")"
+	//	errorState=[ErrorBehaviorState] typeToken=TypeToken? "in" "modes" "(" mappedModes+=[aadl2::Mode] (","
 	//
-	//	";";
+	//	mappedModes+=[aadl2::Mode])* ")" ";";
 	public ErrorStateToModeMappingElements getErrorStateToModeMappingAccess() {
 		return (pErrorStateToModeMapping != null) ? pErrorStateToModeMapping : (pErrorStateToModeMapping = new ErrorStateToModeMappingElements());
 	}

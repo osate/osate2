@@ -423,7 +423,8 @@ ErrorCodeValue returns ErrorCodeValue:
 ;
 
 ErrorStateToModeMapping returns ErrorStateToModeMapping:
-	errorState=[ErrorBehaviorState|ID] 'in' 'modes' '('
+	errorState=[ErrorBehaviorState|ID] (typeToken=TypeToken)?
+	'in' 'modes' '('
 	mappedModes+=[aadl2::Mode|ID] (',' mappedModes+=[aadl2::Mode|ID] )* ')' ';'
 ;
 

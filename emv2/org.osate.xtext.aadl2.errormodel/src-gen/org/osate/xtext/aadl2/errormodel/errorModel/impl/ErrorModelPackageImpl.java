@@ -2119,9 +2119,19 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorStateToModeMapping_MappedModes()
+  public EReference getErrorStateToModeMapping_TypeToken()
   {
     return (EReference)errorStateToModeMappingEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getErrorStateToModeMapping_MappedModes()
+  {
+    return (EReference)errorStateToModeMappingEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2509,6 +2519,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     errorStateToModeMappingEClass = createEClass(ERROR_STATE_TO_MODE_MAPPING);
     createEReference(errorStateToModeMappingEClass, ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE);
+    createEReference(errorStateToModeMappingEClass, ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN);
     createEReference(errorStateToModeMappingEClass, ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES);
 
     compositeStateEClass = createEClass(COMPOSITE_STATE);
@@ -2826,6 +2837,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     initEClass(errorStateToModeMappingEClass, ErrorStateToModeMapping.class, "ErrorStateToModeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getErrorStateToModeMapping_ErrorState(), this.getErrorBehaviorState(), null, "errorState", null, 0, 1, ErrorStateToModeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorStateToModeMapping_TypeToken(), this.getTypeToken(), null, "typeToken", null, 0, 1, ErrorStateToModeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorStateToModeMapping_MappedModes(), theAadl2Package.getMode(), null, "mappedModes", null, 0, -1, ErrorStateToModeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(compositeStateEClass, CompositeState.class, "CompositeState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -3322,13 +3322,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Type Token</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Mapped Modes</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
+  int ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Error State To Mode Mapping</em>' class.
@@ -3337,7 +3346,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_STATE_TO_MODE_MAPPING_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int ERROR_STATE_TO_MODE_MAPPING_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeStateImpl <em>Composite State</em>}' class.
@@ -5445,6 +5454,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorStateToModeMapping_ErrorState();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping#getTypeToken <em>Type Token</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type Token</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping#getTypeToken()
+   * @see #getErrorStateToModeMapping()
+   * @generated
+   */
+  EReference getErrorStateToModeMapping_TypeToken();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping#getMappedModes <em>Mapped Modes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -7038,6 +7058,14 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE = eINSTANCE.getErrorStateToModeMapping_ErrorState();
+
+    /**
+     * The meta object literal for the '<em><b>Type Token</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN = eINSTANCE.getErrorStateToModeMapping_TypeToken();
 
     /**
      * The meta object literal for the '<em><b>Mapped Modes</b></em>' reference list feature.

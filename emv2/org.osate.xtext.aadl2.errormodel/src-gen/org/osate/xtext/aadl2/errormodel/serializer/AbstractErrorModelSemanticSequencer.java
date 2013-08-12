@@ -899,7 +899,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (errorState=[ErrorBehaviorState|ID] mappedModes+=[Mode|ID] mappedModes+=[Mode|ID]*)
+	 *     (errorState=[ErrorBehaviorState|ID] typeToken=TypeToken? mappedModes+=[Mode|ID] mappedModes+=[Mode|ID]*)
 	 */
 	protected void sequence_ErrorStateToModeMapping(EObject context, ErrorStateToModeMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

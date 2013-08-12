@@ -18,6 +18,7 @@ import org.osate.aadl2.Mode;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping#getErrorState <em>Error State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping#getTypeToken <em>Type Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping#getMappedModes <em>Mapped Modes</em>}</li>
  * </ul>
  * </p>
@@ -53,6 +54,32 @@ public interface ErrorStateToModeMapping extends EObject, Element
    * @generated
    */
   void setErrorState(ErrorBehaviorState value);
+
+  /**
+   * Returns the value of the '<em><b>Type Token</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type Token</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type Token</em>' containment reference.
+   * @see #setTypeToken(TypeToken)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorStateToModeMapping_TypeToken()
+   * @model containment="true"
+   * @generated
+   */
+  TypeToken getTypeToken();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping#getTypeToken <em>Type Token</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type Token</em>' containment reference.
+   * @see #getTypeToken()
+   * @generated
+   */
+  void setTypeToken(TypeToken value);
 
   /**
    * Returns the value of the '<em><b>Mapped Modes</b></em>' reference list.

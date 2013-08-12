@@ -206,6 +206,7 @@
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorStateToModeMapping">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorStateToModeMapping/errorState"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorStateToModeMapping/typeToken"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorStateToModeMapping/mappedModes"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//CompositeState">

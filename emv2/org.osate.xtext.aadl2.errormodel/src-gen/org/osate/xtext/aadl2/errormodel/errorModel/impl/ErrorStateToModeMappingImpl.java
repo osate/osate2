@@ -5,6 +5,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -22,6 +23,7 @@ import org.osate.aadl2.impl.ElementImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +33,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorStateToModeMappingImpl#getErrorState <em>Error State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorStateToModeMappingImpl#getTypeToken <em>Type Token</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorStateToModeMappingImpl#getMappedModes <em>Mapped Modes</em>}</li>
  * </ul>
  * </p>
@@ -48,6 +51,16 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * @ordered
    */
   protected ErrorBehaviorState errorState;
+
+  /**
+   * The cached value of the '{@link #getTypeToken() <em>Type Token</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTypeToken()
+   * @generated
+   * @ordered
+   */
+  protected TypeToken typeToken;
 
   /**
    * The cached value of the '{@link #getMappedModes() <em>Mapped Modes</em>}' reference list.
@@ -128,6 +141,54 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
+  public TypeToken getTypeToken()
+  {
+    return typeToken;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetTypeToken(TypeToken newTypeToken, NotificationChain msgs)
+  {
+    TypeToken oldTypeToken = typeToken;
+    typeToken = newTypeToken;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN, oldTypeToken, newTypeToken);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTypeToken(TypeToken newTypeToken)
+  {
+    if (newTypeToken != typeToken)
+    {
+      NotificationChain msgs = null;
+      if (typeToken != null)
+        msgs = ((InternalEObject)typeToken).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN, null, msgs);
+      if (newTypeToken != null)
+        msgs = ((InternalEObject)newTypeToken).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN, null, msgs);
+      msgs = basicSetTypeToken(newTypeToken, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN, newTypeToken, newTypeToken));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Mode> getMappedModes()
   {
     if (mappedModes == null)
@@ -143,6 +204,22 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN:
+        return basicSetTypeToken(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
@@ -150,6 +227,8 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
         if (resolve) return getErrorState();
         return basicGetErrorState();
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN:
+        return getTypeToken();
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
         return getMappedModes();
     }
@@ -169,6 +248,9 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
     {
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
         setErrorState((ErrorBehaviorState)newValue);
+        return;
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN:
+        setTypeToken((TypeToken)newValue);
         return;
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
         getMappedModes().clear();
@@ -191,6 +273,9 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
         setErrorState((ErrorBehaviorState)null);
         return;
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN:
+        setTypeToken((TypeToken)null);
+        return;
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
         getMappedModes().clear();
         return;
@@ -210,6 +295,8 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
     {
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE:
         return errorState != null;
+      case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__TYPE_TOKEN:
+        return typeToken != null;
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES:
         return mappedModes != null && !mappedModes.isEmpty();
     }
