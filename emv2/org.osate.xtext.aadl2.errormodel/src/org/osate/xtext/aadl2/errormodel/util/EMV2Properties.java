@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.ModalPropertyValue;
@@ -24,6 +25,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -152,12 +154,12 @@ public class EMV2Properties {
 	}
 
 	/**
-	 * get enclosing object within the error annex that has a properties section..
+	 * get list of property associations in enclosing object within the error annex that has a properties section.
 	 * ErrorModelLibrary, ErrorBehaviorStateMachine, and ErrorModelSubclause have properties sections
 	 * @param element declarative model element or error annex element
 	 * @return ErrorModelLibrary, ErrorBehaviorStateMachine, ErrorModelSubclause
 	 */
-	public static EList<PropertyAssociation> getPropertiesInContext(Element element) {
+	public static EList<PropertyAssociation> getPropertyAssociationListInContext(Element element) {
 		EObject container = element;
 		while (container != null ){
 			if (container instanceof ErrorModelSubclause ){
@@ -180,7 +182,7 @@ public class EMV2Properties {
 	 * @param propertyName name of property
 	 * @return EList<PropertyAssociation>
 	 */
-	public static List<PropertyAssociation> getProperty(EList<PropertyAssociation> props,String propertyName){
+	public static List<PropertyAssociation> getPropertyAssociationsMatchingName(EList<PropertyAssociation> props,String propertyName){
 		List<PropertyAssociation> result = new BasicEList<PropertyAssociation>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
@@ -193,14 +195,15 @@ public class EMV2Properties {
 	}
 
 	/**
-	 * retrieve an error model property (such as Hazard) attached to an error model element.
+	 * return containment path of all PA in list that match the target.
+	 * Should be only one matching.
 	 * @param props list of property associations from the properties section in the error model of ci
 	 * @param propertyName name of property we are looking for
 	 * @param target the error model element
 	 * @param ciStack stack of nested CI below the ci of the props; those names may show up in the path
 	 * @return list of paths
 	 */
-	public static EList<ContainedNamedElement> getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
+	public static EList<ContainedNamedElement> getMatchingPropertiesInList(EList<PropertyAssociation> props,String propertyName, Element target,
 			 Stack<ComponentInstance> ciStack, TypeSet ts){
 		if (props.isEmpty()  ) return new BasicEList<ContainedNamedElement>();
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
@@ -208,23 +211,101 @@ public class EMV2Properties {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)){
-				ContainedNamedElement res = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,ciStack,ts);
+				ContainedNamedElement res = isErrorModelElementProperty(propertyAssociation, target,ciStack,ts);
 				if (res!=null)
 				result.add(res);
 			}
 		}
 		return result;
 	}
+	
+	/**
+	 * check to see if the first part of the path matches the stack.
+	 * Note, the order of items on the stack is the inverse of that in the path.
+	 * If ciStack is null return true.
+	 * @param ciStack
+	 * @param cpes
+	 * @return
+	 */
+	private static boolean matchCIStack(Stack<ComponentInstance> ciStack,EList<ContainmentPathElement> cpes){
+		if (ciStack == null) return true;
+		int offset = ciStack.size()-1;
+		for (int i = 0; i< ciStack.size(); i++){
+			ComponentInstance cisci = ciStack.get(i);
+			ContainmentPathElement cpesci = cpes.get(offset-i);
+			if (ciStack.get(i).getSubcomponent() != cpes.get(offset-i).getNamedElement()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * return the containment path if the stack combined with the target and optionally the type set match the containment path of a property association.
+	 * It is sufficient for one of the paths in the PA to match.
+	 * ciStack represents the path from the context of the PA to the component instance whose property we want to retrieve
+	 * The desired type set ts must be contained in the type set named in the containment path
+	 * @param propertyAssociation PropertyAssociation that is the candidate
+	 * @param ciStack ComponentInstance in instance model hierarchy with the error model element, whose property we are retrieving (or null)
+	 * @param target Element the target object in the error model whose property we retrieve
+	 * @param ts type set that must contain the last element if it is a type
+	 * @return ContainedNamedElement the containment path that matches
+	 */
+	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, Element target, 
+			Stack<ComponentInstance> ciStack, TypeSet ts ){
+		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
+		for (ContainedNamedElement containedNamedElement : applies) {
+			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
+			if (matchCIStack(ciStack, cpes)) {
+				// we are past the component portion of the path
+				NamedElement typeelement =null;
+				NamedElement lastel = null;
+				if (ts != null){
+					if (cpes.size()<2) continue;
+					typeelement = cpes.get(cpes.size()-1).getNamedElement();
+					lastel = cpes.get(cpes.size()-2).getNamedElement();
+				} else {
+					if (cpes.size()<1) continue;
+					lastel = cpes.get(cpes.size()-1).getNamedElement();
+				}
+				if (typeelement != null){
+					// check to see if the desired ts is contained in the PA containment path
+					if (typeelement instanceof ErrorType){
+						// we refer to a type
+						if (EM2TypeSetUtil.contains((ErrorType)lastel,ts)){
+							return containedNamedElement;
+						}
+					} else if (typeelement instanceof TypeSet){
+						// we refer to a type
+						if (EM2TypeSetUtil.contains((TypeSet)lastel,ts)){
+							// skip to next iteration
+							return containedNamedElement;
+						}
+					} else {
+						// last element is not a type or type set
+						// must match target.
+						// Note: property on target matches all targets with types
+						if (typeelement != target) {
+							return containedNamedElement;
+						}
+					}
+				} else if (lastel == target) {
+					return containedNamedElement;
+				}
+			}
+		}
+		return null;
+	}
 
 	/**
-	 * retrieve an error model property (such as Hazard) attached to an error model element.
-	 * @param props list of property associations from the properties section in the error model
-	 * @param propertyName name of property we are looking for
-	 * @param target the error model element
-	 * @param ciStack stack of nested CI
-	 * @return property association
+	 * return containment paths of all PA in list whose property name and target/ts match
+	 * @param props
+	 * @param propertyName
+	 * @param target
+	 * @param ts
+	 * @return EList<ContainedNamedElement>
 	 */
-	public static EList<ContainedNamedElement> getProperty(EList<PropertyAssociation> props,String propertyName, Element target,
+	public static EList<ContainedNamedElement> getMatchingErrorModelElementPropertyAssociationsInList(EList<PropertyAssociation> props,String propertyName, Element target,
 			 TypeSet ts){
 		if (props == null) return null;
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
@@ -232,7 +313,7 @@ public class EMV2Properties {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)){
-				ContainedNamedElement res = EMV2Util.isErrorModelElementProperty(propertyAssociation, target,null,ts);
+				ContainedNamedElement res = isErrorModelElementProperty(propertyAssociation, target,null,ts);
 				if (res!=null)
 				result.add(res);
 			}
@@ -261,9 +342,9 @@ public class EMV2Properties {
 		if (result.isEmpty()){
 			// look up in context of target definition
 			// for example: for a state reference the properties section of the EBSM that defines the state
-			EList<PropertyAssociation> props = getPropertiesInContext(target);
+			EList<PropertyAssociation> props = getPropertyAssociationListInContext(target);
 			if (props != null) {
-				result = getProperty(props, propertyName, target,ts);
+				result = getMatchingErrorModelElementPropertyAssociationsInList(props, propertyName, target,ts);
 			}
 		}
 		return result;
@@ -272,9 +353,8 @@ public class EMV2Properties {
 	/**
 	 * recurse up the component hierarchy to look for the PA from the outside in.
 	 * @param propertyName
-	 * @param ci the component instance whose subclause property section we are looking for the proeprty
+	 * @param ci the component instance whose subclause property section we are looking for the property
 	 * @param target
-	 * @param localContext
 	 * @param ciStack stack of CIS that are down the hierarchy towards the target emv2 subclause
 	 * @param ts
 	 * @return
@@ -291,7 +371,7 @@ public class EMV2Properties {
 				EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
 				for (ErrorModelSubclause ems : emslist) {
 					EList<PropertyAssociation> props = ems.getProperties();
-					EList<ContainedNamedElement>result = getProperty(props, propertyName, target, ciStack,ts);
+					EList<ContainedNamedElement>result = getMatchingPropertiesInList(props, propertyName, target, ciStack,ts);
 					if (!result.isEmpty()){
 						return result;
 					}
