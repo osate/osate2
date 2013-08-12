@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.errormodel.linking;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -379,7 +380,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		}
 		ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary(context);
 		TypeUseContext tuns = EMV2Util.getContainingTypeUseContext(context);
-		List<ErrorModelLibrary> otheremls = Collections.EMPTY_LIST;
+		List<ErrorModelLibrary> otheremls = null;;
 		if (tuns == null && context instanceof Classifier){
 			otheremls = EMV2Util.getErrorModelSubclauseWithUseTypes((Classifier)context);
 		} else 	if (tuns != null) {
@@ -391,11 +392,13 @@ public class EMLinkingService extends PropertiesLinkingService {
 			if (res != null) return res;
 			otheremls = owneml.getExtends();
 		}
-		for (ErrorModelLibrary etll: otheremls){
-			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
-			EObject res = findEMLNamedTypeElement(etll, typeName, eclass);
-			if (res != null) {
-				return res;
+		if (otheremls != null){
+			for (ErrorModelLibrary etll: otheremls){
+				// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
+				EObject res = findEMLNamedTypeElement(etll, typeName, eclass);
+				if (res != null) {
+					return res;
+				}
 			}
 		}
 		return null;
