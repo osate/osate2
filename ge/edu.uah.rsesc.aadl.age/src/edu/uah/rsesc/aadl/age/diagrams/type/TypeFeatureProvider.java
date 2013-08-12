@@ -12,14 +12,14 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.TypeUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeClassifierPattern;
-import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeFlowSpecificationConnectionPattern;
+import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeFlowSpecificationPattern;
 
 public class TypeFeatureProvider extends AgeFeatureProvider {
 	public TypeFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
 		this.addPattern(new FeaturePattern());
 		this.addPattern(new TypeClassifierPattern());
-		this.addConnectionPattern(new TypeFlowSpecificationConnectionPattern());
+		this.addConnectionPattern(new TypeFlowSpecificationPattern());
 	}
 
 	@Override

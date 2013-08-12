@@ -100,15 +100,7 @@ public class ComponentImplementationPattern extends AgePattern {
 		//removeInvalidFlowSpecifications(getDiagram());
 		
 		// Remove invalid features
-		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());
-		
-		// Prototypes
-		// Subcomponents
-		// Connections
-		// Calls
-		// Flow implementation
-		// End to end flow spec
-		
+		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());	
 		
 		// Create/Update Shapes
 		ClassifierHelper.createUpdateFeatures(shape, ci, getFeatureProvider());

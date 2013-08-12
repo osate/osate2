@@ -24,7 +24,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-public class SubcomponentPattern extends AgePattern{
+public class SubcomponentPattern extends AgePattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Subcomponent;
@@ -40,10 +40,13 @@ public class SubcomponentPattern extends AgePattern{
 		return super.canMoveShape(context);
 	}
 	
-	@Override
-	public boolean canResizeShape(final IResizeShapeContext context) {
-		return false;
+	public void resizeShape(final IResizeShapeContext context) {
+		final PictogramElement pe = context.getPictogramElement();
+		final Subcomponent sc = (Subcomponent)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
+		this.refresh((ContainerShape)pe, sc, context.getX(), context.getY(), context.getWidth(), context.getHeight());
 	}
+
+    // TODO: Refresh container on move or resize and force it to expand...
 	
 	@Override
 	public final PictogramElement add(final IAddContext context) {
@@ -55,8 +58,8 @@ public class SubcomponentPattern extends AgePattern{
         link(shape, new AadlElementWrapper(sc));        
 				
 		// Finish Creating the Shape
-        refresh(shape, sc, context.getX(), context.getY());
-        
+        refresh(shape, sc, context.getX(), context.getY(), 0, 0);
+
         return shape;
 	}
 
@@ -67,20 +70,22 @@ public class SubcomponentPattern extends AgePattern{
 		
 		if(pe instanceof ContainerShape) {
 			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
-			final int x, y;
+			final int x, y, width, height;
 			if(ga == null) {
-				x = 25;
-				y = 25;
+				x = y = 25;
+				width = height = 0;
 			} else {
 				x = ga.getX();
 				y = ga.getY();
+				width = ga.getWidth();
+				height = ga.getHeight();
 			}
-			this.refresh((ContainerShape)pe, sc, x, y);
+			this.refresh((ContainerShape)pe, sc, x, y, width, height);
 		}
 		return true;
 	}
 	
-	private void refresh(final ContainerShape shape, final Subcomponent sc, final int x, final int y) {
+	private void refresh(final ContainerShape shape, final Subcomponent sc, final int x, final int y, final int minWidth, final int minHeight) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		// Remove invalid flow specifications from the diagram
 		//removeInvalidFlowSpecifications(getDiagram());
@@ -105,15 +110,19 @@ public class SubcomponentPattern extends AgePattern{
 		GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 
 		// Calculate max width and height
-		int maxWidth = 50;
-		int maxHeight = 50;
+		int maxWidth = Math.max(minWidth, 50);
+		int maxHeight = Math.max(minHeight, 50);
 		final int extraWidth = 30;
 		final int extraHeight = 30;
 		maxWidth = Math.max(maxWidth, textSize.getWidth() + extraWidth);
 		for(final Shape childShape : shape.getChildren()) {
 			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-			maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() + extraWidth);
-			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + extraHeight);			
+			
+			// Ignore shape like the label when determining size.
+			if(getBusinessObjectForPictogramElement(childShape) != null) {
+				maxWidth = Math.max(maxWidth, childGa.getWidth() + extraWidth);
+				maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + extraHeight);
+			}
 		}		
 
 		// Create the graphics Algorithm

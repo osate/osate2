@@ -28,7 +28,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Update styles, etc
-public class TypeFlowSpecificationConnectionPattern extends AgeConnectionPattern {
+public class TypeFlowSpecificationPattern extends AgeConnectionPattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof FlowSpecification;
@@ -70,31 +70,30 @@ public class TypeFlowSpecificationConnectionPattern extends AgeConnectionPattern
 		
 		connection.getConnectionDecorators().clear();
 		
-		// TODO: Simply have decorator style instead of arrowhead?
 		switch(fs.getKind()) {
 		case PATH:
 			{
 				// Create the arrow
 		        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
-		        createArrow(arrowConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
+		        createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
 				break;
 			}
 			
 		case SOURCE:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				createArrow(arrowConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));
+				createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
+				createVbar(vbarConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
 				break;
 			}
 			
 		case SINK:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				GraphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram())));
+				GraphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram())));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, StyleUtil.getFlowSpecificationArrowHeadStyle(getDiagram()));	
+				createVbar(vbarConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
 				break;
 			}
 		}

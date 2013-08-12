@@ -30,7 +30,7 @@ public class ClassifierHelper {
 				final IAddFeature feature = fp.getAddFeature(addContext);
 				if(feature != null && feature.canAdd(addContext)) {
 					final PictogramElement pe = feature.add(addContext);
-					childY += pe.getGraphicsAlgorithm().getHeight() + 10;
+					childY += pe.getGraphicsAlgorithm().getHeight() + 5;
 				}
 			} else {
 				final UpdateContext updateContext = new UpdateContext(pictogramElement);

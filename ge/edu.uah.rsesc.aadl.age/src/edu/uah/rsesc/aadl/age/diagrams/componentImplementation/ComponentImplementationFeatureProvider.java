@@ -10,6 +10,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.ComponentImplementationUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ComponentImplementationPattern;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.SubcomponentPattern;
 
 
@@ -19,6 +20,7 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 		this.addPattern(new ComponentImplementationPattern());
 		this.addPattern(new SubcomponentPattern());
 		this.addPattern(new FeaturePattern());
+		this.addConnectionPattern(new ConnectionPattern());
 	}
 
 	@Override

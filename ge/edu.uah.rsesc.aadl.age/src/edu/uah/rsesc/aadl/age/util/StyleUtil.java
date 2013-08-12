@@ -97,8 +97,8 @@ public class StyleUtil {
 		return getStyle(diagram, "generalization-arrowhead");
     }
 	
-	public static Style getFlowSpecificationArrowHeadStyle(final Diagram diagram) {
-		return getStyle(diagram, "flow_specification-arrowhead");
+	public static Style getDecoratorStyle(final Diagram diagram) {
+		return getStyle(diagram, "decorator");
     }
 	
 	public static Style getLabelStyle(final Diagram diagram) {

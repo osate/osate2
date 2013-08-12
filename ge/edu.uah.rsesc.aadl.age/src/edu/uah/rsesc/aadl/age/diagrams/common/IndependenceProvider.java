@@ -10,6 +10,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
@@ -59,6 +60,8 @@ class IndependenceProvider implements IIndependenceSolver {
 				return "feature " + ((Feature)bo).getQualifiedName();
 			} else if(bo instanceof FlowSpecification) {
 				return "flow_specification " + ((FlowSpecification)bo).getQualifiedName();
+			} else if(bo instanceof Connection) {
+				return "connection " + ((Connection)bo).getQualifiedName();
 			} else {
 				return null;
 			}
@@ -137,6 +140,7 @@ class IndependenceProvider implements IIndependenceSolver {
 			case "subcomponent":
 			case "feature":
 			case "flow_specification":
+			case "connection":
 				aadlElement = relevantElement;
 				break;
 			

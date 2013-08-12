@@ -44,6 +44,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	public static final String innerConnectorAnchorName = "innerConnector";
 	public static final String flowSpecificationAnchorName = "flowSpecification";
 	private static final int featureGroupSymbolWidth = 30;
+	private static final int labelPadding = 5;
 	
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
@@ -55,7 +56,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		if(ctx.getPictogramElement() instanceof Shape){
 			final Shape shape = (Shape)ctx.getPictogramElement();
 			// TODO: Add support for moving features within a feature group
-			if(shape.getContainer().getContainer() instanceof Diagram) {
+			final ContainerShape container = shape.getContainer();
+			final Object containerBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(container));
+			if(containerBo instanceof Classifier || containerBo instanceof Subcomponent) {
 				return super.canMoveShape(ctx);
 			}
 		}
@@ -154,7 +157,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		if(labelShape != null) {
 			final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
-			labelGa.setX(isLeft ? 0 : shapeGa.getWidth()-labelGa.getWidth());
+			labelGa.setX(isLeft ? labelPadding : shapeGa.getWidth()-labelGa.getWidth()-labelPadding);
 		}	
 		
 		// Handle positioning of the shape in cases where the shape container has a fully initialized container
@@ -279,7 +282,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		gaService.setLocation(featureShape.getGraphicsAlgorithm(), 0, labelSize.getHeight());  
 		
         // Set size as appropriate
-        gaService.setSize(ga, Math.max(getWidth(label), getWidth(featureShape.getGraphicsAlgorithm())), 
+        gaService.setSize(ga, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm())), 
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
 
         layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times

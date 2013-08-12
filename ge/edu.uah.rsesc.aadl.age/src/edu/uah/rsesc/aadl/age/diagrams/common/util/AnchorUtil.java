@@ -137,9 +137,17 @@ public class AnchorUtil {
 			return null;
 		}
 		
+		// CLEAN-UP - Features should have an outer anchor that should be preferred under certain circumstances
 		final IPeService peService = Graphiti.getPeService();
-		a1 = peService.getChopboxAnchor((AnchorContainer)sourcePe);
-		a2 = peService.getChopboxAnchor((AnchorContainer)destPe);
+		a1 = getAnchorByName(sourcePe, FeaturePattern.innerConnectorAnchorName);
+		if(a1 == null) {
+			peService.getChopboxAnchor((AnchorContainer)sourcePe);
+		}
+		
+		a2 = getAnchorByName(destPe, FeaturePattern.innerConnectorAnchorName);
+		if(a2 == null) {
+			a2 = peService.getChopboxAnchor((AnchorContainer)destPe);
+		}
 		
 		if(a1 == null || a2 == null) {
 			return null;

@@ -139,12 +139,12 @@
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="flow_specification"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ExtendsStyleFactory" styleId="extends"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.GeneralizationArrowheadStyleFactory" styleId="generalization-arrowhead"/>
- 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="flow_specification-arrowhead"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="decorator"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="feature"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.LabelStyleFactory" styleId="label"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SubprogramAccessStyleFactory" styleId="subprogram_access"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SubprogramGroupAccessStyleFactory" styleId="subprogram_group_access"/>
- 	<!-- TODO: Remove Feature gorup circles? -->
+ 	<!-- TODO: Remove Feature group circles? -->
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ThickOutlineStyleFactory" styleId="feature_group_large_circle"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="feature_group_small_circle"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BackgroundStyleFactory" styleId="background"/>
