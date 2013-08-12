@@ -943,9 +943,9 @@ public class GetProperties {
 			return null;
 		}
 	}
-	public static UnitLiteral getDelayedUnitLiteral(PortConnection pc){
+	public static EnumerationLiteral getDelayedUnitLiteral(PortConnection pc){
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
-		return findUnitLiteral(timing, CommunicationProperties.DELAYED);
+		return findEnumerationLiteral(timing, CommunicationProperties.DELAYED);
 	}
 	public static EnumerationLiteral getImmediateUnitLiteral(PortConnection pc){
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
