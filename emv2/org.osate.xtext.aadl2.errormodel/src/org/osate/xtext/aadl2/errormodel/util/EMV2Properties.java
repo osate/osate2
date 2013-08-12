@@ -155,16 +155,17 @@ public class EMV2Properties {
 
 	/**
 	 * get list of property associations in enclosing object within the error annex that has a properties section.
-	 * ErrorModelLibrary, ErrorBehaviorStateMachine, and ErrorModelSubclause have properties sections
+	 * ErrorModelLibrary, ErrorBehaviorStateMachine have properties sections
+	 * Note: we assume the PA list in the subclause has been handled.
 	 * @param element declarative model element or error annex element
-	 * @return ErrorModelLibrary, ErrorBehaviorStateMachine, ErrorModelSubclause
+	 * @return PS list of ErrorModelLibrary, ErrorBehaviorStateMachine
 	 */
 	public static EList<PropertyAssociation> getPropertyAssociationListInContext(Element element) {
 		EObject container = element;
 		while (container != null ){
-			if (container instanceof ErrorModelSubclause ){
-				return ((ErrorModelSubclause)container).getProperties();
-			}
+//			if (container instanceof ErrorModelSubclause ){
+//				return ((ErrorModelSubclause)container).getProperties();
+//			}
 			if (container instanceof ErrorModelLibrary ){
 				return ((ErrorModelLibrary)container).getProperties();
 			}
@@ -352,6 +353,7 @@ public class EMV2Properties {
 
 	/**
 	 * recurse up the component hierarchy to look for the PA from the outside in.
+	 * For each component instance, handle inherited properties based on subclause inheritance ordering
 	 * @param propertyName
 	 * @param ci the component instance whose subclause property section we are looking for the property
 	 * @param target
@@ -368,6 +370,7 @@ public class EMV2Properties {
 				ciStack.pop();
 				return result;
 			} else {
+				// deals with inherited properties by walking subclause inheritance
 				EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
 				for (ErrorModelSubclause ems : emslist) {
 					EList<PropertyAssociation> props = ems.getProperties();
