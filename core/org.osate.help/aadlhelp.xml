@@ -191,6 +191,8 @@
        </topic>
        <topic href="html/emv2/unhandled-faults.html" label="Unhandled Faults">
        </topic>
+       <topic href="html/emv2/consistency.html" label="Consistency Checks">
+       </topic>
         <topic href="html/emv2/fault-impact.html" label="Fault Impact">
        </topic>
        <topic href="html/emv2/fta.html" label="Fault-Tree Analysis">

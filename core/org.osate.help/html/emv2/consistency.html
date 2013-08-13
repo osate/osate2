@@ -1,0 +1,595 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+</head>
+
+<body>
+<h2>Error-Model Annex v2 - Consistency Checks</h2>
+
+<p>
+The following checks are performed on the model. A set of models
+to tests these functions has been added to the official OSATE examples
+set on the OSATE github area 
+(you can <a href="https://github.com/osate/examples/tree/master/error-model/UnhandledFaults">get them here</a>).
+</p>
+
+	
+	<h3>C1: Error source and error sink compliance</h3>
+	<p>
+	This consists in ensuring that for each error source,
+	there is an error sink at the end. We also check
+	that all types propagated from the error source
+	are handled by the error sink and/or being
+	transformed with an error path.
+	</p>
+	
+	
+	<p>
+		<strong>Note:</strong>
+		when failing, we go through all connection reference of the
+		connection instance to check where the fault is not correctly handled.
+	</p>
+	
+	
+	<h3>C2: Transitions of error component behavior use all incoming error propagations and error events</h3>
+	<p>
+	To be checked, might be redundant with C2.
+	</p>
+	<p>
+	We make sure that each all transitions having the same state source and state destination
+	use all incoming error propagations and error events. Also, when having incoming error
+	event, this can be only error sink and something referenced within an error path.
+	</p>
+		
+	<pre>
+	system implementation receiver2.i6
+	annex EMV2 {**
+		use types ErrorLibrary; 
+		use behavior ErrorModelLibrary::Simple;
+		error propagations
+			valuein1 : in propagation {ValueError};
+		flows 
+			f4 : error sink valuein1 {ValueError};
+		end propagations;
+		
+		component error behavior
+		events
+			e1 : error event;
+		transitions
+		-- Error : e1 is not referenced
+		-- we should have something like
+		--    t0 : Operational -[e1]-> Operational;
+			t1 : Operational -[ valuein1{ValueError} ]-> Failed; 
+		end component;
+	**};
+	end receiver2.i6;
+	</pre>
+	
+	
+	
+	<h3>C3: Outgoing propagation condition without condition are error source</h3>
+	<p>
+	When having an outgoing propagation condition <strong>without</strong> a condition, we must check that:
+	</p>
+	<ul>
+		<li>
+			The outgoing propagation is an error source. It can be also referenced in an error path
+			but must have an error source declaration.
+		</li>
+	</ul>
+	
+	
+	<h3>C4: Outgoing propagation condition with condition must have an associated flow path</h3>
+	<p>
+	When having an outgoing propagation condition <strong>with</strong> a condition, we must check that:
+	</p>
+	<ul>
+		<li>
+			If the condition contains a reference to an incoming error propagation, this must be declared
+		    in an error path.
+		</li>
+		<li>
+			The outgoing propagation must be referenced within a path that also include the incoming error
+			propagation referenced in the conditions
+		</li>
+	</ul>
+
+<pre>
+system implementation receiver2.i5
+annex EMV2 {**
+	use types ErrorLibrary; 
+	use behavior ErrorModelLibrary::Simple;
+	error propagations
+		valuein1 : in propagation {LateDelivery};
+		valueout1 : out propagation {ValueError};
+		valuein2 : in propagation {LateDelivery};
+		valueout2 : out propagation {ValueError};
+	flows
+		f1 : error path valuein1 {LateDelivery} -> valueout1 (ValueError);
+		f3 : error sink valuein2 {LateDelivery}; 
+		f4 : error source valueout2 {ValueError};
+	end propagations;
+	
+	component error behavior
+	propagations
+		p1 : Operational -[]-> valueout1(ValueError); -- Error, this is part of an error path
+		p3 : Operational -[]-> valueout2(ValueError); -- OK
+	end component;
+**};
+end receiver2.i5;
+</pre>
+
+		
+	<h3>C5: In the component error behavior, check that we have a transition between each state.</h3>
+	<p>
+	This corresponds to the liveliness property of the state machine, we check that
+	we do not have dead state. This shall be a warning because some design would require
+	to have dead state. On the other hand, a warning would be useful.
+	</p>
+	<pre>
+	system implementation receiver2.i4
+	annex EMV2 {**
+		use types ErrorLibrary; 
+		use behavior ErrorModelLibrary::Simple;
+		error propagations
+			valuein1 : in propagation {ValueError, TimingError};
+		flows 
+			f4 : error sink valuein1 {ValueError, TimingError};
+		end propagations;
+		
+		component error behavior
+		transitions
+		-- Warning, I do not have a transition from Failed to Operational
+			t1 : Operational -[ valuein1{ValueError} ]-> Failed; 
+		end component;
+	**};
+	end receiver2.i4;
+	</pre>
+	
+	<h3>C6: Check completeness of all outgoing error propagation condition: we address and cover all error types</h3>
+	<p>
+	For all outgoing propagation conditions, we make sure that all outgoing propagation
+	is propagated with the appropriate error type.
+	</p>
+	<pre>
+	system implementation receiver2.i3
+	annex EMV2 {**
+		use types ErrorLibrary; 
+		use behavior ErrorModelLibrary::Simple;
+		error propagations
+			valueout1 : out propagation {ValueError, TimingError};
+		flows 
+			f4 : error source valueout1 {ValueError, TimingError};
+		end propagations;
+		
+		component error behavior
+		propagations
+			p1 : Operational -[]-> valueout1(ValueError); -- Error, I should also have another one for TimingError
+		end component;
+	**};
+	end receiver2.i3;
+	</pre>
+	
+	
+	<h3>C7: Check that when having an error sink, we do not propagate any error</h3>
+	<p>
+	For all error sink, we can have a transition that is triggered,
+	but the error sink cannot be part of the error condition
+	of an outgoing error propagation condition.
+	</p>
+	<pre>
+	system implementation receiver2.i1
+	annex EMV2 {**
+		use types ErrorLibrary;
+		use behavior ErrorModelLibrary::Simple;
+		error propagations
+			valuein1 : in propagation {LateDelivery};
+			valueout1 : out propagation {ValueError};
+		flows
+			f1 : error sink valuein1 {LateDelivery}; 
+			f2 : error source valueout1 {ValueError};
+		end propagations;
+		
+		component error behavior
+		propagations
+			p1 : Operational -[ valuein1{LateDelivery}]-> valueout1(ValueError); -- should raise error
+			p2 : Operational -[ valuein1{LateDelivery}]-> valueout1(NoError); -- OK
+		end component;
+	**};
+	end receiver2.i1;
+	</pre>
+	
+
+	
+	
+	
+	<h3>C8: error source can be triggered by propagations only without any incoming error propagation</h3>
+	<p>
+	To be checked, redundant with C3
+	</p>
+	<p>
+	Check that when having an error source, in the propagation section, this can be indicated only without 
+	incoming conditions or just with conditions representing event. If there is a condition associated
+	to the outgoing propagation condition, the element can be only an event. If there is an incoming
+	error propagation, then, rule C7 will apply.
+	</p>
+	
+	<pre>
+	system implementation receiver2.i5
+	annex EMV2 {**
+		use types ErrorLibrary; 
+		use behavior ErrorModelLibrary::Simple;
+		error propagations
+			valuein1 : in propagation {LateDelivery};
+			valueout1 : out propagation {ValueError};
+			valuein2 : in propagation {LateDelivery};
+			valueout2 : out propagation {ValueError};
+		flows
+			f1 : error path valuein1 {LateDelivery} -> valueout1 (ValueError);
+			f3 : error sink valuein2 {LateDelivery}; 
+			f4 : error source valueout2 {ValueError};
+		end propagations;
+		
+		component error behavior
+		propagations
+			p1 : Operational -[]-> valueout1(ValueError); -- Error, this is part of an error path
+			p3 : Operational -[]-> valueout2(ValueError); -- OK
+		end component;
+	**};
+	end receiver2.i5;
+	</pre>
+	
+	<!--
+	<h3>C9: Check completeness of types of events and makes sure each types trigger a conditions or a propagation (=has an impact on the system)<h3>
+	<p>
+	Make sure that for each error event, we have a reference within the state machine
+	and in the propagation section. In the state nachine
+	</p>
+	-->
+	
+	
+	
+	
+	<h3>C9: Check that there is no transition with the same condition and source state</h3>
+	<p>
+	Each transition in the component error state machine shall be independent. In other
+	word, for each transition going from state S1 to state S2, they might be only one condition similar condition.
+	We can have several transitions from S1 to S2, but their associated condition must be different.
+	</p>
+	<pre>
+	system implementation receiver2.i4
+	annex EMV2 {**
+		use types ErrorLibrary; 
+		use behavior ErrorModelLibrary::Simple;
+		error propagations
+			valuein1 : in propagation {ValueError, TimingError};
+		flows 
+			f4 : error sink valuein1 {ValueError, TimingError};
+		end propagations;
+		
+		component error behavior
+		transitions
+		-- Warning, I do not have a transition from Failed to Operational
+			t1 : Operational -[ valuein1{ValueError} ]-> Failed; 
+		-- Error: transitions with the same source state and condition must be unique
+			t2 : Operational -[ valuein1{ValueError} ]-> Operational; 
+		end component;
+	**};
+	end receiver2.i4;
+	</pre>
+	
+	
+	
+	
+	<h3>C10: Check that for each state transition, all elements are referenced</h3>
+	<p>
+	To be checked, redundant with C2
+	</p>
+	<p>
+	We check that for each transition, all incoming propagations and error events
+	(and their associated types) are correctly addressed.
+	</p>
+	
+	<pre>
+	system implementation receiver2.i6
+	annex EMV2 {**
+		use types ErrorLibrary; 
+		use behavior ErrorModelLibrary::Simple;
+		error propagations
+			valuein1 : in propagation {ValueError};
+		flows 
+			f4 : error sink valuein1 {ValueError};
+		end propagations;
+		
+		component error behavior
+		events
+			e1 : error event;
+		transitions
+		-- Error : e1 is not referenced
+		-- we should have something like
+		--    t0 : Operational -[e1]-> Operational;
+			t1 : Operational -[ valuein1{ValueError} ]-> Failed; 
+		end component;
+	**};
+	end receiver2.i6;
+	</pre>
+	
+	
+	
+	
+	
+	<h3>C11: Composite error behavior: indicate the condition for each state of the component</h3>
+	<p>
+	For each state of the component, we make sure the composite error behavior specifies the condition.
+	This validates the completness of the composite error state.
+	</p>
+	<pre>
+	system implementation assembly.i0
+	subcomponents
+		r2_1 : system receiver.i2;
+		r2_2 : system receiver.i2;
+	annex EMV2 {**
+		use types ErrorLibrary;
+		use behavior ErrorModelLibrary::Simple;
+		
+		component error behavior
+		end component;
+		
+		composite error behavior
+		states
+		-- ERROR: we do not define the state for Operational
+			[ r2_1.Failed ]-> Failed;
+		end composite;
+	**};	
+	end assembly.i0;
+	</pre>
+	
+	
+	
+	
+	<h3>C12: Composite error behavior references all subcomponents</h3>
+	<p>
+	For each composite error behavior state, we make sure we reference
+	all subcomponent. So, we make sure that the state machine is not ambiguous.
+	</p>
+	
+	<pre>
+	system implementation assembly.i0
+	subcomponents
+		r2_1 : system receiver.i2;
+		r2_2 : system receiver.i2;
+	annex EMV2 {**
+		use types ErrorLibrary;
+		use behavior ErrorModelLibrary::Simple;
+		
+		component error behavior
+		end component;
+		
+		composite error behavior
+		states
+		-- ERROR: we do not define the state of r2_2 for the operational
+		-- state
+			[ r2_1.Failed and r2_2.Failed ]-> Failed;
+			[ r2_1.Operational ]-> Operational;
+		end composite;
+	**};	
+	end assembly.i0;
+	</pre>
+	
+	
+	
+	
+	<h3>C13: Composite error behavior: check compliance between component state machine and composite error state machine</h3>
+	<p>
+	A state can have different definition: in the component error state machine and the composite error
+	state machine. The goal of this check is to make sure that the probability definition
+	from the component state machine is consistent with the composite state machine.
+	</p>
+	<pre>
+	system implementation assembly.i2
+	subcomponents
+		s1_1 : system sender.i1;
+		s1_2 : system sender.i1;
+		s2_1 : system sender.i2;
+		s2_2 : system sender.i2;
+		s3_1 : system sender.i3;
+		r1_1 : system receiver.i1;
+		r1_2 : system receiver.i1;
+		r2_1 : system receiver.i2;
+		r2_2 : system receiver.i2;
+	connections
+		c1 : port s1_1.valueout -> r1_1.valuein;
+		c2 : port s1_2.valueout -> r1_1.valuein;
+		c3 : port s3_1.valueout -> r2_1.valuein; 
+	annex EMV2 {**
+		use types ErrorLibrary;
+		use behavior ErrorModelLibrary::Simple;
+		
+		component error behavior
+		events
+			e1 : error event;
+			e2 : error event;
+		transitions
+			t1 : Operational -[e1]-> Failed;
+			t2 : Operational -[e2]-> Failed;
+		end component;
+		
+		composite error behavior
+		states
+			[ r2_1.Failed ]-> Failed;
+		end composite;
+		-- ERROR because the occurrence value between the events in the component
+		-- error behavior does not match the occurrence value of
+		--  the component in the composite error behavior.
+		properties
+			EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.2 ; Distribution => Fixed;] applies to e1;
+			EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.1 ; Distribution => Fixed;] applies to e2;
+			EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.4 ; Distribution => Fixed;] applies to r2_1.Failed;
+	**};	
+	end assembly.i2;
+	</pre>
+	
+	
+	
+	
+	
+	
+	<h3>C14: Check for undeclared error path</h3>
+	<p>
+	Within an architecture, some error path could be missing and not declared, especially
+	when agregating/composing the architecture. This checks aims at discovering such
+	issue and warn the user of some potential missing error path.
+	</p>
+	<pre>
+	package unhandled_faults3
+	
+	public
+	
+	with EMV2;
+	
+	system intermediate
+	features
+		valuein : in event port;
+		valueout : out event port;
+	end intermediate;
+	
+	
+	system implementation intermediate.i1
+	annex EMV2 {**
+		use types ErrorLibrary;
+		
+		error propagations
+			valuein  : in propagation {ValueError};
+			valueout : out propagation {ValueError};
+		flows
+			f1 : error path valuein -> valueout;
+		end propagations;
+	**};
+	end intermediate.i1;
+	
+	
+	system assembly
+	features
+		valuein : in event port;
+		valueout1 : out event port;
+		valueout2 : out event port;
+	end assembly;
+	
+	system implementation assembly.i
+	subcomponents
+		s1 : system intermediate.i1;
+	connections
+		c1 : port valuein -> s1.valuein;
+		c2 : port s1.valueout -> valueout1;
+		c3 : port s1.valueout -> valueout2; 
+	annex EMV2 {**
+		use types ErrorLibrary;
+		use behavior ErrorModelLibrary::Simple;
+		
+		error propagations
+			valuein  : in propagation {ValueError};
+			valueout1 : out propagation {ValueError};
+			valueout2 : out propagation {ValueError};
+		flows
+			-- ERROR, we should declare also a path between
+			-- valuein and valueout2 because the component
+			-- also propagates the error to it.
+			f1 : error path valuein -> valueout1;
+		end propagations;
+	**};	
+	end assembly.i;
+	
+	
+	
+	
+	end unhandled_faults3;
+	</pre>
+	
+	
+	
+	
+	
+	
+	<h3>C15: Check that if a component declare an error path, any connection from the associated feature go into a feature which is also an error sink</h3>
+	<p>
+	When a component declares an error sink as error flow, the feature can be connected to subcomponent but the ultimate destination must
+	be an error sink. The feature cannot be connected to component that declares a single error flow. Likely, the failure <strong>must be handled</strong>
+	within a subcomponent.
+	</p>	
+	
+	
+	<pre>
+	package unhandled_faults3
+	
+	public
+	
+	with EMV2;
+	
+	system intermediate
+	features
+		valuein : in event port;
+		valueout : out event port;
+	end intermediate;
+	
+	
+	system implementation intermediate.i1
+	annex EMV2 {**
+		use types ErrorLibrary;
+		
+		error propagations
+			valuein  : in propagation {ValueError};
+			valueout : out propagation {ValueError};
+		flows
+			f1 : error path valuein -> valueout;
+		end propagations;
+	**};
+	end intermediate.i1;
+	
+	
+	system assembly
+	features
+		valuein : in event port;
+		valueout1 : out event port;
+		valueout2 : out event port;
+	end assembly;
+	
+	system implementation assembly.i
+	subcomponents
+		s1 : system intermediate.i1;
+	connections
+		c1 : port valuein -> s1.valuein;
+		c2 : port s1.valueout -> valueout1;
+		c3 : port s1.valueout -> valueout2; 
+	annex EMV2 {**
+		use types ErrorLibrary;
+		use behavior ErrorModelLibrary::Simple;
+		
+		error propagations
+			valuein  : in propagation {ValueError};
+			valueout1 : out propagation {ValueError};
+			valueout2 : out propagation {ValueError};
+		flows
+			-- ERROR, if valuein is a sink, it should
+			-- not be connected to a component
+			-- that use it as an error path.
+			-- The subcomponent should declare it as an error
+			-- sink as well.
+			f1 : error sink valuein{ValueError};
+		end propagations;	
+	**};	
+	end assembly.i;
+	
+	
+	
+	
+	end unhandled_faults3;
+	</pre>
+
+
+</body>
+</html>
