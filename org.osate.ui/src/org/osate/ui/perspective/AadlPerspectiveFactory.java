@@ -56,8 +56,7 @@ public class AadlPerspectiveFactory implements IPerspectiveFactory
 		IFolderLayout bottom = layout.createFolder("bottom", IPageLayout.BOTTOM, (float)0.75, editorArea);
 		bottom.addView(IPageLayout.ID_PROBLEM_VIEW);
 		bottom.addView(IPageLayout.ID_PROP_SHEET);
-		//TODO fix
-//		bottom.addView("edu.cmu.sei.osate.propertyview.AadlPropertyView");
+		bottom.addView("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
 		
 		layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.RIGHT, (float)0.75, editorArea);
 		
@@ -70,8 +69,7 @@ public class AadlPerspectiveFactory implements IPerspectiveFactory
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		
-		//TODO FIX
-//		layout.addShowViewShortcut("edu.cmu.sei.osate.propertyview.AadlPropertyView");
+		layout.addShowViewShortcut("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
 		layout.addShowViewShortcut("org.osate.ui.navigator.AadlNavigator");
 		
 		layout.addNewWizardShortcut("org.osate.ui.wizards.AadlProjectWizard");
