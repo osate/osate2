@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.ui.propertyview.associationwizard;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.xtext.linking.ILinker;
@@ -38,7 +39,7 @@ public class PropertyAssociationWizard extends Wizard {
 	private final URI holderuri;
 	private final boolean shouldDisplayModeChooserWizardPage;
 	private final IXtextDocument xtextDocument;
-	private final CommandStack commandStack;
+	private CommandStack commandStack;
 	private final ISerializer serializer;
 	private final Aadl2Parser aadl2Parser;
 	private final ILinker linker;
@@ -71,11 +72,11 @@ public class PropertyAssociationWizard extends Wizard {
 	
 	@Override
 	public boolean performFinish() {
-		final NamedElement holder = getHolder();
 		final AbstractPropertyValueWizardPage activePropertyValueWizardPage = getActivePropertyValueWizardPage();
 		if (xtextDocument != null) {
 			xtextDocument.modify(new IUnitOfWork.Void<XtextResource>() {
 				public void process(XtextResource state) {
+					final NamedElement holder = (NamedElement)state.getResourceSet().getEObject(holderuri, true);
 					PropertyAssociation newAssociation = holder.createOwnedPropertyAssociation();
 					newAssociation.setProperty(propertyDefinitionWizardPage.getSelectedDefinition());
 					ModalPropertyValue mpv = newAssociation.createOwnedValue();
@@ -95,9 +96,16 @@ public class PropertyAssociationWizard extends Wizard {
 					}
 				}
 			});
-			OsateResourceUtil.save(holder.eResource());
 		}
 		else {
+			final NamedElement holder = getHolder();
+			// If the command stack is null, a new temporary editing domain will be created to edit the resource
+			TransactionalEditingDomain createdEditingDomain = null;
+			if (commandStack == null) {
+				createdEditingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain();
+				commandStack = createdEditingDomain.getCommandStack();
+			}
+			
 			CreatePropertyAssociationCommand command;
 			if (shouldDisplayModeChooserWizardPage && modeChooserWizardPage.getSelectedModes().size() > 0) {
 				command = new CreatePropertyAssociationCommand(holder, propertyDefinitionWizardPage.getSelectedDefinition(), activePropertyValueWizardPage.getPropertyExpression(),
@@ -109,6 +117,15 @@ public class PropertyAssociationWizard extends Wizard {
 			PropertyAssociation newAssociation = command.getNewAssociation();
 			newAssociation.setAppend(activePropertyValueWizardPage.isAppendSelected());
 			newAssociation.setConstant(activePropertyValueWizardPage.isConstantSelected());
+			
+			// Dispose of the editing domain if it was created to execute this command
+			if (createdEditingDomain != null) {
+				createdEditingDomain.dispose();
+				commandStack = null;
+			}
+			
+			// Save the resource
+			OsateResourceUtil.save(holder.eResource());
 		}
 		if (activePropertyValueWizardPage instanceof PropertyValueWizardPage)
 			propertyValueWizardPage.recordDialogSettings();

@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -304,6 +305,16 @@ public class AadlPropertyView extends ViewPart {
 							return state;
 						}
 					});
+				}
+				else if (selectedObject instanceof IAdaptable)
+				{
+					final IAdaptable selectedAdaptable = (IAdaptable)selectedObject;
+					final IAadlPropertySource propertySource = (IAadlPropertySource)selectedAdaptable.getAdapter(IAadlPropertySource.class);
+					if (propertySource != null)
+					{
+						xtextDocument = propertySource.getDocument();
+						currentSelection = propertySource.getNamedElement();
+					}
 				}
 			}
 		}
