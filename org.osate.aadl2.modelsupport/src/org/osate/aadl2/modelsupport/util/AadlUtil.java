@@ -2148,9 +2148,10 @@ public final class AadlUtil {
 			importedPropertySets = ((PropertySet) context).getImportedUnits();
 		else
 			importedPropertySets = ((PackageSection) context).getImportedUnits();
+		
 		for (ModelUnit importedPropertySet : importedPropertySets)
 			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
-					&& importedPropertySet == ps)
+					&& (importedPropertySet == ps || (ps.getQualifiedName().equalsIgnoreCase(importedPropertySet.getQualifiedName()))))
 				return true;
 		return false;
 	}
