@@ -1,11 +1,13 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -22,6 +24,7 @@ import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
@@ -41,7 +44,9 @@ import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.ThreadGroupClassifier;
 import org.osate.aadl2.VirtualBusClassifier;
 import org.osate.aadl2.VirtualProcessorClassifier;
+import org.osate.aadl2.util.Aadl2Util;
 
+import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Eventually replace with an extension mechanism similar to the ones for styles. Goal would be to allow sharing of graphics algorithms, sharing symbols, and 
@@ -108,9 +113,24 @@ public class GraphicsAlgorithmCreator {
         return ga;
 	}
 	
-	public static GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape container, final Diagram diagram, final Feature feature) {
+	public static GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final Diagram diagram, final Feature feature, final IFeatureProvider fp) {
 		final IGaService gaService = Graphiti.getGaService();
         
+		// TODO: The direction is affected by inverse of in the feature and in containing feature group and feature group types....
+		// must figure out by walking shapes since the container of some features may be a feature group type that isn't appropriate.
+		// for example getting the features of an implicitly defined inverse feature group type will return the non-inverse feature group
+		DirectionType direction = null;
+		if(feature instanceof DirectedFeature) {
+			direction = ((DirectedFeature)feature).getDirection();
+			if(direction == DirectionType.IN || direction == DirectionType.OUT) {
+				if(ClassifierHelper.isFeatureInverted(shape, fp)) {
+					direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+				}				
+			}
+		}
+		
+		// TODO: Do similar for access type
+		
         // Abstract Feature
 		GraphicsAlgorithm ga;	
 		
@@ -119,14 +139,13 @@ public class GraphicsAlgorithmCreator {
 			final boolean hasData = feature instanceof DataPort || feature instanceof EventDataPort;
 			final boolean hasEvent = feature instanceof EventPort || feature instanceof EventDataPort;
 			
-			ga = gaService.createInvisibleRectangle(container);
+			ga = gaService.createInvisibleRectangle(shape);
         	
         	int width = 25;
         	final int height = 20;
         	final int dataSymbolXPadding = 10;
         	final int dataSymbolYPadding = 5;
-        	final DirectionType direction = ((Port)feature).getDirection();
-        	
+
         	GraphicsAlgorithm dataGa = null;
         	GraphicsAlgorithm eventGa = null;        	
         	
@@ -201,16 +220,14 @@ public class GraphicsAlgorithmCreator {
 		}
 		else if(feature instanceof AbstractFeature) { // Abstract Feature
 			final Style style = StyleUtil.getFeatureStyle(diagram);
-        	ga = gaService.createInvisibleRectangle(container);
+        	ga = gaService.createInvisibleRectangle(shape);
         	gaService.setSize(ga,  25,  20);
         	
         	final GraphicsAlgorithm circleGa = gaService.createPlainEllipse(ga);
         	circleGa.setStyle(style);
         	gaService.setLocation(circleGa, 0, 5);
             gaService.setSize(circleGa, 10, 10);
-            
-            final DirectionType direction = ((AbstractFeature) feature).getDirection();
-            
+
             // In Abstract Feature
             if(direction == DirectionType.IN) {
             	final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] {
@@ -229,11 +246,14 @@ public class GraphicsAlgorithmCreator {
             GraphicsAlgorithmUtil.shrink(ga);
         } else if(feature instanceof Access) {
         	final Access access = (Access)feature;
-        	final AccessType accessType = access.getKind();
+        	AccessType accessType = access.getKind();
+        	if(ClassifierHelper.isFeatureInverted(shape, fp)) {
+        		accessType = (accessType == AccessType.PROVIDES) ? AccessType.REQUIRES : AccessType.PROVIDES;
+        	}
         	int width = 0;
         	int height = 0;
         	
-        	ga = gaService.createInvisibleRectangle(container);
+        	ga = gaService.createInvisibleRectangle(shape);
         	
         	if(access instanceof BusAccess || access instanceof DataAccess) {
         		final Style style = StyleUtil.getFeatureStyle(diagram);
@@ -300,7 +320,7 @@ public class GraphicsAlgorithmCreator {
         	final int bigCircleSize = 25;
         	final int gaWidthReduction = 5;
         	final int bigCircleVisibleWidth = 10;
-        	ga = gaService.createInvisibleRectangle(container);
+        	ga = gaService.createInvisibleRectangle(shape);
         	gaService.setSize(ga, bigCircleSize-gaWidthReduction, bigCircleSize);
         	
         	final GraphicsAlgorithm bigCircleGa = gaService.createPlainEllipse(ga);
@@ -319,7 +339,7 @@ public class GraphicsAlgorithmCreator {
     		gaService.setSize(smallCircleGa, smallCircleSize, smallCircleSize);
     		smallCircleGa.setStyle(StyleUtil.getFeatureGroupSmallCircleStyle(diagram));    		
         } else {
-        	ga = gaService.createPlainRectangle(container);
+        	ga = gaService.createPlainRectangle(shape);
             gaService.setSize(ga, 10, 10);
         }
 		

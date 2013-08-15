@@ -217,6 +217,10 @@ public class AnchorUtil {
 		if(ce == null) {
 			return null;
 		}
+		System.out.println("GET PICTOGRAM ELEMENT");
+		System.out.println(ce);
+		System.out.println(context);
+		System.out.println(contextComponent);
 		
 		// Get the PE for the context component
 		PictogramElement pe = null;

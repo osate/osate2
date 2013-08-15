@@ -1,10 +1,15 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.IResizeShapeFeature;
+import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.ResizeContext;
+import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -41,12 +46,39 @@ public class SubcomponentPattern extends AgePattern {
 	}
 	
 	public void resizeShape(final IResizeShapeContext context) {
-		final PictogramElement pe = context.getPictogramElement();
-		final Subcomponent sc = (Subcomponent)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
-		this.refresh((ContainerShape)pe, sc, context.getX(), context.getY(), context.getWidth(), context.getHeight());
+		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
+		final Subcomponent sc = (Subcomponent)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
+		this.refresh(shape, sc, context.getX(), context.getY(), context.getWidth(), context.getHeight());
+		
+		checkContainerSize(shape);
 	}
 
-    // TODO: Refresh container on move or resize and force it to expand...
+	@Override 
+	protected void postMoveShape(final IMoveShapeContext context) {
+		checkContainerSize((ContainerShape)context.getPictogramElement());
+	}
+	
+	/**
+	 * Checks the size of the container and resizes it if necessary
+	 */
+	private void checkContainerSize(final ContainerShape shape) {
+		// Check if the shape is entirely in the container
+		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+		final int endX = ga.getX() + ga.getWidth();
+		final int endY = ga.getY() + ga.getHeight();
+		final ContainerShape container = shape.getContainer();
+		final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();
+		if(ga.getX() < 0 || ga.getY() < 0 || containerGa.getWidth() < endX || containerGa.getHeight() < endY) {
+			// Call the update feature on the container to adjust the size
+			final UpdateContext context = new UpdateContext(container);
+			final IUpdateFeature feature = getFeatureProvider().getUpdateFeature(context);
+			if(feature != null) {
+				if(feature.canUpdate(context)) {
+					feature.update(context);
+				}
+			}
+		}		
+	}
 	
 	@Override
 	public final PictogramElement add(final IAddContext context) {
@@ -96,7 +128,7 @@ public class SubcomponentPattern extends AgePattern {
 		// Create/update child shapes
 		final Classifier classifier = sc.getClassifier();
 		if(classifier != null) {
-			ClassifierHelper.createUpdateFeatures(shape, classifier, getFeatureProvider());			
+			ClassifierHelper.createUpdateFeatures(shape, classifier.getAllFeatures(), getFeatureProvider());			
 		}
 		
 		// Create label

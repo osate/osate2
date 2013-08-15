@@ -1,6 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
@@ -73,7 +74,8 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
         final Text text = GraphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
         
         // Set the size        
-		final int width = Math.max(100, GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont()).getWidth() + 30); 
+        final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
+		final int width = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
 		final int height = 50; 
 		gaService.setLocationAndSize(text, 0, 0, width, 20);
 				

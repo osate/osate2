@@ -95,7 +95,7 @@ public class TypeClassifierPattern extends AgePattern {
 		// Remove invalid features
 		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
 		
-		ClassifierHelper.createUpdateFeatures(shape, classifier, getFeatureProvider());
+		ClassifierHelper.createUpdateFeatures(shape, ClassifierHelper.getAllOwnedFeatures(classifier), getFeatureProvider());
 		
 		// Create/Update Flow Specifications
 		if(classifier instanceof ComponentType) {

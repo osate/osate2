@@ -1,7 +1,11 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -23,10 +27,12 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
@@ -238,14 +244,19 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)feature;
-
-			if(fg.getFeatureGroupType() == null) {
+			
+			int childY = 0;
+			int maxChildWidth = 0;
+			if(fg.getAllFeatureGroupType() == null) {
 				featureShape.getChildren().clear();
-				gaService.createInvisibleRectangle(featureShape);
-			} else {
-				int childY = 0;
-				int maxChildWidth = 0;
-				for(final Feature childFeature : fg.getFeatureGroupType().getAllFeatures()) {
+			} else {				
+		        // Create a set of child shapes for deletion. We will remove shapes from this list as they are updated. If a shape isn't updated, it should be removed even though
+		        // it has a valid business object associated with it.
+		        final Set<Shape> featureShapeChildrenToDelete = new HashSet<Shape>();
+		        featureShapeChildrenToDelete.addAll(featureShape.getChildren());
+		        
+		        // Create/Update shapes for the child features
+				for(final Feature childFeature : ClassifierHelper.getAllFeatures(fg.getAllFeatureGroupType())) {
 					ContainerShape childFeatureContainer = ShapeHelper.getChildShapeByElement(featureShape, childFeature, getFeatureProvider());
 					
 					// Get existing shape instead of always creating
@@ -253,6 +264,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			        	// Create the container shape
 			        	childFeatureContainer = peCreateService.createContainerShape(featureShape, true);
 			        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
+			        } else {
+						// Remove the shape from the list of shapes to remove
+						featureShapeChildrenToDelete.remove(childFeatureContainer);
 			        }
 					
 			        createGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
@@ -261,21 +275,26 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			        maxChildWidth = Math.max(maxChildWidth, childFeatureGa.getWidth());
 				}
 				
-				// Create the feature group graphics algorithm
-				final GraphicsAlgorithm fgGa = GraphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, getDiagram(), featureGroupSymbolWidth, childY + 25);
-				GraphicsAlgorithmUtil.shrink(fgGa);
-				final int fgWidth = maxChildWidth+featureGroupSymbolWidth;
-
-				// CLEAN-UP: Consider changing how symbol is created to assume left like the other symbols...
-				GraphicsAlgorithmUtil.mirror(fgGa);					
-
-				featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
+				// Remove children of the feature shape that were not updated
+				for(final Shape featureShapeChild : featureShapeChildrenToDelete) {
+					EcoreUtil.delete(featureShapeChild, true);	
+				}
 			}
+			
+			// Create the feature group graphics algorithm
+			final GraphicsAlgorithm fgGa = GraphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, getDiagram(), featureGroupSymbolWidth, childY + 25);
+			GraphicsAlgorithmUtil.shrink(fgGa);
+			final int fgWidth = maxChildWidth+featureGroupSymbolWidth;
+
+			// CLEAN-UP: Consider changing how symbol is created to assume left like the other symbols...
+			GraphicsAlgorithmUtil.mirror(fgGa);					
+
+			featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
 		} else {
 			featureShape.getChildren().clear();
 			
 			// Create symbol
-			GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature);
+			GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature, getFeatureProvider());
 		}
 		
 		// Position the feature shape
@@ -285,8 +304,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
         gaService.setSize(ga, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm())), 
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
 
-        layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times
-        
+        layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
 	}
 
 	@Override
