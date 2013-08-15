@@ -266,6 +266,29 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		}
 	}
 	
+	private class InheritedProperty extends AbstractModelProperty {
+		final String value;
+		final PropertyAssociation pa;
+		
+		public InheritedProperty(final PropSet ps, final Property pn, final PropertyAssociation pa) {
+			super(ps, pn);
+			this.value = getValueAsString(pa.getOwnedValues().get(0).getOwnedValue());
+			this.pa = pa;
+		}
+		
+		@Override
+		public String getValue()
+		{
+			return value;
+		}
+		
+		@Override
+		public Color getColor()
+		{
+			return null;
+		}
+	}
+	
 	private class DefaultProperty extends AbstractModelProperty {
 		final String value;
 		
@@ -428,6 +451,8 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			if (element instanceof ValuedProperty || element instanceof ValuedMode) {
 				return "Property exists locally.";
 			}
+			else if (element instanceof InheritedProperty)
+				return "Property is inherited";
 			else if (element instanceof DefaultProperty || element instanceof DefaultMode) {
 				return "Property taking default value.";
 			}
@@ -615,8 +640,11 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 											}
 										}
 									}
-									else {
+									else if (firstAssociation.getOwner() == element){
 										new ValuedProperty(propSet, pn, firstAssociation);
+									}
+									else {
+										new InheritedProperty(propSet, pn, firstAssociation);
 									}
 								}
 								else {
