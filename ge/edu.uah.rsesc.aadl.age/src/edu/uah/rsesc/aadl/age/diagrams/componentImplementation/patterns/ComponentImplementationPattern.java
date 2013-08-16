@@ -7,7 +7,6 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
-import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -20,12 +19,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.Subcomponent;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
@@ -104,8 +98,10 @@ public class ComponentImplementationPattern extends AgePattern {
 		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());	
 		
 		// Create/Update Shapes
-		ClassifierHelper.createUpdateFeatures(shape, ci.getAllFeatures(), getFeatureProvider());
+		ClassifierHelper.createUpdateFeatureShapes(shape, ci.getAllFeatures(), getFeatureProvider());
 		createUpdateSubcomponents(shape, ci);
+		
+		// TODO: Modes. Share with Component Type
 		
 		// Create/Update Connections
 		for(final Connection connection : ci.getAllConnections()) {
@@ -183,32 +179,6 @@ public class ComponentImplementationPattern extends AgePattern {
 	}
 	
 	private void createUpdateSubcomponents(final ContainerShape shape, final ComponentImplementation ci) {
-		int childX = 25;
-		int childY = 25;
-		for(final Subcomponent sc : ci.getAllSubcomponents()) {						
-			// Create/Update the shape
-			final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(sc);
-			if(pictogramElement == null) {
-				final AddContext addContext = new AddContext();
-				addContext.setNewObject(new AadlElementWrapper(sc));
-				addContext.setTargetContainer(shape);
-				addContext.setX(childX);
-				addContext.setY(childY);
-				final IAddFeature feature = this.getFeatureProvider().getAddFeature(addContext);
-				if(feature != null && feature.canAdd(addContext)) {
-					final PictogramElement pe = feature.add(addContext);
-					childX += pe.getGraphicsAlgorithm().getWidth() + 30;
-					childY += pe.getGraphicsAlgorithm().getHeight() + 20;
-				}
-			} else {
-				final UpdateContext updateContext = new UpdateContext(pictogramElement);
-				final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-				
-				// Update the shape regardless of whether it is "needed" or not.
-				if(updateFeature.canUpdate(updateContext)) {
-					updateFeature.update(updateContext);
-				}
-			}
-		}
+		ClassifierHelper.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), getFeatureProvider(), 25, true, 30, 25, true, 20);
 	}
 }

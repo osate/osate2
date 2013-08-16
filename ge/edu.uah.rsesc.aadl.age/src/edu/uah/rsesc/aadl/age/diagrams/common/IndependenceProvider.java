@@ -17,6 +17,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Realization;
@@ -62,6 +63,8 @@ class IndependenceProvider implements IIndependenceSolver {
 				return "flow_specification " + ((FlowSpecification)bo).getQualifiedName();
 			} else if(bo instanceof Connection) {
 				return "connection " + ((Connection)bo).getQualifiedName();
+			} else if(bo instanceof Mode) {
+				return "mode " + ((Mode)bo).getQualifiedName();
 			} else {
 				return null;
 			}
@@ -141,6 +144,7 @@ class IndependenceProvider implements IIndependenceSolver {
 			case "feature":
 			case "flow_specification":
 			case "connection":
+			case "mode":
 				aadlElement = relevantElement;
 				break;
 			

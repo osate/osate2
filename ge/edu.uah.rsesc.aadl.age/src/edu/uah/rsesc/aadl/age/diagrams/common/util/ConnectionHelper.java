@@ -1,12 +1,10 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Subcomponent;
 

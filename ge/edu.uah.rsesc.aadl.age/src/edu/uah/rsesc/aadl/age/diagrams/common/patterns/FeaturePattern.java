@@ -38,13 +38,14 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 /**
  * Pattern for controlling Feature shapes
- * Note: Child shapes are recreated during updates so they should not be referenced.
+ * Note: With the exception of child feature shapes, child shapes are recreated during updates so they should not be referenced.
  * @author philip.alldredge
  */
 public class FeaturePattern extends AgeLeafShapePattern {
 	private static final String featureShapeName = "feature";
 	private static final String labelShapeName = "label";	
 	public static final String innerConnectorAnchorName = "innerConnector";
+	public static final String outerConnectorAnchorName = "outerConnector";
 	public static final String flowSpecificationAnchorName = "flowSpecification";
 	private static final int featureGroupSymbolWidth = 30;
 	private static final int labelPadding = 5;
@@ -99,6 +100,15 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		super.postMoveShape(context);
 		final ContainerShape shape = (ContainerShape)context.getShape();		
 
+		// Update whether or not the shape is on the left or not
+		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+		final boolean isLeft = calculateIsLeft(shape.getContainer(), ga.getX() + (ga.getWidth() / 2));
+		PropertyUtil.setIsLeft(shape, isLeft);
+		
+		// TODO: Update children...... That may be the problem
+		
+		// TODO: Mirror
+		
 		layoutAll(shape);
 		updateAnchors(shape);
 	}
@@ -122,17 +132,17 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final GraphicsAlgorithm featureGa = featureShape.getGraphicsAlgorithm();
 		final Feature feature = (Feature)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
 		
-		final boolean wasLeft = PropertyUtil.getIsLeft(shape);
-		final boolean isLeft = isLeft(shape);
-		PropertyUtil.setIsLeft(shape, isLeft);
+		boolean wasLeftLayout = PropertyUtil.getIsLeftLayout(shape);
+		final boolean isLeftLayout = isLeft(shape);
+		PropertyUtil.setIsLeftLayout(shape, isLeftLayout);
 		
 		// Feature groups
 		if(feature instanceof FeatureGroup) {
-			if(isLeft != wasLeft) {
+			if(isLeftLayout != wasLeftLayout) {
 				GraphicsAlgorithmUtil.mirror(featureGa);
 			}
 			
-			if(isLeft) {
+			if(isLeftLayout) {
 				featureGa.setX(0);
 				// Set Position of All Children
 				for(final Shape child : featureShape.getChildren()) {
@@ -149,25 +159,25 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			}
 		} else {
 			// Features
-	        if(isLeft != wasLeft) {
+	        if(isLeftLayout != wasLeftLayout) {
 	    		GraphicsAlgorithmUtil.mirror(featureGa);
 	        }
 		}
 		
 		// All
-		featureGa.setX(isLeft ? 0 : shapeGa.getWidth()-featureGa.getWidth());
+		featureGa.setX(isLeftLayout ? 0 : shapeGa.getWidth()-featureGa.getWidth());
 		final Shape labelShape = getLabelShape(shape);
 		
 		if(labelShape != null) {
 			final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
-			labelGa.setX(isLeft ? labelPadding : shapeGa.getWidth()-labelGa.getWidth()-labelPadding);
+			labelGa.setX(isLeftLayout ? labelPadding : shapeGa.getWidth()-labelGa.getWidth()-labelPadding);
 		}	
 		
 		// Handle positioning of the shape in cases where the shape container has a fully initialized container
 		final GraphicsAlgorithm containerGa = shape.getContainer().getGraphicsAlgorithm();
 		if(containerGa != null) {
 			final int containerWidth = containerGa.getWidth();
-			shapeGa.setX(isLeft ? 0 : containerWidth-shape.getGraphicsAlgorithm().getWidth());
+			shapeGa.setX(isLeftLayout ? 0 : containerWidth-shape.getGraphicsAlgorithm().getWidth());
 		}
 	}
 	
@@ -208,10 +218,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			}
 		}
 
-		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds	of the child shapes			
+		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds	of the child shapes
         final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
         gaService.setLocation(ga, x, y);
-        PropertyUtil.setIsLeft(shape, true);
+        PropertyUtil.setIsLeftLayout(shape, true);
         
 		if(callDepth > 2) {
 			return;
@@ -314,12 +324,14 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		final int featureWidth = feature instanceof FeatureGroup ? featureGroupSymbolWidth : featureGa.getWidth();
 		final int innerConnectorX = featureGa.getX() + (isLeft ? featureWidth : featureGa.getWidth() - featureWidth);
+		final int outerConnectorX = featureGa.getX() + (isLeft ? 0 : featureWidth);
 		final int connectorY = feature instanceof FeatureGroup ? featureGa.getHeight() - 5 : featureGa.getY() + (featureGa.getHeight() / 2);
 		final int offset = isLeft ? 50 : -50;
 
 		// Create anchors
 		// Connector
 		AnchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, innerConnectorX, connectorY);
+		AnchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, outerConnectorX, connectorY);
 		AnchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerConnectorX + offset, connectorY);
 		
 		// Update the anchors of the children
@@ -365,7 +377,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	private boolean isLeft(ContainerShape shape) {
-		// Determine the feature that is an immediate child of the classifier
 		while(true) {
 			final ContainerShape container = shape.getContainer();
 			if(container == null) {
@@ -378,18 +389,19 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			}
 			shape = container;
 		}
-
-		// Check if it is on the left or the right of the classifier
-		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
-		final int x = shapeGa.getX() + shapeGa.getWidth()/2;
-		final GraphicsAlgorithm containerGa = shape.getContainer().getGraphicsAlgorithm();
+		
+		return PropertyUtil.getIsLeft(shape);
+	}
+	
+	private boolean calculateIsLeft(final ContainerShape container, final int centerX) {
+		final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();
 		
 		// Handle the case that isLeft is caused before the container is initialized
 		if(containerGa == null) {
 			return true;
 		}
 		
-		final boolean result = x < containerGa.getWidth()/2;
+		final boolean result = centerX < containerGa.getWidth()/2;
 		return result;
 	}	
 }

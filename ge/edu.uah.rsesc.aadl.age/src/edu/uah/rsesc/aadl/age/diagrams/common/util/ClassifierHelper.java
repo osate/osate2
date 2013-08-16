@@ -11,46 +11,60 @@ import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.util.Aadl2Util;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 
 public class ClassifierHelper {
-	public static void createUpdateFeatures(final ContainerShape shape, final List<Feature> features, final IFeatureProvider fp) {	
-		int childY = 25;
-
-		for(final Feature aadlFeature : features) {
-			final PictogramElement pictogramElement = ShapeHelper.getChildShapeByElement(shape, aadlFeature, fp);
+	public static void createUpdateFeatureShapes(final ContainerShape shape, final List<Feature> features, final IFeatureProvider fp) {	
+		createUpdateShapesForElements(shape, features, fp, 0, false, 25, 0, true, 5);
+	}
+	
+	public static void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes, final IFeatureProvider fp) {
+		createUpdateShapesForElements(shape, modes, fp, 80, false, 25, 0, true, 5);
+	}
+	
+	public static void createUpdateShapesForElements(final ContainerShape shape, final List<? extends Element> elements, final IFeatureProvider fp, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {
+		// TODO: Could find an X and Y that doens't overlap existing one. Or wait until layout algorithm is implemented.
+		int childX = startX;
+		int childY = startY;
+		for(final Element element : elements) {
+			final PictogramElement pictogramElement = ShapeHelper.getChildShapeByElement(shape, element, fp);
 			if(pictogramElement == null) {
 				final AddContext addContext = new AddContext();
-				addContext.setNewObject(new AadlElementWrapper(aadlFeature));
+				addContext.setNewObject(new AadlElementWrapper(element));
 				addContext.setTargetContainer(shape);
-				addContext.setX(0);
+				addContext.setX(childX);
 				addContext.setY(childY);
 				final IAddFeature feature = fp.getAddFeature(addContext);
 				if(feature != null && feature.canAdd(addContext)) {
 					final PictogramElement pe = feature.add(addContext);
-					childY += pe.getGraphicsAlgorithm().getHeight() + 5;
+					if(incX) {
+						childX += pe.getGraphicsAlgorithm().getWidth() + xPadding;
+					}
+					
+					if(incY) {
+						childY += pe.getGraphicsAlgorithm().getHeight() + yPadding;
+					}
 				}
 			} else {
 				final UpdateContext updateContext = new UpdateContext(pictogramElement);
 				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
 				
 				// Update the shape regardless of whether it is "needed" or not.
-				if(updateFeature.canUpdate(updateContext)) {
+				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 					updateFeature.update(updateContext);
 				}
 			}

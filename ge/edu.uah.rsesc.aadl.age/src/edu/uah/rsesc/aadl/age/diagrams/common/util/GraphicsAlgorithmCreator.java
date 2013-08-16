@@ -13,36 +13,52 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.osate.aadl2.AbstractClassifier;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusClassifier;
+import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.MemoryClassifier;
+import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessClassifier;
+import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorClassifier;
+import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupClassifier;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SystemClassifier;
+import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.ThreadGroupClassifier;
+import org.osate.aadl2.ThreadGroupSubcomponent;
+import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.VirtualBusClassifier;
+import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualProcessorClassifier;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Eventually replace with an extension mechanism similar to the ones for styles. Goal would be to allow sharing of graphics algorithms, sharing symbols, and 
@@ -57,48 +73,48 @@ public class GraphicsAlgorithmCreator {
 	}
 	
 	/**
-	 * Creates a graphics algorithm representing a specified classifer. If the classifier is null then a generic representation is returned.
+	 * Creates a graphics algorithm representing a specified classifer or subcomponent. 
 	 * @param container
 	 * @param diagram
-	 * @param classifier
+	 * @param element the classifier or subcomponent for which to create the graphics algorithm. If the classifier is null then a generic representation is returned.
 	 * @param width
 	 * @param height
 	 * @return
 	 */
-	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final Classifier classifier, final int width, final int height) {
-		final boolean isImplementation = classifier instanceof ComponentImplementation;
+	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final Element element, final int width, final int height) {
+		final boolean isImplementation = element instanceof ComponentImplementation;
         
 		// TODO: Replace with a map?
         GraphicsAlgorithm ga = null;
-        if(classifier instanceof SystemClassifier) {
+        if(element instanceof SystemClassifier || element instanceof SystemSubcomponent) {
         	ga = createSystemGraphicsAlgorithm(container, StyleUtil.getSystemStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof ProcessClassifier) {
+        } else if(element instanceof ProcessClassifier || element instanceof ProcessSubcomponent) {
         	ga = createProcessGraphicsAlgorithm(container, StyleUtil.getProcessStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof ThreadGroupClassifier) {
+        } else if(element instanceof ThreadGroupClassifier || element instanceof ThreadGroupSubcomponent) {
         	ga = createThreadGroupGraphicsAlgorithm(container, StyleUtil.getThreadGroupStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof ThreadClassifier) {
+        } else if(element instanceof ThreadClassifier || element instanceof ThreadSubcomponent) {
         	ga = createThreadGraphicsAlgorithm(container, StyleUtil.getThreadStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof SubprogramClassifier) {
+        } else if(element instanceof SubprogramClassifier || element instanceof SubprogramSubcomponent) {
         	ga = createSubprogramGraphicsAlgorithm(container, StyleUtil.getSubprogramStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof SubprogramGroupClassifier) {
+        } else if(element instanceof SubprogramGroupClassifier || element instanceof SubprogramGroupSubcomponent) {
         	ga = createSubprogramGroupGraphicsAlgorithm(container, StyleUtil.getSubprogramGroupStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof DataClassifier) {
+        } else if(element instanceof DataClassifier || element instanceof DataSubcomponent) {
         	ga = createDataGraphicsAlgorithm(container, StyleUtil.getDataStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof AbstractClassifier) {
+        } else if(element instanceof AbstractClassifier || element instanceof AbstractSubcomponent) {
         	ga = createAbstractGraphicsAlgorithm(container, StyleUtil.getAbstractStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof VirtualBusClassifier) {
+        } else if(element instanceof VirtualBusClassifier || element instanceof VirtualBusSubcomponent ) {
         	ga = createBusGraphicsAlgorithm(container, StyleUtil.getVirtualBusStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof VirtualProcessorClassifier) {
+        } else if(element instanceof VirtualProcessorClassifier || element instanceof VirtualProcessorSubcomponent) {
         	ga = createProcessorGraphicsAlgorithm(container, StyleUtil.getVirtualProcessorStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof BusClassifier) {
+        } else if(element instanceof BusClassifier || element instanceof BusSubcomponent) {
         	ga = createBusGraphicsAlgorithm(container, StyleUtil.getBusStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof ProcessorClassifier) {
+        } else if(element instanceof ProcessorClassifier || element instanceof ProcessorSubcomponent) {
         	ga = createProcessorGraphicsAlgorithm(container, StyleUtil.getProcessorStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof DeviceClassifier) {     	
+        } else if(element instanceof DeviceClassifier || element instanceof DeviceSubcomponent) {     	
         	ga = createDeviceGraphicsAlgorithm(container, StyleUtil.getDeviceStyle(diagram, isImplementation), StyleUtil.getShadedStyle(diagram), width, height);
-        } else if(classifier instanceof MemoryClassifier) {
+        } else if(element instanceof MemoryClassifier || element instanceof MemorySubcomponent) {
         	ga = createMemoryGraphicsAlgorithm(container, StyleUtil.getMemoryStyle(diagram, isImplementation), width, height);
-        } else if(classifier instanceof FeatureGroupType) {
+        } else if(element instanceof FeatureGroupType) {
         	ga = createFeatureGroupGraphicsAlgorithm(container, diagram, Math.min(width/3, height/3), height);
         	ga.setWidth(width);
         } else {
@@ -344,6 +360,12 @@ public class GraphicsAlgorithmCreator {
 	
 		
 		
+		return ga;
+	}
+	
+	public static GraphicsAlgorithm createModeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, int width, int height) {
+		// TODO: Implement hexagon
+		final GraphicsAlgorithm ga = createDummyGraphicsAlgorithm(container, width, height);
 		return ga;
 	}
 	

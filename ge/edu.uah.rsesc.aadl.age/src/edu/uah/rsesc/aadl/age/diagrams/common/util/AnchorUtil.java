@@ -23,7 +23,6 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.NamedElement;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 
 /**
@@ -122,6 +121,23 @@ public class AnchorUtil {
 		return new Anchor[] {generalAnchor, specificAnchor};
 	}
 	
+	/**
+	 * Determines whether s1 contains s2
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
+	private static boolean doesShapeContain(final Shape s1, final Shape s2) {
+		Shape temp = s2.getContainer();
+		while(temp != null) {
+			if(temp == s1) {
+				return true;
+			}
+			
+			temp = temp.getContainer();
+		}
+		return false;
+	}
 	
 	// TODO: Document arguments
 	public static Anchor[] getAnchorsForConnection(final ComponentImplementation componentImplementation, final Connection connection, final IFeatureProvider fp) {
@@ -132,19 +148,21 @@ public class AnchorUtil {
 		final PictogramElement sourcePe = getPictogramElement(componentImplementation, connection.getAllSource(), connection.getAllSourceContext(), connection.getAllSrcContextComponent(), fp);
 		final PictogramElement destPe = getPictogramElement(componentImplementation, connection.getAllDestination(), connection.getAllDestinationContext(), connection.getAllDstContextComponent(), fp);
 		
-		// TODO: Consider using different anchor
-		if(sourcePe == null || !(sourcePe instanceof AnchorContainer) || destPe == null || !(destPe instanceof AnchorContainer)) {
+		// Check if the sourcePe and destPe are valid
+		if(sourcePe == null || !(sourcePe instanceof Shape) || destPe == null || !(destPe instanceof Shape)) {
 			return null;
 		}
-		
-		// CLEAN-UP - Features should have an outer anchor that should be preferred under certain circumstances
+		final Shape sourceShape = (Shape)sourcePe;
+		final Shape destShape = (Shape)destPe;
 		final IPeService peService = Graphiti.getPeService();
-		a1 = getAnchorByName(sourcePe, FeaturePattern.innerConnectorAnchorName);
-		if(a1 == null) {
-			peService.getChopboxAnchor((AnchorContainer)sourcePe);
-		}
 		
-		a2 = getAnchorByName(destPe, FeaturePattern.innerConnectorAnchorName);
+		// Get the appropriate anchors
+		a1 = getAnchorByName(sourcePe, doesShapeContain(sourceShape.getContainer(), destShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		if(a1 == null) {
+			a1 = peService.getChopboxAnchor((AnchorContainer)sourcePe);
+		}
+
+		a2 = getAnchorByName(destPe, doesShapeContain(destShape.getContainer(), sourceShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 		if(a2 == null) {
 			a2 = peService.getChopboxAnchor((AnchorContainer)destPe);
 		}

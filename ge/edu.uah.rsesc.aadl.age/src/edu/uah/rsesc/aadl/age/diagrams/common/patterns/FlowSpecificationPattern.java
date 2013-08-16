@@ -1,7 +1,6 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -21,17 +20,11 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Subcomponent;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Update styles, etc

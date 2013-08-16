@@ -1,17 +1,17 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -57,6 +57,11 @@ public class SubcomponentPattern extends AgePattern {
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
 		checkContainerSize((ContainerShape)context.getPictogramElement());
+	}
+	
+	@Override
+	public IReason updateNeeded(final IUpdateContext context) {
+		return Reason.createFalseReason();
 	}
 	
 	/**
@@ -130,7 +135,7 @@ public class SubcomponentPattern extends AgePattern {
 		// Create/update child shapes
 		final Classifier classifier = sc.getClassifier();
 		if(classifier != null) {
-			ClassifierHelper.createUpdateFeatures(shape, classifier.getAllFeatures(), getFeatureProvider());			
+			ClassifierHelper.createUpdateFeatureShapes(shape, classifier.getAllFeatures(), getFeatureProvider());			
 		}
 		
 		// Create/Update Flow Specifications
@@ -159,7 +164,7 @@ public class SubcomponentPattern extends AgePattern {
 		GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 
 		// Calculate max width and height
-		int maxWidth = Math.max(minWidth, 50);
+		int maxWidth = Math.max(minWidth, 150);
 		int maxHeight = Math.max(minHeight, 50);
 		final int extraWidth = 30;
 		final int extraHeight = 30;
@@ -175,7 +180,7 @@ public class SubcomponentPattern extends AgePattern {
 		}		
 
 		// Create the graphics Algorithm
-		ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), sc.getClassifier(), maxWidth, maxHeight);   
+		ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), sc, maxWidth, maxHeight);   
 		ga.setStyle(StyleUtil.getSystemStyle(getDiagram(), false));
 		gaService.setLocation(ga, x, y);
 		

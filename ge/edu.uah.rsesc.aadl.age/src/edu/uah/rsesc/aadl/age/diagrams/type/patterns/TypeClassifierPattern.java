@@ -15,6 +15,9 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
@@ -95,11 +98,33 @@ public class TypeClassifierPattern extends AgePattern {
 		// Remove invalid features
 		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
 		
-		ClassifierHelper.createUpdateFeatures(shape, ClassifierHelper.getAllOwnedFeatures(classifier), getFeatureProvider());
+		ClassifierHelper.createUpdateFeatureShapes(shape, ClassifierHelper.getAllOwnedFeatures(classifier), getFeatureProvider());
 		
-		// Create/Update Flow Specifications
+		// Create/Update Flow Specifications and Modes
 		if(classifier instanceof ComponentType) {
 			final ComponentType componentType = (ComponentType)classifier;
+			
+			// TODO: Modes
+			ClassifierHelper.createUpdateModeShapes(shape, componentType.getAllModes(), getFeatureProvider());
+			/*
+			for(Mode mode : componentType.getAllModes()) {
+				System.out.println(mode);
+				System.out.println(mode.getQualifiedName());
+			}
+			*/
+			
+			// TODO: Mode transitions
+			for(ModeTransition modeTransition : componentType.getAllModeTransitions()) {
+				System.out.println(modeTransition.getQualifiedName());
+				
+				// TODO: Mode Triggers - Need to be able to get knowledge about the trigger. Obvious from the connection itself. Think about how to imporve independence provider
+				// to support it though.
+				for(ModeTransitionTrigger trigger : modeTransition.getOwnedTriggers()) {
+				//	System.out.println("Trigger");
+				//	System.out.println(trigger);
+				}
+			}			
+			
 			ClassifierHelper.createUpdateFlowSpecifications(shape, componentType, getFeatureProvider());
 		}
 
