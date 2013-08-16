@@ -851,7 +851,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		ErrorPropagation epin = ef.getIncoming();
 		ErrorPropagation epout = ef.getOutgoing();
 		if (ef.getTypeTokenConstraint() != null) {
-			// check that flow type constraint is contained in that of in prop
+			// check that incoming flow type constraint is contained in that of in prop
 			if (epin != null){
 				if (!EM2TypeSetUtil.contains(epin.getTypeSet(),
 						ef.getTypeTokenConstraint())) {
@@ -874,7 +874,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			}
 		}
 		if (ef.getTargetToken() != null){
-			// check that flow type constraint is contained in that of prop
+			// check that outoging flow type token is contained in that of prop
 			if (epout != null){
 				if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
 						ef.getTargetToken())) {
@@ -896,15 +896,20 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				}
 			}
 		} else {
-			//  no outgoing path token 
+			//  no outgoing path type token 
 			if (ef.getTypeTokenConstraint()!=null){
 				//match the incoming path constraint
 				if (epout != null){
+					// need to handle use mappings
+					if (ef.getTypeMappingSet()==null){
 					if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
 							ef.getTypeTokenConstraint())) {
 						error(ef,
 								"Incoming path type constraint is not contained in type set of outgoing propagation "
 										+ EMV2Util.getPrintName(epout));
+					}
+					} else {
+						// todo check to mapping set mapping into outgoing types.
 					}
 				} else {
 					// check containment for all of the outgoing propagation points
