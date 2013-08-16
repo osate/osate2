@@ -204,7 +204,7 @@ public class AadlPropertyView extends ViewPart {
 		};
 		addNewPropertyAssociationToolbarAction.setToolTipText("New Property Association");
 		addNewPropertyAssociationToolbarAction.setImageDescriptor(MyAadl2Activator.getImageDescriptor("icons/propertyview/new_pa.gif"));
-		addNewPropertyAssociationToolbarAction.setEnabled(true);
+		addNewPropertyAssociationToolbarAction.setEnabled(currentSelectionUri != null);
 		
 		updateActionStates();
 	}
