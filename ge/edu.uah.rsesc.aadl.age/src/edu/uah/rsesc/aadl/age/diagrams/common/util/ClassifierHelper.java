@@ -1,6 +1,5 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -12,6 +11,7 @@ import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -22,6 +22,8 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.util.Aadl2Util;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -102,17 +104,17 @@ public class ClassifierHelper {
 		for(final FlowSpecification fs : componentType.getAllFlowSpecifications()) {				
 			// Only show flow specifications that re not in any modes
 			if(fs.getAllInModes().size() == 0) {				
-				final PictogramElement pictogramElement = fp.getPictogramElementForBusinessObject(fs);
+				// TODO: Need to  be able to get the connection for a specific flow specification... using the context
+				final PictogramElement pictogramElement = ConnectionHelper.getForFlowSpecification(shape, fs, fp);
 				if(pictogramElement == null) {			
-					final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, fp);
+					final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, shape, fp);
 					
 					if(anchors != null) {
 						final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
 						addContext.setNewObject(new AadlElementWrapper(fs));
-						addContext.setTargetContainer(shape);
 						
 						final IAddFeature addFeature = fp.getAddFeature(addContext);
-						if(addFeature.canAdd(addContext)) {
+						if(addFeature != null && addFeature.canAdd(addContext)) {
 							addFeature.add(addContext);
 						}
 					}
@@ -121,7 +123,7 @@ public class ClassifierHelper {
 					final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
 					
 					// Update the connection regardless of whether it is "needed" or not.
-					if(updateFeature.canUpdate(updateContext)) {
+					if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 						updateFeature.update(updateContext);
 					}
 				}
@@ -140,7 +142,6 @@ public class ClassifierHelper {
 	public static boolean isFeatureInverted(final Shape featureShape, final IFeatureProvider fp) {
 		boolean isInverted = false;
 		
-		// TODO: Think about cases.. Definitions.. FeatureGroupType.. Is this the only check required?
 		Shape container = featureShape.getContainer();
 		while(!(container instanceof Diagram)) {
 			final Object containerBo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(container));

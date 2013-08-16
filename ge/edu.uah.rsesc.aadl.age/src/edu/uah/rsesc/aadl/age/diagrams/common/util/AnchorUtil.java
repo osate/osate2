@@ -158,16 +158,14 @@ public class AnchorUtil {
 	
 	/**
 	 * 
-	 * @param fs
-	 * @param fp
 	 * @return an array containing the anchors. Guaranteed not to be null.
 	 */
-	public static Anchor[] getAnchorsForFlowSpecification(final FlowSpecification fs, final IFeatureProvider fp) {
+	public static Anchor[] getAnchorsForFlowSpecification(final FlowSpecification fs, final ContainerShape ownerShape, final IFeatureProvider fp) {
 		Anchor a1 = null;
 		Anchor a2 = null;
 		
-		final PictogramElement inPe = getPictogramElement(fs.getAllInEnd(), fp);
-		final PictogramElement outPe = getPictogramElement(fs.getAllOutEnd(), fp);
+		final PictogramElement inPe = getFlowEndPictogramElement(fs.getAllInEnd(), ownerShape, fp);
+		final PictogramElement outPe = getFlowEndPictogramElement(fs.getAllOutEnd(), ownerShape, fp);
 		
 		// Determine the anchors to use for the connection
 		switch(fs.getKind()) {
@@ -217,10 +215,6 @@ public class AnchorUtil {
 		if(ce == null) {
 			return null;
 		}
-		System.out.println("GET PICTOGRAM ELEMENT");
-		System.out.println(ce);
-		System.out.println(context);
-		System.out.println(contextComponent);
 		
 		// Get the PE for the context component
 		PictogramElement pe = null;
@@ -268,27 +262,21 @@ public class AnchorUtil {
 		return pe;
 	}
 	
-	// TODO: Look into if this is specific enough. Could the feature group be ambigious. For example subcomponents with the same feature group.
-	private static PictogramElement getPictogramElement(final FlowEnd fe, final IFeatureProvider fp) {
+	public static PictogramElement getFlowEndPictogramElement(final FlowEnd fe, final ContainerShape ownerShape, final IFeatureProvider fp) {
 		if(fe == null) {
 			return null;
 		}
 		
 		if(fe.getContext() instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)fe.getContext();
-			final PictogramElement fgPe = fp.getPictogramElementForBusinessObject(fg);
+			final PictogramElement fgPe = ShapeHelper.getChildShapeByElement(ownerShape, fg, fp);
 			if(fgPe instanceof ContainerShape) {
 				final ContainerShape fgCs = FeaturePattern.getFeatureShape((ContainerShape)fgPe);
-				for(final Shape child : fgCs.getChildren()) {
-					final Object childObj = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(child));
-					if(childObj == fe.getFeature()) {
-						return child;
-					}
-				}
+				return ShapeHelper.getChildShapeByElement(fgCs, fe.getFeature(), fp);
 			}
 			
 		} else {
-			return fp.getPictogramElementForBusinessObject(fe.getFeature());
+			return ShapeHelper.getChildShapeByElement(ownerShape, fe.getFeature(), fp);
 		}
 		
 		

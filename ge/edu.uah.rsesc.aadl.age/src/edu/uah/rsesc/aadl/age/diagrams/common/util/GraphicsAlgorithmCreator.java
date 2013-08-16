@@ -7,7 +7,6 @@ import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -44,9 +43,6 @@ import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.ThreadGroupClassifier;
 import org.osate.aadl2.VirtualBusClassifier;
 import org.osate.aadl2.VirtualProcessorClassifier;
-import org.osate.aadl2.util.Aadl2Util;
-
-import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Eventually replace with an extension mechanism similar to the ones for styles. Goal would be to allow sharing of graphics algorithms, sharing symbols, and 

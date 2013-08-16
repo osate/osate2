@@ -1,18 +1,17 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.features.IResizeShapeFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.ResizeContext;
-import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -20,6 +19,8 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -119,8 +120,9 @@ public class SubcomponentPattern extends AgePattern {
 	
 	private void refresh(final ContainerShape shape, final Subcomponent sc, final int x, final int y, final int minWidth, final int minHeight) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		
 		// Remove invalid flow specifications from the diagram
-		//removeInvalidFlowSpecifications(getDiagram());
+		UpdateHelper.removeInvalidFlowSpecifications(getDiagram(), getFeatureProvider());
 		
 		// Remove invalid shapes
 		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());
@@ -131,6 +133,21 @@ public class SubcomponentPattern extends AgePattern {
 			ClassifierHelper.createUpdateFeatures(shape, classifier.getAllFeatures(), getFeatureProvider());			
 		}
 		
+		// Create/Update Flow Specifications
+		final ComponentType componentType;
+		if(classifier instanceof ComponentType) {
+			componentType = (ComponentType)classifier;
+		} else if(classifier instanceof ComponentImplementation) {
+			componentType = ((ComponentImplementation)classifier).getType();
+		} else {
+			componentType = null;
+		}
+		
+		// Create/Update Flow Specifications
+		if(componentType != null) {
+			ClassifierHelper.createUpdateFlowSpecifications(shape, componentType, getFeatureProvider());
+		} 
+
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
         final String name = sc.getName() == null ? "" : sc.getName();

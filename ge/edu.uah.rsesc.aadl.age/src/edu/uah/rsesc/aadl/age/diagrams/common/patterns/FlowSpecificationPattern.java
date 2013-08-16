@@ -1,6 +1,7 @@
-package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
+package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -14,28 +15,34 @@ import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 // TODO: Update styles, etc
-public class TypeFlowSpecificationPattern extends AgeConnectionPattern {
+public class FlowSpecificationPattern extends AgeConnectionPattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof FlowSpecification;
 	}
 
 	@Override
-	public PictogramElement add(IAddContext context) {
+	public PictogramElement add(final IAddContext context) {
 		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
         final FlowSpecification fs = (FlowSpecification)AadlElementWrapper.unwrap(context.getNewObject());
         final IPeCreateService peCreateService = Graphiti.getPeCreateService();
@@ -152,8 +159,10 @@ public class TypeFlowSpecificationPattern extends AgeConnectionPattern {
 		final Connection connection = (Connection)context.getPictogramElement();
 		final FlowSpecification fs = (FlowSpecification)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 
+		final ContainerShape ownerShape = ConnectionHelper.getFlowSpecificationOwnerShape(connection, getFeatureProvider());
+		final Anchor[] anchors = (ownerShape == null) ? null : AnchorUtil.getAnchorsForFlowSpecification(fs, ownerShape, getFeatureProvider());
+		
 		// Update anchors
-		final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, this.getFeatureProvider());
 		if(anchors == null) {
 			connection.setStart(null);
 			connection.setEnd(null);

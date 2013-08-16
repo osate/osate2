@@ -20,7 +20,10 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -97,11 +100,6 @@ public class ComponentImplementationPattern extends AgePattern {
 	}
 	
 	private void refresh(final ContainerShape shape, final ComponentImplementation ci, final int x, final int y) {
-		System.out.println("REFRESH");
-		
-		// Remove invalid flow specifications from the diagram
-		//removeInvalidFlowSpecifications(getDiagram());
-		
 		// Remove invalid features
 		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());	
 		

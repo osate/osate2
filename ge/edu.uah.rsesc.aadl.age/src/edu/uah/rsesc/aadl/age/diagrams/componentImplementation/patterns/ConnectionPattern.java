@@ -23,10 +23,7 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PropertyType;
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
