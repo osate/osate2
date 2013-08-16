@@ -165,6 +165,34 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 		}
 	}
 	
+	private class InheritedMode extends InMode
+	{
+		final String value;
+		
+		public InheritedMode(ModedProperty prop, PropertyExpression expression, List<Mode> elementModes)
+		{
+			super(prop, elementModes);
+			value = getValueAsString(expression);
+		}
+		
+		public InheritedMode(ModedProperty prop, ModalPropertyValue mpv)
+		{
+			this(prop, mpv.getOwnedValue(), mpv.getAllInModes());
+		}
+		
+		@Override
+		public String getValue()
+		{
+			return value;
+		}
+		
+		@Override
+		public Color getColor()
+		{
+			return null;
+		}
+	}
+	
 	private class DefaultMode extends InMode {
 		final String value;
 		
@@ -451,7 +479,7 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 			if (element instanceof ValuedProperty || element instanceof ValuedMode) {
 				return "Property exists locally.";
 			}
-			else if (element instanceof InheritedProperty)
+			else if (element instanceof InheritedProperty || element instanceof InheritedMode)
 				return "Property is inherited";
 			else if (element instanceof DefaultProperty || element instanceof DefaultMode) {
 				return "Property taking default value.";
@@ -615,11 +643,17 @@ public class PropertyViewModel extends LabelProvider implements IColorProvider, 
 										EList<Mode> elementModes = ((ComponentClassifier)element).getAllModes();
 										for (ModalPropertyValue mpv : firstAssociation.getOwnedValues()) {
 											if (mpv.getAllInModes().size() == 0) {
-												new ValuedMode(prop, mpv.getOwnedValue(), elementModes);
+												if (firstAssociation.getOwner() == element)
+													new ValuedMode(prop, mpv.getOwnedValue(), elementModes);
+												else
+													new InheritedMode(prop, mpv.getOwnedValue(), elementModes);
 												elementModes.clear();
 											}
 											else {
-												new ValuedMode(prop, mpv);
+												if (firstAssociation.getOwner() == element)
+													new ValuedMode(prop, mpv);
+												else
+													new InheritedMode(prop, mpv);
 												elementModes.removeAll(mpv.getAllInModes());
 											}
 										}
