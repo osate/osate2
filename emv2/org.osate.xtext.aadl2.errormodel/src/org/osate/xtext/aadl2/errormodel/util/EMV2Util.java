@@ -847,9 +847,9 @@ public class EMV2Util {
 				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we support extends on EBSM
-//			if (ebsm.getExtends() != null){
-//				return findErrorBehaviorStateInEBSM(ebsm.getExtends(), name);
-//			}
+			if (ebsm.getExtends() != null){
+				return findErrorBehaviorStateInEBSM(ebsm.getExtends(), name);
+			}
 		}
 		return null;
 	}
@@ -909,9 +909,9 @@ public class EMV2Util {
 				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we introduce extends of EBSM
-//			if (ebsm.getExtends() != null){
-//				return findErrorBehaviorTransitionInEBSM(ebsm.getExtends(), name);
-//			}
+			if (ebsm.getExtends() != null){
+				return findErrorBehaviorTransitionInEBSM(ebsm.getExtends(), name);
+			}
 		}
 		return null;
 	}
@@ -999,9 +999,9 @@ public class EMV2Util {
 				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 			// enable if we support extends of EBSM
-//			if (ebsm.getExtends() != null){
-//				return findErrorBehaviorEventInEBSM(ebsm.getExtends(), name);
-//			}
+			if (ebsm.getExtends() != null){
+				return findErrorBehaviorEventInEBSM(ebsm.getExtends(), name);
+			}
 		}
 		return null;
 	}

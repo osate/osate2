@@ -151,6 +151,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPoint" eType="#//PropagationPoint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorStateMachine" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//TypeUseContext">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//ErrorBehaviorStateMachine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
         upperBound="-1" eType="#//ErrorModelLibrary"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTransformation" unique="false"

@@ -556,7 +556,7 @@
         <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
+              <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorTypes"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
           </terminal>
@@ -566,7 +566,7 @@
           <elements xsi:type="xtext:Assignment" feature="type" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorType"/>
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorTypes"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
             </terminal>
@@ -1047,6 +1047,17 @@
         <elements xsi:type="xtext:Keyword" value="behavior"/>
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="?">
+          <elements xsi:type="xtext:Keyword" value="extends"/>
+          <elements xsi:type="xtext:Assignment" feature="extends" operator="=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="/0/@metamodelDeclarations.0">
+                <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//ErrorBehaviorStateMachine"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
+            </terminal>
+          </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="use"/>

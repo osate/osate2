@@ -15,6 +15,7 @@ import org.osate.aadl2.PropertyAssociation;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getExtends <em>Extends</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getUseTransformation <em>Use Transformation</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getEvents <em>Events</em>}</li>
@@ -30,6 +31,32 @@ import org.osate.aadl2.PropertyAssociation;
  */
 public interface ErrorBehaviorStateMachine extends NamedElement, TypeUseContext
 {
+  /**
+   * Returns the value of the '<em><b>Extends</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Extends</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Extends</em>' reference.
+   * @see #setExtends(ErrorBehaviorStateMachine)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorBehaviorStateMachine_Extends()
+   * @model
+   * @generated
+   */
+  ErrorBehaviorStateMachine getExtends();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getExtends <em>Extends</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Extends</em>' reference.
+   * @see #getExtends()
+   * @generated
+   */
+  void setExtends(ErrorBehaviorStateMachine value);
+
   /**
    * Returns the value of the '<em><b>Use Types</b></em>' reference list.
    * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary}.

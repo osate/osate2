@@ -1863,13 +1863,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_STATE_MACHINE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
+   * The feature id for the '<em><b>Extends</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Use Types</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
+  int ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Use Transformation</b></em>' reference list.
@@ -1878,7 +1887,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_BEHAVIOR_STATE_MACHINE__USE_TRANSFORMATION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int ERROR_BEHAVIOR_STATE_MACHINE__USE_TRANSFORMATION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Events</b></em>' containment reference list.
@@ -1887,7 +1896,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_BEHAVIOR_STATE_MACHINE__EVENTS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int ERROR_BEHAVIOR_STATE_MACHINE__EVENTS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>States</b></em>' containment reference list.
@@ -1896,7 +1905,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_BEHAVIOR_STATE_MACHINE__STATES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
+  int ERROR_BEHAVIOR_STATE_MACHINE__STATES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Transitions</b></em>' containment reference list.
@@ -1905,7 +1914,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_BEHAVIOR_STATE_MACHINE__TRANSITIONS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 4;
+  int ERROR_BEHAVIOR_STATE_MACHINE__TRANSITIONS = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -1914,7 +1923,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 5;
+  int ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Error Behavior State Machine</em>' class.
@@ -1923,7 +1932,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ERROR_BEHAVIOR_STATE_MACHINE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
+  int ERROR_BEHAVIOR_STATE_MACHINE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorEventImpl <em>Error Behavior Event</em>}' class.
@@ -4626,6 +4635,17 @@ public interface ErrorModelPackage extends EPackage
   EClass getErrorBehaviorStateMachine();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getExtends <em>Extends</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Extends</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getExtends()
+   * @see #getErrorBehaviorStateMachine()
+   * @generated
+   */
+  EReference getErrorBehaviorStateMachine_Extends();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getUseTypes <em>Use Types</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6404,6 +6424,14 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EClass ERROR_BEHAVIOR_STATE_MACHINE = eINSTANCE.getErrorBehaviorStateMachine();
+
+    /**
+     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS = eINSTANCE.getErrorBehaviorStateMachine_Extends();
 
     /**
      * The meta object literal for the '<em><b>Use Types</b></em>' reference list feature.

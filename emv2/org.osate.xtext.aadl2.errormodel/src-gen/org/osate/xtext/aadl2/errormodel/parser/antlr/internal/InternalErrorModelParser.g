@@ -1599,7 +1599,7 @@ ruleTypeToken returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeErrorTypeCrossReference_2_0()); 
+	        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_2_0()); 
 	    }
 		ruleQEMREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -1619,7 +1619,7 @@ ruleTypeToken returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeErrorTypeCrossReference_3_1_0()); 
+	        newCompositeNode(grammarAccess.getTypeTokenAccess().getTypeErrorTypesCrossReference_3_1_0()); 
 	    }
 		ruleQEMREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -3307,14 +3307,9 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 )(
-	otherlv_3=KEYWORD_31
+	otherlv_3=KEYWORD_63
     {
-    	newLeafNode(otherlv_3, grammarAccess.getErrorBehaviorStateMachineAccess().getUseKeyword_3_0());
-    }
-
-	otherlv_4=KEYWORD_50
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getErrorBehaviorStateMachineAccess().getTypesKeyword_3_1());
+    	newLeafNode(otherlv_3, grammarAccess.getErrorBehaviorStateMachineAccess().getExtendsKeyword_3_0());
     }
 (
 (
@@ -3324,7 +3319,32 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesErrorModelLibraryCrossReference_3_2_0()); 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getExtendsErrorBehaviorStateMachineCrossReference_3_1_0()); 
+	    }
+		ruleQEMREF		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?(
+	otherlv_5=KEYWORD_31
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getErrorBehaviorStateMachineAccess().getUseKeyword_4_0());
+    }
+
+	otherlv_6=KEYWORD_50
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getErrorBehaviorStateMachineAccess().getTypesKeyword_4_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getErrorBehaviorStateMachineRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesErrorModelLibraryCrossReference_4_2_0()); 
 	    }
 		ruleQEMREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -3332,9 +3352,9 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 )(
-	otherlv_6=KEYWORD_6
+	otherlv_8=KEYWORD_6
     {
-    	newLeafNode(otherlv_6, grammarAccess.getErrorBehaviorStateMachineAccess().getCommaKeyword_3_3_0());
+    	newLeafNode(otherlv_8, grammarAccess.getErrorBehaviorStateMachineAccess().getCommaKeyword_4_3_0());
     }
 (
 (
@@ -3344,7 +3364,7 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesErrorModelLibraryCrossReference_3_3_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTypesErrorModelLibraryCrossReference_4_3_1_0()); 
 	    }
 		ruleQEMREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -3352,19 +3372,19 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 ))*
-	otherlv_8=KEYWORD_10
+	otherlv_10=KEYWORD_10
     {
-    	newLeafNode(otherlv_8, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_3_4());
+    	newLeafNode(otherlv_10, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_4_4());
     }
 )?(
-	otherlv_9=KEYWORD_31
+	otherlv_11=KEYWORD_31
     {
-    	newLeafNode(otherlv_9, grammarAccess.getErrorBehaviorStateMachineAccess().getUseKeyword_4_0());
+    	newLeafNode(otherlv_11, grammarAccess.getErrorBehaviorStateMachineAccess().getUseKeyword_5_0());
     }
 
-	otherlv_10=KEYWORD_86
+	otherlv_12=KEYWORD_86
     {
-    	newLeafNode(otherlv_10, grammarAccess.getErrorBehaviorStateMachineAccess().getTransformationsKeyword_4_1());
+    	newLeafNode(otherlv_12, grammarAccess.getErrorBehaviorStateMachineAccess().getTransformationsKeyword_5_1());
     }
 (
 (
@@ -3374,7 +3394,7 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTransformationTypeTransformationSetCrossReference_4_2_0()); 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getUseTransformationTypeTransformationSetCrossReference_5_2_0()); 
 	    }
 		ruleQEMREF		{ 
 	        afterParserOrEnumRuleCall();
@@ -3382,116 +3402,116 @@ ruleErrorBehaviorStateMachine returns [EObject current=null]
 
 )
 )
-	otherlv_12=KEYWORD_10
+	otherlv_14=KEYWORD_10
     {
-    	newLeafNode(otherlv_12, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_4_3());
+    	newLeafNode(otherlv_14, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_5_3());
     }
 )?(
-	otherlv_13=KEYWORD_52
+	otherlv_15=KEYWORD_52
     {
-    	newLeafNode(otherlv_13, grammarAccess.getErrorBehaviorStateMachineAccess().getEventsKeyword_5_0());
+    	newLeafNode(otherlv_15, grammarAccess.getErrorBehaviorStateMachineAccess().getEventsKeyword_6_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getEventsErrorBehaviorEventParserRuleCall_5_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getEventsErrorBehaviorEventParserRuleCall_6_1_0()); 
 	    }
-		lv_events_14_0=ruleErrorBehaviorEvent		{
+		lv_events_16_0=ruleErrorBehaviorEvent		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorBehaviorStateMachineRule());
 	        }
        		add(
        			$current, 
        			"events",
-        		lv_events_14_0, 
+        		lv_events_16_0, 
         		"ErrorBehaviorEvent");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )+)?(
-	otherlv_15=KEYWORD_59
+	otherlv_17=KEYWORD_59
     {
-    	newLeafNode(otherlv_15, grammarAccess.getErrorBehaviorStateMachineAccess().getStatesKeyword_6_0());
+    	newLeafNode(otherlv_17, grammarAccess.getErrorBehaviorStateMachineAccess().getStatesKeyword_7_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getStatesErrorBehaviorStateParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getStatesErrorBehaviorStateParserRuleCall_7_1_0()); 
 	    }
-		lv_states_16_0=ruleErrorBehaviorState		{
+		lv_states_18_0=ruleErrorBehaviorState		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorBehaviorStateMachineRule());
 	        }
        		add(
        			$current, 
        			"states",
-        		lv_states_16_0, 
+        		lv_states_18_0, 
         		"ErrorBehaviorState");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )+)?(
-	otherlv_17=KEYWORD_84
+	otherlv_19=KEYWORD_84
     {
-    	newLeafNode(otherlv_17, grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsKeyword_7_0());
+    	newLeafNode(otherlv_19, grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsKeyword_8_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_7_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getTransitionsErrorBehaviorTransitionParserRuleCall_8_1_0()); 
 	    }
-		lv_transitions_18_0=ruleErrorBehaviorTransition		{
+		lv_transitions_20_0=ruleErrorBehaviorTransition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorBehaviorStateMachineRule());
 	        }
        		add(
        			$current, 
        			"transitions",
-        		lv_transitions_18_0, 
+        		lv_transitions_20_0, 
         		"ErrorBehaviorTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )+)?(
-	otherlv_19=KEYWORD_80
+	otherlv_21=KEYWORD_80
     {
-    	newLeafNode(otherlv_19, grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesKeyword_8_0());
+    	newLeafNode(otherlv_21, grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesKeyword_9_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesContainedPropertyAssociationParserRuleCall_8_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorBehaviorStateMachineAccess().getPropertiesContainedPropertyAssociationParserRuleCall_9_1_0()); 
 	    }
-		lv_properties_20_0=ruleContainedPropertyAssociation		{
+		lv_properties_22_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorBehaviorStateMachineRule());
 	        }
        		add(
        			$current, 
        			"properties",
-        		lv_properties_20_0, 
+        		lv_properties_22_0, 
         		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )+)?
-	otherlv_21=KEYWORD_27
+	otherlv_23=KEYWORD_27
     {
-    	newLeafNode(otherlv_21, grammarAccess.getErrorBehaviorStateMachineAccess().getEndKeyword_9());
+    	newLeafNode(otherlv_23, grammarAccess.getErrorBehaviorStateMachineAccess().getEndKeyword_10());
     }
 
-	otherlv_22=KEYWORD_69
+	otherlv_24=KEYWORD_69
     {
-    	newLeafNode(otherlv_22, grammarAccess.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_10());
+    	newLeafNode(otherlv_24, grammarAccess.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_11());
     }
 
-	otherlv_23=KEYWORD_10
+	otherlv_25=KEYWORD_10
     {
-    	newLeafNode(otherlv_23, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_11());
+    	newLeafNode(otherlv_25, grammarAccess.getErrorBehaviorStateMachineAccess().getSemicolonKeyword_12());
     }
 )
 ;

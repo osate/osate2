@@ -114,6 +114,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//QualifiedPropagationPoint/propagationPoint"/>
     </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorBehaviorStateMachine">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/extends"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/useTypes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/useTransformation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorBehaviorStateMachine/events"/>
