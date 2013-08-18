@@ -1197,7 +1197,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 		NamedElement searchResult = super.findNamedElement(name);
 		if (searchResult != null)
 			return searchResult;
-		if (getInverse() != null) {
+		if (getOwnedFeatures().isEmpty()&& getInverse() != null) {
 			return getInverse().findNamedElement(name);
 		}
 		return null;
