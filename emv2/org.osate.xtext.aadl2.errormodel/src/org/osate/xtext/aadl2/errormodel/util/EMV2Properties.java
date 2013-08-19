@@ -22,6 +22,8 @@ import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.OsateDebug;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
@@ -34,7 +36,7 @@ public class EMV2Properties {
 	public static final String INVALID_OCCURRENCE_TYPE = "unknown_distribution";
 
 	public static EList<ContainedNamedElement> getHazardProperty(ComponentInstance ci, Element target, TypeSet ts){
-		EList<ContainedNamedElement> result =  getProperty("EMV2::hazard",ci,target,ts);
+		EList<ContainedNamedElement> result =  getProperty("EMV2::hazards",ci,target,ts);
 		return result;
 	}
 
@@ -229,15 +231,37 @@ public class EMV2Properties {
 	 * @return
 	 */
 	private static boolean matchCIStack(Stack<ComponentInstance> ciStack,EList<ContainmentPathElement> cpes){
-		if (ciStack == null) return true;
+		if (ciStack == null)
+		{
+			return true;
+		}
 		int offset = ciStack.size()-1;
-		for (int i = 0; i< ciStack.size(); i++){
+		int idx;
+		for (int i = 0; i< ciStack.size(); i++)
+		{
+			idx = offset - i;
+			/**
+			 * Check that we does not go into out of bounds
+			 * and raise an exception.
+			 * FIXME-JD: check if this logic is correct.
+			 */
+			if (idx >= cpes.size())
+			{
+				return false;
+			}
+			
 			ComponentInstance cisci = ciStack.get(i);
-			ContainmentPathElement cpesci = cpes.get(offset-i);
-			if (ciStack.get(i).getSubcomponent() != cpes.get(offset-i).getNamedElement()){
+			ContainmentPathElement cpesci = cpes.get(idx);
+
+//			OsateDebug.osateDebug ("cisci=" + cisci.getSubcomponent());
+//			OsateDebug.osateDebug ("cpeci=" + cpesci.getNamedElement());
+			if (ciStack.get(i).getSubcomponent() != cpes.get(idx).getNamedElement())
+			{
 				return false;
 			}
 		}
+		
+
 		return true;
 	}
 	
@@ -273,7 +297,7 @@ public class EMV2Properties {
 					// check to see if the desired ts is contained in the PA containment path
 					if (typeelement instanceof ErrorType){
 						// we refer to a type
-						if (EM2TypeSetUtil.contains((ErrorType)lastel,ts)){
+						if ((lastel instanceof ErrorType) && (EM2TypeSetUtil.contains((ErrorType)lastel,ts))){
 							return containedNamedElement;
 						}
 					} else if (typeelement instanceof TypeSet){
