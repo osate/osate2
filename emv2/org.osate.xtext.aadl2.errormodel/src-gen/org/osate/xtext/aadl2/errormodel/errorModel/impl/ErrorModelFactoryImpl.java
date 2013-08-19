@@ -30,7 +30,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     try
     {
-      ErrorModelFactory theErrorModelFactory = (ErrorModelFactory)EPackage.Registry.INSTANCE.getEFactory(ErrorModelPackage.eNS_URI);
+      ErrorModelFactory theErrorModelFactory = (ErrorModelFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.aadl.info/EMV2"); 
       if (theErrorModelFactory != null)
       {
         return theErrorModelFactory;
