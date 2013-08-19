@@ -10,13 +10,17 @@ import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 
@@ -73,6 +77,30 @@ public class UpdateHelper {
 				feature.layout(ctx);
 			}
 		}
+	}
+	
+	public static void removeConnectionsByAnchorParent(final Diagram diagram, final PictogramElement anchorParent) {
+		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
+		
+		for(final Connection connection : diagram.getConnections()) {
+			// TODO: Test in circumstances where this is necessary
+			boolean remove = false;
+			
+			if((connection.getStart() != null && connection.getStart().getParent() == anchorParent) ||
+					(connection.getEnd() != null && connection.getEnd().getParent() == anchorParent)) {
+				remove = true;
+				break;
+			}
+
+			if(remove) {
+				connectionsToRemove.add(connection);
+			}
+		}
+		
+		// Remove the connections
+		for(final Connection connection : connectionsToRemove) {
+			EcoreUtil.delete(connection, true);
+		}		
 	}
 	
 	public static void removeInvalidFlowSpecifications(final Diagram diagram, final IFeatureProvider fp) {

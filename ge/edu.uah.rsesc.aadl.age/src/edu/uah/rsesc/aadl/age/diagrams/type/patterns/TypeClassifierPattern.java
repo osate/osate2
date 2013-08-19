@@ -1,10 +1,18 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 
+import java.util.List;
+
+import org.eclipse.graphiti.features.IAddFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -15,12 +23,15 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
@@ -102,29 +113,9 @@ public class TypeClassifierPattern extends AgePattern {
 		
 		// Create/Update Flow Specifications and Modes
 		if(classifier instanceof ComponentType) {
-			final ComponentType componentType = (ComponentType)classifier;
-			
-			// TODO: Modes
+			final ComponentType componentType = (ComponentType)classifier;			
 			ClassifierHelper.createUpdateModeShapes(shape, componentType.getAllModes(), getFeatureProvider());
-			/*
-			for(Mode mode : componentType.getAllModes()) {
-				System.out.println(mode);
-				System.out.println(mode.getQualifiedName());
-			}
-			*/
-			
-			// TODO: Mode transitions
-			for(ModeTransition modeTransition : componentType.getAllModeTransitions()) {
-				System.out.println(modeTransition.getQualifiedName());
-				
-				// TODO: Mode Triggers - Need to be able to get knowledge about the trigger. Obvious from the connection itself. Think about how to imporve independence provider
-				// to support it though.
-				for(ModeTransitionTrigger trigger : modeTransition.getOwnedTriggers()) {
-				//	System.out.println("Trigger");
-				//	System.out.println(trigger);
-				}
-			}			
-			
+			createUpdateModeTransitions(componentType.getAllModeTransitions(), getFeatureProvider());					
 			ClassifierHelper.createUpdateFlowSpecifications(shape, componentType, getFeatureProvider());
 		}
 
@@ -153,5 +144,32 @@ public class TypeClassifierPattern extends AgePattern {
 		
 		UpdateHelper.layoutChildren(shape, getFeatureProvider());
 
+	}
+	
+	public static void createUpdateModeTransitions(final List<ModeTransition> modeTransitions, final IFeatureProvider fp) {
+		for(final ModeTransition mt : modeTransitions) {			
+			final PictogramElement pictogramElement = fp.getPictogramElementForBusinessObject(mt);
+			if(pictogramElement == null) {			
+				final Anchor[] anchors = AnchorUtil.getAnchorsForModeTransition(mt, fp);
+				
+				if(anchors != null) {
+					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
+					addContext.setNewObject(new AadlElementWrapper(mt));
+					
+					final IAddFeature addFeature = fp.getAddFeature(addContext);
+					if(addFeature != null && addFeature.canAdd(addContext)) {
+						addFeature.add(addContext);
+					}
+				}
+			} else {
+				final UpdateContext updateContext = new UpdateContext(pictogramElement);
+				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+				
+				// Update the connection regardless of whether it is "needed" or not.
+				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
+					updateFeature.update(updateContext);
+				}
+			}
+		}
 	}
 }

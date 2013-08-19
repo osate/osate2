@@ -12,6 +12,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FlowSpecificationPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.TypeUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeClassifierPattern;
 
@@ -22,6 +23,7 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		this.addPattern(new ModePattern());
 		this.addPattern(new TypeClassifierPattern());
 		this.addConnectionPattern(new FlowSpecificationPattern());
+		this.addConnectionPattern(new ModeTransitionPattern());
 	}
 
 	@Override

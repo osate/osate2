@@ -364,8 +364,27 @@ public class GraphicsAlgorithmCreator {
 	}
 	
 	public static GraphicsAlgorithm createModeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, int width, int height) {
-		// TODO: Implement hexagon
-		final GraphicsAlgorithm ga = createDummyGraphicsAlgorithm(container, width, height);
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = gaService.createPlainPolygon(container, 
+    			new int[] {
+    			0, height/2,
+    			width/4, 0,
+    			width*3/4, 0,
+    			width, height/2,
+    			width*3/4, height,
+    			width/4, height,
+    			0, height/2});
+		ga.setStyle(StyleUtil.getModeStyle(diagram));
+		gaService.setSize(ga, width, height);
+		
+		return ga;
+	}
+	
+	public static GraphicsAlgorithm createInitialModeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, int size) {
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = gaService.createEllipse(container);
+		ga.setStyle(StyleUtil.getInitialModeStyle(diagram));
+		gaService.setSize(ga, size, size);
 		return ga;
 	}
 	

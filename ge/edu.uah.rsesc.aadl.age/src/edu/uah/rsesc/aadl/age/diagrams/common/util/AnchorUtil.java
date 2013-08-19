@@ -21,9 +21,12 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
 
 /**
  * Class the contains miscellaneous methods for dealing with anchors
@@ -212,6 +215,24 @@ public class AnchorUtil {
 			throw new RuntimeException("Unhandled case. Unsupported flow kind: " + fs.getKind());
 				
 		}
+		
+		if(a1 == null || a2 == null) {
+			return null;
+		}
+		
+		return new Anchor[] {a1, a2};
+	}
+	
+	public static Anchor[] getAnchorsForModeTransition(final ModeTransition mt, final IFeatureProvider fp) {
+		final ContainerShape srcShape = (ContainerShape)fp.getPictogramElementForBusinessObject(mt.getSource());
+		final ContainerShape dstShape = (ContainerShape)fp.getPictogramElementForBusinessObject(mt.getDestination());
+		if(srcShape == null || dstShape == null) {
+			return null;
+		}
+				
+		
+		final Anchor a1 = getAnchorByName(ShapeHelper.getChildShapeByName(srcShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);
+		final Anchor a2 = getAnchorByName(ShapeHelper.getChildShapeByName(dstShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);		
 		
 		if(a1 == null || a2 == null) {
 			return null;

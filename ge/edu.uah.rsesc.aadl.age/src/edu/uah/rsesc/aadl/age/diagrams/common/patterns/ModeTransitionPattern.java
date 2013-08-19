@@ -1,6 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -10,56 +11,104 @@ import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ModeTransition;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
-// TODO: Update styles, etc
-public class FlowSpecificationPattern extends AgeConnectionPattern {
+public class ModeTransitionPattern extends AgeConnectionPattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
-		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof FlowSpecification;
+		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof ModeTransition;
 	}
 
 	@Override
 	public PictogramElement add(final IAddContext context) {
 		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
-        final FlowSpecification fs = (FlowSpecification)AadlElementWrapper.unwrap(context.getNewObject());
+        final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(context.getNewObject());
         final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-        final Diagram diagram = getDiagram();
         
         // Create the connection
-        final Connection connection = peCreateService.createFreeFormConnection(diagram);
-        link(connection, new AadlElementWrapper(fs));
+        final Connection connection = peCreateService.createCurvedConnection(new double[] {0.0, 0.0}, getDiagram());
+        link(connection, new AadlElementWrapper(mt));
 
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());
- 
+
+        updateControlPoints(connection);
         createGraphicsAlgorithm(connection);
-        createDecorators(connection, fs);
+        createDecorators(connection, mt);
         
 		return connection;
 	}
 	
-	private void createDecorators(final Connection connection, final FlowSpecification fs) {
+	public static void updateControlPoints(final Connection connection) {
+		if(connection instanceof CurvedConnection) {
+			final CurvedConnection cc = (CurvedConnection)connection;
+			final ILayoutService layoutService = Graphiti.getLayoutService();
+			
+			// Decide a sign for the control point
+			final ILocation startLocation = layoutService.getLocationRelativeToDiagram(connection.getStart());
+			final ILocation endLocation = layoutService.getLocationRelativeToDiagram(connection.getEnd());
+			final int sign = (startLocation.getX() - endLocation.getX()) > 0 ? -1 : 1; 
+			
+			final int magnitude = 30;
+
+			// Determine a reasonable control point
+			int y = sign * magnitude;
+			boolean unique = false;
+			while(!unique) {
+				unique = true;
+				for(final Connection tempConnection : connection.getParent().getConnections()) {
+					if(tempConnection != connection) {
+						if(tempConnection instanceof CurvedConnection) {
+							final CurvedConnection tempCC = (CurvedConnection)tempConnection;
+							if(connection.getStart() == tempCC.getStart() && connection.getEnd() == tempCC.getEnd()) {
+								if(tempCC.getControlPoints().get(0).getY() == y) {
+									unique = false;
+									y += sign * magnitude;
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			// Set the control point
+			cc.getControlPoints().clear();
+			final PrecisionPoint pp = StylesFactory.eINSTANCE.createPrecisionPoint();;
+			pp.setX(0.0);
+			pp.setY(y);
+			cc.getControlPoints().add(pp);
+		}
+	}
+	private void createDecorators(final Connection connection, final ModeTransition mt) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Before removing all the decorators, get position of the label(if one exists)
-		int labelX = 5;
-		int labelY = 10;
+		/*
+		int labelX = 0;
+		int labelY = 0;
 		for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
 			if(d.getGraphicsAlgorithm() instanceof Text) {
 				final Text text = (Text)d.getGraphicsAlgorithm();
@@ -67,51 +116,31 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 				labelY = text.getY();
 			}
 		}
-		
+		*/
 		connection.getConnectionDecorators().clear();
 		
-		switch(fs.getKind()) {
-		case PATH:
-			{
-				// Create the arrow
-		        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
-		        createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
-				break;
-			}
-			
-		case SOURCE:
-			{
-				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));
-				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
-				break;
-			}
-			
-		case SINK:
-			{
-				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				GraphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram())));
-				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
-				break;
-			}
-		}
-		
+		// Create the arrow
+        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
+        createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));
+        
 		// Create Label
-		final IGaService gaService = Graphiti.getGaService();
+        // TODO: Consider whether or not to have labels for transitions. Only show up in properties? Causes the diagram to be less cluttered. 
+        /*
+        final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
 		text.setStyle(StyleUtil.getLabelStyle(getDiagram()));
 		gaService.setLocation(text, labelX, labelY);
-	    text.setValue(fs.getName());
+	    text.setValue(mt.getName());
+	    */
 	}
 	
 	private void createGraphicsAlgorithm(final Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = StyleUtil.getFlowSpecificationStyle(getDiagram());
+		final Style style = StyleUtil.getDecoratorStyle(getDiagram());
 		polyline.setStyle(style);
+		gaService.setLocation(polyline, ((int)(Math.random()*100)), 0);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -122,17 +151,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	    		-6, -4});
 	    ga.setStyle(style);
 	    return ga;
-	}
-	
-	private GraphicsAlgorithm createVbar(final GraphicsAlgorithmContainer gaContainer, final Style style) {
-	    final IGaService gaService = Graphiti.getGaService();
-	    final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] {
-	    		0, 8,
-	    		0, -8});
-	    ga.setStyle(style);
-
-	    return ga;
-	}
+	}	
 	
 	@Override
 	public boolean canUpdate(final IUpdateContext context) {
@@ -150,10 +169,10 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		// Rebuild the graphics algorithm and the decorators to ensure they are up to date and to ensure they reference the latest styles.
 		// Old styles are removed when the diagram is updated
 		final Connection connection = (Connection)context.getPictogramElement();
-		final FlowSpecification fs = (FlowSpecification)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 
 		final ContainerShape ownerShape = ConnectionHelper.getFlowSpecificationOwnerShape(connection, getFeatureProvider());
-		final Anchor[] anchors = (ownerShape == null) ? null : AnchorUtil.getAnchorsForFlowSpecification(fs, ownerShape, getFeatureProvider());
+		final Anchor[] anchors = (ownerShape == null) ? null : AnchorUtil.getAnchorsForModeTransition(mt, getFeatureProvider());
 		
 		// Update anchors
 		if(anchors == null) {
@@ -165,8 +184,9 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 			connection.setStart(anchors[0]);
 			connection.setEnd(anchors[1]);
 			
+			updateControlPoints(connection);
 			createGraphicsAlgorithm(connection);
-			createDecorators(connection, fs);
+			createDecorators(connection, mt);
 		}
 		
 		return true;

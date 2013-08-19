@@ -148,6 +148,8 @@
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ThickOutlineStyleFactory" styleId="feature_group_large_circle"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="feature_group_small_circle"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BackgroundStyleFactory" styleId="background"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.BasicComponentTypeStyleFactory" styleId="mode"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.SolidLineStyleFactory" styleId="mode-initial"/>
  </extension>
  
  <extension

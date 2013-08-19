@@ -341,24 +341,13 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	public static ContainerShape getFeatureShape(final ContainerShape container) {
-		return (ContainerShape)getChildShapeByName(container, featureShapeName);
+		return (ContainerShape)ShapeHelper.getChildShapeByName(container, featureShapeName);
 	}
 	
 	public static Shape getLabelShape(final ContainerShape container) {
-		return getChildShapeByName(container, labelShapeName);
-	}
-	
-	// TODO: Move to helper class?	
-	private static Shape getChildShapeByName(final ContainerShape container, final String name) {
-		for(final Shape shape : container.getChildren()) {
-			if(name.equals(PropertyUtil.getName(shape))) {
-				return shape;
-			}
-		}
-		
-		return null;
-	}
-	
+		return ShapeHelper.getChildShapeByName(container, labelShapeName);
+	}	
+
 	private int getWidth(final GraphicsAlgorithm ga) {
 		return ga.getX() + ga.getWidth();
 	}

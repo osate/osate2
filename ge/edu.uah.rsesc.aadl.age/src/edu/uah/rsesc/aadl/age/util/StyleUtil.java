@@ -128,4 +128,12 @@ public class StyleUtil {
 	public static Style getFeatureGroupSmallCircleStyle(final Diagram diagram) {
 		return getStyle(diagram, "feature_group_small_circle");
     }
+	
+	public static Style getModeStyle(final Diagram diagram) {
+		return getStyle(diagram, "mode");
+    }
+	
+	public static Style getInitialModeStyle(final Diagram diagram) {
+		return getStyle(diagram, "mode-initial");
+    }
 }
