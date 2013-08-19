@@ -87,10 +87,10 @@ Severity : inherit aadlinteger applies to ({emv2}**error type, {emv2}**type set,
 Likelihood : inherit enumeration (A, B, C, D, E) applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
-Hazard: record
+Hazards: list of record
   (crossreference: aadlstring;
   	failure : aadlstring;
-  	phase : aadlstring;
+  	phases : list of aadlstring;
   	environment : aadlstring;
   	description : aadlstring;
   	verificationmethod : aadlstring;
