@@ -45,6 +45,7 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -57,6 +58,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
@@ -225,41 +227,51 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		
 		ErrorType targetType = EMV2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof RecordValue){
-				String Severity = getEnumerationorIntegerPropertyValue(SevContainmentPath);
-				String Likelihood = getEnumerationorIntegerPropertyValue(LikeContainmentPath);
-				RecordValue rv = (RecordValue)val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				// for all error types/aliases in type set or the element identified in the containment clause 
-
-				if (targetType==null){
-					if (ts != null){
-						for(TypeToken token: ts.getTypeTokens()){
-							reportFHAEntry(report, fields, Severity, Likelihood, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
-						}
-					} else {
-						// did not have a type set. Let's use fmr (state of type set as failure mode.
-						String targetName;
-						if (target == null)
-						{
-							targetName = "";
-						}
-						else
-						{
-							targetName = EMV2Util.getPrintName(target);
-						}
-						if (localContext == null)
-						{
-							reportFHAEntry(report, fields, Severity, Likelihood,ci, targetName,"");
+			PropertyExpression peVal = modalPropertyValue.getOwnedValue();
+			if (peVal instanceof ListValue)
+			{
+				ListValue lv = (ListValue)peVal;
+				for (PropertyExpression pe : lv.getOwnedListElements())
+				{
+					OsateDebug.osateDebug ("pe=" + pe);
+					if (pe instanceof RecordValue){
+						PropertyExpression val = pe;
+						String Severity = getEnumerationorIntegerPropertyValue(SevContainmentPath);
+						String Likelihood = getEnumerationorIntegerPropertyValue(LikeContainmentPath);
+						RecordValue rv = (RecordValue)val;
+						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+						// for all error types/aliases in type set or the element identified in the containment clause 
+		
+						if (targetType==null){
+							if (ts != null){
+								for(TypeToken token: ts.getTypeTokens()){
+									reportFHAEntry(report, fields, Severity, Likelihood, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
+								}
+							} else {
+								// did not have a type set. Let's use fmr (state of type set as failure mode.
+								String targetName;
+								if (target == null)
+								{
+									targetName = "";
+								}
+								else
+								{
+									targetName = EMV2Util.getPrintName(target);
+								}
+								if (localContext == null)
+								{
+									reportFHAEntry(report, fields, Severity, Likelihood,ci, targetName,"");
+								} else {
+									reportFHAEntry(report, fields, Severity, Likelihood,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
+								}
+							}
 						} else {
-							reportFHAEntry(report, fields, Severity, Likelihood,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
+							// property points to type
+							reportFHAEntry(report, fields,  Severity, Likelihood,ci,EMV2Util.getPrintName(target), EMV2Util.getPrintName(targetType));
 						}
-					}
-				} else {
-					// property points to type
-					reportFHAEntry(report, fields,  Severity, Likelihood,ci,EMV2Util.getPrintName(target), EMV2Util.getPrintName(targetType));
+					}		
 				}
+				
 			}
 		}
 	}
@@ -300,7 +312,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		reportStringProperty(fields, "failure", report);
 		// phase
 		addComma(report);
-		reportStringProperty(fields, "phase", report);
+		reportStringProperty(fields, "phases", report);
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "environment", report);
@@ -336,10 +348,30 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
 		if (xref != null)
 		{
+			String text = null;
 			PropertyExpression val = xref.getOwnedValue();
 			if (val instanceof StringLiteral)
 			{
-				String text = ((StringLiteral)val).getValue();
+				text = ((StringLiteral)val).getValue();
+
+			}
+			if (val instanceof ListValue)
+			{
+				ListValue lv = (ListValue)val;
+				text = "";
+				for (PropertyExpression pe : lv.getOwnedListElements())
+				{
+					if (text.length() > 0)
+					{
+						text += " or ";
+					}
+					text += stripQuotes(((StringLiteral)pe).getValue());
+					
+				}
+			}
+			
+			if (text != null)
+			{
 				text = makeCSVText(stripQuotes(text));
 				text = text.replaceAll(System.getProperty("line.separator"), " ");
 				report.addOutput("\"" + text + "\"");
