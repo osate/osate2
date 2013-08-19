@@ -233,7 +233,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				ListValue lv = (ListValue)peVal;
 				for (PropertyExpression pe : lv.getOwnedListElements())
 				{
-					OsateDebug.osateDebug ("pe=" + pe);
+					//OsateDebug.osateDebug ("pe=" + pe);
 					if (pe instanceof RecordValue){
 						PropertyExpression val = pe;
 						String Severity = getEnumerationorIntegerPropertyValue(SevContainmentPath);
