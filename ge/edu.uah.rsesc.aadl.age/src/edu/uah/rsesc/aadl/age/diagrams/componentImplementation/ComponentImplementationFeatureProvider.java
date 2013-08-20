@@ -9,6 +9,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FlowSpecificationPattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.ComponentImplementationUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ComponentImplementationPattern;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ConnectionPattern;
@@ -23,6 +25,8 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 		this.addPattern(new FeaturePattern());
 		this.addConnectionPattern(new ConnectionPattern());
 		this.addConnectionPattern(new FlowSpecificationPattern());
+		this.addPattern(new ModePattern());
+		this.addConnectionPattern(new ModeTransitionPattern());
 	}
 
 	@Override

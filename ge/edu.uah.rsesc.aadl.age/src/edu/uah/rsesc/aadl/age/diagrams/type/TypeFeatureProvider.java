@@ -20,9 +20,9 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 	public TypeFeatureProvider(IDiagramTypeProvider dtp) {
 		super(dtp);
 		this.addPattern(new FeaturePattern());
-		this.addPattern(new ModePattern());
 		this.addPattern(new TypeClassifierPattern());
 		this.addConnectionPattern(new FlowSpecificationPattern());
+		this.addPattern(new ModePattern());
 		this.addConnectionPattern(new ModeTransitionPattern());
 	}
 

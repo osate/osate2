@@ -4,12 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -19,7 +16,6 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -66,19 +62,23 @@ public class ModePattern extends AgeLeafShapePattern {
 	protected void postMoveShape(final IMoveShapeContext context) {
 		final Anchor anchor = AnchorUtil.getAnchorByName(getInnerModeShape((ContainerShape)context.getPictogramElement()), AgePattern.chopboxAnchorName);
 		if(anchor != null) {
-			updateModeTransitionConnections(anchor.getIncomingConnections());
-			updateModeTransitionConnections(anchor.getOutgoingConnections());
+			updateModeTransition(anchor.getIncomingConnections());
+			updateModeTransition(anchor.getOutgoingConnections());
 		}
-		
 	}
 	
-	// Updates the control points for mode transition connections. It does not update all aspects of the connection because doing so will cause problems due to issues
+	// Updates the control points for mode transition connections. Also update the mode transition triggers. 
+	// It does not update all aspects of the connection because doing so will cause problems due to issues
 	// caused by creating graphics algorithms during postMoveShape()
-	public void updateModeTransitionConnections(final List<Connection> connections) {
+	public void updateModeTransition(final List<Connection> connections) {
 		for(Connection connection : connections) {
-			if(AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection)) instanceof ModeTransition) {
-				ModeTransitionPattern.updateControlPoints(connection);;
+			final Object connectionBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection));
+			if(connectionBo instanceof ModeTransition) {
+				final ModeTransition mt = (ModeTransition)connectionBo;
+				ModeTransitionPattern.updateControlPoints(connection);
+				ModeTransitionPattern.updateTriggerAnchors(connection, mt);
 			}
+
 		}
 	}
 	
@@ -89,8 +89,6 @@ public class ModePattern extends AgeLeafShapePattern {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
         
         // Remove connections related to the initial shape
-		// TODO: Move to helper method
-		// TODO: Not really needed?
 		{
 	        final Shape initialModeShape = ShapeHelper.getChildShapeByName(shape, initialModeShapeName);
 	        if(initialModeShape != null) {
@@ -98,8 +96,6 @@ public class ModePattern extends AgeLeafShapePattern {
 	        }
 		}
         
-		// TODO: If we simply clear all child shapes, can't use chop box anchors..... because those anchors will be destroyed..
-		// TODO: Preserve shapes and just clear the initial one?
 		// Remove child shapes
 		// Clear all shapes except for the inner mode shape
 		final Iterator<Shape> it = shape.getChildren().iterator();
@@ -108,28 +104,19 @@ public class ModePattern extends AgeLeafShapePattern {
 			if(!innerModeShapeName.equals(PropertyUtil.getName(child))) {
 				it.remove();
 			}
-		}
+		}		
 		
-		// TODO: Create the actual mode in a child shape so that initial mode symbol and the mode symbol could be in the same shape?
-		// Difficulty creating connection/line?
-		// Just another shape.. a curved line... Add extra height for the entire shape...
-		
-		// TODO: Remove initial connection? Necessary(should be handled in parent diagram?)
-		// TODO: Set ga for actual shape
-		
-		// TODO: Why exception.. shouldn't the old Ga work?
-		
-		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
-		
+		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);		
 		final int initialModeHeight = 20;
 		final int innerModeHeight = 50;
 		final int totalHeight = mode.isInitial() ? innerModeHeight + initialModeHeight : innerModeHeight;
 		
+		// Get/create inner mode shape
 		ContainerShape innerModeShape = getInnerModeShape(shape);
 		if(innerModeShape == null) {
 			innerModeShape = peCreateService.createContainerShape(shape, true);
 			PropertyUtil.setName(innerModeShape, innerModeShapeName);
-			final Anchor innerModeAnchor = AnchorUtil.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
+			AnchorUtil.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		}
 		
 		// Clear the inner mode shape's children
@@ -153,10 +140,9 @@ public class ModePattern extends AgeLeafShapePattern {
         gaService.setLocationAndSize(ga, x, y, width, totalHeight);
 
         if(mode.isInitial()) {
-			// TODO: Part of this needs to be done after update anchors? Once shapes persist...
 			// Create the shape for the initial mode
 			final ContainerShape initialModeShape = peCreateService.createContainerShape(shape, true);
-			PropertyUtil.setName(initialModeShape, initialModeShapeName);;
+			PropertyUtil.setName(initialModeShape, initialModeShapeName);
 			GraphicsAlgorithmCreator.createInitialModeGraphicsAlgorithm(initialModeShape, getDiagram(), 10);			
 			final Anchor initialModeAnchor = peCreateService.createChopboxAnchor(initialModeShape);
 			
@@ -172,7 +158,7 @@ public class ModePattern extends AgeLeafShapePattern {
 			
 			// Create the arrow decorator
 			final ConnectionDecorator arrowDecorator = peCreateService.createConnectionDecorator(initialModeConnection, false, 1.0, true);    
-	        createArrow(arrowDecorator, StyleUtil.getDecoratorStyle(getDiagram()));			
+	        createArrow(arrowDecorator, StyleUtil.getDecoratorStyle(getDiagram()));		
 		}
 	}
 	
@@ -188,5 +174,12 @@ public class ModePattern extends AgeLeafShapePattern {
 	    		-6, -4});
 	    ga.setStyle(style);
 	    return ga;
+	}
+	
+	protected void updateAnchors(final ContainerShape shape) {
+		// Remove orphan anchors. Usually created by mode transition triggers
+		UpdateHelper.removeAnchorsWithoutConnections(shape);
+		
+		super.updateAnchors(shape);
 	}
 }

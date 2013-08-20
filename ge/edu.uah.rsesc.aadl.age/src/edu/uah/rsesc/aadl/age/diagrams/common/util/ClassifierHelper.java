@@ -23,6 +23,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.util.Aadl2Util;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -175,5 +176,32 @@ public class ClassifierHelper {
 		}
 		
 		return isInverted;
+	}
+	
+	public static void createUpdateModeTransitions(final List<ModeTransition> modeTransitions, final IFeatureProvider fp) {
+		for(final ModeTransition mt : modeTransitions) {			
+			final PictogramElement pictogramElement = fp.getPictogramElementForBusinessObject(mt);
+			if(pictogramElement == null) {	
+				final Anchor[] anchors = AnchorUtil.getAnchorsForModeTransition(mt, fp);
+				
+				if(anchors != null) {
+					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
+					addContext.setNewObject(new AadlElementWrapper(mt));
+					
+					final IAddFeature addFeature = fp.getAddFeature(addContext);
+					if(addFeature != null && addFeature.canAdd(addContext)) {
+						addFeature.add(addContext);
+					}
+				}
+			} else {
+				final UpdateContext updateContext = new UpdateContext(pictogramElement);
+				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+				
+				// Update the connection regardless of whether it is "needed" or not.
+				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
+					updateFeature.update(updateContext);
+				}
+			}
+		}
 	}
 }

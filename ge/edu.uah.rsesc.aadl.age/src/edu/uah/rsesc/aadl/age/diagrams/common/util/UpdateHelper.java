@@ -1,6 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -103,18 +104,24 @@ public class UpdateHelper {
 		}		
 	}
 	
-	public static void removeInvalidFlowSpecifications(final Diagram diagram, final IFeatureProvider fp) {
+	/**
+	 * Removes connections that are invalid. Such as ones that do not have a valid business object associated with them.
+	 * @param diagram
+	 * @param fp
+	 */
+	// TODO: Remove the mode handling when modes are supported fully
+	public static void removeInvalidConnections(final Diagram diagram, final IFeatureProvider fp) {
 		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
 		
 		for(final Connection connection : diagram.getConnections()) {
 			final Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(connection));
 			boolean remove = false;
 			if(bo instanceof EObject) {
-				if(bo instanceof FlowSpecification) {
-					final FlowSpecification fs = (FlowSpecification)bo;
+				if(bo instanceof ModalElement) {
+					final ModalElement me = (ModalElement)bo;
 					
-					// Remove the object if the flow specification is not available in all modes
-					if(fs.getAllInModes().size() != 0) {
+					// Remove the object if the element is not available in all modes
+					if(me.getAllInModes().size() != 0) {
 						remove = true;
 					}
 				}
@@ -131,6 +138,21 @@ public class UpdateHelper {
 		// Remove the connections
 		for(final Connection connection : connectionsToRemove) {
 			EcoreUtil.delete(connection, true);
+		}
+	}
+	
+	/**
+	 * Removes anchors from a shape if they do not have connections. Not recursive.
+	 * @param shape
+	 */
+	public static void removeAnchorsWithoutConnections(final Shape shape) {
+		// Remove anchors that don't have an incoming or outgoing connection
+		final Iterator<Anchor> it = shape.getAnchors().iterator();
+		while(it.hasNext()) {
+			final Anchor anchor = it.next();
+			if(anchor.getIncomingConnections().size() + anchor.getOutgoingConnections().size() == 0) {
+				it.remove();
+			}
 		}
 	}
 }

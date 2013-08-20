@@ -103,8 +103,8 @@ public class TypeClassifierPattern extends AgePattern {
 	}	
 	
 	private void refresh(final ContainerShape shape, final Classifier classifier, final int x, final int y) {
-		// Remove invalid flow specifications from the diagram
-		UpdateHelper.removeInvalidFlowSpecifications(getDiagram(), getFeatureProvider());
+		// Remove invalid connections from the diagram
+		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
 		
 		// Remove invalid features
 		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
@@ -115,7 +115,7 @@ public class TypeClassifierPattern extends AgePattern {
 		if(classifier instanceof ComponentType) {
 			final ComponentType componentType = (ComponentType)classifier;			
 			ClassifierHelper.createUpdateModeShapes(shape, componentType.getAllModes(), getFeatureProvider());
-			createUpdateModeTransitions(componentType.getAllModeTransitions(), getFeatureProvider());					
+			ClassifierHelper.createUpdateModeTransitions(componentType.getAllModeTransitions(), getFeatureProvider());			
 			ClassifierHelper.createUpdateFlowSpecifications(shape, componentType, getFeatureProvider());
 		}
 
@@ -144,32 +144,5 @@ public class TypeClassifierPattern extends AgePattern {
 		
 		UpdateHelper.layoutChildren(shape, getFeatureProvider());
 
-	}
-	
-	public static void createUpdateModeTransitions(final List<ModeTransition> modeTransitions, final IFeatureProvider fp) {
-		for(final ModeTransition mt : modeTransitions) {			
-			final PictogramElement pictogramElement = fp.getPictogramElementForBusinessObject(mt);
-			if(pictogramElement == null) {			
-				final Anchor[] anchors = AnchorUtil.getAnchorsForModeTransition(mt, fp);
-				
-				if(anchors != null) {
-					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-					addContext.setNewObject(new AadlElementWrapper(mt));
-					
-					final IAddFeature addFeature = fp.getAddFeature(addContext);
-					if(addFeature != null && addFeature.canAdd(addContext)) {
-						addFeature.add(addContext);
-					}
-				}
-			} else {
-				final UpdateContext updateContext = new UpdateContext(pictogramElement);
-				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-				
-				// Update the connection regardless of whether it is "needed" or not.
-				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
-					updateFeature.update(updateContext);
-				}
-			}
-		}
 	}
 }

@@ -127,7 +127,7 @@ public class SubcomponentPattern extends AgePattern {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Remove invalid flow specifications from the diagram
-		UpdateHelper.removeInvalidFlowSpecifications(getDiagram(), getFeatureProvider());
+		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
 		
 		// Remove invalid shapes
 		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());

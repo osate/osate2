@@ -101,6 +101,10 @@ public class StyleUtil {
 		return getStyle(diagram, "decorator");
     }
 	
+	public static Style getModeTransitionTrigger(final Diagram diagram) {
+		return getStyle(diagram, "mode_transition_trigger");
+    }
+	
 	public static Style getLabelStyle(final Diagram diagram) {
 		return getStyle(diagram, "label");
     }

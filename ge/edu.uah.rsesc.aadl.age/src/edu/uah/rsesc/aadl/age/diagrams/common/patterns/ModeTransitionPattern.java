@@ -2,11 +2,13 @@ package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.ILocation;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
+import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -22,17 +24,22 @@ import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.ManhattanConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.TriggerPort;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
@@ -57,6 +64,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
         updateControlPoints(connection);
         createGraphicsAlgorithm(connection);
         createDecorators(connection, mt);
+        updateTriggers(connection, mt);
         
 		return connection;
 	}
@@ -64,8 +72,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	public static void updateControlPoints(final Connection connection) {
 		if(connection instanceof CurvedConnection) {
 			final CurvedConnection cc = (CurvedConnection)connection;
-			final ILayoutService layoutService = Graphiti.getLayoutService();
-			
+			final ILayoutService layoutService = Graphiti.getLayoutService();			
+
 			// Decide a sign for the control point
 			final ILocation startLocation = layoutService.getLocationRelativeToDiagram(connection.getStart());
 			final ILocation endLocation = layoutService.getLocationRelativeToDiagram(connection.getEnd());
@@ -96,7 +104,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 			
 			// Set the control point
 			cc.getControlPoints().clear();
-			final PrecisionPoint pp = StylesFactory.eINSTANCE.createPrecisionPoint();;
+			final PrecisionPoint pp = StylesFactory.eINSTANCE.createPrecisionPoint();
 			pp.setX(0.0);
 			pp.setY(y);
 			cc.getControlPoints().add(pp);
@@ -140,7 +148,13 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		final Style style = StyleUtil.getDecoratorStyle(getDiagram());
 		polyline.setStyle(style);
-		gaService.setLocation(polyline, ((int)(Math.random()*100)), 0);
+	}
+	
+	private void createTriggerGraphicsAlgorithm(final Connection connection) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Polyline polyline = gaService.createPlainPolyline(connection);
+		final Style style = StyleUtil.getModeTransitionTrigger(getDiagram());
+		polyline.setStyle(style);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -152,6 +166,84 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	    ga.setStyle(style);
 	    return ga;
 	}	
+	
+	private static ContainerShape getModeContainer(final Connection connection) {
+		return getStartModeShape(connection).getContainer();
+	}
+
+	// CLEAN-UP: Dependent on behavior of ModePattern to determine how many levels to go up
+	private static ContainerShape getStartModeShape(final Connection connection) {
+		return ((Shape)connection.getStart().getParent()).getContainer();
+	}
+	
+	// Assume freeform and no bendpoints
+	private static ILocation getConnectionMidpoint(final Connection connection, final double d) {
+		final ILayoutService layoutService = Graphiti.getLayoutService();
+		final ILocation startLoc = layoutService.getLocationRelativeToDiagram(connection.getStart());
+		final ILocation endLoc = layoutService.getLocationRelativeToDiagram(connection.getEnd());
+		// TODO: Replace with something that works in all cases. The layout service works for freestyle but has an offset(of 25) for some reason
+		// Need a method that will work with CurvedConnections
+		return new LocationImpl((int)(startLoc.getX() + (endLoc.getX() - startLoc.getX()) * d), (int)(startLoc.getY() + (endLoc.getY() - startLoc.getY()) * d));
+	}
+	
+	public static void updateTriggerAnchors(final Connection connection, final ModeTransition mt) {
+		for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
+			final ILayoutService layoutService = Graphiti.getLayoutService();
+			final ContainerShape modeShape = getStartModeShape(connection);
+			final ILocation modeLocation = layoutService.getLocationRelativeToDiagram(modeShape); // TODO: Does this work
+			final ILocation l = getConnectionMidpoint(connection, 0.5);
+			AnchorUtil.createOrUpdateFixPointAnchor(modeShape, buildTriggerAnchorName(trigger), l.getX() - modeLocation.getX(), l.getY() - modeLocation.getY());
+		}
+	}
+	
+	private void updateTriggers(final Connection connection, final ModeTransition mt) {	
+		updateTriggerAnchors(connection, mt);
+
+		for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
+			final ContainerShape modeShape = getStartModeShape(connection);
+			final ContainerShape modeTransitionContainer = getModeContainer(connection);			
+			final Anchor anchor = AnchorUtil.getAnchorByName(modeShape, buildTriggerAnchorName(trigger));
+			final Anchor eventSourceAnchor = AnchorUtil.getAnchorForModeTransitionTrigger(trigger, modeTransitionContainer, getFeatureProvider());
+			
+			if(eventSourceAnchor != null) {
+				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+				final Connection triggerConnection = peCreateService.createFreeFormConnection(getDiagram());
+				triggerConnection.setStart(eventSourceAnchor);
+				triggerConnection.setEnd(anchor);
+				createTriggerGraphicsAlgorithm(triggerConnection);
+			}
+		}
+	}
+	
+	/**
+	 * Builds a unique name for the anchor that will be used for the end of the trigger connection that connects it to the transition connection.
+	 * @param trigger
+	 * @return
+	 */
+	private static String buildTriggerAnchorName(final ModeTransitionTrigger trigger) {
+		String name = "";
+		
+		if(trigger instanceof TriggerPort) {
+			final TriggerPort tp = (TriggerPort)trigger;
+			
+			if(trigger.getOwner() instanceof NamedElement) {
+				final String value = ((NamedElement)trigger.getOwner()).getName();
+				if(value != null) {
+					name += value + "::";
+				}
+			}
+			
+			if(tp.getContext() != null && tp.getContext().getName() != null) {
+				name += tp.getContext().getName() + "::";
+			}
+			
+			if(tp.getPort() != null && tp.getPort().getName() != null) {
+				name += tp.getPort().getName() + "::";
+			}
+		}
+		
+		return name;
+	}
 	
 	@Override
 	public boolean canUpdate(final IUpdateContext context) {
@@ -171,9 +263,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final Connection connection = (Connection)context.getPictogramElement();
 		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 
-		final ContainerShape ownerShape = ConnectionHelper.getFlowSpecificationOwnerShape(connection, getFeatureProvider());
-		final Anchor[] anchors = (ownerShape == null) ? null : AnchorUtil.getAnchorsForModeTransition(mt, getFeatureProvider());
-		
+		final Anchor[] anchors = AnchorUtil.getAnchorsForModeTransition(mt, getFeatureProvider());
+
 		// Update anchors
 		if(anchors == null) {
 			connection.setStart(null);
@@ -187,6 +278,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 			updateControlPoints(connection);
 			createGraphicsAlgorithm(connection);
 			createDecorators(connection, mt);
+			updateTriggers(connection, mt);
 		}
 		
 		return true;

@@ -18,8 +18,10 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
@@ -94,14 +96,19 @@ public class ComponentImplementationPattern extends AgePattern {
 	}
 	
 	private void refresh(final ContainerShape shape, final ComponentImplementation ci, final int x, final int y) {
+		// Remove invalid connections from the diagram
+		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
+				
 		// Remove invalid features
-		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());	
-		
+		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());		
+				
 		// Create/Update Shapes
 		ClassifierHelper.createUpdateFeatureShapes(shape, ci.getAllFeatures(), getFeatureProvider());
 		createUpdateSubcomponents(shape, ci);
 		
-		// TODO: Modes. Share with Component Type
+		// Create/Update Modes and Mode Transitions
+		ClassifierHelper.createUpdateModeShapes(shape, ci.getAllModes(), getFeatureProvider());
+		ClassifierHelper.createUpdateModeTransitions(ci.getAllModeTransitions(), getFeatureProvider());	
 		
 		// Create/Update Connections
 		for(final Connection connection : ci.getAllConnections()) {
