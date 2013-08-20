@@ -218,8 +218,11 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues){
-			InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
-			components.add((ComponentInstance)obj);
+			if (propertyExpression != null)
+			{
+				InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
+				components.add((ComponentInstance)obj);
+			}
 		}
 		return components;
 	}
