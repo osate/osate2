@@ -221,12 +221,12 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		}
 		logHeader("Total,"+ GetProperties.toStringScaled(totalMIPS, mipsliteral));
 		if (totalMIPS > MIPScapacity) {
-			errManager.errorSummary(curProcessor, "In mode " + som.getName(), "Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks exceeds MIPS capacity "
+			errManager.errorSummary(curProcessor, som.getName(), "Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks exceeds MIPS capacity "
 					+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of " + curProcessor.getComponentInstancePath());
 		} else if (totalMIPS == 0.0) {
 			errManager.warningSummary(curProcessor, som.getName(), "Bound app's have no MIPS budget.");
 		} else {
-			errManager.infoSummary(curProcessor, "In mode " + som.getName(), "Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks within "
+			errManager.infoSummary(curProcessor, som.getName(), "Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks within "
 					+  "MIPS capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of "
 					+ curProcessor.getComponentInstancePath());
 		}
