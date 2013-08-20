@@ -43,6 +43,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -69,7 +70,7 @@ public class DoResourceBudgetLogic {
 		return this.errManager;
 	}
 
-	public void analyzeResourceBudget(final SystemInstance si, String somName) {
+	public void analyzeResourceBudget(final SystemInstance si, final SystemOperationMode som) {
 		init();
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(si);
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
@@ -87,9 +88,9 @@ public class DoResourceBudgetLogic {
 		}
 		logHeader("\n\nDetailed MIPS Budget Report\n");
 		logHeader("Component,Budget,Actual,Notes");
-		budgetTotal = sumBudgets(si, ResourceKind.MIPS, mipsliteral, true, somName,"");
+		budgetTotal = sumBudgets(si, ResourceKind.MIPS, mipsliteral, true, som,"");
 		detailedLog(null, budgetTotal, mipsliteral);
-		report(si, "MIPS", mipsliteral, somName);
+		report(si, "MIPS", mipsliteral, som);
 
 		init();
 		EList memlist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
@@ -99,9 +100,9 @@ public class DoResourceBudgetLogic {
 		detailedLog(null, capacity, kbliteral);
 		logHeader("\n\nDetailed RAM Budget Report\n");
 		logHeader("Component,Budget,Actual,Notes");
-		budgetTotal = sumBudgets(si, ResourceKind.RAM, kbliteral, true, somName,"");
+		budgetTotal = sumBudgets(si, ResourceKind.RAM, kbliteral, true, som,"");
 		detailedLog(null, budgetTotal, kbliteral);
-		report(si, "RAM", kbliteral, somName);
+		report(si, "RAM", kbliteral, som);
 
 		init();
 		memlist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
@@ -111,9 +112,9 @@ public class DoResourceBudgetLogic {
 		detailedLog(null, capacity, kbliteral);
 		logHeader("\n\nDetailed ROM Budget Report\n");
 		logHeader("Component,Budget,Actual,Notes");
-		budgetTotal = sumBudgets(si, ResourceKind.ROM, kbliteral, false, somName,"");
+		budgetTotal = sumBudgets(si, ResourceKind.ROM, kbliteral, false, som,"");
 		detailedLog(null, budgetTotal, kbliteral);
-		report(si, "ROM", kbliteral, somName);
+		report(si, "ROM", kbliteral, som);
 	}
 
 	private void init() {
@@ -193,7 +194,8 @@ public class DoResourceBudgetLogic {
 	 * @return double total, zero, if no budget, -1 if hardware only in
 	 *         substructure
 	 */
-	protected double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, boolean required, String somName,String prefix) {
+	protected double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit, boolean required, final SystemOperationMode som,String prefix) {
+		final String somName = som.getName();
 		double subtotal = 0.0;
 		EList subcis = ci.getComponentInstances();
 		boolean HWOnly = false;
@@ -210,7 +212,7 @@ public class DoResourceBudgetLogic {
 		}
 		for (Iterator it = subcis.iterator(); it.hasNext();) {
 			ComponentInstance subci = (ComponentInstance) it.next();
-			double subresult = sumBudgets(subci, rk, unit, required, somName,
+			double subresult = sumBudgets(subci, rk, unit, required, som,
 					isSystemInstance?"":prefix+prefixSymbol);
 			if (subresult >= 0) {
 				HWOnly = false;
@@ -274,10 +276,11 @@ public class DoResourceBudgetLogic {
 		return false;
 	}
 
-	private void report(SystemInstance si, String resourceName, UnitLiteral unit, String somName) {
+	private void report(SystemInstance si, String resourceName, UnitLiteral unit, final SystemOperationMode som) {
+		final String somName = som.getName();
 		if (budgetTotal < 0)
 			budgetTotal = 0;
-		errManager.infoSummaryReportOnly(si,somName, "Summary\n");
+		errManager.infoSummaryReportOnly(si,som, "Summary\n");
 
 		String modelStats = resourceName + " capacity " + GetProperties.toStringScaled(capacity, unit) + " : "
 				+ resourceName + " budget " + GetProperties.toStringScaled(budgetTotal, unit);

@@ -88,7 +88,7 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 //			{
 //				final SystemOperationMode som = soms.nextSOM();
 //				final String somName = som.getName();
-			final String somName = null;
+		//	final String somName = null;
 			InstanceValidation iv = new InstanceValidation(this);
 			if (!iv.checkReferenceProcessor(si)){
 				Dialog.showWarning("Resource Budget Analysis","Model contains thread execution times without reference processor.");
@@ -96,7 +96,7 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 			}
 
 			logic = new DoResourceBudgetLogic( this);
-			logic.analyzeResourceBudget(si, somName);
+			logic.analyzeResourceBudget(si, null);
 //			}
 			monitor.done();
 
