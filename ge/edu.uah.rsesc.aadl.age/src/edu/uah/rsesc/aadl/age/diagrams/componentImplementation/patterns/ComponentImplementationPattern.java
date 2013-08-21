@@ -1,7 +1,6 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
 import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
@@ -14,14 +13,11 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.Feature;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
@@ -100,7 +96,7 @@ public class ComponentImplementationPattern extends AgePattern {
 		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
 				
 		// Remove invalid features
-		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());		
+		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());		
 				
 		// Create/Update Shapes
 		ClassifierHelper.createUpdateFeatureShapes(shape, ci.getAllFeatures(), getFeatureProvider());
@@ -111,31 +107,28 @@ public class ComponentImplementationPattern extends AgePattern {
 		ClassifierHelper.createUpdateModeTransitions(ci.getAllModeTransitions(), getFeatureProvider());	
 		
 		// Create/Update Connections
-		for(final Connection connection : ci.getAllConnections()) {
-			// Only show flow specifications that re not in any modes
-			if(connection.getAllInModes().size() == 0) {				
-				final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(connection);
-				if(pictogramElement == null) {			
-					final Anchor[] anchors = AnchorUtil.getAnchorsForConnection(ci, connection, getFeatureProvider());
+		for(final Connection connection : ci.getAllConnections()) {	
+			final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(connection);
+			if(pictogramElement == null) {			
+				final Anchor[] anchors = AnchorUtil.getAnchorsForConnection(ci, connection, getFeatureProvider());
+				
+				if(anchors != null) {
+					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
+					addContext.setNewObject(new AadlElementWrapper(connection));
+					addContext.setTargetContainer(shape);
 					
-					if(anchors != null) {
-						final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-						addContext.setNewObject(new AadlElementWrapper(connection));
-						addContext.setTargetContainer(shape);
-						
-						final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
-						if(addFeature != null && addFeature.canAdd(addContext)) {
-							addFeature.add(addContext);
-						}
+					final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
+					if(addFeature != null && addFeature.canAdd(addContext)) {
+						addFeature.add(addContext);
 					}
-				} else {
-					final UpdateContext updateContext = new UpdateContext(pictogramElement);
-					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-					
-					// Update the connection regardless of whether it is "needed" or not.
-					if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
-						updateFeature.update(updateContext);
-					}
+				}
+			} else {
+				final UpdateContext updateContext = new UpdateContext(pictogramElement);
+				final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
+				
+				// Update the connection regardless of whether it is "needed" or not.
+				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
+					updateFeature.update(updateContext);
 				}
 			}
 		}

@@ -2,12 +2,10 @@ package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
-import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
@@ -109,7 +107,7 @@ public class SubcomponentPattern extends AgePattern {
 		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
 		
 		// Remove invalid shapes
-		UpdateHelper.removeModeSpecificOrInvalidShapes(shape, this.getFeatureProvider());
+		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
 
 		// Create/update child shapes
 		final Classifier classifier = sc.getClassifier();

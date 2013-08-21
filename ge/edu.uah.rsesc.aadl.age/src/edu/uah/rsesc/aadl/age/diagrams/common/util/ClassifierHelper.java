@@ -16,8 +16,6 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IGaService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
@@ -120,30 +118,27 @@ public class ClassifierHelper {
 	
 	public static void createUpdateFlowSpecifications(final ContainerShape shape, final ComponentType componentType, final IFeatureProvider fp) {
 		for(final FlowSpecification fs : componentType.getAllFlowSpecifications()) {				
-			// Only show flow specifications that re not in any modes
-			if(fs.getAllInModes().size() == 0) {				
-				// TODO: Need to  be able to get the connection for a specific flow specification... using the context
-				final PictogramElement pictogramElement = ConnectionHelper.getForFlowSpecification(shape, fs, fp);
-				if(pictogramElement == null) {			
-					final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, shape, fp);
+			// Only show flow specifications that re not in any modes	
+			final PictogramElement pictogramElement = ConnectionHelper.getForFlowSpecification(shape, fs, fp);
+			if(pictogramElement == null) {			
+				final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, shape, fp);
+				
+				if(anchors != null) {
+					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
+					addContext.setNewObject(new AadlElementWrapper(fs));
 					
-					if(anchors != null) {
-						final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-						addContext.setNewObject(new AadlElementWrapper(fs));
-						
-						final IAddFeature addFeature = fp.getAddFeature(addContext);
-						if(addFeature != null && addFeature.canAdd(addContext)) {
-							addFeature.add(addContext);
-						}
+					final IAddFeature addFeature = fp.getAddFeature(addContext);
+					if(addFeature != null && addFeature.canAdd(addContext)) {
+						addFeature.add(addContext);
 					}
-				} else {
-					final UpdateContext updateContext = new UpdateContext(pictogramElement);
-					final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-					
-					// Update the connection regardless of whether it is "needed" or not.
-					if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
-						updateFeature.update(updateContext);
-					}
+				}
+			} else {
+				final UpdateContext updateContext = new UpdateContext(pictogramElement);
+				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+				
+				// Update the connection regardless of whether it is "needed" or not.
+				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
+					updateFeature.update(updateContext);
 				}
 			}
 		}
