@@ -1,18 +1,10 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 
-import java.util.List;
-
-import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -23,15 +15,9 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
@@ -120,25 +106,18 @@ public class TypeClassifierPattern extends AgePattern {
 		}
 
 		// Adjust size. Width and height
+		final int newSize[] = ClassifierHelper.adjustChildShapePositions(shape, getFeatureProvider());
 		final IGaService gaService = Graphiti.getGaService();
-		
-		// Calculate max height
-		int maxHeight = 300;
-		for(final Shape childShape : shape.getChildren()) {
-			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight());
-		}
 		
 		// Create a new graphics Algorithm
 		// Disable code to create the shape based on the type of classifier and simply make everything a rectangle for now. Avoids issue of features not being in reasonable positions.
-		final int width = 500;
 		final GraphicsAlgorithm ga;
 		if(classifier instanceof FeatureGroupType) {
 			ga = gaService.createRectangle(shape);
 			ga.setStyle(StyleUtil.getSystemStyle(getDiagram(), false));
-			gaService.setLocationAndSize(ga, x, y, width, maxHeight+25);
+			gaService.setLocationAndSize(ga, x, y, newSize[0], newSize[1]);
 		} else {
-			ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, width, maxHeight+25);
+			ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, newSize[0], newSize[1]);
 			gaService.setLocation(ga, x, y);
 		}
 		

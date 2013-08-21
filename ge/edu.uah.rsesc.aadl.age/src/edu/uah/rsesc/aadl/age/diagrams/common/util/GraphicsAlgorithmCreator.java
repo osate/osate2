@@ -19,7 +19,6 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusClassifier;
 import org.osate.aadl2.BusSubcomponent;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataClassifier;

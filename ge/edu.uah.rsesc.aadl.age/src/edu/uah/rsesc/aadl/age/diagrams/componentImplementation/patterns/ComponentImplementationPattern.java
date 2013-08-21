@@ -1,6 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
 import org.eclipse.graphiti.features.IAddFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
@@ -18,7 +19,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 
@@ -140,46 +140,12 @@ public class ComponentImplementationPattern extends AgePattern {
 			}
 		}
 		
-		// Adjust size. Width and height
-		final IGaService gaService = Graphiti.getGaService();
-		
-		// Determine how much to shift the X and Y of the children by
-		int shiftX = 0;
-		int shiftY = 0;
-		for(final Shape childShape : shape.getChildren()) {
-			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-			shiftX = Math.min(shiftX, childGa.getX());
-			shiftY = Math.min(shiftY, childGa.getY());
-		}
-		
-		// Determine the extra width needed to hold AADL features
-		int featureWidth = 80;
-		for(final Shape childShape : shape.getChildren()) {
-			if(AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(childShape)) instanceof Feature) {
-				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth());
-			}
-		}		
-		
-		// Calculate max width and height
-		int maxWidth = 300;
-		int maxHeight = 300;
-		for(final Shape childShape : shape.getChildren()) {
-			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-			
-			// Determine the needed width and height of the classifier shape
-			// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
-			if(!(AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(childShape)) instanceof Feature)) {				
-				maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() - shiftX + featureWidth);
-			}			
-			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() - shiftY);
-			
-			// Update the position of the child
-			childGa.setX(childGa.getX()-shiftX);
-			childGa.setY(childGa.getY()-shiftY);
-		}
+		// Adjust size. Width and height		
+		final int newSize[] = ClassifierHelper.adjustChildShapePositions(shape, getFeatureProvider());
 		
 		// Create a new graphics Algorithm
-		final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), ci, maxWidth, maxHeight+25);
+		final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), ci, newSize[0], newSize[1]);
 		gaService.setLocation(ga, x, y);	
 
 		UpdateHelper.layoutChildren(shape, getFeatureProvider());

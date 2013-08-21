@@ -29,6 +29,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
@@ -65,6 +66,8 @@ public class ModePattern extends AgeLeafShapePattern {
 			updateModeTransition(anchor.getIncomingConnections());
 			updateModeTransition(anchor.getOutgoingConnections());
 		}
+		
+		ResizeHelper.checkContainerSize((ContainerShape)context.getPictogramElement(), getFeatureProvider());
 	}
 	
 	// Updates the control points for mode transition connections. Also update the mode transition triggers. 
@@ -76,7 +79,7 @@ public class ModePattern extends AgeLeafShapePattern {
 			if(connectionBo instanceof ModeTransition) {
 				final ModeTransition mt = (ModeTransition)connectionBo;
 				ModeTransitionPattern.updateControlPoints(connection);
-				ModeTransitionPattern.updateTriggerAnchors(connection, mt);
+				ModeTransitionPattern.updateAnchors(connection, mt);
 			}
 
 		}

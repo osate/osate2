@@ -10,11 +10,14 @@ import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
@@ -203,5 +206,49 @@ public class ClassifierHelper {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Adjusts the positions of the child shapes so that they are non-negative and determines the needed size for the container
+	 * @param shape
+	 * @param fp
+	 */
+	public static int[] adjustChildShapePositions(final ContainerShape shape, final IFeatureProvider fp) {	
+		// Determine how much to shift the X and Y of the children by
+		int shiftX = 0;
+		int shiftY = 0;
+		for(final Shape childShape : shape.getChildren()) {
+			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+			shiftX = Math.min(shiftX, childGa.getX());
+			shiftY = Math.min(shiftY, childGa.getY());
+		}
+		
+		// Determine the extra width needed to hold AADL features
+		int featureWidth = 80;
+		for(final Shape childShape : shape.getChildren()) {
+			if(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(childShape)) instanceof Feature) {
+				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth());
+			}
+		}		
+		
+		// Calculate max width and height
+		int maxWidth = 300;
+		int maxHeight = 300;
+		for(final Shape childShape : shape.getChildren()) {
+			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+			
+			// Determine the needed width and height of the classifier shape
+			// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
+			if(!(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(childShape)) instanceof Feature)) {				
+				maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() - shiftX + featureWidth);
+			}			
+			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() - shiftY);
+			
+			// Update the position of the child
+			childGa.setX(childGa.getX()-shiftX);
+			childGa.setY(childGa.getY()-shiftY);
+		}
+		
+		return new int[] { maxWidth, maxHeight+25};
 	}
 }

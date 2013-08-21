@@ -27,6 +27,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
@@ -51,39 +52,17 @@ public class SubcomponentPattern extends AgePattern {
 		final Subcomponent sc = (Subcomponent)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
 		this.refresh(shape, sc, context.getX(), context.getY(), context.getWidth(), context.getHeight());
 		
-		checkContainerSize(shape);
+		ResizeHelper.checkContainerSize(shape, getFeatureProvider());
 	}
 
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
-		checkContainerSize((ContainerShape)context.getPictogramElement());
+		ResizeHelper.checkContainerSize((ContainerShape)context.getPictogramElement(), getFeatureProvider());
 	}
 	
 	@Override
 	public IReason updateNeeded(final IUpdateContext context) {
 		return Reason.createFalseReason();
-	}
-	
-	/**
-	 * Checks the size of the container and resizes it if necessary
-	 */
-	private void checkContainerSize(final ContainerShape shape) {
-		// Check if the shape is entirely in the container
-		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		final int endX = ga.getX() + ga.getWidth();
-		final int endY = ga.getY() + ga.getHeight();
-		final ContainerShape container = shape.getContainer();
-		final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();
-		if(ga.getX() < 0 || ga.getY() < 0 || containerGa.getWidth() < endX || containerGa.getHeight() < endY) {
-			// Call the update feature on the container to adjust the size
-			final UpdateContext context = new UpdateContext(container);
-			final IUpdateFeature feature = getFeatureProvider().getUpdateFeature(context);
-			if(feature != null) {
-				if(feature.canUpdate(context)) {
-					feature.update(context);
-				}
-			}
-		}		
 	}
 	
 	@Override

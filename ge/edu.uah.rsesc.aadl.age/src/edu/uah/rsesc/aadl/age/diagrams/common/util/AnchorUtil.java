@@ -26,7 +26,6 @@ import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.TriggerPort;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
@@ -250,15 +249,14 @@ public class AnchorUtil {
 	 * @param fp
 	 * @return
 	 */
-	public static Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final IFeatureProvider fp) {
+	public static Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
 		if(trigger instanceof TriggerPort) {
 			final TriggerPort tp = (TriggerPort)trigger;
 			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : ShapeHelper.getChildShapeByElement(ownerShape, tp.getContext(), fp);
 			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : ShapeHelper.getChildShapeByElement(portShapeOwner, tp.getPort(), fp);
 			
-			// TODO: Get appropriate anchor
-			//a1 = getAnchorByName(sourcePe, doesShapeContain(sourceShape.getContainer(), destShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
-			return AnchorUtil.getAnchorByName(portShape, FeaturePattern.innerConnectorAnchorName);
+			// Get appropriate anchor depending on whether the port belongs to the component classifier or a subcomponent
+			return getAnchorByName(portShape, doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 		} else {
 			// Unhandled case
 			return null;
