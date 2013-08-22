@@ -15,6 +15,7 @@ import org.osate.aadl2.AbstractClassifier;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusClassifier;
@@ -37,6 +38,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.MemoryClassifier;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.ProcessClassifier;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorClassifier;
@@ -124,239 +126,223 @@ public class GraphicsAlgorithmCreator {
 	
 	public static GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final Diagram diagram, final Feature feature, final IFeatureProvider fp) {
 		final IGaService gaService = Graphiti.getGaService();
-        
-		// TODO: The direction is affected by inverse of in the feature and in containing feature group and feature group types....
-		// must figure out by walking shapes since the container of some features may be a feature group type that isn't appropriate.
-		// for example getting the features of an implicitly defined inverse feature group type will return the non-inverse feature group
-		DirectionType direction = null;
-		if(feature instanceof DirectedFeature) {
-			direction = ((DirectedFeature)feature).getDirection();
-			if(direction == DirectionType.IN || direction == DirectionType.OUT) {
-				if(ClassifierHelper.isFeatureInverted(shape, fp)) {
-					direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
-				}				
-			}
-		}
-		
-		// TODO: Do similar for access type
 		
         // Abstract Feature
-		GraphicsAlgorithm ga;	
-		
+		final GraphicsAlgorithm ga;			
 		if(feature instanceof Port) {
-			final Style style = StyleUtil.getFeatureStyle(diagram);
-			final boolean hasData = feature instanceof DataPort || feature instanceof EventDataPort;
-			final boolean hasEvent = feature instanceof EventPort || feature instanceof EventDataPort;
-			
-			ga = gaService.createInvisibleRectangle(shape);
-        	
-        	int width = 25;
-        	final int height = 20;
-        	final int dataSymbolXPadding = 10;
-        	final int dataSymbolYPadding = 5;
-
-        	GraphicsAlgorithm dataGa = null;
-        	GraphicsAlgorithm eventGa = null;        	
-        	
-        	switch(direction) {
-        	// In Port
-        	case IN:
-        		if(hasData) {
-	        		dataGa = gaService.createPlainPolygon(ga, new int[] {
-	            			0, dataSymbolYPadding, 
-	            			width-dataSymbolXPadding, height/2,
-	            			0, height-dataSymbolYPadding});
-        		}
-        		
-        		if(hasEvent) {
-	        		eventGa = gaService.createPlainPolyline(ga, new int[] {
-	            			0, 0, 
-	            			width, height/2,
-	            			0, height});
-        		}
-        		break;
-        		
-       		// Out Port
-        	case OUT:
-        		if(hasData) {
-	    			dataGa = gaService.createPlainPolygon(ga, new int[] {
-	            			width, dataSymbolYPadding, 
-	            			dataSymbolXPadding, height/2,
-	            			width, height-dataSymbolYPadding});
-        		}
-        		
-        		if(hasEvent) {
-    				eventGa = gaService.createPlainPolyline(ga, new int[] {
-            			width, 0, 
-            			0, height/2,
-            			width, height});
-        		}
-        		break;
-        		
-        	// In Out Port
-        	case IN_OUT:
-        		width *= 2;
-        		if(hasData) {
-	        		dataGa = gaService.createPlainPolygon(ga, new int[] {
-	            			width/2, dataSymbolYPadding, 
-	            			width-dataSymbolXPadding, height/2,
-	            			width/2, height-dataSymbolYPadding,
-	            			dataSymbolXPadding, height/2});
-        		}
-        		
-        		if(hasEvent) {
-	        		eventGa = gaService.createPlainPolyline(ga, new int[] {
-	            			width/2, 0, 
-	            			width, height/2,
-	            			width/2, height,
-	            			0, height/2,
-	            			width/2, 0});
-        		}
-        		break;
-        	}
-        	
-        	if(dataGa != null) {
-        		dataGa.setStyle(style);
-        	}
-        	
-        	if(eventGa != null) {
-        		eventGa.setStyle(style);
-        	}
-        	
-            ga.setStyle(style);
-            gaService.setSize(ga,  width, height);
-            GraphicsAlgorithmUtil.shrink(ga);
-		}
-		else if(feature instanceof AbstractFeature) { // Abstract Feature
-			final Style style = StyleUtil.getFeatureStyle(diagram);
-        	ga = gaService.createInvisibleRectangle(shape);
-        	gaService.setSize(ga,  25,  20);
-        	
-        	final GraphicsAlgorithm circleGa = gaService.createPlainEllipse(ga);
-        	circleGa.setStyle(style);
-        	gaService.setLocation(circleGa, 0, 5);
-            gaService.setSize(circleGa, 10, 10);
-
-            // In Abstract Feature
-            if(direction == DirectionType.IN) {
-            	final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] {
-            			0, 0, 
-            			25, 10,
-            			0, 20});
-                directionGa.setStyle(style);            	
-            } else if(direction == DirectionType.OUT) { // Out Abstract Feature
-            	final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] {
-            			25, 0, 
-            			0, 10,
-            			25, 20});
-            	gaService.setLocation(circleGa, ga.getWidth()-circleGa.getWidth(), 5);
-                directionGa.setStyle(style);   	
-            }
-            GraphicsAlgorithmUtil.shrink(ga);
+			ga = createPortGraphicsAlgorithm(shape, diagram, fp, ((Port)feature).getCategory(), ((Port) feature).getDirection());
+		} else if(feature instanceof AbstractFeature) { // Abstract Feature
+			ga = createAbstractFeatureGraphicsAlgorithm(shape, diagram, fp, ((AbstractFeature) feature).getDirection());
         } else if(feature instanceof Access) {
-        	final Access access = (Access)feature;
-        	AccessType accessType = access.getKind();
-        	if(ClassifierHelper.isFeatureInverted(shape, fp)) {
-        		accessType = (accessType == AccessType.PROVIDES) ? AccessType.REQUIRES : AccessType.PROVIDES;
-        	}
-        	int width = 0;
-        	int height = 0;
-        	
-        	ga = gaService.createInvisibleRectangle(shape);
-        	
-        	if(access instanceof BusAccess || access instanceof DataAccess) {
-        		final Style style = StyleUtil.getFeatureStyle(diagram);
-        		width = 20;
-        		height = 20;        		
-        		final int slopeWidth = 5;
-        		
-        		if(accessType == AccessType.PROVIDES) {
-        			final GraphicsAlgorithm symbolGa = gaService.createPlainPolyline(ga, new int[] {
-                			width, 0, 
-                			slopeWidth, 0,
-                			0, height/2,
-                			slopeWidth, height,
-                			width, height,
-                			width, 0});
-            		symbolGa.setStyle(style); 
-        		} else if(accessType == AccessType.REQUIRES) {
-        			final GraphicsAlgorithm symbolGa = gaService.createPlainPolyline(ga, new int[] {
-                			0, 0, 
-                			width-slopeWidth, 0,
-                			width, height/2,
-                			width-slopeWidth, height,
-                			0, height,
-                			0, 0});
-            		symbolGa.setStyle(style); 
-        		}        		
-        		GraphicsAlgorithmUtil.shrink(ga);
-        	} else if(access instanceof SubprogramAccess || access instanceof SubprogramGroupAccess) {
-        		final Style style = access instanceof SubprogramAccess ? StyleUtil.getSubprogramAccessStyle(diagram) : StyleUtil.getSubprogramGroupAccessStyle(diagram);
-        		width = 35;
-        		height = 20;
-        		final int vPadding = 5;
-        		
-        		final GraphicsAlgorithm symbolGa = gaService.createPlainEllipse(ga);
-        		gaService.setSize(symbolGa, width, height);
-        		symbolGa.setStyle(style); 
-        		
-        		final int arrowWidth = 10;
-        		final int left = width/2 - arrowWidth/2;
-        		final int right = width/2 + arrowWidth/2;
-        		if(accessType == AccessType.PROVIDES) {
-        			final GraphicsAlgorithm arrowGa = gaService.createPlainPolyline(ga, new int[] {
-                			left, vPadding, 
-                			right, height/2,
-                			left, height-vPadding});
-            		arrowGa.setStyle(style);
-        		} else if(accessType == AccessType.REQUIRES) {
-        			final GraphicsAlgorithm arrowGa = gaService.createPlainPolyline(ga, new int[] {
-        					right, vPadding, 
-        					left, height/2,
-        					right, height-vPadding});
-            		arrowGa.setStyle(style);
-        		}
-        	}
-        	
-        	gaService.setSize(ga,  width, height);
-        	GraphicsAlgorithmUtil.shrink(ga);
+        	ga = createAccessGraphicsAlgorithm(shape, diagram, fp, ((Access)feature).getCategory(), ((Access)feature).getKind());
         } else if(feature instanceof FeatureGroup) {
-        	// TODO: Remove or merge with work in Type Feature Pattern
-        	// Issue: The current method of rendering the compact feature group symbol relies on writing a color that matches this background. This can effectively erase lines drawn,
-        	// by the parent shape.
-        	// TODO: Eventually implement semi-circle rendering, render from SVG, or use an alternative shape.
-        	
-        	final int bigCircleSize = 25;
-        	final int gaWidthReduction = 5;
-        	final int bigCircleVisibleWidth = 10;
-        	ga = gaService.createInvisibleRectangle(shape);
-        	gaService.setSize(ga, bigCircleSize-gaWidthReduction, bigCircleSize);
-        	
-        	final GraphicsAlgorithm bigCircleGa = gaService.createPlainEllipse(ga);
-        	gaService.setLocation(bigCircleGa, ga.getWidth()-bigCircleSize, 0);
-    		gaService.setSize(bigCircleGa, bigCircleSize, bigCircleSize);
-    		bigCircleGa.setStyle(StyleUtil.getFeatureGroupLargeCircleStyle(diagram));
-    		
-    		final GraphicsAlgorithm blockGa = gaService.createPlainRectangle(ga);
-    		gaService.setLocation(blockGa, 0, 0);
-    		gaService.setSize(blockGa, ga.getWidth()-bigCircleVisibleWidth, ga.getHeight());
-    		blockGa.setStyle(StyleUtil.getBackgroundStyle(diagram));
-    		
-    		final int smallCircleSize = bigCircleSize/2;
-    		final GraphicsAlgorithm smallCircleGa = gaService.createPlainEllipse(ga);
-    		gaService.setLocation(smallCircleGa, 0, (ga.getHeight()-smallCircleSize)/2);
-    		gaService.setSize(smallCircleGa, smallCircleSize, smallCircleSize);
-    		smallCircleGa.setStyle(StyleUtil.getFeatureGroupSmallCircleStyle(diagram));    		
+        	throw new RuntimeException("Unhandled case. Feature Group");   		
         } else {
         	ga = gaService.createPlainRectangle(shape);
             gaService.setSize(ga, 10, 10);
         }
 		
-		// TODO: Consider adjusting things so that the width and height are always such that the feature can be centered appropriately...
-		// TODO: Consider selection will be based off the outer Ga size so that may be a bad idea
+		return ga;
+	}
 	
+	public static GraphicsAlgorithm createPortGraphicsAlgorithm(final Shape shape, final Diagram diagram, final IFeatureProvider fp, final PortCategory category, DirectionType direction) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Style style = StyleUtil.getFeatureStyle(diagram);
+		final boolean hasData = category == PortCategory.DATA || category == PortCategory.EVENT_DATA;
+		final boolean hasEvent = category == PortCategory.EVENT || category == PortCategory.EVENT_DATA;
 		
+		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
+    	
+		// Invert the direction as needed
+		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
+			if(ClassifierHelper.isFeatureInverted(shape, fp)) {
+				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+			}
+		}				
 		
+    	int width = 25;
+    	final int height = 20;
+    	final int dataSymbolXPadding = 10;
+    	final int dataSymbolYPadding = 5;
+
+    	GraphicsAlgorithm dataGa = null;
+    	GraphicsAlgorithm eventGa = null;        	
+    	
+    	switch(direction) {
+    	// In Port
+    	case IN:
+    		if(hasData) {
+        		dataGa = gaService.createPlainPolygon(ga, new int[] {
+            			0, dataSymbolYPadding, 
+            			width-dataSymbolXPadding, height/2,
+            			0, height-dataSymbolYPadding});
+    		}
+    		
+    		if(hasEvent) {
+        		eventGa = gaService.createPlainPolyline(ga, new int[] {
+            			0, 0, 
+            			width, height/2,
+            			0, height});
+    		}
+    		break;
+    		
+   		// Out Port
+    	case OUT:
+    		if(hasData) {
+    			dataGa = gaService.createPlainPolygon(ga, new int[] {
+            			width, dataSymbolYPadding, 
+            			dataSymbolXPadding, height/2,
+            			width, height-dataSymbolYPadding});
+    		}
+    		
+    		if(hasEvent) {
+				eventGa = gaService.createPlainPolyline(ga, new int[] {
+        			width, 0, 
+        			0, height/2,
+        			width, height});
+    		}
+    		break;
+    		
+    	// In Out Port
+    	case IN_OUT:
+    		width *= 2;
+    		if(hasData) {
+        		dataGa = gaService.createPlainPolygon(ga, new int[] {
+            			width/2, dataSymbolYPadding, 
+            			width-dataSymbolXPadding, height/2,
+            			width/2, height-dataSymbolYPadding,
+            			dataSymbolXPadding, height/2});
+    		}
+    		
+    		if(hasEvent) {
+        		eventGa = gaService.createPlainPolyline(ga, new int[] {
+            			width/2, 0, 
+            			width, height/2,
+            			width/2, height,
+            			0, height/2,
+            			width/2, 0});
+    		}
+    		break;
+    	}
+    	
+    	if(dataGa != null) {
+    		dataGa.setStyle(style);
+    	}
+    	
+    	if(eventGa != null) {
+    		eventGa.setStyle(style);
+    	}
+    	
+        ga.setStyle(style);
+        gaService.setSize(ga,  width, height);
+        GraphicsAlgorithmUtil.shrink(ga);
+        
+        return ga;
+	}
+	
+	public static GraphicsAlgorithm createAbstractFeatureGraphicsAlgorithm(final Shape shape, final Diagram diagram, final IFeatureProvider fp, DirectionType direction) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Style style = StyleUtil.getFeatureStyle(diagram);
+		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
+    	gaService.setSize(ga,  25,  20);
+    	
+    	final GraphicsAlgorithm circleGa = gaService.createPlainEllipse(ga);
+    	circleGa.setStyle(style);
+    	gaService.setLocation(circleGa, 0, 5);
+        gaService.setSize(circleGa, 10, 10);
+
+        // Invert the direction as needed
+ 		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
+ 			if(ClassifierHelper.isFeatureInverted(shape, fp)) {
+ 				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+ 			}
+ 		}	
+ 			
+        // In Abstract Feature
+        if(direction == DirectionType.IN) {
+        	final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] {
+        			0, 0, 
+        			25, 10,
+        			0, 20});
+            directionGa.setStyle(style);            	
+        } else if(direction == DirectionType.OUT) { // Out Abstract Feature
+        	final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] {
+        			25, 0, 
+        			0, 10,
+        			25, 20});
+        	gaService.setLocation(circleGa, ga.getWidth()-circleGa.getWidth(), 5);
+            directionGa.setStyle(style);   	
+        }
+        GraphicsAlgorithmUtil.shrink(ga);
+        return ga;
+	}
+	
+	public static GraphicsAlgorithm createAccessGraphicsAlgorithm(final Shape shape, final Diagram diagram, final IFeatureProvider fp, final AccessCategory category, AccessType accessType) {
+		final IGaService gaService = Graphiti.getGaService();
+    	if(ClassifierHelper.isFeatureInverted(shape, fp)) {
+    		accessType = (accessType == AccessType.PROVIDES) ? AccessType.REQUIRES : AccessType.PROVIDES;
+    	}
+    	int width = 0;
+    	int height = 0;
+    	
+    	final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
+    	 
+    	if(category == AccessCategory.BUS || category == AccessCategory.DATA) {
+    		final Style style = StyleUtil.getFeatureStyle(diagram);
+    		width = 20;
+    		height = 20;        		
+    		final int slopeWidth = 5;
+    		
+    		if(accessType == AccessType.PROVIDES) {
+    			final GraphicsAlgorithm symbolGa = gaService.createPlainPolyline(ga, new int[] {
+            			width, 0, 
+            			slopeWidth, 0,
+            			0, height/2,
+            			slopeWidth, height,
+            			width, height,
+            			width, 0});
+        		symbolGa.setStyle(style); 
+    		} else if(accessType == AccessType.REQUIRES) {
+    			final GraphicsAlgorithm symbolGa = gaService.createPlainPolyline(ga, new int[] {
+            			0, 0, 
+            			width-slopeWidth, 0,
+            			width, height/2,
+            			width-slopeWidth, height,
+            			0, height,
+            			0, 0});
+        		symbolGa.setStyle(style); 
+    		}        		
+    		GraphicsAlgorithmUtil.shrink(ga);
+    	} else if(category == AccessCategory.SUBPROGRAM || category == AccessCategory.SUBPROGRAM_GROUP) {
+    		final Style style = category == AccessCategory.SUBPROGRAM ? StyleUtil.getSubprogramAccessStyle(diagram) : StyleUtil.getSubprogramGroupAccessStyle(diagram);
+    		width = 35;
+    		height = 20;
+    		final int vPadding = 5;
+    		
+    		final GraphicsAlgorithm symbolGa = gaService.createPlainEllipse(ga);
+    		gaService.setSize(symbolGa, width, height);
+    		symbolGa.setStyle(style); 
+    		
+    		final int arrowWidth = 10;
+    		final int left = width/2 - arrowWidth/2;
+    		final int right = width/2 + arrowWidth/2;
+    		if(accessType == AccessType.PROVIDES) {
+    			final GraphicsAlgorithm arrowGa = gaService.createPlainPolyline(ga, new int[] {
+            			left, vPadding, 
+            			right, height/2,
+            			left, height-vPadding});
+        		arrowGa.setStyle(style);
+    		} else if(accessType == AccessType.REQUIRES) {
+    			final GraphicsAlgorithm arrowGa = gaService.createPlainPolyline(ga, new int[] {
+    					right, vPadding, 
+    					left, height/2,
+    					right, height-vPadding});
+        		arrowGa.setStyle(style);
+    		}
+    	}
+    	
+    	gaService.setSize(ga,  width, height);
+    	GraphicsAlgorithmUtil.shrink(ga);
 		return ga;
 	}
 	

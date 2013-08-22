@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
@@ -17,17 +18,33 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeaturePrototypeActual;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.PortCategory;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
@@ -194,6 +211,29 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		createGaAndInnerShapes(shape, bo, x, y, 0);
 	}
 
+	// CLEAN-UP: Move to another class?
+	/**
+	 * Returns the classifier obtained directly from a shape or indirectly from a subcomponent that contains the specified shape. May return null. For example when a subcomponent
+	 * does not specify a classifier
+	 * @param shape
+	 * @param fp
+	 * @return
+	 */
+	private static Classifier getContainingClassifier(final Shape shape, final IFeatureProvider fp) {
+		ContainerShape temp = shape.getContainer();
+		while(temp != null) {
+			Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(temp));
+			if(bo instanceof ComponentClassifier || bo instanceof FeatureGroupType) {
+				return (Classifier)bo;
+			} else if(bo instanceof Subcomponent) {
+				// TODO: Handle prototype bindings...
+				return ((Subcomponent) bo).getClassifier();
+			}	
+
+			temp = temp.getContainer();
+		}
+		return null;
+	}
 	/**
 	 * Version of createGaAndInnerShapes that limits recursion
 	 * @param shape
@@ -298,8 +338,37 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		} else {
 			featureShape.getChildren().clear();
 			
-			// Create symbol
-			GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature, getFeatureProvider());
+			// Flag to indicate whether a graphics algorithm has been created by the prototype handling code
+			boolean featureGaCreated = false;
+			
+			// Check to see if it is a prototype feature
+			if(feature instanceof AbstractFeature) {
+				final AbstractFeature af = (AbstractFeature)feature;
+				if(af.getFeaturePrototype() != null) {
+					// Lookup the binding
+					// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
+					final Classifier classifier = getContainingClassifier(shape, getFeatureProvider());
+					if(classifier != null) {
+						final PrototypeBinding binding = resolveFeaturePrototype(af.getFeaturePrototype(), classifier);
+						if(binding instanceof FeaturePrototypeBinding) {
+							FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
+							if(actual instanceof PortSpecification) {
+								GraphicsAlgorithmCreator.createPortGraphicsAlgorithm(featureShape, getDiagram(), getFeatureProvider(), ((PortSpecification) actual).getCategory(), ((PortSpecification) actual).getDirection());
+								featureGaCreated = true;
+							} else if(actual instanceof AccessSpecification) {
+								GraphicsAlgorithmCreator.createAccessGraphicsAlgorithm(featureShape, getDiagram(), getFeatureProvider(), ((AccessSpecification) actual).getCategory(), ((AccessSpecification) actual).getKind());
+								featureGaCreated = true;
+							}
+						}
+					}
+				}
+			}
+			
+			// Create the symbol based on the feature itself if one has not been created already
+			if(!featureGaCreated) {
+				// Create symbol
+				GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature, getFeatureProvider());		
+			}
 		}
 		
 		// Position the feature shape
@@ -310,6 +379,28 @@ public class FeaturePattern extends AgeLeafShapePattern {
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
 
         layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
+	}
+	
+	// TODO: Use OSATE2 version if/when accepted
+	/**
+	 * Find the binding for a given feature prototype. Recursively resolves references.
+	 * @param proto the prototype to resolve
+	 * @param context the context in which the prototype is used, e.g., a ComponentType,  FeatureGroupType
+	 * @return the actual feature this prototype resolves to.
+	 */
+	private static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
+		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)ResolvePrototypeUtil.resolvePrototype(proto, context);
+		if(fpb == null) {
+			// cannot resolve
+			return null;
+		}
+		
+		final FeaturePrototypeActual actual = fpb.getActual();
+		if(actual instanceof FeaturePrototypeReference) {
+			return resolveFeaturePrototype(((FeaturePrototypeReference) actual).getPrototype(), context);
+		}			
+		
+		return fpb;
 	}
 
 	@Override

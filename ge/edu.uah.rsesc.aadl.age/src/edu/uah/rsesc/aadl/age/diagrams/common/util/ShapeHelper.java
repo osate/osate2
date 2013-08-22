@@ -18,28 +18,16 @@ public class ShapeHelper {
 	 * @return
 	 */
 	public static ContainerShape getChildShapeByElement(final ContainerShape shape, final NamedElement el, final IFeatureProvider fp) {
-		if(el != null && el.getName() != null) {
-			return getChildShapeByElementName(shape, el.getName(), fp);
-		}
-		
-		return null;
-	}
-	
-	public static ContainerShape getChildShapeByElementName(final ContainerShape shape, final String elementName, final IFeatureProvider fp) {
-		if(elementName == null) {
-			return null;
-		}
-		
 		for(final Shape c : shape.getChildren()) {
 			Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(c));
-			if(bo instanceof NamedElement && elementName.equalsIgnoreCase(((NamedElement)bo).getName())) {
+
+			if(bo instanceof NamedElement && ElementHelper.areNamesEqual((NamedElement)bo, el)) {
 				return (ContainerShape)c;
 			}
 		}
 		
 		return null;
-	}
-	
+	}	
 	
 	/**
 	 * Gets a descendant shape that is linked to a particular AADL element. Does not look at children if the child shape is associated with another object.

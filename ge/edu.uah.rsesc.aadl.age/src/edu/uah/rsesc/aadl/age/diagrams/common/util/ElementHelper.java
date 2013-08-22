@@ -18,4 +18,11 @@ public class ElementHelper {
 		
 		return false;
 	}
+	
+	public static boolean areNamesEqual(final NamedElement e1, final NamedElement e2) {
+		if(e1 == null || e1.getFullName() == null || e2 == null || e2.getFullName() == null)
+			return false;
+		
+		return e1.getFullName().equalsIgnoreCase(e2.getFullName());
+	}
 }
