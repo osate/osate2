@@ -56,7 +56,6 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Class[] getAdapterList() {
-		// TODO: Renable when patch is merged
-		return new Class[] { };//IAadlPropertySource.class };
+		return new Class[] { IAadlPropertySource.class };
 	}
 }

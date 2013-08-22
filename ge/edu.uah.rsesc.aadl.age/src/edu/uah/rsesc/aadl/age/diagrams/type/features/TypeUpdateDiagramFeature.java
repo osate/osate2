@@ -50,8 +50,7 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 	public boolean update(final IUpdateContext context) {
 		Log.info("called with context: " + context);
 		final Classifier classifier = getClassifier(context);
-		final Diagram diagram = getDiagram();	
-		// How to snap?		
+		final Diagram diagram = getDiagram();		
 		
 		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
 		diagram.getStyles().clear();	

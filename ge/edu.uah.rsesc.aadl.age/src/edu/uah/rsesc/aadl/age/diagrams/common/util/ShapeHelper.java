@@ -4,19 +4,42 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 
 public class ShapeHelper {
-	public static ContainerShape getChildShapeByElement(final ContainerShape shape, final Element el, final IFeatureProvider fp) {
+	/**
+	 * Gets a child shape tied to a particular element. Delegates to comparison by element name because there are scenarios where names can be duplicated. For example
+	 * an invalid model during copy and paste operations.
+	 * @param shape
+	 * @param el
+	 * @param fp
+	 * @return
+	 */
+	public static ContainerShape getChildShapeByElement(final ContainerShape shape, final NamedElement el, final IFeatureProvider fp) {
+		if(el != null && el.getName() != null) {
+			return getChildShapeByElementName(shape, el.getName(), fp);
+		}
+		
+		return null;
+	}
+	
+	public static ContainerShape getChildShapeByElementName(final ContainerShape shape, final String elementName, final IFeatureProvider fp) {
+		if(elementName == null) {
+			return null;
+		}
+		
 		for(final Shape c : shape.getChildren()) {
-			if(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(c)) == el) {
+			Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(c));
+			if(bo instanceof NamedElement && elementName.equalsIgnoreCase(((NamedElement)bo).getName())) {
 				return (ContainerShape)c;
 			}
 		}
 		
 		return null;
 	}
+	
 	
 	/**
 	 * Gets a descendant shape that is linked to a particular AADL element. Does not look at children if the child shape is associated with another object.

@@ -1,8 +1,5 @@
 package edu.uah.rsesc.aadl.age.ui.editor;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
@@ -11,11 +8,8 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.part.EditorPart;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
@@ -164,20 +158,22 @@ public class ModeContributionItem extends ComboContributionItem {
 	@Override
 	protected void onSelection(final String txt) {
 		final ComponentClassifier cc = getComponentClassifier();
-		if(cc != null) {		
-			// Set the selected mode property on the diagram
-			editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
-				@Override
-				protected void doExecute() {
-					PropertyUtil.setSelectedMode(editor.getDiagramTypeProvider().getDiagram(), txt);
-				}				
-			});
-		
-			// Update the diagram
-			final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
-			final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
-			if(feature != null && feature.canUpdate(ctx)) {
-				editor.getDiagramBehavior().executeFeature(feature, ctx);
+		if(cc != null) {	
+			if(!txt.equalsIgnoreCase(PropertyUtil.getSelectedMode(editor.getDiagramTypeProvider().getDiagram()))) {
+				// Set the selected mode property on the diagram
+				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
+					@Override
+					protected void doExecute() {
+						PropertyUtil.setSelectedMode(editor.getDiagramTypeProvider().getDiagram(), txt);
+					}				
+				});
+			
+				// Update the diagram
+				final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
+				final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);
+				if(feature != null && feature.canUpdate(ctx)) {
+					editor.getDiagramBehavior().executeFeature(feature, ctx);
+				}
 			}
 		}
 	}

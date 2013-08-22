@@ -18,13 +18,13 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.util.Aadl2Util;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -38,11 +38,11 @@ public class ClassifierHelper {
 		createUpdateShapesForElements(shape, modes, fp, 80, false, 25, 0, true, 5);
 	}
 	
-	public static void createUpdateShapesForElements(final ContainerShape shape, final List<? extends Element> elements, final IFeatureProvider fp, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {
+	public static void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final IFeatureProvider fp, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {
 		// TODO: Could find an X and Y that doens't overlap existing one. Or wait until layout algorithm is implemented.
 		int childX = startX;
 		int childY = startY;
-		for(final Element element : elements) {
+		for(final NamedElement element : elements) {
 			final PictogramElement pictogramElement = ShapeHelper.getChildShapeByElement(shape, element, fp);
 			if(pictogramElement == null) {
 				final AddContext addContext = new AddContext();

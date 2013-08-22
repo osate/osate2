@@ -1,7 +1,5 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
-import java.util.List;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
@@ -20,23 +18,18 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.util.ColorConstant;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.Mode;
 import org.osate.aadl2.PortConnection;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ElementHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ModalElementHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 
 public class ConnectionPattern extends AgeConnectionPattern {

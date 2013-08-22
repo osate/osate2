@@ -42,7 +42,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 								// Update the entire diagram
 								getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
 								
-								
 								// Update the toolbars
 								if(getDiagramContainer() instanceof EditorPart) {
 									//System.out.println("UPDATING?");
