@@ -117,7 +117,7 @@ public class ClassifierHelper {
 	}
 	
 	public static void createUpdateFlowSpecifications(final ContainerShape shape, final ComponentType componentType, final IFeatureProvider fp) {
-		for(final FlowSpecification fs : componentType.getAllFlowSpecifications()) {				
+		for(final FlowSpecification fs : componentType.getAllFlowSpecifications()) {
 			// Only show flow specifications that re not in any modes	
 			final PictogramElement pictogramElement = ConnectionHelper.getForFlowSpecification(shape, fs, fp);
 			if(pictogramElement == null) {			

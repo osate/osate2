@@ -26,7 +26,7 @@ import org.osate.aadl2.TypeExtension;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	@Override

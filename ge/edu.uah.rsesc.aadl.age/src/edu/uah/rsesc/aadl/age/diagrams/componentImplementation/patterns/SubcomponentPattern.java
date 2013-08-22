@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
+import java.util.List;
+
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -16,18 +18,23 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.graphiti.util.ColorConstant;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ElementHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ModalElementHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 public class SubcomponentPattern extends AgePattern {
 	@Override
@@ -164,6 +171,9 @@ public class SubcomponentPattern extends AgePattern {
 		// Set the position of the text
 		gaService.setLocationAndSize(text, 0, 0, ga.getWidth(), 20);
 		
+		// Set color based on current mode
+		ModalElementHelper.setColorIfInSelectedMode(getDiagram(), sc, ga);		
+	
 		UpdateHelper.layoutChildren(shape, getFeatureProvider());
-	}	
+	}
 }

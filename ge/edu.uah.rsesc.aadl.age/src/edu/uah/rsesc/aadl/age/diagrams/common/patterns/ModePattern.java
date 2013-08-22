@@ -31,8 +31,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 public class ModePattern extends AgeLeafShapePattern {	
 	public static String innerModeShapeName = "inner_mode";

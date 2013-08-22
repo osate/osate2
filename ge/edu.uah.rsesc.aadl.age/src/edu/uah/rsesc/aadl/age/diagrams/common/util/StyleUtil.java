@@ -1,7 +1,9 @@
-package edu.uah.rsesc.aadl.age.util;
+package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.util.ColorConstant;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.ui.PlatformUI;
 
 import edu.uah.rsesc.aadl.age.styles.StyleProvider;
@@ -140,4 +142,8 @@ public class StyleUtil {
 	public static Style getInitialModeStyle(final Diagram diagram) {
 		return getStyle(diagram, "mode-initial");
     }
+	
+	public static IColorConstant getInSelectedModeColor() {
+		return ColorConstant.BLUE;
+	}
 }

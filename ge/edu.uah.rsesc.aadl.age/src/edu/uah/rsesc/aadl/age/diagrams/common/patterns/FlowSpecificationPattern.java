@@ -21,11 +21,13 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.FlowSpecification;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ModalElementHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 
 // TODO: Update styles, etc
 public class FlowSpecificationPattern extends AgeConnectionPattern {
@@ -48,7 +50,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());
  
-        createGraphicsAlgorithm(connection);
+        createGraphicsAlgorithm(connection, fs);
         createDecorators(connection, fs);
         
 		return connection;
@@ -98,6 +100,11 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 			}
 		}
 		
+		// Set color for the decorators
+		for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
+			ModalElementHelper.setColorIfInSelectedMode(getDiagram(), fs, cd.getGraphicsAlgorithm());
+		}
+		
 		// Create Label
 		final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
@@ -107,11 +114,12 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	    text.setValue(fs.getName());
 	}
 	
-	private void createGraphicsAlgorithm(final Connection connection) {
+	private void createGraphicsAlgorithm(final Connection connection, final FlowSpecification fs) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		final Style style = StyleUtil.getFlowSpecificationStyle(getDiagram());
 		polyline.setStyle(style);
+		ModalElementHelper.setColorIfInSelectedMode(getDiagram(), fs, polyline);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -165,7 +173,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 			connection.setStart(anchors[0]);
 			connection.setEnd(anchors[1]);
 			
-			createGraphicsAlgorithm(connection);
+			createGraphicsAlgorithm(connection, fs);
 			createDecorators(connection, fs);
 		}
 		

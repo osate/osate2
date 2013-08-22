@@ -39,11 +39,13 @@ public class ConnectionHelper {
 			return null;
 		}
 					
-		for(Connection c : fp.getDiagramTypeProvider().getDiagram().getConnections()) {
+		for(final Connection c : fp.getDiagramTypeProvider().getDiagram().getConnections()) {
 			// Check if the anchor's parent matches the flow specification's end shape
 			if((c.getStart() != null && c.getStart().getParent() == fsEndShape) || 
 					(c.getEnd() != null && c.getEnd().getParent() == fsEndShape)) {
-				return c;
+				if(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(c)) == fs) {
+					return c;
+				}
 			}
 		}
 		

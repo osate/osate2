@@ -5,8 +5,12 @@ import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.tb.ColorDecorator;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
+import org.eclipse.graphiti.tb.IColorDecorator;
+import org.eclipse.graphiti.tb.IDecorator;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.aadl2.Generalization;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
@@ -61,6 +65,24 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
             		}
 					return null;
             	}
+            	
+            	/*
+            	@Override
+				public IDecorator[] getDecorators(final PictogramElement pe) {
+            		// TODO: Report issue. Doesn't work with connection, background color issues..
+            		// TODO: Cleanup.
+            		// TODO: Issues: Possible to not change the background color?
+            		// TODO: Do they work on connections
+            		System.out.println(pe);
+            		// TODO: Only for modal, etc..
+            		final ColorDecorator cd = new ColorDecorator();
+            		cd.setForegroundColor(IColorConstant.BLUE);
+            		return new IDecorator[] { cd };
+            				
+            		
+            		//return super.getDecorators(pe);
+            	}
+            	*/
             }};
         }
         return toolBehaviorProviders;

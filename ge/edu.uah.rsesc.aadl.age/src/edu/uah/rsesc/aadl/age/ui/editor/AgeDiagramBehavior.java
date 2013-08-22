@@ -15,6 +15,7 @@ import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.AadlPackage;
@@ -40,6 +41,16 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 							public void run() {			
 								// Update the entire diagram
 								getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
+								
+								
+								// Update the toolbars
+								if(getDiagramContainer() instanceof EditorPart) {
+									//System.out.println("UPDATING?");
+									//((EditorPart)getDiagramContainer()).getEditorSite().getActionBars().getToolBarManager().markDirty();
+									//((EditorPart)getDiagramContainer()).getEditorSite().getActionBars().updateActionBars();
+									((EditorPart)getDiagramContainer()).getEditorSite().getActionBars().getToolBarManager().update(true);
+								}		
+								
 							}
 						});	
 					}

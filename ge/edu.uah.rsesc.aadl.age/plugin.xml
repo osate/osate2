@@ -83,7 +83,7 @@
 	  	   name="AADL Diagram Editor"
       	   class="edu.uah.rsesc.aadl.age.ui.editor.AgeDiagramEditor"
 		   extensions="aadl_diagram"
-           contributorClass="org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor"
+           contributorClass="edu.uah.rsesc.aadl.age.ui.editor.AgeDiagramEditorActionBarContributor"
            matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy"
            >
 		</editor>

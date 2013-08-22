@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IReason;
@@ -25,11 +27,14 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
+import org.eclipse.graphiti.ui.internal.services.IGefService;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
 	@Override
@@ -94,7 +99,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 			// Set the control point
 			cc.getControlPoints().clear();
 			final PrecisionPoint pp = StylesFactory.eINSTANCE.createPrecisionPoint();
-			pp.setX(0.0);
+			pp.setX(1.0);
 			pp.setY(y);
 			cc.getControlPoints().add(pp);
 		}
@@ -168,8 +173,66 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	// Assume freeform and no bendpoints
 	private static ILocation getConnectionMidpoint(final Connection connection, final double d) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();
+		
+		final IGefService gefService = GraphitiUiInternal.getGefService();
+		// Should be end point?
+		final Shape startShape = (Shape)connection.getStart().getParent();
+		final Shape endShape = (Shape)connection.getEnd().getParent();
+		final ILocation startShapeLocation = layoutService.getLocationRelativeToDiagram(startShape);
+		final ILocation endShapeLocation = layoutService.getLocationRelativeToDiagram(endShape);
+		
+		final GraphicsAlgorithm startShapeGa = startShape.getGraphicsAlgorithm();
+		final GraphicsAlgorithm endShapeGa = endShape.getGraphicsAlgorithm();
+		
+		final Rectangle startShapeRect = new Rectangle(startShapeLocation.getX(), startShapeLocation.getY(), startShapeGa.getWidth(), startShapeGa.getHeight());
+		final Rectangle endShapeRect = new Rectangle(endShapeLocation.getX(), endShapeLocation.getY(), endShapeGa.getWidth(), endShapeGa.getHeight());
+		
+		// TODO: Look for layout helpers
+		if(connection instanceof CurvedConnection) {			
+			final Point startPoint = gefService.getChopboxLocationOnBox(new Point(endShapeLocation.getX(), endShapeLocation.getY()), startShapeRect);
+			final Point endPoint = gefService.getChopboxLocationOnBox(new Point(startShapeLocation.getX(), startShapeLocation.getY()), endShapeRect);
+			
+			// Code example: y is handled differently than x....
+			final Point endPointRel = new Point(endPoint.x-startPoint.x, endPoint.y-startPoint.y);			
+			
+			final CurvedConnection cc = (CurvedConnection)connection;
+			
+			// Calculate the transformed control point
+			// Algorithm copied from org.eclipse.graphiti.ui.internal.parts.CurvedConnectionEditPart.BezierRouter to duplicate control point transformation
+			double gradient = endPointRel.preciseY() / -endPointRel.preciseX();
+			double ortho_gradient = -Math.pow(gradient, -1);
+			double orthovector_x = 1;
+			double orthovector_y = ortho_gradient;
+			double factor_to_length = 1 / Math.sqrt((Math.pow(orthovector_y, 2) + Math.pow(orthovector_x, 2)));
+			final PrecisionPoint cp = cc.getControlPoints().get(0);			
+			double orthovector_x_cp = factor_to_length * orthovector_x * cp.getY();
+			double orthovector_y_cp = factor_to_length * orthovector_y * cp.getY();
+			if (Double.isNaN(orthovector_x_cp)) {
+				orthovector_x_cp = 0;
+			}
+			if (Double.isNaN(orthovector_y_cp)) {
+				orthovector_y_cp = 1 * cp.getY();
+			}
+
+			final double cpX = startPoint.x + (endPointRel.preciseX() * cp.getX() - orthovector_x_cp);
+			final double cpY = startPoint.y + ((endPointRel.preciseY() * cp.getX()) + orthovector_y_cp);
+			
+			// Calculate the midpoint
+			final double ax = (startPoint.x + cpX) / 2;
+			final double ay = (startPoint.y + cpY) / 2;
+			final double bx = (cpX + endPoint.x) / 2;
+			final double by = (cpY + endPoint.y) / 2;
+			final double mx = (ax + bx)/2;
+			final double my = (ay + by)/2;		      
+			final int x = (int)mx;
+			final int y = (int)my;
+						
+			return new LocationImpl(x, y);			
+		}
+		
 		final ILocation startLoc = layoutService.getLocationRelativeToDiagram(connection.getStart());
 		final ILocation endLoc = layoutService.getLocationRelativeToDiagram(connection.getEnd());
+		
 		// TODO: Replace with something that works in all cases. The layout service works for freestyle but has an offset(of 25) for some reason
 		// Need a method that will work with CurvedConnections
 		return new LocationImpl((int)(startLoc.getX() + (endLoc.getX() - startLoc.getX()) * d), (int)(startLoc.getY() + (endLoc.getY() - startLoc.getY()) * d));

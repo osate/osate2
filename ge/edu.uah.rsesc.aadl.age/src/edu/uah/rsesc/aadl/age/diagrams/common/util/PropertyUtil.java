@@ -1,5 +1,6 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 
@@ -8,6 +9,7 @@ public class PropertyUtil {
 	private static final String NAME_KEY = "name";
 	private static final String SIDE_KEY = "side"; // Which side the shape is on
 	private static final String LAYOUT_SIDE_KEY = "layout_side"; // Which side the shape is layed out as
+	private static final String SELECTED_MODE_KEY = "selected_mode"; // The name of the mode the user has selected in the UI
 	
 	public static final String getTypeName(final PictogramElement pe) {
 		return Graphiti.getPeService().getPropertyValue(pe, TYPE_NAME_KEY);
@@ -43,4 +45,12 @@ public class PropertyUtil {
 		Graphiti.getPeService().setPropertyValue(pe, LAYOUT_SIDE_KEY, value ? "left" : "right");
 	}
 	
+	public static final String getSelectedMode(final Diagram diagram) {
+		final String modeName = Graphiti.getPeService().getPropertyValue(diagram, SELECTED_MODE_KEY);
+		return (modeName == null) ? "" : modeName;
+	}
+	
+	public static final void setSelectedMode(final Diagram diagram, final String modeName) {
+		Graphiti.getPeService().setPropertyValue(diagram, SELECTED_MODE_KEY, modeName);
+	}
 }

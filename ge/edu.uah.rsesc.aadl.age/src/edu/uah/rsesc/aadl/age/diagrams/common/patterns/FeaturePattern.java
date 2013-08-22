@@ -23,6 +23,9 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.Subcomponent;
@@ -104,10 +107,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		final boolean isLeft = calculateIsLeft(shape.getContainer(), ga.getX() + (ga.getWidth() / 2));
 		PropertyUtil.setIsLeft(shape, isLeft);
-		
-		// TODO: Update children...... That may be the problem
-		
-		// TODO: Mirror
 		
 		layoutAll(shape);
 		updateAnchors(shape);
@@ -323,16 +322,26 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final boolean isLeft = isLeft(shape);
 		
 		final int featureWidth = feature instanceof FeatureGroup ? featureGroupSymbolWidth : featureGa.getWidth();
-		final int innerConnectorX = featureGa.getX() + (isLeft ? featureWidth : featureGa.getWidth() - featureWidth);
-		final int outerConnectorX = featureGa.getX() + (isLeft ? 0 : featureWidth);
+		final int innerX = featureGa.getX() + (isLeft ? featureWidth : featureGa.getWidth() - featureWidth);
+		final int outerX = featureGa.getX() + (isLeft ? 0 : featureWidth);
 		final int connectorY = feature instanceof FeatureGroup ? featureGa.getHeight() - 5 : featureGa.getY() + (featureGa.getHeight() / 2);
 		final int offset = isLeft ? 50 : -50;
 
-		// Create anchors
-		// Connector
-		AnchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, innerConnectorX, connectorY);
-		AnchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, outerConnectorX, connectorY);
-		AnchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerConnectorX + offset, connectorY);
+		// Create anchors		
+		// Special cases for event out features
+		if(feature instanceof EventPort && ((EventPort)feature).getDirection() == DirectionType.OUT) {
+			AnchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, outerX, connectorY);
+		} else {
+			AnchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, innerX, connectorY);
+		}
+		
+		if(feature instanceof EventPort && ((EventPort)feature).getDirection() == DirectionType.IN) {
+			AnchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, innerX, connectorY);
+		} else {
+			AnchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, outerX, connectorY);
+		}		
+		
+		AnchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerX + offset, connectorY);
 		
 		// Update the anchors of the children
 		for(final Shape child : getFeatureShape(shape).getChildren()) {

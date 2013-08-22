@@ -217,7 +217,7 @@ public class AnchorUtil {
 			throw new RuntimeException("Unhandled case. Unsupported flow kind: " + fs.getKind());
 				
 		}
-		
+
 		if(a1 == null || a2 == null) {
 			return null;
 		}

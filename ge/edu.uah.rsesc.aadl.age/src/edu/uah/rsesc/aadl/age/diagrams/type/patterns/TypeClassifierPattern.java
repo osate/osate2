@@ -14,12 +14,13 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
-import edu.uah.rsesc.aadl.age.util.StyleUtil;
 
 /**
  * A pattern that controls the type shape that contains all the other shapes in the type diagram
