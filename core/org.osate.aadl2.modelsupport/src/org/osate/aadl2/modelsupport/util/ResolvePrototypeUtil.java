@@ -127,36 +127,26 @@ public class ResolvePrototypeUtil {
 	}
 
 	/**
-	 * Find the binding for a given feature prototype.
+	 * Find the binding for a given feature prototype. Recursively resolves references.
 	 * 
 	 * @param proto the prototype to resolve
-	 * @param context the context in which the prototype is used, e.g., a
-	 *            ComponentType,  FeatureGroupType
-	 * @return The actual feature this prototype resolves to.
+	 * @param context the context in which the prototype is used, e.g., a ComponentType, FeatureGroupType
+	 * @return the actual feature this prototype resolves to.
 	 */
-	public static Feature resolveFeaturePrototype(Prototype proto, Element context) {
-//		FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) resolvePrototype(proto, context);
-//
-//		if (fpb == null) {
-//			return null;
-//		}
-//		FeaturePrototypeActual actual = fpb.getActual();
-//		if (actual.getFeatureType() instanceof FeatureGroupType) {
-//			return (FeatureGroupType) actual.getFeatureType();
-//		} else {
-//			if (actual.getFeatureType() instanceof Prototype && context instanceof ContainmentPathElement){
-//			// resolve recursively if we are in a containment path
-//				return resolveFeatureGroupPrototype((Prototype)actual.getFeatureType(), getPrevious((ContainmentPathElement) context));
-//			}
-//		}
-		return null;
-//		if (result instanceof FeaturePrototypeReference) {
-////			// resolve recursively
-////			result = resolveFeaturePrototype(((FeaturePrototypeReference) fpb.getActual()).getPrototype(),
-////					context.getContainingComponentInstance(), classifierCache);
-//		}
-//		return result;
-	}
+	 private static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
+		 final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)ResolvePrototypeUtil.resolvePrototype(proto, context);
+		 if(fpb == null) {
+		 // cannot resolve
+		 return null;
+		 }
+		
+		 final FeaturePrototypeActual actual = fpb.getActual();
+		 if(actual instanceof FeaturePrototypeReference) {
+		 return resolveFeaturePrototype(((FeaturePrototypeReference) actual).getPrototype(), context);
+		 }
+		
+		 return fpb;
+		}
 
 	/**
 	 * Find the binding for a given prototype.
@@ -175,6 +165,10 @@ public class ResolvePrototypeUtil {
 		} else if (context instanceof Subcomponent) {
 			Subcomponent parentSub = (Subcomponent)context;
 			result = parentSub.lookupPrototypeBinding(proto);
+			if(result == null)
+			{
+				result = resolvePrototype(proto, parentSub.getAllClassifier());
+			}
 		} else if (context instanceof ContainmentPathElement){
 			result = resolvePrototypeInContainmentPath(proto, (ContainmentPathElement)context);
 		}
@@ -216,10 +210,6 @@ public class ResolvePrototypeUtil {
 			if (ne instanceof Subcomponent){
 				// look for prototype in prototype binding of subcomponent declaration
 				PrototypeBinding res = resolvePrototype(proto, ne);
-				if (res == null){
-					ComponentClassifier cl = ((Subcomponent)ne).getAllClassifier();
-					res = resolvePrototype(proto, cl);
-				}
 				return res;
 			} else if (ne instanceof FeatureGroup){
 				
