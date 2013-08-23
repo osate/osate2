@@ -24,6 +24,9 @@ public class ResizeHelper {
 			if(feature != null) {
 				if(feature.canUpdate(context)) {
 					feature.update(context);
+					
+					// Refresh the diagram visualization
+					fp.getDiagramTypeProvider().getDiagramBehavior().refresh();
 				}
 			}
 		}		

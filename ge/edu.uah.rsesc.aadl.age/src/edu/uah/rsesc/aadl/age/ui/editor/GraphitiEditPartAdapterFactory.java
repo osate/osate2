@@ -4,7 +4,9 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
 import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PackageSection;
 import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;

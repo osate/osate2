@@ -28,6 +28,7 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -78,7 +79,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	public boolean canMoveShape(final IMoveShapeContext ctx) {
 		if(ctx.getPictogramElement() instanceof Shape){
 			final Shape shape = (Shape)ctx.getPictogramElement();
-			// TODO: Add support for moving features within a feature group
 			final ContainerShape container = shape.getContainer();
 			final Object containerBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(container));
 			if(containerBo instanceof Classifier || containerBo instanceof Subcomponent) {
@@ -213,21 +213,21 @@ public class FeaturePattern extends AgeLeafShapePattern {
 
 	// CLEAN-UP: Move to another class?
 	/**
-	 * Returns the classifier obtained directly from a shape or indirectly from a subcomponent that contains the specified shape. May return null. For example when a subcomponent
-	 * does not specify a classifier
 	 * @param shape
 	 * @param fp
 	 * @return
 	 */
-	private static Classifier getContainingClassifier(final Shape shape, final IFeatureProvider fp) {
+	private static Element getBindingContext(final Shape shape, final IFeatureProvider fp) {
 		ContainerShape temp = shape.getContainer();
+		
+		// Todo: does this work in all cases.. I don't think so.. Consider nested feature groups, etc..
 		while(temp != null) {
 			Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(temp));
 			if(bo instanceof ComponentClassifier || bo instanceof FeatureGroupType) {
 				return (Classifier)bo;
 			} else if(bo instanceof Subcomponent) {
 				// TODO: Handle prototype bindings...
-				return ((Subcomponent) bo).getClassifier();
+				return (Subcomponent)bo;
 			}	
 
 			temp = temp.getContainer();
@@ -347,9 +347,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				if(af.getFeaturePrototype() != null) {
 					// Lookup the binding
 					// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-					final Classifier classifier = getContainingClassifier(shape, getFeatureProvider());
-					if(classifier != null) {
-						final PrototypeBinding binding = resolveFeaturePrototype(af.getFeaturePrototype(), classifier);
+					final Element bindingContext = getBindingContext(shape, getFeatureProvider());
+					if(bindingContext != null) {
+						final PrototypeBinding binding = resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 						if(binding instanceof FeaturePrototypeBinding) {
 							FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
 							if(actual instanceof PortSpecification) {
@@ -389,7 +389,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	 * @return the actual feature this prototype resolves to.
 	 */
 	private static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
-		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)ResolvePrototypeUtil.resolvePrototype(proto, context);
+		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)resolvePrototype(proto, context);//(FeaturePrototypeBinding)ResolvePrototypeUtil.resolvePrototype(proto, context);
 		if(fpb == null) {
 			// cannot resolve
 			return null;
@@ -403,6 +403,40 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		return fpb;
 	}
 
+	// TODO: Merge into OSATE2
+	public static PrototypeBinding resolvePrototype(Prototype proto, Element context) {
+		PrototypeBinding result = null;
+		if (context instanceof Classifier) {
+			Classifier impl = (Classifier) context;
+			result = impl.lookupPrototypeBinding(proto);
+		} else if (context instanceof Subcomponent) {
+			Subcomponent parentSub = (Subcomponent)context;
+			result = parentSub.lookupPrototypeBinding(proto);
+			if(result == null) {
+				result = resolvePrototype(proto, parentSub.getAllClassifier());
+			}
+		} else if (context instanceof ContainmentPathElement){
+			result = ResolvePrototypeUtil.resolvePrototypeInContainmentPath(proto, (ContainmentPathElement)context);
+		}
+//		// lookup in parent's classifier (nested prototype bindings)
+//		if (result == null && parent != null) {
+//			ResolvedClassifier parentClassifier = getInstantiatedClassifier(parent, 0, classifierCache);
+//
+//			if (parentClassifier.bindings != null) {
+//				for (PrototypeBinding binding : parentClassifier.bindings) {
+//					if (binding.getFormal() == proto) {
+//						result = binding;
+//						break;
+//					}
+//				}
+//			}
+//			if (result == null) {
+//				result = parentClassifier.classifier.lookupPrototypeBinding(proto);
+//			}
+//		}
+		return result;
+	}
+	
 	@Override
 	protected void updateAnchors(final ContainerShape shape) {
 		super.updateAnchors(shape);
