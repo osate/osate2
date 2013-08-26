@@ -53,6 +53,7 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.errormodel.analysis.Options;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -76,6 +77,10 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public final class FHAAction extends AaxlReadOnlyActionAsJob {
+	
+	public static final int REPORT_TYPE_ARP4761    = 1;
+	public static final int REPORT_TYPE_MILSTD882  = 2;
+	public static final int INVALID_VALUE          = 9999;
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
@@ -83,6 +88,104 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	protected String getActionName() {
 		return "FHA";
 	}
+	private static String getLikelihood (final int code)
+	{
+		if (Options.getFhaReportType() == REPORT_TYPE_ARP4761)
+		{
+			if (code == 1)
+			{
+				return "probable";
+			}
+			if (code == 2)
+			{
+				return "remote";
+			}
+			if (code == 3)
+			{
+				return "extremely remote";
+			}
+			if (code == 4)
+			{
+				return "extremelyimprobable";
+			}
+		}
+
+		if (Options.getFhaReportType() == REPORT_TYPE_MILSTD882)
+		{
+			if (code == 1)
+			{
+				return "frequent";
+			}
+			if (code == 2)
+			{
+				return "probable";
+			}
+			if (code == 3)
+			{
+				return "occasional";
+			}
+			if (code == 4)
+			{
+				return "remote";
+			}
+			if (code == 5)
+			{
+				return "improbable";
+			}
+		
+		}
+		return "unknown likelihood";
+	}
+	
+	private static String getSeverity (final int code)
+	{
+		if (Options.getFhaReportType() == REPORT_TYPE_ARP4761)
+		{
+			if (code == 1)
+			{
+				return "catastrophic";
+			}
+			if (code == 2)
+			{
+				return "hazardous";
+			}
+			if (code == 3)
+			{
+				return "major";
+			}
+			if (code == 4)
+			{
+				return "minor";
+			}
+			if (code == 5)
+			{
+				return "noeffect";
+			}
+		}
+
+		if (Options.getFhaReportType() == REPORT_TYPE_MILSTD882)
+		{
+			if (code == 1)
+			{
+				return "catastrophic";
+			}
+			if (code == 2)
+			{
+				return "critical";
+			}
+			if (code == 3)
+			{
+				return "marginal";
+			}
+			if (code == 4)
+			{
+				return "negligible";
+			}
+		
+		}
+		return "unknown severity";
+	}
+	
 
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
@@ -197,6 +300,49 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		}
 	}
 	
+	protected long getIntegerPropertyValue(ContainedNamedElement containmentPath)
+	{
+		long ret;
+		
+		if (containmentPath == null)
+		{
+			return INVALID_VALUE;
+		}
+		
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath).getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+			if (val instanceof IntegerLiteral){
+				// empty string to force integer conversion to string
+				ret = ((IntegerLiteral)val).getValue();
+				OsateDebug.osateDebug("return " + ret);
+				return ret;
+			}
+			
+			if (val instanceof NamedValue){
+				AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
+				if (eval instanceof EnumerationLiteral){
+					//OsateDebug.osateDebug ("expect integer " + ((EnumerationLiteral)eval).getName());
+
+				}else if (eval instanceof PropertyConstant)
+				{
+					PropertyConstant pc = (PropertyConstant)eval;
+					PropertyExpression pe = pc.getConstantValue();
+					if (pe instanceof IntegerLiteral){
+						// empty string to force integer conversion to string
+						ret = ((IntegerLiteral)pe).getValue();
+						//OsateDebug.osateDebug("return " + ret);
+						return ret;
+					}
+//					OsateDebug.osateDebug ("expect integer " + ((PropertyConstant)eval).getName());
+//
+//					OsateDebug.osateDebug ("bla " + );
+
+				}
+			}
+		}
+		
+		return INVALID_VALUE;
+	}
 	
 	protected String getEnumerationorIntegerPropertyValue(ContainedNamedElement containmentPath){
 		if (containmentPath == null){
@@ -235,9 +381,13 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				{
 					//OsateDebug.osateDebug ("pe=" + pe);
 					if (pe instanceof RecordValue){
-						PropertyExpression val = pe;
-						String Severity = getEnumerationorIntegerPropertyValue(SevContainmentPath);
-						String Likelihood = getEnumerationorIntegerPropertyValue(LikeContainmentPath);
+						PropertyExpression val 		= pe;
+						String SeverityString 		= null;
+						String LikelihoodString	 	= null;
+						int SeverityCode 			= (int) getIntegerPropertyValue(SevContainmentPath);
+						int LikelihoodCode	 		= (int) getIntegerPropertyValue(LikeContainmentPath);
+						SeverityString = getSeverity (SeverityCode);
+						LikelihoodString = getLikelihood (LikelihoodCode);
 						RecordValue rv = (RecordValue)val;
 						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
 						// for all error types/aliases in type set or the element identified in the containment clause 
@@ -245,7 +395,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 						if (targetType==null){
 							if (ts != null){
 								for(TypeToken token: ts.getTypeTokens()){
-									reportFHAEntry(report, fields, Severity, Likelihood, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
+									reportFHAEntry(report, fields, SeverityString, LikelihoodString, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
 								}
 							} else {
 								// did not have a type set. Let's use fmr (state of type set as failure mode.
@@ -260,14 +410,14 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 								}
 								if (localContext == null)
 								{
-									reportFHAEntry(report, fields, Severity, Likelihood,ci, targetName,"");
+									reportFHAEntry(report, fields, SeverityString, LikelihoodString,ci, targetName,"");
 								} else {
-									reportFHAEntry(report, fields, Severity, Likelihood,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
+									reportFHAEntry(report, fields, SeverityString, LikelihoodString,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
 								}
 							}
 						} else {
 							// property points to type
-							reportFHAEntry(report, fields,  Severity, Likelihood,ci,EMV2Util.getPrintName(target), EMV2Util.getPrintName(targetType));
+							reportFHAEntry(report, fields,  SeverityString, LikelihoodString,ci,EMV2Util.getPrintName(target), EMV2Util.getPrintName(targetType));
 						}
 					}		
 				}
@@ -289,6 +439,75 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			String Severity, String Likelihood, ComponentInstance ci,
 			String failureModeName,  String typetext){
 		String componentName = ci.getName();
+		String severityStr = Severity;
+		String likelihoodStr = Likelihood;
+		
+		BasicPropertyAssociation xref;
+		
+		xref = GetProperties.getRecordField(fields, "severity");
+		if (xref != null)
+		{
+			String text = null;
+			int code = 0;
+			
+			PropertyExpression val = xref.getOwnedValue();
+			if (val instanceof IntegerLiteral)
+			{
+				code = (int) ((IntegerLiteral)val).getValue();
+				
+			}
+			if (val instanceof NamedValue)
+			{
+				
+				AbstractNamedValue anv =  ((NamedValue)val).getNamedValue();
+				if (anv instanceof PropertyConstant)
+				{
+					PropertyConstant pc = (PropertyConstant)anv;
+					PropertyExpression pe = pc.getConstantValue();
+					if (pe instanceof IntegerLiteral){
+						// empty string to force integer conversion to string
+						code = (int) ((IntegerLiteral)pe).getValue();
+						//OsateDebug.osateDebug("return " + ret);
+					}
+
+				}
+			}
+			
+			severityStr = getSeverity(code);
+		}
+		
+		
+		xref = GetProperties.getRecordField(fields, "likelihood");
+		if (xref != null)
+		{
+			String text = null;
+			int code = 0;
+			
+			PropertyExpression val = xref.getOwnedValue();
+			if (val instanceof IntegerLiteral)
+			{
+				code = (int) ((IntegerLiteral)val).getValue();
+				
+			}
+			if (val instanceof NamedValue)
+			{
+				
+				AbstractNamedValue anv =  ((NamedValue)val).getNamedValue();
+				if (anv instanceof PropertyConstant)
+				{
+					PropertyConstant pc = (PropertyConstant)anv;
+					PropertyExpression pe = pc.getConstantValue();
+					if (pe instanceof IntegerLiteral){
+						// empty string to force integer conversion to string
+						code = (int) ((IntegerLiteral)pe).getValue();
+						//OsateDebug.osateDebug("return " + ret);
+					}
+
+				}
+			}
+			likelihoodStr = getLikelihood(code);
+
+		}
 		
 		/*
 		 * We include the parent component name if not null and if this is not the root system
@@ -321,11 +540,11 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		reportStringProperty(fields, "description", report);
 		// severity
 		addComma(report);
-		addString(report,Severity);
+		addString(report,severityStr);
 //		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report);
 		// criticality
 		addComma(report);
-		addString(report,Likelihood);
+		addString(report,likelihoodStr);
 //		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report);
 		// comment
 		addComma(report);
@@ -343,6 +562,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	protected void addString(WriteToFile report, String str){
 		report.addOutput(str);
 	}
+
+
 	
 	protected void reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
 		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);

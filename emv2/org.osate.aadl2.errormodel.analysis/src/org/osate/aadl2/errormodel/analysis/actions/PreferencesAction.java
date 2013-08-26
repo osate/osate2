@@ -53,7 +53,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.osate2.aadl2.errormodel.analysis.prism.Options;
+import org.osate.aadl2.errormodel.analysis.Options;
 import org.osate2.aadl2.errormodel.analysis.prism.Util;
 import org.osgi.framework.Bundle;
 
@@ -62,8 +62,9 @@ import org.osgi.framework.Bundle;
 class PreferencesDialog extends TitleAreaDialog {
 
 	  private Combo modelTypeCombo;
-	  private final static String [] modelType = {"dtmc", "ctmc"};
-	  
+	  private Combo fhaReportCombo;
+	  private final static String [] modelType     = {"dtmc", "ctmc"};
+	  private final static String [] fhaReportType = {"ARP4761", "MILSTD881"};
 
 	  public PreferencesDialog(Shell parentShell) {
 	    super(parentShell);
@@ -73,8 +74,8 @@ class PreferencesDialog extends TitleAreaDialog {
 	  
 	  public void create() {
 	    super.create();
-	    setTitle ("PRISM export preferences");
-	    setMessage ("Set preferences for exporting AADL model to PRISM", IMessageProvider.NONE);
+	    setTitle ("Fault Analysis preferences");
+	    setMessage ("Set preferences for the Fault-Analysis tools", IMessageProvider.NONE);
 
 	  }
 
@@ -91,16 +92,20 @@ class PreferencesDialog extends TitleAreaDialog {
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label1 = new Label(parent, SWT.NONE);
-	    label1.setText("Model Type");
+	    label1.setText("PRISM Model Type");
 
 	    modelTypeCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
-
-	    
 	    modelTypeCombo.setItems (modelType);
 	    modelTypeCombo.setText(Util.getStringFromModelType (Options.getModelType()));
 	    
-
-	    return parent;
+	    Label label2 = new Label(parent, SWT.NONE);
+	    label2.setText("FHA Report Type");
+	    
+	    fhaReportCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
+	    fhaReportCombo.setItems (fhaReportType);
+	    fhaReportCombo.setText(Options.getStringFromFhaReportType (Options.getFhaReportType()));
+	    
+	    return parent; 
 	  }
 
 	
@@ -170,7 +175,14 @@ class PreferencesDialog extends TitleAreaDialog {
 				  Options.setModelType(Util.getModelTypeFromString(modelTypeCombo.getText().toLowerCase()));
 			  }
 		  }
-
+		  
+		  for (int i = 0 ; i < fhaReportType.length ; i++)
+		  {
+			  if (fhaReportType[i].equals(fhaReportCombo.getText()))
+			  {
+				  Options.setFhaReportType(Options.getFhaReportTypeFromString(fhaReportCombo.getText().toLowerCase()));
+			  }
+		  }
 	  }
 
 	  protected void okPressed() 
@@ -182,7 +194,7 @@ class PreferencesDialog extends TitleAreaDialog {
 	} 
 
 
-public final class PRISMPreferencesAction implements IWorkbenchWindowActionDelegate  
+public final class PreferencesAction implements IWorkbenchWindowActionDelegate  
 {
 	
 	IWorkbenchWindow activeWindow = null;

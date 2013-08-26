@@ -123,7 +123,7 @@
                label="%PRISMPreferences.label"
                tooltip="%PRISMPreferences.toolTip"
                icon="%PRISMPreferences.icon"
-               class="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferencesAction"
+               class="org.osate.aadl2.errormodel.analysis.actions.PreferencesAction"
                menubarPath="menu.analyses/menu.fault/stuff.grp"
                toolbarPath="fault.toolbar"
                enablesFor="1">
@@ -291,7 +291,7 @@
                label="%PRISMPreferences.label"
                tooltip="%PRISMPreferences.toolTip"
                icon="%PRISMPreferences.icon"
-               class="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferencesAction"
+               class="org.osate.aadl2.errormodel.analysis.actions.PreferencesAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>               
          <action
