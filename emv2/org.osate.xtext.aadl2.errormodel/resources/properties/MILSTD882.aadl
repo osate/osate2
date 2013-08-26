@@ -4,7 +4,17 @@
 property set MILSTD882
   is
 
-Severity : inherit enumeration (Catastrophic, Critical, Marginal, Negligible) applies to (all);
-Likelihood : inherit enumeration (Frequent, Probable, Occasional, Remote, Improbable) applies to (all);
+Catastrophic   : constant aadlinteger => 1;
+Critical       : constant aadlinteger => 2;
+Marginal       : constant aadlinteger => 3;
+Negligible     : constant aadlinteger => 4;
+
+Frequent    : constant aadlinteger => 1;
+Probable    : constant aadlinteger => 2;
+Occasional  : constant aadlinteger => 3;
+Remote      : constant aadlinteger => 4;
+Improbable  : constant aadlinteger => 5;
+
+
 
 end MILSTD882;

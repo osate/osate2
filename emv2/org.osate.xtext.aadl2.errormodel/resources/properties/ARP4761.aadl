@@ -4,7 +4,17 @@
 property set ARP4761
   is
   
-Severity : inherit enumeration (Catastrophic, Hazardous, Major, Minor, NoEffect) applies to (all);
-Likelihood : inherit enumeration (Probable, Remote, ExtremelyRemote, ExtremelyImprobable) applies to (all);
+
+Catastrophic   : constant aadlinteger => 1;
+Hazardous      : constant aadlinteger => 2;
+Major          : constant aadlinteger => 3;
+Minor          : constant aadlinteger => 4;
+NoEffect       : constant aadlinteger => 5;
+
+Probable            : constant aadlinteger => 1;
+Remote              : constant aadlinteger => 2;
+ExtremelyRemote     : constant aadlinteger => 3;
+ExtremelyImprobable : constant aadlinteger => 4;
+
 
 end ARP4761;

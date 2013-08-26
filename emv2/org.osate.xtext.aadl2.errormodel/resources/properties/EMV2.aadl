@@ -79,24 +79,22 @@ PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 Severity : inherit aadlinteger applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
--- A likelihood property value indicates the likelihood with which the hazard occurs. 
--- Likelihood is expressed in terms of levels ranging from A (high) to E (low). 
--- Each level typically has an associated probability of occurrence (p) threshold. 
--- MIL-STD 882D suggests likelihood levels (Frequent: p>10e-1, Probable: 10e-1 > p > 10e-2, Occasional: 10e-2 > p > 10e-3, Remote: 10e-3 > p > 10e-6, Improbable: p < 10e-6) for probability of occurrence over the life of an item. 
--- In the context of ARP 4761 or DO178 defines descriptive labels (Probable: p > 10e-5, Remote: 10e-5 > p > 10e-7, ExtremelyRemote: 10e-7 < p > 10e-9, ExtremelyImprobable: p < 10e-9) for probability of occurrence per operational hour.
-Likelihood : inherit enumeration (A, B, C, D, E) applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
+Likelihood : inherit aadlinteger applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
 Hazards: list of record
-  (crossreference: aadlstring;
-  	failure : aadlstring;
-  	phases : list of aadlstring;
-  	environment : aadlstring;
-  	description : aadlstring;
-  	verificationmethod : aadlstring;
-  	risk : aadlstring;
-  	comment : aadlstring;) applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
-	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
+  (crossreference     : aadlstring;
+   failure            : aadlstring;
+   phases             : list of aadlstring;
+   environment        : aadlstring;
+   description        : aadlstring;
+   verificationmethod : aadlstring;
+   risk               : aadlstring;
+   severity           : aadlinteger;
+   likelihood         : aadlinteger;
+   comment            : aadlstring;)
+     applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
+                 {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
 Description : aadlstring applies to (all); 
 
