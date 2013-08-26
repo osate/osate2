@@ -25,7 +25,8 @@ public class Options
 	}
 	
 	public static void setFhaReportType (int t)
-	{OsateDebug.osateDebug("set report type to " + t);
+	{
+		//OsateDebug.osateDebug("set report type to " + t);
 		fhaReportType = t;
 	}
 	
@@ -36,7 +37,7 @@ public class Options
 	
 	public static void setModelType (ModelType mt)
 	{
-		OsateDebug.osateDebug("[Options] setModelType, argument=" + mt);
+		//OsateDebug.osateDebug("[Options] setModelType, argument=" + mt);
 		modelType = mt;
 	}
 	
@@ -44,12 +45,12 @@ public class Options
 	{
 		if (s.equals("arp4761"))
 		{
-			OsateDebug.osateDebug("choose arp4761");
+			//OsateDebug.osateDebug("choose arp4761");
 			return FHAAction.REPORT_TYPE_ARP4761;
 		}
 		if (s.equals("milstd881"))
 		{
-			OsateDebug.osateDebug("choose mil");
+			//OsateDebug.osateDebug("choose mil");
 
 			return  FHAAction.REPORT_TYPE_MILSTD882;
 		}

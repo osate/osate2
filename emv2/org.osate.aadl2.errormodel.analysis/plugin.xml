@@ -120,9 +120,9 @@
          </action>      
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.PRISMPreferences.action"
-               label="%PRISMPreferences.label"
-               tooltip="%PRISMPreferences.toolTip"
-               icon="%PRISMPreferences.icon"
+               label="%Preferences.label"
+               tooltip="%Preferences.toolTip"
+               icon="%Preferences.icon"
                class="org.osate.aadl2.errormodel.analysis.actions.PreferencesAction"
                menubarPath="menu.analyses/menu.fault/stuff.grp"
                toolbarPath="fault.toolbar"
