@@ -76,6 +76,7 @@ import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.Activator;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -1210,6 +1211,12 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public boolean isInverseOf(FeatureGroupType pgt) {
+		if (pgt == null)
+		{
+			OsateDebug.osateDebug("[FeatureGroupTypeImpl] isInverseOf, warning, null pgt arg");
+			return false;
+		}
+
 		FeatureGroupType srct = this;
 		FeatureGroupType dstt = pgt;
 		final FeatureGroupType srcInv = srct.getInverse();
