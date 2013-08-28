@@ -87,7 +87,7 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 			ErrorUtil.generateAnalysisModel (((ComponentInstance)selectedAdapter.getModelElement()).getSystemInstance());
 			useError = true;
 		}
-		updateDiagram();
+		redrawDiagram();
  	}
 	
 	public void hideErrors()
@@ -95,7 +95,7 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 		System.out.println ("hideerror=" );
 
 		useError = false;
-		updateDiagram();
+		redrawDiagram();
  	}
 	
 	public static boolean useError ()
@@ -130,16 +130,16 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
  	}
 	
 	public void updateDiagram(){
-		// setinput of Persistent
-		// leaves psoition in place but does not do a update of the coloring
-//		this.setInput(this.getInput());
 		// calls setinput in aadldiagramviewer
 		// force refresh forces recreation of diagram
 		Boolean tmprefresh = forceRefresh;
 		forceRefresh = true;
 		refresh();
 		forceRefresh = tmprefresh;
+//		// XXX TODO PHF
+//		runFilters();
 	}
+	
 
 
 	public void restore(AadlComponentAdapter adapter) {

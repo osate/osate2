@@ -185,6 +185,11 @@ public class AadlDiagramViewer extends Viewer implements IAadlElementAdapterList
 			this.aadlDiagram.getScalableFigureLayeredPane().repaint();
 		}
 	}
+	
+	public void redrawDiagram(){
+		this.aadlDiagram.getScalableFigureLayeredPane().repaint();
+	}
+
 
 	@Override
 	public void setSelection(ISelection selection, boolean reveal) {
