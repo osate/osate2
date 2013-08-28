@@ -134,10 +134,6 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 				// find annex subclause as context for error model identifier lookup
 				if (!Aadl2Util.isNull(cxtElement)){
-					searchResult = findErrorType(cxtElement, name);
-					if (searchResult != null) return Collections.singletonList(searchResult);
-					searchResult = findTypeSet(cxtElement, name);
-					if (searchResult != null) return Collections.singletonList(searchResult);
 					searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix+name,DirectionType.OUT);
 					if (searchResult != null) return Collections.singletonList(searchResult);
 					searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix+name,DirectionType.IN);
@@ -168,6 +164,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 						NamedElement finding = ((Classifier)cxtElement).findNamedElement(name);
 						if (finding instanceof Subcomponent || finding instanceof FeatureGroup) searchResult = finding;
 					}
+					if (searchResult != null) return Collections.singletonList(searchResult);
+					searchResult = findErrorType(cxtElement, name);
+					if (searchResult != null) return Collections.singletonList(searchResult);
+					searchResult = findTypeSet(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
 				}
 			} else if (context instanceof RecoverEvent){
