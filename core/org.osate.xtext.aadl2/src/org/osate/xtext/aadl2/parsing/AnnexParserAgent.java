@@ -283,18 +283,19 @@ public class AnnexParserAgent  extends LazyLinker {
     boolean next = true ;
     char c ;
     int index = 0 ;
+    String text = node.getText() ;
     
     // Trim the space or new line before the keyword "annex".
-    while(node.getText().charAt(index++) != 'a')
+    while(text.charAt(index++) != 'a')
     {
       continue ;
     }
-    
+
     index += 4 ; // Complete the word "annex".
     
-    while(next)
+    while(next && index < text.length())
     {
-      c = node.getText().charAt(index) ;
+      c = text.charAt(index) ;
       
       if(c == '\n')
       {
