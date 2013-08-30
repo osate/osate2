@@ -80,7 +80,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		gaService.setLocationAndSize(text, 0, 0, width, 20);
 				
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, width, height);        
+        final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, width, height, getFeatureProvider());        
         gaService.setLocation(ga, x, y);
 	}
 
@@ -180,7 +180,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		final PictogramElement pe = context.getPictogramElement();
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		final ContainerShape container = (ContainerShape)pe;
-       	GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight());
+       	GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight(), getFeatureProvider());
 		
 		super.resizeShape(context);
 	}	

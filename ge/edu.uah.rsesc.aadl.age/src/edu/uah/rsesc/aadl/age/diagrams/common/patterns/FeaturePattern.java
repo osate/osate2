@@ -34,6 +34,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
@@ -211,29 +212,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		createGaAndInnerShapes(shape, bo, x, y, 0);
 	}
 
-	// CLEAN-UP: Move to another class?
-	/**
-	 * @param shape
-	 * @param fp
-	 * @return
-	 */
-	private static Element getBindingContext(final Shape shape, final IFeatureProvider fp) {
-		ContainerShape temp = shape.getContainer();
-		
-		// Todo: does this work in all cases.. I don't think so.. Consider nested feature groups, etc..
-		while(temp != null) {
-			Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(temp));
-			if(bo instanceof ComponentClassifier || bo instanceof FeatureGroupType) {
-				return (Classifier)bo;
-			} else if(bo instanceof Subcomponent) {
-				// TODO: Handle prototype bindings...
-				return (Subcomponent)bo;
-			}	
-
-			temp = temp.getContainer();
-		}
-		return null;
-	}
 	/**
 	 * Version of createGaAndInnerShapes that limits recursion
 	 * @param shape
@@ -289,10 +267,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)feature;
-			
+			final FeatureGroupType fgt = ClassifierHelper.getFeatureGroupType(shape, fg, getFeatureProvider());
 			int childY = 0;
 			int maxChildWidth = 0;
-			if(fg.getAllFeatureGroupType() == null) {
+			if(fgt == null) {
 				featureShape.getChildren().clear();
 			} else {				
 		        // Create a set of child shapes for deletion. We will remove shapes from this list as they are updated. If a shape isn't updated, it should be removed even though
@@ -301,7 +279,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		        featureShapeChildrenToDelete.addAll(featureShape.getChildren());
 		        
 		        // Create/Update shapes for the child features
-				for(final Feature childFeature : ClassifierHelper.getAllFeatures(fg.getAllFeatureGroupType())) {
+				for(final Feature childFeature : ClassifierHelper.getAllFeatures(fgt)) {
 					ContainerShape childFeatureContainer = ShapeHelper.getChildShapeByElement(featureShape, childFeature, getFeatureProvider());
 					
 					// Get existing shape instead of always creating
@@ -347,9 +325,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				if(af.getFeaturePrototype() != null) {
 					// Lookup the binding
 					// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-					final Element bindingContext = getBindingContext(shape, getFeatureProvider());
+					final Element bindingContext = ClassifierHelper.getPrototypeBindingContext(shape, getFeatureProvider());
 					if(bindingContext != null) {
-						final PrototypeBinding binding = resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
+						final PrototypeBinding binding = ClassifierHelper.resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 						if(binding instanceof FeaturePrototypeBinding) {
 							FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
 							if(actual instanceof PortSpecification) {
@@ -379,62 +357,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
         		Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
 
         layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
-	}
-	
-	// TODO: Use OSATE2 version if/when accepted
-	/**
-	 * Find the binding for a given feature prototype. Recursively resolves references.
-	 * @param proto the prototype to resolve
-	 * @param context the context in which the prototype is used, e.g., a ComponentType,  FeatureGroupType
-	 * @return the actual feature this prototype resolves to.
-	 */
-	private static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
-		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)resolvePrototype(proto, context);//(FeaturePrototypeBinding)ResolvePrototypeUtil.resolvePrototype(proto, context);
-		if(fpb == null) {
-			// cannot resolve
-			return null;
-		}
-		
-		final FeaturePrototypeActual actual = fpb.getActual();
-		if(actual instanceof FeaturePrototypeReference) {
-			return resolveFeaturePrototype(((FeaturePrototypeReference) actual).getPrototype(), context);
-		}			
-		
-		return fpb;
-	}
-
-	// TODO: Merge into OSATE2
-	public static PrototypeBinding resolvePrototype(Prototype proto, Element context) {
-		PrototypeBinding result = null;
-		if (context instanceof Classifier) {
-			Classifier impl = (Classifier) context;
-			result = impl.lookupPrototypeBinding(proto);
-		} else if (context instanceof Subcomponent) {
-			Subcomponent parentSub = (Subcomponent)context;
-			result = parentSub.lookupPrototypeBinding(proto);
-			if(result == null) {
-				result = resolvePrototype(proto, parentSub.getAllClassifier());
-			}
-		} else if (context instanceof ContainmentPathElement){
-			result = ResolvePrototypeUtil.resolvePrototypeInContainmentPath(proto, (ContainmentPathElement)context);
-		}
-//		// lookup in parent's classifier (nested prototype bindings)
-//		if (result == null && parent != null) {
-//			ResolvedClassifier parentClassifier = getInstantiatedClassifier(parent, 0, classifierCache);
-//
-//			if (parentClassifier.bindings != null) {
-//				for (PrototypeBinding binding : parentClassifier.bindings) {
-//					if (binding.getFormal() == proto) {
-//						result = binding;
-//						break;
-//					}
-//				}
-//			}
-//			if (result == null) {
-//				result = parentClassifier.classifier.lookupPrototypeBinding(proto);
-//			}
-//		}
-		return result;
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -20,7 +21,11 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusClassifier;
 import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataPort;
@@ -43,6 +48,7 @@ import org.osate.aadl2.ProcessClassifier;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramGroupAccess;
@@ -73,55 +79,70 @@ public class GraphicsAlgorithmCreator {
 	
 	/**
 	 * Creates a graphics algorithm representing a specified classifer or subcomponent. 
-	 * @param container
+	 * @param shape
 	 * @param diagram
 	 * @param element the classifier or subcomponent for which to create the graphics algorithm. If the classifier is null then a generic representation is returned.
 	 * @param width
 	 * @param height
 	 * @return
 	 */
-	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final Element element, final int width, final int height) {
-		final boolean isImplementation = element instanceof ComponentImplementation;
-        
-		// TODO: Replace with a map?
-        GraphicsAlgorithm ga = null;
-        if(element instanceof SystemClassifier || element instanceof SystemSubcomponent) {
-        	ga = createSystemGraphicsAlgorithm(container, StyleUtil.getSystemStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof ProcessClassifier || element instanceof ProcessSubcomponent) {
-        	ga = createProcessGraphicsAlgorithm(container, StyleUtil.getProcessStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof ThreadGroupClassifier || element instanceof ThreadGroupSubcomponent) {
-        	ga = createThreadGroupGraphicsAlgorithm(container, StyleUtil.getThreadGroupStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof ThreadClassifier || element instanceof ThreadSubcomponent) {
-        	ga = createThreadGraphicsAlgorithm(container, StyleUtil.getThreadStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof SubprogramClassifier || element instanceof SubprogramSubcomponent) {
-        	ga = createSubprogramGraphicsAlgorithm(container, StyleUtil.getSubprogramStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof SubprogramGroupClassifier || element instanceof SubprogramGroupSubcomponent) {
-        	ga = createSubprogramGroupGraphicsAlgorithm(container, StyleUtil.getSubprogramGroupStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof DataClassifier || element instanceof DataSubcomponent) {
-        	ga = createDataGraphicsAlgorithm(container, StyleUtil.getDataStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof AbstractClassifier || element instanceof AbstractSubcomponent) {
-        	ga = createAbstractGraphicsAlgorithm(container, StyleUtil.getAbstractStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof VirtualBusClassifier || element instanceof VirtualBusSubcomponent ) {
-        	ga = createBusGraphicsAlgorithm(container, StyleUtil.getVirtualBusStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof VirtualProcessorClassifier || element instanceof VirtualProcessorSubcomponent) {
-        	ga = createProcessorGraphicsAlgorithm(container, StyleUtil.getVirtualProcessorStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof BusClassifier || element instanceof BusSubcomponent) {
-        	ga = createBusGraphicsAlgorithm(container, StyleUtil.getBusStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof ProcessorClassifier || element instanceof ProcessorSubcomponent) {
-        	ga = createProcessorGraphicsAlgorithm(container, StyleUtil.getProcessorStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof DeviceClassifier || element instanceof DeviceSubcomponent) {     	
-        	ga = createDeviceGraphicsAlgorithm(container, StyleUtil.getDeviceStyle(diagram, isImplementation), StyleUtil.getShadedStyle(diagram), width, height);
-        } else if(element instanceof MemoryClassifier || element instanceof MemorySubcomponent) {
-        	ga = createMemoryGraphicsAlgorithm(container, StyleUtil.getMemoryStyle(diagram, isImplementation), width, height);
-        } else if(element instanceof FeatureGroupType) {
-        	ga = createFeatureGroupGraphicsAlgorithm(container, diagram, Math.min(width/3, height/3), height);
+	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final Shape shape, final Diagram diagram, final Element element, final int width, final int height, final IFeatureProvider fp) {
+		final GraphicsAlgorithm ga;
+		
+		if(element instanceof FeatureGroupType) {
+        	ga = createFeatureGroupGraphicsAlgorithm(shape, diagram, Math.min(width/3, height/3), height);
         	ga.setWidth(width);
-        } else {
-        	// Create a generic shape
-        	ga = createDummyGraphicsAlgorithm(container, width, height);
-        }
-        
-        return ga;
+		} else {
+			final boolean isImplementation;
+			final ComponentCategory category;
+			if(element instanceof Subcomponent) {
+				// TODO: Need feature provider?
+				final Subcomponent sc = (Subcomponent)element;
+				category = ClassifierHelper.getComponentCategory(shape, sc, fp);
+				isImplementation = ClassifierHelper.isImplementation(shape, sc,  fp);
+			} else if(element instanceof ComponentClassifier) {
+				final ComponentClassifier cc = (ComponentClassifier)element;
+				category = cc.getCategory();
+				isImplementation = cc instanceof ComponentImplementation;
+			} else {
+				throw new RuntimeException("Unexpected element type: " + element.getClass());			
+			}
+			     
+	        if(category == ComponentCategory.SYSTEM) {
+	        	ga = createSystemGraphicsAlgorithm(shape, StyleUtil.getSystemStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.PROCESS) {
+	        	ga = createProcessGraphicsAlgorithm(shape, StyleUtil.getProcessStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.THREAD_GROUP) {
+	        	ga = createThreadGroupGraphicsAlgorithm(shape, StyleUtil.getThreadGroupStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.THREAD) {
+	        	ga = createThreadGraphicsAlgorithm(shape, StyleUtil.getThreadStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.SUBPROGRAM) {
+	        	ga = createSubprogramGraphicsAlgorithm(shape, StyleUtil.getSubprogramStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.SUBPROGRAM_GROUP) {
+	        	ga = createSubprogramGroupGraphicsAlgorithm(shape, StyleUtil.getSubprogramGroupStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.DATA) {
+	        	ga = createDataGraphicsAlgorithm(shape, StyleUtil.getDataStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.ABSTRACT) {
+	        	ga = createAbstractGraphicsAlgorithm(shape, StyleUtil.getAbstractStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.VIRTUAL_BUS) {
+	        	ga = createBusGraphicsAlgorithm(shape, StyleUtil.getVirtualBusStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.VIRTUAL_PROCESSOR) {
+	        	ga = createProcessorGraphicsAlgorithm(shape, StyleUtil.getVirtualProcessorStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.BUS) {
+	        	ga = createBusGraphicsAlgorithm(shape, StyleUtil.getBusStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.PROCESSOR) {
+	        	ga = createProcessorGraphicsAlgorithm(shape, StyleUtil.getProcessorStyle(diagram, isImplementation), width, height);
+	        } else if(category == ComponentCategory.DEVICE) {     	
+	        	ga = createDeviceGraphicsAlgorithm(shape, StyleUtil.getDeviceStyle(diagram, isImplementation), StyleUtil.getShadedStyle(diagram), width, height);
+	        } else if(category == ComponentCategory.MEMORY) {
+	        	ga = createMemoryGraphicsAlgorithm(shape, StyleUtil.getMemoryStyle(diagram, isImplementation), width, height);
+	        } else {
+	        	// Create a generic shape
+	        	ga = createDummyGraphicsAlgorithm(shape, width, height);
+	        }
+		}
+
+		return ga;
 	}
 	
 	public static GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final Diagram diagram, final Feature feature, final IFeatureProvider fp) {
@@ -273,6 +294,7 @@ public class GraphicsAlgorithmCreator {
         	gaService.setLocation(circleGa, ga.getWidth()-circleGa.getWidth(), 5);
             directionGa.setStyle(style);   	
         }
+        
         GraphicsAlgorithmUtil.shrink(ga);
         return ga;
 	}

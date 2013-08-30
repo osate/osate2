@@ -1,5 +1,6 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -17,21 +18,38 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeaturePrototypeActual;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 
 public class ClassifierHelper {
-	public static void createUpdateFeatureShapes(final ContainerShape shape, final List<Feature> features, final IFeatureProvider fp) {	
-		createUpdateShapesForElements(shape, features, fp, 0, false, 25, 0, true, 5);
+	public static void createUpdateFeatureShapes(final ContainerShape shape, final List<Feature> features, final IFeatureProvider fp, final Collection<Shape> touchedShapes) {	
+		createUpdateShapesForElements(shape, features, fp, 0, false, 25, 0, true, 5, touchedShapes);
 	}
 	
 	public static void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes, final IFeatureProvider fp) {
@@ -39,11 +57,28 @@ public class ClassifierHelper {
 	}
 	
 	public static void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final IFeatureProvider fp, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {
+		createUpdateShapesForElements(shape, elements, fp, startX, incX, xPadding, startY, incY, yPadding, null);
+	}
+	
+	/**
+	 * 
+	 * @param shape
+	 * @param elements
+	 * @param fp
+	 * @param startX
+	 * @param incX
+	 * @param xPadding
+	 * @param startY
+	 * @param incY
+	 * @param yPadding
+	 * @param touchedShapes a list to populate with the shapes that were created/updated. Can be null.
+	 */
+	public static void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final IFeatureProvider fp, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding, final Collection<Shape> touchedShapes) {
 		// TODO: Could find an X and Y that doens't overlap existing one. Or wait until layout algorithm is implemented.
 		int childX = startX;
 		int childY = startY;
 		for(final NamedElement element : elements) {
-			final PictogramElement pictogramElement = ShapeHelper.getChildShapeByElement(shape, element, fp);
+			PictogramElement pictogramElement = ShapeHelper.getChildShapeByElement(shape, element, fp);
 			if(pictogramElement == null) {
 				final AddContext addContext = new AddContext();
 				addContext.setNewObject(new AadlElementWrapper(element));
@@ -52,14 +87,15 @@ public class ClassifierHelper {
 				addContext.setY(childY);
 				final IAddFeature feature = fp.getAddFeature(addContext);
 				if(feature != null && feature.canAdd(addContext)) {
-					final PictogramElement pe = feature.add(addContext);
+					pictogramElement = feature.add(addContext);
 					if(incX) {
-						childX += pe.getGraphicsAlgorithm().getWidth() + xPadding;
+						childX += pictogramElement.getGraphicsAlgorithm().getWidth() + xPadding;
 					}
 					
 					if(incY) {
-						childY += pe.getGraphicsAlgorithm().getHeight() + yPadding;
+						childY += pictogramElement.getGraphicsAlgorithm().getHeight() + yPadding;
 					}
+					
 				}
 			} else {
 				final UpdateContext updateContext = new UpdateContext(pictogramElement);
@@ -69,6 +105,10 @@ public class ClassifierHelper {
 				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 					updateFeature.update(updateContext);
 				}
+			}
+
+			if(touchedShapes != null && pictogramElement instanceof Shape) {
+				touchedShapes.add((Shape)pictogramElement);
 			}
 		}
 	}
@@ -164,7 +204,7 @@ public class ClassifierHelper {
 				
 				// This feature group type is not necessarily the one that owned the feature... Could be inverse.. Could be refined, etc..
 				// Check if the feature group type was implicitly defined via an inverse
-				final FeatureGroupType fgt = fg.getAllFeatureGroupType();
+				final FeatureGroupType fgt = getFeatureGroupType(container, fg, fp);
 				if(ClassifierHelper.getAllOwnedFeatures(fgt).isEmpty() && !Aadl2Util.isNull(fgt.getInverse())) {
 					isInverted = !isInverted;
 				}
@@ -245,5 +285,224 @@ public class ClassifierHelper {
 		}
 		
 		return new int[] { maxWidth, maxHeight+25};
+	}
+	
+	
+	// Prototype Related Methods
+	// CLEAN-UP: Consider moving to another class
+	public static FeatureGroupType getFeatureGroupType(final Shape shape, final FeatureGroup fg, final IFeatureProvider fp) {
+		if(fg.getFeatureGroupPrototype() == null) {
+			return fg.getAllFeatureGroupType();
+		} else {
+			final Element bindingContext = getPrototypeBindingContext(shape, fp);
+			if(bindingContext != null) {
+				final FeatureGroupType fgt = resolveFeatureGroupPrototype(fg.getFeatureGroupPrototype(), bindingContext);
+				if(fgt != null) {
+					return fgt;
+				}
+				return fg.getFeatureGroupPrototype().getConstrainingFeatureGroupType();
+			}			
+		}
+
+		return null;
+	}
+	
+	public static ComponentClassifier getComponentClassifier(final Shape shape, final Subcomponent sc, final IFeatureProvider fp) {
+		if(sc.getPrototype() == null) {
+			return sc.getClassifier();
+		} else {
+			final Element bindingContext = getPrototypeBindingContext(shape, fp);
+			if(bindingContext != null) {
+				final ComponentClassifier cc = ClassifierHelper.resolveComponentPrototype(sc.getPrototype(), bindingContext);
+				if(cc != null) {
+					return cc;
+				}
+
+				return sc.getPrototype().getConstrainingClassifier();
+			}			
+		}
+
+		return null;
+	}
+	
+	
+	public static ComponentCategory getComponentCategory(final Shape shape, final Subcomponent sc, final IFeatureProvider fp) {
+		final ComponentClassifier c = getComponentClassifier(shape, sc, fp);
+		return c == null ? sc.getCategory() : c.getCategory();
+	}
+	
+	public static boolean isImplementation(final Shape shape, final Subcomponent sc, final IFeatureProvider fp) {
+		final ComponentClassifier c = getComponentClassifier(shape, sc, fp);
+		return c == null ? false : c instanceof ComponentImplementation;
+	}
+	
+	/**
+	 * Returns either the feature group type or the actual prototype
+	 * @param shape
+	 * @param fg
+	 * @param fp
+	 * @return
+	 */
+	// TODO: Define what shape is supposed to be
+	public static Element getFeatureGroupTypeOrActual(final Shape shape, final FeatureGroup fg, final IFeatureProvider fp) {
+		if(fg.getFeatureGroupPrototype() == null) {
+			return fg.getAllFeatureGroupType();
+		} else {
+			final Element bindingContext = getPrototypeBindingContext(shape, fp);
+			if(bindingContext != null) {
+				return resolveFeatureGroupPrototypeToActual(fg.getFeatureGroupPrototype(), bindingContext);
+			} else {
+				return null;
+			}
+		}
+	}
+	
+	/**
+	 * @param shape
+	 * @param fp
+	 * @return
+	 */
+	public static Element getPrototypeBindingContext(final Shape shape, final IFeatureProvider fp) {
+		ContainerShape temp = shape.getContainer();
+		
+		while(temp != null) {
+			Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(temp));
+			if(bo instanceof ComponentClassifier || bo instanceof FeatureGroupType) {
+				return (Classifier)bo;
+			} else if(bo instanceof Subcomponent) {
+				return (Subcomponent)bo;
+			} else if(bo instanceof FeatureGroup){
+				return ClassifierHelper.getFeatureGroupTypeOrActual(temp.getContainer(), (FeatureGroup)bo, fp);
+			}
+
+			temp = temp.getContainer();
+		}
+		return null;
+	}
+	
+	public static FeatureGroupPrototypeActual resolveFeatureGroupPrototypeToActual(Prototype proto, Element context) {
+		FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) resolvePrototype(proto, context);
+
+		if (fgpb == null) {
+			// cannot resolve
+			return null;
+		}
+		
+		return fgpb.getActual();
+	}
+	
+// TODO: Remove after merged into OSATE(all following)
+	public static PrototypeBinding resolvePrototype(Prototype proto, Element context) {
+		PrototypeBinding result = null;
+		if (context instanceof Classifier) {
+			Classifier impl = (Classifier) context;
+			result = impl.lookupPrototypeBinding(proto);
+		} else if (context instanceof Subcomponent) {
+			Subcomponent parentSub = (Subcomponent)context;
+			result = parentSub.lookupPrototypeBinding(proto);
+			if(result == null) {
+				result = resolvePrototype(proto, parentSub.getAllClassifier());
+			}
+		} else if (context instanceof ContainmentPathElement){
+			result = ResolvePrototypeUtil.resolvePrototypeInContainmentPath(proto, (ContainmentPathElement)context);
+		} else if(context instanceof FeatureGroupPrototypeActual) {
+			final FeatureGroupPrototypeActual fgpa = (FeatureGroupPrototypeActual)context;
+			for(final PrototypeBinding binding : fgpa.getBindings()) {
+				if(binding.getFormal() == proto) {
+					result = binding;
+					break;
+				}				
+			}
+		}
+//			// lookup in parent's classifier (nested prototype bindings)
+//			if (result == null && parent != null) {
+//				ResolvedClassifier parentClassifier = getInstantiatedClassifier(parent, 0, classifierCache);
+//
+//				if (parentClassifier.bindings != null) {
+//					for (PrototypeBinding binding : parentClassifier.bindings) {
+//						if (binding.getFormal() == proto) {
+//							result = binding;
+//							break;
+//						}
+//					}
+//				}
+//				if (result == null) {
+//					result = parentClassifier.classifier.lookupPrototypeBinding(proto);
+//				}
+//			}
+		return result;
+	}
+	
+	// Add another patch to OSATE 2 when finished
+	/**
+	 * Find the binding for a given feature prototype. Recursively resolves references.
+	 * @param proto the prototype to resolve
+	 * @param context the context in which the prototype is used, e.g., a ComponentType,  FeatureGroupType
+	 * @return the actual feature this prototype resolves to.
+	 */
+	public static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
+		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)resolvePrototype(proto, context);
+		if(fpb == null) {
+			// cannot resolve
+			return null;
+		}
+		
+		final FeaturePrototypeActual actual = fpb.getActual();
+		if(actual instanceof FeaturePrototypeReference) {
+			// If context is FeatureGroupPrototypeActual, use containing classifier as the context for the reference
+			if(context instanceof FeatureGroupPrototypeActual) {
+				context = context.getContainingClassifier();
+			}
+			return resolveFeaturePrototype(((FeaturePrototypeReference) actual).getPrototype(), context);
+		}			
+		
+		return fpb;
+	}
+	
+	// TODO:MERGE INTO OSATE IF CHANGES ARE MADE. Otherwise just remove when no longer needed
+	public static FeatureGroupType resolveFeatureGroupPrototype(Prototype proto, Element context) {
+		FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) resolvePrototype(proto, context);
+
+		if (fgpb == null) {
+			// cannot resolve
+			return null;
+		}
+		FeatureGroupPrototypeActual actual = fgpb.getActual();
+
+		if (actual.getFeatureType() instanceof FeatureGroupType) {
+			return (FeatureGroupType) actual.getFeatureType();
+		} else {
+			if (actual.getFeatureType() instanceof Prototype && context instanceof ContainmentPathElement){
+			// resolve recursively if we are in a containment path
+				System.out.println("CODE PATH DISABLED TO ALLOW COMPILING OUTSIDE OF OSATE");
+			//	return resolveFeatureGroupPrototype((Prototype)actual.getFeatureType(), getPrevious((ContainmentPathElement) context));
+			}
+		}
+		return null;
+	}
+	
+	public static ComponentClassifier resolveComponentPrototype(Prototype proto, Element context) {
+		ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) resolvePrototype(proto, context);
+
+		if (cpb == null) {
+			// cannot resolve
+			return null;
+		}
+		EList<ComponentPrototypeActual> actuals = cpb.getActuals();
+
+		if (actuals != null && actuals.size() > 0) {
+			ComponentPrototypeActual actual = actuals.get(0);
+
+			if (actual.getSubcomponentType() instanceof ComponentClassifier) {
+				return (ComponentClassifier)actual.getSubcomponentType();
+			} else {
+				if (actual.getSubcomponentType() instanceof ComponentPrototype && context instanceof ContainmentPathElement){
+				// resolve recursively if we are in a containment path
+					System.out.println("CODE PATH DISABLED TO ALLOW COMPILING OUTSIDE OF OSATE");
+					//return resolveComponentPrototype((Prototype)actual.getSubcomponentType(), getPrevious((ContainmentPathElement) context));
+				}
+			}
+		}
+		return null;
 	}
 }

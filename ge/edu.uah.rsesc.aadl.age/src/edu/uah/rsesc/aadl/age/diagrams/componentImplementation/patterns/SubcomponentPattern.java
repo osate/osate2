@@ -1,5 +1,11 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -17,6 +23,8 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
@@ -110,10 +118,15 @@ public class SubcomponentPattern extends AgePattern {
 		// Remove invalid shapes
 		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
 
+		final Set<Shape> childShapesToDelete = new HashSet<Shape>();
+		childShapesToDelete.addAll(shape.getChildren());
+
 		// Create/update child shapes
-		final Classifier classifier = sc.getClassifier();
+		final Classifier classifier = ClassifierHelper.getComponentClassifier(shape,  sc, getFeatureProvider());
 		if(classifier != null) {
-			ClassifierHelper.createUpdateFeatureShapes(shape, classifier.getAllFeatures(), getFeatureProvider());			
+			final List<Shape> touchedShapes = new ArrayList<Shape>();
+			ClassifierHelper.createUpdateFeatureShapes(shape, classifier.getAllFeatures(), getFeatureProvider(), touchedShapes);
+			childShapesToDelete.removeAll(touchedShapes);
 		}
 		
 		// Create/Update Flow Specifications
@@ -131,6 +144,11 @@ public class SubcomponentPattern extends AgePattern {
 			ClassifierHelper.createUpdateFlowSpecifications(shape, componentType, getFeatureProvider());
 		} 
 
+		// Remove child shapes that were not updated
+		for(final Shape child : childShapesToDelete) {
+			EcoreUtil.delete(child, true);	
+		}
+		
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
         final String name = sc.getName() == null ? "" : sc.getName();
@@ -158,8 +176,7 @@ public class SubcomponentPattern extends AgePattern {
 		}		
 
 		// Create the graphics Algorithm
-		ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), sc, maxWidth, maxHeight);   
-		ga.setStyle(StyleUtil.getSystemStyle(getDiagram(), false));
+		ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), sc, maxWidth, maxHeight, getFeatureProvider());  
 		gaService.setLocation(ga, x, y);
 		
 		// Set the position of the text

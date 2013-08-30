@@ -95,7 +95,7 @@ public class TypeClassifierPattern extends AgePattern {
 		// Remove invalid features
 		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
 		
-		ClassifierHelper.createUpdateFeatureShapes(shape, ClassifierHelper.getAllOwnedFeatures(classifier), getFeatureProvider());
+		ClassifierHelper.createUpdateFeatureShapes(shape, ClassifierHelper.getAllOwnedFeatures(classifier), getFeatureProvider(), null);
 		
 		// Create/Update Flow Specifications and Modes
 		if(classifier instanceof ComponentType) {
@@ -117,7 +117,7 @@ public class TypeClassifierPattern extends AgePattern {
 			ga.setStyle(StyleUtil.getSystemStyle(getDiagram(), false));
 			gaService.setLocationAndSize(ga, x, y, newSize[0], newSize[1]);
 		} else {
-			ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, newSize[0], newSize[1]);
+			ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, newSize[0], newSize[1], getFeatureProvider());
 			gaService.setLocation(ga, x, y);
 		}
 		
