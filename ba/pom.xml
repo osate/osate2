@@ -19,7 +19,7 @@
 	
 	<dependencies>
      <dependency>
-       <groupId>org.antlr.v4</groupId>
+       <groupId>org.antlr</groupId>
        <artifactId>antlr</artifactId>
        <version>4.1</version>
      </dependency>
