@@ -133,20 +133,24 @@ public class ResolvePrototypeUtil {
 	 * @param context the context in which the prototype is used, e.g., a ComponentType, FeatureGroupType
 	 * @return the actual feature this prototype resolves to.
 	 */
-	 private static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
-		 final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)ResolvePrototypeUtil.resolvePrototype(proto, context);
-		 if(fpb == null) {
-		 // cannot resolve
-		 return null;
-		 }
-		
-		 final FeaturePrototypeActual actual = fpb.getActual();
-		 if(actual instanceof FeaturePrototypeReference) {
-		 return resolveFeaturePrototype(((FeaturePrototypeReference) actual).getPrototype(), context);
-		 }
-		
-		 return fpb;
+	public static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
+		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)resolvePrototype(proto, context);
+		if(fpb == null) {
+			// cannot resolve
+			return null;
 		}
+
+		final FeaturePrototypeActual actual = fpb.getActual();
+		if(actual instanceof FeaturePrototypeReference) {
+			// If context is FeatureGroupPrototypeActual, use containing classifier as the context for the reference
+			if(context instanceof FeatureGroupPrototypeActual) {
+				context = context.getContainingClassifier();
+			}
+			return resolveFeaturePrototype(((FeaturePrototypeReference) actual).getPrototype(), context);
+		}			
+
+		return fpb;
+	}
 
 	/**
 	 * Find the binding for a given prototype.
@@ -171,6 +175,14 @@ public class ResolvePrototypeUtil {
 			}
 		} else if (context instanceof ContainmentPathElement){
 			result = resolvePrototypeInContainmentPath(proto, (ContainmentPathElement)context);
+		} else if(context instanceof FeatureGroupPrototypeActual) {
+			final FeatureGroupPrototypeActual fgpa = (FeatureGroupPrototypeActual)context;
+			for(final PrototypeBinding binding : fgpa.getBindings()) {
+				if(binding.getFormal() == proto) {
+					result = binding;
+					break;
+				}				
+			}
 		}
 //		// lookup in parent's classifier (nested prototype bindings)
 //		if (result == null && parent != null) {
