@@ -451,13 +451,17 @@ public class AadlBaUnparser
       {
         //FIXME : TODO : update location reference
         
+        boolean hasToOutputTerminator = true ;
+        
         if(object.isElif())
         {
           aadlbaText.addOutput(" elsif (") ;
+          hasToOutputTerminator = false ;
         }
         else
         {
           aadlbaText.addOutput("if (") ;
+          hasToOutputTerminator = true ;
         }
         
         process(object.getLogicalValueExpression()) ;
@@ -470,8 +474,18 @@ public class AadlBaUnparser
           process(object.getElseStatement()) ;
         }
         
-        aadlbaText.addOutputNewline(" end if") ;
+        if(hasToOutputTerminator)
+        {
+          aadlbaText.addOutputNewline(" end if") ;
+        }
 
+        return DONE ;
+      }
+      
+      public String caseElseStatement(ElseStatement object)
+      {
+        aadlbaText.addOutput(" else ") ;
+        process(object.getBehaviorActions()) ;        
         return DONE ;
       }
 

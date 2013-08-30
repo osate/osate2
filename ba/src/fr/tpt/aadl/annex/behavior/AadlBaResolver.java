@@ -56,7 +56,6 @@ public class AadlBaResolver implements AnnexResolver
      AadlBaTypeChecker typeChecker ;
      DataTypeChecker dataTypeChecker = new AdaLikeDataTypeChecker(
                                                                errManager) ;
-     
      while(it.hasNext())
      {
         boolean result = false ;

@@ -1,3 +1,24 @@
+/**
+ * AADL-BA-FrontEnd
+ * 
+ * Copyright © 2013 TELECOM ParisTech and CNRS
+ * 
+ * TELECOM ParisTech/LTCI
+ * 
+ * Authors: see AUTHORS
+ * 
+ * This program is free software: you can redistribute it and/or modify 
+ * it under the terms of the Eclipse Public License as published by Eclipse,
+ * either version 1.0 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * Eclipse Public License for more details.
+ * You should have received a copy of the Eclipse Public License
+ * along with this program.  If not, see 
+ * http://www.eclipse.org/org/documents/epl-v10.php
+ */
+
 package fr.tpt.aadl.annex.behavior.utils;
 
 import org.osate.aadl2.parsesupport.LocationReference;
@@ -5,7 +26,7 @@ import org.osate.aadl2.parsesupport.LocationReference;
 public class AadlBaLocationReference extends LocationReference
 {
   
-  private int annexOffset = 0;
+  private int _annexOffset = 0;
   private int _column = -1 ;
   
   private String _id = "" ;
@@ -18,7 +39,7 @@ public class AadlBaLocationReference extends LocationReference
   public AadlBaLocationReference(int annex, String fileName, int lineNumber)
   {
     super(fileName, lineNumber) ;
-    annexOffset = annex;
+    _annexOffset = annex;
   }
   
   public AadlBaLocationReference(int annex, String fileName, int lineNumber, int offset,
@@ -27,7 +48,7 @@ public class AadlBaLocationReference extends LocationReference
     super(fileName, lineNumber) ;
     super.setOffset(offset) ;
     super.setLength(length) ;
-    annexOffset=annex;
+    _annexOffset=annex;
     _column = column ;
     _id = id ;
   }
@@ -38,7 +59,7 @@ public class AadlBaLocationReference extends LocationReference
     super() ;
     super.setOffset(offset) ;
     super.setLength(length) ;
-    annexOffset = annex;
+    _annexOffset = annex;
     _column = column ;
     _id = id ;
   }
@@ -53,16 +74,26 @@ public class AadlBaLocationReference extends LocationReference
     return _id ;
   }
   
-  public int getSuperOffset()
+  public int getAbsoluteOffset()
   {
-	  return super.getOffset();
+	  return (_annexOffset + super.getOffset()) ;
+  }
+  
+  public int getRelativeOffset()
+  {
+    return super.getOffset() ;
   }
   
   @Override
   public int getOffset() 
   {
-	return annexOffset+super.getOffset();
+	  return this.getAbsoluteOffset() ;
   };
+  
+  public int getAnnexOffset()
+  {
+    return _annexOffset ;
+  }
   
   @Override
   public AadlBaLocationReference clone()
@@ -70,7 +101,7 @@ public class AadlBaLocationReference extends LocationReference
     
     
     AadlBaLocationReference clone = new 
-                                  AadlBaLocationReference(this.annexOffset,
+                                  AadlBaLocationReference(this._annexOffset,
                                 		  				  this.getFilename(),
                                                           this.getLine(),
                                                           this.getOffset(),

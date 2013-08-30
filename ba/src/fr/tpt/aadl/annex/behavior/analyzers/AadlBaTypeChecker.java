@@ -444,9 +444,9 @@ public class AadlBaTypeChecker
                                String expectedTypes,
                                String typeFound)
   {
-    String message = "\'" + name + "\' type error: \"" + expectedTypes +
-        "\" expected" + ", found \"" + typeFound + "\".";
-
+    String message = "type error for \'" + name + "\', \'" + expectedTypes +
+          "\' expected, found \'" + typeFound + "\'.";
+    
     reportError(el, message) ;
   }
 

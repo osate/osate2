@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright © 2013 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -21,63 +21,124 @@
  
 grammar AadlBa;
 
-options {
-//  k=*;
-// language = Java;
-  backtrack = true;
+options
+{
+ language = Java;
 }
 
-
-
-@header { 
-  package fr.tpt.aadl.annex.behavior.parser;
-  
-  //import org.antlr.runtime;
-  
-  import org.eclipse.emf.common.util.BasicEList ;
-
-  import org.antlr.runtime.BaseRecognizer;
-  import org.antlr.runtime.BitSet;
-  import org.antlr.runtime.DFA;
-  import org.antlr.runtime.EarlyExitException;
-  import org.antlr.runtime.FailedPredicateException;
-  import org.antlr.runtime.MismatchedNotSetException;
-  import org.antlr.runtime.MismatchedRangeException;
-  import org.antlr.runtime.MismatchedSetException;
-  import org.antlr.runtime.MismatchedTokenException;
-  import org.antlr.runtime.MismatchedTreeNodeException;
-  import org.antlr.runtime.NoViableAltException;
-  import org.antlr.runtime.Parser;
-  import org.antlr.runtime.RecognitionException;
-  import org.antlr.runtime.Token;
-  import org.antlr.runtime.TokenStream;
-  
-  import org.eclipse.emf.common.util.EList;
-
-  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;  
-  
-  import org.osate.aadl2.parsesupport.AObject;
-  import org.osate.aadl2.parsesupport.LocationReference;
-  
-  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
-  
-  import fr.tpt.aadl.annex.behavior.aadlba.*;
-  import fr.tpt.aadl.annex.behavior.declarative.* ;
-  import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
-  
-  import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
-  import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter ;
-  import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
-  
-  import org.osate.aadl2.Element ;
-  import org.osate.aadl2.Aadl2Package ;
-}
-  
-@lexer::header{
-  /**
+@lexer::header
+{
+/**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright © 2013 TELECOM ParisTech and CNRS
+ * 
+ * TELECOM ParisTech/LTCI
+ * 
+ * Authors: see AUTHORS
+ * 
+ * This program is free software: you can redistribute it and/or modify 
+ * it under the terms of the Eclipse Public License as published by Eclipse,
+ * either version 1.0 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * Eclipse Public License for more details.
+ * You should have received a copy of the Eclipse Public License
+ * along with this program.  If not, see 
+ * http://www.eclipse.org/org/documents/epl-v10.php
+ */
+ 
+ package fr.tpt.aadl.annex.behavior.parser ;
+ 
+ import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
+ import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter ;
+ import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
+}
+
+@lexer::members
+{
+  public static final short KEYWORD_MAX_ID = 36 ;
+  public static final short PUNCTUATION_MAX_ID = 70 ;
+  public static final short EOF_ID = 0 ;
+  public static final short ERR_MAX_ID = 73 ;
+  
+  protected int _annexOffset = 0 ;
+  
+  // Default highlighter does nothing.
+  protected AadlBaHighlighter _ht = new DefaultAadlBaHighlighter() ;
+  
+  public void setHighlighter(AadlBaHighlighter ht)
+  {
+    _ht = ht ;
+  }
+  
+  @Override
+  public void emit(Token token)
+  {
+    super.emit(token) ;
+    
+    int type = token.getType() ;
+    
+    if(type != EOF_ID && type != IDENT)
+    {
+      if (type <= KEYWORD_MAX_ID) // Select only keyword. 
+      {
+        _ht.addToHighlighting(_annexOffset, token,
+                              AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+      }
+      else if(type <= PUNCTUATION_MAX_ID)
+      {
+        _ht.addToHighlighting(_annexOffset, token,
+                              AnnexHighlighterPositionAcceptor.PUNCTUATION_ID);
+      }
+      else if(type <= ERR_MAX_ID)
+      {
+        _ht.addToHighlighting(_annexOffset, token,
+                              AnnexHighlighterPositionAcceptor.INVALID_TOKEN_ID);
+      }
+      else
+      {
+        switch (type)
+        {
+          case STRING_LITERAL :
+          {
+            _ht.addToHighlighting(_annexOffset, token,
+                                  AnnexHighlighterPositionAcceptor.STRING_ID) ;
+            break ;
+          }
+                  
+          case INTEGER_LIT :
+          case REAL_LIT :
+          {
+            _ht.addToHighlighting(_annexOffset, token,
+                                  AnnexHighlighterPositionAcceptor.NUMBER_ID) ;
+            break ;
+          }
+                  
+          case SL_COMMENT :
+          {
+            _ht.addToHighlighting(_annexOffset, token,
+                                  AnnexHighlighterPositionAcceptor.COMMENT_ID) ;
+            break ;
+          }
+        }
+      }
+    }
+  }
+  
+  public void setAnnexOffset(int offset)
+  {
+   _annexOffset = offset;
+  }
+}
+
+@parser::header
+{ 
+/**
+ * AADL-BA-FrontEnd
+ * 
+ * Copyright © 2013 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -97,249 +158,1276 @@ options {
   
   package fr.tpt.aadl.annex.behavior.parser;
   
-  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
-  import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter;
-  import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter;
-  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
+  import org.eclipse.emf.common.util.BasicEList ;
+
+  import org.eclipse.emf.common.util.EList;
+
+  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;  
+  
+  import org.osate.aadl2.parsesupport.AObject;
+  import org.osate.aadl2.parsesupport.LocationReference;
+  
+  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
+  
+  import fr.tpt.aadl.annex.behavior.aadlba.*;
+  import fr.tpt.aadl.annex.behavior.declarative.* ;
+  import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
+  
+  import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
+  
+  import org.osate.aadl2.Element ;
+  import org.osate.aadl2.Aadl2Package ;
+  import org.osate.aadl2.parsesupport.ParseUtil ;
+}
+  
+@parser::members
+{
+  protected BehaviorAnnex _ba = null ;
+  
+  protected void notifyDuplicateSymbol(List<TerminalNode> left,
+                                       List<TerminalNode> right,
+                                       String symbolName)
+  {
+    Token token ;
+        
+    if(left.size() > 1)
+    {
+      token = left.get(left.size() -1).getSymbol() ;
+    }
+    else
+    {
+      token = right.get(right.size() -1).getSymbol() ;
+    }
+        
+    notifyErrorListeners(token, "unbalanced " + symbolName, null);
+  }
+  
+  protected void integerLiteralChecker(TerminalNode integerLiteral)
+  {
+    try
+    {
+      String str = integerLiteral.getText() ;
+      ParseUtil.parseAadlInteger(str);
+    }
+    catch(IllegalArgumentException ex)
+    {
+      notifyErrorListeners(integerLiteral.getSymbol(),
+                           "mal-formatted integer literal input \'" + 
+                           integerLiteral.getText() + '\'', null) ;
+    }
+  }
+  
+  protected void realLiteralChecker(TerminalNode realLiteral)
+  {
+    try
+    {
+      String str = realLiteral.getText() ;
+      str = str.replaceAll("_", "") ;
+      ParseUtil.parseAadlReal(str) ;
+    }
+    catch (IllegalArgumentException ex)
+    {
+      notifyErrorListeners(realLiteral.getSymbol(),
+                           "mal-formatted real literal input \'" + 
+                           realLiteral.getText() + '\'', null) ;
+    }
+  }
 }
 
-@members {
-  /**
-  * Aadl Ba metamodel factory.
-  */
-  protected AadlBaFactory _fact = AadlBaFactory.eINSTANCE ;
-  
-  protected DeclarativeFactory _decl = DeclarativeFactory.eINSTANCE ;
-  
+//  Grammar
 
-  /**
-   * The error reporter to use.
-   */
-  protected ParseErrorReporter errReporter = null;
-  
-  /**
-   * The aadl filename to be parsed.
-   */
-  private String filename;
-  
-  private final static String behaviorElementId = "" ;
-  
-  /**
-   * Set the error reporter to use.
-   */
+//---------------------------------------------------------
+//---------------------------------------------------------
+// BEGIN : ANNEX D.3 Behavior Specification
+//---------------------------------------------------------
+
+// behavior_annex ::=
+//   [ variables { behavior_variable }+ ]
+//   [ states { behavior_state }+ ]
+//   [ transitions { behavior_transition }+ ]
+behavior_annex returns [BehaviorAnnex result]
+  : 
+   ( VARIABLES (behavior_variable_list[$result])+ )?
    
-  public void setParseErrorReporter(final ParseErrorReporter reporter) {
-      errReporter = reporter;
-  }
-  
-  public void setFilename(String fn){
-    filename=fn;
-  }
-  
-  public String getFilename(){
-    return filename;
-  }
-/*  
-  public void nameCopy(Name src, Name dest)
-  {
-    dest.setLocationReference(src.getLocationReference());
-    dest.setIdentifierOwned(src.getIdentifierOwned());
-    dest.getArrayIndexes().addAll(src.getArrayIndexes());
-  }
-*/  
-  /**
-   * Reports a parser error.
-   * @param e  antlr error exception 
-   */
-  public  void reportError(RecognitionException e)  {
-        String description=null;
-        if (e instanceof MismatchedTokenException){
-          MismatchedTokenException mte = (MismatchedTokenException) e;
-          if (mte.expecting != -1)
-            description = "Expecting: "+tokenNames[mte.expecting]+", found: "+mte.token.getText();
-          else
-            description = "Unexpected token '"+mte.token.getText()+"'";
-        } else if (e instanceof MismatchedTreeNodeException){
-          description = "Unexpected Tree Node Exception";
-        } else if (e instanceof NoViableAltException){
-          NoViableAltException nva = (NoViableAltException) e;
-          description = "No viable alternative: "+nva.grammarDecisionDescription;
-        } else if (e instanceof EarlyExitException){
-          EarlyExitException ee = (EarlyExitException) e;
-          description = "Early Exit";
-        } else if (e instanceof FailedPredicateException){
-          FailedPredicateException fp = (FailedPredicateException)e;
-          description = "Semantic error: "+fp.predicateText;
-        } else if (e instanceof MismatchedRangeException){
-          MismatchedRangeException mr = (MismatchedRangeException)e;
-          description = "Mismatched range: ";
-        } else if (e instanceof MismatchedSetException){
-          MismatchedSetException ms = (MismatchedSetException)e;
-          description = "Mismatched set";
-        } else if (e instanceof MismatchedNotSetException){
-          description="Mismatched of inverse of a set";
-        } 
-        description += " at line " + e.line + " col " + e.charPositionInLine ;
-        errReporter.error(this.getFilename(), e.line, description);
-  }
+   ( STATES (behavior_state_list[$result])+ )?
+   
+   ( TRANSITIONS (behavior_transition)+ )?
+;
 
-  private void reportError(String msg, Token locationRef)
+// behavior_variable ::= 
+//   local_variable_declarator { , local_variable_declarator }* 
+//   : data_unique_component_classifier_reference;
+behavior_variable_list[BehaviorAnnex ba] locals[int variableCount]
+  :
+    behavior_variable
+    {
+      $variableCount = 0 ;
+    }
+    
+    ( 
+      (separator=COMMA)? behavior_variable
+      {
+        $variableCount++ ;
+            
+        if($separator == null) 
+        {
+          try
+          {
+            notifyErrorListeners($ctx.behavior_variable($variableCount -1).getStop(),
+                                 "missing behavior variable separator \',\'", null);
+          }
+          catch(Exception e)
+          {
+            notifyErrorListeners("missing behavior variable separator \',\'") ;
+          }
+        }
+        else
+        {
+          $ctx.separator = null ;
+        }
+      }
+    )*
+        
+    COLON unique_component_classifier_reference (SEMICOLON)?
+    {
+      if($SEMICOLON() == null)
+      {
+        try
+        {
+           notifyErrorListeners($ctx.unique_component_classifier_reference().getStop(),
+                                "unterminated behavior variable (missing ending \';\')", null) ;
+        }
+        catch(Exception e)
+        {
+          notifyErrorListeners("unterminated behavior variable (missing ending \';\')") ;
+        }
+      }
+    }
+;
+
+// declarator ::= identifier { array_size }*
+// array_size :: [ integer_value_constant ]
+behavior_variable returns [BehaviorVariable result]
+  :
+    IDENT ( LBRACK integer_value_constant RBRACK )*
+;
+
+// qualified_named_element ::= 
+//   { package_identifier :: }* component_type_identifier
+//   [ . component_implementation_identifier ]
+qualifiable_named_element [QualifiedNamedElement result] locals[String id1, String id2]
+  @init
   {
-     int line, col ;
-     
-     if (locationRef == null)
+    $id1 = "";
+    $id2 = "";
+  }
+  :
+    ( identifier1=IDENT DOUBLECOLON
+      { 
+        $id1=$id1+($id1.length() == 0 ? "":"::") + $identifier1.text ;
+      }
+    )*
+    
+    identifier2=IDENT { $id2=$identifier2.text ; }
+    
+    ( DOT identifier3=IDENT { $id2=$id2+"." + $identifier3.text ; } )?
+;
+  
+// unique_component_classifier_reference ::= 
+//   { package_identifier :: }* component_type_identifier
+//   [ . component_implementation_identifier ]
+unique_component_classifier_reference returns [QualifiedNamedElement result]
+  :
+   ( qualifiable_named_element[$result] )
+;
+
+// behavior_state ::=
+//   behavior_state_identifier { , behavior_state_identifier }* 
+//   : behavior_state_kind state;
+
+// behavior_state_kind ::=
+//   [ initial ][ complete ][ final ]
+behavior_state_list [BehaviorAnnex ba] locals[int stateCount]
+  :
+    IDENT
+    {
+      $stateCount = 0 ;
+    }
+    (
+      (separator=COMMA)? IDENT
+      {
+        $stateCount++ ;
+        
+        if($separator == null) 
+        {
+          try
+          {
+            notifyErrorListeners($IDENT($stateCount -1).getSymbol(),
+                                 "missing behavior state separator \',\'", null);
+          }
+          catch(Exception e)
+          {
+            notifyErrorListeners("missing behavior state separator \',\'") ;
+          }
+        }
+        else
+        {
+          $ctx.separator = null ;
+        }
+      }
+    )*
+    
+    COLON 
+    
+    ( INITIAL )? 
+    ( COMPLETE )? 
+    ( FINAL )?
+
+    STATE (SEMICOLON)?
+    {
+      if($SEMICOLON() == null)
+      {
+        try
+        {
+          notifyErrorListeners($STATE().getSymbol(),
+                               "unterminated behavior state (missing ending \';\')", null) ;
+        }
+        catch(Exception e)
+        {
+          notifyErrorListeners("unterminated behavior state (missing ending \';\')") ;
+        }
+      }
+    }
+;
+
+// behavior_transition ::=
+//   [ transition_identifier [ [ behavior_transition_priority ] ] : ]
+//   source_state_identifier { , source_state_identifier }* 
+//    -[ behavior_condition ]->
+//   destination_state_identifier [ behavior_action_block ] ;
+
+// behavior_transition_priority ::= numeral
+behavior_transition returns [DeclarativeBehaviorTransition result] locals[int srcCount]
+  :
+   ( transId=IDENT ( LBRACK numeral RBRACK )? COLON )?
+   
+   IDENT
+   {
+     if($transId != null)
      {
-       int index = input.index() ;
-       if (index >= input.size())
-       {
-         index-- ;
-       }
-       
-       locationRef = input.get(index) ;
+       $srcCount = 1 ;
      }
-     
-     line = locationRef.getLine() ;
-     col = locationRef.getCharPositionInLine() + 1 ; // Zero index based.
-     
-     msg += " at line " + line + ", col " + col ; 
-     errReporter.error(this.getFilename(), line, msg);
-     consumeUntil(input,SEMICOLON);
-     input.consume();
-     state.failed = true ;
-  }
+     else
+     {
+       $srcCount = 0 ;
+     }
+   }
+   (
+     (separator=COMMA)? IDENT
+     {
+       $srcCount++ ;
+            
+       if($separator == null) 
+       {
+         try
+         {
+           notifyErrorListeners($ctx.IDENT($srcCount -1).getSymbol(),
+                                 "missing behavior state source separator \',\'", null);
+         }
+         catch(Exception e)
+         {
+           notifyErrorListeners("missing behavior state source separator \',\'") ;
+         }
+       }
+       else
+       {
+         $ctx.separator = null ;
+       }
+     }
+   )*
+   
+   LTRANS behavior_condition RTRANS
+    
+   destId=IDENT 
+   
+   ( behavior_action_block )? 
+       
+   (SEMICOLON)?
+   {
+     if($SEMICOLON() == null)
+     {
+       try
+       {
+         Token token = null ;
+       
+         if($ctx.behavior_action_block() != null)
+         {
+           token = $ctx.behavior_action_block().getStop() ;
+         }
+         else
+         {
+           token = $destId ;
+         }
+         
+         notifyErrorListeners(token,
+                              "unterminated behavior transition (missing ending \';\')", null) ;
+       }
+       catch(Exception e)
+       {
+         notifyErrorListeners("unterminated behavior transition (missing ending \';\')") ;
+       }
+     }
+   }
+;
 
-  /**
-   * Sets obj's location reference based on full token informations.
-   *
-   * @param obj the AObject to be set
-   * @param src the token 
-   */ 
-  private void setLocationReference(AObject obj, Token token){
-    
-    // String description = "file " + this.getFilename() + " col " + src.getCharPositionInLine() ;
-    
-    int offset = ((CommonToken)token).getStartIndex() ;
-    int length = token.getText().length() ;
-    int column = token.getCharPositionInLine() + 1 ; // Zero index based.
-    int line = token.getLine() - _lineOffset ;
-    
-    AadlBaLocationReference location = new AadlBaLocationReference(_annexOffset,
-                                             filename, line, offset, length, column,
-                                             behaviorElementId);
-    
-    obj.setLocationReference(location);
-  
-  }
-  
-  private BehaviorAnnex _ba = null ;
-  private int _annexOffset=0;
-  private int _lineOffset=0 ;
-  
-  public void setAnnexOffset(int offset)
-  {
-  	_annexOffset = offset;
-  }
-  
-  // Default highlighter does nothing.
-  private AadlBaHighlighter _ht = new DefaultAadlBaHighlighter() ;
-  
-  public void setHighlighter(AadlBaHighlighter ht)
-  {
-    _ht = ht ;
-  }
-  
-  private void highlight(Token token, String id)
-  {
-    _ht.addToHighlighting(_annexOffset, token, id);  
-  }
-}
+// behavior_action_block ::=
+// { behavior_actions } [ timeout behavior_time]
+behavior_action_block returns [BehaviorActionBlock result]
+  : action_block ( TIMEOUT behavior_time )?
+;
 
-@lexer::members {
-  public static final int COMMENT_CHANNEL=10;
-  
-  private int comment_length=0;
-  
-  private int _lineOffset=0 ;
-  
-  protected String filename=null;
-  
-  public void setFilename(String n){
-   filename=n;
-  }
-  
-  private int _annexOffset=0;
-  
-  public void setAnnexOffset(int offset)
-  {
-  	_annexOffset = offset;
-  }
-  
-  // Default highlighter does nothing.
-  private AadlBaHighlighter _ht = new DefaultAadlBaHighlighter() ;
-  
-  public void setHighlighter(AadlBaHighlighter ht)
-  {
-    _ht = ht ;
-  }
-  
-  private void highlight(int annexOffset, int offset, int length, String id)
-  {
-    _ht.addToHighlighting(annexOffset, offset, length, id);  
-  }
-  
-  /**
-   * the current resource being parsed
-   */
-  protected ParseErrorReporter errReporter = null;
-  
-  /**
-   * Set the Parse Error Reporter with which to produce error messages.
-   */
-  public void setParseErrorReporter(final ParseErrorReporter reporter) {
-      errReporter = reporter;
-  }
+action_block returns [BehaviorActionBlock result]
+  : 
+      LCURLY behavior_actions RCURLY
+    |
+      (LCURLY)+ behavior_actions (RCURLY)+
+      {
+        notifyDuplicateSymbol($LCURLY(), $RCURLY(), "{}") ;
+      }
+;
+
+// behavior_condition ::= 
+//   dispatch_condition
+// | execute_condition
+behavior_condition returns [BehaviorCondition result]
+  :
+      ( ON dispatch_condition )
+    |
+      ( execute_condition )?
+;
+
+/**
+ * Document: AADL Behavior Annex draft 
+ * Version : 0.94 
+ * Type : Naming rules
+ * Section : D.3 Behavior Specification 
+ * Object : Check naming rule D.3.(N1)
+ * Keys : empty execute condition always true
+ */
+// execute_condition ::=
+// [ logical_value_expression | behavior_action_block_timeout_catch | otherwise ]
+execute_condition returns [ExecuteCondition result]
+  : 
+     value_expression
+   |
+     TIMEOUT
+   |       
+     OTHERWISE
+;
+
+integer_value_constant returns [IntegerValueConstant result]
+ :
+     integer_literal
+   |
+     // Ambiguous case.
+     property  
+;
+
+//---------------------------------------------------------
+// END : ANNEX D.3 Behavior Specification
+//---------------------------------------------------------
+//---------------------------------------------------------
+
+
+//---------------------------------------------------------
+//---------------------------------------------------------
+// BEGIN : ANNEX D.4 Thread Dispatch Behavior Specification
+//---------------------------------------------------------
+
+// dispatch_condition ::= 
+//   on dispatch [ dispatch_trigger_condition ] 
+//   [ frozen frozen_ports ]
+
+// frozen_ports ::=
+//   in_port_name { , in_port_name }*
+
+dispatch_condition returns [DispatchCondition result] locals[int count]
+  :
+   DISPATCH ( dispatch_trigger_condition )?
+   ( 
+     FROZEN reference
+     {
+       $count = 0 ;
+     }
+     (
+       (separator=COMMA)? reference
+       {
+         $count++ ;
+            
+         if($separator == null) 
+         {
+           try
+           {
+             notifyErrorListeners($ctx.reference($count -1).getStop(),
+                                 "missing frozen port separator \',\'", null);
+           }
+           catch(Exception e)
+           {
+             notifyErrorListeners("missing frozen port separator \',\'") ;
+           }
+         }
+         else
+         {
+           $ctx.separator = null ;
+         }
+       }
+     )*
+   )?
+;
+
+// dispatch_trigger_condition ::=
+// dispatch_trigger_logical_expression
+// | provides_subprogram_access_name
+// | stop
+// | completion_relative_timeout_condition_and_catch
+// | dispatch_relative_timeout_catch
+
+// completion_relative_timeout_condition_and_catch ::=
+// timeout behavior_time
+
+// dispatch_relative_timeout_catch ::=
+// timeout
+dispatch_trigger_condition returns [DispatchTriggerCondition result]
+   : // Ambiguity between subprogram access name and a dispatch trigger !
+     // A dispatch trigger logical expression with only one
+     // dispatch conjunction which is only one dispatch trigger (single name)
+     // can't be distinguish from a subprogram access name.
+     // subprogram access name are parsed as dispatch trigger logical
+     // expression.
+     
+       // Ambiguous case.
+       dispatch_trigger_logical_expression
+     |
+       ( TIMEOUT ( behavior_time )? )
+     |
+       STOP
+;
+
+// dispatch_trigger_logical_expression ::=
+// dispatch_conjunction { or dispatch_conjunction }*
+dispatch_trigger_logical_expression returns [DispatchTriggerLogicalExpression
+                                             result]
+   : 
+     dispatch_conjunction ( OR dispatch_conjunction )*
+;
+
+// dispatch_conjunction ::=
+// dispatch_trigger { and dispatch_trigger }*
+
+// dispatch_trigger ::=
+// in_event_port_name
+// | in_event_data_port_name
+dispatch_conjunction returns [DispatchConjunction result]
+   :
+     reference ( AND reference )*
+;
+
+//---------------------------------------------------------
+// END : ANNEX D.4 Thread Dispatch Behavior Specification
+//---------------------------------------------------------
+//---------------------------------------------------------
+
+//---------------------------------------------------------
+//---------------------------------------------------------
+// BEGIN : ANNEX D.6 Behavior Action Language
+//---------------------------------------------------------
+
+// behavior_actions ::=
+//   behavior_action
+// | behavior_action_sequence
+// | behavior_action_set
+
+// behavior_action_sequence ::=
+//   behavior_action { ; behavior_action }+
+
+// behavior_action_set ::=
+//   behavior_action { & behavior_action }+ 
+behavior_actions returns [BehaviorActions result] locals[int actionCount]
+  :
+   behavior_action
+   {
+     $actionCount = 0 ;
+   }
+   ( 
+       ( 
+         (separator=SEMICOLON)? behavior_action
+         {
+           $actionCount++ ;
+         
+           if($separator == null) 
+           {
+             try
+             {
+               notifyErrorListeners($ctx.behavior_action($actionCount -1).getStop(),
+                 "missing behavior action sequence separator \';\'", null);
+             }
+             catch (Exception e)
+             {
+               notifyErrorListeners("missing behavior action sequence separator \';\'");
+             }
+           }
+           else
+           {
+             $ctx.separator = null ;
+           }
+         }
+       )*
+       (ending=SEMICOLON)?
+       {
+         if($ending != null)
+         {
+           notifyErrorListeners($ending, "extraneous input \'" + $ending.text +
+                            "\', delete it", null);
+         }
+       }
+     |  
+       ( 
+         (separator=CONCAT)? behavior_action
+         {
+           $actionCount++ ;
+         
+           if($separator == null) 
+           {
+             try
+             {
+               notifyErrorListeners($ctx.behavior_action($actionCount -1).getStop(),
+                 "missing behavior action set separator \'&\'", null);
+             }
+             catch (Exception e)
+             {
+               notifyErrorListeners("missing behavior action set separator \'&\'");
+             }
+           }
+           else
+           {
+             $ctx.separator = null ;
+           }
+         }
+       )*
+       (ending=CONCAT)?
+       {
+         if($ending != null)
+         {
+           notifyErrorListeners($ending, "extraneous input \'" + $ending.text +
+                              "\', delete it", null);
+         }
+       }
+   )
+;
+
+// behavior_action ::=
+//   basic_action 
+// | behavior_action_block
+// | if ( logical_value_expression ) behavior_actions
+//  { elsif ( logical_value_expression ) behavior_actions }*
+//  [ else behavior_actions ]   
+//  end if 
+// | for ( 
+//  element_identifier  : data_unique_component_classifier_reference 
+//  in element_values ) { behavior_actions }
+// | forall ( 
+//  element_identifier : data_unique_component_classifier_reference
+//  in element_values ) { behavior_actions }
+// | while ( logical_value_expression ) { behavior_actions }
+// | do behavior_actions until ( logical_value_expression )
+behavior_action returns [BehaviorAction result]
+ :
+     basic_action
+   | 
+     if_statement
+   |
+     for_statement
+   |
+     while_statement
+   |
+     dountil_statement
+   |
+     behavior_action_block
+   | 
+     forall_statement
+;
+
+// if ( logical_value_expression ) behavior_actions
+//  { elsif ( logical_value_expression ) behavior_actions }*
+//  [ else behavior_actions ]   
+// end if 
+if_statement returns [IfStatement result]
+  :
+      IF LPAREN value_expression RPAREN behavior_actions 
+      ( elsif_statement )*
+      ( ELSE behavior_actions )?
+      END IF
+    |
+      // Error alternatives. 
+      IF (LPAREN)+ value_expression (RPAREN)+ behavior_actions 
+      ( elsif_statement )*
+      ( ELSE behavior_actions )?
+      (END IF | ERR_END)?
+      {
+        if($ERR_END() != null)
+        {
+          String msg = "mismatched input \'" + $ERR_END().getText() + "\' expecting \'end if\'" ;
+          notifyErrorListeners($ERR_END().getSymbol(), msg, null) ;
+        }
+        else if($END() == null)
+        {
+          notifyErrorListeners("unterminated if statement (missing \'end if\')") ;
+        }
+        
+        if($LPAREN().size() > 1 ||
+           $RPAREN().size() > 1)
+        {  
+          notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+        }
+      }
+;
+
+// elsif ( logical_value_expression ) behavior_actions
+elsif_statement returns [IfStatement result]
+  :
+    (ELSIF | ERR_ELSIF) (LPAREN)+ value_expression (RPAREN)+ behavior_actions
+    {
+      if($LPAREN().size() > 1 ||
+         $RPAREN().size() > 1   )
+      {  
+          notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+      }
       
-  /**
-   * Report lexer error
-   * @param e  antlr error exception 
-   */
-  public  void reportError(RecognitionException e) {
-        String description=null;
-        if (e instanceof MismatchedTokenException){
-          MismatchedTokenException mte = (MismatchedTokenException) e;
-            String found = (mte.token != null ) ? mte.token.getText() : "null";
-            String expecting = (mte.expecting < AadlBaParser.tokenNames.length && mte.expecting >=0) ? 
-                AadlBaParser.tokenNames[mte.expecting] : "null";
-            description = "Expecting: "+expecting+", found: "+found;
-        } else if (e instanceof MismatchedTreeNodeException){
-          description = "Unexpected Tree Node Exception";
-        } else if (e instanceof NoViableAltException){
-          NoViableAltException nva = (NoViableAltException) e;
-          description = "No viable alternative: "+nva.grammarDecisionDescription;
-        } else if (e instanceof EarlyExitException){
-          EarlyExitException ee = (EarlyExitException) e;
-          description = "Early Exit";
-        } else if (e instanceof FailedPredicateException){
-          FailedPredicateException fp = (FailedPredicateException)e;
-          description = "Semantic error: "+fp.predicateText;
-        } else if (e instanceof MismatchedRangeException){
-          MismatchedRangeException mr = (MismatchedRangeException)e;
-          description = "Mismatched range: ";
-        } else if (e instanceof MismatchedSetException){
-          MismatchedSetException ms = (MismatchedSetException)e;
-          description = "Mismatched set";
-        } else if (e instanceof MismatchedNotSetException){
-          description="Mismatched of inverse of a set";
-        } 
-        description += " at line " + e.line + " col " + e.charPositionInLine ;
-        errReporter.error(this.getFilename(), e.line, description);
-  }
-  
-  public String getFilename(){
-    return filename;
-  }
-  
+      if($ERR_ELSIF() != null)
+      {
+        String msg = "mismatched input \'" + $ERR_ELSIF().getText() + "\' expecting \'"
+            + AadlBaLexer.tokenNames[AadlBaLexer.ELSIF] + '\'' ;
+          notifyErrorListeners($ERR_ELSIF().getSymbol(), msg, null) ;
+      }
+    }
+;
+
+// for (element_identifier  : data_unique_component_classifier_reference 
+//  in element_values ) { behavior_actions }
+for_statement returns [ForOrForAllStatement result]
+  :
+      for_condition LCURLY behavior_actions RCURLY
+    |
+      for_condition (LCURLY)+ behavior_actions (RCURLY)+
+      {
+        notifyDuplicateSymbol($LCURLY(), $RCURLY(), "{}") ;
+      }
+;  
+
+for_condition returns [ForOrForAllStatement result]
+    :
+
+        FOR LPAREN IDENT COLON unique_component_classifier_reference
+        IN element_values RPAREN
+      |
+        FOR (LPAREN)+ IDENT COLON unique_component_classifier_reference
+        IN element_values (RPAREN)+
+        {
+          notifyDuplicateSymbol($LPAREN(), $LPAREN(), "()") ;
+        }
+;
+
+// forall (element_identifier  : data_unique_component_classifier_reference 
+//  in element_values ) { behavior_actions }
+forall_statement returns [ForOrForAllStatement result]
+  :
+      forall_condition LCURLY behavior_actions RCURLY
+    |
+      forall_condition (LCURLY)+ behavior_actions (RCURLY)+
+      {
+        notifyDuplicateSymbol($LCURLY(), $RCURLY(), "{}") ;
+      }
+;  
+
+forall_condition returns [ForOrForAllStatement result]
+    :
+        FORALL LPAREN IDENT COLON unique_component_classifier_reference
+        IN element_values RPAREN
+      |
+        FORALL (LPAREN)+ IDENT COLON unique_component_classifier_reference
+        IN element_values (RPAREN)+
+        {
+          notifyDuplicateSymbol($LPAREN(), $LPAREN(), "()") ;
+        }
+;
+
+// while ( logical_value_expression ) { behavior_actions }
+while_statement returns [WhileOrDoUntilStatement result]
+  :
+      while_condition LCURLY behavior_actions RCURLY
+    |
+      while_condition (LCURLY)+ behavior_actions (RCURLY)+ 
+      {
+        notifyDuplicateSymbol($LCURLY(), $RCURLY(), "{}") ;
+      }
+;
+
+while_condition returns [WhileOrDoUntilStatement result]
+  :
+      WHILE LPAREN value_expression RPAREN
+    |
+      WHILE (LPAREN)+ value_expression (RPAREN)+
+      {
+        notifyDuplicateSymbol($LPAREN(), $LPAREN(), "()") ;
+      } 
+;
+
+// do behavior_actions until ( logical_value_expression )
+dountil_statement returns [WhileOrDoUntilStatement result]
+  :
+      DO behavior_actions UNTIL LPAREN value_expression RPAREN
+    |
+      DO behavior_actions UNTIL (LPAREN)+ value_expression (RPAREN)+
+      {
+        notifyDuplicateSymbol($LPAREN(), $LPAREN(), "()") ;
+      }
+;
+
+// element_values ::=
+//   integer_range
+// | event_data_port_name
+// | array_data_component_reference
+element_values returns [ElementValues result]
+  : 
+     integer_range
+   |
+     reference
+;
+
+// basic_action ::=
+//   assignment_action
+// | communication_action
+// | timed_action
+basic_action returns [BasicAction result]
+  :
+     assignment_action
+   |
+     communication_action
+   |
+     timed_action
+;
+
+// assignment_action ::= 
+//   target := ( value_expression | any )
+assignment_action returns [AssignmentAction result]
+  :
+     target (ASSIGN | EQUAL) ( value_expression | ANY )
+     {
+       if($EQUAL() != null)
+       {
+         notifyErrorListeners($EQUAL().getSymbol(),
+           "mismatched input \'" + $EQUAL().getText() + "\' expecting " + 
+             AadlBaLexer.tokenNames[AadlBaLexer.ASSIGN], null) ;
+       }
+     }  
+;
+
+// target ::= 
+// | outgoing_port_name 
+// | outgoing_data_component_reference
+// | outgoing_port_prototype_name
+target returns [Target result]
+  : reference 
+;
+
+qualified_named_element returns [QualifiedNamedElement result]
+                        locals [String namespaceId, String nameId]
+@init
+{
+  $namespaceId = "";
+  $nameId = "";
 }
+  :
+    ( id1=IDENT DOUBLECOLON
+      { 
+        $namespaceId=$namespaceId+($namespaceId.length() == 0 ? "":"::") + $id1.text ;
+      }
+    )+
+    
+    id2=IDENT
+    { 
+      $nameId=$id2.text ;
+    }
+    ( DOT id3=IDENT
+      {
+        $nameId=$nameId+ "." + $id3.text ;
+      }
+    )?
+;
+
+// communication_action ::= 
+//   subprogram_prototype_name ! [ ( subprogram_parameter_list ) ]
+// | required_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
+// | subprogram_classifier_name ! [ ( subprogram_parameter_list ) ]
+// | required_data_access_name.provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
+// | output_port_name ! [ ( value_expression ) ]
+// | input_port_name >>
+// | input_port_name ? [ ( target ) ]
+// | required_data_access_name !<
+// | required_data_access_name !>
+// | *!<
+// | *!>
+communication_action returns [CommAction result]
+  : // Ambiguity between name without array indexes and unqualified
+    // subprogram unique component classifier reference without component
+    // implementation.
+    // unqualified subprogram unique component classifier reference 
+    // without component are parsed as reference.
+        
+    // Ambiguity between value expression and a subprogram parameter list
+    // with only one parameter label which can be a value expression or a target.
+    // Value expressions are parsed as subprogram parameter list
+    // with only one parameter label.
+    
+    // Ambiguity between name.name without array index and unqualified
+    // unique component classifier reference with component implementation.
+    // these uccr are parsed as reference.
+    
+      qualified_named_element EXCLAM (LPAREN subprogram_parameter_list RPAREN)?
+    |
+      reference
+      (
+          INTERROG (LPAREN target RPAREN)?
+        |
+          GGREATER
+        |
+          EXCLLESS
+        |
+          EXCLGREATER
+        |
+          EXCLAM (LPAREN subprogram_parameter_list RPAREN)?
+        |
+          INTERROG ((LPAREN)+ target (RPAREN)+)?
+          {
+            notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+          }
+        |
+          EXCLAM ((LPAREN)+ subprogram_parameter_list (RPAREN)+)?
+          {
+            notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+          }
+      )
+    |
+      STAR
+      ( 
+          EXCLLESS
+        | 
+          EXCLGREATER
+      )
+    |
+      qualified_named_element EXCLAM ((LPAREN)+ subprogram_parameter_list (RPAREN)+)?
+      {
+        notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+      }
+;
+
+// timed_action ::= 
+//   computation ( behavior_time [ .. behavior_time ] )
+timed_action returns [TimedAction result]
+  :
+     COMPUTATION LPAREN behavior_time (DOTDOT behavior_time)? RPAREN
+   |
+     COMPUTATION (LPAREN)+ behavior_time (DOTDOT behavior_time)? (RPAREN)+
+     {
+       notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+     }
+;
+
+// subprogram_parameter_list ::=
+//   parameter_label { , parameter_label }*
+subprogram_parameter_list returns [EList<ParameterLabel> result] locals [int count]
+  : 
+   parameter_label
+   {
+     $count = 0 ;
+   }
+   (
+     (separator=COMMA)? parameter_label
+     {
+       $count++ ;
+            
+       if($separator == null) 
+       {
+         try
+         {
+           notifyErrorListeners($ctx.parameter_label($count -1).getStop(),
+                               "missing subprogram parameter separator \',\'", null);
+         }
+         catch(Exception e)
+         {
+           notifyErrorListeners("missing subprogram parameter separator \',\'") ;
+         }
+       }
+       else
+       {
+         $ctx.separator = null ;
+       }
+     }
+   )*
+;
+
+// parameter_label ::=
+//   in_parameter_value_expression | out_parameter_target
+parameter_label returns [ParameterLabel result]
+  : // Ambiguity between a value expression with a single value and a target.
+    // Targets are parsed as value expression.
+
+    value_expression
+;
+
+// reference ::=
+//   name | data component reference
+
+// name ::=
+//   { thread_group_identifier . }*
+//   {
+//     [ subprogram_group_access_identifier . ]
+//     [ subprogram_group_identifier . ]
+//     [ feature_group_identifier . ]
+//   }*
+//   identifier { array_index }*
+
+// array_index ::=
+//   [ integer_value ]
+
+// data_component_reference ::=
+//   data_subcomponent_name { . data_subcomponent_name }*
+// | data_access_feature_name { . data_subcomponent_name }*
+// | local_variable_name { . data_subcomponent_name }*
+// | data_access_feature_prototype_name { . data_subcomponent_name }*
+// | subprogram_parameter_name { . data_subcomponent_name }*
+
+reference returns [Reference result]
+  :
+    array_identifier (DOT array_identifier)*
+;
+
+// array_identifier ::=
+//   identifier { integer_value }*
+array_identifier returns [ArrayableIdentifier result]
+  :
+    IDENT (LBRACK integer_value RBRACK)*
+;
+
+//---------------------------------------------------------
+// END : ANNEX D.6 Behavior Action Language
+//---------------------------------------------------------
+//---------------------------------------------------------
+
+//---------------------------------------------------------
+//---------------------------------------------------------
+// BEGIN : ANNEX D.7 Behavior Expression Language
+//---------------------------------------------------------
+
+// fact_value ::=
+//   value_constant
+// | value_variable
+
+// value_constant ::= 
+//   boolean_literal
+// | numeric_literal 
+// | string_literal
+// | enumeration_literal 
+// | property_constant
+// | property_value
+
+// value_variable ::=
+//   incoming_port_name
+// | incoming_port_name ?
+// | incoming_port_data_component_reference
+// | port_name' count
+// | port_name' fresh
+
+fact_value returns [Value result]
+  : // Ambiguity between value variable (name without array index) and
+    // unqualified propertyset constant or unqualified propertyset value.
+    // unqualified propertyset constants and unqualified propertyset values are
+    // parsed as reference (see value variable). 
+   
+       // Case of qualified property constant or value.
+       IDENT DOUBLECOLON IDENT
+     | 
+     
+       // Value variables and unqualified propertyset constants and unqualified
+       // propertyset values cases.
+       value_variable
+
+     | 
+     
+     // Cases from value constant category.
+        
+       boolean_literal
+     |
+       numeric_literal
+     |
+       string_literal
+     |
+       behavior_enumeration_literal    
+;
+
+/** 
+ * Document: AADL Behavior Annex draft
+ * Version : 0.94 
+ * Type : Legality rule
+ * Section : D.7 Behavior Expression Language
+ * Object : Check Legality rule D.7.(L2) 
+ * Keys : parentheses on operators precedence
+ */
+// value ::=
+//   value_variable
+// | value_constant
+// | ( value_expression )
+value returns [Value result]
+  :
+     fact_value
+   |
+     LPAREN value_expression RPAREN
+   |
+     (LPAREN)+ value_expression (RPAREN)+
+     {
+       notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+     }
+;
+
+// value_variable ::=
+//   incoming_port_name
+// | incoming_port_name ?
+// | incoming_port_data_component_reference
+// | port_name' count
+// | port_name' fresh
+value_variable returns [ValueVariable result]
+  : 
+     reference
+     (
+         INTERROG
+       |
+         TICK (COUNT | FRESH)
+     )?
+;
+
+/** 
+ * Document: AADL Behavior Annex draft
+ * Version : 0.94 
+ * Type : Legality rule
+ * Section : D.7 Behavior Expression Language
+ * Object : Check Legality rule D.7.(L1) 
+ * Keys : operators precedence
+ */ 
+// value_expression ::=
+//   relation { logical_operator relation }* 
+value_expression returns [ValueExpression result]
+  :
+    relation (logical_operator relation)*
+;
+
+// relation ::=
+//   simple_expression [ relational_operator simple_expression ]
+relation returns [Relation result]
+  :
+    simple_expression (relational_operator simple_expression)?
+;
+
+// simple_expression ::= 
+//   [ unary_adding_operator ] term { binary_adding_operator term }*
+simple_expression returns [SimpleExpression result]
+  :
+    (unary_adding_operator)? term (binary_adding_operator term)*
+;
+
+// term ::= 
+//   factor { multiplying_operator factor }*
+term returns [Term result]
+  :
+   factor (multiplying_operator factor)*
+;
+
+// factor ::= 
+//   value [ binary_numeric_operator value ] 
+// | unary_numeric_operator value 
+// | unary_boolean_operator value
+factor returns [Factor result]
+  :
+     value (binary_numeric_operator value)?
+   |
+     unary_numeric_operator value
+   |
+     unary_boolean_operator value
+;
+
+
+
+// logical_operator ::= and | or | xor
+logical_operator returns [LogicalOperator result]
+  :
+     AND | OR | XOR
+;
+
+// relational_operator ::= = | != | < | <= | > | >=
+relational_operator returns [RelationalOperator result]
+  :
+     EQUAL
+   |
+     NOTEQUAL
+   |
+     LESSTHAN
+   |
+     LESSOREQUAL
+   |
+     GREATERTHAN
+   |
+     GREATEROREQUAL
+   |
+     ERR_EQUALEQUAL
+     {
+       notifyErrorListeners($ERR_EQUALEQUAL().getSymbol(),
+                            "mismatched input \'" + $ERR_EQUALEQUAL().getText() +
+                            "\' expecting " + 
+                            AadlBaLexer.tokenNames[AadlBaLexer.EQUAL], null) ;
+     }
+;
+
+// binary_adding_operator ::= + | - 
+binary_adding_operator returns [BinaryAddingOperator result]
+  :
+    PLUS | MINUS
+;
+
+// unary_adding_operator ::=  + | -
+unary_adding_operator returns [UnaryAddingOperator result]
+  :
+    PLUS | MINUS
+;
+
+// multiplying_operator ::=  * | / | mod | rem
+multiplying_operator returns [MultiplyingOperator result]
+  :
+    STAR | DIVIDE | MOD | REM
+;
+
+// binary_numeric_operator ::= **
+binary_numeric_operator returns [BinaryNumericOperator result]
+  :
+    STARSTAR
+;
+
+// unary_numeric_operator ::= abs
+unary_numeric_operator returns [UnaryNumericOperator result]
+  :
+    ABS
+;
+
+// unary_boolean_operator ::= not
+unary_boolean_operator returns [UnaryBooleanOperator result]
+  :
+    NOT
+;
+
+// boolean_literal ::= true | false
+boolean_literal returns [BehaviorBooleanLiteral result]
+  :
+    TRUE | FALSE
+;
+
+// integer_range ::= integer_value .. integer_value
+integer_range returns [IntegerRange result]
+  :
+    integer_value DOTDOT integer_value
+;
+
+// integer_value ::= 
+//   integer_value_variable 
+// | integer_value_constant
+integer_value returns [IntegerValue result]
+  : // Ambiguity between integer value variable with one name and unqualified
+    // propertyset constant or value from value constant. See fact_value. 
+   fact_value              
+;
+
+// behavior_time ::= integer_value unit_identifier
+behavior_time returns [DeclarativeTime result]
+  :
+    integer_value IDENT
+;
+
+// property_constant ::=
+//   [ property_set_identifier :: ] property_constant_identifier
+
+// property_value ::=
+//   [ property_set_identifier :: ] property_value_identifier
+
+// property constants and property values ambiguity : they are parsed as 
+// a generic property.
+
+// property ::=
+//   property_constant
+// | property_value
+
+property returns [QualifiedNamedElement result]
+  :
+    (id1=IDENT DOUBLECOLON)? id2=IDENT
+;
+
+// enumeration_literal ::= 
+//   { package_identifier :: }* component_type_identifier
+//   [ . component_implementation_identifier ]
+//   # enumeration_literal_identifier
+behavior_enumeration_literal returns [Enumeration result]
+  :
+    qualifiable_named_element[$result] HASH IDENT
+;
+
+// numeric_literal ::= <refer to [AS5506A 15.4]>
+// numeric literal without optional sign and unit
+numeric_literal returns [NumericLiteral result]
+  :
+    integer_literal | real_literal
+;
+
+real_literal returns [BehaviorRealLiteral result]
+  :
+    REAL_LIT
+    {
+      realLiteralChecker($ctx.REAL_LIT()) ;
+    }
+;
+
+integer_literal returns [BehaviorIntegerLiteral result]
+ :
+    INTEGER_LIT
+    {
+      integerLiteralChecker($ctx.INTEGER_LIT());
+    }
+;
+
+// string_literal ::= <refer to [AS5506A 15.5]>
+string_literal returns [BehaviorStringLiteral result]
+  :
+   STRING_LITERAL
+;
+
+// numeral ::= <refer to [AS5506A 15.4.1]>
+numeral returns [Integer result]
+  :
+    INTEGER_LIT
+    {
+      integerLiteralChecker($ctx.INTEGER_LIT());
+    }
+;
+
+//---------------------------------------------------------
+// END : ANNEX D.7 Behavior Expression Language
+//---------------------------------------------------------
+//---------------------------------------------------------
 
 // AADL Behavior Annex Tokens
 // Keywords
@@ -415,2041 +1503,14 @@ DIVIDE         : '/';
 STARSTAR       : '**' ;
 DOTDOT         : '..' ;
 SEMICOLON      : ';' ;
-
 DOUBLECOLON    : '::';
 HASH           : '#';
 
-//  Grammar
-
-//---------------------------------------------------------
-//---------------------------------------------------------
-// BEGIN : ANNEX D.3 Behavior Specification
-//---------------------------------------------------------
-
-// behavior_annex ::=
-//   [ variables { behavior_variable }+ ]
-//   [ states { behavior_state }+ ]
-//   [ transitions { behavior_transition }+ ]
-behavior_annex returns [BehaviorAnnex BehAnnex] 
- @init{
-   BehAnnex = _fact.createBehaviorAnnex();
-   _ba = BehAnnex ;
-   
-   int line = input.get(0).getLine() ;
-   
-   // compute lineOffset here.
-   _lineOffset = 0 ;
-   AadlBaLocationReference location = new AadlBaLocationReference(
-                                         _annexOffset, filename, line);
-   BehAnnex.setLocationReference(location) ; 
- }
-  : 
-   ( keyword_var=VARIABLES {highlight(keyword_var, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-       ( lbv=behavior_variable_list[BehAnnex] { BehAnnex.getVariables().addAll(lbv);} )+
-   )?
-   
-   ( keyword=STATES {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-       ( lbs=behavior_state_list { BehAnnex.getStates().addAll(lbs); } )+
-   )?
-   
-   ( keyword=TRANSITIONS {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-       ( BehTrans=behavior_transition {BehAnnex.getTransitions().add(BehTrans); } )+ 
-   )?
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// behavior_variable ::= 
-//   local_variable_declarator { , local_variable_declarator }* 
-//   : data_unique_component_classifier_reference;
-behavior_variable_list[BehaviorAnnex ba] returns [List<BehaviorVariable> lbv]
- @init{
-   lbv = new ArrayList<BehaviorVariable>() ;
- }
-  :
-       
-   bv=behavior_variable
-   {
-     lbv.add(bv) ;
-   } 
-   
-   ( COMMA bv=behavior_variable
-     {
-       lbv.add(bv) ;
-     }
-   )* 
-   
-   COLON 
-   
-   DataClassRef=unique_component_classifier_reference
-   {
-      DeclarativeUtils.setEcontainer(_ba, DataClassRef);
-      
-      for(BehaviorVariable tmp : lbv)
-      {
-        tmp.setDataClassifier(DataClassRef);
-      }
-   }
-   SEMICOLON
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// declarator ::= identifier { array_size }*
-// array_size :: [ integer_value_constant ]
-behavior_variable returns [BehaviorVariable bv]
- @init
- {
-   bv = _fact.createBehaviorVariable();
- }
-  :
-    identifier_ident=IDENT { 
-                       setLocationReference(bv, identifier_ident);
-                       bv.setName(identifier_ident.getText()) ;
-                     }
-    ( LBRACK IntValue=integer_value_constant RBRACK
-      { 
-        DeclarativeArrayDimension dad = _decl.createDeclarativeArrayDimension();
-        dad.setLocationReference(IntValue.getLocationReference()) ;
-        dad.setDimension(IntValue) ;
-        bv.getArrayDimensions().add(dad); 
-      }
-    )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// qualified_named_element ::= 
-//   { package_identifier :: }* component_type_identifier
-//   [ . component_implementation_identifier ]
-qualifiable_named_element [QualifiedNamedElement qne]
- @init{
-        String id1 = "";
-        String id2 = "";
-      }
-  :
-   (
-    ( identifier1=IDENT DOUBLECOLON
-      { 
-        id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText();
-      }
-    )*
-    
-    identifier2=IDENT { id2=identifier2.getText(); }
-    
-    ( DOT identifier3=IDENT { id2=id2+"."+identifier3.getText(); } )?
-   )
-   {
-     Identifier nameId = _decl.createIdentifier();
-     nameId.setId(id2);
-     setLocationReference(nameId, identifier2); 
-     qne.setBaName(nameId);
-    
-     if (! id1.equals(""))
-     {
-       Identifier nameSpaceId = _decl.createIdentifier();
-       nameSpaceId.setId(id1);
-       setLocationReference(nameSpaceId, identifier1); 
-       qne.setBaNamespace(nameSpaceId);
-       setLocationReference(qne, identifier2);
-     }
-     else
-     {
-       setLocationReference(qne, identifier2);
-     }
-   }
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-  
-// unique_component_classifier_reference ::= 
-//   { package_identifier :: }* component_type_identifier
-//   [ . component_implementation_identifier ]
-unique_component_classifier_reference returns [QualifiedNamedElement DataClassRef]
- @init{
-   DataClassRef = _decl.createQualifiedNamedElement();
- }
-  :
-   (
-     qualifiable_named_element[DataClassRef]
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// behavior_state ::=
-//   behavior_state_identifier { , behavior_state_identifier }* 
-//   : behavior_state_kind state;
-
-// behavior_state_kind ::=
-//   [ initial ][ complete ][ final ]
-behavior_state_list returns [List<BehaviorState> lbs]
- @init{
-   lbs = new ArrayList<BehaviorState>() ;
- }
-  :
-    identifier4=IDENT 
-     {
-        BehaviorState bs = _fact.createBehaviorState() ;
-        bs.setName(identifier4.getText());
-        setLocationReference(bs, identifier4); 
-        lbs.add(bs) ; 
-      } 
-   ( COMMA identifier5=IDENT 
-     {
-        BehaviorState bs = _fact.createBehaviorState() ;
-        bs.setName(identifier5.getText());
-        setLocationReference(bs, identifier5); 
-        lbs.add(bs) ; 
-     } 
-   )*
-   COLON 
-   (
-     (keyword_init=INITIAL  {
-                 for (BehaviorState bs : lbs)
-                 {
-                   bs.setInitial(true)  ;
-                 } 
-               } )? 
-     (keyword_complete=COMPLETE { 
-                 for (BehaviorState bs : lbs)
-                 {
-                   bs.setComplete(true)  ;
-                 } 
-               } )? 
-     (keyword_final=FINAL    { 
-                 for (BehaviorState bs : lbs)
-                 {
-                   bs.setFinal(true)  ;
-                 } 
-               } )?
-     keyword=STATE SEMICOLON
-   )
-   {
-     if(keyword_init!=null)
-     highlight(keyword_init, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-     if(keyword_complete!=null)
-     highlight(keyword_complete, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-   if(keyword_final!=null)
-     highlight(keyword_final, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-   highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-   }
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// behavior_transition ::=
-//   [ transition_identifier [ [ behavior_transition_priority ] ] : ]
-//   source_state_identifier { , source_state_identifier }* 
-//    -[ behavior_condition ]->
-//   destination_state_identifier [ behavior_action_block ] ;
-
-// behavior_transition_priority ::= numeral
-behavior_transition returns [DeclarativeBehaviorTransition BehTrans]
- @init
- {
-   BehTrans = _decl.createDeclarativeBehaviorTransition();
- }
-  :
-   ( identifier=IDENT 
-     {
-       BehTrans.setName(identifier.getText()) ;
-       setLocationReference(BehTrans, identifier); 
-     } 
-     ( LBRACK Num=numeral RBRACK { BehTrans.setPriority(Num);} )? 
-     COLON
-   )?  
-   
-   identifier=IDENT 
-   { 
-     Identifier Id = _decl.createIdentifier();
-     Id.setId(identifier.getText());
-     setLocationReference(Id, identifier); 
-     BehTrans.getSrcStates().add(Id);
-    
-     if(BehTrans.getLocationReference() == null)
-     {
-       BehTrans.setLocationReference(Id.getLocationReference()) ;
-     } 
-   }
-   
-   ( COMMA identifier=IDENT 
-     { 
-      Identifier Id = _decl.createIdentifier();
-      Id.setId(identifier.getText());
-      setLocationReference(Id, identifier); 
-      BehTrans.getSrcStates().add(Id);
-     } 
-   )*
-   
-   ( identifier=LTRANS BehCond=behavior_condition
-     { 
-       // behavior condition can be null.
-       if (BehCond != null)
-       {
-         _ba.getConditions().add(BehCond);
-         BehTrans.setCondition(BehCond);
-       }
-     } 
-     RTRANS
-   )
-    
-   identifier=IDENT 
-   {
-     Identifier Id = _decl.createIdentifier();
-     Id.setId(identifier.getText());
-     setLocationReference(Id, identifier); 
-     BehTrans.setDestState(Id);
-   }
-    
-   ( BehActionBlock=behavior_action_block 
-        { 
-          _ba.getActions().add(BehActionBlock);
-          BehTrans.setActionBlock(BehActionBlock);
-        }
-   )? 
-       
-   SEMICOLON
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// behavior_action_block ::=
-// { behavior_actions } [ timeout behavior_time]
-behavior_action_block returns [BehaviorActionBlock BehActionBlock]
- @init{
-         BehActionBlock = _fact.createBehaviorActionBlock() ;
- }
-  : identifier=LCURLY BehActions=behavior_actions RCURLY 
-    {
-       BehActionBlock.setContent(BehActions) ;
-       setLocationReference(BehActionBlock, identifier);
-    }
-      
-    ( keyword_timeout=TIMEOUT BehTime=behavior_time
-      {
-        BehActionBlock.setTimeout(BehTime) ;
-        highlight(keyword_timeout, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-      }
-    )?
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// behavior_condition ::= 
-//   dispatch_condition
-// | execute_condition
-behavior_condition returns [BehaviorCondition BehCond]
- @init{
- }
-  :
-   (
-       pos=ON DisCond=dispatch_condition
-       {
-         setLocationReference(DisCond, pos);
-         highlight(pos, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       }
-     |
-       (ExecCond=execute_condition)?
-   )
-   {
-     if (DisCond != null)
-     {
-       BehCond = DisCond;
-     } 
-     else
-     {
-       BehCond = ExecCond;
-     }
-   }
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-/**
- * Document: AADL Behavior Annex draft 
- * Version : 0.94 
- * Type : Naming rules
- * Section : D.3 Behavior Specification 
- * Object : Check naming rule D.3.(N1)
- * Keys : empty execute condition always true
- */
-// execute_condition ::=
-// [ logical_value_expression | behavior_action_block_timeout_catch | otherwise ]
-execute_condition returns [ExecuteCondition ExecCond]
- @init
- {
-    ExecCond= null ;
- }
-  : 
-   ( 
-       identifier=TIMEOUT
-       {
-         ExecCond = _fact.createExecutionTimeoutCatch();
-         setLocationReference(ExecCond, identifier);
-         highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       }
-     |
-       identifier=OTHERWISE
-       {
-         ExecCond = _fact.createOtherwise() ;
-         setLocationReference(ExecCond, identifier);
-         highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       }
-     |       
-       ValExpr=value_expression
-       { 
-         ExecCond = ValExpr ;
-       }
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-integer_value_constant returns [IntegerValueConstant ivc]
-
- :
-     il = integer_literal {ivc = il ;}
-   |
-     // Ambiguous case.
-     prop=property {ivc = prop;}  
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-//---------------------------------------------------------
-// END : ANNEX D.3 Behavior Specification
-//---------------------------------------------------------
-//---------------------------------------------------------
-
-
-//---------------------------------------------------------
-//---------------------------------------------------------
-// BEGIN : ANNEX D.4 Thread Dispatch Behavior Specification
-//---------------------------------------------------------
-
-// dispatch_condition ::= 
-//   on dispatch [ dispatch_trigger_condition ] 
-//   [ frozen frozen_ports ]
-
-// frozen_ports ::=
-//   in_port_name { , in_port_name }*
-
-dispatch_condition returns [DispatchCondition DisCond]
- @init{
-   // Location reference is set in behavior_transition
-   DisCond = _fact.createDispatchCondition ();
- }
-  :
-   keyword=DISPATCH 
-   ( DisTriggCond=dispatch_trigger_condition
-     {
-       DisCond.setDispatchTriggerCondition (DisTriggCond);
-       highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-     }
-   )? 
-  
-   ( keyword=FROZEN port=reference
-     {
-       DisCond.getFrozenPorts().add(port);
-       highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-     }
-     ( COMMA port=reference
-       {
-         DisCond.getFrozenPorts().add(port);
-       }
-     )*
-   )?
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// dispatch_trigger_condition ::=
-// dispatch_trigger_logical_expression
-// | provides_subprogram_access_name
-// | stop
-// | completion_relative_timeout_condition_and_catch
-// | dispatch_relative_timeout_catch
-
-// completion_relative_timeout_condition_and_catch ::=
-// timeout behavior_time
-
-// dispatch_relative_timeout_catch ::=
-// timeout
-dispatch_trigger_condition returns [DispatchTriggerCondition DisTriggCond]
- @init{
-   DisTriggCond = null ;
- }
-   : // Ambiguity between subprogram access name and a dispatch trigger !
-     // A dispatch trigger logical expression with only one
-     // dispatch conjunction which is only one dispatch trigger (single name)
-     // can't be distinguish from a subprogram access name.
-     // subprogram access name are parsed as dispatch trigger logical
-     // expression.
-       identifier=STOP
-       { DisTriggCond = _fact.createDispatchTriggerConditionStop() ;
-         setLocationReference(DisTriggCond, identifier) ;
-         highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       }
-     |
-       ( identifier=TIMEOUT
-         { DisTriggCond = _fact.createDispatchRelativeTimeout() ;
-           setLocationReference(DisTriggCond, identifier) ;
-           highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-         }     
-         (
-           BehTime=behavior_time
-           { 
-             DisTriggCond = BehTime ;
-           }
-         )?
-       )
-     | // Ambiguous case.
-       DisTriggLogicalExpr=dispatch_trigger_logical_expression
-       {
-         DisTriggCond = DisTriggLogicalExpr ;
-       }
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// dispatch_trigger_logical_expression ::=
-// dispatch_conjunction { or dispatch_conjunction }*
-dispatch_trigger_logical_expression returns [DispatchTriggerLogicalExpression
-                                             DisTriggLogicalExpr]
- @init{
-   DisTriggLogicalExpr = _fact.createDispatchTriggerLogicalExpression ();
- }
-   : 
-     DisConjunct=dispatch_conjunction
-     {
-       DisTriggLogicalExpr.getDispatchConjunctions().add(DisConjunct) ;
-       DisTriggLogicalExpr.setLocationReference(
-         DisConjunct.getLocationReference());
-     }
-     (
-       identifier=OR DisConjunct=dispatch_conjunction
-       {
-         DisTriggLogicalExpr.getDispatchConjunctions().add(DisConjunct) ;
-         highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       }
-     )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// dispatch_conjunction ::=
-// dispatch_trigger { and dispatch_trigger }*
-
-// dispatch_trigger ::=
-// in_event_port_name
-// | in_event_data_port_name
-dispatch_conjunction returns [DispatchConjunction DisConjunct]
- @init
- {
-   DisConjunct = _fact.createDispatchConjunction ();
- }
-   :
-     ref=reference
-     {
-       DisConjunct.getDispatchTriggers().add(ref) ;
-       DisConjunct.setLocationReference(ref.getLocationReference());
-     }
-     (
-       keyword=AND ref=reference
-       {
-         DisConjunct.getDispatchTriggers().add(ref) ;
-         highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       }
-     )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-//---------------------------------------------------------
-// END : ANNEX D.4 Thread Dispatch Behavior Specification
-//---------------------------------------------------------
-//---------------------------------------------------------
-
-//---------------------------------------------------------
-//---------------------------------------------------------
-// BEGIN : ANNEX D.6 Behavior Action Language
-//---------------------------------------------------------
-
-// behavior_actions ::=
-//   behavior_action
-// | behavior_action_sequence
-// | behavior_action_set
-
-// behavior_action_sequence ::=
-//   behavior_action { ; behavior_action }+
-
-// behavior_action_set ::=
-//   behavior_action { & behavior_action }+ 
-behavior_actions returns [BehaviorActions BehActs]
- @init{
-   BehActs = null ;
-   EList<BehaviorAction> tmpList = new BasicEList<BehaviorAction>() ;
-   BehaviorActionCollection col = null ;
- }
-  :
-   BehAction=behavior_action
-   {
-     BehActs = BehAction ;
-   }
-
-   (   
-        ( id=SEMICOLON BehAction2=behavior_action
-            {
-              tmpList.add(BehAction2) ;
-            }
-        )*
-        { col = _fact.createBehaviorActionSequence() ; } 
-      |
-        ( id=CONCAT BehAction2=behavior_action
-            {
-              tmpList.add(BehAction2) ;
-            }
-        )*
-        { col = _fact.createBehaviorActionSet() ; } 
-   )
-   {
-      if (tmpList.size() != 0)
-      { 
-        col.getActions().add(BehAction);
-        col.getActions().addAll(tmpList);
-        col.setLocationReference(BehActs.getLocationReference());
-        BehActs = col ;
-      }
-   } 
-;
-catch [NoViableAltException ex] {
-   
-   if(ex.grammarDecisionDescription.isEmpty())
-   {
-      reportError("too many semicolon/ampersand given or missing behavior action", id) ;
-   }
-   else
-   {
-     reportError(ex);
-     consumeUntil(input,SEMICOLON);
-     input.consume();
-   }
-}
-
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// behavior_action ::=
-//   basic_action 
-// | behavior_action_block
-// | if ( logical_value_expression ) behavior_actions
-//  { elsif ( logical_value_expression ) behavior_actions }*
-//  [ else behavior_actions ]   
-//  end if 
-// | for ( 
-//  element_identifier  : data_unique_component_classifier_reference 
-//  in element_values ) { behavior_actions }
-// | forall ( 
-//  element_identifier : data_unique_component_classifier_reference
-//  in element_values ) { behavior_actions }
-// | while ( logical_value_expression ) { behavior_actions }
-// | do behavior_actions until ( logical_value_expression )
-behavior_action returns [BehaviorAction BehAction]
- @init{
-   BehAction = null;
-   IfStatement IfStat = null ;
-   IfStatement tmpIfStat = null ;
-   ForOrForAllStatement ForStat = null ;
-   IterativeVariable itVar = null ;
- }
-  :
-   ( 
-     ( BaAct=basic_action
-       { BehAction = BaAct ;}
-     )
-   | 
-     ( BehActionBlock=behavior_action_block
-       { 
-          BehAction = BehActionBlock ;
-       }
-     )
-   |
-     // If statement.
-     ( identifier1=IF identifier2=LPAREN ValExpr=value_expression RPAREN BehActions=behavior_actions 
-       { 
-         IfStat = _fact.createIfStatement();
-         setLocationReference(IfStat, identifier1); 
-         setLocationReference(ValExpr, identifier2); 
-         IfStat.setLogicalValueExpression(ValExpr) ;
-         IfStat.setBehaviorActions(BehActions);
-         tmpIfStat = IfStat ;
-         highlight(identifier1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       }
-       ( 
-         identifier1=ELSIF identifier2=LPAREN ValExpr=value_expression RPAREN BehActions=behavior_actions
-         {
-           IfStatement ElifStat = _fact.createIfStatement() ;
-           ElifStat.setElif(true);
-           
-           setLocationReference(ElifStat, identifier1);
-           setLocationReference(ValExpr, identifier2) ; 
-           ElifStat.setLogicalValueExpression(ValExpr) ;
-           ElifStat.setBehaviorActions(BehActions);
-           
-           tmpIfStat.setElseStatement(ElifStat) ;
-           tmpIfStat = ElifStat ;
-           highlight(identifier1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-         }
-       )*
-       (
-         identifier=ELSE BehActions=behavior_actions
-         {
-           ElseStatement elseStat = _fact.createElseStatement();
-           setLocationReference(elseStat, identifier);
-           elseStat.setBehaviorActions(BehActions);
-           tmpIfStat.setElseStatement(elseStat);
-           highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-         }
-       )?
-       keyword1=END keyword2=IF
-       {
-         highlight(keyword1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-         highlight(keyword2, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
-         BehAction = IfStat ;
-       }
-     )
-   |
-     //For statement.
-     ( identifier_for=FOR LPAREN { ForStat = _fact.createForOrForAllStatement(); 
-                               setLocationReference(ForStat, identifier_for);
-                               highlight(identifier_for, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
-                             } 
-       identifier_ident=IDENT {  
-                          itVar = _fact.createIterativeVariable(); 
-                          itVar.setName(identifier_ident.getText());
-                          setLocationReference(itVar, identifier_ident); 
-                          ForStat.setIterativeVariable(itVar); 
-                        }
-       COLON dt=unique_component_classifier_reference
-       {
-         DeclarativeUtils.setEcontainer(_ba, dt);
-         itVar.setDataClassifier(dt);
-       }
-       
-       keyword=IN EltVal=element_values RPAREN { ForStat.setIteratedValues(EltVal); highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-       identifier=LCURLY BehActions=behavior_actions RCURLY 
-       { ForStat.setBehaviorActions(BehActions);
-         BehAction = ForStat ;
-       }
-     )
-   |
-     //Forall statement
-     ( identifier=FORALL LPAREN 
-       { 
-        ForStat = _fact.createForOrForAllStatement();
-        ForStat.setForAll(true);
-        setLocationReference(ForStat, identifier);
-        highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
-       }
-       identifier=IDENT {  
-                          itVar = _fact.createIterativeVariable(); 
-                          itVar.setName(identifier.getText());
-                          setLocationReference(itVar, identifier); 
-                          ForStat.setIterativeVariable(itVar);
-                        }
-       COLON dt=unique_component_classifier_reference 
-       {
-         DeclarativeUtils.setEcontainer(_ba, dt);
-         itVar.setDataClassifier(dt);
-       }
-       
-       IN EltVal=element_values RPAREN { ForStat.setIteratedValues(EltVal); }
-       identifier=LCURLY BehActions=behavior_actions RCURLY
-       { ForStat.setBehaviorActions(BehActions) ;
-         BehAction = ForStat ;
-       }
-     )
-   |
-     //While statement.
-     ( identifier1=WHILE identifier2=LPAREN ValExpr=value_expression RPAREN 
-       LCURLY BehActions=behavior_actions RCURLY 
-       {
-         WhileOrDoUntilStatement WhileStat = _fact.createWhileOrDoUntilStatement();
-         setLocationReference(WhileStat, identifier1); 
-         setLocationReference(ValExpr, identifier2) ;
-         WhileStat.setDoUntil(false);
-         WhileStat.setLogicalValueExpression(ValExpr);
-         WhileStat.setBehaviorActions(BehActions);
-         BehAction = WhileStat ;
-         highlight(identifier1, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
-       }
-     )
-   |
-     //Do until statement.
-     ( identifier1=DO BehActions=behavior_actions UNTIL  
-       identifier2=LPAREN ValExpr=value_expression RPAREN 
-       {
-         WhileOrDoUntilStatement doUntilStat = _fact.createWhileOrDoUntilStatement();
-         setLocationReference(doUntilStat, identifier1); 
-         setLocationReference(ValExpr, identifier2) ;
-         doUntilStat.setDoUntil(true);
-         doUntilStat.setLogicalValueExpression(ValExpr);
-         doUntilStat.setBehaviorActions(BehActions);
-         BehAction = doUntilStat ;
-         highlight(identifier1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       }
-     )
-   )
-;
-catch [RecognitionException ex] {
-  // May be an extra ampersand or a semicolon given. Let the caller handles the exception.
-  if(ex instanceof NoViableAltException && 
-        ((NoViableAltException)ex).grammarDecisionDescription.isEmpty())
-  {
-     throw ex ;
-  }
-  else
-  {
-    reportError(ex);
-    consumeUntil(input,SEMICOLON);
-    input.consume();
-  }
-}
-
-// element_values ::=
-//   integer_range
-// | event_data_port_name
-// | array_data_component_reference
-element_values returns [ElementValues EltVal]
- @init{
- }
-  : 
-     ( IntRange=integer_range { EltVal = IntRange; } )
-   |
-     ( AdcRef=reference { EltVal = (ElementValues) AdcRef; } )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// basic_action ::=
-//   assignment_action
-// | communication_action
-// | timed_action
-basic_action returns [BasicAction BaAction]
- @init{
-}
-  :
-     ( AssAct=assignment_action { BaAction = AssAct; } )
-   |
-     ( CommAct=communication_action { BaAction = CommAct;} )
-   |
-     ( TimedAct=timed_action { BaAction = TimedAct; } )
-     
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// assignment_action ::= 
-//   target := ( value_expression | any )
-assignment_action returns [AssignmentAction AssAct]
- @init{
-   AssAct = _fact.createAssignmentAction();
- }
-  :
-   Tar=target ASSIGN ( ValExpr=value_expression | identifier=ANY )
-   {
-     AssAct.setLocationReference(Tar.getLocationReference());
-     AssAct.setTarget(Tar);
-       
-     if (ValExpr != null)
-     {
-       AssAct.setValueExpression(ValExpr);
-     }
-     else
-     {
-       Any any = _fact.createAny() ;
-       setLocationReference(any, identifier);
-       highlight(identifier, AnnexHighlighterPositionAcceptor.DEFAULT_ID);
-       AssAct.setValueExpression(any);
-     }
-   }
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// target ::= 
-// | outgoing_port_name 
-// | outgoing_data_component_reference
-// | outgoing_port_prototype_name
-target returns [Target Tar]
- @init{
-   Tar = null ;
- }
-  : dt=reference {Tar= (Target) dt ;} 
-                                         
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-qualified_named_element returns [QualifiedNamedElement qne]
-@init
-{
-  String id1 = "";
-  String id2 = "";
-}
-  :
-   (
-    ( identifier1=IDENT DOUBLECOLON
-      { 
-        id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText();
-      }
-    )+
-    
-    identifier2=IDENT
-    { 
-      id2=identifier2.getText();
-    }
-    ( DOT identifier3=IDENT
-      {
-        id2=id2+"."+identifier3.getText();
-      }
-    )?
-   )
-   {
-     qne = _decl.createQualifiedNamedElement();
-     Identifier nameId = _decl.createIdentifier();
-     nameId.setId(id2);
-     setLocationReference(nameId, identifier2); 
-     qne.setBaName(nameId);
-    
-     if (! id1.equals(""))
-     {
-       Identifier nameSpaceId = _decl.createIdentifier();
-       nameSpaceId.setId(id1);
-       setLocationReference(nameSpaceId, identifier1); 
-       qne.setBaNamespace(nameSpaceId);
-       setLocationReference(qne, identifier1);
-     }
-   }
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-} 
-
-// communication_action ::= 
-//   subprogram_prototype_name ! [ ( subprogram_parameter_list ) ]
-// | required_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
-// | subprogram_classifier_name ! [ ( subprogram_parameter_list ) ]
-// | required_data_access_name.provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
-// | output_port_name ! [ ( value_expression ) ]
-// | input_port_name >>
-// | input_port_name ? [ ( target ) ]
-// | required_data_access_name !<
-// | required_data_access_name !>
-// | *!<
-// | *!>
-communication_action returns [CommAction ca]
-@init
-{
-  ca = _decl.createCommAction() ;
-}
-  : // Ambiguity between name without array indexes and unqualified
-    // subprogram unique component classifier reference without component
-    // implementation.
-    // unqualified subprogram unique component classifier reference 
-    // without component are parsed as reference.
-        
-    // Ambiguity between value expression and a subprogram parameter list
-    // with only one parameter label which can be a value expression or a target.
-    // Value expressions are parsed as subprogram parameter list
-    // with only one parameter label.
-    
-    // Ambiguity between name.name without array index and unqualified
-    // unique component classifier reference with component implementation.
-    // these uccr are parsed as reference.
-      (
-        qne=qualified_named_element EXCLAM
-        {
-          ca.setLocationReference(qne.getLocationReference());
-          ca.setQualifiedName(qne);
-        }
-        ( 
-          LPAREN SubpgmParamList=subprogram_parameter_list RPAREN
-          {
-            ca.getParameters().addAll(SubpgmParamList);
-          }
-        )?
-      )   
-    |
-      (
-        ref=reference
-        {
-          ca.setReference(ref);
-          ca.setLocationReference(ref.getLocationReference()) ;
-        }
-        (
-            (
-              INTERROG
-              {
-                ca.setPortDequeue(true);
-              }
-              (
-                LPAREN Tar=target RPAREN
-                {
-                  ca.setTarget(Tar);
-                }
-              )?
-            )
-          |
-            (
-              GGREATER
-              { 
-                ca.setPortFreeze(true);
-              }
-            )
-          |
-            (
-              EXCLLESS
-              {
-                ca.setLock(true);
-              }
-            )
-          |
-            (
-              EXCLGREATER
-              {
-                ca.setUnlock(true);
-              }
-            )
-          |
-            (
-              EXCLAM
-              ( 
-                LPAREN SubpgmParamList=subprogram_parameter_list RPAREN
-                {
-                  ca.getParameters().addAll(SubpgmParamList);
-                }
-              )?
-            )
-        )
-      )
-    |
-      (
-        identifier=STAR
-        ( 
-            EXCLLESS
-            {
-              ca.setLock(true);
-            }
-          | 
-            EXCLGREATER
-            {
-              ca.setUnlock(true);
-            }
-        )
-        {
-          setLocationReference(ca, identifier);
-        }
-      )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// timed_action ::= 
-//   computation ( behavior_time [ .. behavior_time ] )
-timed_action returns [TimedAction TimedAct]
- @init{
-   TimedAct = _fact.createTimedAction();
- }
-  :
-   ( identifier=COMPUTATION {setLocationReference(TimedAct, identifier) ; highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}  
-   )  
-   LPAREN
-     BehTime=behavior_time {TimedAct.setLowerTime(BehTime); }
-     (DOTDOT BehTime=behavior_time {TimedAct.setUpperTime(BehTime);}
-     ) ?
-   RPAREN
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// subprogram_parameter_list ::=
-//   parameter_label { , parameter_label }*
-subprogram_parameter_list returns [EList<ParameterLabel> SpgParamList]
- @init{
-   SpgParamList = new BasicEList<ParameterLabel>();
- }
-  : 
-   ParamLabel=parameter_label { SpgParamList.add(ParamLabel);} 
-   (identifier=COMMA ParamLabel=parameter_label { SpgParamList.add(ParamLabel);
-                                                  if( ParamLabel.getLocationReference() == null) // SG case of an ValueExpr else Target is already set
-                                                  {
-                                                     setLocationReference(ParamLabel, identifier) ; 
-                                                  }
-                                                } )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// parameter_label ::=
-//   in_parameter_value_expression | out_parameter_target
-parameter_label returns [ParameterLabel ParamLabel]
- @init{
- }
-  : // Ambiguity between a value expression with a single value and a target.
-    // Targets are parsed as value expression.
-   ( 
-       ValExpr=value_expression { ParamLabel = ValExpr; }
-   )   
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// reference ::=
-//   name | data component reference
-
-// name ::=
-//   { thread_group_identifier . }*
-//   {
-//     [ subprogram_group_access_identifier . ]
-//     [ subprogram_group_identifier . ]
-//     [ feature_group_identifier . ]
-//   }*
-//   identifier { array_index }*
-
-// array_index ::=
-//   [ integer_value ]
-
-// data_component_reference ::=
-//   data_subcomponent_name { . data_subcomponent_name }*
-// | data_access_feature_name { . data_subcomponent_name }*
-// | local_variable_name { . data_subcomponent_name }*
-// | data_access_feature_prototype_name { . data_subcomponent_name }*
-// | subprogram_parameter_name { . data_subcomponent_name }*
-
-reference returns [Reference ref]
- @init{
-    ref = _decl.createReference() ;
-   
- }
-  :
-    id=array_identifier
-    {
-      ref.getIds().add(id);
-      ref.setLocationReference(id.getLocationReference());
-    }
-    (
-      DOT id=array_identifier
-      {
-        ref.getIds().add(id);
-      }
-    )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// array_identifier ::=
-//   identifier { integer_value }*
-array_identifier returns [ArrayableIdentifier id]
-@init
-{
-  id = _decl.createArrayableIdentifier() ;
-}
-  :
-    identifier=IDENT
-    {
-      id.setId(identifier.getText());    
-      setLocationReference(id, identifier); 
-    }
-    (
-      LBRACK Val=integer_value RBRACK
-      {
-        id.getArrayIndexes().add(Val);
-      }
-    )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-//---------------------------------------------------------
-// END : ANNEX D.6 Behavior Action Language
-//---------------------------------------------------------
-//---------------------------------------------------------
-
-//---------------------------------------------------------
-//---------------------------------------------------------
-// BEGIN : ANNEX D.7 Behavior Expression Language
-//---------------------------------------------------------
-
-// fact_value ::=
-//   value_constant
-// | value_variable
-
-// value_constant ::= 
-//   boolean_literal
-// | numeric_literal 
-// | string_literal
-// | enumeration_literal 
-// | property_constant
-// | property_value
-
-// value_variable ::=
-//   incoming_port_name
-// | incoming_port_name ?
-// | incoming_port_data_component_reference
-// | port_name' count
-// | port_name' fresh
-
-fact_value returns [Value Val]
-@init
- {
-   Val = null ;
- }
-  : // Ambiguity between value variable (name without array index) and
-    // unqualified propertyset constant or unqualified propertyset value.
-    // unqualified propertyset constants and unqualified propertyset values are
-    // parsed as reference (see value variable). 
-   (
-       // Case of qualified property constant or value.
-       (  
-          id1=IDENT DOUBLECOLON id2=IDENT
-          {
-            QualifiedNamedElement property = _decl.
-                                               createQualifiedNamedElement();
-                        
-            Identifier nameSpaceId = _decl.createIdentifier();
-            nameSpaceId.setId(id1.getText());
-            setLocationReference(nameSpaceId, id1);
-            property.setBaNamespace(nameSpaceId);
-            
-            setLocationReference(property, id1) ;
-            
-            Identifier nameId = _decl.createIdentifier();
-            nameId.setId(id2.getText());
-            setLocationReference(nameId, id2);
-            property.setBaName(nameId);
-            
-            Val = property ;
-          }
-       )
-     | // Value variables and unqualified propertyset constants and unqualified
-       // propertyset values cases.
-       ValueVar=value_variable { Val = ValueVar ;}
-
-     | // Cases from value constant category. 
-       bl=boolean_literal { Val = bl;}
-     |
-       nl=numeric_literal { Val = nl;}
-     |
-       st=string_literal  { Val = st;}
-     |
-       lit=behavior_enumeration_literal { Val = lit ;}    
-   )
-;
-catch [RecognitionException ex] {
-  
-  throw ex ;
-}  
-
-/** 
- * Document: AADL Behavior Annex draft
- * Version : 0.94 
- * Type : Legality rule
- * Section : D.7 Behavior Expression Language
- * Object : Check Legality rule D.7.(L2) 
- * Keys : parentheses on operators precedence
- */
-// value ::=
-//   value_variable
-// | value_constant
-// | ( value_expression )
-value returns [Value Val]
- @init{
- }
-  :
-   (
-       ( ValTmp=fact_value ) {Val = ValTmp;}
-     |
-       ( identifier=LPAREN ValExpr=value_expression RPAREN
-          { setLocationReference(ValExpr, identifier) ; Val = ValExpr; }
-       )
-   )
-;
-
-catch [RecognitionException ex] {
-  throw ex ;
-}
-
-// value_variable ::=
-//   incoming_port_name
-// | incoming_port_name ?
-// | incoming_port_data_component_reference
-// | port_name' count
-// | port_name' fresh
-value_variable returns [ValueVariable ValueVar]
-
- @init{
-   ValueVar = null ;
- }
-  : 
-     (
-       ref=reference
-       
-       (
-           INTERROG
-           {
-             NamedValue nv = _decl.createNamedValue();
-             nv.setReference(ref) ;
-             nv.setDequeue(true);
-             nv.setLocationReference(ref.getLocationReference());
-             ValueVar = nv ;
-           }
-         |
-           TICK (
-                    keyword=COUNT 
-                    { 
-                      NamedValue nv = _decl.createNamedValue();
-                      nv.setReference(ref) ;
-                      nv.setCount(true);
-                       nv.setLocationReference(ref.getLocationReference());
-                      ValueVar = nv ;
-                      highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-                    } 
-                  | 
-                    keyword=FRESH
-                    {
-                      NamedValue nv = _decl.createNamedValue();
-                      nv.setReference(ref) ;
-                      nv.setFresh(true);
-                       nv.setLocationReference(ref.getLocationReference());
-                      ValueVar = nv ;
-                      highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-                    }
-                )
-       )?
-       {
-         if (ValueVar == null)
-         {
-           ValueVar = ref ;
-         }
-       }
-     )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-/** 
- * Document: AADL Behavior Annex draft
- * Version : 0.94 
- * Type : Legality rule
- * Section : D.7 Behavior Expression Language
- * Object : Check Legality rule D.7.(L1) 
- * Keys : operators precedence
- */ 
-// value_expression ::=
-//   relation { logical_operator relation }* 
-value_expression returns [ValueExpression ValueExpr]
- @init{
-   ValueExpr = _fact.createValueExpression();
- }
-  :
-   ( 
-     Rel=relation
-     { ValueExpr.getRelations().add(Rel);
-       ValueExpr.setLocationReference(Rel.getLocationReference());
-     }
-     (
-       LogicalOp=logical_operator Rel=relation
-       {
-        ValueExpr.getLogicalOperators().add(LogicalOp);
-        ValueExpr.getRelations().add(Rel);
-       }
-     )* 
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// relation ::=
-//   simple_expression [ relational_operator simple_expression ]
-relation returns [Relation Rel]
- @init{
-   Rel = _fact.createRelation();
- }
-  :
-   SimpleExpr=simple_expression
-   { Rel.setFirstExpression(SimpleExpr);
-     Rel.setLocationReference(SimpleExpr.getLocationReference());  
-   }
-   (
-     RelationalOp=relational_operator SimpleExpr=simple_expression 
-     {
-      Rel.setRelationalOperator(RelationalOp);
-      Rel.setSecondExpression(SimpleExpr);
-     }
-   )?
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// simple_expression ::= 
-//   [ unary_adding_operator ] term { binary_adding_operator term }*
-simple_expression returns [SimpleExpression SimpleExpr]
- @init{
-   SimpleExpr = _fact.createSimpleExpression();
- }
-  :
-   (
-     UnaryAddOp=unary_adding_operator 
-     {
-      SimpleExpr.setUnaryAddingOperator(UnaryAddOp);
-     }
-   )?
-   
-   tm=term
-   { 
-     SimpleExpr.getTerms().add(tm);
-     SimpleExpr.setLocationReference(tm.getLocationReference());
-   }
-   
-   (
-     BinaryAddOp=binary_adding_operator tm=term
-     {
-      SimpleExpr.getBinaryAddingOperators().add(BinaryAddOp);
-      SimpleExpr.getTerms().add(tm);
-     } 
-   )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// term ::= 
-//   factor { multiplying_operator factor }*
-term returns [Term tm]
- @init{
-   tm = _fact.createTerm();
- }
-  :
-   fact=factor
-   { tm.getFactors().add(fact);
-     tm.setLocationReference(fact.getLocationReference());
-   }
-   (
-     MultiplyingOp=multiplying_operator fact=factor
-     {
-      tm.getMultiplyingOperators().add(MultiplyingOp);
-      tm.getFactors().add(fact);
-     } 
-   )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// factor ::= 
-//   value [ binary_numeric_operator value ] 
-// | unary_numeric_operator value 
-// | unary_boolean_operator value
-factor returns [Factor Fact]
- @init
- {
-   Fact = _fact.createFactor();
- }
-  :
-   (
-    ( val=value {
-                  Fact.setLocationReference(val.getLocationReference()) ;
-                  Fact.setFirstValue(val);
-                } 
-      (
-        BinaryNumOp=binary_numeric_operator val2=value
-        {
-          Fact.setBinaryNumericOperator(BinaryNumOp);
-          Fact.setSecondValue(val2);
-        }
-      )?
-    )
-   |
-    ( UnaryNumOp=unary_numeric_operator val=value
-      {
-        Fact.setUnaryNumericOperator(UnaryNumOp);
-        Fact.setFirstValue(val);
-        Fact.setLocationReference(val.getLocationReference()) ;
-      }
-    )
-   |
-    ( UnaryBoolOp=unary_boolean_operator val=value
-      {
-        Fact.setUnaryBooleanOperator(UnaryBoolOp);
-        Fact.setFirstValue(val);
-        Fact.setLocationReference(val.getLocationReference()) ;
-      }
-    )
-   )
-;
-
-catch [NoViableAltException ex] 
-{
-   reportError("unexpected value", null) ;
-}
-
-catch [NullPointerException ex]
-{
-   reportError("unexpected value", null) ;
-}
-
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// logical_operator ::= and | or | xor
-logical_operator returns [LogicalOperator LogicalOp]
- @init{
- // TODO location reference
-   LogicalOp = null;
- }
-  :
-   (
-     identifier_and=AND { LogicalOp=LogicalOperator.AND; highlight(identifier_and, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-   |
-     identifier_or=OR { LogicalOp=LogicalOperator.OR; highlight(identifier_or, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-   |
-     identifier_xor=XOR { LogicalOp=LogicalOperator.XOR; highlight(identifier_xor, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// relational_operator ::= = | != | < | <= | > | >=
-relational_operator returns [RelationalOperator RelationalOp]
- @init{
- // TODO location reference
-   RelationalOp = null;
- }
-  :
-   (
-     EQUAL { RelationalOp = RelationalOperator.EQUAL; }
-   |
-     NOTEQUAL { RelationalOp = RelationalOperator.NOT_EQUAL; }
-   |
-     LESSTHAN { RelationalOp = RelationalOperator.LESS_THAN; }
-   |
-     LESSOREQUAL { RelationalOp = RelationalOperator.LESS_OR_EQUAL_THAN; }
-   |
-     GREATERTHAN { RelationalOp = RelationalOperator.GREATER_THAN; }
-   |
-     GREATEROREQUAL { RelationalOp = RelationalOperator.GREATER_OR_EQUAL_THAN; }  
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// binary_adding_operator ::= + | - 
-binary_adding_operator returns [BinaryAddingOperator BinaryAddOp]
- @init{
- // TODO location reference
-   //BinaryAddOp = _fact.createBinaryAddingOperator();
- }
-  :
-   (
-     PLUS { BinaryAddOp = BinaryAddingOperator.PLUS; }
-   |
-     MINUS { BinaryAddOp = BinaryAddingOperator.MINUS; }
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// unary_adding_operator ::=  + | -
-unary_adding_operator returns [UnaryAddingOperator UnaryAddOp]
- @init{
- // TODO location reference
- }
-  :
-   (
-     PLUS { UnaryAddOp = UnaryAddingOperator.PLUS; }
-   |
-     MINUS { UnaryAddOp = UnaryAddingOperator.MINUS; }
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// multiplying_operator ::=  * | / | mod | rem
-multiplying_operator returns [MultiplyingOperator MultiplyingOp]
- @init{
- // TODO location reference
-  // MultiplyingOperator MultiplyingOp = null;
- }
-  :
-   (
-     STAR { MultiplyingOp = MultiplyingOperator.MULTIPLY; }
-   |
-     DIVIDE { MultiplyingOp = MultiplyingOperator.DIVIDE; }
-   |
-     identifier_mod=MOD { MultiplyingOp = MultiplyingOperator.MOD; highlight(identifier_mod, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-   |
-     identifier_rem=REM { MultiplyingOp = MultiplyingOperator.REM; highlight(identifier_rem, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// binary_numeric_operator ::= **
-binary_numeric_operator returns [BinaryNumericOperator BinaryNumOp]
- @init{
- // TODO location reference
-   //BinaryNumericOperator BinaryNumOp = null;
- }
-  :
-   STARSTAR { BinaryNumOp = BinaryNumericOperator.MULTIPLY_MULTIPLY; }
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// unary_numeric_operator ::= abs
-unary_numeric_operator returns [UnaryNumericOperator UnaryNumOp]
- @init{
- // TODO location reference
-   //UnaryNumericOperator UnaryNumOp = null;
- }
-  :
-   keyword_abs=ABS { UnaryNumOp = UnaryNumericOperator.ABS; highlight(keyword_abs, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// unary_boolean_operator ::= not
-unary_boolean_operator returns [UnaryBooleanOperator UnaryBoolOp]
- @init{
- // TODO location reference
-   //UnaryBooleanOperator UnaryBoolOp = null;
- }
-  :
-   identifier_not=NOT { UnaryBoolOp = UnaryBooleanOperator.NOT; highlight(identifier_not, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// boolean_literal ::= true | false
-boolean_literal returns [BehaviorBooleanLiteral BoolLit]
- @init{
-   BoolLit = _fact.createBehaviorBooleanLiteral();
- }
-  :
-   (
-       identifier_true=TRUE { BoolLit.setValue(true); highlight(identifier_true, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       setLocationReference(BoolLit, identifier_true) ;}
-     |
-       identifier_false=FALSE { BoolLit.setValue(false); highlight(identifier_false, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       setLocationReference(BoolLit, identifier_false) ;}
-   ) 
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// integer_range ::= integer_value .. integer_value
-integer_range returns [IntegerRange IntRange]
- @init{
-   IntRange = _fact.createIntegerRange();
- }
-  :
-   (
-     IntValue=integer_value DOTDOT IntValue2=integer_value
-     {
-       IntRange.setLowerIntegerValue(IntValue);
-       IntRange.setUpperIntegerValue(IntValue2);
-       IntRange.setLocationReference(IntValue.getLocationReference());
-     }
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// integer_value ::= 
-//   integer_value_variable 
-// | integer_value_constant
-integer_value returns [IntegerValue IntVal]
- @init{
- }
-  : // Ambiguity between integer value variable with one name and unqualified
-    // propertyset constant or value from value constant. See fact_value. 
-   (
-     ValTmp=fact_value { IntVal = (IntegerValue) ValTmp ;}              
-   )
-   
-;
-catch [RecognitionException ex] {
-  throw ex ;
-}
-
-// behavior_time ::= integer_value unit_identifier
-behavior_time returns [DeclarativeTime BehTime]
- @init{
-   BehTime = _decl.createDeclarativeTime() ;
- }
-  :
-   (
-     IntValue=integer_value UnitIdent=IDENT
-     {
-       BehTime.setIntegerValue(IntValue);
-       BehTime.setLocationReference(IntValue.getLocationReference());
-       
-       Identifier Id = _decl.createIdentifier() ;
-       Id.setId(UnitIdent.getText());
-       setLocationReference(Id, UnitIdent) ;
-       BehTime.setUnitId(Id);
-     }
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// property_constant ::=
-//   [ property_set_identifier :: ] property_constant_identifier
-
-// property_value ::=
-//   [ property_set_identifier :: ] property_value_identifier
-
-// property constants and property values ambiguity : they are parsed as 
-// a generic property.
-
-// property ::=
-//   property_constant
-// | property_value
-
-property returns [QualifiedNamedElement property]
- @init{
-   property = _decl.createQualifiedNamedElement();
- }
-  :
-   (
-     ( PropertySetId=IDENT DOUBLECOLON
-       {
-         Identifier nameSpaceId = _decl.createIdentifier();
-         nameSpaceId.setId(PropertySetId.getText());
-         setLocationReference(nameSpaceId, PropertySetId); 
-         property.setBaNamespace(nameSpaceId);
-         setLocationReference(property, PropertySetId) ;
-       }
-     )?
-       
-     PropertyId=IDENT
-     { 
-       Identifier nameId = _decl.createIdentifier();
-       nameId.setId(PropertyId.getText());
-       setLocationReference(nameId, PropertyId); 
-       property.setBaName(nameId);
-       
-       if (property.getLocationReference() == null )  
-       {
-         setLocationReference(property, PropertyId) ; 
-       }
-     }
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-// enumeration_literal ::= 
-//   { package_identifier :: }* component_type_identifier
-//   [ . component_implementation_identifier ]
-//   # enumeration_literal_identifier
-behavior_enumeration_literal returns [Enumeration enumeration]
-  @init {
-          enumeration = _decl.createEnumeration() ;
-        }
-  :
-  (
-     qualifiable_named_element[enumeration]
-     
-     HASH id2=IDENT
-     {
-       Identifier lit = _decl.createIdentifier() ;
-       lit.setId(id2.getText());
-       setLocationReference(lit, id2) ;
-              
-       enumeration.setLiteral(lit);
-       // enumeration's location reference is already set, see
-       // qualifiable_named_element.       
-     }
-  )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}       
-
-// numeric_literal ::= <refer to [AS5506A 15.4]>
-// numeric literal without optional sign and unit
-numeric_literal returns [NumericLiteral nl]
-  @init { 
-    nl=null;
-    char sign = ' '; 
-  }
-  :
-  (
-      realval=REAL_LIT
-      {
-        String str = realval.getText();
-        BehaviorRealLiteral tmp = _fact.createBehaviorRealLiteral();
-        str = str.replaceAll("_", "") ;
-        tmp.setValue(str);
-        setLocationReference(tmp, realval);
-        nl = tmp ;
-        highlight(realval, AnnexHighlighterPositionAcceptor.NUMBER_ID);
-      }
-    |
-      intLit = integer_literal
-      {
-        nl = intLit ;
-      }
-  ) 
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-integer_literal returns [BehaviorIntegerLiteral bil]
-
- :
-    integerval=INTEGER_LIT
-    {
-      try
-      {
-        String str = integerval.getText();
-        BehaviorIntegerLiteral tmp = _fact.createBehaviorIntegerLiteral();
-        tmp.setValue(str);
-        setLocationReference(tmp, integerval);
-        bil = tmp ;
-        highlight(integerval, AnnexHighlighterPositionAcceptor.NUMBER_ID);
-      }
-      catch (IllegalArgumentException e)
-      {
-          /*
-          int line = integerval.getLine() ;
-          int col = integerval.getCharPositionInLine() ; 
-          String fileName = this.getFilename() ;
-          RecognitionException ex = new RecognitionException() ;
-          ex.line = line ;
-          ex.charPositionInLine = col ;
-          ex.input = input ;
-          throw ex ;
-          */
-          reportError("integer literal bad format", integerval) ;
-          return null ;
-      }
-    }
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// string_literal ::= <refer to [AS5506A 15.5]>
-string_literal returns [BehaviorStringLiteral StringLit]
- @init{
-   StringLit = _fact.createBehaviorStringLiteral();
- }
-  :
-   (
-     sl=STRING_LITERAL
-      {
-        String str = sl.getText();
-        // stripout the quotes
-        str = str.substring(1,str.length()-1);
-        StringLit.setValue(str);
-        setLocationReference(StringLit, sl);
-        highlight(sl, AnnexHighlighterPositionAcceptor.STRING_ID);
-      }
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-// numeral ::= <refer to [AS5506A 15.4.1]>
-numeral returns [Integer Num]
-
-  :
-   ( 
-     NumVal=INTEGER_LIT 
-     { 
-       String tmp = NumVal.getText().replaceAll("_", "");
-       Num = Integer.parseInt(tmp) ;
-       highlight(NumVal, AnnexHighlighterPositionAcceptor.NUMBER_ID);
-     } 
-   )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
-//---------------------------------------------------------
-// END : ANNEX D.7 Behavior Expression Language
-//---------------------------------------------------------
-//---------------------------------------------------------
-
+//INVALID TOKENS
+
+ERR_EQUALEQUAL : '==' ;
+ERR_END        : 'endif' ;
+ERR_ELSIF      : 'elif' ;
 
 // OTHERS STUFFS IMPORT FROM AADL2.g file (OSATE2)
 
@@ -2501,7 +1562,7 @@ BASE : DIGIT ( DIGIT )? ;
 fragment
 HEX_DIGIT : ('0'..'9'
             | 'a'..'f')
-  ;
+;
 
 WS : ( ' '
      | '\r' '\n' 
@@ -2509,16 +1570,16 @@ WS : ( ' '
      | '\n' 
      | '\t' 
      )
-     {$channel=HIDDEN;}
+     -> skip
 ;   
-    
+
 // Single-line comments
 SL_COMMENT
-  : comment='--' (~('\n'|'\r' ){comment_length++;})* 
-  {//highlight(_annexOffset, ((CommonToken)comment).getStartIndex(), comment_length+comment.getInputStream().size(), AnnexHighlighterPositionAcceptor.COMMENT_ID);
-	comment_length=0;
-          $channel=COMMENT_CHANNEL;}
-  ;
+  : ('--' (~('\n'|'\r' ))*)
+    -> channel (HIDDEN)
+;
+
+
 
 // escape sequence -- note that this is protected; it can only be called
 //   from another lexer rule -- it will not ever directly return a token to

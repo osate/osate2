@@ -21,10 +21,10 @@
 
 package fr.tpt.aadl.annex.behavior.utils;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
+import org.antlr.v4.runtime.ANTLRInputStream ;
+import org.antlr.v4.runtime.CharStream ;
 
-public class CaseInsensitiveCharStream extends ANTLRStringStream {
+public class CaseInsensitiveCharStream extends ANTLRInputStream {
 
 	public CaseInsensitiveCharStream(String src)
 	{
