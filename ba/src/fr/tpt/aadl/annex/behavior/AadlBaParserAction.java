@@ -107,7 +107,7 @@ public class AadlBaParserAction implements AnnexParser
         if(parser.getNumberOfSyntaxErrors() == 0)
         {
           AadlBaParserVisitor<Boolean> visitor = 
-                new AadlBaParserVisitor<>(filename, annexOffset) ;
+                new AadlBaParserVisitor<Boolean>(filename, annexOffset) ;
           
           visitor.visit(bac) ;
           
