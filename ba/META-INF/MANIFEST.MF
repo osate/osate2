@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: fr.tpt.aadl.annex.behavior;singleton:=true
 Bundle-Version: 0.9.5
 Bundle-ClassPath: .,
- resources/libs/antlr-4.1.jar
+ resources/libs/antlr-4.1.complete.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
