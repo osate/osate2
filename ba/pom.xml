@@ -1,37 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
 
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>ramses</groupId>
-		<artifactId>ramses-maven-build</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../build_and_test/ramses-maven-build/pom.xml</relativePath>
-	</parent>
-	
-	<groupId>ramses</groupId>
-	<artifactId>fr.tpt.aadl.annex.behavior</artifactId>
-	<version>0.9.5</version>
-	<packaging>eclipse-plugin</packaging>
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    
-   <dependencies>
+   <modelVersion>4.0.0</modelVersion>
    
-     <dependency>
-       <groupId>antlr</groupId>
-         <artifactId>antlr</artifactId>
-         <version>2.7.7</version>
-     </dependency>
-    
-     <dependency>
-       <groupId>org.antlr</groupId>
-         <artifactId>antlr</artifactId>
-         <version>4.1</version>
-     </dependency>
+   <parent>
+      <groupId>ramses</groupId>
+      <artifactId>ramses-maven-build</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <relativePath>../../build_and_test/ramses-maven-build/pom.xml</relativePath>
+   </parent>
    
-   </dependencies>
+   <groupId>ramses</groupId>
+   <artifactId>fr.tpt.aadl.annex.behavior</artifactId>
+   <version>0.9.5</version>
+   <packaging>eclipse-plugin</packaging>
    
 </project>
