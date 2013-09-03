@@ -26,7 +26,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ModalElementHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 
 // TODO: Update styles, etc
@@ -102,7 +102,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		
 		// Set color for the decorators
 		for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
-			ModalElementHelper.setColorIfInSelectedMode(getDiagram(), fs, cd.getGraphicsAlgorithm());
+			HighlightingHelper.highlight(getDiagram(), fs, cd.getGraphicsAlgorithm(), getFeatureProvider());
 		}
 		
 		// Create Label
@@ -119,7 +119,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		final Style style = StyleUtil.getFlowSpecificationStyle(getDiagram());
 		polyline.setStyle(style);
-		ModalElementHelper.setColorIfInSelectedMode(getDiagram(), fs, polyline);
+		HighlightingHelper.highlight(getDiagram(), fs, polyline, getFeatureProvider());
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {

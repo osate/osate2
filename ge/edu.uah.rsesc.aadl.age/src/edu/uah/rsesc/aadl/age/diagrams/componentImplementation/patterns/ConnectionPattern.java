@@ -29,7 +29,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ModalElementHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 
 public class ConnectionPattern extends AgeConnectionPattern {
@@ -144,7 +144,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	    text.setValue(aadlConnection.getName());
 	    
 	    // Set color based on current mode/mode transition
-	    ModalElementHelper.setColorIfInSelectedMode(getDiagram(), aadlConnection, connection.getGraphicsAlgorithm());
+	    HighlightingHelper.highlight(getDiagram(), aadlConnection, connection.getGraphicsAlgorithm(), getFeatureProvider());
 	}
 
 	private void createGraphicsAlgorithm(final org.eclipse.graphiti.mm.pictograms.Connection connection) {

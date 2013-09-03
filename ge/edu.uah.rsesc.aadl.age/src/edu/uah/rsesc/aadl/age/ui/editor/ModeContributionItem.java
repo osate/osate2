@@ -110,10 +110,6 @@ public class ModeContributionItem extends ComboContributionItem {
 		return control;
 	}
 	
-	/**
-	 * 
-	 * @param selectedModeName can be null
-	 */
 	private void refresh() {
 		final Combo combo = getCombo();
 		if(combo != null) {

@@ -10,6 +10,7 @@ public class PropertyUtil {
 	private static final String SIDE_KEY = "side"; // Which side the shape is on
 	private static final String LAYOUT_SIDE_KEY = "layout_side"; // Which side the shape is layed out as
 	private static final String SELECTED_MODE_KEY = "selected_mode"; // The name of the mode the user has selected in the UI
+	private static final String SELECTED_FLOW_KEY = "selected_flowe"; // The name of the flow the user has selected in the UI
 	
 	public static final String getTypeName(final PictogramElement pe) {
 		return Graphiti.getPeService().getPropertyValue(pe, TYPE_NAME_KEY);
@@ -52,5 +53,14 @@ public class PropertyUtil {
 	
 	public static final void setSelectedMode(final Diagram diagram, final String modeName) {
 		Graphiti.getPeService().setPropertyValue(diagram, SELECTED_MODE_KEY, modeName);
+	}
+	
+	public static final String getSelectedFlow(final Diagram diagram) {
+		final String modeName = Graphiti.getPeService().getPropertyValue(diagram, SELECTED_FLOW_KEY);
+		return (modeName == null) ? "" : modeName;
+	}
+	
+	public static final void setSelectedFlow(final Diagram diagram, final String flowName) {
+		Graphiti.getPeService().setPropertyValue(diagram, SELECTED_FLOW_KEY, flowName);
 	}
 }

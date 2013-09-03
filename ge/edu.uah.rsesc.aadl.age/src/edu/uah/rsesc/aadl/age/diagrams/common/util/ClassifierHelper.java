@@ -21,26 +21,18 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeaturePrototypeActual;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
-import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2Util;
@@ -296,7 +288,7 @@ public class ClassifierHelper {
 		} else {
 			final Element bindingContext = getPrototypeBindingContext(shape, fp);
 			if(bindingContext != null) {
-				final FeatureGroupType fgt = resolveFeatureGroupPrototype(fg.getFeatureGroupPrototype(), bindingContext);
+				final FeatureGroupType fgt = ResolvePrototypeUtil.resolveFeatureGroupPrototype(fg.getFeatureGroupPrototype(), bindingContext);
 				if(fgt != null) {
 					return fgt;
 				}
@@ -313,7 +305,7 @@ public class ClassifierHelper {
 		} else {
 			final Element bindingContext = getPrototypeBindingContext(shape, fp);
 			if(bindingContext != null) {
-				final ComponentClassifier cc = ClassifierHelper.resolveComponentPrototype(sc.getPrototype(), bindingContext);
+				final ComponentClassifier cc = ResolvePrototypeUtil.resolveComponentPrototype(sc.getPrototype(), bindingContext);
 				if(cc != null) {
 					return cc;
 				}
@@ -381,7 +373,7 @@ public class ClassifierHelper {
 	}
 	
 	public static FeatureGroupPrototypeActual resolveFeatureGroupPrototypeToActual(Prototype proto, Element context) {
-		FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) resolvePrototype(proto, context);
+		FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding)ResolvePrototypeUtil.resolvePrototype(proto, context);
 
 		if (fgpb == null) {
 			// cannot resolve
@@ -389,120 +381,5 @@ public class ClassifierHelper {
 		}
 		
 		return fgpb.getActual();
-	}
-	
-// TODO: Remove after merged into OSATE(all following)
-	public static PrototypeBinding resolvePrototype(Prototype proto, Element context) {
-		PrototypeBinding result = null;
-		if (context instanceof Classifier) {
-			Classifier impl = (Classifier) context;
-			result = impl.lookupPrototypeBinding(proto);
-		} else if (context instanceof Subcomponent) {
-			Subcomponent parentSub = (Subcomponent)context;
-			result = parentSub.lookupPrototypeBinding(proto);
-			if(result == null) {
-				result = resolvePrototype(proto, parentSub.getAllClassifier());
-			}
-		} else if (context instanceof ContainmentPathElement){
-			result = ResolvePrototypeUtil.resolvePrototypeInContainmentPath(proto, (ContainmentPathElement)context);
-		} else if(context instanceof FeatureGroupPrototypeActual) {
-			final FeatureGroupPrototypeActual fgpa = (FeatureGroupPrototypeActual)context;
-			for(final PrototypeBinding binding : fgpa.getBindings()) {
-				if(binding.getFormal() == proto) {
-					result = binding;
-					break;
-				}				
-			}
-		}
-//			// lookup in parent's classifier (nested prototype bindings)
-//			if (result == null && parent != null) {
-//				ResolvedClassifier parentClassifier = getInstantiatedClassifier(parent, 0, classifierCache);
-//
-//				if (parentClassifier.bindings != null) {
-//					for (PrototypeBinding binding : parentClassifier.bindings) {
-//						if (binding.getFormal() == proto) {
-//							result = binding;
-//							break;
-//						}
-//					}
-//				}
-//				if (result == null) {
-//					result = parentClassifier.classifier.lookupPrototypeBinding(proto);
-//				}
-//			}
-		return result;
-	}
-	
-	// Add another patch to OSATE 2 when finished
-	/**
-	 * Find the binding for a given feature prototype. Recursively resolves references.
-	 * @param proto the prototype to resolve
-	 * @param context the context in which the prototype is used, e.g., a ComponentType,  FeatureGroupType
-	 * @return the actual feature this prototype resolves to.
-	 */
-	public static FeaturePrototypeBinding resolveFeaturePrototype(Prototype proto, Element context) {
-		final FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)resolvePrototype(proto, context);
-		if(fpb == null) {
-			// cannot resolve
-			return null;
-		}
-		
-		final FeaturePrototypeActual actual = fpb.getActual();
-		if(actual instanceof FeaturePrototypeReference) {
-			// If context is FeatureGroupPrototypeActual, use containing classifier as the context for the reference
-			if(context instanceof FeatureGroupPrototypeActual) {
-				context = context.getContainingClassifier();
-			}
-			return resolveFeaturePrototype(((FeaturePrototypeReference) actual).getPrototype(), context);
-		}			
-		
-		return fpb;
-	}
-	
-	// TODO:MERGE INTO OSATE IF CHANGES ARE MADE. Otherwise just remove when no longer needed
-	public static FeatureGroupType resolveFeatureGroupPrototype(Prototype proto, Element context) {
-		FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) resolvePrototype(proto, context);
-
-		if (fgpb == null) {
-			// cannot resolve
-			return null;
-		}
-		FeatureGroupPrototypeActual actual = fgpb.getActual();
-
-		if (actual.getFeatureType() instanceof FeatureGroupType) {
-			return (FeatureGroupType) actual.getFeatureType();
-		} else {
-			if (actual.getFeatureType() instanceof Prototype && context instanceof ContainmentPathElement){
-			// resolve recursively if we are in a containment path
-				System.out.println("CODE PATH DISABLED TO ALLOW COMPILING OUTSIDE OF OSATE");
-			//	return resolveFeatureGroupPrototype((Prototype)actual.getFeatureType(), getPrevious((ContainmentPathElement) context));
-			}
-		}
-		return null;
-	}
-	
-	public static ComponentClassifier resolveComponentPrototype(Prototype proto, Element context) {
-		ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) resolvePrototype(proto, context);
-
-		if (cpb == null) {
-			// cannot resolve
-			return null;
-		}
-		EList<ComponentPrototypeActual> actuals = cpb.getActuals();
-
-		if (actuals != null && actuals.size() > 0) {
-			ComponentPrototypeActual actual = actuals.get(0);
-
-			if (actual.getSubcomponentType() instanceof ComponentClassifier) {
-				return (ComponentClassifier)actual.getSubcomponentType();
-			} else {
-				if (actual.getSubcomponentType() instanceof ComponentPrototype && context instanceof ContainmentPathElement){
-				// resolve recursively if we are in a containment path
-					System.out.println("CODE PATH DISABLED TO ALLOW COMPILING OUTSIDE OF OSATE");
-					//return resolveComponentPrototype((Prototype)actual.getSubcomponentType(), getPrevious((ContainmentPathElement) context));
-				}
-			}
-		}
-		return null;
 	}
 }

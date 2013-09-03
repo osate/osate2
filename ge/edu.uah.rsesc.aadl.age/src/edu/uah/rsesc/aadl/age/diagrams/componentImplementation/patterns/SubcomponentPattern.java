@@ -23,8 +23,6 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
@@ -33,9 +31,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ModalElementHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 public class SubcomponentPattern extends AgePattern {
@@ -183,7 +180,7 @@ public class SubcomponentPattern extends AgePattern {
 		gaService.setLocationAndSize(text, 0, 0, ga.getWidth(), 20);
 		
 		// Set color based on current mode
-		ModalElementHelper.setColorIfInSelectedMode(getDiagram(), sc, ga);		
+		HighlightingHelper.highlight(getDiagram(), sc, ga, getFeatureProvider());		
 	
 		UpdateHelper.layoutChildren(shape, getFeatureProvider());
 	}
