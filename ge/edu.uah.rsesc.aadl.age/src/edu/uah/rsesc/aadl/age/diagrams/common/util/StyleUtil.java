@@ -10,7 +10,7 @@ import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
 // TODO: Consider removing class
 public class StyleUtil {	
-	private static Style getStyle(final Diagram diagram, final String styleId) {
+	public static Style getStyle(final Diagram diagram, final String styleId) {
 		final StyleProvider styleProvider = (StyleProvider)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProvider.class);
 		return styleProvider.getStyle(diagram, styleId);
 	}
@@ -56,7 +56,7 @@ public class StyleUtil {
 	}
 	
 	public static Style getVirtualProcessorStyle(final Diagram diagram, final boolean isImplementation) {
-		return getImplementationStyleConditionally(diagram, "virtual-proessor", isImplementation);
+		return getImplementationStyleConditionally(diagram, "virtual-processor", isImplementation);
 	}
 	
 	public static Style getBusStyle(final Diagram diagram, final boolean isImplementation) {

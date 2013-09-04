@@ -52,8 +52,7 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		final Classifier classifier = getClassifier(context);
 		final Diagram diagram = getDiagram();		
 		
-		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
-		diagram.getStyles().clear();	
+		UpdateHelper.refreshStyles(diagram);
 				
 		// Remove shapes that are invalid
 		UpdateHelper.removeInvalidShapes(diagram, getFeatureProvider());

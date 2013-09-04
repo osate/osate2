@@ -3,11 +3,14 @@ package edu.uah.rsesc.aadl.age.ui.editor;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
 import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
+import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.ui.properties.AadlElementPropertySource;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 
 /**
@@ -30,24 +33,30 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 		
 		// Unwrap the object
 		bo = AadlElementWrapper.unwrap(bo);
-		
-		// If the business object is an AADL Element
-		if(bo instanceof NamedElement && IAadlPropertySource.class.equals(adapterType)) {
-			final NamedElement namedElement = (NamedElement)bo;			
-			return new IAadlPropertySource() {
-				private final IXtextDocument document = AgeXtextUtil.getDocumentByQualifiedName(namedElement.getQualifiedName());
-				private final NamedElement element = namedElement;
-				
-				@Override
-				public IXtextDocument getDocument() {
-					return document;
-				}
 
-				@Override
-				public NamedElement getNamedElement() {
-					return element;
-				}				
-			};
+		if(IAadlPropertySource.class.equals(adapterType)) {
+			// If the business object is an AADL Named Element
+			if(bo instanceof NamedElement) {
+				final NamedElement namedElement = (NamedElement)bo;			
+				return new IAadlPropertySource() {
+					private final IXtextDocument document = AgeXtextUtil.getDocumentByQualifiedName(namedElement.getQualifiedName());
+					private final NamedElement element = namedElement;
+					
+					@Override
+					public IXtextDocument getDocument() {
+						return document;
+					}
+	
+					@Override
+					public NamedElement getNamedElement() {
+						return element;
+					}				
+				};
+			}
+		} else if(IPropertySource.class.equals(adapterType)) {
+			if(bo instanceof Element) {
+				return new AadlElementPropertySource((Element)bo);
+			}
 		}
 
 		return null;
@@ -56,6 +65,6 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Class[] getAdapterList() {
-		return new Class[] { IAadlPropertySource.class };
+		return new Class[] { IAadlPropertySource.class, IPropertySource.class};
 	}
 }

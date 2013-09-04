@@ -11,14 +11,20 @@ import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
 public class UpdateHelper {
 	/**
@@ -127,6 +133,68 @@ public class UpdateHelper {
 			final Anchor anchor = it.next();
 			if(anchor.getIncomingConnections().size() + anchor.getOutgoingConnections().size() == 0) {
 				it.remove();
+			}
+		}
+	}
+	
+	
+	/**
+	 * Refresh styles used by all the diagrams. Removes all styles from the diagram and then finds any usage of styles and reset them.
+	 * @param diagram
+	 */
+	public static void refreshStyles(final Diagram diagram) {
+		// Remove all styles. Styles will be recreated as needed
+		diagram.getStyles().clear();	
+				
+		// Refresh shape styles
+		refreshStyles(diagram, diagram);
+		
+		// Refresh connection styles
+		for(final Connection connection : diagram.getConnections()) {
+			refreshStyles(diagram, connection);
+		}
+	}
+
+	private static void refreshStyles(final Diagram diagram, final Shape shape) {
+		refreshStyles(diagram, shape.getGraphicsAlgorithm());
+		
+		// Refresh the style of child shapes
+		if(shape instanceof ContainerShape) {
+			for(final Shape child : ((ContainerShape)shape).getChildren()) {
+				refreshStyles(diagram, child);
+			}	
+		}
+		
+		// Refresh the styles for the anchors
+		for(final Anchor anchor : shape.getAnchors()) {
+			refreshStyles(diagram, anchor.getGraphicsAlgorithm());
+		}
+	}
+	
+	private static void refreshStyles(final Diagram diagram, final Connection connection) {
+		refreshStyles(diagram, connection.getGraphicsAlgorithm());
+		
+		// Refresh the style for the decorators
+		for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
+			refreshStyles(diagram, cd);
+		}
+	}
+	
+	private static void refreshStyles(final Diagram diagram, final GraphicsAlgorithm ga) {
+		// Get an updated version of the current style
+		if(ga != null) {
+			final Style oldStyle = ga.getStyle();
+			if(oldStyle != null) {
+				final String styleId = ga.getStyle().getId();
+				final Style style = StyleUtil.getStyle(diagram, styleId);
+
+				// Set the style
+				ga.setStyle(style);
+			}
+			
+			// Handle children
+			for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+				refreshStyles(diagram, childGa);
 			}
 		}
 	}

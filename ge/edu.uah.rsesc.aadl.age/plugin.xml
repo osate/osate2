@@ -97,9 +97,11 @@
 	<extension point="org.eclipse.core.runtime.adapters">
 		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart" class="edu.uah.rsesc.aadl.age.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
+			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 		</factory>
 		<factory adaptableType="org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart" class="edu.uah.rsesc.aadl.age.ui.editor.GraphitiEditPartAdapterFactory">
 			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
+			<adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 		</factory>
 	</extension>
 	
@@ -131,7 +133,7 @@
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="abstract-implementation"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-bus-implementation"/>
- 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-group"/>
+ 	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor"/>
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.DashedComponentTypeStyleFactory" styleId="virtual-processor-implementation"/> 	
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.FeatureGroupStyleFactory" styleId="feature-group"/> 	
  	<factory class="edu.uah.rsesc.aadl.age.diagrams.common.styles.ShadedStyleFactory" styleId="shadded"/>
@@ -162,5 +164,5 @@
              serviceClass="edu.uah.rsesc.aadl.age.styles.StyleProvider"></service>
     </serviceFactory>
  </extension>
-
+ 
 </plugin>

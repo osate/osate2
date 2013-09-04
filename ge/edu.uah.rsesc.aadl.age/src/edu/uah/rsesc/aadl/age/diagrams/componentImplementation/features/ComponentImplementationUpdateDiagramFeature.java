@@ -50,8 +50,7 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 		final Diagram diagram = getDiagram();	
 		// How to snap?		
 		
-		// Remove all styles. Styles will be recreated as needed when the graphics algorithms are rebuilt.
-		diagram.getStyles().clear();	
+		UpdateHelper.refreshStyles(diagram);
 				
 		// Remove shapes that are invalid
 		UpdateHelper.removeInvalidShapes(diagram, getFeatureProvider());
