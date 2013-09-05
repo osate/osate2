@@ -241,22 +241,24 @@ public class ClassifierHelper {
 	 * @param fp
 	 */
 	public static int[] adjustChildShapePositions(final ContainerShape shape, final IFeatureProvider fp) {	
+		// Determine the extra width needed to hold AADL features
+		int featureWidth = 80;
+		for(final Shape childShape : shape.getChildren()) {
+			if(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(childShape)) instanceof Feature) {
+				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth()) + 30;
+			}
+		}		
+		
 		// Determine how much to shift the X and Y of the children by
 		int shiftX = 0;
 		int shiftY = 0;
 		for(final Shape childShape : shape.getChildren()) {
 			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-			shiftX = Math.min(shiftX, childGa.getX());
-			shiftY = Math.min(shiftY, childGa.getY());
-		}
-		
-		// Determine the extra width needed to hold AADL features
-		int featureWidth = 80;
-		for(final Shape childShape : shape.getChildren()) {
-			if(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(childShape)) instanceof Feature) {
-				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth());
+			if(!(AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(childShape)) instanceof Feature)) {				
+				shiftX = Math.min(shiftX, childGa.getX()-featureWidth);
+				shiftY = Math.min(shiftY, childGa.getY()-30);				
 			}
-		}		
+		}
 		
 		// Calculate max width and height
 		int maxWidth = 300;

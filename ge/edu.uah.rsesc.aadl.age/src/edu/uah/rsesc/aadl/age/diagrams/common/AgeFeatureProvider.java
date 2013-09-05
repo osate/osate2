@@ -21,6 +21,7 @@ import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.osate.aadl2.Element;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
@@ -53,6 +54,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(new DrillDownFeature(this));
+		features.add(new LayoutDiagramFeature(this));
 	}
 	
 	@Override

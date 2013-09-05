@@ -1,75 +1,46 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.features;
-/*******************************************************************************
- * <copyright>
- *
- * Copyright (c) 2005, 2010 SAP AG.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    SAP AG - initial API, implementation and documentation
- *
- * </copyright>
- *
- *******************************************************************************/
-import java.util.HashMap;
-import java.util.Map;
 
-import org.eclipse.draw2d.geometry.Insets;
-import org.eclipse.draw2d.graph.CompoundDirectedGraph;
-import org.eclipse.draw2d.graph.CompoundDirectedGraphLayout;
-import org.eclipse.draw2d.graph.Edge;
-import org.eclipse.draw2d.graph.EdgeList;
-import org.eclipse.draw2d.graph.Node;
-import org.eclipse.draw2d.graph.NodeList;
-import org.eclipse.emf.common.util.EList;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.zest.layouts.InvalidLayoutConfiguration;
+import org.eclipse.zest.layouts.LayoutAlgorithm;
+import org.eclipse.zest.layouts.LayoutEntity;
+import org.eclipse.zest.layouts.LayoutStyles;
+import org.eclipse.zest.layouts.algorithms.CompositeLayoutAlgorithm;
+import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
+import org.eclipse.zest.layouts.algorithms.HorizontalShift;
+import org.eclipse.zest.layouts.exampleStructures.SimpleNode;
+import org.eclipse.zest.layouts.exampleStructures.SimpleRelationship;
+import org.osate.aadl2.Feature;
+import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
 
-// TODO: Implement a layout feature that will work for all diagram types. Need to take into account children(sometimes), "Cycles" caused by flow specification sources and sinks,
-
-// Taken from example linked from Graphiti FAQ
-// May be replaced with an improved implementation in the future
-/**
- * Maps the Graphiti Diagram to a graph structure which can be consumed by the
- * GEF Layouter, layouts the graph structure and maps the new coordinates back
- * to the diagram. Refresh is triggered automatically by the changes on the
- * diagram model.
- * 
- * Disclaimer: this is just an example to show how to plug an arbitrary layouter
- * into a Graphiti diagram editor. For instance, the basic layouting here does
- * not consider bendpoints etc.
- * 
- */
 public class LayoutDiagramFeature extends AbstractCustomFeature {
 
-	/**
-	 * Minimal distance between nodes.
-	 */
-	private static final int PADDING = 30;
-
-
-	public LayoutDiagramFeature(IFeatureProvider fp) {
+	public LayoutDiagramFeature(final IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
 	public String getDescription() {
-		return "Layout diagram with GEF Layouter"; //$NON-NLS-1$
+		return "Layout diagram automatically";
 	}
 
 	@Override
 	public String getName() {
-		return "&Layout Diagram"; //$NON-NLS-1$
+		return "Layout Diagram";
 	}
 
 	@Override
@@ -84,57 +55,125 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 
 	@Override
 	public void execute(ICustomContext context) {
-		final CompoundDirectedGraph graph = mapDiagramToGraph();
-		graph.setDefaultPadding(new Insets(PADDING));
-		new CompoundDirectedGraphLayout().visit(graph);
-		mapGraphCoordinatesToDiagram(graph);
+		try {
+			final ContainerShape shape = getDiagram();			
+			
+			// Create the layout algorithm
+			final int layoutStyles = LayoutStyles.NO_LAYOUT_NODE_RESIZING;
+			final LayoutAlgorithm alg = new CompositeLayoutAlgorithm( new LayoutAlgorithm[] {
+					new DirectedGraphLayoutAlgorithm(layoutStyles), new HorizontalShift(layoutStyles)
+			});
+
+			layout(shape, alg);
+			
+		} catch (final InvalidLayoutConfiguration e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private void layout(final ContainerShape shape, final LayoutAlgorithm alg) throws InvalidLayoutConfiguration {
+		final List<Shape> children = shape.getChildren();
+		
+		// Layout the inside of the child shapes
+		for(final Shape child : children) {
+			if(child instanceof ContainerShape) {
+				layout((ContainerShape)child, alg);
+			}
+		}		
+		
+		// Don't perform any automatic layout if there is not more than 1 child shape
+		if(children.size() <= 1) {
+			return;
+		}
+
+		final Map<Shape, SimpleNode> shapeToNodeMap = new HashMap<Shape, SimpleNode>();
+
+		boolean performLayout = false; // Flag used to short-circuit execution when all child objects are not going to be touched by layout algorithm
+		for(int i = 0; i < children.size(); i++) {
+			final Shape child = children.get(i);
+			final SimpleNode node = createLayoutEntity(child);
+			if(shouldIgnoreShape(child)) {
+				node.ignoreInLayout(true);
+			} else {
+				performLayout = true;
+			}
+			
+			shapeToNodeMap.put(child, node);
+		}						
+		
+		if(!performLayout) {
+			return;
+		}
+		
+		// Create relationships between every node and it's container
+		final List<SimpleRelationship> relationships = new ArrayList<SimpleRelationship>();
+		for(final Connection connection : getDiagram().getConnections()) {				
+			final LayoutEntity startNode = getLayoutEntity(connection.getStart(), shapeToNodeMap);
+			final LayoutEntity endNode = getLayoutEntity(connection.getEnd(), shapeToNodeMap);
+			if(startNode != null && endNode != null && startNode != endNode) {
+				relationships.add(new SimpleRelationship(startNode, endNode, true));
+			}			
+		}
+		
+		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+		final int width = ga.getWidth();
+		final int height = ga.getHeight();
+		
+		alg.applyLayout(shapeToNodeMap.values().toArray(new SimpleNode[0]), relationships.toArray(new SimpleRelationship[0]), 0, 0, width, height, false, false);			
+
+		// Update the shapes
+		for(final SimpleNode entity : shapeToNodeMap.values()) {
+			updateShape(entity);
+		}
+		
+		// Use the resize helper to resize the shape
+		if(!(shape instanceof Diagram)) {
+			ResizeHelper.checkSize(shape, getFeatureProvider());
+		}
+	}
+	
+	private boolean shouldIgnoreShape(final Shape shape) {
+		// TODO: Could have a layed out shape and a layout all flag to selectively layout parts of diagram
+		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
+		return bo == null || bo instanceof Feature;
+	}
+	/**
+	 * Gets the layout entity that is the closest match to the specified anchor
+	 * @param anchor
+	 * @param shapeToNodeMap
+	 * @return
+	 */
+	private static LayoutEntity getLayoutEntity(final Anchor anchor, final Map<Shape, SimpleNode> shapeToNodeMap) {
+		if(anchor.getParent() instanceof Shape) {
+			Shape shape = (Shape)anchor.getParent();
+			while(shape != null) {
+				final LayoutEntity entity = shapeToNodeMap.get(shape);
+				if(entity != null) {
+					return entity;
+				}
+
+				shape = shape.getContainer();
+			}
+		}
+		return null;	
+				
 	}
 
-
-	private Diagram mapGraphCoordinatesToDiagram(CompoundDirectedGraph graph) {
-		NodeList myNodes = new NodeList();
-		myNodes.addAll(graph.nodes);
-		myNodes.addAll(graph.subgraphs);
-		for (Object object : myNodes) {
-			Node node = (Node) object;
-			Shape shape = (Shape) node.data;
-			shape.getGraphicsAlgorithm().setX(node.x);
-			shape.getGraphicsAlgorithm().setY(node.y);
-			shape.getGraphicsAlgorithm().setWidth(node.width);
-			shape.getGraphicsAlgorithm().setHeight(node.height);
-		}
-		return null;
+	private static SimpleNode createLayoutEntity(final Shape shape) {
+		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+		return new SimpleNode(shape, ga.getX(), ga.getY(), ga.getWidth()+50, ga.getHeight()+50);		
 	}
 
-	private CompoundDirectedGraph mapDiagramToGraph() {
-		Map<AnchorContainer, Node> shapeToNode = new HashMap<AnchorContainer, Node>();
-		Diagram d = getDiagram();
-		CompoundDirectedGraph dg = new CompoundDirectedGraph();
-		EdgeList edgeList = new EdgeList();
-		NodeList nodeList = new NodeList();
-		EList<Shape> children = d.getChildren();
-		for (Shape shape : children) {
-			Node node = new Node();
-			GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-			node.x = ga.getX();
-			node.y = ga.getY();
-			node.width = ga.getWidth();
-			node.height = ga.getHeight();
-			node.data = shape;
-			shapeToNode.put(shape, node);
-			nodeList.add(node);
+	/**
+	 * Updates teh shapes position
+	 * @param entity
+	 */
+	private void updateShape(final SimpleNode entity) {
+		final Shape shape = (Shape)entity.getRealObject();
+		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+		if(!entity.hasPreferredLocation()) {
+			ga.setX((int)entity.getXInLayout());
+			ga.setY((int)entity.getYInLayout());
 		}
-		EList<Connection> connections = d.getConnections();
-		for (Connection connection : connections) {
-			AnchorContainer source = connection.getStart().getParent();
-			AnchorContainer target = connection.getEnd().getParent();
-
-			Edge edge = new Edge(shapeToNode.get(source), shapeToNode.get(target));
-			edge.data = connection;
-			edgeList.add(edge);
-		}
-		dg.nodes = nodeList;
-		dg.edges = edgeList;
-		return dg;
 	}
 }

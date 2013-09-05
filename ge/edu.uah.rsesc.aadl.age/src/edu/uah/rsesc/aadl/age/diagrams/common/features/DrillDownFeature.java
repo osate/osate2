@@ -3,6 +3,7 @@ package edu.uah.rsesc.aadl.age.diagrams.common.features;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
@@ -33,7 +34,7 @@ public class DrillDownFeature extends AbstractCustomFeature {
     @Override
     public boolean canExecute(ICustomContext context) {
         PictogramElement[] pes = context.getPictogramElements();
-        if (pes != null && pes.length == 1) {
+        if (pes != null && pes.length == 1 && !(pes[0] instanceof Diagram)) {
             Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pes[0]));
             if(bo instanceof Package || bo instanceof Classifier) {
                 return true;
