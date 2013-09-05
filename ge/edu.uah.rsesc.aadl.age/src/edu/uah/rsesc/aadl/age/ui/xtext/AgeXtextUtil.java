@@ -12,6 +12,8 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
+import edu.uah.rsesc.aadl.age.util.StringUtil;
+
 public class AgeXtextUtil {
 	private static final ModelListener modelListener = new ModelListener();
 	
@@ -93,8 +95,15 @@ public class AgeXtextUtil {
 	 * @return
 	 */
 	public static XtextResourceSet getResourceSetByQualifiedName(final String qualifiedName) {
-		final String packageName = qualifiedName.split("::")[0];		
-		final XtextResourceSet rs = modelListener.getResourceSet(packageName);
+		// First check if the qualified name corresponds to a package
+		XtextResourceSet rs = modelListener.getResourceSet(qualifiedName);
+		if(rs != null) {
+			return rs;
+		}
+		
+		final String segs[] = qualifiedName.split("::");
+		final String packageName = StringUtil.join(segs, 0, segs.length-1, "::");
+		rs = modelListener.getResourceSet(packageName);
 		return rs == null ? OsateResourceUtil.getResourceSet() : rs;
 	}
 	
@@ -104,7 +113,15 @@ public class AgeXtextUtil {
 	 * @return the last document updated for the qualified name or null if one does not exist
 	 */
 	public static IXtextDocument getDocumentByQualifiedName(final String qualifiedName) {
-		final String packageName = qualifiedName.split("::")[0];		
+		// Check if the qualified name is a package
+		IXtextDocument document = modelListener.getDocument(qualifiedName);
+		if(document != null) {
+			return document;
+		}
+		
+		// Assume it was not
+		final String segs[] = qualifiedName.split("::");
+		final String packageName = StringUtil.join(segs, 0, segs.length-1, "::");
 		return modelListener.getDocument(packageName);
 	}
 	

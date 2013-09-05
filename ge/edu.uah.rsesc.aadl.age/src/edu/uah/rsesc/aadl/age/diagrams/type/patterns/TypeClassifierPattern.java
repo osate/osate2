@@ -122,6 +122,5 @@ public class TypeClassifierPattern extends AgePattern {
 		}
 		
 		UpdateHelper.layoutChildren(shape, getFeatureProvider());
-
 	}
 }

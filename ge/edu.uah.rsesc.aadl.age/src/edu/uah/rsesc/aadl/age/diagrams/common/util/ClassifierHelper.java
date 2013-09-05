@@ -41,11 +41,11 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 
 public class ClassifierHelper {
 	public static void createUpdateFeatureShapes(final ContainerShape shape, final List<Feature> features, final IFeatureProvider fp, final Collection<Shape> touchedShapes) {	
-		createUpdateShapesForElements(shape, features, fp, 0, false, 25, 0, true, 5, touchedShapes);
+		createUpdateShapesForElements(shape, features, fp, 0, false, 25, 25, true, 5, touchedShapes);
 	}
 	
 	public static void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes, final IFeatureProvider fp) {
-		createUpdateShapesForElements(shape, modes, fp, 80, false, 25, 0, true, 5);
+		createUpdateShapesForElements(shape, modes, fp, 80, false, 25, 25, true, 5);
 	}
 	
 	public static void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final IFeatureProvider fp, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {

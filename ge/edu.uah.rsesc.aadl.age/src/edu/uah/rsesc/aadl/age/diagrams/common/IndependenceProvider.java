@@ -28,6 +28,7 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 import edu.uah.rsesc.aadl.age.util.Log;
+import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 // NOTE: There is an issue where there could be confusion over which element is being referenced. Qualified names are not always unique. Features and Component Implementations could conflict
 // TODO: Expand check so that it ensures that the element being retrieved is of the expected type to reduce likelihood of problems if a reliable solutation can not be found.
@@ -185,11 +186,18 @@ class IndependenceProvider implements IIndependenceSolver {
 	}
 	
 	private NamedElement getNamedElementByQualifiedName(final XtextResourceSet resourceSet, final String qualifiedName) {
-		final String[] segs = qualifiedName.split("::");
-		final String pkgName = segs[0];
+		// Check if the qualified name refers to a package
+		AadlPackage pkg = getPackage(resourceSet, qualifiedName);
+		if(pkg != null) {
+			return pkg;
+		}
 		
-		// Find the package
-		final AadlPackage pkg = getPackage(resourceSet, pkgName);
+		// Otherwise, determine the package and find the element
+		final String[] segs = qualifiedName.split("::");
+		String pkgName = StringUtil.join(segs, 0, segs.length-1, "::");
+
+		// Find the package	
+		pkg = getPackage(resourceSet, pkgName);
 		if(pkg == null) {
 			return null;
 		}
@@ -199,7 +207,7 @@ class IndependenceProvider implements IIndependenceSolver {
 		}
 		
 		// Check the public section first then the private
-		final String path = segs[1];
+		final String path = segs[segs.length-1];
 		final String[] pathSegs = path.split("\\.");
 		NamedElement element = findNamedElement(pkg.getPublicSection(), pathSegs);
 		if(element == null) {

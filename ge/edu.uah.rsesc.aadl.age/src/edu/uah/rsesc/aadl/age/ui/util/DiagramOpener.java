@@ -118,7 +118,7 @@ public class DiagramOpener {
 		try {
 			createdResource.save(null);
 		} catch (IOException e) {
-			throw new RuntimeException("Error saving new diagram");
+			throw new RuntimeException("Error saving new diagram", e);
 		}
 		
 		// Dispose of the editing domain if we created it
