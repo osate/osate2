@@ -39,6 +39,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -171,6 +172,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 					if (searchResult != null) return Collections.singletonList(searchResult);
 				}
 			} else if (context instanceof RecoverEvent){
+				Classifier ns = AadlUtil.getContainingClassifier(context);
+				searchResult = ns.findNamedElement(name);
+			} else if (context instanceof RepairEvent){
 				Classifier ns = AadlUtil.getContainingClassifier(context);
 				searchResult = ns.findNamedElement(name);
 			} else if (context instanceof FeatureorPPReference){
