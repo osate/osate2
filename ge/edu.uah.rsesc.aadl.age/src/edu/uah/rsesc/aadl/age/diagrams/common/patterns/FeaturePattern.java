@@ -215,6 +215,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();		
 
+		System.out.println("FEATURE PATTERN");
+		System.out.println(feature);
+		
 		// Remove all children except for the feature shape
 		final Iterator<Shape> childIt = shape.getChildren().iterator();
 		ContainerShape featureShape = getFeatureShape(shape);
@@ -227,21 +230,22 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds	of the child shapes
         final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
         gaService.setLocation(ga, x, y);
-        PropertyUtil.setIsLeftLayout(shape, true);
-        
-		if(callDepth > 2) {
-			return;
-		}
+        PropertyUtil.setIsLeftLayout(shape, true);        
 
 		// Create the feature shape if there wasn't one
         if(featureShape == null) {
         	featureShape = peCreateService.createContainerShape(shape, true);
+        	gaService.createInvisibleRectangle(featureShape);
         	PropertyUtil.setName(featureShape, featureShapeName);
         } else {
         	gaService.createInvisibleRectangle(featureShape);
         	UpdateHelper.removeInvalidShapes(featureShape, getFeatureProvider());
         }
 
+		if(callDepth > 2) {
+			return;
+		}
+		
 		// Determine the label text
         final String labelTxt = getLabelText(feature);        
         

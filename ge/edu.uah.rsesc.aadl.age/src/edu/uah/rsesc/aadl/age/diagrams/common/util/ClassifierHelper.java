@@ -70,6 +70,8 @@ public class ClassifierHelper {
 		int childX = startX;
 		int childY = startY;
 		for(final NamedElement element : elements) {
+			System.out.println(element.getQualifiedName());
+			System.out.println(element);
 			PictogramElement pictogramElement = ShapeHelper.getChildShapeByElement(shape, element, fp);
 			if(pictogramElement == null) {
 				final AddContext addContext = new AddContext();
@@ -107,7 +109,7 @@ public class ClassifierHelper {
 	
 	/**
 	 * Returns all the features owned by the feature group type or the type it extends. This differs from FeatureGroupType's getAllFeatures because it does not 
-	 * return features from the inverse.
+	 * return features from the inverse
 	 * @param fgt
 	 * @return
 	 */
@@ -121,7 +123,7 @@ public class ClassifierHelper {
 	
 	/**
 	 * Returns all the features owned by the feature group type or the type it extends. This differs from FeatureGroupType's getAllFeatures because it does not 
-	 * return features from the inverse.
+	 * return features from the invers and in the case of refined features, only returns the refined feature.
 	 * @param fgt
 	 * @return
 	 */
@@ -129,7 +131,18 @@ public class ClassifierHelper {
 		final EList<Feature> features = new BasicEList<Feature>();
 		FeatureGroupType temp = fgt;
 		while(temp != null) {
-			features.addAll(temp.getOwnedFeatures());
+			boolean wasRefined = false;
+			for(final Feature newFeature : temp.getOwnedFeatures()) {
+				for(final Feature existingFeature : features) {
+					if(existingFeature.getRefined() == newFeature) {
+						wasRefined = true;
+					}
+				}
+				
+				if(!wasRefined) {
+					features.add(newFeature);
+				}
+			}
 			temp = temp.getExtended();
 		}
 

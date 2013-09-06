@@ -51,8 +51,7 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 		Log.info("called with context: " + context);
 		final ComponentImplementation ci = getComponentImplementation(context);
 		final Diagram diagram = getDiagram();	
-		// How to snap?		
-		
+
 		UpdateHelper.refreshStyles(diagram);
 				
 		// Remove shapes that are invalid

@@ -20,9 +20,9 @@ public class ElementHelper {
 	}
 	
 	public static boolean areNamesEqual(final NamedElement e1, final NamedElement e2) {
-		if(e1 == null || e1.getFullName() == null || e2 == null || e2.getFullName() == null)
+		if(e1 == null || e1.getQualifiedName() == null || e2 == null || e2.getQualifiedName() == null)
 			return false;
 		
-		return e1.getFullName().equalsIgnoreCase(e2.getFullName());
+		return e1.getQualifiedName().equalsIgnoreCase(e2.getQualifiedName());
 	}
 }

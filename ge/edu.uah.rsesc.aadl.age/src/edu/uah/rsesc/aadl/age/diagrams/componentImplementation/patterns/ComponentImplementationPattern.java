@@ -97,15 +97,16 @@ public class ComponentImplementationPattern extends AgePattern {
 				
 		// Remove invalid features
 		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());		
-				
+			
 		// Create/Update Shapes
 		ClassifierHelper.createUpdateFeatureShapes(shape, ci.getAllFeatures(), getFeatureProvider(), null);
-		createUpdateSubcomponents(shape, ci);
 		
+		createUpdateSubcomponents(shape, ci);
+
 		// Create/Update Modes and Mode Transitions
 		ClassifierHelper.createUpdateModeShapes(shape, ci.getAllModes(), getFeatureProvider());
 		ClassifierHelper.createUpdateModeTransitions(ci.getAllModeTransitions(), getFeatureProvider());	
-		
+
 		// Create/Update Connections
 		for(final Connection connection : ci.getAllConnections()) {	
 			final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(connection);
@@ -135,7 +136,7 @@ public class ComponentImplementationPattern extends AgePattern {
 		
 		// Adjust size. Width and height		
 		final int newSize[] = ClassifierHelper.adjustChildShapePositions(shape, getFeatureProvider());
-		
+
 		// Create a new graphics Algorithm
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), ci, newSize[0], newSize[1], getFeatureProvider());
