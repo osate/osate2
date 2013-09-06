@@ -122,7 +122,6 @@ public class SubcomponentPattern extends AgePattern {
 		final Classifier classifier = ClassifierHelper.getComponentClassifier(shape,  sc, getFeatureProvider());
 		if(classifier != null) {
 			final List<Shape> touchedShapes = new ArrayList<Shape>();
-			System.out.println("CREATING FEATURE SHAPES FOR: " + classifier.getFullName());
 			ClassifierHelper.createUpdateFeatureShapes(shape, ClassifierHelper.getAllOwnedFeatures(classifier), getFeatureProvider(), touchedShapes);
 			childShapesToDelete.removeAll(touchedShapes);
 		}

@@ -70,8 +70,6 @@ public class ClassifierHelper {
 		int childX = startX;
 		int childY = startY;
 		for(final NamedElement element : elements) {
-			System.out.println(element.getQualifiedName());
-			System.out.println(element);
 			PictogramElement pictogramElement = ShapeHelper.getChildShapeByElement(shape, element, fp);
 			if(pictogramElement == null) {
 				final AddContext addContext = new AddContext();
