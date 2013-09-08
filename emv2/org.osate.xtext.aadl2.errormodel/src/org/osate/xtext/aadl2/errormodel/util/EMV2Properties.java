@@ -278,10 +278,12 @@ public class EMV2Properties {
 	 */
 	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, Element target, 
 			Stack<ComponentInstance> ciStack, TypeSet ts ){
+		boolean matchStack = false;
 		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
 		for (ContainedNamedElement containedNamedElement : applies) {
 			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
-			if (matchCIStack(ciStack, cpes)) {
+			matchStack = matchCIStack(ciStack, cpes);
+			if (matchStack) {
 				// we are past the component portion of the path
 				NamedElement typeelement =null;
 				NamedElement lastel = null;
@@ -314,7 +316,13 @@ public class EMV2Properties {
 							return containedNamedElement;
 						}
 					}
-				} else if (lastel == target) {
+				}
+				
+				/**
+				 * Finally, in last resort, we try to see if the lastelement
+				 * of the path corresponds to the target.
+				 */
+				if (lastel == target) {
 					return containedNamedElement;
 				}
 			}
