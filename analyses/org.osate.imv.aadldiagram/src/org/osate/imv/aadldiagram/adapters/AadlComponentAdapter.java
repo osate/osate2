@@ -116,6 +116,11 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		this.childComponents.add (adapter);
 		this.addChildFigure(adapter);
 	}
+
+	public void removeChild(AadlComponentAdapter adapter) {
+		this.childComponents.remove (adapter);
+		this.removeChildFigure(adapter);
+	}
 	
 	public void addChild (AadlBindingAdapter adapter) {
 		this.childBindings.add (adapter);
@@ -125,6 +130,10 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	public void addChild(AadlFeatureAdapter adapter) {
 		this.childFeatures.add(adapter);
 		this.addChildFigure(adapter);
+	}
+	public void removeChild(AadlFeatureAdapter adapter) {
+		this.childFeatures.remove(adapter);
+		this.removeChildFigure(adapter);
 	}
 
 	public void addChild(AadlConnectionAdapter adapter) {
@@ -181,6 +190,10 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	private void addChildFigure(IAadlElementAdapter elementAdapter) {
 		elementAdapter.setParentAdapter(this);
 		this.getFigure().add(elementAdapter.getFigure());
+	}
+
+	private void removeChildFigure(IAadlElementAdapter elementAdapter) {
+		this.getFigure().remove(elementAdapter.getFigure());
 	}
 
 	@Override

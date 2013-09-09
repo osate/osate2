@@ -130,14 +130,12 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
  	}
 	
 	public void updateDiagram(){
-		// calls setinput in aadldiagramviewer
-		// force refresh forces recreation of diagram
 		Boolean tmprefresh = forceRefresh;
 		forceRefresh = true;
 		refresh();
 		forceRefresh = tmprefresh;
-//		// XXX TODO PHF
-//		runFilters();
+//		updateRootAdapter();
+//		redrawDiagram();
 	}
 	
 

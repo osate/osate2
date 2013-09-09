@@ -135,6 +135,9 @@ public class AadlDiagramViewer extends Viewer implements IAadlElementAdapterList
 			adapter.accept(new ConnectionFilterVisitor());
 		}
 	}
+	public void updateRootAdapter() {
+		this.adapterProvider.updateContainerComponentAdapter(this.aadlDiagram.getRootAdapter(), this.aadlDiagram.getNestingLevel());
+}
 
 	public void resetRootAdapter() {
 
