@@ -136,6 +136,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkRecoverEventTriggerType(recoverEvent);
 	}
 
+	@Check(CheckType.FAST)
+	public void caseRepairEvent(RecoverEvent recoverEvent) {
+		checkRecoverEventTriggerType(recoverEvent);
+	}
+
 	@Check(CheckType.NORMAL)
 	public void caseConditionElement(ConditionElement conditionElement) {
 		checkConditionElementType(conditionElement);
@@ -234,10 +239,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent) {
 		EList<NamedElement> cl = recoverEvent.getCondition();
 		for (NamedElement namedElement : cl) {
-			if (!(namedElement instanceof ModeTransition || namedElement instanceof EventPort || namedElement instanceof InternalEvent)) {
+			if (!(namedElement instanceof ModeTransition || namedElement instanceof Port || namedElement instanceof InternalEvent)) {
 				error(recoverEvent, "Recover event trigger reference '"
 						+ namedElement.getName()
-						+ "' is not an event or self port or mode transition.");
+						+ "' is not a port, component internal self event, or mode transition.");
 			}
 		}
 	}
