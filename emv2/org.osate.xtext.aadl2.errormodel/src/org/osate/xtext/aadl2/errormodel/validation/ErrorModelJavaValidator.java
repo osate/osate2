@@ -19,6 +19,8 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.InternalEvent;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
@@ -232,10 +234,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent) {
 		EList<NamedElement> cl = recoverEvent.getCondition();
 		for (NamedElement namedElement : cl) {
-			if (!(namedElement instanceof Port || namedElement instanceof ModeTransition)) {
+			if (!(namedElement instanceof ModeTransition || namedElement instanceof EventPort || namedElement instanceof InternalEvent)) {
 				error(recoverEvent, "Recover event trigger reference '"
 						+ namedElement.getName()
-						+ "' is not a port or mode transition.");
+						+ "' is not an event or self port or mode transition.");
 			}
 		}
 	}

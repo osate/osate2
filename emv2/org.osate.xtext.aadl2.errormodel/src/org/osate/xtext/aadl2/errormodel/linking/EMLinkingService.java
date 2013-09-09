@@ -19,11 +19,15 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
@@ -171,12 +175,13 @@ public class EMLinkingService extends PropertiesLinkingService {
 					searchResult = findTypeSet(cxtElement, name);
 					if (searchResult != null) return Collections.singletonList(searchResult);
 				}
-			} else if (context instanceof RecoverEvent){
+			} else if (context instanceof RecoverEvent || context instanceof RepairEvent){
 				Classifier ns = AadlUtil.getContainingClassifier(context);
 				searchResult = ns.findNamedElement(name);
-			} else if (context instanceof RepairEvent){
-				Classifier ns = AadlUtil.getContainingClassifier(context);
-				searchResult = ns.findNamedElement(name);
+// checked by validator
+//				if (ne instanceof ModeTransition || ne instanceof EventPort || ne instanceof InternalEvent){
+//					searchResult = ne;
+//				}
 			} else if (context instanceof FeatureorPPReference){
 				ErrorPropagation ep = (ErrorPropagation) context.eContainer();
 				EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
