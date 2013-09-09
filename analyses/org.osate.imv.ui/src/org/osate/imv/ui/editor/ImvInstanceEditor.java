@@ -288,6 +288,7 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 			registerPropertyListeners();
 
 			// Set input to viewer.
+			//XXX TODO si is null when we open a package
 			viewer.setInput(si);
 			this.isDirty = false;
 		}
