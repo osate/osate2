@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -114,6 +115,20 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		return containerAdapter;
 	}
 
+	public void updateContainerComponentAdapter(AadlComponentAdapter containerAdapter, int nesting) {
+
+
+		// Add the container's features.
+//		this.addFeaturesToAdapter(containerAdapter);
+			// Add the container's subcomponents.
+			this.updateSubcomponentsOfComponent(containerAdapter, nesting);
+			// Add connections.
+//			this.addConnectionsToComponent(containerAdapter);
+//			if (modelElement instanceof ComponentInstance){
+//				this.addBindingsToComponent(containerAdapter);
+//			}
+	}
+
 
 	private ComponentAdapterCategory getComponentCategory (Object comp) 
 	{
@@ -190,25 +205,57 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 
 	private void addFeaturesToAdapter(AadlComponentAdapter componentAdapter) {
-		Object[] features = this.getFeatures(componentAdapter.getModelElement());
-		for(int i = 0; i < features.length; i++){
-			NamedElement feature = (NamedElement)features[i];
+		EList features = this.getFeatures(componentAdapter.getModelElement());
+		for(Object obj: features){
+			NamedElement feature = (NamedElement)obj;
 			FeatureAdapterCategory category = this.getFeatureCategory(feature);
 			FeatureDirectionType directionType = this.getFeatureDirectionType(feature);
 			AadlFeatureAdapter featureAdapter = new AadlFeatureAdapter(feature,category ,directionType , this.labelProvider);
 			// Update adapter map.
-			this.modelElementToAdapterMap.put(features[i], featureAdapter);
+			this.modelElementToAdapterMap.put(obj, featureAdapter);
 			// Add feature to the container adapter.
 			componentAdapter.addChild(featureAdapter);
 		}
 	}
 
+
+	private void updateFeaturesOfAdapter(AadlComponentAdapter componentAdapter) {
+		EList features = this.getFeatures(componentAdapter.getModelElement());
+		// remove adapters without corresponding model element
+		EList<AadlFeatureAdapter> removeme = new BasicEList<AadlFeatureAdapter>();
+		for (Iterator<AadlFeatureAdapter> it = componentAdapter.getChildFeatures(); it.hasNext();){
+			AadlFeatureAdapter kid = it.next();
+			Object feature = kid.getModelElement();
+			if (!features.contains(feature)){
+				removeme.add(kid);
+				this.modelElementToAdapterMap.remove(feature);
+			}
+		}
+		for (AadlFeatureAdapter kidadapter : removeme) {
+			componentAdapter.removeChild(kidadapter);
+		}
+		for(Object obj: features){
+			AadlFeatureAdapter featureAdapter = (AadlFeatureAdapter)this.modelElementToAdapterMap.get(obj);
+			if (featureAdapter == null){
+
+				NamedElement feature = (NamedElement)obj;
+				FeatureAdapterCategory category = this.getFeatureCategory(feature);
+				FeatureDirectionType directionType = this.getFeatureDirectionType(feature);
+				featureAdapter = new AadlFeatureAdapter(feature,category ,directionType , this.labelProvider);
+				// Update adapter map.
+				this.modelElementToAdapterMap.put(obj, featureAdapter);
+				// Add feature to the container adapter.
+				componentAdapter.addChild(featureAdapter);
+			}
+		}
+	}
+
 	private void addSubcomponentsToComponent(AadlComponentAdapter componentAdapter, int nesting) {
-		Object[] subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
-		for (int i = 0; i < subcomponents.length; i++) {
-			AadlComponentAdapter subcomponentAdapter = new AadlComponentAdapter(subcomponents[i], this.getComponentCategory(subcomponents[i]), this.labelProvider);
+		EList subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
+		for (Object sub: subcomponents) {
+			AadlComponentAdapter subcomponentAdapter = new AadlComponentAdapter(sub, this.getComponentCategory(sub), this.labelProvider);
 			// Update adapter map.
-			this.modelElementToAdapterMap.put(subcomponents[i], subcomponentAdapter);
+			this.modelElementToAdapterMap.put(sub, subcomponentAdapter);
 			// Add feature elements to the subcomonent.
 			this.addFeaturesToAdapter(subcomponentAdapter);
 			// Add subcomponent to component.
@@ -223,10 +270,50 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		}
 	}
 
+	private void updateSubcomponentsOfComponent(AadlComponentAdapter componentAdapter, int nesting) {
+		EList subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
+		// remove adapters without corresponding model element
+		EList<AadlComponentAdapter> removeme = new BasicEList<AadlComponentAdapter>();
+		for (Iterator<AadlComponentAdapter> it = componentAdapter.getChildComponents(); it.hasNext();){
+			AadlComponentAdapter kid = it.next();
+			Object subcomp = kid.getModelElement();
+			if (!subcomponents.contains(subcomp)){
+				removeme.add(kid);
+				this.modelElementToAdapterMap.remove(subcomp);
+			}
+		}
+		for (AadlComponentAdapter kidadapter : removeme) {
+			componentAdapter.removeChild(kidadapter);
+		}
+		// add missing adapters
+		for (Object sub: subcomponents) {
+			AadlComponentAdapter subcomponentAdapter = (AadlComponentAdapter)this.modelElementToAdapterMap.get(sub);
+			if (subcomponentAdapter == null){
+				subcomponentAdapter = new AadlComponentAdapter(sub, this.getComponentCategory(sub), this.labelProvider);
+				// Update adapter map.
+				this.modelElementToAdapterMap.put(sub, subcomponentAdapter);
+				// Add feature elements to the subcomponent.
+				this.addFeaturesToAdapter(subcomponentAdapter);
+				// Add subcomponent to component.
+				componentAdapter.addChild(subcomponentAdapter);
+			} else{
+				this.updateFeaturesOfAdapter(subcomponentAdapter);
+			}
+			// phf: recursively add subcomponents
+			if ((nesting > 1) && (subcomponentAdapter.getModelElement() instanceof ComponentInstance))
+			{
+				// Add feature elements to the subcomponent.
+				this.updateSubcomponentsOfComponent(subcomponentAdapter, nesting-1);
+				// Add connections.
+				this.addConnectionsToComponent(subcomponentAdapter);
+			}
+		}
+	}
+
 	// JD: Add bindings information
 	public void addBindingsToComponent(AadlComponentAdapter componentAdapter) 
 	{
-		Object[] 				subcomponents;
+		EList 				subcomponents;
 		IAadlElementAdapter 	adapter;
 		List<ComponentInstance> boundProcessors;
 		ComponentInstance 		boundProcessor;
@@ -250,15 +337,15 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		
 		subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
 
-		for (int i = 0; i < subcomponents.length; i++) 
+		for (Object sub : subcomponents) 
 		{
-			if (! this.modelElementToAdapterMap.containsKey(subcomponents[i]))
+			if (! this.modelElementToAdapterMap.containsKey(sub))
 			{
 
 				continue;
 			}
 
-			adapter = this.modelElementToAdapterMap.get(subcomponents[i]);
+			adapter = this.modelElementToAdapterMap.get(sub);
 
 			
 			/*
@@ -569,29 +656,29 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		return null;
 	}
 
-	public Object[] getSubcomponents(Object object) {
+	public EList getSubcomponents(Object object) {
 
 		if(object instanceof ComponentInstance){
 
 			// Get subcomponents.
-			return ((ComponentInstance)object).getComponentInstances().toArray();
+			return ((ComponentInstance)object).getComponentInstances();
 		}
 		if(object instanceof ComponentImplementation){
 			// Get subcomponents.
-			return ((ComponentImplementation)object).getAllSubcomponents().toArray();
+			return ((ComponentImplementation)object).getAllSubcomponents();
 		} else return null;
 	}
 
 
-	public Object[] getFeatures(Object object) {
+	public EList getFeatures(Object object) {
 		if (object instanceof ComponentInstance){
-			return ((ComponentInstance)object).getFeatureInstances().toArray();
+			return ((ComponentInstance)object).getFeatureInstances();
 		}
 		if(object instanceof ComponentClassifier){
-			return ((ComponentClassifier)object).getAllFeatures().toArray();
+			return ((ComponentClassifier)object).getAllFeatures();
 		}
 		if (object instanceof Subcomponent){
-			return ((Subcomponent)object).getAllFeatures().toArray();
+			return ((Subcomponent)object).getAllFeatures();
 		}
 		return null;
 	}
