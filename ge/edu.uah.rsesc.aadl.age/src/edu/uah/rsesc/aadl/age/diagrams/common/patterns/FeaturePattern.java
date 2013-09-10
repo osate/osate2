@@ -214,10 +214,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();		
-
-		System.out.println("FEATURE PATTERN");
-		System.out.println(feature);
-		
+	
 		// Remove all children except for the feature shape
 		final Iterator<Shape> childIt = shape.getChildren().iterator();
 		ContainerShape featureShape = getFeatureShape(shape);

@@ -5,11 +5,14 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Stack;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
@@ -44,7 +47,10 @@ public class ModelListener {
 	public void modelChanged(final IXtextDocument document, final XtextResource resource) {
 		if(resource.getContents().size() > 0) {
 			final EObject obj = resource.getContents().get(0);
-			if(obj instanceof NamedElement) {
+
+			//handleRenames(resource);
+			
+			if(obj instanceof NamedElement) {				
 				final String qualifiedName = ((NamedElement)obj).getQualifiedName();
 				
 				// Get the resource set
@@ -119,4 +125,59 @@ public class ModelListener {
 		}
 		return -1;
 	}
+	
+	/*
+	Prototype WIP code to handle renames
+	private Map<URI, NamedElement> uriToNamedElementMap = new HashMap<URI, NamedElement>();
+	
+	private void handleRenames(final XtextResource res) {		
+		System.out.println("HANDLE RENAMES");
+		System.out.println(res.getErrors());
+		final NamedElement oldEl = uriToNamedElementMap.get(res.getURI());
+		boolean updateContent = true; // Flag to determine whether to update the content if an updated value is found
+		if(oldEl != null) {
+			if(res.getContents().size() > 0) {
+				final EObject newContent = res.getContents().get(0);
+				
+				if(oldEl instanceof AadlPackage) {
+					if(newContent instanceof AadlPackage) {
+						final AadlPackage oldPkg = (AadlPackage)oldEl;
+						final AadlPackage newPkg = (AadlPackage)newContent;
+						
+						System.out.println(oldPkg.getName());
+						System.out.println(newPkg.getName());
+
+						// Handle version where old package doesn't have a name or new package doesn't have a name...
+						// Otherwise when package is blanked and then changed it will never be handled...
+						if(newPkg.getName() == null) {
+							updateContent = false;
+						} else {
+							if(oldPkg.getName() != null) {
+								if(!oldPkg.getName().equalsIgnoreCase(newPkg.getName())) {
+									onPackageRenamed(oldPkg.getName(), newPkg.getName());
+									
+								}
+							}
+						}
+					}
+				}				
+			}
+		}
+		
+		// Store the element in the map
+		if(res.getContents().size() > 0 && res.getContents().get(0) instanceof NamedElement) {
+			if(updateContent) {
+				uriToNamedElementMap.put(res.getURI(), (NamedElement)res.getContents().get(0));
+			}
+		} else {
+			uriToNamedElementMap.remove(res.getURI());
+		}
+	}
+	
+	private void onPackageRenamed(final String oldName, final String newName) {
+		System.out.println("RENAMED FROM: " + oldName + " to " + newName);
+		
+		// TODO: How to handle, try to rename all the qualified names, etc?
+	}
+	*/
 }
