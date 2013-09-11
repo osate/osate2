@@ -7,9 +7,13 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.xtext.linking.ILinker;
+import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.eclipse.xtext.ui.editor.model.edit.DefaultTextEditComposer;
+import org.eclipse.xtext.ui.editor.model.edit.ReconcilingUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
@@ -20,7 +24,9 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.commands.CreatePropertyAssociationCommand;
 
 /**
@@ -70,32 +76,55 @@ public class PropertyAssociationWizard extends Wizard {
 		shouldDisplayModeChooserWizardPage = modes != null && modes.size() > 0;
 	}
 	
+	private class AddPropertyUnitOfWork extends IUnitOfWork.Void<XtextResource>
+	{
+		private final AbstractPropertyValueWizardPage activePropertyValueWizardPage;
+		
+		public AddPropertyUnitOfWork(AbstractPropertyValueWizardPage activePropertyValueWizardPage)
+		{
+			this.activePropertyValueWizardPage = activePropertyValueWizardPage;
+		}
+		
+		@Override
+		public void process(XtextResource state) throws Exception
+		{
+			final NamedElement holder = (NamedElement)state.getResourceSet().getEObject(holderuri, true);
+			PropertyAssociation newAssociation = holder.createOwnedPropertyAssociation();
+			newAssociation.setProperty(propertyDefinitionWizardPage.getSelectedDefinition());
+			ModalPropertyValue mpv = newAssociation.createOwnedValue();
+			mpv.setOwnedValue(activePropertyValueWizardPage.getPropertyExpression());
+			if (modeChooserWizardPage.getSelectedModes() != null) {
+				mpv.getInModes().addAll(modeChooserWizardPage.getSelectedModes());
+			}
+			newAssociation.setAppend(activePropertyValueWizardPage.isAppendSelected());
+			newAssociation.setConstant(activePropertyValueWizardPage.isConstantSelected());
+			PropertySet propertySet = (PropertySet)propertyDefinitionWizardPage.getSelectedDefinition().getElementRoot();
+			if (!AadlUtil.isImportedPropertySet(propertySet, holder)) {
+				Namespace context = AadlUtil.getContainingTopLevelNamespace(holder);
+				if (context instanceof PropertySet)
+					((PropertySet)context).getImportedUnits().add(propertySet);
+				else
+					((PackageSection)context).getImportedUnits().add(propertySet);
+			}
+		}
+	}
+	
 	@Override
 	public boolean performFinish() {
-		final AbstractPropertyValueWizardPage activePropertyValueWizardPage = getActivePropertyValueWizardPage();
+		AbstractPropertyValueWizardPage activePropertyValueWizardPage = getActivePropertyValueWizardPage();
 		if (xtextDocument != null) {
-			xtextDocument.modify(new IUnitOfWork.Void<XtextResource>() {
-				public void process(XtextResource state) {
-					final NamedElement holder = (NamedElement)state.getResourceSet().getEObject(holderuri, true);
-					PropertyAssociation newAssociation = holder.createOwnedPropertyAssociation();
-					newAssociation.setProperty(propertyDefinitionWizardPage.getSelectedDefinition());
-					ModalPropertyValue mpv = newAssociation.createOwnedValue();
-					mpv.setOwnedValue(activePropertyValueWizardPage.getPropertyExpression());
-					if (modeChooserWizardPage.getSelectedModes() != null) {
-						mpv.getInModes().addAll(modeChooserWizardPage.getSelectedModes());
-					}
-					newAssociation.setAppend(activePropertyValueWizardPage.isAppendSelected());
-					newAssociation.setConstant(activePropertyValueWizardPage.isConstantSelected());
-					PropertySet propertySet = (PropertySet)propertyDefinitionWizardPage.getSelectedDefinition().getElementRoot();
-					if (!AadlUtil.isImportedPropertySet(propertySet, holder)) {
-						Namespace context = AadlUtil.getContainingTopLevelNamespace(holder);
-						if (context instanceof PropertySet)
-							((PropertySet)context).getImportedUnits().add(propertySet);
-						else
-							((PackageSection)context).getImportedUnits().add(propertySet);
-					}
-				}
-			});
+			if (xtextDocument instanceof XtextDocument)
+			{
+				TextEditComposerWithoutValidationOnSave composer = new TextEditComposerWithoutValidationOnSave();
+				OsateCorePlugin.getDefault().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(composer);
+				ReconcilingUnitOfWork<Object> reconcilingUnitOfWork = new ReconcilingUnitOfWork<Object>(
+						new AddPropertyUnitOfWork(activePropertyValueWizardPage), xtextDocument, composer);
+				((XtextDocument) xtextDocument).internalModify(reconcilingUnitOfWork);
+			}
+			else
+			{
+				xtextDocument.modify(new AddPropertyUnitOfWork(activePropertyValueWizardPage));
+			}
 		}
 		else {
 			final NamedElement holder = getHolder();
@@ -207,5 +236,14 @@ public class PropertyAssociationWizard extends Wizard {
 //		}
 //		else
 			return propertyValueWizardPage;
+	}
+	
+	private static class TextEditComposerWithoutValidationOnSave extends DefaultTextEditComposer
+	{
+		@Override
+		protected SaveOptions getSaveOptions()
+		{
+			return SaveOptions.newBuilder().noValidation().getOptions();
+		}
 	}
 }
