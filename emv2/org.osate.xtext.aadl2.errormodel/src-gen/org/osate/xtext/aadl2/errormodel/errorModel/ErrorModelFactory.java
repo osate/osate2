@@ -122,6 +122,15 @@ public interface ErrorModelFactory extends EFactory
   TypeMapping createTypeMapping();
 
   /**
+   * Returns a new object of class '<em>Type Actual</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Actual</em>'.
+   * @generated
+   */
+  TypeActual createTypeActual();
+
+  /**
    * Returns a new object of class '<em>Error Propagation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

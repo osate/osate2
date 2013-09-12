@@ -908,15 +908,11 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				//match the incoming path constraint
 				if (epout != null){
 					// need to handle use mappings
-					if (ef.getTypeMappingSet()==null){
 					if (!EM2TypeSetUtil.contains(epout.getTypeSet(),
 							ef.getTypeTokenConstraint())) {
 						error(ef,
 								"Incoming path type constraint is not contained in type set of outgoing propagation "
 										+ EMV2Util.getPrintName(epout));
-					}
-					} else {
-						// todo check to mapping set mapping into outgoing types.
 					}
 				} else {
 					// check containment for all of the outgoing propagation points

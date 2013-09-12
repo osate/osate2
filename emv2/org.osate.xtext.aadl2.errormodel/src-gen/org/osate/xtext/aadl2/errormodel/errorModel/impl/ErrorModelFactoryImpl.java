@@ -75,6 +75,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.TYPE_TRANSFORMATION: return createTypeTransformation();
       case ErrorModelPackage.TYPE_MAPPING_SET: return createTypeMappingSet();
       case ErrorModelPackage.TYPE_MAPPING: return createTypeMapping();
+      case ErrorModelPackage.TYPE_ACTUAL: return createTypeActual();
       case ErrorModelPackage.ERROR_PROPAGATION: return createErrorPropagation();
       case ErrorModelPackage.FEATUREOR_PP_REFERENCE: return createFeatureorPPReference();
       case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
@@ -235,6 +236,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     TypeMappingImpl typeMapping = new TypeMappingImpl();
     return typeMapping;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeActual createTypeActual()
+  {
+    TypeActualImpl typeActual = new TypeActualImpl();
+    return typeActual;
   }
 
   /**

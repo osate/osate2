@@ -1999,6 +1999,7 @@ public class EMV2Util {
 	/**
 	 *  figure out the target typetoken based on the source and type mappings
 	 * Path can be a connection instance, a flow spec instance, or an error flow
+	 * If null or no mapping found, then use source type token
 	 * @param path connection instance, flow spec instance, error flow
 	 * @param path path of mapping
 	 * @return TypeToken
@@ -2019,7 +2020,7 @@ public class EMV2Util {
 			TypeToken ttup = epath.getTargetToken();
 			if (ttup == null){
 				// map token via tms
-				TypeMappingSet tms = epath.getTypeMappingSet();
+				TypeMappingSet tms = getUseMappings(epath);
 				if (tms != null){
 					result = EM2TypeSetUtil.mapTypeToken(sourceToken, tms);
 				}
@@ -2033,6 +2034,21 @@ public class EMV2Util {
 	}
 
 	
+	/**
+	 * get TypeMappingSet listed in Use Mappings
+	 * @param context Type use context
+	 * @return EList<ErrorModelLibrary>
+	 */
+	public static TypeMappingSet getUseMappings(ErrorPath context){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			TypeMappingSet tms = errorModelSubclause.getUseTypeMappingSet();
+			if (tms!=null){
+				return tms;
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * get list of ErrorModelLibraries listed in UseTypes

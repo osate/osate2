@@ -136,6 +136,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createTypeMappingAdapter();
       }
       @Override
+      public Adapter caseTypeActual(TypeActual object)
+      {
+        return createTypeActualAdapter();
+      }
+      @Override
       public Adapter caseErrorPropagation(ErrorPropagation object)
       {
         return createErrorPropagationAdapter();
@@ -523,6 +528,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTypeMappingAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeActual <em>Type Actual</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.TypeActual
+   * @generated
+   */
+  public Adapter createTypeActualAdapter()
   {
     return null;
   }

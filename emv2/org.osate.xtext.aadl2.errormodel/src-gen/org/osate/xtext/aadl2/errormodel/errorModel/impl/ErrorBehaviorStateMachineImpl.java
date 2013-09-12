@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -37,6 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getParam <em>Param</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getExtends <em>Extends</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getUseTransformation <em>Use Transformation</em>}</li>
@@ -51,6 +53,16 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  */
 public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements ErrorBehaviorStateMachine
 {
+  /**
+   * The cached value of the '{@link #getParam() <em>Param</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getParam()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> param;
+
   /**
    * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference.
    * <!-- begin-user-doc -->
@@ -140,6 +152,20 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   protected EClass eStaticClass()
   {
     return ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE_MACHINE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getParam()
+  {
+    if (param == null)
+    {
+      param = new EDataTypeEList<String>(String.class, this, ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__PARAM);
+    }
+    return param;
   }
 
   /**
@@ -301,6 +327,8 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__PARAM:
+        return getParam();
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS:
         if (resolve) return getExtends();
         return basicGetExtends();
@@ -331,6 +359,10 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__PARAM:
+        getParam().clear();
+        getParam().addAll((Collection<? extends String>)newValue);
+        return;
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS:
         setExtends((ErrorBehaviorStateMachine)newValue);
         return;
@@ -372,6 +404,9 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__PARAM:
+        getParam().clear();
+        return;
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS:
         setExtends((ErrorBehaviorStateMachine)null);
         return;
@@ -407,6 +442,8 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   {
     switch (featureID)
     {
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__PARAM:
+        return param != null && !param.isEmpty();
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS:
         return extends_ != null;
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES:
@@ -423,6 +460,23 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
         return properties != null && !properties.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (param: ");
+    result.append(param);
+    result.append(')');
+    return result.toString();
   }
 
 } //ErrorBehaviorStateMachineImpl
