@@ -92,6 +92,8 @@ public class ComponentImplementationPattern extends AgePattern {
 	}
 	
 	private void refresh(final ContainerShape shape, final ComponentImplementation ci, final int x, final int y) {
+		UpdateHelper.updateVisibility(shape);
+		
 		// Remove invalid connections from the diagram
 		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
 				
@@ -112,7 +114,6 @@ public class ComponentImplementationPattern extends AgePattern {
 			final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(connection);
 			if(pictogramElement == null) {			
 				final Anchor[] anchors = AnchorUtil.getAnchorsForConnection(ci, connection, getFeatureProvider());
-				
 				if(anchors != null) {
 					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
 					addContext.setNewObject(new AadlElementWrapper(connection));

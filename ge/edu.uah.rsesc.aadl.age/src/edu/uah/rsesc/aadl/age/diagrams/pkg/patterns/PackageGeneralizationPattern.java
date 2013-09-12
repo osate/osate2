@@ -27,6 +27,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	@Override
@@ -52,13 +53,14 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());
  
-        createGraphicsAlgorithm(connection, addedGeneralization);
+        createGraphicsAlgorithm(connection);
         createDecorators(connection);
         
 		return connection;
 	}
 	
-	private void createDecorators(final Connection connection) {
+	@Override
+	protected void createDecorators(final Connection connection) {
 		connection.getConnectionDecorators().clear();
 		
 		// Create the arrow
@@ -66,7 +68,9 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
         createArrow(arrowConnectionDecorator, StyleUtil.getGeneralizationArrowHeadStyle(getDiagram()));
 	}
 	
-	private void createGraphicsAlgorithm(final Connection connection, final Generalization generalization) {
+	@Override
+	protected void createGraphicsAlgorithm(final Connection connection) {
+		final Generalization generalization = getGeneralization(connection);
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		setGraphicsAlgorithmStyle(polyline, generalization);
@@ -99,24 +103,21 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		return Reason.createFalseReason();
 	}
 
+	protected Generalization getGeneralization(final Connection connection) {
+		return (Generalization)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));		
+	}
+	
 	@Override
-	public boolean update(final IUpdateContext context) {
-		// Rebuild the graphics algorithm and the decorators to ensure they are up to date and to ensure they reference the latest styles.
-		// Old styles are removed when the diagram is updated
-		final Connection connection = (Connection)context.getPictogramElement();
+	protected Anchor[] getAnchors(final Connection connection) {
+		final Generalization generalization = getGeneralization(connection);
+		return AnchorUtil.getAnchorsForGeneralization(generalization, getFeatureProvider());
+	}
+	
+	protected void createGraphicsAlgorithmOnUpdate(final Connection connection)	{ 
 		final Generalization generalization = (Generalization)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-		
-		// Update the anchors
-		final Anchor[] anchors = AnchorUtil.getAnchorsForGeneralization(generalization, getFeatureProvider());
-		connection.setStart(anchors[0]);
-		connection.setEnd(anchors[1]);
-
 		// CLEAN-UP: As of 8/9/13 updating the graphics algorithm is causing the generalizations to disappear on the 2nd update(1st update after the initial load). Unknown cause.
-		// First noticed after updating to Kepler. So for now, we just set the style sinec strictly speaking, recreating the graphics algorithm isn't necessary.
+		// First noticed after updating to Kepler. So for now, we just set the style since strictly speaking, recreating the graphics algorithm isn't necessary.
 		//createGraphicsAlgorithm(connection, generalization);
 		setGraphicsAlgorithmStyle(connection.getGraphicsAlgorithm(), generalization);
-		createDecorators(connection);
-		
-		return true;
 	}
 }

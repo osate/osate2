@@ -12,6 +12,7 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -31,11 +32,16 @@ import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 public class ConnectionPattern extends AgeConnectionPattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof org.osate.aadl2.Connection;
+	}
+	
+	private org.osate.aadl2.Connection getAadlConnection(final Connection connection) {
+		return (org.osate.aadl2.Connection)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 	}
 
 	@Override
@@ -53,12 +59,14 @@ public class ConnectionPattern extends AgeConnectionPattern {
         connection.setEnd(addConContext.getTargetAnchor());
  
         createGraphicsAlgorithm(connection);
-        createDecorators(connection, aadlConnection);
+        createDecorators(connection);
         
 		return connection;
 	}
 	
-	private void createDecorators(final org.eclipse.graphiti.mm.pictograms.Connection connection, final org.osate.aadl2.Connection aadlConnection) {
+	@Override
+	protected void createDecorators(final Connection connection) {
+		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Before removing all the decorators, get position of the label(if one exists)
@@ -147,7 +155,8 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	    HighlightingHelper.highlight(getDiagram(), aadlConnection, connection.getGraphicsAlgorithm(), getFeatureProvider());
 	}
 
-	private void createGraphicsAlgorithm(final org.eclipse.graphiti.mm.pictograms.Connection connection) {
+	@Override
+	protected void createGraphicsAlgorithm(final org.eclipse.graphiti.mm.pictograms.Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		final Style style = StyleUtil.getDecoratorStyle(getDiagram());
@@ -180,35 +189,16 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	public IReason updateNeeded(IUpdateContext context) {
 		return Reason.createFalseReason();
 	}
-
+	
 	@Override
-	public boolean update(final IUpdateContext context) {		
-		// Rebuild the graphics algorithm and the decorators to ensure they are up to date and to ensure they reference the latest styles.
-		// Old styles are removed when the diagram is updated
-		final org.eclipse.graphiti.mm.pictograms.Connection connection = (org.eclipse.graphiti.mm.pictograms.Connection)context.getPictogramElement();
-		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-
-		// Update anchors
-		//aadlConnection.getContainingComponentImpl() - That may not be right... Need to get it from the diagram..
-		Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
+	protected Anchor[] getAnchors(final Connection connection) {
+		// Get the diagram business object
+		final Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
 		if(!(diagramBo instanceof ComponentImplementation)) {
 			throw new RuntimeException("Unhandled case. " + getClass().getSimpleName() + " only supported in component implementation diagrams");
-		}
+		}		
 		
-		final Anchor[] anchors = AnchorUtil.getAnchorsForConnection((ComponentImplementation)diagramBo, aadlConnection, getFeatureProvider());
-		if(anchors == null) {
-			connection.setStart(null);
-			connection.setEnd(null);
-			EcoreUtil.remove(connection);
-		}
-		else {
-			connection.setStart(anchors[0]);
-			connection.setEnd(anchors[1]);
-			
-			createGraphicsAlgorithm(connection);
-			createDecorators(connection, aadlConnection);
-		}
-		
-		return true;
+		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
+		return AnchorUtil.getAnchorsForConnection((ComponentImplementation)diagramBo, aadlConnection, getFeatureProvider());
 	}
 }

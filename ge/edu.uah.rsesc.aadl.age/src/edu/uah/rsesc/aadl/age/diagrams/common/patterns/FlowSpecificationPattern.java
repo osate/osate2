@@ -28,6 +28,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 // TODO: Update styles, etc
 public class FlowSpecificationPattern extends AgeConnectionPattern {
@@ -50,13 +51,15 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());
  
-        createGraphicsAlgorithm(connection, fs);
-        createDecorators(connection, fs);
+        createGraphicsAlgorithm(connection);
+        createDecorators(connection);
         
 		return connection;
 	}
 	
-	private void createDecorators(final Connection connection, final FlowSpecification fs) {
+	@Override
+	protected void createDecorators(final Connection connection) {
+		final FlowSpecification fs = getFlowSpecification(connection);
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Before removing all the decorators, get position of the label(if one exists)
@@ -114,7 +117,9 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	    text.setValue(fs.getName());
 	}
 	
-	private void createGraphicsAlgorithm(final Connection connection, final FlowSpecification fs) {
+	@Override
+	protected void createGraphicsAlgorithm(final Connection connection) {
+		final FlowSpecification fs = getFlowSpecification(connection);
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		final Style style = StyleUtil.getFlowSpecificationStyle(getDiagram());
@@ -152,31 +157,15 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	public IReason updateNeeded(IUpdateContext context) {
 		return Reason.createFalseReason();
 	}
-
+	
+	final FlowSpecification getFlowSpecification(final Connection connection) {
+		return (FlowSpecification)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+	}
+	
 	@Override
-	public boolean update(final IUpdateContext context) {
-		// Rebuild the graphics algorithm and the decorators to ensure they are up to date and to ensure they reference the latest styles.
-		// Old styles are removed when the diagram is updated
-		final Connection connection = (Connection)context.getPictogramElement();
-		final FlowSpecification fs = (FlowSpecification)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-
+	protected Anchor[] getAnchors(final Connection connection) {
+		final FlowSpecification fs = getFlowSpecification(connection);
 		final ContainerShape ownerShape = ConnectionHelper.getFlowSpecificationOwnerShape(connection, getFeatureProvider());
-		final Anchor[] anchors = (ownerShape == null) ? null : AnchorUtil.getAnchorsForFlowSpecification(fs, ownerShape, getFeatureProvider());
-		
-		// Update anchors
-		if(anchors == null) {
-			connection.setStart(null);
-			connection.setEnd(null);
-			EcoreUtil.remove(connection);
-		}
-		else {
-			connection.setStart(anchors[0]);
-			connection.setEnd(anchors[1]);
-			
-			createGraphicsAlgorithm(connection, fs);
-			createDecorators(connection, fs);
-		}
-		
-		return true;
+		return (ownerShape == null) ? null : AnchorUtil.getAnchorsForFlowSpecification(fs, ownerShape, getFeatureProvider());		
 	}
 }

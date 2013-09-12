@@ -1,6 +1,13 @@
 package edu.uah.rsesc.aadl.age.ui.editor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
@@ -8,8 +15,12 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
@@ -20,9 +31,13 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
+
+import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
 	private IXtextModelListener modelListener = new IXtextModelListener() {
@@ -80,6 +95,57 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				refresh();
 			}
 		};
+	}
+	
+	@Override
+	protected DefaultPersistencyBehavior createPersistencyBehavior() {
+		return new DefaultPersistencyBehavior(this) {
+			protected Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> saveOptions, final IProgressMonitor monitor) {
+				final Diagram diagram = getDiagramTypeProvider().getDiagram();
+				final List<PictogramElement> ghosts = new ArrayList<PictogramElement>();
+				
+				// Find all ghost connections
+				for(final Connection connection : diagram.getConnections()) {
+					if(PropertyUtil.isGhost(connection)) {
+						ghosts.add(connection);
+					}
+				}
+				
+				// Find all ghost shapes
+				findGhostShapes(diagram, ghosts);
+				
+				// Delete all the orphans
+				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+					@Override
+					protected void doExecute() {
+						for(final PictogramElement pe : ghosts) {
+							EcoreUtil.delete(pe, true);
+						}
+					}				
+				});				
+				
+				// Save the diagram				
+				return super.save(editingDomain, saveOptions, monitor);
+			}
+		};
+	}
+	
+	/**
+	 * Returns all shapes that are ghosts. Ghosts are shapes that have been hidden because their linked business object is no longer valid.
+	 * Does not include ghosts that are children of ghosts.
+	 * @param shape
+	 * @param ghostShapes
+	 */
+	private void findGhostShapes(final Shape shape, final List<PictogramElement> ghostShapes) {
+		if(PropertyUtil.isGhost(shape)) {
+			ghostShapes.add(shape);
+		} else {
+			if(shape instanceof ContainerShape) {
+				for(final Shape child : ((ContainerShape)shape).getChildren()) {
+					findGhostShapes(child, ghostShapes);
+				}
+			}
+		}
 	}
 	
 	@Override

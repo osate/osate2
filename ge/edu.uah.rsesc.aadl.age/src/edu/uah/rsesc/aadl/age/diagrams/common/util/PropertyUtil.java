@@ -11,7 +11,8 @@ public class PropertyUtil {
 	private static final String LAYOUT_SIDE_KEY = "layout_side"; // Which side the shape is layed out as
 	private static final String SELECTED_MODE_KEY = "selected_mode"; // The name of the mode the user has selected in the UI
 	private static final String SELECTED_FLOW_KEY = "selected_flow"; // The name of the flow the user has selected in the UI
-	private static final String IS_LAYED_OUT_KEY = "is_layed_out"; // Whether the shape has been layed out by the automatic layout algorithm 
+	private static final String IS_LAYED_OUT_KEY = "is_layed_out"; // Whether the shape has been layed out by the automatic layout algorithm
+	private static final String IS_GHOST_KEY = "is_ghost"; // Whether the pictogram element is a ghost. A ghost is an element that has been hidden because the corresponding business object is no longer valid.
 	
 	public static final String getTypeName(final PictogramElement pe) {
 		return Graphiti.getPeService().getPropertyValue(pe, TYPE_NAME_KEY);
@@ -71,5 +72,13 @@ public class PropertyUtil {
 	
 	public static final void setIsLayedOut(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_LAYED_OUT_KEY, value ? "true" : "false");
+	}
+	
+	public static final boolean isGhost(final PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_GHOST_KEY));
+	}
+	
+	public static final void setIsGhost(final PictogramElement pe, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_GHOST_KEY, value ? "true" : "false");
 	}
 }

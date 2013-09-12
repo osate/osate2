@@ -53,7 +53,10 @@ public class UpdateHelper {
 		}
 		
 		for(final Shape childShape : shapesToRemove) {
-			EcoreUtil.delete(childShape, true);			
+			// TODO: Rename variables, and method. Document change in behavior.
+			PropertyUtil.setIsGhost(childShape, true);
+			childShape.setVisible(false);
+			//EcoreUtil.delete(childShape, true);			
 		}
 	}
 	
@@ -195,5 +198,16 @@ public class UpdateHelper {
 				refreshStyles(diagram, childGa);
 			}
 		}
+	}
+	
+	/**
+	 * Updates the visibility of a pictogram element. Currently makes all elements visible since this method should only be called on elements
+	 * with a valid business object
+	 * @param pe a pictogram element associated with a valid business object
+	 */
+	public static void updateVisibility(final PictogramElement pe) {
+		// Mark the pictogram element as visible in case is was hidden because the business object was temporarily not valid
+		PropertyUtil.setIsGhost(pe, false);
+		pe.setVisible(true);
 	}
 }

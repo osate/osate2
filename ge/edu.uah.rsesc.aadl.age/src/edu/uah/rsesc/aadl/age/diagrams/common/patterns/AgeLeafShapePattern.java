@@ -10,6 +10,7 @@ import org.osate.aadl2.Element;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 /**
  * Class for shapes that have their inside recreated on updating. Even though they may have child shapes they are created as an automatic unit because their children may 
@@ -47,10 +48,12 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 	public final boolean update(final IUpdateContext context) {
 		final PictogramElement pe = context.getPictogramElement();
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
-
+		
 		if(pe instanceof ContainerShape) {
 			final ContainerShape container = (ContainerShape)pe;		
-		
+
+			UpdateHelper.updateVisibility(container);
+			
 			// Update/Recreate the child shapes and the graphics algorithm for the shape
 			createGaAndInnerShapes((ContainerShape)pe, bo, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());
 			

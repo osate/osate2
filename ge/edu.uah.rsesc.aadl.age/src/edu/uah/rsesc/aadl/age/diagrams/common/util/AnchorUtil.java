@@ -152,7 +152,7 @@ public class AnchorUtil {
 		// Get the pictogram elements for the source and destination of the connection
 		final PictogramElement sourcePe = getPictogramElement(componentImplementation, connection.getAllSource(), connection.getAllSourceContext(), connection.getAllSrcContextComponent(), fp);
 		final PictogramElement destPe = getPictogramElement(componentImplementation, connection.getAllDestination(), connection.getAllDestinationContext(), connection.getAllDstContextComponent(), fp);
-		
+
 		// Check if the sourcePe and destPe are valid
 		if(sourcePe == null || !(sourcePe instanceof Shape) || destPe == null || !(destPe instanceof Shape)) {
 			return null;

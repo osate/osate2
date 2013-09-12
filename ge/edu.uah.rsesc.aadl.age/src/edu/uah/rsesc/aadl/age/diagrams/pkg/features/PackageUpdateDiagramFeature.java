@@ -68,8 +68,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	public boolean update(IUpdateContext context) {
 		Log.info("called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
-		final boolean wasEmpty = diagram.getChildren().size() == 0; 
-		
 		UpdateHelper.refreshStyles(diagram);
 		
 		// Get the AADL Package

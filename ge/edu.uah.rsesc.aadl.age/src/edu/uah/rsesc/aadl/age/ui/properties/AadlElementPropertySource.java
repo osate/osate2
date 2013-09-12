@@ -9,11 +9,7 @@ import org.osate.ui.UiUtil;
 
 public class AadlElementPropertySource implements IPropertySource {
 	private final IPropertySource src;
-	private Element element;
-	
 	public AadlElementPropertySource(final Element element) {
-		this.element = element;
-		
 		final IItemPropertySource itemPropSrc = (IItemPropertySource)UiUtil.getAdapterFactory().adapt(element, IItemPropertySource.class);
 		if(itemPropSrc == null) {
 			src = null;

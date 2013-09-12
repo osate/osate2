@@ -29,6 +29,7 @@ import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
@@ -107,6 +108,8 @@ public class SubcomponentPattern extends AgePattern {
 	}
 	
 	private void refresh(final ContainerShape shape, final Subcomponent sc, final int x, final int y, final int minWidth, final int minHeight) {
+		UpdateHelper.updateVisibility(shape);
+		
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Remove invalid flow specifications from the diagram
@@ -183,5 +186,6 @@ public class SubcomponentPattern extends AgePattern {
 		HighlightingHelper.highlight(getDiagram(), sc, ga, getFeatureProvider());		
 	
 		UpdateHelper.layoutChildren(shape, getFeatureProvider());
+		AnchorUtil.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
 	}
 }

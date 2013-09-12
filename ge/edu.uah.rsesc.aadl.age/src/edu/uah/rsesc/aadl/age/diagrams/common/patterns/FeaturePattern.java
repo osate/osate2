@@ -52,6 +52,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
  * Note: With the exception of child feature shapes, child shapes are recreated during updates so they should not be referenced.
  * @author philip.alldredge
  */
+// TODO: Not a leaf shape since it may contain children associated with business objects. Rename the leaf shape pattern
+// or do not extend AgeLeafShapePattern. The latter may be preferable due to the way this class interacts with its children.
 public class FeaturePattern extends AgeLeafShapePattern {
 	private static final String featureShapeName = "feature";
 	private static final String labelShapeName = "label";	
@@ -211,6 +213,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	 * @param callDepth
 	 */
 	private void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y, final int callDepth) {
+		UpdateHelper.updateVisibility(shape);
+		
 		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();		
@@ -360,8 +364,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		final int featureWidth = feature instanceof FeatureGroup ? featureGroupSymbolWidth : featureGa.getWidth();
 		final int innerX = featureGa.getX() + (isLeft ? featureWidth : featureGa.getWidth() - featureWidth);
-		final int outerX = featureGa.getX() + (isLeft ? 0 : featureWidth);
-		final int connectorY = feature instanceof FeatureGroup ? featureGa.getHeight() - 5 : featureGa.getY() + (featureGa.getHeight() / 2);
+		final int outerX = featureGa.getX() + (isLeft ? 0 : featureGa.getWidth());
+		final int connectorY = featureGa.getY() + (featureGa.getHeight() / 2);
+		final int flowSpecConnectorY = feature instanceof FeatureGroup ? featureGa.getHeight() - 5 : connectorY;
 		final int offset = isLeft ? 50 : -50;
 
 		// Create anchors		
@@ -378,7 +383,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			AnchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, outerX, connectorY);
 		}		
 		
-		AnchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerX + offset, connectorY);
+		AnchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerX + offset, flowSpecConnectorY);
 		
 		// Update the anchors of the children
 		for(final Shape child : getFeatureShape(shape).getChildren()) {

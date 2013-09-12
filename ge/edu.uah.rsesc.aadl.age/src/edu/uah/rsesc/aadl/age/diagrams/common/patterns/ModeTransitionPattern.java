@@ -35,6 +35,7 @@ import org.osate.aadl2.ModeTransitionTrigger;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
 	@Override
@@ -55,9 +56,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());
 
-        updateControlPoints(connection);
         createGraphicsAlgorithm(connection);
-        createDecorators(connection, mt);
+        createDecorators(connection);
         updateTriggers(connection, mt);
         
 		return connection;
@@ -104,7 +104,9 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 			cc.getControlPoints().add(pp);
 		}
 	}
-	private void createDecorators(final Connection connection, final ModeTransition mt) {
+	
+	@Override
+	protected void createDecorators(final Connection connection) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Before removing all the decorators, get position of the label(if one exists)
@@ -137,7 +139,9 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	    */
 	}
 	
-	private void createGraphicsAlgorithm(final Connection connection) {
+	@Override
+	protected void createGraphicsAlgorithm(final Connection connection) {
+		updateControlPoints(connection);
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		final Style style = StyleUtil.getDecoratorStyle(getDiagram());
@@ -288,30 +292,14 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	}
 
 	@Override
-	public boolean update(final IUpdateContext context) {
-		// Rebuild the graphics algorithm and the decorators to ensure they are up to date and to ensure they reference the latest styles.
-		// Old styles are removed when the diagram is updated
-		final Connection connection = (Connection)context.getPictogramElement();
+	protected Anchor[] getAnchors(final Connection connection) {
 		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-
-		final Anchor[] anchors = AnchorUtil.getAnchorsForModeTransition(mt, getFeatureProvider());
-
-		// Update anchors
-		if(anchors == null) {
-			connection.setStart(null);
-			connection.setEnd(null);
-			EcoreUtil.remove(connection);
-		}
-		else {
-			connection.setStart(anchors[0]);
-			connection.setEnd(anchors[1]);
-			
-			updateControlPoints(connection);
-			createGraphicsAlgorithm(connection);
-			createDecorators(connection, mt);
-			updateTriggers(connection, mt);
-		}
-		
-		return true;
+		return AnchorUtil.getAnchorsForModeTransition(mt, getFeatureProvider());
+	}
+	
+	@Override
+	protected void onAfterUpdate(final Connection connection) {
+		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+		updateTriggers(connection, mt);
 	}
 }

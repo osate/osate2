@@ -89,6 +89,8 @@ public class TypeClassifierPattern extends AgePattern {
 	}	
 	
 	private void refresh(final ContainerShape shape, final Classifier classifier, final int x, final int y) {
+		UpdateHelper.updateVisibility(shape);
+		
 		// Remove invalid connections from the diagram
 		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
 		
