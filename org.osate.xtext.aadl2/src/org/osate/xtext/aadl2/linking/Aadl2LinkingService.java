@@ -249,6 +249,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 					if (ct != null)
 						ns = ct;
 				}
+				if (TPContext instanceof FeatureGroup){
+					// look up the feature in the FeaturegroupType
+					 FeatureGroupType ct = ((FeatureGroup)TPContext).getFeatureGroupType();
+					if (ct != null)
+						ns = ct;
+				}
 			}
 			EObject searchResult = AadlUtil.findNamedElementInList(ns.getAllFeatures(), name);
 			if (searchResult != null && searchResult instanceof Port) {
