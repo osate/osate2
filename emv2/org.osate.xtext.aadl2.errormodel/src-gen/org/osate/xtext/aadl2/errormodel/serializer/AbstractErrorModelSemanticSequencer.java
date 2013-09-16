@@ -4,14 +4,11 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
-import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -67,7 +64,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeActual;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -555,12 +551,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
-			case ErrorModelPackage.TYPE_ACTUAL:
-				if(context == grammarAccess.getTypeActualRule()) {
-					sequence_TypeActual(context, (TypeActual) semanticObject); 
-					return; 
-				}
-				else break;
 			case ErrorModelPackage.TYPE_MAPPING:
 				if(context == grammarAccess.getElementRule() ||
 				   context == grammarAccess.getTypeMappingRule()) {
@@ -714,7 +704,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (param+=ID param+=ID*)? 
 	 *         extends=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useTransformation+=[TypeTransformationSet|QEMREF]? 
@@ -822,7 +811,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         typeEquivalence=[TypeMappingSet|QEMREF]? 
 	 *         useTypeMappingSet=[TypeMappingSet|QEMREF]? 
-	 *         (useBehavior=[ErrorBehaviorStateMachine|QEMREF] (typeBinding+=TypeActual typeBinding+=TypeActual*)?)? 
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         (propagations+=ErrorPropagation* flows+=ErrorFlow*)? 
 	 *         (
 	 *             useTransformation=[TypeTransformationSet|QEMREF]? 
@@ -850,7 +839,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
 	 *         (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all') 
-	 *         targetToken=TypeToken?
+	 *         (targetToken=TypeToken | typeMappingSet=[TypeMappingSet|QEMREF])?
 	 *     )
 	 */
 	protected void sequence_ErrorPath(EObject context, ErrorPath semanticObject) {
@@ -1103,25 +1092,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 */
 	protected void sequence_TransitionBranch(EObject context, TransitionBranch semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (formal=ID actualType=[ErrorTypes|ID])
-	 */
-	protected void sequence_TypeActual(EObject context, TypeActual semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.TYPE_ACTUAL__FORMAL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.TYPE_ACTUAL__FORMAL));
-			if(transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.TYPE_ACTUAL__ACTUAL_TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.TYPE_ACTUAL__ACTUAL_TYPE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getTypeActualAccess().getFormalIDTerminalRuleCall_0_0(), semanticObject.getFormal());
-		feeder.accept(grammarAccess.getTypeActualAccess().getActualTypeErrorTypesIDTerminalRuleCall_2_0_1(), semanticObject.getActualType());
-		feeder.finish();
 	}
 	
 	

@@ -16,6 +16,7 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getOutgoing <em>Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#isAllOutgoing <em>All Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTargetToken <em>Target Token</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -154,5 +155,31 @@ public interface ErrorPath extends ErrorFlow
    * @generated
    */
   void setTargetToken(TypeToken value);
+
+  /**
+   * Returns the value of the '<em><b>Type Mapping Set</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type Mapping Set</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type Mapping Set</em>' reference.
+   * @see #setTypeMappingSet(TypeMappingSet)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPath_TypeMappingSet()
+   * @model
+   * @generated
+   */
+  TypeMappingSet getTypeMappingSet();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath#getTypeMappingSet <em>Type Mapping Set</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type Mapping Set</em>' reference.
+   * @see #getTypeMappingSet()
+   * @generated
+   */
+  void setTypeMappingSet(TypeMappingSet value);
 
 } // ErrorPath

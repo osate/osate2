@@ -59,7 +59,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
    ('use' 'type' 'equivalence' typeEquivalence=[TypeMappingSet|QEMREF] ';')?
    ('use' 'mappings' useTypeMappingSet=[TypeMappingSet|QEMREF] ';')?
    ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
-   	('(' typeBinding+=TypeActual (',' typeBinding+=TypeActual)*')')?
+//   	('(' typeBinding+=TypeBinding (',' typeBinding+=TypeBinding)*')')?
    ';' )?
   ( 'error' 'propagations'
    (propagations+=ErrorPropagation)* 
@@ -216,9 +216,9 @@ TypeMapping returns TypeMapping:
 	 source=TypeTokenConstraint '->' target=TypeToken ';'
 ;
 
-TypeActual returns TypeActual:
-	formal=ID '=>' actualType=[ErrorTypes|ID]
-;
+//TypeBinding returns TypeBinding:
+//	stateOrEvent=ID '{' errorTypes=[ErrorTypes|ID] '}'
+//;
 
    
 ErrorPropagation returns ErrorPropagation:
@@ -262,7 +262,7 @@ ErrorSink returns ErrorSink:
 
 ErrorPath returns ErrorPath:
   name=ID ':' 'error' 'path' (incoming=[ErrorPropagation|ErrorPropagationPoint]|allIncoming?='all') ( typeTokenConstraint=TypeTokenConstraint)? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint]|allOutgoing?='all') 
-  ( targetToken=TypeToken //| 'use' 'mappings' typeMappingSet=[TypeMappingSet|QEMREF]
+  ( targetToken=TypeToken | 'use' 'mappings' typeMappingSet=[TypeMappingSet|QEMREF]
   	
   )?
   ';';
@@ -289,7 +289,6 @@ QualifiedPropagationPoint returns QualifiedPropagationPoint:
 
 ErrorBehaviorStateMachine returns ErrorBehaviorStateMachine: 
   'error' 'behavior' name=ID
-  ('(' param+=ID (',' param+=ID)*')')?
   ( 'extends' extends=[ErrorBehaviorStateMachine|QEMREF])?
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
    ('use' 'transformations' useTransformation+=[TypeTransformationSet|QEMREF] ';')?

@@ -79,20 +79,36 @@ PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 Severity : inherit aadlinteger applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
-Likelihood : inherit aadlinteger applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
+-- The likelihood property value indicates the likelihood of the hazard ranging from A (high) to E (low). 
+-- MIL-STD 882D suggests descriptive labels (Frequent, Probable, Occasional, Remote, Improbable) (See property set MILSTD882). 
+-- ARP 4761 defines descriptive labels (Probable, Remote, ExtremelyRemote, ExtremelyImprobable) (See property set ARP4761).
+Likelihood : inherit EMV2::LikelihoodLabels applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
+LikelihoodLabels: type enumeration (A,B,C,D,E);
+DALLabels: type enumeration (A,B,C,D,E);
+
 Hazards: list of record
-  (crossreference     : aadlstring;
-   failure            : aadlstring;
-   phases             : list of aadlstring;
-   environment        : aadlstring;
-   description        : aadlstring;
-   verificationmethod : aadlstring;
-   risk               : aadlstring;
-   severity           : aadlinteger;
-   likelihood         : aadlinteger;
-   comment            : aadlstring;)
+  (
+   crossreference     : aadlstring; -- cross reference to an external document
+   hazardtitle		  : aadlstring; -- short descriptive phrase for hazard
+   description        : aadlstring; -- description of the hazard (alternative to hazardtitle)
+   failure            : aadlstring; -- description of system deviation, giving rise to failure effect
+   failureeffect      : aadlstring; -- description of the consequences of a failure mode on system operation
+   phases             : list of aadlstring; -- operational phases in which the hazard is relevant
+   environment        : aadlstring; -- description of operational environment
+   mishap             : aadlstring; -- description of event (series) resulting in unintentional death, etc.(MILSTD882)
+   failurecondition   : aadlstring; -- description of event (series) resulting in unintentional death, etc.(ARP4761)
+   risk               : aadlstring; -- description of risk. Risk is characterized by severity, likelihood, and occurrence probability
+   severity           : aadlinteger; --
+   likelihood         : EMV2::LikelihoodLabels;
+   targetseverity     : aadlinteger; -- acceptable risk in terms of severity
+   targetlikelihood   : EMV2::LikelihoodLabels; -- acceptable risk in terms of likelihood
+   developmentassurancelevel : EMV2::DALLabels; -- level of rigor in development assurance
+   verificationmethod : aadlstring; -- verification method to address the hazard
+   safetyreport       : aadlstring; -- capturing the analysis/assessment of hazard resulting in value included in the hazard record.
+   comment            : aadlstring; -- additional information about the hazard
+   )
      applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
                  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 

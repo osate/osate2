@@ -15,7 +15,6 @@ import org.osate.aadl2.PropertyAssociation;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getParam <em>Param</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getExtends <em>Extends</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine#getUseTransformation <em>Use Transformation</em>}</li>
@@ -32,22 +31,6 @@ import org.osate.aadl2.PropertyAssociation;
  */
 public interface ErrorBehaviorStateMachine extends NamedElement, TypeUseContext
 {
-  /**
-   * Returns the value of the '<em><b>Param</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Param</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Param</em>' attribute list.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorBehaviorStateMachine_Param()
-   * @model unique="false"
-   * @generated
-   */
-  EList<String> getParam();
-
   /**
    * Returns the value of the '<em><b>Extends</b></em>' reference.
    * <!-- begin-user-doc -->

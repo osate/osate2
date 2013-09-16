@@ -1,20 +1,17 @@
 --MILSTD882.aadl
 -- define MILSTD882 Hazard specifications
 
-property set MILSTD882
-  is
-
+property set MILSTD882 is
+  with EMV2;
+-- Severity labels
 Catastrophic   : constant aadlinteger => 1;
 Critical       : constant aadlinteger => 2;
 Marginal       : constant aadlinteger => 3;
 Negligible     : constant aadlinteger => 4;
-
-Frequent    : constant aadlinteger => 1;
-Probable    : constant aadlinteger => 2;
-Occasional  : constant aadlinteger => 3;
-Remote      : constant aadlinteger => 4;
-Improbable  : constant aadlinteger => 5;
-
-
-
+-- Likelihood labels
+Frequent    : constant EMV2::LikelihoodLabels => A;
+Probable    : constant EMV2::LikelihoodLabels => B;
+Occasional  : constant EMV2::LikelihoodLabels => C;
+Remote      : constant EMV2::LikelihoodLabels => D;
+Improbable  : constant EMV2::LikelihoodLabels => E;
 end MILSTD882;

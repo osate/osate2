@@ -653,7 +653,7 @@ public class FTAUtils
 	{
 		TypeSet ts = behaviorState.getTypeSet();
 		
-		EList<ContainedNamedElement> PA = EMV2Properties.getHazardProperty(relatedComponentInstance,behaviorState,ts);
+		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponentInstance,behaviorState,ts);
 		
 		if (PA.isEmpty())
 		{

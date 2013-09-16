@@ -222,7 +222,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				if (condElement.getIncoming() instanceof ErrorEvent)
 				{
 					ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
-					EList<ContainedNamedElement> PA  = EMV2Properties.getHazardProperty(ci, errorEvent,errorEvent.getTypeSet());
+					EList<ContainedNamedElement> PA  = EMV2Properties.getHazardsProperty(ci, errorEvent,errorEvent.getTypeSet());
 					EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,errorEvent.getTypeSet());
 					EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,errorEvent.getTypeSet());
 					for (ContainedNamedElement hazProp: PA)
@@ -238,7 +238,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci))
 		{
 
-			EList<ContainedNamedElement> PA = EMV2Properties.getHazardProperty(ci, state,state.getTypeSet());
+			EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(ci, state,state.getTypeSet());
 			EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci,state,state.getTypeSet());
 			EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, state,state.getTypeSet());
 			for (ContainedNamedElement hazProp: PA)
@@ -266,7 +266,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				failureMode =  (ErrorBehaviorState) fmr;
 				ts = failureMode.getTypeSet();
 				// error source a local context
-				HazardPA = EMV2Properties.getHazardProperty(ci,failureMode,ts);
+				HazardPA = EMV2Properties.getHazardsProperty(ci,failureMode,ts);
 				Sev = EMV2Properties.getSeverityProperty(ci,failureMode,ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci,failureMode,ts);
 				target = failureMode;
@@ -276,7 +276,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				// error propagation is originating hazard
 				ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
-				HazardPA = EMV2Properties.getHazardProperty(ci, ep,ts);
+				HazardPA = EMV2Properties.getHazardsProperty(ci, ep,ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, ep,ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci, ep,ts);
 				target = ep;
@@ -287,7 +287,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null) ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
-				HazardPA = EMV2Properties.getHazardProperty(ci, errorSource,ts);
+				HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource,ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, errorSource,ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci, errorSource,ts);
 				target = errorSource;
@@ -300,48 +300,13 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		}
 	}
 	
-	protected long getIntegerPropertyValue(ContainedNamedElement containmentPath)
+	protected PropertyExpression getPropertyValue(ContainedNamedElement containmentPath)
 	{
-		long ret;
-		
-		if (containmentPath == null)
-		{
-			return INVALID_VALUE;
-		}
-		
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof IntegerLiteral){
-				// empty string to force integer conversion to string
-				ret = ((IntegerLiteral)val).getValue();
-				OsateDebug.osateDebug("return " + ret);
-				return ret;
-			}
-			
-			if (val instanceof NamedValue){
-				AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
-				if (eval instanceof EnumerationLiteral){
-					//OsateDebug.osateDebug ("expect integer " + ((EnumerationLiteral)eval).getName());
-
-				}else if (eval instanceof PropertyConstant)
-				{
-					PropertyConstant pc = (PropertyConstant)eval;
-					PropertyExpression pe = pc.getConstantValue();
-					if (pe instanceof IntegerLiteral){
-						// empty string to force integer conversion to string
-						ret = ((IntegerLiteral)pe).getValue();
-						//OsateDebug.osateDebug("return " + ret);
-						return ret;
-					}
-//					OsateDebug.osateDebug ("expect integer " + ((PropertyConstant)eval).getName());
-//
-//					OsateDebug.osateDebug ("bla " + );
-
-				}
-			}
+			return val;
 		}
-		
-		return INVALID_VALUE;
+		return null;
 	}
 	
 	protected String getEnumerationorIntegerPropertyValue(ContainedNamedElement containmentPath){
@@ -375,27 +340,21 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
 			PropertyExpression peVal = modalPropertyValue.getOwnedValue();
 			if (peVal instanceof ListValue)
-			{
+			{ // it is always a list
 				ListValue lv = (ListValue)peVal;
 				for (PropertyExpression pe : lv.getOwnedListElements())
 				{
 					//OsateDebug.osateDebug ("pe=" + pe);
 					if (pe instanceof RecordValue){
-						PropertyExpression val 		= pe;
-						String SeverityString 		= null;
-						String LikelihoodString	 	= null;
-						int SeverityCode 			= (int) getIntegerPropertyValue(SevContainmentPath);
-						int LikelihoodCode	 		= (int) getIntegerPropertyValue(LikeContainmentPath);
-						SeverityString = getSeverity (SeverityCode);
-						LikelihoodString = getLikelihood (LikelihoodCode);
-						RecordValue rv = (RecordValue)val;
-						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+						PropertyExpression severityValue = getPropertyValue (SevContainmentPath);
+						PropertyExpression likelihoodValue = getPropertyValue (LikeContainmentPath);
+						EList<BasicPropertyAssociation> fields = ((RecordValue)pe).getOwnedFieldValues();
 						// for all error types/aliases in type set or the element identified in the containment clause 
 		
 						if (targetType==null){
 							if (ts != null){
 								for(TypeToken token: ts.getTypeTokens()){
-									reportFHAEntry(report, fields, SeverityString, LikelihoodString, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
+									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, EMV2Util.getPrintName(target),EMV2Util.getName(token));
 								}
 							} else {
 								// did not have a type set. Let's use fmr (state of type set as failure mode.
@@ -410,14 +369,14 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 								}
 								if (localContext == null)
 								{
-									reportFHAEntry(report, fields, SeverityString, LikelihoodString,ci, targetName,"");
+									reportFHAEntry(report, fields, severityValue, likelihoodValue,ci, targetName,"");
 								} else {
-									reportFHAEntry(report, fields, SeverityString, LikelihoodString,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
+									reportFHAEntry(report, fields, severityValue, likelihoodValue,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
 								}
 							}
 						} else {
 							// property points to type
-							reportFHAEntry(report, fields,  SeverityString, LikelihoodString,ci,EMV2Util.getPrintName(target), EMV2Util.getPrintName(targetType));
+							reportFHAEntry(report, fields,  severityValue, likelihoodValue,ci,EMV2Util.getPrintName(target), EMV2Util.getPrintName(targetType));
 						}
 					}		
 				}
@@ -431,84 +390,15 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 	protected void reportHeading(WriteToFile report){
-		report.addOutputNewline("Component, Error, Crossreference, " +
-				"Functional Failure (Hazard), Operational Phase, Environment, Effects of Hazard, Severity, Criticality, Verification, Comment");	
+		report.addOutputNewline("Component, Error, Hazard Title, Crossreference, " +
+				"Functional Failure, Failure Effect, Operational Phases, Environment, Mishap/Failure Condition, Severity, Likelihood,"+
+				"Target Severity, Target Likelihood, Assurance Level, Verification, Safety Report, Comment");	
 	}
 	
 	protected void reportFHAEntry(WriteToFile report,EList<BasicPropertyAssociation> fields,
-			String Severity, String Likelihood, ComponentInstance ci,
+			PropertyExpression Severity, PropertyExpression Likelihood, ComponentInstance ci,
 			String failureModeName,  String typetext){
 		String componentName = ci.getName();
-		String severityStr = Severity;
-		String likelihoodStr = Likelihood;
-		
-		BasicPropertyAssociation xref;
-		
-		xref = GetProperties.getRecordField(fields, "severity");
-		if (xref != null)
-		{
-			String text = null;
-			int code = 0;
-			
-			PropertyExpression val = xref.getOwnedValue();
-			if (val instanceof IntegerLiteral)
-			{
-				code = (int) ((IntegerLiteral)val).getValue();
-				
-			}
-			if (val instanceof NamedValue)
-			{
-				
-				AbstractNamedValue anv =  ((NamedValue)val).getNamedValue();
-				if (anv instanceof PropertyConstant)
-				{
-					PropertyConstant pc = (PropertyConstant)anv;
-					PropertyExpression pe = pc.getConstantValue();
-					if (pe instanceof IntegerLiteral){
-						// empty string to force integer conversion to string
-						code = (int) ((IntegerLiteral)pe).getValue();
-						//OsateDebug.osateDebug("return " + ret);
-					}
-
-				}
-			}
-			
-			severityStr = getSeverity(code);
-		}
-		
-		
-		xref = GetProperties.getRecordField(fields, "likelihood");
-		if (xref != null)
-		{
-			String text = null;
-			int code = 0;
-			
-			PropertyExpression val = xref.getOwnedValue();
-			if (val instanceof IntegerLiteral)
-			{
-				code = (int) ((IntegerLiteral)val).getValue();
-				
-			}
-			if (val instanceof NamedValue)
-			{
-				
-				AbstractNamedValue anv =  ((NamedValue)val).getNamedValue();
-				if (anv instanceof PropertyConstant)
-				{
-					PropertyConstant pc = (PropertyConstant)anv;
-					PropertyExpression pe = pc.getConstantValue();
-					if (pe instanceof IntegerLiteral){
-						// empty string to force integer conversion to string
-						code = (int) ((IntegerLiteral)pe).getValue();
-						//OsateDebug.osateDebug("return " + ret);
-					}
-
-				}
-			}
-			likelihoodStr = getLikelihood(code);
-
-		}
-		
 		/*
 		 * We include the parent component name if not null and if this is not the root system
 		 * instance.
@@ -523,32 +413,50 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		}
 		// component name & error propagation name/type
 		report.addOutput(componentName+", \""+(typetext.isEmpty()?"":typetext+" on ")+failureModeName+"\"");
+		// description (Effect)
+		addComma(report);
+		if (!reportStringProperty(fields,"hazardtitle",report))
+			reportStringProperty(fields, "description", report);
 		// crossreference
 		addComma(report);
 		reportStringProperty(fields, "crossreference", report);
 		// failure
 		addComma(report);
 		reportStringProperty(fields, "failure", report);
+		// failure effect
+		addComma(report);
+		reportStringProperty(fields, "failureeffect", report);
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "phases", report);
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "environment", report);
-		// description (Effect)
+		// mishap/failure condition
 		addComma(report);
-		reportStringProperty(fields, "description", report);
+		if (!reportStringProperty(fields, "mishap", report))
+			reportStringProperty(fields, "failurecondition", report);
 		// severity
 		addComma(report);
-		addString(report,severityStr);
-//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report,Severity);
 		// criticality
 		addComma(report);
-		addString(report,likelihoodStr);
-//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report);
-		// comment
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report,Likelihood);
+		// target severity
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetseverity", report,null);
+		// target criticality
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetlikelihood", report,null);
+		// Development assurance level
+		addComma(report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "developmentassurancelevel", report,null);
+		// verification method
 		addComma(report);
 		reportStringProperty(fields, "verificationmethod", report);
+		// safety report
+		addComma(report);
+		reportStringProperty(fields, "safetyreport", report);
 		// comment
 		addComma(report);
 		reportStringProperty(fields, "comment", report);
@@ -563,18 +471,21 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		report.addOutput(str);
 	}
 
-
-	
-	protected void reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
+	/**
+	 * report String based property values. Can be list of string values (for handling Phases)
+	 * @param fields
+	 * @param fieldName
+	 * @param report
+	 */
+	protected Boolean reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
 		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
+		String text = null;
 		if (xref != null)
 		{
-			String text = null;
 			PropertyExpression val = xref.getOwnedValue();
 			if (val instanceof StringLiteral)
 			{
 				text = ((StringLiteral)val).getValue();
-
 			}
 			if (val instanceof ListValue)
 			{
@@ -587,17 +498,17 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 						text += " or ";
 					}
 					text += stripQuotes(((StringLiteral)pe).getValue());
-					
 				}
 			}
-			
-			if (text != null)
-			{
-				text = makeCSVText(stripQuotes(text));
-				text = text.replaceAll(System.getProperty("line.separator"), " ");
-				report.addOutput("\"" + text + "\"");
-			}
 		}
+		if (text != null)
+		{
+			text = makeCSVText(stripQuotes(text));
+			text = text.replaceAll(System.getProperty("line.separator"), " ");
+			report.addOutput("\"" + text + "\"");
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -606,25 +517,39 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	 * @param fieldName
 	 * @param report
 	 */
-	protected void reportEnumerationOrIntegerPropertyConstantPropertyValue(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
+	protected void reportEnumerationOrIntegerPropertyConstantPropertyValue(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report
+			,PropertyExpression alternativeValue){
 		// added code to handle integer value and use of property constant instead of enumeration literal
+		PropertyExpression val = alternativeValue;
 		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
 		if (xref != null){
-			PropertyExpression val = xref.getOwnedValue();
-			if (val instanceof NamedValue){
-				AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
-				if (eval instanceof EnumerationLiteral){
-					report.addOutput(((EnumerationLiteral)eval).getName());
-
-				}else if (eval instanceof PropertyConstant){
-					report.addOutput(((PropertyConstant)eval).getName());
-				}
-			} else if (val instanceof IntegerLiteral){
-				report.addOutput(""+((IntegerLiteral)val).getValue());
-			}
+			val = xref.getOwnedValue();
 		}
+		report.addOutput(getEnumerationOrIntegerPropertyConstantPropertyValue(val));
 	}
+
 	
+	/**
+	 * convert enumeration literals or integer values possibly assigned as property constant into String labels
+	 * @param val PropertyExpression
+	 * @returns String
+	 */
+	protected String getEnumerationOrIntegerPropertyConstantPropertyValue(PropertyExpression val){
+		// added code to handle integer value and use of property constant instead of enumeration literal
+		if (val instanceof NamedValue){
+			AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
+			if (eval instanceof EnumerationLiteral){
+				return ((EnumerationLiteral)eval).getName();
+
+			}else if (eval instanceof PropertyConstant){
+				return ((PropertyConstant)eval).getName();
+			}
+		} else if (val instanceof IntegerLiteral){
+			return ""+((IntegerLiteral)val).getValue();
+		}
+		return "";
+	}
+
 	protected String stripQuotes(String text){
 		if (text.startsWith("\"")&& text.endsWith("\"")){
 			return text.substring(1, text.length()-1);

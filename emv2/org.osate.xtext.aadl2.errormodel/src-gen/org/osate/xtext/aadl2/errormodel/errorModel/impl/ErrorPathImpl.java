@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
@@ -27,6 +28,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getOutgoing <em>Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#isAllOutgoing <em>All Outgoing</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getTargetToken <em>Target Token</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorPathImpl#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -103,6 +105,16 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * @ordered
    */
   protected TypeToken targetToken;
+
+  /**
+   * The cached value of the '{@link #getTypeMappingSet() <em>Type Mapping Set</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTypeMappingSet()
+   * @generated
+   * @ordered
+   */
+  protected TypeMappingSet typeMappingSet;
 
   /**
    * <!-- begin-user-doc -->
@@ -310,6 +322,49 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  public TypeMappingSet getTypeMappingSet()
+  {
+    if (typeMappingSet != null && typeMappingSet.eIsProxy())
+    {
+      InternalEObject oldTypeMappingSet = (InternalEObject)typeMappingSet;
+      typeMappingSet = (TypeMappingSet)eResolveProxy(oldTypeMappingSet);
+      if (typeMappingSet != oldTypeMappingSet)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET, oldTypeMappingSet, typeMappingSet));
+      }
+    }
+    return typeMappingSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeMappingSet basicGetTypeMappingSet()
+  {
+    return typeMappingSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTypeMappingSet(TypeMappingSet newTypeMappingSet)
+  {
+    TypeMappingSet oldTypeMappingSet = typeMappingSet;
+    typeMappingSet = newTypeMappingSet;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET, oldTypeMappingSet, typeMappingSet));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -343,6 +398,9 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
         return isAllOutgoing();
       case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
         return getTargetToken();
+      case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
+        if (resolve) return getTypeMappingSet();
+        return basicGetTypeMappingSet();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -371,6 +429,9 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
         return;
       case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
         setTargetToken((TypeToken)newValue);
+        return;
+      case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
+        setTypeMappingSet((TypeMappingSet)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -401,6 +462,9 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
       case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
         setTargetToken((TypeToken)null);
         return;
+      case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
+        setTypeMappingSet((TypeMappingSet)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -425,6 +489,8 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
         return allOutgoing != ALL_OUTGOING_EDEFAULT;
       case ErrorModelPackage.ERROR_PATH__TARGET_TOKEN:
         return targetToken != null;
+      case ErrorModelPackage.ERROR_PATH__TYPE_MAPPING_SET:
+        return typeMappingSet != null;
     }
     return super.eIsSet(featureID);
   }

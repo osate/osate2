@@ -37,7 +37,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeActual;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 
@@ -52,7 +51,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeEquivalence <em>Type Equivalence</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTypeMappingSet <em>Use Type Mapping Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseBehavior <em>Use Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeBinding <em>Type Binding</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getFlows <em>Flows</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTransformation <em>Use Transformation</em>}</li>
@@ -113,16 +111,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * @ordered
    */
   protected ErrorBehaviorStateMachine useBehavior;
-
-  /**
-   * The cached value of the '{@link #getTypeBinding() <em>Type Binding</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTypeBinding()
-   * @generated
-   * @ordered
-   */
-  protected EList<TypeActual> typeBinding;
 
   /**
    * The cached value of the '{@link #getPropagations() <em>Propagations</em>}' containment reference list.
@@ -433,20 +421,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<TypeActual> getTypeBinding()
-  {
-    if (typeBinding == null)
-    {
-      typeBinding = new EObjectContainmentEList<TypeActual>(TypeActual.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_BINDING);
-    }
-    return typeBinding;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<ErrorPropagation> getPropagations()
   {
     if (propagations == null)
@@ -706,8 +680,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_BINDING:
-        return ((InternalEList<?>)getTypeBinding()).basicRemove(otherEnd, msgs);
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         return ((InternalEList<?>)getPropagations()).basicRemove(otherEnd, msgs);
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
@@ -757,8 +729,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         if (resolve) return getUseBehavior();
         return basicGetUseBehavior();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_BINDING:
-        return getTypeBinding();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         return getPropagations();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
@@ -816,10 +786,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)newValue);
-        return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_BINDING:
-        getTypeBinding().clear();
-        getTypeBinding().addAll((Collection<? extends TypeActual>)newValue);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         getPropagations().clear();
@@ -901,9 +867,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)null);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_BINDING:
-        getTypeBinding().clear();
-        return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         getPropagations().clear();
         return;
@@ -968,8 +931,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return useTypeMappingSet != null;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         return useBehavior != null;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_BINDING:
-        return typeBinding != null && !typeBinding.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         return propagations != null && !propagations.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:

@@ -35,7 +35,7 @@ public class EMV2Properties {
 
 	public static final String INVALID_OCCURRENCE_TYPE = "unknown_distribution";
 
-	public static EList<ContainedNamedElement> getHazardProperty(ComponentInstance ci, Element target, TypeSet ts){
+	public static EList<ContainedNamedElement> getHazardsProperty(ComponentInstance ci, Element target, TypeSet ts){
 		EList<ContainedNamedElement> result =  getProperty("EMV2::hazards",ci,target,ts);
 		return result;
 	}
@@ -435,16 +435,16 @@ public class EMV2Properties {
 	
 
 	public static EList<ContainedNamedElement> getSeverityProperty(ComponentInstance ci, Element target, TypeSet ts){
-		EList<ContainedNamedElement> result = EMV2Properties.getProperty("MILSTD882::Severity",ci,target,ts);
-		if (result==null)result = EMV2Properties.getProperty("ARP4761::Severity",ci,target,ts);
-		if (result==null)result = EMV2Properties.getProperty("EMV2::Severity",ci,target,ts);
+		EList<ContainedNamedElement> result = EMV2Properties.getProperty("EMV2::Severity",ci,target,ts);
+//		if (result==null)result = EMV2Properties.getProperty("ARP4761::Severity",ci,target,ts);
+//		if (result==null)result = EMV2Properties.getProperty("MILSTD882::Severity",ci,target,ts);
 		return result;
 	}
 	
 	public static EList<ContainedNamedElement> getLikelihoodProperty(ComponentInstance ci, Element target, TypeSet ts){
-		EList<ContainedNamedElement> result = EMV2Properties.getProperty("MILSTD882::Likelihood",ci,target,ts);
-		if (result==null)result = EMV2Properties.getProperty("ARP4761::Likelihood",ci,target,ts);
-		if (result==null)result = EMV2Properties.getProperty("EMV2::Likelihood",ci,target,ts);
+		EList<ContainedNamedElement> result = EMV2Properties.getProperty("EMV2::Likelihood",ci,target,ts);
+//		if (result==null)result = EMV2Properties.getProperty("ARP4761::Likelihood",ci,target,ts);
+//		if (result==null)result = EMV2Properties.getProperty("MILSTD882::Likelihood",ci,target,ts);
 		return result;
 	}
 	

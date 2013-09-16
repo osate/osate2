@@ -19,7 +19,6 @@ import org.osate.aadl2.PropertyAssociation;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeEquivalence <em>Type Equivalence</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypeMappingSet <em>Use Type Mapping Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeBinding <em>Type Binding</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getFlows <em>Flows</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTransformation <em>Use Transformation</em>}</li>
@@ -136,22 +135,6 @@ public interface ErrorModelSubclause extends AnnexSubclause, TypeUseContext
    * @generated
    */
   void setUseBehavior(ErrorBehaviorStateMachine value);
-
-  /**
-   * Returns the value of the '<em><b>Type Binding</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.TypeActual}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Type Binding</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Type Binding</em>' containment reference list.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_TypeBinding()
-   * @model containment="true"
-   * @generated
-   */
-  EList<TypeActual> getTypeBinding();
 
   /**
    * Returns the value of the '<em><b>Propagations</b></em>' containment reference list.
