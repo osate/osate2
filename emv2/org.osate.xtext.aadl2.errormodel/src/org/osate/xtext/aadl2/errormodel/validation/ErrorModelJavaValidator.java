@@ -715,7 +715,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			String bv = transitionBranch.getValue().getRealvalue();
 			prob = prob + Double.valueOf(bv);
 		}
-		if (prob < 1 ){
+		if (prob != 1 ){
 			error (ebt, "Sum of branch probabilities must be 1");
 		}
 	}
