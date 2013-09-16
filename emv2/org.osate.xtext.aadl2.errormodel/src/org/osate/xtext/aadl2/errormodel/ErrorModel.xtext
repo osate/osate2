@@ -48,7 +48,7 @@ TypeSetElement|TypeToken
 |QualifiedPropagationPoint|TransitionBranch
 |ConditionElement
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
-	|ErrorStateToModeMapping
+	|ErrorStateToModeMapping 
 | SubcomponentElement | FeatureorPPReference  | TypeUseContext
 ;
 
@@ -59,7 +59,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
    ('use' 'type' 'equivalence' typeEquivalence=[TypeMappingSet|QEMREF] ';')?
    ('use' 'mappings' typeMappingSet=[TypeMappingSet|QEMREF] ';')?
    ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
-//   	('(' typeBinding+=TypeBinding (',' typeBinding+=TypeBinding)*')')?
+   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
    ';' )?
   ( 'error' 'propagations'
    (propagations+=ErrorPropagation)* 
@@ -216,9 +216,9 @@ TypeMapping returns TypeMapping:
 	 source=TypeTokenConstraint '->' target=TypeToken ';'
 ;
 
-//TypeBinding returns TypeBinding:
-//	stateOrEvent=ID '{' errorTypes=[ErrorTypes|ID] '}'
-//;
+StateTypeBinding returns ErrorBehaviorState:
+	(intial?='initial')? 'state' name=ID typeSet = TypeSetReference
+;
 
    
 ErrorPropagation returns ErrorPropagation:

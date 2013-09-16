@@ -181,6 +181,16 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE:
+      {
+        ErrorBehaviorState errorBehaviorState = (ErrorBehaviorState)theEObject;
+        T result = caseErrorBehaviorState(errorBehaviorState);
+        if (result == null) result = caseNamedElement(errorBehaviorState);
+        if (result == null) result = caseErrorBehaviorStateOrTypeSet(errorBehaviorState);
+        if (result == null) result = caseElement(errorBehaviorState);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case ErrorModelPackage.ERROR_PROPAGATION:
       {
         ErrorPropagation errorPropagation = (ErrorPropagation)theEObject;
@@ -321,16 +331,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = caseEventOrPropagation(recoverEvent);
         if (result == null) result = caseNamedElement(recoverEvent);
         if (result == null) result = caseElement(recoverEvent);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ErrorModelPackage.ERROR_BEHAVIOR_STATE:
-      {
-        ErrorBehaviorState errorBehaviorState = (ErrorBehaviorState)theEObject;
-        T result = caseErrorBehaviorState(errorBehaviorState);
-        if (result == null) result = caseNamedElement(errorBehaviorState);
-        if (result == null) result = caseErrorBehaviorStateOrTypeSet(errorBehaviorState);
-        if (result == null) result = caseElement(errorBehaviorState);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -686,6 +686,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Error Behavior State</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Error Behavior State</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseErrorBehaviorState(ErrorBehaviorState object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Error Propagation</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -921,22 +937,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseRecoverEvent(RecoverEvent object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Error Behavior State</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Error Behavior State</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseErrorBehaviorState(ErrorBehaviorState object)
   {
     return null;
   }

@@ -122,6 +122,15 @@ public interface ErrorModelFactory extends EFactory
   TypeMapping createTypeMapping();
 
   /**
+   * Returns a new object of class '<em>Error Behavior State</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Error Behavior State</em>'.
+   * @generated
+   */
+  ErrorBehaviorState createErrorBehaviorState();
+
+  /**
    * Returns a new object of class '<em>Error Propagation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -255,15 +264,6 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   RecoverEvent createRecoverEvent();
-
-  /**
-   * Returns a new object of class '<em>Error Behavior State</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Error Behavior State</em>'.
-   * @generated
-   */
-  ErrorBehaviorState createErrorBehaviorState();
 
   /**
    * Returns a new object of class '<em>Error Behavior Transition</em>'.

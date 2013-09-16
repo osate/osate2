@@ -75,6 +75,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.TYPE_TRANSFORMATION: return createTypeTransformation();
       case ErrorModelPackage.TYPE_MAPPING_SET: return createTypeMappingSet();
       case ErrorModelPackage.TYPE_MAPPING: return createTypeMapping();
+      case ErrorModelPackage.ERROR_BEHAVIOR_STATE: return createErrorBehaviorState();
       case ErrorModelPackage.ERROR_PROPAGATION: return createErrorPropagation();
       case ErrorModelPackage.FEATUREOR_PP_REFERENCE: return createFeatureorPPReference();
       case ErrorModelPackage.ERROR_FLOW: return createErrorFlow();
@@ -90,7 +91,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_EVENT: return createErrorEvent();
       case ErrorModelPackage.REPAIR_EVENT: return createRepairEvent();
       case ErrorModelPackage.RECOVER_EVENT: return createRecoverEvent();
-      case ErrorModelPackage.ERROR_BEHAVIOR_STATE: return createErrorBehaviorState();
       case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION: return createErrorBehaviorTransition();
       case ErrorModelPackage.TRANSITION_BRANCH: return createTransitionBranch();
       case ErrorModelPackage.BRANCH_VALUE: return createBranchValue();
@@ -235,6 +235,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     TypeMappingImpl typeMapping = new TypeMappingImpl();
     return typeMapping;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ErrorBehaviorState createErrorBehaviorState()
+  {
+    ErrorBehaviorStateImpl errorBehaviorState = new ErrorBehaviorStateImpl();
+    return errorBehaviorState;
   }
 
   /**
@@ -400,17 +411,6 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     RecoverEventImpl recoverEvent = new RecoverEventImpl();
     return recoverEvent;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorBehaviorState createErrorBehaviorState()
-  {
-    ErrorBehaviorStateImpl errorBehaviorState = new ErrorBehaviorStateImpl();
-    return errorBehaviorState;
   }
 
   /**

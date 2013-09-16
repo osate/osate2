@@ -49,6 +49,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
@@ -815,7 +816,13 @@ public class EMV2Util {
 		return eplist;
 	}
 	
-	
+	/**
+	 * find Error Behavior State utilizing use behavior or within EBSM
+	 * 
+	 * @param context context of the reference to the state
+	 * @param name String
+	 * @return ErrorBehavior State
+	 */
 	public static ErrorBehaviorState findErrorBehaviorState(Element context, String name){
 		ErrorBehaviorStateMachine ebsm;
 		if (context instanceof ConditionElement && !((ConditionElement)context).getSubcomponents().isEmpty()){
@@ -827,10 +834,52 @@ public class EMV2Util {
 			if (subcl == null) return null;
 			return findErrorBehaviorState( subcl,name);
 		} else {
+			// first see if it is in type bindings
+			EList<ErrorBehaviorState> typebindings = getErrorBehaviorStateTypeBindings(context);
+			if (typebindings != null){
+				for (ErrorBehaviorState ebs : typebindings) {
+					if (name.equalsIgnoreCase(ebs.getName())){
+						return ebs;
+					}
+				}
+			}
 			// resolve in local context, which is assumed to be an EBSM
 			ebsm = EMV2Util.getErrorBehaviorStateMachine(context);
 			return findErrorBehaviorStateInEBSM(ebsm, name);
 		}
+	}
+	
+	/**
+	 * need to use this if the error behavior state is in the state machine and it is overwritten by type binding
+	 * @param es Error State whose type we are looking for
+	 * @param context context of reference to error state
+	 * @return TypeSet
+	 */
+	public static TypeSet getErrorTypeSet(ErrorBehaviorState es, Element context){
+		EList<ErrorBehaviorState> typebindings = getErrorBehaviorStateTypeBindings(context);
+		for (ErrorBehaviorState typeBinding : typebindings) {
+			if (es.getName().equalsIgnoreCase(typeBinding.getName())){
+				return typeBinding.getTypeSet();
+			}
+		}
+		return es.getTypeSet();
+	}
+	
+	
+	/**
+	 * get the type bindings list from use behavior
+	 * @param element
+	 * @return
+	 */
+	public static EList<ErrorBehaviorState> getErrorBehaviorStateTypeBindings(Element element){
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(element);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			EList<ErrorBehaviorState> result = errorModelSubclause.getStateTypeBindings();
+			if (result!= null){
+				return result;
+			}
+		}
+		return null;
 	}
 	
 	
