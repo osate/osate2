@@ -229,6 +229,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	public void caseErrorPath(ErrorPath ef) {
 		checkErrorPathTypes(ef);
 		checkFlowDirection(ef);
+		if (ef.getTypeMappingSet() != null){
+			warning(ef, "Legacy support: please declare 'use mappings' at subclause level.");
+		}
 	}
 
 	@Check(CheckType.NORMAL)

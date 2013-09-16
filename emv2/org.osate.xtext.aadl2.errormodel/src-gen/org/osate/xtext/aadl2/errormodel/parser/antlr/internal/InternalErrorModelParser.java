@@ -696,7 +696,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	        }
                             
                      
-                    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetCrossReference_3_2_0()); 
+                    	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetCrossReference_3_2_0()); 
                     	    
                     pushFollow(FollowSets000.FOLLOW_ruleQEMREF_in_ruleErrorModelSubclause475);
                     ruleQEMREF();

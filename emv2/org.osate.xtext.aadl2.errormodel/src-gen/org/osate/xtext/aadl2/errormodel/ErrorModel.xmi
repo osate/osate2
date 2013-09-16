@@ -141,7 +141,7 @@
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="use"/>
           <elements xsi:type="xtext:Keyword" value="mappings"/>
-          <elements xsi:type="xtext:Assignment" feature="useTypeMappingSet" operator="=">
+          <elements xsi:type="xtext:Assignment" feature="typeMappingSet" operator="=">
             <terminal xsi:type="xtext:CrossReference">
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//TypeMappingSet"/>

@@ -2040,9 +2040,13 @@ public class EMV2Util {
 	 * @return EList<ErrorModelLibrary>
 	 */
 	public static TypeMappingSet getUseMappings(ErrorPath context){
+		// handle local type mapping set
+		if (context.getTypeMappingSet() != null){
+			return context.getTypeMappingSet();
+		}
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(context);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			TypeMappingSet tms = errorModelSubclause.getUseTypeMappingSet();
+			TypeMappingSet tms = errorModelSubclause.getTypeMappingSet();
 			if (tms!=null){
 				return tms;
 			}

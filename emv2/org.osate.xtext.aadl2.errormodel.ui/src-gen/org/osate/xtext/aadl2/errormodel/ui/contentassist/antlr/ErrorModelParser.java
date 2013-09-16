@@ -273,7 +273,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getErrorModelSubclauseAccess().getUseTypesAssignment_1_2(), "rule__ErrorModelSubclause__UseTypesAssignment_1_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getUseTypesAssignment_1_3_1(), "rule__ErrorModelSubclause__UseTypesAssignment_1_3_1");
 					put(grammarAccess.getErrorModelSubclauseAccess().getTypeEquivalenceAssignment_2_3(), "rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3");
-					put(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetAssignment_3_2(), "rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2");
+					put(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetAssignment_3_2(), "rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorAssignment_4_2(), "rule__ErrorModelSubclause__UseBehaviorAssignment_4_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getPropagationsAssignment_5_2(), "rule__ErrorModelSubclause__PropagationsAssignment_5_2");
 					put(grammarAccess.getErrorModelSubclauseAccess().getFlowsAssignment_5_3_1(), "rule__ErrorModelSubclause__FlowsAssignment_5_3_1");

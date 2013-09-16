@@ -178,13 +178,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Use Type Mapping Set</b></em>' reference.
+   * The feature id for the '<em><b>Type Mapping Set</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__USE_TYPE_MAPPING_SET = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 2;
+  int ERROR_MODEL_SUBCLAUSE__TYPE_MAPPING_SET = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Use Behavior</b></em>' reference.
@@ -3762,15 +3762,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorModelSubclause_TypeEquivalence();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypeMappingSet <em>Use Type Mapping Set</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeMappingSet <em>Type Mapping Set</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Use Type Mapping Set</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypeMappingSet()
+   * @return the meta object for the reference '<em>Type Mapping Set</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeMappingSet()
    * @see #getErrorModelSubclause()
    * @generated
    */
-  EReference getErrorModelSubclause_UseTypeMappingSet();
+  EReference getErrorModelSubclause_TypeMappingSet();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}'.
@@ -5750,12 +5750,12 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE = eINSTANCE.getErrorModelSubclause_TypeEquivalence();
 
     /**
-     * The meta object literal for the '<em><b>Use Type Mapping Set</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Type Mapping Set</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ERROR_MODEL_SUBCLAUSE__USE_TYPE_MAPPING_SET = eINSTANCE.getErrorModelSubclause_UseTypeMappingSet();
+    EReference ERROR_MODEL_SUBCLAUSE__TYPE_MAPPING_SET = eINSTANCE.getErrorModelSubclause_TypeMappingSet();
 
     /**
      * The meta object literal for the '<em><b>Use Behavior</b></em>' reference feature.

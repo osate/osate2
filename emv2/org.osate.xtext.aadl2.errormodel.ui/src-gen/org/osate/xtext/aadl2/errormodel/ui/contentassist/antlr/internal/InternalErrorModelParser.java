@@ -14551,31 +14551,31 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ErrorModelSubclause__Group_3__2__Impl"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4859:1: rule__ErrorModelSubclause__Group_3__2__Impl : ( ( rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2 ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4859:1: rule__ErrorModelSubclause__Group_3__2__Impl : ( ( rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2 ) ) ;
     public final void rule__ErrorModelSubclause__Group_3__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4863:1: ( ( ( rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2 ) ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4864:1: ( ( rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4863:1: ( ( ( rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2 ) ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4864:1: ( ( rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2 ) )
             {
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4864:1: ( ( rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2 ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4865:1: ( rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4864:1: ( ( rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2 ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4865:1: ( rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2 )
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetAssignment_3_2()); 
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4866:1: ( rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2 )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4866:2: rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2
+             before(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetAssignment_3_2()); 
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4866:1: ( rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2 )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:4866:2: rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2
             {
-            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2_in_rule__ErrorModelSubclause__Group_3__2__Impl10589);
-            rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2();
+            pushFollow(FollowSets000.FOLLOW_rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2_in_rule__ErrorModelSubclause__Group_3__2__Impl10589);
+            rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetAssignment_3_2()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetAssignment_3_2()); 
 
             }
 
@@ -63653,9 +63653,9 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     // $ANTLR end "rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_3"
 
 
-    // $ANTLR start "rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2"
-    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23915:1: rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2 : ( ( ruleQEMREF ) ) ;
-    public final void rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2() throws RecognitionException {
+    // $ANTLR start "rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2"
+    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23915:1: rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2 : ( ( ruleQEMREF ) ) ;
+    public final void rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -63666,21 +63666,21 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23920:1: ( ( ruleQEMREF ) )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23921:1: ( ruleQEMREF )
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetCrossReference_3_2_0()); 
+             before(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetCrossReference_3_2_0()); 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23922:1: ( ruleQEMREF )
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/internal/InternalErrorModelParser.g:23923:1: ruleQEMREF
             {
-             before(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1()); 
-            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_248077);
+             before(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1()); 
+            pushFollow(FollowSets002.FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__TypeMappingSetAssignment_3_248077);
             ruleQEMREF();
 
             state._fsp--;
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1()); 
 
             }
 
-             after(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetCrossReference_3_2_0()); 
+             after(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetCrossReference_3_2_0()); 
 
             }
 
@@ -63699,7 +63699,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         }
         return ;
     }
-    // $ANTLR end "rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2"
+    // $ANTLR end "rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2"
 
 
     // $ANTLR start "rule__ErrorModelSubclause__UseBehaviorAssignment_4_2"
@@ -73817,7 +73817,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_KEYWORD_72_in_rule__ErrorModelSubclause__Group_3__1__Impl10528 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__2__Impl_in_rule__ErrorModelSubclause__Group_3__210559 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__3_in_rule__ErrorModelSubclause__Group_3__210562 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2_in_rule__ErrorModelSubclause__Group_3__2__Impl10589 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2_in_rule__ErrorModelSubclause__Group_3__2__Impl10589 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_3__3__Impl_in_rule__ErrorModelSubclause__Group_3__310619 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_KEYWORD_10_in_rule__ErrorModelSubclause__Group_3__3__Impl10647 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ErrorModelSubclause__Group_4__0__Impl_in_rule__ErrorModelSubclause__Group_4__010686 = new BitSet(new long[]{0x0000000000040000L});
@@ -75445,7 +75445,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTypesAssignment_1_247960 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTypesAssignment_1_3_147999 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__TypeEquivalenceAssignment_2_348038 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_248077 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__TypeMappingSetAssignment_3_248077 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleQEMREF_in_rule__ErrorModelSubclause__UseBehaviorAssignment_4_248116 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleErrorPropagation_in_rule__ErrorModelSubclause__PropagationsAssignment_5_248151 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleErrorFlow_in_rule__ErrorModelSubclause__FlowsAssignment_5_3_148182 = new BitSet(new long[]{0x0000000000000002L});

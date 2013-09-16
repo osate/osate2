@@ -57,7 +57,7 @@ ErrorModelSubclause returns ErrorModelSubclause:
      {ErrorModelSubclause}//'{**' 
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
    ('use' 'type' 'equivalence' typeEquivalence=[TypeMappingSet|QEMREF] ';')?
-   ('use' 'mappings' useTypeMappingSet=[TypeMappingSet|QEMREF] ';')?
+   ('use' 'mappings' typeMappingSet=[TypeMappingSet|QEMREF] ';')?
    ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] 
 //   	('(' typeBinding+=TypeBinding (',' typeBinding+=TypeBinding)*')')?
    ';' )?

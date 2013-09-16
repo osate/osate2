@@ -17,7 +17,7 @@ import org.osate.aadl2.PropertyAssociation;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeEquivalence <em>Type Equivalence</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypeMappingSet <em>Use Type Mapping Set</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getFlows <em>Flows</em>}</li>
@@ -85,30 +85,30 @@ public interface ErrorModelSubclause extends AnnexSubclause, TypeUseContext
   void setTypeEquivalence(TypeMappingSet value);
 
   /**
-   * Returns the value of the '<em><b>Use Type Mapping Set</b></em>' reference.
+   * Returns the value of the '<em><b>Type Mapping Set</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Use Type Mapping Set</em>' reference isn't clear,
+   * If the meaning of the '<em>Type Mapping Set</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Use Type Mapping Set</em>' reference.
-   * @see #setUseTypeMappingSet(TypeMappingSet)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_UseTypeMappingSet()
+   * @return the value of the '<em>Type Mapping Set</em>' reference.
+   * @see #setTypeMappingSet(TypeMappingSet)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_TypeMappingSet()
    * @model
    * @generated
    */
-  TypeMappingSet getUseTypeMappingSet();
+  TypeMappingSet getTypeMappingSet();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypeMappingSet <em>Use Type Mapping Set</em>}' reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeMappingSet <em>Type Mapping Set</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Use Type Mapping Set</em>' reference.
-   * @see #getUseTypeMappingSet()
+   * @param value the new value of the '<em>Type Mapping Set</em>' reference.
+   * @see #getTypeMappingSet()
    * @generated
    */
-  void setUseTypeMappingSet(TypeMappingSet value);
+  void setTypeMappingSet(TypeMappingSet value);
 
   /**
    * Returns the value of the '<em><b>Use Behavior</b></em>' reference.

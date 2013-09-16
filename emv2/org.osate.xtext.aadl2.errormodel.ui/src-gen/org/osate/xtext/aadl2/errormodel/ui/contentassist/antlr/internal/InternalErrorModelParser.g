@@ -4862,9 +4862,9 @@ rule__ErrorModelSubclause__Group_3__2__Impl
     }
 :
 (
-{ before(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetAssignment_3_2()); }
-(rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2)
-{ after(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetAssignment_3_2()); }
+{ before(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetAssignment_3_2()); }
+(rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2)
+{ after(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetAssignment_3_2()); }
 )
 
 ;
@@ -23912,18 +23912,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ErrorModelSubclause__UseTypeMappingSetAssignment_3_2
+rule__ErrorModelSubclause__TypeMappingSetAssignment_3_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetCrossReference_3_2_0()); }
+{ before(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetCrossReference_3_2_0()); }
 (
-{ before(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1()); }
-	ruleQEMREF{ after(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1()); }
+{ before(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1()); }
+	ruleQEMREF{ after(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1()); }
 )
-{ after(grammarAccess.getErrorModelSubclauseAccess().getUseTypeMappingSetTypeMappingSetCrossReference_3_2_0()); }
+{ after(grammarAccess.getErrorModelSubclauseAccess().getTypeMappingSetTypeMappingSetCrossReference_3_2_0()); }
 )
 
 ;

@@ -49,7 +49,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeEquivalence <em>Type Equivalence</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTypeMappingSet <em>Use Type Mapping Set</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseBehavior <em>Use Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getFlows <em>Flows</em>}</li>
@@ -93,14 +93,14 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   protected TypeMappingSet typeEquivalence;
 
   /**
-   * The cached value of the '{@link #getUseTypeMappingSet() <em>Use Type Mapping Set</em>}' reference.
+   * The cached value of the '{@link #getTypeMappingSet() <em>Type Mapping Set</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUseTypeMappingSet()
+   * @see #getTypeMappingSet()
    * @generated
    * @ordered
    */
-  protected TypeMappingSet useTypeMappingSet;
+  protected TypeMappingSet typeMappingSet;
 
   /**
    * The cached value of the '{@link #getUseBehavior() <em>Use Behavior</em>}' reference.
@@ -335,19 +335,19 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeMappingSet getUseTypeMappingSet()
+  public TypeMappingSet getTypeMappingSet()
   {
-    if (useTypeMappingSet != null && useTypeMappingSet.eIsProxy())
+    if (typeMappingSet != null && typeMappingSet.eIsProxy())
     {
-      InternalEObject oldUseTypeMappingSet = (InternalEObject)useTypeMappingSet;
-      useTypeMappingSet = (TypeMappingSet)eResolveProxy(oldUseTypeMappingSet);
-      if (useTypeMappingSet != oldUseTypeMappingSet)
+      InternalEObject oldTypeMappingSet = (InternalEObject)typeMappingSet;
+      typeMappingSet = (TypeMappingSet)eResolveProxy(oldTypeMappingSet);
+      if (typeMappingSet != oldTypeMappingSet)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPE_MAPPING_SET, oldUseTypeMappingSet, useTypeMappingSet));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_MAPPING_SET, oldTypeMappingSet, typeMappingSet));
       }
     }
-    return useTypeMappingSet;
+    return typeMappingSet;
   }
 
   /**
@@ -355,9 +355,9 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public TypeMappingSet basicGetUseTypeMappingSet()
+  public TypeMappingSet basicGetTypeMappingSet()
   {
-    return useTypeMappingSet;
+    return typeMappingSet;
   }
 
   /**
@@ -365,12 +365,12 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setUseTypeMappingSet(TypeMappingSet newUseTypeMappingSet)
+  public void setTypeMappingSet(TypeMappingSet newTypeMappingSet)
   {
-    TypeMappingSet oldUseTypeMappingSet = useTypeMappingSet;
-    useTypeMappingSet = newUseTypeMappingSet;
+    TypeMappingSet oldTypeMappingSet = typeMappingSet;
+    typeMappingSet = newTypeMappingSet;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPE_MAPPING_SET, oldUseTypeMappingSet, useTypeMappingSet));
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_MAPPING_SET, oldTypeMappingSet, typeMappingSet));
   }
 
   /**
@@ -723,9 +723,9 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
         if (resolve) return getTypeEquivalence();
         return basicGetTypeEquivalence();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPE_MAPPING_SET:
-        if (resolve) return getUseTypeMappingSet();
-        return basicGetUseTypeMappingSet();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_MAPPING_SET:
+        if (resolve) return getTypeMappingSet();
+        return basicGetTypeMappingSet();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         if (resolve) return getUseBehavior();
         return basicGetUseBehavior();
@@ -781,8 +781,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
         setTypeEquivalence((TypeMappingSet)newValue);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPE_MAPPING_SET:
-        setUseTypeMappingSet((TypeMappingSet)newValue);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_MAPPING_SET:
+        setTypeMappingSet((TypeMappingSet)newValue);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)newValue);
@@ -861,8 +861,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
         setTypeEquivalence((TypeMappingSet)null);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPE_MAPPING_SET:
-        setUseTypeMappingSet((TypeMappingSet)null);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_MAPPING_SET:
+        setTypeMappingSet((TypeMappingSet)null);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)null);
@@ -927,8 +927,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return useTypes != null && !useTypes.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_EQUIVALENCE:
         return typeEquivalence != null;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPE_MAPPING_SET:
-        return useTypeMappingSet != null;
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__TYPE_MAPPING_SET:
+        return typeMappingSet != null;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         return useBehavior != null;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:

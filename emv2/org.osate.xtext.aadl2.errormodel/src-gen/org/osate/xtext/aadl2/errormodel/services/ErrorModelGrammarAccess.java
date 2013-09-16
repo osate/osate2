@@ -303,9 +303,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cUseKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Keyword cMappingsKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
-		private final Assignment cUseTypeMappingSetAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
-		private final CrossReference cUseTypeMappingSetTypeMappingSetCrossReference_3_2_0 = (CrossReference)cUseTypeMappingSetAssignment_3_2.eContents().get(0);
-		private final RuleCall cUseTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1 = (RuleCall)cUseTypeMappingSetTypeMappingSetCrossReference_3_2_0.eContents().get(1);
+		private final Assignment cTypeMappingSetAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final CrossReference cTypeMappingSetTypeMappingSetCrossReference_3_2_0 = (CrossReference)cTypeMappingSetAssignment_3_2.eContents().get(0);
+		private final RuleCall cTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1 = (RuleCall)cTypeMappingSetTypeMappingSetCrossReference_3_2_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cUseKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
@@ -410,7 +410,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "type" "equivalence" typeEquivalence=[TypeMappingSet|QEMREF]
 		//
-		//	";")? ("use" "mappings" useTypeMappingSet=[TypeMappingSet|QEMREF] ";")? ("use" "behavior"
+		//	";")? ("use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF] ";")? ("use" "behavior"
 		//
 		//	useBehavior=[ErrorBehaviorStateMachine|QEMREF]
 		//
@@ -443,7 +443,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "type" "equivalence" typeEquivalence=[TypeMappingSet|QEMREF] ";")?
 		//
-		//("use" "mappings" useTypeMappingSet=[TypeMappingSet|QEMREF] ";")? ("use" "behavior"
+		//("use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF] ";")? ("use" "behavior"
 		//
 		//useBehavior=[ErrorBehaviorStateMachine|QEMREF]
 		//
@@ -535,7 +535,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_2_4() { return cSemicolonKeyword_2_4; }
 
-		//("use" "mappings" useTypeMappingSet=[TypeMappingSet|QEMREF] ";")?
+		//("use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF] ";")?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"use"
@@ -544,14 +544,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"mappings"
 		public Keyword getMappingsKeyword_3_1() { return cMappingsKeyword_3_1; }
 
-		//useTypeMappingSet=[TypeMappingSet|QEMREF]
-		public Assignment getUseTypeMappingSetAssignment_3_2() { return cUseTypeMappingSetAssignment_3_2; }
+		//typeMappingSet=[TypeMappingSet|QEMREF]
+		public Assignment getTypeMappingSetAssignment_3_2() { return cTypeMappingSetAssignment_3_2; }
 
 		//[TypeMappingSet|QEMREF]
-		public CrossReference getUseTypeMappingSetTypeMappingSetCrossReference_3_2_0() { return cUseTypeMappingSetTypeMappingSetCrossReference_3_2_0; }
+		public CrossReference getTypeMappingSetTypeMappingSetCrossReference_3_2_0() { return cTypeMappingSetTypeMappingSetCrossReference_3_2_0; }
 
 		//QEMREF
-		public RuleCall getUseTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1() { return cUseTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1; }
+		public RuleCall getTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1() { return cTypeMappingSetTypeMappingSetQEMREFParserRuleCall_3_2_0_1; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3_3() { return cSemicolonKeyword_3_3; }
@@ -4888,7 +4888,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	useTypes+=[ErrorModelLibrary|QEMREF])* ";")? ("use" "type" "equivalence" typeEquivalence=[TypeMappingSet|QEMREF]
 	//
-	//	";")? ("use" "mappings" useTypeMappingSet=[TypeMappingSet|QEMREF] ";")? ("use" "behavior"
+	//	";")? ("use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF] ";")? ("use" "behavior"
 	//
 	//	useBehavior=[ErrorBehaviorStateMachine|QEMREF]
 	//
