@@ -214,6 +214,8 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.DATA_PORT__FEATURE_CLASSIFIER:
+			return isSetFeatureClassifier();
 		case Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER:
 			return dataFeatureClassifier != null;
 		}

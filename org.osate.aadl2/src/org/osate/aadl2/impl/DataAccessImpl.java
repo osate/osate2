@@ -213,6 +213,8 @@ public class DataAccessImpl extends AccessImpl implements DataAccess {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.DATA_ACCESS__FEATURE_CLASSIFIER:
+			return isSetFeatureClassifier();
 		case Aadl2Package.DATA_ACCESS__DATA_FEATURE_CLASSIFIER:
 			return dataFeatureClassifier != null;
 		}

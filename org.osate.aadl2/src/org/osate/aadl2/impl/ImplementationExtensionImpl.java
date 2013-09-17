@@ -211,6 +211,8 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.IMPLEMENTATION_EXTENSION__GENERAL:
+			return isSetGeneral();
 		case Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED:
 			return extended != null;
 		}

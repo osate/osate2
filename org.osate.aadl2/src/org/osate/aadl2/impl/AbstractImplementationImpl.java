@@ -911,6 +911,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
+			return isSetOwnedSubcomponents();
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 			return ownedBusSubcomponents != null
 					&& !ownedBusSubcomponents.isEmpty();
@@ -950,6 +952,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			return ownedVirtualProcessorSubcomponents != null
 					&& !ownedVirtualProcessorSubcomponents.isEmpty();
+		case Aadl2Package.ABSTRACT_IMPLEMENTATION__TYPE:
+			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -374,6 +374,8 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.PROPERTY_SET__OWNED_MEMBER:
+			return isSetOwnedMembers();
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
 			return ownedPropertyTypes != null && !ownedPropertyTypes.isEmpty();
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY:

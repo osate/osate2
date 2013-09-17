@@ -252,6 +252,8 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.RECORD_TYPE__OWNED_MEMBER:
+			return isSetOwnedMembers();
 		case Aadl2Package.RECORD_TYPE__OWNED_FIELD:
 			return ownedFields != null && !ownedFields.isEmpty();
 		}

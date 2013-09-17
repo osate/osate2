@@ -224,7 +224,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public static Aadl2Factory init() {
 		try {
 			Aadl2Factory theAadl2Factory = (Aadl2Factory) EPackage.Registry.INSTANCE
-					.getEFactory("http://aadl.info/AADL/2.0");
+					.getEFactory(Aadl2Package.eNS_URI);
 			if (theAadl2Factory != null) {
 				return theAadl2Factory;
 			}

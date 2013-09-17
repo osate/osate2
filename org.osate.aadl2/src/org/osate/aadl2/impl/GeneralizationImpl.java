@@ -272,6 +272,10 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl
 		switch (featureID) {
 		case Aadl2Package.GENERALIZATION__GENERAL:
 			return isSetGeneral();
+		case Aadl2Package.GENERALIZATION__TARGET:
+			return isSetTargets();
+		case Aadl2Package.GENERALIZATION__SOURCE:
+			return isSetSources();
 		case Aadl2Package.GENERALIZATION__SPECIFIC:
 			return basicGetSpecific() != null;
 		}

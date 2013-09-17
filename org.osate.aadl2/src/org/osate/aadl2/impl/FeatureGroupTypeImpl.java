@@ -1099,6 +1099,14 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
 			return isSetOwnedFeatures();
+		case Aadl2Package.FEATURE_GROUP_TYPE__CLASSIFIER_FEATURE:
+			return isSetClassifierFeatures();
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_MEMBER:
+			return isSetOwnedMembers();
+		case Aadl2Package.FEATURE_GROUP_TYPE__GENERAL:
+			return isSetGenerals();
+		case Aadl2Package.FEATURE_GROUP_TYPE__GENERALIZATION:
+			return isSetGeneralizations();
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
 			return basicGetExtended() != null;
 		case Aadl2Package.FEATURE_GROUP_TYPE__INVERSE:
@@ -1198,7 +1206,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 		NamedElement searchResult = super.findNamedElement(name);
 		if (searchResult != null)
 			return searchResult;
-		if (getOwnedFeatures().isEmpty()&& getInverse() != null) {
+		if (getOwnedFeatures().isEmpty() && getInverse() != null) {
 			return getInverse().findNamedElement(name);
 		}
 		return null;
@@ -1211,9 +1219,9 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public boolean isInverseOf(FeatureGroupType pgt) {
-		if (pgt == null)
-		{
-			OsateDebug.osateDebug("[FeatureGroupTypeImpl] isInverseOf, warning, null pgt arg");
+		if (pgt == null) {
+			OsateDebug
+					.osateDebug("[FeatureGroupTypeImpl] isInverseOf, warning, null pgt arg");
 			return false;
 		}
 
