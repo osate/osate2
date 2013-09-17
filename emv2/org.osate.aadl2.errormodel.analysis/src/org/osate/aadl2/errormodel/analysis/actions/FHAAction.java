@@ -390,9 +390,14 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 	protected void reportHeading(WriteToFile report){
-		report.addOutputNewline("Component, Error, Hazard Title, Crossreference, " +
-				"Functional Failure, Failure Effect, Operational Phases, Environment, Mishap/Failure Condition, Severity, Likelihood,"+
-				"Target Severity, Target Likelihood, Assurance Level, Verification, Safety Report, Comment");	
+		report.addOutputNewline("Component, Error,"+" Hazard Description, Crossreference, " +
+				"Functional Failure, "+//"Failure Effect, " +
+				"Operational Phases, Environment,"+//" Mishap/Failure Condition,"+
+//				"Effects of Hazard"+ // "Description" old style
+				" Severity, Likelihood,"+
+				//"Target Severity, Target Likelihood, Assurance Level, " +
+				"Verification, "+ //"Safety Report, " +
+				"Comment");	
 	}
 	
 	protected void reportFHAEntry(WriteToFile report,EList<BasicPropertyAssociation> fields,
@@ -423,34 +428,34 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		// failure
 		addComma(report);
 		reportStringProperty(fields, "failure", report);
-		// failure effect
-		addComma(report);
-		reportStringProperty(fields, "failureeffect", report);
+//		// failure effect
+//		addComma(report);
+//		reportStringProperty(fields, "failureeffect", report);
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "phases", report);
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "environment", report);
-		// mishap/failure condition
-		addComma(report);
-		if (!reportStringProperty(fields, "mishap", report))
-			reportStringProperty(fields, "failurecondition", report);
+//		// mishap/failure condition
+//		addComma(report);
+//		if (!reportStringProperty(fields, "mishap", report))
+//			reportStringProperty(fields, "failurecondition", report);
 		// severity
 		addComma(report);
 		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report,Severity);
 		// criticality
 		addComma(report);
 		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report,Likelihood);
-		// target severity
-		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetseverity", report,null);
-		// target criticality
-		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetlikelihood", report,null);
-		// Development assurance level
-		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "developmentassurancelevel", report,null);
+//		// target severity
+//		addComma(report);
+//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetseverity", report,null);
+//		// target criticality
+//		addComma(report);
+//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetlikelihood", report,null);
+//		// Development assurance level
+//		addComma(report);
+//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "developmentassurancelevel", report,null);
 		// verification method
 		addComma(report);
 		reportStringProperty(fields, "verificationmethod", report);
