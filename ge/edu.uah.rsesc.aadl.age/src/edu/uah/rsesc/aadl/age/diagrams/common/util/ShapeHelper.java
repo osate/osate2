@@ -53,10 +53,9 @@ public class ShapeHelper {
 	 * Gets a descendant shape that is linked to a particular AADL element. Does not look at children if the child shape is associated with another object.
 	 * @param shape
 	 * @param bo
-	 * @param fp
+	 * @param bor
 	 * @return
-	 */
-	
+	 */	
 	public static ContainerShape getDescendantShapeByElement(final ContainerShape shape, final Element el, final BusinessObjectResolver bor) {
 		for(final Shape c : shape.getChildren()) {
 			final Object linkedBo = bor.getBusinessObjectForPictogramElement(c);
@@ -69,21 +68,7 @@ public class ShapeHelper {
 		
 		return null;
 	}
-	
-	// REMOVE-ME when no longer needed
-	public static ContainerShape getDescendantShapeByElement(final ContainerShape shape, final Element el, final IFeatureProvider fp) {
-		for(final Shape c : shape.getChildren()) {
-			final Object linkedBo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(c));
-			if(linkedBo == el) {
-				return (ContainerShape)c;
-			} else if(linkedBo == null && c instanceof ContainerShape) {
-				return getDescendantShapeByElement((ContainerShape)c, el, fp);
-			}
-		}
-		
-		return null;
-	}
-	
+
 	public static Shape getChildShapeByName(final ContainerShape shape, final String name) {
 		for(final Shape child : VisibilityHelper.getNonGhostChildren(shape)) {
 			if(name.equals(PropertyUtil.getName(child))) {
