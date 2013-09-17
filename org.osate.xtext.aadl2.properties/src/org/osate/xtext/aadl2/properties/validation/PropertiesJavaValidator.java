@@ -139,6 +139,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 		checkAssociationAppliesTo (pa);
 		checkInBinding (pa);
+		if (pa.getProperty() != null && "Byte_Count".equalsIgnoreCase(pa.getProperty().getName())){
+			warning(pa,"Byte_Count is deprecated. Please use Memory_Size.");
+		}
 	}
 
 	protected void checkInBinding(final PropertyAssociation pa){
