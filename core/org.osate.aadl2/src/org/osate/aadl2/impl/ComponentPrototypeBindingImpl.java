@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.Prototype;
@@ -160,6 +161,10 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
+		if (newFormal != null && !(newFormal instanceof ComponentPrototype)) {
+			throw new IllegalArgumentException(
+					"newFormal must be an instance of ComponentPrototype");
+		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
@@ -250,6 +255,8 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL:
 			return actuals != null && !actuals.isEmpty();
+		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__FORMAL:
+			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

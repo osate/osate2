@@ -540,6 +540,8 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.SYSTEM_TYPE__OWNED_FEATURE:
+			return isSetOwnedFeatures();
 		case Aadl2Package.SYSTEM_TYPE__OWNED_BUS_ACCESS:
 			return ownedBusAccesses != null && !ownedBusAccesses.isEmpty();
 		case Aadl2Package.SYSTEM_TYPE__OWNED_DATA_ACCESS:

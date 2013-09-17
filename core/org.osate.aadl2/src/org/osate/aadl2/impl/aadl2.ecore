@@ -865,9 +865,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection" abstract="true" eSuperTypes="#//StructuralFeature #//ModalPath #//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
-        lowerBound="1" eType="#//AbstractConnectionEnd" containment="true"/>
+        eType="#//AbstractConnectionEnd" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
-        lowerBound="1" eType="#//AbstractConnectionEnd" containment="true"/>
+        eType="#//AbstractConnectionEnd" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bidirectional" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
@@ -973,6 +973,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PackageSection" abstract="true" eSuperTypes="#//Namespace">
     <eAnnotations source="duplicates">
+      <eAnnotations source="name">
+        <details key="lowerBound" value="1"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EAttribute" name="name" ordered="false" eType="#//String"
           volatile="true" transient="true" derived="true">
         <eAnnotations source="redefines" references="#//NamedElement/name"/>
@@ -1046,6 +1049,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeBinding" eSuperTypes="#//PrototypeBinding">
     <eAnnotations source="duplicates">
+      <eAnnotations source="formal">
+        <details key="eType" value="aadl2::ComponentPrototype"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
           eType="#//Prototype">
         <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
@@ -1064,6 +1070,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototypeBinding" eSuperTypes="#//PrototypeBinding">
     <eAnnotations source="duplicates">
+      <eAnnotations source="formal">
+        <details key="eType" value="aadl2::FeatureGroupPrototype"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
           eType="#//Prototype">
         <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
@@ -1082,6 +1091,9 @@
       eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeBinding" eSuperTypes="#//PrototypeBinding">
     <eAnnotations source="duplicates">
+      <eAnnotations source="formal">
+        <details key="eType" value="aadl2::FeaturePrototype"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
           eType="#//Prototype">
         <eAnnotations source="redefines" references="#//PrototypeBinding/formal"/>
@@ -1201,6 +1213,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Processor" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractImplementation" eSuperTypes="#//BehavioredImplementation #//AbstractClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::AbstractType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1360,6 +1375,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusImplementation" eSuperTypes="#//ComponentImplementation #//BusClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::BusType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1389,6 +1407,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataImplementation" eSuperTypes="#//ComponentImplementation #//DataClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::DataType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1434,6 +1455,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeviceImplementation" eSuperTypes="#//ComponentImplementation #//DeviceClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::DeviceType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1475,6 +1499,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemoryImplementation" eSuperTypes="#//ComponentImplementation #//MemoryClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::MemoryType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1521,6 +1548,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramImplementation" eSuperTypes="#//BehavioredImplementation #//SubprogramClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::SubprogramType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1551,6 +1581,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupImplementation" eSuperTypes="#//ComponentImplementation #//SubprogramGroupClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::SubprogramGroupType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1604,6 +1637,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SystemImplementation" eSuperTypes="#//ComponentImplementation #//SystemClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::SystemType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1686,6 +1722,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorImplementation" eSuperTypes="#//ComponentImplementation #//ProcessorClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::ProcessorType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1739,6 +1778,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessImplementation" eSuperTypes="#//ComponentImplementation #//ProcessClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::ProcessType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1796,6 +1838,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadImplementation" eSuperTypes="#//BehavioredImplementation #//ThreadClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::ThreadType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1846,6 +1891,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ThreadGroupImplementation" eSuperTypes="#//ComponentImplementation #//ThreadGroupClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::ThreadGroupType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1892,6 +1940,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusImplementation" eSuperTypes="#//ComponentImplementation #//VirtualBusClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::VirtualBusType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">
@@ -1930,6 +1981,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualProcessorImplementation" eSuperTypes="#//ComponentImplementation #//VirtualProcessorClassifier">
     <eAnnotations source="duplicates">
+      <eAnnotations source="type">
+        <details key="eType" value="aadl2::VirtualProcessorType"/>
+      </eAnnotations>
       <contents xsi:type="ecore:EReference" name="type" ordered="false" unique="false"
           lowerBound="1" eType="#//ComponentType" volatile="true" transient="true"
           derived="true">

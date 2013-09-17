@@ -442,6 +442,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_SUBCOMPONENT:
+			return isSetOwnedSubcomponents();
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 			return ownedBusSubcomponents != null
 					&& !ownedBusSubcomponents.isEmpty();
@@ -454,6 +456,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			return ownedVirtualProcessorSubcomponents != null
 					&& !ownedVirtualProcessorSubcomponents.isEmpty();
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION__TYPE:
+			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -254,6 +254,8 @@ public class EnumerationTypeImpl extends NamespaceImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.ENUMERATION_TYPE__OWNED_MEMBER:
+			return isSetOwnedMembers();
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL:
 			return ownedLiterals != null && !ownedLiterals.isEmpty();
 		}
