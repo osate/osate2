@@ -1705,14 +1705,14 @@ For access features, the classifier specifies the type of the shared component.<
             <body>Specifies the destination end of the connection. This is the end written on the right hand side of the connection symbol in textual AADL.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-Connection-destination-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-Connection-destination-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-Connection-destination-_lowerValue"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-Connection-source" name="source" type="_iT__cKl3EeCfxLim1SVFOg" aggregation="composite" association="Connections-A_connection_source">
           <ownedComment xmi:id="Connections-Connection-source-_ownedComment.0">
             <body>Specifies the source end of the connection. This is the end written on the left hand side of the connection symbol in textual AADL.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Connections-Connection-source-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-Connection-source-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Connections-Connection-source-_lowerValue"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Connections-Connection-bidirectional" name="bidirectional">
           <ownedComment xmi:id="Connections-Connection-bidirectional-_ownedComment.0">
