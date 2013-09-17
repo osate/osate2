@@ -26,20 +26,21 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 
 public class UpdateHelper {
 	/**
-	 * Removes invalid shapes from a diagram. An invalid shape is defined as a top level shape that is not associated with a business object or can not be updated
+	 * Ghosts invalid shapes from a diagram. An invalid shape is defined as a top level shape that is not associated with a business object or can not be updated
 	 * @param diagram
 	 * @param fp
 	 */	
-	public static void removeInvalidShapes(final ContainerShape shape, final IFeatureProvider fp) {	
-		final List<Shape> shapesToRemove = new ArrayList<Shape>();		
+	public static void ghostInvalidShapes(final ContainerShape shape, final IFeatureProvider fp) {
 		for(final Shape childShape : shape.getChildren()) {
 			// Check if the shape has a business object and can be updated
 			final Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(childShape));
 			final UpdateContext updateContext = new UpdateContext(childShape);
 			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
 			
+			// Determine whether to ghost the shape
+			boolean ghost = false;
 			if(bo == null || updateFeature == null || (updateFeature != null && !updateFeature.canUpdate(updateContext))) {
-				shapesToRemove.add(childShape);
+				ghost = true;
 			} else {
 				EObject emfBusinesObject = (EObject)bo;
 				if(emfBusinesObject.eIsProxy()) {
@@ -47,22 +48,20 @@ public class UpdateHelper {
 				}
 	
 				if(emfBusinesObject.eIsProxy()) {
-					shapesToRemove.add(childShape);
+					ghost = true;
 				}
 			}
-		}
-		
-		for(final Shape childShape : shapesToRemove) {
-			// TODO: Rename variables, and method. Document change in behavior.
-			PropertyUtil.setIsGhost(childShape, true);
-			childShape.setVisible(false);
-			//EcoreUtil.delete(childShape, true);			
+			
+			// Ghost the shape
+			if(ghost) {
+				VisibilityHelper.setIsGhost(childShape, true);
+			}
 		}
 	}
 	
 	public static void layoutChildren(final ContainerShape shape, final IFeatureProvider fp) {
 		// Layout the children first
-		for(final Shape child : shape.getChildren()) {
+		for(final Shape child : VisibilityHelper.getNonGhostChildren(shape)) {
 			final LayoutContext ctx = new LayoutContext(child);
 			final ILayoutFeature feature = fp.getLayoutFeature(ctx);
 			if(feature != null && feature.canLayout(ctx)) {
@@ -75,7 +74,6 @@ public class UpdateHelper {
 		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
 		
 		for(final Connection connection : diagram.getConnections()) {
-			// TODO: Test in circumstances where this is necessary
 			boolean remove = false;
 			
 			if((connection.getStart() != null && connection.getStart().getParent() == anchorParent) ||
@@ -96,30 +94,16 @@ public class UpdateHelper {
 	}
 	
 	/**
-	 * Removes connections that are invalid. Such as ones that do not have a valid business object associated with them.
+	 * Turns connections that are invalid into ghosts. Such as ones that do not have a valid business object associated with them.
 	 * @param diagram
 	 * @param fp
 	 */
-	// TODO: Remove the mode handling when modes are supported fully
-	public static void removeInvalidConnections(final Diagram diagram, final IFeatureProvider fp) {
-		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
-		
+	public static void ghostInvalidConnections(final Diagram diagram, final IFeatureProvider fp) {
 		for(final Connection connection : diagram.getConnections()) {
 			final Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(connection));
-			boolean remove = false;
 			if(!(bo instanceof EObject)) {
-				// Remove the object if the business object was not an EObject
-				remove = true;
+				VisibilityHelper.setIsGhost(connection, true);
 			}
-			
-			if(remove) {
-				connectionsToRemove.add(connection);
-			}
-		}
-		
-		// Remove the connections
-		for(final Connection connection : connectionsToRemove) {
-			EcoreUtil.delete(connection, true);
 		}
 	}
 	
@@ -136,8 +120,7 @@ public class UpdateHelper {
 				it.remove();
 			}
 		}
-	}
-	
+	}	
 	
 	/**
 	 * Refresh styles used by all the diagrams. Removes all styles from the diagram and then finds any usage of styles and reset them.
@@ -198,16 +181,5 @@ public class UpdateHelper {
 				refreshStyles(diagram, childGa);
 			}
 		}
-	}
-	
-	/**
-	 * Updates the visibility of a pictogram element. Currently makes all elements visible since this method should only be called on elements
-	 * with a valid business object
-	 * @param pe a pictogram element associated with a valid business object
-	 */
-	public static void updateVisibility(final PictogramElement pe) {
-		// Mark the pictogram element as visible in case is was hidden because the business object was temporarily not valid
-		PropertyUtil.setIsGhost(pe, false);
-		pe.setVisible(true);
 	}
 }

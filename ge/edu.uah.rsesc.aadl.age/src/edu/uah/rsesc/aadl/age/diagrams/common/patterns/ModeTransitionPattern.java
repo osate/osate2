@@ -2,13 +2,8 @@ package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.ILocation;
-import org.eclipse.graphiti.features.IReason;
-import org.eclipse.graphiti.features.context.IAddConnectionContext;
-import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.impl.Reason;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -21,7 +16,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -31,11 +26,13 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.IGefService;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.TriggerPort;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
 	@Override
@@ -43,26 +40,15 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof ModeTransition;
 	}
 
+	/**
+	 * Overridden to create a curved connection for the mode transition
+	 */
 	@Override
-	public PictogramElement add(final IAddContext context) {
-		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
-        final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(context.getNewObject());
-        final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-        
-        // Create the connection
-        final Connection connection = peCreateService.createCurvedConnection(new double[] {0.0, 0.0}, getDiagram());
-        link(connection, new AadlElementWrapper(mt));
+	protected Connection createConnection(final Diagram diagram) {
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		return peCreateService.createCurvedConnection(new double[] {0.0, 0.0}, getDiagram());
+	}	
 
-        connection.setStart(addConContext.getSourceAnchor());
-        connection.setEnd(addConContext.getTargetAnchor());
-
-        createGraphicsAlgorithm(connection);
-        createDecorators(connection);
-        updateTriggers(connection, mt);
-        
-		return connection;
-	}
-	
 	public static void updateControlPoints(final Connection connection) {
 		if(connection instanceof CurvedConnection) {
 			final CurvedConnection cc = (CurvedConnection)connection;
@@ -259,7 +245,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 
 			final ContainerShape modeTransitionContainer = getModeContainer(connection);	
 			// TODO: Use same anchor for all triggers for hte transition...
-			final Anchor eventSourceAnchor = AnchorUtil.getAnchorForModeTransitionTrigger(trigger, modeTransitionContainer, modeShape, getFeatureProvider());
+			final Anchor eventSourceAnchor = getAnchorForModeTransitionTrigger(trigger, modeTransitionContainer, modeShape, getFeatureProvider());
 			
 			if(eventSourceAnchor != null) {
 				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
@@ -279,27 +265,38 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	private static String getTransitionAnchorName(final ModeTransition mt) {
 		return mt.getName();
 	}
-	
-	@Override
-	public boolean canUpdate(final IUpdateContext context) {
-		final Object bo = this.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		return context.getPictogramElement() instanceof Connection && isMainBusinessObjectApplicable(bo);
-	}
-
-	@Override
-	public IReason updateNeeded(IUpdateContext context) {
-		return Reason.createFalseReason();
-	}
 
 	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
 		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-		return AnchorUtil.getAnchorsForModeTransition(mt, getFeatureProvider());
+		final ContainerShape ownerShape = ConnectionHelper.getOwnerShape(connection, getFeatureProvider());
+		return (ownerShape == null) ? null : ConnectionHelper.getAnchors(ownerShape, mt, getFeatureProvider());		
 	}
 	
 	@Override
-	protected void onAfterUpdate(final Connection connection) {
+	protected void onAfterRefresh(final Connection connection) {
 		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 		updateTriggers(connection, mt);
+	}
+	
+	/**
+	 * Returns the anchor for the feature references by a mode transition trigger
+	 * @param trigger
+	 * @param ownerShape the shape corresponding to the owner of the mode and mode transition. Should be a representation of Component Classifier.
+	 * @param fp
+	 * @return
+	 */
+	public static Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
+		if(trigger instanceof TriggerPort) {
+			final TriggerPort tp = (TriggerPort)trigger;
+			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : ShapeHelper.getChildShapeByElementQualifiedName(ownerShape, tp.getContext(), fp);
+			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : ShapeHelper.getChildShapeByElementQualifiedName(portShapeOwner, tp.getPort(), fp);
+			
+			// Get appropriate anchor depending on whether the port belongs to the component classifier or a subcomponent
+			return AnchorUtil.getAnchorByName(portShape, ShapeHelper.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		} else {
+			// Unhandled case
+			return null;
+		}
 	}
 }

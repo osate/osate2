@@ -34,7 +34,6 @@ public class AadlElementPropertySource implements IPropertySource {
 		}
 		return null;
 				/*
-		//System.out.println("TEST");
 		System.out.println(UiUtil.getAdapterFactory().adapt(element, IPropertySource.class));
 		if(src != null) {
 			final List<IItemPropertyDescriptor> descriptors = src.getPropertyDescriptors(element);

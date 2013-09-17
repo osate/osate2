@@ -48,7 +48,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		if(originalPe instanceof Shape) {
 			// Return the first shape that has a business object
 			Shape shape = (Shape)originalPe;
-			while(this.getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null && shape != null) {
+			while(getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null && shape != null) {
 				shape = shape.getContainer();
 			}
 

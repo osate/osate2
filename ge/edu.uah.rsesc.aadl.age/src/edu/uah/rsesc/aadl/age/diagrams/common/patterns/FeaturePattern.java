@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -46,6 +45,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
 
 /**
  * Pattern for controlling Feature shapes
@@ -191,7 +191,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	
 	private void layoutAll(final ContainerShape shape) {
 		// Layout the children first
-		for(final Shape child : getFeatureShape(shape).getChildren()) {
+		for(final Shape child : VisibilityHelper.getNonGhostChildren(getFeatureShape(shape))) {
 			layoutAll((ContainerShape)child);
 		}
 		
@@ -213,7 +213,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	 * @param callDepth
 	 */
 	private void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y, final int callDepth) {
-		UpdateHelper.updateVisibility(shape);
+		VisibilityHelper.setIsGhost(shape, false);
 		
 		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
@@ -240,7 +240,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
         	PropertyUtil.setName(featureShape, featureShapeName);
         } else {
         	gaService.createInvisibleRectangle(featureShape);
-        	UpdateHelper.removeInvalidShapes(featureShape, getFeatureProvider());
+        	UpdateHelper.ghostInvalidShapes(featureShape, getFeatureProvider());
         }
 
 		if(callDepth > 2) {
@@ -268,14 +268,14 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			if(fgt == null) {
 				featureShape.getChildren().clear();
 			} else {				
-		        // Create a set of child shapes for deletion. We will remove shapes from this list as they are updated. If a shape isn't updated, it should be removed even though
+		        // Create a set of child shapes for deletion. We will remove shapes from this list as they are updated. If a shape isn't updated, it should be turned into a ghost even though
 		        // it has a valid business object associated with it.
-		        final Set<Shape> featureShapeChildrenToDelete = new HashSet<Shape>();
-		        featureShapeChildrenToDelete.addAll(featureShape.getChildren());
+		        final Set<Shape> featureShapeChildrenToGhost = new HashSet<Shape>();
+		        featureShapeChildrenToGhost.addAll(VisibilityHelper.getNonGhostChildren(featureShape));
 		        
 		        // Create/Update shapes for the child features
 				for(final Feature childFeature : ClassifierHelper.getAllFeatures(fgt)) {
-					ContainerShape childFeatureContainer = ShapeHelper.getChildShapeByElement(featureShape, childFeature, getFeatureProvider());
+					ContainerShape childFeatureContainer = ShapeHelper.getChildShapeByElementQualifiedName(featureShape, childFeature, getFeatureProvider());
 					
 					// Get existing shape instead of always creating
 					if(childFeatureContainer == null) {
@@ -284,7 +284,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			        	link(childFeatureContainer, new AadlElementWrapper(childFeature));
 			        } else {
 						// Remove the shape from the list of shapes to remove
-						featureShapeChildrenToDelete.remove(childFeatureContainer);
+						featureShapeChildrenToGhost.remove(childFeatureContainer);
 			        }
 					
 			        createGaAndInnerShapes(childFeatureContainer, childFeature, 50, childY, callDepth + 1);
@@ -294,8 +294,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				}
 				
 				// Remove children of the feature shape that were not updated
-				for(final Shape featureShapeChild : featureShapeChildrenToDelete) {
-					EcoreUtil.delete(featureShapeChild, true);	
+				for(final Shape featureShapeChild : featureShapeChildrenToGhost) {
+					VisibilityHelper.setIsGhost(featureShapeChild, true);
 				}
 			}
 			
@@ -386,7 +386,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		AnchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerX + offset, flowSpecConnectorY);
 		
 		// Update the anchors of the children
-		for(final Shape child : getFeatureShape(shape).getChildren()) {
+		for(final Shape child : VisibilityHelper.getNonGhostChildren(getFeatureShape(shape))) {
 			updateAnchors((ContainerShape)child);
 		}
 	}

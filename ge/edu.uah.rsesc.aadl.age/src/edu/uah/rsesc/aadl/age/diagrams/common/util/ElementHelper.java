@@ -20,9 +20,16 @@ public class ElementHelper {
 	}
 	
 	public static boolean areNamesEqual(final NamedElement e1, final NamedElement e2) {
+		if(e1 == null || e1.getName() == null || e2 == null || e2.getName() == null)
+			return false;
+
+		return e1.getName().equalsIgnoreCase(e2.getName());
+	}
+	
+	public static boolean areQualifiedNamesEqual(final NamedElement e1, final NamedElement e2) {
 		if(e1 == null || e1.getQualifiedName() == null || e2 == null || e2.getQualifiedName() == null)
 			return false;
-		
+
 		return e1.getQualifiedName().equalsIgnoreCase(e2.getQualifiedName());
 	}
 }

@@ -30,6 +30,7 @@ import org.osate.aadl2.Feature;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
 
 public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private static String RELAYOUT_SHAPES_PROPERTY_KEY = "relayout";
@@ -83,16 +84,15 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 					new HorizontalShift(layoutStyles)
 			});
 
-			layout(shape, alg, relayoutShapes);
-			
+			layout(shape, alg, relayoutShapes);			
 		} catch (final InvalidLayoutConfiguration e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
 	private void layout(final ContainerShape shape, final LayoutAlgorithm alg, final boolean relayoutShapes) throws InvalidLayoutConfiguration {
-		final List<Shape> children = shape.getChildren();
-		
+		final List<Shape> children = VisibilityHelper.getNonGhostChildren(shape);
+
 		// Layout the inside of the child shapes
 		for(final Shape child : children) {
 			if(child instanceof ContainerShape) {

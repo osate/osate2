@@ -28,9 +28,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
@@ -70,7 +68,7 @@ public class ClassifierHelper {
 		int childX = startX;
 		int childY = startY;
 		for(final NamedElement element : elements) {
-			PictogramElement pictogramElement = ShapeHelper.getChildShapeByElement(shape, element, fp);
+			PictogramElement pictogramElement = ShapeHelper.getChildShapeByElementQualifiedName(shape, element, fp);
 			if(pictogramElement == null) {
 				final AddContext addContext = new AddContext();
 				addContext.setNewObject(new AadlElementWrapper(element));
@@ -142,143 +140,33 @@ public class ClassifierHelper {
 		}
 	}
 	
-	/**
-	 * Returns all the features owned by the feature group type or the type it extends. This differs from FeatureGroupType's getAllFeatures because it does not 
-	 * return features from the inverse
-	 * @param fgt
-	 * @return
-	 */
-	public static EList<Feature> getAllOwnedFeatures(final Classifier classifier) {
-		if(classifier instanceof FeatureGroupType) {
-			return getAllOwnedFeatures((FeatureGroupType)classifier);
+	public static void createUpdateConnections(final ContainerShape ownerShape, final List<? extends Element> elements, final IFeatureProvider fp) {
+		for(final Element el : elements) {
+			createUpdateConnection(ownerShape, el, fp);
+		}
+	}
+	
+	public static void createUpdateConnection(final ContainerShape ownerShape, final Element el, final IFeatureProvider fp) {
+		final PictogramElement pictogramElement = ConnectionHelper.getConnection(ownerShape, el, fp);
+		if(pictogramElement == null) {			
+			final Anchor[] anchors = ConnectionHelper.getAnchors(ownerShape, el, fp);
+			if(anchors != null) {
+				final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
+				addContext.setNewObject(new AadlElementWrapper(el));
+				addContext.setTargetContainer(ownerShape);
+				
+				final IAddFeature addFeature = fp.getAddFeature(addContext);
+				if(addFeature != null && addFeature.canAdd(addContext)) {
+					addFeature.add(addContext);
+				}
+			}
 		} else {
-			return classifier.getAllFeatures();
-		}
-	}
-	
-	/**
-	 * Returns all the features owned by the feature group type or the type it extends. This differs from FeatureGroupType's getAllFeatures because it does not 
-	 * return features from the invers and in the case of refined features, only returns the refined feature.
-	 * @param fgt
-	 * @return
-	 */
-	public static EList<Feature> getAllOwnedFeatures(final FeatureGroupType fgt) {
-		final EList<Feature> features = new BasicEList<Feature>();
-		FeatureGroupType temp = fgt;
-		while(temp != null) {
-			boolean wasRefined = false;
-			for(final Feature newFeature : temp.getOwnedFeatures()) {
-				for(final Feature existingFeature : features) {
-					if(existingFeature.getRefined() == newFeature) {
-						wasRefined = true;
-					}
-				}
-				
-				if(!wasRefined) {
-					features.add(newFeature);
-				}
-			}
-			temp = temp.getExtended();
-		}
-
-		return features;
-	}
-	
-	// Alternative implementation of getAllFeatures. 
-	// TODO: Remove if/when it is implemented into OSATE
-	public static EList<Feature> getAllFeatures(final FeatureGroupType fgt) {
-		final EList<Feature> owned = getAllOwnedFeatures(fgt);
-		final FeatureGroupType inverseFgt = fgt.getInverse();
-		if (owned.isEmpty() && !Aadl2Util.isNull(inverseFgt)) {
-			return getAllOwnedFeatures(inverseFgt);
-		}
-		
-		return owned;
-	}
-	
-	public static void createUpdateFlowSpecifications(final ContainerShape shape, final ComponentType componentType, final IFeatureProvider fp) {
-		for(final FlowSpecification fs : componentType.getAllFlowSpecifications()) {
-			// Only show flow specifications that re not in any modes	
-			final PictogramElement pictogramElement = ConnectionHelper.getForFlowSpecification(shape, fs, fp);
-			if(pictogramElement == null) {			
-				final Anchor[] anchors = AnchorUtil.getAnchorsForFlowSpecification(fs, shape, fp);
-				
-				if(anchors != null) {
-					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-					addContext.setNewObject(new AadlElementWrapper(fs));
-					
-					final IAddFeature addFeature = fp.getAddFeature(addContext);
-					if(addFeature != null && addFeature.canAdd(addContext)) {
-						addFeature.add(addContext);
-					}
-				}
-			} else {
-				final UpdateContext updateContext = new UpdateContext(pictogramElement);
-				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-				
-				// Update the connection regardless of whether it is "needed" or not.
-				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
-					updateFeature.update(updateContext);
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Returns whether a feature is inverted by checking parent shapes and the corresponding features and feature group type definitions. Walks the diagram shape
-	 * instead of trying to walk declarative model because it is not possible to walk up the declarative model when nested feature groups are used and in cased
-	 * involving feature groups implicitly defined using inverse of.
-	 * @param featureShape
-	 * @param fp
-	 * @return
-	 */
-	public static boolean isFeatureInverted(final Shape featureShape, final IFeatureProvider fp) {
-		boolean isInverted = false;
-		
-		Shape container = featureShape.getContainer();
-		while(!(container instanceof Diagram)) {
-			final Object containerBo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(container));
-			if(containerBo instanceof FeatureGroup) {
-				final FeatureGroup fg = (FeatureGroup)containerBo;
-				isInverted ^= fg.isInverse();
-				
-				// This feature group type is not necessarily the one that owned the feature... Could be inverse.. Could be refined, etc..
-				// Check if the feature group type was implicitly defined via an inverse
-				final FeatureGroupType fgt = getFeatureGroupType(container, fg, fp);
-				if(ClassifierHelper.getAllOwnedFeatures(fgt).isEmpty() && !Aadl2Util.isNull(fgt.getInverse())) {
-					isInverted = !isInverted;
-				}
-			}
-
-			container = container.getContainer();
-		}
-		
-		return isInverted;
-	}
-	
-	public static void createUpdateModeTransitions(final List<ModeTransition> modeTransitions, final IFeatureProvider fp) {
-		for(final ModeTransition mt : modeTransitions) {			
-			final PictogramElement pictogramElement = fp.getPictogramElementForBusinessObject(mt);
-			if(pictogramElement == null) {	
-				final Anchor[] anchors = AnchorUtil.getAnchorsForModeTransition(mt, fp);
-				
-				if(anchors != null) {
-					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-					addContext.setNewObject(new AadlElementWrapper(mt));
-					
-					final IAddFeature addFeature = fp.getAddFeature(addContext);
-					if(addFeature != null && addFeature.canAdd(addContext)) {
-						addFeature.add(addContext);
-					}
-				}
-			} else {
-				final UpdateContext updateContext = new UpdateContext(pictogramElement);
-				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-				
-				// Update the connection regardless of whether it is "needed" or not.
-				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
-					updateFeature.update(updateContext);
-				}
+			final UpdateContext updateContext = new UpdateContext(pictogramElement);
+			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+			
+			// Update the connection regardless of whether it is "needed" or not.
+			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
+				updateFeature.update(updateContext);
 			}
 		}
 	}
@@ -329,6 +217,123 @@ public class ClassifierHelper {
 		return new int[] { maxWidth, maxHeight+25};
 	}
 	
+	/**
+	 * Returns all the features owned by the feature group type or the type it extends. It does not return features from the inverse and in the case of refined features, 
+	 * only returns the refined feature.
+	 * @param fgt
+	 * @return
+	 */
+	public static EList<Feature> getAllOwnedFeatures(final FeatureGroupType fgt) {
+		final EList<Feature> features = new BasicEList<Feature>();
+		FeatureGroupType temp = fgt;
+		while(temp != null) {
+			boolean wasRefined = false;
+			for(final Feature newFeature : temp.getOwnedFeatures()) {
+				for(final Feature existingFeature : features) {
+					if(existingFeature.getRefined() == newFeature) {
+						wasRefined = true;
+					}
+				}
+				
+				if(!wasRefined) {
+					features.add(newFeature);
+				}
+			}
+			temp = temp.getExtended();
+		}
+
+		return features;
+	}
+	
+	/**
+	 * Returns all the features owned by the feature group type or the type it extends. It does not return features from the inverse and in the case of refined features, 
+	 * only returns the refined feature.
+	 * @param fgt
+	 * @return
+	 */
+	public static EList<Feature> getAllOwnedFeatures(final ComponentType ct) {
+		final EList<Feature> features = new BasicEList<Feature>();
+		ComponentType temp = ct;
+		while(temp != null) {
+			boolean wasRefined = false;
+			for(final Feature newFeature : temp.getOwnedFeatures()) {
+				for(final Feature existingFeature : features) {
+					if(existingFeature.getRefined() == newFeature) {
+						wasRefined = true;
+					}
+				}
+				
+				if(!wasRefined) {
+					features.add(newFeature);
+				}
+			}
+			temp = temp.getExtended();
+		}
+
+		return features;
+	}
+	
+	/**
+	 * Returns all the features owned by the feature group type or the type it extends. This differs from getAllFeatures because it does not 
+	 * return features from the inverse
+	 * @param fgt
+	 * @return
+	 */
+	public static EList<Feature> getAllOwnedFeatures(final Classifier classifier) {
+		if(classifier instanceof FeatureGroupType) {
+			return getAllOwnedFeatures((FeatureGroupType)classifier);
+		} 
+		/*else if(classifier instanceof ComponentType) { 
+			return classifier.getAllFeatures();// getAllOwnedFeatures((ComponentType)classifier);
+		} else if(classifier instanceof ComponentImplementation) {
+			return getAllOwnedFeatures(((ComponentImplementation) classifier).getType());
+		} else {
+			throw new RuntimeException("Unhandled case for classifier:" + classifier);
+		}*/
+		return classifier.getAllFeatures();
+	}
+	
+	public static EList<Feature> getAllFeatures(final FeatureGroupType fgt) {
+		final EList<Feature> owned = getAllOwnedFeatures(fgt);
+		final FeatureGroupType inverseFgt = fgt.getInverse();
+		if (owned.isEmpty() && !Aadl2Util.isNull(inverseFgt)) {
+			return getAllOwnedFeatures(inverseFgt);
+		}
+		
+		return owned;
+	}
+	
+	/**
+	 * Returns whether a feature is inverted by checking parent shapes and the corresponding features and feature group type definitions. Walks the diagram shape
+	 * instead of trying to walk declarative model because it is not possible to walk up the declarative model when nested feature groups are used and in cased
+	 * involving feature groups implicitly defined using inverse of.
+	 * @param featureShape
+	 * @param fp
+	 * @return
+	 */
+	public static boolean isFeatureInverted(final Shape featureShape, final IFeatureProvider fp) {
+		boolean isInverted = false;
+		
+		Shape container = featureShape.getContainer();
+		while(!(container instanceof Diagram)) {
+			final Object containerBo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(container));
+			if(containerBo instanceof FeatureGroup) {
+				final FeatureGroup fg = (FeatureGroup)containerBo;
+				isInverted ^= fg.isInverse();
+				
+				// This feature group type is not necessarily the one that owned the feature... Could be inverse.. Could be refined, etc..
+				// Check if the feature group type was implicitly defined via an inverse
+				final FeatureGroupType fgt = getFeatureGroupType(container, fg, fp);
+				if(ClassifierHelper.getAllOwnedFeatures(fgt).isEmpty() && !Aadl2Util.isNull(fgt.getInverse())) {
+					isInverted = !isInverted;
+				}
+			}
+
+			container = container.getContainer();
+		}
+		
+		return isInverted;
+	}
 	
 	// Prototype Related Methods
 	// CLEAN-UP: Consider moving to another class
@@ -365,8 +370,7 @@ public class ClassifierHelper {
 		}
 
 		return null;
-	}
-	
+	}	
 	
 	public static ComponentCategory getComponentCategory(final Shape shape, final Subcomponent sc, final IFeatureProvider fp) {
 		final ComponentClassifier c = getComponentClassifier(shape, sc, fp);

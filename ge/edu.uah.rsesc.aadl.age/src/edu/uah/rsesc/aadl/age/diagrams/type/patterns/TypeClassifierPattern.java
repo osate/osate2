@@ -21,6 +21,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
 
 /**
  * A pattern that controls the type shape that contains all the other shapes in the type diagram
@@ -89,13 +90,13 @@ public class TypeClassifierPattern extends AgePattern {
 	}	
 	
 	private void refresh(final ContainerShape shape, final Classifier classifier, final int x, final int y) {
-		UpdateHelper.updateVisibility(shape);
+		VisibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
-		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
+		UpdateHelper.ghostInvalidConnections(getDiagram(), getFeatureProvider());
 		
 		// Remove invalid features
-		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
+		UpdateHelper.ghostInvalidShapes(shape, this.getFeatureProvider());
 		
 		ClassifierHelper.createUpdateFeatureShapes(shape, ClassifierHelper.getAllOwnedFeatures(classifier), getFeatureProvider(), null);
 		
@@ -103,8 +104,8 @@ public class TypeClassifierPattern extends AgePattern {
 		if(classifier instanceof ComponentType) {
 			final ComponentType componentType = (ComponentType)classifier;			
 			ClassifierHelper.createUpdateModeShapes(shape, componentType.getAllModes(), getFeatureProvider());
-			ClassifierHelper.createUpdateModeTransitions(componentType.getAllModeTransitions(), getFeatureProvider());			
-			ClassifierHelper.createUpdateFlowSpecifications(shape, componentType, getFeatureProvider());
+			ClassifierHelper.createUpdateConnections(shape, componentType.getAllModeTransitions(), getFeatureProvider());	
+			ClassifierHelper.createUpdateConnections(shape, componentType.getAllFlowSpecifications(), getFeatureProvider());
 		}
 
 		// Adjust size. Width and height

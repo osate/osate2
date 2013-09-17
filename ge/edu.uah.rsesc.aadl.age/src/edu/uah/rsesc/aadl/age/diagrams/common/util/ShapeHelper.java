@@ -7,6 +7,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 
 public class ShapeHelper {
 	/**
@@ -17,17 +18,36 @@ public class ShapeHelper {
 	 * @param fp
 	 * @return
 	 */
-	public static ContainerShape getChildShapeByElement(final ContainerShape shape, final NamedElement el, final IFeatureProvider fp) {
+	public static ContainerShape getChildShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el, final BusinessObjectResolver bor) {
+		for(final Shape c : shape.getChildren()) {
+			Object bo = bor.getBusinessObjectForPictogramElement(c);
+			if(bo instanceof NamedElement && ElementHelper.areQualifiedNamesEqual((NamedElement)bo, el)) {
+				return (ContainerShape)c;
+			}
+		}
+		return null;
+	}
+	
+	// REMOVE-ME when no longer needed
+	public static ContainerShape getChildShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el, final IFeatureProvider fp) {
 		for(final Shape c : shape.getChildren()) {
 			Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(c));
-
+			if(bo instanceof NamedElement && ElementHelper.areQualifiedNamesEqual((NamedElement)bo, el)) {
+				return (ContainerShape)c;
+			}
+		}
+		return null;
+	}
+	
+	public static ContainerShape getChildShapeByElementName(final ContainerShape shape, final NamedElement el, final BusinessObjectResolver bor) {
+		for(final Shape c : shape.getChildren()) {
+			Object bo = bor.getBusinessObjectForPictogramElement(c);
 			if(bo instanceof NamedElement && ElementHelper.areNamesEqual((NamedElement)bo, el)) {
 				return (ContainerShape)c;
 			}
 		}
-		
 		return null;
-	}	
+	}
 	
 	/**
 	 * Gets a descendant shape that is linked to a particular AADL element. Does not look at children if the child shape is associated with another object.
@@ -36,6 +56,21 @@ public class ShapeHelper {
 	 * @param fp
 	 * @return
 	 */
+	
+	public static ContainerShape getDescendantShapeByElement(final ContainerShape shape, final Element el, final BusinessObjectResolver bor) {
+		for(final Shape c : shape.getChildren()) {
+			final Object linkedBo = bor.getBusinessObjectForPictogramElement(c);
+			if(linkedBo == el) {
+				return (ContainerShape)c;
+			} else if(linkedBo == null && c instanceof ContainerShape) {
+				return getDescendantShapeByElement((ContainerShape)c, el, bor);
+			}
+		}
+		
+		return null;
+	}
+	
+	// REMOVE-ME when no longer needed
 	public static ContainerShape getDescendantShapeByElement(final ContainerShape shape, final Element el, final IFeatureProvider fp) {
 		for(final Shape c : shape.getChildren()) {
 			final Object linkedBo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(c));
@@ -50,12 +85,30 @@ public class ShapeHelper {
 	}
 	
 	public static Shape getChildShapeByName(final ContainerShape shape, final String name) {
-		for(final Shape child : shape.getChildren()) {
+		for(final Shape child : VisibilityHelper.getNonGhostChildren(shape)) {
 			if(name.equals(PropertyUtil.getName(child))) {
 				return child;
 			}
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Determines whether s1 contains s2
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
+	public static boolean doesShapeContain(final Shape s1, final Shape s2) {
+		Shape temp = s2.getContainer();
+		while(temp != null) {
+			if(temp == s1) {
+				return true;
+			}
+			
+			temp = temp.getContainer();
+		}
+		return false;
 	}
 }

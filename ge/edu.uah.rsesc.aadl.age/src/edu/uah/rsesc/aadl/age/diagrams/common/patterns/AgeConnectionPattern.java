@@ -1,22 +1,26 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeature;
+import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.ICustomUndoablePattern;
-import org.osate.aadl2.ModeTransition;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IPeCreateService;
+import org.osate.aadl2.Element;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
 
 /**
  * Base class for all connection Patterns for AGE. Contains logic shared between all connection patterns.
@@ -29,6 +33,17 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	@Override
 	public boolean canAdd(IAddContext context) {
         return context instanceof IAddConnectionContext && isMainBusinessObjectApplicable(context.getNewObject());
+	}
+	
+	@Override
+	public boolean canUpdate(final IUpdateContext context) {
+		final Object bo = this.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		return context.getPictogramElement() instanceof Connection && isMainBusinessObjectApplicable(bo);
+	}
+
+	@Override
+	public IReason updateNeeded(IUpdateContext context) {
+		return Reason.createFalseReason();
 	}
 	
 	@Override
@@ -52,7 +67,12 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	protected abstract Anchor[] getAnchors(Connection connection);
 	protected abstract void createGraphicsAlgorithm(final Connection connection);
 	protected abstract void createDecorators(final Connection connection);
-	protected void onAfterUpdate(final Connection connection) {}
+	
+	/**
+	 * Called after the connection has been initially created or updated.
+	 * @param connection
+	 */
+	protected void onAfterRefresh(final Connection connection) {}
 	
 	/**
 	 * Helper function that allows customizing the recreation of a graphics algorithm during updating. Needed
@@ -64,7 +84,38 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	};
 	
 	@Override
-	public boolean update(final IUpdateContext context) {
+	public final PictogramElement add(final IAddContext context) {
+		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
+        final Element element = (Element)AadlElementWrapper.unwrap(context.getNewObject());
+        final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+        final Diagram diagram = getDiagram();
+        
+        // Create the connection
+        final Connection connection = createConnection(diagram);
+        link(connection, new AadlElementWrapper(element));
+
+        connection.setStart(addConContext.getSourceAnchor());
+        connection.setEnd(addConContext.getTargetAnchor());
+ 
+        createGraphicsAlgorithm(connection);
+        createDecorators(connection);
+        onAfterRefresh(connection);
+        
+		return connection;
+	}
+	
+	/**
+	 * Called to create the connection object during the add process. Can be overridden to change the connection type, etc
+	 * @param diagram
+	 * @return
+	 */
+	protected Connection createConnection(final Diagram diagram) {
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		return peCreateService.createFreeFormConnection(diagram);
+	}
+	
+	@Override
+	public final boolean update(final IUpdateContext context) {
 		// Rebuild the graphics algorithm and the decorators to ensure they are up to date
 		final Connection connection = (Connection)context.getPictogramElement();
 		final Anchor[] anchors = getAnchors(connection);
@@ -73,16 +124,16 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		if(anchors == null) {
 			connection.setStart(null);
 			connection.setEnd(null);
-			EcoreUtil.remove(connection);
+			VisibilityHelper.setIsGhost(connection, true);
 		}
 		else {
 			connection.setStart(anchors[0]);
 			connection.setEnd(anchors[1]);
-			UpdateHelper.updateVisibility(connection);
-			
+			VisibilityHelper.setIsGhost(connection, false);
+
 			createGraphicsAlgorithmOnUpdate(connection);
 			createDecorators(connection);
-			onAfterUpdate(connection);
+			onAfterRefresh(connection);
 		}
 		
 		return true;

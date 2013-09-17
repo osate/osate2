@@ -1,12 +1,8 @@
 package edu.uah.rsesc.aadl.age.diagrams.pkg.features;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -15,14 +11,11 @@ import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.AadlPackage;
@@ -36,11 +29,10 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 import edu.uah.rsesc.aadl.age.util.Log;
 
@@ -78,10 +70,10 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final AadlPackage pkg = (AadlPackage)element;
 
 		// Prune Invalid Generalizations
-		removeInvalidGeneralizations(diagram);
-		
+		UpdateHelper.ghostInvalidConnections(diagram, getFeatureProvider());
+
 		// Prune Invalid Shapes
-		UpdateHelper.removeInvalidShapes(diagram, getFeatureProvider());
+		UpdateHelper.ghostInvalidShapes(diagram, getFeatureProvider());
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();
@@ -128,48 +120,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		return false;
 	}
 	
-	private void removeInvalidGeneralizations(final Diagram diagram) {
-		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
-		
-		for(final Connection connection : diagram.getConnections()) {
-			final Object bo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection));
-			boolean remove = false;
-			if(bo instanceof EObject) {
-				EObject emfBusinesObject = (EObject)bo;
-				if(emfBusinesObject.eIsProxy()) {
-					emfBusinesObject = EcoreUtil.resolve(emfBusinesObject, OsateResourceUtil.getResourceSet());
-				}
-
-				if(emfBusinesObject.eIsProxy()) {
-					// Remove it it is still a proxy
-					remove = true;
-				} else if(emfBusinesObject instanceof Generalization) {
-					final Generalization generalization = (Generalization)emfBusinesObject;
-					final Classifier general = generalization.getGeneral();
-					final Classifier specific = generalization.getSpecific();
-					final Object startBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection.getStart().getParent()));
-					final Object endBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection.getEnd().getParent()));
-										
-					// Remove the object if the objects pointed to don't match the object referenced by the generalization
-					if(!general.equals(startBo) || !specific.equals(endBo)) {
-						remove = true;
-					}
-				}
-			} else {
-				// Remove the object if the business object was not an EObject
-				remove = true;
-			}
-			
-			if(remove) {
-				connectionsToRemove.add(connection);
-			}
-		}
-		
-		for(final Connection connection : connectionsToRemove) {
-			EcoreUtil.delete(connection, true);
-		}
-	}
-	
 	private void updateClassifiers(final Diagram diagram, final Set<NamedElement> elements, int x, int y) {
 		for(final NamedElement el : elements) {
 			// Add a item for the classifier
@@ -196,7 +146,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 					final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
 					
 					// Update the classifier regardless of whether it is "needed" or not.
-					if(updateFeature.canUpdate(updateContext)) {
+					if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 						updateFeature.update(updateContext);
 					}
 				}
@@ -255,28 +205,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	}
 	
 	private void updateGeneralization(final Diagram diagram, final Generalization generalization) {
-		final PictogramElement pe = this.getFeatureProvider().getPictogramElementForBusinessObject(generalization);
-		if(pe == null) {
-			final Anchor[] anchors = AnchorUtil.getAnchorsForGeneralization(generalization, getFeatureProvider());
-	
-			// Call the add connection feature					
-			final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-			addContext.setNewObject(new AadlElementWrapper(generalization));
-			addContext.setTargetContainer(diagram);
-			
-			final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
-			if(addFeature.canAdd(addContext)) {
-				addFeature.add(addContext);
-			}
-		} else {	
-			final UpdateContext updateContext = new UpdateContext(pe);
-			final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-				
-			// Update the generalization regardless of whether it is "needed" or not.
-			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
-				updateFeature.update(updateContext);
-			}
-		}
+		ClassifierHelper.createUpdateConnection(diagram, generalization, getFeatureProvider());
 	}
 
 	@Override

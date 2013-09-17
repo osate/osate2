@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -35,6 +34,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
 
 public class SubcomponentPattern extends AgePattern {
 	@Override
@@ -108,25 +108,25 @@ public class SubcomponentPattern extends AgePattern {
 	}
 	
 	private void refresh(final ContainerShape shape, final Subcomponent sc, final int x, final int y, final int minWidth, final int minHeight) {
-		UpdateHelper.updateVisibility(shape);
+		VisibilityHelper.setIsGhost(shape, false);
 		
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Remove invalid flow specifications from the diagram
-		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
+		UpdateHelper.ghostInvalidConnections(getDiagram(), getFeatureProvider());
 		
 		// Remove invalid shapes
-		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());
+		UpdateHelper.ghostInvalidShapes(shape, this.getFeatureProvider());
 
-		final Set<Shape> childShapesToDelete = new HashSet<Shape>();
-		childShapesToDelete.addAll(shape.getChildren());
+		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
+		childShapesToGhost.addAll(VisibilityHelper.getNonGhostChildren(shape));
 
 		// Create/update child shapes
 		final Classifier classifier = ClassifierHelper.getComponentClassifier(shape,  sc, getFeatureProvider());
 		if(classifier != null) {
 			final List<Shape> touchedShapes = new ArrayList<Shape>();
 			ClassifierHelper.createUpdateFeatureShapes(shape, ClassifierHelper.getAllOwnedFeatures(classifier), getFeatureProvider(), touchedShapes);
-			childShapesToDelete.removeAll(touchedShapes);
+			childShapesToGhost.removeAll(touchedShapes);
 		}
 		
 		// Create/Update Flow Specifications
@@ -141,12 +141,12 @@ public class SubcomponentPattern extends AgePattern {
 		
 		// Create/Update Flow Specifications
 		if(componentType != null) {
-			ClassifierHelper.createUpdateFlowSpecifications(shape, componentType, getFeatureProvider());
+			ClassifierHelper.createUpdateConnections(shape, componentType.getAllFlowSpecifications(), getFeatureProvider());
 		} 
 
-		// Remove child shapes that were not updated
-		for(final Shape child : childShapesToDelete) {
-			EcoreUtil.delete(child, true);	
+		// Ghost child shapes that were not updated
+		for(final Shape child : childShapesToGhost) {
+			VisibilityHelper.setIsGhost(child, true);
 		}
 		
 		// Create label
@@ -165,7 +165,7 @@ public class SubcomponentPattern extends AgePattern {
 		final int extraWidth = 30;
 		final int extraHeight = 30;
 		maxWidth = Math.max(maxWidth, textSize.getWidth() + extraWidth);
-		for(final Shape childShape : shape.getChildren()) {
+		for(final Shape childShape : VisibilityHelper.getNonGhostChildren(shape)) {
 			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 			
 			// Ignore shape like the label when determining size.

@@ -54,7 +54,7 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 		UpdateHelper.refreshStyles(diagram);
 				
 		// Remove shapes that are invalid
-		UpdateHelper.removeInvalidShapes(diagram, getFeatureProvider());
+		UpdateHelper.ghostInvalidShapes(diagram, getFeatureProvider());
 
 		// Add/Update the shape for the classifier
 		final PictogramElement pe = getFeatureProvider().getPictogramElementForBusinessObject(ci);

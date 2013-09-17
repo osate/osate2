@@ -22,6 +22,7 @@ import org.osate.aadl2.Element;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.mapping.IndependenceProvider;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 

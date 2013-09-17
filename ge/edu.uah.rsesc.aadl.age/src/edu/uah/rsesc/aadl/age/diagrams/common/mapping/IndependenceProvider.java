@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.diagrams.common;
+package edu.uah.rsesc.aadl.age.diagrams.common.mapping;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -26,13 +26,14 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TypeExtension;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
+import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 // NOTE: There is an issue where there could be confusion over which element is being referenced. Qualified names are not always unique. Features and Component Implementations could conflict
 // TODO: Expand check so that it ensures that the element being retrieved is of the expected type to reduce likelihood of problems if a reliable solutation can not be found.
-class IndependenceProvider implements IIndependenceSolver {
+public class IndependenceProvider implements IIndependenceSolver {
 	private IFeatureProvider featureProvider;
 	private boolean gettingDiagramObj = false; // Flag to indicate which code path to use. Needed because the independence provider needs to get the object for the diagram which would otherwise result in endless recursion
 	

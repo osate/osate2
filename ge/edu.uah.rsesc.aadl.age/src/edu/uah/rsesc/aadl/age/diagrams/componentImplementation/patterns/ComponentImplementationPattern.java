@@ -1,15 +1,10 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
-import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -17,13 +12,12 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Connection;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
 
 /**
  * A pattern that controls the component implementation shape that contains all the other shapes in the type diagram
@@ -92,13 +86,13 @@ public class ComponentImplementationPattern extends AgePattern {
 	}
 	
 	private void refresh(final ContainerShape shape, final ComponentImplementation ci, final int x, final int y) {
-		UpdateHelper.updateVisibility(shape);
+		VisibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
-		UpdateHelper.removeInvalidConnections(getDiagram(), getFeatureProvider());
+		UpdateHelper.ghostInvalidConnections(getDiagram(), getFeatureProvider());
 				
 		// Remove invalid features
-		UpdateHelper.removeInvalidShapes(shape, this.getFeatureProvider());		
+		UpdateHelper.ghostInvalidShapes(shape, this.getFeatureProvider());		
 			
 		// Create/Update Shapes
 		ClassifierHelper.createUpdateFeatureShapes(shape, ci.getAllFeatures(), getFeatureProvider(), null);
@@ -107,33 +101,8 @@ public class ComponentImplementationPattern extends AgePattern {
 
 		// Create/Update Modes and Mode Transitions
 		ClassifierHelper.createUpdateModeShapes(shape, ci.getAllModes(), getFeatureProvider());
-		ClassifierHelper.createUpdateModeTransitions(ci.getAllModeTransitions(), getFeatureProvider());	
-
-		// Create/Update Connections
-		for(final Connection connection : ci.getAllConnections()) {	
-			final PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(connection);
-			if(pictogramElement == null) {			
-				final Anchor[] anchors = AnchorUtil.getAnchorsForConnection(ci, connection, getFeatureProvider());
-				if(anchors != null) {
-					final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-					addContext.setNewObject(new AadlElementWrapper(connection));
-					addContext.setTargetContainer(shape);
-					
-					final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
-					if(addFeature != null && addFeature.canAdd(addContext)) {
-						addFeature.add(addContext);
-					}
-				}
-			} else {
-				final UpdateContext updateContext = new UpdateContext(pictogramElement);
-				final IUpdateFeature updateFeature = getFeatureProvider().getUpdateFeature(updateContext);
-				
-				// Update the connection regardless of whether it is "needed" or not.
-				if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
-					updateFeature.update(updateContext);
-				}
-			}
-		}
+		ClassifierHelper.createUpdateConnections(shape, ci.getAllModeTransitions(), getFeatureProvider());	
+		ClassifierHelper.createUpdateConnections(shape, ci.getAllConnections(), getFeatureProvider());
 		
 		// Adjust size. Width and height		
 		final int newSize[] = ClassifierHelper.adjustChildShapePositions(shape, getFeatureProvider());

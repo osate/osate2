@@ -1,11 +1,5 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.features.IReason;
-import org.eclipse.graphiti.features.context.IAddConnectionContext;
-import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -14,12 +8,10 @@ import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
@@ -29,10 +21,9 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
 
 public class ConnectionPattern extends AgeConnectionPattern {
 	@Override
@@ -42,26 +33,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	
 	private org.osate.aadl2.Connection getAadlConnection(final Connection connection) {
 		return (org.osate.aadl2.Connection)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-	}
-
-	@Override
-	public PictogramElement add(final IAddContext context) {
-		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
-        final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)AadlElementWrapper.unwrap(context.getNewObject());
-        final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-        final Diagram diagram = getDiagram();
-        
-        // Create the implements connection
-        final org.eclipse.graphiti.mm.pictograms.Connection connection = peCreateService.createFreeFormConnection(diagram);
-        link(connection, new AadlElementWrapper(aadlConnection));
-
-        connection.setStart(addConContext.getSourceAnchor());
-        connection.setEnd(addConContext.getTargetAnchor());
- 
-        createGraphicsAlgorithm(connection);
-        createDecorators(connection);
-        
-		return connection;
 	}
 	
 	@Override
@@ -180,25 +151,9 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	}
 	
 	@Override
-	public boolean canUpdate(final IUpdateContext context) {
-		final Object bo = this.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		return context.getPictogramElement() instanceof org.eclipse.graphiti.mm.pictograms.Connection && isMainBusinessObjectApplicable(bo);
-	}
-
-	@Override
-	public IReason updateNeeded(IUpdateContext context) {
-		return Reason.createFalseReason();
-	}
-	
-	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
-		// Get the diagram business object
-		final Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
-		if(!(diagramBo instanceof ComponentImplementation)) {
-			throw new RuntimeException("Unhandled case. " + getClass().getSimpleName() + " only supported in component implementation diagrams");
-		}		
-		
 		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
-		return AnchorUtil.getAnchorsForConnection((ComponentImplementation)diagramBo, aadlConnection, getFeatureProvider());
+		final ContainerShape ownerShape = ConnectionHelper.getOwnerShape(connection, getFeatureProvider());
+		return (ownerShape == null) ? null : ConnectionHelper.getAnchors(ownerShape, aadlConnection, getFeatureProvider());	
 	}
 }
