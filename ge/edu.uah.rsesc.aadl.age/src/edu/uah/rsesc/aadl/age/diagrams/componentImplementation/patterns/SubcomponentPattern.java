@@ -32,7 +32,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService;
@@ -49,14 +49,14 @@ public class SubcomponentPattern extends AgePattern {
 	private final ShapeCreationService shapeCreationService;
 	private final AadlFeatureService featureService;
 	private final SubcomponentService subcomponentService;
-	private final ConnectionService connectionHelper;
+	private final ConnectionCreationService connectionCreationService;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final HighlightingService highlightingHelper;
 	
 	@Inject
 	public SubcomponentPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final ResizeService resizeHelper, final UpdateService updateHelper, 
 			final ShapeCreationService shapeCreationService, AadlFeatureService featureService, SubcomponentService subcomponentService, 
-			final ConnectionService connectionHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final HighlightingService highlightingHelper) {
+			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final HighlightingService highlightingHelper) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.resizeHelper = resizeHelper;
@@ -64,7 +64,7 @@ public class SubcomponentPattern extends AgePattern {
 		this.shapeCreationService = shapeCreationService;
 		this.featureService = featureService;
 		this.subcomponentService = subcomponentService;
-		this.connectionHelper = connectionHelper;
+		this.connectionCreationService = connectionCreationService;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.highlightingHelper = highlightingHelper;
 	}
@@ -173,7 +173,7 @@ public class SubcomponentPattern extends AgePattern {
 		
 		// Create/Update Flow Specifications
 		if(componentType != null) {
-			connectionHelper.createUpdateConnections(shape, componentType.getAllFlowSpecifications());
+			connectionCreationService.createUpdateConnections(shape, componentType.getAllFlowSpecifications());
 		} 
 
 		// Ghost child shapes that were not updated

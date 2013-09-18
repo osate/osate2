@@ -16,11 +16,10 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
@@ -36,19 +35,19 @@ public class TypeClassifierPattern extends AgePattern {
 	private final UpdateService updateService;
 	private final ShapeCreationService shapeCreationService;
 	private final AadlFeatureService featureService;
-	private final ConnectionService connectionHelper;
+	private final ConnectionCreationService connectionCreationService;
 	private final StyleService styleUtil;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	
 	@Inject
 	public TypeClassifierPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ShapeCreationService shapeCreationService,
-			final AadlFeatureService featureService, final ConnectionService connectionHelper, final StyleService styleUtil,
+			final AadlFeatureService featureService, final ConnectionCreationService connectionCreationService, final StyleService styleUtil,
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
 		this.visibilityHelper = visibilityHelper;
 		this.updateService = updateHelper;
 		this.shapeCreationService = shapeCreationService;
 		this.featureService = featureService;
-		this.connectionHelper = connectionHelper;
+		this.connectionCreationService = connectionCreationService;
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 	}
@@ -129,8 +128,8 @@ public class TypeClassifierPattern extends AgePattern {
 		if(classifier instanceof ComponentType) {
 			final ComponentType componentType = (ComponentType)classifier;			
 			shapeCreationService.createUpdateModeShapes(shape, componentType.getAllModes());
-			connectionHelper.createUpdateConnections(shape, componentType.getAllModeTransitions());	
-			connectionHelper.createUpdateConnections(shape, componentType.getAllFlowSpecifications());
+			connectionCreationService.createUpdateConnections(shape, componentType.getAllModeTransitions());	
+			connectionCreationService.createUpdateConnections(shape, componentType.getAllFlowSpecifications());
 		}
 
 		// Adjust size. Width and height

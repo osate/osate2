@@ -36,19 +36,19 @@ import org.osate.aadl2.TypeExtension;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
 	private final UpdateService updateHelper;
-	private final ConnectionService connectionHelper;
+	private final ConnectionCreationService connectionCreationService;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final UpdateService updateHelper, final ConnectionService connectionHelper) {
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final UpdateService updateHelper, final ConnectionCreationService connectionCreationService) {
 		super(fp);
 		this.updateHelper = updateHelper;
-		this.connectionHelper = connectionHelper;
+		this.connectionCreationService = connectionCreationService;
 	}
 	
 	@Override
@@ -221,7 +221,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	}
 	
 	private void updateGeneralization(final Diagram diagram, final Generalization generalization) {
-		connectionHelper.createUpdateConnection(diagram, generalization);
+		connectionCreationService.createUpdateConnection(diagram, generalization);
 	}
 
 	@Override

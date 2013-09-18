@@ -6,19 +6,16 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ElementService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 public class DefaultShapeService implements ShapeService {
-	private final ElementService elementHelper;
 	private final PropertyService propertyUtil;
 	private final VisibilityService visibilityHelper;
 	private final BusinessObjectResolutionService bor;
 	
-	public DefaultShapeService(final ElementService elementHelper, final PropertyService propertyUtil, final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor) {
-		this.elementHelper = elementHelper;
+	public DefaultShapeService(final PropertyService propertyUtil, final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor) {
 		this.propertyUtil = propertyUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.bor = bor;
@@ -31,7 +28,7 @@ public class DefaultShapeService implements ShapeService {
 	public ContainerShape getChildShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el) {
 		for(final Shape c : shape.getChildren()) {
 			Object bo = bor.getBusinessObjectForPictogramElement(c);
-			if(bo instanceof NamedElement && elementHelper.areQualifiedNamesEqual((NamedElement)bo, el)) {
+			if(bo instanceof NamedElement && areQualifiedNamesEqual((NamedElement)bo, el)) {
 				return (ContainerShape)c;
 			}
 		}
@@ -45,7 +42,7 @@ public class DefaultShapeService implements ShapeService {
 	public ContainerShape getChildShapeByElementName(final ContainerShape shape, final NamedElement el) {
 		for(final Shape c : shape.getChildren()) {
 			Object bo = bor.getBusinessObjectForPictogramElement(c);
-			if(bo instanceof NamedElement && elementHelper.areNamesEqual((NamedElement)bo, el)) {
+			if(bo instanceof NamedElement && areNamesEqual((NamedElement)bo, el)) {
 				return (ContainerShape)c;
 			}
 		}
@@ -76,7 +73,7 @@ public class DefaultShapeService implements ShapeService {
 	public ContainerShape getDescendantShapeByElementName(final ContainerShape shape, final NamedElement el) {
 		for(final Shape c : shape.getChildren()) {
 			final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
-			if(childBo instanceof NamedElement && elementHelper.areNamesEqual((NamedElement)childBo, el)) {
+			if(childBo instanceof NamedElement && areNamesEqual((NamedElement)childBo, el)) {
 				return (ContainerShape)c;
 			} else if(childBo == null && c instanceof ContainerShape) {
 				return getDescendantShapeByElement((ContainerShape)c, el);
@@ -114,5 +111,19 @@ public class DefaultShapeService implements ShapeService {
 			temp = temp.getContainer();
 		}
 		return false;
+	}
+	
+	private boolean areNamesEqual(final NamedElement e1, final NamedElement e2) {
+		if(e1 == null || e1.getName() == null || e2 == null || e2.getName() == null)
+			return false;
+
+		return e1.getName().equalsIgnoreCase(e2.getName());
+	}
+	
+	private boolean areQualifiedNamesEqual(final NamedElement e1, final NamedElement e2) {
+		if(e1 == null || e1.getQualifiedName() == null || e2 == null || e2.getQualifiedName() == null)
+			return false;
+
+		return e1.getQualifiedName().equalsIgnoreCase(e2.getQualifiedName());
 	}
 }

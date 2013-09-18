@@ -14,10 +14,9 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
@@ -31,16 +30,16 @@ public class ComponentImplementationPattern extends AgePattern {
 	private final VisibilityService visibilityHelper;
 	private final UpdateService updateService;
 	private final ShapeCreationService shapeCreationService;
-	private final ConnectionService connectionHelper;
+	private final ConnectionCreationService connectionCreationService;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	
 	@Inject
 	public ComponentImplementationPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ShapeCreationService shapeCreationService, 
-			final ConnectionService connectionHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
+			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
 		this.visibilityHelper = visibilityHelper;
 		this.updateService = updateHelper;
 		this.shapeCreationService = shapeCreationService;
-		this.connectionHelper = connectionHelper;
+		this.connectionCreationService = connectionCreationService;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 	}
 	
@@ -121,8 +120,8 @@ public class ComponentImplementationPattern extends AgePattern {
 
 		// Create/Update Modes and Mode Transitions
 		shapeCreationService.createUpdateModeShapes(shape, ci.getAllModes());
-		connectionHelper.createUpdateConnections(shape, ci.getAllModeTransitions());	
-		connectionHelper.createUpdateConnections(shape, ci.getAllConnections());
+		connectionCreationService.createUpdateConnections(shape, ci.getAllModeTransitions());	
+		connectionCreationService.createUpdateConnections(shape, ci.getAllConnections());
 		
 		// Adjust size. Width and height		
 		final int newSize[] = updateService.adjustChildShapePositions(shape);

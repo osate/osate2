@@ -31,8 +31,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ElementService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService;
@@ -48,8 +48,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultAadlFeatureService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultAnchorService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultBusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultConnectionCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultConnectionService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultElementService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultGraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultGraphicsAlgorithmService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultHighlightingService;
@@ -77,21 +77,21 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private IEclipseContext createEclipseContext() {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
-		final DefaultElementService elementHelper = new DefaultElementService();
 		final DefaultGraphicsAlgorithmService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultResizeService resizeHelper = new DefaultResizeService(this);
 		final DefaultStyleService styleUtil = new DefaultStyleService();
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
 		final DefaultVisibilityService visibilityHelper = new DefaultVisibilityService(propertyUtil);
-		final DefaultShapeService shapeHelper = new DefaultShapeService(elementHelper, propertyUtil, visibilityHelper, bor);
+		final DefaultShapeService shapeHelper = new DefaultShapeService(propertyUtil, visibilityHelper, bor);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
 		final DefaultSubcomponentService subcomponentService = new DefaultSubcomponentService(prototypeService);
 		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, this);
-		final DefaultConnectionService connectionHelper = new DefaultConnectionService(anchorUtil, shapeHelper, bor, this);		
+		final DefaultConnectionService connectionService = new DefaultConnectionService(anchorUtil, shapeHelper, bor, this);
+		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, this);
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
-		final DefaultHighlightingService highlightingHelper = new DefaultHighlightingService(propertyUtil, elementHelper, styleUtil);		
+		final DefaultHighlightingService highlightingHelper = new DefaultHighlightingService(propertyUtil, styleUtil);		
 		final DefaultUpdateService updateHelper = new DefaultUpdateService(styleUtil, visibilityHelper, bor, this);
 		
 		// Create the eclipse context
@@ -99,7 +99,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		
 		// Populate the context. 
-		context.set(ElementService.class, elementHelper);
 		context.set(GraphicsAlgorithmService.class, graphicsAlgorithmUtil);
 		context.set(PropertyService.class, propertyUtil);
 		context.set(ResizeService.class, resizeHelper);
@@ -111,7 +110,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		context.set(AadlFeatureService.class, featureService);
 		context.set(SubcomponentService.class, subcomponentService);
 		context.set(PrototypeService.class, prototypeService);
-		context.set(ConnectionService.class, connectionHelper);
+		context.set(ConnectionService.class, connectionService);
+		context.set(ConnectionCreationService.class, connectionCreationService);
 		context.set(GraphicsAlgorithmCreationService.class, graphicsAlgorithmCreator);
 		context.set(HighlightingService.class, highlightingHelper);
 		context.set(UpdateService.class, updateHelper);
