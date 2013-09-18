@@ -1,8 +1,8 @@
-package edu.uah.rsesc.aadl.age.diagrams.common.mapping;
+package edu.uah.rsesc.aadl.age.diagrams.common.util;
 
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
-public interface BusinessObjectResolver {
+public interface BusinessObjectResolutionService {
 	/**
 	 * Returns the business object linked to a pictogram element. Also responsible for "unwrapping" any objects.
 	 * @param pe

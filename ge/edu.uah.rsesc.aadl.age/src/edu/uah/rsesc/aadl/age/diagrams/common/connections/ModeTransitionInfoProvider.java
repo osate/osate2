@@ -9,10 +9,10 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ModeTransition;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
@@ -20,7 +20,7 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 	private final ShapeService shapeHelper;
 	
 	@Inject
-	public ModeTransitionInfoProvider(final BusinessObjectResolver bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
+	public ModeTransitionInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
 		super(bor, diagram);
 		this.anchorUtil = anchorUtil;
 		this.shapeHelper = shapeHelper;

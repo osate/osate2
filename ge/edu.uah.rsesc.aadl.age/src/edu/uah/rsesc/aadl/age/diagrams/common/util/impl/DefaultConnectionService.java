@@ -20,18 +20,18 @@ import edu.uah.rsesc.aadl.age.diagrams.common.connections.ConnectionInfoProvider
 import edu.uah.rsesc.aadl.age.diagrams.common.connections.FlowSpecificationInfoProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.connections.GeneralizationInfoProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.connections.ModeTransitionInfoProvider;
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 //TODO:Split class so that one will be the utility class and one will be the delegate to the extensions
 public class DefaultConnectionService implements ConnectionService {	
 	private final ConnectionInfoProvider[] infoProviders;
-	private final BusinessObjectResolver bor;
+	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
 	
-	public DefaultConnectionService(final AnchorService anchorUtil, final ShapeService shapeHelper, final BusinessObjectResolver bor, final IFeatureProvider fp) {
+	public DefaultConnectionService(final AnchorService anchorUtil, final ShapeService shapeHelper, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.bor = bor;
 		this.fp = fp;
 		

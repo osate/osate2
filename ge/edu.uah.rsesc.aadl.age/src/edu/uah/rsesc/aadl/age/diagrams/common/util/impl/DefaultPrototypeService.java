@@ -13,13 +13,13 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PrototypeService;
 
 public class DefaultPrototypeService implements PrototypeService {
-	private BusinessObjectResolver bor;
+	private BusinessObjectResolutionService bor;
 	
-	public DefaultPrototypeService(final BusinessObjectResolver bor) {
+	public DefaultPrototypeService(final BusinessObjectResolutionService bor) {
 		this.bor = bor;
 	}
 

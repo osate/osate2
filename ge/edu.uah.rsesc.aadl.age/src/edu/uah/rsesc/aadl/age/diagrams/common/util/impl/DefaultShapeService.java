@@ -5,7 +5,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ElementService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
@@ -15,9 +15,9 @@ public class DefaultShapeService implements ShapeService {
 	private final ElementService elementHelper;
 	private final PropertyService propertyUtil;
 	private final VisibilityService visibilityHelper;
-	private final BusinessObjectResolver bor;
+	private final BusinessObjectResolutionService bor;
 	
-	public DefaultShapeService(final ElementService elementHelper, final PropertyService propertyUtil, final VisibilityService visibilityHelper, final BusinessObjectResolver bor) {
+	public DefaultShapeService(final ElementService elementHelper, final PropertyService propertyUtil, final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor) {
 		this.elementHelper = elementHelper;
 		this.propertyUtil = propertyUtil;
 		this.visibilityHelper = visibilityHelper;

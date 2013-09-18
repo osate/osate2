@@ -13,9 +13,9 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Subcomponent;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 public class FlowSpecificationInfoProvider extends AbstractConnectionInfoProvider {
@@ -23,7 +23,7 @@ public class FlowSpecificationInfoProvider extends AbstractConnectionInfoProvide
 	private final ShapeService shapeHelper;
 	
 	@Inject
-	public FlowSpecificationInfoProvider(final BusinessObjectResolver bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
+	public FlowSpecificationInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
 		super(bor, diagram);
 		this.anchorUtil = anchorUtil;
 		this.shapeHelper = shapeHelper;

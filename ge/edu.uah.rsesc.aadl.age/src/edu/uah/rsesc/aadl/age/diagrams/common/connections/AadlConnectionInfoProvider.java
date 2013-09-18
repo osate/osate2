@@ -16,9 +16,9 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.NamedElement;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
@@ -26,7 +26,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 	private final ShapeService shapeHelper;
 	
 	@Inject
-	public AadlConnectionInfoProvider(final BusinessObjectResolver bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
+	public AadlConnectionInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
 		super(bor, diagram);
 		this.anchorUtil = anchorUtil;
 		this.shapeHelper = shapeHelper;

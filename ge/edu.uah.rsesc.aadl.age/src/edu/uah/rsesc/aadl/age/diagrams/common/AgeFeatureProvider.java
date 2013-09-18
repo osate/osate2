@@ -28,11 +28,9 @@ import org.osgi.framework.FrameworkUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.DefaultBusinessObjectResolver;
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.IndependenceProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ElementService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
@@ -49,6 +47,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultAadlFeatureService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultAnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultBusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultConnectionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultElementService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultGraphicsAlgorithmCreationService;
@@ -77,7 +76,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	private IEclipseContext createEclipseContext() {
 		// Create objects for the context
-		final BusinessObjectResolver bor = new DefaultBusinessObjectResolver(this);
+		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
 		final DefaultElementService elementHelper = new DefaultElementService();
 		final DefaultGraphicsAlgorithmService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
@@ -117,7 +116,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		context.set(HighlightingService.class, highlightingHelper);
 		context.set(UpdateService.class, updateHelper);
 		context.set(IFeatureProvider.class, this);
-		context.set(BusinessObjectResolver.class, bor);
+		context.set(BusinessObjectResolutionService.class, bor);
 		
 		return context;
 	}

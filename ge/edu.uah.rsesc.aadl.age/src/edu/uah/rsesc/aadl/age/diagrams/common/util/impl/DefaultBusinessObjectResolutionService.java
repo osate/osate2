@@ -1,13 +1,14 @@
-package edu.uah.rsesc.aadl.age.diagrams.common.mapping;
+package edu.uah.rsesc.aadl.age.diagrams.common.util.impl;
 
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 
-public class DefaultBusinessObjectResolver implements BusinessObjectResolver {
+public class DefaultBusinessObjectResolutionService implements BusinessObjectResolutionService {
 	private IMappingProvider mappingProvider;
-	public DefaultBusinessObjectResolver(final IMappingProvider mp) {
+	public DefaultBusinessObjectResolutionService(final IMappingProvider mp) {
 		this.mappingProvider = mp;
 	}
 	

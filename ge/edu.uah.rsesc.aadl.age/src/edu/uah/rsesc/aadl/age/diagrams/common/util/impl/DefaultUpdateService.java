@@ -23,7 +23,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
@@ -31,10 +31,10 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 public class DefaultUpdateService implements UpdateService {
 	private final StyleService styleUtil;
 	private final VisibilityService visibilityHelper;
-	private final BusinessObjectResolver bor;
+	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
 	
-	public DefaultUpdateService(final StyleService styleUtil, final VisibilityService visibilityHelper, final BusinessObjectResolver bor, final IFeatureProvider fp) {
+	public DefaultUpdateService(final StyleService styleUtil, final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.styleUtil = styleUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.bor = bor;

@@ -13,14 +13,14 @@ import org.eclipse.graphiti.services.IPeService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Generalization;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 public class GeneralizationInfoProvider extends AbstractConnectionInfoProvider {
 	private final ShapeService shapeHelper;
 	
 	@Inject
-	public GeneralizationInfoProvider(final BusinessObjectResolver bor, final Diagram diagram, final ShapeService shapeHelper) {
+	public GeneralizationInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final ShapeService shapeHelper) {
 		super(bor, diagram);
 		this.shapeHelper = shapeHelper;
 	}

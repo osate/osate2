@@ -5,13 +5,13 @@ import java.util.List;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 
 public abstract class AbstractConnectionInfoProvider implements ConnectionInfoProvider {
-	private final BusinessObjectResolver bor;
+	private final BusinessObjectResolutionService bor;
 	private final Diagram diagram;
 	
-	public AbstractConnectionInfoProvider(final BusinessObjectResolver bor, final Diagram diagram) {
+	public AbstractConnectionInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram) {
 		this.bor = bor;
 		this.diagram = diagram;
 	}
@@ -20,7 +20,7 @@ public abstract class AbstractConnectionInfoProvider implements ConnectionInfoPr
 		return this.getBusinessObjectResolver().getBusinessObjectForPictogramElement(connection);
 	}
 
-	protected final BusinessObjectResolver getBusinessObjectResolver() {
+	protected final BusinessObjectResolutionService getBusinessObjectResolver() {
 		return this.bor;
 	}
 	

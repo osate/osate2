@@ -12,15 +12,15 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PrototypeService;
 
 public class DefaultAadlFeatureService implements AadlFeatureService {
 	private final PrototypeService prototypeService;
-	private final BusinessObjectResolver bor;
+	private final BusinessObjectResolutionService bor;
 	
-	public DefaultAadlFeatureService(final PrototypeService prototypeService, final BusinessObjectResolver bor) {
+	public DefaultAadlFeatureService(final PrototypeService prototypeService, final BusinessObjectResolutionService bor) {
 		this.prototypeService = prototypeService;
 		this.bor = bor;
 	}

@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.diagrams.common.mapping;
+package edu.uah.rsesc.aadl.age.diagrams.common;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -26,7 +26,6 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TypeExtension;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StringUtil;

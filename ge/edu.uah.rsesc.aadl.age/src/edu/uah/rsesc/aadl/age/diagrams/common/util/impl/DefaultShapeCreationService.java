@@ -17,7 +17,6 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
