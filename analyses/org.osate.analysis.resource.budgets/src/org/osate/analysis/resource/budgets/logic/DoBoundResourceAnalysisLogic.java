@@ -41,6 +41,9 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.DateTime;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
@@ -90,11 +93,21 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
+				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Analyze mode " + som.getName());
+
 //				final String somName = Aadl2Util.getPrintableSOMName(som);
+
+				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check Processor");
 				errManager.infoSummaryReportOnly(root,som, "Processor Report");
 				checkProcessorLoads(root, som);
+				
+
+				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check Virtual Processor");
 				errManager.infoSummaryReportOnly(root, som, "\nVirtual Processor Report");
 				checkVirtualProcessorLoads(root, som);
+				
+
+				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check RAM/ROM");
 				errManager.infoSummaryReportOnly(root, som, "\nRAM/ROM Report");
 				checkMemoryLoads(root, som);
 			}
@@ -138,6 +151,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	protected void checkProcessorLoad(ComponentInstance curProcessor, final SystemOperationMode som)
 	{
 		boolean isCPUActive;
+
 		
 		if (curProcessor.getSubcomponent().getAllInModes().size() == 0)
 		{
@@ -168,7 +182,12 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)){
 			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
+		long timeBefore = System.currentTimeMillis();
+		OsateDebug.osateDebug("[CPU] before get sw comps (CPU=" + curProcessor.getName() + ",cat="+curProcessor.getComponentClassifier().getCategory().getName()+")" );
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curProcessor);
+		long timeAfter = System.currentTimeMillis();
+		long period = timeAfter - timeBefore;
+		OsateDebug.osateDebug("[CPU] after get sw comps, time taken="+ period + "ms");
 		if (boundComponents.size() == 0&& MIPScapacity > 0) {
 			errManager.infoSummary(curProcessor, som.getName(), "No application components bound to "
 					+ curProcessor.getComponentInstancePath()+" with MIPS capacity "+ GetProperties.toStringScaled(MIPScapacity, mipsliteral));
@@ -252,16 +271,14 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		SystemInstance root = curMemory.getSystemInstance();
 		final ComponentInstance currentMemory = curMemory;
 		final String somName = som.getName();
-		EList boundComponents = new ForAllElement() {
-			@Override
-			protected boolean suchThat(Element obj) {
-				List<ComponentInstance> boundMemoryList = GetProperties.getActualMemoryBinding((ComponentInstance)obj);
-				if (boundMemoryList.isEmpty())
-					return false;
-				return boundMemoryList.get(0) == currentMemory;
-			}
-			// process bottom up so we can check whether children had budgets
-		}.processPostOrderComponentInstance(root);
+		
+		long timeBefore = System.currentTimeMillis();
+		OsateDebug.osateDebug("[Memory] before get sw comps (memory=" + curMemory.getName()+")");
+		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curMemory);
+		long timeAfter = System.currentTimeMillis();
+		long period = timeAfter - timeBefore;
+		OsateDebug.osateDebug("[CPU] after get sw comps, time taken="+ period + "ms");
+		
 		if (GetProperties.getROMCapacityInKB(curMemory,  0.0) > 0.0) {
 			doMemoryLoad(curMemory, somName, boundComponents, true); //ROM
 		}

@@ -48,6 +48,7 @@ import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 import org.osgi.framework.Bundle;
 
 
@@ -79,6 +80,7 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 	}
 
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
+		InstanceModelUtil.clearCache();
 		InstanceValidation iv = new InstanceValidation(this);
 		if (!iv.checkReferenceProcessor(((InstanceObject)obj).getSystemInstance())){
 			Dialog.showWarning("Resource Budget Analysis","Model contains thread execution times without reference processor.");
