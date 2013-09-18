@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.properties.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -42,6 +43,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.aadl2.util.OsateDebug;
 
 public class InstanceModelUtil {
 	
@@ -382,7 +384,20 @@ public class InstanceModelUtil {
 				}
 		}
 
+		
+		private static HashMap<ComponentInstance, EList<ComponentInstance>> boundSWCache = new HashMap <ComponentInstance, EList<ComponentInstance>>();
+		
+		public static void clearCache ()
+		{
+			OsateDebug.osateDebug("[InstanceModelUtil] clearing cache");
+			for (ComponentInstance ci : boundSWCache.keySet())
+			{
+				boundSWCache.remove(ci);
+			}
+		}
 
+		
+		
 		/**
 		 * get all top level SW components bound to the given processor or VP component
 		 * The list contains only the top component if a component and its children are bound
@@ -390,22 +405,52 @@ public class InstanceModelUtil {
 		 * @param procorVP
 		 * @return
 		 */
-		public static EList<ComponentInstance> getBoundSWComponents(final ComponentInstance procorVP){
-			SystemInstance root = procorVP.getSystemInstance();
-			EList boundComponents = new ForAllElement() {
-				@Override
-				protected boolean suchThat(Element obj) {
-					ComponentInstance ci = (ComponentInstance)obj;
-					ComponentCategory cat = ci.getCategory();
-					return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP 
-							|| cat == ComponentCategory.PROCESS|| cat == ComponentCategory.SYSTEM)
-							&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
-				}
-			}.processPreOrderComponentInstance(root);
+		public static EList<ComponentInstance> getBoundSWComponents(final ComponentInstance ci)
+		{
+			EList boundComponents = null;
+					
+			if (boundSWCache.containsKey(ci))
+			{
+				return boundSWCache.get(ci);
+			}
+			SystemInstance root = ci.getSystemInstance();
+			
+			if ( (ci.getComponentClassifier().getCategory() == ComponentCategory.PROCESSOR) ||
+				 (ci.getComponentClassifier().getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
+			{
+				boundComponents = new ForAllElement() {
+					@Override
+					protected boolean suchThat(Element obj) {
+						ComponentInstance ci = (ComponentInstance)obj;
+						ComponentCategory cat = ci.getCategory();
+						return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP 
+								|| cat == ComponentCategory.PROCESS|| cat == ComponentCategory.SYSTEM)
+								&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, ci));
+					}
+				}.processPreOrderComponentInstance(root);
+			}
+			
+			
+			if (ci.getComponentClassifier().getCategory() == ComponentCategory.MEMORY)
+			{
+				boundComponents = new ForAllElement() {
+					@Override
+					protected boolean suchThat(Element obj) {
+						List<ComponentInstance> boundMemoryList = GetProperties.getActualMemoryBinding((ComponentInstance)obj);
+						if (boundMemoryList.isEmpty())
+							return false;
+						return boundMemoryList.get(0) == ci;
+					}
+					// process bottom up so we can check whether children had budgets
+				}.processPostOrderComponentInstance(root);
+			}
+			
+			
 			EList<ComponentInstance> topobjects = new BasicEList<ComponentInstance>();
 			for (Object componentInstance : boundComponents) {
 				addAsRoot(topobjects,(ComponentInstance)componentInstance);
 			}
+			boundSWCache.put(ci, topobjects);
 			return topobjects;
 		}
 
