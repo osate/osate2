@@ -3,9 +3,15 @@ package edu.uah.rsesc.aadl.age.ui.editor;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.IEditorPart;
 
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultPropertyService;
+
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
-	final ModeContributionItem selectedModeItem = new ModeContributionItem("edu.uah.rsesc.aadl.age.ui.editor.items.selected_mode");
+	final ModeContributionItem selectedModeItem;
 	//final FlowContributionItem selectedFlowItem = new FlowContributionItem("edu.uah.rsesc.aadl.age.ui.editor.items.selected_flow");
+	
+	public AgeDiagramEditorActionBarContributor() {
+		selectedModeItem = new ModeContributionItem("edu.uah.rsesc.aadl.age.ui.editor.items.selected_mode", new DefaultPropertyService());
+	}
 	
 	@Override
 	public void contributeToToolBar(final IToolBarManager tbm) {

@@ -17,14 +17,16 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
 
 public class FlowContributionItem extends ComboContributionItem {
-	private AgeDiagramEditor editor = null;
 	private final String selectedFlowPropertyKey = "edu.uah.rsesc.aadl.age.ui.editor.selectedFlow";
+	private final PropertyService propertyUtil;
+	private AgeDiagramEditor editor = null;	
 	
-	public FlowContributionItem(String id) {
+	public FlowContributionItem(final String id, final PropertyService propertyUtil) {
 		super(id);
+		this.propertyUtil = propertyUtil;
 	}
 	
 	@Override
@@ -157,12 +159,12 @@ public class FlowContributionItem extends ComboContributionItem {
 	protected void onSelection(final String txt) {
 		final ComponentClassifier cc = getComponentImplementation();
 		if(cc != null) {	
-			if(!txt.equalsIgnoreCase(PropertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram()))) {
+			if(!txt.equalsIgnoreCase(propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram()))) {
 				// Set the selected flow property on the diagram
 				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
 					@Override
 					protected void doExecute() {
-						PropertyUtil.setSelectedFlow(editor.getDiagramTypeProvider().getDiagram(), txt);
+						propertyUtil.setSelectedFlow(editor.getDiagramTypeProvider().getDiagram(), txt);
 					}				
 				});
 			

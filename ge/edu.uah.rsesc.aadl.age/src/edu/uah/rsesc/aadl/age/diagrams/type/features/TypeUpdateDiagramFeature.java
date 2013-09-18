@@ -1,14 +1,18 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.features;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -19,13 +23,16 @@ import org.osate.aadl2.FeatureGroupType;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
-
-	public TypeUpdateDiagramFeature(final IFeatureProvider fp) {
+	private final UpdateService updateHelper;
+	
+	@Inject
+	public TypeUpdateDiagramFeature(final IFeatureProvider fp, final UpdateService updateHelper) {
 		super(fp);
+		this.updateHelper = updateHelper;
 	}
 
 	private Classifier getClassifier(final IUpdateContext context) {
@@ -53,10 +60,10 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		final Classifier classifier = getClassifier(context);
 		final Diagram diagram = getDiagram();		
 		
-		UpdateHelper.refreshStyles(diagram);
+		updateHelper.refreshStyles(diagram);
 				
 		// Remove shapes that are invalid
-		UpdateHelper.ghostInvalidShapes(diagram, getFeatureProvider());
+		updateHelper.ghostInvalidShapes(diagram);
 
 		// Add/Update the shape for the classifier
 		final PictogramElement pe = getFeatureProvider().getPictogramElementForBusinessObject(classifier);
@@ -83,7 +90,13 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		}
 		
 		// Layout the diagram
-		new LayoutDiagramFeature(this.getFeatureProvider()).execute(LayoutDiagramFeature.createContext(false));
+		final ICustomContext layoutCtx = LayoutDiagramFeature.createContext(false);
+		for(ICustomFeature feature : this.getFeatureProvider().getCustomFeatures(layoutCtx)) {
+			if(feature instanceof LayoutDiagramFeature) {
+				feature.execute(layoutCtx);
+				break;
+			}
+		}
 
 		return false;
 	}

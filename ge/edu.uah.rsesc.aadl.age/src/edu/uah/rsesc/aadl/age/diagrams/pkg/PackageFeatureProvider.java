@@ -12,17 +12,17 @@ import edu.uah.rsesc.aadl.age.diagrams.pkg.patterns.PackageClassifierPattern;
 import edu.uah.rsesc.aadl.age.diagrams.pkg.patterns.PackageGeneralizationPattern;
 
 public class PackageFeatureProvider extends AgeFeatureProvider {
-	public PackageFeatureProvider(IDiagramTypeProvider dtp) {
+	public PackageFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
-		addPattern(new PackageClassifierPattern());
-		addConnectionPattern(new PackageGeneralizationPattern());
+		addPattern(make(PackageClassifierPattern.class));
+		addConnectionPattern(make(PackageGeneralizationPattern.class));
 	}
 
 	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
 	   PictogramElement pictogramElement = context.getPictogramElement();
 	   if(pictogramElement instanceof Diagram) {
-		   return new PackageUpdateDiagramFeature(this);
+		   return make(PackageUpdateDiagramFeature.class);
 	   }
 	   return super.getUpdateFeature(context);
 	}

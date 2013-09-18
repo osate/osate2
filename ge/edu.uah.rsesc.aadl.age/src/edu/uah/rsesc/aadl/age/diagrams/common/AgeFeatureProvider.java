@@ -3,8 +3,12 @@ package edu.uah.rsesc.aadl.age.diagrams.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -19,16 +23,104 @@ import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.osate.aadl2.Element;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
+import edu.uah.rsesc.aadl.age.diagrams.common.mapping.DefaultBusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.mapping.IndependenceProvider;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ElementService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultAnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultClassifierService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultElementService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultGraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultGraphicsAlgorithmService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultHighlightingService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultPropertyService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultResizeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultShapeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultStyleService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultUpdateService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultVisibilityService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
-
-	public AgeFeatureProvider(IDiagramTypeProvider dtp) {
+	private final IEclipseContext context;
+	
+	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
 		setIndependenceSolver(new IndependenceProvider(this));
+		
+		// Create the eclipse context
+		this.context = createEclipseContext();
+	}
+	
+	private IEclipseContext createEclipseContext() {
+		// Create objects for the context
+		final BusinessObjectResolver bor = new DefaultBusinessObjectResolver(this);
+		final DefaultElementService elementHelper = new DefaultElementService();
+		final DefaultGraphicsAlgorithmService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmService();
+		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
+		final DefaultResizeService resizeHelper = new DefaultResizeService(this);
+		final DefaultStyleService styleUtil = new DefaultStyleService();
+		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
+		final DefaultVisibilityService visibilityHelper = new DefaultVisibilityService(propertyUtil);
+		final DefaultShapeService shapeHelper = new DefaultShapeService(elementHelper, propertyUtil, visibilityHelper, bor);		
+		final DefaultClassifierService classifierHelper = new DefaultClassifierService(shapeHelper, bor, this);
+		final DefaultConnectionService connectionHelper = new DefaultConnectionService(anchorUtil, shapeHelper, bor, this);		
+		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, classifierHelper, graphicsAlgorithmUtil);		
+		final DefaultHighlightingService highlightingHelper = new DefaultHighlightingService(propertyUtil, elementHelper, styleUtil);		
+		final DefaultUpdateService updateHelper = new DefaultUpdateService(styleUtil, visibilityHelper, bor, this);
+		
+		// Create the eclipse context
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
+		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+		
+		// Populate the context. 
+		context.set(ElementService.class, elementHelper);
+		context.set(GraphicsAlgorithmService.class, graphicsAlgorithmUtil);
+		context.set(PropertyService.class, propertyUtil);
+		context.set(ResizeService.class, resizeHelper);
+		context.set(StyleService.class, styleUtil);
+		context.set(AnchorService.class, anchorUtil);
+		context.set(VisibilityService.class, visibilityHelper);
+		context.set(ShapeService.class, shapeHelper);
+		context.set(ClassifierService.class, classifierHelper);
+		context.set(ConnectionService.class, connectionHelper);
+		context.set(GraphicsAlgorithmCreationService.class, graphicsAlgorithmCreator);
+		context.set(HighlightingService.class, highlightingHelper);
+		context.set(UpdateService.class, updateHelper);
+		context.set(IFeatureProvider.class, this);
+		context.set(BusinessObjectResolver.class, bor);
+		
+		return context;
+	}
+	
+	IEclipseContext getContext() {
+		return context;
+	}
+	
+	/**
+	 * Instantiates an object and injects the current context into it
+	 * @param clazz
+	 * @return
+	 */
+	protected final <T> T make(final Class<T> clazz) {
+		return ContextInjectionFactory.make(clazz, context);
 	}
 	
 	// TODO: Remove when deleting is allowed. Just returns false for now. As of 07/03/13, connection patterns do not handle remove and delete features.
@@ -49,13 +141,14 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return features.toArray(new ICustomFeature[] {});
 	}
 	
+	
 	/**
 	 * Method used to additively build a list of custom features. Subclasses can override to add additional custom features while including those supported by parent classes.
 	 * @param features
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
-		features.add(new DrillDownFeature(this));
-		features.add(new LayoutDiagramFeature(this));
+		features.add(make(DrillDownFeature.class));
+		features.add(make(LayoutDiagramFeature.class));
 	}
 	
 	@Override

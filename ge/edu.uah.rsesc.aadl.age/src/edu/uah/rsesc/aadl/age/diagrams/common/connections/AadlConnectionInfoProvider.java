@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.connections;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -16,12 +18,18 @@ import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
-	public AadlConnectionInfoProvider(final BusinessObjectResolver bor, final Diagram diagram) {
+	private final AnchorService anchorUtil;
+	private final ShapeService shapeHelper;
+	
+	@Inject
+	public AadlConnectionInfoProvider(final BusinessObjectResolver bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
 		super(bor, diagram);
+		this.anchorUtil = anchorUtil;
+		this.shapeHelper = shapeHelper;
 	}
 
 	@Override
@@ -65,12 +73,12 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		final IPeService peService = Graphiti.getPeService();
 		
 		// Get the appropriate anchors
-		a1 = AnchorUtil.getAnchorByName(sourcePe, ShapeHelper.doesShapeContain(sourceShape.getContainer(), destShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		a1 = anchorUtil.getAnchorByName(sourcePe, shapeHelper.doesShapeContain(sourceShape.getContainer(), destShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 		if(a1 == null) {
 			a1 = peService.getChopboxAnchor((AnchorContainer)sourcePe);
 		}
 
-		a2 = AnchorUtil.getAnchorByName(destPe, ShapeHelper.doesShapeContain(destShape.getContainer(), sourceShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		a2 = anchorUtil.getAnchorByName(destPe, shapeHelper.doesShapeContain(destShape.getContainer(), sourceShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 		if(a2 == null) {
 			a2 = peService.getChopboxAnchor((AnchorContainer)destPe);
 		}
@@ -94,7 +102,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 			if(contextComponent == getBusinessObjectResolver().getBusinessObjectForPictogramElement(ownerShape)){
 				pe = ownerShape;
 			} else {
-				pe = ShapeHelper.getChildShapeByElementQualifiedName(ownerShape, contextComponent, getBusinessObjectResolver());
+				pe = shapeHelper.getChildShapeByElementQualifiedName(ownerShape, contextComponent);
 				if(pe == null || !(pe instanceof ContainerShape)) {
 					return null;
 				}
@@ -107,7 +115,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 				return null;
 			} else {
 				// Get the shape for the context
-				pe = ShapeHelper.getDescendantShapeByElement((ContainerShape)pe, context, getBusinessObjectResolver());
+				pe = shapeHelper.getDescendantShapeByElement((ContainerShape)pe, context);
 				if(pe == null || !(pe instanceof ContainerShape)) {
 					return null;
 				}
@@ -123,7 +131,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		}
 		
 		// Get Descendant PE
-		pe = ShapeHelper.getDescendantShapeByElement((ContainerShape)pe, ce, getBusinessObjectResolver());		
+		pe = shapeHelper.getDescendantShapeByElement((ContainerShape)pe, ce);		
 		
 		// CLEAN-UP: Clarify or remove comments
 		// Case: Just CE is valid. (Probably a feature? could be a component)

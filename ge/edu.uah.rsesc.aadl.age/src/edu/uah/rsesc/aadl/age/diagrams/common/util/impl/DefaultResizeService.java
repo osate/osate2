@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.diagrams.common.util;
+package edu.uah.rsesc.aadl.age.diagrams.common.util.impl;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
@@ -7,11 +7,20 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
-public class ResizeHelper {
-	/**
-	 * Checks the size of the container and resizes it if necessary
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService;
+
+public class DefaultResizeService implements ResizeService {
+	private final IFeatureProvider fp;
+	
+	public DefaultResizeService(final IFeatureProvider fp) {
+		this.fp = fp;
+	}
+	
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService#checkContainerSize(org.eclipse.graphiti.mm.pictograms.ContainerShape)
 	 */
-	public static void checkContainerSize(final ContainerShape shape, final IFeatureProvider fp) {
+	@Override
+	public void checkContainerSize(final ContainerShape shape) {
 		// Check if the shape is entirely in the container
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		final int endX = ga.getX() + ga.getWidth();
@@ -33,7 +42,11 @@ public class ResizeHelper {
 		}		
 	}
 	
-	public static void checkSize(final ContainerShape container, final IFeatureProvider fp) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService#checkSize(org.eclipse.graphiti.mm.pictograms.ContainerShape)
+	 */
+	@Override
+	public void checkSize(final ContainerShape container) {
 		boolean updateShape = false;
 		
 		// Check if the shape is entirely in the container

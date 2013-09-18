@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -21,11 +23,24 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 public class ConnectionPattern extends AgeConnectionPattern {
+	private final StyleService styleUtil;
+	private final HighlightingService highlightingHelper;
+	private final ConnectionService connectionHelper;
+	
+	@Inject
+	public ConnectionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, final ConnectionService connectionHelper) {
+		super(visibilityHelper);
+		this.styleUtil = styleUtil;
+		this.highlightingHelper = highlightingHelper;
+		this.connectionHelper = connectionHelper;
+	}
+
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof org.osate.aadl2.Connection;
@@ -97,40 +112,40 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		if(showDelayedDecoration) {
 			final int delayedSpacing = 3;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, StyleUtil.getDecoratorStyle(getDiagram()));
+			createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, styleUtil.getDecoratorStyle(getDiagram()));
 			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, StyleUtil.getDecoratorStyle(getDiagram()));
+			createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, styleUtil.getDecoratorStyle(getDiagram()));
 		} else if(showImmediateDecoration) {
 			final int immediateSpacing = 5;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDirectionIndicator(timingDecorator1, -immediateSpacing, StyleUtil.getDecoratorStyle(getDiagram()));
+			createDirectionIndicator(timingDecorator1, -immediateSpacing, styleUtil.getDecoratorStyle(getDiagram()));
 			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDirectionIndicator(timingDecorator2, immediateSpacing, StyleUtil.getDecoratorStyle(getDiagram()));
+			createDirectionIndicator(timingDecorator2, immediateSpacing, styleUtil.getDecoratorStyle(getDiagram()));
 		}
 
 		// Draw a direction indicator
 		if(showDirectionDecoration) {
 	        final ConnectionDecorator directionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.5, true);    
-	        createDirectionIndicator(directionDecorator, decoratorXShift, StyleUtil.getDecoratorStyle(getDiagram()));
+	        createDirectionIndicator(directionDecorator, decoratorXShift, styleUtil.getDecoratorStyle(getDiagram()));
 		}
 		
 		// Create Label
 		final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(StyleUtil.getLabelStyle(getDiagram()));
+		text.setStyle(styleUtil.getLabelStyle(getDiagram()));
 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(aadlConnection.getName());
 	    
 	    // Set color based on current mode/mode transition
-	    HighlightingHelper.highlight(getDiagram(), aadlConnection, connection.getGraphicsAlgorithm(), getFeatureProvider());
+	    highlightingHelper.highlight(getDiagram(), aadlConnection, connection.getGraphicsAlgorithm());
 	}
 
 	@Override
 	protected void createGraphicsAlgorithm(final org.eclipse.graphiti.mm.pictograms.Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = StyleUtil.getDecoratorStyle(getDiagram());
+		final Style style = styleUtil.getDecoratorStyle(getDiagram());
 		polyline.setStyle(style);
 	}
 	
@@ -153,7 +168,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
 		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
-		final ContainerShape ownerShape = ConnectionHelper.getOwnerShape(connection, getFeatureProvider());
-		return (ownerShape == null) ? null : ConnectionHelper.getAnchors(ownerShape, aadlConnection, getFeatureProvider());	
+		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
+		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, aadlConnection);	
 	}
 }

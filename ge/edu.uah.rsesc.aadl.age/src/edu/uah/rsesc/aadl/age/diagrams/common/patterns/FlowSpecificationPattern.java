@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -15,12 +17,28 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.FlowSpecification;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 public class FlowSpecificationPattern extends AgeConnectionPattern {
+	private final StyleService styleUtil;
+	private final GraphicsAlgorithmService graphicsAlgorithmUtil;
+	private final HighlightingService highlightingHelper;
+	private final ConnectionService connectionHelper;
+	
+	@Inject
+	public FlowSpecificationPattern(final VisibilityService visibilityHelper,
+			final StyleService styleUtil, final GraphicsAlgorithmService graphicsAlgorithmUtil, final HighlightingService highlightingHelper, final ConnectionService connectionHelper) {
+		super(visibilityHelper);
+		this.styleUtil = styleUtil;
+		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
+		this.highlightingHelper = highlightingHelper;
+		this.connectionHelper = connectionHelper;
+	}
+
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof FlowSpecification;
@@ -49,39 +67,39 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 			{
 				// Create the arrow
 		        final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
-		        createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
+		        createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle(getDiagram()));	
 				break;
 			}
 			
 		case SOURCE:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));
+				createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle(getDiagram()));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
+				createVbar(vbarConnectionDecorator, styleUtil.getDecoratorStyle(getDiagram()));	
 				break;
 			}
 			
 		case SINK:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				GraphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram())));
+				graphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle(getDiagram())));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
-				createVbar(vbarConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));	
+				createVbar(vbarConnectionDecorator, styleUtil.getDecoratorStyle(getDiagram()));	
 				break;
 			}
 		}
 		
 		// Set color for the decorators
 		for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
-			HighlightingHelper.highlight(getDiagram(), fs, cd.getGraphicsAlgorithm(), getFeatureProvider());
+			highlightingHelper.highlight(getDiagram(), fs, cd.getGraphicsAlgorithm());
 		}
 		
 		// Create Label
 		final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(StyleUtil.getLabelStyle(getDiagram()));
+		text.setStyle(styleUtil.getLabelStyle(getDiagram()));
 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(fs.getName());
 	}
@@ -91,9 +109,9 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		final FlowSpecification fs = getFlowSpecification(connection);
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = StyleUtil.getFlowSpecificationStyle(getDiagram());
+		final Style style = styleUtil.getFlowSpecificationStyle(getDiagram());
 		polyline.setStyle(style);
-		HighlightingHelper.highlight(getDiagram(), fs, polyline, getFeatureProvider());
+		highlightingHelper.highlight(getDiagram(), fs, polyline);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -123,7 +141,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
 		final FlowSpecification fs = getFlowSpecification(connection);
-		final ContainerShape ownerShape = ConnectionHelper.getOwnerShape(connection, getFeatureProvider());
-		return (ownerShape == null) ? null : ConnectionHelper.getAnchors(ownerShape, fs, getFeatureProvider());		
+		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
+		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, fs);		
 	}
 }

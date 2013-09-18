@@ -3,6 +3,8 @@ package edu.uah.rsesc.aadl.age.diagrams.pkg.features;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -10,10 +12,12 @@ import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -32,13 +36,19 @@ import org.osate.aadl2.TypeExtension;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp) {
+	private final UpdateService updateHelper;
+	private final ConnectionService connectionHelper;
+	
+	@Inject
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final UpdateService updateHelper, final ConnectionService connectionHelper) {
 		super(fp);
+		this.updateHelper = updateHelper;
+		this.connectionHelper = connectionHelper;
 	}
 	
 	@Override
@@ -60,7 +70,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	public boolean update(IUpdateContext context) {
 		Log.info("called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
-		UpdateHelper.refreshStyles(diagram);
+		updateHelper.refreshStyles(diagram);
 		
 		// Get the AADL Package
 		final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
@@ -70,10 +80,10 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final AadlPackage pkg = (AadlPackage)element;
 
 		// Prune Invalid Generalizations
-		UpdateHelper.ghostInvalidConnections(diagram, getFeatureProvider());
+		updateHelper.ghostInvalidConnections(diagram);
 
 		// Prune Invalid Shapes
-		UpdateHelper.ghostInvalidShapes(diagram, getFeatureProvider());
+		updateHelper.ghostInvalidShapes(diagram);
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();
@@ -115,7 +125,13 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		updateRelationships(diagram, relevantElements);
 
 		// Layout the diagram
-		new LayoutDiagramFeature(this.getFeatureProvider()).execute(LayoutDiagramFeature.createContext(false));
+		final ICustomContext layoutCtx = LayoutDiagramFeature.createContext(false);
+		for(ICustomFeature feature : this.getFeatureProvider().getCustomFeatures(layoutCtx)) {
+			if(feature instanceof LayoutDiagramFeature) {
+				feature.execute(layoutCtx);
+				break;
+			}
+		}
 
 		return false;
 	}
@@ -205,7 +221,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	}
 	
 	private void updateGeneralization(final Diagram diagram, final Generalization generalization) {
-		ClassifierHelper.createUpdateConnection(diagram, generalization, getFeatureProvider());
+		connectionHelper.createUpdateConnection(diagram, generalization);
 	}
 
 	@Override

@@ -1,15 +1,17 @@
-package edu.uah.rsesc.aadl.age.diagrams.common.util;
+package edu.uah.rsesc.aadl.age.diagrams.common.util.impl;
 
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 
-public class GraphicsAlgorithmUtil {
-	/**
-	 * Mirrors agraphics algorithm in the x axis
-	 * @param ga the graphics algorithm to mirror
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService;
+
+public class DefaultGraphicsAlgorithmService implements GraphicsAlgorithmService {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService#mirror(org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm)
 	 */
-	public static void mirror(final GraphicsAlgorithm ga) {
+	@Override
+	public void mirror(final GraphicsAlgorithm ga) {
 		mirror(ga, ga);
 	}
 	
@@ -37,7 +39,11 @@ public class GraphicsAlgorithmUtil {
 	}
 	
 	// TODO: Make note of when this method causes issues(out of bounds drawing)
-	public static void shrink(final GraphicsAlgorithm ga) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService#shrink(org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm)
+	 */
+	@Override
+	public void shrink(final GraphicsAlgorithm ga) {
 		int minX = Integer.MAX_VALUE;
 		int maxX = Integer.MIN_VALUE;
 		int minY = Integer.MAX_VALUE;

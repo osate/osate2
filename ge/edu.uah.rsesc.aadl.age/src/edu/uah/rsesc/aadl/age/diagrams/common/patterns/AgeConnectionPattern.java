@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
@@ -20,7 +22,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Element;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 /**
  * Base class for all connection Patterns for AGE. Contains logic shared between all connection patterns.
@@ -29,6 +31,12 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
  */
 public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate {
 	public abstract boolean isMainBusinessObjectApplicable(final Object mainBusinessObject);
+	private final VisibilityService visibilityHelper;
+	
+	@Inject
+	public AgeConnectionPattern(final VisibilityService visibilityHelper) {
+		this.visibilityHelper = visibilityHelper;
+	}
 	
 	@Override
 	public boolean canAdd(IAddContext context) {
@@ -87,7 +95,7 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	public final PictogramElement add(final IAddContext context) {
 		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
         final Element element = (Element)AadlElementWrapper.unwrap(context.getNewObject());
-        final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+        Graphiti.getPeCreateService();
         final Diagram diagram = getDiagram();
         
         // Create the connection
@@ -124,12 +132,12 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		if(anchors == null) {
 			connection.setStart(null);
 			connection.setEnd(null);
-			VisibilityHelper.setIsGhost(connection, true);
+			visibilityHelper.setIsGhost(connection, true);
 		}
 		else {
 			connection.setStart(anchors[0]);
 			connection.setEnd(anchors[1]);
-			VisibilityHelper.setIsGhost(connection, false);
+			visibilityHelper.setIsGhost(connection, false);
 
 			createGraphicsAlgorithmOnUpdate(connection);
 			createDecorators(connection);

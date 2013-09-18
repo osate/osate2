@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -18,10 +20,21 @@ import org.osate.aadl2.TypeExtension;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern {
+	private final StyleService styleUtil;
+	private final ConnectionService connectionHelper;
+	
+	@Inject
+	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final ConnectionService connectionHelper) {
+		super(visibilityHelper);
+		this.styleUtil = styleUtil;
+		this.connectionHelper = connectionHelper;
+	}
+
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		final Object unwrappedObj = AadlElementWrapper.unwrap(mainBusinessObject);
@@ -37,7 +50,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		
 		// Create the arrow
         final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 0.0, true);    
-        createArrow(arrowConnectionDecorator, StyleUtil.getGeneralizationArrowHeadStyle(getDiagram()));
+        createArrow(arrowConnectionDecorator, styleUtil.getGeneralizationArrowHeadStyle(getDiagram()));
 	}
 	
 	@Override
@@ -50,7 +63,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	
 	private void setGraphicsAlgorithmStyle(final GraphicsAlgorithm ga, final Generalization generalization) {
 		final boolean isImplements = generalization instanceof Realization;
-		final Style style = isImplements ? StyleUtil.getImplementsStyle(getDiagram()) : StyleUtil.getExtendsStyle(getDiagram());
+		final Style style = isImplements ? styleUtil.getImplementsStyle(getDiagram()) : styleUtil.getExtendsStyle(getDiagram());
 		ga.setStyle(style);
 	}
 	
@@ -71,8 +84,8 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
 		final Generalization generalization = getGeneralization(connection);
-		final ContainerShape ownerShape = ConnectionHelper.getOwnerShape(connection, getFeatureProvider());
-		return (ownerShape == null) ? null : ConnectionHelper.getAnchors(ownerShape, generalization, getFeatureProvider());		
+		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
+		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, generalization);		
 	}
 	
 	protected void createGraphicsAlgorithmOnUpdate(final Connection connection)	{ 

@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.connections;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -10,14 +12,21 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Subcomponent;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 public class FlowSpecificationInfoProvider extends AbstractConnectionInfoProvider {
-	public FlowSpecificationInfoProvider(final BusinessObjectResolver bor, final Diagram diagram) {
+	private final AnchorService anchorUtil;
+	private final ShapeService shapeHelper;
+	
+	@Inject
+	public FlowSpecificationInfoProvider(final BusinessObjectResolver bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
 		super(bor, diagram);
+		this.anchorUtil = anchorUtil;
+		this.shapeHelper = shapeHelper;
 	}
 
 	@Override
@@ -55,22 +64,22 @@ public class FlowSpecificationInfoProvider extends AbstractConnectionInfoProvide
 		switch(fs.getKind()) {
 		case PATH:
 			{
-				a1 = AnchorUtil.getAnchorByName(inPe, FeaturePattern.innerConnectorAnchorName);
-				a2 = AnchorUtil.getAnchorByName(outPe, FeaturePattern.innerConnectorAnchorName);
+				a1 = anchorUtil.getAnchorByName(inPe, FeaturePattern.innerConnectorAnchorName);
+				a2 = anchorUtil.getAnchorByName(outPe, FeaturePattern.innerConnectorAnchorName);
 				break;
 			}
 			
 		case SOURCE:
 			{
-				a1 = AnchorUtil.getAnchorByName(outPe, FeaturePattern.innerConnectorAnchorName);
-				a2 = AnchorUtil.getAnchorByName(outPe, FeaturePattern.flowSpecificationAnchorName);	
+				a1 = anchorUtil.getAnchorByName(outPe, FeaturePattern.innerConnectorAnchorName);
+				a2 = anchorUtil.getAnchorByName(outPe, FeaturePattern.flowSpecificationAnchorName);	
 				break;
 			}
 
 		case SINK:
 			{
-				a1 = AnchorUtil.getAnchorByName(inPe, FeaturePattern.innerConnectorAnchorName);
-				a2 = AnchorUtil.getAnchorByName(inPe, FeaturePattern.flowSpecificationAnchorName);	
+				a1 = anchorUtil.getAnchorByName(inPe, FeaturePattern.innerConnectorAnchorName);
+				a2 = anchorUtil.getAnchorByName(inPe, FeaturePattern.flowSpecificationAnchorName);	
 				break;		
 			}
 			
@@ -93,14 +102,13 @@ public class FlowSpecificationInfoProvider extends AbstractConnectionInfoProvide
 		
 		if(fe.getContext() instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)fe.getContext();
-			final PictogramElement fgPe = ShapeHelper.getChildShapeByElementName(ownerShape, fg, getBusinessObjectResolver());
+			final PictogramElement fgPe = shapeHelper.getChildShapeByElementName(ownerShape, fg);
 			if(fgPe instanceof ContainerShape) {
-				final ContainerShape fgCs = FeaturePattern.getFeatureShape((ContainerShape)fgPe);
-				return ShapeHelper.getChildShapeByElementName(fgCs, fe.getFeature(), getBusinessObjectResolver());
+				return shapeHelper.getDescendantShapeByElementName((ContainerShape)fgPe, fe.getFeature());
 			}
 			
 		} else {
-			return ShapeHelper.getChildShapeByElementName(ownerShape, fe.getFeature(), getBusinessObjectResolver());
+			return shapeHelper.getChildShapeByElementName(ownerShape, fe.getFeature());
 		}
 				
 		return null;

@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
@@ -38,14 +40,14 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 /**
  * Pattern for controlling Feature shapes
@@ -62,7 +64,30 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	public static final String flowSpecificationAnchorName = "flowSpecification";
 	private static final int featureGroupSymbolWidth = 30;
 	private static final int labelPadding = 5;
+	private final AnchorService anchorUtil;
+	private final VisibilityService visibilityHelper;
+	private final PropertyService propertyUtil;
+	private final GraphicsAlgorithmService graphicsAlgorithmUtil;
+	private final UpdateService updateHelper;
+	private final ShapeService shapeHelper;
+	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
+	private final ClassifierService classifierHelper;
 	
+	@Inject
+	public FeaturePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, 
+			final PropertyService propertyUtil, final GraphicsAlgorithmService graphicsAlgorithmUtil, final UpdateService updateHelper,
+			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final ClassifierService classifierHelper) {
+		super(anchorUtil, visibilityHelper);
+		this.anchorUtil = anchorUtil;
+		this.visibilityHelper = visibilityHelper;
+		this.propertyUtil = propertyUtil;
+		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
+		this.updateHelper = updateHelper;
+		this.shapeHelper = shapeHelper;
+		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
+		this.classifierHelper = classifierHelper;
+	}
+
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Feature;
@@ -115,7 +140,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Update whether or not the shape is on the left or not
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		final boolean isLeft = calculateIsLeft(shape.getContainer(), ga.getX() + (ga.getWidth() / 2));
-		PropertyUtil.setIsLeft(shape, isLeft);
+		propertyUtil.setIsLeft(shape, isLeft);
 		
 		layoutAll(shape);
 		updateAnchors(shape);
@@ -140,14 +165,14 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final GraphicsAlgorithm featureGa = featureShape.getGraphicsAlgorithm();
 		final Feature feature = (Feature)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
 		
-		boolean wasLeftLayout = PropertyUtil.getIsLeftLayout(shape);
+		boolean wasLeftLayout = propertyUtil.getIsLeftLayout(shape);
 		final boolean isLeftLayout = isLeft(shape);
-		PropertyUtil.setIsLeftLayout(shape, isLeftLayout);
+		propertyUtil.setIsLeftLayout(shape, isLeftLayout);
 		
 		// Feature groups
 		if(feature instanceof FeatureGroup) {
 			if(isLeftLayout != wasLeftLayout) {
-				GraphicsAlgorithmUtil.mirror(featureGa);
+				graphicsAlgorithmUtil.mirror(featureGa);
 			}
 			
 			if(isLeftLayout) {
@@ -168,7 +193,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		} else {
 			// Features
 	        if(isLeftLayout != wasLeftLayout) {
-	    		GraphicsAlgorithmUtil.mirror(featureGa);
+	    		graphicsAlgorithmUtil.mirror(featureGa);
 	        }
 		}
 		
@@ -191,7 +216,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	
 	private void layoutAll(final ContainerShape shape) {
 		// Layout the children first
-		for(final Shape child : VisibilityHelper.getNonGhostChildren(getFeatureShape(shape))) {
+		for(final Shape child : visibilityHelper.getNonGhostChildren(getFeatureShape(shape))) {
 			layoutAll((ContainerShape)child);
 		}
 		
@@ -213,7 +238,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	 * @param callDepth
 	 */
 	private void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y, final int callDepth) {
-		VisibilityHelper.setIsGhost(shape, false);
+		visibilityHelper.setIsGhost(shape, false);
 		
 		final Feature feature = (Feature)bo;
 		final IGaService gaService = Graphiti.getGaService();
@@ -231,16 +256,16 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Set the graphics algorithm for the container to an invisible rectangle to set the bounds	of the child shapes
         final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
         gaService.setLocation(ga, x, y);
-        PropertyUtil.setIsLeftLayout(shape, true);        
+        propertyUtil.setIsLeftLayout(shape, true);        
 
 		// Create the feature shape if there wasn't one
         if(featureShape == null) {
         	featureShape = peCreateService.createContainerShape(shape, true);
         	gaService.createInvisibleRectangle(featureShape);
-        	PropertyUtil.setName(featureShape, featureShapeName);
+        	propertyUtil.setName(featureShape, featureShapeName);
         } else {
         	gaService.createInvisibleRectangle(featureShape);
-        	UpdateHelper.ghostInvalidShapes(featureShape, getFeatureProvider());
+        	updateHelper.ghostInvalidShapes(featureShape);
         }
 
 		if(callDepth > 2) {
@@ -252,8 +277,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
-        PropertyUtil.setName(labelShape, labelShapeName);
-        final Text label = GraphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
+        propertyUtil.setName(labelShape, labelShapeName);
+        final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
         
         // Set the size        
         final IDimension labelSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, label.getStyle().getFont());
@@ -262,7 +287,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)feature;
-			final FeatureGroupType fgt = ClassifierHelper.getFeatureGroupType(shape, fg, getFeatureProvider());
+			final FeatureGroupType fgt = classifierHelper.getFeatureGroupType(shape, fg);
 			int childY = 0;
 			int maxChildWidth = 0;
 			if(fgt == null) {
@@ -271,11 +296,11 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		        // Create a set of child shapes for deletion. We will remove shapes from this list as they are updated. If a shape isn't updated, it should be turned into a ghost even though
 		        // it has a valid business object associated with it.
 		        final Set<Shape> featureShapeChildrenToGhost = new HashSet<Shape>();
-		        featureShapeChildrenToGhost.addAll(VisibilityHelper.getNonGhostChildren(featureShape));
+		        featureShapeChildrenToGhost.addAll(visibilityHelper.getNonGhostChildren(featureShape));
 		        
 		        // Create/Update shapes for the child features
-				for(final Feature childFeature : ClassifierHelper.getAllFeatures(fgt)) {
-					ContainerShape childFeatureContainer = ShapeHelper.getChildShapeByElementQualifiedName(featureShape, childFeature, getFeatureProvider());
+				for(final Feature childFeature : classifierHelper.getAllFeatures(fgt)) {
+					ContainerShape childFeatureContainer = shapeHelper.getChildShapeByElementQualifiedName(featureShape, childFeature);
 					
 					// Get existing shape instead of always creating
 					if(childFeatureContainer == null) {
@@ -295,17 +320,17 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				
 				// Remove children of the feature shape that were not updated
 				for(final Shape featureShapeChild : featureShapeChildrenToGhost) {
-					VisibilityHelper.setIsGhost(featureShapeChild, true);
+					visibilityHelper.setIsGhost(featureShapeChild, true);
 				}
 			}
 			
 			// Create the feature group graphics algorithm
-			final GraphicsAlgorithm fgGa = GraphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, getDiagram(), featureGroupSymbolWidth, childY + 25);
-			GraphicsAlgorithmUtil.shrink(fgGa);
+			final GraphicsAlgorithm fgGa = graphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, getDiagram(), featureGroupSymbolWidth, childY + 25);
+			graphicsAlgorithmUtil.shrink(fgGa);
 			final int fgWidth = maxChildWidth+featureGroupSymbolWidth;
 
 			// CLEAN-UP: Consider changing how symbol is created to assume left like the other symbols...
-			GraphicsAlgorithmUtil.mirror(fgGa);					
+			graphicsAlgorithmUtil.mirror(fgGa);					
 
 			featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
 		} else {
@@ -320,16 +345,16 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				if(af.getFeaturePrototype() != null) {
 					// Lookup the binding
 					// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-					final Element bindingContext = ClassifierHelper.getPrototypeBindingContext(shape, getFeatureProvider());
+					final Element bindingContext = classifierHelper.getPrototypeBindingContext(shape);
 					if(bindingContext != null) {
 						final PrototypeBinding binding = ResolvePrototypeUtil.resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 						if(binding instanceof FeaturePrototypeBinding) {
 							FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
 							if(actual instanceof PortSpecification) {
-								GraphicsAlgorithmCreator.createPortGraphicsAlgorithm(featureShape, getDiagram(), getFeatureProvider(), ((PortSpecification) actual).getCategory(), ((PortSpecification) actual).getDirection());
+								graphicsAlgorithmCreator.createPortGraphicsAlgorithm(featureShape, getDiagram(), ((PortSpecification) actual).getCategory(), ((PortSpecification) actual).getDirection());
 								featureGaCreated = true;
 							} else if(actual instanceof AccessSpecification) {
-								GraphicsAlgorithmCreator.createAccessGraphicsAlgorithm(featureShape, getDiagram(), getFeatureProvider(), ((AccessSpecification) actual).getCategory(), ((AccessSpecification) actual).getKind());
+								graphicsAlgorithmCreator.createAccessGraphicsAlgorithm(featureShape, getDiagram(), ((AccessSpecification) actual).getCategory(), ((AccessSpecification) actual).getKind());
 								featureGaCreated = true;
 							}
 						}
@@ -340,7 +365,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			// Create the symbol based on the feature itself if one has not been created already
 			if(!featureGaCreated) {
 				// Create symbol
-				GraphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature, getFeatureProvider());		
+				graphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature);		
 			}
 		}
 		
@@ -372,31 +397,31 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Create anchors		
 		// Special cases for event out features
 		if(feature instanceof EventPort && ((EventPort)feature).getDirection() == DirectionType.OUT) {
-			AnchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, outerX, connectorY);
+			anchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, outerX, connectorY);
 		} else {
-			AnchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, innerX, connectorY);
+			anchorUtil.createOrUpdateFixPointAnchor(shape, innerConnectorAnchorName, innerX, connectorY);
 		}
 		
 		if(feature instanceof EventPort && ((EventPort)feature).getDirection() == DirectionType.IN) {
-			AnchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, innerX, connectorY);
+			anchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, innerX, connectorY);
 		} else {
-			AnchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, outerX, connectorY);
+			anchorUtil.createOrUpdateFixPointAnchor(shape, outerConnectorAnchorName, outerX, connectorY);
 		}		
 		
-		AnchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerX + offset, flowSpecConnectorY);
+		anchorUtil.createOrUpdateFixPointAnchor(shape, flowSpecificationAnchorName, innerX + offset, flowSpecConnectorY);
 		
 		// Update the anchors of the children
-		for(final Shape child : VisibilityHelper.getNonGhostChildren(getFeatureShape(shape))) {
+		for(final Shape child : visibilityHelper.getNonGhostChildren(getFeatureShape(shape))) {
 			updateAnchors((ContainerShape)child);
 		}
 	}
 	
-	public static ContainerShape getFeatureShape(final ContainerShape container) {
-		return (ContainerShape)ShapeHelper.getChildShapeByName(container, featureShapeName);
+	private ContainerShape getFeatureShape(final ContainerShape container) {
+		return (ContainerShape)shapeHelper.getChildShapeByName(container, featureShapeName);
 	}
 	
-	public static Shape getLabelShape(final ContainerShape container) {
-		return ShapeHelper.getChildShapeByName(container, labelShapeName);
+	private Shape getLabelShape(final ContainerShape container) {
+		return shapeHelper.getChildShapeByName(container, labelShapeName);
 	}	
 
 	private int getWidth(final GraphicsAlgorithm ga) {
@@ -430,7 +455,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			shape = container;
 		}
 		
-		return PropertyUtil.getIsLeft(shape);
+		return propertyUtil.getIsLeft(shape);
 	}
 	
 	private boolean calculateIsLeft(final ContainerShape container, final int centerX) {

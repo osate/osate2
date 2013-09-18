@@ -16,14 +16,16 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
 
 public class ModeContributionItem extends ComboContributionItem {
-	private AgeDiagramEditor editor = null;
 	private final String selectedModePropertyKey = "edu.uah.rsesc.aadl.age.ui.editor.selectedMode";
+	private final PropertyService propertyUtil;
+	private AgeDiagramEditor editor = null;	
 	
-	public ModeContributionItem(String id) {
+	public ModeContributionItem(final String id, final PropertyService propertyUtil) {
 		super(id);
+		this.propertyUtil = propertyUtil;
 	}
 	
 	@Override
@@ -155,12 +157,12 @@ public class ModeContributionItem extends ComboContributionItem {
 	protected void onSelection(final String txt) {
 		final ComponentClassifier cc = getComponentClassifier();
 		if(cc != null) {	
-			if(!txt.equalsIgnoreCase(PropertyUtil.getSelectedMode(editor.getDiagramTypeProvider().getDiagram()))) {
+			if(!txt.equalsIgnoreCase(propertyUtil.getSelectedMode(editor.getDiagramTypeProvider().getDiagram()))) {
 				// Set the selected mode property on the diagram
 				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
 					@Override
 					protected void doExecute() {
-						PropertyUtil.setSelectedMode(editor.getDiagramTypeProvider().getDiagram(), txt);
+						propertyUtil.setSelectedMode(editor.getDiagramTypeProvider().getDiagram(), txt);
 					}				
 				});
 			

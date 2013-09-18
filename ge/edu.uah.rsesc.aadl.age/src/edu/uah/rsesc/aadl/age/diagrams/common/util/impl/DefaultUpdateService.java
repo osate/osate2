@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.diagrams.common.util;
+package edu.uah.rsesc.aadl.age.diagrams.common.util.impl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,18 +22,32 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
-public class UpdateHelper {
-	/**
-	 * Ghosts invalid shapes from a diagram. An invalid shape is defined as a top level shape that is not associated with a business object or can not be updated
-	 * @param diagram
-	 * @param fp
+public class DefaultUpdateService implements UpdateService {
+	private final StyleService styleUtil;
+	private final VisibilityService visibilityHelper;
+	private final BusinessObjectResolver bor;
+	private final IFeatureProvider fp;
+	
+	public DefaultUpdateService(final StyleService styleUtil, final VisibilityService visibilityHelper, final BusinessObjectResolver bor, final IFeatureProvider fp) {
+		this.styleUtil = styleUtil;
+		this.visibilityHelper = visibilityHelper;
+		this.bor = bor;
+		this.fp = fp;
+	}
+	
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService#ghostInvalidShapes(org.eclipse.graphiti.mm.pictograms.ContainerShape)
 	 */	
-	public static void ghostInvalidShapes(final ContainerShape shape, final IFeatureProvider fp) {
+	@Override
+	public void ghostInvalidShapes(final ContainerShape shape) {
 		for(final Shape childShape : shape.getChildren()) {
 			// Check if the shape has a business object and can be updated
-			final Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(childShape));
+			final Object bo = bor.getBusinessObjectForPictogramElement(childShape);
 			final UpdateContext updateContext = new UpdateContext(childShape);
 			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
 			
@@ -54,14 +68,18 @@ public class UpdateHelper {
 			
 			// Ghost the shape
 			if(ghost) {
-				VisibilityHelper.setIsGhost(childShape, true);
+				visibilityHelper.setIsGhost(childShape, true);
 			}
 		}
 	}
 	
-	public static void layoutChildren(final ContainerShape shape, final IFeatureProvider fp) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService#layoutChildren(org.eclipse.graphiti.mm.pictograms.ContainerShape)
+	 */
+	@Override
+	public void layoutChildren(final ContainerShape shape) {
 		// Layout the children first
-		for(final Shape child : VisibilityHelper.getNonGhostChildren(shape)) {
+		for(final Shape child : visibilityHelper.getNonGhostChildren(shape)) {
 			final LayoutContext ctx = new LayoutContext(child);
 			final ILayoutFeature feature = fp.getLayoutFeature(ctx);
 			if(feature != null && feature.canLayout(ctx)) {
@@ -70,7 +88,11 @@ public class UpdateHelper {
 		}
 	}
 	
-	public static void removeConnectionsByAnchorParent(final Diagram diagram, final PictogramElement anchorParent) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService#removeConnectionsByAnchorParent(org.eclipse.graphiti.mm.pictograms.Diagram, org.eclipse.graphiti.mm.pictograms.PictogramElement)
+	 */
+	@Override
+	public void removeConnectionsByAnchorParent(final Diagram diagram, final PictogramElement anchorParent) {
 		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
 		
 		for(final Connection connection : diagram.getConnections()) {
@@ -93,25 +115,24 @@ public class UpdateHelper {
 		}		
 	}
 	
-	/**
-	 * Turns connections that are invalid into ghosts. Such as ones that do not have a valid business object associated with them.
-	 * @param diagram
-	 * @param fp
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService#ghostInvalidConnections(org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	public static void ghostInvalidConnections(final Diagram diagram, final IFeatureProvider fp) {
+	@Override
+	public void ghostInvalidConnections(final Diagram diagram) {
 		for(final Connection connection : diagram.getConnections()) {
-			final Object bo = AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(connection));
+			final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 			if(!(bo instanceof EObject)) {
-				VisibilityHelper.setIsGhost(connection, true);
+				visibilityHelper.setIsGhost(connection, true);
 			}
 		}
 	}
 	
-	/**
-	 * Removes anchors from a shape if they do not have connections. Not recursive.
-	 * @param shape
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService#removeAnchorsWithoutConnections(org.eclipse.graphiti.mm.pictograms.Shape)
 	 */
-	public static void removeAnchorsWithoutConnections(final Shape shape) {
+	@Override
+	public void removeAnchorsWithoutConnections(final Shape shape) {
 		// Remove anchors that don't have an incoming or outgoing connection
 		final Iterator<Anchor> it = shape.getAnchors().iterator();
 		while(it.hasNext()) {
@@ -122,11 +143,11 @@ public class UpdateHelper {
 		}
 	}	
 	
-	/**
-	 * Refresh styles used by all the diagrams. Removes all styles from the diagram and then finds any usage of styles and reset them.
-	 * @param diagram
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService#refreshStyles(org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */
-	public static void refreshStyles(final Diagram diagram) {
+	@Override
+	public void refreshStyles(final Diagram diagram) {
 		// Remove all styles. Styles will be recreated as needed
 		diagram.getStyles().clear();	
 				
@@ -139,7 +160,7 @@ public class UpdateHelper {
 		}
 	}
 
-	private static void refreshStyles(final Diagram diagram, final Shape shape) {
+	private void refreshStyles(final Diagram diagram, final Shape shape) {
 		refreshStyles(diagram, shape.getGraphicsAlgorithm());
 		
 		// Refresh the style of child shapes
@@ -155,7 +176,7 @@ public class UpdateHelper {
 		}
 	}
 	
-	private static void refreshStyles(final Diagram diagram, final Connection connection) {
+	private void refreshStyles(final Diagram diagram, final Connection connection) {
 		refreshStyles(diagram, connection.getGraphicsAlgorithm());
 		
 		// Refresh the style for the decorators
@@ -164,13 +185,13 @@ public class UpdateHelper {
 		}
 	}
 	
-	private static void refreshStyles(final Diagram diagram, final GraphicsAlgorithm ga) {
+	private void refreshStyles(final Diagram diagram, final GraphicsAlgorithm ga) {
 		// Get an updated version of the current style
 		if(ga != null) {
 			final Style oldStyle = ga.getStyle();
 			if(oldStyle != null) {
 				final String styleId = ga.getStyle().getId();
-				final Style style = StyleUtil.getStyle(diagram, styleId);
+				final Style style = styleUtil.getStyle(diagram, styleId);
 
 				// Set the style
 				ga.setStyle(style);

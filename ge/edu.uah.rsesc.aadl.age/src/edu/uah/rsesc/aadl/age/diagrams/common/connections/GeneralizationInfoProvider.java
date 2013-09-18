@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.connections;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -12,11 +14,15 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Generalization;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 public class GeneralizationInfoProvider extends AbstractConnectionInfoProvider {
-	public GeneralizationInfoProvider(final BusinessObjectResolver bor, final Diagram diagram) {
+	private final ShapeService shapeHelper;
+	
+	@Inject
+	public GeneralizationInfoProvider(final BusinessObjectResolver bor, final Diagram diagram, final ShapeService shapeHelper) {
 		super(bor, diagram);
+		this.shapeHelper = shapeHelper;
 	}
 
 	@Override
@@ -37,8 +43,8 @@ public class GeneralizationInfoProvider extends AbstractConnectionInfoProvider {
 		final Classifier specificClassifier = generalization.getSpecific();
 
 		// Get the pictogram objects for them
-		final PictogramElement generalPictogramEl = ShapeHelper.getChildShapeByElementQualifiedName(ownerShape, generalClassifier, getBusinessObjectResolver());
-		final PictogramElement specificPictogramEl = ShapeHelper.getChildShapeByElementQualifiedName(ownerShape, specificClassifier, getBusinessObjectResolver());
+		final PictogramElement generalPictogramEl = shapeHelper.getChildShapeByElementQualifiedName(ownerShape, generalClassifier);
+		final PictogramElement specificPictogramEl = shapeHelper.getChildShapeByElementQualifiedName(ownerShape, specificClassifier);
 		
 		if(generalPictogramEl == null) {
 			throw new RuntimeException("Unhandled case, referenced general classifier is not in diagram. " + generalClassifier.getQualifiedName());

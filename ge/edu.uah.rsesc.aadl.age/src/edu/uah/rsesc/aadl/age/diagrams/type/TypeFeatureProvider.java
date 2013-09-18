@@ -17,20 +17,20 @@ import edu.uah.rsesc.aadl.age.diagrams.type.features.TypeUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeClassifierPattern;
 
 public class TypeFeatureProvider extends AgeFeatureProvider {
-	public TypeFeatureProvider(IDiagramTypeProvider dtp) {
+	public TypeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
-		this.addPattern(new FeaturePattern());
-		this.addPattern(new TypeClassifierPattern());
-		this.addConnectionPattern(new FlowSpecificationPattern());
-		this.addPattern(new ModePattern());
-		this.addConnectionPattern(new ModeTransitionPattern());
+		this.addPattern(make(FeaturePattern.class));
+		this.addPattern(make(TypeClassifierPattern.class));
+		this.addConnectionPattern(make(FlowSpecificationPattern.class));
+		this.addPattern(make(ModePattern.class));
+		this.addConnectionPattern(make(ModeTransitionPattern.class));
 	}
 
 	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
 	   PictogramElement pictogramElement = context.getPictogramElement();
 	   if(pictogramElement instanceof Diagram) {
-		   return new TypeUpdateDiagramFeature(this);
+		   return make(TypeUpdateDiagramFeature.class);
 	   }
 	   return super.getUpdateFeature(context);
 	}

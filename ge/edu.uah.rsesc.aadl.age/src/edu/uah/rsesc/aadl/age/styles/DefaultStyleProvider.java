@@ -16,13 +16,13 @@ import org.eclipse.graphiti.services.IGaService;
 
 import edu.uah.rsesc.aadl.age.util.Log;
 
-public class StyleProviderImpl implements StyleProvider {
+public class DefaultStyleProvider implements StyleProvider {
 	/**
 	 * Mapping from style id's to style factories.
 	 */
 	private Map<String, StyleFactory> styleFactoryMap = new HashMap<String, StyleFactory>();
 	
-	public StyleProviderImpl() {
+	public DefaultStyleProvider() {
 		// Get the extension point
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		final IExtensionPoint point = registry.getExtensionPoint("org.uah.rsesc.aadl.age.styles");

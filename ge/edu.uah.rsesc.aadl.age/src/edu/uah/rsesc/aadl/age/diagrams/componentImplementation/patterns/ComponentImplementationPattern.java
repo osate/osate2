@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
@@ -12,18 +14,36 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 /**
  * A pattern that controls the component implementation shape that contains all the other shapes in the type diagram
  * @author philip.alldredge
  */
 public class ComponentImplementationPattern extends AgePattern {
+	private final VisibilityService visibilityHelper;
+	private final UpdateService updateHelper;
+	private final ClassifierService classifierHelper;
+	private final ConnectionService connectionHelper;
+	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
+	
+	@Inject
+	public ComponentImplementationPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ClassifierService classifierHelper, 
+			final ConnectionService connectionHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
+		this.visibilityHelper = visibilityHelper;
+		this.updateHelper = updateHelper;
+		this.classifierHelper = classifierHelper;
+		this.connectionHelper = connectionHelper;
+		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
+	}
+	
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof ComponentImplementation;
@@ -86,36 +106,36 @@ public class ComponentImplementationPattern extends AgePattern {
 	}
 	
 	private void refresh(final ContainerShape shape, final ComponentImplementation ci, final int x, final int y) {
-		VisibilityHelper.setIsGhost(shape, false);
+		visibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
-		UpdateHelper.ghostInvalidConnections(getDiagram(), getFeatureProvider());
+		updateHelper.ghostInvalidConnections(getDiagram());
 				
 		// Remove invalid features
-		UpdateHelper.ghostInvalidShapes(shape, this.getFeatureProvider());		
+		updateHelper.ghostInvalidShapes(shape);		
 			
 		// Create/Update Shapes
-		ClassifierHelper.createUpdateFeatureShapes(shape, ci.getAllFeatures(), getFeatureProvider(), null);
+		classifierHelper.createUpdateFeatureShapes(shape, ci.getAllFeatures(), null);
 		
 		createUpdateSubcomponents(shape, ci);
 
 		// Create/Update Modes and Mode Transitions
-		ClassifierHelper.createUpdateModeShapes(shape, ci.getAllModes(), getFeatureProvider());
-		ClassifierHelper.createUpdateConnections(shape, ci.getAllModeTransitions(), getFeatureProvider());	
-		ClassifierHelper.createUpdateConnections(shape, ci.getAllConnections(), getFeatureProvider());
+		classifierHelper.createUpdateModeShapes(shape, ci.getAllModes());
+		connectionHelper.createUpdateConnections(shape, ci.getAllModeTransitions());	
+		connectionHelper.createUpdateConnections(shape, ci.getAllConnections());
 		
 		// Adjust size. Width and height		
-		final int newSize[] = ClassifierHelper.adjustChildShapePositions(shape, getFeatureProvider());
+		final int newSize[] = classifierHelper.adjustChildShapePositions(shape);
 
 		// Create a new graphics Algorithm
 		final IGaService gaService = Graphiti.getGaService();
-		final GraphicsAlgorithm ga = GraphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), ci, newSize[0], newSize[1], getFeatureProvider());
+		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), ci, newSize[0], newSize[1]);
 		gaService.setLocation(ga, x, y);	
 
-		UpdateHelper.layoutChildren(shape, getFeatureProvider());
+		updateHelper.layoutChildren(shape);
 	}
 	
 	private void createUpdateSubcomponents(final ContainerShape shape, final ComponentImplementation ci) {
-		ClassifierHelper.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), getFeatureProvider(), 25, true, 30, 25, true, 20);
+		classifierHelper.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);
 	}
 }

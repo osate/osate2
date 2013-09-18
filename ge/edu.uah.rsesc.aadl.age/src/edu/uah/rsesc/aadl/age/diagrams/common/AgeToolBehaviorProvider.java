@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -7,10 +9,11 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.osate.aadl2.Generalization;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
-	public AgeToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
+	public AgeToolBehaviorProvider(final IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
 	}
 
@@ -29,9 +32,13 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		return super.equalsBusinessObjects(o1, o2);
 	}
 	
+	private IEclipseContext getContext() {
+		return ((AgeFeatureProvider)this.getDiagramTypeProvider().getFeatureProvider()).getContext();
+	}
+	
 	@Override
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {
-	    final ICustomFeature customFeature = new DrillDownFeature(getFeatureProvider());
+	    final ICustomFeature customFeature = ContextInjectionFactory.make(DrillDownFeature.class, getContext());
 	    if(customFeature.canExecute(context)) {
 	        return customFeature;
 	    }

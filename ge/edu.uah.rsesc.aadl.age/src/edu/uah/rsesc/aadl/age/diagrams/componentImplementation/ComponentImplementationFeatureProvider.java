@@ -18,22 +18,22 @@ import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.Subcompo
 
 
 public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
-	public ComponentImplementationFeatureProvider(IDiagramTypeProvider dtp) {
+	public ComponentImplementationFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
-		this.addPattern(new ComponentImplementationPattern());
-		this.addPattern(new SubcomponentPattern());
-		this.addPattern(new FeaturePattern());
-		this.addConnectionPattern(new ConnectionPattern());
-		this.addConnectionPattern(new FlowSpecificationPattern());
-		this.addPattern(new ModePattern());
-		this.addConnectionPattern(new ModeTransitionPattern());
+		this.addPattern(make(ComponentImplementationPattern.class));
+		this.addPattern(make(SubcomponentPattern.class));
+		this.addPattern(make(FeaturePattern.class));
+		this.addConnectionPattern(make(ConnectionPattern.class));
+		this.addConnectionPattern(make(FlowSpecificationPattern.class));
+		this.addPattern(make(ModePattern.class));
+		this.addConnectionPattern(make(ModeTransitionPattern.class));
 	}
 
 	@Override
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {
 	   PictogramElement pictogramElement = context.getPictogramElement();
 	   if(pictogramElement instanceof Diagram) {
-		   return new ComponentImplementationUpdateDiagramFeature(this);
+		   return make(ComponentImplementationUpdateDiagramFeature.class);
 	   }
 	   return super.getUpdateFeature(context);
 	}

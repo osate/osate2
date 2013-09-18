@@ -1,6 +1,5 @@
-package edu.uah.rsesc.aadl.age.diagrams.common.util;
+package edu.uah.rsesc.aadl.age.diagrams.common.util.impl;
 
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
@@ -27,27 +26,41 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.Subcomponent;
 
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
+
 // TODO: Eventually replace with an extension mechanism similar to the ones for styles. Goal would be to allow sharing of graphics algorithms, sharing symbols, and 
 // allowing flexibility such as allowing the user to override symbols for particular shapes. In that case may move out of common package.
 // Some methods may not be included in such a system(such as createLabel*) but that is TBD
-public class GraphicsAlgorithmCreator {
-	public static Text createLabelGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final String labelTxt) {
+public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorithmCreationService {
+	private final StyleService styleUtil;
+	private final ClassifierService classifierHelper;
+	private final GraphicsAlgorithmService graphicsAlgorithmUtil;
+	
+	public DefaultGraphicsAlgorithmCreationService(final StyleService styleUtil, final ClassifierService classifierHelper, final GraphicsAlgorithmService graphicsAlgorithmUtil) {
+		this.styleUtil = styleUtil;
+		this.classifierHelper = classifierHelper;
+		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
+	}
+	
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createLabelGraphicsAlgorithm(org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, org.eclipse.graphiti.mm.pictograms.Diagram, java.lang.String)
+	 */
+	@Override
+	public Text createLabelGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final String labelTxt) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
-        text.setStyle(StyleUtil.getLabelStyle(diagram));
+        text.setStyle(styleUtil.getLabelStyle(diagram));
         return text;
 	}
 	
-	/**
-	 * Creates a graphics algorithm representing a specified classifer or subcomponent. 
-	 * @param shape
-	 * @param diagram
-	 * @param element the classifier or subcomponent for which to create the graphics algorithm. If the classifier is null then a generic representation is returned.
-	 * @param width
-	 * @param height
-	 * @return
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createClassifierGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Element, int, int)
 	 */
-	public static GraphicsAlgorithm createClassifierGraphicsAlgorithm(final Shape shape, final Diagram diagram, final Element element, final int width, final int height, final IFeatureProvider fp) {
+	@Override
+	public GraphicsAlgorithm createClassifierGraphicsAlgorithm(final Shape shape, final Diagram diagram, final Element element, final int width, final int height) {
 		final GraphicsAlgorithm ga;
 		
 		if(element instanceof FeatureGroupType) {
@@ -57,10 +70,9 @@ public class GraphicsAlgorithmCreator {
 			final boolean isImplementation;
 			final ComponentCategory category;
 			if(element instanceof Subcomponent) {
-				// TODO: Need feature provider?
 				final Subcomponent sc = (Subcomponent)element;
-				category = ClassifierHelper.getComponentCategory(shape, sc, fp);
-				isImplementation = ClassifierHelper.isImplementation(shape, sc,  fp);
+				category = classifierHelper.getComponentCategory(shape, sc);
+				isImplementation = classifierHelper.isImplementation(shape, sc);
 			} else if(element instanceof ComponentClassifier) {
 				final ComponentClassifier cc = (ComponentClassifier)element;
 				category = cc.getCategory();
@@ -70,33 +82,33 @@ public class GraphicsAlgorithmCreator {
 			}
 			     
 	        if(category == ComponentCategory.SYSTEM) {
-	        	ga = createSystemGraphicsAlgorithm(shape, StyleUtil.getSystemStyle(diagram, isImplementation), width, height);
+	        	ga = createSystemGraphicsAlgorithm(shape, styleUtil.getSystemStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.PROCESS) {
-	        	ga = createProcessGraphicsAlgorithm(shape, StyleUtil.getProcessStyle(diagram, isImplementation), width, height);
+	        	ga = createProcessGraphicsAlgorithm(shape, styleUtil.getProcessStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.THREAD_GROUP) {
-	        	ga = createThreadGroupGraphicsAlgorithm(shape, StyleUtil.getThreadGroupStyle(diagram, isImplementation), width, height);
+	        	ga = createThreadGroupGraphicsAlgorithm(shape, styleUtil.getThreadGroupStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.THREAD) {
-	        	ga = createThreadGraphicsAlgorithm(shape, StyleUtil.getThreadStyle(diagram, isImplementation), width, height);
+	        	ga = createThreadGraphicsAlgorithm(shape, styleUtil.getThreadStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.SUBPROGRAM) {
-	        	ga = createSubprogramGraphicsAlgorithm(shape, StyleUtil.getSubprogramStyle(diagram, isImplementation), width, height);
+	        	ga = createSubprogramGraphicsAlgorithm(shape, styleUtil.getSubprogramStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.SUBPROGRAM_GROUP) {
-	        	ga = createSubprogramGroupGraphicsAlgorithm(shape, StyleUtil.getSubprogramGroupStyle(diagram, isImplementation), width, height);
+	        	ga = createSubprogramGroupGraphicsAlgorithm(shape, styleUtil.getSubprogramGroupStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.DATA) {
-	        	ga = createDataGraphicsAlgorithm(shape, StyleUtil.getDataStyle(diagram, isImplementation), width, height);
+	        	ga = createDataGraphicsAlgorithm(shape, styleUtil.getDataStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.ABSTRACT) {
-	        	ga = createAbstractGraphicsAlgorithm(shape, StyleUtil.getAbstractStyle(diagram, isImplementation), width, height);
+	        	ga = createAbstractGraphicsAlgorithm(shape, styleUtil.getAbstractStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.VIRTUAL_BUS) {
-	        	ga = createBusGraphicsAlgorithm(shape, StyleUtil.getVirtualBusStyle(diagram, isImplementation), width, height);
+	        	ga = createBusGraphicsAlgorithm(shape, styleUtil.getVirtualBusStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.VIRTUAL_PROCESSOR) {
-	        	ga = createProcessorGraphicsAlgorithm(shape, StyleUtil.getVirtualProcessorStyle(diagram, isImplementation), width, height);
+	        	ga = createProcessorGraphicsAlgorithm(shape, styleUtil.getVirtualProcessorStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.BUS) {
-	        	ga = createBusGraphicsAlgorithm(shape, StyleUtil.getBusStyle(diagram, isImplementation), width, height);
+	        	ga = createBusGraphicsAlgorithm(shape, styleUtil.getBusStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.PROCESSOR) {
-	        	ga = createProcessorGraphicsAlgorithm(shape, StyleUtil.getProcessorStyle(diagram, isImplementation), width, height);
+	        	ga = createProcessorGraphicsAlgorithm(shape, styleUtil.getProcessorStyle(diagram, isImplementation), width, height);
 	        } else if(category == ComponentCategory.DEVICE) {     	
-	        	ga = createDeviceGraphicsAlgorithm(shape, StyleUtil.getDeviceStyle(diagram, isImplementation), StyleUtil.getShadedStyle(diagram), width, height);
+	        	ga = createDeviceGraphicsAlgorithm(shape, styleUtil.getDeviceStyle(diagram, isImplementation), styleUtil.getShadedStyle(diagram), width, height);
 	        } else if(category == ComponentCategory.MEMORY) {
-	        	ga = createMemoryGraphicsAlgorithm(shape, StyleUtil.getMemoryStyle(diagram, isImplementation), width, height);
+	        	ga = createMemoryGraphicsAlgorithm(shape, styleUtil.getMemoryStyle(diagram, isImplementation), width, height);
 	        } else {
 	        	// Create a generic shape
 	        	ga = createDummyGraphicsAlgorithm(shape, width, height);
@@ -106,17 +118,21 @@ public class GraphicsAlgorithmCreator {
 		return ga;
 	}
 	
-	public static GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final Diagram diagram, final Feature feature, final IFeatureProvider fp) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createFeatureGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Feature)
+	 */
+	@Override
+	public GraphicsAlgorithm createFeatureGraphicsAlgorithm(final Shape shape, final Diagram diagram, final Feature feature) {
 		final IGaService gaService = Graphiti.getGaService();
 		
         // Abstract Feature
 		final GraphicsAlgorithm ga;			
 		if(feature instanceof Port) {
-			ga = createPortGraphicsAlgorithm(shape, diagram, fp, ((Port)feature).getCategory(), ((Port) feature).getDirection());
+			ga = createPortGraphicsAlgorithm(shape, diagram, ((Port)feature).getCategory(), ((Port) feature).getDirection());
 		} else if(feature instanceof AbstractFeature) { // Abstract Feature
-			ga = createAbstractFeatureGraphicsAlgorithm(shape, diagram, fp, ((AbstractFeature) feature).getDirection());
+			ga = createAbstractFeatureGraphicsAlgorithm(shape, diagram, ((AbstractFeature) feature).getDirection());
         } else if(feature instanceof Access) {
-        	ga = createAccessGraphicsAlgorithm(shape, diagram, fp, ((Access)feature).getCategory(), ((Access)feature).getKind());
+        	ga = createAccessGraphicsAlgorithm(shape, diagram, ((Access)feature).getCategory(), ((Access)feature).getKind());
         } else if(feature instanceof FeatureGroup) {
         	throw new RuntimeException("Unhandled case. Feature Group");   		
         } else {
@@ -127,9 +143,13 @@ public class GraphicsAlgorithmCreator {
 		return ga;
 	}
 	
-	public static GraphicsAlgorithm createPortGraphicsAlgorithm(final Shape shape, final Diagram diagram, final IFeatureProvider fp, final PortCategory category, DirectionType direction) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createPortGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.PortCategory, org.osate.aadl2.DirectionType)
+	 */
+	@Override
+	public GraphicsAlgorithm createPortGraphicsAlgorithm(final Shape shape, final Diagram diagram, final PortCategory category, DirectionType direction) {
 		final IGaService gaService = Graphiti.getGaService();
-		final Style style = StyleUtil.getFeatureStyle(diagram);
+		final Style style = styleUtil.getFeatureStyle(diagram);
 		final boolean hasData = category == PortCategory.DATA || category == PortCategory.EVENT_DATA;
 		final boolean hasEvent = category == PortCategory.EVENT || category == PortCategory.EVENT_DATA;
 		
@@ -137,7 +157,7 @@ public class GraphicsAlgorithmCreator {
     	
 		// Invert the direction as needed
 		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
-			if(ClassifierHelper.isFeatureInverted(shape, fp)) {
+			if(classifierHelper.isFeatureInverted(shape)) {
 				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
 			}
 		}				
@@ -217,14 +237,18 @@ public class GraphicsAlgorithmCreator {
     	
         ga.setStyle(style);
         gaService.setSize(ga,  width, height);
-        GraphicsAlgorithmUtil.shrink(ga);
+        graphicsAlgorithmUtil.shrink(ga);
         
         return ga;
 	}
 	
-	public static GraphicsAlgorithm createAbstractFeatureGraphicsAlgorithm(final Shape shape, final Diagram diagram, final IFeatureProvider fp, DirectionType direction) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createAbstractFeatureGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.DirectionType)
+	 */
+	@Override
+	public GraphicsAlgorithm createAbstractFeatureGraphicsAlgorithm(final Shape shape, final Diagram diagram, DirectionType direction) {
 		final IGaService gaService = Graphiti.getGaService();
-		final Style style = StyleUtil.getFeatureStyle(diagram);
+		final Style style = styleUtil.getFeatureStyle(diagram);
 		final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
     	gaService.setSize(ga,  25,  20);
     	
@@ -235,7 +259,7 @@ public class GraphicsAlgorithmCreator {
 
         // Invert the direction as needed
  		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
- 			if(ClassifierHelper.isFeatureInverted(shape, fp)) {
+ 			if(classifierHelper.isFeatureInverted(shape)) {
  				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
  			}
  		}	
@@ -256,13 +280,17 @@ public class GraphicsAlgorithmCreator {
             directionGa.setStyle(style);   	
         }
         
-        GraphicsAlgorithmUtil.shrink(ga);
+        graphicsAlgorithmUtil.shrink(ga);
         return ga;
 	}
 	
-	public static GraphicsAlgorithm createAccessGraphicsAlgorithm(final Shape shape, final Diagram diagram, final IFeatureProvider fp, final AccessCategory category, AccessType accessType) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createAccessGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.AccessCategory, org.osate.aadl2.AccessType)
+	 */
+	@Override
+	public GraphicsAlgorithm createAccessGraphicsAlgorithm(final Shape shape, final Diagram diagram, final AccessCategory category, AccessType accessType) {
 		final IGaService gaService = Graphiti.getGaService();
-    	if(ClassifierHelper.isFeatureInverted(shape, fp)) {
+    	if(classifierHelper.isFeatureInverted(shape)) {
     		accessType = (accessType == AccessType.PROVIDES) ? AccessType.REQUIRES : AccessType.PROVIDES;
     	}
     	int width = 0;
@@ -271,7 +299,7 @@ public class GraphicsAlgorithmCreator {
     	final GraphicsAlgorithm ga = gaService.createInvisibleRectangle(shape);
     	 
     	if(category == AccessCategory.BUS || category == AccessCategory.DATA) {
-    		final Style style = StyleUtil.getFeatureStyle(diagram);
+    		final Style style = styleUtil.getFeatureStyle(diagram);
     		width = 20;
     		height = 20;        		
     		final int slopeWidth = 5;
@@ -295,9 +323,9 @@ public class GraphicsAlgorithmCreator {
             			0, 0});
         		symbolGa.setStyle(style); 
     		}        		
-    		GraphicsAlgorithmUtil.shrink(ga);
+    		graphicsAlgorithmUtil.shrink(ga);
     	} else if(category == AccessCategory.SUBPROGRAM || category == AccessCategory.SUBPROGRAM_GROUP) {
-    		final Style style = category == AccessCategory.SUBPROGRAM ? StyleUtil.getSubprogramAccessStyle(diagram) : StyleUtil.getSubprogramGroupAccessStyle(diagram);
+    		final Style style = category == AccessCategory.SUBPROGRAM ? styleUtil.getSubprogramAccessStyle(diagram) : styleUtil.getSubprogramGroupAccessStyle(diagram);
     		width = 35;
     		height = 20;
     		final int vPadding = 5;
@@ -325,11 +353,15 @@ public class GraphicsAlgorithmCreator {
     	}
     	
     	gaService.setSize(ga,  width, height);
-    	GraphicsAlgorithmUtil.shrink(ga);
+    	graphicsAlgorithmUtil.shrink(ga);
 		return ga;
 	}
 	
-	public static GraphicsAlgorithm createModeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, int width, int height) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createModeGraphicsAlgorithm(org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, org.eclipse.graphiti.mm.pictograms.Diagram, int, int)
+	 */
+	@Override
+	public GraphicsAlgorithm createModeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, int width, int height) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(container, 
     			new int[] {
@@ -340,16 +372,20 @@ public class GraphicsAlgorithmCreator {
     			width*3/4, height,
     			width/4, height,
     			0, height/2});
-		ga.setStyle(StyleUtil.getModeStyle(diagram));
+		ga.setStyle(styleUtil.getModeStyle(diagram));
 		gaService.setSize(ga, width, height);
 		
 		return ga;
 	}
 	
-	public static GraphicsAlgorithm createInitialModeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, int size) {
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createInitialModeGraphicsAlgorithm(org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, org.eclipse.graphiti.mm.pictograms.Diagram, int)
+	 */
+	@Override
+	public GraphicsAlgorithm createInitialModeGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, int size) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createEllipse(container);
-		ga.setStyle(StyleUtil.getInitialModeStyle(diagram));
+		ga.setStyle(styleUtil.getInitialModeStyle(diagram));
 		gaService.setSize(ga, size, size);
 		return ga;
 	}
@@ -545,8 +581,12 @@ public class GraphicsAlgorithmCreator {
 		return ga;
 	}
 
-	public static GraphicsAlgorithm createFeatureGroupGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final int width, final int height) {
-		final Style style = StyleUtil.getFeatureGroupStyle(diagram);
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService#createFeatureGroupGraphicsAlgorithm(org.eclipse.graphiti.mm.GraphicsAlgorithmContainer, org.eclipse.graphiti.mm.pictograms.Diagram, int, int)
+	 */
+	@Override
+	public GraphicsAlgorithm createFeatureGroupGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Diagram diagram, final int width, final int height) {
+		final Style style = styleUtil.getFeatureGroupStyle(diagram);
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(container);
 		final int circleSize = width*2/3;

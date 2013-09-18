@@ -10,7 +10,7 @@ public class StyleProviderFactory extends AbstractServiceFactory {
 	@Override
 	public Object create(@SuppressWarnings("rawtypes") final Class serviceInterface, final IServiceLocator parentLocator, final IServiceLocator locator) {
 		if(StyleProvider.class.equals(serviceInterface)) {
-			return new StyleProviderImpl();
+			return new DefaultStyleProvider();
 		}
 		
 		return null;

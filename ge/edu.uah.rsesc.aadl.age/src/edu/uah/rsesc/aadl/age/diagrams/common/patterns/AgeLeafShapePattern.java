@@ -9,8 +9,8 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Element;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 /**
  * Class for shapes that have their inside recreated on updating. Even though they may have child shapes they are created as an automatic unit because their children may 
@@ -19,6 +19,14 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
  *
  */
 public abstract class AgeLeafShapePattern extends AgePattern {
+	private final AnchorService anchorUtil;
+	private VisibilityService visibilityHelper;
+	
+	public AgeLeafShapePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper) {
+		this.anchorUtil = anchorUtil;
+		this.visibilityHelper = visibilityHelper;
+	}
+	
 	@Override
 	public final PictogramElement add(final IAddContext context) {
 		final Element element = (Element)AadlElementWrapper.unwrap(context.getNewObject());
@@ -41,7 +49,7 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 	 * @param shape
 	 */
 	protected void updateAnchors(final ContainerShape shape) {
-		AnchorUtil.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
+		anchorUtil.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
 	}
 	
 	@Override
@@ -52,7 +60,7 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 		if(pe instanceof ContainerShape) {
 			final ContainerShape shape = (ContainerShape)pe;		
 
-			VisibilityHelper.setIsGhost(shape, false);
+			visibilityHelper.setIsGhost(shape, false);
 			
 			// Update/Recreate the child shapes and the graphics algorithm for the shape
 			createGaAndInnerShapes(shape, bo, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());

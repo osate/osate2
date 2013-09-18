@@ -34,12 +34,19 @@ import org.osate.aadl2.NamedElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
+	private final PropertyService propertyUtil;
+	
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final PropertyService propertyUtil) {
+		super(diagramContainer);
+		this.propertyUtil = propertyUtil;
+	}
+	
 	private IXtextModelListener modelListener = new IXtextModelListener() {
 		@Override
 		public void modelChanged(final XtextResource resource) {
@@ -72,10 +79,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			}					
 		}	
 	};
-	
-	public AgeDiagramBehavior(IDiagramContainerUI diagramContainer) {
-		super(diagramContainer);
-	}
 
 	@Override
 	protected DefaultUpdateBehavior createUpdateBehavior() {
@@ -83,8 +86,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	}
 	
 	@Override
-	protected DefaultRefreshBehavior createRefreshBehavior() {
-		
+	protected DefaultRefreshBehavior createRefreshBehavior() {		
 		return new DefaultRefreshBehavior(this) {
 			protected void autoUpdate() {
 				IDiagramTypeProvider diagramTypeProvider = getDiagramTypeProvider();
@@ -106,7 +108,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				
 				// Find all ghost connections
 				for(final Connection connection : diagram.getConnections()) {
-					if(PropertyUtil.isGhost(connection)) {
+					if(propertyUtil.isGhost(connection)) {
 						ghosts.add(connection);
 					}
 				}
@@ -137,7 +139,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	 * @param ghostShapes
 	 */
 	private void findGhostShapes(final Shape shape, final List<PictogramElement> ghostShapes) {
-		if(PropertyUtil.isGhost(shape)) {
+		if(propertyUtil.isGhost(shape)) {
 			ghostShapes.add(shape);
 		} else {
 			if(shape instanceof ContainerShape) {

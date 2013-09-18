@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
+import javax.inject.Inject;
+
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.datatypes.ILocation;
@@ -29,12 +31,27 @@ import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.TriggerPort;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
+	private final StyleService styleUtil;
+	private final AnchorService anchorUtil;
+	private final ConnectionService connectionHelper;
+	private final ShapeService shapeHelper;
+	
+	@Inject
+	public ModeTransitionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final AnchorService anchorUtil, final ConnectionService connectionHelper, final ShapeService shapeHelper) {
+		super(visibilityHelper);
+		this.styleUtil = styleUtil;
+		this.anchorUtil = anchorUtil;
+		this.connectionHelper = connectionHelper;
+		this.shapeHelper = shapeHelper;
+	}
+
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof ModeTransition;
@@ -111,7 +128,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		
 		// Create the arrow
         final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
-        createArrow(arrowConnectionDecorator, StyleUtil.getDecoratorStyle(getDiagram()));
+        createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle(getDiagram()));
         
 		// Create Label
         // TODO: Consider whether or not to have labels for transitions. Only show up in properties? Causes the diagram to be less cluttered. 
@@ -130,14 +147,14 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		updateControlPoints(connection);
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = StyleUtil.getDecoratorStyle(getDiagram());
+		final Style style = styleUtil.getDecoratorStyle(getDiagram());
 		polyline.setStyle(style);
 	}
 	
 	private void createTriggerGraphicsAlgorithm(final Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = StyleUtil.getModeTransitionTrigger(getDiagram());
+		final Style style = styleUtil.getModeTransitionTrigger(getDiagram());
 		polyline.setStyle(style);
 	}
 	
@@ -228,19 +245,20 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		return new LocationImpl((int)(startLoc.getX() + (endLoc.getX() - startLoc.getX()) * d), (int)(startLoc.getY() + (endLoc.getY() - startLoc.getY()) * d));
 	}
 	
-	public static void updateAnchors(final Connection connection, final ModeTransition mt) {
+	// CLEAN-UP: Should be private and not static. Develop another way for ModePattern to trigger updating of the anchors without causing issues
+	public static void updateAnchors(final Connection connection, final ModeTransition mt, final AnchorService anchorUtil) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();
 		final ContainerShape modeShape = getStartModeShape(connection);
 		final ILocation modeLocation = layoutService.getLocationRelativeToDiagram(modeShape);
 		final ILocation l = getConnectionMidpoint(connection, 0.5);
-		AnchorUtil.createOrUpdateFixPointAnchor(modeShape, getTransitionAnchorName(mt), l.getX() - modeLocation.getX(), l.getY() - modeLocation.getY());
+		anchorUtil.createOrUpdateFixPointAnchor(modeShape, getTransitionAnchorName(mt), l.getX() - modeLocation.getX(), l.getY() - modeLocation.getY());
 	}
 	
 	private void updateTriggers(final Connection connection, final ModeTransition mt) {	
-		updateAnchors(connection, mt);
+		updateAnchors(connection, mt, anchorUtil);
 
 		final ContainerShape modeShape = getStartModeShape(connection);
-		final Anchor anchor = AnchorUtil.getAnchorByName(modeShape, getTransitionAnchorName(mt));
+		final Anchor anchor = anchorUtil.getAnchorByName(modeShape, getTransitionAnchorName(mt));
 		for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
 
 			final ContainerShape modeTransitionContainer = getModeContainer(connection);	
@@ -269,8 +287,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
 		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
-		final ContainerShape ownerShape = ConnectionHelper.getOwnerShape(connection, getFeatureProvider());
-		return (ownerShape == null) ? null : ConnectionHelper.getAnchors(ownerShape, mt, getFeatureProvider());		
+		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
+		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, mt);		
 	}
 	
 	@Override
@@ -286,14 +304,14 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	 * @param fp
 	 * @return
 	 */
-	public static Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
+	public Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
 		if(trigger instanceof TriggerPort) {
 			final TriggerPort tp = (TriggerPort)trigger;
-			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : ShapeHelper.getChildShapeByElementQualifiedName(ownerShape, tp.getContext(), fp);
-			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : ShapeHelper.getChildShapeByElementQualifiedName(portShapeOwner, tp.getPort(), fp);
+			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : shapeHelper.getChildShapeByElementQualifiedName(ownerShape, tp.getContext());
+			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : shapeHelper.getChildShapeByElementQualifiedName(portShapeOwner, tp.getPort());
 			
 			// Get appropriate anchor depending on whether the port belongs to the component classifier or a subcomponent
-			return AnchorUtil.getAnchorByName(portShape, ShapeHelper.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+			return anchorUtil.getAnchorByName(portShape, shapeHelper.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 		} else {
 			// Unhandled case
 			return null;

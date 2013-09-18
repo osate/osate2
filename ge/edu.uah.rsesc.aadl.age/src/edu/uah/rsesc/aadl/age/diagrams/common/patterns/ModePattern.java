@@ -3,6 +3,8 @@ package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
@@ -26,18 +28,39 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreator;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
-public class ModePattern extends AgeLeafShapePattern {	
+public class ModePattern extends AgeLeafShapePattern {
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";
+	private final AnchorService anchorUtil;
+	private final ResizeService resizeHelper;
+	private final ShapeService shapeHelper;
+	private final UpdateService updateHelper;
+	private final PropertyService propertyUtil;
+	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
+	private final StyleService styleUtil;
 	
+	@Inject
+	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final ResizeService resizeHelper, final ShapeService shapeHelper, 
+			final UpdateService updateHelper, final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil) {
+		super(anchorUtil, visibilityHelper);
+		this.anchorUtil = anchorUtil;
+		this.resizeHelper = resizeHelper;
+		this.shapeHelper = shapeHelper;
+		this.updateHelper = updateHelper;
+		this.propertyUtil = propertyUtil;
+		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
+		this.styleUtil = styleUtil;
+	}
+
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Mode;
@@ -61,13 +84,13 @@ public class ModePattern extends AgeLeafShapePattern {
 	
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
-		final Anchor anchor = AnchorUtil.getAnchorByName(getInnerModeShape((ContainerShape)context.getPictogramElement()), AgePattern.chopboxAnchorName);
+		final Anchor anchor = anchorUtil.getAnchorByName(getInnerModeShape((ContainerShape)context.getPictogramElement()), AgePattern.chopboxAnchorName);
 		if(anchor != null) {
 			updateModeTransition(anchor.getIncomingConnections());
 			updateModeTransition(anchor.getOutgoingConnections());
 		}
 		
-		ResizeHelper.checkContainerSize((ContainerShape)context.getPictogramElement(), getFeatureProvider());
+		resizeHelper.checkContainerSize((ContainerShape)context.getPictogramElement());
 	}
 	
 	// Updates the control points for mode transition connections. Also update the mode transition triggers. 
@@ -79,7 +102,7 @@ public class ModePattern extends AgeLeafShapePattern {
 			if(connectionBo instanceof ModeTransition) {
 				final ModeTransition mt = (ModeTransition)connectionBo;
 				ModeTransitionPattern.updateControlPoints(connection);
-				ModeTransitionPattern.updateAnchors(connection, mt);
+				ModeTransitionPattern.updateAnchors(connection, mt, anchorUtil);
 			}
 
 		}
@@ -93,9 +116,9 @@ public class ModePattern extends AgeLeafShapePattern {
         
         // Remove connections related to the initial shape
 		{
-	        final Shape initialModeShape = ShapeHelper.getChildShapeByName(shape, initialModeShapeName);
+	        final Shape initialModeShape = shapeHelper.getChildShapeByName(shape, initialModeShapeName);
 	        if(initialModeShape != null) {
-	        	UpdateHelper.removeConnectionsByAnchorParent(getDiagram(), initialModeShape);
+	        	updateHelper.removeConnectionsByAnchorParent(getDiagram(), initialModeShape);
 	        }
 		}
         
@@ -104,7 +127,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		final Iterator<Shape> it = shape.getChildren().iterator();
 		while(it.hasNext()) {
 			final Shape child = it.next();
-			if(!innerModeShapeName.equals(PropertyUtil.getName(child))) {
+			if(!innerModeShapeName.equals(propertyUtil.getName(child))) {
 				it.remove();
 			}
 		}		
@@ -118,8 +141,8 @@ public class ModePattern extends AgeLeafShapePattern {
 		ContainerShape innerModeShape = getInnerModeShape(shape);
 		if(innerModeShape == null) {
 			innerModeShape = peCreateService.createContainerShape(shape, true);
-			PropertyUtil.setName(innerModeShape, innerModeShapeName);
-			AnchorUtil.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
+			propertyUtil.setName(innerModeShape, innerModeShapeName);
+			anchorUtil.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		}
 		
 		// Clear the inner mode shape's children
@@ -130,7 +153,7 @@ public class ModePattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(innerModeShape, false);
-        final Text text = GraphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
+        final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
         
         // Set the size        
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
@@ -138,35 +161,35 @@ public class ModePattern extends AgeLeafShapePattern {
 		gaService.setLocationAndSize(text, 0, 0, width, innerModeHeight);
 				
 		// Create the graphics algorithm
-        final GraphicsAlgorithm modeGa = GraphicsAlgorithmCreator.createModeGraphicsAlgorithm(innerModeShape, getDiagram(), width, innerModeHeight);        
+        final GraphicsAlgorithm modeGa = graphicsAlgorithmCreator.createModeGraphicsAlgorithm(innerModeShape, getDiagram(), width, innerModeHeight);        
         gaService.setLocation(modeGa, 0, totalHeight - innerModeHeight);
         gaService.setLocationAndSize(ga, x, y, width, totalHeight);
 
         if(mode.isInitial()) {
 			// Create the shape for the initial mode
 			final ContainerShape initialModeShape = peCreateService.createContainerShape(shape, true);
-			PropertyUtil.setName(initialModeShape, initialModeShapeName);
-			GraphicsAlgorithmCreator.createInitialModeGraphicsAlgorithm(initialModeShape, getDiagram(), 10);			
+			propertyUtil.setName(initialModeShape, initialModeShapeName);
+			graphicsAlgorithmCreator.createInitialModeGraphicsAlgorithm(initialModeShape, getDiagram(), 10);			
 			final Anchor initialModeAnchor = peCreateService.createChopboxAnchor(initialModeShape);
 			
 			// Create a line between the initial mode symbol and the actual mode symbol
 			final Connection initialModeConnection = peCreateService.createCurvedConnection(new double[] {0.0, -10.0}, getDiagram());
 			initialModeConnection.setStart(initialModeAnchor);
-			initialModeConnection.setEnd(AnchorUtil.getAnchorByName(innerModeShape, AgePattern.chopboxAnchorName));
+			initialModeConnection.setEnd(anchorUtil.getAnchorByName(innerModeShape, AgePattern.chopboxAnchorName));
 			
 			// Create the line
 			final Polyline polyline = gaService.createPlainPolyline(initialModeConnection);
-			final Style style = StyleUtil.getDecoratorStyle(getDiagram());
+			final Style style = styleUtil.getDecoratorStyle(getDiagram());
 			polyline.setStyle(style);
 			
 			// Create the arrow decorator
 			final ConnectionDecorator arrowDecorator = peCreateService.createConnectionDecorator(initialModeConnection, false, 1.0, true);    
-	        createArrow(arrowDecorator, StyleUtil.getDecoratorStyle(getDiagram()));		
+	        createArrow(arrowDecorator, styleUtil.getDecoratorStyle(getDiagram()));		
 		}
 	}
 	
 	private ContainerShape getInnerModeShape(final ContainerShape shape) {
-		return (ContainerShape)ShapeHelper.getChildShapeByName(shape, innerModeShapeName);
+		return (ContainerShape)shapeHelper.getChildShapeByName(shape, innerModeShapeName);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -181,7 +204,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	
 	protected void updateAnchors(final ContainerShape shape) {
 		// Remove orphan anchors. Usually created by mode transition triggers
-		UpdateHelper.removeAnchorsWithoutConnections(shape);
+		updateHelper.removeAnchorsWithoutConnections(shape);
 		
 		super.updateAnchors(shape);
 	}

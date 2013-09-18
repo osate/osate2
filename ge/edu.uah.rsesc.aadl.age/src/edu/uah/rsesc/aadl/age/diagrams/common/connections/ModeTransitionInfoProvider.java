@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.connections;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -10,12 +12,18 @@ import org.osate.aadl2.ModeTransition;
 import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 
 public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
-	public ModeTransitionInfoProvider(final BusinessObjectResolver bor, final Diagram diagram) {
+	private final AnchorService anchorUtil;
+	private final ShapeService shapeHelper;
+	
+	@Inject
+	public ModeTransitionInfoProvider(final BusinessObjectResolver bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
 		super(bor, diagram);
+		this.anchorUtil = anchorUtil;
+		this.shapeHelper = shapeHelper;
 	}
 
 	@Override
@@ -43,14 +51,14 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 	@Override
 	public Anchor[] getAnchors(final ContainerShape ownerShape, final Object bo) {
 		final ModeTransition mt = (ModeTransition)bo;
-		final ContainerShape srcShape = (ContainerShape)ShapeHelper.getChildShapeByElementQualifiedName(ownerShape, mt.getSource(), getBusinessObjectResolver());
-		final ContainerShape dstShape = (ContainerShape)ShapeHelper.getChildShapeByElementQualifiedName(ownerShape, mt.getDestination(), getBusinessObjectResolver());
+		final ContainerShape srcShape = (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(ownerShape, mt.getSource());
+		final ContainerShape dstShape = (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(ownerShape, mt.getDestination());
 		if(srcShape == null || dstShape == null) {
 			return null;
 		}				
 		
-		final Anchor a1 = AnchorUtil.getAnchorByName(ShapeHelper.getChildShapeByName(srcShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);
-		final Anchor a2 = AnchorUtil.getAnchorByName(ShapeHelper.getChildShapeByName(dstShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);		
+		final Anchor a1 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(srcShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);
+		final Anchor a2 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(dstShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);		
 		
 		if(a1 == null || a2 == null) {
 			return null;

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -28,15 +30,22 @@ import org.eclipse.zest.layouts.exampleStructures.SimpleRelationship;
 import org.osate.aadl2.Feature;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyUtil;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeHelper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
 public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private static String RELAYOUT_SHAPES_PROPERTY_KEY = "relayout";
+	private final VisibilityService visibilityHelper;
+	private final ResizeService resizeHelper;
+	private final PropertyService propertyUtil;
 	
-	public LayoutDiagramFeature(final IFeatureProvider fp) {
+	@Inject
+	public LayoutDiagramFeature(final IFeatureProvider fp, final VisibilityService visibilityHelper, final ResizeService resizeHelper, final PropertyService propertyUtil) {
 		super(fp);
+		this.visibilityHelper = visibilityHelper;
+		this.resizeHelper = resizeHelper;
+		this.propertyUtil = propertyUtil;
 	}
 
 	@Override
@@ -91,7 +100,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	}
 	
 	private void layout(final ContainerShape shape, final LayoutAlgorithm alg, final boolean relayoutShapes) throws InvalidLayoutConfiguration {
-		final List<Shape> children = VisibilityHelper.getNonGhostChildren(shape);
+		final List<Shape> children = visibilityHelper.getNonGhostChildren(shape);
 
 		// Layout the inside of the child shapes
 		for(final Shape child : children) {
@@ -147,13 +156,13 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		
 		// Use the resize helper to resize the shape
 		if(!(shape instanceof Diagram)) {
-			ResizeHelper.checkSize(shape, getFeatureProvider());
+			resizeHelper.checkSize(shape);
 		}
 	}
 	
 	private boolean shouldIgnoreShape(final Shape shape, final boolean relayoutShapes) {
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
-		return bo == null || bo instanceof Feature || (PropertyUtil.isLayedOut(shape) && !relayoutShapes);
+		return bo == null || bo instanceof Feature || (propertyUtil.isLayedOut(shape) && !relayoutShapes);
 	}
 	/**
 	 * Gets the layout entity that is the closest match to the specified anchor
@@ -194,7 +203,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 			//System.out.println(((int)entity.getXInLayout()) + "," + ((int)entity.getYInLayout()) + " - " + ((int)entity.getWidthInLayout()) + "," + ((int)entity.getHeightInLayout()));
 			ga.setX((int)entity.getXInLayout());
 			ga.setY((int)entity.getYInLayout());
-			PropertyUtil.setIsLayedOut(shape, true);
+			propertyUtil.setIsLayedOut(shape, true);
 		}
 	}
 }

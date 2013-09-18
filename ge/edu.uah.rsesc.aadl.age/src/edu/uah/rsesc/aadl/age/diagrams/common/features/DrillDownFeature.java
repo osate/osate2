@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.features;
 
+import javax.inject.Inject;
+
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
@@ -11,7 +13,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierHelper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
 import edu.uah.rsesc.aadl.age.ui.util.DiagramOpener;
 
 /**
@@ -20,8 +22,12 @@ import edu.uah.rsesc.aadl.age.ui.util.DiagramOpener;
  *
  */
 public class DrillDownFeature extends AbstractCustomFeature {
-	public DrillDownFeature(final IFeatureProvider fp) {
+	private final ClassifierService classifierHelper;
+	
+	@Inject
+	public DrillDownFeature(final IFeatureProvider fp, final ClassifierService classifierHelper) {
 		super(fp);
+		this.classifierHelper = classifierHelper;
 	}
 
 	@Override
@@ -74,7 +80,7 @@ public class DrillDownFeature extends AbstractCustomFeature {
      */
     private Classifier getSubcomponentClassifier(final PictogramElement pe, final Object bo) {
     	if(pe instanceof Shape && bo instanceof Subcomponent) {
-        	return ClassifierHelper.getComponentClassifier((Shape)pe, (Subcomponent)bo, getFeatureProvider());
+        	return classifierHelper.getComponentClassifier((Shape)pe, (Subcomponent)bo);
         }
     	return null;
     }
