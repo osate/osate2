@@ -60,6 +60,9 @@ property set Timing_Properties is
 	
 	Load_Time: Time_Range
 		applies to (process, system);
+		
+	Processor_Capacity: aadlreal units Processor_Speed_Units 
+	        applies to (processor, system);
 	
 	Period: inherit Time
 		applies to (thread, thread group, process, system, device, virtual processor);

@@ -45,4 +45,5 @@ public final class TimingProperties {
 	public static final String REFERENCE_PROCESSOR = "Reference_Processor";
 	public static final String SCALING_FACTOR = "Scaling_Factor";
 	public static final String CLOCK_PERIOD = "Clock_Period";
+	public static final String PROCESSOR_CAPACITY = "Processor_Capacity";
 }
