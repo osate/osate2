@@ -23,16 +23,19 @@ import org.osate.aadl2.FeatureGroupType;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
+import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
-	private final UpdateService updateHelper;
+	private final StyleService styleService;
+	private final VisibilityService visibilityService;
 	
 	@Inject
-	public TypeUpdateDiagramFeature(final IFeatureProvider fp, final UpdateService updateHelper) {
+	public TypeUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final VisibilityService visibilityService) {
 		super(fp);
-		this.updateHelper = updateHelper;
+		this.styleService = styleService;
+		this.visibilityService = visibilityService;
 	}
 
 	private Classifier getClassifier(final IUpdateContext context) {
@@ -60,10 +63,10 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		final Classifier classifier = getClassifier(context);
 		final Diagram diagram = getDiagram();		
 		
-		updateHelper.refreshStyles(diagram);
+		styleService.refreshStyles();
 				
 		// Remove shapes that are invalid
-		updateHelper.ghostInvalidShapes(diagram);
+		visibilityService.ghostInvalidShapes(diagram);
 
 		// Add/Update the shape for the classifier
 		final PictogramElement pe = getFeatureProvider().getPictogramElementForBusinessObject(classifier);

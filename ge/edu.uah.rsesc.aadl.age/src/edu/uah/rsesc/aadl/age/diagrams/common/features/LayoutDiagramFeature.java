@@ -30,18 +30,18 @@ import org.eclipse.zest.layouts.exampleStructures.SimpleRelationship;
 import org.osate.aadl2.Feature;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.LayoutService;
+import edu.uah.rsesc.aadl.age.services.PropertyService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private static String RELAYOUT_SHAPES_PROPERTY_KEY = "relayout";
 	private final VisibilityService visibilityHelper;
-	private final ResizeService resizeHelper;
+	private final LayoutService resizeHelper;
 	private final PropertyService propertyUtil;
 	
 	@Inject
-	public LayoutDiagramFeature(final IFeatureProvider fp, final VisibilityService visibilityHelper, final ResizeService resizeHelper, final PropertyService propertyUtil) {
+	public LayoutDiagramFeature(final IFeatureProvider fp, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final PropertyService propertyUtil) {
 		super(fp);
 		this.visibilityHelper = visibilityHelper;
 		this.resizeHelper = resizeHelper;

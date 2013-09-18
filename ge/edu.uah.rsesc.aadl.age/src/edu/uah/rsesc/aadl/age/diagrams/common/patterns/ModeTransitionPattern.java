@@ -31,11 +31,11 @@ import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.TriggerPort;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.AnchorService;
+import edu.uah.rsesc.aadl.age.services.ConnectionService;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
+import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
@@ -128,7 +128,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		
 		// Create the arrow
         final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);    
-        createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle(getDiagram()));
+        createArrow(arrowConnectionDecorator, styleUtil.getDecoratorStyle());
         
 		// Create Label
         // TODO: Consider whether or not to have labels for transitions. Only show up in properties? Causes the diagram to be less cluttered. 
@@ -147,14 +147,14 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		updateControlPoints(connection);
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleUtil.getDecoratorStyle(getDiagram());
+		final Style style = styleUtil.getDecoratorStyle();
 		polyline.setStyle(style);
 	}
 	
 	private void createTriggerGraphicsAlgorithm(final Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleUtil.getModeTransitionTrigger(getDiagram());
+		final Style style = styleUtil.getModeTransitionTrigger();
 		polyline.setStyle(style);
 	}
 	

@@ -14,13 +14,14 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.ComponentImplementation;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
+import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.services.LayoutService;
+import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 /**
  * A pattern that controls the component implementation shape that contains all the other shapes in the type diagram
@@ -28,16 +29,16 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
  */
 public class ComponentImplementationPattern extends AgePattern {
 	private final VisibilityService visibilityHelper;
-	private final UpdateService updateService;
+	private final LayoutService layoutService;
 	private final ShapeCreationService shapeCreationService;
 	private final ConnectionCreationService connectionCreationService;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	
 	@Inject
-	public ComponentImplementationPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ShapeCreationService shapeCreationService, 
+	public ComponentImplementationPattern(final VisibilityService visibilityHelper, final LayoutService layoutService, final ShapeCreationService shapeCreationService, 
 			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
 		this.visibilityHelper = visibilityHelper;
-		this.updateService = updateHelper;
+		this.layoutService = layoutService;
 		this.shapeCreationService = shapeCreationService;
 		this.connectionCreationService = connectionCreationService;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
@@ -108,10 +109,10 @@ public class ComponentImplementationPattern extends AgePattern {
 		visibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
-		updateService.ghostInvalidConnections(getDiagram());
+		visibilityHelper.ghostInvalidConnections();
 				
 		// Remove invalid features
-		updateService.ghostInvalidShapes(shape);		
+		visibilityHelper.ghostInvalidShapes(shape);		
 			
 		// Create/Update Shapes
 		shapeCreationService.createUpdateFeatureShapes(shape, ci.getAllFeatures(), null);
@@ -124,14 +125,14 @@ public class ComponentImplementationPattern extends AgePattern {
 		connectionCreationService.createUpdateConnections(shape, ci.getAllConnections());
 		
 		// Adjust size. Width and height		
-		final int newSize[] = updateService.adjustChildShapePositions(shape);
+		final int newSize[] = layoutService.adjustChildShapePositions(shape);
 
 		// Create a new graphics Algorithm
 		final IGaService gaService = Graphiti.getGaService();
-		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), ci, newSize[0], newSize[1]);
+		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, ci, newSize[0], newSize[1]);
 		gaService.setLocation(ga, x, y);	
 
-		updateService.layoutChildren(shape);
+		layoutService.layoutChildren(shape);
 	}
 	
 	private void createUpdateSubcomponents(final ContainerShape shape, final ComponentImplementation ci) {

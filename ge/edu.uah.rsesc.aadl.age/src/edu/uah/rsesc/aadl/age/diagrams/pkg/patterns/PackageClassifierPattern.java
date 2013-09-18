@@ -40,10 +40,10 @@ import org.osate.aadl2.VirtualProcessorClassifier;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeLeafShapePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.AnchorService;
+import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.services.PropertyService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
@@ -86,7 +86,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
-        final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
+        final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
         // Set the size        
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
@@ -95,7 +95,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		gaService.setLocationAndSize(text, 0, 0, width, 20);
 				
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, width, height);        
+        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, width, height);        
         gaService.setLocation(ga, x, y);
 	}
 
@@ -195,7 +195,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		final PictogramElement pe = context.getPictogramElement();
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		final ContainerShape container = (ContainerShape)pe;
-       	graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, getDiagram(), ((Classifier)bo), context.getWidth(), context.getHeight());
+       	graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(container, ((Classifier)bo), context.getWidth(), context.getHeight());
 		
 		super.resizeShape(context);
 	}	

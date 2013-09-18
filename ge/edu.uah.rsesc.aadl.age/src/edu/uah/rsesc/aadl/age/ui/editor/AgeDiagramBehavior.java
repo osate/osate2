@@ -34,7 +34,7 @@ import org.osate.aadl2.NamedElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
+import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 
 import java.util.Map;

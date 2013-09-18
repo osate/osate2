@@ -23,10 +23,10 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.ConnectionService;
+import edu.uah.rsesc.aadl.age.services.HighlightingService;
+import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 public class ConnectionPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
@@ -112,40 +112,40 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		if(showDelayedDecoration) {
 			final int delayedSpacing = 3;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, styleUtil.getDecoratorStyle(getDiagram()));
+			createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, styleUtil.getDecoratorStyle());
 			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, styleUtil.getDecoratorStyle(getDiagram()));
+			createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, styleUtil.getDecoratorStyle());
 		} else if(showImmediateDecoration) {
 			final int immediateSpacing = 5;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDirectionIndicator(timingDecorator1, -immediateSpacing, styleUtil.getDecoratorStyle(getDiagram()));
+			createDirectionIndicator(timingDecorator1, -immediateSpacing, styleUtil.getDecoratorStyle());
 			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDirectionIndicator(timingDecorator2, immediateSpacing, styleUtil.getDecoratorStyle(getDiagram()));
+			createDirectionIndicator(timingDecorator2, immediateSpacing, styleUtil.getDecoratorStyle());
 		}
 
 		// Draw a direction indicator
 		if(showDirectionDecoration) {
 	        final ConnectionDecorator directionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.5, true);    
-	        createDirectionIndicator(directionDecorator, decoratorXShift, styleUtil.getDecoratorStyle(getDiagram()));
+	        createDirectionIndicator(directionDecorator, decoratorXShift, styleUtil.getDecoratorStyle());
 		}
 		
 		// Create Label
 		final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(styleUtil.getLabelStyle(getDiagram()));
+		text.setStyle(styleUtil.getLabelStyle());
 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(aadlConnection.getName());
 	    
 	    // Set color based on current mode/mode transition
-	    highlightingHelper.highlight(getDiagram(), aadlConnection, connection.getGraphicsAlgorithm());
+	    highlightingHelper.highlight(aadlConnection, connection.getGraphicsAlgorithm());
 	}
 
 	@Override
 	protected void createGraphicsAlgorithm(final org.eclipse.graphiti.mm.pictograms.Connection connection) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Polyline polyline = gaService.createPlainPolyline(connection);
-		final Style style = styleUtil.getDecoratorStyle(getDiagram());
+		final Style style = styleUtil.getDecoratorStyle();
 		polyline.setStyle(style);
 	}
 	

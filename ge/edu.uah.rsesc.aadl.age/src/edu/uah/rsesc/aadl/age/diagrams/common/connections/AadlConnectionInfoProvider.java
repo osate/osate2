@@ -17,9 +17,9 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
+import edu.uah.rsesc.aadl.age.services.AnchorService;
+import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
 
 public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 	private final AnchorService anchorUtil;

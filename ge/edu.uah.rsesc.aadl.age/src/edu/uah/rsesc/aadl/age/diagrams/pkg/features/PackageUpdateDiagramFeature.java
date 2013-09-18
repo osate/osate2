@@ -36,19 +36,22 @@ import org.osate.aadl2.TypeExtension;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
+import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
+import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
-	private final UpdateService updateHelper;
+	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
+	private final VisibilityService visibilityService;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final UpdateService updateHelper, final ConnectionCreationService connectionCreationService) {
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionCreationService connectionCreationService, final VisibilityService visibilityService) {
 		super(fp);
-		this.updateHelper = updateHelper;
+		this.styleService = styleService;
 		this.connectionCreationService = connectionCreationService;
+		this.visibilityService = visibilityService;
 	}
 	
 	@Override
@@ -70,7 +73,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	public boolean update(IUpdateContext context) {
 		Log.info("called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
-		updateHelper.refreshStyles(diagram);
+		styleService.refreshStyles();
 		
 		// Get the AADL Package
 		final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
@@ -80,10 +83,10 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final AadlPackage pkg = (AadlPackage)element;
 
 		// Prune Invalid Generalizations
-		updateHelper.ghostInvalidConnections(diagram);
+		visibilityService.ghostInvalidConnections();
 
 		// Prune Invalid Shapes
-		updateHelper.ghostInvalidShapes(diagram);
+		visibilityService.ghostInvalidShapes(diagram);
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();

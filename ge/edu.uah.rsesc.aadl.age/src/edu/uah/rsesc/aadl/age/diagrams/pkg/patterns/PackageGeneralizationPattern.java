@@ -20,9 +20,9 @@ import org.osate.aadl2.TypeExtension;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.ConnectionService;
+import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
@@ -50,7 +50,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		
 		// Create the arrow
         final ConnectionDecorator arrowConnectionDecorator = Graphiti.getPeCreateService().createConnectionDecorator(connection, false, 0.0, true);    
-        createArrow(arrowConnectionDecorator, styleUtil.getGeneralizationArrowHeadStyle(getDiagram()));
+        createArrow(arrowConnectionDecorator, styleUtil.getGeneralizationArrowHeadStyle());
 	}
 	
 	@Override
@@ -63,7 +63,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	
 	private void setGraphicsAlgorithmStyle(final GraphicsAlgorithm ga, final Generalization generalization) {
 		final boolean isImplements = generalization instanceof Realization;
-		final Style style = isImplements ? styleUtil.getImplementsStyle(getDiagram()) : styleUtil.getExtendsStyle(getDiagram());
+		final Style style = isImplements ? styleUtil.getImplementsStyle() : styleUtil.getExtendsStyle();
 		ga.setStyle(style);
 	}
 	

@@ -5,7 +5,7 @@ import java.util.List;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 
 public abstract class AbstractConnectionInfoProvider implements ConnectionInfoProvider {
 	private final BusinessObjectResolutionService bor;

@@ -3,7 +3,7 @@ package edu.uah.rsesc.aadl.age.ui.editor;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.IEditorPart;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.util.impl.DefaultPropertyService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultPropertyService;
 
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;

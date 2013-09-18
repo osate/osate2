@@ -16,7 +16,7 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
+import edu.uah.rsesc.aadl.age.services.PropertyService;
 
 public class ModeContributionItem extends ComboContributionItem {
 	private final String selectedModePropertyKey = "edu.uah.rsesc.aadl.age.ui.editor.selectedMode";

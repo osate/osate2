@@ -11,9 +11,9 @@ import org.osate.aadl2.ModeTransition;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.BusinessObjectResolutionService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
+import edu.uah.rsesc.aadl.age.services.AnchorService;
+import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
 
 public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 	private final AnchorService anchorUtil;

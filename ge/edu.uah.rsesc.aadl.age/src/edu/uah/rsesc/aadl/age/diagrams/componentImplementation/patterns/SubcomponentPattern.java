@@ -30,22 +30,20 @@ import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.SubcomponentService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
+import edu.uah.rsesc.aadl.age.services.AnchorService;
+import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
+import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.services.HighlightingService;
+import edu.uah.rsesc.aadl.age.services.LayoutService;
+import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
+import edu.uah.rsesc.aadl.age.services.SubcomponentService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 public class SubcomponentPattern extends AgePattern {
 	private final AnchorService anchorUtil;
 	private final VisibilityService visibilityHelper;
-	private final ResizeService resizeHelper;
-	private final UpdateService updateHelper;
+	private final LayoutService layoutService;
 	private final ShapeCreationService shapeCreationService;
 	private final AadlFeatureService featureService;
 	private final SubcomponentService subcomponentService;
@@ -54,13 +52,12 @@ public class SubcomponentPattern extends AgePattern {
 	private final HighlightingService highlightingHelper;
 	
 	@Inject
-	public SubcomponentPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final ResizeService resizeHelper, final UpdateService updateHelper, 
+	public SubcomponentPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final LayoutService resizeHelper, 
 			final ShapeCreationService shapeCreationService, AadlFeatureService featureService, SubcomponentService subcomponentService, 
 			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final HighlightingService highlightingHelper) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
-		this.resizeHelper = resizeHelper;
-		this.updateHelper = updateHelper;
+		this.layoutService = resizeHelper;
 		this.shapeCreationService = shapeCreationService;
 		this.featureService = featureService;
 		this.subcomponentService = subcomponentService;
@@ -89,12 +86,12 @@ public class SubcomponentPattern extends AgePattern {
 		final Subcomponent sc = (Subcomponent)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
 		this.refresh(shape, sc, context.getX(), context.getY(), context.getWidth(), context.getHeight());
 		
-		resizeHelper.checkContainerSize(shape);
+		layoutService.checkContainerSize(shape);
 	}
 
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
-		resizeHelper.checkContainerSize((ContainerShape)context.getPictogramElement());
+		layoutService.checkContainerSize((ContainerShape)context.getPictogramElement());
 	}
 	
 	@Override
@@ -145,10 +142,10 @@ public class SubcomponentPattern extends AgePattern {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Remove invalid flow specifications from the diagram
-		updateHelper.ghostInvalidConnections(getDiagram());
+		visibilityHelper.ghostInvalidConnections();
 		
 		// Remove invalid shapes
-		updateHelper.ghostInvalidShapes(shape);
+		visibilityHelper.ghostInvalidShapes(shape);
 
 		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
 		childShapesToGhost.addAll(visibilityHelper.getNonGhostChildren(shape));
@@ -184,7 +181,7 @@ public class SubcomponentPattern extends AgePattern {
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
         final String name = sc.getName() == null ? "" : sc.getName();
-        final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), name);
+        final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, name);
         final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), text.getStyle().getFont());
         
 		// Adjust size. Width and height
@@ -208,16 +205,16 @@ public class SubcomponentPattern extends AgePattern {
 		}		
 
 		// Create the graphics Algorithm
-		ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), sc, maxWidth, maxHeight);  
+		ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, sc, maxWidth, maxHeight);  
 		gaService.setLocation(ga, x, y);
 		
 		// Set the position of the text
 		gaService.setLocationAndSize(text, 0, 0, ga.getWidth(), 20);
 		
 		// Set color based on current mode
-		highlightingHelper.highlight(getDiagram(), sc, ga);		
+		highlightingHelper.highlight(sc, ga);		
 	
-		updateHelper.layoutChildren(shape);
+		layoutService.layoutChildren(shape);
 		anchorUtil.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
 	}
 }

@@ -13,7 +13,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.SubcomponentService;
+import edu.uah.rsesc.aadl.age.services.SubcomponentService;
 import edu.uah.rsesc.aadl.age.ui.util.DiagramOpener;
 
 /**

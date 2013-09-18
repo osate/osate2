@@ -40,15 +40,14 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.PrototypeService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
+import edu.uah.rsesc.aadl.age.services.AnchorService;
+import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
+import edu.uah.rsesc.aadl.age.services.PropertyService;
+import edu.uah.rsesc.aadl.age.services.PrototypeService;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 /**
  * Pattern for controlling Feature shapes
@@ -68,8 +67,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final AnchorService anchorUtil;
 	private final VisibilityService visibilityHelper;
 	private final PropertyService propertyUtil;
-	private final GraphicsAlgorithmService graphicsAlgorithmUtil;
-	private final UpdateService updateHelper;
+	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
 	private final ShapeService shapeHelper;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final AadlFeatureService featureService;
@@ -77,14 +75,13 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	
 	@Inject
 	public FeaturePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, 
-			final PropertyService propertyUtil, final GraphicsAlgorithmService graphicsAlgorithmUtil, final UpdateService updateHelper,
+			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
 			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final AadlFeatureService featureService, final PrototypeService prototypeService) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.propertyUtil = propertyUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
-		this.updateHelper = updateHelper;
 		this.shapeHelper = shapeHelper;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.featureService = featureService;
@@ -268,7 +265,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
         	propertyUtil.setName(featureShape, featureShapeName);
         } else {
         	gaService.createInvisibleRectangle(featureShape);
-        	updateHelper.ghostInvalidShapes(featureShape);
+        	visibilityHelper.ghostInvalidShapes(featureShape);
         }
 
 		if(callDepth > 2) {
@@ -281,7 +278,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
         propertyUtil.setName(labelShape, labelShapeName);
-        final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, getDiagram(), labelTxt);
+        final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
         // Set the size        
         final IDimension labelSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, label.getStyle().getFont());
@@ -328,7 +325,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			}
 			
 			// Create the feature group graphics algorithm
-			final GraphicsAlgorithm fgGa = graphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, getDiagram(), featureGroupSymbolWidth, childY + 25);
+			final GraphicsAlgorithm fgGa = graphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, featureGroupSymbolWidth, childY + 25);
 			graphicsAlgorithmUtil.shrink(fgGa);
 			final int fgWidth = maxChildWidth+featureGroupSymbolWidth;
 
@@ -354,10 +351,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
 						if(binding instanceof FeaturePrototypeBinding) {
 							FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
 							if(actual instanceof PortSpecification) {
-								graphicsAlgorithmCreator.createPortGraphicsAlgorithm(featureShape, getDiagram(), ((PortSpecification) actual).getCategory(), ((PortSpecification) actual).getDirection());
+								graphicsAlgorithmCreator.createPortGraphicsAlgorithm(featureShape, ((PortSpecification) actual).getCategory(), ((PortSpecification) actual).getDirection());
 								featureGaCreated = true;
 							} else if(actual instanceof AccessSpecification) {
-								graphicsAlgorithmCreator.createAccessGraphicsAlgorithm(featureShape, getDiagram(), ((AccessSpecification) actual).getCategory(), ((AccessSpecification) actual).getKind());
+								graphicsAlgorithmCreator.createAccessGraphicsAlgorithm(featureShape, ((AccessSpecification) actual).getCategory(), ((AccessSpecification) actual).getKind());
 								featureGaCreated = true;
 							}
 						}
@@ -368,7 +365,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			// Create the symbol based on the feature itself if one has not been created already
 			if(!featureGaCreated) {
 				// Create symbol
-				graphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, getDiagram(), feature);		
+				graphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, feature);		
 			}
 		}
 		

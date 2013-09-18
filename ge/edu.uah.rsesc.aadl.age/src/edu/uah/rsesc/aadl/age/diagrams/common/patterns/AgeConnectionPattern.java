@@ -22,7 +22,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Element;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 /**
  * Base class for all connection Patterns for AGE. Contains logic shared between all connection patterns.

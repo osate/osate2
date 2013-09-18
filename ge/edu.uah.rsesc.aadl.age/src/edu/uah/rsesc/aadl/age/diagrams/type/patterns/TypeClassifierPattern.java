@@ -16,15 +16,16 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
+import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
+import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.services.LayoutService;
+import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
+import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 /**
  * A pattern that controls the type shape that contains all the other shapes in the type diagram
@@ -32,7 +33,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
  */
 public class TypeClassifierPattern extends AgePattern {
 	private final VisibilityService visibilityHelper;
-	private final UpdateService updateService;
+	private final LayoutService layoutService;
 	private final ShapeCreationService shapeCreationService;
 	private final AadlFeatureService featureService;
 	private final ConnectionCreationService connectionCreationService;
@@ -40,11 +41,11 @@ public class TypeClassifierPattern extends AgePattern {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	
 	@Inject
-	public TypeClassifierPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ShapeCreationService shapeCreationService,
+	public TypeClassifierPattern(final VisibilityService visibilityHelper, final LayoutService layoutService, final ShapeCreationService shapeCreationService,
 			final AadlFeatureService featureService, final ConnectionCreationService connectionCreationService, final StyleService styleUtil,
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
 		this.visibilityHelper = visibilityHelper;
-		this.updateService = updateHelper;
+		this.layoutService = layoutService;
 		this.shapeCreationService = shapeCreationService;
 		this.featureService = featureService;
 		this.connectionCreationService = connectionCreationService;
@@ -117,10 +118,10 @@ public class TypeClassifierPattern extends AgePattern {
 		visibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
-		updateService.ghostInvalidConnections(getDiagram());
+		visibilityHelper.ghostInvalidConnections();
 		
 		// Remove invalid features
-		updateService.ghostInvalidShapes(shape);
+		visibilityHelper.ghostInvalidShapes(shape);
 		
 		shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllOwnedFeatures(classifier), null);
 		
@@ -133,7 +134,7 @@ public class TypeClassifierPattern extends AgePattern {
 		}
 
 		// Adjust size. Width and height
-		final int newSize[] = updateService.adjustChildShapePositions(shape);
+		final int newSize[] = layoutService.adjustChildShapePositions(shape);
 		final IGaService gaService = Graphiti.getGaService();
 		
 		// Create a new graphics Algorithm
@@ -141,13 +142,13 @@ public class TypeClassifierPattern extends AgePattern {
 		final GraphicsAlgorithm ga;
 		if(classifier instanceof FeatureGroupType) {
 			ga = gaService.createRectangle(shape);
-			ga.setStyle(styleUtil.getSystemStyle(getDiagram(), false));
+			ga.setStyle(styleUtil.getSystemStyle(false));
 			gaService.setLocationAndSize(ga, x, y, newSize[0], newSize[1]);
 		} else {
-			ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), classifier, newSize[0], newSize[1]);
+			ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, newSize[0], newSize[1]);
 			gaService.setLocation(ga, x, y);
 		}
 		
-		updateService.layoutChildren(shape);
+		layoutService.layoutChildren(shape);
 	}
 }

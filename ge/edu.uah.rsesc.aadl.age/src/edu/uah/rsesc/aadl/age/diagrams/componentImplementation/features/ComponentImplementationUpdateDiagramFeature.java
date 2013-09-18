@@ -21,16 +21,19 @@ import org.osate.aadl2.ComponentImplementation;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
+import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
-	private final UpdateService updateHelper;
+	private final StyleService styleService;
+	private final VisibilityService visibilityService;
 	
 	@Inject
-	public ComponentImplementationUpdateDiagramFeature(final IFeatureProvider fp, final UpdateService updateHelper) {
+	public ComponentImplementationUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final VisibilityService visibilityService) {
 		super(fp);
-		this.updateHelper = updateHelper;
+		this.styleService = styleService;
+		this.visibilityService = visibilityService;
 	}
 
 	private ComponentImplementation getComponentImplementation(final IUpdateContext context) {
@@ -58,10 +61,10 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 		final ComponentImplementation ci = getComponentImplementation(context);
 		final Diagram diagram = getDiagram();	
 
-		updateHelper.refreshStyles(diagram);
+		styleService.refreshStyles();
 				
 		// Remove shapes that are invalid
-		updateHelper.ghostInvalidShapes(diagram);
+		visibilityService.ghostInvalidShapes(diagram);
 
 		// Add/Update the shape for the classifier
 		final PictogramElement pe = getFeatureProvider().getPictogramElementForBusinessObject(ci);
