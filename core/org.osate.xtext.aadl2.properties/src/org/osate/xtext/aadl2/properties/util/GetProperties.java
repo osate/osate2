@@ -304,6 +304,10 @@ public class GetProperties {
 	public static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
 			Property MIPSCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_CAPACITY);
 			UnitLiteral MIPS = findUnitLiteral(MIPSCapacity, SEI.MIPS_LITERAL);
+			double res = PropertyUtils.getScaledNumberValue(ne, MIPSCapacity, MIPS, defaultValue);
+			if (res != defaultValue) return PropertyUtils.getScaledNumberValue(ne, MIPSCapacity, MIPS, defaultValue);
+			MIPSCapacity = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PROCESSOR_CAPACITY);
+			MIPS = findUnitLiteral(MIPSCapacity, AadlProject.MIPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, MIPSCapacity, MIPS, defaultValue);
 	}
 

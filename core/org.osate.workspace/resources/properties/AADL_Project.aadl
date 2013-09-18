@@ -72,4 +72,7 @@ property set AADL_Project is
 
 	Data_Volume: type aadlinteger 0 bitsps .. Max_Volume units Data_Volume_Units;
 
+        -- Speed in terms of instructions executed per second
+        Processor_Speed_Units: type units (KIPS, MIPS => KIPS * 1000, GIPS => MIPS * 1000);
+
 end AADL_Project;
