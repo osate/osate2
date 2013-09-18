@@ -390,10 +390,7 @@ public class InstanceModelUtil {
 		public static void clearCache ()
 		{
 			OsateDebug.osateDebug("[InstanceModelUtil] clearing cache");
-			for (ComponentInstance ci : boundSWCache.keySet())
-			{
-				boundSWCache.remove(ci);
-			}
+			boundSWCache.clear();
 		}
 
 		
