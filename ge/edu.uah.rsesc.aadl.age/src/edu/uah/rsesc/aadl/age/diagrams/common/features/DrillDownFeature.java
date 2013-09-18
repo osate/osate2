@@ -13,7 +13,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.SubcomponentService;
 import edu.uah.rsesc.aadl.age.ui.util.DiagramOpener;
 
 /**
@@ -22,12 +22,12 @@ import edu.uah.rsesc.aadl.age.ui.util.DiagramOpener;
  *
  */
 public class DrillDownFeature extends AbstractCustomFeature {
-	private final ClassifierService classifierHelper;
+	private final SubcomponentService subcomponentService;
 	
 	@Inject
-	public DrillDownFeature(final IFeatureProvider fp, final ClassifierService classifierHelper) {
+	public DrillDownFeature(final IFeatureProvider fp, final SubcomponentService subcomponentService) {
 		super(fp);
-		this.classifierHelper = classifierHelper;
+		this.subcomponentService = subcomponentService;
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class DrillDownFeature extends AbstractCustomFeature {
      */
     private Classifier getSubcomponentClassifier(final PictogramElement pe, final Object bo) {
     	if(pe instanceof Shape && bo instanceof Subcomponent) {
-        	return classifierHelper.getComponentClassifier((Shape)pe, (Subcomponent)bo);
+        	return subcomponentService.getComponentClassifier((Shape)pe, (Subcomponent)bo);
         }
     	return null;
     }

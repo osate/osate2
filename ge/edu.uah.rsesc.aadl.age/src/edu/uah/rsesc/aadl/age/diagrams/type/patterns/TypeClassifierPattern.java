@@ -19,9 +19,10 @@ import org.osate.aadl2.FeatureGroupType;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
@@ -32,18 +33,21 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
  */
 public class TypeClassifierPattern extends AgePattern {
 	private final VisibilityService visibilityHelper;
-	private final UpdateService updateHelper;
-	private final ClassifierService classifierHelper;
+	private final UpdateService updateService;
+	private final ShapeCreationService shapeCreationService;
+	private final AadlFeatureService featureService;
 	private final ConnectionService connectionHelper;
 	private final StyleService styleUtil;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	
 	@Inject
-	public TypeClassifierPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ClassifierService classifierHelper, 
-			final ConnectionService connectionHelper, final StyleService styleUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
+	public TypeClassifierPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ShapeCreationService shapeCreationService,
+			final AadlFeatureService featureService, final ConnectionService connectionHelper, final StyleService styleUtil,
+			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
 		this.visibilityHelper = visibilityHelper;
-		this.updateHelper = updateHelper;
-		this.classifierHelper = classifierHelper;
+		this.updateService = updateHelper;
+		this.shapeCreationService = shapeCreationService;
+		this.featureService = featureService;
 		this.connectionHelper = connectionHelper;
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
@@ -114,23 +118,23 @@ public class TypeClassifierPattern extends AgePattern {
 		visibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
-		updateHelper.ghostInvalidConnections(getDiagram());
+		updateService.ghostInvalidConnections(getDiagram());
 		
 		// Remove invalid features
-		updateHelper.ghostInvalidShapes(shape);
+		updateService.ghostInvalidShapes(shape);
 		
-		classifierHelper.createUpdateFeatureShapes(shape, classifierHelper.getAllOwnedFeatures(classifier), null);
+		shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllOwnedFeatures(classifier), null);
 		
 		// Create/Update Flow Specifications and Modes
 		if(classifier instanceof ComponentType) {
 			final ComponentType componentType = (ComponentType)classifier;			
-			classifierHelper.createUpdateModeShapes(shape, componentType.getAllModes());
+			shapeCreationService.createUpdateModeShapes(shape, componentType.getAllModes());
 			connectionHelper.createUpdateConnections(shape, componentType.getAllModeTransitions());	
 			connectionHelper.createUpdateConnections(shape, componentType.getAllFlowSpecifications());
 		}
 
 		// Adjust size. Width and height
-		final int newSize[] = classifierHelper.adjustChildShapePositions(shape);
+		final int newSize[] = updateService.adjustChildShapePositions(shape);
 		final IGaService gaService = Graphiti.getGaService();
 		
 		// Create a new graphics Algorithm
@@ -145,6 +149,6 @@ public class TypeClassifierPattern extends AgePattern {
 			gaService.setLocation(ga, x, y);
 		}
 		
-		updateHelper.layoutChildren(shape);
+		updateService.layoutChildren(shape);
 	}
 }

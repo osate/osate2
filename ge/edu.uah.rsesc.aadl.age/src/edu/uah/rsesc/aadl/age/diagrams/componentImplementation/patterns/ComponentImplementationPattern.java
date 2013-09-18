@@ -17,9 +17,9 @@ import org.osate.aadl2.ComponentImplementation;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
@@ -29,17 +29,17 @@ import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
  */
 public class ComponentImplementationPattern extends AgePattern {
 	private final VisibilityService visibilityHelper;
-	private final UpdateService updateHelper;
-	private final ClassifierService classifierHelper;
+	private final UpdateService updateService;
+	private final ShapeCreationService shapeCreationService;
 	private final ConnectionService connectionHelper;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	
 	@Inject
-	public ComponentImplementationPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ClassifierService classifierHelper, 
+	public ComponentImplementationPattern(final VisibilityService visibilityHelper, final UpdateService updateHelper, final ShapeCreationService shapeCreationService, 
 			final ConnectionService connectionHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator) {
 		this.visibilityHelper = visibilityHelper;
-		this.updateHelper = updateHelper;
-		this.classifierHelper = classifierHelper;
+		this.updateService = updateHelper;
+		this.shapeCreationService = shapeCreationService;
 		this.connectionHelper = connectionHelper;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 	}
@@ -109,33 +109,33 @@ public class ComponentImplementationPattern extends AgePattern {
 		visibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
-		updateHelper.ghostInvalidConnections(getDiagram());
+		updateService.ghostInvalidConnections(getDiagram());
 				
 		// Remove invalid features
-		updateHelper.ghostInvalidShapes(shape);		
+		updateService.ghostInvalidShapes(shape);		
 			
 		// Create/Update Shapes
-		classifierHelper.createUpdateFeatureShapes(shape, ci.getAllFeatures(), null);
+		shapeCreationService.createUpdateFeatureShapes(shape, ci.getAllFeatures(), null);
 		
 		createUpdateSubcomponents(shape, ci);
 
 		// Create/Update Modes and Mode Transitions
-		classifierHelper.createUpdateModeShapes(shape, ci.getAllModes());
+		shapeCreationService.createUpdateModeShapes(shape, ci.getAllModes());
 		connectionHelper.createUpdateConnections(shape, ci.getAllModeTransitions());	
 		connectionHelper.createUpdateConnections(shape, ci.getAllConnections());
 		
 		// Adjust size. Width and height		
-		final int newSize[] = classifierHelper.adjustChildShapePositions(shape);
+		final int newSize[] = updateService.adjustChildShapePositions(shape);
 
 		// Create a new graphics Algorithm
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, getDiagram(), ci, newSize[0], newSize[1]);
 		gaService.setLocation(ga, x, y);	
 
-		updateHelper.layoutChildren(shape);
+		updateService.layoutChildren(shape);
 	}
 	
 	private void createUpdateSubcomponents(final ContainerShape shape, final ComponentImplementation ci) {
-		classifierHelper.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);
+		shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);
 	}
 }

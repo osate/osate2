@@ -40,11 +40,12 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.PrototypeService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
@@ -71,12 +72,13 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final UpdateService updateHelper;
 	private final ShapeService shapeHelper;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
-	private final ClassifierService classifierHelper;
+	private final AadlFeatureService featureService;
+	private final PrototypeService prototypeService;
 	
 	@Inject
 	public FeaturePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmService graphicsAlgorithmUtil, final UpdateService updateHelper,
-			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final ClassifierService classifierHelper) {
+			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final AadlFeatureService featureService, final PrototypeService prototypeService) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -85,7 +87,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.updateHelper = updateHelper;
 		this.shapeHelper = shapeHelper;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
-		this.classifierHelper = classifierHelper;
+		this.featureService = featureService;
+		this.prototypeService = prototypeService;
 	}
 
 	@Override
@@ -287,7 +290,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)feature;
-			final FeatureGroupType fgt = classifierHelper.getFeatureGroupType(shape, fg);
+			final FeatureGroupType fgt = featureService.getFeatureGroupType(shape, fg);
 			int childY = 0;
 			int maxChildWidth = 0;
 			if(fgt == null) {
@@ -299,7 +302,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		        featureShapeChildrenToGhost.addAll(visibilityHelper.getNonGhostChildren(featureShape));
 		        
 		        // Create/Update shapes for the child features
-				for(final Feature childFeature : classifierHelper.getAllFeatures(fgt)) {
+				for(final Feature childFeature : featureService.getAllFeatures(fgt)) {
 					ContainerShape childFeatureContainer = shapeHelper.getChildShapeByElementQualifiedName(featureShape, childFeature);
 					
 					// Get existing shape instead of always creating
@@ -345,7 +348,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				if(af.getFeaturePrototype() != null) {
 					// Lookup the binding
 					// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-					final Element bindingContext = classifierHelper.getPrototypeBindingContext(shape);
+					final Element bindingContext = prototypeService.getPrototypeBindingContext(shape);
 					if(bindingContext != null) {
 						final PrototypeBinding binding = ResolvePrototypeUtil.resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 						if(binding instanceof FeaturePrototypeBinding) {

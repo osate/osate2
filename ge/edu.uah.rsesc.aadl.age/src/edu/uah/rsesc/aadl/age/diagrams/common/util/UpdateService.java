@@ -36,5 +36,12 @@ public interface UpdateService {
 	 * @param diagram
 	 */
 	void refreshStyles(Diagram diagram);
+	
+	/**
+	 * Adjusts the positions of the child shapes so that they are non-negative and determines the needed size for the container
+	 * @param shape
+	 * @param fp
+	 */
+	int[] adjustChildShapePositions(ContainerShape shape);
 
 }

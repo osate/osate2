@@ -30,12 +30,14 @@ import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.AnchorService;
-import edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ConnectionService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.HighlightingService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.ResizeService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeCreationService;
+import edu.uah.rsesc.aadl.age.diagrams.common.util.SubcomponentService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.UpdateService;
 import edu.uah.rsesc.aadl.age.diagrams.common.util.VisibilityService;
 
@@ -44,19 +46,24 @@ public class SubcomponentPattern extends AgePattern {
 	private final VisibilityService visibilityHelper;
 	private final ResizeService resizeHelper;
 	private final UpdateService updateHelper;
-	private final ClassifierService classifierHelper;
+	private final ShapeCreationService shapeCreationService;
+	private final AadlFeatureService featureService;
+	private final SubcomponentService subcomponentService;
 	private final ConnectionService connectionHelper;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final HighlightingService highlightingHelper;
 	
 	@Inject
 	public SubcomponentPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final ResizeService resizeHelper, final UpdateService updateHelper, 
-			final ClassifierService classifierHelper, final ConnectionService connectionHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final HighlightingService highlightingHelper) {
+			final ShapeCreationService shapeCreationService, AadlFeatureService featureService, SubcomponentService subcomponentService, 
+			final ConnectionService connectionHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final HighlightingService highlightingHelper) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.resizeHelper = resizeHelper;
 		this.updateHelper = updateHelper;
-		this.classifierHelper = classifierHelper;
+		this.shapeCreationService = shapeCreationService;
+		this.featureService = featureService;
+		this.subcomponentService = subcomponentService;
 		this.connectionHelper = connectionHelper;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.highlightingHelper = highlightingHelper;
@@ -147,10 +154,10 @@ public class SubcomponentPattern extends AgePattern {
 		childShapesToGhost.addAll(visibilityHelper.getNonGhostChildren(shape));
 
 		// Create/update child shapes
-		final Classifier classifier = classifierHelper.getComponentClassifier(shape,  sc);
+		final Classifier classifier = subcomponentService.getComponentClassifier(shape,  sc);
 		if(classifier != null) {
 			final List<Shape> touchedShapes = new ArrayList<Shape>();
-			classifierHelper.createUpdateFeatureShapes(shape, classifierHelper.getAllOwnedFeatures(classifier), touchedShapes);
+			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllOwnedFeatures(classifier), touchedShapes);
 			childShapesToGhost.removeAll(touchedShapes);
 		}
 		

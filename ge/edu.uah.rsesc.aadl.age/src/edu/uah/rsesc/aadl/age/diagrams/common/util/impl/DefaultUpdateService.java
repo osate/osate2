@@ -20,6 +20,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.mapping.BusinessObjectResolver;
@@ -202,5 +203,50 @@ public class DefaultUpdateService implements UpdateService {
 				refreshStyles(diagram, childGa);
 			}
 		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService#adjustChildShapePositions(org.eclipse.graphiti.mm.pictograms.ContainerShape)
+	 */
+	@Override
+	public int[] adjustChildShapePositions(final ContainerShape shape) {	
+		// Determine the extra width needed to hold AADL features
+		int featureWidth = 80;
+		for(final Shape childShape : shape.getChildren()) {
+			if(bor.getBusinessObjectForPictogramElement(childShape) instanceof Feature) {
+				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth()) + 30;
+			}
+		}		
+		
+		// Determine how much to shift the X and Y of the children by
+		int shiftX = 0;
+		int shiftY = 0;
+		for(final Shape childShape : shape.getChildren()) {
+			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+			if(!(bor.getBusinessObjectForPictogramElement(childShape) instanceof Feature)) {				
+				shiftX = Math.min(shiftX, childGa.getX()-featureWidth);
+				shiftY = Math.min(shiftY, childGa.getY()-30);				
+			}
+		}
+		
+		// Calculate max width and height
+		int maxWidth = 300;
+		int maxHeight = 300;
+		for(final Shape childShape : shape.getChildren()) {
+			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+			
+			// Determine the needed width and height of the classifier shape
+			// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
+			if(!(bor.getBusinessObjectForPictogramElement(childShape) instanceof Feature)) {				
+				maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() - shiftX + featureWidth);
+			}			
+			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() - shiftY);
+			
+			// Update the position of the child
+			childGa.setX(childGa.getX()-shiftX);
+			childGa.setY(childGa.getY()-shiftY);
+		}
+		
+		return new int[] { maxWidth, maxHeight+25};
 	}
 }
