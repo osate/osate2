@@ -188,6 +188,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		long timeAfter = System.currentTimeMillis();
 		long period = timeAfter - timeBefore;
 		OsateDebug.osateDebug("[CPU] after get sw comps, time taken="+ period + "ms");
+		
+		
 		if (boundComponents.size() == 0&& MIPScapacity > 0) {
 			errManager.infoSummary(curProcessor, som.getName(), "No application components bound to "
 					+ curProcessor.getComponentInstancePath()+" with MIPS capacity "+ GetProperties.toStringScaled(MIPScapacity, mipsliteral));
