@@ -288,6 +288,15 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 		public static boolean isBoundToProcessor(ComponentInstance componentInstance, ComponentInstance processor){
+			/**
+			 * We consider that a virtual processor is bound to a processor
+			 * if the virtual processor is contained as a subcomponent.
+			 */
+			if ((componentInstance.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) && (componentInstance.getContainingComponentInstance() == processor))
+			{
+				return true;
+			}
+			
 			List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
 			for (ComponentInstance boundCompInstance : bindinglist) {
 				if (boundCompInstance == processor){
@@ -402,18 +411,18 @@ public class InstanceModelUtil {
 		 * @param procorVP
 		 * @return
 		 */
-		public static EList<ComponentInstance> getBoundSWComponents(final ComponentInstance ci)
+		public static EList<ComponentInstance> getBoundSWComponents(final ComponentInstance associatedObject)
 		{
 			EList boundComponents = null;
 					
-			if (boundSWCache.containsKey(ci))
+			if (boundSWCache.containsKey(associatedObject))
 			{
-				return boundSWCache.get(ci);
+				return boundSWCache.get(associatedObject);
 			}
-			SystemInstance root = ci.getSystemInstance();
+			SystemInstance root = associatedObject.getSystemInstance();
 			
-			if ( (ci.getComponentClassifier().getCategory() == ComponentCategory.PROCESSOR) ||
-				 (ci.getComponentClassifier().getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
+			if ( (associatedObject.getComponentClassifier().getCategory() == ComponentCategory.PROCESSOR) ||
+				 (associatedObject.getComponentClassifier().getCategory() == ComponentCategory.VIRTUAL_PROCESSOR))
 			{
 				boundComponents = new ForAllElement() {
 					@Override
@@ -422,13 +431,13 @@ public class InstanceModelUtil {
 						ComponentCategory cat = ci.getCategory();
 						return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP 
 								|| cat == ComponentCategory.PROCESS|| cat == ComponentCategory.SYSTEM)
-								&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, ci));
+								&&InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, associatedObject));
 					}
 				}.processPreOrderComponentInstance(root);
 			}
 			
 			
-			if (ci.getComponentClassifier().getCategory() == ComponentCategory.MEMORY)
+			if (associatedObject.getComponentClassifier().getCategory() == ComponentCategory.MEMORY)
 			{
 				boundComponents = new ForAllElement() {
 					@Override
@@ -436,7 +445,7 @@ public class InstanceModelUtil {
 						List<ComponentInstance> boundMemoryList = GetProperties.getActualMemoryBinding((ComponentInstance)obj);
 						if (boundMemoryList.isEmpty())
 							return false;
-						return boundMemoryList.get(0) == ci;
+						return boundMemoryList.get(0) == associatedObject;
 					}
 					// process bottom up so we can check whether children had budgets
 				}.processPostOrderComponentInstance(root);
@@ -447,7 +456,7 @@ public class InstanceModelUtil {
 			for (Object componentInstance : boundComponents) {
 				addAsRoot(topobjects,(ComponentInstance)componentInstance);
 			}
-			boundSWCache.put(ci, topobjects);
+			boundSWCache.put(associatedObject, topobjects);
 			return topobjects;
 		}
 
