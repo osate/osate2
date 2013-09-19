@@ -346,6 +346,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createConnectedElement();
 		case Aadl2Package.ELEMENT_NAME:
 			return (EObject) createElementName();
+		 case Aadl2Package.ANNEX_SUBCLAUSE:
+			 return (EObject) createAnnexSubclause(); 
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
 			return (EObject) createDefaultAnnexLibrary();
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
@@ -1137,7 +1139,17 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	}
 
 	public AnnexSubclause createAnnexSubclause() {
-		AnnexSubclauseImpl annex = new AnnexSubclauseImpl();
+		AnnexSubclauseImpl annex = new AnnexSubclauseImpl() {
+			private String annexContent;
+			public String getAnnexContent ()
+			{
+				return this.annexContent;
+			}
+			public void setAnnexContent (String s)
+			{
+				this.annexContent = s;
+			}
+		};
 		return annex;
 	}
 
