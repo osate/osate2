@@ -4,15 +4,12 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -37,7 +34,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getExtends <em>Extends</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getUseTransformation <em>Use Transformation</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateMachineImpl#getEvents <em>Events</em>}</li>
@@ -51,16 +47,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  */
 public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements ErrorBehaviorStateMachine
 {
-  /**
-   * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getExtends()
-   * @generated
-   * @ordered
-   */
-  protected ErrorBehaviorStateMachine extends_;
-
   /**
    * The cached value of the '{@link #getUseTypes() <em>Use Types</em>}' reference list.
    * <!-- begin-user-doc -->
@@ -140,49 +126,6 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   protected EClass eStaticClass()
   {
     return ErrorModelPackage.Literals.ERROR_BEHAVIOR_STATE_MACHINE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorBehaviorStateMachine getExtends()
-  {
-    if (extends_ != null && extends_.eIsProxy())
-    {
-      InternalEObject oldExtends = (InternalEObject)extends_;
-      extends_ = (ErrorBehaviorStateMachine)eResolveProxy(oldExtends);
-      if (extends_ != oldExtends)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS, oldExtends, extends_));
-      }
-    }
-    return extends_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorBehaviorStateMachine basicGetExtends()
-  {
-    return extends_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setExtends(ErrorBehaviorStateMachine newExtends)
-  {
-    ErrorBehaviorStateMachine oldExtends = extends_;
-    extends_ = newExtends;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS, oldExtends, extends_));
   }
 
   /**
@@ -301,9 +244,6 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS:
-        if (resolve) return getExtends();
-        return basicGetExtends();
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES:
         return getUseTypes();
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__USE_TRANSFORMATION:
@@ -331,9 +271,6 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS:
-        setExtends((ErrorBehaviorStateMachine)newValue);
-        return;
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES:
         getUseTypes().clear();
         getUseTypes().addAll((Collection<? extends ErrorModelLibrary>)newValue);
@@ -372,9 +309,6 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS:
-        setExtends((ErrorBehaviorStateMachine)null);
-        return;
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES:
         getUseTypes().clear();
         return;
@@ -407,8 +341,6 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__EXTENDS:
-        return extends_ != null;
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__USE_TYPES:
         return useTypes != null && !useTypes.isEmpty();
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE__USE_TRANSFORMATION:

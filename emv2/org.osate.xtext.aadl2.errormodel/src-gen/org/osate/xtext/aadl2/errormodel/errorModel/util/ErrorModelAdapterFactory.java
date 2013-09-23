@@ -136,11 +136,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
         return createTypeMappingAdapter();
       }
       @Override
-      public Adapter caseErrorBehaviorState(ErrorBehaviorState object)
-      {
-        return createErrorBehaviorStateAdapter();
-      }
-      @Override
       public Adapter caseErrorPropagation(ErrorPropagation object)
       {
         return createErrorPropagationAdapter();
@@ -214,6 +209,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseRecoverEvent(RecoverEvent object)
       {
         return createRecoverEventAdapter();
+      }
+      @Override
+      public Adapter caseErrorBehaviorState(ErrorBehaviorState object)
+      {
+        return createErrorBehaviorStateAdapter();
       }
       @Override
       public Adapter caseErrorBehaviorTransition(ErrorBehaviorTransition object)
@@ -528,21 +528,6 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState <em>Error Behavior State</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
-   * @generated
-   */
-  public Adapter createErrorBehaviorStateAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation <em>Error Propagation</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -763,6 +748,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createRecoverEventAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState <em>Error Behavior State</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
+   * @generated
+   */
+  public Adapter createErrorBehaviorStateAdapter()
   {
     return null;
   }

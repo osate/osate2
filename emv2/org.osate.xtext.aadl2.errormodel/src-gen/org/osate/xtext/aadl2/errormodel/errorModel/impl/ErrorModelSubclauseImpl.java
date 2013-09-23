@@ -25,7 +25,6 @@ import org.osate.aadl2.impl.AnnexSubclauseImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
@@ -52,7 +51,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeEquivalence <em>Type Equivalence</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeMappingSet <em>Type Mapping Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseBehavior <em>Use Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getStateTypeBindings <em>State Type Bindings</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getFlows <em>Flows</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTransformation <em>Use Transformation</em>}</li>
@@ -113,16 +111,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * @ordered
    */
   protected ErrorBehaviorStateMachine useBehavior;
-
-  /**
-   * The cached value of the '{@link #getStateTypeBindings() <em>State Type Bindings</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getStateTypeBindings()
-   * @generated
-   * @ordered
-   */
-  protected EList<ErrorBehaviorState> stateTypeBindings;
 
   /**
    * The cached value of the '{@link #getPropagations() <em>Propagations</em>}' containment reference list.
@@ -433,20 +421,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ErrorBehaviorState> getStateTypeBindings()
-  {
-    if (stateTypeBindings == null)
-    {
-      stateTypeBindings = new EObjectContainmentEList<ErrorBehaviorState>(ErrorBehaviorState.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATE_TYPE_BINDINGS);
-    }
-    return stateTypeBindings;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<ErrorPropagation> getPropagations()
   {
     if (propagations == null)
@@ -706,8 +680,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   {
     switch (featureID)
     {
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATE_TYPE_BINDINGS:
-        return ((InternalEList<?>)getStateTypeBindings()).basicRemove(otherEnd, msgs);
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         return ((InternalEList<?>)getPropagations()).basicRemove(otherEnd, msgs);
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
@@ -757,8 +729,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         if (resolve) return getUseBehavior();
         return basicGetUseBehavior();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATE_TYPE_BINDINGS:
-        return getStateTypeBindings();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         return getPropagations();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:
@@ -816,10 +786,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)newValue);
-        return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATE_TYPE_BINDINGS:
-        getStateTypeBindings().clear();
-        getStateTypeBindings().addAll((Collection<? extends ErrorBehaviorState>)newValue);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         getPropagations().clear();
@@ -901,9 +867,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         setUseBehavior((ErrorBehaviorStateMachine)null);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATE_TYPE_BINDINGS:
-        getStateTypeBindings().clear();
-        return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         getPropagations().clear();
         return;
@@ -968,8 +931,6 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return typeMappingSet != null;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
         return useBehavior != null;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__STATE_TYPE_BINDINGS:
-        return stateTypeBindings != null && !stateTypeBindings.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATIONS:
         return propagations != null && !propagations.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__FLOWS:

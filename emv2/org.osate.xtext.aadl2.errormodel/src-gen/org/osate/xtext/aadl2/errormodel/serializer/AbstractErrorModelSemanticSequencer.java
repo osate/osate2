@@ -300,10 +300,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_ErrorBehaviorState(context, (ErrorBehaviorState) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getStateTypeBindingRule()) {
-					sequence_StateTypeBinding(context, (ErrorBehaviorState) semanticObject); 
-					return; 
-				}
 				else break;
 			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE:
 				if(context == grammarAccess.getElementRule() ||
@@ -708,7 +704,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         extends=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useTransformation+=[TypeTransformationSet|QEMREF]? 
 	 *         events+=ErrorBehaviorEvent* 
@@ -815,7 +810,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         typeEquivalence=[TypeMappingSet|QEMREF]? 
 	 *         typeMappingSet=[TypeMappingSet|QEMREF]? 
-	 *         (useBehavior=[ErrorBehaviorStateMachine|QEMREF] (stateTypeBindings+=StateTypeBinding stateTypeBindings+=StateTypeBinding*)?)? 
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         (propagations+=ErrorPropagation* flows+=ErrorFlow*)? 
 	 *         (
 	 *             useTransformation=[TypeTransformationSet|QEMREF]? 
@@ -1077,15 +1072,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (count=INTVALUE operands+=SConditionElement operands+=SConditionElement*)
 	 */
 	protected void sequence_SOrmoreExpression(EObject context, OrmoreExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (intial?='initial'? name=ID typeSet=TypeSetReference)
-	 */
-	protected void sequence_StateTypeBinding(EObject context, ErrorBehaviorState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
