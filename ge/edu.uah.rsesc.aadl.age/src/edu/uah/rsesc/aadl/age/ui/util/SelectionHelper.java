@@ -106,7 +106,7 @@ public class SelectionHelper {
 	 * @return the project that contains the current selection.
 	 */
 	public static IProject getProject() {
-		EObject selectedObject = SelectionHelper.getSelectedObject();
+		EObject selectedObject = getSelectedObject();
 		if(selectedObject == null) {
 			throw new RuntimeException("Unable to retrieve project. Selection is null.");
 		}

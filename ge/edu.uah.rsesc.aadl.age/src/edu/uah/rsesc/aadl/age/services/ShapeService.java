@@ -19,10 +19,10 @@ public interface ShapeService {
 	 * @param el
 	 * @return
 	 */
-	ContainerShape getChildShapeByElementQualifiedName(ContainerShape shape,
+	Shape getChildShapeByElementQualifiedName(ContainerShape shape,
 			NamedElement el);
 
-	ContainerShape getChildShapeByElementName(ContainerShape shape,
+	Shape getChildShapeByElementName(ContainerShape shape,
 			NamedElement el);
 
 	/**
@@ -31,7 +31,7 @@ public interface ShapeService {
 	 * @param el
 	 * @return
 	 */
-	ContainerShape getDescendantShapeByElement(ContainerShape shape, Element el);
+	Shape getDescendantShapeByElement(ContainerShape shape, Element el);
 
 	/**
 	 * Gets a descendant shape that is linked to a an AADL element with the same same as the specified elmeent. Does not look at children if the child shape is associated with another object.
@@ -39,7 +39,7 @@ public interface ShapeService {
 	 * @param el
 	 * @return
 	 */
-	ContainerShape getDescendantShapeByElementName(ContainerShape shape,
+	Shape getDescendantShapeByElementName(ContainerShape shape,
 			NamedElement el);
 
 	Shape getChildShapeByName(ContainerShape shape, String name);

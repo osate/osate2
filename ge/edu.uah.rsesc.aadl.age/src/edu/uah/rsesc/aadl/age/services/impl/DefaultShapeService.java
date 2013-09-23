@@ -25,11 +25,11 @@ public class DefaultShapeService implements ShapeService {
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService#getChildShapeByElementQualifiedName(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.NamedElement)
 	 */
 	@Override
-	public ContainerShape getChildShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el) {
+	public Shape getChildShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el) {
 		for(final Shape c : shape.getChildren()) {
 			Object bo = bor.getBusinessObjectForPictogramElement(c);
 			if(bo instanceof NamedElement && areQualifiedNamesEqual((NamedElement)bo, el)) {
-				return (ContainerShape)c;
+				return c;
 			}
 		}
 		return null;
@@ -39,11 +39,11 @@ public class DefaultShapeService implements ShapeService {
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService#getChildShapeByElementName(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.NamedElement)
 	 */
 	@Override
-	public ContainerShape getChildShapeByElementName(final ContainerShape shape, final NamedElement el) {
+	public Shape getChildShapeByElementName(final ContainerShape shape, final NamedElement el) {
 		for(final Shape c : shape.getChildren()) {
 			Object bo = bor.getBusinessObjectForPictogramElement(c);
 			if(bo instanceof NamedElement && areNamesEqual((NamedElement)bo, el)) {
-				return (ContainerShape)c;
+				return c;
 			}
 		}
 		return null;
@@ -53,11 +53,11 @@ public class DefaultShapeService implements ShapeService {
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService#getDescendantShapeByElement(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.Element)
 	 */	
 	@Override
-	public ContainerShape getDescendantShapeByElement(final ContainerShape shape, final Element el) {
+	public Shape getDescendantShapeByElement(final ContainerShape shape, final Element el) {
 		for(final Shape c : shape.getChildren()) {
 			final Object childBo = bor.getBusinessObjectForPictogramElement(c);
 			if(childBo == el) {
-				return (ContainerShape)c;
+				return c;
 			} else if(childBo == null && c instanceof ContainerShape) {
 				return getDescendantShapeByElement((ContainerShape)c, el);
 			}
@@ -70,11 +70,11 @@ public class DefaultShapeService implements ShapeService {
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService#getDescendantShapeByElementName(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.NamedElement)
 	 */	
 	@Override
-	public ContainerShape getDescendantShapeByElementName(final ContainerShape shape, final NamedElement el) {
+	public Shape getDescendantShapeByElementName(final ContainerShape shape, final NamedElement el) {
 		for(final Shape c : shape.getChildren()) {
 			final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
 			if(childBo instanceof NamedElement && areNamesEqual((NamedElement)childBo, el)) {
-				return (ContainerShape)c;
+				return c;
 			} else if(childBo == null && c instanceof ContainerShape) {
 				return getDescendantShapeByElement((ContainerShape)c, el);
 			}

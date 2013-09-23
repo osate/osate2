@@ -206,7 +206,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 			
 			// Calculate the transformed control point
 			// Algorithm copied from org.eclipse.graphiti.ui.internal.parts.CurvedConnectionEditPart.BezierRouter to duplicate control point transformation
-			double gradient = endPointRel.preciseY() / -endPointRel.preciseX();
+			double gradient = endPointRel.y / -endPointRel.x;
 			double ortho_gradient = -Math.pow(gradient, -1);
 			double orthovector_x = 1;
 			double orthovector_y = ortho_gradient;
@@ -221,8 +221,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 				orthovector_y_cp = 1 * cp.getY();
 			}
 
-			final double cpX = startPoint.x + (endPointRel.preciseX() * cp.getX() - orthovector_x_cp);
-			final double cpY = startPoint.y + ((endPointRel.preciseY() * cp.getX()) + orthovector_y_cp);
+			final double cpX = startPoint.x + (endPointRel.x * cp.getX() - orthovector_x_cp);
+			final double cpY = startPoint.y + ((endPointRel.y * cp.getX()) + orthovector_y_cp);
 			
 			// Calculate the midpoint
 			final double ax = (startPoint.x + cpX) / 2;
@@ -246,7 +246,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	}
 	
 	// CLEAN-UP: Should be private and not static. Develop another way for ModePattern to trigger updating of the anchors without causing issues
-	public static void updateAnchors(final Connection connection, final ModeTransition mt, final AnchorService anchorUtil) {
+	static void updateAnchors(final Connection connection, final ModeTransition mt, final AnchorService anchorUtil) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();
 		final ContainerShape modeShape = getStartModeShape(connection);
 		final ILocation modeLocation = layoutService.getLocationRelativeToDiagram(modeShape);
@@ -307,8 +307,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	public Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
 		if(trigger instanceof TriggerPort) {
 			final TriggerPort tp = (TriggerPort)trigger;
-			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : shapeHelper.getChildShapeByElementQualifiedName(ownerShape, tp.getContext());
-			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : shapeHelper.getChildShapeByElementQualifiedName(portShapeOwner, tp.getPort());
+			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(ownerShape, tp.getContext());
+			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(portShapeOwner, tp.getPort());
 			
 			// Get appropriate anchor depending on whether the port belongs to the component classifier or a subcomponent
 			return anchorUtil.getAnchorByName(portShape, shapeHelper.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);

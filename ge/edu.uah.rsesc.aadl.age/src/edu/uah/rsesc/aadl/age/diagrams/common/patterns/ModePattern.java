@@ -84,7 +84,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext context) {
-		final Anchor anchor = anchorService.getAnchorByName(getInnerModeShape((ContainerShape)context.getPictogramElement()), AgePattern.chopboxAnchorName);
+		final Anchor anchor = anchorService.getAnchorByName(getInnerModeShape((ContainerShape)context.getPictogramElement()), chopboxAnchorName);
 		if(anchor != null) {
 			updateModeTransition(anchor.getIncomingConnections());
 			updateModeTransition(anchor.getOutgoingConnections());
@@ -104,7 +104,6 @@ public class ModePattern extends AgeLeafShapePattern {
 				ModeTransitionPattern.updateControlPoints(connection);
 				ModeTransitionPattern.updateAnchors(connection, mt, anchorService);
 			}
-
 		}
 	}
 	
@@ -175,7 +174,7 @@ public class ModePattern extends AgeLeafShapePattern {
 			// Create a line between the initial mode symbol and the actual mode symbol
 			final Connection initialModeConnection = peCreateService.createCurvedConnection(new double[] {0.0, -10.0}, getDiagram());
 			initialModeConnection.setStart(initialModeAnchor);
-			initialModeConnection.setEnd(anchorService.getAnchorByName(innerModeShape, AgePattern.chopboxAnchorName));
+			initialModeConnection.setEnd(anchorService.getAnchorByName(innerModeShape, chopboxAnchorName));
 			
 			// Create the line
 			final Polyline polyline = gaService.createPlainPolyline(initialModeConnection);

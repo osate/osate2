@@ -300,7 +300,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		        
 		        // Create/Update shapes for the child features
 				for(final Feature childFeature : featureService.getAllFeatures(fgt)) {
-					ContainerShape childFeatureContainer = shapeHelper.getChildShapeByElementQualifiedName(featureShape, childFeature);
+					ContainerShape childFeatureContainer = (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(featureShape, childFeature);
 					
 					// Get existing shape instead of always creating
 					if(childFeatureContainer == null) {
