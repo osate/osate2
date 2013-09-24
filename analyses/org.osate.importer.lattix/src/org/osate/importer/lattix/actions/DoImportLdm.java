@@ -76,10 +76,11 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.importer.Utils;
 import org.osate.importer.lattix.common.Matrix;
-import org.osate.importer.lattix.common.Module;
 import org.osate.importer.lattix.ldmimporter.LdmImporter;
 import org.osate.importer.lattix.vdid.Activator;
+import org.osate.importer.model.Component;
 import org.osgi.framework.Bundle;
 
 /**
@@ -230,61 +231,13 @@ public final class DoImportLdm implements IWorkbenchWindowActionDelegate  {
 		return "Lattix Importer";
 	}
 	
-	/**
-	 * Get the selected directory
-	 * in the workspace, returns null otherwise.
-	 * @return the OS-dependent path of the selected directory in the workspace
-	 */
-	private static String getSelectedDirectory ()
-	{
-		String selectedFolder;
-		ISelection selection;
-		IFolder selectedIFolder;;
-		
-		selectedFolder = null;
-		
-		 selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getSelection();
-	        if (selection != null) 
-	        {
-	        	try
-	        	{
-	            if (selection instanceof IStructuredSelection) 
-	            {
-	                if (selection instanceof ITreeSelection) 
-	                {
-	                    TreeSelection treeSelection = (TreeSelection) selection;
-	                    TreePath[] treePaths = treeSelection.getPaths();
-	                    TreePath treePath = treePaths[0];
 
-	                    Object lastSegmentObj = treePath.getLastSegment();
-
-
-	                    if(lastSegmentObj instanceof IFolder) 
-	                    {
-	                    	
-	                    	selectedIFolder = (IFolder) ((IAdaptable) lastSegmentObj).getAdapter(IFolder.class);
-	                        if(selectedIFolder != null) 
-	                        {
-	                        	selectedFolder = selectedIFolder.getRawLocation().toOSString();
-	                        }
-	                        
-	                    }
-	                }
-	            }
-	        	}
-	        	catch (NullPointerException npe)
-	        	{
-	        		selectedFolder = null;
-	        	}
-	        }
-	        return selectedFolder;
-	}
 	
 	public void run(IAction action) 
 	{
 		
 		
-		outputDirectory = getSelectedDirectory();
+		outputDirectory = Utils.getSelectedDirectory();
 		
        
         if (outputDirectory == null)
@@ -349,7 +302,7 @@ public final class DoImportLdm implements IWorkbenchWindowActionDelegate  {
 				 */
 				Matrix matrix = LdmImporter.loadFile(inputFile);
 				modulesList = new ArrayList<String>();
-				for (Module m : matrix.getModules())
+				for (Component m : matrix.getModules())
 				{
 					modulesList.add(m.getName());
 				}
