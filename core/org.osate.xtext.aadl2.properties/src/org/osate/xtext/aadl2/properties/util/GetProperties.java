@@ -218,8 +218,11 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues){
-			InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
-			components.add((ComponentInstance)obj);
+			if (propertyExpression != null)
+			{
+				InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
+				components.add((ComponentInstance)obj);
+			}
 		}
 		return components;
 	}
@@ -301,6 +304,10 @@ public class GetProperties {
 	public static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
 			Property MIPSCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_CAPACITY);
 			UnitLiteral MIPS = findUnitLiteral(MIPSCapacity, SEI.MIPS_LITERAL);
+			double res = PropertyUtils.getScaledNumberValue(ne, MIPSCapacity, MIPS, defaultValue);
+			if (res != defaultValue) return PropertyUtils.getScaledNumberValue(ne, MIPSCapacity, MIPS, defaultValue);
+			MIPSCapacity = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PROCESSOR_CAPACITY);
+			MIPS = findUnitLiteral(MIPSCapacity, AadlProject.MIPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, MIPSCapacity, MIPS, defaultValue);
 	}
 
@@ -358,8 +365,8 @@ public class GetProperties {
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
 	}
 	
-	public static boolean getBusLoopBack(final NamedElement ne){
-		Property loopback = lookupPropertyDefinition(ne,SEI._NAME, SEI.BUS_LOOPBACK);
+	public static boolean isBroadcastProtocol(final NamedElement ne){
+		Property loopback = lookupPropertyDefinition(ne,SEI._NAME, SEI.BROADCAST_PROTOCOL);
 		try {
 			return PropertyUtils.getBooleanValue(ne, loopback);
 		} catch (Exception e) {
@@ -943,9 +950,9 @@ public class GetProperties {
 			return null;
 		}
 	}
-	public static UnitLiteral getDelayedUnitLiteral(PortConnection pc){
+	public static EnumerationLiteral getDelayedUnitLiteral(PortConnection pc){
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
-		return findUnitLiteral(timing, CommunicationProperties.DELAYED);
+		return findEnumerationLiteral(timing, CommunicationProperties.DELAYED);
 	}
 	public static EnumerationLiteral getImmediateUnitLiteral(PortConnection pc){
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);

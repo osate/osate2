@@ -29,7 +29,7 @@ public final class SEI {
 	public static final String RAM_ACTUAL = "RAMActual";
 	public static final String ROM_ACTUAL = "ROMActual";
 	
-	public static final String BUS_LOOPBACK = "BusLoopback";
+	public static final String BROADCAST_PROTOCOL = "Broadcast_Protocol";
 //	public static final String DATA_RATE = "Data_Rate"; We now have output_rate as predeclared property
 
 	public static final String NETWEIGHT = "NetWeight";

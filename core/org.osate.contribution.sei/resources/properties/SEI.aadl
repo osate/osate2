@@ -95,4 +95,6 @@ property set SEI is
   --  The next properties are used for the Value-Driven Incremental Development plug-in
   nsloc : aadlinteger applies to (system, subprogram, abstract, thread, process); 
   vdid_inspect : aadlboolean applies to (system, process, abstract, thread, subprogram);
+  
+  Broadcast_Protocol : aadlboolean applies to (bus, virtual bus, system);
 end SEI;

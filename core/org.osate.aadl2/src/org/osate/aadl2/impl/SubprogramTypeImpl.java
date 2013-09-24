@@ -491,6 +491,8 @@ public class SubprogramTypeImpl extends ComponentTypeImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_FEATURE:
+			return isSetOwnedFeatures();
 		case Aadl2Package.SUBPROGRAM_TYPE__OWNED_EVENT_DATA_PORT:
 			return ownedEventDataPorts != null
 					&& !ownedEventDataPorts.isEmpty();

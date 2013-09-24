@@ -1314,10 +1314,18 @@ public abstract class ComponentImplementationImpl extends
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL:
+			return isSetGenerals();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
 			return isSetOwnedSubcomponents();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE:
+			return isSetClassifierFeatures();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MEMBER:
+			return isSetOwnedMembers();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
 			return isSetOwnedConnections();
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__GENERALIZATION:
+			return isSetGeneralizations();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
 			return basicGetType() != null;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED:

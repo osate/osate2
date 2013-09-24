@@ -216,6 +216,8 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.EVENT_DATA_PORT__FEATURE_CLASSIFIER:
+			return isSetFeatureClassifier();
 		case Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER:
 			return dataFeatureClassifier != null;
 		}

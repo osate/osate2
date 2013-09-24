@@ -293,6 +293,8 @@ public class InstantiateModel {
 	 */
 	public static void rebuildAllInstanceModelFiles() throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
+		List<URI> instanceRoots = new ArrayList<URI>();
+		List<IResource> instanceIResources = new ArrayList<IResource>();
 		for (IFile iFile : files) {
 			IResource ires = (IResource) iFile;
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
@@ -300,12 +302,17 @@ public class InstantiateModel {
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
 			SystemImplementation si = target.getSystemImplementation();
 			URI uri = EcoreUtil.getURI(si);
+			instanceRoots.add(uri);
+			instanceIResources.add(ires);
 			res.unload();
-			OsateResourceUtil.refreshResourceSet();
-			si = (SystemImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
+		}
+		OsateResourceUtil.refreshResourceSet();
+		for (int i = 0; i < instanceRoots.size(); i++) {
+			SystemImplementation si = (SystemImplementation) OsateResourceUtil.getResourceSet().getEObject(instanceRoots.get(i), true);
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 							AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+			Resource res = OsateResourceUtil.getResource(instanceIResources.get(i));
 			instantiateModel.createSystemInstance(si, res);
 		}
 	}

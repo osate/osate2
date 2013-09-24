@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="kepler" sequenceNumber="25">
+<locations>
+
+<location path="/tmp/plugins" type="Directory"/>
+<location path="/tmp/" type="Directory"/>
+
+
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.team.svn.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.team.svn.mylyn.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.0.v20130610-0406"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.2.v201306120542"/>
+<unit id="org.eclipse.zest.sdk.feature.group" version="1.5.0.201305060205"/>
+<unit id="org.eclipse.uml2.sdk.feature.group" version="4.1.0.v20130610-0712"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.2.v201306120542"/>
+<unit id="org.eclipse.xtend.sdk.feature.group" version="2.4.2.v201306120542"/>
+<unit id="org.eclipse.ocl.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.ocl.all.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.ocl.all.sdk.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.transaction.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.emf.transaction.sdk.feature.group" version="0.0.0"/>
+
+<repository location="http://download.eclipse.org/releases/kepler"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.2.0.v20130604-2046"/>
+<unit id="org.eclipse.help.feature.group" version="2.0.0.v20130605-2000"/>
+<unit id="org.eclipse.platform.feature.group" version="4.3.0.v20130605-2000"/>
+<unit id="org.eclipse.equinox.executable.feature.group" version="3.6.0.v20130521-0416"/>
+<unit id="org.eclipse.rcp.feature.group" version="4.3.0.v20130605-2000"/>
+<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.2.0.v20130604-2046"/>
+<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.0.v20130604-2046"/>
+<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.0.v20130604-2046"/>
+
+<repository location="jar:file:/tmp/org.eclipse.platform-4.3.zip!/"/>
+</location>
+
+</locations>
+</target>

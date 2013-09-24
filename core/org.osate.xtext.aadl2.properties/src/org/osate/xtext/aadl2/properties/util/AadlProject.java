@@ -136,4 +136,6 @@ public final class AadlProject {
 	public static final String MIN_LITERAL = "Min";
 	public static final String HR_LITERAL = "Hr";
 
+	public static final String MIPS_LITERAL = "MIPS";
+
 }

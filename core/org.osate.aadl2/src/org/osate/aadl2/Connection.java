@@ -68,7 +68,7 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @return the value of the '<em>Destination</em>' containment reference.
 	 * @see #setDestination(AbstractConnectionEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Destination()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	AbstractConnectionEnd getDestination();
@@ -105,7 +105,7 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @return the value of the '<em>Source</em>' containment reference.
 	 * @see #setSource(AbstractConnectionEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getConnection_Source()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	AbstractConnectionEnd getSource();

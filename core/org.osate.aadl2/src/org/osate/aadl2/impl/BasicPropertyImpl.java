@@ -314,7 +314,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 	@Override
 	public void setType(Type newType) {
 		if (newType != null && !(newType instanceof PropertyType)) {
-			throw new IllegalArgumentException(String.valueOf(newType));
+			throw new IllegalArgumentException(
+					"newType must be an instance of PropertyType");
 		}
 		setPropertyType((PropertyType) newType);
 	}
@@ -392,6 +393,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE:
 			return isSetPropertyType();
+		case Aadl2Package.BASIC_PROPERTY__TYPE:
+			return isSetType();
 		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
 			return ownedPropertyType != null;
 		}

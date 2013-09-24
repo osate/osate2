@@ -437,6 +437,10 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE:
+			return isSetClassifierFeatures();
+		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MEMBER:
+			return isSetOwnedMembers();
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
 			return ownedModes != null && !ownedModes.isEmpty();
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:

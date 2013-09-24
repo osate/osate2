@@ -102,7 +102,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 
 	/**
 	 * Get the closest component instance that contains this object.
-	 * 
+	 * If the object is a component instance, get its enclosing instance
 	 * @return Closest containing component instance
 	 */
 	public ComponentInstance getContainingComponentInstance() {

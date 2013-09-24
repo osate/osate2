@@ -713,6 +713,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (resFi == null){  // do index only if we have inverse feature groups and they have their own element names
 					FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)upFi.getOwner()).getFeature()).getFeatureGroupType();
 					FeatureGroupType downfgt = ((FeatureGroup)dstFi.getFeature()).getFeatureGroupType();
+					if (downfgt == null)
+					{
+						warning(dstFi.getContainingComponentInstance(),
+								"In "  + dstFi.getContainingComponentInstance().getName() + " (classifier " + dstFi.getContainingComponentInstance().getComponentClassifier().getName() + ") feature group " + dstFi.getName() + " has no type");
+					}
 					if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
 						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}

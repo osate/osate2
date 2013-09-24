@@ -1,8 +1,10 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -10,8 +12,12 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.IPostSelectionProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
@@ -24,6 +30,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.PageBook;
@@ -34,6 +41,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.NamedElement;
@@ -51,7 +59,7 @@ import com.google.inject.Inject;
  * 
  * @author aarong
  */
-public class AadlPropertyView extends ViewPart implements ISelectionListener {
+public class AadlPropertyView extends ViewPart {
 	private static final String SHOW_UNDEFINED_TRUE_TOOL_TIP = "Click to hide undefined properties";
 	private static final String SHOW_UNDEFINED_FALSE_TOOL_TIP = "Click to show undefined properties";
 	
@@ -115,6 +123,16 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	@Inject
 	private ILinker linker;
 	
+	private PropertyViewSelectionListener selectionListener = new PropertyViewSelectionListener();
+	
+	private PropertyViewPartListener partListener = new PropertyViewPartListener();
+	
+	private PropertyViewSelectionChangedListener selectionChangedListener = new PropertyViewSelectionChangedListener();
+	
+	private PropertyViewXtextModelListener xtextModelListener = new PropertyViewXtextModelListener();
+	
+	private ResourceSet resourceSetFromModelListener = null;
+	
 	@Override
 	public void createPartControl(final Composite parent) {
 		pageBook = new PageBook(parent, SWT.NULL);
@@ -142,10 +160,18 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		
 		// Show the "nothing to show" page by default
 		pageBook.showPage(noPropertiesLabel);
-		getSite().getPage().addSelectionListener(this);
+		getSite().getPage().addSelectionListener(selectionListener);
+		getSite().getPage().addPartListener(partListener);
 		createActions();
 		fillToolbar();
 //		createContextMenu();
+	}
+	
+	@Override
+	public void dispose()
+	{
+		getSite().getPage().removeSelectionListener(selectionListener);
+		getSite().getPage().removePartListener(partListener);
 	}
 	
 	private void showTree() {
@@ -178,7 +204,7 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		};
 		addNewPropertyAssociationToolbarAction.setToolTipText("New Property Association");
 		addNewPropertyAssociationToolbarAction.setImageDescriptor(MyAadl2Activator.getImageDescriptor("icons/propertyview/new_pa.gif"));
-		addNewPropertyAssociationToolbarAction.setEnabled(true);
+		addNewPropertyAssociationToolbarAction.setEnabled(currentSelectionUri != null);
 		
 		updateActionStates();
 	}
@@ -201,63 +227,15 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 		treeViewer.getControl().setFocus();
 	}
 	
-	/*
-	 * Change the view when the selection changes.
-	 */
-	@Override
-	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		EObject currentSelection = null;
-		if (!selection.isEmpty()) {
-			if (part instanceof XtextEditor && selection instanceof ITextSelection) {
-				xtextDocument = ((XtextEditor)part).getDocument();
-				final ITextSelection textSelection = (ITextSelection)selection;
-				currentSelection = xtextDocument.readOnly(new IUnitOfWork<EObject, XtextResource>() {
-					@Override
-					public EObject exec(XtextResource state) throws Exception {
-						return new EObjectAtOffsetHelper().resolveContainedElementAt(state, textSelection.getOffset());
-					}
-				});
-			}
-			else if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) {
-				Object selectedObject = ((IStructuredSelection)selection).getFirstElement();
-				if (selectedObject instanceof EObject) {
-					xtextDocument = null;
-					currentSelection = (EObject)selectedObject;
-				}
-				else if (selectedObject instanceof EObjectNode) {
-					xtextDocument = ((EObjectNode)selectedObject).getDocument();
-					currentSelection = ((EObjectNode)selectedObject).readOnly(new IUnitOfWork<EObject, EObject>() {
-						@Override
-						public EObject exec(EObject state) throws Exception {
-							return state;
-						}
-					});
-				}
-			}
-		}
-		if (currentSelection instanceof NamedElement) {
-			if (currentSelection.eResource() != null) {
-				currentSelectionUri = EcoreUtil.getURI(currentSelection);
-				editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(currentSelection);
-			}
-			else {
-				currentSelectionUri = null;
-				editingDomain = null;
-			}
-		}
-		else {
-			currentSelectionUri = null;
-			editingDomain = null;
-		}
-		
-		// Update the view page
-		updateView();
-	}
-	
 	private NamedElement getCurrentElement() {
 		NamedElement element = null;
 		if (currentSelectionUri != null)
-			element = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(currentSelectionUri, true);
+		{
+			if (resourceSetFromModelListener == null)
+				element = (NamedElement)OsateResourceUtil.getResourceSet().getEObject(currentSelectionUri, true);
+			else
+				element = (NamedElement)resourceSetFromModelListener.getEObject(currentSelectionUri, true);
+		}
 		return element;
 	}
 	
@@ -295,5 +273,143 @@ public class AadlPropertyView extends ViewPart implements ISelectionListener {
 	
 	private CommandStack getCommandStack() {
 		return (editingDomain == null) ? null : editingDomain.getCommandStack();
+	}
+	
+	private void updateSelection(IWorkbenchPart part, ISelection selection)
+	{
+		if (xtextDocument != null)
+			xtextDocument.removeModelListener(xtextModelListener);
+		EObject currentSelection = null;
+		if (!selection.isEmpty()) {
+			if (part instanceof XtextEditor && selection instanceof ITextSelection) {
+				xtextDocument = ((XtextEditor)part).getDocument();
+				final ITextSelection textSelection = (ITextSelection)selection;
+				currentSelection = xtextDocument.readOnly(new IUnitOfWork<EObject, XtextResource>() {
+					@Override
+					public EObject exec(XtextResource state) throws Exception {
+						return new EObjectAtOffsetHelper().resolveContainedElementAt(state, textSelection.getOffset());
+					}
+				});
+			}
+			else if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) {
+				Object selectedObject = ((IStructuredSelection)selection).getFirstElement();
+				if (selectedObject instanceof EObject) {
+					xtextDocument = null;
+					currentSelection = (EObject)selectedObject;
+				}
+				else if (selectedObject instanceof EObjectNode) {
+					xtextDocument = ((EObjectNode)selectedObject).getDocument();
+					currentSelection = ((EObjectNode)selectedObject).readOnly(new IUnitOfWork<EObject, EObject>() {
+						@Override
+						public EObject exec(EObject state) throws Exception {
+							return state;
+						}
+					});
+				}
+				else if (selectedObject instanceof IAdaptable)
+				{
+					final IAdaptable selectedAdaptable = (IAdaptable)selectedObject;
+					final IAadlPropertySource propertySource = (IAadlPropertySource)selectedAdaptable.getAdapter(IAadlPropertySource.class);
+					if (propertySource != null)
+					{
+						xtextDocument = propertySource.getDocument();
+						currentSelection = propertySource.getNamedElement();
+					}
+				}
+			}
+		}
+		if (currentSelection instanceof NamedElement) {
+			if (currentSelection.eResource() != null) {
+				currentSelectionUri = EcoreUtil.getURI(currentSelection);
+				editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(currentSelection);
+			}
+			else {
+				currentSelectionUri = null;
+				editingDomain = null;
+			}
+		}
+		else {
+			currentSelectionUri = null;
+			editingDomain = null;
+		}
+		if (xtextDocument != null)
+			xtextDocument.addModelListener(xtextModelListener);
+		
+		// Update the view page
+		updateView();
+	}
+	
+	private class PropertyViewSelectionListener implements ISelectionListener
+	{
+		/*
+		 * Change the view when the selection changes.
+		 */
+		@Override
+		public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+			updateSelection(part, selection);
+		}
+	}
+	
+	private class PropertyViewPartListener implements IPartListener
+	{
+		@Override
+		public void partOpened(IWorkbenchPart part)
+		{
+		}
+		
+		@Override
+		public void partDeactivated(IWorkbenchPart part)
+		{
+			if (part instanceof XtextEditor)
+			{
+				ISelectionProvider selectionProvider = ((XtextEditor)part).getInternalSourceViewer().getSelectionProvider();
+				if (selectionProvider instanceof IPostSelectionProvider)
+					((IPostSelectionProvider)selectionProvider).removePostSelectionChangedListener(selectionChangedListener);
+			}
+		}
+		
+		@Override
+		public void partClosed(IWorkbenchPart part)
+		{
+		}
+		
+		@Override
+		public void partBroughtToTop(IWorkbenchPart part)
+		{
+		}
+		
+		@Override
+		public void partActivated(IWorkbenchPart part)
+		{
+			if (part instanceof XtextEditor)
+			{
+				ISelectionProvider selectionProvider = ((XtextEditor)part).getInternalSourceViewer().getSelectionProvider();
+				if (selectionProvider instanceof IPostSelectionProvider)
+				{
+					((IPostSelectionProvider)selectionProvider).addPostSelectionChangedListener(selectionChangedListener);
+					selectionChangedListener.activeEditor = (XtextEditor)part;
+				}
+			}
+		}
+	}
+	
+	private class PropertyViewSelectionChangedListener implements ISelectionChangedListener
+	{
+		private XtextEditor activeEditor;
+		
+		@Override
+		public void selectionChanged(SelectionChangedEvent event)
+		{
+			updateSelection(activeEditor, event.getSelection());
+		}
+	}
+	
+	private class PropertyViewXtextModelListener implements IXtextModelListener
+	{
+		@Override
+		public void modelChanged(XtextResource resource)
+		{
+			resourceSetFromModelListener = resource.getResourceSet();
+		}
 	}
 }

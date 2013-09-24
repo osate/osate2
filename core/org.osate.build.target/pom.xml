@@ -32,9 +32,9 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>juno.target</file>
+									<file>kepler.target</file>
 									<type>target</type>
-									<classifier>juno</classifier>
+									<classifier>kepler</classifier>
 								</artifact>
 							</artifacts>
 						</configuration>
