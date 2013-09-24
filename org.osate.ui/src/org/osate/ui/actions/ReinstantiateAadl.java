@@ -130,8 +130,15 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 			try
 			{
 				if (!selection.isEmpty()){
-					
-				} else {
+					Iterator selit = selection.iterator();
+					for (Iterator iterator = selection.iterator(); iterator
+							.hasNext();) {
+						Object obj = iterator.next();
+						if (obj instanceof IResource){
+							InstantiateModel.rebuildInstanceModelFile((IResource)obj);
+						}
+					}
+				} else {;
 				InstantiateModel.rebuildAllInstanceModelFiles();
 				}
 			}

@@ -1910,6 +1910,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			else {
 				if (owner instanceof RangeValue)
 					owner = owner.getOwner();
+				if (owner instanceof ListValue)
+					owner = owner.getOwner();
 				PropertyType propertyType = null;
 				if (owner instanceof PropertyConstant) // Value of the
 					// property

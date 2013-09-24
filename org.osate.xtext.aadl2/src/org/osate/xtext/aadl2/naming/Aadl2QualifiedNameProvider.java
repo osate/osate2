@@ -90,14 +90,25 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 				}
 			}
 		}
-		if (obj instanceof AadlPackage || obj instanceof Classifier
-				|| obj instanceof PropertyConstant || obj instanceof Property || obj instanceof PropertySet || obj instanceof PropertyType)
+
+		
+		  if (obj instanceof AadlPackage || 
+			  obj instanceof Classifier || 
+			  obj instanceof PropertyConstant || 
+			  obj instanceof Property || 
+			  obj instanceof PropertySet || 
+			  obj instanceof PropertyType)
+		  {
 			return super.getFullyQualifiedName(obj);
+		  }
 	   return null;
 	}
 	
 	public QualifiedName qualifiedName(final Classifier obj) {
+
 		if (obj.getOwner() instanceof PrivatePackageSection) return null;
+		 
+		
 		return getConverter().toQualifiedName(getTheName(obj));
 	}
 	

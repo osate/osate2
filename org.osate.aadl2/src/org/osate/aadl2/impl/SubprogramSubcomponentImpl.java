@@ -220,6 +220,8 @@ public class SubprogramSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBCOMPONENT_TYPE:
+			return isSetSubcomponentType();
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT__SUBPROGRAM_SUBCOMPONENT_TYPE:
 			return subprogramSubcomponentType != null;
 		}

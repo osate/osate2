@@ -217,6 +217,8 @@ public class SystemSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.SYSTEM_SUBCOMPONENT__SUBCOMPONENT_TYPE:
+			return isSetSubcomponentType();
 		case Aadl2Package.SYSTEM_SUBCOMPONENT__SYSTEM_SUBCOMPONENT_TYPE:
 			return systemSubcomponentType != null;
 		}

@@ -212,6 +212,8 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.GLOBAL_NAMESPACE__MEMBER:
+			return isSetMembers();
 		case Aadl2Package.GLOBAL_NAMESPACE__PACKAGE:
 			return !getPackages().isEmpty();
 		case Aadl2Package.GLOBAL_NAMESPACE__PROPERTY_SET:

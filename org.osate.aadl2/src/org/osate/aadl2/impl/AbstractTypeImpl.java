@@ -541,6 +541,8 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.ABSTRACT_TYPE__OWNED_FEATURE:
+			return isSetOwnedFeatures();
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
 			return ownedBusAccesses != null && !ownedBusAccesses.isEmpty();
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_DATA_ACCESS:

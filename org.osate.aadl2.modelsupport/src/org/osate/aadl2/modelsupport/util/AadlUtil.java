@@ -1332,15 +1332,15 @@ public final class AadlUtil {
 			if (theElement != null)
 				return theElement;
 		}
-		if (object instanceof IResource
-				&& ((IResource) object).getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)) {
+		if (object instanceof IFile
+				&& WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
 			Resource res = OsateResourceUtil.getResource((IResource) object);
 			EList<EObject> rl = res.getContents();
 			if (!rl.isEmpty() && rl.get(0) instanceof Element)
 				return (Element) rl.get(0);
 		}
-		if (object instanceof IResource
-				&& ((IResource) object).getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)) {
+		if (object instanceof IFile
+				&& WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
 			Resource res = OsateResourceUtil.getResource((IResource) object);
 			EList<EObject> rl = res.getContents();
 			
@@ -2148,9 +2148,10 @@ public final class AadlUtil {
 			importedPropertySets = ((PropertySet) context).getImportedUnits();
 		else
 			importedPropertySets = ((PackageSection) context).getImportedUnits();
+		
 		for (ModelUnit importedPropertySet : importedPropertySets)
 			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
-					&& importedPropertySet == ps)
+					&& (importedPropertySet == ps || (ps.getQualifiedName().equalsIgnoreCase(importedPropertySet.getQualifiedName()))))
 				return true;
 		return false;
 	}

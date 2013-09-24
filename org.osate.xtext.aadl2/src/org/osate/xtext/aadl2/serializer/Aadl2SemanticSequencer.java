@@ -38,11 +38,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
@@ -89,7 +89,7 @@ public class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				String annexName = ((NamedElement)semanticObject).getName();
 				AnnexUnparser atpr = getAnnexUnparserRegistry().getAnnexUnparser(annexName);
 				if (atpr != null){
-					String text = atpr.unparseAnnexLibrary((AnnexLibrary)semanticObject, "  ");
+					String text = atpr.unparseAnnexSubclause((AnnexSubclause)semanticObject, "  ");
 					DefaultAnnexSubclause dasc = Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause();
 					dasc.setName(((NamedElement)semanticObject).getName());
 					dasc.setSourceText("{**\n"+text+"\n**}");

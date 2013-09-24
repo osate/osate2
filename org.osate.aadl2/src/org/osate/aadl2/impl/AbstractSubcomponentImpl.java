@@ -220,6 +220,8 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT__SUBCOMPONENT_TYPE:
+			return isSetSubcomponentType();
 		case Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE:
 			return abstractSubcomponentType != null;
 		}

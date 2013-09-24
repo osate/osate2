@@ -67,6 +67,7 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexParseResult;
@@ -192,9 +193,16 @@ public class AnnexParserAgent  extends LazyLinker {
 		}
 		List<DefaultAnnexSubclause> asl=AnnexUtil.getAllDefaultAnnexSubclauses(model);
 		for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
+			
 			INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSubclause);
+			
+			if (node == null)
+			{
+				OsateDebug.osateDebug ("Annex not found for code: " + defaultAnnexSubclause.getSourceText());
+				continue;
+			}
 			int offset = node.getOffset();
-			int line = node.getStartLine();
+			int line = node.getStartLine() + computeLineOffset(node, defaultAnnexSubclause);
 			String sourceText = defaultAnnexSubclause.getSourceText();
 			if (sourceText == null) break;
 			int nlength = node.getLength();
@@ -266,6 +274,41 @@ public class AnnexParserAgent  extends LazyLinker {
 
 	}
 
+	//Compute the number of line between the token "annex" and the token "{**".
+  //TODO test under windows.
+  private int computeLineOffset(INode node ,
+                                DefaultAnnexSubclause defaultAnnexSubclause )
+  {
+    int result = 0 ;
+    boolean next = true ;
+    char c ;
+    int index = 0 ;
+    String text = node.getText() ;
+    
+    // Trim the space or new line before the keyword "annex".
+    while(text.charAt(index++) != 'a')
+    {
+      continue ;
+    }
 
-
+    index += 4 ; // Complete the word "annex".
+    
+    while(next && index < text.length())
+    {
+      c = text.charAt(index) ;
+      
+      if(c == '\n')
+      {
+        result++ ;
+      }
+      else if(c == '{')
+      {
+        next = false ;
+      }
+      
+      index++ ;
+    }
+    
+    return result ;
+  }
 }

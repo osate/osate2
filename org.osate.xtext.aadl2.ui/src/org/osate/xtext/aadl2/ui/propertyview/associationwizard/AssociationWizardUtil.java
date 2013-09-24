@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator.InvalidConcreteSyntaxException;
+import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.PropertyType;
@@ -41,6 +42,19 @@ public class AssociationWizardUtil {
 			}
 			result.append(')');
 			return result.toString();
+		}
+		else if (propertyType instanceof AadlReal)
+		{
+			AadlReal aadlReal = (AadlReal)propertyType;
+			if (aadlReal.getOwnedUnitsType() == null)
+				return serializer.serialize(propertyType).trim();
+			else
+			{
+				if (aadlReal.getRange() == null)
+					return "aadlreal" + serializer.serialize(aadlReal.getOwnedUnitsType());
+				else
+					return "aadlreal" + serializer.serialize(aadlReal.getRange()) + serializer.serialize(aadlReal.getOwnedUnitsType());
+			}
 		}
 		else
 			return serializer.serialize(propertyType).trim();
