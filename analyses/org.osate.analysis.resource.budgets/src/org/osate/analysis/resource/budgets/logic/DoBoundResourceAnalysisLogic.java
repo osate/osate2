@@ -46,6 +46,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.DateTime;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -363,17 +364,25 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			}
 	}
 
-	protected void reportBusLoadTotals(SystemInstance si, final String somName) {
-		errManager.logInfo("\n\nConnection Budget Details\n");
+
+	protected void reportBusLoadTotals(SystemInstance si, final SystemOperationMode som) {
+		if (som != null)
+		{
+			errManager.logInfo("\n\nConnection Budget Details for mode "+som.getName()+"\n");
+		}
+		else
+		{
+			errManager.logInfo("\n\nConnection Budget Details \n");
+		}
 		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
-		double budget = calcBandWidthLoad(si);
+		double budget = calcBandWidthLoad(si, som);
 		errManager.logInfo("");
-		errManager.infoSummary(si, somName,"Connection bandwidth budget total: " + budget+" KBytesps");
+		errManager.infoSummary(si, Aadl2Util.getPrintableSOMName(som),"Connection bandwidth budget total: " + budget+" KBytesps");
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
 				double buscapacity = GetProperties.getBandWidthCapacityInKbps((ComponentInstance)obj, 0.0);
-				errManager.infoSummary((NamedElement)obj, somName, "Bus "+((ComponentInstance)obj).getFullName()+" bandwidth capacity: " + buscapacity+" KBytesps");
+				errManager.infoSummary((NamedElement)obj, Aadl2Util.getPrintableSOMName(som), "Bus "+((ComponentInstance)obj).getFullName()+" bandwidth capacity: " + buscapacity+" KBytesps");
 			}
 		};
 		mal.processPreOrderComponentInstance(si, ComponentCategory.BUS);
@@ -398,7 +407,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	 *            for EtherSwitch
 	 * @param somName String somName to be used in messages
 	 */
-	protected double calcBandWidthLoad(SystemInstance root) {
+	protected double calcBandWidthLoad(SystemInstance root, final SystemOperationMode som) {
 		double totalBandWidth = 0.0;
 		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
 		EList<ConnectionInstance> budgetedConnections = new BasicEList<ConnectionInstance>();
@@ -410,24 +419,50 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			if (obj != null)
 				budgetedConnections.add(obj);
 		}
-		for (ConnectionInstance connectionInstance : budgetedConnections) {
+		for (ConnectionInstance connectionInstance : budgetedConnections)
+		{
+			if (
+				(connectionInstance.getSource().getContainingComponentInstance() != null) &&
+				(! connectionInstance.getSource().getContainingComponentInstance().isActive(som)))
+			{
+
+				OsateDebug.osateDebug("[DoBoundResourceAnalysis] source not active in mode=" + som);
+				continue;
+			}
+			
+			if (
+					(connectionInstance.getDestination().getContainingComponentInstance() != null) &&
+					(! connectionInstance.getDestination().getContainingComponentInstance().isActive(som)))
+			{
+				OsateDebug.osateDebug("[DoBoundResourceAnalysis] destination not active in mode=" + som);
+
+				continue;
+			}
+				
+			OsateDebug.osateDebug("[DoBoundResourceAnalysis] source=" + connectionInstance.getSource().getContainingComponentInstance());
+
 			double budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 			double actual = calcBandwidthKBytesps(connectionInstance.getSource());
 			String note = "";
-			if (budget > 0) {
-				if (actual > 0) {
+			OsateDebug.osateDebug("[DoBoundResourceAnalysis] total=" + totalBandWidth);
+			OsateDebug.osateDebug("[DoBoundResourceAnalysis] actual=" + actual);
+			OsateDebug.osateDebug("[DoBoundResourceAnalysis] budget=" + budget);
+			if (budget > 0)
+			{
+				if ((actual > 0) && (actual > budget)) {
 					totalBandWidth += actual;
-					if (actual > budget) {
-						note = "Actual bandwidth exceeds bandwidth budget. Using actual";
-					} else {
-						note = "Using actual bandwidth";
-					}
-				} else {
+					note = "Actual bandwidth exceeds bandwidth budget. Using actual";
+
+				}
+				else 
+				{
+					note = "Using budget bandwidth";
 					totalBandWidth += budget;
 				}
 			} else {
-				if (actual > 0) {
-					totalBandWidth += actual;
+				if (actual > 0)
+				{
+					totalBandWidth = totalBandWidth + actual;
 					note = "No bandwidth budget. Using actual";
 				} else {
 					note =  "No bandwidth budget or actual";
@@ -436,6 +471,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			detailedLog(connectionInstance, budget,actual,note);
 
 		}
+		OsateDebug.osateDebug("[DoBoundResourceAnalysis] res=" + totalBandWidth);
 		return totalBandWidth;
 	}
 	
