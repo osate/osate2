@@ -161,6 +161,10 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
+		if (! (newFormal instanceof ComponentPrototype))
+		{
+			return;
+		}
 		if (newFormal != null && !(newFormal instanceof ComponentPrototype)) {
 			throw new IllegalArgumentException(
 					"newFormal must be an instance of ComponentPrototype");
