@@ -557,19 +557,23 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 				actual = calcBandwidthKBytesps(connectionInstance.getSource());
 				String note = "";
-				if (budget > 0) {
-					if (actual > 0) {
+				if (budget > 0)
+				{
+					if ((actual > 0)&&(actual > budget))
+					{
 						totalBandWidth += actual;
-						if (actual > budget) {
-							note = "Actual bandwidth exceeds bandwidth budget. Using actual";
-						} else {
-							note = "Using actual bandwidth";
-						}
-					} else {
+						note = "Actual bandwidth exceeds bandwidth budget. Using actual";
+					} 
+					else 
+					{
 						totalBandWidth += budget;
+						note = "Using budget bandwidth";
 					}
-				} else {
-					if (actual > 0) {
+				}
+				else 
+				{
+					if (actual > 0) 
+					{
 						totalBandWidth += actual;
 						note = "No bandwidth budget. Using actual";
 					} else {
