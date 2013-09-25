@@ -43,10 +43,10 @@ You can change the default setting by following the instructions at
 
 <h3>Statistics plug-in</h3>
 <p>
-This analysis is applicable to AADL specifications and system instances.  It is invoked using “Analyses > Architecture > Model statistics” in the menu bar or the button in the toolbar.
+This analysis is applicable to AADL specifications and system instances.  It is invoked using ï¿½Analyses > Architecture > Model statisticsï¿½ in the menu bar or the button in the toolbar.
 </p>
 <p>
-This analysis collects model statistics of two kinds and can be invoked on both declarative AADL models and AADL instance models.  In both cases it keeps track of the number of declarations of different kinds in all declarative model files in the workspace.  When invoked on an AADL instance model it also keeps track of components of different categories, connections, flows, etc. of the instance model. Figure 27 illustrates how the model statistics plug-in reports its results both through a dialog box and as information markers in the “Problems” view.
+This analysis collects model statistics of two kinds and can be invoked on both declarative AADL models and AADL instance models.  In both cases it keeps track of the number of declarations of different kinds in all declarative model files in the workspace.  When invoked on an AADL instance model it also keeps track of components of different categories, connections, flows, etc. of the instance model. Figure 27 illustrates how the model statistics plug-in reports its results both through a dialog box and as information markers in the ï¿½Problemsï¿½ view.
 </p>
 <p>
 This plug-in aims at making statistics on your model: number of components,
@@ -60,16 +60,16 @@ they can re-use.
 This analysis plug-in determines the latency of flow implementations declared for components and compares it to the latency specified by the corresponding flow specification of the component.  A detailed description of its current implementation can be found in Section 10.
 </p>
 <p> 
-The analysis performs this check for all flow implementations and their corresponding flow specifications for all component classifier declarations.  This analysis may be invoked on a system instance or a component implementation using “Analyses > Check Flow Latency” or the button in the toolbar.
+The analysis performs this check for all flow implementations and their corresponding flow specifications for all component classifier declarations.  This analysis may be invoked on a system instance or a component implementation using ï¿½Analyses > Check Flow Latencyï¿½ or the button in the toolbar.
 </p>
 <p> 
 The latency of a flow implementation is determined as the sum of all:
  </p>
 <p>
-The connection latencies in the flow implementation; the connection latency is determined by the Latency property value—if not declared, it is assumed to be zero.
+The connection latencies in the flow implementation; the connection latency is determined by the Latency property valueï¿½if not declared, it is assumed to be zero.
 </p>
 <p>
-The flowspec latencies of all subcomponent flowspecs in the flow implementation; the subcomponent flowspec latency is determined by its Latency property value—if no value was declared and the component is a thread, then the period is used for periodic threads, and the deadline for all other threads. Otherwise, zero latency is assumed.
+The flowspec latencies of all subcomponent flowspecs in the flow implementation; the subcomponent flowspec latency is determined by its Latency property valueï¿½if no value was declared and the component is a thread, then the period is used for periodic threads, and the deadline for all other threads. Otherwise, zero latency is assumed.
  </p>
 <p>
 The resulting latency value is then stored as a Latency property association of the flow implementation. 
@@ -163,7 +163,7 @@ These properties are associated to the following elements:
 <p>
 This analysis checks whether the miss rates in streams communicated through ports are consistent, i.e., the miss rate of an out port does not exceed the miss rate of an in port. The miss rate of an out port represents the maximum miss rate of the generated stream through this port.  The miss rate in an in port represents the maximum miss rate that a component is willing to handle.
  
-This analysis is invoked using “Analyses > Architecture > Check Miss Rates” in the menu bar or the button in the toolbar.  It may only be applied to AADL Specifications.
+This analysis is invoked using Analyses > Architecture > Check Miss Rates in the menu bar or the button in the toolbar.  It may only be applied to AADL Specifications.
  
 Miss rates are specified on ports using the property SEI::StreamMissRate, a aadlreal- valued property defined in the SEI property set, i.e.,
 </p>
@@ -227,22 +227,59 @@ in a dialog box, as shown in the following picture.
 
 <h3>Analyze Bus Load</h3>
 <p>
-When the system is being analyzed, the following properties are processed:
+This function extracts the property <strong>SEI::BandWidthCapacity</strong> on each bus.
+Then, the function retrieves the bandwidth required by each connection bound to this
+bus and check that the bandwidth capacity of the bus is enough to provide enough
+capacity for its bound connections. It process connections between system, including
+<strong>port connection</strong> and <strong>bus access</strong> connections.
+</p>
+<p>
+To do so, the function process each connection bound to the bus and computes
+the bandwidth budget for this connection:
 </p>
 <ul>
-	<li><strong>SEI::BandWidthCapacity</strong></li>
-	<li><strong>Actual_Connection_Binding</strong></li>
-	<li><strong>Actual_Processor_Binding</strong></li>
-	<li><strong>SEI::BandWidthBudget</strong></li>
-	<li><strong>SEI::Data_Rate</strong></li>
-	<li><strong>SEI::ROMActual</strong></li>
-	<li><strong>SEI::RAMActual</strong></li>
-	<li><strong>Source_Data_Size</strong>: used on feature (computation of the rate)</li>
-	<li><strong>Period</strong>: used on features (rate computation)</li>
+	<li>By retrieving the budget value associated to this connection
+	    specified with the <strong>SEI::BandWidthBudget</strong>
+	    property on the connection.
+	 </li>
+	 <li>By computing the budget value of the connection
+	     using the size of the data type used on the connection
+	     and the thread period (using the <strong>Period</strong> property),
+	     assuming the thread
+	     output one data instance per period. This is also
+	     the way it computes the size of the data being transmitted
+	     on the bus.
+	  </li>
 </ul>
 <p>
+The policy to get the data being transmitted on the bus is the following:
+<ul>
+	<li>It retrieves the value of the <strong>SEI::BandWidthBudget</strong>
+	    on the connection <strong>AND</strong> computes the actual size
+	    being transmitted over the bus.
+	</li>
+	<li>If the value of the actual value being transmitted (the one computed
+		from the port data size and the thread period) is bigger than the value
+		from the property associated to the connection, we use it. Otherwise,
+		the function uses the one from the property.
+	</li>
+	<li>
+		It checks that the involved components (both source and destination) are active in the current mode. If yes,
+		it adds to the total bandwidth use the usage of the component.
+	</li>
+</ul>
+</p>
+<p>
+The functions also provides the ability to make an analysis on
+a per-mode basis: if a component that communicates
+is not active in a mode, then, the data it sends/receives
+is not taken into account.
+</p>
+<p>
 Upon successful analysis, the plugin reports metrics
-in a dialog box, as shown in the following picture.
+in a dialog box, as shown in the following picture. It also produces
+reports in a CSV file format in a new <strong>report</strong>
+directory.
 </p>
 <img src="bus-bandwidth-analysis.png"/>
 
@@ -302,7 +339,7 @@ The intent of the resource allocation analysis is to take into cons ideration al
 decisions of application components to processors and to memory. The allocations are
 specified through the Actual_Processor_Binding and Actual_Memory_Binding
 properties. In addition, this analysis takes into account any specification of actual
-resource usage – if present, such as execution time of threads, or actual memory
+resource usage ï¿½ if present, such as execution time of threads, or actual memory
 requirements of application source code.
 Both the processor allocation and memory allocation analysis are invoked through the
 Analyze Resource Allocation command, available through the toolbar or through the
@@ -313,9 +350,9 @@ Analysis menu and the Architecture submenu.
 <p>
 Binding properties are specified in the properties section of the system implementation
 that contains both the execution platform and the application system. It is specified as a
-“contained” property association with its reference value being the path to the processor
+ï¿½containedï¿½ property association with its reference value being the path to the processor
 or memory and the applies to clause specifying the component in the containment
-hierarchy for which the property value is specified – also a path in the containment
+hierarchy for which the property value is specified ï¿½ also a path in the containment
 hierarchy. In other words, all binding information is kept in this property section and
 effectively represents a binding configuration. For example:
 </p>
@@ -429,7 +466,7 @@ The components may not yet have features, nor do their implementations have
 connections. The application components may not have been elaborated beyond the first
 level of application subsystems, which may be represented as AADL systems, or as
 AADL processes if we know that they represent partitions with protected address space
-boundaries. The capacities and budgets can be associated with these components – with
+boundaries. The capacities and budgets can be associated with these components ï¿½ with
 the type, implementation, or each subcomponent declaration.
 </p>
 <p>
@@ -564,7 +601,7 @@ For all port connection instances the source and destination port property value
 
 <h4>Security</h4>
 <p>
-This analysis checks whether the security level of a component with an outgoing connection does not exceed the security level of the component this connection leads to. This analysis can be performed on declarative AADL models and on AADL instance models.  The analysis is invoked on a declarative model or on an instance model using “Analyses > Security > Check Security Levels” or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed.  When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
+This analysis checks whether the security level of a component with an outgoing connection does not exceed the security level of the component this connection leads to. This analysis can be performed on declarative AADL models and on AADL instance models.  The analysis is invoked on a declarative model or on an instance model using ï¿½Analyses > Security > Check Security Levelsï¿½ or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed.  When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
  
 The security level is specified on components, i.e., on component type, component implementation, or subcomponent declarations. The check can be invoked on an AADL XML file, or on any of the AADL model objects in the AADL Object Editor. The analysis plug-in performs this check for all connections if either or both ports have a value for this property. The analysis plug-in expects the property SEI::SecurityLevel, an aadlinteger-valued property to be defined in the SEI property set, i.e.,
 </p>
@@ -591,7 +628,7 @@ For instance models the analysis examines each semantic connection for ports and
 <p>
 This analysis checks whether the safety criticality level of a component with an outgoing connection is higher or equal to the safety criticality level of the component at the destination end of the connection. The idea is that a component with lower safety criticality should not drive the operation of a component with a higher safety criticality.
  
-The analysis is invoked on a declarative model or on an instance model using “Analyses > Security > Check Safety Levels” or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed. When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
+The analysis is invoked on a declarative model or on an instance model using ï¿½Analyses > Security > Check Safety Levelsï¿½ or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed. When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
  
 The safety criticality level is specified on components, i.e., on component type, component implementation, or subcomponent declarations using the property SEI::SafetyCriticality, an aadlinteger valued property defined in the SEI property set, i.e.,
 </p> 
