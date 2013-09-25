@@ -197,19 +197,28 @@ process Sunseekerplant_Type
 
 <h3>Analyze Bound Bus Load</h3>
 <p>
-When the system is being analyzed, the following properties are processed:
+This function extracts the property <strong>SEI::BandWidthCapacity</strong> on each bus.
+Then, the function retrieves the bandwidth required by each connection bound to this
+bus and check that the bandwidth capacity of the bus is enough to provide enough
+capacity for its bound connections.
+</p>
+<p>
+To do so, the function process each connection bound to the bus and computes
+the bandwidth budget for this connection:
 </p>
 <ul>
-	<li><strong>SEI::BandWidthCapacity</strong></li>
-	<li><strong>Actual_Connection_Binding</strong></li>
-	<li><strong>Actual_Processor_Binding</strong></li>
-	<li><strong>SEI::BandWidthBudget</strong></li>
-	<li><strong>SEI::Data_Rate</strong></li>
-	<li><strong>SEI::ROMActual</strong></li>
-	<li><strong>SEI::RAMActual</strong></li>
-	<li><strong>Source_Data_Size</strong>: used on feature (computation of the rate)</li>
-	<li><strong>Period</strong>: used on features (rate computation)</li>
+	<li>By retrieving the budget value associated to this connection
+	    specified with the <strong>SEI::BandWidthBudget</strong>
+	    property on the connection.
+	 </li>
+	 <li>By computing the budget value of the connection
+	     using the size of the data type used on the connection
+	     and the thread period (using the <strong>Period</strong> property),
+	     assuming the thread
+	     output one data instance per period.
+	  </li>
 </ul>
+
 <p>
 Upon successful analysis, the plugin reports metrics
 in a dialog box, as shown in the following picture.
