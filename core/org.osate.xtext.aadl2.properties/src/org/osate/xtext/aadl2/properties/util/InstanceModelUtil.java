@@ -395,11 +395,13 @@ public class InstanceModelUtil {
 
 		
 		private static HashMap<ComponentInstance, EList<ComponentInstance>> boundSWCache = new HashMap <ComponentInstance, EList<ComponentInstance>>();
+		private static HashMap<ComponentInstance, EList<ConnectionInstance>> boundBusConnections = new HashMap <ComponentInstance, EList<ConnectionInstance>>();
 		
 		public static void clearCache ()
 		{
 			OsateDebug.osateDebug("[InstanceModelUtil] clearing cache");
 			boundSWCache.clear();
+			boundBusConnections.clear();
 		}
 
 		
@@ -626,15 +628,32 @@ public class InstanceModelUtil {
 		 * @return
 		 */
 		public static EList<ConnectionInstance> getBoundConnections(final ComponentInstance busorVB){
-			EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-			SystemInstance root = busorVB.getSystemInstance();
-			EList<ConnectionInstance> connections = root.getAllConnectionInstances();
-			for (ConnectionInstance connectionInstance : connections) {
-				if (InstanceModelUtil.isBoundToBus(connectionInstance, busorVB)){
-					result.add(connectionInstance);
+			EList<ConnectionInstance> result;
+			EList<ConnectionInstance> connections;
+			SystemInstance root;
+			
+			if (! boundBusConnections.containsKey(busorVB))
+			{
+				
+				result = new BasicEList<ConnectionInstance>();
+				root = busorVB.getSystemInstance();
+				connections = root.getAllConnectionInstances();
+				for (ConnectionInstance connectionInstance : connections) 
+				{
+		
+					if (InstanceModelUtil.isBoundToBus(connectionInstance, busorVB)||
+							// we derived a bus connection from the connection end bindings
+						(!InstanceModelUtil.hasBusBinding(connectionInstance)&&InstanceModelUtil.connectedByBus(connectionInstance, busorVB)) )
+					{
+							result.add(connectionInstance);
+					}
+					
 				}
+				
+				boundBusConnections.put (busorVB, result);
 			}
-			return result;
+			
+			return boundBusConnections.get(busorVB);
 		}
 
 	  
