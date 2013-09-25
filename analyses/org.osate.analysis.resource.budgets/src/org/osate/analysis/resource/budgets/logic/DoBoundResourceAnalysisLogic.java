@@ -493,10 +493,13 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		boolean doBroadcast = GetProperties.isBroadcastProtocol(curBus);
 		SystemInstance root = curBus.getSystemInstance();
 		double totalBandWidth = 0.0;
-		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
-		EList<ConnectionInstance> budgetedConnections = new BasicEList<ConnectionInstance>();
+		EList<ConnectionInstance> budgetedConnections = InstanceModelUtil.getBoundConnections(curBus);
+
+
 		// filters out to use only Port connections or feature group connections
 		// it also tries to be smart about not double accounting for budgets on FG that now show for every port instance inside.
+		
+		/*
 		ConnectionGroupIterator cgi = new ConnectionGroupIterator(connections);
 		while (cgi.hasNext())
 		{
@@ -513,7 +516,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 					}
 				}
 			}
-		}
+		}*/
 		if (doBroadcast){
 			budgetedConnections = filterSameSourceConnections(budgetedConnections);
 		}
@@ -540,9 +543,16 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		
 		
 		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
-		for (ConnectionInstance connectionInstance : budgetedConnections) {
+		for (ConnectionInstance connectionInstance : budgetedConnections)
+		{
 			double budget = 0.0;
 			double actual = 0.0;
+			
+			if ((! connectionInstance.getSource().isActive(som)) || (! connectionInstance.getDestination().isActive(som)))
+			{
+				continue;	
+			}
+			
 			// we have a binding, is it to the current bus
 				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 				actual = calcBandwidthKBytesps(connectionInstance.getSource());
