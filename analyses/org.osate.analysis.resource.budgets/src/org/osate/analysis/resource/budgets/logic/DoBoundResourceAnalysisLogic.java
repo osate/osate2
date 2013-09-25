@@ -389,11 +389,11 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	}
 
 
-	protected void checkBusLoads(SystemInstance si, final String somName) {
+	protected void checkBusLoads(SystemInstance si, final SystemOperationMode som) {
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				checkBandWidthLoad((ComponentInstance) obj, somName);
+				checkBandWidthLoad((ComponentInstance) obj, som);
 			}
 		};
 		mal.processPreOrderComponentInstance(si, ComponentCategory.BUS);
@@ -486,7 +486,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	 *            for EtherSwitch
 	 * @param somName String somName to be used in messages
 	 */
-	protected void checkBandWidthLoad(final ComponentInstance curBus, String somName) {
+	protected void checkBandWidthLoad(final ComponentInstance curBus, SystemOperationMode som)
+	{
 		UnitLiteral kbspsliteral = GetProperties.getKBytespsUnitLiteral(curBus);
 		double Buscapacity = GetProperties.getBandWidthCapacityInKbps(curBus, 0.0);
 		boolean doBroadcast = GetProperties.isBroadcastProtocol(curBus);
@@ -497,13 +498,19 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		// filters out to use only Port connections or feature group connections
 		// it also tries to be smart about not double accounting for budgets on FG that now show for every port instance inside.
 		ConnectionGroupIterator cgi = new ConnectionGroupIterator(connections);
-		while (cgi.hasNext()) {
+		while (cgi.hasNext())
+		{
 			ConnectionInstance obj = cgi.next();
-			if (obj != null){
+			if (obj != null)
+			{
 				if (InstanceModelUtil.isBoundToBus(obj, curBus)||
 						// we derived a bus connection from the connection end bindings
-					(!InstanceModelUtil.hasBusBinding(obj)&&InstanceModelUtil.connectedByBus(obj, curBus)) ){ 
-				budgetedConnections.add(obj);
+					(!InstanceModelUtil.hasBusBinding(obj)&&InstanceModelUtil.connectedByBus(obj, curBus)) )
+				{
+					if ((obj.getSource().isActive(som)) && (obj.getDestination().isActive(som)))
+					{
+						budgetedConnections.add(obj);
+					}
 				}
 			}
 		}
@@ -512,17 +519,26 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		}
 		if (Buscapacity == 0){
 			if (!budgetedConnections.isEmpty()){
-				errManager.warningSummary(curBus, somName,curBus.getComponentInstancePath()+ " has no capacity but bound connections");
+				errManager.warningSummary(curBus, som.getName(),curBus.getComponentInstancePath()+ " has no capacity but bound connections");
 			} else{
-				errManager.warningSummary(curBus, somName,curBus.getComponentInstancePath()+ " has no capacity");
+				errManager.warningSummary(curBus, som.getName(),curBus.getComponentInstancePath()+ " has no capacity");
 			return;
 			}
 		}
 		if (budgetedConnections.isEmpty()){
-			errManager.infoSummary(curBus, somName,curBus.getComponentInstancePath()+ " with bandwidth capacity "+Buscapacity+"KBytesps has no bound connections");
+			errManager.infoSummary(curBus, som.getName(),curBus.getComponentInstancePath()+ " with bandwidth capacity "+Buscapacity+"KBytesps has no bound connections");
 			return;
 		}
-		errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" with capacity "+Buscapacity+"KBytesps\n");
+		if (som != null)
+		{
+			errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" in mode " + som.getName() + " with capacity "+Buscapacity+"KBytesps\n");
+		}
+		else
+		{
+			errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" with capacity "+Buscapacity+"KBytesps\n");
+		}
+		
+		
 		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
 		for (ConnectionInstance connectionInstance : budgetedConnections) {
 			double budget = 0.0;
@@ -554,9 +570,9 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		}
 		detailedLog(null, totalBandWidth,kbspsliteral);
 		if (totalBandWidth > Buscapacity) {
-			errManager.errorSummary(curBus, somName, curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps exceeded by connection bandwidth budget totals " + totalBandWidth + " Kbps");
+			errManager.errorSummary(curBus, som.getName(), curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps exceeded by connection bandwidth budget totals " + totalBandWidth + " Kbps");
 		} else if (totalBandWidth > 0.0 && Buscapacity > 0.0) {
-			errManager.infoSummary(curBus, somName, curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps sufficient for connection bandwidth  budget totals " + totalBandWidth + " Kbps");
+			errManager.infoSummary(curBus, som.getName(), curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps sufficient for connection bandwidth  budget totals " + totalBandWidth + " Kbps");
 		}
 	}
 	
