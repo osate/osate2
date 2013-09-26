@@ -165,8 +165,8 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 	{
 
 		if (newFormal != null && !(newFormal instanceof ComponentPrototype)) {
-			OsateDebug.osateDebug("[ComponentPrototypeBindingImpl] newFormal must be an instance of ComponentPrototype");
-			return;
+			OsateDebug.osateDebug("[ComponentPrototypeBindingImpl] newFormal must be an instance of ComponentPrototype, currently being:" + newFormal);
+			//return;
 		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
