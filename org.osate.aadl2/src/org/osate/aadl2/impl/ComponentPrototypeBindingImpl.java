@@ -52,6 +52,7 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -160,14 +161,12 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 	 * @generated
 	 */
 	@Override
-	public void setFormal(Prototype newFormal) {
-		if (! (newFormal instanceof ComponentPrototype))
-		{
-			return;
-		}
+	public void setFormal(Prototype newFormal) 
+	{
+
 		if (newFormal != null && !(newFormal instanceof ComponentPrototype)) {
-			throw new IllegalArgumentException(
-					"newFormal must be an instance of ComponentPrototype");
+			OsateDebug.osateDebug("[ComponentPrototypeBindingImpl] newFormal must be an instance of ComponentPrototype");
+			return;
 		}
 		Prototype oldFormal = formal;
 		formal = newFormal;

@@ -47,6 +47,7 @@ import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -207,8 +208,8 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 	@Override
 	public void setFormal(Prototype newFormal) {
 		if (newFormal != null && !(newFormal instanceof FeatureGroupPrototype)) {
-			throw new IllegalArgumentException(
-					"newFormal must be an instance of FeatureGroupPrototype");
+			OsateDebug.osateDebug("[FeatureGroupPrototypeBindingImpl] newFormal must be an instance of FeatureGroupPrototype");
+			return;
 		}
 		Prototype oldFormal = formal;
 		formal = newFormal;

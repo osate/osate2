@@ -47,6 +47,7 @@ import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -204,8 +205,8 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	@Override
 	public void setFormal(Prototype newFormal) {
 		if (newFormal != null && !(newFormal instanceof FeaturePrototype)) {
-			throw new IllegalArgumentException(
-					"newFormal must be an instance of FeaturePrototype");
+			OsateDebug.osateDebug("[FeaturePrototypeBindinImpl] newFormal must be an instance of FeaturePrototype");
+			return;
 		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
