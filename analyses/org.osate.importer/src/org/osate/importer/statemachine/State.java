@@ -32,7 +32,8 @@ public class State {
 	
 	public void setName (String n)
 	{
-		this.name = n;
+		String s = n.replace('\n', '_');
+		this.name = s;
 	}
 	
 	public void setIdentifier (int i)

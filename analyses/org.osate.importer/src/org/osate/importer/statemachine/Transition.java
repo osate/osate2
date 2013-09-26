@@ -78,7 +78,8 @@ public class Transition {
 	
 	public void setName (String n)
 	{
-		this.name = n;
+		String s = n.replace('\n', '_');
+		this.name = s;
 	}
 	
 	public String toString ()

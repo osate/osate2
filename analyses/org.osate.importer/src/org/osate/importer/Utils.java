@@ -53,6 +53,13 @@ public class Utils
 
 	public static final int INVALID_ID = -99;	
 	
+	/**
+	 * Refresh the complete Workspace. Useful when adding
+	 * files in the workspace.
+	 * 
+	 * @param monitor The monitor used by the underlying action
+	 * that performs the refresh.
+	 */
 	public static void refreshWorkspace (IProgressMonitor monitor)
 	{
 		for(IProject ip : ResourcesPlugin.getWorkspace().getRoot().getProjects())

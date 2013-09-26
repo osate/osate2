@@ -29,7 +29,8 @@ public class StateMachine {
 	
 	public void setName (String n)
 	{
-		this.name = n;
+		String s = n.replace('\n', '_');
+		this.name = s;
 	}
 	
 	public Transition findTransitionByIdentifier (int i)

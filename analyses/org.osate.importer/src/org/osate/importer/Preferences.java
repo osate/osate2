@@ -31,18 +31,18 @@ package org.osate.importer;
 
 public class Preferences {
 
-	public static final int WEIGHT_BOOLEAN = 0;
-	public static final int WEIGHT_REFINED = 1;
+	public static final int WEIGHT_BOOLEAN 		= 0;
+	public static final int WEIGHT_REFINED 		= 1;
 	
-	public static final int DEPENDENCY_SUM = 0;
-	public static final int DEPENDENCY_AVER = 1;
-	public static final int DEPENDENCY_MAX = 2;
+	public static final int DEPENDENCY_SUM 		= 0;
+	public static final int DEPENDENCY_AVER 	= 1;
+	public static final int DEPENDENCY_MAX 		= 2;
 	
-	private static int weightMethod = WEIGHT_BOOLEAN;
-	private static int dependencyMethod = DEPENDENCY_SUM;
-	private static String invalidSystems = "";
-	private static boolean useArinc = false;
-	private static int ignoreHierarchyLevel = 0;
+	private static int 		weightMethod 			= WEIGHT_BOOLEAN;
+	private static int 		dependencyMethod 		= DEPENDENCY_SUM;
+	private static String 	invalidSystems	 		= "";
+	private static boolean 	useArinc 				= false;
+	private static int 		ignoreHierarchyLevel 	= 0;
 	
 	public static int getWeightMethod ()
 	{
@@ -73,7 +73,6 @@ public class Preferences {
 	
 	public static int getParallelDependencyMethod ()
 	{
-		
 		return dependencyMethod;
 	}
 	
