@@ -50,7 +50,9 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
-import org.osate.importer.statemachine.*;
+import org.osate.importer.statemachine.State;
+import org.osate.importer.statemachine.StateMachine;
+import org.osate.importer.statemachine.Transition;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -387,6 +389,29 @@ public class FileImport {
 		producedModel.addStateMachine(sm);
 	}	
 	
+	private static boolean addConnection (String srcString, String dstString)
+	{
+		if ((dstString != null) && (srcString != null))
+		{
+			int srcBlockIndex = getConnectionPointInformation(srcString, CONNECTION_FIELD_BLOCK_INDEX);
+			int dstBlockIndex = getConnectionPointInformation(dstString, CONNECTION_FIELD_BLOCK_INDEX);
+			
+			OsateDebug.osateDebug("[FileImport] src=" + srcString +"|dst="+dstString);
+			Component srcComponent = producedModel.findComponentById(srcBlockIndex);
+			Component dstComponent = producedModel.findComponentById(dstBlockIndex);
+			
+			if ((srcComponent != null) && (dstComponent != null))
+			{
+				Connection c = new Connection(srcComponent, dstComponent);
+				srcComponent.addConnection(c);
+				dstComponent.addConnection(c);
+				producedModel.addConnection(c);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	private static void processSystem (Node system)
 	{
@@ -453,8 +478,6 @@ public class FileImport {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeName().equalsIgnoreCase("Line"))
 			{
-				OsateDebug.osateDebug("Line passed");
-
 				srcString = null;
 				dstString = null;
 				NodeList children = nNode.getChildNodes();
@@ -463,8 +486,6 @@ public class FileImport {
 					tmpNode = children.item(temp2);
 					if (tmpNode.getNodeName().equalsIgnoreCase("p"))
 					{
-						OsateDebug.osateDebug("p passed");
-
 						attrName = getAttribute(tmpNode, "Name");
 						
 						if (attrName == null)
@@ -477,31 +498,49 @@ public class FileImport {
 						{
 							srcString = tmpNode.getTextContent();
 							OsateDebug.osateDebug("srcString="+srcString);
-							srcBlockIndex = getConnectionPointInformation(srcString, CONNECTION_FIELD_BLOCK_INDEX);
-
+							addConnection (srcString, dstString);
 						}
 						
 						if (direction.equalsIgnoreCase("dst"))
 						{
 							dstString = tmpNode.getTextContent();
 							OsateDebug.osateDebug("dstString="+dstString);
-							dstBlockIndex = getConnectionPointInformation(dstString, CONNECTION_FIELD_BLOCK_INDEX);
+							addConnection (srcString, dstString);
 						}
 					}
-				}
-				
-				if ((dstString != null) && (srcString != null))
-				{
-					OsateDebug.osateDebug("[FileImport] src=" + srcString +"|dst="+dstString);
-					Component srcComponent = producedModel.findComponentById(srcBlockIndex);
-					Component dstComponent = producedModel.findComponentById(dstBlockIndex);
-					
-					if ((srcComponent != null) && (dstComponent != null))
+					if (tmpNode.getNodeName().equalsIgnoreCase("branch"))
 					{
-						Connection c = new Connection(srcComponent, dstComponent);
-						srcComponent.addConnection(c);
-						dstComponent.addConnection(c);
-						producedModel.addConnection(c);
+						NodeList children4 = nNode.getChildNodes();
+						for (int temp4 = 0 ; temp4 < children.getLength() ; temp4++)
+						{
+							Node tmpNode4 = children.item(temp4);
+							if (tmpNode4.getNodeName().equalsIgnoreCase("p"))
+							{
+								attrName = getAttribute(tmpNode4, "Name");
+								
+								if (attrName == null)
+								{
+									continue;
+								}
+								direction = attrName.getNodeValue().toString();
+								OsateDebug.osateDebug("direction="+direction);
+								if (direction.equalsIgnoreCase("src"))
+								{
+									srcString = tmpNode4.getTextContent();
+									OsateDebug.osateDebug("srcString="+srcString);
+									srcBlockIndex = getConnectionPointInformation(srcString, CONNECTION_FIELD_BLOCK_INDEX);
+									addConnection (srcString, dstString);
+								}
+								
+								if (direction.equalsIgnoreCase("dst"))
+								{
+									dstString = tmpNode4.getTextContent();
+									OsateDebug.osateDebug("dstString="+dstString);
+									dstBlockIndex = getConnectionPointInformation(dstString, CONNECTION_FIELD_BLOCK_INDEX);
+									addConnection (srcString, dstString);
+								}
+							}
+						}
 					}
 				}
 			}

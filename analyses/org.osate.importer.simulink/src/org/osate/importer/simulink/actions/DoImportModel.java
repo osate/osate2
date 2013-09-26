@@ -75,6 +75,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
 import org.osate.importer.generator.AadlProjectCreator;
@@ -255,8 +256,9 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 			    
 				Model genericModel = FileImport.loadFile (inputFile);
 			    AadlProjectCreator.createProject (outputDirectory, genericModel);
+				
+				Utils.refreshWorkspace(monitor);
 				monitor.done();
-
 			    return Status.OK_STATUS;
 			  }
 			};

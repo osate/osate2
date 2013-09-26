@@ -31,7 +31,12 @@ package org.osate.importer;
 import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeSelection;
@@ -47,6 +52,19 @@ public class Utils
 {
 
 	public static final int INVALID_ID = -99;	
+	
+	public static void refreshWorkspace (IProgressMonitor monitor)
+	{
+		for(IProject ip : ResourcesPlugin.getWorkspace().getRoot().getProjects())
+		{
+			try {
+				ip.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	public static String getComponentName (ComponentInstance ci)
 	{
