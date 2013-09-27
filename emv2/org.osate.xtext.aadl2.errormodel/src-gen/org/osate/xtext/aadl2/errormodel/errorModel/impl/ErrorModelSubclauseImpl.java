@@ -35,8 +35,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 
@@ -63,7 +63,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getTypeTransformationSet <em>Type Transformation Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnectionErrorSources <em>Connection Error Sources</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPoints <em>Points</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnections <em>Connections</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPaths <em>Paths</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
@@ -233,14 +233,14 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   protected EList<PropagationPoint> points;
 
   /**
-   * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
+   * The cached value of the '{@link #getPaths() <em>Paths</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConnections()
+   * @see #getPaths()
    * @generated
    * @ordered
    */
-  protected EList<PropagationPointConnection> connections;
+  protected EList<PropagationPath> paths;
 
   /**
    * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
@@ -647,13 +647,13 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PropagationPointConnection> getConnections()
+  public EList<PropagationPath> getPaths()
   {
-    if (connections == null)
+    if (paths == null)
     {
-      connections = new EObjectContainmentEList<PropagationPointConnection>(PropagationPointConnection.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS);
+      paths = new EObjectContainmentEList<PropagationPath>(PropagationPath.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PATHS);
     }
-    return connections;
+    return paths;
   }
 
   /**
@@ -700,8 +700,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return ((InternalEList<?>)getConnectionErrorSources()).basicRemove(otherEnd, msgs);
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
         return ((InternalEList<?>)getPoints()).basicRemove(otherEnd, msgs);
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
-        return ((InternalEList<?>)getConnections()).basicRemove(otherEnd, msgs);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PATHS:
+        return ((InternalEList<?>)getPaths()).basicRemove(otherEnd, msgs);
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
     }
@@ -755,8 +755,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return getConnectionErrorSources();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
         return getPoints();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
-        return getConnections();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PATHS:
+        return getPaths();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         return getProperties();
     }
@@ -833,9 +833,9 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         getPoints().clear();
         getPoints().addAll((Collection<? extends PropagationPoint>)newValue);
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
-        getConnections().clear();
-        getConnections().addAll((Collection<? extends PropagationPointConnection>)newValue);
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PATHS:
+        getPaths().clear();
+        getPaths().addAll((Collection<? extends PropagationPath>)newValue);
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         getProperties().clear();
@@ -903,8 +903,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
         getPoints().clear();
         return;
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
-        getConnections().clear();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PATHS:
+        getPaths().clear();
         return;
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         getProperties().clear();
@@ -955,8 +955,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
         return connectionErrorSources != null && !connectionErrorSources.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__POINTS:
         return points != null && !points.isEmpty();
-      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTIONS:
-        return connections != null && !connections.isEmpty();
+      case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PATHS:
+        return paths != null && !paths.isEmpty();
       case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
         return properties != null && !properties.isEmpty();
     }

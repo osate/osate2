@@ -42,6 +42,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -217,10 +219,14 @@ public class EMLinkingService extends PropertiesLinkingService {
 			if (searchResult == null) searchResult = findTypeSet(cxt, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getPropagationPoint() == requiredType) {
+			ComponentClassifier cl;
 			// find propagation point
-			Classifier cl = AadlUtil.getContainingClassifier(context);
-			searchResult = EMV2Util.findPropagationPoint(cl,name);
-
+			if (context instanceof QualifiedPropagationPoint){
+				QualifiedPropagationPoint qpp = (QualifiedPropagationPoint)context;
+				SubcomponentElement sub = qpp.getSubcomponents().get(qpp.getSubcomponents().size()-1);
+				cl = sub.getSubcomponent().getAllClassifier();
+				searchResult = EMV2Util.findPropagationPoint(cl,name);
+			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType) {
 			// first look it up in global index
 			EObject gobj = getIndexedObject(context, reference, name);
@@ -280,19 +286,20 @@ public class EMLinkingService extends PropertiesLinkingService {
 		} else if (Aadl2Package.eINSTANCE.getSubcomponent()==requiredType) {
 //		} else if (Aadl2Package.eINSTANCE.getSubcomponent().isSuperTypeOf(requiredType)) {
 			if (context instanceof SubcomponentElement){
-				ConditionElement ce = (ConditionElement)context.eContainer();
-				EList<SubcomponentElement> sublist = ce.getSubcomponents();
+				EObject ce = context.eContainer();
+				EList<SubcomponentElement> sublist = (ce instanceof ConditionElement)?((ConditionElement)ce).getSubcomponents():
+					((QualifiedPropagationPoint)ce).getSubcomponents();
 				int idx = sublist.indexOf(context);
-			Classifier ns = AadlUtil.getContainingClassifier(context);
-			if (idx > 0) {
-				SubcomponentElement se = sublist.get(idx-1);
-				Subcomponent subcomponent = se.getSubcomponent();
-				ns = subcomponent.getAllClassifier();
-			}
-			EObject res = ns.findNamedElement(name);
-			if (res instanceof Subcomponent) {
-				searchResult = res;
-			}
+				Classifier ns = AadlUtil.getContainingClassifier(context);
+				if (idx > 0) {
+					SubcomponentElement se = sublist.get(idx-1);
+					Subcomponent subcomponent = se.getSubcomponent();
+					ns = subcomponent.getAllClassifier();
+				}
+				EObject res = ns.findNamedElement(name);
+				if (res instanceof Subcomponent) {
+					searchResult = res;
+				}
 			}
 		}
 		if (searchResult != null) {

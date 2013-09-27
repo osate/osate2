@@ -31,7 +31,7 @@ import org.osate.aadl2.PropertyAssociation;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getTypeTransformationSet <em>Type Transformation Set</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionErrorSources <em>Connection Error Sources</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPoints <em>Points</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnections <em>Connections</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPaths <em>Paths</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
@@ -349,20 +349,20 @@ public interface ErrorModelSubclause extends AnnexSubclause, TypeUseContext
   EList<PropagationPoint> getPoints();
 
   /**
-   * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection}.
+   * Returns the value of the '<em><b>Paths</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Connections</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Paths</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Connections</em>' containment reference list.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Connections()
+   * @return the value of the '<em>Paths</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Paths()
    * @model containment="true"
    * @generated
    */
-  EList<PropagationPointConnection> getConnections();
+  EList<PropagationPath> getPaths();
 
   /**
    * Returns the value of the '<em><b>Properties</b></em>' containment reference list.

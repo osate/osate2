@@ -33,7 +33,7 @@ NamedElement returns aadl2::NamedElement:
 ErrorModelLibrary| 
 ErrorTypes| ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
 	   | ErrorFlow| ErrorPropagation |OutgoingPropagationCondition
-|PropagationPointConnection | PropagationPoint |CompositeState
+|PropagationPath | PropagationPoint |CompositeState
 	|TypeTransformationSet | TypeMappingSet  | ErrorBehaviorStateMachine
 |ErrorDetection	|  ConnectionErrorSource | EventOrPropagation
 ;
@@ -94,10 +94,8 @@ ErrorModelSubclause returns ErrorModelSubclause:
 
   (
   		'propagation' 'paths' 
-	( points+=PropagationPoint)+
-	('connections'
-	( connections+=PropagationPointConnection)+
-	)?
+	( points+=PropagationPoint)*
+	( paths+=PropagationPath)*
 	'end' 'paths' ';'
   )?
     ('properties'
@@ -235,7 +233,7 @@ FeatureorPPReference returns FeatureorPPReference:
    
 PropagationDirection returns aadl2::DirectionType: 'in' | 'out' ;
 
-PropagationKind  : ('processor'|'memory'|'connection' | 'bindings'|'access'); 
+PropagationKind  : ('processor'|'memory'|'connection' | 'binding' | 'bindings'|'access'); 
 
 // enum does not work as  
 //enum PropKind : PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'
@@ -277,12 +275,12 @@ PropagationPoint returns PropagationPoint:
     name=ID ':' 'propagation' 'point'  
    ';';
    
-PropagationPointConnection returns PropagationPointConnection:
-   	name=ID ':' source=QualifiedPropagationPoint '->' target=QualifiedPropagationPoint ';'
+PropagationPath returns PropagationPath:
+   	(name=ID ':')? source=QualifiedPropagationPoint '->' target=QualifiedPropagationPoint ';'
    ;
   
 QualifiedPropagationPoint returns QualifiedPropagationPoint:
-   (subcomponent=[aadl2::Subcomponent|ID]  '.')? propagationPoint=[PropagationPoint|ID]
+   (subcomponents+=SubcomponentElement  '.')+ propagationPoint=[PropagationPoint|ID]
    ;
    
 

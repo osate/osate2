@@ -2,21 +2,27 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.Subcomponent;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +31,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedPropagationPointImpl#getSubcomponent <em>Subcomponent</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedPropagationPointImpl#getSubcomponents <em>Subcomponents</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedPropagationPointImpl#getPropagationPoint <em>Propagation Point</em>}</li>
  * </ul>
  * </p>
@@ -35,14 +41,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 public class QualifiedPropagationPointImpl extends ElementImpl implements QualifiedPropagationPoint
 {
   /**
-   * The cached value of the '{@link #getSubcomponent() <em>Subcomponent</em>}' reference.
+   * The cached value of the '{@link #getSubcomponents() <em>Subcomponents</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSubcomponent()
+   * @see #getSubcomponents()
    * @generated
    * @ordered
    */
-  protected Subcomponent subcomponent;
+  protected EList<SubcomponentElement> subcomponents;
 
   /**
    * The cached value of the '{@link #getPropagationPoint() <em>Propagation Point</em>}' reference.
@@ -80,42 +86,13 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
-  public Subcomponent getSubcomponent()
+  public EList<SubcomponentElement> getSubcomponents()
   {
-    if (subcomponent != null && ((EObject)subcomponent).eIsProxy())
+    if (subcomponents == null)
     {
-      InternalEObject oldSubcomponent = (InternalEObject)subcomponent;
-      subcomponent = (Subcomponent)eResolveProxy(oldSubcomponent);
-      if (subcomponent != oldSubcomponent)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, oldSubcomponent, subcomponent));
-      }
+      subcomponents = new EObjectContainmentEList<SubcomponentElement>(SubcomponentElement.class, this, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS);
     }
-    return subcomponent;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Subcomponent basicGetSubcomponent()
-  {
-    return subcomponent;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setSubcomponent(Subcomponent newSubcomponent)
-  {
-    Subcomponent oldSubcomponent = subcomponent;
-    subcomponent = newSubcomponent;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT, oldSubcomponent, subcomponent));
+    return subcomponents;
   }
 
   /**
@@ -167,13 +144,28 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS:
+        return ((InternalEList<?>)getSubcomponents()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
-        if (resolve) return getSubcomponent();
-        return basicGetSubcomponent();
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS:
+        return getSubcomponents();
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
         if (resolve) return getPropagationPoint();
         return basicGetPropagationPoint();
@@ -186,13 +178,15 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
-        setSubcomponent((Subcomponent)newValue);
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS:
+        getSubcomponents().clear();
+        getSubcomponents().addAll((Collection<? extends SubcomponentElement>)newValue);
         return;
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
         setPropagationPoint((PropagationPoint)newValue);
@@ -211,8 +205,8 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
-        setSubcomponent((Subcomponent)null);
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS:
+        getSubcomponents().clear();
         return;
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
         setPropagationPoint((PropagationPoint)null);
@@ -231,8 +225,8 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
   {
     switch (featureID)
     {
-      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT:
-        return subcomponent != null;
+      case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS:
+        return subcomponents != null && !subcomponents.isEmpty();
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT:
         return propagationPoint != null;
     }

@@ -2,10 +2,11 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Subcomponent;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,7 +16,7 @@ import org.osate.aadl2.Subcomponent;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponent <em>Subcomponent</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponents <em>Subcomponents</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getPropagationPoint <em>Propagation Point</em>}</li>
  * </ul>
  * </p>
@@ -27,30 +28,20 @@ import org.osate.aadl2.Subcomponent;
 public interface QualifiedPropagationPoint extends EObject, Element
 {
   /**
-   * Returns the value of the '<em><b>Subcomponent</b></em>' reference.
+   * Returns the value of the '<em><b>Subcomponents</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Subcomponent</em>' reference isn't clear,
+   * If the meaning of the '<em>Subcomponents</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Subcomponent</em>' reference.
-   * @see #setSubcomponent(Subcomponent)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedPropagationPoint_Subcomponent()
-   * @model
+   * @return the value of the '<em>Subcomponents</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedPropagationPoint_Subcomponents()
+   * @model containment="true"
    * @generated
    */
-  Subcomponent getSubcomponent();
-
-  /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponent <em>Subcomponent</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Subcomponent</em>' reference.
-   * @see #getSubcomponent()
-   * @generated
-   */
-  void setSubcomponent(Subcomponent value);
+  EList<SubcomponentElement> getSubcomponents();
 
   /**
    * Returns the value of the '<em><b>Propagation Point</b></em>' reference.

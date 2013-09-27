@@ -254,12 +254,12 @@ public class ErrorModelSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ErrorModelPackage.PROPAGATION_POINT_CONNECTION:
+      case ErrorModelPackage.PROPAGATION_PATH:
       {
-        PropagationPointConnection propagationPointConnection = (PropagationPointConnection)theEObject;
-        T result = casePropagationPointConnection(propagationPointConnection);
-        if (result == null) result = caseNamedElement(propagationPointConnection);
-        if (result == null) result = caseElement(propagationPointConnection);
+        PropagationPath propagationPath = (PropagationPath)theEObject;
+        T result = casePropagationPath(propagationPath);
+        if (result == null) result = caseNamedElement(propagationPath);
+        if (result == null) result = caseElement(propagationPath);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -814,17 +814,17 @@ public class ErrorModelSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Propagation Point Connection</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Propagation Path</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Propagation Point Connection</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Propagation Path</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casePropagationPointConnection(PropagationPointConnection object)
+  public T casePropagationPath(PropagationPath object)
   {
     return null;
   }

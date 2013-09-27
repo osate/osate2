@@ -304,13 +304,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_SUBCLAUSE__POINTS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 15;
 
   /**
-   * The feature id for the '<em><b>Connections</b></em>' containment reference list.
+   * The feature id for the '<em><b>Paths</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ERROR_MODEL_SUBCLAUSE__CONNECTIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 16;
+  int ERROR_MODEL_SUBCLAUSE__PATHS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 16;
 
   /**
    * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -1680,14 +1680,14 @@ public interface ErrorModelPackage extends EPackage
   int PROPAGATION_POINT_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPointConnectionImpl <em>Propagation Point Connection</em>}' class.
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPathImpl <em>Propagation Path</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPointConnectionImpl
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getPropagationPointConnection()
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPathImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getPropagationPath()
    * @generated
    */
-  int PROPAGATION_POINT_CONNECTION = 19;
+  int PROPAGATION_PATH = 19;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1696,7 +1696,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPAGATION_POINT_CONNECTION__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
+  int PROPAGATION_PATH__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1705,7 +1705,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPAGATION_POINT_CONNECTION__OWNED_COMMENT = Aadl2Package.NAMED_ELEMENT__OWNED_COMMENT;
+  int PROPAGATION_PATH__OWNED_COMMENT = Aadl2Package.NAMED_ELEMENT__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1714,7 +1714,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPAGATION_POINT_CONNECTION__NAME = Aadl2Package.NAMED_ELEMENT__NAME;
+  int PROPAGATION_PATH__NAME = Aadl2Package.NAMED_ELEMENT__NAME;
 
   /**
    * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -1723,7 +1723,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPAGATION_POINT_CONNECTION__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
+  int PROPAGATION_PATH__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
 
   /**
    * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1732,7 +1732,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPAGATION_POINT_CONNECTION__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+  int PROPAGATION_PATH__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
    * The feature id for the '<em><b>Source</b></em>' containment reference.
@@ -1741,7 +1741,7 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPAGATION_POINT_CONNECTION__SOURCE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
+  int PROPAGATION_PATH__SOURCE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -1750,16 +1750,16 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROPAGATION_POINT_CONNECTION__TARGET = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int PROPAGATION_PATH__TARGET = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>Propagation Point Connection</em>' class.
+   * The number of structural features of the '<em>Propagation Path</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPAGATION_POINT_CONNECTION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int PROPAGATION_PATH_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedPropagationPointImpl <em>Qualified Propagation Point</em>}' class.
@@ -1790,13 +1790,13 @@ public interface ErrorModelPackage extends EPackage
   int QUALIFIED_PROPAGATION_POINT__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Subcomponent</b></em>' reference.
+   * The feature id for the '<em><b>Subcomponents</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
+  int QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Propagation Point</b></em>' reference.
@@ -3907,15 +3907,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorModelSubclause_Points();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnections <em>Connections</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPaths <em>Paths</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Connections</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnections()
+   * @return the meta object for the containment reference list '<em>Paths</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPaths()
    * @see #getErrorModelSubclause()
    * @generated
    */
-  EReference getErrorModelSubclause_Connections();
+  EReference getErrorModelSubclause_Paths();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getProperties <em>Properties</em>}'.
@@ -4572,36 +4572,36 @@ public interface ErrorModelPackage extends EPackage
   EClass getPropagationPoint();
 
   /**
-   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection <em>Propagation Point Connection</em>}'.
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath <em>Propagation Path</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Propagation Point Connection</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection
+   * @return the meta object for class '<em>Propagation Path</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath
    * @generated
    */
-  EClass getPropagationPointConnection();
+  EClass getPropagationPath();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection#getSource <em>Source</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getSource <em>Source</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Source</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection#getSource()
-   * @see #getPropagationPointConnection()
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getSource()
+   * @see #getPropagationPath()
    * @generated
    */
-  EReference getPropagationPointConnection_Source();
+  EReference getPropagationPath_Source();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection#getTarget <em>Target</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Target</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection#getTarget()
-   * @see #getPropagationPointConnection()
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getTarget()
+   * @see #getPropagationPath()
    * @generated
    */
-  EReference getPropagationPointConnection_Target();
+  EReference getPropagationPath_Target();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint <em>Qualified Propagation Point</em>}'.
@@ -4614,15 +4614,15 @@ public interface ErrorModelPackage extends EPackage
   EClass getQualifiedPropagationPoint();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponent <em>Subcomponent</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponents <em>Subcomponents</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Subcomponent</em>'.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponent()
+   * @return the meta object for the containment reference list '<em>Subcomponents</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getSubcomponents()
    * @see #getQualifiedPropagationPoint()
    * @generated
    */
-  EReference getQualifiedPropagationPoint_Subcomponent();
+  EReference getQualifiedPropagationPoint_Subcomponents();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint#getPropagationPoint <em>Propagation Point</em>}'.
@@ -5842,12 +5842,12 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_MODEL_SUBCLAUSE__POINTS = eINSTANCE.getErrorModelSubclause_Points();
 
     /**
-     * The meta object literal for the '<em><b>Connections</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Paths</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ERROR_MODEL_SUBCLAUSE__CONNECTIONS = eINSTANCE.getErrorModelSubclause_Connections();
+    EReference ERROR_MODEL_SUBCLAUSE__PATHS = eINSTANCE.getErrorModelSubclause_Paths();
 
     /**
      * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
@@ -6372,14 +6372,14 @@ public interface ErrorModelPackage extends EPackage
     EClass PROPAGATION_POINT = eINSTANCE.getPropagationPoint();
 
     /**
-     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPointConnectionImpl <em>Propagation Point Connection</em>}' class.
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPathImpl <em>Propagation Path</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPointConnectionImpl
-     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getPropagationPointConnection()
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.PropagationPathImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getPropagationPath()
      * @generated
      */
-    EClass PROPAGATION_POINT_CONNECTION = eINSTANCE.getPropagationPointConnection();
+    EClass PROPAGATION_PATH = eINSTANCE.getPropagationPath();
 
     /**
      * The meta object literal for the '<em><b>Source</b></em>' containment reference feature.
@@ -6387,7 +6387,7 @@ public interface ErrorModelPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROPAGATION_POINT_CONNECTION__SOURCE = eINSTANCE.getPropagationPointConnection_Source();
+    EReference PROPAGATION_PATH__SOURCE = eINSTANCE.getPropagationPath_Source();
 
     /**
      * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
@@ -6395,7 +6395,7 @@ public interface ErrorModelPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PROPAGATION_POINT_CONNECTION__TARGET = eINSTANCE.getPropagationPointConnection_Target();
+    EReference PROPAGATION_PATH__TARGET = eINSTANCE.getPropagationPath_Target();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.QualifiedPropagationPointImpl <em>Qualified Propagation Point</em>}' class.
@@ -6408,12 +6408,12 @@ public interface ErrorModelPackage extends EPackage
     EClass QUALIFIED_PROPAGATION_POINT = eINSTANCE.getQualifiedPropagationPoint();
 
     /**
-     * The meta object literal for the '<em><b>Subcomponent</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Subcomponents</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT = eINSTANCE.getQualifiedPropagationPoint_Subcomponent();
+    EReference QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS = eINSTANCE.getQualifiedPropagationPoint_Subcomponents();
 
     /**
      * The meta object literal for the '<em><b>Propagation Point</b></em>' reference feature.

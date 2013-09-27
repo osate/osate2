@@ -83,7 +83,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.ERROR_SINK: return createErrorSink();
       case ErrorModelPackage.ERROR_PATH: return createErrorPath();
       case ErrorModelPackage.PROPAGATION_POINT: return createPropagationPoint();
-      case ErrorModelPackage.PROPAGATION_POINT_CONNECTION: return createPropagationPointConnection();
+      case ErrorModelPackage.PROPAGATION_PATH: return createPropagationPath();
       case ErrorModelPackage.QUALIFIED_PROPAGATION_POINT: return createQualifiedPropagationPoint();
       case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE: return createErrorBehaviorStateMachine();
       case ErrorModelPackage.ERROR_BEHAVIOR_EVENT: return createErrorBehaviorEvent();
@@ -330,10 +330,10 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public PropagationPointConnection createPropagationPointConnection()
+  public PropagationPath createPropagationPath()
   {
-    PropagationPointConnectionImpl propagationPointConnection = new PropagationPointConnectionImpl();
-    return propagationPointConnection;
+    PropagationPathImpl propagationPath = new PropagationPathImpl();
+    return propagationPath;
   }
 
   /**

@@ -63,7 +63,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
@@ -1458,16 +1458,16 @@ public class EMV2Util {
 	
 	
 	/**
-	 * return list of PropagationPointConnections including those inherited from classifiers being extended
+	 * return list of PropagationPaths including those inherited from classifiers being extended
 	 * @param cl Classifier
-	 * @return Collection<PropagationPointConnection> list of PropagationPointConnections as HashMap for quick lookup of names
+	 * @return Collection<PropagationPath> list of PropagationPaths as HashMap for quick lookup of names
 	 */
-	public static Collection<PropagationPointConnection> getAllPropagationPointConnections(Classifier cl){
-		HashMap<String,PropagationPointConnection> result = new HashMap<String,PropagationPointConnection>();
+	public static Collection<PropagationPath> getAllPropagationPaths(Classifier cl){
+		HashMap<String,PropagationPath> result = new HashMap<String,PropagationPath>();
 		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			EList<PropagationPointConnection> eflist = errorModelSubclause.getConnections();
-			for (PropagationPointConnection propPointConn : eflist) {
+			EList<PropagationPath> eflist = errorModelSubclause.getPaths();
+			for (PropagationPath propPointConn : eflist) {
 				if ( !result.containsKey(propPointConn.getName())){
 					result.put(propPointConn.getName(),propPointConn);
 				}
@@ -1902,6 +1902,16 @@ public class EMV2Util {
 	public static boolean isAccess(ErrorPropagation ep){
 		String s = ep.getKind();
 		return s.equalsIgnoreCase("access");
+	}
+	
+	/**
+	 * return true if error propagation points to generic (functional) binding
+	 * @param ep
+	 * @return Feature
+	 */
+	public static boolean isBinding(ErrorPropagation ep){
+		String s = ep.getKind();
+		return s.equalsIgnoreCase("binding");
 	}
 	
 

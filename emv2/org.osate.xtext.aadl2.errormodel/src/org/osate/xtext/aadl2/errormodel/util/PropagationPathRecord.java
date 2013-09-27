@@ -11,13 +11,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  * @author phf
  *
  */
-public class PropagationPath {
+public class PropagationPathRecord {
 	PropagationPathEnd pathSrc;
 	PropagationPathEnd pathDst;
 	ConnectionInstance conni;
 	
 	
-	public PropagationPath(
+	public PropagationPathRecord(
 			ComponentInstance srcCI, ErrorPropagation srcEP,
 			ComponentInstance dstCI, ErrorPropagation dstEP, ConnectionInstance conni) {
 		this.pathSrc = new PropagationPathEnd(srcCI, srcEP);
@@ -26,7 +26,7 @@ public class PropagationPath {
 	}
 	
 	
-	public PropagationPath(
+	public PropagationPathRecord(
 			ConnectionInstance srcConni, 
 			ComponentInstance dstCI, ErrorPropagation dstEP) {
 		this.pathSrc = new PropagationPathEnd(srcConni, null);
@@ -34,7 +34,7 @@ public class PropagationPath {
 		this.conni = null;
 	}
 	
-	public PropagationPath(
+	public PropagationPathRecord(
 			ComponentInstance srcCI, ErrorPropagation srcEP,
 			ConnectionInstance dstConni) {
 		this.pathSrc = new PropagationPathEnd(srcCI, srcEP);

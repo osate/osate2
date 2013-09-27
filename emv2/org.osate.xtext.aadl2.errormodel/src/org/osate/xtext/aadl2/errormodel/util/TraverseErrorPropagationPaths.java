@@ -158,12 +158,12 @@ public class TraverseErrorPropagationPaths {
 	 * @param conni
 	 */
 	protected void traverseErrorPaths(ComponentInstance ci, ErrorPropagation ep,  int depth, TypeToken tt, Object param){
-		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
+		EList<PropagationPathRecord> paths = faultModel.getAllPropagationPaths(ci, ep);
 		if (paths.isEmpty()){
 			processEnd(ci,ep, depth,tt, param);
 			return;
 		}
-		for (PropagationPath path : paths) {
+		for (PropagationPathRecord path : paths) {
 			processPath(path,param);
 			ComponentInstance destci = path.getDstCI();
 			ErrorPropagation destEP = path.getPathDst().getErrorPropagation();
@@ -256,7 +256,7 @@ public class TraverseErrorPropagationPaths {
 		return param;
 	}
 	
-	protected Object processPath(PropagationPath path,  Object param){
+	protected Object processPath(PropagationPathRecord path,  Object param){
 		return param;
 	}
 }
