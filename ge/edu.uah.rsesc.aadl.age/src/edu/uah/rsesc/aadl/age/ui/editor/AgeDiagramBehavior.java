@@ -45,7 +45,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final PropertyService propertyUtil) {
 		super(diagramContainer);
 		this.propertyUtil = propertyUtil;
-	}
+	}	
 	
 	private IXtextModelListener modelListener = new IXtextModelListener() {
 		@Override
@@ -63,15 +63,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 							public void run() {			
 								// Update the entire diagram
 								getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
-								
-								// Update the toolbars
-								if(getDiagramContainer() instanceof EditorPart) {
-									//System.out.println("UPDATING?");
-									//((EditorPart)getDiagramContainer()).getEditorSite().getActionBars().getToolBarManager().markDirty();
-									//((EditorPart)getDiagramContainer()).getEditorSite().getActionBars().updateActionBars();
-									((EditorPart)getDiagramContainer()).getEditorSite().getActionBars().getToolBarManager().update(true);
-								}		
-								
 							}
 						});	
 					}
@@ -88,6 +79,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	@Override
 	protected DefaultRefreshBehavior createRefreshBehavior() {		
 		return new DefaultRefreshBehavior(this) {
+			@Override
 			protected void autoUpdate() {
 				IDiagramTypeProvider diagramTypeProvider = getDiagramTypeProvider();
 				Diagram diagram = diagramTypeProvider.getDiagram();
@@ -95,6 +87,16 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				IUpdateContext updateCtx = new UpdateContext(diagram);
 				featureProvider.updateIfPossible(updateCtx);
 				refresh();
+			}
+			
+			@Override
+			public void refresh() {
+				// Update the toolbars
+				if(getDiagramContainer() instanceof EditorPart) {
+					((EditorPart)getDiagramContainer()).getEditorSite().getActionBars().getToolBarManager().update(true);
+				}
+				
+				super.refresh();
 			}
 		};
 	}
@@ -173,7 +175,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			final boolean canUndo = feature.canUndo(context);
 			final Object ret = super.executeFeature(feature, context);
 			if(!canUndo) {
-				editingDomain.getCommandStack().flush();	
+				editingDomain.getCommandStack().flush();
 			}
 			
 			return ret;

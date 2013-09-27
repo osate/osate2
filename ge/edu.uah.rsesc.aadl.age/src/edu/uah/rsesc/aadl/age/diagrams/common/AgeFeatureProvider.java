@@ -37,6 +37,7 @@ import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
+import edu.uah.rsesc.aadl.age.services.ModificationService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
@@ -53,6 +54,7 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmCreationServ
 import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultHighlightingService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultLayoutService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultModificationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultPropertyService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultPrototypeService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultShapeCreationService;
@@ -75,6 +77,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private IEclipseContext createEclipseContext() {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
+		final ModificationService modificationService = new DefaultModificationService(this);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultStyleService styleUtil = new DefaultStyleService(this);
@@ -96,6 +99,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		
 		// Populate the context. 
+		context.set(IFeatureProvider.class, this);
+		context.set(BusinessObjectResolutionService.class, bor);
+		context.set(ModificationService.class, modificationService);
 		context.set(GraphicsAlgorithmManipulationService.class, graphicsAlgorithmUtil);
 		context.set(PropertyService.class, propertyUtil);
 		context.set(LayoutService.class, layoutService);
@@ -111,13 +117,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		context.set(ConnectionCreationService.class, connectionCreationService);
 		context.set(GraphicsAlgorithmCreationService.class, graphicsAlgorithmCreator);
 		context.set(HighlightingService.class, highlightingHelper);
-		context.set(IFeatureProvider.class, this);
-		context.set(BusinessObjectResolutionService.class, bor);
 		
 		return context;
 	}
 	
-	IEclipseContext getContext() {
+	protected IEclipseContext getContext() {
 		return context;
 	}
 	
