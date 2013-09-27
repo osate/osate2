@@ -98,7 +98,7 @@ public class FileImport {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeName().equalsIgnoreCase("system"))
 			{
-				OsateDebug.osateDebug("System passed");
+//				OsateDebug.osateDebug("System passed");
 				processSystem (nNode);
 			}
 		}
@@ -114,7 +114,7 @@ public class FileImport {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeName().equalsIgnoreCase("machine"))
 			{
-				OsateDebug.osateDebug("machine");
+//				OsateDebug.osateDebug("machine");
 				processStateFlowMachine (nNode);
 			}
 		}
@@ -142,9 +142,9 @@ public class FileImport {
 		blockIndex = connection.substring(0, idx1);
 		portDirection = connection.substring(idx1+1, idx2);
 		portIndex = connection.substring(idx2+1);
-		OsateDebug.osateDebug("blockIndex="+ blockIndex);
-		OsateDebug.osateDebug("portDirection="+ portDirection);
-		OsateDebug.osateDebug("portIndex="+ portIndex);
+//		OsateDebug.osateDebug("blockIndex="+ blockIndex);
+//		OsateDebug.osateDebug("portDirection="+ portDirection);
+//		OsateDebug.osateDebug("portIndex="+ portIndex);
 		
 		switch (field)
 		{
@@ -230,7 +230,7 @@ public class FileImport {
 		
 		newTransition = new Transition ();
 		
-		OsateDebug.osateDebug("[FileImport] Parsing transition");
+//		OsateDebug.osateDebug("[FileImport] Parsing transition");
 		
 		/**
 		 * Check the identifier of the state.
@@ -238,7 +238,7 @@ public class FileImport {
 		attrName = getAttribute(transition, "SSID");
 		attrValue = attrName.getNodeValue().toString();
 		newTransition.setIdentifier(Integer.parseInt(attrValue));
-		OsateDebug.osateDebug("[FileImport] SSID value="+attrName);
+//		OsateDebug.osateDebug("[FileImport] SSID value="+attrName);
 		
 		
 		/**
@@ -306,7 +306,7 @@ public class FileImport {
 		State			newState;
 		
 		newState = new State();
-		OsateDebug.osateDebug("[FileImport] Parsing state");
+//		OsateDebug.osateDebug("[FileImport] Parsing state");
 		
 		/**
 		 * Check the identifier of the state.
@@ -315,7 +315,7 @@ public class FileImport {
 		attrValue = attrName.getNodeValue().toString();
 		newState.setIdentifier(Integer.parseInt(attrValue));
 		
-		OsateDebug.osateDebug("[FileImport] SSID value="+attrName);
+//		OsateDebug.osateDebug("[FileImport] SSID value="+attrName);
 		
 		
 		/**
@@ -340,7 +340,7 @@ public class FileImport {
 				{
 					String label = nNode.getTextContent();
 					newState.setName(label);
-					OsateDebug.osateDebug("[FileImport] Label="+label);
+//					OsateDebug.osateDebug("[FileImport] Label="+label);
 				}
 			}
 		}
@@ -369,7 +369,7 @@ public class FileImport {
 		attrName = getAttribute(machine, "id");
 		
 		attrValue = attrName.getNodeValue().toString();
-		OsateDebug.osateDebug("[FileImport] id=" + attrValue);
+//		OsateDebug.osateDebug("[FileImport] id=" + attrValue);
 		sm.setIdentifier(Integer.parseInt(attrValue));
 		
 		/**
@@ -396,7 +396,7 @@ public class FileImport {
 			int srcBlockIndex = getConnectionPointInformation(srcString, CONNECTION_FIELD_BLOCK_INDEX);
 			int dstBlockIndex = getConnectionPointInformation(dstString, CONNECTION_FIELD_BLOCK_INDEX);
 			
-			OsateDebug.osateDebug("[FileImport] src=" + srcString +"|dst="+dstString);
+			OsateDebug.osateDebug("[FileImport] connection src=" + srcString +"|dst="+dstString);
 			Component srcComponent = producedModel.findComponentById(srcBlockIndex);
 			Component dstComponent = producedModel.findComponentById(dstBlockIndex);
 			
@@ -432,7 +432,7 @@ public class FileImport {
 					continue;
 				}
 				String blockName = attrName.getNodeValue().toString();
-				OsateDebug.osateDebug("block name="+ blockName);
+//				OsateDebug.osateDebug("block name="+ blockName);
 				
 				attrName = getAttribute(nNode, "BlockType");
 				
@@ -441,7 +441,7 @@ public class FileImport {
 					continue;
 				}
 				String blockType = attrName.getNodeValue().toString();
-				OsateDebug.osateDebug("block name="+ blockType);
+//				OsateDebug.osateDebug("block name="+ blockType);
 				
 				
 				attrName = getAttribute(nNode, "SID");
@@ -451,7 +451,7 @@ public class FileImport {
 					continue;
 				}
 				String sidStr = attrName.getNodeValue().toString();
-				OsateDebug.osateDebug("sid="+ blockType);
+//				OsateDebug.osateDebug("sid="+ blockType);
 				int sidValue = Integer.parseInt(sidStr);
 				Component c = new Component(blockName);
 				c.setIdentifier (sidValue);
@@ -493,49 +493,49 @@ public class FileImport {
 							continue;
 						}
 						direction = attrName.getNodeValue().toString();
-						OsateDebug.osateDebug("direction="+direction);
+//						OsateDebug.osateDebug("direction="+direction);
 						if (direction.equalsIgnoreCase("src"))
 						{
 							srcString = tmpNode.getTextContent();
-							OsateDebug.osateDebug("srcString="+srcString);
+//							OsateDebug.osateDebug("srcString="+srcString);
 							addConnection (srcString, dstString);
 						}
 						
 						if (direction.equalsIgnoreCase("dst"))
 						{
 							dstString = tmpNode.getTextContent();
-							OsateDebug.osateDebug("dstString="+dstString);
+//							OsateDebug.osateDebug("dstString="+dstString);
 							addConnection (srcString, dstString);
 						}
 					}
 					if (tmpNode.getNodeName().equalsIgnoreCase("branch"))
 					{
-						NodeList children4 = nNode.getChildNodes();
-						for (int temp4 = 0 ; temp4 < children.getLength() ; temp4++)
+						NodeList children4 = tmpNode.getChildNodes();
+						for (int temp4 = 0 ; temp4 < children4.getLength() ; temp4++)
 						{
-							Node tmpNode4 = children.item(temp4);
+							Node tmpNode4 = children4.item(temp4);
 							if (tmpNode4.getNodeName().equalsIgnoreCase("p"))
 							{
-								attrName = getAttribute(tmpNode4, "Name");
+								Node attrName2 = getAttribute(tmpNode4, "Name");
 								
-								if (attrName == null)
+								if (attrName2 == null)
 								{
 									continue;
 								}
-								direction = attrName.getNodeValue().toString();
-								OsateDebug.osateDebug("direction="+direction);
-								if (direction.equalsIgnoreCase("src"))
+								String direction2 = attrName2.getNodeValue().toString();
+//								OsateDebug.osateDebug("direction="+direction);
+								if (direction2.equalsIgnoreCase("src"))
 								{
 									srcString = tmpNode4.getTextContent();
-									OsateDebug.osateDebug("srcString="+srcString);
+//									OsateDebug.osateDebug("srcString="+srcString);
 									srcBlockIndex = getConnectionPointInformation(srcString, CONNECTION_FIELD_BLOCK_INDEX);
 									addConnection (srcString, dstString);
 								}
 								
-								if (direction.equalsIgnoreCase("dst"))
+								if (direction2.equalsIgnoreCase("dst"))
 								{
 									dstString = tmpNode4.getTextContent();
-									OsateDebug.osateDebug("dstString="+dstString);
+//									OsateDebug.osateDebug("dstString="+dstString);
 									dstBlockIndex = getConnectionPointInformation(dstString, CONNECTION_FIELD_BLOCK_INDEX);
 									addConnection (srcString, dstString);
 								}
@@ -562,7 +562,7 @@ public class FileImport {
 		int strength;
 		
 		zipFile = null;
-		OsateDebug.osateDebug("try to load" + inputFile);
+//		OsateDebug.osateDebug("try to load" + inputFile);
 		
 		producedModel = new Model();
 		
@@ -608,7 +608,7 @@ public class FileImport {
 			NodeList modelInformationNodes = doc.getElementsByTagName("ModelInformation");
 			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
 			{
-				OsateDebug.osateDebug("ModelInformation passed");
+//				OsateDebug.osateDebug("ModelInformation passed");
 
 				nNode = modelInformationNodes.item(s);
 				NodeList children = nNode.getChildNodes();
@@ -618,7 +618,7 @@ public class FileImport {
 					Node tNode = children.item (t);
 					if (tNode.getNodeName().equalsIgnoreCase("model"))
 					{
-						OsateDebug.osateDebug("Model passed");
+//						OsateDebug.osateDebug("Model passed");
 						processModel (tNode);
 					}
 				}
@@ -634,12 +634,13 @@ public class FileImport {
 					Node tNode = children.item (t);
 					if (tNode.getNodeName().equalsIgnoreCase("stateflow"))
 					{
-						OsateDebug.osateDebug("stateflow");
+//						OsateDebug.osateDebug("stateflow");
 						processStateFlow (tNode);
 					}
 				}
 			}
 			
+			/*
 			for (Component c : producedModel.getComponents())
 			{
 				OsateDebug.osateDebug("[FileImport] component=" + c);
@@ -653,7 +654,7 @@ public class FileImport {
 			for (StateMachine sm : producedModel.getStateMachines())
 			{
 				OsateDebug.osateDebug("[FileImport] state machine=" + sm);
-			}
+			}*/
 		} 
 		catch (Exception e) 
 		{
