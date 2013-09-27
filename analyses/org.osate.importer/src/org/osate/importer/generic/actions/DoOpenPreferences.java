@@ -56,12 +56,14 @@ class PreferencesDialog extends TitleAreaDialog {
 
 	  private Combo weightMethodCombo;
 	  private Combo parallelDependenciesCombo;
+	  private Combo mappingComponentCombo;
 	  private Text invalidSystems;
+	  private Text packagePrefix;
 	  private Text ignoreHierarchy;
 	  private Button arincCheckBox;
 	  private final static String [] weightMethods = {"boolean", "architecture driven"};
 	  private final static String [] parallelDependenciesMethods = {"sum", "average", "max"};
-
+	  private final static String [] mappingComponents = {"subprogram", "thread", "process"};
 //	  private String lastName;
 
 	  public PreferencesDialog(Shell parentShell) {
@@ -93,7 +95,7 @@ class PreferencesDialog extends TitleAreaDialog {
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label1 = new Label(parent, SWT.NONE);
-	    label1.setText("Dependency weight method (DSM)");
+	    label1.setText("Dependency weight method (DSM, Lattix)");
 
 	    weightMethodCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 
@@ -107,20 +109,34 @@ class PreferencesDialog extends TitleAreaDialog {
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label2 = new Label(parent, SWT.NONE);
-	    label2.setText("Parallel dependecies handling");
+	    label2.setText("Parallel dependecies handling (Lattix)");
 
 	    parallelDependenciesCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 
 	    
 	    parallelDependenciesCombo.setItems(parallelDependenciesMethods);
 	    parallelDependenciesCombo.setText(parallelDependenciesMethods[0]);
+
+
+	    gridData = new GridData();
+	    gridData.grabExcessHorizontalSpace = true;
+	    gridData.horizontalAlignment = GridData.FILL;
+
+	    Label label7 = new Label(parent, SWT.NONE);
+	    label7.setText("AADL mapping component (Lattix/Simulink)");
+
+	    mappingComponentCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
+
+	    mappingComponentCombo.setItems(mappingComponents);
+	    mappingComponentCombo.setText(mappingComponents[Preferences.getMappingComponent()]);
+	    
 	    
 	    gridData = new GridData();
 	    gridData.grabExcessHorizontalSpace = true;
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label4 = new Label(parent, SWT.NONE);
-	    label4.setText("Systems to ignore");
+	    label4.setText("Systems to ignore (Lattix)");
 
 	    invalidSystems = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
     	
@@ -129,16 +145,27 @@ class PreferencesDialog extends TitleAreaDialog {
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label5 = new Label(parent, SWT.NONE);
-	    label5.setText("Ignore the following first hierarchy levels");
+	    label5.setText("Ignore the following first hierarchy levels (Lattix)");
 
 	    ignoreHierarchy = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
+
+    	
+	    gridData = new GridData();
+	    gridData.grabExcessHorizontalSpace = true;
+	    gridData.horizontalAlignment = GridData.FILL;
+
+	    Label label6 = new Label(parent, SWT.NONE);
+	    label6.setText("Package Prefix (Lattix/Simulink)");
+
+	    packagePrefix = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
+
 	    
 	    gridData = new GridData();
 	    gridData.grabExcessHorizontalSpace = true;
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label3 = new Label(parent, SWT.NONE);
-	    label3.setText("Enable ARINC653 features");
+	    label3.setText("Enable ARINC653 features (Lattix/Simulink)");
 
 	    arincCheckBox = new Button(parent, SWT.CHECK);
     	arincCheckBox.setSelection(Preferences.useArinc());
@@ -241,8 +268,18 @@ class PreferencesDialog extends TitleAreaDialog {
 				  Preferences.setParallelDependencyMethod(i);
 			  }
 		  }
+		  
+		  for (int i = 0 ; i < mappingComponents.length ; i++)
+		  {
+			  if (mappingComponents[i].equals(mappingComponentCombo.getText()))
+			  {
+				  Preferences.setMappingComponent(i);
+			  }
+		  }
+		  
 		  Preferences.setInvalidSystems(invalidSystems.getText());
 		  Preferences.setIgnoreHierarchy(ignoreHierarchy.getText());
+		  Preferences.setPackagePrefix(packagePrefix.getText());
 	  }
 
 	  protected void okPressed() {

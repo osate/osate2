@@ -29,6 +29,8 @@
 
 package org.osate.importer;
 
+import org.osate.aadl2.util.OsateDebug;
+
 public class Preferences {
 
 	public static final int WEIGHT_BOOLEAN 		= 0;
@@ -38,15 +40,31 @@ public class Preferences {
 	public static final int DEPENDENCY_AVER 	= 1;
 	public static final int DEPENDENCY_MAX 		= 2;
 	
+	public static final int MAPPING_SUBPROGRAM  = 0;
+	public static final int MAPPING_THREAD      = 1;
+	public static final int MAPPING_PROCESS     = 2;
+	
 	private static int 		weightMethod 			= WEIGHT_BOOLEAN;
 	private static int 		dependencyMethod 		= DEPENDENCY_SUM;
 	private static String 	invalidSystems	 		= "";
+	private static String 	packagePrefix	 		= "";
 	private static boolean 	useArinc 				= false;
 	private static int 		ignoreHierarchyLevel 	= 0;
+	private static int		mappingComponent 		= MAPPING_SUBPROGRAM;
 	
 	public static int getWeightMethod ()
 	{
 		return weightMethod;
+	}
+	
+	public static void setPackagePrefix (String s)
+	{
+		packagePrefix = s;
+	}
+	
+	public static String getPackagePrefix ()
+	{
+		return packagePrefix;
 	}
 	
 	public static void enableArinc ()
@@ -135,5 +153,31 @@ public class Preferences {
 		{
 			ignoreHierarchyLevel = 0;
 		}
+	}
+	
+	public static boolean mapSubprogram ()
+	{
+		return (mappingComponent == MAPPING_SUBPROGRAM);
+	}
+	
+	public static boolean mapThread ()
+	{
+		return ((mappingComponent == MAPPING_SUBPROGRAM) || (mappingComponent == MAPPING_THREAD));
+	}
+	
+	public static boolean mapProcess ()
+	{
+		return ((mappingComponent == MAPPING_PROCESS) || (mappingComponent == MAPPING_THREAD) || (mappingComponent == MAPPING_SUBPROGRAM));
+	}
+	
+	public static void setMappingComponent (int i)
+	{
+		OsateDebug.osateDebug("[Preferences] set mapping component to" + i);
+		mappingComponent = i;
+	}
+	
+	public static int getMappingComponent ()
+	{
+		return mappingComponent;
 	}
 }
