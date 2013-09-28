@@ -163,7 +163,7 @@ public class AadlProjectCreator
 			fstream = new FileWriter(outputFile);
 			out = new BufferedWriter(fstream);
 
-			out.write ("package imported::runtime\n");
+			out.write ("package "+Preferences.getPackagePrefix()+"imported::runtime\n");
 
 			out.write ("public\n");
 			out.write ("with "+Preferences.getPackagePrefix()+"runtime::common;\n");
@@ -517,7 +517,7 @@ public class AadlProjectCreator
 			out.write("end mainsystem.i; \n");
 
 
-			out.write("end imported::runtime; \n");
+			out.write("end "+Preferences.getPackagePrefix()+"imported::runtime; \n");
 
 			out.close();
 			fstream.close();
