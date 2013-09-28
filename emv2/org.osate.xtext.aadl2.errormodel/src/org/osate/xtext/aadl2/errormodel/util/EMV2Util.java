@@ -255,49 +255,6 @@ public class EMV2Util {
 		return result;
 	}
 	
-//	/**
-//	 * return list of component error behaviors including those inherited from classifiers being extended
-//	 * @param cl Classifier
-//	 * @return Collection<ComponentErrorBehavior> list of ComponentErrorBehavior 
-//	 */
-//	public static EList<ComponentErrorBehavior> getAllComponentErrorBehaviors(Classifier cl){
-//		EList<ComponentErrorBehavior> result = new BasicEList<ComponentErrorBehavior>();
-//		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
-//		for (ErrorModelSubclause errorModelSubclause : emslist) {
-//			ComponentErrorBehavior ceb = errorModelSubclause.getComponentBehavior();
-//			if (ceb!= null){
-//				result.add(ceb);
-//			}
-//		}
-//		return result;
-//	}
-//	
-//	public static EList<ComponentErrorBehavior> getAllComponentErrorBehaviors(ComponentInstance ci)
-//	{
-//		return getAllComponentErrorBehaviors(ci.getComponentClassifier());
-//	}
-//
-//	
-//	/**
-//	 * return list of Composite error behaviors including those inherited from classifiers being extended
-//	 * @param cl Classifier
-//	 * @return Collection<CompositeErrorBehavior> list of CompositeErrorBehavior 
-//	 */
-//	public static EList<CompositeErrorBehavior> getAllCompositeErrorBehaviors(Classifier cl){
-//		EList<CompositeErrorBehavior> result = new BasicEList<CompositeErrorBehavior>();
-//		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
-//		for (ErrorModelSubclause errorModelSubclause : emslist) {
-//			CompositeErrorBehavior ceb = errorModelSubclause.getCompositeBehavior();
-//			if (ceb!= null){
-//				result.add(ceb);
-//			}
-//		}
-//		return result;
-//	}
-//
-//	public static EList<CompositeErrorBehavior> getAllCompositeErrorBehaviors(ComponentInstance ci){
-//		return getAllCompositeErrorBehaviors(ci.getComponentClassifier());
-//	}
 	
 	/**
 	 * find propagation point including those inherited from classifiers being extended

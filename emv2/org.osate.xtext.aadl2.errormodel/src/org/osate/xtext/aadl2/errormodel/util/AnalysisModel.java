@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -10,6 +11,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.VirtualProcessor;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -18,9 +20,13 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 /**
@@ -71,6 +77,7 @@ public class AnalysisModel {
 			{
 				populateBindingPaths(ci);
 			}
+			populatePropagationPaths(ci);
 		}
 	}
 
@@ -416,6 +423,48 @@ public class AnalysisModel {
 			connections.add(conn);
 			subcomponents.add(boundResource);
 		}
+	}
+	
+	/**
+	 * populate propagation paths declared in this component instance
+	 * the paths are between subcomponents
+	 * @param ci ComponentInstance
+	 */
+	protected void populatePropagationPaths(InstanceObject obj){
+		if (obj instanceof ComponentInstance){
+			ComponentInstance ci = (ComponentInstance)obj;
+			Collection<PropagationPath> pplist = EMV2Util.getAllPropagationPaths(ci.getComponentClassifier());
+			for (PropagationPath propagationPath : pplist) {
+				addPropagationPath(ci,propagationPath);
+			}
+		}
+	}
+	
+	protected void addPropagationPath(ComponentInstance ci,PropagationPath pp){
+		ErrorPropagation srcEP = null;
+		ErrorPropagation dstEP = null;
+		ComponentInstance srcCI = getComponentInstance(ci, pp.getSource().getSubcomponents());
+		ComponentInstance dstCI = getComponentInstance(ci, pp.getTarget().getSubcomponents());
+		if (srcCI != null){
+			srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(), pp.getSource().getPropagationPoint().getName(), DirectionType.OUT);
+		}
+		if (dstCI != null){
+			dstEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(), pp.getTarget().getPropagationPoint().getName(), DirectionType.IN);
+		}
+		if (srcEP != null && dstEP != null){
+			propagationPaths.add(new PropagationPathRecord(srcCI, srcEP, dstCI, dstEP));
+			subcomponents.add(srcCI);
+			subcomponents.add(dstCI);
+		}
+	}
+	
+	protected ComponentInstance getComponentInstance (ComponentInstance ci, EList<SubcomponentElement> sublist){
+		ComponentInstance result = ci;
+		for (SubcomponentElement subcomponentElement : sublist) {
+			result = result.findSubcomponentInstance(subcomponentElement.getSubcomponent());
+			if (result == null) return null;
+		}
+		return result;
 	}
 	
 	/**

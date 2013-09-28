@@ -25,6 +25,13 @@ public class PropagationPathRecord {
 		this.conni = conni;
 	}
 	
+	public PropagationPathRecord(
+			ComponentInstance srcCI, ErrorPropagation srcEP,
+			ComponentInstance dstCI, ErrorPropagation dstEP) {
+		this.pathSrc = new PropagationPathEnd(srcCI, srcEP);
+		this.pathDst = new PropagationPathEnd(dstCI, dstEP);
+		this.conni = null;
+	}
 	
 	public PropagationPathRecord(
 			ConnectionInstance srcConni, 
