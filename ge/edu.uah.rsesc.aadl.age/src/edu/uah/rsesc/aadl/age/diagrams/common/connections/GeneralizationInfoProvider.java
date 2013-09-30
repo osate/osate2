@@ -47,11 +47,11 @@ public class GeneralizationInfoProvider extends AbstractConnectionInfoProvider {
 		final PictogramElement specificPictogramEl = shapeHelper.getChildShapeByElementQualifiedName(ownerShape, specificClassifier);
 		
 		if(generalPictogramEl == null) {
-			throw new RuntimeException("Unhandled case, referenced general classifier is not in diagram. " + generalClassifier.getQualifiedName());
+			return null;
 		}
 		
 		if(specificPictogramEl == null) {
-			throw new RuntimeException("Unhandled case, referenced specific classifier is not in diagram. " + specificClassifier.getQualifiedName());
+			return null;
 		}
 
 		// Get anchors

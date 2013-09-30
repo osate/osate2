@@ -3,7 +3,9 @@ package edu.uah.rsesc.aadl.age.services.impl;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -110,7 +112,14 @@ public class DefaultModificationService implements ModificationService {
 			}
 		} finally {				
 			// Undo the changes if any of the validators fail
-			if(resource.getErrors().size() > 0 || resource.validateConcreteSyntax().size() > 0 && domain.getCommandStack().canUndo()) {
+			final List<Diagnostic> concreteValidationErrors = resource.validateConcreteSyntax();
+			if(resource.getErrors().size() > 0 || concreteValidationErrors.size() > 0 && domain.getCommandStack().canUndo()) {
+				System.err.println("Undoing modification");
+				System.err.println("Concrete Syntax Validation Errors:");
+				for(final Diagnostic diag : concreteValidationErrors) {
+					System.err.println(diag);
+				}
+				System.out.println(concreteValidationErrors);
 				domain.getCommandStack().undo();
 				result = null;
 			}			
