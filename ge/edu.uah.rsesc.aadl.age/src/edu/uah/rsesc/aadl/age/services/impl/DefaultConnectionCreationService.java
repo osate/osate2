@@ -8,6 +8,7 @@ import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Element;
@@ -33,9 +34,9 @@ public class DefaultConnectionCreationService implements ConnectionCreationServi
 	}
 	
 	@Override
-	public void createUpdateConnection(final ContainerShape ownerShape, final Element el) {
-		final PictogramElement pictogramElement = connectionService.getConnection(ownerShape, el);
-		if(pictogramElement == null) {			
+	public Connection createUpdateConnection(final ContainerShape ownerShape, final Element el) {
+		Connection connection = connectionService.getConnection(ownerShape, el);
+		if(connection == null) {			
 			final Anchor[] anchors = connectionService.getAnchors(ownerShape, el);
 			if(anchors != null) {
 				final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
@@ -44,11 +45,11 @@ public class DefaultConnectionCreationService implements ConnectionCreationServi
 				
 				final IAddFeature addFeature = fp.getAddFeature(addContext);
 				if(addFeature != null && addFeature.canAdd(addContext)) {
-					addFeature.add(addContext);
+					connection = (Connection)addFeature.add(addContext);
 				}
 			}
 		} else {
-			final UpdateContext updateContext = new UpdateContext(pictogramElement);
+			final UpdateContext updateContext = new UpdateContext(connection);
 			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
 			
 			// Update the connection regardless of whether it is "needed" or not.
@@ -56,5 +57,7 @@ public class DefaultConnectionCreationService implements ConnectionCreationServi
 				updateFeature.update(updateContext);
 			}
 		}
+		
+		return connection;
 	}
 }

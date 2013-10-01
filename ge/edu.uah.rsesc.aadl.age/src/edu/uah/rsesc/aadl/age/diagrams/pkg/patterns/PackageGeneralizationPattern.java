@@ -31,6 +31,7 @@ import org.osate.aadl2.TypeExtension;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.ConnectionService;
 import edu.uah.rsesc.aadl.age.services.ModificationService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
@@ -41,16 +42,19 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
 	private final ModificationService modificationService;
 	private final ConnectionService connectionService;
+	private final ConnectionCreationService connectionCreationService;
 	private final BusinessObjectResolutionService bor;
 	
 	
 	@Inject
 	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, 
-			final ModificationService modificationService, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
+			final ModificationService modificationService, final ConnectionService connectionService, 
+			final ConnectionCreationService connectionCreationService, final BusinessObjectResolutionService bor) {
 		super(visibilityHelper);
 		this.styleUtil = styleUtil;
 		this.modificationService = modificationService;
 		this.connectionService = connectionService;
+		this.connectionCreationService = connectionCreationService;
 		this.bor = bor;
 	}
 
@@ -210,17 +214,12 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 			}			
 		});		
 				
-		// Get and return the new connection
-		if(generalization != null) {
-			final Connection connection = connectionService.getConnection(getDiagram(), generalization);
-			if(connection == null) {
-				// TODO: Create the connection...
-			//	getFeatureProvider().
-				
-			}
-			System.out.println(connection);
-			return connection;
+		// Create/Get the connection
+		if(generalization == null) {
+			return null;
 		}
-		return null;
+		
+		final Connection connection = connectionCreationService.createUpdateConnection(getDiagram(), generalization);
+		return connection;
 	}
 }
