@@ -38,8 +38,11 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 
 		// Create the GA and inner Shape
         createGaAndInnerShapes(container, element, context.getX(), context.getY());
+        
         updateAnchors(container);
         setShapeProperties(container, element);
+
+        layoutPictogramElement(container);
         
         return container;
 	}
@@ -68,6 +71,9 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 			updateAnchors(shape);
 			
 			setShapeProperties(shape, bo);
+			
+			// Layout the shape
+			layoutPictogramElement(shape);
 		}
 
 		return true;

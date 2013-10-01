@@ -8,14 +8,12 @@ import javax.inject.Inject;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
-import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
@@ -167,15 +165,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 					// Update the classifier regardless of whether it is "needed" or not.
 					if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 						updateFeature.update(updateContext);
-					}
-				}
-				
-				// Update the layout of the classifier shape
-				if(pictogramElement != null) {
-					final LayoutContext layoutContext = new LayoutContext(pictogramElement);					
-					final ILayoutFeature layoutFeature = getFeatureProvider().getLayoutFeature(layoutContext);
-					if(layoutFeature != null && layoutFeature.canLayout(layoutContext)) {
-						layoutFeature.layout(layoutContext);
 					}
 				}
 			}
