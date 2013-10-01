@@ -16,12 +16,14 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
+import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.osate.aadl2.Element;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -142,6 +144,45 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	
 	@Override 
 	public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
+		PictogramElement pictogramElement = context.getPictogramElement();
+		// As of 2013-07-03 Graphiti doesn't support connection patterns handling deletes so check if the pattern implements IDeleteFeature and return a feature based on the pattern
+		if(pictogramElement instanceof Connection) {
+			for(final IConnectionPattern conPattern : getConnectionPatterns()) {
+				if(conPattern instanceof IDelete) {
+					final IDelete deleter = (IDelete)conPattern;
+					if(deleter.canDelete(context)) {
+						// Create a new feature that wraps the connection pattern
+						final IDeleteFeature f = new DefaultDeleteFeature(this) {
+							@Override
+							public boolean canDelete(IDeleteContext context) {
+								return deleter.canDelete(context);
+							}
+
+							@Override
+							public void preDelete(IDeleteContext context) {
+								deleter.preDelete(context);
+							}
+
+							@Override
+							public void delete(IDeleteContext context) {
+								deleter.delete(context);
+							}
+
+							@Override
+							public void postDelete(IDeleteContext context) {
+								deleter.postDelete(context);
+							}
+						};
+						
+						// Check the Feature
+						if (checkFeatureAndContext(f, context)) {
+							return f;
+						}
+					}
+				}
+			}
+		}
+		
 		return null;
 	}
 	

@@ -119,7 +119,6 @@ public class DefaultModificationService implements ModificationService {
 				for(final Diagnostic diag : concreteValidationErrors) {
 					System.err.println(diag);
 				}
-				System.out.println(concreteValidationErrors);
 				domain.getCommandStack().undo();
 				result = null;
 			}			
