@@ -2,9 +2,12 @@ package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -13,12 +16,12 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
@@ -38,7 +41,7 @@ import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.ModificationService.Modifier;
 
-public class PackageGeneralizationPattern extends AgeConnectionPattern {
+public class PackageGeneralizationPattern extends AgeConnectionPattern implements IDelete {
 	private final StyleService styleUtil;
 	private final ModificationService modificationService;
 	private final ConnectionService connectionService;
@@ -221,5 +224,38 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 		
 		final Connection connection = connectionCreationService.createUpdateConnection(getDiagram(), generalization);
 		return connection;
+	}
+
+	@Override
+	public boolean canDelete(final IDeleteContext context) {
+		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		return bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
+	}
+
+	@Override
+	public void preDelete(final IDeleteContext context) {
+	
+	}
+
+	@Override
+	public void delete(final IDeleteContext context) {
+		// Make the modification
+		final AadlPackage pkg = (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
+		modificationService.modifyModel(pkg, new Modifier<Object>() {
+			@Override
+			public Object modify(final Resource resource) {
+				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+				EcoreUtil.delete((EObject) bo);
+
+				return null;
+			}			
+		});	
+		
+		// Clear selection
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
+
+	@Override
+	public void postDelete(final IDeleteContext context) {
 	}
 }

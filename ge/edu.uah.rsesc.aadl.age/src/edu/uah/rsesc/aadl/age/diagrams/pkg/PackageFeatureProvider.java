@@ -1,11 +1,14 @@
 package edu.uah.rsesc.aadl.age.diagrams.pkg;
 
+import java.util.List;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.IPattern;
@@ -13,6 +16,7 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
+import edu.uah.rsesc.aadl.age.diagrams.pkg.features.PackageSetExtendedClassifierFeature;
 import edu.uah.rsesc.aadl.age.diagrams.pkg.features.PackageUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.pkg.patterns.PackageClassifierPattern;
 import edu.uah.rsesc.aadl.age.diagrams.pkg.patterns.PackageGeneralizationPattern;
@@ -70,4 +74,9 @@ public class PackageFeatureProvider extends AgeFeatureProvider {
 	   return super.getUpdateFeature(context);
 	}
 	
+	@Override
+	protected void addCustomFeatures(final List<ICustomFeature> features) {
+		features.add(make(PackageSetExtendedClassifierFeature.class));
+		super.addCustomFeatures(features);
+	}
 }
