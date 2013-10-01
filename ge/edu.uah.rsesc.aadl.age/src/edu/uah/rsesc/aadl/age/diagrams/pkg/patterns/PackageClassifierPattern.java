@@ -266,6 +266,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 				}
 			}
 		}
+
 		return false;
 	}
 	
@@ -352,7 +353,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 				if(addFeature != null && addFeature.canAdd(addContext)) {
 					addFeature.execute(addContext);
 				}
-				
+	
 				// Try to find the shape again
 				newShape = shapeService.getDescendantShapeByElement(getDiagram(), newClassifier);			
 			}
