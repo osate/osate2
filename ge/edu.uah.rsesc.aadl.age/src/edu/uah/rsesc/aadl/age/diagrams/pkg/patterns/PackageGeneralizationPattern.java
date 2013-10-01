@@ -39,17 +39,16 @@ import edu.uah.rsesc.aadl.age.services.ModificationService.Modifier;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
-	private final ConnectionService connectionHelper;
 	private final ModificationService modificationService;
 	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	
+	
 	@Inject
-	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final ConnectionService connectionHelper, 
+	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, 
 			final ModificationService modificationService, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
 		super(visibilityHelper);
 		this.styleUtil = styleUtil;
-		this.connectionHelper = connectionHelper;
 		this.modificationService = modificationService;
 		this.connectionService = connectionService;
 		this.bor = bor;
@@ -104,8 +103,8 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
 		final Generalization generalization = getGeneralization(connection);
-		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
-		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, generalization);		
+		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
+		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, generalization);		
 	}
 	
 	protected void createGraphicsAlgorithmOnUpdate(final Connection connection)	{ 
@@ -209,11 +208,16 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern {
 				
 				return null;
 			}			
-		});
+		});		
 				
 		// Get and return the new connection
 		if(generalization != null) {
 			final Connection connection = connectionService.getConnection(getDiagram(), generalization);
+			if(connection == null) {
+				// TODO: Create the connection...
+			//	getFeatureProvider().
+				
+			}
 			System.out.println(connection);
 			return connection;
 		}
