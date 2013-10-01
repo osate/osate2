@@ -32,6 +32,7 @@ public class PackageFeatureProvider extends AgeFeatureProvider {
 		addPattern(createPackageClassifierPattern(p.getDataImplementation()));
 		addPattern(createPackageClassifierPattern(p.getDeviceType()));
 		addPattern(createPackageClassifierPattern(p.getDeviceImplementation()));
+		addPattern(createPackageClassifierPattern(p.getFeatureGroupType()));
 		addPattern(createPackageClassifierPattern(p.getMemoryType()));
 		addPattern(createPackageClassifierPattern(p.getMemoryImplementation()));
 		addPattern(createPackageClassifierPattern(p.getProcessType()));
@@ -52,10 +53,6 @@ public class PackageFeatureProvider extends AgeFeatureProvider {
 		addPattern(createPackageClassifierPattern(p.getVirtualBusImplementation()));
 		addPattern(createPackageClassifierPattern(p.getVirtualProcessorType()));
 		addPattern(createPackageClassifierPattern(p.getVirtualProcessorImplementation()));		
-		addPattern(createPackageClassifierPattern(p.getFeatureGroupType()));
-		
-		// TODO: Instantiate other patterns
-		
 	}
 	
 	private IPattern createPackageClassifierPattern(final EClass classifierType) {
