@@ -22,7 +22,7 @@ property set AADL_Project is
 	
 	Supported_Scheduling_Protocols: type enumeration (Round_Robin_Protocol, POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL, FixedTimeline, Cooperative, RMS, EDF, SporadicServer, SlackServer, ARINC653);
 	
-	Supported_Source_Languages: type enumeration (Ada95, Ada2005, C, Simulink_6_5);
+	Supported_Source_Languages: type enumeration (Ada95, Ada2005, C, Java, Simulink_6_5);
 	
 	Supported_Distributions: type enumeration (Fixed, Poisson);
 	
