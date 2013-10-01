@@ -62,7 +62,7 @@ public class DefaultModificationService implements ModificationService {
 				public MR exec(XtextResource  res) throws Exception {
 					return modifySafely(res, modifier);
 				}
-			});			
+			});	
 		}
 
 		return modifierResult;

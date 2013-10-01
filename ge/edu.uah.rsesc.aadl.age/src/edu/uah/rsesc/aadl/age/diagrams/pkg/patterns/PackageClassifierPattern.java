@@ -15,12 +15,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
@@ -337,9 +339,27 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		// If the shape was dropped on the diagram, set the location of the new shape
 		if(newClassifier != null && context.getTargetContainer() instanceof Diagram) {
-			final Shape newShape = shapeService.getDescendantShapeByElement(getDiagram(), newClassifier);
+			Shape newShape = shapeService.getDescendantShapeByElement(getDiagram(), newClassifier);
+			
+			// If the update feature hasn't been called, add the shape to the diagram
+			if(newShape == null) {
+				final AddContext addContext = new AddContext();
+				addContext.setTargetContainer(getDiagram());
+				addContext.setNewObject(new AadlElementWrapper(newClassifier));				
+				
+				// Execute the add feature
+				final IAddFeature addFeature = this.getFeatureProvider().getAddFeature(addContext);
+				if(addFeature != null && addFeature.canAdd(addContext)) {
+					addFeature.execute(addContext);
+				}
+				
+				// Try to find the shape again
+				newShape = shapeService.getDescendantShapeByElement(getDiagram(), newClassifier);			
+			}
+
 			if(newShape != null) {
 				Graphiti.getGaService().setLocation(newShape.getGraphicsAlgorithm(), context.getX(), context.getY());
+				propertyUtil.setIsLayedOut(newShape, true);
 			}
 		}
 
