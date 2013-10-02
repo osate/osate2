@@ -2,6 +2,7 @@ package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -19,7 +20,6 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.ComponentImplementation;
@@ -28,6 +28,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 
@@ -38,6 +39,7 @@ import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.ConnectionService;
 import edu.uah.rsesc.aadl.age.services.ModificationService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.ModificationService.Modifier;
 
@@ -46,18 +48,19 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	private final ModificationService modificationService;
 	private final ConnectionService connectionService;
 	private final ConnectionCreationService connectionCreationService;
-	private final BusinessObjectResolutionService bor;
-	
+	private final UserInputService userInputService;
+	private final BusinessObjectResolutionService bor;	
 	
 	@Inject
 	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, 
 			final ModificationService modificationService, final ConnectionService connectionService, 
-			final ConnectionCreationService connectionCreationService, final BusinessObjectResolutionService bor) {
+			final ConnectionCreationService connectionCreationService, final UserInputService userInputService, final BusinessObjectResolutionService bor) {
 		super(visibilityHelper);
 		this.styleUtil = styleUtil;
 		this.modificationService = modificationService;
 		this.connectionService = connectionService;
 		this.connectionCreationService = connectionCreationService;
+		this.userInputService = userInputService;
 		this.bor = bor;
 	}
 
@@ -188,28 +191,29 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	@Override
 	public Connection create(final ICreateConnectionContext context) {
 		// Get the business objects for the source and destination shapes
-		final Object srcBo = getShapeBusinessObject(context.getSourceAnchor());
-		final Object dstBo = getShapeBusinessObject(context.getTargetAnchor());
+		final NamedElement srcEl = (NamedElement)getShapeBusinessObject(context.getSourceAnchor());
+		final URI dstElUri = EcoreUtil.getURI((EObject)getShapeBusinessObject(context.getTargetAnchor()));
 				
 		// Make the modification
-		final AadlPackage pkg = (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
-		final Generalization generalization = modificationService.modifyModel(pkg, new Modifier<Generalization>() {
+		final Generalization generalization = modificationService.modify(srcEl, new Modifier<NamedElement, Generalization>() {
 			@Override
-			public Generalization modify(final Resource resource) {
-				if(srcBo instanceof ComponentType) {
-					final ComponentType ct = (ComponentType)srcBo;
+			public Generalization modify(final Resource resource, final NamedElement srcEl) {
+				final EObject dstEl = resource.getResourceSet().getEObject(dstElUri, true);
+				
+				if(srcEl instanceof ComponentType) {
+					final ComponentType ct = (ComponentType)srcEl;
 					final TypeExtension te = ct.createOwnedExtension();
-					te.setExtended((ComponentType)dstBo);
+					te.setExtended((ComponentType)dstEl);
 					return te;
-				} else if(srcBo instanceof ComponentImplementation) {
-					final ComponentImplementation ci = (ComponentImplementation)srcBo;
+				} else if(srcEl instanceof ComponentImplementation) {
+					final ComponentImplementation ci = (ComponentImplementation)srcEl;
 					final ImplementationExtension ie = ci.createOwnedExtension();
-					ie.setExtended((ComponentImplementation)dstBo);
+					ie.setExtended((ComponentImplementation)dstEl);
 					return ie;
-				} else if(srcBo instanceof FeatureGroupType) {
-					final FeatureGroupType fgt = (FeatureGroupType)srcBo;
+				} else if(srcEl instanceof FeatureGroupType) {
+					final FeatureGroupType fgt = (FeatureGroupType)srcEl;
 					final GroupExtension ge = fgt.createOwnedExtension();
-					ge.setExtended((FeatureGroupType)dstBo);
+					ge.setExtended((FeatureGroupType)dstEl);
 					return ge;
 				}
 				
@@ -229,7 +233,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		return bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
+		return (bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension);
 	}
 
 	@Override
@@ -239,14 +243,17 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	@Override
 	public void delete(final IDeleteContext context) {
+		if(!userInputService.confirmDelete(context)) {
+			return;
+		}
+		
 		// Make the modification
-		final AadlPackage pkg = (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
-		modificationService.modifyModel(pkg, new Modifier<Object>() {
+		final Generalization generalization = (Generalization)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		modificationService.modify(generalization, new Modifier<Generalization, Object>() {
 			@Override
-			public Object modify(final Resource resource) {
-				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-				EcoreUtil.delete((EObject) bo);
-
+			public Object modify(final Resource resource, final Generalization generalization) {
+				EcoreUtil.delete(generalization);
+				
 				return null;
 			}			
 		});	
