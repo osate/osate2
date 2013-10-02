@@ -46,6 +46,7 @@ import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.SubcomponentService;
+import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultAadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultAnchorService;
@@ -63,6 +64,7 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultShapeCreationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultShapeService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultStyleService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultSubcomponentService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultUserInputService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultVisibilityService;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
@@ -79,7 +81,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private IEclipseContext createEclipseContext() {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
-		final ModificationService modificationService = new DefaultModificationService(this);
+		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
+		final DefaultModificationService modificationService = new DefaultModificationService(this);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultStyleService styleUtil = new DefaultStyleService(this);
@@ -103,6 +106,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Populate the context. 
 		context.set(IFeatureProvider.class, this);
 		context.set(BusinessObjectResolutionService.class, bor);
+		context.set(UserInputService.class, userInputService);
 		context.set(ModificationService.class, modificationService);
 		context.set(GraphicsAlgorithmManipulationService.class, graphicsAlgorithmUtil);
 		context.set(PropertyService.class, propertyUtil);
@@ -136,16 +140,16 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return ContextInjectionFactory.make(clazz, context);
 	}
 	
-	// TODO: Remove when deleting is allowed. Just returns false for now. As of 07/03/13, connection patterns do not handle remove and delete features.
+	// Don't allow removing, just deleting.
 	@Override 
 	public IRemoveFeature getRemoveFeature(final IRemoveContext context) {
 		return null;
 	}
-	
+
+	// As of 2013-07-03 Graphiti doesn't support connection patterns handling deletes so check if the pattern implements IDeleteFeature and return a feature based on the pattern
 	@Override 
 	public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
-		// As of 2013-07-03 Graphiti doesn't support connection patterns handling deletes so check if the pattern implements IDeleteFeature and return a feature based on the pattern
 		if(pictogramElement instanceof Connection) {
 			for(final IConnectionPattern conPattern : getConnectionPatterns()) {
 				if(conPattern instanceof IDelete) {
@@ -183,7 +187,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			}
 		}
 		
-		return null;
+		return super.getDeleteFeature(context);
 	}
 	
 	@Override

@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -16,6 +18,7 @@ import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.services.ModificationService;
@@ -29,23 +32,24 @@ public class DefaultModificationService implements ModificationService {
 	}
 	
 	@Override
-	public <MR> MR modifyModel(final NamedElement element, final Modifier<MR> modifier) {
+	public <E extends Element, R> R modify(final E element, final Modifier<E, R> modifier) {
 		if(element == null) {
 			return null;
 		}
 		
-		final MR modifierResult;
+		final R modifierResult;
 		if(!(element.eResource() instanceof XtextResource)) {
 			throw new RuntimeException("Unexpected case. Resource is not an XtextResource");
 		}
-		
+
 		// Try to get the Xtext document	
-		final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(element.getQualifiedName());
+		final NamedElement root = element.getElementRoot();
+		final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(root.getQualifiedName());
 		if(doc == null) {
 			final XtextResource res = (XtextResource)element.eResource();
-			modifierResult = modifySafely(res, modifier);
+			modifierResult = modifySafely(res, element, modifier);
 			try {
-				element.eResource().save(SaveOptions.defaultOptions().toOptionsMap());	
+				res.save(SaveOptions.defaultOptions().toOptionsMap());	
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			};				
@@ -57,10 +61,17 @@ public class DefaultModificationService implements ModificationService {
 				}
 			});					
 		} else {
-			modifierResult = doc.modify(new IUnitOfWork<MR, XtextResource>() {
+			final URI elementUri = EcoreUtil.getURI(element);
+			modifierResult = doc.modify(new IUnitOfWork<R, XtextResource>() {
 				@Override
-				public MR exec(XtextResource  res) throws Exception {
-					return modifySafely(res, modifier);
+				public R exec(final XtextResource  res) throws Exception {
+					@SuppressWarnings("unchecked")
+					final E element = (E)res.getResourceSet().getEObject(elementUri, true);
+					if(element == null) {
+						return null;
+					}
+					
+					return modifySafely(res, element, modifier);
 				}
 			});	
 		}
@@ -75,7 +86,7 @@ public class DefaultModificationService implements ModificationService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <MR> MR modifySafely(final XtextResource resource, final Modifier<MR> modifier) {
+	private <E extends Element, R> R modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier) {
 		if(resource.getContents().size() < 1) {
 			return null;
 		}
@@ -88,15 +99,15 @@ public class DefaultModificationService implements ModificationService {
 		// Create a new editing domain
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resource.getResourceSet());
 		
-		MR result = null;
+		R result = null;
 		try {
 			// Execute a new recording command
 			final RecordingCommand cmd = new RecordingCommand(domain) {
-				private MR modifierResult;
+				private R modifierResult;
 				
 				@Override
 				protected void doExecute() {
-					modifierResult = modifier.modify(resource);
+					modifierResult = modifier.modify(resource, element);
 				}
 				
 				@Override
@@ -108,17 +119,28 @@ public class DefaultModificationService implements ModificationService {
 			domain.getCommandStack().execute(cmd);
 			final Object[] cmdResult = cmd.getResult().toArray();
 			if(cmdResult.length > 0) {
-				result = (MR)cmdResult[0];
+				result = (R)cmdResult[0];
 			}
 		} finally {				
 			// Undo the changes if any of the validators fail
 			final List<Diagnostic> concreteValidationErrors = resource.validateConcreteSyntax();
-			if(resource.getErrors().size() > 0 || concreteValidationErrors.size() > 0 && domain.getCommandStack().canUndo()) {
-				System.err.println("Undoing modification");
-				System.err.println("Concrete Syntax Validation Errors:");
-				for(final Diagnostic diag : concreteValidationErrors) {
-					System.err.println(diag);
+			// Disabled checking for resource errors because that includes errors that will occur in normal operations(unless refactoring/chain deleting/modification is implemented)
+			if((/*resource.getErrors().size() > 0 || */concreteValidationErrors.size() > 0) && domain.getCommandStack().canUndo()) {
+				System.err.println("Error. Undoing modification");
+				/*if(resource.getErrors().size() > 0) {
+					System.err.println("Errors:");
+					for(final org.eclipse.emf.ecore.resource.Resource.Diagnostic diag : resource.getErrors()) {
+						System.err.println(diag);
+					}
 				}
+				*/
+				if(concreteValidationErrors.size() > 0) {
+					System.err.println("Concrete Syntax Validation Errors:");
+					for(final Diagnostic diag : concreteValidationErrors) {
+						System.err.println(diag);
+					}
+				}
+				
 				domain.getCommandStack().undo();
 				result = null;
 			}			

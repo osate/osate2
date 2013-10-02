@@ -19,6 +19,7 @@ import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
@@ -73,6 +74,7 @@ import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.ModificationService.Modifier;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
@@ -84,17 +86,20 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final PropertyService propertyUtil;
 	private final ModificationService modificationService;
 	private final ShapeService shapeService;
+	private final UserInputService userInputService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
 
 	@Inject
 	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
-			final PropertyService propertyUtil, final ModificationService modificationService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
+			final PropertyService propertyUtil, final ModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
+			final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
 		super(anchorUtil, visibilityHelper);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.propertyUtil = propertyUtil;
 		this.modificationService = modificationService;
 		this.shapeService = shapeService;
+		this.userInputService = userInputService;
 		this.bor = bor;
 		this.classifierType = classifierType;
 	}
@@ -117,7 +122,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	}
 	
 	@Override
-	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {
+	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {		
 		final Classifier classifier = (Classifier)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
@@ -330,9 +335,9 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		// Make the modification
 		final AadlPackage pkg = (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
-		final Classifier newClassifier = modificationService.modifyModel(pkg, new Modifier<Classifier>() {
+		final Classifier newClassifier = modificationService.modify(pkg, new Modifier<AadlPackage, Classifier>() {
 			@Override
-			public Classifier modify(final Resource resource) {
+			public Classifier modify(final Resource resource, final AadlPackage pkg) {
 				final Object resolvedContext = (baseClassifier != null && baseClassifier.eIsProxy()) ? EcoreUtil.resolve(baseClassifier, resource) : baseClassifier;
 				return createClassifier(resource, resolvedContext);
 			}			
@@ -554,5 +559,32 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 			}
 		}
 		return names;
+	}
+	
+	@Override
+	public boolean canDelete(final IDeleteContext context) {
+		return true;
+	}
+
+	@Override
+	public void delete(final IDeleteContext context) {
+		if(!userInputService.confirmDelete(context)) {
+			return;
+		}
+		
+		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		modificationService.modify(classifier, new Modifier<Classifier, Object>() {
+			@Override
+			public Object modify(final Resource resource, final Classifier classifier) {
+				// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
+				// cause errors.
+				EcoreUtil.remove(classifier);
+				
+				return null;
+			}			
+		});
+		
+		// Clear selection
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
 }

@@ -88,19 +88,18 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 	
 	@Override
 	public void execute(final ICustomContext context) {
-		final NamedElement bo = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
+		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
 		
 		// Prompt the user for the element
-		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a classifier to extend.", getExtensibleClassifierDescriptions(bo));
+		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a classifier to extend.", getExtensibleClassifierDescriptions(classifier));
 		if(dlg.open() == Dialog.CANCEL) {
 			return;
 		}			
 		
 		// Make the modification
-		final AadlPackage pkg = (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
-		modificationService.modifyModel(pkg, new Modifier<Object>() {
+		modificationService.modify(classifier, new Modifier<Classifier, Object>() {
 			@Override
-			public Object modify(final Resource resource) {
+			public Object modify(final Resource resource, final Classifier classifier) {
 				final AadlPackage pkg = (AadlPackage)resource.getContents().get(0);
 				final PackageSection section = pkg.getPublicSection();
 				
@@ -117,12 +116,12 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 				}
 				
 				// Extend the classifier
-				if(bo instanceof ComponentType) {
-					((ComponentType)bo).createOwnedExtension().setExtended((ComponentType)selectedClassifier);
-				} else if(bo instanceof ComponentImplementation) {
-					((ComponentImplementation) bo).createOwnedExtension().setExtended((ComponentImplementation)selectedClassifier);
-				} else if(bo instanceof FeatureGroupType) {
-					((FeatureGroupType) bo).createOwnedExtension().setExtended((FeatureGroupType)selectedClassifier);
+				if(classifier instanceof ComponentType) {
+					((ComponentType)classifier).createOwnedExtension().setExtended((ComponentType)selectedClassifier);
+				} else if(classifier instanceof ComponentImplementation) {
+					((ComponentImplementation) classifier).createOwnedExtension().setExtended((ComponentImplementation)selectedClassifier);
+				} else if(classifier instanceof FeatureGroupType) {
+					((FeatureGroupType) classifier).createOwnedExtension().setExtended((FeatureGroupType)selectedClassifier);
 				}
 
 				return null;

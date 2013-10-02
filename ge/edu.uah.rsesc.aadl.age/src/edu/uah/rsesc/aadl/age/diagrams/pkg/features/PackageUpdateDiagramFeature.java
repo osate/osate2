@@ -31,6 +31,7 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.util.Aadl2Util;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
@@ -140,7 +141,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private void updateClassifiers(final Diagram diagram, final Set<NamedElement> elements, int x, int y) {
 		for(final NamedElement el : elements) {
 			// Add a item for the classifier
-			if(el instanceof Classifier) {
+			if(!Aadl2Util.isNull(el) && el instanceof Classifier) {
 				PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
 				if(pictogramElement == null) {
 					final AddContext addContext = new AddContext();
@@ -168,7 +169,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 					}
 				}
 			}
-
 		}
 	}
 	

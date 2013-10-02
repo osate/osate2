@@ -1,7 +1,7 @@
 package edu.uah.rsesc.aadl.age.services;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Element;
 
 /**
  * Service providing a mechanism for making changes to the model
@@ -16,9 +16,9 @@ public interface ModificationService {
 	 * @param modifier the modifier that will perform the actual modification
 	 * @returns the result of the modification or null if the modification failed
 	 */
-	<MR> MR modifyModel(NamedElement element, Modifier<MR> modifier);
+	<E extends Element, R> R modify(E element, Modifier<E, R> modifier);
 	
-	public interface Modifier<R> {
-		R modify(final Resource resource);
+	public interface Modifier<E, R> {
+		R modify(Resource resource, final E element);
 	}
 }
