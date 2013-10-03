@@ -21,6 +21,7 @@ import org.osate.aadl2.ComponentImplementation;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.util.Log;
@@ -28,12 +29,14 @@ import edu.uah.rsesc.aadl.age.util.Log;
 public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
 	private final StyleService styleService;
 	private final VisibilityService visibilityService;
+	private final ShapeService shapeService;
 	
 	@Inject
-	public ComponentImplementationUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final VisibilityService visibilityService) {
+	public ComponentImplementationUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final VisibilityService visibilityService, final ShapeService shapeService) {
 		super(fp);
 		this.styleService = styleService;
 		this.visibilityService = visibilityService;
+		this.shapeService = shapeService;
 	}
 
 	private ComponentImplementation getComponentImplementation(final IUpdateContext context) {
@@ -67,7 +70,7 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 		visibilityService.ghostInvalidShapes(diagram);
 
 		// Add/Update the shape for the classifier
-		final PictogramElement pe = getFeatureProvider().getPictogramElementForBusinessObject(ci);
+		final PictogramElement pe = shapeService.getDescendantShapeByElementQualifiedName(diagram, ci);
 		if(pe == null) {
 			final AddContext addContext = new AddContext();
 			addContext.setNewObject(new AadlElementWrapper(ci));

@@ -20,6 +20,7 @@ import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
@@ -345,7 +346,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		// If the shape was dropped on the diagram, set the location of the new shape
 		if(newClassifier != null && context.getTargetContainer() instanceof Diagram) {
-			Shape newShape = shapeService.getDescendantShapeByElement(getDiagram(), newClassifier);
+			Shape newShape = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), newClassifier);
 			
 			// If the update feature hasn't been called, add the shape to the diagram
 			if(newShape == null) {
@@ -360,7 +361,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 				}
 	
 				// Try to find the shape again
-				newShape = shapeService.getDescendantShapeByElement(getDiagram(), newClassifier);			
+				newShape = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), newClassifier);			
 			}
 
 			if(newShape != null) {

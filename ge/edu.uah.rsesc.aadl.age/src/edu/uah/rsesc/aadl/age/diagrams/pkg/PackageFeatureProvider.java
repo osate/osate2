@@ -6,7 +6,9 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -78,5 +80,5 @@ public class PackageFeatureProvider extends AgeFeatureProvider {
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(make(PackageSetExtendedClassifierFeature.class));
 		super.addCustomFeatures(features);
-	}
+	}	
 }
