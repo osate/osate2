@@ -57,12 +57,12 @@ public class DefaultShapeService implements ShapeService {
 				return c;
 			} else if(childBo == null && c instanceof ContainerShape) {
 				final Shape recResult = getDescendantShapeByElementQualifiedName((ContainerShape)c, el);
-				if(shape != null) {
+				if(recResult != null) {
 					return recResult;
 				}
 			}
 		}
-		
+
 		return null;
 	}	
 	
