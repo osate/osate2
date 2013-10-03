@@ -272,14 +272,11 @@
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="propagation"/>
           <elements xsi:type="xtext:Keyword" value="paths"/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="points" operator="+=">
+          <elements xsi:type="xtext:Assignment" cardinality="*" feature="points" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.34"/>
           </elements>
-          <elements xsi:type="xtext:Group" cardinality="?">
-            <elements xsi:type="xtext:Keyword" value="connections"/>
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="connections" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
-            </elements>
+          <elements xsi:type="xtext:Assignment" cardinality="*" feature="paths" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.35"/>
           </elements>
           <elements xsi:type="xtext:Keyword" value="end"/>
           <elements xsi:type="xtext:Keyword" value="paths"/>
@@ -785,6 +782,7 @@
         <elements xsi:type="xtext:Keyword" value="processor"/>
         <elements xsi:type="xtext:Keyword" value="memory"/>
         <elements xsi:type="xtext:Keyword" value="connection"/>
+        <elements xsi:type="xtext:Keyword" value="binding"/>
         <elements xsi:type="xtext:Keyword" value="bindings"/>
         <elements xsi:type="xtext:Keyword" value="access"/>
       </alternatives>
@@ -982,15 +980,17 @@
         <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
     </rules>
-    <rules xsi:type="xtext:ParserRule" name="PropagationPointConnection">
+    <rules xsi:type="xtext:ParserRule" name="PropagationPath">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//PropagationPointConnection"/>
+        <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//PropagationPath"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
+        <elements xsi:type="xtext:Group" cardinality="?">
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value=":"/>
         </elements>
-        <elements xsi:type="xtext:Keyword" value=":"/>
         <elements xsi:type="xtext:Assignment" feature="source" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.36"/>
         </elements>
@@ -1006,14 +1006,9 @@
         <classifier xsi:type="ecore:EClass" href="http://www.aadl.info/EMV2#//QualifiedPropagationPoint"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Assignment" feature="subcomponent" operator="=">
-            <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.1">
-                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Subcomponent"/>
-              </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
-            </terminal>
+        <elements xsi:type="xtext:Group" cardinality="+">
+          <elements xsi:type="xtext:Assignment" feature="subcomponents" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.67"/>
           </elements>
           <elements xsi:type="xtext:Keyword" value="."/>
         </elements>

@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -10,6 +11,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.VirtualProcessor;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -18,9 +20,13 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 /**
@@ -31,7 +37,7 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 public class AnalysisModel {
 
 	protected ComponentInstance root; // component instance that is the root of the analysis
-	protected EList<PropagationPath> propagationPaths = new BasicEList<PropagationPath>(); // component instances (with emv2 propagations) within the root
+	protected EList<PropagationPathRecord> propagationPaths = new BasicEList<PropagationPathRecord>(); // component instances (with emv2 propagations) within the root
 	protected EList<ComponentInstance> subcomponents = new UniqueEList<ComponentInstance>(); // component instances (with emv2 propagations) within the root
 	protected EList<ConnectionInstance> connections = new BasicEList<ConnectionInstance>(); // connection instances whose bond resources have a emv2 propagation
 	
@@ -71,10 +77,11 @@ public class AnalysisModel {
 			{
 				populateBindingPaths(ci);
 			}
+			populatePropagationPaths(ci);
 		}
 	}
 
-	public EList<PropagationPath> getPropagationPaths() {
+	public EList<PropagationPathRecord> getPropagationPaths() {
 		return propagationPaths;
 	}
 
@@ -92,8 +99,8 @@ public class AnalysisModel {
 	}
 	
 	public void printPropagationPaths(){
-		EList<PropagationPath> pl = getPropagationPaths();
-		for (PropagationPath propagationPath : pl) {
+		EList<PropagationPathRecord> pl = getPropagationPaths();
+		for (PropagationPathRecord propagationPath : pl) {
 			OsateDebug.osateDebug("PP src "+propagationPath.getSrcCI().getComponentInstancePath()+":"+generateErrorPropTypeSetText(propagationPath.getPathSrc().getErrorPropagation())+" dst "+
 					propagationPath.getDstCI().getComponentInstancePath()+":"+generateErrorPropTypeSetText(propagationPath.getPathSrc().getErrorPropagation())+
 					(propagationPath.getConnectionInstance()!=null?" conni "+propagationPath.getConnectionInstance().getName():""));
@@ -197,7 +204,7 @@ public class AnalysisModel {
 		}
 		if (srcprop!= null && dstprop!=null){
 			if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance)){
-				PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+				PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 				propagationPaths.add(path);
 				subcomponents.add(srcCI);
 				subcomponents.add(dstCI);
@@ -206,7 +213,7 @@ public class AnalysisModel {
 				srcCI = addlSrcCI.get(i);
 				srcprop = addlSrcEP.get(i);
 				if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance)){
-					PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+					PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 					propagationPaths.add(path);
 					subcomponents.add(srcCI);
 				}
@@ -289,7 +296,7 @@ public class AnalysisModel {
 			}
 			if (srcprop!= null && dstprop!=null){
 				if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance)){
-					PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+					PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 					propagationPaths.add(path);
 					subcomponents.add(srcCI);
 					subcomponents.add(dstCI);
@@ -298,7 +305,7 @@ public class AnalysisModel {
 					srcCI = addlSrcCI.get(i);
 					srcprop = addlSrcEP.get(i);
 					if (!existsPropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance)){
-						PropagationPath path = new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance);
+						PropagationPathRecord path = new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,connectionInstance);
 						propagationPaths.add(path);
 						subcomponents.add(srcCI);
 					}
@@ -332,7 +339,7 @@ public class AnalysisModel {
 				List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(ci);
 				for (ComponentInstance bres : boundresources)
 				{
-					populateBindingPropagationPaths(ci, bres,"binding");
+					populateBindingPropagationPaths(ci, bres,"connection");
 				}
 			}
 		} else if (obj instanceof ConnectionInstance){
@@ -343,7 +350,7 @@ public class AnalysisModel {
 			}
 			for (ComponentInstance bres : boundresources)
 			{
-				populateBindingPropagationPaths((ConnectionInstance)obj, bres,"binding");
+				populateBindingPropagationPaths((ConnectionInstance)obj, bres,"connection");
 			}
 		}
 	}
@@ -363,7 +370,7 @@ public class AnalysisModel {
 		if (BRsrcprop != null && BCdstprop != null ){
 //			if(EM2TypeSetUtil.contains(BCdstprop.getTypeSet(), BRsrcprop.getTypeSet()))
 //			{
-				propagationPaths.add(new PropagationPath(boundResource, BRsrcprop, comp, BCdstprop,null));
+				propagationPaths.add(new PropagationPathRecord(boundResource, BRsrcprop, comp, BCdstprop,null));
 				added = true;
 //			} else {
 //				// error message about mismatch of type set
@@ -374,7 +381,7 @@ public class AnalysisModel {
 		 if (BCsrcprop != null && BRdstprop!=null){
 //			 if (EM2TypeSetUtil.contains(BCsrcprop.getTypeSet(), BRdstprop.getTypeSet()))
 //			 {
-				 propagationPaths.add(new PropagationPath(comp, BCsrcprop, boundResource, BRdstprop,null));
+				 propagationPaths.add(new PropagationPathRecord(comp, BCsrcprop, boundResource, BRdstprop,null));
 				 added = true;
 //			 } else {
 //				 // error message about mismatch of type set
@@ -399,7 +406,7 @@ public class AnalysisModel {
 
 		if (BRsrcprop != null  )
 		{
-			propagationPaths.add(new PropagationPath(boundResource, BRsrcprop,conn));
+			propagationPaths.add(new PropagationPathRecord(boundResource, BRsrcprop,conn));
 			added = true;
 		} else {
 			// error message about mismatch of type set
@@ -407,7 +414,7 @@ public class AnalysisModel {
 		 ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(), bindingKind);
 		if (BRdstprop != null)
 		{
-			propagationPaths.add(new PropagationPath(conn, boundResource, BRdstprop));
+			propagationPaths.add(new PropagationPathRecord(conn, boundResource, BRdstprop));
 			added = true;
 		} else {
 			// error message about mismatch of type set
@@ -416,6 +423,48 @@ public class AnalysisModel {
 			connections.add(conn);
 			subcomponents.add(boundResource);
 		}
+	}
+	
+	/**
+	 * populate propagation paths declared in this component instance
+	 * the paths are between subcomponents
+	 * @param ci ComponentInstance
+	 */
+	protected void populatePropagationPaths(InstanceObject obj){
+		if (obj instanceof ComponentInstance){
+			ComponentInstance ci = (ComponentInstance)obj;
+			Collection<PropagationPath> pplist = EMV2Util.getAllPropagationPaths(ci.getComponentClassifier());
+			for (PropagationPath propagationPath : pplist) {
+				addPropagationPath(ci,propagationPath);
+			}
+		}
+	}
+	
+	protected void addPropagationPath(ComponentInstance ci,PropagationPath pp){
+		ErrorPropagation srcEP = null;
+		ErrorPropagation dstEP = null;
+		ComponentInstance srcCI = getComponentInstance(ci, pp.getSource().getSubcomponents());
+		ComponentInstance dstCI = getComponentInstance(ci, pp.getTarget().getSubcomponents());
+		if (srcCI != null){
+			srcEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(), pp.getSource().getPropagationPoint().getName(), DirectionType.OUT);
+		}
+		if (dstCI != null){
+			dstEP = EMV2Util.findErrorPropagation(srcCI.getComponentClassifier(), pp.getTarget().getPropagationPoint().getName(), DirectionType.IN);
+		}
+		if (srcEP != null && dstEP != null){
+			propagationPaths.add(new PropagationPathRecord(srcCI, srcEP, dstCI, dstEP));
+			subcomponents.add(srcCI);
+			subcomponents.add(dstCI);
+		}
+	}
+	
+	protected ComponentInstance getComponentInstance (ComponentInstance ci, EList<SubcomponentElement> sublist){
+		ComponentInstance result = ci;
+		for (SubcomponentElement subcomponentElement : sublist) {
+			result = result.findSubcomponentInstance(subcomponentElement.getSubcomponent());
+			if (result == null) return null;
+		}
+		return result;
 	}
 	
 	/**
@@ -459,7 +508,7 @@ public class AnalysisModel {
 			}
 		}
 		if (srcprop!= null && dstprop!= null){
-			propagationPaths.add(new PropagationPath(srcCI, srcprop, dstCI, dstprop,connectionInstance));
+			propagationPaths.add(new PropagationPathRecord(srcCI, srcprop, dstCI, dstprop,connectionInstance));
 			subcomponents.add(srcCI);
 			subcomponents.add(dstCI);
 		}
@@ -467,7 +516,7 @@ public class AnalysisModel {
 	
 	public EList<PropagationPathEnd> getAllPropagationDestinationEnds(ComponentInstance ci, ErrorPropagation outEP){
 		EList<PropagationPathEnd> result= new BasicEList<PropagationPathEnd>();
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == outEP){
 				result.add(propagationPathRecord.getPathDst());
@@ -478,7 +527,7 @@ public class AnalysisModel {
 	
 	public EList<PropagationPathEnd> getAllPropagationDestinationEnds(ConnectionInstance ci){
 		EList<PropagationPathEnd> result= new BasicEList<PropagationPathEnd>();
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if(src.getConnectionInstance() == ci ){
 				result.add(propagationPathRecord.getPathDst());
@@ -494,9 +543,9 @@ public class AnalysisModel {
 	 * @param outEP
 	 * @return
 	 */
-	public EList<PropagationPath> getAllPropagationPaths(ComponentInstance ci, ErrorPropagation outEP){
-		EList<PropagationPath> result= new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+	public EList<PropagationPathRecord> getAllPropagationPaths(ComponentInstance ci, ErrorPropagation outEP){
+		EList<PropagationPathRecord> result= new BasicEList<PropagationPathRecord>();
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if(src.getComponentInstance() == ci ){
 				if( src.getErrorPropagation() == outEP){
@@ -514,9 +563,9 @@ public class AnalysisModel {
 		return result;
 	}
 	
-	public EList<PropagationPath> getAllPropagationPaths(ConnectionInstance ci){
-		EList<PropagationPath> result= new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+	public EList<PropagationPathRecord> getAllPropagationPaths(ConnectionInstance ci){
+		EList<PropagationPathRecord> result= new BasicEList<PropagationPathRecord>();
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			if(src.getConnectionInstance() == ci ){
 				result.add(propagationPathRecord);
@@ -527,7 +576,7 @@ public class AnalysisModel {
 	
 	public EList<PropagationPathEnd> getAllPropagationSourceEnds(ComponentInstance ci, ErrorPropagation inEP){
 		EList<PropagationPathEnd> result= new BasicEList<PropagationPathEnd>();
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd dst = propagationPathRecord.getPathDst();
 			if(dst.getComponentInstance() == ci && dst.getErrorPropagation() == inEP){
 				result.add(propagationPathRecord.getPathSrc());
@@ -538,7 +587,7 @@ public class AnalysisModel {
 	
 	public EList<PropagationPathEnd> getAllPropagationSourceEnds(ConnectionInstance ci){
 		EList<PropagationPathEnd> result= new BasicEList<PropagationPathEnd>();
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd dst = propagationPathRecord.getPathDst();
 			if(dst.getConnectionInstance() == ci ){
 				result.add(propagationPathRecord.getPathSrc());
@@ -547,9 +596,9 @@ public class AnalysisModel {
 		return result;
 	}
 	
-	public EList<PropagationPath> getAllReversePropagationPaths(ComponentInstance ci, ErrorPropagation inEP){
-		EList<PropagationPath> result= new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+	public EList<PropagationPathRecord> getAllReversePropagationPaths(ComponentInstance ci, ErrorPropagation inEP){
+		EList<PropagationPathRecord> result= new BasicEList<PropagationPathRecord>();
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathDst();
 			if(src.getComponentInstance() == ci && src.getErrorPropagation() == inEP){
 				result.add(propagationPathRecord);
@@ -558,9 +607,9 @@ public class AnalysisModel {
 		return result;
 	}
 
-	public EList<PropagationPath> getAllReversePropagationPaths(ConnectionInstance ci){
-		EList<PropagationPath> result= new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+	public EList<PropagationPathRecord> getAllReversePropagationPaths(ConnectionInstance ci){
+		EList<PropagationPathRecord> result= new BasicEList<PropagationPathRecord>();
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathDst();
 			if(src.getConnectionInstance() == ci ){
 				result.add(propagationPathRecord);
@@ -584,7 +633,7 @@ public class AnalysisModel {
 		} else {
 			f = ((ComponentInstance)fi).getSubcomponent();
 		}
-		for (PropagationPath propagationPathRecord : propagationPaths) {
+		for (PropagationPathRecord propagationPathRecord : propagationPaths) {
 			PropagationPathEnd src = propagationPathRecord.getPathSrc();
 			ErrorPropagation ep = src.getErrorPropagation();
 			Feature srcf = EMV2Util.getFeature(ep);
@@ -609,7 +658,7 @@ public class AnalysisModel {
 	public boolean existsPropagationPath(
 			ComponentInstance srcCI, ErrorPropagation srcEP,
 			ComponentInstance dstCI, ErrorPropagation dstEP, ConnectionInstance conni) {
-		for (PropagationPath pp : propagationPaths){
+		for (PropagationPathRecord pp : propagationPaths){
 			if (pp.getConnectionInstance() == conni
 					&& pp.getSrcCI()==srcCI && pp.getDstCI() == dstCI
 					&& pp.getPathSrc().getErrorPropagation() == srcEP

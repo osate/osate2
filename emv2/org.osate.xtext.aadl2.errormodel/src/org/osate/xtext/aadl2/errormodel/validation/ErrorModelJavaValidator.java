@@ -46,8 +46,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
@@ -75,7 +75,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.FAST)
 	public void casePropagationPoint(PropagationPoint propagationPoint) {
-		checkUniquePropagationPointorConnection(propagationPoint);
+		checkUniquePropagationPointorPath(propagationPoint);
 	}
 
 	@Check(CheckType.FAST)
@@ -111,8 +111,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	@Check(CheckType.FAST)
-	public void casePropagationPointConnection(PropagationPointConnection opc) {
-		checkUniquePropagationPointorConnection(opc);
+	public void casePropagationPointConnection(PropagationPath opc) {
+		checkUniquePropagationPointorPath(opc);
 	}
 
 	@Check(CheckType.FAST)
@@ -485,19 +485,19 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkUniquePropagationPointorConnection(NamedElement ep) {
+	private void checkUniquePropagationPointorPath(NamedElement ep) {
 		Collection<PropagationPoint> tab = EMV2Util.getAllPropagationPoints(ep.getContainingClassifier());
 		for (PropagationPoint oep : tab) {
 			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {
 				error(ep,
-						"Propagation point "+(ep instanceof PropagationPointConnection?"connection ":"")
+						"Propagation point "+(ep instanceof PropagationPath?"path ":"")
 								+ ep.getName()+ " conflicts with propagation point.");
 			}
 		}
-		for (PropagationPointConnection oep : EMV2Util.getAllPropagationPointConnections(ep.getContainingClassifier())) {
+		for (PropagationPath oep : EMV2Util.getAllPropagationPaths(ep.getContainingClassifier())) {
 			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {
 				error(ep,
-						"Propagation point "+(ep instanceof PropagationPointConnection?"connection ":"")+
+						"Propagation point "+(ep instanceof PropagationPath?"path ":"")+
 				ep.getName()+ "' conflicts with propagation point connection.");
 			}
 		}

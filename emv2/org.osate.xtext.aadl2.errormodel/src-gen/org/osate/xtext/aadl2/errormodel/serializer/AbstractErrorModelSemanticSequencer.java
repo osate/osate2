@@ -55,8 +55,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
@@ -478,17 +478,17 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
+			case ErrorModelPackage.PROPAGATION_PATH:
+				if(context == grammarAccess.getNamedElementRule() ||
+				   context == grammarAccess.getPropagationPathRule()) {
+					sequence_PropagationPath(context, (PropagationPath) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.PROPAGATION_POINT:
 				if(context == grammarAccess.getNamedElementRule() ||
 				   context == grammarAccess.getPropagationPointRule()) {
 					sequence_PropagationPoint(context, (PropagationPoint) semanticObject); 
-					return; 
-				}
-				else break;
-			case ErrorModelPackage.PROPAGATION_POINT_CONNECTION:
-				if(context == grammarAccess.getNamedElementRule() ||
-				   context == grammarAccess.getPropagationPointConnectionRule()) {
-					sequence_PropagationPointConnection(context, (PropagationPointConnection) semanticObject); 
 					return; 
 				}
 				else break;
@@ -822,7 +822,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         )? 
 	 *         states+=CompositeState* 
 	 *         (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)? 
-	 *         (points+=PropagationPoint+ connections+=PropagationPointConnection*)? 
+	 *         (points+=PropagationPoint* paths+=PropagationPath*)? 
 	 *         properties+=ContainedPropertyAssociation*
 	 *     )
 	 */
@@ -985,9 +985,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID source=QualifiedPropagationPoint target=QualifiedPropagationPoint)
+	 *     (name=ID? source=QualifiedPropagationPoint target=QualifiedPropagationPoint)
 	 */
-	protected void sequence_PropagationPointConnection(EObject context, PropagationPointConnection semanticObject) {
+	protected void sequence_PropagationPath(EObject context, PropagationPath semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1003,7 +1003,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (subcomponent=[Subcomponent|ID]? propagationPoint=[PropagationPoint|ID])
+	 *     (subcomponents+=SubcomponentElement+ propagationPoint=[PropagationPoint|ID])
 	 */
 	protected void sequence_QualifiedPropagationPoint(EObject context, QualifiedPropagationPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

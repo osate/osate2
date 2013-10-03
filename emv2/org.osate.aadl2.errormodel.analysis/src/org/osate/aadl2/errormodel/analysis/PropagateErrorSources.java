@@ -81,7 +81,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelStateAdapterFactory;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 /**
@@ -541,7 +541,7 @@ public class PropagateErrorSources {
 		} else {
 			st.setVisitToken(tt);
 		}
-		EList<PropagationPath> paths = faultModel.getAllPropagationPaths(ci, ep);
+		EList<PropagationPathRecord> paths = faultModel.getAllPropagationPaths(ci, ep);
 		String effectText = ","+generateTypeTokenErrorPropText(ep,tt);
 		if (paths.isEmpty()){
 			if (fi != null){
@@ -556,7 +556,7 @@ public class PropagateErrorSources {
 				}
 			}
 		} else {
-			for (PropagationPath path : paths) {
+			for (PropagationPathRecord path : paths) {
 				ConnectionInstance pathConni = path.getConnectionInstance();
 				TypeMappingSet typeEquivalence = EMV2Util.getAllTypeEquivalenceMapping(ci.getContainingComponentInstance());
 				TypeToken mappedtt = tt;

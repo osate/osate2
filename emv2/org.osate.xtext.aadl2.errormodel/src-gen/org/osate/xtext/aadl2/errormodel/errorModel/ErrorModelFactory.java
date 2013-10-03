@@ -194,13 +194,13 @@ public interface ErrorModelFactory extends EFactory
   PropagationPoint createPropagationPoint();
 
   /**
-   * Returns a new object of class '<em>Propagation Point Connection</em>'.
+   * Returns a new object of class '<em>Propagation Path</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Propagation Point Connection</em>'.
+   * @return a new object of class '<em>Propagation Path</em>'.
    * @generated
    */
-  PropagationPointConnection createPropagationPointConnection();
+  PropagationPath createPropagationPath();
 
   /**
    * Returns a new object of class '<em>Qualified Propagation Point</em>'.

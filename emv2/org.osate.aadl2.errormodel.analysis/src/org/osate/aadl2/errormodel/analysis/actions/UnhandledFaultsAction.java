@@ -88,7 +88,7 @@ import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
@@ -114,8 +114,8 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 
 		setCSVLog("UnhandledFaults", si);
 		model = new AnalysisModel(si);
-		EList<PropagationPath> pathlist = model.getPropagationPaths();
-		for (PropagationPath path : pathlist) {
+		EList<PropagationPathRecord> pathlist = model.getPropagationPaths();
+		for (PropagationPathRecord path : pathlist) {
 			checkPropagationPathErrorTypes(path);
 		}
 
@@ -128,7 +128,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 
 	}
 
-	protected void checkPropagationPathErrorTypes(PropagationPath path){
+	protected void checkPropagationPathErrorTypes(PropagationPathRecord path){
 		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
 		if (srcprop != null && dstprop != null){

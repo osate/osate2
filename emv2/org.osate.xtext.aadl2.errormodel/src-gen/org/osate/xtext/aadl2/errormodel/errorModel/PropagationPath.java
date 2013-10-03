@@ -8,22 +8,22 @@ import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Propagation Point Connection</b></em>'.
+ * A representation of the model object '<em><b>Propagation Path</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection#getSource <em>Source</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPointConnection()
+ * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPath()
  * @model
  * @generated
  */
-public interface PropagationPointConnection extends EObject, NamedElement
+public interface PropagationPath extends EObject, NamedElement
 {
   /**
    * Returns the value of the '<em><b>Source</b></em>' containment reference.
@@ -35,14 +35,14 @@ public interface PropagationPointConnection extends EObject, NamedElement
    * <!-- end-user-doc -->
    * @return the value of the '<em>Source</em>' containment reference.
    * @see #setSource(QualifiedPropagationPoint)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPointConnection_Source()
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPath_Source()
    * @model containment="true"
    * @generated
    */
   QualifiedPropagationPoint getSource();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection#getSource <em>Source</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getSource <em>Source</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Source</em>' containment reference.
@@ -61,14 +61,14 @@ public interface PropagationPointConnection extends EObject, NamedElement
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' containment reference.
    * @see #setTarget(QualifiedPropagationPoint)
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPointConnection_Target()
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getPropagationPath_Target()
    * @model containment="true"
    * @generated
    */
   QualifiedPropagationPoint getTarget();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection#getTarget <em>Target</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath#getTarget <em>Target</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Target</em>' containment reference.
@@ -77,4 +77,4 @@ public interface PropagationPointConnection extends EObject, NamedElement
    */
   void setTarget(QualifiedPropagationPoint value);
 
-} // PropagationPointConnection
+} // PropagationPath

@@ -100,7 +100,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorFlowParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cErrorPropagationParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cOutgoingPropagationConditionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cPropagationPointConnectionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cPropagationPathParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		private final RuleCall cPropagationPointParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
 		private final RuleCall cCompositeStateParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		private final RuleCall cTypeTransformationSetParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
@@ -114,7 +114,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
 		//
-		//	ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint | CompositeState |
+		//	ErrorPropagation | OutgoingPropagationCondition | PropagationPath | PropagationPoint | CompositeState |
 		//
 		//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource |
 		//
@@ -123,7 +123,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
 		//
-		//ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint | CompositeState |
+		//ErrorPropagation | OutgoingPropagationCondition | PropagationPath | PropagationPoint | CompositeState |
 		//
 		//TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource |
 		//
@@ -154,8 +154,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//OutgoingPropagationCondition
 		public RuleCall getOutgoingPropagationConditionParserRuleCall_7() { return cOutgoingPropagationConditionParserRuleCall_7; }
 
-		//PropagationPointConnection
-		public RuleCall getPropagationPointConnectionParserRuleCall_8() { return cPropagationPointConnectionParserRuleCall_8; }
+		//PropagationPath
+		public RuleCall getPropagationPathParserRuleCall_8() { return cPropagationPathParserRuleCall_8; }
 
 		//PropagationPoint
 		public RuleCall getPropagationPointParserRuleCall_9() { return cPropagationPointParserRuleCall_9; }
@@ -392,10 +392,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cPathsKeyword_9_1 = (Keyword)cGroup_9.eContents().get(1);
 		private final Assignment cPointsAssignment_9_2 = (Assignment)cGroup_9.eContents().get(2);
 		private final RuleCall cPointsPropagationPointParserRuleCall_9_2_0 = (RuleCall)cPointsAssignment_9_2.eContents().get(0);
-		private final Group cGroup_9_3 = (Group)cGroup_9.eContents().get(3);
-		private final Keyword cConnectionsKeyword_9_3_0 = (Keyword)cGroup_9_3.eContents().get(0);
-		private final Assignment cConnectionsAssignment_9_3_1 = (Assignment)cGroup_9_3.eContents().get(1);
-		private final RuleCall cConnectionsPropagationPointConnectionParserRuleCall_9_3_1_0 = (RuleCall)cConnectionsAssignment_9_3_1.eContents().get(0);
+		private final Assignment cPathsAssignment_9_3 = (Assignment)cGroup_9.eContents().get(3);
+		private final RuleCall cPathsPropagationPathParserRuleCall_9_3_0 = (RuleCall)cPathsAssignment_9_3.eContents().get(0);
 		private final Keyword cEndKeyword_9_4 = (Keyword)cGroup_9.eContents().get(4);
 		private final Keyword cPathsKeyword_9_5 = (Keyword)cGroup_9.eContents().get(5);
 		private final Keyword cSemicolonKeyword_9_6 = (Keyword)cGroup_9.eContents().get(6);
@@ -431,11 +429,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//
-		//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint+ ("connections"
+		//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
 		//
-		//	connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
-		//
-		//	properties+=ContainedPropertyAssociation+)?;
+		//	("properties" properties+=ContainedPropertyAssociation+)?;
 		public ParserRule getRule() { return rule; }
 
 		////'{**' 
@@ -464,11 +460,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//
-		//"connection" ";")? ("propagation" "paths" points+=PropagationPoint+ ("connections"
+		//"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
 		//
-		//connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
-		//
-		//properties+=ContainedPropertyAssociation+)?
+		//("properties" properties+=ContainedPropertyAssociation+)?
 		public Group getGroup() { return cGroup; }
 
 		////'{**' 
@@ -808,9 +802,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_6() { return cSemicolonKeyword_8_6; }
 
-		//("propagation" "paths" points+=PropagationPoint+ ("connections" connections+=PropagationPointConnection+)? "end" "paths"
-		//
-		//";")?
+		//("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
 		public Group getGroup_9() { return cGroup_9; }
 
 		//"propagation"
@@ -819,23 +811,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"paths"
 		public Keyword getPathsKeyword_9_1() { return cPathsKeyword_9_1; }
 
-		//points+=PropagationPoint+
+		//points+=PropagationPoint*
 		public Assignment getPointsAssignment_9_2() { return cPointsAssignment_9_2; }
 
 		//PropagationPoint
 		public RuleCall getPointsPropagationPointParserRuleCall_9_2_0() { return cPointsPropagationPointParserRuleCall_9_2_0; }
 
-		//("connections" connections+=PropagationPointConnection+)?
-		public Group getGroup_9_3() { return cGroup_9_3; }
+		//paths+=PropagationPath*
+		public Assignment getPathsAssignment_9_3() { return cPathsAssignment_9_3; }
 
-		//"connections"
-		public Keyword getConnectionsKeyword_9_3_0() { return cConnectionsKeyword_9_3_0; }
-
-		//connections+=PropagationPointConnection+
-		public Assignment getConnectionsAssignment_9_3_1() { return cConnectionsAssignment_9_3_1; }
-
-		//PropagationPointConnection
-		public RuleCall getConnectionsPropagationPointConnectionParserRuleCall_9_3_1_0() { return cConnectionsPropagationPointConnectionParserRuleCall_9_3_1_0; }
+		//PropagationPath
+		public RuleCall getPathsPropagationPathParserRuleCall_9_3_0() { return cPathsPropagationPathParserRuleCall_9_3_0; }
 
 		//"end"
 		public Keyword getEndKeyword_9_4() { return cEndKeyword_9_4; }
@@ -1992,15 +1978,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cProcessorKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cMemoryKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		private final Keyword cConnectionKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
-		private final Keyword cBindingsKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
-		private final Keyword cAccessKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cBindingKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cBindingsKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cAccessKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
 		
 		//PropagationKind:
 		//
-		//	"processor" | "memory" | "connection" | "bindings" | "access";
+		//	"processor" | "memory" | "connection" | "binding" | "bindings" | "access";
 		public ParserRule getRule() { return rule; }
 
-		//"processor" | "memory" | "connection" | "bindings" | "access"
+		//"processor" | "memory" | "connection" | "binding" | "bindings" | "access"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"processor"
@@ -2012,11 +1999,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//"connection"
 		public Keyword getConnectionKeyword_2() { return cConnectionKeyword_2; }
 
+		//"binding"
+		public Keyword getBindingKeyword_3() { return cBindingKeyword_3; }
+
 		//"bindings"
-		public Keyword getBindingsKeyword_3() { return cBindingsKeyword_3; }
+		public Keyword getBindingsKeyword_4() { return cBindingsKeyword_4; }
 
 		//"access"
-		public Keyword getAccessKeyword_4() { return cAccessKeyword_4; }
+		public Keyword getAccessKeyword_5() { return cAccessKeyword_5; }
 	}
 
 	public class ErrorFlowElements extends AbstractParserRuleElementFinder {
@@ -2497,62 +2487,65 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
-	public class PropagationPointConnectionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropagationPointConnection");
+	public class PropagationPathElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropagationPath");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cSourceAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cSourceQualifiedPropagationPointParserRuleCall_2_0 = (RuleCall)cSourceAssignment_2.eContents().get(0);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTargetAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cTargetQualifiedPropagationPointParserRuleCall_4_0 = (RuleCall)cTargetAssignment_4.eContents().get(0);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0_0 = (RuleCall)cNameAssignment_0_0.eContents().get(0);
+		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Assignment cSourceAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cSourceQualifiedPropagationPointParserRuleCall_1_0 = (RuleCall)cSourceAssignment_1.eContents().get(0);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTargetAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTargetQualifiedPropagationPointParserRuleCall_3_0 = (RuleCall)cTargetAssignment_3.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//PropagationPointConnection:
+		//PropagationPath:
 		//
-		//	name=ID ":" source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";";
+		//	(name=ID ":")? source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";"
+		//(name=ID ":")? source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";"
 		public Group getGroup() { return cGroup; }
 
+		//(name=ID ":")?
+		public Group getGroup_0() { return cGroup_0; }
+
 		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+		public RuleCall getNameIDTerminalRuleCall_0_0_0() { return cNameIDTerminalRuleCall_0_0_0; }
 
 		//":"
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
+		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 
 		//source=QualifiedPropagationPoint
-		public Assignment getSourceAssignment_2() { return cSourceAssignment_2; }
+		public Assignment getSourceAssignment_1() { return cSourceAssignment_1; }
 
 		//QualifiedPropagationPoint
-		public RuleCall getSourceQualifiedPropagationPointParserRuleCall_2_0() { return cSourceQualifiedPropagationPointParserRuleCall_2_0; }
+		public RuleCall getSourceQualifiedPropagationPointParserRuleCall_1_0() { return cSourceQualifiedPropagationPointParserRuleCall_1_0; }
 
 		//"->"
-		public Keyword getHyphenMinusGreaterThanSignKeyword_3() { return cHyphenMinusGreaterThanSignKeyword_3; }
+		public Keyword getHyphenMinusGreaterThanSignKeyword_2() { return cHyphenMinusGreaterThanSignKeyword_2; }
 
 		//target=QualifiedPropagationPoint
-		public Assignment getTargetAssignment_4() { return cTargetAssignment_4; }
+		public Assignment getTargetAssignment_3() { return cTargetAssignment_3; }
 
 		//QualifiedPropagationPoint
-		public RuleCall getTargetQualifiedPropagationPointParserRuleCall_4_0() { return cTargetQualifiedPropagationPointParserRuleCall_4_0; }
+		public RuleCall getTargetQualifiedPropagationPointParserRuleCall_3_0() { return cTargetQualifiedPropagationPointParserRuleCall_3_0; }
 
 		//";"
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
 	public class QualifiedPropagationPointElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedPropagationPoint");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Assignment cSubcomponentAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final CrossReference cSubcomponentSubcomponentCrossReference_0_0_0 = (CrossReference)cSubcomponentAssignment_0_0.eContents().get(0);
-		private final RuleCall cSubcomponentSubcomponentIDTerminalRuleCall_0_0_0_1 = (RuleCall)cSubcomponentSubcomponentCrossReference_0_0_0.eContents().get(1);
+		private final Assignment cSubcomponentsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cSubcomponentsSubcomponentElementParserRuleCall_0_0_0 = (RuleCall)cSubcomponentsAssignment_0_0.eContents().get(0);
 		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Assignment cPropagationPointAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cPropagationPointPropagationPointCrossReference_1_0 = (CrossReference)cPropagationPointAssignment_1.eContents().get(0);
@@ -2560,23 +2553,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//QualifiedPropagationPoint:
 		//
-		//	(subcomponent=[aadl2::Subcomponent] ".")? propagationPoint=[PropagationPoint];
+		//	(subcomponents+=SubcomponentElement ".")+ propagationPoint=[PropagationPoint];
 		public ParserRule getRule() { return rule; }
 
-		//(subcomponent=[aadl2::Subcomponent] ".")? propagationPoint=[PropagationPoint]
+		//(subcomponents+=SubcomponentElement ".")+ propagationPoint=[PropagationPoint]
 		public Group getGroup() { return cGroup; }
 
-		//(subcomponent=[aadl2::Subcomponent] ".")?
+		//(subcomponents+=SubcomponentElement ".")+
 		public Group getGroup_0() { return cGroup_0; }
 
-		//subcomponent=[aadl2::Subcomponent]
-		public Assignment getSubcomponentAssignment_0_0() { return cSubcomponentAssignment_0_0; }
+		//subcomponents+=SubcomponentElement
+		public Assignment getSubcomponentsAssignment_0_0() { return cSubcomponentsAssignment_0_0; }
 
-		//[aadl2::Subcomponent]
-		public CrossReference getSubcomponentSubcomponentCrossReference_0_0_0() { return cSubcomponentSubcomponentCrossReference_0_0_0; }
-
-		//ID
-		public RuleCall getSubcomponentSubcomponentIDTerminalRuleCall_0_0_0_1() { return cSubcomponentSubcomponentIDTerminalRuleCall_0_0_0_1; }
+		//SubcomponentElement
+		public RuleCall getSubcomponentsSubcomponentElementParserRuleCall_0_0_0() { return cSubcomponentsSubcomponentElementParserRuleCall_0_0_0; }
 
 		//"."
 		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
@@ -4708,7 +4698,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private ErrorPathElements pErrorPath;
 	private ErrorPropagationPointElements pErrorPropagationPoint;
 	private PropagationPointElements pPropagationPoint;
-	private PropagationPointConnectionElements pPropagationPointConnection;
+	private PropagationPathElements pPropagationPath;
 	private QualifiedPropagationPointElements pQualifiedPropagationPoint;
 	private ErrorBehaviorStateMachineElements pErrorBehaviorStateMachine;
 	private ErrorBehaviorEventElements pErrorBehaviorEvent;
@@ -4827,7 +4817,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
 	//
-	//	ErrorPropagation | OutgoingPropagationCondition | PropagationPointConnection | PropagationPoint | CompositeState |
+	//	ErrorPropagation | OutgoingPropagationCondition | PropagationPath | PropagationPoint | CompositeState |
 	//
 	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | ConnectionErrorSource |
 	//
@@ -4893,11 +4883,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 	//
-	//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint+ ("connections"
+	//	"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
 	//
-	//	connections+=PropagationPointConnection+)? "end" "paths" ";")? ("properties"
-	//
-	//	properties+=ContainedPropertyAssociation+)?;
+	//	("properties" properties+=ContainedPropertyAssociation+)?;
 	public ErrorModelSubclauseElements getErrorModelSubclauseAccess() {
 		return (pErrorModelSubclause != null) ? pErrorModelSubclause : (pErrorModelSubclause = new ErrorModelSubclauseElements());
 	}
@@ -5161,7 +5149,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropagationKind:
 	//
-	//	"processor" | "memory" | "connection" | "bindings" | "access";
+	//	"processor" | "memory" | "connection" | "binding" | "bindings" | "access";
 	public PropagationKindElements getPropagationKindAccess() {
 		return (pPropagationKind != null) ? pPropagationKind : (pPropagationKind = new PropagationKindElements());
 	}
@@ -5268,20 +5256,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropagationPointAccess().getRule();
 	}
 
-	//PropagationPointConnection:
+	//PropagationPath:
 	//
-	//	name=ID ":" source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";";
-	public PropagationPointConnectionElements getPropagationPointConnectionAccess() {
-		return (pPropagationPointConnection != null) ? pPropagationPointConnection : (pPropagationPointConnection = new PropagationPointConnectionElements());
+	//	(name=ID ":")? source=QualifiedPropagationPoint "->" target=QualifiedPropagationPoint ";";
+	public PropagationPathElements getPropagationPathAccess() {
+		return (pPropagationPath != null) ? pPropagationPath : (pPropagationPath = new PropagationPathElements());
 	}
 	
-	public ParserRule getPropagationPointConnectionRule() {
-		return getPropagationPointConnectionAccess().getRule();
+	public ParserRule getPropagationPathRule() {
+		return getPropagationPathAccess().getRule();
 	}
 
 	//QualifiedPropagationPoint:
 	//
-	//	(subcomponent=[aadl2::Subcomponent] ".")? propagationPoint=[PropagationPoint];
+	//	(subcomponents+=SubcomponentElement ".")+ propagationPoint=[PropagationPoint];
 	public QualifiedPropagationPointElements getQualifiedPropagationPointAccess() {
 		return (pQualifiedPropagationPoint != null) ? pQualifiedPropagationPoint : (pQualifiedPropagationPoint = new QualifiedPropagationPointElements());
 	}

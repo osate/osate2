@@ -44,8 +44,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPointConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
@@ -207,7 +207,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass propagationPointConnectionEClass = null;
+  private EClass propagationPathEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -669,7 +669,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getErrorModelSubclause_Connections()
+  public EReference getErrorModelSubclause_Paths()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(16);
   }
@@ -1289,9 +1289,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getPropagationPointConnection()
+  public EClass getPropagationPath()
   {
-    return propagationPointConnectionEClass;
+    return propagationPathEClass;
   }
 
   /**
@@ -1299,9 +1299,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPropagationPointConnection_Source()
+  public EReference getPropagationPath_Source()
   {
-    return (EReference)propagationPointConnectionEClass.getEStructuralFeatures().get(0);
+    return (EReference)propagationPathEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1309,9 +1309,9 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPropagationPointConnection_Target()
+  public EReference getPropagationPath_Target()
   {
-    return (EReference)propagationPointConnectionEClass.getEStructuralFeatures().get(1);
+    return (EReference)propagationPathEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1329,7 +1329,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getQualifiedPropagationPoint_Subcomponent()
+  public EReference getQualifiedPropagationPoint_Subcomponents()
   {
     return (EReference)qualifiedPropagationPointEClass.getEStructuralFeatures().get(0);
   }
@@ -2345,7 +2345,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__TYPE_TRANSFORMATION_SET);
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__CONNECTION_ERROR_SOURCES);
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__POINTS);
-    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__CONNECTIONS);
+    createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__PATHS);
     createEReference(errorModelSubclauseEClass, ERROR_MODEL_SUBCLAUSE__PROPERTIES);
 
     errorModelLibraryEClass = createEClass(ERROR_MODEL_LIBRARY);
@@ -2425,12 +2425,12 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     propagationPointEClass = createEClass(PROPAGATION_POINT);
 
-    propagationPointConnectionEClass = createEClass(PROPAGATION_POINT_CONNECTION);
-    createEReference(propagationPointConnectionEClass, PROPAGATION_POINT_CONNECTION__SOURCE);
-    createEReference(propagationPointConnectionEClass, PROPAGATION_POINT_CONNECTION__TARGET);
+    propagationPathEClass = createEClass(PROPAGATION_PATH);
+    createEReference(propagationPathEClass, PROPAGATION_PATH__SOURCE);
+    createEReference(propagationPathEClass, PROPAGATION_PATH__TARGET);
 
     qualifiedPropagationPointEClass = createEClass(QUALIFIED_PROPAGATION_POINT);
-    createEReference(qualifiedPropagationPointEClass, QUALIFIED_PROPAGATION_POINT__SUBCOMPONENT);
+    createEReference(qualifiedPropagationPointEClass, QUALIFIED_PROPAGATION_POINT__SUBCOMPONENTS);
     createEReference(qualifiedPropagationPointEClass, QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT);
 
     errorBehaviorStateMachineEClass = createEClass(ERROR_BEHAVIOR_STATE_MACHINE);
@@ -2609,7 +2609,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorSinkEClass.getESuperTypes().add(this.getErrorFlow());
     errorPathEClass.getESuperTypes().add(this.getErrorFlow());
     propagationPointEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
-    propagationPointConnectionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
+    propagationPathEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     qualifiedPropagationPointEClass.getESuperTypes().add(theAadl2Package.getElement());
     errorBehaviorStateMachineEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorBehaviorStateMachineEClass.getESuperTypes().add(this.getTypeUseContext());
@@ -2664,7 +2664,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorModelSubclause_TypeTransformationSet(), this.getTypeTransformationSet(), null, "typeTransformationSet", null, 0, 1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelSubclause_ConnectionErrorSources(), this.getConnectionErrorSource(), null, "connectionErrorSources", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelSubclause_Points(), this.getPropagationPoint(), null, "points", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorModelSubclause_Connections(), this.getPropagationPointConnection(), null, "connections", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorModelSubclause_Paths(), this.getPropagationPath(), null, "paths", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorModelSubclause_Properties(), theAadl2Package.getPropertyAssociation(), null, "properties", null, 0, -1, ErrorModelSubclause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorModelLibraryEClass, ErrorModelLibrary.class, "ErrorModelLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2744,12 +2744,12 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     initEClass(propagationPointEClass, PropagationPoint.class, "PropagationPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(propagationPointConnectionEClass, PropagationPointConnection.class, "PropagationPointConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropagationPointConnection_Source(), this.getQualifiedPropagationPoint(), null, "source", null, 0, 1, PropagationPointConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPropagationPointConnection_Target(), this.getQualifiedPropagationPoint(), null, "target", null, 0, 1, PropagationPointConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(propagationPathEClass, PropagationPath.class, "PropagationPath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropagationPath_Source(), this.getQualifiedPropagationPoint(), null, "source", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropagationPath_Target(), this.getQualifiedPropagationPoint(), null, "target", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(qualifiedPropagationPointEClass, QualifiedPropagationPoint.class, "QualifiedPropagationPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getQualifiedPropagationPoint_Subcomponent(), theAadl2Package.getSubcomponent(), null, "subcomponent", null, 0, 1, QualifiedPropagationPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getQualifiedPropagationPoint_Subcomponents(), this.getSubcomponentElement(), null, "subcomponents", null, 0, -1, QualifiedPropagationPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getQualifiedPropagationPoint_PropagationPoint(), this.getPropagationPoint(), null, "propagationPoint", null, 0, 1, QualifiedPropagationPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorBehaviorStateMachineEClass, ErrorBehaviorStateMachine.class, "ErrorBehaviorStateMachine", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
