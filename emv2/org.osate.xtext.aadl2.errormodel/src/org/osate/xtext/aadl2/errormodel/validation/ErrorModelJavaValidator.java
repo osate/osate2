@@ -1022,21 +1022,42 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			dstcontain = EMV2Util.findIncomingErrorContainment(dstcl,dstname);
 		}
 		if (srcprop != null && dstprop != null) {
-			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(),
-					srcprop.getTypeSet())) {
-				error(conn,
-						"Outgoing propagation  "
-								+ EMV2Util.getPrintName(srcprop)
-								+ EMV2Util.getPrintName(srcprop.getTypeSet())
-								+ " has error types not handled by incoming propagation "
-								+ EMV2Util.getPrintName(dstprop)
-								+ EMV2Util.getPrintName(dstprop.getTypeSet()));
+			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) 
+			{
+				
+				TypeMappingSet typeEquivalence = EMV2Util.getAllTypeEquivalenceMapping(cimpl);
+
+				if (typeEquivalence !=null){
+					TypeToken mappedtt = EM2TypeSetUtil.mapTypeToken(srcprop.getTypeSet(), typeEquivalence);
+					if (mappedtt != null){
+						if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), mappedtt))
+						{
+							error(conn,
+									"Outgoing propagation  "
+											+ EMV2Util.getPrintName(srcprop)
+											+ EMV2Util.getPrintName(srcprop.getTypeSet())
+											+ " has error types not handled by incoming propagation "
+											+ EMV2Util.getPrintName(dstprop)
+											+ EMV2Util.getPrintName(dstprop.getTypeSet()));
+						}
+					}
+				}
+				else
+				{
+					error(conn,
+							"Outgoing propagation  "
+									+ EMV2Util.getPrintName(srcprop)
+									+ EMV2Util.getPrintName(srcprop.getTypeSet())
+									+ " has error types not handled by incoming propagation "
+									+ EMV2Util.getPrintName(dstprop)
+									+ EMV2Util.getPrintName(dstprop.getTypeSet()));
+				}
 			}
 		}
 		if (srccontain != null && dstcontain != null) {
 			if (!EM2TypeSetUtil.contains(srcprop.getTypeSet(), dstprop.getTypeSet())) {
 				error(conn,
-						"Outgoing containment  "
+						"vOutgoing containment  "
 								+ EMV2Util.getPrintName(srcprop)
 								+ EMV2Util.getPrintName(srcprop.getTypeSet())
 								+ " does not contain error types listed by incoming containment "
