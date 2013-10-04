@@ -2,7 +2,6 @@ package edu.uah.rsesc.aadl.age.services.impl;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -48,23 +47,23 @@ public class DefaultShapeService implements ShapeService {
 		}
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService#getDescendantShapeByElement(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.Element)
-	 */	
+		
 	@Override
-	public Shape getDescendantShapeByElement(final ContainerShape shape, final Element el) {
+	public Shape getDescendantShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el) {
 		for(final Shape c : shape.getChildren()) {
-			final Object childBo = bor.getBusinessObjectForPictogramElement(c);
-			if(childBo == el) {
+			final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
+			if(childBo instanceof NamedElement && areQualifiedNamesEqual((NamedElement)childBo, el)) {
 				return c;
 			} else if(childBo == null && c instanceof ContainerShape) {
-				return getDescendantShapeByElement((ContainerShape)c, el);
+				final Shape recResult = getDescendantShapeByElementQualifiedName((ContainerShape)c, el);
+				if(recResult != null) {
+					return recResult;
+				}
 			}
 		}
-		
+
 		return null;
-	}
+	}	
 	
 	/* (non-Javadoc)
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ShapeService#getDescendantShapeByElementName(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.NamedElement)
@@ -76,7 +75,10 @@ public class DefaultShapeService implements ShapeService {
 			if(childBo instanceof NamedElement && areNamesEqual((NamedElement)childBo, el)) {
 				return c;
 			} else if(childBo == null && c instanceof ContainerShape) {
-				return getDescendantShapeByElement((ContainerShape)c, el);
+				final Shape recResult = getDescendantShapeByElementName((ContainerShape)c, el);
+				if(recResult != null) {
+					return recResult;
+				}
 			}
 		}
 		

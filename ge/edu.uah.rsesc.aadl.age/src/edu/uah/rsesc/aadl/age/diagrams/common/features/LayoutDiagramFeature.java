@@ -171,7 +171,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	 * @return
 	 */
 	private static LayoutEntity getLayoutEntity(final Anchor anchor, final Map<Shape, SimpleNode> shapeToNodeMap) {
-		if(anchor.getParent() instanceof Shape) {
+		if(anchor != null && anchor.getParent() instanceof Shape) {
 			Shape shape = (Shape)anchor.getParent();
 			while(shape != null) {
 				final LayoutEntity entity = shapeToNodeMap.get(shape);

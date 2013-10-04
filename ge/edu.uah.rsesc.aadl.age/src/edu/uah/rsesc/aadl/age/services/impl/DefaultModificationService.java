@@ -143,11 +143,13 @@ public class DefaultModificationService implements ModificationService {
 				
 				domain.getCommandStack().undo();
 				result = null;
-			}			
+			}
 	
 			// Flush and dispose of the editing domain
 			domain.getCommandStack().flush();			
 			domain.dispose();	
+			
+			modifier.afterModification(resource, element);
 		}
 		
 		return result;

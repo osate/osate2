@@ -27,7 +27,7 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import edu.uah.rsesc.aadl.age.dialogs.ElementSelectionDialog;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ModificationService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.Modifier;
+import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
 
 public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 	private final BusinessObjectResolutionService bor;
@@ -73,17 +73,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 		}
 		
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);		
-		
-		// Only allow setting on classifiers that are not extending another classifier
-		if(bo instanceof ComponentType) {
-			return ((ComponentType) bo).getExtended() == null;
-		} else if(bo instanceof ComponentImplementation) {
-			return ((ComponentImplementation) bo).getExtended() == null;
-		} else if(bo instanceof FeatureGroupType) {
-			return ((FeatureGroupType) bo).getExtended() == null;
-		}
-		
-		return false;
+		return bo instanceof ComponentType || bo instanceof ComponentImplementation || bo instanceof FeatureGroupType;
 	}
 	
 	@Override
@@ -97,7 +87,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 		}			
 		
 		// Make the modification
-		modificationService.modify(classifier, new Modifier<Classifier, Object>() {
+		modificationService.modify(classifier, new AbstractModifier<Classifier, Object>() {
 			@Override
 			public Object modify(final Resource resource, final Classifier classifier) {
 				final AadlPackage pkg = (AadlPackage)resource.getContents().get(0);
@@ -110,9 +100,11 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 				}
 				
 				// Import the package if necessary
-				final AadlPackage selectedClassifierPkg = (AadlPackage)selectedClassifier.getNamespace().getOwner();
-				if(pkg != selectedClassifierPkg && !section.getImportedUnits().contains(selectedClassifierPkg)) {
-					section.getImportedUnits().add(selectedClassifierPkg);
+				if(selectedClassifier.getNamespace() != null) {
+					final AadlPackage selectedClassifierPkg = (AadlPackage)selectedClassifier.getNamespace().getOwner();
+					if(pkg != selectedClassifierPkg && !section.getImportedUnits().contains(selectedClassifierPkg)) {
+						section.getImportedUnits().add(selectedClassifierPkg);
+					}
 				}
 				
 				// Extend the classifier

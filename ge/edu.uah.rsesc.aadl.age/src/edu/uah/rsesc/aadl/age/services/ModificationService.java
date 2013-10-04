@@ -18,7 +18,22 @@ public interface ModificationService {
 	 */
 	<E extends Element, R> R modify(E element, Modifier<E, R> modifier);
 	
-	public interface Modifier<E, R> {
+	public static interface Modifier<E, R> {
 		R modify(Resource resource, final E element);
+		
+		/**
+		 * Called after a modification has been made. Is not executed if the modification is aborted.
+		 */
+		void afterModification(Resource resource, E element);
+	}
+	
+	public static abstract class AbstractModifier<E, R> implements Modifier<E,R> {
+		@Override
+		public abstract R modify(Resource resource, E element);		
+		
+		@Override
+		public void afterModification(Resource resource, E element) {
+			
+		}
 	}
 }
