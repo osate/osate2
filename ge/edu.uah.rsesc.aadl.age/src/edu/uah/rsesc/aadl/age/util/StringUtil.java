@@ -17,4 +17,31 @@ public class StringUtil {
 		
 		return res;
 	}
+	
+	public static String camelCaseToUser(final String str){
+		char[] str_arr = (str + ' ').toCharArray();
+		//System.out.println(str);	
+		String h_str = "666";
+		
+		int i = (str_arr.length - 1), j = 0;
+		for (char c: str_arr)
+		{			
+			if ( j != 0)
+			{
+				if ((c >= 'A') && (c <= 'Z'))
+				{
+					while (i >= j)
+					{
+						str_arr[i] = str_arr[i-1];
+						i--;
+					}
+					str_arr[i+1] = ' ';
+					h_str = new String(str_arr);
+					return h_str;
+				}
+			}
+			j++;
+		}
+		return h_str;
+	}
 }
