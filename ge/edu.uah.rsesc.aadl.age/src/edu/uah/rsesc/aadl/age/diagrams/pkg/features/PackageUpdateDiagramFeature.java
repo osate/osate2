@@ -73,7 +73,6 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	
 	@Override
 	public boolean update(IUpdateContext context) {
-		System.err.println("UPDATING DIAGRAM");
 		Log.info("called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
 		styleService.refreshStyles();
