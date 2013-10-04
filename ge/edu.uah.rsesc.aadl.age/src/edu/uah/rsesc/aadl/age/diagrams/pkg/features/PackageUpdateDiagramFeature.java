@@ -18,10 +18,8 @@ import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -86,7 +84,12 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 			return false;
 		}	
 		final AadlPackage pkg = (AadlPackage)element;
-
+		
+		// Update the diagram's name
+		if(pkg.getQualifiedName() != null) {
+			diagram.setName(pkg.getQualifiedName());
+		}
+				
 		// Prune Invalid Generalizations
 		visibilityService.ghostInvalidConnections();
 

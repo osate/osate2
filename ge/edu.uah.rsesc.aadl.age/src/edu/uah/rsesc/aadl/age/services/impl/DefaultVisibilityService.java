@@ -75,12 +75,12 @@ public class DefaultVisibilityService implements VisibilityService {
 			if(bo == null || updateFeature == null || (updateFeature != null && !updateFeature.canUpdate(updateContext))) {
 				ghost = true;
 			} else {
-				EObject emfBusinesObject = (EObject)bo;
-				if(emfBusinesObject.eIsProxy()) {
-					emfBusinesObject = EcoreUtil.resolve(emfBusinesObject, OsateResourceUtil.getResourceSet());
+				EObject emfBusinessObject = (EObject)bo;
+				if(emfBusinessObject.eIsProxy()) {
+					emfBusinessObject = EcoreUtil.resolve(emfBusinessObject, OsateResourceUtil.getResourceSet());
 				}
 	
-				if(emfBusinesObject.eIsProxy()) {
+				if(emfBusinessObject.eIsProxy()) {
 					ghost = true;
 				}
 			}

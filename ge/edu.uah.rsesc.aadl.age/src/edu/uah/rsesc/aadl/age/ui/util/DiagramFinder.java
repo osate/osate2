@@ -28,7 +28,7 @@ import edu.uah.rsesc.aadl.age.util.Log;
  *
  */
 // TODO: Need to take project references into account?
-class DiagramFinder {
+public class DiagramFinder {
 	/**
 	 * Finds resources containing diagrams that represent the specified AADL element
 	 * @param ne the named element for which to find diagram resources.

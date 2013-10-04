@@ -2,7 +2,6 @@ package edu.uah.rsesc.aadl.age.services.impl;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;

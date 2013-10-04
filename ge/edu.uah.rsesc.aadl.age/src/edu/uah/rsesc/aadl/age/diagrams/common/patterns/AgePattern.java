@@ -32,7 +32,7 @@ public abstract class AgePattern extends AbstractPattern implements IPattern, IC
 	@Override
 	protected boolean isPatternRoot(final PictogramElement pictogramElement) {
 		final Object domainObject = getBusinessObjectForPictogramElement(pictogramElement);
-	    return isMainBusinessObjectApplicable(domainObject);
+	    return isMainBusinessObjectApplicable(domainObject) && pictogramElement instanceof ContainerShape;
 	}
 		
 	@Override

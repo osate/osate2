@@ -66,6 +66,11 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		final Classifier classifier = getClassifier(context);
 		final Diagram diagram = getDiagram();		
 		
+		// Update the diagram's name
+		if(classifier.getQualifiedName() != null) {
+			diagram.setName(classifier.getQualifiedName());
+		}
+		
 		styleService.refreshStyles();
 				
 		// Remove shapes that are invalid

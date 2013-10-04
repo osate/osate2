@@ -62,7 +62,12 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 	public boolean update(final IUpdateContext context) {
 		Log.info("called with context: " + context);
 		final ComponentImplementation ci = getComponentImplementation(context);
-		final Diagram diagram = getDiagram();	
+		final Diagram diagram = getDiagram();
+		
+		// Update the diagram's name
+		if(ci.getQualifiedName() != null) {
+			diagram.setName(ci.getQualifiedName());
+		}
 
 		styleService.refreshStyles();
 				
