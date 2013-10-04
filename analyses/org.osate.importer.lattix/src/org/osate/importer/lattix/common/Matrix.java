@@ -1,7 +1,7 @@
 /*
  * Copyright 2013 Carnegie Mellon University
  * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
+ * The AADL/DSM Bridge (org.osate.importer.lattix ) (the ï¿½Contentï¿½ or ï¿½Materialï¿½) 
  * is based upon work funded and supported by the Department of Defense under 
  * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
  * of the Software Engineering Institute, a federally funded research and development 
@@ -12,7 +12,7 @@
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,7 +28,7 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
  * 
  * DM-0000232
@@ -40,18 +40,19 @@ import java.util.ArrayList;
 import java.util.List; 
 
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.importer.model.Component;
 
 public class Matrix {
 
 	private String 				name;
 	private List<Partition>		partitions;
-	private List<Module>		modules;
+	private List<Component>		modules;
 	
 	public Matrix (String n)
 	{
 		this.name = n;
 		this.partitions 	= new ArrayList<Partition>();
-		this.modules  		= new ArrayList<Module>();
+		this.modules  		= new ArrayList<Component>();
 	}
 
 
@@ -70,9 +71,9 @@ public class Matrix {
 		return this.partitions;
 	}
 	
-	public Module getModule (String n)
+	public Component getModule (String n)
 	{
-		for (Module m : this.modules)
+		for (Component m : this.modules)
 		{
 			if (m.getName().equals(n))
 			{
@@ -87,7 +88,7 @@ public class Matrix {
 		return (this.getModule(n) == null ? false : true);
 	}
 	
-	public Module addModule (Module m)
+	public Component addModule (Component m)
 	{
 		
 		if (! this.hasModule(m.getName()))
@@ -97,12 +98,12 @@ public class Matrix {
 		return m;
 	}
 	
-	public boolean removeModule (Module m)
+	public boolean removeModule (Component m)
 	{
 		return this.modules.remove(m);
 	}
 	
-	public List<Module> getModules ()
+	public List<Component> getModules ()
 	{
 		return this.modules;
 	}

@@ -1,7 +1,7 @@
 /*
  * Copyright 2013 Carnegie Mellon University
  * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
+ * The AADL/DSM Bridge (org.osate.importer.lattix ) (the ï¿½Contentï¿½ or ï¿½Materialï¿½) 
  * is based upon work funded and supported by the Department of Defense under 
  * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
  * of the Software Engineering Institute, a federally funded research and development 
@@ -12,7 +12,7 @@
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,7 +28,7 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
  * 
  * DM-0000232
@@ -54,6 +54,8 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.util.Aadl2Switch;
+import org.osate.importer.Utils;
+
 import java.util.*;
 
 public class DsmGenerator 

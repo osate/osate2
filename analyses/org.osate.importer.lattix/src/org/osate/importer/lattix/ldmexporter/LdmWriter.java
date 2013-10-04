@@ -1,7 +1,7 @@
 /*
  * Copyright 2013 Carnegie Mellon University
  * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
+ * The AADL/DSM Bridge (org.osate.importer.lattix ) (the ï¿½Contentï¿½ or ï¿½Materialï¿½) 
  * is based upon work funded and supported by the Department of Defense under 
  * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
  * of the Software Engineering Institute, a federally funded research and development 
@@ -12,7 +12,7 @@
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,7 +28,7 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
  * 
  * DM-0000232
@@ -45,7 +45,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.osate.importer.lattix.common.Module;
+import org.osate.importer.model.Component;
 
 
 public class LdmWriter  
@@ -74,9 +74,9 @@ public class LdmWriter
 	}
 	
 	
-	private static void writeSources (Writer out, Collection<Module> entities) throws IOException
+	private static void writeSources (Writer out, Collection<Component> entities) throws IOException
 	{
-		Iterator<Module> iter;
+		Iterator<Component> iter;
 		out.write("<source>\n");
 		out.write("  <sourceset id=\"lattix.plugin.manual\">\n");
 		out.write("  <file name=\"manual\" kind=\"manual\" date=\"31/12/1969 19:00:00\" dateadded=\"27/11/2012 20:24:53\" type=\"lattix.plugin.manual\" sourceIndex=\"0\">\n");
@@ -84,9 +84,9 @@ public class LdmWriter
 		iter = entities.iterator();
 		while (iter.hasNext())
 		{ 
-			Module e = iter.next();
+			Component e = iter.next();
 			out.write("<base name=\"" + e.getAadlName() +"\" kind=\"manual\">\n");
-			for (Module dest : e.getOutgoingDependencies())
+			for (Component dest : e.getOutgoingDependencies())
 			{
 				out.write("  <uses name=\"" + dest.getAadlName() +"\" kind=\"Manual\"/>\n");
 			}
@@ -97,9 +97,9 @@ public class LdmWriter
 		out.write("</source>\n");
 		
 	}
-	private static void writePartitions (Writer out, Collection<Module> entities) throws IOException
+	private static void writePartitions (Writer out, Collection<Component> entities) throws IOException
 	{
-		Iterator<Module> iter;
+		Iterator<Component> iter;
 		out.write(" <partitions>\n");
 		out.write("  <partition name=\"$root\" type=\"root\">\n");
 		out.write("   <rule name=\"generic\">\n");
@@ -111,7 +111,7 @@ public class LdmWriter
 		iter = entities.iterator();
 		while (iter.hasNext())
 		{ 
-			Module e = iter.next();
+			Component e = iter.next();
 			out.write("<partition name=\""+ e.getAadlName()+"\" type=\"leaf\">\n");
 			out.write("  <atom name=\""+ e.getAadlName()+"\" kind=\"manual\" sourceIndex=\"0\" comp=\"lattix.plugin.manual\">\n");
 			out.write("     <property name=\"reason\" value=\"manual\"/>\n");
@@ -128,7 +128,7 @@ public class LdmWriter
 		out.write("</lattix>\n");
 	}
 	
-	public static void writeFile (String fileName, Collection<Module> entities) throws Exception
+	public static void writeFile (String fileName, Collection<Component> entities) throws Exception
 	{
 
 		FileWriter fstream = new FileWriter(fileName);

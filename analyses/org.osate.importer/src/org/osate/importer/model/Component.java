@@ -1,18 +1,12 @@
 /*
  * Copyright 2013 Carnegie Mellon University
- * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
- * is based upon work funded and supported by the Department of Defense under 
- * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
- * of the Software Engineering Institute, a federally funded research and development 
- * center.
 
  * Any opinions, findings and conclusions or recommendations expressed in this 
  * Material are those of the author(s) and do not necessarily reflect the 
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,46 +22,76 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
- * 
- * DM-0000232
- * 
  */
-package org.osate.importer.lattix.common;
+package org.osate.importer.model;
 
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
 
-import org.osate.aadl2.util.OsateDebug;
+import org.osate.importer.Utils;
+import org.osate.importer.statemachine.StateMachine;
 
-public class Module implements Comparable {
+public class Component implements Comparable {
 
-	private String name;
-	private List<ModuleConnection> connections;
-	private List<Module> subEntities;
-	private Module parent;
+	private String 				name;
+	private String 				type;
+	private int    				identifier;
+	private List<Connection> 	connections;
+	private List<Component> 	subEntities;
+	private Component 			parent;
+	private List<StateMachine>	stateMachines;
 	
+
 	
-	public Module (String n)
+	public Component (String n)
 	{
 		this.name = n;
-		this.connections = new ArrayList<ModuleConnection>();
-		this.subEntities  = new ArrayList<Module>();
-		this.parent = null;
+		this.connections 		= new ArrayList<Connection>();
+		this.subEntities  		= new ArrayList<Component>();
+		this.stateMachines  	= new ArrayList<StateMachine>();
+		this.parent 			= null;
+		this.identifier 		= Utils.INVALID_ID;
+		this.type 				= null;
 	}
 	
-	public Module getParent ()
+	public void addStateMachine (StateMachine sm)
+	{
+		this.stateMachines.add(sm);
+	}
+	
+	public String getType ()
+	{
+		return this.type;
+	}
+	
+	public void setType (String t)
+	{
+		this.type = t;
+	}
+	
+	public Component getParent ()
 	{
 		return this.parent;
 	}
 	
-	public void setParent (Module e)
+	public void setIdentifier (int i)
+	{
+		this.identifier = i;
+	}
+	
+	public int getIdentifier ()
+	{
+		return this.identifier;
+	}
+	
+	public void setParent (Component e)
 	{
 		this.parent = e;
 	}
 	
-	public List<Module> getSubEntities()
+	public List<Component> getSubEntities()
 	{
 		return this.subEntities;
 	}
@@ -77,27 +101,27 @@ public class Module implements Comparable {
 		return (! this.subEntities.isEmpty());
 	}
 	
-	public boolean contains (Module e)
+	public boolean contains (Component e)
 	{
 		return this.subEntities.contains(e);
 	}
 	
-	public void addOutgoingDependency (Module destination, int s)
+	public void addOutgoingDependency (Component destination, int s)
 	{
-		ModuleConnection conn = new ModuleConnection (this, destination, s);
+		Connection conn = new Connection (this, destination, s);
 		connections.add(conn);
 	}
 	
-	public void addIncomingDependency (Module source, int s)
+	public void addIncomingDependency (Component source, int s)
 	{
-		ModuleConnection conn = new ModuleConnection (source, this, s);
+		Connection conn = new Connection (source, this, s);
 		connections.add(conn);
 	}
 	
 	
-	public void addSubsystem (Module s)
+	public void addSubsystem (Component s)
 	{
-		for (Module e : subEntities)
+		for (Component e : subEntities)
 		{
 			if (e.getName().equals(s.getName()))
 			{
@@ -107,7 +131,7 @@ public class Module implements Comparable {
 		this.subEntities.add(s);
 	}
 	
-	public boolean equalsTo (Module e)
+	public boolean equalsTo (Component e)
 	{
 		if (e.getName().equals(this.name))
 		{
@@ -126,19 +150,30 @@ public class Module implements Comparable {
 		String result;
 
 		result = this.name.replaceAll("root", "");
+		result = result.replace('\n', '_');
 		result = result.replace('$', ' ');
 		result = result.replace('.', ' ');
 		result = result.replaceAll(" ", "");
+		
+		result = result.toLowerCase();
+		
+		/**
+		 * Check for some reserved keywords in AADL.
+		 */
+		if (result.equalsIgnoreCase("constant"))
+		{
+			return "cconstant";
+		}
 		return result;
 	}
 	
-	public List<Module> getIncomingDependencies ()
+	public List<Component> getIncomingDependencies ()
 	{
-		List<Module> result;
+		List<Component> result;
 		
-		result = new ArrayList<Module>();
+		result = new ArrayList<Component>();
 		
-		for (ModuleConnection ec : connections)
+		for (Connection ec : connections)
 		{
 			if ((ec.getDestination().getName() == this.getName()) &&
 			    (! result.contains(ec.getSource())))
@@ -150,13 +185,13 @@ public class Module implements Comparable {
 		return result;
 	}
 	
-	public List<Module> getOutgoingDependencies ()
+	public List<Component> getOutgoingDependencies ()
 	{
-		List<Module> result;
+		List<Component> result;
 		
-		result = new ArrayList<Module>();
+		result = new ArrayList<Component>();
 		
-		for (ModuleConnection ec : connections)
+		for (Connection ec : connections)
 		{
 			if ((ec.getSource().getName() == this.getName()) &&
 				(! result.contains (ec.getDestination())))
@@ -169,15 +204,15 @@ public class Module implements Comparable {
 	}
 	
 	
-	public List<ModuleConnection> getConnections ()
+	public List<Connection> getConnections ()
 	{
 		return this.connections;
 	}
 	
 	
-	public void addConnection (ModuleConnection ec)
+	public void addConnection (Connection ec)
 	{
-		for (ModuleConnection c : connections)
+		for (Connection c : connections)
 		{
 			if ((c.getSource().getName() == ec.getSource().getName()) &&
 				(c.getDestination().getName() == ec.getDestination().getName()))
@@ -188,15 +223,31 @@ public class Module implements Comparable {
 		this.connections.add (ec);
 	}
 
+	
+	public String toString ()
+	{
+		String r;
+		r = "Component " + this.name;
+		if (this.identifier != Utils.INVALID_ID)
+		{
+			r += " (id="+this.identifier+") ";
+		}
+		
+		if (this.type != null)
+		{
+			r += " (type="+this.type+") ";
+		}
+		return r;
+	}
 
 	public boolean equalsTo(Object arg0) {
 		return this.compareTo(arg0)==0;
 	}
 	
 	public int compareTo(Object arg0) {
-		if (arg0 instanceof Module)
+		if (arg0 instanceof Component)
 		{
-			return (this.name.equalsIgnoreCase(((Module)arg0).getName()))?0:1 ;
+			return (this.name.equalsIgnoreCase(((Component)arg0).getName()))?0:1 ;
 		}
 		return -1;
 	}

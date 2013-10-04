@@ -1,18 +1,12 @@
 /*
  * Copyright 2013 Carnegie Mellon University
- * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
- * is based upon work funded and supported by the Department of Defense under 
- * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
- * of the Software Engineering Institute, a federally funded research and development 
- * center.
 
  * Any opinions, findings and conclusions or recommendations expressed in this 
  * Material are those of the author(s) and do not necessarily reflect the 
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,26 +22,15 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
- * 
- * DM-0000232
- * 
  */
 
-package org.osate.importer.lattix.properties;
+package org.osate.importer.properties;
 
-import java.util.List;
-
-import org.osate.aadl2.impl.*;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.contribution.sei.names.ARINC653;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -97,9 +80,9 @@ public class CriticalityProperty {
 		}
 	}
 	
-	public static int getCriticality(final NamedElement ph) {
-		PropertyExpression pv;
-	
+	public static int getCriticality(final NamedElement ph) 
+	{
+
 		if (criticalityProperty == null)
 		{
 			criticalityProperty = GetProperties.lookupPropertyDefinition (ph, ARINC653._NAME, ARINC653.CRITICALITY);

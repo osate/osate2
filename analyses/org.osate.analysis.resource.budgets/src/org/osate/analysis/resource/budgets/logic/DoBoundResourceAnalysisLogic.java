@@ -41,8 +41,12 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.DateTime;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -90,11 +94,21 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
+				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Analyze mode " + som.getName());
+
 //				final String somName = Aadl2Util.getPrintableSOMName(som);
+
+				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check Processor");
 				errManager.infoSummaryReportOnly(root,som, "Processor Report");
 				checkProcessorLoads(root, som);
+				
+
+				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check Virtual Processor");
 				errManager.infoSummaryReportOnly(root, som, "\nVirtual Processor Report");
 				checkVirtualProcessorLoads(root, som);
+				
+
+				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check RAM/ROM");
 				errManager.infoSummaryReportOnly(root, som, "\nRAM/ROM Report");
 				checkMemoryLoads(root, som);
 			}
@@ -138,6 +152,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	protected void checkProcessorLoad(ComponentInstance curProcessor, final SystemOperationMode som)
 	{
 		boolean isCPUActive;
+
 		
 		if (curProcessor.getSubcomponent().getAllInModes().size() == 0)
 		{
@@ -168,7 +183,14 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)){
 			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
+		long timeBefore = System.currentTimeMillis();
+		OsateDebug.osateDebug("[CPU] before get sw comps (CPU=" + curProcessor.getName() + ",cat="+curProcessor.getComponentClassifier().getCategory().getName()+")" );
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curProcessor);
+		long timeAfter = System.currentTimeMillis();
+		long period = timeAfter - timeBefore;
+		OsateDebug.osateDebug("[CPU] after get sw comps, time taken="+ period + "ms");
+		
+		
 		if (boundComponents.size() == 0&& MIPScapacity > 0) {
 			errManager.infoSummary(curProcessor, som.getName(), "No application components bound to "
 					+ curProcessor.getComponentInstancePath()+" with MIPS capacity "+ GetProperties.toStringScaled(MIPScapacity, mipsliteral));
@@ -252,16 +274,14 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		SystemInstance root = curMemory.getSystemInstance();
 		final ComponentInstance currentMemory = curMemory;
 		final String somName = som.getName();
-		EList boundComponents = new ForAllElement() {
-			@Override
-			protected boolean suchThat(Element obj) {
-				List<ComponentInstance> boundMemoryList = GetProperties.getActualMemoryBinding((ComponentInstance)obj);
-				if (boundMemoryList.isEmpty())
-					return false;
-				return boundMemoryList.get(0) == currentMemory;
-			}
-			// process bottom up so we can check whether children had budgets
-		}.processPostOrderComponentInstance(root);
+		
+		long timeBefore = System.currentTimeMillis();
+		OsateDebug.osateDebug("[Memory] before get sw comps (memory=" + curMemory.getName()+")");
+		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curMemory);
+		long timeAfter = System.currentTimeMillis();
+		long period = timeAfter - timeBefore;
+		OsateDebug.osateDebug("[CPU] after get sw comps, time taken="+ period + "ms");
+		
 		if (GetProperties.getROMCapacityInKB(curMemory,  0.0) > 0.0) {
 			doMemoryLoad(curMemory, somName, boundComponents, true); //ROM
 		}
@@ -344,28 +364,36 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			}
 	}
 
-	protected void reportBusLoadTotals(SystemInstance si, final String somName) {
-		errManager.logInfo("\n\nConnection Budget Details\n");
+
+	protected void reportBusLoadTotals(SystemInstance si, final SystemOperationMode som) {
+		if (som != null)
+		{
+			errManager.logInfo("\n\nConnection Budget Details for mode "+som.getName()+"\n");
+		}
+		else
+		{
+			errManager.logInfo("\n\nConnection Budget Details \n");
+		}
 		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
-		double budget = calcBandWidthLoad(si);
+		double budget = calcBandWidthLoad(si, som);
 		errManager.logInfo("");
-		errManager.infoSummary(si, somName,"Connection bandwidth budget total: " + budget+" KBytesps");
+		errManager.infoSummary(si, Aadl2Util.getPrintableSOMName(som),"Connection bandwidth budget total: " + budget+" KBytesps");
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
 				double buscapacity = GetProperties.getBandWidthCapacityInKbps((ComponentInstance)obj, 0.0);
-				errManager.infoSummary((NamedElement)obj, somName, "Bus "+((ComponentInstance)obj).getFullName()+" bandwidth capacity: " + buscapacity+" KBytesps");
+				errManager.infoSummary((NamedElement)obj, Aadl2Util.getPrintableSOMName(som), "Bus "+((ComponentInstance)obj).getFullName()+" bandwidth capacity: " + buscapacity+" KBytesps");
 			}
 		};
 		mal.processPreOrderComponentInstance(si, ComponentCategory.BUS);
 	}
 
 
-	protected void checkBusLoads(SystemInstance si, final String somName) {
+	protected void checkBusLoads(SystemInstance si, final SystemOperationMode som) {
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				checkBandWidthLoad((ComponentInstance) obj, somName);
+				checkBandWidthLoad((ComponentInstance) obj, som);
 			}
 		};
 		mal.processPreOrderComponentInstance(si, ComponentCategory.BUS);
@@ -379,7 +407,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	 *            for EtherSwitch
 	 * @param somName String somName to be used in messages
 	 */
-	protected double calcBandWidthLoad(SystemInstance root) {
+	protected double calcBandWidthLoad(SystemInstance root, final SystemOperationMode som) {
 		double totalBandWidth = 0.0;
 		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
 		EList<ConnectionInstance> budgetedConnections = new BasicEList<ConnectionInstance>();
@@ -391,24 +419,50 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			if (obj != null)
 				budgetedConnections.add(obj);
 		}
-		for (ConnectionInstance connectionInstance : budgetedConnections) {
+		for (ConnectionInstance connectionInstance : budgetedConnections)
+		{
+			if (
+				(connectionInstance.getSource().getContainingComponentInstance() != null) &&
+				(! connectionInstance.getSource().getContainingComponentInstance().isActive(som)))
+			{
+
+				OsateDebug.osateDebug("[DoBoundResourceAnalysis] source not active in mode=" + som);
+				continue;
+			}
+			
+			if (
+					(connectionInstance.getDestination().getContainingComponentInstance() != null) &&
+					(! connectionInstance.getDestination().getContainingComponentInstance().isActive(som)))
+			{
+				OsateDebug.osateDebug("[DoBoundResourceAnalysis] destination not active in mode=" + som);
+
+				continue;
+			}
+				
+			OsateDebug.osateDebug("[DoBoundResourceAnalysis] source=" + connectionInstance.getSource().getContainingComponentInstance());
+
 			double budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 			double actual = calcBandwidthKBytesps(connectionInstance.getSource());
 			String note = "";
-			if (budget > 0) {
-				if (actual > 0) {
+			OsateDebug.osateDebug("[DoBoundResourceAnalysis] total=" + totalBandWidth);
+			OsateDebug.osateDebug("[DoBoundResourceAnalysis] actual=" + actual);
+			OsateDebug.osateDebug("[DoBoundResourceAnalysis] budget=" + budget);
+			if (budget > 0)
+			{
+				if ((actual > 0) && (actual > budget)) {
 					totalBandWidth += actual;
-					if (actual > budget) {
-						note = "Actual bandwidth exceeds bandwidth budget. Using actual";
-					} else {
-						note = "Using actual bandwidth";
-					}
-				} else {
+					note = "Actual bandwidth exceeds bandwidth budget. Using actual";
+
+				}
+				else 
+				{
+					note = "Using budget bandwidth";
 					totalBandWidth += budget;
 				}
 			} else {
-				if (actual > 0) {
-					totalBandWidth += actual;
+				if (actual > 0)
+				{
+					totalBandWidth = totalBandWidth + actual;
 					note = "No bandwidth budget. Using actual";
 				} else {
 					note =  "No bandwidth budget or actual";
@@ -417,6 +471,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 			detailedLog(connectionInstance, budget,actual,note);
 
 		}
+		OsateDebug.osateDebug("[DoBoundResourceAnalysis] res=" + totalBandWidth);
 		return totalBandWidth;
 	}
 	
@@ -431,64 +486,94 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 	 *            for EtherSwitch
 	 * @param somName String somName to be used in messages
 	 */
-	protected void checkBandWidthLoad(final ComponentInstance curBus, String somName) {
+	protected void checkBandWidthLoad(final ComponentInstance curBus, SystemOperationMode som)
+	{
 		UnitLiteral kbspsliteral = GetProperties.getKBytespsUnitLiteral(curBus);
 		double Buscapacity = GetProperties.getBandWidthCapacityInKbps(curBus, 0.0);
 		boolean doBroadcast = GetProperties.isBroadcastProtocol(curBus);
 		SystemInstance root = curBus.getSystemInstance();
 		double totalBandWidth = 0.0;
-		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
-		EList<ConnectionInstance> budgetedConnections = new BasicEList<ConnectionInstance>();
+		EList<ConnectionInstance> budgetedConnections = InstanceModelUtil.getBoundConnections(curBus);
+
+
 		// filters out to use only Port connections or feature group connections
 		// it also tries to be smart about not double accounting for budgets on FG that now show for every port instance inside.
+		
+		/*
 		ConnectionGroupIterator cgi = new ConnectionGroupIterator(connections);
-		while (cgi.hasNext()) {
+		while (cgi.hasNext())
+		{
 			ConnectionInstance obj = cgi.next();
-			if (obj != null){
+			if (obj != null)
+			{
 				if (InstanceModelUtil.isBoundToBus(obj, curBus)||
 						// we derived a bus connection from the connection end bindings
-					(!InstanceModelUtil.hasBusBinding(obj)&&InstanceModelUtil.connectedByBus(obj, curBus)) ){ 
-				budgetedConnections.add(obj);
+					(!InstanceModelUtil.hasBusBinding(obj)&&InstanceModelUtil.connectedByBus(obj, curBus)) )
+				{
+					if ((obj.getSource().isActive(som)) && (obj.getDestination().isActive(som)))
+					{
+						budgetedConnections.add(obj);
+					}
 				}
 			}
-		}
+		}*/
 		if (doBroadcast){
 			budgetedConnections = filterSameSourceConnections(budgetedConnections);
 		}
 		if (Buscapacity == 0){
 			if (!budgetedConnections.isEmpty()){
-				errManager.warningSummary(curBus, somName,curBus.getComponentInstancePath()+ " has no capacity but bound connections");
+				errManager.warningSummary(curBus, som.getName(),curBus.getComponentInstancePath()+ " has no capacity but bound connections");
 			} else{
-				errManager.warningSummary(curBus, somName,curBus.getComponentInstancePath()+ " has no capacity");
+				errManager.warningSummary(curBus, som.getName(),curBus.getComponentInstancePath()+ " has no capacity");
 			return;
 			}
 		}
 		if (budgetedConnections.isEmpty()){
-			errManager.infoSummary(curBus, somName,curBus.getComponentInstancePath()+ " with bandwidth capacity "+Buscapacity+"KBytesps has no bound connections");
+			errManager.infoSummary(curBus, som.getName(),curBus.getComponentInstancePath()+ " with bandwidth capacity "+Buscapacity+"KBytesps has no bound connections");
 			return;
 		}
-		errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" with capacity "+Buscapacity+"KBytesps\n");
+		if (som != null)
+		{
+			errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" in mode " + som.getName() + " with capacity "+Buscapacity+"KBytesps\n");
+		}
+		else
+		{
+			errManager.logInfo("\n\nConnection Budget Details for bus "+curBus.getFullName()+" with capacity "+Buscapacity+"KBytesps\n");
+		}
+		
+		
 		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
-		for (ConnectionInstance connectionInstance : budgetedConnections) {
+		for (ConnectionInstance connectionInstance : budgetedConnections)
+		{
 			double budget = 0.0;
 			double actual = 0.0;
+			
+			if ((! connectionInstance.getSource().isActive(som)) || (! connectionInstance.getDestination().isActive(som)))
+			{
+				continue;	
+			}
+			
 			// we have a binding, is it to the current bus
 				budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 				actual = calcBandwidthKBytesps(connectionInstance.getSource());
 				String note = "";
-				if (budget > 0) {
-					if (actual > 0) {
+				if (budget > 0)
+				{
+					if ((actual > 0)&&(actual > budget))
+					{
 						totalBandWidth += actual;
-						if (actual > budget) {
-							note = "Actual bandwidth exceeds bandwidth budget. Using actual";
-						} else {
-							note = "Using actual bandwidth";
-						}
-					} else {
+						note = "Actual bandwidth exceeds bandwidth budget. Using actual";
+					} 
+					else 
+					{
 						totalBandWidth += budget;
+						note = "Using budget bandwidth";
 					}
-				} else {
-					if (actual > 0) {
+				}
+				else 
+				{
+					if (actual > 0) 
+					{
 						totalBandWidth += actual;
 						note = "No bandwidth budget. Using actual";
 					} else {
@@ -499,9 +584,9 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic{
 		}
 		detailedLog(null, totalBandWidth,kbspsliteral);
 		if (totalBandWidth > Buscapacity) {
-			errManager.errorSummary(curBus, somName, curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps exceeded by connection bandwidth budget totals " + totalBandWidth + " Kbps");
+			errManager.errorSummary(curBus, som.getName(), curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps exceeded by connection bandwidth budget totals " + totalBandWidth + " Kbps");
 		} else if (totalBandWidth > 0.0 && Buscapacity > 0.0) {
-			errManager.infoSummary(curBus, somName, curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps sufficient for connection bandwidth  budget totals " + totalBandWidth + " Kbps");
+			errManager.infoSummary(curBus, som.getName(), curBus.getComponentInstancePath()+" bandwidth capacity " + Buscapacity + " KBytesps sufficient for connection bandwidth  budget totals " + totalBandWidth + " Kbps");
 		}
 	}
 	

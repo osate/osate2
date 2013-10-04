@@ -1,7 +1,7 @@
 /*
  * Copyright 2013 Carnegie Mellon University
  * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
+ * The AADL/DSM Bridge (org.osate.importer.lattix ) (the ï¿½Contentï¿½ or ï¿½Materialï¿½) 
  * is based upon work funded and supported by the Department of Defense under 
  * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
  * of the Software Engineering Institute, a federally funded research and development 
@@ -12,7 +12,7 @@
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,7 +28,7 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
  * 
  * DM-0000232
@@ -45,9 +45,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.importer.Preferences;
 import org.osate.importer.lattix.common.Matrix;
-import org.osate.importer.lattix.common.Module;
-import org.osate.importer.lattix.vdid.Preferences;
+import org.osate.importer.model.Component;
 
 
 public class AadlProjectCreator {
@@ -107,18 +107,18 @@ public class AadlProjectCreator {
 			  out.write ("with ARINC653;\n");
 
 			  
-			  for (Module e : matrix.getModules())
+			  for (Component e : matrix.getModules())
 			  {
 				  out.write ("abstract "+e.getAadlName()+"\n");
 				  if ( (e.getIncomingDependencies().size() > 0) ||
 					   (e.getOutgoingDependencies().size() > 0))
 				  {
 					  out.write ("features\n");
-					  for (Module e2 : e.getIncomingDependencies())
+					  for (Component e2 : e.getIncomingDependencies())
 					  {
 						  out.write ("   from_"+e2.getAadlName()+" : in event port;\n");
 					  }
-					  for (Module e2 : e.getOutgoingDependencies())
+					  for (Component e2 : e.getOutgoingDependencies())
 					  {
 						  out.write ("   to_" + e2.getAadlName()+" : out event port;\n");
 					  }
@@ -171,7 +171,7 @@ public class AadlProjectCreator {
 			  
 
 			  
-			  for (Module e : matrix.getModules())
+			  for (Component e : matrix.getModules())
 			  {
 				  //out.write ("subprogram "+e.getAadlName()+" extends imported::functions::"+e.getAadlName()+"\n");
 				 // out.write ("features\n");
@@ -185,9 +185,9 @@ public class AadlProjectCreator {
 				{
 				  out.write ("features\n");
 				}
-				  for (Module etmp : e.getSubEntities())
+				  for (Component etmp : e.getSubEntities())
 				  {
-					  for (Module e2 : etmp.getIncomingDependencies())
+					  for (Component e2 : etmp.getIncomingDependencies())
 					  {
 						  if (! e.contains(e2))
 						  {
@@ -195,7 +195,7 @@ public class AadlProjectCreator {
 					  
 						  }
 					  }
-					  for (Module e2 : etmp.getOutgoingDependencies())
+					  for (Component e2 : etmp.getOutgoingDependencies())
 					  {
 						  if (! e.contains(e2))
 						  {
@@ -203,11 +203,11 @@ public class AadlProjectCreator {
 						  }
 					  }
 				  }
-				  for (Module e2 : e.getIncomingDependencies())
+				  for (Component e2 : e.getIncomingDependencies())
 				  {
 					  out.write ("   to_"+e.getAadlName()+"_from_"+e2.getAadlName()+" : in parameter generictype;\n");
 				  }
-				  for (Module e2 : e.getOutgoingDependencies())
+				  for (Component e2 : e.getOutgoingDependencies())
 				  {
 					  out.write ("   from_"+e.getAadlName()+"_to_" + e2.getAadlName()+" : out parameter generictype;\n");
 				  }
@@ -222,16 +222,16 @@ public class AadlProjectCreator {
 					  out.write ("calls\n");
 	
 					  out.write ("   mycall : {\n");
-					  for (Module etmp : e.getSubEntities())
+					  for (Component etmp : e.getSubEntities())
 					  {
 						  out.write ("      call_"+etmp.getAadlName()+" : subprogram "+etmp.getAadlName() + ".i;\n");
 					  }
 					  out.write ("};\n");
 					  
 					  out.write ("connections\n");
-					  for (Module etmp : e.getSubEntities())
+					  for (Component etmp : e.getSubEntities())
 					  {
-						  for (Module e2 : etmp.getIncomingDependencies())
+						  for (Component e2 : etmp.getIncomingDependencies())
 						  {
 							  if (e.contains(e2))
 							  {
@@ -243,7 +243,7 @@ public class AadlProjectCreator {
 								  out.write ("   parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
 							  }
 						  }
-						  for (Module e2 : etmp.getOutgoingDependencies())
+						  for (Component e2 : etmp.getOutgoingDependencies())
 						  {
 							  if (e.contains(e2))
 							  {
@@ -265,9 +265,9 @@ public class AadlProjectCreator {
 						{
 					  out.write ("features\n");
 						}
-					  for (Module etmp : e.getSubEntities())
+					  for (Component etmp : e.getSubEntities())
 					  {
-						  for (Module e2 : etmp.getIncomingDependencies())
+						  for (Component e2 : etmp.getIncomingDependencies())
 						  {
 							  if (! e.contains(e2))
 							  {
@@ -275,7 +275,7 @@ public class AadlProjectCreator {
 						  
 							  }
 						  }
-						  for (Module e2 : etmp.getOutgoingDependencies())
+						  for (Component e2 : etmp.getOutgoingDependencies())
 						  {
 							  if (! e.contains(e2))
 							  {
@@ -284,11 +284,11 @@ public class AadlProjectCreator {
 						  }
 					  }
 		
-					  for (Module e2 : e.getIncomingDependencies())
+					  for (Component e2 : e.getIncomingDependencies())
 					  {
 						  out.write ("   from_"+e2.getAadlName()+" : in event data port generictype;\n");
 					  }
-					  for (Module e2 : e.getOutgoingDependencies())
+					  for (Component e2 : e.getOutgoingDependencies())
 					  {
 						  out.write ("   to_" + e2.getAadlName()+" : out event data port generictype;\n");
 					  }
@@ -308,11 +308,11 @@ public class AadlProjectCreator {
 						{
 					  out.write ("connections\n");
 						}
-					  for (Module e2 : e.getIncomingDependencies())
+					  for (Component e2 : e.getIncomingDependencies())
 					  {
 						  out.write ("   parameter from_"+e2.getAadlName()+" -> call1.to_"+e.getAadlName()+"_from_"+e2.getAadlName()+";\n");
 					  }
-					  for (Module e2 : e.getOutgoingDependencies())
+					  for (Component e2 : e.getOutgoingDependencies())
 					  {
 						  out.write ("   parameter call1.from_"+e.getAadlName()+"_to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
 	
@@ -328,11 +328,11 @@ public class AadlProjectCreator {
 						{
 					  out.write ("features\n");
 						}
-					  for (Module e2 : e.getIncomingDependencies())
+					  for (Component e2 : e.getIncomingDependencies())
 					  {
 						  out.write ("   from_"+e2.getAadlName()+" : in event data port generictype;\n");
 					  }
-					  for (Module e2 : e.getOutgoingDependencies())
+					  for (Component e2 : e.getOutgoingDependencies())
 					  {
 						  out.write ("   to_" + e2.getAadlName()+" : out event data port generictype;\n");
 					  }
@@ -349,11 +349,11 @@ public class AadlProjectCreator {
 						{
 					  out.write ("connections\n");
 						}
-					  for (Module e2 : e.getIncomingDependencies())
+					  for (Component e2 : e.getIncomingDependencies())
 					  {
 						  out.write ("   port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
 					  }
-					  for (Module e2 : e.getOutgoingDependencies())
+					  for (Component e2 : e.getOutgoingDependencies())
 					  {
 						  out.write ("   port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
 	
@@ -370,7 +370,7 @@ public class AadlProjectCreator {
 			  if (Preferences.useArinc())
 			  {
 				  out.write ("subcomponents\n");
-				  for (Module e : matrix.getModules())
+				  for (Component e : matrix.getModules())
 				  {
 					  if (e.getParent() == null)
 					  {
@@ -381,7 +381,7 @@ public class AadlProjectCreator {
 				  out.write ("	ARINC653::Module_Major_Frame => "+matrix.getModules().size() + 100+"ms;\n");
 				  out.write ("	ARINC653::Partition_Slots => (");
 				  boolean firstWritten = false;
-				  for (Module e : matrix.getModules())
+				  for (Component e : matrix.getModules())
 				  {
 
 					  if (e.getParent() == null)
@@ -398,7 +398,7 @@ public class AadlProjectCreator {
 				  out.write ("	ARINC653::Slots_Allocation => (");
 				  
 				  tmp = 0;
-				  for (Module e : matrix.getModules())
+				  for (Component e : matrix.getModules())
 				  {
 					  if (e.getParent() == null)
 					  {
@@ -421,7 +421,7 @@ public class AadlProjectCreator {
 			  if (Preferences.useArinc())
 			  {
 				 out.write ("subcomponents\n");
-				 for (Module e : matrix.getModules())
+				 for (Component e : matrix.getModules())
 				  {
 					  if (e.getParent() == null)
 					  {
@@ -438,7 +438,7 @@ public class AadlProjectCreator {
 			  
 			  out.write("system implementation mainsystem.i\n");
 			  out.write("subcomponents\n");
-				 for (Module e : matrix.getModules())
+				 for (Component e : matrix.getModules())
 				  {
 					  if (e.getParent() == null)
 					  {
@@ -459,13 +459,13 @@ public class AadlProjectCreator {
 			  }
 			  
 			  
-			  for (Module e : matrix.getModules())
+			  for (Component e : matrix.getModules())
 			  {
 				  if (e.getParent() != null)
 				  {
 					  continue;
 				  }
-				  for (Module e2 : e.getOutgoingDependencies())
+				  for (Component e2 : e.getOutgoingDependencies())
 				  {
 					  if (!connectionPreamble)
 					  {
@@ -477,7 +477,7 @@ public class AadlProjectCreator {
 			  }
 			  
 			  out.write("properties\n");
-			  for (Module e : matrix.getModules())
+			  for (Component e : matrix.getModules())
 			  {
 				  if(e.getParent() != null)
 				  {

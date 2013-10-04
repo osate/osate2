@@ -42,6 +42,7 @@ package org.osate.analysis.resource.budgets.actions;
 import org.osate.aadl2.NamedElement;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisLogic;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 
 public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
@@ -63,7 +64,9 @@ public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 	}
 
 	@Override
-	protected DoBoundResourceAnalysisLogic getLogicObject() {
+	protected DoBoundResourceAnalysisLogic getLogicObject()
+	{
+		InstanceModelUtil.clearCache();
 		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), this);
 	}
 }

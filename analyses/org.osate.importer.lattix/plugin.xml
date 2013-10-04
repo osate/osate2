@@ -8,7 +8,7 @@
       <actionSet
             label="Sample Action Set"
             visible="false"
-            id="edu.cmu.sei.vdid.dsm.actionSet">
+            id="org.osate.importer.lattix.actionSet">
          <menu
                id="menu.osate"
                label="%menu.osate.label"
@@ -73,14 +73,6 @@
                icon="icons/excel.gif"
                id="edu.cmu.sei.vdid.dsm.actions.DoGenerateExcelReport">
          </action>
-         <action
-               label="Preferences"
-               class="org.osate.importer.lattix.actions.DoOpenPreferences"
-               tooltip="Open VDID preferences"
-               menubarPath="menu.analyses/menu.importer/stuff.grp"
-               icon="icons/prefs.gif"
-               id="edu.cmu.sei.vdid.dsm.actions.DoOpenPreferences">
-         </action>
       </actionSet>
    </extension>
 
@@ -89,7 +81,7 @@
    	   <perspectiveExtension
    		   targetID="org.osate.ui.perspective.AadlPerspective">
    		   <actionSet
-   		 	   id="edu.cmu.sei.vdid.dsm.actionSet"/>
+   		 	   id="org.osate.importer.lattix.actionSet"/>
    	   </perspectiveExtension>
    </extension>
 

@@ -1,18 +1,12 @@
 /*
  * Copyright 2013 Carnegie Mellon University
- * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
- * is based upon work funded and supported by the Department of Defense under 
- * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
- * of the Software Engineering Institute, a federally funded research and development 
- * center.
 
  * Any opinions, findings and conclusions or recommendations expressed in this 
  * Material are those of the author(s) and do not necessarily reflect the 
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,49 +22,43 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
- * 
- * DM-0000232
  * 
  */
 
-package org.osate.importer.lattix.common;
+package org.osate.importer.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import org.osate.aadl2.util.OsateDebug;
-
-public class ModuleConnection {
+public class Connection {
 	String content;
-	Module source;
-	Module destination;
+	Component source;
+	Component destination;
 	
-	public ModuleConnection (String c, Module s, Module d)
+	public Connection (String c, Component s, Component d)
 	{
 		this.content = c;
 		this.source = s;
 		this.destination = d;
 	}
 	
-	public ModuleConnection (Module s, Module d)
+	public Connection (Component s, Component d)
 	{
 		this ("1", s, d);
 	}
 	
-	public ModuleConnection (Module s, Module d, int st)
+	public Connection (Component s, Component d, int st)
 	{
 		
 		this (new String ("" + st), s, d);
 	}
 	
-	public Module getSource ()
+	public Component getSource ()
 	{
 		return this.source;
 	}
 	
-	public Module getDestination ()
+	public Component getDestination ()
 	{
 		return this.destination;
 	}
@@ -80,14 +68,27 @@ public class ModuleConnection {
 		return this.content;
 	}
 	
-	public void setSource (Module s)
+	public void setSource (Component s)
 	{
 		this.source = s;
 	}
 	
-	public void setDestination (Module d)
+	public void setDestination (Component d)
 	{
 		this.destination = d;
 	}
-	
+	public String toString ()
+	{
+		String r;
+		r = "Connection value=" + this.content;
+		if (this.source != null)
+		{
+			r += " (src="+this.source+") ";
+		}
+		if (this.destination != null)
+		{
+			r += " (dst="+this.destination+") ";
+		}
+		return r;
+	}
 }

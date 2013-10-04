@@ -1,7 +1,7 @@
 /*
  * Copyright 2013 Carnegie Mellon University
  * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
+ * The AADL/DSM Bridge (org.osate.importer.lattix ) (the ï¿½Contentï¿½ or ï¿½Materialï¿½) 
  * is based upon work funded and supported by the Department of Defense under 
  * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
  * of the Software Engineering Institute, a federally funded research and development 
@@ -12,7 +12,7 @@
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,7 +28,7 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
  * 
  * DM-0000232
@@ -54,8 +54,8 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.importer.lattix.common.Module;
-import org.osate.importer.lattix.common.ModuleConnection;
+import org.osate.importer.model.Component;
+import org.osate.importer.model.Connection;
 
 
 
@@ -78,22 +78,22 @@ public class LdmExporter {
 	}
 	*/
 	
-	public static void searchSubprograms (SubprogramType ci, HashMap<String,Module> listComponents)
+	public static void searchSubprograms (SubprogramType ci, HashMap<String,Component> listComponents)
 	{
 		if ( ! listComponents.containsKey(ci))
 		{
 		
-			listComponents.put(normalizeName(ci), new Module(normalizeName(ci)));
+			listComponents.put(normalizeName(ci), new Component(normalizeName(ci)));
 
 		}
 	}
 	
-	public static void searchSubprograms (SubprogramImplementation ci, HashMap<String,Module> listComponents)
+	public static void searchSubprograms (SubprogramImplementation ci, HashMap<String,Component> listComponents)
 	{
 		System.out.println ("SubprogramImplementation" + ci);
 	}
 	
-	public static void searchSubprograms (ComponentInstance ci, HashMap<String,Module> listComponents)
+	public static void searchSubprograms (ComponentInstance ci, HashMap<String,Component> listComponents)
 	{
 		ComponentInstance c;
 		//System.out.println ("[LdmExporter] search for subprogram in " + ci.getName() + "|" + ci);
@@ -156,10 +156,10 @@ public class LdmExporter {
 	
 	public static void convert (SystemInstance systemInstance, String outputFile) throws Exception
 	{
-		HashMap<String,Module> 				mapFunctions;
-		ModuleConnection 					entityConnection;
+		HashMap<String,Component> 				mapFunctions;
+		Connection 					entityConnection;
 		
-		mapFunctions = new HashMap<String,Module>();
+		mapFunctions = new HashMap<String,Component>();
 		
 		searchSubprograms (systemInstance, mapFunctions);
 		
@@ -203,7 +203,7 @@ public class LdmExporter {
 				if ((spgDstName != null) && (mapFunctions.containsKey(spgDstName)) && (spgDstName != spgSrcName))
 				{
 					System.out.println("[LdmExporter] Function " +spgSrcName + " connected to " + spgDstName);
-					entityConnection = new ModuleConnection(mapFunctions.get(spgSrcName), mapFunctions.get(spgDstName));
+					entityConnection = new Connection(mapFunctions.get(spgSrcName), mapFunctions.get(spgDstName));
 					mapFunctions.get(spgSrcName).addConnection (entityConnection);
 					mapFunctions.get(spgDstName).addConnection (entityConnection);
 				}

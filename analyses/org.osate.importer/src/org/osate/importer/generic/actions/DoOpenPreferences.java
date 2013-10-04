@@ -1,18 +1,12 @@
 /*
  * Copyright 2013 Carnegie Mellon University
- * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
- * is based upon work funded and supported by the Department of Defense under 
- * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
- * of the Software Engineering Institute, a federally funded research and development 
- * center.
 
  * Any opinions, findings and conclusions or recommendations expressed in this 
  * Material are those of the author(s) and do not necessarily reflect the 
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -27,69 +21,34 @@
  * Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL is 
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
- * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
- * Office by Carnegie Mellon University. 
- * 
- * DM-0000232
- * 
  */
 
-package org.osate.importer.lattix.actions;
+package org.osate.importer.generic.actions;
 
 
-import java.awt.TextField;
-import java.io.BufferedOutputStream;
-
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.dialogs.IMessageProvider;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.swt.*;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.*;
-import org.eclipse.swt.widgets.*;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.importer.lattix.vdid.Activator;
-import org.osate.importer.lattix.vdid.CostGenerator;
-import org.osate.importer.lattix.vdid.ExcelGenerator;
-import org.osate.importer.lattix.vdid.LdmGenerator;
-import org.osate.importer.lattix.vdid.MatrixGenerator;
-import org.osate.importer.lattix.vdid.MetricsReporter;
-import org.osate.importer.lattix.vdid.Preferences;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
-import org.osgi.framework.Bundle;
-
-
-
-
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.osate.importer.Activator;
+import org.osate.importer.Preferences;
+import org.osgi.framework.Bundle;
 
 
 
@@ -97,12 +56,14 @@ class PreferencesDialog extends TitleAreaDialog {
 
 	  private Combo weightMethodCombo;
 	  private Combo parallelDependenciesCombo;
+	  private Combo mappingComponentCombo;
 	  private Text invalidSystems;
+	  private Text packagePrefix;
 	  private Text ignoreHierarchy;
 	  private Button arincCheckBox;
 	  private final static String [] weightMethods = {"boolean", "architecture driven"};
 	  private final static String [] parallelDependenciesMethods = {"sum", "average", "max"};
-
+	  private final static String [] mappingComponents = {"subprogram", "thread", "process"};
 //	  private String lastName;
 
 	  public PreferencesDialog(Shell parentShell) {
@@ -114,9 +75,9 @@ class PreferencesDialog extends TitleAreaDialog {
 	  public void create() {
 	    super.create();
 	    // Set the title
-	    setTitle("VDID Preferences");
+	    setTitle("AADL Importer Preferences");
 	    // Set the message
-	    setMessage("Set your preferences for VDID related analysis", 
+	    setMessage("Set your preferences importing models", 
 	        IMessageProvider.NONE);
 
 	  }
@@ -134,7 +95,7 @@ class PreferencesDialog extends TitleAreaDialog {
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label1 = new Label(parent, SWT.NONE);
-	    label1.setText("Dependency weight method");
+	    label1.setText("Dependency weight method (DSM, Lattix)");
 
 	    weightMethodCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 
@@ -148,20 +109,34 @@ class PreferencesDialog extends TitleAreaDialog {
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label2 = new Label(parent, SWT.NONE);
-	    label2.setText("Parallel dependecies handling");
+	    label2.setText("Parallel dependecies handling (Lattix)");
 
 	    parallelDependenciesCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 
 	    
 	    parallelDependenciesCombo.setItems(parallelDependenciesMethods);
 	    parallelDependenciesCombo.setText(parallelDependenciesMethods[0]);
+
+
+	    gridData = new GridData();
+	    gridData.grabExcessHorizontalSpace = true;
+	    gridData.horizontalAlignment = GridData.FILL;
+
+	    Label label7 = new Label(parent, SWT.NONE);
+	    label7.setText("AADL mapping component (Lattix/Simulink)");
+
+	    mappingComponentCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
+
+	    mappingComponentCombo.setItems(mappingComponents);
+	    mappingComponentCombo.setText(mappingComponents[Preferences.getMappingComponent()]);
+	    
 	    
 	    gridData = new GridData();
 	    gridData.grabExcessHorizontalSpace = true;
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label4 = new Label(parent, SWT.NONE);
-	    label4.setText("Systems to ignore");
+	    label4.setText("Systems to ignore (Lattix)");
 
 	    invalidSystems = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
     	
@@ -170,16 +145,27 @@ class PreferencesDialog extends TitleAreaDialog {
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label5 = new Label(parent, SWT.NONE);
-	    label5.setText("Ignore the following first hierarchy levels");
+	    label5.setText("Ignore the following first hierarchy levels (Lattix)");
 
 	    ignoreHierarchy = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
+
+    	
+	    gridData = new GridData();
+	    gridData.grabExcessHorizontalSpace = true;
+	    gridData.horizontalAlignment = GridData.FILL;
+
+	    Label label6 = new Label(parent, SWT.NONE);
+	    label6.setText("Package Prefix (Lattix/Simulink)");
+
+	    packagePrefix = new Text(parent, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
+
 	    
 	    gridData = new GridData();
 	    gridData.grabExcessHorizontalSpace = true;
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label3 = new Label(parent, SWT.NONE);
-	    label3.setText("Enable ARINC653 features");
+	    label3.setText("Enable ARINC653 features (Lattix/Simulink)");
 
 	    arincCheckBox = new Button(parent, SWT.CHECK);
     	arincCheckBox.setSelection(Preferences.useArinc());
@@ -282,8 +268,18 @@ class PreferencesDialog extends TitleAreaDialog {
 				  Preferences.setParallelDependencyMethod(i);
 			  }
 		  }
+		  
+		  for (int i = 0 ; i < mappingComponents.length ; i++)
+		  {
+			  if (mappingComponents[i].equals(mappingComponentCombo.getText()))
+			  {
+				  Preferences.setMappingComponent(i);
+			  }
+		  }
+		  
 		  Preferences.setInvalidSystems(invalidSystems.getText());
 		  Preferences.setIgnoreHierarchy(ignoreHierarchy.getText());
+		  Preferences.setPackagePrefix(packagePrefix.getText());
 	  }
 
 	  protected void okPressed() {
