@@ -128,7 +128,6 @@ public class AadlDiagram extends FigureCanvas {
 			int max = hierarchyDepth((ComponentInstance)obj);
 			if (nestingLevel < max ){
 				this.nestingLevel++;
-				makeVisible(this.rootAdapter, nestingLevel);
 			}
 		}
 	}
@@ -136,44 +135,43 @@ public class AadlDiagram extends FigureCanvas {
 
 	public void decrementNestingLevel() {
 		if (this.nestingLevel > 1){
-			makeInvisible(this.rootAdapter, nestingLevel);
 			this.nestingLevel--;
 		}
 	}
 
-	protected void makeVisible(AadlComponentAdapter compAdapter,int nestingLevel){
-		if (nestingLevel == 0){
-		compAdapter.getFigure().setVisible(true);
-		Iterator<AadlFeatureAdapter> cfit = compAdapter.getChildFeatures();
-		while (cfit.hasNext()){
-			cfit.next().getFigure().setVisible(true);
-		}
-		} else {
-			Iterator<AadlComponentAdapter> cit = compAdapter.getChildComponents();
-			while (cit.hasNext()){
-				AadlComponentAdapter childAdapter = cit.next();
-				makeVisible(childAdapter,nestingLevel-1);
-			}
-		}
-		
-	}
+//	protected void makeVisible(AadlComponentAdapter compAdapter,int nestingLevel){
+//		if (nestingLevel == 0){
+//		compAdapter.getFigure().setVisible(true);
+//		Iterator<AadlFeatureAdapter> cfit = compAdapter.getChildFeatures();
+//		while (cfit.hasNext()){
+//			cfit.next().getFigure().setVisible(true);
+//		}
+//		} else {
+//			Iterator<AadlComponentAdapter> cit = compAdapter.getChildComponents();
+//			while (cit.hasNext()){
+//				AadlComponentAdapter childAdapter = cit.next();
+//				makeVisible(childAdapter,nestingLevel-1);
+//			}
+//		}
+//		
+//	}
 
-	protected void makeInvisible(AadlComponentAdapter compAdapter,int nestingLevel){
-		if (nestingLevel == 0){
-			compAdapter.getFigure().setVisible(false);
-			Iterator<AadlFeatureAdapter> cfit = compAdapter.getChildFeatures();
-			while (cfit.hasNext()){
-				cfit.next().getFigure().setVisible(false);
-			}
-		} else {
-			Iterator<AadlComponentAdapter> cit = compAdapter.getChildComponents();
-			while (cit.hasNext()){
-				AadlComponentAdapter childAdapter = cit.next();
-				makeInvisible(childAdapter,nestingLevel-1);
-			}
-		}
-		
-	}
+//	protected void makeInvisible(AadlComponentAdapter compAdapter,int nestingLevel){
+//		if (nestingLevel == 0){
+//			compAdapter.getFigure().setVisible(false);
+//			Iterator<AadlFeatureAdapter> cfit = compAdapter.getChildFeatures();
+//			while (cfit.hasNext()){
+//				cfit.next().getFigure().setVisible(false);
+//			}
+//		} else {
+//			Iterator<AadlComponentAdapter> cit = compAdapter.getChildComponents();
+//			while (cit.hasNext()){
+//				AadlComponentAdapter childAdapter = cit.next();
+//				makeInvisible(childAdapter,nestingLevel-1);
+//			}
+//		}
+//		
+//	}
 
 
 	protected int hierarchyDepth(ComponentInstance ci){

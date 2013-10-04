@@ -273,18 +273,18 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 	private void updateSubcomponentsOfComponent(AadlComponentAdapter componentAdapter, int nesting) {
 		EList subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
 		// remove adapters without corresponding model element
-		EList<AadlComponentAdapter> removeme = new BasicEList<AadlComponentAdapter>();
-		for (Iterator<AadlComponentAdapter> it = componentAdapter.getChildComponents(); it.hasNext();){
-			AadlComponentAdapter kid = it.next();
-			Object subcomp = kid.getModelElement();
-			if (!subcomponents.contains(subcomp)){
-				removeme.add(kid);
-				this.modelElementToAdapterMap.remove(subcomp);
-			}
-		}
-		for (AadlComponentAdapter kidadapter : removeme) {
-			componentAdapter.removeChild(kidadapter);
-		}
+//		EList<AadlComponentAdapter> removeme = new BasicEList<AadlComponentAdapter>();
+//		for (Iterator<AadlComponentAdapter> it = componentAdapter.getChildComponents(); it.hasNext();){
+//			AadlComponentAdapter kid = it.next();
+//			Object subcomp = kid.getModelElement();
+//			if (!subcomponents.contains(subcomp)){
+//				removeme.add(kid);
+//				this.modelElementToAdapterMap.remove(subcomp);
+//			}
+//		}
+//		for (AadlComponentAdapter kidadapter : removeme) {
+//			componentAdapter.removeChild(kidadapter);
+//		}
 		// add missing adapters
 		for (Object sub: subcomponents) {
 			AadlComponentAdapter subcomponentAdapter = (AadlComponentAdapter)this.modelElementToAdapterMap.get(sub);
@@ -296,8 +296,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				this.addFeaturesToAdapter(subcomponentAdapter);
 				// Add subcomponent to component.
 				componentAdapter.addChild(subcomponentAdapter);
-			} else{
-				this.updateFeaturesOfAdapter(subcomponentAdapter);
+//			} else{
+//				this.updateFeaturesOfAdapter(subcomponentAdapter);
 			}
 			// phf: recursively add subcomponents
 			if ((nesting > 1) && (subcomponentAdapter.getModelElement() instanceof ComponentInstance))

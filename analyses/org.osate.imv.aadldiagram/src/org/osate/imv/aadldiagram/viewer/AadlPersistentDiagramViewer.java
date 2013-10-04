@@ -111,6 +111,7 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 
 	public void incrementComponentNestingHandler() {
 			this.getAadlDiagram().incrementNestingLevel();
+			this.updateRootAdapter();
 			updateDiagram();
 	}
 
@@ -134,7 +135,6 @@ public class AadlPersistentDiagramViewer extends AadlHierarchicalDiagramViewer {
 		forceRefresh = true;
 		refresh();
 		forceRefresh = tmprefresh;
-//		updateRootAdapter();
 //		redrawDiagram();
 	}
 	
