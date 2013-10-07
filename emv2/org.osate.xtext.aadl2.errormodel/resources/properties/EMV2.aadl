@@ -40,7 +40,7 @@ DurationDistribution : EMV2::DurationDistributionSpecification applies to ({emv2
 -- For example, as a property associated with a connection it indicates the time delay of the error propagation.
 
 PropagationTimeDelay: EMV2::DurationDistributionSpecification
-    applies to (connection, {emv2}**propagation point connection);
+    applies to (connection, {emv2}**propagation path);
 
 StateKind : EMV2::StateKindEnum
 	  applies to ({emv2}**error behavior state);

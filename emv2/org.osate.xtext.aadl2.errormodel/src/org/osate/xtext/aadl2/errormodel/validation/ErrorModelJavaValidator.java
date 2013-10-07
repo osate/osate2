@@ -498,7 +498,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			if (oep != ep && oep.getName().equalsIgnoreCase(ep.getName())) {
 				error(ep,
 						"Propagation point "+(ep instanceof PropagationPath?"path ":"")+
-				ep.getName()+ "' conflicts with propagation point connection.");
+				ep.getName()+ "' conflicts with propagation path.");
 			}
 		}
 		EObject searchResult = null;
