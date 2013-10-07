@@ -102,6 +102,14 @@ public class EM2TypeSetUtil {
 		if (constraint instanceof TypeSet) return contains((TypeSet)constraint,type);
 		return false;
 	}
+
+	
+	public static boolean contains(ErrorTypes constraint, TypeSet type){
+		if (constraint instanceof ErrorType) return contains((ErrorType)constraint,type);
+		if (constraint instanceof TypeSet) return contains((TypeSet)constraint,type);
+		return false;
+	}
+
 	
 	public static boolean contains(TypeToken constraint, ErrorTypes type){
 		if (type instanceof ErrorType) return contains(constraint,(ErrorType)type);
@@ -110,8 +118,15 @@ public class EM2TypeSetUtil {
 	}
 	
 	public static boolean contains(ErrorTypes constraint, ErrorTypes type){
-		if (type instanceof ErrorType) return contains(constraint,(ErrorType)type);
-		if (type instanceof TypeSet) return contains(constraint,(TypeSet)type);
+		if (type instanceof ErrorType)
+		{
+			ErrorType et = (ErrorType) type;			
+			return contains(constraint,et);
+		}
+		if (type instanceof TypeSet){
+			TypeSet ts = (TypeSet) type;
+			return contains(constraint,ts);
+		}
 		return false;
 	}
 	
@@ -458,6 +473,19 @@ public class EM2TypeSetUtil {
 		}
 		return null;
 	}
+	
+	public static TypeToken mapTypeToken(ErrorTypes token, TypeMappingSet tms){
+		EList<TypeMapping> tmlist = tms.getMapping();
+		for (TypeMapping typeMapping : tmlist) {
+			TypeSet src = typeMapping.getSource();
+			if (contains(src,token)){
+				return typeMapping.getTarget();
+			}
+		}
+		return null;
+	}
+	
+
 	
 	/**
 	 * map a TypeToken from the target type token to the first type token in the source type set according to the TypeMappingSet.

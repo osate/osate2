@@ -1394,6 +1394,17 @@ public class EMV2Util {
 	}
 
 	
+	public static TypeMappingSet getAllTypeEquivalenceMapping(Classifier cl){
+	
+			EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+			for (ErrorModelSubclause errorModelSubclause : emslist) {
+				TypeMappingSet tms = errorModelSubclause.getTypeEquivalence();
+				if (tms != null) return tms;
+			}
+	
+		return null;
+	}
+	
 	/**
 	 * return list of propagation points including those inherited from classifiers being extended
 	 * @param cl Classifier
