@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -204,9 +205,16 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
+		if (! Aadl2Util.getUseTunedEqualsMethods())
+		{
+			return super.equals (obj);
+		}
+		
 		if (this == obj)
 			return true;
+		
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())

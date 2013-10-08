@@ -44,6 +44,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.operations.NumberValueOperations;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.UnitsType;
 
 /**
@@ -210,8 +211,15 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements
 
 	@Override
 	public boolean equals(Object obj) {
+		
+		if (! Aadl2Util.getUseTunedEqualsMethods())
+		{
+			return super.equals (obj);
+		}
+		
 		if (this == obj)
 			return true;
+		
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
