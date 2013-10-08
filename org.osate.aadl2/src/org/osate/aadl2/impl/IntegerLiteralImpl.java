@@ -43,6 +43,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.parsesupport.ParseUtil;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -375,7 +376,12 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 	//	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
+		if (! Aadl2Util.getUseTunedEqualsMethods())
+		{
+			return super.equals (obj);
+		}
 		if (this == obj)
 			return true;
 		if (obj == null || getClass() != obj.getClass() || !super.equals(obj))
