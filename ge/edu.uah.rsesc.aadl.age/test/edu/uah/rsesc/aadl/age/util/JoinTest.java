@@ -11,7 +11,7 @@ public class JoinTest {
 	public void test() {
 		String[] test_str_arry = {"All","The","Strings","dot","JPEG"};
 		int startId = 0;
-		int endId = 3;
+		int endId = 4;
 		String delimit = "-";
 		
 		StringUtil.join(test_str_arry, startId, endId, delimit);
