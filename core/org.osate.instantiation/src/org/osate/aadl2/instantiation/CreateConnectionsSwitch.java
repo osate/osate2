@@ -343,6 +343,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		{
 			if (featurei.getDirection().incoming()) 
 			{
+				if (featurei.getIndex() == 1){
 				List<Connection> inConns = filterIngoingConnections(sysConns, featurei.getFeature());
 				for (Connection conn : inConns) 
 				{
@@ -353,6 +354,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						{
 							return;
 						}
+				}
 				}
 			}
 		}
