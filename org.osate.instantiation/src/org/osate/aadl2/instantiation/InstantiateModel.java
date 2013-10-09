@@ -1477,7 +1477,8 @@ public class InstantiateModel {
 	 * @param name
 	 * @param doSource
 	 */
-	private ConnectionInstanceEnd resolveConnectionReference(ConnectionReference targetConnRef, ConnectionReference outerConnRef, ComponentInstance target,  boolean doSource, long idx){
+	private ConnectionInstanceEnd resolveConnectionReference(ConnectionReference targetConnRef, ConnectionReference outerConnRef, ComponentInstance target,  boolean doSource, 
+			long idx, long fgidx ){
 		ConnectionInstanceEnd src = targetConnRef.getSource();
 		ConnectionInstanceEnd dst = targetConnRef.getDestination();
 		if (doSource){
@@ -1487,8 +1488,16 @@ public class InstantiateModel {
 			} else if (src instanceof FeatureInstance){
 				// re-resolve the source feature 
 				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), src.getName(),idx); 
-				if (found != null) 
+				if (found == null) {
+					 Element parent = src.getOwner();
+					 if (parent instanceof FeatureInstance){
+							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
+					 }
+				}
+				if (found != null) {
 					targetConnRef.setSource(found);
+				}
+
 			} 
 			// now we need to resolve the upper end (destination)
 			if (targetConnRef != outerConnRef){
@@ -1501,6 +1510,12 @@ public class InstantiateModel {
 				} else {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
 					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(((FeatureInstance)outerSrc).getFeatureInstances(), dst.getName(),idx); 
+					if (found == null) {
+						 Element parent = dst.getOwner();
+						 if (parent instanceof FeatureInstance){
+								found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
+						 }
+					}
 					if (found != null) 
 						targetConnRef.setDestination(found);
 				}
@@ -1513,6 +1528,12 @@ public class InstantiateModel {
 			} else if (dst instanceof FeatureInstance){
 				// re-resolve the source feature 
 				ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), dst.getName(),idx); 
+				if (found == null) {
+					 Element parent = dst.getOwner();
+					 if (parent instanceof FeatureInstance){
+							found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
+					 }
+				}
 				if (found != null) 
 					targetConnRef.setDestination(found);
 			}
@@ -1527,6 +1548,12 @@ public class InstantiateModel {
 				} else {
 					// the outer source points to the enclosing feature group. reresolve the feature in this feature group
 					ConnectionInstanceEnd found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(((FeatureInstance)outerDst).getFeatureInstances(), src.getName(),idx); 
+					if (found == null) {
+						 Element parent = src.getOwner();
+						 if (parent instanceof FeatureInstance){
+								found = (ConnectionInstanceEnd) AadlUtil.findNamedElementInList(target.getFeatureInstances(), ((FeatureInstance)parent).getName(),fgidx); 
+						 }
+					}
 					if (found != null) 
 						targetConnRef.setSource(found);
 				}
@@ -1611,15 +1638,24 @@ public class InstantiateModel {
 			// resolve the connref
 			if (targetConnRef != null&& resolutionContext instanceof ComponentInstance){			
 				int dimfeature = dims.get(0);
-				result = resolveConnectionReference(targetConnRef, outerConnRef,(ComponentInstance)resolutionContext, doSource,dimfeature==0?0:indices.get(0)) ;
+				int dimfg = 0;
+				if (dims.size() > 1) dimfg = dims.get(1);
+				result = resolveConnectionReference(targetConnRef, outerConnRef,(ComponentInstance)resolutionContext, doSource,dimfeature==0?0:indices.get(0),
+						dimfg == 0?0:(dimfeature==0?indices.get(0):indices.get(1))) ;
 			} else {
 				// the resolved feature has been found
 				result = resolutionContext;
 			}
 			if (doSource){
+				if (targetConnRef != null&&result instanceof FeatureInstance){
+					targetConnRef.setSource(result);
+				}
 				outerConnRef = targetConnRef;
 				targetConnRef = Aadl2InstanceUtil.getPreviousConnectionReference(newconn, outerConnRef);
 			} else {
+				if (targetConnRef != null&&result instanceof FeatureInstance){
+					targetConnRef.setDestination(result);
+				}
 				outerConnRef = targetConnRef;
 				targetConnRef = Aadl2InstanceUtil.getNextConnectionReference(newconn, outerConnRef);
 			}
