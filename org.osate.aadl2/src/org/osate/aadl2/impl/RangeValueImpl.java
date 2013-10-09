@@ -52,6 +52,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -570,8 +571,14 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (! Aadl2Util.getUseTunedEqualsMethods())
+		{
+			return super.equals (obj);
+		}
+		
 		if (this == obj)
 			return true;
+
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
