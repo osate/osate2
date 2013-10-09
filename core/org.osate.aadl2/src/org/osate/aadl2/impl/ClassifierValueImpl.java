@@ -47,6 +47,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -216,7 +217,13 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
+		if (! Aadl2Util.getUseTunedEqualsMethods())
+		{
+			return super.equals (obj);
+		}
+		
 		if (this == obj)
 			return true;
 		if (obj == null)
