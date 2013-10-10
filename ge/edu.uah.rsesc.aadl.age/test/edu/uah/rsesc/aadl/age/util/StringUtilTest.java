@@ -4,11 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class JoinTest {
+public class StringUtilTest {
 
-	//public static String join(final String[] segs, final int startIdx, final int endIdx, final String del)
 	@Test
-	public void test() {
+	public void Jointest() {
 		String[] test_str_arry = {"All","The","Strings","dot","JPEG"};
 		int startId = 0;
 		int endId = 4;
@@ -17,5 +16,12 @@ public class JoinTest {
 		assertEquals("check if Valid Join","All-The-Strings-dot", StringUtil.join(test_str_arry, startId, endId, delimit));
 
 	}
+	@Test
+	//.camelCaseToUser("testMethod5")
+	public void camelCaseTest()
+	{
+		String testStr = "TestMethod1";
+		assertEquals("Test is camelCase method works","Test Method1", StringUtil.camelCaseToUser(testStr));
 
+	}
 }
