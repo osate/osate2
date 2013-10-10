@@ -13,10 +13,8 @@ public class JoinTest {
 		int startId = 0;
 		int endId = 4;
 		String delimit = "-";
-		
-		StringUtil.join(test_str_arry, startId, endId, delimit);
-		
-		assertEquals("check if Valid Join","All-Strings", StringUtil.join(test_str_arry, startId, endId, delimit));
+				
+		assertEquals("check if Valid Join","All-The-Strings-dot", StringUtil.join(test_str_arry, startId, endId, delimit));
 
 	}
 
