@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -204,6 +205,10 @@ public class StringLiteralImpl extends PropertyValueImpl implements
 	@Override
 	public boolean equals(Object obj) 
 	{
+		if (! Aadl2Util.getUseTunedEqualsMethods())
+		{
+			return super.equals (obj);
+		}
 		if (this == obj)
 			return true;
 		if (obj == null)
