@@ -6,9 +6,12 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
@@ -18,6 +21,7 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
@@ -26,6 +30,7 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -42,11 +47,15 @@ import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
+import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
+import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
+import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 /**
@@ -72,11 +81,16 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final AadlFeatureService featureService;
 	private final PrototypeService prototypeService;
+	private final UserInputService userInputService;
+	private final ModificationService modificationService;
+	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public FeaturePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
-			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final AadlFeatureService featureService, final PrototypeService prototypeService) {
+			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
+			final AadlFeatureService featureService, final PrototypeService prototypeService, 
+			final UserInputService userInputService, final ModificationService modificationService, final BusinessObjectResolutionService bor) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -86,6 +100,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.featureService = featureService;
 		this.prototypeService = prototypeService;
+		this.userInputService = userInputService;
+		this.modificationService = modificationService;
+		this.bor = bor;
 	}
 
 	@Override
@@ -469,4 +486,35 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final boolean result = centerX < containerGa.getWidth()/2;
 		return result;
 	}	
+	
+	@Override
+	public boolean canDelete(final IDeleteContext context) {
+		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)context.getPictogramElement()).getContainer());
+
+		// The container must be a Feature Group Type or a ComponentType
+		return containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType;
+
+	}
+
+	@Override
+	public void delete(final IDeleteContext context) {
+		if(!userInputService.confirmDelete(context)) {
+			return;
+		}
+		
+		final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		modificationService.modify(feature, new AbstractModifier<Feature, Object>() {
+			@Override
+			public Object modify(final Resource resource, final Feature feature) {
+				// Just remove the feature. 
+				// In the future it would be helpful to offer options for refactoring the model so that it does not cause errors.
+				EcoreUtil.remove(feature);
+				
+				return null;
+			}
+		});
+		
+		// Clear selection
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
 }
