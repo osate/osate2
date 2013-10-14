@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
@@ -84,7 +85,8 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements
 			throws InvalidModelException {
 		List<InstanceObject> iol = root
 				.findInstanceObjects(getContainmentPathElements());
-		if (iol.size() == 0) {
+		if (iol.size() == 0) 
+		{
 			throw new InvalidModelException(this,
 					"Reference does not refer to an instance object");
 		} else if (iol.size() > 1) {
