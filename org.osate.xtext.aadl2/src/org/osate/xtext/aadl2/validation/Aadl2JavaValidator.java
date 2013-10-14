@@ -2927,14 +2927,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						classifierMatchingRuleValue = null;
 					}
 				}
-				if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||
-						classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-					if (classifierMatchingRuleValue != null && ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for port connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
-								"' instead.");
-					}
+				if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) 
+//						|| classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
+						) {
+//					if (classifierMatchingRuleValue != null && ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+//						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for port connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
+//								"' instead.");
+//					}
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier))
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName() + "' have incompatible classifiers.");
+				}
+				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
+					if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier,sourceClassifier))
+						warning(connection, "Source classifier " + sourceClassifier.getName() + " is not a 'Type Extension' of destination " + destinationClassifier.getName());
 				}
 				else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier) &&
@@ -3251,15 +3256,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			catch (PropertyNotPresentException e) {
 				classifierMatchingRuleValue = null;
 			}
-			if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) ||
-					classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-				if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-					warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for parameter connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
-							"' instead.");
-				}
+			if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) 
+//					||	classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
+					) {
+//				if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+//					warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for parameter connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
+//							"' instead.");
+//				}
 				if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier)) {
 					error(connection, '\'' + source.getName() + "' and '" + destination.getName() + "' have incompatible classifiers.");
 				}
+			}
+			else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
+				if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier,sourceClassifier))
+					warning(connection, "Source classifier " + sourceClassifier.getName() + " is not a 'Type Extension' of destination " + destinationClassifier.getName());
 			}
 			else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
 				if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier) &&
@@ -3437,14 +3447,29 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (source instanceof AccessConnectionEnd && destination instanceof AccessConnectionEnd) {
 			Classifier sourceClassifier;
 			Classifier destinationClassifier;
-			if (source instanceof Access)
+			// for type extension 
+			boolean invert = false;
+			AccessType srckind = null;
+			AccessType dstkind = null;
+			Context srcCxt = null;
+			Context dstCxt = null;
+			if (source instanceof Access){
 				sourceClassifier = ((Access)source).getAllClassifier();
-			else
+				srckind = ((Access) source).getKind();
+				srcCxt = connection.getAllSourceContext();
+			} else {
 				sourceClassifier = ((Subcomponent)source).getAllClassifier();
-			if (destination instanceof Access)
+				invert = true;
+			}
+			if (destination instanceof Access){
+				dstkind = ((Access) destination).getKind();
 				destinationClassifier = ((Access)destination).getAllClassifier();
-			else
+				dstCxt = connection.getAllDestinationContext();
+			} else {
 				destinationClassifier = ((Subcomponent)destination).getAllClassifier();
+			}
+			// now we have the classifier
+			
 			if (sourceClassifier == null && destinationClassifier != null)
 				warning(connection, '\'' + source.getName() + "' is missing a classifier.");
 			else if (sourceClassifier != null && destinationClassifier == null)
@@ -3458,14 +3483,37 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				catch (PropertyNotPresentException e) {
 					classifierMatchingRuleValue = null;
 				}
-				if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) ||
-						classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-					if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for access connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
-								"' instead.");
-					}
+				if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) 
+//						|| classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)
+						) {
+//					if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+//						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for access connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
+//								"' instead.");
+//					}
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier))
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName() + "' have incompatible classifiers.");
+				}
+				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
+					// first figure out which way to check for type extension
+					// the shared component has to be a type extension of the required access type.
+					// from provides to requires between subcomponents, provides sub to enclosing provides, from enclosing requires to sub requires
+					// either can be source or destination. 
+					if (AccessType.PROVIDES == srckind&&dstkind==AccessType.PROVIDES&&dstCxt instanceof Subcomponent){
+						invert = true;
+					}
+					if (srckind==(AccessType.REQUIRES)&&dstkind==(AccessType.REQUIRES)&&srcCxt instanceof Subcomponent){
+						invert = true;
+					}
+					if (srckind==(AccessType.REQUIRES)&&dstkind==(AccessType.PROVIDES)){
+						invert = true;
+					}
+					if (invert){
+						if (!AadlUtil.isokClassifierSubstitutionTypeExtension( destinationClassifier,sourceClassifier))
+							warning(connection, "Destination classifier " + destinationClassifier.getName() + " connected to " + sourceClassifier.getName() + " does not satisfy 'Type Extension'");
+					} else {
+					if (!AadlUtil.isokClassifierSubstitutionTypeExtension(sourceClassifier, destinationClassifier))
+						warning(connection, "Source classifier " + sourceClassifier.getName() + " connected to " + destinationClassifier.getName() + " does not satisfy 'Type Extension'");
+					}
 				}
 				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier) &&
@@ -4811,13 +4859,14 @@ public boolean hasExtendCycles(Classifier cl) {
 					}
 				}
 			}
-			else if (ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-				if (!testIfFeatureGroupTypesAreInverses(source, sourceType, destination, destinationType) &&
-						!classifiersFoundInSupportedClassifierComplementMatchesProperty(connection, sourceType, destinationType)) {
-					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName() +
-							"') are not inverse types and they are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES + "'.");
-				}
-			}
+//	XXX TODO should have the EQUIVALENCE test for across with inverse
+//			else if (ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+//				if (!testIfFeatureGroupTypesAreInverses(source, sourceType, destination, destinationType) &&
+//						!classifiersFoundInSupportedClassifierComplementMatchesProperty(connection, sourceType, destinationType)) {
+//					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName() +
+//							"') are not inverse types and they are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES + "'.");
+//				}
+//			}
 			else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 				if (!testIfFeatureGroupTypesAreInverses(source, sourceType, destination, destinationType) &&
 						!checkIfFeatureGroupTypesAreSiblingSubsets(sourceType, source.isInverse(), destinationType, destination.isInverse())) {
@@ -4842,16 +4891,17 @@ public boolean hasExtendCycles(Classifier cl) {
 				cxtFGIsInverse = ((FeatureGroup)connection.getAllDestinationContext()).isInverse();
 			}
 			if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||
-					ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName()) || ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())
+					ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName()) 
+//					|| ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())
 				) {
 				if (classifierMatchingRuleValue != null && ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					warning(connection, "The classifier matching rule '" + ModelingProperties.CONVERSION + "' is not supported for feature group connections. Using rule '" +
 							ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				}
-				if (classifierMatchingRuleValue != null && ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-					warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT +
-							"' is not supported for feature group connections that connect up or down the containment hierarchy. Using rule '" + ModelingProperties.CLASSIFIER_MATCH + "' instead.");
-				}
+//				if (classifierMatchingRuleValue != null && ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+//					warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT +
+//							"' is not supported for feature group connections that connect up or down the containment hierarchy. Using rule '" + ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+//				}
 				if (sourceType == destinationType) {
 					if (cxtFGIsInverse?source.isInverse() == destination.isInverse():source.isInverse() != destination.isInverse()) {
 						error(connection, "For connections that connect up or down the containment hierarchy, the feature group types of the source and destination must be identical." +
