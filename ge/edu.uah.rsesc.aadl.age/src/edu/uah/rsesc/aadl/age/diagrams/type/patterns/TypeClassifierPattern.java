@@ -3,6 +3,7 @@ package edu.uah.rsesc.aadl.age.diagrams.type.patterns;
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
@@ -150,5 +151,10 @@ public class TypeClassifierPattern extends AgePattern {
 		}
 		
 		layoutService.layoutChildren(shape);
+	}
+
+	@Override
+	public boolean isPaletteApplicable() {
+		return false;
 	}
 }
