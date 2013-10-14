@@ -224,8 +224,8 @@
          	id="org.osate.aadl2.emv2.parser"/>
    </extension>
    <extension
-         id="EMV2Resolver"
-         name="EMV2R"
+         id="EMV2LinkingService"
+         name="EMV2L"
          point="org.osate.annexsupport.linkingservice">
       <linkingservice
             annexName="EMV2"
