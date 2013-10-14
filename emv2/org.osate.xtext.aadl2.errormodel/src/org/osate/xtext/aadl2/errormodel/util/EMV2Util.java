@@ -52,6 +52,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -79,7 +80,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 public class EMV2Util {
 	
 	public final static String ErrorModelAnnexName = "EMV2";
-	private static EClass EMV2subclauseEClass = Aadl2Package.eINSTANCE.getAnnexSubclause();
+	private static EClass EMV2subclauseEClass = ErrorModelPackage.eINSTANCE.getErrorModelSubclause();
 	
 	/**
 	 * Get the error-annex subclause for a given Component Instance
@@ -850,7 +851,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorState> ebsl= ebsm.getStates();
 			for (ErrorBehaviorState ebs : ebsl){
-				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 //			// enable if we support extends on EBSM
 //			if (ebsm.getExtends() != null){
@@ -912,7 +913,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorTransition> ebsl= ebsm.getTransitions();
 			for (ErrorBehaviorTransition ebs : ebsl){
-				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 //			// enable if we introduce extends of EBSM
 //			if (ebsm.getExtends() != null){
@@ -1002,7 +1003,7 @@ public class EMV2Util {
 		if (ebsm != null){
 			EList<ErrorBehaviorEvent> ebsl= ebsm.getEvents();
 			for (ErrorBehaviorEvent ebs : ebsl){
-				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebs.getName())) return ebs;
 			}
 //			// enable if we support extends of EBSM
 //			if (ebsm.getExtends() != null){
@@ -1883,31 +1884,6 @@ public class EMV2Util {
 	}
 	
 
-	/**
-	 * extract the item name from a qualified name, the identifier after the last ::
-	 * @param qualname String Qualified name
-	 * @return String item name 
-	 */
-	public static String getItemNameWithoutQualification(String qualname){
-		final int idx = qualname.lastIndexOf("::");
-		if (idx != -1) {
-			return qualname.substring(idx + 2);
-		}
-		return qualname;
-	}
-
-	/**
-	 * extract the package name of a qualified name, everything up to the last :: or null
-	 * @param qualname
-	 * @return String
-	 */
-	public static String getPackageName(String qualname){
-		final int idx = qualname.lastIndexOf("::");
-		if (idx != -1) {
-			return qualname.substring(0, idx);
-		}
-		return null;
-	}
 	
 	public static String getPrintName(Element el){
 		if (el instanceof NamedElement){
