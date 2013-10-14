@@ -334,33 +334,33 @@ public class EMLinkingService extends PropertiesLinkingService {
 	
 	
 	public  TypeMappingSet findTypeMappingSet(EObject context, String name){
-		ErrorModelLibrary eml = findErrorModelLibrary(context, EMV2Util.getPackageName(name));
+		ErrorModelLibrary eml = findErrorModelLibrary(context, Aadl2Util.getPackageName(name));
 		if (eml != null){
 			EList<TypeMappingSet> tmsl= eml.getMappings();
 			for (TypeMappingSet tms : tmsl){
-				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName())) return tms;
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName())) return tms;
 			}
 		}
 		return null;
 	}
 	
 	public  TypeTransformationSet findTypeTransformationSet(EObject context, String name){
-		ErrorModelLibrary eml = findErrorModelLibrary(context, EMV2Util.getPackageName(name));
+		ErrorModelLibrary eml = findErrorModelLibrary(context, Aadl2Util.getPackageName(name));
 		if (eml != null){
 			EList<TypeTransformationSet> tmsl= eml.getTransformations();
 			for (TypeTransformationSet tms : tmsl){
-				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName())) return tms;
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName())) return tms;
 			}
 		}
 		return null;
 	}
 	
 	public  ErrorBehaviorStateMachine findErrorBehaviorStateMachine(EObject context, String name){
-		ErrorModelLibrary eml = findErrorModelLibrary(context, EMV2Util.getPackageName(name));
+		ErrorModelLibrary eml = findErrorModelLibrary(context, Aadl2Util.getPackageName(name));
 		if (eml != null){
 			EList<ErrorBehaviorStateMachine> ebsml= eml.getBehaviors();
 			for (ErrorBehaviorStateMachine ebsm : ebsml){
-				if (EMV2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebsm.getName())) return ebsm;
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebsm.getName())) return ebsm;
 			}
 		}
 		return null;
@@ -386,8 +386,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 	 * @return
 	 */
 	public EObject findEMLNamedTypeElement(Element context, String qualTypeName, EClass eclass){
-		String packName = EMV2Util.getPackageName(qualTypeName);
-		String typeName = EMV2Util.getItemNameWithoutQualification(qualTypeName);
+		String packName = Aadl2Util.getPackageName(qualTypeName);
+		String typeName = Aadl2Util.getItemNameWithoutQualification(qualTypeName);
 		if (packName != null){
 			// qualified reference; look there only
 			ErrorModelLibrary eml = findErrorModelLibrary(context, packName);
