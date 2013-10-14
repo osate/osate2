@@ -221,5 +221,34 @@ public class Aadl2Util {
 		}
 		return pathname;
 	}
+	
+	
+	/**
+	 * extract the item name from a qualified name, the identifier after the last ::
+	 * @param qualname String Qualified name
+	 * @return String item name 
+	 */
+	public static String getItemNameWithoutQualification(String qualname){
+		final int idx = qualname.lastIndexOf("::");
+		if (idx != -1) {
+			return qualname.substring(idx + 2);
+		}
+		return qualname;
+	}
+
+
+	/**
+	 * extract the package name of a qualified name, everything up to the last :: or null
+	 * @param qualname
+	 * @return String
+	 */
+	public static String getPackageName(String qualname){
+		final int idx = qualname.lastIndexOf("::");
+		if (idx != -1) {
+			return qualname.substring(0, idx);
+		}
+		return null;
+	}
+
 
 }
