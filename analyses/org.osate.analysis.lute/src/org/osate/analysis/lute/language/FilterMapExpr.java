@@ -23,6 +23,9 @@ package org.osate.analysis.lute.language;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import org.osate.aadl2.instance.InstanceObject;
 
 
 
@@ -59,4 +62,10 @@ public class FilterMapExpr extends Expr {
 		}
 		return new SetVal(result);
 	}
+	
+	public List<InstanceObject> getRelatedComponents ()
+	{
+		return new ArrayList<InstanceObject>();
+	}
+
 }

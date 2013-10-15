@@ -7,10 +7,12 @@ import java.util.List;
 public class LuteResult {
 	private int passed;
 	private List<String> failMessages;
+	private List<String> theoremsNames;
 	
 	public LuteResult() {
 		this.passed = 0;
 		this.failMessages = new ArrayList<String>();
+		this.theoremsNames = new ArrayList<String>();
 	}
 	
 	private LuteResult(int passed, List<String> failMessages) {
@@ -36,6 +38,15 @@ public class LuteResult {
 
 	public List<String> getFailMessages() {
 		return Collections.unmodifiableList(failMessages);
+	}
+	
+	public void addTheoremName (String s)
+	{
+		this.theoremsNames.add(s);
+	}
+	
+	public List<String> getTheoremsNames() {
+		return Collections.unmodifiableList(theoremsNames);
 	}
 
 	public void accumulate(LuteResult other) {
