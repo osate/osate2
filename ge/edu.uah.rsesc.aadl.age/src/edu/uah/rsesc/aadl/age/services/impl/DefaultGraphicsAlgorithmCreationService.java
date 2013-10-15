@@ -396,7 +396,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	
 	private static GraphicsAlgorithm createSystemGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final Style style, final int width, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
-		final GraphicsAlgorithm ga = gaService.createPlainRoundedRectangle(container, 5, 5);
+		final GraphicsAlgorithm ga = gaService.createPlainRoundedRectangle(container, 25, 25);
     	gaService.setSize(ga, width, height);
     	ga.setStyle(style);
     	return ga;
