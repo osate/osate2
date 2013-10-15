@@ -17,11 +17,9 @@ public class StringUtilTest {
 
 	}
 	@Test
-	//.camelCaseToUser("testMethod5")
 	public void camelCaseTest()
 	{
-		String testStr = "TestMethod1";
-		assertEquals("Test is camelCase method works","Test Method1", StringUtil.camelCaseToUser(testStr));
-
+		String testStr = "testMethodOneTwoThreeFourFiveSixSeven";
+		assertEquals("Test if camelCase method works","Test Method One Two Three Four Five Six Seven", StringUtil.camelCaseToUser(testStr));
 	}
 }
