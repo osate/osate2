@@ -89,6 +89,7 @@ import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.ui.util.DiagramFinder;
 import edu.uah.rsesc.aadl.age.util.Log;
+import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
@@ -259,7 +260,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	
 	@Override
 	public String getCreateName() {
-		return classifierType.getName();
+		return StringUtil.camelCaseToUser(classifierType.getName());
 	}
 	
 	private boolean isComponentImplementation() {
