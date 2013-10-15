@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -84,6 +81,7 @@ import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
@@ -98,19 +96,21 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final ModificationService modificationService;
 	private final ShapeService shapeService;
 	private final UserInputService userInputService;
+	private final NamingService namingService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
 
 	@Inject
 	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
 			final PropertyService propertyUtil, final ModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
-			final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
+			final NamingService namingService, final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
 		super(anchorUtil, visibilityHelper);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.propertyUtil = propertyUtil;
 		this.modificationService = modificationService;
 		this.shapeService = shapeService;
 		this.userInputService = userInputService;
+		this.namingService = namingService;
 		this.bor = bor;
 		this.classifierType = classifierType;
 	}
@@ -435,7 +435,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		// Determine a unique name for the new rename
 		final String baseAlias = ct.getQualifiedName().replace("::","_");
-		final String alias = buildUniqueIdentifier(baseAlias, buildNameSet(section.getOwnedComponentTypeRenames()));
+		final String alias = namingService.buildUniqueIdentifier(section, baseAlias);
 	
 		final ComponentTypeRename ctr = section.createOwnedComponentTypeRename();
 		ctr.setName(alias);
@@ -499,49 +499,9 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		}
 		
 		// Build the name and check for conflicts
-		return buildUniqueIdentifier(baseName, buildNameSet(section.getOwnedClassifiers()));
+		return namingService.buildUniqueIdentifier(section, baseName);
 	}
-	
-	// TODO: Consider refactoring into a naming service. Will need to take into account other cases and now just owned classifiers.
-	/**
-	 * Builds an identifier using the specified base that doesn't conflict with a set of existing identifiers
-	 * @param baseIdentifier
-	 * @param existingIdentifiers
-	 * @return
-	 */
-	private String buildUniqueIdentifier(final String baseIdentifier, final Set<String> existingIdentifiers) {
-		// Resolve naming conflicts
-		String newIdentifier = baseIdentifier;
-		boolean done = false;
-		int num = 1;
-		do {			
-			if(existingIdentifiers.contains(newIdentifier.toLowerCase())) {
-				num++;
-				newIdentifier = baseIdentifier + num;
-			} else {
-				done = true;
-			}
-		} while(!done);
-		
-		return newIdentifier;
-	}
-	
-	/**
-	 * Builds a set containing the names of a list of elements
-	 * @param elements
-	 * @param namedElements
-	 * @return
-	 */
-	private Set<String> buildNameSet(final Collection<? extends NamedElement> elements) {
-		final Set<String> names = new HashSet<String>();
-		for(final NamedElement el : elements) {
-			if(el.getName() != null) {
-				names.add(el.getName().toLowerCase());
-			}
-		}
-		return names;
-	}
-	
+
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		return true;
@@ -766,8 +726,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		@Override
 		public void afterModification(final Resource resource, final Classifier classifier) {
-			// TODO: Consider moving this modifier to a separate file
-			
 			// Update linkages to renamed elements
 			for(final Entry<NamedElement, PictogramElement[]> entry : pendingLinkages.entrySet()) {
 				final AadlElementWrapper elementWrapper = new AadlElementWrapper(entry.getKey());
