@@ -572,7 +572,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
     		}
     		
     		// Ensure both segments are valid identifiers
-    		if(!isValidIdentifier(segs[0]) || !isValidIdentifier(segs[1])) {
+    		if(!namingService.isValidIdentifier(segs[0]) || !namingService.isValidIdentifier(segs[1])) {
     			return "The specified name is not a valid AADL identifier";
     		}    		
     		
@@ -591,27 +591,20 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
     			return segs[0] + " does not name a Component Type.";
     		}
     	} else {
-    		if(!isValidIdentifier(value)) {
+    		if(!namingService.isValidIdentifier(value)) {
 	    		return "The specified name is not a valid AADL identifier";
 	    	}
     	}
     	
     	// Check for conflicts in the namespace
-    	final Namespace ns = classifier.getNamespace();
-    	for(final NamedElement el : ns.getOwnedMembers()) {
-    		if(value.equalsIgnoreCase(el.getName())) {
-    			return "The specified name conflicts with an existing member of the namespace.";
-    		}
+    	if(namingService.isNameInUse(classifier.getNamespace(), value)) {
+    		return "The specified name conflicts with an existing member of the namespace.";
     	}
 
         // The value is valid
         return null;
     }
     
-    private boolean isValidIdentifier(final String value) {
-    	return value.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*");
-    }
- 
     public void setValue(final String value, final IDirectEditingContext context) {
     	final PictogramElement pe = context.getPictogramElement();
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);    	
@@ -748,7 +741,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 			
 			if(resource.getContents().size() > 0) {
 				final Object resourceContent = resource.getContents().get(0);
-				System.out.println(resourceContent);
 				if(resourceContent instanceof Diagram) {
 					final Diagram diagram = (Diagram)resourceContent;
 					TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resourceSet);

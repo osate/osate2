@@ -45,4 +45,19 @@ public class DefaultNamingService implements NamingService {
 		}
 		return names;
 	}
+	
+	@Override
+    public boolean isValidIdentifier(final String value) {
+    	return value.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*");
+    }
+	
+	public boolean isNameInUse(final Namespace namespace, final String name) {
+		for(final NamedElement el : namespace.getMembers()) {
+    		if(name.equalsIgnoreCase(el.getName())) {
+    			return true;
+    		}
+    	}
+		
+		return false;
+	}
 }
