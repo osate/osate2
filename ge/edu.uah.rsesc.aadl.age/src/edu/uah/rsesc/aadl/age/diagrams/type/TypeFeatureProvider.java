@@ -7,9 +7,7 @@ import org.eclipse.graphiti.features.context.IMoveBendpointContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
-import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FlowSpecificationPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
@@ -19,11 +17,11 @@ import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeClassifierPattern;
 public class TypeFeatureProvider extends AgeFeatureProvider {
 	public TypeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
-		this.addPattern(make(FeaturePattern.class));
 		this.addPattern(make(TypeClassifierPattern.class));
 		this.addConnectionPattern(make(FlowSpecificationPattern.class));
 		this.addPattern(make(ModePattern.class));
 		this.addConnectionPattern(make(ModeTransitionPattern.class));
+		this.addAadlFeaturePatterns();
 	}
 
 	@Override

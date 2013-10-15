@@ -1,16 +1,22 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
+import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
@@ -27,6 +33,8 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
@@ -52,11 +60,13 @@ import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.ModificationService;
 import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
+import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 /**
  * Pattern for controlling Feature shapes
@@ -71,6 +81,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	public static final String innerConnectorAnchorName = "innerConnector";
 	public static final String outerConnectorAnchorName = "outerConnector";
 	public static final String flowSpecificationAnchorName = "flowSpecification";
+	private static LinkedHashMap<EClass, String> featureTypeToMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final int featureGroupSymbolWidth = 30;
 	private static final int labelPadding = 5;
 	private final AnchorService anchorUtil;
@@ -83,14 +94,38 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final PrototypeService prototypeService;
 	private final UserInputService userInputService;
 	private final ModificationService modificationService;
+	private final NamingService namingService;
 	private final BusinessObjectResolutionService bor;
+	private EClass featureType;
+	
+	/**
+	 * Populate the map that contains the feature type to create method name mapping
+	 */
+	static {
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		featureTypeToMethodNameMap.put(p.getAbstractFeature(), "createOwnedAbstractFeature");
+		featureTypeToMethodNameMap.put(p.getBusAccess(), "createOwnedBusAccess");
+		featureTypeToMethodNameMap.put(p.getDataAccess(), "createOwnedDataAccess");
+		featureTypeToMethodNameMap.put(p.getDataPort(), "createOwnedDataPort");
+		featureTypeToMethodNameMap.put(p.getEventDataPort(), "createOwnedEventDataPort");
+		featureTypeToMethodNameMap.put(p.getEventPort(), "createOwnedEventPort");
+		featureTypeToMethodNameMap.put(p.getFeatureGroup(), "createOwnedFeatureGroup");
+		featureTypeToMethodNameMap.put(p.getParameter(), "createOwnedParameter");
+		featureTypeToMethodNameMap.put(p.getSubprogramAccess(), "createOwnedSubprogramAccess");
+		featureTypeToMethodNameMap.put(p.getSubprogramGroupAccess(), "createOwnedSubprogramGroupAccess");
+	}
+	
+	public static Collection<EClass> getFeatureTypes() {
+		return featureTypeToMethodNameMap.keySet();
+	}
 	
 	@Inject
 	public FeaturePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
 			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final AadlFeatureService featureService, final PrototypeService prototypeService, 
-			final UserInputService userInputService, final ModificationService modificationService, final BusinessObjectResolutionService bor) {
+			final UserInputService userInputService, final ModificationService modificationService, final BusinessObjectResolutionService bor,
+			final NamingService namingService, final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -102,7 +137,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.prototypeService = prototypeService;
 		this.userInputService = userInputService;
 		this.modificationService = modificationService;
+		this.namingService = namingService;
 		this.bor = bor;
+		this.featureType = featureType;
 	}
 
 	@Override
@@ -493,7 +530,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
 
 		// The container must be a Feature Group Type or a ComponentType
 		return containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType;
-
 	}
 
 	@Override
@@ -516,5 +552,74 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
+	
+	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		return getFeatureCreateMethod((Classifier)diagramBo, featureType) != null;
+	}
+	
+	@Override
+	public boolean canCreate(final ICreateContext context) {
+		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+
+		// The container must be a Feature Group Type or a ComponentType and it must have a method to create the feature type that is controlled by this pattern
+		return (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType) && getFeatureCreateMethod((Classifier)containerBo, featureType) != null;
+	}
+	
+	@Override
+	public String getCreateName() {
+		return StringUtil.camelCaseToUser(featureType.getName());
+	}
+	
+	@Override
+	public Object[] create(final ICreateContext context) {
+		// Get the classifier
+		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+		final Feature newFeature;
+		if(classifier == null) {
+			newFeature = null;
+		} else {		
+			final String newFeatureName = namingService.buildUniqueIdentifier(classifier, "newFeature");
+			
+			// Make the modification
+			newFeature = modificationService.modify(classifier, new AbstractModifier<Classifier, Feature>() {
+				@Override
+				public Feature modify(final Resource resource, final Classifier classifier) {
+					System.out.println("CREATING");
+					final Feature newFeature = createFeature(classifier, featureType);
+					newFeature.setName(newFeatureName);
+					return newFeature;
+				}			
+			});
+		}
+		
+		// Return the new feature if it was created
+		return newFeature == null ? EMPTY : new Object[] {newFeature};		
+	}
+
+	private Method getFeatureCreateMethod(final Classifier featureOwner, final EClass featureType) {
+		// Determine the filename for the type of feature
+		final String methodName = featureTypeToMethodNameMap.get(featureType);
+		if(methodName == null) {
+			return null;
+		}
+		
+		// Get the method
+		try {
+			final Method method = featureOwner.getClass().getMethod(methodName);
+			return method;
+		} catch(final Exception ex) {
+			return null;
+		}
+	}
+	
+	private Feature createFeature(final Classifier featureOwner, final EClass featureClass) {
+		try {
+			return (Feature)getFeatureCreateMethod(featureOwner, featureClass).invoke(featureOwner);
+		} catch (final Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
