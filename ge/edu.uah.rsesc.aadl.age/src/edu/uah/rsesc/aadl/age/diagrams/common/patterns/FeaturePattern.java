@@ -11,13 +11,18 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
@@ -35,10 +40,15 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -47,9 +57,15 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -66,6 +82,7 @@ import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
+import edu.uah.rsesc.aadl.age.ui.util.DiagramFinder;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 /**
@@ -331,6 +348,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
+        this.link(labelShape, new AadlElementWrapper(feature));
         propertyUtil.setName(labelShape, labelShapeName);
         final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
@@ -587,7 +605,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			newFeature = modificationService.modify(classifier, new AbstractModifier<Classifier, Feature>() {
 				@Override
 				public Feature modify(final Resource resource, final Classifier classifier) {
-					System.out.println("CREATING");
 					final Feature newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);
 					return newFeature;
@@ -622,4 +639,109 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	@Override
+	public int getEditingType() {
+        return TYPE_TEXT;
+    }
+ 
+	@Override
+    public boolean canDirectEdit(final IDirectEditingContext context) {
+		if(context.getPictogramElement() instanceof Shape) {
+	        final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+	        final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+	        
+	        if (bo instanceof Feature && ga instanceof Text) {
+	        	final Shape labelShape = (Shape)context.getPictogramElement();
+	        	final Shape featureShape = labelShape.getContainer();
+	        	final Object containerBo = bor.getBusinessObjectForPictogramElement(featureShape.getContainer());
+	        	return containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType;
+	        }
+		}
+
+        return false;
+    }
+    
+    public String getInitialValue(final IDirectEditingContext context) {
+    	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	return this.getLabelText(feature);
+    }
+    
+    @Override
+    public String checkValueValid(final String value, final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+    	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);
+
+    	// If the name hasn't changed or has only changed case
+    	if(value.equalsIgnoreCase(feature.getName())) {
+    		return null;
+    	}
+    	
+    	if(!namingService.isValidIdentifier(value)) {
+	    	return "The specified name is not a valid AADL identifier";
+	    }
+    	
+    	// Check for conflicts in the namespace
+    	if(namingService.isNameInUse(feature.getNamespace(), value)) {
+    		return "The specified name conflicts with an existing member of the namespace.";
+    	}
+
+        // The value is valid
+        return null;
+    }    
+     
+ 	public void setValue(final String value, final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+    	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);    	
+   	
+    	modificationService.modify(feature, new RenameFeatureModifier((Shape)pe, value, getFeatureProvider()));   	
+    }
+ 	
+ 	// TODO: Try to abstract out and share code flow, etc with classifier pattern
+ 	private static class RenameFeatureModifier extends AbstractModifier<Feature, Object> {
+ 		private final Shape labelShape;
+    	private final String newName;
+    	private final IFeatureProvider fp;
+    	
+ 		public RenameFeatureModifier(final Shape labelShape, final String newName, IFeatureProvider fp) {
+			this.labelShape = labelShape;
+			this.newName = newName;
+			this.fp = fp;
+		}
+ 		
+ 		@Override
+		public Object modify(final Resource resource, final Feature feature) {
+ 			// Resolving allows the name change to propagate when editing without an Xtext document
+ 			EcoreUtil.resolveAll(resource.getResourceSet());
+ 					
+			// TODO: Test with implementations in different files. Look at PackageClassifierPattern and share code as needed
+			// to improve rename behavior.
+			
+			feature.setName(newName);
+			
+			// Check for cross references and update them
+			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(feature, resource.getResourceSet())) {
+				final EStructuralFeature sf = s.getEStructuralFeature();
+				if(!sf.isDerived() && sf.isChangeable()) {
+					final EObject obj = s.getEObject();
+					if(obj instanceof ConnectedElement) {
+						final ConnectedElement connectedElement = (ConnectedElement)obj;
+						if(connectedElement.getConnectionEnd() == feature) {
+							// Reset the connection end. This will trigger and update by xtext
+							connectedElement.setConnectionEnd(null);
+							connectedElement.setConnectionEnd(feature);							
+						} 
+					}
+				}
+			}
+			
+			return null;
+		}		
+		
+		@Override
+		public void afterModification(final Resource resource, final Feature feature) {
+			// TODO: Update references in diagrams, etc to the change
+		}
+ 	}
+
 }
