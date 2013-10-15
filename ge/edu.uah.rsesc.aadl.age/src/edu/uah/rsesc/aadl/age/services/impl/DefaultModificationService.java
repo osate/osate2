@@ -47,19 +47,22 @@ public class DefaultModificationService implements ModificationService {
 		final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(root.getQualifiedName());
 		if(doc == null) {
 			final XtextResource res = (XtextResource)element.eResource();
-			modifierResult = modifySafely(res, element, modifier);
-			try {
-				res.save(SaveOptions.defaultOptions().toOptionsMap());	
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			};				
-			
-			Display.getDefault().syncExec(new Runnable() {
-				public void run() {			
-					// Update the entire diagram
-					fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { fp.getDiagramTypeProvider().getDiagram() });					
-				}
-			});					
+			final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier);
+			modifierResult = modifySafelyResult.modifierResult;
+			if(modifySafelyResult.modificationSuccessful) {
+				try {
+					res.save(SaveOptions.defaultOptions().toOptionsMap());	
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				};				
+				
+				Display.getDefault().syncExec(new Runnable() {
+					public void run() {			
+						// Update the entire diagram
+						fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { fp.getDiagramTypeProvider().getDiagram() });					
+					}
+				});
+			}
 		} else {
 			final URI elementUri = EcoreUtil.getURI(element);
 			modifierResult = doc.modify(new IUnitOfWork<R, XtextResource>() {
@@ -71,7 +74,7 @@ public class DefaultModificationService implements ModificationService {
 						return null;
 					}
 					
-					return modifySafely(res, element, modifier);
+					return modifySafely(res, element, modifier).modifierResult;
 				}
 			});	
 		}
@@ -80,13 +83,28 @@ public class DefaultModificationService implements ModificationService {
 	}
 	
 	/**
+	 * Class used to return the results of the modifySafely method
+	 * @author philip.alldredge
+	 *
+	 * @param <R>
+	 */
+	private static class ModifySafelyResults<R> {
+		public ModifySafelyResults(final boolean modificationSuccessful, final R modifierResult) {
+			this.modificationSuccessful = modificationSuccessful;
+			this.modifierResult = modifierResult;
+		}
+		
+		public final boolean modificationSuccessful;
+		public final R modifierResult;
+	}
+	/**
 	 * Modifies the resource. If changes causes a validation error, the changes are reverted.
 	 * @param resource
 	 * @param modifier
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <E extends Element, R> R modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier) {
+	private <E extends Element, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier) {
 		if(resource.getContents().size() < 1) {
 			return null;
 		}
@@ -100,6 +118,7 @@ public class DefaultModificationService implements ModificationService {
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resource.getResourceSet());
 		
 		R result = null;
+		boolean modificationSuccessful = true;
 		try {
 			// Execute a new recording command
 			final RecordingCommand cmd = new RecordingCommand(domain) {
@@ -142,6 +161,7 @@ public class DefaultModificationService implements ModificationService {
 				}
 				
 				domain.getCommandStack().undo();
+				modificationSuccessful = false;
 				result = null;
 			}
 	
@@ -152,6 +172,6 @@ public class DefaultModificationService implements ModificationService {
 			modifier.afterModification(resource, element);
 		}
 		
-		return result;
+		return new ModifySafelyResults<R>(modificationSuccessful, result);
 	}
 }
