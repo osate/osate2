@@ -271,8 +271,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 			if (getAnnexName() != null) {
 				pack = getAnnexEPackage(getAnnexName());
 			}
-			EClassifier searchResult = pack.getEClassifier(metaclassName
-					.toString());
+			EClassifier searchResult = getEClassifier(pack, metaclassName.toString());
 			if (searchResult instanceof EClass) {
 				EClass searchResultAsEClass = (EClass) searchResult;
 				if (Aadl2Package.eINSTANCE.getNamedElement().isSuperTypeOf(
@@ -298,6 +297,13 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements
 			}
 		}
 		return metaclass;
+	}
+	
+	public EClassifier getEClassifier(EPackage pack, String name){
+		for (EClassifier eClassifier : pack.getEClassifiers()) {
+			if (eClassifier.getName().equalsIgnoreCase(name)) return eClassifier;
+		}
+		return null;
 	}
 
 	public EPackage getAnnexEPackage(String annexname) {
