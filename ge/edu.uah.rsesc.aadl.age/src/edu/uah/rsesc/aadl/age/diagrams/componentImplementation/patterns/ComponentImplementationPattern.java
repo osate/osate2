@@ -138,4 +138,9 @@ public class ComponentImplementationPattern extends AgePattern {
 	private void createUpdateSubcomponents(final ContainerShape shape, final ComponentImplementation ci) {
 		shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);
 	}
+	
+	@Override
+	public boolean isPaletteApplicable() {
+		return false;
+	}
 }

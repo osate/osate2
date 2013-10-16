@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -22,14 +23,18 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
+import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -40,6 +45,7 @@ import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
 import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
@@ -58,6 +64,7 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmManipulation
 import edu.uah.rsesc.aadl.age.services.impl.DefaultHighlightingService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultLayoutService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultModificationService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultNamingService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultPropertyService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultPrototypeService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultShapeCreationService;
@@ -81,6 +88,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private IEclipseContext createEclipseContext() {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
+		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultModificationService modificationService = new DefaultModificationService(this);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
@@ -106,6 +114,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Populate the context. 
 		context.set(IFeatureProvider.class, this);
 		context.set(BusinessObjectResolutionService.class, bor);
+		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
 		context.set(ModificationService.class, modificationService);
 		context.set(GraphicsAlgorithmManipulationService.class, graphicsAlgorithmUtil);
@@ -243,5 +252,22 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 		
 		return super.getAllPictogramElementsForBusinessObject(businessObject);
+	}
+	
+	private IPattern createFeaturePattern(final EClass featureType) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Feature Type", featureType);
+		return ContextInjectionFactory.make(FeaturePattern.class, childCtx);
+	}
+	
+	/**
+	 * Creates and adds patterns related to AADL Features
+	 */
+	protected final void addAadlFeaturePatterns() {
+		// Create the feature patterns
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
+			this.addPattern(createFeaturePattern(featureType));	
+		}
 	}
 }

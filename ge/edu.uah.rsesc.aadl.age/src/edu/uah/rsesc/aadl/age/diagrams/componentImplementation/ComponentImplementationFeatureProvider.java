@@ -7,7 +7,6 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
-import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FlowSpecificationPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
@@ -16,17 +15,16 @@ import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.Componen
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ConnectionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.SubcomponentPattern;
 
-
 public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 	public ComponentImplementationFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
 		this.addPattern(make(ComponentImplementationPattern.class));
 		this.addPattern(make(SubcomponentPattern.class));
-		this.addPattern(make(FeaturePattern.class));
 		this.addConnectionPattern(make(ConnectionPattern.class));
 		this.addConnectionPattern(make(FlowSpecificationPattern.class));
 		this.addPattern(make(ModePattern.class));
 		this.addConnectionPattern(make(ModeTransitionPattern.class));
+		this.addAadlFeaturePatterns();
 	}
 
 	@Override

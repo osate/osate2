@@ -15,12 +15,12 @@ import edu.uah.rsesc.aadl.age.services.LayoutService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 
 public class DefaultLayoutService implements LayoutService {
-	private final VisibilityService visibilityHelper;
+	private final VisibilityService visibilityService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
 	
 	public DefaultLayoutService(final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
-		this.visibilityHelper = visibilityHelper;
+		this.visibilityService = visibilityHelper;
 		this.bor = bor;
 		this.fp = fp;
 	}	
@@ -91,7 +91,7 @@ public class DefaultLayoutService implements LayoutService {
 	@Override
 	public void layoutChildren(final ContainerShape shape) {
 		// Layout the children first
-		for(final Shape child : visibilityHelper.getNonGhostChildren(shape)) {
+		for(final Shape child : visibilityService.getNonGhostChildren(shape)) {
 			final LayoutContext ctx = new LayoutContext(child);
 			final ILayoutFeature feature = fp.getLayoutFeature(ctx);
 			if(feature != null && feature.canLayout(ctx)) {
@@ -104,21 +104,22 @@ public class DefaultLayoutService implements LayoutService {
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.ClassifierService#adjustChildShapePositions(org.eclipse.graphiti.mm.pictograms.ContainerShape)
 	 */
 	@Override
-	public int[] adjustChildShapePositions(final ContainerShape shape) {	
+	public int[] adjustChildShapePositions(final ContainerShape shape) {
 		// Determine the extra width needed to hold AADL features
 		int featureWidth = 80;
 		for(final Shape childShape : shape.getChildren()) {
 			if(bor.getBusinessObjectForPictogramElement(childShape) instanceof Feature) {
-				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth()) + 30;
+				featureWidth = Math.max(featureWidth, childShape.getGraphicsAlgorithm().getWidth() + 30);
 			}
 		}		
 		
-		// Determine how much to shift the X and Y of the children by
+		// Determine how much to shift the X and Y of the children by based on the position of children shapes that are not tied to features
 		int shiftX = 0;
 		int shiftY = 0;
 		for(final Shape childShape : shape.getChildren()) {
 			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-			if(!(bor.getBusinessObjectForPictogramElement(childShape) instanceof Feature)) {				
+			final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
+			if(childBo != null && !(childBo instanceof Feature)) {
 				shiftX = Math.min(shiftX, childGa.getX()-featureWidth);
 				shiftY = Math.min(shiftY, childGa.getY()-30);				
 			}
@@ -132,7 +133,8 @@ public class DefaultLayoutService implements LayoutService {
 			
 			// Determine the needed width and height of the classifier shape
 			// Do not consider features when calculating needed width. Otherwise, features on the right side of the shape would prevent the width from shrinking
-			if(!(bor.getBusinessObjectForPictogramElement(childShape) instanceof Feature)) {				
+			final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
+			if(childBo != null && !(childBo instanceof Feature)) {				
 				maxWidth = Math.max(maxWidth, childGa.getX() + childGa.getWidth() - shiftX + featureWidth);
 			}			
 			maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() - shiftY);
@@ -141,7 +143,7 @@ public class DefaultLayoutService implements LayoutService {
 			childGa.setX(childGa.getX()-shiftX);
 			childGa.setY(childGa.getY()-shiftY);
 		}
-		
+
 		return new int[] { maxWidth, maxHeight+25};
 	}
 }

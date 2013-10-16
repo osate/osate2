@@ -151,4 +151,9 @@ public class TypeClassifierPattern extends AgePattern {
 		
 		layoutService.layoutChildren(shape);
 	}
+
+	@Override
+	public boolean isPaletteApplicable() {
+		return false;
+	}
 }
