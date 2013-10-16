@@ -21,6 +21,11 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 
 package org.osate.analysis.lute.language;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.osate.aadl2.instance.InstanceObject;
+
 
 public class BoolVal extends Val {
 	final private boolean bool;
@@ -55,5 +60,10 @@ public class BoolVal extends Val {
 	@Override
 	public String toString() {
 		return Boolean.toString(bool);
+	}
+	
+	public List<InstanceObject> getRelatedComponents ()
+	{
+		return new ArrayList<InstanceObject>();
 	}
 }

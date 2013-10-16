@@ -21,6 +21,11 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 
 package org.osate.analysis.lute.language;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.osate.aadl2.instance.InstanceObject;
+
 
 
 public class OrExpr extends Expr {
@@ -41,5 +46,13 @@ public class OrExpr extends Expr {
 		} else {
 			return right.eval(env);
 		}
+	}
+	
+	public List<InstanceObject> getRelatedComponents ()
+	{
+		ArrayList<InstanceObject> ret = new ArrayList<InstanceObject>();
+		ret.addAll(left.getRelatedComponents());
+		ret.addAll(right.getRelatedComponents());
+		return ret;
 	}
 }

@@ -91,6 +91,12 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 public class FnCallExpr extends Expr {
 	final private String fn;
 	final private List<Expr> args;
+	private Environment evaluationEnvironment = null;
+	
+	public List<Expr> getArgs ()
+	{
+		return this.args;
+	}
 
 	public FnCallExpr(String fn, List<Expr> args) {
 		super();
@@ -120,6 +126,7 @@ public class FnCallExpr extends Expr {
 	@Override
 	public Val eval(Environment env) {
 		ArrayList<Val> argValues = new ArrayList<Val>();
+		evaluationEnvironment = env;
 		for (Expr arg : args) {
 			argValues.add(arg.eval(env));
 		}
@@ -387,6 +394,23 @@ public class FnCallExpr extends Expr {
 		}
 	}
 	
+	public String toString ()
+	{
+		String res = "";
+		res += fn + " with (";
+		for (int i = 0 ; i < args.size() ; i++)
+		{	
+			res += " " + args.get(i);
+			if (i < args.size() - 1)
+			{
+				res += " and ";
+			}
+		}
+		res += ")";
+		return res;
+	}
+	
+	
 	private IntVal max(Collection<Val> vals) {
 		if (vals.isEmpty()) {
 			throw new LuteException("Max called with no arguments");
@@ -563,5 +587,19 @@ public class FnCallExpr extends Expr {
 			}
 		}
 		return false;
+	}
+	
+	public List<InstanceObject> getRelatedComponents ()
+	{
+		ArrayList<InstanceObject> ret = new ArrayList<InstanceObject>();
+		for (Expr e : args)
+		{
+			ret.addAll(e.getRelatedComponents());
+			if(evaluationEnvironment != null)
+			{
+				ret.addAll(e.eval(evaluationEnvironment).getRelatedComponents());
+			}
+		}
+		return ret;
 	}
 }

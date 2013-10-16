@@ -23,6 +23,7 @@ package org.osate.analysis.lute.language;
 
 import java.util.List;
 
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.lute.LuteResult;
 import org.osate.analysis.lute.utils.Logger;
 
@@ -37,15 +38,29 @@ public class CheckStmt extends Stmt {
 	}
 
 	@Override
-	public LuteResult exec(Environment env, Logger log) {
-		if (expr.eval(env).getBool()) {
+	public LuteResult exec(Environment env, Logger log)
+	{
+		if (expr.eval(env).getBool())
+		{
 			return LuteResult.pass();
-		} else {
+		} 
+		else
+		{
 			StringBuilder line = new StringBuilder();
-			for (Expr e : failMessage) {
+			for (Expr e : failMessage)
+			{
 				line.append(e.eval(env));
 				line.append(" ");
 			}
+			if (failMessage.size() == 0)
+			{
+				line.append ("Theorem verification failed on components: ");
+				for (InstanceObject io : expr.getRelatedComponents())
+				{
+					line.append (io.getFullName() + " ");
+				}
+			}
+			
 			return LuteResult.fail(line.toString());
 		}
 	}

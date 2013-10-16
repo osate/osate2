@@ -21,6 +21,11 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 
 package org.osate.analysis.lute.language;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.osate.aadl2.instance.InstanceObject;
+
 public class StringVal extends Val {
 	final private String str;
 	
@@ -47,4 +52,12 @@ public class StringVal extends Val {
 	public String toString() {
 		return str;
 	}
+	
+	public List<InstanceObject> getRelatedComponents ()
+	{
+		ArrayList<InstanceObject> ret = new ArrayList<InstanceObject>();
+
+		return ret;
+	}
+	
 }
