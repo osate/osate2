@@ -20,6 +20,7 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
 		if (obj instanceof ErrorBehaviorStateMachine || obj instanceof TypeMappingSet || obj instanceof ErrorModelLibrary
 				|| obj instanceof ErrorType || obj instanceof TypeSet || obj instanceof TypeTransformationSet){
+			if (((NamedElement)obj).getName() == null) return null;
 			return getConverter().toQualifiedName(getTheName((NamedElement)obj));
 		}
 	   return null;
