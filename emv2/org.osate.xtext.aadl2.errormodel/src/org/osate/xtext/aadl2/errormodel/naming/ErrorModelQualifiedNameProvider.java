@@ -14,19 +14,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 
 public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	
-	public String getDelimiter() {
-		return "::";
-	}
 	// Enable to limit indexing to global items
 	// Duplicates checking only applies to global items
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
-		if (!(obj instanceof NamedElement) ) return null;
-		if (((NamedElement)obj).getName() == null) 
-			return null;
-		if (obj instanceof AadlPackage){
-			return getConverter().toQualifiedName(((AadlPackage) obj).getName());
-		}
 		if (obj instanceof ErrorBehaviorStateMachine || obj instanceof TypeMappingSet || obj instanceof ErrorModelLibrary
 				|| obj instanceof ErrorType || obj instanceof TypeSet || obj instanceof TypeTransformationSet){
 			return getConverter().toQualifiedName(getTheName((NamedElement)obj));
