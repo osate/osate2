@@ -74,7 +74,6 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	}
 
 	// Enable to limit indexing to global items
-	// Duplicates checking only applies to global items
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
 		NamedElement annex = AadlUtil.getContainingAnnex(obj);
@@ -95,7 +94,7 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 			  obj instanceof PropertyConstant || 
 			  obj instanceof Property || 
 			  obj instanceof PropertySet || 
-			  obj instanceof PropertyType)
+			  (obj instanceof PropertyType&& ((NamedElement)obj).hasName()))
 		  {
 				return getConverter().toQualifiedName(getTheName((NamedElement)obj));
 		  }
