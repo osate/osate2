@@ -90,8 +90,6 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 				}
 			}
 		}
-
-		
 		  if (obj instanceof AadlPackage || 
 			  obj instanceof Classifier || 
 			  obj instanceof PropertyConstant || 
@@ -99,65 +97,11 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 			  obj instanceof PropertySet || 
 			  obj instanceof PropertyType)
 		  {
-			return super.getFullyQualifiedName(obj);
+				return getConverter().toQualifiedName(getTheName((NamedElement)obj));
 		  }
 	   return null;
 	}
 	
-	public QualifiedName qualifiedName(final Classifier obj) {
-
-		if (obj.getOwner() instanceof PrivatePackageSection) return null;
-		 
-		
-		return getConverter().toQualifiedName(getTheName(obj));
-	}
-	
-	public QualifiedName qualifiedName(final Element obj) {
-		return null;
-		//getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final NamedElement obj) {
-		//		return getConverter().toQualifiedName(obj.getName());
-		return getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final BasicProperty obj) {
-		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final UnitLiteral obj) {
-		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final EnumerationLiteral obj) {
-		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final AadlPackage obj) {
-		return getConverter().toQualifiedName(obj.getName());
-	}
-	
-	public QualifiedName qualifiedName(final PackageSection obj) {
-		return null;
-		//return getConverter().toQualifiedName(obj.getQualifiedName());
-	}
-	
-	public QualifiedName qualifiedName(final PropertyType obj) {
-		return getConverter().toQualifiedName(getTheName(obj));
-	}
-	
-	public QualifiedName qualifiedName(final PropertyConstant obj) {
-		return getConverter().toQualifiedName(getTheName(obj));
-	}
-	
-	public QualifiedName qualifiedName(final Property obj) {
-		return getConverter().toQualifiedName(getTheName(obj));
-	}
-	
-	public QualifiedName qualifiedName(final PropertySet obj) {
-		return getConverter().toQualifiedName(obj.getName());
-	}
 	
 	protected String getTheName(NamedElement namedElement){
 			if (namedElement.hasName()) {
@@ -172,7 +116,7 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 				} else
 					return namedElement.getName();
 			} else
-				return null;
+				return "<noname>";
 	}
 
 
