@@ -721,6 +721,12 @@ public class GetProperties {
 		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
 	}
+	
+	public static double getComputeDeadlineinMilliSec(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_DEADLINE);
+		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
+	}
 
 	public static double getDeadlineinMicroSec(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
@@ -763,6 +769,16 @@ public class GetProperties {
 		try {
 			Property dispatchProtocol = lookupPropertyDefinition(ne,ThreadProperties._NAME, ThreadProperties.DISPATCH_PROTOCOL);
 			return PropertyUtils.getEnumLiteral(ne, dispatchProtocol);
+		} catch (final PropertyLookupException e) {
+			return null;
+		}
+	}
+	
+	
+	public static EnumerationLiteral getOverflowHandlingProtocol(final NamedElement ne) {
+		try {
+			Property overflowHandlingProtocol = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.OVERFLOW_HANDLING_PROTOCOL);
+			return PropertyUtils.getEnumLiteral(ne, overflowHandlingProtocol);
 		} catch (final PropertyLookupException e) {
 			return null;
 		}
