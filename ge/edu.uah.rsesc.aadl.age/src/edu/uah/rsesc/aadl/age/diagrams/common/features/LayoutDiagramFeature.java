@@ -57,7 +57,17 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	public String getName() {
 		return "Layout Diagram";
 	}
-
+	
+	@Override
+	public boolean isAvailable(final IContext context) {
+		final ICustomContext customCtx = (ICustomContext)context;
+		//Checks if inner Graphics algorithm is null if yes the right clicked area was the empty space.
+		if(customCtx.getInnerGraphicsAlgorithm() != null) {
+			return false;
+		}
+		return true;
+	}
+	
 	@Override
 	public boolean canExecute(ICustomContext context) {
 		return true;
@@ -74,7 +84,8 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		context.putProperty(RELAYOUT_SHAPES_PROPERTY_KEY, relayoutShapes);
 		return context;
 	}
-	
+
+		
 	@Override
 	public void execute(final ICustomContext context) {
 		try {
@@ -171,7 +182,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	 * @return
 	 */
 	private static LayoutEntity getLayoutEntity(final Anchor anchor, final Map<Shape, SimpleNode> shapeToNodeMap) {
-		if(anchor.getParent() instanceof Shape) {
+		if(anchor != null && anchor.getParent() instanceof Shape) {
 			Shape shape = (Shape)anchor.getParent();
 			while(shape != null) {
 				final LayoutEntity entity = shapeToNodeMap.get(shape);

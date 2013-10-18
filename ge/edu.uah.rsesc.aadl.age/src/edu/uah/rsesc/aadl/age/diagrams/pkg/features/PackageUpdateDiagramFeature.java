@@ -36,6 +36,7 @@ import org.osate.aadl2.util.Aadl2Util;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.util.Log;
@@ -44,13 +45,15 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
 	private final VisibilityService visibilityService;
+	private final ShapeService shapeService;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionCreationService connectionCreationService, final VisibilityService visibilityService) {
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionCreationService connectionCreationService, final VisibilityService visibilityService, final ShapeService shapeService) {
 		super(fp);
 		this.styleService = styleService;
 		this.connectionCreationService = connectionCreationService;
 		this.visibilityService = visibilityService;
+		this.shapeService = shapeService;
 	}
 	
 	@Override
@@ -80,7 +83,12 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 			return false;
 		}	
 		final AadlPackage pkg = (AadlPackage)element;
-
+		
+		// Update the diagram's name
+		if(pkg.getQualifiedName() != null) {
+			diagram.setName(pkg.getQualifiedName());
+		}
+				
 		// Prune Invalid Generalizations
 		visibilityService.ghostInvalidConnections();
 
@@ -142,8 +150,8 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		for(final NamedElement el : elements) {
 			// Add a item for the classifier
 			if(!Aadl2Util.isNull(el) && el instanceof Classifier) {
-				PictogramElement pictogramElement = this.getFeatureProvider().getPictogramElementForBusinessObject(el);
-				if(pictogramElement == null) {
+				PictogramElement pictogramElement = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), el);
+				if(pictogramElement == null) {					
 					final AddContext addContext = new AddContext();
 					addContext.setNewObject(new AadlElementWrapper(el));
 					addContext.setTargetContainer(diagram);

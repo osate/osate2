@@ -2,7 +2,6 @@ package edu.uah.rsesc.aadl.age.services;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 
 /**
@@ -26,15 +25,15 @@ public interface ShapeService {
 			NamedElement el);
 
 	/**
-	 * Gets a descendant shape that is linked to a particular AADL element. Does not look at children if the child shape is associated with another object.
+	 * Gets a descendant shape that is linked to a an AADL element with the same qualified same as the specified element. Does not look at children if the child shape is associated with another object.
 	 * @param shape
 	 * @param el
 	 * @return
 	 */
-	Shape getDescendantShapeByElement(ContainerShape shape, Element el);
-
+	Shape getDescendantShapeByElementQualifiedName(final ContainerShape shape, final NamedElement el);
+	
 	/**
-	 * Gets a descendant shape that is linked to a an AADL element with the same same as the specified elmeent. Does not look at children if the child shape is associated with another object.
+	 * Gets a descendant shape that is linked to a an AADL element with the same same as the specified element. Does not look at children if the child shape is associated with another object.
 	 * @param shape
 	 * @param el
 	 * @return

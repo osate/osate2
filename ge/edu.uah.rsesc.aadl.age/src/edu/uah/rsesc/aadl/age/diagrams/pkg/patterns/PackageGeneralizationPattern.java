@@ -41,7 +41,7 @@ import edu.uah.rsesc.aadl.age.services.ModificationService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.Modifier;
+import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern implements IDelete {
 	private final StyleService styleUtil;
@@ -195,7 +195,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		final URI dstElUri = EcoreUtil.getURI((EObject)getShapeBusinessObject(context.getTargetAnchor()));
 				
 		// Make the modification
-		final Generalization generalization = modificationService.modify(srcEl, new Modifier<NamedElement, Generalization>() {
+		final Generalization generalization = modificationService.modify(srcEl, new AbstractModifier<NamedElement, Generalization>() {
 			@Override
 			public Generalization modify(final Resource resource, final NamedElement srcEl) {
 				final EObject dstEl = resource.getResourceSet().getEObject(dstElUri, true);
@@ -249,7 +249,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		
 		// Make the modification
 		final Generalization generalization = (Generalization)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		modificationService.modify(generalization, new Modifier<Generalization, Object>() {
+		modificationService.modify(generalization, new AbstractModifier<Generalization, Object>() {
 			@Override
 			public Object modify(final Resource resource, final Generalization generalization) {
 				EcoreUtil.delete(generalization);

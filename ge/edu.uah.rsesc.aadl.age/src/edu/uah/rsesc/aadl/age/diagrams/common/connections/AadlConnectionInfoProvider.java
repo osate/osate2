@@ -115,7 +115,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 				return null;
 			} else {
 				// Get the shape for the context
-				pe = shapeHelper.getDescendantShapeByElement((ContainerShape)pe, context);
+				pe = shapeHelper.getDescendantShapeByElementQualifiedName((ContainerShape)pe, context);
 				if(pe == null || !(pe instanceof ContainerShape)) {
 					return null;
 				}
@@ -131,7 +131,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		}
 		
 		// Get Descendant PE
-		pe = shapeHelper.getDescendantShapeByElement((ContainerShape)pe, ce);		
+		pe = shapeHelper.getDescendantShapeByElementQualifiedName((ContainerShape)pe, ce);		
 		
 		// CLEAN-UP: Clarify or remove comments
 		// Case: Just CE is valid. (Probably a feature? could be a component)

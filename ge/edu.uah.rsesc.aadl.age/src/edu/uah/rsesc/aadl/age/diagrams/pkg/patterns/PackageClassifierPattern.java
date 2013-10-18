@@ -1,9 +1,13 @@
 package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -12,19 +16,24 @@ import javax.inject.Named;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.IReason;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
-import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.AddContext;
-import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -53,6 +62,7 @@ import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.MemoryClassifier;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.ProcessClassifier;
 import org.osate.aadl2.ProcessorClassifier;
@@ -75,10 +85,11 @@ import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.ModificationService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.Modifier;
+import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
+import edu.uah.rsesc.aadl.age.ui.util.DiagramFinder;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class PackageClassifierPattern extends AgeLeafShapePattern {
@@ -135,6 +146,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
+        this.link(labelShape, new AadlElementWrapper(classifier));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
         // Set the size        
@@ -146,24 +158,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		// Create the graphics algorithm
         final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, width, height);        
         gaService.setLocation(ga, x, y);
-	}
-
-	@Override
-	public IReason updateNeeded(final IUpdateContext context) {
-		final PictogramElement pe = context.getPictogramElement();
-		final Classifier classifier = (Classifier)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
-		final String actualTypeName = getClassifierTypeName(classifier);
-		final String storedTypeName = propertyUtil.getTypeName(pe);	
-		if(!actualTypeName.equals(storedTypeName)) {
-			return Reason.createTrueReason("Type is out of date");
-		}
-		
-		final Text label = getLabel((ContainerShape)pe);
-		if(label == null || !label.getValue().equals(getLabelText(classifier))) {
-			return Reason.createTrueReason("Label is out of date");			
-		}
-
-		return Reason.createFalseReason();
 	}
 	
 	private String getClassifierTypeName(final Classifier classifier) {
@@ -216,23 +210,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	public void setShapeProperties(final ContainerShape shape, final Object bo) {
 		// Update the type name property
 		propertyUtil.setTypeName(shape, getClassifierTypeName((Classifier)bo));
-	}
-	
-	private Shape getLabelShape(final ContainerShape cs) {
-		for(final Shape shape : cs.getChildren()) {
-			if(shape.getGraphicsAlgorithm() instanceof Text) {
-				return shape;
-			}
-		}
-		return null;
-	}
-	
-	private Text getLabel(final ContainerShape cs) {
-		final Shape labelShape = getLabelShape(cs);
-		if(labelShape != null) {
-			return (Text)labelShape.getGraphicsAlgorithm();
-		}
-		return null;
 	}
 	
 	@Override
@@ -289,6 +266,10 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		return Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(classifierType);
 	}
 	
+	private AadlPackage getPackage() {
+		return (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
+	}
+	
 	@Override
 	public Object[] create(final ICreateContext context) {
 		// Get the target container BO
@@ -334,8 +315,8 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		}
 		
 		// Make the modification
-		final AadlPackage pkg = (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
-		final Classifier newClassifier = modificationService.modify(pkg, new Modifier<AadlPackage, Classifier>() {
+		final AadlPackage pkg = getPackage();
+		final Classifier newClassifier = modificationService.modify(pkg, new AbstractModifier<AadlPackage, Classifier>() {
 			@Override
 			public Classifier modify(final Resource resource, final AadlPackage pkg) {
 				final Object resolvedContext = (baseClassifier != null && baseClassifier.eIsProxy()) ? EcoreUtil.resolve(baseClassifier, resource) : baseClassifier;
@@ -345,7 +326,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		// If the shape was dropped on the diagram, set the location of the new shape
 		if(newClassifier != null && context.getTargetContainer() instanceof Diagram) {
-			Shape newShape = shapeService.getDescendantShapeByElement(getDiagram(), newClassifier);
+			Shape newShape = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), newClassifier);
 			
 			// If the update feature hasn't been called, add the shape to the diagram
 			if(newShape == null) {
@@ -360,7 +341,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 				}
 	
 				// Try to find the shape again
-				newShape = shapeService.getDescendantShapeByElement(getDiagram(), newClassifier);			
+				newShape = shapeService.getDescendantShapeByElementQualifiedName(getDiagram(), newClassifier);			
 			}
 
 			if(newShape != null) {
@@ -573,7 +554,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		}
 		
 		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		modificationService.modify(classifier, new Modifier<Classifier, Object>() {
+		modificationService.modify(classifier, new AbstractModifier<Classifier, Object>() {
 			@Override
 			public Object modify(final Resource resource, final Classifier classifier) {
 				// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
@@ -586,5 +567,261 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
+	
+	@Override
+	public int getEditingType() {
+        return TYPE_TEXT;
+    }
+ 
+    @Override
+    public boolean canDirectEdit(final IDirectEditingContext context) {
+        final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+        final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+        
+        if (bo instanceof Classifier && ga instanceof Text) {
+        	final Namespace ns = ((Classifier)bo).getNamespace();
+        	final AadlPackage pkg = getPackage();
+        	return ns != null && ns.getOwner() == pkg;
+        }
+
+        return false;
+    }
+    
+    public String getInitialValue(final IDirectEditingContext context) {
+    	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	return this.getLabelText(classifier);
+    }
+ 
+    @Override
+    public String checkValueValid(final String value, final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+    	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);
+
+    	// If the name hasn't changed or has only changed case
+    	if(value.equalsIgnoreCase(classifier.getName())) {
+    		return null;
+    	}
+    	    
+    	// Check if the value matches the format for AADL identifiers
+    	if(classifier instanceof ComponentImplementation) {
+    		// Check that the name specified both a type and implementation name
+    		final String[] segs = value.split("\\.");
+    		if(segs.length != 2) {
+    			return "The name is not a valid name for a component implementaiton";
+    		}
+    		
+    		// Ensure both segments are valid identifiers
+    		if(!isValidIdentifier(segs[0]) || !isValidIdentifier(segs[1])) {
+    			return "The specified name is not a valid AADL identifier";
+    		}    		
+    		
+    		// Check the new type name...
+    		final String typeName = segs[0];
+    		NamedElement ctElement = null; // Either a ComponentType or a ComponentTypeRename    		
+    		if(classifier.getNamespace() != null) {
+				for(final NamedElement el : classifier.getNamespace().getMembers()) {
+					if(typeName.equalsIgnoreCase(el.getName()) && (el instanceof ComponentType || el instanceof ComponentTypeRename)) {
+						ctElement = el;
+					}
+				}
+    		}
+    		
+    		if(ctElement == null) {
+    			return segs[0] + " does not name a Component Type.";
+    		}
+    	} else {
+    		if(!isValidIdentifier(value)) {
+	    		return "The specified name is not a valid AADL identifier";
+	    	}
+    	}
+    	
+    	// Check for conflicts in the namespace
+    	final Namespace ns = classifier.getNamespace();
+    	for(final NamedElement el : ns.getOwnedMembers()) {
+    		if(value.equalsIgnoreCase(el.getName())) {
+    			return "The specified name conflicts with an existing member of the namespace.";
+    		}
+    	}
+
+        // The value is valid
+        return null;
+    }
+    
+    private boolean isValidIdentifier(final String value) {
+    	return value.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*");
+    }
+ 
+    public void setValue(final String value, final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+    	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);    	
+   	
+    	modificationService.modify(classifier, new RenameClassifierModifier((Shape)pe, value, getFeatureProvider()));   	
+    }
+    
+    private static class RenameClassifierModifier extends AbstractModifier<Classifier, Object> {
+    	private final Shape labelShape;
+    	private final String newName;
+    	private final IFeatureProvider fp;
+    	private Map<NamedElement, PictogramElement[]> pendingLinkages = new HashMap<NamedElement, PictogramElement[]>(); // Holds changes in linkages that should be made after the modificatio is completed
+		private Map<NamedElement, Collection<Resource>> resourcesToRelink = new HashMap<NamedElement, Collection<Resource>>();		
+		
+		public RenameClassifierModifier(final Shape labelShape, final String newName, IFeatureProvider fp) {
+			this.labelShape = labelShape;
+			this.newName = newName;
+			this.fp = fp;
+		}
+		
+		@Override
+		public Object modify(final Resource resource, final Classifier classifier) {
+			// Reset run specific fields
+			pendingLinkages.clear();
+			resourcesToRelink.clear();
+			
+			// Resolving allows the name change to propagate when editing without an Xtext document
+			EcoreUtil.resolveAll(resource.getResourceSet());
+
+			// Find diagrams that links to this classifier
+			// TODO: Need to pass in a diagram finder as a service instead of instantiating
+			resourcesToRelink.put(classifier, new DiagramFinder().findDiagramResources(classifier));
+			
+			// Set the name
+			classifier.setName(newName);
+			
+			// Add the text shape and the root shape for the classifier to the list of shapes to be relinked
+			final ContainerShape rootShape = labelShape.getContainer();
+			pendingLinkages.put(classifier, new PictogramElement[] {rootShape, labelShape});
+			
+			// Special handling of renaming component implementations. Need to set the type so that they will update appropriately in all cases.
+			if(classifier instanceof ComponentImplementation) {
+				final ComponentImplementation ci = (ComponentImplementation)classifier;
+				final String typeName = newName.split("\\.")[0];
+				for(final NamedElement member : ci.getNamespace().getMembers()) {
+					if(typeName.equalsIgnoreCase(member.getName())) {
+						// Handle renames
+						if(member instanceof ComponentTypeRename) {
+							final ComponentTypeRename ctr = (ComponentTypeRename) member;
+							if(ctr.getRenamedComponentType() != null) {
+								ci.setType(ctr.getRenamedComponentType());
+							}
+						}
+						
+						// Component Types
+						if(member instanceof ComponentType) {
+							ci.setType((ComponentType)member);
+						}
+						break;
+					}
+					
+				}
+			}
+			
+			// Check for cross references and update them
+			// The extension changes are only needed when editing using an xtext document
+			// Other changes are needed in all cases
+			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(classifier, resource.getResourceSet())) {
+				final EStructuralFeature sf = s.getEStructuralFeature();
+				if(!sf.isDerived() && sf.isChangeable()) {
+					final EObject obj = s.getEObject();
+					if(obj instanceof TypeExtension) {
+						final TypeExtension extension = (TypeExtension)obj;
+						if(classifier == extension.getExtended()) {
+							((ComponentType)extension.getSpecific()).createOwnedExtension().setExtended((ComponentType) classifier);
+						}
+					} else if(obj instanceof ImplementationExtension) {
+						final ImplementationExtension extension = (ImplementationExtension)obj;
+						if(classifier == extension.getExtended()) {
+							((ComponentImplementation)extension.getSpecific()).createOwnedExtension().setExtended((ComponentImplementation)classifier);
+						}
+					} else if(obj instanceof GroupExtension) {
+						final GroupExtension extension = (GroupExtension)obj;
+						if(classifier == extension.getExtended()) {
+							((FeatureGroupType)extension.getSpecific()).createOwnedExtension().setExtended((FeatureGroupType) classifier);
+						}
+					} else if(obj instanceof Realization && classifier instanceof ComponentType) {
+						final Realization realization = (Realization)obj;
+						final ComponentImplementation ci = (ComponentImplementation)realization.getSpecific();
+						if(ci.getName() != null) {
+							final String[] segs = ci.getName().split("\\.");
+							if(segs.length == 2) {
+								// Store linkages
+								final PictogramElement[] implementationPes = fp.getAllPictogramElementsForBusinessObject(new AadlElementWrapper(ci));
+								pendingLinkages.put(ci, implementationPes);
+								
+								// Add related resources to the list of resource to relink
+								// TODO: Need to pass in a diagram finder as a service instead of instantiating
+								resourcesToRelink.put(ci, new DiagramFinder().findDiagramResources(ci));
+								
+								// Set the name
+								ci.setName(classifier.getName() + "." + segs[1]);
+							}
+						}
+						
+					}
+				}
+			}
+			
+			return null;
+		}
+		
+		@Override
+		public void afterModification(final Resource resource, final Classifier classifier) {
+			// TODO: Consider moving this modifier to a separate file
+			
+			// Update linkages to renamed elements
+			for(final Entry<NamedElement, PictogramElement[]> entry : pendingLinkages.entrySet()) {
+				final AadlElementWrapper elementWrapper = new AadlElementWrapper(entry.getKey());
+				for(PictogramElement pe : entry.getValue()) {
+					fp.link(pe, elementWrapper);
+				}
+			}
+
+			// Relink Diagrams
+			for(final Entry<NamedElement, Collection<Resource>> entry : resourcesToRelink.entrySet()) {
+				final AadlElementWrapper elementWrapper = new AadlElementWrapper(entry.getKey());
+				for(final Resource resourceToRelink : entry.getValue()) {
+					linkDiagram(resourceToRelink, elementWrapper);
+				}
+			}
+		}
+		
+		private void linkDiagram(final Resource resource, final AadlElementWrapper classifierWrapper) {
+			final ResourceSet resourceSet = resource.getResourceSet();
+			
+			if(resource.getContents().size() > 0) {
+				final Object resourceContent = resource.getContents().get(0);
+				System.out.println(resourceContent);
+				if(resourceContent instanceof Diagram) {
+					final Diagram diagram = (Diagram)resourceContent;
+					TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resourceSet);
+					boolean editingDomainCreated = false;
+					if(editingDomain == null) {
+						Log.info("Creating a editing domain");
+						editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
+						editingDomainCreated = true;
+					}					
+					
+					// Execute a transaction to update the diagram's linkage
+					editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+						@Override
+						protected void doExecute() {
+							GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, classifierWrapper);
+						}			
+					});						
+					
+					try {
+						resource.save(null);
+					} catch (IOException e) {
+						throw new RuntimeException("Error saving new diagram", e);
+					}
+					
+					// Dispose of the editing domain if we created it
+					if(editingDomainCreated) {
+						editingDomain.getCommandStack().flush();
+						editingDomain.dispose();
+					}
+				}
+			}
+		}
 	}
 }
