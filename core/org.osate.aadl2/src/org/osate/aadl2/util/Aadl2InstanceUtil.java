@@ -240,6 +240,7 @@ public class Aadl2InstanceUtil {
 		}
 		FeatureGroupType upfgt = ((FeatureGroup)((FeatureInstance)up.getOwner()).getFeature()).getFeatureGroupType();
 		FeatureGroupType downfgt = ((FeatureGroup)((FeatureInstance)down.getOwner()).getFeature()).getFeatureGroupType();
+		if (upfgt == null || downfgt == null) return false;
 		if (upfgt.isInverseOf(downfgt)&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()){
 			return (getFeatureIndex(up)==getFeatureIndex(down));
 		}
