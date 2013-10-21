@@ -302,9 +302,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	
 	protected PropertyExpression getPropertyValue(ContainedNamedElement containmentPath)
 	{
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath).getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			return val;
+		if (containmentPath != null)
+		{
+			for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath).getOwnedValues()) {
+				PropertyExpression val = modalPropertyValue.getOwnedValue();
+				return val;
+			}
 		}
 		return null;
 	}
