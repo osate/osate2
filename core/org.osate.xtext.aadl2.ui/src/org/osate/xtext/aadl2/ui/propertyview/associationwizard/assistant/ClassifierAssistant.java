@@ -153,7 +153,7 @@ public class ClassifierAssistant extends AbstractAssistant
 				}
 			});
 			classifierViewer.setInput(validClassifiers);
-			classifierViewer.setLabelProvider(UiUtil.getAObjectLabelProvider());
+			classifierViewer.setLabelProvider(UiUtil.getModelElementLabelProvider());
 			classifierViewer.setSorter(new ViewerSorter());
 			classifierViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 			classifierViewer.addSelectionChangedListener(new ISelectionChangedListener() {

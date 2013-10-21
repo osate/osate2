@@ -51,8 +51,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
  * <p>
  * Should only be invoked from within an iteration of the system operation modes
  * <p>
- * Should only be invoked with
- * {@link edu.cmu.sei.aadl.model.util.ForAllAObject#processPostOrderAll(edu.cmu.sei.aadl.model.core.AObject)}
  */
 public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 	/** The current SOM, used for error message */

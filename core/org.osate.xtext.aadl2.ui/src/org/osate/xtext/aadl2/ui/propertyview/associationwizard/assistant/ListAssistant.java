@@ -56,7 +56,7 @@ public class ListAssistant extends AbstractAssistant
 		
 		viewer = new ListViewer(this, SWT.MULTI | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new ArrayContentProvider());
-		viewer.setLabelProvider(UiUtil.getAObjectLabelProvider());
+		viewer.setLabelProvider(UiUtil.getModelElementLabelProvider());
 		viewer.setInput(listOfValues);
 		viewer.getList().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 5));
 		

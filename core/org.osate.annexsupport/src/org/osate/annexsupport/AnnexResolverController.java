@@ -98,7 +98,6 @@ public class AnnexResolverController extends ForAllElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.cmu.sei.aadl.model.util.ForAllAObject#action(edu.cmu.sei.aadl.model.core.AObject)
 	 */
 	@Override
 	protected void action(Element obj) {
@@ -115,7 +114,6 @@ public class AnnexResolverController extends ForAllElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.cmu.sei.aadl.model.util.ForAllAObject#suchThat(edu.cmu.sei.aadl.model.core.AObject)
 	 */
 	@Override
 	protected boolean suchThat(Element obj) {
