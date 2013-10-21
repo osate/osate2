@@ -1478,64 +1478,64 @@ public final class AadlUtil {
 
 	}
 
-	/**
-	 * Find the Element whose location reference is close to the line number.
-	 * 
-	 * @param modelelement The model element used as root of the search
-	 * @param location line number
-	 * @return Element
-	 */
-	public static Element findElement(Element modelelement, int location) {
-		return doFindElement(modelelement, location, modelelement);
-	}
-
-	/**
-	 * Find an Element whose reference location is the largest less or equal to
-	 * the location we are looking for. This find method cannot assume that the
-	 * elements of the object model are visited in unparse order. Therefore we
-	 * search the whole containment tree for the closest element whose location
-	 * reference is less or equal to the desired location.
-	 * 
-	 * @param modelelement The model element and its sub elements to be visited
-	 * @param location The location as line whose Element equivalent we are
-	 *            trying to find
-	 * @param closestLocation the last Element whose location reference is less
-	 *            or equal than the location
-	 * @return Element the last visited Element whose location reference matches
-	 *         the condition
-	 */
-	private static Element doFindElement(Element modelelement, int location, Element closestLocation) {
-		LocationReference loc = modelelement.getLocationReference();
-		if (loc != null) {
-			int thisline = loc.getLine();
-			if (thisline > location) {
-				return closestLocation;
-			} else if (thisline == location) {
-				return modelelement;
-			} else {
-				// out location is less than the desired location. Check if it
-				// closer than the previously remembered location
-				LocationReference closeloc = closestLocation.getLocationReference();
-				if (closeloc == null) {
-					closestLocation = modelelement;
-				} else if (thisline > closeloc.getLine()) {
-					closestLocation = modelelement;
-				}
-			}
-		}
-		EList<EObject> list = modelelement.eContents();//getOwnedElements();		for (Iterator<Element> it = list.iterator(); it.hasNext();) {
-		for (Iterator<EObject> it = list.iterator(); it.hasNext();) {
-			Element child = (Element) it.next();
-			Element result = doFindElement(child, location, closestLocation);
-			if (result != closestLocation) {
-				closestLocation = result;
-			}
-		}
-		return closestLocation;
-	}
-
-	private static final String PropertySetLabel = "propertySet[@name=";
-	private static final String PackageLabel = "aadlPackage[@name=";
+//	/**
+//	 * Find the Element whose location reference is close to the line number.
+//	 * 
+//	 * @param modelelement The model element used as root of the search
+//	 * @param location line number
+//	 * @return Element
+//	 */
+//	public static Element findElement(Element modelelement, int location) {
+//		return doFindElement(modelelement, location, modelelement);
+//	}
+//
+//	/**
+//	 * Find an Element whose reference location is the largest less or equal to
+//	 * the location we are looking for. This find method cannot assume that the
+//	 * elements of the object model are visited in unparse order. Therefore we
+//	 * search the whole containment tree for the closest element whose location
+//	 * reference is less or equal to the desired location.
+//	 * 
+//	 * @param modelelement The model element and its sub elements to be visited
+//	 * @param location The location as line whose Element equivalent we are
+//	 *            trying to find
+//	 * @param closestLocation the last Element whose location reference is less
+//	 *            or equal than the location
+//	 * @return Element the last visited Element whose location reference matches
+//	 *         the condition
+//	 */
+//	private static Element doFindElement(Element modelelement, int location, Element closestLocation) {
+//		LocationReference loc = modelelement.getLocationReference();
+//		if (loc != null) {
+//			int thisline = loc.getLine();
+//			if (thisline > location) {
+//				return closestLocation;
+//			} else if (thisline == location) {
+//				return modelelement;
+//			} else {
+//				// out location is less than the desired location. Check if it
+//				// closer than the previously remembered location
+//				LocationReference closeloc = closestLocation.getLocationReference();
+//				if (closeloc == null) {
+//					closestLocation = modelelement;
+//				} else if (thisline > closeloc.getLine()) {
+//					closestLocation = modelelement;
+//				}
+//			}
+//		}
+//		EList<EObject> list = modelelement.eContents();//getOwnedElements();		for (Iterator<Element> it = list.iterator(); it.hasNext();) {
+//		for (Iterator<EObject> it = list.iterator(); it.hasNext();) {
+//			Element child = (Element) it.next();
+//			Element result = doFindElement(child, location, closestLocation);
+//			if (result != closestLocation) {
+//				closestLocation = result;
+//			}
+//		}
+//		return closestLocation;
+//	}
+//
+//	private static final String PropertySetLabel = "propertySet[@name=";
+//	private static final String PackageLabel = "aadlPackage[@name=";
 
 
 	public static Element getInstanceOrigin(InstanceObject io) {
