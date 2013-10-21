@@ -688,7 +688,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements
 	 * @generated NOT
 	 */
 	public boolean isSetName() {
-		return true;
+		return false;
 	}
 
 	/**
