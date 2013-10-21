@@ -707,12 +707,12 @@ public class InstantiateModel {
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
 		} else {
-			if (cc instanceof ComponentType) {
-				if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
-						|| sub instanceof ThreadGroupSubcomponent) {
-					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
-				}
-			}
+//			if (cc instanceof ComponentType) {
+//				if (sub instanceof SystemSubcomponent || sub instanceof ProcessSubcomponent
+//						|| sub instanceof ThreadGroupSubcomponent) {
+//					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
+//				}
+//			}
 			newInstance.setCategory(cc.getCategory());
 		}
 
