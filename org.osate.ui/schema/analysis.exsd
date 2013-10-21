@@ -67,7 +67,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":edu.cmu.sei.aadl.model.core.AObject"/>
+                  <meta.attribute kind="java" basedOn=":org.osate.aadl2.Element"/>
                </appInfo>
             </annotation>
          </attribute>

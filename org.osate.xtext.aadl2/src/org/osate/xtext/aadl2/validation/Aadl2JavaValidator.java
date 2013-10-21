@@ -3795,8 +3795,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 //
 //	/**
-//	 * check property associations for the aObject element
-//	 * @param element aObject. It may not have a Properties object.
+//	 * check property associations for the  element
+//	 * @param element Element. It may not have a Properties object.
 //	 */
 //	private void checkPropertyAssocs(
 //		final NamedElement element, final boolean isSubcomponent) {
