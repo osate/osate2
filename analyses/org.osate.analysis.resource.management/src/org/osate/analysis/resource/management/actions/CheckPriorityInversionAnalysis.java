@@ -62,7 +62,7 @@ public class CheckPriorityInversionAnalysis extends AbstractAnalysis
 		}
 		else
 			//Should never happen.
-			ResourcemanagementPlugin.logErrorMessage("An AObject other than a System Instance was passed to CheckPriorityInversionAnalysis.");
+			ResourcemanagementPlugin.logErrorMessage("The object passed to CheckPriorityInversionAnalysis is not a System Instance.");
 		return getErrorManager().getNumErrors() == 0;
 	}
 

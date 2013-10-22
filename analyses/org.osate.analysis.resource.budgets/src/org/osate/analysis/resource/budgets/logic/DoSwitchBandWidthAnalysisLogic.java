@@ -59,7 +59,6 @@ public class DoSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysisLogic
 	}
 
 	/* (non-Javadoc)
-	 * @see org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic#analysisBody(org.eclipse.core.runtime.IProgressMonitor, edu.cmu.sei.aadl.aadl2.parsesupport.AObject)
 	 */
 	public void analysisBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
