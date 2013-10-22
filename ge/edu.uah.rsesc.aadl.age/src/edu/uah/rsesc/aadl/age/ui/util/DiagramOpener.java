@@ -2,12 +2,14 @@ package edu.uah.rsesc.aadl.age.ui.util;
 
 import java.io.IOException;
 import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -62,18 +64,18 @@ public class DiagramOpener {
 	 */
 	public void openOrCreateDiagram(final NamedElement element) {
 		// Look for an existing diagram
-		final List<Resource> diagramResources = diagramFinder.findDiagramResources(element);
-		if(diagramResources.size() == 0) {
+		final List<Diagram> diagrams = diagramFinder.findDiagramsByRootBusinessObject(element);
+		if(diagrams.size() == 0) {
 			// If a diagram can not be found, create a new diagram
 			Log.info("Existing diagram not found.");
 			
 			// Create and open the new resource
 			final Resource diagramResource = createNewDiagram(element);
-			openEditor(diagramResource);
+			openEditor((Diagram)diagramResource.getContents().get(0));
 		} else {
 			// Open the first resource.
 			Log.info("Existing diagram found. Opening...");
-			openEditor(diagramResources.get(0));
+			openEditor((Diagram)diagrams.get(0));
 		}
 	}
 	
@@ -88,7 +90,7 @@ public class DiagramOpener {
 		Log.info("Creating diagram of type '" + diagramTypeId + "' for model element '" + namedElement.getName() + "'");
 		
 		// Get the default resource set to hold the new resource
-		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resourceSet);
 		boolean editingDomainCreated = false;
 		if(editingDomain == null) {
@@ -181,18 +183,13 @@ public class DiagramOpener {
 	 * Opens a diagram editor for the specified resource.
 	 * @param resource the resource to edit. Must contain a diagram object.
 	 */
-	private void openEditor(final Resource resource) {
-		if(resource.getContents().size() == 0) {
-			throw new RuntimeException("Error opening editor. Resource is empty");
-		} else {			
-			final Diagram diagram = (Diagram)resource.getContents().get(0); 
-			final String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());	
-			final DiagramEditorInput editorInput = DiagramEditorInput.createEditorInput(diagram, providerId);
-			try {
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, AgeDiagramEditor.DIAGRAM_EDITOR_ID);
-			} catch (PartInitException e) {
-				throw new RuntimeException(e);
-			}
+	private void openEditor(final Diagram diagram) {
+		final String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());	
+		final DiagramEditorInput editorInput = DiagramEditorInput.createEditorInput(diagram, providerId);
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, AgeDiagramEditor.DIAGRAM_EDITOR_ID);
+		} catch (PartInitException e) {
+			throw new RuntimeException(e);
 		}
 	}
 	

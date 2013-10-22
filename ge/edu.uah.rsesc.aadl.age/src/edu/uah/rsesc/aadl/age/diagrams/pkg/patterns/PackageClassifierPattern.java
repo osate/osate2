@@ -613,11 +613,12 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
     	modificationService.modify(classifier, new RenameClassifierModifier((Shape)pe, value, getFeatureProvider()));   	
     }
     
+    // TODO: update to use new code developed for feature pattern
     private static class RenameClassifierModifier extends AbstractModifier<Classifier, Object> {
     	private final Shape labelShape;
     	private final String newName;
     	private final IFeatureProvider fp;
-    	private Map<NamedElement, PictogramElement[]> pendingLinkages = new HashMap<NamedElement, PictogramElement[]>(); // Holds changes in linkages that should be made after the modificatio is completed
+    	private Map<NamedElement, PictogramElement[]> pendingLinkages = new HashMap<NamedElement, PictogramElement[]>(); // Holds changes in linkages that should be made after the modification is completed
 		private Map<NamedElement, Collection<Resource>> resourcesToRelink = new HashMap<NamedElement, Collection<Resource>>();		
 		
 		public RenameClassifierModifier(final Shape labelShape, final String newName, IFeatureProvider fp) {
@@ -637,7 +638,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 
 			// Find diagrams that links to this classifier
 			// TODO: Need to pass in a diagram finder as a service instead of instantiating
-			resourcesToRelink.put(classifier, new DiagramFinder().findDiagramResources(classifier));
+			//resourcesToRelink.put(classifier, new DiagramFinder().findDiagramResources(classifier));
 			
 			// Set the name
 			classifier.setName(newName);
@@ -704,7 +705,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 								
 								// Add related resources to the list of resource to relink
 								// TODO: Need to pass in a diagram finder as a service instead of instantiating
-								resourcesToRelink.put(ci, new DiagramFinder().findDiagramResources(ci));
+								//resourcesToRelink.put(ci, new DiagramFinder().findDiagramResources(ci));
 								
 								// Set the name
 								ci.setName(classifier.getName() + "." + segs[1]);
