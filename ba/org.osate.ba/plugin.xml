@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+AADL-BA-FrontEnd
+ 
+Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+TELECOM ParisTech/LTCI
+
+Authors: see AUTHORS
+ 
+This program is free software: you can redistribute it and/or modify 
+it under the terms of the Eclipse Public License as published by Eclipse,
+either version 1.0 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+Eclipse Public License for more details.
+You should have received a copy of the Eclipse Public License
+along with this program.  If not, see 
+http://www.eclipse.org/org/documents/epl-v10.php
+-->
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.osate.annexsupport.parser">
+      <parser
+            annexName="behavior_specification"
+            class="fr.tpt.aadl.annex.behavior.AadlBaParserAction"
+            id="fr.tpt.aadl.annex.behavior.parser"
+            name="AADL-BA-FrontEnd">
+      </parser>
+   </extension>
+   
+   <extension
+         point="org.osate.annexsupport.resolver">
+      <resolver
+            annexName="behavior_specification"
+            class="fr.tpt.aadl.annex.behavior.AadlBaResolver"
+            id="fr.tpt.aadl.annex.behavior.analyzers.resolver"
+            name="AADL-BA-FrontEnd">
+      </resolver>
+   </extension>
+
+   <extension
+         point="org.osate.annexsupport.unparser">
+      <unparser
+            annexName="behavior_specification"
+            class="fr.tpt.aadl.annex.behavior.AadlBaUnParserAction"
+            id="fr.tpt.aadl.annex.behavior.unparser"
+            name="AADL-BA-FrontEnd">
+      </unparser>
+   </extension>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior" 
+       class = "fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage"
+       genModel = "model/aadlba.genmodel" /> 
+  </extension> 
+
+  <extension
+         point="org.osate.pluginsupport.aadlcontribution">
+      <aadlcontribution
+            file="resources/properties/behavior_properties.aadl"
+            id="fr.tpt.aadl.annex.behavior.behavior_properties.aadlcontribution"
+            name="AADL-BA-FrontEnd">
+      </aadlcontribution>
+   </extension>
+
+  <extension
+        point="org.osate.annexsupport.highlighter">
+     <highlighter
+           annexName="behavior_specification"
+           class="fr.tpt.aadl.annex.behavior.texteditor.AadlBaSemanticHighlighter"
+           id="fr.tpt.aadl.annex.behavior.highlighter">
+     </highlighter>
+  </extension>
+  <extension
+        point="org.osate.annexsupport.textpositionresolver">
+     <textpositionresolver
+           annexName="behavior_specification"
+           class="fr.tpt.aadl.annex.behavior.texteditor.AadlBaTextPositionResolver"
+           id="fr.tpt.aadl.annex.behavior.textpositionresolver">
+     </textpositionresolver>
+  </extension>
+  <extension
+        point="org.eclipse.ui.newWizards">
+     <wizard
+           category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
+           class="fr.tpt.aadl.annex.behavior.wizards.AadlBaExamplesWizard"
+           icon="resources/img/ba_logo_16.png"
+           id="fr.tpt.aadl.annex.behavior.wizard.examples"
+           name="Behavior Annex"
+           project="true">
+     </wizard>
+  </extension>
+   
+</plugin>
