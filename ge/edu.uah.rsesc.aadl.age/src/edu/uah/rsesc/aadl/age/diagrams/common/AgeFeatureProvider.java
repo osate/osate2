@@ -26,6 +26,7 @@ import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
+import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
@@ -40,6 +41,7 @@ import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.ConnectionService;
+import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
@@ -59,6 +61,7 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultAnchorService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultBusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultConnectionService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultDiagramService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultHighlightingService;
@@ -73,6 +76,7 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultStyleService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultSubcomponentService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultUserInputService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultVisibilityService;
+import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final IEclipseContext context;
@@ -88,6 +92,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private IEclipseContext createEclipseContext() {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
+		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(this);
@@ -114,6 +119,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Populate the context. 
 		context.set(IFeatureProvider.class, this);
 		context.set(BusinessObjectResolutionService.class, bor);
+		context.set(DiagramService.class, diagramService);
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
 		context.set(AadlModificationService.class, modificationService);

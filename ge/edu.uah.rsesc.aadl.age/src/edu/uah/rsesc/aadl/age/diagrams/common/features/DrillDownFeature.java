@@ -13,8 +13,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.SubcomponentService;
-import edu.uah.rsesc.aadl.age.ui.util.DiagramOpener;
 
 /**
  * Drill down feature. Does not inherit from AbstractDrillDownFeature because it will create diagrams if needed.
@@ -23,11 +23,13 @@ import edu.uah.rsesc.aadl.age.ui.util.DiagramOpener;
  */
 public class DrillDownFeature extends AbstractCustomFeature {
 	private final SubcomponentService subcomponentService;
+	private final DiagramService diagramService;
 	
 	@Inject
-	public DrillDownFeature(final IFeatureProvider fp, final SubcomponentService subcomponentService) {
+	public DrillDownFeature(final IFeatureProvider fp, final SubcomponentService subcomponentService, final DiagramService diagramService) {
 		super(fp);
 		this.subcomponentService = subcomponentService;
+		this.diagramService = diagramService;
 	}
 
 	@Override
@@ -67,7 +69,7 @@ public class DrillDownFeature extends AbstractCustomFeature {
 				} else {
 					element = (NamedElement)bo;
 				}
-				DiagramOpener.create().openOrCreateDiagram(element);
+				diagramService.openOrCreateDiagramForRootBusinessObject(element);
 			}
 		}
 	}

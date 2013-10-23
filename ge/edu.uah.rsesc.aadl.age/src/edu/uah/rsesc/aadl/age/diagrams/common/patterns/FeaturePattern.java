@@ -91,8 +91,8 @@ import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
-import edu.uah.rsesc.aadl.age.ui.util.DiagramFinder;
-import edu.uah.rsesc.aadl.age.ui.util.DiagramFinder.DiagramCallback;
+import edu.uah.rsesc.aadl.age.services.DiagramService;
+import edu.uah.rsesc.aadl.age.services.DiagramService.DiagramCallback;
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
@@ -123,6 +123,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final UserInputService userInputService;
 	private final AadlModificationService modificationService;
 	private final NamingService namingService;
+	private final DiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	private EClass featureType;
 	
@@ -152,8 +153,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
 			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final AadlFeatureService featureService, final PrototypeService prototypeService, 
-			final UserInputService userInputService, final AadlModificationService modificationService, final BusinessObjectResolutionService bor,
-			final NamingService namingService, final @Named("Feature Type") EClass featureType) {
+			final UserInputService userInputService, final AadlModificationService modificationService, final NamingService namingService,
+			final DiagramService diagramService, final BusinessObjectResolutionService bor,
+			final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -166,6 +168,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.userInputService = userInputService;
 		this.modificationService = modificationService;
 		this.namingService = namingService;
+		this.diagramService = diagramService;
 		this.bor = bor;
 		this.featureType = featureType;
 	}
@@ -705,17 +708,20 @@ public class FeaturePattern extends AgeLeafShapePattern {
     	final PictogramElement pe = context.getPictogramElement();
     	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);    	
    	
-    	modificationService.modify(feature, new RenameFeatureModifier((Shape)pe, value, getFeatureProvider()));   	
+    	modificationService.modify(feature, new RenameFeatureModifier(value, diagramService));   	
     }
  	
  	// TODO: Try to abstract out and share code flow, etc with classifier pattern
  	private static class RenameFeatureModifier extends AbstractModifier<Feature, Object> {
- 		private final Shape labelShape;
     	private final String newName;
-    	private final IFeatureProvider fp;
-    	
-    	private Map<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<Diagram, Map<NamedElement, PictogramElement[]>>();
+    	private final DiagramService diagramService;
+    	private final Map<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<Diagram, Map<NamedElement, PictogramElement[]>>();
 		
+ 		public RenameFeatureModifier(final String newName, final DiagramService diagramService) {
+			this.newName = newName;
+			this.diagramService = diagramService;
+		}
+ 		
     	private Map<NamedElement, PictogramElement[]> getDirtyLinkages(final Diagram diagram) {
     		Map<NamedElement, PictogramElement[]> dirtyLinkages = diagramToDirtyLinkages.get(diagram);
     		if(dirtyLinkages == null) {
@@ -730,11 +736,10 @@ public class FeaturePattern extends AgeLeafShapePattern {
     	}
     	
     	private void markLinkagesAsDirty(final NamedElement el) {
-    		final DiagramFinder diagramFinder = new DiagramFinder(); // TODO: Cleanup when turned into service    		
     		final AadlElementWrapper elWrapper = new AadlElementWrapper(el);
     		
     		// For each diagram
-    		diagramFinder.readDiagrams(new DiagramCallback() {
+    		diagramService.readDiagrams(new DiagramCallback() {
     			@Override
     			public void onDiagram(Diagram diagram) {
     				// Create a feature provider and check if it is linked to the aadl element
@@ -774,7 +779,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
     	}
     	
     	// TODO: This should be in service. DiagramCallback should be moved if not in the same service
-    	private void updateDiagram(final Diagram diagram, final DiagramFinder.DiagramCallback cb) {
+    	private void updateDiagram(final Diagram diagram, final DiagramService.DiagramCallback cb) {
     		final Resource resource = diagram.eResource();
     		final ResourceSet resourceSet = resource.getResourceSet();
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resource);
@@ -814,12 +819,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			}
     	}
     	
- 		public RenameFeatureModifier(final Shape labelShape, final String newName, IFeatureProvider fp) {
-			this.labelShape = labelShape;
-			this.newName = newName;
-			this.fp = fp;
-		}
- 		
  		@Override
 		public Object modify(final Resource resource, final Feature feature) {
  			// Resolving allows the name change to propagate when editing without an Xtext document

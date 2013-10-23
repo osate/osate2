@@ -87,7 +87,6 @@ import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
-import edu.uah.rsesc.aadl.age.ui.util.DiagramFinder;
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
