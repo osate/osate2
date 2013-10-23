@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -77,7 +78,7 @@ public class DiagramFinder {
 		}
 		
 		final List<IFile> files = findDiagramFiles(ResourcesPlugin.getWorkspace().getRoot(), null);
-		final ResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		for(final IFile file : files) {
 			// Load the EMF Resource
 			final URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);

@@ -83,8 +83,8 @@ import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
-import edu.uah.rsesc.aadl.age.services.ModificationService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
@@ -121,7 +121,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final AadlFeatureService featureService;
 	private final PrototypeService prototypeService;
 	private final UserInputService userInputService;
-	private final ModificationService modificationService;
+	private final AadlModificationService modificationService;
 	private final NamingService namingService;
 	private final BusinessObjectResolutionService bor;
 	private EClass featureType;
@@ -152,7 +152,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
 			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final AadlFeatureService featureService, final PrototypeService prototypeService, 
-			final UserInputService userInputService, final ModificationService modificationService, final BusinessObjectResolutionService bor,
+			final UserInputService userInputService, final AadlModificationService modificationService, final BusinessObjectResolutionService bor,
 			final NamingService namingService, final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;

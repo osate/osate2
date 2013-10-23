@@ -8,7 +8,7 @@ import org.osate.aadl2.Element;
  * @author philip.alldredge
  *
  */
-public interface ModificationService {
+public interface AadlModificationService {
 	/**
 	 * Modifies an AADL model. Performs any necessary work to ensure it is done safely and appropriately regardless of the current state.
 	 * The modification is considered to have failed if the model that results from the modification contains validation errors.

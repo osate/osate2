@@ -37,15 +37,15 @@ import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.ConnectionService;
-import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 
 public class PackageGeneralizationPattern extends AgeConnectionPattern implements IDelete {
 	private final StyleService styleUtil;
-	private final ModificationService modificationService;
+	private final AadlModificationService modificationService;
 	private final ConnectionService connectionService;
 	private final ConnectionCreationService connectionCreationService;
 	private final UserInputService userInputService;
@@ -53,7 +53,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	
 	@Inject
 	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, 
-			final ModificationService modificationService, final ConnectionService connectionService, 
+			final AadlModificationService modificationService, final ConnectionService connectionService, 
 			final ConnectionCreationService connectionCreationService, final UserInputService userInputService, final BusinessObjectResolutionService bor) {
 		super(visibilityHelper);
 		this.styleUtil = styleUtil;

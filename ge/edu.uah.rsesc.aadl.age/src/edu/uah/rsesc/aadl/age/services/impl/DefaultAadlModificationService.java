@@ -21,13 +21,13 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 
-import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 
-public class DefaultModificationService implements ModificationService {
+public class DefaultAadlModificationService implements AadlModificationService {
 	private final IFeatureProvider fp;
 	
-	public DefaultModificationService(final IFeatureProvider fp) {
+	public DefaultAadlModificationService(final IFeatureProvider fp) {
 		this.fp = fp;
 	}
 	

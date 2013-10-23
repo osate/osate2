@@ -44,7 +44,7 @@ import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
-import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
@@ -63,7 +63,7 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmCreationServ
 import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultHighlightingService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultLayoutService;
-import edu.uah.rsesc.aadl.age.services.impl.DefaultModificationService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultAadlModificationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultNamingService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultPropertyService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultPrototypeService;
@@ -90,7 +90,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
-		final DefaultModificationService modificationService = new DefaultModificationService(this);
+		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(this);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultStyleService styleUtil = new DefaultStyleService(this);
@@ -116,7 +116,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		context.set(BusinessObjectResolutionService.class, bor);
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
-		context.set(ModificationService.class, modificationService);
+		context.set(AadlModificationService.class, modificationService);
 		context.set(GraphicsAlgorithmManipulationService.class, graphicsAlgorithmUtil);
 		context.set(PropertyService.class, propertyUtil);
 		context.set(LayoutService.class, layoutService);

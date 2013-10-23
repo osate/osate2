@@ -26,15 +26,15 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.dialogs.ElementSelectionDialog;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
-import edu.uah.rsesc.aadl.age.services.ModificationService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 
 public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 	private final BusinessObjectResolutionService bor;
-	private final ModificationService modificationService;
+	private final AadlModificationService modificationService;
 	
 	@Inject
-	public PackageSetExtendedClassifierFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor, final ModificationService modificationService) {
+	public PackageSetExtendedClassifierFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor, final AadlModificationService modificationService) {
 		super(fp);
 		this.bor = bor;
 		this.modificationService = modificationService;

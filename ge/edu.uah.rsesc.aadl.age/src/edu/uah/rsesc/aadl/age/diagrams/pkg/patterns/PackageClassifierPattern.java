@@ -80,10 +80,10 @@ import edu.uah.rsesc.aadl.age.dialogs.ElementSelectionDialog;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
-import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
@@ -94,7 +94,7 @@ import edu.uah.rsesc.aadl.age.util.StringUtil;
 public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final PropertyService propertyUtil;
-	private final ModificationService modificationService;
+	private final AadlModificationService modificationService;
 	private final ShapeService shapeService;
 	private final UserInputService userInputService;
 	private final NamingService namingService;
@@ -103,7 +103,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 
 	@Inject
 	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
-			final PropertyService propertyUtil, final ModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
+			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
 			final NamingService namingService, final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
 		super(anchorUtil, visibilityHelper);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
