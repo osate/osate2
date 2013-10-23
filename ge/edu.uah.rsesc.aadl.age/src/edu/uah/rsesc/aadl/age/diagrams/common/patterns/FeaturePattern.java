@@ -1,14 +1,10 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -19,13 +15,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -40,7 +31,6 @@ import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -49,15 +39,11 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -66,21 +52,16 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
@@ -91,9 +72,6 @@ import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
-import edu.uah.rsesc.aadl.age.services.DiagramService;
-import edu.uah.rsesc.aadl.age.services.DiagramService.DiagramCallback;
-import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 /**
@@ -123,7 +101,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final UserInputService userInputService;
 	private final AadlModificationService modificationService;
 	private final NamingService namingService;
-	private final DiagramService diagramService;
+	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private EClass featureType;
 	
@@ -154,7 +132,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final AadlFeatureService featureService, final PrototypeService prototypeService, 
 			final UserInputService userInputService, final AadlModificationService modificationService, final NamingService namingService,
-			final DiagramService diagramService, final BusinessObjectResolutionService bor,
+			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor,
 			final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
@@ -168,7 +146,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.userInputService = userInputService;
 		this.modificationService = modificationService;
 		this.namingService = namingService;
-		this.diagramService = diagramService;
+		this.diagramModService = diagramModService;
 		this.bor = bor;
 		this.featureType = featureType;
 	}
@@ -708,129 +686,26 @@ public class FeaturePattern extends AgeLeafShapePattern {
     	final PictogramElement pe = context.getPictogramElement();
     	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);    	
    	
-    	modificationService.modify(feature, new RenameFeatureModifier(value, diagramService));   	
+    	modificationService.modify(feature, new RenameFeatureModifier(value, diagramModService));   	
     }
  	
- 	// TODO: Try to abstract out and share code flow, etc with classifier pattern
  	private static class RenameFeatureModifier extends AbstractModifier<Feature, Object> {
     	private final String newName;
-    	private final DiagramService diagramService;
-    	private final Map<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<Diagram, Map<NamedElement, PictogramElement[]>>();
+		private final DiagramModificationService diagramModService;
+		private DiagramModificationService.Modification diagramMod;
 		
- 		public RenameFeatureModifier(final String newName, final DiagramService diagramService) {
+ 		public RenameFeatureModifier(final String newName, final DiagramModificationService diagramModService) {
 			this.newName = newName;
-			this.diagramService = diagramService;
+			this.diagramModService = diagramModService;
 		}
  		
-    	private Map<NamedElement, PictogramElement[]> getDirtyLinkages(final Diagram diagram) {
-    		Map<NamedElement, PictogramElement[]> dirtyLinkages = diagramToDirtyLinkages.get(diagram);
-    		if(dirtyLinkages == null) {
-    			dirtyLinkages = new HashMap<NamedElement, PictogramElement[]>();
-    			diagramToDirtyLinkages.put(diagram, dirtyLinkages);
-    		}
-    		return dirtyLinkages;
-    	}
-
-    	private void setDirtyLinkages(final Diagram diagram, final NamedElement el, PictogramElement[] pes) {
-    		getDirtyLinkages(diagram).put(el, pes);
-    	}
-    	
-    	private void markLinkagesAsDirty(final NamedElement el) {
-    		final AadlElementWrapper elWrapper = new AadlElementWrapper(el);
-    		
-    		// For each diagram
-    		diagramService.readDiagrams(new DiagramCallback() {
-    			@Override
-    			public void onDiagram(Diagram diagram) {
-    				// Create a feature provider and check if it is linked to the aadl element
-    				final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-    				if(featureProvider != null) {
-    					// Find Linkages
-    					final PictogramElement[] pes = featureProvider.getAllPictogramElementsForBusinessObject(elWrapper);
-    					if(pes.length > 0) {
-	    					// Add to dirty linkages
-	    					setDirtyLinkages(diagram, el, pes);
-    					}			
-    				}
-    			}			
-    		});
-    	}
-    	
-    	/**
-    	 * Update dirty linkages found in diagrams
-    	 */
-    	private void updateDirtyLinkages() {
-    		 //Map<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkages
-    		for(final Entry<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkagesEntry : diagramToDirtyLinkages.entrySet()) {
-    			final Diagram diagram = diagramToDirtyLinkagesEntry.getKey();
-				updateDiagram(diagram, new DiagramCallback() {
-					@Override
-					public void onDiagram(final Diagram diagram) {
-						final IFeatureProvider fp = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-		    			for(final Entry<NamedElement, PictogramElement[]> dirtyLinkagesEntry : diagramToDirtyLinkagesEntry.getValue().entrySet()) {
-		    				final AadlElementWrapper elWrapper = new AadlElementWrapper(dirtyLinkagesEntry.getKey());
-		    				for(final PictogramElement pe : dirtyLinkagesEntry.getValue()) {
-		    					fp.link(pe, elWrapper);
-		    				}
-		    			}
-					}    					
-				});
-    		}
-    	}
-    	
-    	// TODO: This should be in service. DiagramCallback should be moved if not in the same service
-    	private void updateDiagram(final Diagram diagram, final DiagramService.DiagramCallback cb) {
-    		final Resource resource = diagram.eResource();
-    		final ResourceSet resourceSet = resource.getResourceSet();
-			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resource);
-			boolean editingDomainCreated = false;
-			if(editingDomain == null) {
-				Log.info("Creating a editing domain");
-				System.out.println("HAD TO CREATE EDITING DOMAIN");
-				editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
-				editingDomainCreated = true;
-			} else {
-				System.out.println("DOMAIN ALREADY EXISTED");
-			}
-
-			// Execute a transaction to update the diagram's linkage
-			editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-				@Override
-				protected void doExecute() {
-					cb.onDiagram(diagram);
-					
-					// Update the entire diagram
-					final IFeatureProvider fp = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-					fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { diagram });
-				}			
-			});						
-			
-			// TODO: Only save if editing domain was created?
-			try {
-				resource.save(null);
-			} catch (IOException e) {
-				throw new RuntimeException("Error saving new diagram", e);
-			}
-			
-			// Dispose of the editing domain if we created it
-			if(editingDomainCreated) {
-				editingDomain.getCommandStack().flush();
-				editingDomain.dispose();
-			}
-    	}
-    	
  		@Override
 		public Object modify(final Resource resource, final Feature feature) {
  			// Resolving allows the name change to propagate when editing without an Xtext document
  			EcoreUtil.resolveAll(resource.getResourceSet());
  					
- 			// TODO: Get all links pictogram links that will need to be updated
- 			markLinkagesAsDirty(feature);
- 			
- 			
-			// TODO: Test with implementations in different files. Look at PackageClassifierPattern and share code as needed
-			// to improve rename behavior. 			
-			
+ 			diagramMod = diagramModService.startModification();
+ 			diagramMod.markLinkagesAsDirty(feature);
 			feature.setName(newName);
 			
 			// Check for cross references and update them
@@ -854,9 +729,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		@Override
 		public void afterModification(final Resource resource, final Feature feature) {
-			// TODO: Update references in diagrams, etc to the change
-			
-			updateDirtyLinkages();
+			diagramMod.commit();
 		}
  	}
 

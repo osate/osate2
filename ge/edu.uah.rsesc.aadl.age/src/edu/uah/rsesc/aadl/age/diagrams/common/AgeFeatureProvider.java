@@ -41,6 +41,7 @@ import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.ConnectionService;
+import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
@@ -62,7 +63,7 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultAnchorService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultBusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultConnectionService;
-import edu.uah.rsesc.aadl.age.services.impl.DefaultDiagramService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultDiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultHighlightingService;
@@ -93,6 +94,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
+		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, bor);
 		final StyleProviderService styleProviderService = (StyleProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
@@ -121,6 +123,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		context.set(IFeatureProvider.class, this);
 		context.set(BusinessObjectResolutionService.class, bor);
 		context.set(DiagramService.class, diagramService);
+		context.set(DiagramModificationService.class, diagramModificationService);
 		context.set(StyleProviderService.class, styleProviderService);
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);

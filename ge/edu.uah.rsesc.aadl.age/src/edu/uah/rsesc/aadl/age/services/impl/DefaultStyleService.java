@@ -11,8 +11,6 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.eclipse.ui.PlatformUI;
-
 import edu.uah.rsesc.aadl.age.services.StyleProviderService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 
