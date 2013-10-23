@@ -10,7 +10,7 @@
 		<relativePath>../../build_and_test/ramses-maven-build/pom.xml</relativePath>
 	</parent>
 	<groupId>ramses</groupId>
-	<version>0.9.5</version>
+	<version>1.0.0</version>
 	<packaging>eclipse-plugin</packaging>
-	<artifactId>fr.tpt.aadl.utils</artifactId>
+	<artifactId>org.osate.utils</artifactId>
 </project>

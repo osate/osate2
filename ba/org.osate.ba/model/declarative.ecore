@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="declarative" nsURI="https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior/declarative"
-    nsPrefix="declarative">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="declarative" nsURI="declarative" nsPrefix="declarative">
   <eClassifiers xsi:type="ecore:EClass" name="ArrayableIdentifier" eSuperTypes="#//Identifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arrayIndexes" upperBound="-1"
         eType="ecore:EClass aadlba.ecore#//IntegerValue" unsettable="true" containment="true"/>

@@ -26,8 +26,8 @@ http://www.eclipse.org/org/documents/epl-v10.php
          point="org.osate.annexsupport.parser">
       <parser
             annexName="behavior_specification"
-            class="fr.tpt.aadl.annex.behavior.AadlBaParserAction"
-            id="fr.tpt.aadl.annex.behavior.parser"
+            class="org.osate.ba.AadlBaParserAction"
+            id="org.osate.ba.parser"
             name="AADL-BA-FrontEnd">
       </parser>
    </extension>
@@ -36,8 +36,8 @@ http://www.eclipse.org/org/documents/epl-v10.php
          point="org.osate.annexsupport.resolver">
       <resolver
             annexName="behavior_specification"
-            class="fr.tpt.aadl.annex.behavior.AadlBaResolver"
-            id="fr.tpt.aadl.annex.behavior.analyzers.resolver"
+            class="org.osate.ba.AadlBaResolver"
+            id="org.osate.ba.analyzers.resolver"
             name="AADL-BA-FrontEnd">
       </resolver>
    </extension>
@@ -46,16 +46,16 @@ http://www.eclipse.org/org/documents/epl-v10.php
          point="org.osate.annexsupport.unparser">
       <unparser
             annexName="behavior_specification"
-            class="fr.tpt.aadl.annex.behavior.AadlBaUnParserAction"
-            id="fr.tpt.aadl.annex.behavior.unparser"
+            class="org.osate.ba.AadlBaUnParserAction"
+            id="org.osate.ba.unparser"
             name="AADL-BA-FrontEnd">
       </unparser>
    </extension>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior" 
-       class = "fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage"
+       uri = "https://github.com/osate/osate2-ba.git" 
+       class = "org.osate.ba.aadlba.AadlBaPackage"
        genModel = "model/aadlba.genmodel" /> 
   </extension> 
 
@@ -63,7 +63,7 @@ http://www.eclipse.org/org/documents/epl-v10.php
          point="org.osate.pluginsupport.aadlcontribution">
       <aadlcontribution
             file="resources/properties/behavior_properties.aadl"
-            id="fr.tpt.aadl.annex.behavior.behavior_properties.aadlcontribution"
+            id="org.osate.ba.behavior_properties.aadlcontribution"
             name="AADL-BA-FrontEnd">
       </aadlcontribution>
    </extension>
@@ -72,25 +72,25 @@ http://www.eclipse.org/org/documents/epl-v10.php
         point="org.osate.annexsupport.highlighter">
      <highlighter
            annexName="behavior_specification"
-           class="fr.tpt.aadl.annex.behavior.texteditor.AadlBaSemanticHighlighter"
-           id="fr.tpt.aadl.annex.behavior.highlighter">
+           class="org.osate.ba.texteditor.AadlBaSemanticHighlighter"
+           id="org.osate.ba.highlighter">
      </highlighter>
   </extension>
   <extension
         point="org.osate.annexsupport.textpositionresolver">
      <textpositionresolver
            annexName="behavior_specification"
-           class="fr.tpt.aadl.annex.behavior.texteditor.AadlBaTextPositionResolver"
-           id="fr.tpt.aadl.annex.behavior.textpositionresolver">
+           class="org.osate.ba.texteditor.AadlBaTextPositionResolver"
+           id="org.osate.ba.textpositionresolver">
      </textpositionresolver>
   </extension>
   <extension
         point="org.eclipse.ui.newWizards">
      <wizard
            category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
-           class="fr.tpt.aadl.annex.behavior.wizards.AadlBaExamplesWizard"
+           class="org.osate.ba.wizards.AadlBaExamplesWizard"
            icon="resources/img/ba_logo_16.png"
-           id="fr.tpt.aadl.annex.behavior.wizard.examples"
+           id="org.osate.ba.wizard.examples"
            name="Behavior Annex"
            project="true">
      </wizard>

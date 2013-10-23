@@ -14,8 +14,8 @@
    </parent>
    
    <groupId>ramses</groupId>
-   <artifactId>fr.tpt.aadl.annex.behavior</artifactId>
-   <version>0.9.5</version>
+   <artifactId>org.osate.ba</artifactId>
+   <version>1.0.0</version>
    <packaging>eclipse-plugin</packaging>
    
 </project>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="/**&#xA; * AADL-BA-FrontEnd&#xA; * &#xA; * Copyright © 2013 TELECOM ParisTech and CNRS&#xA; * &#xA; * TELECOM ParisTech/LTCI&#xA; * &#xA; * Authors: see AUTHORS&#xA; * &#xA; * This program is free software: you can redistribute it and/or modify &#xA; * it under the terms of the Eclipse Public License as published by Eclipse,&#xA; * either version 1.0 of the License, or (at your option) any later version.&#xA; * This program is distributed in the hope that it will be useful,&#xA; * but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the&#xA; * Eclipse Public License for more details.&#xA; * You should have received a copy of the Eclipse Public License&#xA; * along with this program.  If not, see &#xA; * http://www.eclipse.org/org/documents/epl-v10.php&#xA; */"
-    modelDirectory="/fr.tpt.aadl.annex.behavior/src" modelPluginID="fr.tpt.aadl.annex.behavior"
-    modelName="Declarative" codeFormatting="true" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" copyrightFields="false" usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 aadlba.genmodel#//aadlba">
+    modelDirectory="/org.osate.ba/src" editDirectory="/org.osate.ba.edit/src" editorDirectory="/org.osate.ba.editor/src"
+    modelPluginID="org.osate.ba" modelName="Declarative" codeFormatting="true" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.ba.edit"
+    editorPluginID="org.osate.ba.editor" usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 aadlba.genmodel#//aadlba">
   <foreignModel>declarative.ecore</foreignModel>
-  <genPackages prefix="Declarative" basePackage="fr.tpt.aadl.annex.behavior" resource="XML"
-      disposableProviderFactory="true" ecorePackage="declarative.ecore#/">
+  <genPackages prefix="Declarative" basePackage="org.osate.ba" resource="XML" disposableProviderFactory="true"
+      ecorePackage="declarative.ecore#/">
     <genClasses ecoreClass="declarative.ecore#//ArrayableIdentifier">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//ArrayableIdentifier/arrayIndexes"/>
     </genClasses>
