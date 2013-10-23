@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.styles;
+package edu.uah.rsesc.aadl.age.services.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,15 +14,17 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 
+import edu.uah.rsesc.aadl.age.services.StyleProviderService;
+import edu.uah.rsesc.aadl.age.styles.StyleFactory;
 import edu.uah.rsesc.aadl.age.util.Log;
 
-public class DefaultStyleProvider implements StyleProvider {
+public class DefaultStyleProviderService implements StyleProviderService {
 	/**
 	 * Mapping from style id's to style factories.
 	 */
 	private Map<String, StyleFactory> styleFactoryMap = new HashMap<String, StyleFactory>();
 	
-	public DefaultStyleProvider() {
+	public DefaultStyleProviderService() {
 		// Get the extension point
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		final IExtensionPoint point = registry.getExtensionPoint("org.uah.rsesc.aadl.age.styles");

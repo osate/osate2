@@ -8,6 +8,7 @@ import org.eclipse.graphiti.util.IColorConstant;
  * @author philip.alldredge
  *
  */
+// CLEAN-UP: Needs to be merged with StyleProviderService
 // TODO: Move architecture in a direction so that the style interface will only provide generic functionality
 public interface StyleService {
 

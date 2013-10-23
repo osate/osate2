@@ -52,6 +52,7 @@ import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
+import edu.uah.rsesc.aadl.age.services.StyleProviderService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.SubcomponentService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
@@ -76,7 +77,6 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultStyleService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultSubcomponentService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultUserInputService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultVisibilityService;
-import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final IEclipseContext context;
@@ -93,12 +93,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
+		final StyleProviderService styleProviderService = (StyleProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(this);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
-		final DefaultStyleService styleUtil = new DefaultStyleService(this);
+		final DefaultStyleService styleUtil = new DefaultStyleService(this, styleProviderService);
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
 		final DefaultVisibilityService visibilityHelper = new DefaultVisibilityService(propertyUtil, bor, this);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(visibilityHelper, bor, this);
@@ -120,6 +121,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		context.set(IFeatureProvider.class, this);
 		context.set(BusinessObjectResolutionService.class, bor);
 		context.set(DiagramService.class, diagramService);
+		context.set(StyleProviderService.class, styleProviderService);
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
 		context.set(AadlModificationService.class, modificationService);

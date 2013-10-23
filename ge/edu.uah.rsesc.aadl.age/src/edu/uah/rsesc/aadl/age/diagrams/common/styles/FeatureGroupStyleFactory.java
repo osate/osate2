@@ -7,14 +7,14 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.ui.PlatformUI;
 
+import edu.uah.rsesc.aadl.age.services.StyleProviderService;
 import edu.uah.rsesc.aadl.age.styles.StyleFactory;
-import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
 public class FeatureGroupStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
-		final StyleProvider styleProvider = (StyleProvider) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProvider.class);
+		final StyleProviderService styleProvider = (StyleProviderService) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
 
 		final Style classifierStyle = styleProvider.getStyle(diagram, "classifier");
 		final Style style = gaService.createPlainStyle(classifierStyle, styleId);
