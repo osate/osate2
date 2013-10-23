@@ -6,14 +6,14 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.ui.PlatformUI;
 
+import edu.uah.rsesc.aadl.age.services.StyleProviderService;
 import edu.uah.rsesc.aadl.age.styles.StyleFactory;
-import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
 public class BasicComponentTypeStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
-		final StyleProvider styleProvider = (StyleProvider) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProvider.class);
+		final StyleProviderService styleProvider = (StyleProviderService) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
 		
 		final String implSuffix = "-implementation";
 		if(styleId.endsWith(implSuffix)) {

@@ -11,16 +11,16 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.eclipse.ui.PlatformUI;
-
+import edu.uah.rsesc.aadl.age.services.StyleProviderService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
-import edu.uah.rsesc.aadl.age.styles.StyleProvider;
 
 public class DefaultStyleService implements StyleService {
 	private final IFeatureProvider fp;
+	private final StyleProviderService styleProviderService;
 	
-	public DefaultStyleService(final IFeatureProvider fp) {
+	public DefaultStyleService(final IFeatureProvider fp, final StyleProviderService styleProviderService) {
 		this.fp = fp;
+		this.styleProviderService = styleProviderService;
 	}
 	
 	/* (non-Javadoc)
@@ -28,8 +28,7 @@ public class DefaultStyleService implements StyleService {
 	 */
 	@Override
 	public Style getStyle(final String styleId) {
-		final StyleProvider styleProvider = (StyleProvider)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProvider.class);
-		return styleProvider.getStyle(getDiagram(), styleId);
+		return styleProviderService.getStyle(getDiagram(), styleId);
 	}
 	
 	private Style getImplementationStyleConditionally(final String styleId, final boolean getImplementation) {

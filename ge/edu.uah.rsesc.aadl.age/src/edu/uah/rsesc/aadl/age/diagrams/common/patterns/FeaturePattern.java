@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -40,15 +39,11 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventPort;
@@ -57,32 +52,26 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
-import edu.uah.rsesc.aadl.age.services.ModificationService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
-import edu.uah.rsesc.aadl.age.ui.util.DiagramFinder;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 /**
@@ -110,8 +99,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final AadlFeatureService featureService;
 	private final PrototypeService prototypeService;
 	private final UserInputService userInputService;
-	private final ModificationService modificationService;
+	private final AadlModificationService modificationService;
 	private final NamingService namingService;
+	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private EClass featureType;
 	
@@ -141,8 +131,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
 			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final AadlFeatureService featureService, final PrototypeService prototypeService, 
-			final UserInputService userInputService, final ModificationService modificationService, final BusinessObjectResolutionService bor,
-			final NamingService namingService, final @Named("Feature Type") EClass featureType) {
+			final UserInputService userInputService, final AadlModificationService modificationService, final NamingService namingService,
+			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor,
+			final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
@@ -155,6 +146,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.userInputService = userInputService;
 		this.modificationService = modificationService;
 		this.namingService = namingService;
+		this.diagramModService = diagramModService;
 		this.bor = bor;
 		this.featureType = featureType;
 	}
@@ -694,19 +686,17 @@ public class FeaturePattern extends AgeLeafShapePattern {
     	final PictogramElement pe = context.getPictogramElement();
     	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);    	
    	
-    	modificationService.modify(feature, new RenameFeatureModifier((Shape)pe, value, getFeatureProvider()));   	
+    	modificationService.modify(feature, new RenameFeatureModifier(value, diagramModService));   	
     }
  	
- 	// TODO: Try to abstract out and share code flow, etc with classifier pattern
  	private static class RenameFeatureModifier extends AbstractModifier<Feature, Object> {
- 		private final Shape labelShape;
     	private final String newName;
-    	private final IFeatureProvider fp;
-    	
- 		public RenameFeatureModifier(final Shape labelShape, final String newName, IFeatureProvider fp) {
-			this.labelShape = labelShape;
+		private final DiagramModificationService diagramModService;
+		private DiagramModificationService.Modification diagramMod;
+		
+ 		public RenameFeatureModifier(final String newName, final DiagramModificationService diagramModService) {
 			this.newName = newName;
-			this.fp = fp;
+			this.diagramModService = diagramModService;
 		}
  		
  		@Override
@@ -714,9 +704,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
  			// Resolving allows the name change to propagate when editing without an Xtext document
  			EcoreUtil.resolveAll(resource.getResourceSet());
  					
-			// TODO: Test with implementations in different files. Look at PackageClassifierPattern and share code as needed
-			// to improve rename behavior.
-			
+ 			diagramMod = diagramModService.startModification();
+ 			diagramMod.markLinkagesAsDirty(feature);
 			feature.setName(newName);
 			
 			// Check for cross references and update them
@@ -740,7 +729,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		@Override
 		public void afterModification(final Resource resource, final Feature feature) {
-			// TODO: Update references in diagrams, etc to the change
+			diagramMod.commit();
 		}
  	}
 

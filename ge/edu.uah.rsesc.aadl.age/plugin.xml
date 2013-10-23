@@ -156,12 +156,12 @@
  	
  </extension>
  
- <extension
-       point="org.eclipse.ui.services">
-    <serviceFactory
-          factoryClass="edu.uah.rsesc.aadl.age.styles.StyleProviderFactory">
-       <service
-             serviceClass="edu.uah.rsesc.aadl.age.styles.StyleProvider"></service>
+ <extension point="org.eclipse.ui.services">
+    <serviceFactory factoryClass="edu.uah.rsesc.aadl.age.services.StyleProviderService$Factory">
+       <service serviceClass="edu.uah.rsesc.aadl.age.services.StyleProviderService"></service>
+    </serviceFactory>
+    <serviceFactory factoryClass="edu.uah.rsesc.aadl.age.services.DiagramService$Factory">
+       <service serviceClass="edu.uah.rsesc.aadl.age.services.DiagramService"></service>
     </serviceFactory>
  </extension>
  

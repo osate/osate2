@@ -1,12 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,14 +11,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -79,32 +69,33 @@ import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeLeafShapePattern;
 import edu.uah.rsesc.aadl.age.dialogs.ElementSelectionDialog;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
-import edu.uah.rsesc.aadl.age.services.ModificationService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
-import edu.uah.rsesc.aadl.age.services.ModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
-import edu.uah.rsesc.aadl.age.ui.util.DiagramFinder;
 import edu.uah.rsesc.aadl.age.util.Log;
 import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final PropertyService propertyUtil;
-	private final ModificationService modificationService;
+	private final AadlModificationService modificationService;
 	private final ShapeService shapeService;
 	private final UserInputService userInputService;
 	private final NamingService namingService;
+	final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
 
 	@Inject
 	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
-			final PropertyService propertyUtil, final ModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
-			final NamingService namingService, final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
+			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
+			final NamingService namingService, final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
 		super(anchorUtil, visibilityHelper);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.propertyUtil = propertyUtil;
@@ -112,6 +103,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		this.shapeService = shapeService;
 		this.userInputService = userInputService;
 		this.namingService = namingService;
+		this.diagramModService = diagramModService;
 		this.bor = bor;
 		this.classifierType = classifierType;
 	}
@@ -610,41 +602,30 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
     	final PictogramElement pe = context.getPictogramElement();
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);    	
    	
-    	modificationService.modify(classifier, new RenameClassifierModifier((Shape)pe, value, getFeatureProvider()));   	
+    	modificationService.modify(classifier, new RenameClassifierModifier(value, diagramModService));   	
     }
     
     private static class RenameClassifierModifier extends AbstractModifier<Classifier, Object> {
-    	private final Shape labelShape;
     	private final String newName;
-    	private final IFeatureProvider fp;
-    	private Map<NamedElement, PictogramElement[]> pendingLinkages = new HashMap<NamedElement, PictogramElement[]>(); // Holds changes in linkages that should be made after the modificatio is completed
-		private Map<NamedElement, Collection<Resource>> resourcesToRelink = new HashMap<NamedElement, Collection<Resource>>();		
+    	private final DiagramModificationService diagramModService;
+		private DiagramModificationService.Modification diagramMod;		
 		
-		public RenameClassifierModifier(final Shape labelShape, final String newName, IFeatureProvider fp) {
-			this.labelShape = labelShape;
+		public RenameClassifierModifier(final String newName, final DiagramModificationService diagramModService) {
 			this.newName = newName;
-			this.fp = fp;
+			this.diagramModService = diagramModService;
 		}
 		
 		@Override
-		public Object modify(final Resource resource, final Classifier classifier) {
-			// Reset run specific fields
-			pendingLinkages.clear();
-			resourcesToRelink.clear();
-			
+		public Object modify(final Resource resource, final Classifier classifier) {		
 			// Resolving allows the name change to propagate when editing without an Xtext document
 			EcoreUtil.resolveAll(resource.getResourceSet());
 
 			// Find diagrams that links to this classifier
-			// TODO: Need to pass in a diagram finder as a service instead of instantiating
-			resourcesToRelink.put(classifier, new DiagramFinder().findDiagramResources(classifier));
+			diagramMod = diagramModService.startModification();
+			diagramMod.markLinkagesAsDirty(classifier);
 			
 			// Set the name
 			classifier.setName(newName);
-			
-			// Add the text shape and the root shape for the classifier to the list of shapes to be relinked
-			final ContainerShape rootShape = labelShape.getContainer();
-			pendingLinkages.put(classifier, new PictogramElement[] {rootShape, labelShape});
 			
 			// Special handling of renaming component implementations. Need to set the type so that they will update appropriately in all cases.
 			if(classifier instanceof ComponentImplementation) {
@@ -698,13 +679,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 						if(ci.getName() != null) {
 							final String[] segs = ci.getName().split("\\.");
 							if(segs.length == 2) {
-								// Store linkages
-								final PictogramElement[] implementationPes = fp.getAllPictogramElementsForBusinessObject(new AadlElementWrapper(ci));
-								pendingLinkages.put(ci, implementationPes);
-								
-								// Add related resources to the list of resource to relink
-								// TODO: Need to pass in a diagram finder as a service instead of instantiating
-								resourcesToRelink.put(ci, new DiagramFinder().findDiagramResources(ci));
+								diagramMod.markLinkagesAsDirty(ci);
 								
 								// Set the name
 								ci.setName(classifier.getName() + "." + segs[1]);
@@ -720,59 +695,8 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		
 		@Override
 		public void afterModification(final Resource resource, final Classifier classifier) {
-			// Update linkages to renamed elements
-			for(final Entry<NamedElement, PictogramElement[]> entry : pendingLinkages.entrySet()) {
-				final AadlElementWrapper elementWrapper = new AadlElementWrapper(entry.getKey());
-				for(PictogramElement pe : entry.getValue()) {
-					fp.link(pe, elementWrapper);
-				}
-			}
-
-			// Relink Diagrams
-			for(final Entry<NamedElement, Collection<Resource>> entry : resourcesToRelink.entrySet()) {
-				final AadlElementWrapper elementWrapper = new AadlElementWrapper(entry.getKey());
-				for(final Resource resourceToRelink : entry.getValue()) {
-					linkDiagram(resourceToRelink, elementWrapper);
-				}
-			}
-		}
-		
-		private void linkDiagram(final Resource resource, final AadlElementWrapper classifierWrapper) {
-			final ResourceSet resourceSet = resource.getResourceSet();
-			
-			if(resource.getContents().size() > 0) {
-				final Object resourceContent = resource.getContents().get(0);
-				if(resourceContent instanceof Diagram) {
-					final Diagram diagram = (Diagram)resourceContent;
-					TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resourceSet);
-					boolean editingDomainCreated = false;
-					if(editingDomain == null) {
-						Log.info("Creating a editing domain");
-						editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
-						editingDomainCreated = true;
-					}					
-					
-					// Execute a transaction to update the diagram's linkage
-					editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-						@Override
-						protected void doExecute() {
-							GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, classifierWrapper);
-						}			
-					});						
-					
-					try {
-						resource.save(null);
-					} catch (IOException e) {
-						throw new RuntimeException("Error saving new diagram", e);
-					}
-					
-					// Dispose of the editing domain if we created it
-					if(editingDomainCreated) {
-						editingDomain.getCommandStack().flush();
-						editingDomain.dispose();
-					}
-				}
-			}
+			diagramMod.commit();
+			diagramMod = null;
 		}
 	}
 }

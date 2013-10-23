@@ -9,7 +9,7 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import edu.uah.rsesc.aadl.age.Activator;
-import edu.uah.rsesc.aadl.age.ui.util.DiagramOpener;
+import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.ui.util.SelectionHelper;
 import edu.uah.rsesc.aadl.age.util.Log;
 
@@ -29,7 +29,8 @@ public class OpenPackageDiagramHandler extends AbstractHandler {
 			if(pkg == null) {
 				MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Select a package or classifier.");
 			} else {
-				DiagramOpener.create().openOrCreateDiagram(pkg);	
+				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
+				diagramService.openOrCreateDiagramForRootBusinessObject(pkg);	
 			}			
 			Log.ok(getClass().getSimpleName() + " Finished");
 		} catch(RuntimeException e) {
