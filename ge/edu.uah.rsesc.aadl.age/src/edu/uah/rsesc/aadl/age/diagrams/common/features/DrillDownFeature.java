@@ -3,12 +3,16 @@ package edu.uah.rsesc.aadl.age.diagrams.common.features;
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
@@ -43,9 +47,21 @@ public class DrillDownFeature extends AbstractCustomFeature {
     }
  
     @Override
-    public boolean canExecute(ICustomContext context) {
-        PictogramElement[] pes = context.getPictogramElements();
-        if (pes != null && pes.length == 1 && !(pes[0] instanceof Diagram)) {
+	public boolean isAvailable(final IContext context) {
+		final ICustomContext customCtx = (ICustomContext)context;
+		PictogramElement[] pes = customCtx.getPictogramElements();
+		
+		if(customCtx.getPictogramElements().length < 1) {
+			return false;
+		}
+		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pes[0]));
+		return bo instanceof ComponentType || bo instanceof ComponentImplementation || bo instanceof FeatureGroupType;	
+	}
+    
+    @Override
+    public boolean canExecute(ICustomContext context) {   	
+    	PictogramElement[] pes = context.getPictogramElements();    	
+        if (pes != null && pes.length == 1 && !(pes[0] instanceof Diagram)) { 
             Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pes[0]));
             if(bo instanceof Package || bo instanceof Classifier) {
                 return true;
