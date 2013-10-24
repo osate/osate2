@@ -13,5 +13,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.edit;visibility:=reexport,
  org.osate.aadl2;visibility:=reexport,
  org.osate.aadl2.edit;visibility:=reexport,
- org.osate.ba;visibility:=reexport
+ org.osate.ba;bundle-version="1.0.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy

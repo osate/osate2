@@ -33,5 +33,5 @@ Require-Bundle: org.eclipse.ui.ide,
  org.osate.annexsupport;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
  org.osate.ui;bundle-version="1.0.0",
- org.osate.utils;bundle-version="0.9.5"
+ org.osate.utils;bundle-version="1.0.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy
