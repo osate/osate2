@@ -602,7 +602,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
     	final PictogramElement pe = context.getPictogramElement();
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);    	
    	
-    	modificationService.modify(classifier, new RenameClassifierModifier(value, diagramModService));   	
+    	modificationService.modify(classifier, new RenameClassifierModifier(value, diagramModService));   	   
     }
     
     private static class RenameClassifierModifier extends AbstractModifier<Classifier, Object> {

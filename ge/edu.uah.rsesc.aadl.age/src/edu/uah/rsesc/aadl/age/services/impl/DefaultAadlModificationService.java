@@ -23,6 +23,7 @@ import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
+import edu.uah.rsesc.aadl.age.util.Log;
 
 public class DefaultAadlModificationService implements AadlModificationService {
 	private final IFeatureProvider fp;
@@ -47,15 +48,9 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(root.getQualifiedName());
 		if(doc == null) {
 			final XtextResource res = (XtextResource)element.eResource();
-			final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier);
+			final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, true);
 			modifierResult = modifySafelyResult.modifierResult;
 			if(modifySafelyResult.modificationSuccessful) {
-				try {
-					res.save(SaveOptions.defaultOptions().toOptionsMap());	
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				};				
-				
 				Display.getDefault().syncExec(new Runnable() {
 					public void run() {			
 						// Update the entire diagram
@@ -74,7 +69,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						return null;
 					}
 					
-					return modifySafely(res, element, modifier).modifierResult;
+					return modifySafely(res, element, modifier, false).modifierResult;
 				}
 			});	
 		}
@@ -101,10 +96,12 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	 * Modifies the resource. If changes causes a validation error, the changes are reverted.
 	 * @param resource
 	 * @param modifier
+	 * @param saveOnSuccess is whether the resource should be saved if the modification is successful. If true, the save will take place after the modification but
+	 * before the afterModification callback. This ensures that any diagram operations that occur in afterModification will use the up to date model.
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <E extends Element, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier) {
+	private <E extends Element, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier, final boolean saveOnSuccess) {
 		if(resource.getContents().size() < 1) {
 			return null;
 		}
@@ -118,7 +115,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resource.getResourceSet());
 		
 		R result = null;
-		boolean modificationSuccessful = true;
+		boolean modificationSuccessful = false;
 		try {
 			// Execute a new recording command
 			final RecordingCommand cmd = new RecordingCommand(domain) {
@@ -140,27 +137,32 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			if(cmdResult.length > 0) {
 				result = (R)cmdResult[0];
 			}
-		} finally {				
+			
+			// Mark the modification as successful
+			modificationSuccessful = true;
+		} finally {
 			// Undo the changes if any of the validators fail
 			final List<Diagnostic> concreteValidationErrors = resource.validateConcreteSyntax();
 			// Disabled checking for resource errors because that includes errors that will occur in normal operations(unless refactoring/chain deleting/modification is implemented)
-			if((/*resource.getErrors().size() > 0 || */concreteValidationErrors.size() > 0) && domain.getCommandStack().canUndo()) {
-				System.err.println("Error. Undoing modification");
+			if(!modificationSuccessful || (/*resource.getErrors().size() > 0 || */concreteValidationErrors.size() > 0) && domain.getCommandStack().canUndo()) {
+				Log.error("Error. Undoing modification");
 				/*if(resource.getErrors().size() > 0) {
-					System.err.println("Errors:");
+					Log.error("Errors:");
 					for(final org.eclipse.emf.ecore.resource.Resource.Diagnostic diag : resource.getErrors()) {
-						System.err.println(diag);
+						Log.error(diag.toString());
 					}
 				}
 				*/
 				if(concreteValidationErrors.size() > 0) {
-					System.err.println("Concrete Syntax Validation Errors:");
+					Log.error("Concrete Syntax Validation Errors:");
 					for(final Diagnostic diag : concreteValidationErrors) {
-						System.err.println(diag);
+						Log.error(diag.toString());
 					}
 				}
 				
-				domain.getCommandStack().undo();
+				if(domain.getCommandStack().canUndo()) {
+					domain.getCommandStack().undo();
+				}
 				modificationSuccessful = false;
 				result = null;
 			}
@@ -169,7 +171,26 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			domain.getCommandStack().flush();			
 			domain.dispose();	
 			
-			modifier.afterModification(resource, element);
+			if(modificationSuccessful) {
+				if(saveOnSuccess) {
+					try {
+						resource.save(SaveOptions.defaultOptions().toOptionsMap());	
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					};
+				}
+
+				/*
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+
+				modifier.afterModification(resource, element);
+			}
 		}
 		
 		return new ModifySafelyResults<R>(modificationSuccessful, result);
