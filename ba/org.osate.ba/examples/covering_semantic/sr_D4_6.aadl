@@ -1,0 +1,70 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 1.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- http://www.eclipse.org/org/documents/epl-v10.php
+
+-- Behavior Annex semantic rule D.4.(6) tests.
+
+package exemple_sr_D4_6
+public
+   with Base_Types ;
+
+thread th
+end th;
+
+
+thread implementation th.good
+
+annex behavior_specification {**
+
+states
+ initState : initial state ;
+ compState : complete state ;
+ finalState : final state ;
+ exeState1 : state ;
+ exeState2 : state ;
+ 
+transitions
+ compState -[on dispatch stop]-> exeState1 ;
+ exeState1 -[]-> exeState2 ;
+ exeState2 -[]-> finalState ;
+ 
+**};
+
+end th.good;
+
+thread implementation th.error 
+annex behavior_specification {**
+
+states
+ initState : initial state ;
+ compState : complete state ;
+ finalState : final state ;
+ exeState1 : state ;
+ exeState2 : state ;
+ 
+transitions
+
+ -- Errors : _ initState is not complete, it cannot have outgoing transition with a stop dispatch trigger and 
+ --            dispatch condition in general.
+ --          _ the transition don't end to a final state.
+ initState -[on dispatch stop]-> exeState1 ;
+
+**};
+end th.error;
+
+end exemple_sr_D4_6 ;
