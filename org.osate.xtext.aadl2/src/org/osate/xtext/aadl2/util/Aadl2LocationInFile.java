@@ -51,14 +51,21 @@ public class Aadl2LocationInFile extends DefaultLocationInFileProvider {
 		return createRegion(nodes);
 	}
 	
-	public static LocationReference getLocationReference(Element obj) {
-		ICompositeNode node = NodeModelUtils.findActualNodeFor(obj);
-		LocationReference locref = new LocationReference();
-		locref.setLine(node.getTotalStartLine());
-		locref.setFilename(obj.eResource().getURI().toString());
-		locref.setOffset(node.getTotalOffset());
-		locref.setLength(node.getTotalLength());
-		return locref;
+	public static LocationReference getLocationReference(Element obj) 
+	{
+		if (obj.getLocationReference() == null)
+		{
+			ICompositeNode node = NodeModelUtils.findActualNodeFor(obj);
+			
+			LocationReference locref = new LocationReference();
+			locref.setLine(node.getTotalStartLine());
+			locref.setFilename(obj.eResource().getURI().toString());
+			locref.setOffset(node.getTotalOffset());
+			locref.setLength(node.getTotalLength());
+			return locref;
+		}
+		return obj.getLocationReference();
+
 	}
 
 }
