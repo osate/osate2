@@ -1,0 +1,50 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright © 2011 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 1.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- http://www.eclipse.org/org/documents/epl-v10.php
+
+-- Behavior Annex consistency rule D.3.(C4) tests.
+
+package exemple_cr_D3_C4
+public
+   with Base_Types ;
+
+process proc
+
+features
+  inPortA : in event data port Base_Types::Integer ;
+  inPortB : in event data port Base_Types::Integer ;
+  inPortC : in event data port Base_Types::Integer ;
+  
+modes
+  m1 : mode ;
+  m2 : mode ;
+  m1 -[self.inPortA, self.inPortA, self.inPortB, self.inPortC]-> m2 ;
+   
+annex behavior_specification {**
+
+states
+  m1 : initial complete state ;
+  finalState : final state ;
+   
+transitions
+  m1 -[on dispatch inPorta and inPortB or inPortc and inPortA]-> finalState ;
+  
+**};
+end proc ;
+
+end exemple_cr_D3_C4 ;

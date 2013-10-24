@@ -1,0 +1,153 @@
+Aadl BA naming, semantic, legality and consistency rules implementation roadmap.
+
+Tags:
+
+[TODO]
+[IMPLEMENTED]
+[NOT IMPLEMENTED]
+[TYPE_CHECKER]
+[NAME_RESOLVER]
+[PARSER]
+
+--------------------------
+
+Notes:
+
+| means or
+& means and
+
+--------------------------
+
+. uncategorizable
+
+- D.6.(L7) : a port name only accepts a one dimension array. [TODO] context clarification. [NOT IMPLEMENTED]
+
+--------------------------
+
+. common
+
+- D.3.(N1) : variable, state and transition identifiers uniqueness. [IMPLEMENTED] in [NAME_RESOLVER].
+
+--------------------------
+
+. behavior annex variables
+
+- D.3.(28) local variables must be typed. [IMPLEMENTED] in [TYPE_CHECKER].
+
+--------------------------
+
+. states
+
+# subprogram components
+- D.3.(L1) | D.3.(9) : must define an initial state and one final state. [IMPLEMENTED]
+- D.3.(L2) | D.3.(9) : must not define any complete states. [IMPLEMENTED]
+
+# threads & suspendable device components
+- D.3.(L3) : must have one initial state, one or more complete state. note that D.3.(L3) != D.3.(L4) . [IMPLEMENTED]
+
+# threads & components with initialization and finalyzation entrypoints.
+- D.3.(L4) : must have one initial state and one or more final states. [IMPLEMENTED]
+
+# other components (not list above)
+- D.3.(11) | D.3.(24) : must have one inital state, one or more complete state and one finale state. [TODO] other components clarifications [NOT IMPLEMENTED]
+
+--------------------------
+
+. transition
+
+- D.3.(L6) | D.3.(25b) | D.4.(2) : only transition out of complete states may have dispatch condition. [IMPLEMENTED]
+- D.3.(L7) | D.3.(15) : transitions out of complete states must have dispatch condition. [IMPLEMENTED]
+- D.3.(L8) | D.3.(12) : transitions from states that are final only are not allowed. [IMPLEMENTED]
+
+--------------------------
+
+. dispatch conditions
+
+# common
+- D.3.(25a) : the behavior specification can refine the Dispatch_Trigger property. Nothing to do.
+- D.3.(L9) | D.2.(9) : the specifications of frozen ports must be consistant with AADL core semantics. [TODO] : clarifications. [NOT IMPLEMENTED]
+- D.4.(N1) | D.3.(17) : must be consistent with the ports listed in the core of AADL model as dispatch triggers. [IMPLEMENTED] in [TYPE_CHECKER].
+- D.4.(N2) : incoming port identifiers and subprogram access feature identifiers that represent dispatch trigger events must refer to the respective feature in the component type to which the behavior annex subclause is associated. [IMPLEMENTED] in [TYPE_CHECKER].
+- D.4.(L1) : the dispatch relative timeout and catch statement must only be declared for timed threads. It must be declared in only one outgoing transition of a complete state. [IMPLEMENTED]
+- D.4.(5) : timout property must be declared when use a dispatch relative timeout and catch statement. [IMPLEMENTED] along D.4.(L1) .
+- D.4.(L2) : the completion relative timeout condition and catch statement must be declared in at most one outgoing transition of a complete state. [IMPLEMENTED]
+- D.4.(6) : stop can only be declared in transitions from a complete state to a a/the final state via one or more execution states. [IMPLEMENTED]
+- D.5.(C1a) | D.5.(6) : frozen port consistency between dispatch condition specification and input time property. [NOT IMPLEMENTED] [TODO] : clarifications.
+- D.3.(C4) : if a complete state that represente a mode then the behavior condition associated these transitions must be consistent with the corresponding mode transition trigger. [IMPLEMENTED]
+
+# subprogram components
+- D.3.(L5) : subprogram components must not contain a dispatch condition in any of its transitions. [IMPLEMENTED]
+
+--------------------------
+
+. execute conditions
+
+- D.3.(N1) : an empty execute condition is equivalent to a condition that is always true. [IMPLEMENTED] in [PARSER].
+- D.3.(18) : only transition out of execution states or states that are intial only may have execute condition. [TODO] too many errors are found in aadlba std's exemples. Is the std wrong ? [IMPLEMENTED]
+- D.3.(C3) : the logical disjunction of all the execute conditions associated with the transitions out of an execution state must be true. [NOT IMPLEMENTED] [TODO] : is it statically analyzable ?
+
+--------------------------
+
+. subprogram calls
+
+# common
+- D.6.(L5) | D.5.(19) : the parameter list must match the signature of the subprogram being called. [IMPLEMENTED] in [TYPE_CHECKER].
+
+# threads & subprogram components
+- D.3.(22) : if call sequence section is defined, subprogram call actions must reflect it. Call order may differ. [NOT IMPLEMENTED]
+
+--------------------------
+
+. port send actions
+
+- D.5.(C2) | D.5.(6) : consistency between port send action and output time property. [NOT IMPLEMENTED] [TODO] : clarifications
+
+--------------------------
+
+. port freeze actions
+
+- D.5.(C1b) | D.5.(6) : frozen port consistency between freeze action and input time property. [NOT IMPLEMENTED] [TODO] : clarifications
+
+--------------------------
+
+. port dequeue actions
+
+- D.6.(L6) : implicit assignment between the dequeueing variable and the value being dequeued (port type) : match their types. [IMPLEMENTED] in [TYPE_CHECKER].
+
+. assignment actions
+
+- D.6.(L1) | D.6.(16) : the type of the value expression must match the type of the target. [IMPLEMENTED] in [TYPE_CHECKER].
+- D.6.(L2) : for or foall's iterative variable is not an valid target for assignment action => [IMPLEMENTED] in [TYPE_CHECKER].
+
+--------------------------
+
+. timed actions
+
+- D.6.(L8) | D.6.(18) : max time value >= min time value or one value if max value == min value. [IMPLEMENTED]
+
+--------------------------
+
+. behavior action sets
+
+- D.6.(14) : the results from out parameters of one simultaneous call cannot be used as input to another call or other action in the same action set. [NOT IMPLEMENTED] [TODO] discution about consistency with D.6.(14) and (15) and (L3) and (L4).
+- D.6.(L3) | D.6.(15) : the same local variable must not be assigned to in different actions of an action set. [IMPLEMENTED] [TODO] but it doesn't make the difference between port, local variable or other components. [TODO] discution about consistency with D.6.(14) and (15).
+- D.6.(L4) | D.6.(15) : the same port variable must not be assigned to in different actions of an action set. [IMPLEMENTED] [TODO] but it doesn't make the difference between port, local variable or other components. [TODO] discution about consistency with D.6.(14) and (15).
+
+--------------------------
+
+. conditional statements
+
+- D.6.(N1) : for or forall iterative variable scope is local. Such variable must not be declared as local variable. [IMPLEMENTED] in [NAME_RESOLVER]
+
+--------------------------
+
+. value expressions
+
+- D.7.(L1) : operators precedence. [IMPLEMENTED] in [PARSER].
+- D.7.(L2) : parenthesis on operators precedence. [IMPLEMENTED] in [PARSER].
+- D.7.(L3) : operand expressions of logical operators are boolean. [IMPLEMENTED] in [TYPE_CHECKER].
+- D.7.(L4) : operand expressions of relational operators must be of a type that support numeric operations. [IMPLEMENTED] in [TYPE_CHECKER].
+- D.7.(L5) : operand of adding, multiplying and other numeric operators must support numeric operations. [IMPLEMENTED] in [TYPE_CHECKER].
+- D.7.(L6) : a value expression adopts the type of its top level operator or single operand. [IMPLEMENTED] in [TYPE_CHECKER].
+
+--------------------------
