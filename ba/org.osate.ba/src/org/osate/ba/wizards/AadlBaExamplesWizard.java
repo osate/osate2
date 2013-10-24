@@ -463,7 +463,7 @@ public class AadlBaExamplesWizard extends AadlProjectWizard
     super() ;
     newProjectCreationPage = new AadlBaExamplesWizardPage("basicNewProjectPage");
     newProjectCreationPage.setTitle("Aadl Behavior Annex Project");
-    newProjectCreationPage.setDescription("Create a new Aadl Behaviort Annex project resource.");
+    newProjectCreationPage.setDescription("Create a new Aadl Behavior Annex project resource.");
     
     referencePage = new AadlWizardReferencePage("projectReferencePage");
     referencePage.setTitle("AADL Settings");

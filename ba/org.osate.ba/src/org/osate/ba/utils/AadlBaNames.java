@@ -23,7 +23,7 @@ package org.osate.ba.utils;
 
 public class AadlBaNames
 {
-  final public static String PLUGIN_ID = "fr.tpt.aadl.annex.behavior" ;
+  final public static String PLUGIN_ID = "org.osate.ba" ;
   
   
 }
