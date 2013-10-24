@@ -602,7 +602,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
     	final PictogramElement pe = context.getPictogramElement();
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);    	
    	
-    	modificationService.modify(classifier, new RenameClassifierModifier(value, diagramModService));   	
+    	modificationService.modify(classifier, new RenameClassifierModifier(value, diagramModService));   	   
     }
     
     private static class RenameClassifierModifier extends AbstractModifier<Classifier, Object> {
@@ -615,6 +615,12 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 			this.diagramModService = diagramModService;
 		}
 		
+		private void markLinkagesToOwnedMembersAsDirty(final Namespace ns) {
+			for(final NamedElement member : ns.getOwnedMembers()) {
+				diagramMod.markLinkagesAsDirty(member);
+			}
+			
+		}
 		@Override
 		public Object modify(final Resource resource, final Classifier classifier) {		
 			// Resolving allows the name change to propagate when editing without an Xtext document
@@ -623,6 +629,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 			// Find diagrams that links to this classifier
 			diagramMod = diagramModService.startModification();
 			diagramMod.markLinkagesAsDirty(classifier);
+			markLinkagesToOwnedMembersAsDirty(classifier);
 			
 			// Set the name
 			classifier.setName(newName);
@@ -680,6 +687,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 							final String[] segs = ci.getName().split("\\.");
 							if(segs.length == 2) {
 								diagramMod.markLinkagesAsDirty(ci);
+								markLinkagesToOwnedMembersAsDirty(ci);
 								
 								// Set the name
 								ci.setName(classifier.getName() + "." + segs[1]);
