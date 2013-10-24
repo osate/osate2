@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="fr.tpt.aadl.annex.behavior.feature"
+      id="org.osate.ba.feature"
       label="AADL-BA-FrontEnd"
-      version="0.9.5"
+      version="1.0.0.qualifier"
       provider-name="TELECOM ParisTech"
-      plugin="fr.tpt.aadl.annex.behavior">
+      plugin="org.osate.ba">
 
    <description url="http://aadl.telecom-paristech.fr/">
       TELECOM Paristech AADL V2 Behavior Model Annex editor for OSATE2.
@@ -32,24 +32,24 @@ You should have received a copy of the Eclipse Public License along with this pr
       <import plugin="org.osate.aadl2.modelsupport" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.annexsupport" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="fr.tpt.aadl.utils" version="0.9.5" match="greaterOrEqual"/>
+      <import plugin="org.osate.utils" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.osate.aadl2.edit"/>
    </requires>
 
    <plugin
-         id="fr.tpt.aadl.annex.behavior"
+         id="org.osate.ba"
          download-size="0"
          install-size="0"
-         version="0.9.5"
+         version="1.0.0"
          unpack="false"/>
 
    <plugin
-         id="fr.tpt.aadl.annex.behavior.edit"
+         id="org.osate.ba.edit"
          download-size="0"
          install-size="0"
-         version="0.9.5"
+         version="1.0.0"
          unpack="false"/>
 
 </feature>
