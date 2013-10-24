@@ -3,7 +3,8 @@
       id="org.osate.utils.feature"
       label="AADL-Utils"
       version="1.0.0.qualifier"
-      provider-name="TELECOM ParisTech">
+      provider-name="TELECOM ParisTech"
+      plugin="org.osate.utils">
 
    <description url="http://aadl.telecom-paristech.fr/">
       TELECOM Paristech AADL V2 plugin utils for OSATE2.
@@ -36,7 +37,7 @@ You should have received a copy of the Eclipse Public License along with this pr
          id="org.osate.utils"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
 </feature>
