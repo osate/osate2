@@ -165,4 +165,35 @@
     </serviceFactory>
  </extension>
  
+  <extension
+        point="org.eclipse.ui.navigator.navigatorContent">
+     <navigatorContent
+           activeByDefault="true"
+           contentProvider="edu.uah.rsesc.aadl.age.ui.navigator.ContentProvider"
+           id="edu.uah.rsesc.aadl.age.navigatorContent2"
+           labelProvider="edu.uah.rsesc.aadl.age.ui.navigator.LabelProvider"
+           name="AADL Diagrams"
+           priority="highest">
+        <enablement>
+           <or>
+              <instanceof
+                    value="org.eclipse.core.resources.IResource">
+              </instanceof>
+           </or>
+        </enablement>
+     </navigatorContent>
+  </extension>
+  <extension
+        point="org.eclipse.ui.navigator.viewer">
+     <viewerContentBinding
+           viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+        <includes>
+           <contentExtension
+                 isRoot="false"
+                 pattern="edu.uah.rsesc.aadl.age.*">
+           </contentExtension>
+        </includes>
+     </viewerContentBinding>
+  </extension>
+ 
 </plugin>

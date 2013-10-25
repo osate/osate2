@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -31,20 +32,28 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultDiagramService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
 	private final PropertyService propertyUtil;
+	private final DiagramService diagramService;
 	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final PropertyService propertyUtil) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final PropertyService propertyUtil, final DiagramService diagramService) {
 		super(diagramContainer);
 		this.propertyUtil = propertyUtil;
+		this.diagramService = diagramService;
 	}	
 	
 	private IXtextModelListener modelListener = new IXtextModelListener() {
@@ -129,7 +138,12 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				});				
 				
 				// Save the diagram				
-				return super.save(editingDomain, saveOptions, monitor);
+				final Set<Resource> retValue = super.save(editingDomain, saveOptions, monitor);
+				
+				// Set the persistent properties
+				diagramService.savePersistentProperties(diagram);
+				
+				return retValue;
 			}
 		};
 	}

@@ -2,6 +2,7 @@ package edu.uah.rsesc.aadl.age.services;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.aadl2.NamedElement;
 
@@ -39,4 +40,17 @@ public interface DiagramService {
 	 * @param element the element for which to open/create the diagram
 	 */
 	public void openOrCreateDiagramForRootBusinessObject(final NamedElement element);
+	
+	/**
+	 * Returns the name of a specified diagram
+	 */
+	public String getName(final IFile diagramFile);
+	
+	/**
+	 * Stores persistent properties in the diagram's resource. Should be called after resource has been saved.
+	 * @param diagram
+	 * @param name
+	 */
+	public void savePersistentProperties(final Diagram diagram);
+
 }

@@ -36,6 +36,7 @@ import org.osate.aadl2.util.Aadl2Util;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
+import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
@@ -45,7 +46,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
 	private final VisibilityService visibilityService;
-	private final ShapeService shapeService;
+	private final ShapeService shapeService;	
 	
 	@Inject
 	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionCreationService connectionCreationService, final VisibilityService visibilityService, final ShapeService shapeService) {
