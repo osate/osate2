@@ -59,7 +59,7 @@ public interface AadlBaPackage extends EPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  String eNS_URI = "https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior/aadlba";
+  String eNS_URI = "https://github.com/osate/osate2-ba.git/aadlba";
 
   /**
    * The package namespace name.

@@ -62,7 +62,7 @@ public interface DeclarativePackage extends EPackage
    * @generated
    */
   String eNS_URI =
-        "https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior/declarative" ;
+        "https://github.com/osate/osate2-ba.git/declarative" ;
 
   /**
    * The package namespace name.

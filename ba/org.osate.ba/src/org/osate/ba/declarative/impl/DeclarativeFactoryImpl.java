@@ -52,7 +52,7 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
     {
       DeclarativeFactory theDeclarativeFactory =
             (DeclarativeFactory) EPackage.Registry.INSTANCE
-                  .getEFactory("https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior/declarative") ;
+                  .getEFactory("https://github.com/osate/osate2-ba.git/declarative") ;
       if(theDeclarativeFactory != null)
       {
         return theDeclarativeFactory ;
