@@ -18,6 +18,12 @@
    <feature url="features/org.osate.xtext.aadl2.errormodel.feature_2.0.0.qualifier.jar" id="org.osate.xtext.aadl2.errormodel.feature" version="2.0.0.qualifier">
       <category name="osate2"/>
    </feature>
+   <feature url="features/org.osate.ba.feature_1.0.0.qualifier.jar" id="org.osate.ba.feature" version="1.0.0.qualifier">
+      <category name="osate2"/>
+   </feature>
+   <feature url="features/org.osate.utils.feature_1.0.0.qualifier.jar" id="org.osate.utils.feature" version="1.0.0.qualifier">
+      <category name="osate2"/>
+   </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
          OSATE
