@@ -23,6 +23,7 @@ import org.osate.aadl2.FeatureGroupType;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
+import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
@@ -65,7 +66,7 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		Log.info("called with context: " + context);
 		final Classifier classifier = getClassifier(context);
 		final Diagram diagram = getDiagram();		
-		
+
 		// Update the diagram's name
 		if(classifier.getQualifiedName() != null) {
 			diagram.setName(classifier.getQualifiedName());

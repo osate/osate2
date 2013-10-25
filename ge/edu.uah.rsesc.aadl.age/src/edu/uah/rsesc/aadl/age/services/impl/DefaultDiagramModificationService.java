@@ -120,7 +120,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resource);
 			boolean editingDomainCreated = false;
 			if(editingDomain == null) {
-				Log.info("Creating a editing domain");
+				Log.info("Creating an editing domain");
 				editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
 				editingDomainCreated = true;
 			}
@@ -142,6 +142,14 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 				resource.save(null);
 			} catch (IOException e) {
 				throw new RuntimeException("Error saving new diagram", e);
+			}
+			
+			// TODO: Do not commit. Hack to work around rename/indexing issues.
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 			// Dispose of the editing domain if we created it

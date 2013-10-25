@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -13,6 +14,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -36,6 +38,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.ui.editor.AgeDiagramBehavior;
@@ -160,12 +163,10 @@ public class DefaultDiagramService implements DiagramService {
 	}
 	
 	/**
-	 * Builds the base part of the filename for a named element. 
-	 * @param namedElement the element to build the base filename for
-	 * @return the base filename for the element. The base filename is the filename without any suffixes or extension.
+	 * Builds a unique filename for a diagram. Does not include the extension.
 	 */
-	private String buildBaseFilename(final NamedElement namedElement) {
-		return namedElement.getQualifiedName().replace("::",  "__").replace('.', '_');
+	private String buildUniqueFilename() {
+		return UUID.randomUUID().toString();
 	}
 	
 	/**
@@ -196,7 +197,7 @@ public class DefaultDiagramService implements DiagramService {
 		
 		// Create a resource to hold the diagram
 		final IProject project = SelectionHelper.getProject(namedElement.eResource());
-		final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildBaseFilename(namedElement));
+		final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildUniqueFilename());
 		
 		// Store the diagram in the resource
 		editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
@@ -233,10 +234,12 @@ public class DefaultDiagramService implements DiagramService {
 			if(editor instanceof AgeDiagramEditor) {
 				final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editor;
 				final AgeDiagramBehavior behavior = (AgeDiagramBehavior)diagramEditor.getDiagramBehavior();
-				final Diagram diagram = behavior.getDiagramTypeProvider().getDiagram();
-				
-				openDiagrams.put(diagram.eResource().getURI(), diagram);
-				diagrams.add(diagram);
+
+				if(behavior != null && behavior.getDiagramTypeProvider() != null) {
+					final Diagram diagram = behavior.getDiagramTypeProvider().getDiagram();					
+					openDiagrams.put(diagram.eResource().getURI(), diagram);
+					diagrams.add(diagram);
+				}
 			}
 		}
 		
@@ -296,4 +299,56 @@ public class DefaultDiagramService implements DiagramService {
 		
 		return diagramFiles;
 	}
+
+	@Override
+	public String getName(final IFile diagramFile) {
+		String name = null;
+		try {
+			// Check modification time stamp
+			final String modStampPropValue = diagramFile.getPersistentProperty(this.diagramNameModificationStampPropertyName);
+			if(modStampPropValue != null && modStampPropValue.equals(Long.toString(diagramFile.getModificationStamp()))) {
+				name = diagramFile.getPersistentProperty(diagramNamePropertyName);				
+			}			
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		
+		if(name == null) {
+			final ResourceSet resourceSet = new ResourceSetImpl();
+			// Load the EMF Resource
+			final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
+			try {
+				final Resource resource = resourceSet.getResource(uri, true);
+				if(resource.getContents().size() > 0 && resource.getContents().get(0) instanceof Diagram) {
+					final Diagram diagram = (Diagram)resource.getContents().get(0);
+					name = diagram.getName();
+				}
+			} catch(final RuntimeException e) {				
+				e.printStackTrace();
+			}
+		}
+		
+		return name;
+	}
+	
+	@Override
+	public void savePersistentProperties(final Diagram diagram) {
+		// Set the persistent properties
+		final URI eUri = diagram.eResource().getURI();
+		if (eUri.isPlatformResource()) {
+			String platformString = eUri.toPlatformString(true);
+			final IResource fileResource = ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
+			
+			try {
+				fileResource.setPersistentProperty(diagramNamePropertyName, diagram.getName());
+				fileResource.setPersistentProperty(diagramNameModificationStampPropertyName, Long.toString(fileResource.getModificationStamp()));
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private final QualifiedName diagramNameModificationStampPropertyName = new QualifiedName("edu.uah.rsesc.age", "diagram_name_modification_stamp");
+	private final QualifiedName diagramNamePropertyName = new QualifiedName("edu.uah.rsesc.age", "diagram_name");
 }
