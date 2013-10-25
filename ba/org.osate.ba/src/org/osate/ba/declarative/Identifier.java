@@ -52,7 +52,7 @@ public interface Identifier extends BehaviorState, DeclarativeBehaviorElement
    * @return the value of the '<em>Id</em>' attribute.
    * @see #setId(String)
    * @see org.osate.ba.declarative.DeclarativePackage#getIdentifier_Id()
-   * @model dataType="fr.tpt.aadl.annex.behavior.aadlba.String" required="true"
+   * @model dataType="org.osate.ba.aadlba.String" required="true"
    * @generated
    */
   String getId() ;

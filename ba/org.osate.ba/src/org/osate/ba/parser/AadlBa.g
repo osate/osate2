@@ -49,10 +49,10 @@ options
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
  
- package fr.tpt.aadl.annex.behavior.parser ;
+ package org.osate.ba.parser ;
  
- import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
- import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter ;
+ import org.osate.ba.texteditor.AadlBaHighlighter ;
+ import org.osate.ba.texteditor.DefaultAadlBaHighlighter ;
  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
 }
 
@@ -156,7 +156,7 @@ options
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
   
-  package fr.tpt.aadl.annex.behavior.parser;
+  package org.osate.ba.parser;
   
   import org.eclipse.emf.common.util.BasicEList ;
 
@@ -169,11 +169,11 @@ options
   
   import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
   
-  import fr.tpt.aadl.annex.behavior.aadlba.*;
-  import fr.tpt.aadl.annex.behavior.declarative.* ;
-  import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
+  import org.osate.ba.aadlba.*;
+  import org.osate.ba.declarative.* ;
+  import org.osate.ba.analyzers.DeclarativeUtils ;
   
-  import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
+  import org.osate.ba.utils.AadlBaLocationReference ;
   
   import org.osate.aadl2.Element ;
   import org.osate.aadl2.Aadl2Package ;

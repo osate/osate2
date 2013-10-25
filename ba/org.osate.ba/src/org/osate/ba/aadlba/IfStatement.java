@@ -78,7 +78,7 @@ public interface IfStatement extends CondStatement, ElseStatement
    * @return the value of the '<em>Elif</em>' attribute.
    * @see #setElif(boolean)
    * @see org.osate.ba.aadlba.AadlBaPackage#getIfStatement_Elif()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isElif();

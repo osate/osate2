@@ -78,7 +78,7 @@ public interface ForOrForAllStatement extends LoopStatement
    * @return the value of the '<em>For All</em>' attribute.
    * @see #setForAll(boolean)
    * @see org.osate.ba.aadlba.AadlBaPackage#getForOrForAllStatement_ForAll()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isForAll();

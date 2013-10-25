@@ -77,7 +77,7 @@ public interface WhileOrDoUntilStatement extends LoopStatement
    * @return the value of the '<em>Do Until</em>' attribute.
    * @see #setDoUntil(boolean)
    * @see org.osate.ba.aadlba.AadlBaPackage#getWhileOrDoUntilStatement_DoUntil()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isDoUntil();

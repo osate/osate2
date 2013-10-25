@@ -104,7 +104,7 @@ public interface CommAction extends CommunicationAction,
    * @return the value of the '<em>Port Freeze</em>' attribute.
    * @see #setPortFreeze(boolean)
    * @see org.osate.ba.declarative.DeclarativePackage#getCommAction_PortFreeze()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isPortFreeze() ;
@@ -131,7 +131,7 @@ public interface CommAction extends CommunicationAction,
    * @return the value of the '<em>Port Dequeue</em>' attribute.
    * @see #setPortDequeue(boolean)
    * @see org.osate.ba.declarative.DeclarativePackage#getCommAction_PortDequeue()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isPortDequeue() ;
@@ -158,7 +158,7 @@ public interface CommAction extends CommunicationAction,
    * @return the value of the '<em>Lock</em>' attribute.
    * @see #setLock(boolean)
    * @see org.osate.ba.declarative.DeclarativePackage#getCommAction_Lock()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isLock() ;
@@ -185,7 +185,7 @@ public interface CommAction extends CommunicationAction,
    * @return the value of the '<em>Unlock</em>' attribute.
    * @see #setUnlock(boolean)
    * @see org.osate.ba.declarative.DeclarativePackage#getCommAction_Unlock()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isUnlock() ;

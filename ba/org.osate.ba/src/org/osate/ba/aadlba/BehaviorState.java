@@ -54,7 +54,7 @@ public interface BehaviorState extends BehaviorNamedElement
    * @return the value of the '<em>Initial</em>' attribute.
    * @see #setInitial(boolean)
    * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorState_Initial()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean" required="true"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean" required="true"
    * @generated
    */
   boolean isInitial();
@@ -81,7 +81,7 @@ public interface BehaviorState extends BehaviorNamedElement
    * @return the value of the '<em>Complete</em>' attribute.
    * @see #setComplete(boolean)
    * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorState_Complete()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean" required="true"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean" required="true"
    * @generated
    */
   boolean isComplete();
@@ -108,7 +108,7 @@ public interface BehaviorState extends BehaviorNamedElement
    * @return the value of the '<em>Final</em>' attribute.
    * @see #setFinal(boolean)
    * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorState_Final()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean" required="true"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean" required="true"
    * @generated
    */
   boolean isFinal();

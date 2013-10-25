@@ -84,7 +84,7 @@ public interface NamedValue extends IntegerValueVariable, ValueVariable,
    * @return the value of the '<em>Dequeue</em>' attribute.
    * @see #setDequeue(boolean)
    * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Dequeue()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isDequeue() ;
@@ -111,7 +111,7 @@ public interface NamedValue extends IntegerValueVariable, ValueVariable,
    * @return the value of the '<em>Fresh</em>' attribute.
    * @see #setFresh(boolean)
    * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Fresh()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isFresh() ;
@@ -138,7 +138,7 @@ public interface NamedValue extends IntegerValueVariable, ValueVariable,
    * @return the value of the '<em>Count</em>' attribute.
    * @see #setCount(boolean)
    * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Count()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
    * @generated
    */
   boolean isCount() ;
