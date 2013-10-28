@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadlba" nsURI="aadlba" nsPrefix="aadlba">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadlba" nsURI="https://github.com/osate/osate2-ba.git/aadlba"
+    nsPrefix="aadlba">
   <eClassifiers xsi:type="ecore:EClass" name="ActualPortHolder" abstract="true" eSuperTypes="#//PortHolder">
     <eOperations name="setPort" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
