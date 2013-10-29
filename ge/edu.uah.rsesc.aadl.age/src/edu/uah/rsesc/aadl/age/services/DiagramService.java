@@ -21,19 +21,10 @@ public interface DiagramService {
 			super(DiagramService.class, DefaultDiagramService.class);
 		}
 	}	
-	
-	// TODO: Rename
-	public static interface DiagramCallback {
-		void onDiagram(final Diagram diagram);
-	}
-	
-	/**
-	 * Perform a read-only operation on all diagrams using a callback
-	 * @param cb
-	 */
-	public void readDiagrams(final DiagramCallback cb);
-	
+
 	public List<Diagram> findDiagramsByRootBusinessObject(final NamedElement ne);
+	
+	public List<Diagram> findDiagrams();
 	
 	/**
 	 * Opens the first found existing diagram for an element. If a diagram is not found, a diagram of the appropriate type is created.

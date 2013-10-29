@@ -22,10 +22,13 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
-import edu.uah.rsesc.aadl.age.services.DiagramService.DiagramCallback;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class DefaultDiagramModificationService implements DiagramModificationService {
+	public static interface DiagramCallback {
+		void onDiagram(final Diagram diagram);
+	}
+	
 	private final DiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	
@@ -41,6 +44,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 
 	class DefaultModification implements Modification {
 		private final Map<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<Diagram, Map<NamedElement, PictogramElement[]>>();
+		private final List<Diagram> diagrams;
 		
 		private Map<NamedElement, PictogramElement[]> getDirtyLinkages(final Diagram diagram) {
     		Map<NamedElement, PictogramElement[]> dirtyLinkages = diagramToDirtyLinkages.get(diagram);
@@ -55,39 +59,40 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     		getDirtyLinkages(diagram).put(el, pes);
     	}
     	
+    	public DefaultModification() {
+    		diagrams = diagramService.findDiagrams();
+    	}
+    	
     	public void markLinkagesAsDirty(final NamedElement el) {
     		final AadlElementWrapper elWrapper = new AadlElementWrapper(el);
     		
     		// For each diagram
-    		diagramService.readDiagrams(new DiagramCallback() {
-    			@Override
-    			public void onDiagram(final Diagram diagram) {
-    				// Create a feature provider and check if it is linked to the aadl element
-    				final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-    				if(featureProvider != null) {
-    					final Object diagramBo = bor.getBusinessObjectForPictogramElement(diagram);
+    		for(final Diagram diagram : diagrams) {
+    			// Create a feature provider and check if it is linked to the aadl element
+				final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
+				if(featureProvider != null) {
+					final Object diagramBo = bor.getBusinessObjectForPictogramElement(diagram);
 
-    					// Find Linkages
-    					final List<PictogramElement> linkages = new ArrayList<PictogramElement>();
-    					
-    					// Get pictogram elements in the diagram that is linked to the element
-    					final PictogramElement[] pes = featureProvider.getAllPictogramElementsForBusinessObject(elWrapper);
- 						for(PictogramElement pe : pes) {
-							linkages.add(pe);
-						}
-    	
- 						// Check if the diagram is linked to the element. Diagrams are not returned by getAllPictogramElementsForBusinessObject
-						if(diagramBo instanceof NamedElement && el.getQualifiedName().equalsIgnoreCase(((NamedElement)diagramBo).getQualifiedName())) {
-							linkages.add(diagram);
-						}						
-						
-    					// Add to dirty linkages
-						if(linkages.size() > 0) {
-							setDirtyLinkages(diagram, el, linkages.toArray(new PictogramElement[0]));
-						}
-    				}
-    			}			
-    		});
+					// Find Linkages
+					final List<PictogramElement> linkages = new ArrayList<PictogramElement>();
+					
+					// Get pictogram elements in the diagram that is linked to the element
+					final PictogramElement[] pes = featureProvider.getAllPictogramElementsForBusinessObject(elWrapper);
+						for(PictogramElement pe : pes) {
+						linkages.add(pe);
+					}
+	
+						// Check if the diagram is linked to the element. Diagrams are not returned by getAllPictogramElementsForBusinessObject
+					if(diagramBo instanceof NamedElement && el.getQualifiedName().equalsIgnoreCase(((NamedElement)diagramBo).getQualifiedName())) {
+						linkages.add(diagram);
+					}						
+					
+					// Add to dirty linkages
+					if(linkages.size() > 0) {
+						setDirtyLinkages(diagram, el, linkages.toArray(new PictogramElement[0]));
+					}
+				}
+    		}
     	}
     	
 		@Override
@@ -112,9 +117,9 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					}    					
 				});
     		}
-		}			
+		}	
 
-    	private void updateDiagram(final Diagram diagram, final DiagramService.DiagramCallback cb) {
+    	private void updateDiagram(final Diagram diagram, final DiagramCallback cb) {
     		final Resource resource = diagram.eResource();
     		final ResourceSet resourceSet = resource.getResourceSet();
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resource);
