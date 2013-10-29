@@ -61,7 +61,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(root.getQualifiedName());
 				if(doc == null) {
 					final XtextResource res = (XtextResource)element.eResource();
-					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier);
+					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, true);
 					modifierResult = modifySafelyResult.modifierResult;
 					
 					if(modifySafelyResult.modificationSuccessful) {
@@ -94,7 +94,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 								return null;
 							}
 							
-							return modifySafely(res, element, modifier);
+							return modifySafely(res, element, modifier, false);
 						}
 					});
 					modifierResult = modifySafelyResult.modifierResult;
@@ -153,7 +153,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <E extends Element, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier) {
+	private <E extends Element, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier, final boolean testSerialization) {
 		if(resource.getContents().size() < 1) {
 			return null;
 		}
@@ -190,6 +190,12 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				result = (R)cmdResult[0];
 			}
 			
+			// Try to serialize the resource. In some cases serialization can fail and leave a corrupt model if we are editing without an xtext document
+			// The real serialization will occur later.
+			if(testSerialization) {
+				resource.getSerializer().serialize(resource.getContents().get(0));
+			}
+			
 			// Mark the modification as successful
 			modificationSuccessful = true;
 		} finally {
@@ -215,6 +221,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				if(domain.getCommandStack().canUndo()) {
 					domain.getCommandStack().undo();
 				}
+				
 				modificationSuccessful = false;
 				result = null;
 			}
