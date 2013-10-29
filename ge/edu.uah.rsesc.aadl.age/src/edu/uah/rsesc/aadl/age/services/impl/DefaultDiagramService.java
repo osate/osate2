@@ -48,13 +48,6 @@ import edu.uah.rsesc.aadl.age.util.Log;
 
 public class DefaultDiagramService implements DiagramService {
 	@Override
-	public void readDiagrams(final DiagramCallback cb) {
-		for(final Diagram diagram : findDiagrams()) {
-			cb.onDiagram(diagram);					
-		}		
-	}
-
-	@Override
 	public List<Diagram> findDiagramsByRootBusinessObject(final NamedElement ne) {
 		final List<Diagram> matchingDiagrams = new ArrayList<Diagram>();
 		final String aadlElementName = ne.getQualifiedName();
@@ -225,7 +218,8 @@ public class DefaultDiagramService implements DiagramService {
 	 * Returns all diagrams. If a diagram is open it returns the open diagram
 	 * @return
 	 */
-	private List<Diagram> findDiagrams() {
+	@Override
+	public List<Diagram> findDiagrams() {
 		final List<Diagram> diagrams = new ArrayList<Diagram>();
 		final Map<URI, Diagram> openDiagrams = new HashMap<URI, Diagram>();
 		
