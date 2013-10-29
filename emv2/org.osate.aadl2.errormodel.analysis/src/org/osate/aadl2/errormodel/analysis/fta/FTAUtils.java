@@ -375,6 +375,13 @@ public class FTAUtils
 						tmpEvent = new Event();
 						tmpEvent.setEventType(EventType.EVENT);
 						tmpEvent.setName(fppr.getFeatureorPP().getName());
+						EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,ep,null);
+						//OsateDebug.osateDebug("         PA " + PA);
+						if (!PA.isEmpty()){
+							double prob = EMV2Properties.getOccurenceValue (PA.get(0));
+							tmpEvent.setProbability(prob);
+						}						
+						
 						toAdd.add(tmpEvent);
 					}
 //						event.setName("unknown fault");
@@ -434,6 +441,13 @@ public class FTAUtils
 				{
 					ErrorEvent ee = (ErrorEvent) conditionElement.getIncoming();
 					event.setEventType(EventType.EVENT);
+					EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,ee,null);
+					//OsateDebug.osateDebug("         PA " + PA);
+					if (!PA.isEmpty()){
+						double prob = EMV2Properties.getOccurenceValue (PA.get(0));
+						event.setProbability(prob);
+					}		
+					
 					event.setName(ee.getName());
 				}
 			}
@@ -713,8 +727,8 @@ public class FTAUtils
 		EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedComponentInstance,behaviorState,null);
 		//OsateDebug.osateDebug("         PA " + PA);
 		if (!PA.isEmpty()){
-		double prob = EMV2Properties.getOccurenceValue (PA.get(0));
-		event.setProbability(prob);
+			double prob = EMV2Properties.getOccurenceValue (PA.get(0));
+			event.setProbability(prob);
 		}
 		
 	}

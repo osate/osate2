@@ -128,10 +128,12 @@ public class Event
 		{
 			sb.append (" id=\""+this.getIdentifier()+"\" ");
 		}
-		if ((this.showProbability) && (this.type == EventType.NORMAL))
+
+		if (this.probability != 0.0)
 		{
 			sb.append (" probability=\""+this.probability+"\"");
 		}
+		
 		if (this.type != EventType.NORMAL)
 		{
 			sb.append (" type=\""+EventType.toString(this.type)+"\"");
