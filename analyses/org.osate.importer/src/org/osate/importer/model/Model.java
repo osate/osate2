@@ -3,7 +3,7 @@ package org.osate.importer.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osate.importer.statemachine.StateMachine;
+import org.osate.importer.model.sm.StateMachine;
 
 public class Model {
 	private List<Component> 	components;
@@ -36,6 +36,30 @@ public class Model {
 	public List<Component> getComponents ()
 	{
 		return this.components;
+	}
+	
+	public StateMachine getStateMachine (int identifier)
+	{
+		for (StateMachine sm : stateMachines)
+		{
+			if (sm.getIndentifier() == identifier)
+			{
+				return sm;
+			}
+		}
+		return null;
+	}
+	
+	public StateMachine getStateMachine (String name)
+	{
+		for (StateMachine sm : stateMachines)
+		{
+			if (sm.getName().equalsIgnoreCase(name))
+			{
+				return sm;
+			}
+		}
+		return null;
 	}
 	
 	public List<StateMachine> getStateMachines ()

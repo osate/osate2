@@ -1,4 +1,4 @@
-package org.osate.importer.statemachine;
+package org.osate.importer.model.sm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class State {
 	public String toString ()
 	{
 		String res;
-		res = "";
+		res = "State ";
 		
 		if (this.name != null)
 		{

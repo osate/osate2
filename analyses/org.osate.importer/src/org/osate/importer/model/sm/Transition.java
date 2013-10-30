@@ -1,4 +1,4 @@
-package org.osate.importer.statemachine;
+package org.osate.importer.model.sm;
 
 import org.osate.importer.Utils;
 

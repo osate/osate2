@@ -41,5 +41,5 @@ Bundle-ClassPath: ., lib/jxl.jar
 Export-Package: org.osate.importer,
  org.osate.importer.generic.actions,
  org.osate.importer.model,
- org.osate.importer.properties,
- org.osate.importer.statemachine
+ org.osate.importer.model.sm,
+ org.osate.importer.properties

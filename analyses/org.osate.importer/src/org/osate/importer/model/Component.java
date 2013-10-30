@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.osate.importer.Utils;
-import org.osate.importer.statemachine.StateMachine;
+import org.osate.importer.model.sm.StateMachine;
 
 public class Component implements Comparable {
 

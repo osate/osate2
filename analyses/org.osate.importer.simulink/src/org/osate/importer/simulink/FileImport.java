@@ -41,6 +41,8 @@
 package org.osate.importer.simulink;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipFile;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -50,9 +52,9 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
-import org.osate.importer.statemachine.State;
-import org.osate.importer.statemachine.StateMachine;
-import org.osate.importer.statemachine.Transition;
+import org.osate.importer.model.sm.State;
+import org.osate.importer.model.sm.StateMachine;
+import org.osate.importer.model.sm.Transition;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -62,6 +64,24 @@ public class FileImport {
 
 	private static String SIMULINK_ENTRYFILE = "simulink/blockdiagram.xml";
 	private static Model producedModel;
+	private static List<StateFlowInstance> stateFlowInstances;
+	
+	public static List<StateFlowInstance> getStateFlowInstances ()
+	{
+		return stateFlowInstances;
+	}
+	
+	public static StateFlowInstance getStateFlowImport (String s)
+	{
+		for (StateFlowInstance sfi : stateFlowInstances)
+		{
+			if (sfi.getName().equalsIgnoreCase(s))
+			{
+				return sfi;
+			}
+		}
+		return null;
+	}
 	
 	private static String getTagValue(String sTag, Element eElement)
 	{
@@ -104,6 +124,9 @@ public class FileImport {
 		}
 	}
 	
+	
+	
+	
 	private static void processStateFlow (Node sf)
 	{
 		NodeList nList = sf.getChildNodes();
@@ -116,6 +139,42 @@ public class FileImport {
 			{
 //				OsateDebug.osateDebug("machine");
 				processStateFlowMachine (nNode);
+			}
+			
+			
+			if (nNode.getNodeName().equalsIgnoreCase("instance"))
+			{
+				StateFlowInstance sfi = new StateFlowInstance();
+//				OsateDebug.osateDebug("machine");
+				Node			attrName;
+				String			attrValue;
+				NodeList nList2 = nNode.getChildNodes();
+				for (int temp2 = 0; temp2 < nList2.getLength(); temp2++) 
+				{
+					Node nNode2 = nList2.item(temp2);
+					if (nNode2.getNodeName().equalsIgnoreCase("p"))
+					{
+						attrName = getAttribute(nNode2, "Name");
+						attrValue = attrName.getNodeValue().toString();
+						
+						if (attrValue.equalsIgnoreCase("name"))
+						{
+							sfi.setName(nNode2.getTextContent());
+						}
+						
+						if (attrValue.equalsIgnoreCase("machine"))
+						{
+							sfi.setMachineId(Integer.parseInt(nNode2.getTextContent()));
+						}
+						
+						if (attrValue.equalsIgnoreCase("chart"))
+						{
+							sfi.setChartId(Integer.parseInt(nNode2.getTextContent()));
+						}
+					}
+				}
+				OsateDebug.osateDebug("Add instance of stateflow");
+				stateFlowInstances.add (sfi);
 			}
 		}
 	}
@@ -565,7 +624,7 @@ public class FileImport {
 //		OsateDebug.osateDebug("try to load" + inputFile);
 		
 		producedModel = new Model();
-		
+		stateFlowInstances = new ArrayList<StateFlowInstance> ();
 		try 
 		{
 			if (inputFile.contains(".slx"))
@@ -621,6 +680,7 @@ public class FileImport {
 //						OsateDebug.osateDebug("Model passed");
 						processModel (tNode);
 					}
+
 				}
 			}
 			

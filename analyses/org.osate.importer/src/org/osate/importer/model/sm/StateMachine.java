@@ -1,4 +1,4 @@
-package org.osate.importer.statemachine;
+package org.osate.importer.model.sm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +55,11 @@ public class StateMachine {
 			}
 		}
 		return null;
+	}
+	
+	public List<State> getStates ()
+	{
+		return this.states;
 	}
 	
 	public State findStateByName (String n)

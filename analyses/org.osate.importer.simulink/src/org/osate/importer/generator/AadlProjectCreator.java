@@ -41,10 +41,16 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
+import javax.imageio.stream.FileImageInputStream;
+
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Preferences;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Model;
+import org.osate.importer.model.sm.State;
+import org.osate.importer.model.sm.StateMachine;
+import org.osate.importer.simulink.FileImport;
+import org.osate.importer.simulink.StateFlowInstance;
 
 
 public class AadlProjectCreator
@@ -262,8 +268,33 @@ public class AadlProjectCreator
 							}
 						}
 					}
+					StateFlowInstance sfi = FileImport.getStateFlowImport (e.getAadlName());
+					if (sfi != null) 
+					{
+					OsateDebug.osateDebug("WE GOT ONE !");
+						StateMachine sm = genericModel.getStateMachine (sfi.getMachineId());
+						if (sm != null)
+						{
+							OsateDebug.osateDebug("WE GOT TWO !");
+							OsateDebug.osateDebug(sm.toString());
+							out.write ("annex behavior_specification {**\n");
+							
+							if (sm.getStates().size() > 0)
+							{
+								out.write ("states\n");
+								for (State state : sm.getStates())
+								{
+									out.write (state.getName() + ": state\n");
+								}
+							}
+							out.write ("**};\n");
+						}
+					}
+					
 					out.write ("end "+ e.getAadlName() + ".i;\n\n");
 				}
+				
+
 				
 				if ((e.getParent() == null) && (Preferences.mapThread()))
 				{
