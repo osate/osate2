@@ -236,26 +236,29 @@ public class AadlProjectCreator
 						out.write ("};\n");
 	
 						out.write ("connections\n");
+						
+						int connectionId = 0;
 						for (Component etmp : e.getSubEntities())
 						{
 							for (Component e2 : etmp.getIncomingDependencies())
 							{
 								if (e.contains(e2))
 								{
-									out.write ("   parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> call_"+e2.getAadlName()+"to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
+									out.write ("   c" + connectionId++ + " : parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> call_"+e2.getAadlName()+"to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
 	
 								}
 								else
 								{
-									out.write ("   parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
+									out.write ("   c" + connectionId++ + " : parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
 								}
 							}
 							for (Component e2 : etmp.getOutgoingDependencies())
 							{
 								if (e.contains(e2))
 								{
-									out.write ("   parameter call_"+e2.getAadlName()+ "to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
+									out.write ("   c" + connectionId++ + " : parameter call_"+e2.getAadlName()+ "to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
 								}
+
 							}
 						}
 					}
@@ -305,6 +308,7 @@ public class AadlProjectCreator
 					out.write ("thread implementation thr_"+e.getAadlName() + ".i\n");
 					if (Preferences.mapSubprogram())
 					{
+						int connectionId = 0;
 						out.write ("calls\n");
 	
 						out.write ("   mycall : {\n");
@@ -320,11 +324,11 @@ public class AadlProjectCreator
 						}
 						for (Component e2 : e.getIncomingDependencies())
 						{
-							out.write ("   parameter from_"+e2.getAadlName()+" -> call1.to_"+e.getAadlName()+"_from_"+e2.getAadlName()+";\n");
+							out.write ("   c" + connectionId++ +" : parameter from_"+e2.getAadlName()+" -> call1.to_"+e.getAadlName()+"_from_"+e2.getAadlName()+";\n");
 						}
 						for (Component e2 : e.getOutgoingDependencies())
 						{
-							out.write ("   parameter call1.from_"+e.getAadlName()+"_to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
+							out.write ("   c" + connectionId++ +" : parameter call1.from_"+e.getAadlName()+"_to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
 						}
 					}
 					out.write ("end thr_"+ e.getAadlName() + ".i;\n\n");
@@ -354,6 +358,7 @@ public class AadlProjectCreator
 					out.write ("process implementation pr_"+e.getAadlName()+".i\n");
 					if (Preferences.mapThread())
 					{
+						int connectionId = 0;
 						out.write ("subcomponents\n");
 						out.write ("   t_"+e.getAadlName()+" : thread thr_"+ e.getAadlName() + ".i;\n\n");
 						if ( (e.getIncomingDependencies().size() > 0 )||
@@ -366,11 +371,11 @@ public class AadlProjectCreator
 						}
 						for (Component e2 : e.getIncomingDependencies())
 						{
-							out.write ("   port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
+							out.write ("   c" + connectionId++ +" : port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
 						}
 						for (Component e2 : e.getOutgoingDependencies())
 						{
-							out.write ("   port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
+							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
 	
 						}
 					}
@@ -474,7 +479,7 @@ public class AadlProjectCreator
 				out.write("	ram    : memory ram.i;\n");
 			}
 
-
+			int connectionId = 0;
 			for (Component e : genericModel.getComponents())
 			{
 				if (e.getParent() != null)
@@ -488,7 +493,7 @@ public class AadlProjectCreator
 						connectionPreamble = true;
 						out.write("connections\n");
 					}
-					out.write("   port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
+					out.write("   c" + connectionId++ +" : port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
 				}
 			}
 
