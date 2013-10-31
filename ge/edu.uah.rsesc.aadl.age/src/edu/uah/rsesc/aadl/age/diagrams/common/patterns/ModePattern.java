@@ -14,9 +14,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
+import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
@@ -34,18 +36,28 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
+import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
+import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 public class ModePattern extends AgeLeafShapePattern {
 	public static String innerModeShapeName = "inner_mode";
@@ -56,10 +68,14 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final PropertyService propertyUtil;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final StyleService styleUtil;
+	private final AadlModificationService modificationService;
+	private final NamingService namingService;
+	private final BusinessObjectResolutionService bor;	
 	
 	@Inject
 	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final ShapeService shapeHelper, 
-			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil) {
+			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil,
+			final AadlModificationService modificationService, final NamingService namingService, final BusinessObjectResolutionService bor) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorService = anchorUtil;
 		this.resizeHelper = resizeHelper;
@@ -67,6 +83,9 @@ public class ModePattern extends AgeLeafShapePattern {
 		this.propertyUtil = propertyUtil;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.styleUtil = styleUtil;
+		this.modificationService = modificationService;
+		this.namingService = namingService;
+		this.bor = bor;
 	}
 
 	@Override
@@ -237,5 +256,49 @@ public class ModePattern extends AgeLeafShapePattern {
 		for(final Connection connection : connectionsToRemove) {
 			EcoreUtil.delete(connection, true);
 		}		
+	}
+
+	@Override
+	public boolean isPaletteApplicable() {
+		return bor.getBusinessObjectForPictogramElement(getDiagram()) instanceof ComponentType;
+	}
+	
+	@Override
+	public boolean canCreate(final ICreateContext context) {
+		return bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentType;
+	}
+	
+	@Override
+	public String getCreateName() {
+		return "Mode";
+	}
+	
+	@Override
+	public Object[] create(final ICreateContext context) {
+		// Get the classifier
+		final ComponentClassifier classifier = (ComponentClassifier)bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+		final Mode newMode;
+		if(classifier == null) {
+			newMode = null;
+		} else {
+			final String newModeName = namingService.buildUniqueIdentifier(classifier, "newMode");
+			
+			// Make the modification
+			newMode = modificationService.modify(classifier, new AbstractModifier<ComponentClassifier, Mode>() {
+				@Override
+				public Mode modify(final Resource resource, final ComponentClassifier classifier) {
+					final Mode newMode = classifier.createOwnedMode();
+					
+					newMode.setInitial(false);
+				//	newMode.eUnset(Aadl2Factory.eINSTANCE.getAadl2Package().getMode_Derived());
+					newMode.setDerived(false);
+					newMode.setName(newModeName);
+					return newMode;
+				}			
+			});
+		}
+		
+		// Return the new mode if it was created
+		return newMode == null ? EMPTY : new Object[] {newMode};
 	}
 }
