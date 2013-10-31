@@ -74,50 +74,7 @@ public class Utils {
 	}
 
 
-	public static int getConnectionPointInformation (String connection, int field)
-	{
-		int idx1;
-		int idx2;
-		String blockIndex;
-		String portDirection;
-		String portIndex;
-		
-		idx1 = connection.indexOf("#");
-		idx2 = connection.indexOf(":");
-		blockIndex = connection.substring(0, idx1);
-		portDirection = connection.substring(idx1+1, idx2);
-		portIndex = connection.substring(idx2+1);
-//		OsateDebug.osateDebug("blockIndex="+ blockIndex);
-//		OsateDebug.osateDebug("portDirection="+ portDirection);
-//		OsateDebug.osateDebug("portIndex="+ portIndex);
-		
-		switch (field)
-		{
-			case CONNECTION_FIELD_BLOCK_INDEX:
-			{
-				return Integer.parseInt(blockIndex);
-			}
 
-			case CONNECTION_FIELD_PORT_DIRECTION:
-			{
-				if (portDirection.equalsIgnoreCase("out"))
-				{
-					return CONNECTION_FIELD_PORT_OUT;
-				}
-				return CONNECTION_FIELD_PORT_IN;
-			}			
-			
-			case CONNECTION_FIELD_PORT_INDEX:
-			{
-				return Integer.parseInt(portIndex);
-			}
-			
-			default:
-			{
-				return 0;
-			}
-		}
-	}
 	
 	
 	public static String getActionFromLabel (String label)
@@ -179,4 +136,50 @@ public class Utils {
 		}
 		return label;
 	}
+
+
+	public static int getConnectionPointInformation (String connection, int field)
+		{
+			int idx1;
+			int idx2;
+			String blockIndex;
+			String portDirection;
+			String portIndex;
+			
+			idx1 = connection.indexOf("#");
+			idx2 = connection.indexOf(":");
+			blockIndex = connection.substring(0, idx1);
+			portDirection = connection.substring(idx1+1, idx2);
+			portIndex = connection.substring(idx2+1);
+	//		OsateDebug.osateDebug("blockIndex="+ blockIndex);
+	//		OsateDebug.osateDebug("portDirection="+ portDirection);
+	//		OsateDebug.osateDebug("portIndex="+ portIndex);
+			
+			switch (field)
+			{
+				case CONNECTION_FIELD_BLOCK_INDEX:
+				{
+					return Integer.parseInt(blockIndex);
+				}
+	
+				case CONNECTION_FIELD_PORT_DIRECTION:
+				{
+					if (portDirection.equalsIgnoreCase("out"))
+					{
+						return CONNECTION_FIELD_PORT_OUT;
+					}
+					return CONNECTION_FIELD_PORT_IN;
+				}			
+				
+				case CONNECTION_FIELD_PORT_INDEX:
+				{
+					return Integer.parseInt(portIndex);
+				}
+				
+				default:
+				{
+					return 0;
+				}
+			}
+		}
 }

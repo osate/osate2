@@ -71,6 +71,11 @@ public class FileImport {
 		return stateFlowInstances;
 	}
 	
+	public void addStateFlowInstance (StateFlowInstance sfi)
+	{
+		this.stateFlowInstances.add(sfi);
+	}
+	
 	public static StateFlowInstance getStateFlowImport (String s)
 	{
 		for (StateFlowInstance sfi : stateFlowInstances)
@@ -157,59 +162,8 @@ public class FileImport {
 	}
 	
 
-	
-	public static final int CONNECTION_FIELD_BLOCK_INDEX 			= 1;
-	public static final int CONNECTION_FIELD_PORT_DIRECTION 		= 2;
-	public static final int CONNECTION_FIELD_PORT_INDEX 			= 3;
-	
-	public static final int CONNECTION_FIELD_PORT_IN 		= 1;
-	public static final int CONNECTION_FIELD_PORT_OUT 		= 2;
-	
-	private static int getConnectionPointInformation (String connection, int field)
-	{
-		int idx1;
-		int idx2;
-		String blockIndex;
-		String portDirection;
-		String portIndex;
-		
-		idx1 = connection.indexOf("#");
-		idx2 = connection.indexOf(":");
-		blockIndex = connection.substring(0, idx1);
-		portDirection = connection.substring(idx1+1, idx2);
-		portIndex = connection.substring(idx2+1);
-//		OsateDebug.osateDebug("blockIndex="+ blockIndex);
-//		OsateDebug.osateDebug("portDirection="+ portDirection);
-//		OsateDebug.osateDebug("portIndex="+ portIndex);
-		
-		switch (field)
-		{
-			case CONNECTION_FIELD_BLOCK_INDEX:
-			{
-				return Integer.parseInt(blockIndex);
-			}
 
-			case CONNECTION_FIELD_PORT_DIRECTION:
-			{
-				if (portDirection.equalsIgnoreCase("out"))
-				{
-					return CONNECTION_FIELD_PORT_OUT;
-				}
-				return CONNECTION_FIELD_PORT_IN;
-			}			
-			
-			case CONNECTION_FIELD_PORT_INDEX:
-			{
-				return Integer.parseInt(portIndex);
-			}
-			
-			default:
-			{
-				return 0;
-			}
-		}
-	}
-
+	
 	private static void processStateFlowChild (Node child, StateMachine sm)
 	{
 		NodeList 		nList;
@@ -452,8 +406,8 @@ public class FileImport {
 	{
 		if ((dstString != null) && (srcString != null))
 		{
-			int srcBlockIndex = getConnectionPointInformation(srcString, CONNECTION_FIELD_BLOCK_INDEX);
-			int dstBlockIndex = getConnectionPointInformation(dstString, CONNECTION_FIELD_BLOCK_INDEX);
+			int srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
+			int dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
 			
 			OsateDebug.osateDebug("[FileImport] connection src=" + srcString +"|dst="+dstString);
 			Component srcComponent = producedModel.findComponentById(srcBlockIndex);
@@ -587,7 +541,7 @@ public class FileImport {
 								{
 									srcString = tmpNode4.getTextContent();
 //									OsateDebug.osateDebug("srcString="+srcString);
-									srcBlockIndex = getConnectionPointInformation(srcString, CONNECTION_FIELD_BLOCK_INDEX);
+									srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
 									addConnection (srcString, dstString);
 								}
 								
@@ -595,7 +549,7 @@ public class FileImport {
 								{
 									dstString = tmpNode4.getTextContent();
 //									OsateDebug.osateDebug("dstString="+dstString);
-									dstBlockIndex = getConnectionPointInformation(dstString, CONNECTION_FIELD_BLOCK_INDEX);
+									dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
 									addConnection (srcString, dstString);
 								}
 							}
