@@ -49,12 +49,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.importer.model.Component;
-import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
-import org.osate.importer.model.sm.State;
-import org.osate.importer.model.sm.StateMachine;
-import org.osate.importer.model.sm.Transition;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -66,14 +61,19 @@ public class FileImport {
 	private static Model producedModel;
 	private static List<StateFlowInstance> stateFlowInstances;
 	
+	public Model getModel()
+	{
+		return this.producedModel;
+	}
+	
 	public static List<StateFlowInstance> getStateFlowInstances ()
 	{
 		return stateFlowInstances;
 	}
 	
-	public void addStateFlowInstance (StateFlowInstance sfi)
+	public static void addStateFlowInstance (StateFlowInstance sfi)
 	{
-		this.stateFlowInstances.add(sfi);
+		stateFlowInstances.add(sfi);
 	}
 	
 	public static StateFlowInstance getStateFlowImport (String s)
@@ -90,475 +90,9 @@ public class FileImport {
 	
 
 
-	private static void processModel (Node model)
-	{
-		NodeList nList = model.getChildNodes();
-		
-
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("system"))
-			{
-//				OsateDebug.osateDebug("System passed");
-				processSystem (nNode);
-			}
-		}
-	}
-	
-	
-	
-	
-	private static void processStateFlow (Node sf)
-	{
-		NodeList nList = sf.getChildNodes();
-		
-
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("machine"))
-			{
-//				OsateDebug.osateDebug("machine");
-				processStateFlowMachine (nNode);
-			}
-			
-			
-			if (nNode.getNodeName().equalsIgnoreCase("instance"))
-			{
-				StateFlowInstance sfi = new StateFlowInstance();
-//				OsateDebug.osateDebug("machine");
-				Node			attrName;
-				String			attrValue;
-				NodeList nList2 = nNode.getChildNodes();
-				for (int temp2 = 0; temp2 < nList2.getLength(); temp2++) 
-				{
-					Node nNode2 = nList2.item(temp2);
-					if (nNode2.getNodeName().equalsIgnoreCase("p"))
-					{
-						attrName = Utils.getAttribute(nNode2, "Name");
-						attrValue = attrName.getNodeValue().toString();
-						
-						if (attrValue.equalsIgnoreCase("name"))
-						{
-							sfi.setName(nNode2.getTextContent());
-						}
-						
-						if (attrValue.equalsIgnoreCase("machine"))
-						{
-							sfi.setMachineId(Integer.parseInt(nNode2.getTextContent()));
-						}
-						
-						if (attrValue.equalsIgnoreCase("chart"))
-						{
-							sfi.setChartId(Integer.parseInt(nNode2.getTextContent()));
-						}
-					}
-				}
-				OsateDebug.osateDebug("Add instance of stateflow");
-				stateFlowInstances.add (sfi);
-			}
-		}
-	}
-	
-
 
 	
-	private static void processStateFlowChild (Node child, StateMachine sm)
-	{
-		NodeList 		nList;
 	
-		/**
-		 * Process all the nodes.
-		 */
-		nList = child.getChildNodes();
-		
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("state"))
-			{
-				processStateFlowState(nNode,sm);
-			}
-			if (nNode.getNodeName().equalsIgnoreCase("chart"))
-			{
-				processStateFlowChart(nNode,sm);
-			}
-			if (nNode.getNodeName().equalsIgnoreCase("transition"))
-			{
-				processStateFlowTransition(nNode,sm);
-			}
-		}	
-	}
-	
-	private static void processStateFlowChart (Node chart, StateMachine sm)
-	{
-		NodeList 		nList;
-	
-		/**
-		 * Process all the nodes.
-		 */
-		nList = chart.getChildNodes();
-		
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("children"))
-			{
-				processStateFlowChild(nNode, sm);
-			}
-		}	
-	}
-	
-	private static void processStateFlowTransition (Node transition, StateMachine sm)
-	{
-		NodeList 		nList;
-		NodeList		nList2;
-		Node			attrName;
-		String			attrValue;
-		Transition		newTransition;
-		
-		newTransition = new Transition (sm);
-		
-//		OsateDebug.osateDebug("[FileImport] Parsing transition");
-		
-		/**
-		 * Check the identifier of the state.
-		 */
-		attrName = Utils.getAttribute(transition, "SSID");
-		attrValue = attrName.getNodeValue().toString();
-		newTransition.setIdentifier(Integer.parseInt(attrValue));
-//		OsateDebug.osateDebug("[FileImport] SSID value="+attrName);
-		
-		
-		/**
-		 * Process all the nodes.
-		 */
-		nList = transition.getChildNodes();
-		
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("p"))
-			{
-				attrName = Utils.getAttribute(nNode, "Name");
-				attrValue = attrName.getNodeValue().toString();
-				
-				if (attrValue.equalsIgnoreCase("labelstring"))
-				{
-					newTransition.setCondition(Utils.getConditionFromLabel(nNode.getTextContent()));
-					newTransition.setAction(Utils.getActionFromLabel(nNode.getTextContent()));
-					
-					for (String var : Utils.getVariablesFromTransitionLabel(nNode.getTextContent()))
-					{
-						
-						int varType = StateMachine.VARIABLE_TYPE_INTEGER;
-						if (Utils.isSimpleConditionLabel(nNode.getTextContent()))
-						{
-							varType = StateMachine.VARIABLE_TYPE_BOOL;
-						}
-						sm.addVariable (var, varType);
-					}
-				}
-			}
-			
-			if (nNode.getNodeName().equalsIgnoreCase("src"))
-			{
-				nList2 = nNode.getChildNodes();
-				for (int temp2 = 0; temp2 < nList2.getLength(); temp2++) 
-				{
-					Node nNode2 = nList2.item(temp2);
-					if (nNode2.getNodeName().equalsIgnoreCase("p"))
-					{
-						attrName = Utils.getAttribute(nNode2, "Name");
-						attrValue = attrName.getNodeValue().toString();
-						
-						if (attrValue.equalsIgnoreCase("ssid"))
-						{
-							int srcId = Integer.parseInt(nNode2.getTextContent());
-							newTransition.setSrcStateIdentifier(srcId);
-							newTransition.setSrcState (sm.findStateByIdentifier(srcId));
-						}
-					}
-				}
-			}
-			
-			if (nNode.getNodeName().equalsIgnoreCase("dst"))
-			{
-				nList2 = nNode.getChildNodes();
-				for (int temp2 = 0; temp2 < nList2.getLength(); temp2++) 
-				{
-					Node nNode2 = nList2.item(temp2);
-					if (nNode2.getNodeName().equalsIgnoreCase("p"))
-					{
-						attrName = Utils.getAttribute(nNode2, "Name");
-						attrValue = attrName.getNodeValue().toString();
-						
-						if (attrValue.equalsIgnoreCase("ssid"))
-						{
-							int dstId = Integer.parseInt(nNode2.getTextContent());
-							newTransition.setDstStateIdentifier(dstId);
-							newTransition.setDstState (sm.findStateByIdentifier(dstId));
-						}
-					}
-				}
-			}
-		}	
-		
-		if (newTransition != null)
-		{
-			sm.addTransition (newTransition);
-		}
-	}
-	
-	private static void processStateFlowState (Node state, StateMachine sm)
-	{
-		Node			attrName;
-		String			attrValue;
-		NodeList 		nList;
-		State			newState;
-		
-		newState = new State();
-//		OsateDebug.osateDebug("[FileImport] Parsing state");
-		
-		/**
-		 * Check the identifier of the state.
-		 */
-		attrName = Utils.getAttribute(state, "SSID");
-		attrValue = attrName.getNodeValue().toString();
-		newState.setIdentifier(Integer.parseInt(attrValue));
-		
-//		OsateDebug.osateDebug("[FileImport] SSID value="+attrName);
-		
-		
-		/**
-		 * Process all the nodes.
-		 */
-		nList = state.getChildNodes();
-		
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("children"))
-			{
-				processStateFlowChild(nNode, sm);
-			}
-
-			if (nNode.getNodeName().equalsIgnoreCase("p"))
-			{
-				attrName = Utils.getAttribute(nNode, "Name");
-				attrValue = attrName.getNodeValue().toString();
-				
-				if (attrValue.equalsIgnoreCase("labelstring"))
-				{
-					String label = nNode.getTextContent();
-					newState.setName(Utils.filterStateName(label));
-//					OsateDebug.osateDebug("[FileImport] Label="+label);
-				}
-			}
-		}
-		
-		if (newState != null)
-		{
-			sm.addState(newState);
-		}
-	}
-	
-	
-	private static void processStateFlowMachine (Node machine)
-	{
-		StateMachine 	sm;
-		Node 			attrName;
-		String 			attrValue;
-		NodeList 		nList;
-		
-		
-		sm 			=	new StateMachine ();
-		attrName 	= 	null;
-		
-		/**
-		 * Check the identifier if the node.
-		 */
-		attrName = Utils.getAttribute(machine, "id");
-		
-		attrValue = attrName.getNodeValue().toString();
-//		OsateDebug.osateDebug("[FileImport] id=" + attrValue);
-		sm.setIdentifier(Integer.parseInt(attrValue));
-		
-		/**
-		 * Process all the nodes.
-		 */
-		nList = machine.getChildNodes();
-		
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("children"))
-			{
-				processStateFlowChild(nNode, sm);
-			}
-		}
-
-		producedModel.addStateMachine(sm);
-	}	
-	
-	private static boolean addConnection (String srcString, String dstString)
-	{
-		if ((dstString != null) && (srcString != null))
-		{
-			int srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-			int dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-			
-			OsateDebug.osateDebug("[FileImport] connection src=" + srcString +"|dst="+dstString);
-			Component srcComponent = producedModel.findComponentById(srcBlockIndex);
-			Component dstComponent = producedModel.findComponentById(dstBlockIndex);
-			
-			if ((srcComponent != null) && (dstComponent != null))
-			{
-				Connection c = new Connection(srcComponent, dstComponent);
-				srcComponent.addConnection(c);
-				dstComponent.addConnection(c);
-				producedModel.addConnection(c);
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	
-	private static void processSystem (Node system)
-	{
-		Node attrName = null;
-		String direction;
-		NodeList nList = system.getChildNodes();
-		
-
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("block"))
-			{
-				attrName = Utils.getAttribute(nNode, "Name");
-				
-				if (attrName == null)
-				{
-					continue;
-				}
-				String blockName = attrName.getNodeValue().toString();
-//				OsateDebug.osateDebug("block name="+ blockName);
-				
-				attrName = Utils.getAttribute(nNode, "BlockType");
-				
-				if (attrName == null)
-				{
-					continue;
-				}
-				String blockType = attrName.getNodeValue().toString();
-//				OsateDebug.osateDebug("block name="+ blockType);
-				
-				
-				attrName = Utils.getAttribute(nNode, "SID");
-				
-				if (attrName == null)
-				{
-					continue;
-				}
-				String sidStr = attrName.getNodeValue().toString();
-//				OsateDebug.osateDebug("sid="+ blockType);
-				int sidValue = Integer.parseInt(sidStr);
-				Component c = new Component(blockName);
-				c.setIdentifier (sidValue);
-				c.setType(blockType);
-				producedModel.addComponent(c);
-			}
-		}
-		
-		
-		for (int temp = 0; temp < nList.getLength(); temp++) 
-		{
-			String srcString;
-			String dstString;
-			int srcBlockIndex;
-			int dstBlockIndex;
-			int srcPortIndex;
-			int dstPortIndex;
-			
-			Node tmpNode;
-			
-			srcBlockIndex = -1;
-			dstBlockIndex = -1;
-			
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeName().equalsIgnoreCase("Line"))
-			{
-				srcString = null;
-				dstString = null;
-				NodeList children = nNode.getChildNodes();
-				for (int temp2 = 0 ; temp2 < children.getLength() ; temp2++)
-				{
-					tmpNode = children.item(temp2);
-					if (tmpNode.getNodeName().equalsIgnoreCase("p"))
-					{
-						attrName = Utils.getAttribute(tmpNode, "Name");
-						
-						if (attrName == null)
-						{
-							continue;
-						}
-						direction = attrName.getNodeValue().toString();
-//						OsateDebug.osateDebug("direction="+direction);
-						if (direction.equalsIgnoreCase("src"))
-						{
-							srcString = tmpNode.getTextContent();
-//							OsateDebug.osateDebug("srcString="+srcString);
-							addConnection (srcString, dstString);
-						}
-						
-						if (direction.equalsIgnoreCase("dst"))
-						{
-							dstString = tmpNode.getTextContent();
-//							OsateDebug.osateDebug("dstString="+dstString);
-							addConnection (srcString, dstString);
-						}
-					}
-					if (tmpNode.getNodeName().equalsIgnoreCase("branch"))
-					{
-						NodeList children4 = tmpNode.getChildNodes();
-						for (int temp4 = 0 ; temp4 < children4.getLength() ; temp4++)
-						{
-							Node tmpNode4 = children4.item(temp4);
-							if (tmpNode4.getNodeName().equalsIgnoreCase("p"))
-							{
-								Node attrName2 = Utils.getAttribute(tmpNode4, "Name");
-								
-								if (attrName2 == null)
-								{
-									continue;
-								}
-								String direction2 = attrName2.getNodeValue().toString();
-//								OsateDebug.osateDebug("direction="+direction);
-								if (direction2.equalsIgnoreCase("src"))
-								{
-									srcString = tmpNode4.getTextContent();
-//									OsateDebug.osateDebug("srcString="+srcString);
-									srcBlockIndex = Utils.getConnectionPointInformation(srcString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-									addConnection (srcString, dstString);
-								}
-								
-								if (direction2.equalsIgnoreCase("dst"))
-								{
-									dstString = tmpNode4.getTextContent();
-//									OsateDebug.osateDebug("dstString="+dstString);
-									dstBlockIndex = Utils.getConnectionPointInformation(dstString, Utils.CONNECTION_FIELD_BLOCK_INDEX);
-									addConnection (srcString, dstString);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 	
 	public static Model loadFile (String inputFile)
 	{
@@ -632,7 +166,7 @@ public class FileImport {
 					if (tNode.getNodeName().equalsIgnoreCase("model"))
 					{
 //						OsateDebug.osateDebug("Model passed");
-						processModel (tNode);
+						ImportModel.processModel (tNode, producedModel);
 					}
 
 				}
@@ -649,7 +183,7 @@ public class FileImport {
 					if (tNode.getNodeName().equalsIgnoreCase("stateflow"))
 					{
 //						OsateDebug.osateDebug("stateflow");
-						processStateFlow (tNode);
+						ImportStateFlow.processStateFlow (tNode, producedModel);
 					}
 				}
 			}
