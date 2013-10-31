@@ -64,6 +64,7 @@ import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.PropertyExpression;
@@ -76,6 +77,7 @@ import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
@@ -83,6 +85,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -274,7 +277,9 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				packer = new DFBPBinPacker(expansor);
 			}		
 			
-			AssignmentResult result= binPackSystem(root,  expansor, packer, errManager);
+			AssignmentResult result= binPackSystem(root,  expansor, packer, errManager, som);
+			
+			
 			reportResults(som,result);
 
 			
@@ -297,7 +302,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	protected AssignmentResult binPackSystem(
 			final SystemInstance root,
 			Expansor expansor, LowLevelBinPacker packer,
-			final AnalysisErrorReporterManager errManager) {
+			final AnalysisErrorReporterManager errManager,
+			final SystemOperationMode som) {
 		/* Map from AADL ComponentInstances representing threads to
 		 * the bin packing SoftwareNode that models the thread.
 		 */ 
@@ -433,6 +439,30 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final ForAllElement addThreads = new ForAllElement(errManager) {
 			public void process(Element obj) {
 				final ComponentInstance ci = (ComponentInstance) obj;
+				
+				/**
+				 * JD - check the modes according to what was
+				 * suggested by Dave.
+				 */
+				boolean selected = true;
+				
+				if (som.getCurrentModes().size() > 0)
+				{
+					selected = false;
+					for (ModeInstance mi : ci.getInModes())
+					{
+						if (mi == som.getCurrentModes().get(0))
+						{
+							selected = true;
+						}
+					}
+				}
+				
+				if (! selected)
+				{
+					return;
+				}
+				
 				final AADLThread thread = AADLThread.createInstance(ci);
 				problem.softwareGraph.add(thread);
 //				logInfo(thread.getReport());
