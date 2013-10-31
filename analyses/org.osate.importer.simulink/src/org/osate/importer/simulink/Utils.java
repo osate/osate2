@@ -79,7 +79,27 @@ public class Utils {
 	
 	public static String getActionFromLabel (String label)
 	{
-		return label;
+		String result = label;
+		if (result.contains("{") && result.contains("}"))
+		{
+			result = result.substring(result.indexOf('{') + 1, result.indexOf('}'));
+		}
+		else
+		{
+			return "";
+		}
+		
+		if (result.contains("."))
+		{
+			result = result.substring(result.indexOf('.') + 1, result.length());
+		}
+		
+		if (! (result.contains("=")))
+		{
+			result = result + " := true";
+		}
+		
+		return result;
 	}
 	
 	

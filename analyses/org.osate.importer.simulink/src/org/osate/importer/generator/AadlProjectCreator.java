@@ -341,7 +341,16 @@ public class AadlProjectCreator
 									if ((src != null) && (dst != null) && src.isValid() && dst.isValid())
 									{
 										
-										out.write ("   t" + transitionId++ + " : " + src.getName() + "-["+t.getCondition()+"]->" + dst.getName() + ";\n");
+										out.write ("   t" + transitionId++ + " : " + src.getName() + "-["+t.getCondition()+"]->" + dst.getName());
+										
+										if (t.getAction().length() > 0)
+										{
+											out.write ("{" + t.getAction() + "}");
+										}
+										
+
+										out.write (";\n");
+
 									}
 								}
 							}
