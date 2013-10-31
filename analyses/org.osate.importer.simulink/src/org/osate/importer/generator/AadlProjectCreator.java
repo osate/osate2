@@ -49,6 +49,7 @@ import org.osate.importer.model.Component;
 import org.osate.importer.model.Model;
 import org.osate.importer.model.sm.State;
 import org.osate.importer.model.sm.StateMachine;
+import org.osate.importer.model.sm.Transition;
 import org.osate.importer.simulink.FileImport;
 import org.osate.importer.simulink.StateFlowInstance;
 
@@ -161,7 +162,8 @@ public class AadlProjectCreator
 		BufferedWriter out;
 		int tmp;
 		boolean connectionPreamble;
-
+		StateMachine sm;
+		StateFlowInstance sfi;
 		connectionPreamble = false;
 
 		try
@@ -175,14 +177,28 @@ public class AadlProjectCreator
 			out.write ("with "+Preferences.getPackagePrefix()+"runtime::common;\n");
 			out.write ("with "+Preferences.getPackagePrefix()+"imported::functions;\n");
 			out.write ("with SEI;\n");
+			out.write ("with Data_Model;\n");
 			out.write ("with ARINC653;\n\n\n");
 
-			out.write ("data generictype\nend generictype;\n\n\n");
+			out.write ("data generictype\nproperties\n   Data_Model::Data_Representation => integer;\nend generictype;\n\n\n");
 
+			out.write ("data generictype_boolean\nproperties\n   Data_Model::Data_Representation => boolean;\nend generictype_boolean;\n\n\n");
 
 
 			for (Component e : genericModel.getComponents())
 			{
+				/**
+				 * Try to find if we have a corresponding state machine
+				 * for this component.
+				 */
+				sm = null;
+				sfi = FileImport.getStateFlowImport (e.getAadlName());
+				
+				if (sfi != null) 
+				{
+					sm = genericModel.getStateMachine (sfi.getMachineId());
+				}
+				
 				//out.write ("subprogram "+e.getAadlName()+" extends imported::functions::"+e.getAadlName()+"\n");
 				// out.write ("features\n");
 				// out.write ("   comm_data : out event port;\n");
@@ -230,6 +246,29 @@ public class AadlProjectCreator
 	
 	
 					out.write ("subprogram implementation "+e.getAadlName()+".i\n");
+					if (sm != null)
+					{
+						if (sm.getVariables().size() > 0)
+						{
+							out.write ("subcomponents\n");
+							
+							for (String var : sm.getVariables())
+							{
+								
+								out.write ("   "+var+" : data ");
+								
+								if (sm.getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
+								{
+									out.write ("generictype_boolean;\n");
+								}
+								else
+								{
+									out.write ("generictype;\n");
+								}
+							}
+						}
+					}
+					
 					if (e.isContainer())
 					{
 						out.write ("calls\n");
@@ -268,15 +307,10 @@ public class AadlProjectCreator
 							}
 						}
 					}
-					StateFlowInstance sfi = FileImport.getStateFlowImport (e.getAadlName());
-					if (sfi != null) 
-					{
-					OsateDebug.osateDebug("WE GOT ONE !");
-						StateMachine sm = genericModel.getStateMachine (sfi.getMachineId());
+
 						if (sm != null)
 						{
 							OsateDebug.osateDebug("WE GOT TWO !");
-							OsateDebug.osateDebug(sm.toString());
 							out.write ("annex behavior_specification {**\n");
 							
 							if (sm.getStates().size() > 0)
@@ -284,12 +318,36 @@ public class AadlProjectCreator
 								out.write ("states\n");
 								for (State state : sm.getStates())
 								{
-									out.write (state.getName() + ": state\n");
+									if (state.isValid() && sm.isInitialState (state))
+									{
+										out.write ("   " + state.getName() + ": initial final state;\n");
+									}
+									
+									if (state.isValid() && ( ! sm.isInitialState (state)))
+									{
+										out.write ("   " + state.getName() + ": state;\n");
+									}
+								}
+							}
+							
+							if (sm.getTransitions().size() > 0)
+							{
+								int transitionId = 0;
+								out.write ("transitions\n");
+								for (Transition t : sm.getTransitions())
+								{
+									State src = t.getSrcState();
+									State dst = t.getDstState();
+									if ((src != null) && (dst != null) && src.isValid() && dst.isValid())
+									{
+										
+										out.write ("   t" + transitionId++ + " : " + src.getName() + "-["+t.getCondition()+"]->" + dst.getName() + ";\n");
+									}
 								}
 							}
 							out.write ("**};\n");
 						}
-					}
+					
 					
 					out.write ("end "+ e.getAadlName() + ".i;\n\n");
 				}

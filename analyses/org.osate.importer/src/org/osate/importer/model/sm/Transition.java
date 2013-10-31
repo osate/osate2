@@ -9,15 +9,42 @@ public class Transition {
 	private int		identifier;
 	private int		srcStateIdentifier;
 	private int		dstStateIdentifier;
+	private String	condition;
+	private String	action;
+	private StateMachine stateMachine;
 	
-	public Transition ()
+	public Transition (StateMachine sm)
 	{
+		this.stateMachine			= sm;
 		this.name 					= null;
 		this.identifier 			= Utils.INVALID_ID;
 		this.srcState 				= null;
 		this.dstState 				= null;
 		this.srcStateIdentifier 	= Utils.INVALID_ID;
 		this.dstStateIdentifier 	= Utils.INVALID_ID;
+		this.condition				= "";
+		this.action					= "";
+	}
+	
+	
+	public String getCondition ()
+	{
+		return this.condition;
+	}
+	
+	public void setCondition (String s)
+	{
+		this.condition = s;
+	}
+	
+	public String getAction ()
+	{
+		return this.action;
+	}
+	
+	public void setAction (String a)
+	{
+		this.action = a;
 	}
 	
 	public int getIdentifier ()

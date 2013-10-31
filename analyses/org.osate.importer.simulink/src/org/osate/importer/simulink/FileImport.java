@@ -83,30 +83,7 @@ public class FileImport {
 		return null;
 	}
 	
-	private static String getTagValue(String sTag, Element eElement)
-	{
-		NodeList nlList;
-		Node nValue;
 
-		try
-		{
-			nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-
-			nValue = (Node) nlList.item(0);
-
-			return nValue.getNodeValue();
-		}
-		catch (NullPointerException npe)
-		{
-			return null;
-		}
-	}
-
-
-	private static Node getAttribute (Node node, String attr)
-	{
-		return node.getAttributes().getNamedItem(attr);
-	}
 
 	private static void processModel (Node model)
 	{
@@ -154,7 +131,7 @@ public class FileImport {
 					Node nNode2 = nList2.item(temp2);
 					if (nNode2.getNodeName().equalsIgnoreCase("p"))
 					{
-						attrName = getAttribute(nNode2, "Name");
+						attrName = Utils.getAttribute(nNode2, "Name");
 						attrValue = attrName.getNodeValue().toString();
 						
 						if (attrValue.equalsIgnoreCase("name"))
@@ -287,14 +264,14 @@ public class FileImport {
 		String			attrValue;
 		Transition		newTransition;
 		
-		newTransition = new Transition ();
+		newTransition = new Transition (sm);
 		
 //		OsateDebug.osateDebug("[FileImport] Parsing transition");
 		
 		/**
 		 * Check the identifier of the state.
 		 */
-		attrName = getAttribute(transition, "SSID");
+		attrName = Utils.getAttribute(transition, "SSID");
 		attrValue = attrName.getNodeValue().toString();
 		newTransition.setIdentifier(Integer.parseInt(attrValue));
 //		OsateDebug.osateDebug("[FileImport] SSID value="+attrName);
@@ -308,6 +285,29 @@ public class FileImport {
 		for (int temp = 0; temp < nList.getLength(); temp++) 
 		{
 			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("p"))
+			{
+				attrName = Utils.getAttribute(nNode, "Name");
+				attrValue = attrName.getNodeValue().toString();
+				
+				if (attrValue.equalsIgnoreCase("labelstring"))
+				{
+					newTransition.setCondition(Utils.getConditionFromLabel(nNode.getTextContent()));
+					newTransition.setAction(Utils.getActionFromLabel(nNode.getTextContent()));
+					
+					for (String var : Utils.getVariablesFromTransitionLabel(nNode.getTextContent()))
+					{
+						
+						int varType = StateMachine.VARIABLE_TYPE_INTEGER;
+						if (Utils.isSimpleConditionLabel(nNode.getTextContent()))
+						{
+							varType = StateMachine.VARIABLE_TYPE_BOOL;
+						}
+						sm.addVariable (var, varType);
+					}
+				}
+			}
+			
 			if (nNode.getNodeName().equalsIgnoreCase("src"))
 			{
 				nList2 = nNode.getChildNodes();
@@ -316,7 +316,7 @@ public class FileImport {
 					Node nNode2 = nList2.item(temp2);
 					if (nNode2.getNodeName().equalsIgnoreCase("p"))
 					{
-						attrName = getAttribute(nNode2, "Name");
+						attrName = Utils.getAttribute(nNode2, "Name");
 						attrValue = attrName.getNodeValue().toString();
 						
 						if (attrValue.equalsIgnoreCase("ssid"))
@@ -337,7 +337,7 @@ public class FileImport {
 					Node nNode2 = nList2.item(temp2);
 					if (nNode2.getNodeName().equalsIgnoreCase("p"))
 					{
-						attrName = getAttribute(nNode2, "Name");
+						attrName = Utils.getAttribute(nNode2, "Name");
 						attrValue = attrName.getNodeValue().toString();
 						
 						if (attrValue.equalsIgnoreCase("ssid"))
@@ -370,7 +370,7 @@ public class FileImport {
 		/**
 		 * Check the identifier of the state.
 		 */
-		attrName = getAttribute(state, "SSID");
+		attrName = Utils.getAttribute(state, "SSID");
 		attrValue = attrName.getNodeValue().toString();
 		newState.setIdentifier(Integer.parseInt(attrValue));
 		
@@ -392,13 +392,13 @@ public class FileImport {
 
 			if (nNode.getNodeName().equalsIgnoreCase("p"))
 			{
-				attrName = getAttribute(nNode, "Name");
+				attrName = Utils.getAttribute(nNode, "Name");
 				attrValue = attrName.getNodeValue().toString();
 				
 				if (attrValue.equalsIgnoreCase("labelstring"))
 				{
 					String label = nNode.getTextContent();
-					newState.setName(label);
+					newState.setName(Utils.filterStateName(label));
 //					OsateDebug.osateDebug("[FileImport] Label="+label);
 				}
 			}
@@ -425,7 +425,7 @@ public class FileImport {
 		/**
 		 * Check the identifier if the node.
 		 */
-		attrName = getAttribute(machine, "id");
+		attrName = Utils.getAttribute(machine, "id");
 		
 		attrValue = attrName.getNodeValue().toString();
 //		OsateDebug.osateDebug("[FileImport] id=" + attrValue);
@@ -484,7 +484,7 @@ public class FileImport {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeName().equalsIgnoreCase("block"))
 			{
-				attrName = getAttribute(nNode, "Name");
+				attrName = Utils.getAttribute(nNode, "Name");
 				
 				if (attrName == null)
 				{
@@ -493,7 +493,7 @@ public class FileImport {
 				String blockName = attrName.getNodeValue().toString();
 //				OsateDebug.osateDebug("block name="+ blockName);
 				
-				attrName = getAttribute(nNode, "BlockType");
+				attrName = Utils.getAttribute(nNode, "BlockType");
 				
 				if (attrName == null)
 				{
@@ -503,7 +503,7 @@ public class FileImport {
 //				OsateDebug.osateDebug("block name="+ blockType);
 				
 				
-				attrName = getAttribute(nNode, "SID");
+				attrName = Utils.getAttribute(nNode, "SID");
 				
 				if (attrName == null)
 				{
@@ -545,7 +545,7 @@ public class FileImport {
 					tmpNode = children.item(temp2);
 					if (tmpNode.getNodeName().equalsIgnoreCase("p"))
 					{
-						attrName = getAttribute(tmpNode, "Name");
+						attrName = Utils.getAttribute(tmpNode, "Name");
 						
 						if (attrName == null)
 						{
@@ -575,7 +575,7 @@ public class FileImport {
 							Node tmpNode4 = children4.item(temp4);
 							if (tmpNode4.getNodeName().equalsIgnoreCase("p"))
 							{
-								Node attrName2 = getAttribute(tmpNode4, "Name");
+								Node attrName2 = Utils.getAttribute(tmpNode4, "Name");
 								
 								if (attrName2 == null)
 								{

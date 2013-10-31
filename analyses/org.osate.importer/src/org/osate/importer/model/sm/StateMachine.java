@@ -1,7 +1,9 @@
 package org.osate.importer.model.sm;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.osate.importer.Utils;
 import org.osate.importer.model.Component;
@@ -12,6 +14,11 @@ public class StateMachine {
 	private String				name;
 	private List<Transition>	transitions;
 	private List<State>			states;
+	private HashMap<String,Integer>		variables;
+	
+	public final static int VARIABLE_TYPE_INTEGER = 0;
+	public final static int VARIABLE_TYPE_BOOL    = 1;
+	
 	
 	public StateMachine ()
 	{
@@ -20,6 +27,37 @@ public class StateMachine {
 		this.associatedComponent 	= null;
 		this.states					= new ArrayList<State>();
 		this.transitions			= new ArrayList<Transition>();
+		this.variables				= new HashMap<String,Integer>();
+	}
+	
+	public boolean isInitialState (State s)
+	{
+		for (Transition t : this.transitions)
+		{
+			if ((t.getSrcState() == null) && (t.getDstState() != null))
+			{
+				if (t.getDstState().getName().equalsIgnoreCase(s.getName()))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public Set<String> getVariables ()
+	{
+		return this.variables.keySet();
+	}
+	
+	public int getVariableType (String s)
+	{
+		return this.variables.get(s);
+	}
+	
+	public void addVariable (String v, int type)
+	{
+		this.variables.put(v, type);
 	}
 	
 	public void setIdentifier (int i)
@@ -60,6 +98,11 @@ public class StateMachine {
 	public List<State> getStates ()
 	{
 		return this.states;
+	}
+	
+	public List<Transition> getTransitions ()
+	{
+		return this.transitions;
 	}
 	
 	public State findStateByName (String n)

@@ -36,6 +36,15 @@ public class State {
 		this.name = s;
 	}
 	
+	public boolean isValid ()
+	{
+		if (name.contains("="))
+		{
+			return false;
+		}
+		return true;
+	}
+	
 	public void setIdentifier (int i)
 	{
 		this.identifier = i;

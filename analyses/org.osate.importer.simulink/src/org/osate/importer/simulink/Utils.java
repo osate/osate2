@@ -30,6 +30,10 @@
 
 package org.osate.importer.simulink;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.osate.aadl2.util.OsateDebug;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -42,6 +46,7 @@ public class Utils {
 	
 	public static final int CONNECTION_FIELD_PORT_IN 		= 1;
 	public static final int CONNECTION_FIELD_PORT_OUT 		= 2;
+	
 	
 	public static String getTagValue(String sTag, Element eElement)
 	{
@@ -60,6 +65,12 @@ public class Utils {
 		{
 			return null;
 		}
+	}
+
+
+	public static Node getAttribute (Node node, String attr)
+	{
+		return node.getAttributes().getNamedItem(attr);
 	}
 
 
@@ -109,14 +120,59 @@ public class Utils {
 	}
 	
 	
-	public static Node getAttribute (Node node, String attr)
+	public static String getActionFromLabel (String label)
 	{
-		return node.getAttributes().getNamedItem(attr);
+		return label;
 	}
+	
+	
+	public static String getConditionFromLabel (String label)
+	{
+		String result = label;
+		if (result.contains("[") && result.contains("]"))
+		{
+			result = result.substring(result.indexOf('[') + 1, result.indexOf(']'));
+		}
+		return result;
+	}
+	
+	public static boolean isSimpleConditionLabel (String label)
+	{
+		if (label.contains("[") && label.contains("]"))
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	public static List<String> getVariablesFromTransitionLabel (String label)
+	{
+		String condition;
+		String action;
+		List<String> result = new ArrayList<String>();
+	
+		condition = getConditionFromLabel(label);
+		String[] tmp = condition.split(" ");
+		for (String s : tmp)
+		{
+			if (s.matches("[a-zA-Z0-9_]+"))
+			{
+				result.add(s);
+			}
+		}
+		return result;
+	}
+	
+
 	
 	public static String filterStateName (String s)
 	{
 		String label = s;
+		if (label.indexOf('\n') != -1)
+		{
+			label = label.substring(0, label.indexOf('\n')).replaceAll("entry", "");
+		}
+		
 		if (label.indexOf(':') != -1)
 		{
 			label = label.substring(0, label.indexOf(':')).replaceAll("entry", "");
