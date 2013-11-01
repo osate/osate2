@@ -45,9 +45,44 @@ public class StateMachine {
 		return false;
 	}
 	
-	public Set<String> getVariables ()
+	public boolean hasVariables ()
 	{
-		return this.variables.keySet();
+		return (this.variables.size() > 0);
+	}
+	
+	public boolean nestedStateMachinehasVariables ()
+	{
+		for (State s : this.states)
+		{
+			if (s.getStateMachine().hasVariables())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<String> getVariables ()
+	{
+		List<String> result = new ArrayList<String>();
+		for (String varName : this.variables.keySet())
+		{
+			boolean isStateName = false;
+			
+			for (State state : this.states)
+			{
+				if (state.getName().equalsIgnoreCase(varName))
+				{
+					isStateName = true;
+				}
+			}
+			if (! isStateName)
+			{
+				result.add (varName);
+			}
+		}
+		
+		return result;
 	}
 	
 	public int getVariableType (String s)
@@ -175,6 +210,23 @@ public class StateMachine {
 		}
 		
 		return res;
+	}
+	
+	public boolean isEmpty ()
+	{
+		return (this.states.size() == 0);
+	}
+	
+	public boolean hasNestedStateMachines ()
+	{
+		for (State s : this.states)
+		{
+			if (! s.getStateMachine().isEmpty())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

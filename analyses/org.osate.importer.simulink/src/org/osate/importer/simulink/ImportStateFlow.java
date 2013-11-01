@@ -116,7 +116,7 @@ public class ImportStateFlow {
 			String			attrValue;
 			Transition		newTransition;
 			
-			newTransition = new Transition (sm);
+			newTransition = new Transition ();
 			
 	//		OsateDebug.osateDebug("[FileImport] Parsing transition");
 			
@@ -147,11 +147,23 @@ public class ImportStateFlow {
 						newTransition.setCondition(Utils.getConditionFromLabel(nNode.getTextContent()));
 						newTransition.setAction(Utils.getActionFromLabel(nNode.getTextContent()));
 						
-						for (String var : Utils.getVariablesFromTransitionLabel(nNode.getTextContent()))
+						for (String var : Utils.getVariablesFromConditionOrAction(Utils.getConditionFromLabel(nNode.getTextContent())))
 						{
 							
 							int varType = StateMachine.VARIABLE_TYPE_INTEGER;
 							if (Utils.isSimpleConditionLabel(nNode.getTextContent()))
+							{
+								varType = StateMachine.VARIABLE_TYPE_BOOL;
+							}
+							sm.addVariable (var, varType);
+						}
+						
+						
+						for (String var : Utils.getVariablesFromConditionOrAction(Utils.getActionFromLabel(nNode.getTextContent())))
+						{
+							
+							int varType = StateMachine.VARIABLE_TYPE_INTEGER;
+							if (Utils.isSimpleActionLabel(nNode.getTextContent()))
 							{
 								varType = StateMachine.VARIABLE_TYPE_BOOL;
 							}
@@ -239,7 +251,7 @@ public class ImportStateFlow {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeName().equalsIgnoreCase("children"))
 				{
-					processStateFlowChild(nNode, sm);
+					processStateFlowChild(nNode, newState.getStateMachine());
 				}
 	
 				if (nNode.getNodeName().equalsIgnoreCase("p"))
@@ -251,8 +263,21 @@ public class ImportStateFlow {
 					{
 						String label = nNode.getTextContent();
 						newState.setName(Utils.filterStateName(label));
+						newState.getStateMachine().setName(Utils.filterStateName(label));
 	//					OsateDebug.osateDebug("[FileImport] Label="+label);
+						
+						for (String var : Utils.getVariablesFromConditionOrAction(Utils.getStatementsFromStateLabelString(label)))
+						{
+							
+							int varType = StateMachine.VARIABLE_TYPE_INTEGER;
+							sm.addVariable (var, varType);
+						}
+						
+						
+						newState.setEntrypoint(Utils.getStatementsFromStateLabelString(label));
 					}
+					
+					
 				}
 			}
 			

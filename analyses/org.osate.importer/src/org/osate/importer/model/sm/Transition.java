@@ -11,11 +11,9 @@ public class Transition {
 	private int		dstStateIdentifier;
 	private String	condition;
 	private String	action;
-	private StateMachine stateMachine;
 	
-	public Transition (StateMachine sm)
+	public Transition ()
 	{
-		this.stateMachine			= sm;
 		this.name 					= null;
 		this.identifier 			= Utils.INVALID_ID;
 		this.srcState 				= null;

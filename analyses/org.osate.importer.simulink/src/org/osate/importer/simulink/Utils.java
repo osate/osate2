@@ -103,6 +103,18 @@ public class Utils {
 	}
 	
 	
+	
+	public static String getStatementsFromStateLabelString (String label)
+	{
+		String result = label.replace('\n', ' ');
+		if (result.contains("entry:"))
+		{
+			result = result.substring(result.indexOf("entry:") + 6);
+			return result;
+		}
+		return null;
+	}
+	
 	public static String getConditionFromLabel (String label)
 	{
 		String result = label;
@@ -122,6 +134,51 @@ public class Utils {
 		return true;
 	}
 	
+	
+	public static boolean isSimpleActionLabel (String label)
+	{
+
+		return true;
+	}
+	
+
+	
+	public static List<String> getVariablesFromConditionOrAction (String label)
+	{
+		List<String> result = new ArrayList<String>();
+	
+		if (label == null)
+		{
+			return result;
+		}
+		
+		String[] tmp = label.split(" ");
+		for (String s : tmp)
+		{
+			if (s.equalsIgnoreCase("true"))
+			{
+				continue;
+			}
+			
+			if (s.equalsIgnoreCase("false"))
+			{
+				continue;
+			}
+			
+			if (s.matches("[a-zA-Z0-9_]+"))
+			{
+				result.add(s);
+			}
+			if (s.contains("."))
+			{
+				result.add (s.substring(s.indexOf("." + 1)));
+			}
+			
+	
+		}
+		return result;
+	}
+	
 	public static List<String> getVariablesFromTransitionLabel (String label)
 	{
 		String condition;
@@ -129,14 +186,10 @@ public class Utils {
 		List<String> result = new ArrayList<String>();
 	
 		condition = getConditionFromLabel(label);
-		String[] tmp = condition.split(" ");
-		for (String s : tmp)
-		{
-			if (s.matches("[a-zA-Z0-9_]+"))
-			{
-				result.add(s);
-			}
-		}
+		action = getActionFromLabel(label);
+		result.addAll(getVariablesFromConditionOrAction(condition));
+		result.addAll(getVariablesFromConditionOrAction(action));
+
 		return result;
 	}
 	

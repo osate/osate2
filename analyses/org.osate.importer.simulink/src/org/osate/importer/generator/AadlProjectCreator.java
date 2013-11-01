@@ -40,6 +40,8 @@ package org.osate.importer.generator;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.stream.FileImageInputStream;
 
@@ -99,6 +101,11 @@ public class AadlProjectCreator
 	}
 
 
+
+	
+	
+	
+	
 	public static void createAadlFunctions (String outputFile, Model genericModel)
 	{
 		FileWriter fstream;
@@ -193,15 +200,51 @@ public class AadlProjectCreator
 				 */
 				sm = null;
 				sfi = FileImport.getStateFlowImport (e.getAadlName());
-				
+
 				if (sfi != null) 
 				{
 					sm = genericModel.getStateMachine (sfi.getMachineId());
 				}
-				
-				//out.write ("subprogram "+e.getAadlName()+" extends imported::functions::"+e.getAadlName()+"\n");
-				// out.write ("features\n");
-				// out.write ("   comm_data : out event port;\n");
+
+				/**
+				 * Let's generate the subprogram for the nested state
+				 * machines of the current component.
+				 */
+				if ((sm != null ) && (sm.hasNestedStateMachines()))
+				{
+					for (State s : sm.getStates())
+					{
+						if (! s.getStateMachine().isEmpty())
+						{
+							out.write ("subprogram "+s.getName()+"\n");
+							if (s.getStateMachine().hasVariables())
+							{
+								out.write("features\n");
+								for (String var : s.getStateMachine().getVariables())
+								{
+									out.write("   ");
+									out.write(var);
+									out.write(" : requires data access ");
+									if (s.getStateMachine().getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
+									{
+										out.write("generictype_boolean");
+									}
+									else
+									{
+										out.write("generictype");
+									}
+									out.write(";\n");
+								}
+							}
+							out.write ("end " + s.getName() + ";\n\n\n");
+							
+							
+							out.write ("subprogram implementation "+s.getName()+".i\n");
+							Utils.writeBehaviorAnnex (s.getStateMachine(), out);
+							out.write ("end " + s.getName() + ".i;\n\n\n");
+						}
+					}
+				}
 				
 				if (Preferences.mapSubprogram())
 				{
@@ -221,7 +264,7 @@ public class AadlProjectCreator
 							if (! e.contains(e2))
 							{
 								out.write ("   to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+" : in parameter generictype;\n");
-	
+
 							}
 						}
 						for (Component e2 : etmp.getOutgoingDependencies())
@@ -241,47 +284,80 @@ public class AadlProjectCreator
 						out.write ("   from_"+e.getAadlName()+"_to_" + e2.getAadlName()+" : out parameter generictype;\n");
 					}
 					out.write ("end "+ e.getAadlName() + ";\n\n");
-	
-	
-	
-	
+
+
+
+
 					out.write ("subprogram implementation "+e.getAadlName()+".i\n");
 					if (sm != null)
 					{
-						if (sm.getVariables().size() > 0)
+			
+						if (sm.hasVariables() || sm.nestedStateMachinehasVariables())
 						{
 							out.write ("subcomponents\n");
-							
-							for (String var : sm.getVariables())
+						}
+						
+						Utils.writeSubprogramSubcomponents (sm, out, new ArrayList<String>());
+						
+						/**
+						 * Let's call the other subprogram that contains
+						 * the sub state machines. Then, if these
+						 * state machines share data, we need to
+						 * add data components and connect them. 
+						 */
+						
+						if (sm.hasNestedStateMachines())
+						{
+							out.write ("calls\n");
+							out.write ("   mycall : {\n");
+							for (State s : sm.getStates())
 							{
-								
-								out.write ("   "+var+" : data ");
-								
-								if (sm.getVariableType(var) == StateMachine.VARIABLE_TYPE_BOOL)
+								if (! s.getStateMachine().isEmpty())
 								{
-									out.write ("generictype_boolean;\n");
+									out.write ("      call_"+s.getName()+" : subprogram "+s.getName() + ".i;\n");
+
 								}
-								else
+							}
+							out.write ("};\n");
+						}
+						
+						
+						/**
+						 * 
+						 * Connect the data components shared among the different subprograms
+						 * using data access connections.
+						 */
+						if (sm.nestedStateMachinehasVariables())
+						{
+							int connectionId = 0;
+
+							out.write ("connections\n");
+							for (State state : sm.getStates())
+							{
+								for (String var : state.getStateMachine().getVariables())
 								{
-									out.write ("generictype;\n");
+									out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
+
 								}
 							}
 						}
 					}
+
+					
 					
 					if (e.isContainer())
 					{
 						out.write ("calls\n");
-	
+
 						out.write ("   mycall : {\n");
 						for (Component etmp : e.getSubEntities())
 						{
 							out.write ("      call_"+etmp.getAadlName()+" : subprogram "+etmp.getAadlName() + ".i;\n");
 						}
 						out.write ("};\n");
-	
+
 						out.write ("connections\n");
-						
+
 						int connectionId = 0;
 						for (Component etmp : e.getSubEntities())
 						{
@@ -290,7 +366,7 @@ public class AadlProjectCreator
 								if (e.contains(e2))
 								{
 									out.write ("   c" + connectionId++ + " : parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> call_"+e2.getAadlName()+"to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
-	
+
 								}
 								else
 								{
@@ -308,61 +384,18 @@ public class AadlProjectCreator
 						}
 					}
 
-						if (sm != null)
-						{
-							OsateDebug.osateDebug("WE GOT TWO !");
-							out.write ("annex behavior_specification {**\n");
-							
-							if (sm.getStates().size() > 0)
-							{
-								out.write ("states\n");
-								for (State state : sm.getStates())
-								{
-									if (state.isValid() && sm.isInitialState (state))
-									{
-										out.write ("   " + state.getName() + ": initial final state;\n");
-									}
-									
-									if (state.isValid() && ( ! sm.isInitialState (state)))
-									{
-										out.write ("   " + state.getName() + ": state;\n");
-									}
-								}
-							}
-							
-							if (sm.getTransitions().size() > 0)
-							{
-								int transitionId = 0;
-								out.write ("transitions\n");
-								for (Transition t : sm.getTransitions())
-								{
-									State src = t.getSrcState();
-									State dst = t.getDstState();
-									if ((src != null) && (dst != null) && src.isValid() && dst.isValid())
-									{
-										
-										out.write ("   t" + transitionId++ + " : " + src.getName() + "-["+t.getCondition()+"]->" + dst.getName());
-										
-										if (t.getAction().length() > 0)
-										{
-											out.write ("{" + t.getAction() + "}");
-										}
-										
 
-										out.write (";\n");
+					if (sm != null)
+					{
+						Utils.writeBehaviorAnnex (sm, out);
+					}
 
-									}
-								}
-							}
-							out.write ("**};\n");
-						}
-					
-					
+
 					out.write ("end "+ e.getAadlName() + ".i;\n\n");
 				}
-				
 
-				
+
+
 				if ((e.getParent() == null) && (Preferences.mapThread()))
 				{
 					out.write ("thread thr_"+e.getAadlName() + "\n");
@@ -408,7 +441,7 @@ public class AadlProjectCreator
 					{
 						int connectionId = 0;
 						out.write ("calls\n");
-	
+
 						out.write ("   mycall : {\n");
 						out.write ("      call1 : subprogram "+e.getAadlName() + ";\n");
 						out.write ("};\n");
@@ -474,7 +507,7 @@ public class AadlProjectCreator
 						for (Component e2 : e.getOutgoingDependencies())
 						{
 							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
-	
+
 						}
 					}
 					out.write ("end pr_"+ e.getAadlName() + ".i;\n\n");
@@ -629,6 +662,7 @@ public class AadlProjectCreator
 		catch (Exception e)
 		{
 			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 

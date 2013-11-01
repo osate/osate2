@@ -10,6 +10,8 @@ public class State {
 	private int					identifier;
 	private List<Transition>	incomingTransitions;
 	private List<Transition>	outgoingTransitions;
+	private StateMachine		internalStateMachine;
+	private String 				entrypoint;
 	
 	public State ()
 	{
@@ -17,6 +19,38 @@ public class State {
 		this.name 					= null;
 		this.incomingTransitions 	= new ArrayList<Transition> ();
 		this.outgoingTransitions 	= new ArrayList<Transition> ();
+		this.internalStateMachine	= new StateMachine ();
+		this.entrypoint				= null;
+	}
+	
+	public String getEntrypoint ()
+	{
+		return this.entrypoint;
+	}
+	
+	public boolean hasEntrypoint ()
+	{
+		return (entrypoint != null);
+	}
+	
+	public void setEntrypoint (String ep)
+	{
+		String t = null;
+		if (ep != null)
+		{
+			t = ep.replace(';', ' ').replaceAll("=", ":=");
+		}
+		this.entrypoint = t;
+	}
+	
+	public StateMachine getStateMachine ()
+	{
+		return this.internalStateMachine;
+	}
+	
+	public void setStateMachine (StateMachine sm)
+	{
+		this.internalStateMachine = sm;
 	}
 	
 	public State (String n)
