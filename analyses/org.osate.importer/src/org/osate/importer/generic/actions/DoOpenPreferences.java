@@ -61,9 +61,12 @@ class PreferencesDialog extends TitleAreaDialog {
 	  private Text packagePrefix;
 	  private Text ignoreHierarchy;
 	  private Button arincCheckBox;
+	  private Button simulinkGrouping;
+
 	  private final static String [] weightMethods = {"boolean", "architecture driven"};
 	  private final static String [] parallelDependenciesMethods = {"sum", "average", "max"};
 	  private final static String [] mappingComponents = {"subprogram", "thread", "process"};
+	  
 //	  private String lastName;
 
 	  public PreferencesDialog(Shell parentShell) {
@@ -170,7 +173,18 @@ class PreferencesDialog extends TitleAreaDialog {
 	    arincCheckBox = new Button(parent, SWT.CHECK);
     	arincCheckBox.setSelection(Preferences.useArinc());
 
+/*
+	    gridData = new GridData();
+	    gridData.grabExcessHorizontalSpace = true;
+	    gridData.horizontalAlignment = GridData.FILL;
+    	
+	    Label label8 = new Label(parent, SWT.NONE);
+	    label8.setText("Group components in a single thread (Simulink)");
 
+	    simulinkGrouping = new Button(parent, SWT.CHECK);
+	    simulinkGrouping.setSelection(Preferences.useArinc());
+  */  	
+    	
 	    return parent;
 	  }
 
@@ -242,16 +256,19 @@ class PreferencesDialog extends TitleAreaDialog {
 			  Preferences.disableArinc();
 		  }
 		  
-		  if (Preferences.useArinc())
+		  
+		  /**
+		  if (simulinkGrouping.getSelection())
 		  {
-			  System.out.println ("ARINC is enabled");
+			  Preferences.setSimulinkGrouping(true);
 		  }
 		  else
 		  {
-			  System.out.println ("ARINC is disabled");
+			  Preferences.setSimulinkGrouping(false);		  
 		  }
-		  
-		  
+		  */
+
+		 		  
 		  for (int i = 0 ; i < weightMethods.length ; i++)
 		  {
 			  if (weightMethods[i].equals(weightMethodCombo.getText()))

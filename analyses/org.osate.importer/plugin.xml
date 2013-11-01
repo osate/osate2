@@ -39,7 +39,6 @@
          </menu>
          <action
                class="org.osate.importer.generic.actions.DoOpenPreferences"
-               enablesFor="1"
                icon="icons/prefs.gif"
                id="org.osate.actions.DoOpenImporterPreferences"
                label="Preferences"

@@ -104,6 +104,12 @@ public class Utils {
 	
 	
 	
+	
+	/**
+	 * In Simulink, after the state name, there is the string
+	 * "entry:" following by statement to execute when we switch
+	 * to this state.
+	 */
 	public static String getStatementsFromStateLabelString (String label)
 	{
 		String result = label.replace('\n', ' ');
@@ -115,6 +121,11 @@ public class Utils {
 		return null;
 	}
 	
+	
+	/*
+	 * try to extract the part of the label that is only related
+	 * to a condition so that we can import it into an AADL model.
+	 */
 	public static String getConditionFromLabel (String label)
 	{
 		String result = label;
@@ -125,6 +136,12 @@ public class Utils {
 		return result;
 	}
 	
+	/*
+	 * We consider that a condition is a simple condition
+	 * if the label is a pure boolean/signal and does not
+	 * have a complex expression. In simulink, this is
+	 * done with a condition that has no bracket.
+	 */
 	public static boolean isSimpleConditionLabel (String label)
 	{
 		if (label.contains("[") && label.contains("]"))
@@ -134,15 +151,21 @@ public class Utils {
 		return true;
 	}
 	
-	
+
+	/*
+	 * TODO: should do the same as for the condition but for action.
+	 */
 	public static boolean isSimpleActionLabel (String label)
 	{
-
 		return true;
 	}
 	
 
-	
+	/*
+	 * Get a list of all variables referenced/contained in a condition
+	 * or an action (block realized after a condition. For now, we assume
+	 * that variables are separated by spaces.
+	 */
 	public static List<String> getVariablesFromConditionOrAction (String label)
 	{
 		List<String> result = new ArrayList<String>();
@@ -194,7 +217,12 @@ public class Utils {
 	}
 	
 
-	
+	/**
+	 * A state name is also associated with its entrypoint and
+	 * other information/statement. This functions
+	 * aims at extracting the name of the state from the label
+	 * that may contain many other information.
+	 */
 	public static String filterStateName (String s)
 	{
 		String label = s;
@@ -210,7 +238,19 @@ public class Utils {
 		return label;
 	}
 
-
+	/*
+	 *  A connection point contains several informations about the port, either
+	 *  the index/identifier (id) of the block, the port direction (in or out)
+	 *  and the index of the connected port. This function parses the connection
+	 *  string label and extract the appropriate information according
+	 *  to the value of the field argument:
+	 *     - CONNECTION_FIELD_BLOCK_INDEX: retrieves the block index
+	 *                                     of the connected component.
+	 *     - CONNECTION_FIELD_PORT_DIRECTION: direction of the port (in
+	 *                                        or out)
+	 *     - CONNECTION_FIELD_PORT_INDEX: index of the port within the connected
+	 *                                    component.
+	 */
 	public static int getConnectionPointInformation (String connection, int field)
 		{
 			int idx1;
@@ -224,9 +264,6 @@ public class Utils {
 			blockIndex = connection.substring(0, idx1);
 			portDirection = connection.substring(idx1+1, idx2);
 			portIndex = connection.substring(idx2+1);
-	//		OsateDebug.osateDebug("blockIndex="+ blockIndex);
-	//		OsateDebug.osateDebug("portDirection="+ portDirection);
-	//		OsateDebug.osateDebug("portIndex="+ portIndex);
 			
 			switch (field)
 			{

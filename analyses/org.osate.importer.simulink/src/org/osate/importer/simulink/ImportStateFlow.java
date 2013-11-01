@@ -249,6 +249,14 @@ public class ImportStateFlow {
 			for (int temp = 0; temp < nList.getLength(); temp++) 
 			{
 				Node nNode = nList.item(temp);
+				
+				/**
+				 * Here, we consider that if the state has a node
+				 * called children, these nodes will then contain
+				 * a sub state-machine that contains a nested 
+				 * state machine. Then, we process this state machine
+				 * in the sub-state machine enclosed within the state.
+				 */
 				if (nNode.getNodeName().equalsIgnoreCase("children"))
 				{
 					processStateFlowChild(nNode, newState.getStateMachine());

@@ -31,7 +31,6 @@ public class ImportModel {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeName().equalsIgnoreCase("system"))
 				{
-	//				OsateDebug.osateDebug("System passed");
 					processSystem (nNode, produced);
 				}
 			}
@@ -56,7 +55,6 @@ public class ImportModel {
 						continue;
 					}
 					String blockName = attrName.getNodeValue().toString();
-	//				OsateDebug.osateDebug("block name="+ blockName);
 					
 					attrName = Utils.getAttribute(nNode, "BlockType");
 					
@@ -65,9 +63,7 @@ public class ImportModel {
 						continue;
 					}
 					String blockType = attrName.getNodeValue().toString();
-	//				OsateDebug.osateDebug("block name="+ blockType);
-					
-					
+										
 					attrName = Utils.getAttribute(nNode, "SID");
 					
 					if (attrName == null)
@@ -75,7 +71,6 @@ public class ImportModel {
 						continue;
 					}
 					String sidStr = attrName.getNodeValue().toString();
-	//				OsateDebug.osateDebug("sid="+ blockType);
 					int sidValue = Integer.parseInt(sidStr);
 					Component c = new Component(blockName);
 					c.setIdentifier (sidValue);

@@ -51,10 +51,26 @@ public class Preferences {
 	private static boolean 	useArinc 				= false;
 	private static int 		ignoreHierarchyLevel 	= 0;
 	private static int		mappingComponent 		= MAPPING_SUBPROGRAM;
+	private static boolean	simulinkGrouping		= false;
 	
 	public static int getWeightMethod ()
 	{
 		return weightMethod;
+	}
+	
+	public static boolean getSimulinkGrouping ()
+	{
+		return simulinkGrouping;
+	}
+	
+	public static boolean shouldGroupSimulinkBlocks ()
+	{
+		return simulinkGrouping;
+	}
+	
+	public static void setSimulinkGrouping (boolean b)
+	{
+		simulinkGrouping = b;
 	}
 	
 	public static void setPackagePrefix (String s)

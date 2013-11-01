@@ -96,42 +96,26 @@ public class FileImport {
 	
 	public static Model loadFile (String inputFile)
 	{
-		Node nNode;
-		Node attrName;
-		Node depName;
-		Node depStrength;
-		NodeList nList;
-		String systemName;
-		String fileName;
-		String depNameString;
+		Node 		nNode;
 		InputStream in;
-		ZipFile zipFile;
-		int strength;
+		ZipFile 	zipFile;
 		
 		zipFile = null;
-//		OsateDebug.osateDebug("try to load" + inputFile);
 		
 		producedModel = new Model();
 		stateFlowInstances = new ArrayList<StateFlowInstance> ();
+		
 		try 
 		{
+			/*
+			 * In fact, the simulink model (slx file) is a zip file
+			 * like openfocument file. We parse the zip and extract
+			 * the file that contains all interesting information
+			 * (blockdiagram.xml).
+			 */
 			if (inputFile.contains(".slx"))
 			{
-//				fileName = inputFile.replace(".ldz", ".ldm");
-//				if (fileName.contains("\\"))	
-//				{
-//					int idx = fileName.lastIndexOf('\\');
-//					fileName = fileName.substring(idx + 1);
-//				}
-//				new File(inputFile);
 				zipFile = new ZipFile(inputFile);
-//				Enumeration<? extends ZipEntry> entries = zipFile.entries();
-//				while (entries.hasMoreElements())
-//				{
-//					ZipEntry ze = entries.nextElement();
-//					OsateDebug.osateDebug("entry " + ze);
-//				}
-//	
 				in = zipFile.getInputStream(zipFile.getEntry(SIMULINK_ENTRYFILE));
 			}
 			else
@@ -155,23 +139,33 @@ public class FileImport {
 			NodeList modelInformationNodes = doc.getElementsByTagName("ModelInformation");
 			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
 			{
-//				OsateDebug.osateDebug("ModelInformation passed");
-
 				nNode = modelInformationNodes.item(s);
 				NodeList children = nNode.getChildNodes();
 				
 				for (int t = 0 ; t < children.getLength() ; t++)
 				{
 					Node tNode = children.item (t);
+					
+					/**
+					 * The model node contains the structure of the
+					 * simulink model (the block diagrams). We parse
+					 * it to map it into an AADL architecture model.
+					 */
 					if (tNode.getNodeName().equalsIgnoreCase("model"))
 					{
-//						OsateDebug.osateDebug("Model passed");
 						ImportModel.processModel (tNode, producedModel);
 					}
 
 				}
 			}
 			
+			
+			/**
+			 * The stateflow information are separated from the model. Then,
+			 * we associate a stateflow with the component by name matching:
+			 * if the stateflow instance matches the block name, we add
+			 * the state machine into the component description.
+			 */
 			for (int s = 0 ; s < modelInformationNodes.getLength() ; s++)
 			{
 				nNode = modelInformationNodes.item(s);
@@ -182,7 +176,6 @@ public class FileImport {
 					Node tNode = children.item (t);
 					if (tNode.getNodeName().equalsIgnoreCase("stateflow"))
 					{
-//						OsateDebug.osateDebug("stateflow");
 						ImportStateFlow.processStateFlow (tNode, producedModel);
 					}
 				}
