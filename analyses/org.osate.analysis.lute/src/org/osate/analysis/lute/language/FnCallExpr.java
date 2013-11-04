@@ -162,9 +162,10 @@ public class FnCallExpr extends Expr {
 			{
 				InstanceObject aadl = argValues.get(0).getAADL();
 				result = getProperty(aadl, property);
-				//OsateDebug.osateDebug("result" + result);
+				OsateDebug.osateDebug("result" + result);
 				if (result == null) { 
-					throw new LuteException("Failed to find property " + property);
+					return (new StringVal (""));
+				//	throw new LuteException("Failed to find property " + property);
 				}
 			}
 			return result;
@@ -191,7 +192,7 @@ public class FnCallExpr extends Expr {
 			InstanceObject t = argValues.get(1).getAADL();
 			return new BoolVal(isBoundTo(s, t));
 			
-		} else if (fn.equals("Source")) {
+		} else if (fn.equalsIgnoreCase("source")) {
 			expectArgs(1);
 			InstanceObject c = argValues.get(0).getAADL();
 			if (c instanceof ConnectionInstance) {
@@ -200,7 +201,7 @@ public class FnCallExpr extends Expr {
 			}
 			throw new LuteException("Source called on non-connection object");
 			
-		} else if (fn.equals("Destination")) {
+		} else if (fn.equalsIgnoreCase("destination")) {
 			expectArgs(1);
 			InstanceObject c = argValues.get(0).getAADL();
 			if (c instanceof ConnectionInstance) {
@@ -470,9 +471,12 @@ public class FnCallExpr extends Expr {
 			{
 				expr = PropertyUtils.getSimplePropertyListValue(aadl, property);
 			}
-			return AADLPropertyValueToValue(expr);
-		} catch (PropertyLookupException e) {
-			return null;
+			Val res = AADLPropertyValueToValue(expr);
+			return res;
+		} catch (PropertyLookupException e)
+		{
+			e.printStackTrace();
+			return (new StringVal (""));
 		}
 	}
 
@@ -511,7 +515,8 @@ public class FnCallExpr extends Expr {
 			if (nv.getNamedValue() instanceof EnumerationLiteral)
 			{
 				EnumerationLiteral el = (EnumerationLiteral) nv.getNamedValue();
-				return new StringVal (el.getName().toLowerCase());
+				Val res = new StringVal (el.getName().toLowerCase());
+				return res;
 			}
 			throw new LuteException("NamedValue not implemented now " + nv );
 		}

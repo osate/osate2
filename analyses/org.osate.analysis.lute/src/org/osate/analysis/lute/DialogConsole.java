@@ -117,6 +117,8 @@ public class DialogConsole extends Dialog {
 	  private String 			input;
 	  private Logger 			logger;
 	  private SystemInstance 	systemInstance;
+	
+	  private static Text 		analysisResult = null;
 	  
 	  public List<String> getTheoremList ()
 	  {
@@ -255,6 +257,13 @@ public class DialogConsole extends Dialog {
 	    data.horizontalSpan = 2;
 	    text.setLayoutData(data);
 
+	    
+	    analysisResult = new Text(shell, SWT.BORDER | SWT.MULTI);
+	    analysisResult.setText("Analysis result");
+	    analysisResult.setSize(70, 2);
+	    data = new GridData(GridData.FILL_HORIZONTAL|GridData.FILL_VERTICAL);
+	    data.horizontalSpan = 2;
+	    analysisResult.setLayoutData(data);
 
 	    
 	    Label theoremSelect =  new Label(shell, SWT.NONE);
@@ -292,7 +301,9 @@ public class DialogConsole extends Dialog {
 	    ok.addSelectionListener(new SelectionAdapter() {
 	      public void widgetSelected(SelectionEvent event) {
 	        theorem = text.getText();
+	        analysisResult.clearSelection();
 	        Invoke.invoke(systemInstance, theorem, logger);
+	        DialogConsole.analysisResult.setText(analysisResult.getText()+"\n");
 	      }
 	    });
 
@@ -303,12 +314,23 @@ public class DialogConsole extends Dialog {
 	    cancel.addSelectionListener(new SelectionAdapter() {
 	      public void widgetSelected(SelectionEvent event) {
 	        theorem = null;
+	        analysisResult = null;
 	        shell.close();
+	        
 	      }
 	    });
 
 
 	    shell.setDefaultButton(ok);
 	    
+	  }
+	  
+	  
+	  public static void addResultMessage (String txt)
+	  {
+		  if (analysisResult != null)
+		  {
+			  analysisResult.setText(analysisResult.getText() + "\n" + txt);
+		  }
 	  }
 	}

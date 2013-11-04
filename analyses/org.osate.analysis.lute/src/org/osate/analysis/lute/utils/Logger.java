@@ -32,6 +32,7 @@ import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
+import org.osate.analysis.lute.DialogConsole;
 
 public class Logger {
 	
@@ -93,6 +94,8 @@ public class Logger {
 			if (priority == ERROR) msg = "*** ERROR: " + msg;
 			if (priority == WARN)  msg = "  WARNING: "  + msg;
 			out.println(msg);
+			
+			DialogConsole.addResultMessage (msg);
 		}
 	}
 	
