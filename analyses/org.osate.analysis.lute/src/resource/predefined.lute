@@ -41,7 +41,6 @@ theorem arinc653_safety
 foreach Conn in Connection_Set do
    foreach P_Src in {x in Process_Set | Owner (Source(Conn)) = x} do
    foreach P_Dst in {y in Process_Set | Owner (Destination(Conn)) = y} do
-
    foreach Runtime_Src  in {w in Virtual_Processor_Set | Is_Bound_To (P_Src, w)} do
    foreach Runtime_Dst  in {z in Virtual_Processor_Set | Is_Bound_To (P_Dst, z)} do
          check ( (Property (Runtime_Src, "ARINC653::Criticality")) = (Property (Runtime_Dst, "ARINC653::Criticality")));
@@ -74,7 +73,6 @@ theorem arinc653_partition_structure
    foreach prs in Process_Set do
          segments := {x in Memory_Set | Is_Bound_To (prs, x)};
          runtimes := {y in Virtual_Processor_Set | Is_Bound_To (prs, y)};
-   
          check ( (Cardinal (segments) = 1 ) and (Cardinal (runtimes) = 1 ));
 end;
 
@@ -100,7 +98,6 @@ theorem arinc653_partition_execution
 --  property list slots_allocation.
     foreach p in Processor_Set do
       foreach vp in { x in Virtual_Processor_Set | Is_Direct_Subcomponent_Of (x, p)} do
-
       check (Member (vp, Property (p, "ARINC653::Slots_Allocation")));
 end;
 
