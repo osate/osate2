@@ -17,6 +17,7 @@ public class DashedLineStyleFactory implements StyleFactory {
 		style.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
         style.setBackground(gaService.manageColor(diagram, IColorConstant.BLACK));
         style.setLineStyle(LineStyle.DASH);
+        
         style.setLineVisible(true);
         style.setLineWidth(2);
 		return style;
