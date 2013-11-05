@@ -9,7 +9,7 @@ foreach Conn in Connection_Set do
          check ( (Property (thr_src , "Period")) >= (Property (thr_dst, "Period")));
 end;
 
-theorem variable_scope
+theorem variable_scope1
 --  Data that are connected using data access 
 --  must have more than one connection. Otherwise,
 --  they must be located in the thread.
@@ -17,6 +17,109 @@ foreach d in Data_Set do
    conns := {c in Connection_Set |  (Source(c) = d)};
    check (Cardinal (conns) != 1);
 end;
+
+theorem variable_scope2
+-- Data at the Process Level must be accessed by more
+-- than one writer. Otherwise, we have to encapsulate
+-- the data in the writer thread and define [event] data
+-- port for the readers.
+foreach p in Process_Set do
+   foreach d in { x in Data_Set | Is_Direct_Subcomponent_Of (x,p)} do 
+     conns := {c in Connection_Set |  ((Source(c) = d) and  (Property (Destination(c), "Access_Right") = "write_only"))};
+     check (Cardinal (conns) != 1);
+end;
+
+
+theorem arinc653_safety
+--
+-- We check that connected processes share
+-- the same criticality level. For that, we
+-- checked that the virtual processor
+-- that executes the partition runtimes from both
+-- sides has the same criticality level.
+-- 
+foreach Conn in Connection_Set do
+   foreach P_Src in {x in Process_Set | Owner (Source(Conn)) = x} do
+   foreach P_Dst in {y in Process_Set | Owner (Destination(Conn)) = y} do
+
+   foreach Runtime_Src  in {w in Virtual_Processor_Set | Is_Bound_To (P_Src, w)} do
+   foreach Runtime_Dst  in {z in Virtual_Processor_Set | Is_Bound_To (P_Dst, z)} do
+         check ( (Property (Runtime_Src, "ARINC653::Criticality")) = (Property (Runtime_Dst, "ARINC653::Criticality")));
+end;
+
+theorem arinc653_memory_properties
+-- Check that each memory segment define the property byte_counts
+-- that indicates the size of the memory segment.
+   foreach s in System_Set do
+      foreach mainmem in {m in Memory_Set | Is_Direct_Subcomponent_Of (m, s)} do
+         foreach seg in  {n in Memory_Set | Is_Direct_Subcomponent_Of (n, mainmem)} do
+            check (Property_Exists (seg,"Byte_Count"));
+end;
+
+
+theorem arinc653_memory_segments
+--  Check that all main memory component
+--  has memory subcomponent that describe the decomposition
+--  of the memory into different segments.
+   foreach s in System_Set do
+      foreach mainmem in {m in Memory_Set | Is_Direct_Subcomponent_Of (m, s)} do
+         segset :=  {m1 in Memory_Set | Is_Subcomponent_Of (m1, mainmem)};
+            check (Cardinal (segset) > 0 );
+end;
+
+
+theorem arinc653_partition_structure
+--  Check that each partition (process) is associated
+--  with a runtime and a memory.
+   foreach prs in Process_Set do
+         segments := {x in Memory_Set | Is_Bound_To (prs, x)};
+         runtimes := {y in Virtual_Processor_Set | Is_Bound_To (prs, y)};
+   
+         check ( (Cardinal (segments) = 1 ) and (Cardinal (runtimes) = 1 ));
+end;
+
+
+theorem arinc653_criticality
+--  Check that all partition runtimes (virtual processor components)
+--  have the property Criticality defined.
+   foreach vp in Virtual_Processor_Set do
+      check (Property_Exists (vp, "ARINC653::Criticality"));
+end;
+
+theorem arinc653_major_frame
+--  Check the major frame compliance - the major frame
+--  of the CPU is the SUM of all the time slots of
+--  the partitions.
+    foreach cpu in Processor_Set do
+    check ((Property (cpu, "ARINC653::Module_Major_Frame")) =  (Sum (Property (cpu, "ARINC653::Partition_Slots"))));
+end;
+
+theorem arinc653_partition_execution
+--  Check that each virtual processor is executed by the kernel.
+--  For that, we check that the virtual processor is referenced in the
+--  property list slots_allocation.
+    foreach p in Processor_Set do
+      foreach vp in { x in Virtual_Processor_Set | Is_Direct_Subcomponent_Of (x, p)} do
+
+      check (Member (vp, Property (p, "ARINC653::Slots_Allocation")));
+end;
+
+
+
+
+theorem arinc653_memory_requirements
+-- We check that the size of the memory bound to the partition
+-- is sufficient to store all what the partition requires
+-- (memory requirements from the process).
+   foreach prs in Process_Set do
+      Thrs := {x in Thread_Set | Is_Direct_Subcomponent_Of (x, prs)};
+      mems := {x in Memory_Set | Is_Bound_To (prs, x)};
+      check
+         ((Sum (Property (Thrs, "Source_Stack_Size")) + Sum (Property (Thrs, "Source_Data_Size")) + Sum (Property (Thrs, "Source_Code_Size")))
+            < (Sum (Property (mems, "byte_count")))
+         );
+end;
+
 
 
 theorem shared_data1
