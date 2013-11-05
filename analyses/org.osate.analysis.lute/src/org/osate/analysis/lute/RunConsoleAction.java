@@ -72,10 +72,10 @@ public class RunConsoleAction extends AadlAction {
 
 		final SystemInstance si;
 		
-		OsateDebug.osateDebug("obj=" + obj); 
+		
 		if (obj instanceof SystemImplementation) 
 		{
-			OsateDebug.osateDebug("system implementation" + obj); 
+			 
 			SystemImplementation sysimpl = (SystemImplementation) obj;
 			InstantiateModel im = new InstantiateModel(
 					new NullProgressMonitor(), getErrorManager());

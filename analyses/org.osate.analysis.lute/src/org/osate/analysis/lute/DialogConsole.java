@@ -297,7 +297,7 @@ public class DialogConsole extends Dialog {
 	    
 	    theorems.addSelectionListener(new SelectionAdapter() {
 	        public void widgetSelected(SelectionEvent e) {
-	            System.out.println (theorems.getText());
+	            
 	            String theorem = getTheorem (theorems.getText());
 	            text.setText(theorem);
 	          }
