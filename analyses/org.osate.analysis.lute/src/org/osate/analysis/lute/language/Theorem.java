@@ -23,6 +23,7 @@ package org.osate.analysis.lute.language;
 
 import java.util.List;
 
+import org.osate.analysis.lute.DialogConsole;
 import org.osate.analysis.lute.LuteResult;
 import org.osate.analysis.lute.utils.Logger;
 
@@ -38,12 +39,14 @@ public class Theorem extends Command {
 
 	@Override
 	public Environment exec(Environment env, Logger log) {
+		DialogConsole.setLogGreen();
 		log.status("Executing theorem " + name + "...");
 		LuteResult result = stmt.exec(env, log);
 		
 		String line = "Passed " + result.getPassed() + " check(s)";
 		List<String> failMessages = result.getFailMessages();
 		if (!failMessages.isEmpty()) {
+			DialogConsole.setLogRed();
 			line += ", Failed " + failMessages.size() + " check(s):";
 		}
 		log.status(line);

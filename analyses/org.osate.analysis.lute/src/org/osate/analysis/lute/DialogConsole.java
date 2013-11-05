@@ -45,6 +45,7 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -55,6 +56,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.lute.utils.Invoke;
 import org.osate.analysis.lute.utils.Logger;
 
@@ -67,10 +69,9 @@ class MyInputStream
     private static final int _LF = 10;  
     private int	 			_last=-1;  
     private int 			_ch = -1;
-
     
     private InputStream in;  
-    public MyInputStream(InputStream i)  
+    public 	MyInputStream(InputStream i)  
     {  
     	in 				= i;  
     }  
@@ -119,7 +120,11 @@ public class DialogConsole extends Dialog {
 	  private SystemInstance 	systemInstance;
 	
 	  private static Text 		analysisResult = null;
-	  
+
+	  private static Shell 		currentShell = null;
+	  public final static int			ERROR = 0;
+	  public final static int			OK = 1;
+	  public final static int			NONE = 2;
 	  public List<String> getTheoremList ()
 	  {
 		  String tmp;
@@ -134,7 +139,7 @@ public class DialogConsole extends Dialog {
 		  {
 			while (( tmp = ms.readLine()) != null)
 			{
-				if (tmp.contains("theorem"))
+				if (tmp.matches("^theorem [a-zA-Z0-9_]+"))
 				{
 					tmp = tmp.replaceAll("theorem ", "");
 					result.add(tmp);
@@ -224,6 +229,7 @@ public class DialogConsole extends Dialog {
 	  
 	    Shell shell = new Shell(getParent(), getStyle());
 	    shell.setText(getText());
+	    currentShell = shell;
 	    createContents(shell);
 	    //shell.pack();
 	    shell.open();
@@ -261,7 +267,11 @@ public class DialogConsole extends Dialog {
 	    analysisResult = new Text(shell, SWT.BORDER | SWT.MULTI);
 	    analysisResult.setText("Analysis result");
 	    analysisResult.setSize(70, 2);
-	    data = new GridData(GridData.FILL_HORIZONTAL|GridData.FILL_VERTICAL);
+	  //  data = new GridData(shell.getSize().x, 100);
+	    data = new GridData(SWT.FILL, 100, true, false);
+	    data.minimumHeight = 200;
+	    data.heightHint = 100;
+	 //   data.FILL_HORIZONTAL = data.HORIZONTAL_ALIGN_FILL | data.GRAB_HORIZONTAL;
 	    data.horizontalSpan = 2;
 	    analysisResult.setLayoutData(data);
 
@@ -302,6 +312,7 @@ public class DialogConsole extends Dialog {
 	      public void widgetSelected(SelectionEvent event) {
 	        theorem = text.getText();
 	        analysisResult.clearSelection();
+	        
 	        Invoke.invoke(systemInstance, theorem, logger);
 	        DialogConsole.analysisResult.setText(analysisResult.getText()+"\n");
 	      }
@@ -325,12 +336,63 @@ public class DialogConsole extends Dialog {
 	    
 	  }
 	  
-	  
-	  public static void addResultMessage (String txt)
+	  public static void clearLog ()
 	  {
 		  if (analysisResult != null)
 		  {
-			  analysisResult.setText(analysisResult.getText() + "\n" + txt);
+			  analysisResult.setText( "" );
+		  }  
+	  }
+	  
+	  public static void setLogRed ()
+	  {
+		  if (analysisResult != null)
+		  {
+			  analysisResult.setForeground(new Color(currentShell.getDisplay(), 250, 10, 10));
+		  }
+	  }
+	  
+	  public static void setLogBlack ()
+	  {
+		  if (analysisResult != null)
+		  {
+			  analysisResult.setForeground(new Color(currentShell.getDisplay(), 0, 0, 0));
+		  }
+	  }
+	  
+	  public static void setLogGreen ()
+	  {
+		  if (analysisResult != null)
+		  {
+			  analysisResult.setForeground(new Color(currentShell.getDisplay(), 0, 180, 0));
+		  }
+	  }
+	  
+	  public static void addResultMessage (String txt, int type)
+	  {
+		  if (analysisResult != null)
+		  {
+			  switch (type)
+			  {
+				  case DialogConsole.ERROR:
+				  {
+					  setLogRed();
+					  break;
+				  }
+				  
+				  case DialogConsole.OK:
+				  {
+					  setLogGreen();
+					  break;
+				  }
+				  
+				  default:
+				  {
+					  break;
+				  }
+			  }
+	  
+			  analysisResult.setText(analysisResult.getText() + Text.DELIMITER + txt);
 		  }
 	  }
 	}

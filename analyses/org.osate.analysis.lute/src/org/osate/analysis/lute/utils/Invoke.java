@@ -38,6 +38,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.analysis.lute.DialogConsole;
 import org.osate.analysis.lute.LuteInterpreter;
 
 /**
@@ -53,9 +54,9 @@ public class Invoke {
 		
 		LuteInterpreter interpreter;
 		InputStream stream;
-		
+		DialogConsole.clearLog();
 		interpreter = new LuteInterpreter(systemInstance, log);
-		stream = new ByteArrayInputStream(theorem.getBytes());
+		stream	 	= new ByteArrayInputStream(theorem.getBytes());
 		
 		interpreter.run(stream);
 	}

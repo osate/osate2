@@ -1,16 +1,72 @@
+theorem period_consistency
+--  If two threads are communicating using ports,
+--  the sender must have a period that is higher
+--  than the receiver so that the receiver can
+--  handle its data on time.
+foreach Conn in Connection_Set do
+   foreach thr_src in {x in Thread_Set | Owner (Source(Conn)) = x} do
+   foreach thr_dst in {y in Thread_Set | Owner (Destination(Conn)) = y} do
+         check ( (Property (thr_src , "Period")) >= (Property (thr_dst, "Period")));
+end;
+
+theorem variable_scope
+--  Data that are connected using data access 
+--  must have more than one connection. Otherwise,
+--  they must be located in the thread.
+foreach d in Data_Set do
+   conns := {c in Connection_Set |  (Source(c) = d)};
+   check (Cardinal (conns) != 1);
+end;
+
+
+theorem shared_data1
+-- The purpose of this theorem is to check that a data without
+-- any concurrency protocol is accessed only by one writer.
+-- Otherwise, you have to use a concurrency protocol
+-- to avoid race condition and data inconsistencies.
+foreach d in Data_Set do
+   write_conns := {c in Connection_Set |  ((Source(c) = d) and  (Property (Destination(c), "Access_Right") = "write_only"))};
+   check ((Property  (d, "concurrency_control_protocol") = "") and (Cardinal (write_conns) <= 1));
+end;
+
+
+
+theorem shared_data2
+-- The purpose of this theorem is to check that any data with
+-- a concurrency protocol must have more than two writers.
+-- Otherwise, it is a waste of resources.
+foreach d in Data_Set do
+   write_conns := {c in Connection_Set |  ((Source(c) = d) and  (Property (Destination(c), "Access_Right") = "write_only"))};
+   check ((Property  (d, "concurrency_control_protocol") = "protected_access") and (Cardinal (write_conns) > 1));
+end;  
+
+
+
 theorem Period_Defined
+--
+--  We check that the property Period
+--  exists on each thread.
+--
   foreach s in Thread_Set do
     check Property_Exists(s, "Period");
 end;
 
 
 theorem Dispatch_Defined
+--
+--  We check that the property Dispatch_Protocol
+--  exists on each thread.
+--
   foreach s in Thread_Set do
     check Property_Exists(s, "Dispatch_Protocol");
 end;
 
 
 theorem Deadline_Defined
+--
+--  We check that the property Deadline
+--  exists on each thread.
+--
   foreach s in Thread_Set do
     check Property_Exists(s, "Deadline");
 end;

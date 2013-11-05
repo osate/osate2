@@ -66,11 +66,13 @@ public class LuteInterpreter {
 			}
 			catch (NullPointerException npe)
 			{
+				DialogConsole.setLogRed();
 				log.error("Command failed: " + npe.getMessage());
 				//npe.printStackTrace();	
 			}
 			catch (LuteException e) 
 			{
+				DialogConsole.setLogRed();
 				log.error("Command failed: " + e.getMessage());
 				//e.printStackTrace();
 			}

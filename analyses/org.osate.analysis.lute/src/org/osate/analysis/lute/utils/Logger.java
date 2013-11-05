@@ -91,11 +91,34 @@ public class Logger {
 	
 	private void log(int priority, String msg) {
 		if (verbosity >= priority) {
-			if (priority == ERROR) msg = "*** ERROR: " + msg;
-			if (priority == WARN)  msg = "  WARNING: "  + msg;
+			
+			
+			switch (priority)
+			{
+				case ERROR:
+				{
+					msg = "*** ERROR: " + msg;
+					DialogConsole.addResultMessage (msg, DialogConsole.ERROR);
+					break;
+				}
+				
+				case WARN:
+				{
+					msg = "  WARNING: "  + msg;
+					DialogConsole.addResultMessage (msg, DialogConsole.ERROR);
+					break;
+				}
+				
+				default:
+				{
+					DialogConsole.addResultMessage (msg, DialogConsole.NONE);
+					break;
+				}
+				
+			}
+			
 			out.println(msg);
 			
-			DialogConsole.addResultMessage (msg);
 		}
 	}
 	
@@ -128,5 +151,7 @@ public class Logger {
 
 	public void clear() {
 		console.clearConsole();
+		DialogConsole.clearLog ();
+
 	}
 }
