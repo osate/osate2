@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "../docbook-xml-4.5/docbookx.dtd">
+
+<book>
+  <title>AADL Graphical Editor</title>
+  
+  <bookinfo>
+    <title>DocBook Intro</title>
+    <author>
+      <firstname>Lars</firstname>
+      <surname>Vogel</surname>
+    </author>
+    <volumenum>1234</volumenum>
+  </bookinfo>
+  
+  <chapter>
+    <title>This is the first chapter</title>
+    <section>
+      <title> First section in the chapter</title>
+      <para> Test</para>
+        <section>
+      <title> First sub section </title>
+      <para> Subsection1</para>
+    </section>
+      <section>
+      <title> second sub section </title>
+      <para> Subsection2</para>
+    </section>
+    </section>
+    <section>
+      <title> Second section in the chapter</title>
+      <para>Other random text
+      </para>
+      <para>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/title.png"/>
+        </imageobject>
+        <textobject>
+        <phrase>
+        </phrase>
+      </textobject>
+      </mediaobject>
+    </para>
+    </section>
+    
+  </chapter>
+
+  <chapter>
+    <title>This is the second chapter</title>
+    <section>
+      <title> My Title</title>
+      <para>More...
+      </para>
+    </section>
+    <section>
+      <title> Other title</title>
+      <para>Blabla
+      </para>
+    </section>
+  </chapter>
+</book> 

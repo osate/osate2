@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<toc label="AADL Graphical Editor" topic="output\index.html">
+   <topic label="This is the first chapter" href="output\ch01.html">
+      <topic label="First section in the chapter" href="output\ch01.html#d0e17">
+         <topic label="First sub section" href="output\ch01.html#d0e22"/>
+         <topic label="second sub section" href="output\ch01.html#d0e27"/>
+      </topic>
+      <topic label="Second section in the chapter" href="output\ch01s02.html"/>
+   </topic>
+   <topic label="This is the second chapter" href="output\ch02.html">
+      <topic label="My Title" href="output\ch02.html#d0e49"/>
+      <topic label="Other title" href="output\ch02s02.html"/>
+   </topic>
+</toc>
