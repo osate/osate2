@@ -170,7 +170,7 @@
      <navigatorContent
            activeByDefault="true"
            contentProvider="edu.uah.rsesc.aadl.age.ui.navigator.ContentProvider"
-           id="edu.uah.rsesc.aadl.age.navigatorContent2"
+           id="edu.uah.rsesc.aadl.age.navigatorContent"
            labelProvider="edu.uah.rsesc.aadl.age.ui.navigator.LabelProvider"
            name="AADL Diagrams"
            priority="highest">
@@ -194,6 +194,27 @@
            </contentExtension>
         </includes>
      </viewerContentBinding>
+  </extension>
+  
+  <extension
+        point="org.eclipse.ui.navigator.navigatorContent">
+     <navigatorContent
+           activeByDefault="true"
+           id="edu.uah.rsesc.aadl.age.navigatorContent2"
+           name="Sort by Label (AGE)"
+           priority="highest"
+           sortOnly="true">
+        <commonSorter
+              class="edu.uah.rsesc.aadl.age.ui.navigator.Sorter"
+              id="edu.uah.rsesc.aadl.age.navigatorContent.sorter">
+           <parentExpression>
+              <or>
+                 <instanceof
+                       value="org.eclipse.core.resources.IResource">
+                 </instanceof></or>
+           </parentExpression>
+        </commonSorter>
+     </navigatorContent>
   </extension>
  
 </plugin>
