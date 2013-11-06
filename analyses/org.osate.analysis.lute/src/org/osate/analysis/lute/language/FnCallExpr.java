@@ -162,7 +162,7 @@ public class FnCallExpr extends Expr {
 			{
 				InstanceObject aadl = argValues.get(0).getAADL();
 				result = getProperty(aadl, property);
-				OsateDebug.osateDebug("result" + result);
+				//OsateDebug.osateDebug("result" + result);
 				if (result == null) { 
 					return (new StringVal (""));
 				//	throw new LuteException("Failed to find property " + property);
