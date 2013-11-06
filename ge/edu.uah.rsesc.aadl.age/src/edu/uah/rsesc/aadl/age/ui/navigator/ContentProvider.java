@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- * A dummy content provider. Needed to prevent eclipes from throwing exceptions because we only need to define a label provider.
+ * A dummy content provider. Needed to prevent eclipse from throwing exceptions because we only need to define a label provider.
  * @author philip.alldredge
  *
  */
