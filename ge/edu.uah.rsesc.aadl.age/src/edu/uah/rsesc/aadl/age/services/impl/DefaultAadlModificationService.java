@@ -48,30 +48,56 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(root.getQualifiedName());
 		if(doc == null) {
 			final XtextResource res = (XtextResource)element.eResource();
-			final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, true);
+			final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier);
 			modifierResult = modifySafelyResult.modifierResult;
+			
 			if(modifySafelyResult.modificationSuccessful) {
+				// Save the model
+				try {
+					res.save(SaveOptions.defaultOptions().toOptionsMap());	
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				};
+				
+				// Update the diagram
 				Display.getDefault().syncExec(new Runnable() {
 					public void run() {			
 						// Update the entire diagram
 						fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { fp.getDiagramTypeProvider().getDiagram() });					
 					}
 				});
+
+				// Call the after modification callback
+				modifier.afterCommit(res, element, modifierResult);
 			}
 		} else {
 			final URI elementUri = EcoreUtil.getURI(element);
-			modifierResult = doc.modify(new IUnitOfWork<R, XtextResource>() {
+			final ModifySafelyResults<R> modifySafelyResult = doc.modify(new IUnitOfWork<ModifySafelyResults<R>, XtextResource>() {
 				@Override
-				public R exec(final XtextResource  res) throws Exception {
+				public ModifySafelyResults<R> exec(final XtextResource res) throws Exception {
 					@SuppressWarnings("unchecked")
 					final E element = (E)res.getResourceSet().getEObject(elementUri, true);
 					if(element == null) {
 						return null;
 					}
 					
-					return modifySafely(res, element, modifier, false).modifierResult;
+					return modifySafely(res, element, modifier);
 				}
-			});	
+			});
+			modifierResult = modifySafelyResult.modifierResult;
+			
+			// Call the after modification callback
+			if(modifySafelyResult.modificationSuccessful) {
+				// Call readonly on the document. This will should cause Xtext's reconciler to be called to ensure the document matches the model.
+				// If modify() has been called in the display thread, then the diagram should be updated by the diagram editor as well
+				doc.readOnly(new IUnitOfWork<Object, XtextResource>() {
+					@Override
+					public Object exec(final XtextResource res) throws Exception {
+						modifier.afterCommit(res, element, modifierResult);
+						return null;
+					}
+				});	
+			}
 		}
 
 		return modifierResult;
@@ -101,7 +127,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <E extends Element, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier, final boolean saveOnSuccess) {
+	private <E extends Element, R> ModifySafelyResults<R> modifySafely(final XtextResource resource, final E element, final Modifier<E, R> modifier) {
 		if(resource.getContents().size() < 1) {
 			return null;
 		}
@@ -166,21 +192,14 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				modificationSuccessful = false;
 				result = null;
 			}
-	
+
 			// Flush and dispose of the editing domain
 			domain.getCommandStack().flush();			
-			domain.dispose();	
+			domain.dispose();
 			
 			if(modificationSuccessful) {
-				if(saveOnSuccess) {
-					try {
-						resource.save(SaveOptions.defaultOptions().toOptionsMap());	
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					};
-				}
-
-				modifier.afterModification(resource, element);
+				// Call the after modification callback
+				modifier.beforeCommit(resource, element, result);
 			}
 		}
 		

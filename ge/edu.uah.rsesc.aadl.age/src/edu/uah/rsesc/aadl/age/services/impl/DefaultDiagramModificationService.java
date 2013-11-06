@@ -78,11 +78,11 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					
 					// Get pictogram elements in the diagram that is linked to the element
 					final PictogramElement[] pes = featureProvider.getAllPictogramElementsForBusinessObject(elWrapper);
-						for(PictogramElement pe : pes) {
+					for(PictogramElement pe : pes) {
 						linkages.add(pe);
 					}
 	
-						// Check if the diagram is linked to the element. Diagrams are not returned by getAllPictogramElementsForBusinessObject
+					// Check if the diagram is linked to the element. Diagrams are not returned by getAllPictogramElementsForBusinessObject
 					if(diagramBo instanceof NamedElement && el.getQualifiedName().equalsIgnoreCase(((NamedElement)diagramBo).getQualifiedName())) {
 						linkages.add(diagram);
 					}						
@@ -147,14 +147,6 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 				resource.save(null);
 			} catch (IOException e) {
 				throw new RuntimeException("Error saving new diagram", e);
-			}
-			
-			// TODO: Do not commit. Hack to work around rename/indexing issues.
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			
 			// Dispose of the editing domain if we created it

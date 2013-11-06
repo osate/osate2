@@ -22,9 +22,14 @@ public interface AadlModificationService {
 		R modify(Resource resource, final E element);
 		
 		/**
-		 * Called after a modification has been made. Is not executed if the modification is aborted.
+		 * Called after a modification but before the AADL text file has been updated and the diagram has been updated. Is not executed if the modification is aborted.
 		 */
-		void afterModification(Resource resource, E element);
+		void beforeCommit(Resource resource, E element, R modificationResult);
+		
+		/**
+		 * Called after a modification has been made, the AADL text file has been updated, and the diagram has been updated. Is not executed if the modification is aborted.
+		 */
+		void afterCommit(Resource resource, E element, R modificationResult);
 	}
 	
 	public static abstract class AbstractModifier<E, R> implements Modifier<E,R> {
@@ -32,8 +37,11 @@ public interface AadlModificationService {
 		public abstract R modify(Resource resource, E element);		
 		
 		@Override
-		public void afterModification(Resource resource, E element) {
-			
+		public void beforeCommit(Resource resource, E element, R modificationResult) {			
+		}
+		
+		@Override
+		public void afterCommit(Resource resource, E element, R modificationResult) {			
 		}
 	}
 }

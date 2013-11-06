@@ -728,7 +728,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		}		
 		
 		@Override
-		public void afterModification(final Resource resource, final Feature feature) {
+		public void beforeCommit(final Resource resource, final Feature feature, final Object modificationResult) {
 			diagramMod.commit();
 		}
  	}

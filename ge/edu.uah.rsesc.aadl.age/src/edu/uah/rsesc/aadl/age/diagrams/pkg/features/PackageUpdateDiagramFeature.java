@@ -36,7 +36,6 @@ import org.osate.aadl2.util.Aadl2Util;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
-import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;

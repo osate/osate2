@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -32,16 +31,11 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
-import edu.uah.rsesc.aadl.age.services.impl.DefaultDiagramService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 
 import java.util.Map;
@@ -68,7 +62,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
 
 					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
-						Display.getDefault().asyncExec(new Runnable() {
+						Display.getDefault().syncExec(new Runnable() {
 							public void run() {			
 								// Update the entire diagram
 								getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
