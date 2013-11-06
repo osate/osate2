@@ -64,6 +64,7 @@ import java.util.List;
 
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -79,6 +80,7 @@ import org.osate.aadl2.impl.ContainmentPathElementImpl;
 import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
@@ -210,6 +212,46 @@ public class FnCallExpr extends Expr {
 			}
 
 			throw new LuteException("Destination called on non-connection object");
+			
+		} else if (fn.equalsIgnoreCase("has_out_ports")) {
+			expectArgs(1);
+			InstanceObject c = argValues.get(0).getAADL();
+			if (c instanceof ComponentInstance) {
+				int fis = 0;
+				ComponentInstance comp = (ComponentInstance) c;
+				for (FeatureInstance fi : comp.getFeatureInstances())
+				{
+					if ((fi.getDirection() == DirectionType.OUT) ||
+						(fi.getDirection() == DirectionType.IN_OUT) )
+					{
+						fis++;
+					}
+
+				}
+				return new BoolVal(fis != 0);
+			}
+
+			throw new LuteException("has_out_ports called on non-connection object");
+			
+		} else if (fn.equalsIgnoreCase("has_in_ports")) {
+			expectArgs(1);
+			InstanceObject c = argValues.get(0).getAADL();
+			if (c instanceof ComponentInstance) {
+				int fis = 0;
+				ComponentInstance comp = (ComponentInstance) c;
+				for (FeatureInstance fi : comp.getFeatureInstances())
+				{
+					if ((fi.getDirection() == DirectionType.IN) ||
+						(fi.getDirection() == DirectionType.IN_OUT) )
+					{
+						fis++;
+					}
+
+				}
+				return new BoolVal(fis != 0);
+			}
+
+			throw new LuteException("has_in_ports called on non-connection object");
 			
 		} else if (fn.equals("Member")) {
 			expectArgs(2);
