@@ -201,3 +201,19 @@ foreach thr in {t in Thread_Set | has_out_ports (t)} do
    conns := {c in Connection_Set |  Owner(Source(c)) = thr};
    check (Cardinal (conns) > 1);
 end;
+
+
+theorem variable_scope3
+--
+-- Data at the Process Level should be accessed by both
+-- multiple readers and multiple writers. Otherwise,
+-- the data scope can be located either in the reader
+-- or the writer component and avoid to have a global
+-- scope.
+--
+foreach p in Process_Set do
+   foreach d in { x in Data_Set | Is_Direct_Subcomponent_Of (x,p)} do 
+     conns_read := {c in Connection_Set |  ((Source(c) = d) and  (Property (Destination(c), "Access_Right") = "read_only"))};
+     conns_write := {c in Connection_Set |  ((Source(c) = d) and  ((Property (Destination(c), "Access_Right") = "write_only") or (Property (Destination(c), "Access_Right") = "read_write")))};
+     check ((Cardinal (conns_write) > 1) and (Cardinal (conns_read) > 1));
+end;

@@ -80,6 +80,7 @@ import org.osate.aadl2.impl.ContainmentPathElementImpl;
 import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
@@ -221,6 +222,13 @@ public class FnCallExpr extends Expr {
 				ComponentInstance comp = (ComponentInstance) c;
 				for (FeatureInstance fi : comp.getFeatureInstances())
 				{
+					if ( (fi.getCategory() != FeatureCategory.DATA_PORT) &&
+						 (fi.getCategory() != FeatureCategory.EVENT_DATA_PORT) &&
+						 (fi.getCategory() != FeatureCategory.EVENT_PORT))
+					{
+						continue;
+					}
+					
 					if ((fi.getDirection() == DirectionType.OUT) ||
 						(fi.getDirection() == DirectionType.IN_OUT) )
 					{
@@ -241,6 +249,13 @@ public class FnCallExpr extends Expr {
 				ComponentInstance comp = (ComponentInstance) c;
 				for (FeatureInstance fi : comp.getFeatureInstances())
 				{
+					if ( (fi.getCategory() != FeatureCategory.DATA_PORT) &&
+							(fi.getCategory() != FeatureCategory.EVENT_DATA_PORT) &&
+							(fi.getCategory() != FeatureCategory.EVENT_PORT))
+					{
+						continue;
+					}
+					
 					if ((fi.getDirection() == DirectionType.IN) ||
 						(fi.getDirection() == DirectionType.IN_OUT) )
 					{
