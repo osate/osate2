@@ -10,6 +10,7 @@ import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
@@ -324,6 +325,7 @@ public class FTAUtils
 								newEventName = ev.getName();
 								newEvent.setName (newEventName);
 								newEvent.setEventType(EventType.EVENT);
+								
 								propagations.add(newEvent);
 							}
 							
@@ -380,7 +382,12 @@ public class FTAUtils
 						if (!PA.isEmpty()){
 							double prob = EMV2Properties.getOccurenceValue (PA.get(0));
 							tmpEvent.setProbability(prob);
-						}						
+						}
+						
+						if (getDescription (ep, relatedComponentInstance) != null)
+						{
+							event.setDescription("\"" + getDescription (ep, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
+						}
 						
 						toAdd.add(tmpEvent);
 					}
@@ -447,6 +454,11 @@ public class FTAUtils
 						double prob = EMV2Properties.getOccurenceValue (PA.get(0));
 						event.setProbability(prob);
 					}		
+					
+					if (getDescription (ee, relatedComponentInstance) != null)
+					{
+						event.setDescription("\"" + getDescription (ee, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
+					}
 					
 					event.setName(ee.getName());
 				}
@@ -663,11 +675,26 @@ public class FTAUtils
 		}
 	}
 	
-	public static String getDescription (ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance)
+	public static String getDescription (NamedElement element, ComponentInstance relatedComponentInstance)
 	{
-		TypeSet ts = behaviorState.getTypeSet();
+		TypeSet ts = null;
 		
-		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponentInstance,behaviorState,ts);
+		if (element instanceof ErrorBehaviorState)
+		{
+			ts = ((ErrorBehaviorState)element).getTypeSet();
+		}
+		
+		if (element instanceof ErrorPropagation)
+		{
+			ts = ((ErrorPropagation)element).getTypeSet();
+		}
+		
+		if (element instanceof ErrorEvent)
+		{
+			ts = ((ErrorEvent)element).getTypeSet();
+		}
+		
+		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponentInstance,element,ts);
 		
 		if (PA.isEmpty())
 		{
@@ -689,6 +716,27 @@ public class FTAUtils
 						return text;
 					}
 				} 
+			}
+			if (val instanceof ListValue)
+			{
+				ListValue lv = (ListValue)val;
+				for (PropertyExpression pe : lv.getOwnedListElements())
+				{
+					if (pe instanceof RecordValue)
+					{
+						RecordValue rv = (RecordValue) pe;
+						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+						BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
+						if (xref != null){
+							PropertyExpression peVal = xref.getOwnedValue();
+							if (peVal instanceof StringLiteral){
+								String text = ((StringLiteral)peVal).getValue();
+								text = text.replace('\"', ' ');
+								return text;
+							}
+						} 
+					}
+				}
 			}
 		}
 		return null;
