@@ -73,11 +73,6 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 	}
 
 	
-
-	
-
-
-	
 	public Event processRootSystem (SystemInstance systemInstance)
 	{
 		EList<CompositeState> 		states;
