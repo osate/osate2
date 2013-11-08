@@ -49,6 +49,8 @@
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.equinox.p2.user.ui"/>
+      <feature id="org.osate.ba.feature" version="1.0.0.qualifier"/>
+      <feature id="org.osate.utils.feature" version="1.0.0.qualifier"/>
    </features>
 
    <configurations>
