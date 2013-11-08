@@ -66,8 +66,6 @@
     <module>../../plugins/org.osate.plugins.feature</module>
     <module>../../plugins/org.osate.plugins.source.feature</module>
     
-    
-    
     <module>../../error-model2/org.osate.aadl2.errormodel.analysis</module>
     <module>../../error-model2/org.osate.xtext.aadl2.errormodel.feature</module>
     <module>../../error-model2/org.osate.xtext.aadl2.errormodel.ui</module>
@@ -80,6 +78,13 @@
     <module>../../error-model1/edu.laas.aadl.aadl2gspn</module>
     <module>../../error-model1/edu.laas.aadl.dependency</module>
     <module>../../error-model1/edu.laas.aadl.gspn.model</module>
+    
+    <module>../../aadlba/org.osate.utils</module>
+    <module>../../aadlba/org.osate.utils.feature</module>
+    <module>../../aadlba/org.osate.ba</module>
+    <module>../../aadlba/org.osate.ba.feature</module>
+    <module>../../aadlba/org.osate.ba.edit</module>
+    
   </modules>
 
   <build>
