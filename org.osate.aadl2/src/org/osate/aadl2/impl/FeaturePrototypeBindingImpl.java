@@ -205,7 +205,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	@Override
 	public void setFormal(Prototype newFormal) {
 		if (newFormal != null && !(newFormal instanceof FeaturePrototype)) {
-			OsateDebug.osateDebug("[FeaturePrototypeBindinImpl] newFormal must be an instance of FeaturePrototype, current is:" + newFormal);
+//			OsateDebug.osateDebug("[FeaturePrototypeBindinImpl] newFormal must be an instance of FeaturePrototype, current is:" + newFormal);
 			//return;
 		}
 		Prototype oldFormal = formal;
