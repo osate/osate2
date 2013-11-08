@@ -208,7 +208,7 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 	@Override
 	public void setFormal(Prototype newFormal) {
 		if (newFormal != null && !(newFormal instanceof FeatureGroupPrototype)) {
-			OsateDebug.osateDebug("[FeatureGroupPrototypeBindingImpl] newFormal must be an instance of FeatureGroupPrototype mcurrently being:" + newFormal);
+//			OsateDebug.osateDebug("[FeatureGroupPrototypeBindingImpl] newFormal must be an instance of FeatureGroupPrototype mcurrently being:" + newFormal);
 		//	return;
 		}
 		Prototype oldFormal = formal;
