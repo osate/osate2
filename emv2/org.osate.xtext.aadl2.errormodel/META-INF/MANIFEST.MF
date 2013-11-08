@@ -39,4 +39,4 @@ Export-Package: org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2.errormodel.validation,
  org.osate.xtext.aadl2.errormodel.valueconversion,
  org.osate.xtext.aadl2.errormodel.scoping
-
+Import-Package: org.apache.log4j

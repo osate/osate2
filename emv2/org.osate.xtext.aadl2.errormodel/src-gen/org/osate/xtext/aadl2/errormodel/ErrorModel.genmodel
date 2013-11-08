@@ -4,7 +4,7 @@
     editorDirectory="/org.osate.xtext.aadl2.errormodel.editor/src" modelPluginID="org.osate.xtext.aadl2.errormodel"
     forceOverwrite="true" modelName="ErrorModel" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.errormodel.edit"
-    editorPluginID="org.osate.xtext.aadl2.errormodel.editor" runtimeVersion="2.8"
+    editorPluginID="org.osate.xtext.aadl2.errormodel.editor" runtimeVersion="2.9"
     usedGenPackages="../../../../../../../org.osate.aadl2/model/aadl2-nouml.genmodel#//aadl2">
   <genPackages prefix="ErrorModel" basePackage="org.osate.xtext.aadl2.errormodel"
       resource="XML" disposableProviderFactory="true" ecorePackage="ErrorModel.ecore#/">
