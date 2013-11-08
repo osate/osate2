@@ -114,5 +114,11 @@ Hazards: list of record
 
 Description : aadlstring applies to (all); 
 
+HazardAllocation: record (
+AssumedProbability : aadlreal;
+ExposureTime : Time;
+Notes : aadlstring;
+) applies to (all);
+
 
 end EMV2;
