@@ -10,9 +10,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -37,6 +35,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
+import edu.uah.rsesc.aadl.age.util.Log;
 
 import java.util.Map;
 
@@ -62,12 +61,20 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
 
 					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
-						Display.getDefault().syncExec(new Runnable() {
+						final Runnable updateDiagramRunnable = new Runnable() {
 							public void run() {			
 								// Update the entire diagram
 								getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });
 							}
-						});	
+						};
+						
+						if(Display.getDefault().getThread() == Thread.currentThread()) {
+							Log.info("Updating diagram synchronously - current thread is the display thread");
+							updateDiagramRunnable.run();
+						} else {
+							Log.info("Updating diagram asynchronously - current thread is not the display thread");
+							Display.getDefault().asyncExec(updateDiagramRunnable);	
+						}
 					}
 				}
 			}					
@@ -170,9 +177,11 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		AgeXtextUtil.removeModelListener(modelListener);
 	}
 
+	// TODO: Remove? No longer needed?
 	/**
 	 * Implementation of executeFeature that flushes the command stack if a command that cannot be undone is executed.
 	 */
+	/*
 	@Override
 	public Object executeFeature(IFeature feature, IContext context) {
 		// Ensure command stack is valid. May receive an async command after editor is closed
@@ -191,4 +200,5 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		
 		return null;
 	}
+	*/
 }

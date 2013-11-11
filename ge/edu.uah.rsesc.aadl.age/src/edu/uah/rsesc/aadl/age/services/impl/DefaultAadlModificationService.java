@@ -38,69 +38,89 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			return null;
 		}
 		
-		final R modifierResult;
-		if(!(element.eResource() instanceof XtextResource)) {
-			throw new RuntimeException("Unexpected case. Resource is not an XtextResource");
-		}
-
-		// Try to get the Xtext document	
-		final NamedElement root = element.getElementRoot();
-		final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(root.getQualifiedName());
-		if(doc == null) {
-			final XtextResource res = (XtextResource)element.eResource();
-			final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier);
-			modifierResult = modifySafelyResult.modifierResult;
+		class ModifyRunnable implements Runnable {
+			public R result;
 			
-			if(modifySafelyResult.modificationSuccessful) {
-				// Save the model
-				try {
-					res.save(SaveOptions.defaultOptions().toOptionsMap());	
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				};
-				
-				// Update the diagram
-				Display.getDefault().syncExec(new Runnable() {
-					public void run() {			
-						// Update the entire diagram
-						fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { fp.getDiagramTypeProvider().getDiagram() });					
-					}
-				});
-
-				// Call the after modification callback
-				modifier.afterCommit(res, element, modifierResult);
-			}
-		} else {
-			final URI elementUri = EcoreUtil.getURI(element);
-			final ModifySafelyResults<R> modifySafelyResult = doc.modify(new IUnitOfWork<ModifySafelyResults<R>, XtextResource>() {
-				@Override
-				public ModifySafelyResults<R> exec(final XtextResource res) throws Exception {
-					@SuppressWarnings("unchecked")
-					final E element = (E)res.getResourceSet().getEObject(elementUri, true);
-					if(element == null) {
-						return null;
-					}
-					
-					return modifySafely(res, element, modifier);
+			@Override
+			public void run() {
+				final R modifierResult;
+				if(!(element.eResource() instanceof XtextResource)) {
+					throw new RuntimeException("Unexpected case. Resource is not an XtextResource");
 				}
-			});
-			modifierResult = modifySafelyResult.modifierResult;
-			
-			// Call the after modification callback
-			if(modifySafelyResult.modificationSuccessful) {
-				// Call readonly on the document. This will should cause Xtext's reconciler to be called to ensure the document matches the model.
-				// If modify() has been called in the display thread, then the diagram should be updated by the diagram editor as well
-				doc.readOnly(new IUnitOfWork<Object, XtextResource>() {
-					@Override
-					public Object exec(final XtextResource res) throws Exception {
-						modifier.afterCommit(res, element, modifierResult);
-						return null;
-					}
-				});	
-			}
-		}
 
-		return modifierResult;
+				// Try to get the Xtext document	
+				final NamedElement root = element.getElementRoot();
+				final IXtextDocument doc = AgeXtextUtil.getDocumentByQualifiedName(root.getQualifiedName());
+				if(doc == null) {
+					final XtextResource res = (XtextResource)element.eResource();
+					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier);
+					modifierResult = modifySafelyResult.modifierResult;
+					
+					if(modifySafelyResult.modificationSuccessful) {
+						// Save the model
+						try {
+							res.save(SaveOptions.defaultOptions().toOptionsMap());	
+						} catch (IOException e) {
+							throw new RuntimeException(e);
+						};
+						
+						// Update the diagram
+						Display.getDefault().syncExec(new Runnable() {
+							public void run() {			
+								// Update the entire diagram
+								fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { fp.getDiagramTypeProvider().getDiagram() });					
+							}
+						});
+
+						// Call the after modification callback
+						modifier.afterCommit(res, element, modifierResult);
+					}
+				} else {
+					final URI elementUri = EcoreUtil.getURI(element);
+					final ModifySafelyResults<R> modifySafelyResult = doc.modify(new IUnitOfWork<ModifySafelyResults<R>, XtextResource>() {
+						@Override
+						public ModifySafelyResults<R> exec(final XtextResource res) throws Exception {
+							@SuppressWarnings("unchecked")
+							final E element = (E)res.getResourceSet().getEObject(elementUri, true);
+							if(element == null) {
+								return null;
+							}
+							
+							return modifySafely(res, element, modifier);
+						}
+					});
+					modifierResult = modifySafelyResult.modifierResult;
+					
+					// Call the after modification callback
+					if(modifySafelyResult.modificationSuccessful) {
+						// Call readonly on the document. This will should cause Xtext's reconciler to be called to ensure the document matches the model.
+						// If modify() has been called in the display thread, then the diagram should be updated by the diagram editor as well
+						doc.readOnly(new IUnitOfWork<Object, XtextResource>() {
+							@Override
+							public Object exec(final XtextResource res) throws Exception {
+								modifier.afterCommit(res, element, modifierResult);
+								return null;
+							}
+						});	
+					}
+				}
+
+				result = modifierResult;
+			}
+			
+		};
+		
+		// We want to run the modification in the display thread. Executing in the display thread will allow the diagram editor updates to be ran synchronously
+		final ModifyRunnable modifyRunnable = new ModifyRunnable();
+		if(Display.getDefault().getThread() == Thread.currentThread()) {
+			Log.info("Executing modification without a thread switch");
+			modifyRunnable.run();
+		} else {
+			Log.info("Executing modification after switching to display thread");
+			Display.getDefault().syncExec(modifyRunnable);	
+		}
+		
+		return modifyRunnable.result;
 	}
 	
 	/**

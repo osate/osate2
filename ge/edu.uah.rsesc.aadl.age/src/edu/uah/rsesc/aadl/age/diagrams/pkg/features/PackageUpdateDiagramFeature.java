@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.IAddFeature;
-import org.eclipse.graphiti.features.ICustomUndoableFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.IUpdateFeature;
@@ -41,7 +40,7 @@ import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.util.Log;
 
-public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoableFeature {
+public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
 	private final VisibilityService visibilityService;
@@ -222,18 +221,5 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	
 	private void updateGeneralization(final Diagram diagram, final Generalization generalization) {
 		connectionCreationService.createUpdateConnection(diagram, generalization);
-	}
-
-	@Override
-	public void undo(IContext context) {
-	}
-
-	@Override
-	public boolean canRedo(IContext context) {
-		return false;
-	}
-
-	@Override
-	public void redo(IContext context) {	
 	}
 }

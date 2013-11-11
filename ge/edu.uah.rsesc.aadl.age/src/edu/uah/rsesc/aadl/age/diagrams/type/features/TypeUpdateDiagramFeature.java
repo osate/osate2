@@ -51,6 +51,11 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 	}
 	
 	@Override
+	public boolean canUndo(final IContext context) {
+		return false;
+	}
+	
+	@Override
 	public boolean canUpdate(final IUpdateContext context) {
 		return getClassifier(context) != null;
 	}

@@ -3,9 +3,11 @@ package edu.uah.rsesc.aadl.age.services.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -44,7 +46,13 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 
 	class DefaultModification implements Modification {
 		private final Map<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<Diagram, Map<NamedElement, PictogramElement[]>>();
+		private final Set<Diagram> dirtyDiagrams = new HashSet<Diagram>();
 		private final List<Diagram> diagrams;
+		
+		@Override
+		public List<Diagram> getDiagrams() {
+			return diagrams;
+		}
 		
 		private Map<NamedElement, PictogramElement[]> getDirtyLinkages(final Diagram diagram) {
     		Map<NamedElement, PictogramElement[]> dirtyLinkages = diagramToDirtyLinkages.get(diagram);
@@ -63,6 +71,12 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     		diagrams = diagramService.findDiagrams();
     	}
     	
+    	@Override
+    	public void markDiagramAsDirty(final Diagram diagram) {
+    		dirtyDiagrams.add(diagram);
+    	}
+    	
+    	@Override
     	public void markLinkagesAsDirty(final NamedElement el) {
     		final AadlElementWrapper elWrapper = new AadlElementWrapper(el);
     		
@@ -90,6 +104,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					// Add to dirty linkages
 					if(linkages.size() > 0) {
 						setDirtyLinkages(diagram, el, linkages.toArray(new PictogramElement[0]));
+						dirtyDiagrams.add(diagram);
 					}
 				}
     		}
@@ -97,29 +112,31 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	
 		@Override
 		public void commit() {
-			updateDirtyLinkages();
-			diagramToDirtyLinkages.clear();
-		}
-		
-		private void updateDirtyLinkages() {
-			for(final Entry<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkagesEntry : diagramToDirtyLinkages.entrySet()) {
-    			final Diagram diagram = diagramToDirtyLinkagesEntry.getKey();
-				updateDiagram(diagram, new DiagramCallback() {
+			// Update dirty linkages and update each diagram
+			for(final Diagram dirtyDiagram : dirtyDiagrams) {
+				updateDiagram(dirtyDiagram, new DiagramCallback() {
 					@Override
-					public void onDiagram(final Diagram diagram) {
+					public void onDiagram(final Diagram diagram) {						
+						// Update any dirty linkages stored for the diagram
 						final IFeatureProvider fp = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-		    			for(final Entry<NamedElement, PictogramElement[]> dirtyLinkagesEntry : diagramToDirtyLinkagesEntry.getValue().entrySet()) {
-		    				final AadlElementWrapper elWrapper = new AadlElementWrapper(dirtyLinkagesEntry.getKey());
-		    				for(final PictogramElement pe : dirtyLinkagesEntry.getValue()) {
-		    					fp.link(pe, elWrapper);
-		    				}
-		    			}
+						final Map<NamedElement, PictogramElement[]> dirtyLinkagesMap = diagramToDirtyLinkages.get(diagram);
+						if(dirtyLinkagesMap != null) {
+			    			for(final Entry<NamedElement, PictogramElement[]> dirtyLinkagesEntry : dirtyLinkagesMap.entrySet()) {
+			    				final AadlElementWrapper elWrapper = new AadlElementWrapper(dirtyLinkagesEntry.getKey());
+			    				for(final PictogramElement pe : dirtyLinkagesEntry.getValue()) {
+			    					fp.link(pe, elWrapper);
+			    				}
+			    			}
+						}
 					}    					
-				});
-    		}
-		}	
+				});				
+			}
+			
+			diagramToDirtyLinkages.clear();
+			dirtyDiagrams.clear();
+		}
 
-    	private void updateDiagram(final Diagram diagram, final DiagramCallback cb) {
+		private void updateDiagram(final Diagram diagram, final DiagramCallback cb) {
     		final Resource resource = diagram.eResource();
     		final ResourceSet resourceSet = resource.getResourceSet();
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resource);

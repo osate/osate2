@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
@@ -43,6 +46,7 @@ import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
+import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
@@ -109,6 +113,17 @@ public class SubcomponentPattern extends AgePattern {
 	}
 	
 	@Override
+	public boolean canUpdate(final IUpdateContext context) {
+		if(!super.canUpdate(context)) {
+			return false;
+		}
+		
+		// Return that the shape can be updated if the subcomponent is actually a subcomponent of the component implementation
+		final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		return getComponentImplementation((Shape)context.getPictogramElement()).getAllSubcomponents().contains(sc);
+	}
+	
+	@Override
 	public boolean canMoveShape(final IMoveShapeContext context) {
 		return super.canMoveShape(context);
 	}
@@ -135,9 +150,6 @@ public class SubcomponentPattern extends AgePattern {
 	public final PictogramElement add(final IAddContext context) {	
 		final Subcomponent sc = (Subcomponent)AadlElementWrapper.unwrap(context.getNewObject());
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		
-		System.out.println("CREATING A NEW SHAPE FOR SUBCOMPONENT");
-		System.out.println(sc);
 		
         // Create the container shape
         final ContainerShape shape = peCreateService.createContainerShape(context.getTargetContainer(), true);
@@ -268,21 +280,74 @@ public class SubcomponentPattern extends AgePattern {
 		return "Subcomponent";
 	}
 	
-	private ComponentImplementation getComponentImplementation() {
-		return (ComponentImplementation)bor.getBusinessObjectForPictogramElement(getDiagram());
+	/**
+	 * Returns the first component implementation associated with the specified or a containing shape.
+	 * @param shape
+	 * @return
+	 */
+	private ComponentImplementation getComponentImplementation(final Shape shape) {
+		for(Shape tmpShape = shape; tmpShape != null; tmpShape = tmpShape.getContainer()) {
+			final Object tmpShapeBo = bor.getBusinessObjectForPictogramElement(tmpShape);
+			if(tmpShapeBo instanceof ComponentImplementation) {
+				return (ComponentImplementation)tmpShapeBo;
+			}
+		}
+		
+		return null;
+	}
+	
+	private List<ComponentImplementation> getAllExtended(final ComponentImplementation ci) {
+		final List<ComponentImplementation> results = new ArrayList<ComponentImplementation>();		
+		for(ComponentImplementation tmp = ci.getExtended(); tmp != null; tmp = tmp.getExtended()) {
+			results.add(tmp);
+		}
+		return results;
+	}
+	
+	private boolean isExtendedFrom(final ComponentImplementation ci, ComponentImplementation baseComponentImplementation) {
+		for(final Classifier extended : getAllExtended(ci)) {
+			if(extended == baseComponentImplementation) {
+				return true;
+			}
+		}
+		return false;	
+	}
+	
+	private void markDiagramsOfDerivativeComponentImplementationsAsDirty(final DiagramModificationService.Modification diagramMod, final ComponentImplementation ci) {
+		// Mark any diagrams that are linked to component implementations that extends the current component implementation as dirty
+		for(final Diagram tmpDiagram : diagramMod.getDiagrams()) {
+			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
+			if(tmpDiagramBo instanceof ComponentImplementation) {
+				final ComponentImplementation tmpDiagramCi = (ComponentImplementation)tmpDiagramBo;
+				if(isExtendedFrom(tmpDiagramCi, ci)) {
+					diagramMod.markDiagramAsDirty(tmpDiagram);			
+				}
+			}					
+		}
 	}
 	
 	@Override
 	public Object[] create(final ICreateContext context) {
-		final Subcomponent newSubcomponent = aadlModService.modify(getComponentImplementation(), new AbstractModifier<ComponentImplementation, Subcomponent>() {
+		final Subcomponent newSubcomponent = aadlModService.modify(getComponentImplementation(context.getTargetContainer()), new AbstractModifier<ComponentImplementation, Subcomponent>() {
+			private DiagramModificationService.Modification diagramMod;
+			
 			@Override
 			public Subcomponent modify(final Resource resource, final ComponentImplementation ci) {
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			markDiagramsOfDerivativeComponentImplementationsAsDirty(diagramMod, ci);
+
 				final String name = namingService.buildUniqueIdentifier(ci, "newSubcomponent");
 				final AbstractSubcomponent sc = ci.createOwnedAbstractSubcomponent();
 				sc.setName(name);
 				return sc;
 			}
 			
+	 		@Override
+			public void beforeCommit(final Resource resource, final ComponentImplementation ci, final Subcomponent newSubcomponent) {
+				diagramMod.commit();
+			}
+	 		
 			@Override
 			public void afterCommit(final Resource resource, final ComponentImplementation ci, final Subcomponent newSubcomponent) {
 				// If the shape was dropped inside the component implementation shape
@@ -309,7 +374,6 @@ public class SubcomponentPattern extends AgePattern {
 		return sc.getContainingClassifier() == containerBo;
 	}
 
-	// TODO: Share implementation with FeaturePattern and others
 	@Override
 	public void delete(final IDeleteContext context) {
 		if(!userInputService.confirmDelete(context)) {
@@ -318,14 +382,25 @@ public class SubcomponentPattern extends AgePattern {
 		
 		final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 		aadlModService.modify(sc, new AbstractModifier<Subcomponent, Object>() {
+			private DiagramModificationService.Modification diagramMod;
+			
 			@Override
 			public Object modify(final Resource resource, final Subcomponent sc) {
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			markDiagramsOfDerivativeComponentImplementationsAsDirty(diagramMod, getComponentImplementation((Shape)context.getPictogramElement()));
+	 			
 				// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.
 				EcoreUtil.remove(sc);
 				
 				return null;
-			}			
+			}		
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final Subcomponent sc, final Object modificationResult) {
+				diagramMod.commit();
+			}
 		});
 				
 		// Clear selection
@@ -342,8 +417,11 @@ public class SubcomponentPattern extends AgePattern {
     public boolean canDirectEdit(final IDirectEditingContext context) {
         final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
         final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+        
+        // To be able to be renamed the subcomponent must be contained by the component implementation represented by the diagram and it must not be refined
         if (bo instanceof Subcomponent && ga instanceof Text) {
-        	return ((Subcomponent)bo).getContainingClassifier() == getComponentImplementation();
+        	final Subcomponent sc = (Subcomponent)bo;
+        	return sc.getContainingClassifier() == getComponentImplementation((Shape)context.getPictogramElement()) && sc.getRefined() == null;
         }
         return false;
     }
@@ -374,27 +452,31 @@ public class SubcomponentPattern extends AgePattern {
 		public Object modify(final Resource resource, final Subcomponent sc) {
  			// Resolving allows the name change to propagate when editing without an Xtext document
  			EcoreUtil.resolveAll(resource.getResourceSet());
- 					
+
+ 			// Start the diagram modification
  			diagramMod = diagramModService.startModification();
- 			diagramMod.markLinkagesAsDirty(sc);
-			sc.setName(newName);
-			
-			// TODO: Check for cross references and update them
-			/*
+ 			
+ 			// Mark linkages to refinements as dirty
 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(sc, resource.getResourceSet())) {
 				final EStructuralFeature sf = s.getEStructuralFeature();
 				if(!sf.isDerived() && sf.isChangeable()) {
 					final EObject obj = s.getEObject();
-					if(obj instanceof ConnectedElement) {
-						
+					if(obj instanceof Subcomponent && ((Subcomponent)obj).getRefined() == sc) {
+						diagramMod.markLinkagesAsDirty((Subcomponent)obj);
 					}
 				}
 			}
-			*/
+ 			
+ 			// Mark linkages to the subcomponent as dirty 			
+ 			diagramMod.markLinkagesAsDirty(sc);
+ 			
+ 			// Set the subcomponent's name
+			sc.setName(newName);
+
 			return null;
-		}		
-		
-		@Override
+		}	
+
+ 		@Override
 		public void beforeCommit(final Resource resource, final Subcomponent sc, final Object modificationResult) {
 			diagramMod.commit();
 		}

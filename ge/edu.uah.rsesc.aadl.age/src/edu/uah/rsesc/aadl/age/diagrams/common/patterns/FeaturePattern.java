@@ -103,7 +103,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final NamingService namingService;
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
-	private EClass featureType;
+	private final EClass featureType;
 	
 	/**
 	 * Populate the map that contains the feature type to create method name mapping
@@ -609,7 +609,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	}
 
 	private Method getFeatureCreateMethod(final Classifier featureOwner, final EClass featureType) {
-		// Determine the filename for the type of feature
+		// Determine the method name for the type of feature
 		final String methodName = featureTypeToMethodNameMap.get(featureType);
 		if(methodName == null) {
 			return null;
