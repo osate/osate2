@@ -49,6 +49,11 @@ public class ComponentImplementationUpdateDiagramFeature extends AbstractUpdateF
 	}
 	
 	@Override
+	public boolean canUndo(final IContext context) {
+		return false;
+	}
+	
+	@Override
 	public boolean canUpdate(final IUpdateContext context) {
 		return getComponentImplementation(context) != null;
 	}

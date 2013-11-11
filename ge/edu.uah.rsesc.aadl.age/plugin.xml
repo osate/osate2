@@ -156,13 +156,65 @@
  	
  </extension>
  
- <extension
-       point="org.eclipse.ui.services">
-    <serviceFactory
-          factoryClass="edu.uah.rsesc.aadl.age.styles.StyleProviderFactory">
-       <service
-             serviceClass="edu.uah.rsesc.aadl.age.styles.StyleProvider"></service>
+ <extension point="org.eclipse.ui.services">
+    <serviceFactory factoryClass="edu.uah.rsesc.aadl.age.services.StyleProviderService$Factory">
+       <service serviceClass="edu.uah.rsesc.aadl.age.services.StyleProviderService"></service>
+    </serviceFactory>
+    <serviceFactory factoryClass="edu.uah.rsesc.aadl.age.services.DiagramService$Factory">
+       <service serviceClass="edu.uah.rsesc.aadl.age.services.DiagramService"></service>
     </serviceFactory>
  </extension>
+ 
+  <extension
+        point="org.eclipse.ui.navigator.navigatorContent">
+     <navigatorContent
+           activeByDefault="true"
+           contentProvider="edu.uah.rsesc.aadl.age.ui.navigator.ContentProvider"
+           id="edu.uah.rsesc.aadl.age.navigatorContent"
+           labelProvider="edu.uah.rsesc.aadl.age.ui.navigator.LabelProvider"
+           name="AADL Diagrams"
+           priority="highest">
+        <enablement>
+           <or>
+              <instanceof
+                    value="org.eclipse.core.resources.IResource">
+              </instanceof>
+           </or>
+        </enablement>
+     </navigatorContent>
+  </extension>
+  <extension
+        point="org.eclipse.ui.navigator.viewer">
+     <viewerContentBinding
+           viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+        <includes>
+           <contentExtension
+                 isRoot="false"
+                 pattern="edu.uah.rsesc.aadl.age.*">
+           </contentExtension>
+        </includes>
+     </viewerContentBinding>
+  </extension>
+  
+  <extension
+        point="org.eclipse.ui.navigator.navigatorContent">
+     <navigatorContent
+           activeByDefault="true"
+           id="edu.uah.rsesc.aadl.age.navigatorContent2"
+           name="Sort by Label (AGE)"
+           priority="highest"
+           sortOnly="true">
+        <commonSorter
+              class="edu.uah.rsesc.aadl.age.ui.navigator.Sorter"
+              id="edu.uah.rsesc.aadl.age.navigatorContent.sorter">
+           <parentExpression>
+              <or>
+                 <instanceof
+                       value="org.eclipse.core.resources.IResource">
+                 </instanceof></or>
+           </parentExpression>
+        </commonSorter>
+     </navigatorContent>
+  </extension>
  
 </plugin>

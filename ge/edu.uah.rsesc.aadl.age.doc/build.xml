@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project name="build Eclipse Help" default="build-help">
+
+  <description>
+    Used to transform DocBook XML to Eclipse help output
+  </description>
+
+  <!-- Define base properties -->
+  <property name="input.dir" value="input" />
+  <property name="output.dir" value="output" />
+  <property name="docbook.xsl.dir" value="docbook-xsl-1.76.1" />
+  <property name="eclipse.stylesheet" value="${docbook.xsl.dir}/eclipse/eclipse3.xsl" />
+
+  <!-- Making saxon available -->
+  <path id="saxon.class.path">
+<pathelement location="lib/saxon.jar" />
+  </path>
+
+  <!-- - target: usage -->
+  <target name="usage" description="Prints help">
+<echo message="Use -projecthelp to get a list of the available targets." />
+  </target>
+
+  <!-- - target: clean -->
+  <target name="clean" description="Cleans up generated files.">
+<delete dir="${output.dir}" />
+  </target>
+
+  <!-- - target: depends -->
+  <target name="createtargetdir" description="Generate targetdir.">
+<mkdir dir="${output.dir}" />
+<mkdir dir="${output.dir}/images" />
+  </target>
+
+  <target name="build-help" depends="clean, createtargetdir"
+description="Generates eclipse help files">
+<echo message="Building output" />
+
+<!-- Copy the images to the same directory as the HTML files -->
+<copy todir="${output.dir}\images">
+  <fileset dir="${input.dir}\images">
+<include name="title.png" />
+  </fileset>
+</copy>
+<!-- Transfer to eclipse help format -->
+<xslt style="${eclipse.stylesheet}" extension=".html" basedir="${input.dir}" includes="*.xml"
+  destdir="${output.dir}">
+
+  <param name="eclipse.manifest" expression="0" />
+  <param name="base.dir" expression="output\" />	
+  <param name="eclipse.plugin.name" expression="AADL Graphical Editor"/>
+
+  <param name="section.autolabel" expression="1" />
+  <param name="make.clean.html" expression="1" />
+  <outputproperty name="indent" value="yes" />
+  <classpath refid="saxon.class.path" />
+</xslt>
+  </target>
+
+</project> 

@@ -51,6 +51,11 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 	}
 	
 	@Override
+	public boolean canUndo(final IContext context) {
+		return false;
+	}
+	
+	@Override
 	public boolean canUpdate(final IUpdateContext context) {
 		return getClassifier(context) != null;
 	}
@@ -65,7 +70,7 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		Log.info("called with context: " + context);
 		final Classifier classifier = getClassifier(context);
 		final Diagram diagram = getDiagram();		
-		
+
 		// Update the diagram's name
 		if(classifier.getQualifiedName() != null) {
 			diagram.setName(classifier.getQualifiedName());

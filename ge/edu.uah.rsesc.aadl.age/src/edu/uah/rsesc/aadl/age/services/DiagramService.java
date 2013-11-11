@@ -1,0 +1,47 @@
+package edu.uah.rsesc.aadl.age.services;
+
+import java.util.List;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.osate.aadl2.NamedElement;
+
+import edu.uah.rsesc.aadl.age.services.impl.DefaultDiagramService;
+import edu.uah.rsesc.aadl.age.services.impl.SimpleServiceFactory;
+
+// TODO: Review. Rename as appropriate
+/**
+ * Service for finding, opening, and creating diagrams. Registered as an Eclipse service.
+ * @author philip.alldredge
+ *
+ */
+public interface DiagramService {
+	public static class Factory extends SimpleServiceFactory {
+		public Factory() {
+			super(DiagramService.class, DefaultDiagramService.class);
+		}
+	}	
+
+	public List<Diagram> findDiagramsByRootBusinessObject(final NamedElement ne);
+	
+	public List<Diagram> findDiagrams();
+	
+	/**
+	 * Opens the first found existing diagram for an element. If a diagram is not found, a diagram of the appropriate type is created.
+	 * @param element the element for which to open/create the diagram
+	 */
+	public void openOrCreateDiagramForRootBusinessObject(final NamedElement element);
+	
+	/**
+	 * Returns the name of a specified diagram
+	 */
+	public String getName(final IFile diagramFile);
+	
+	/**
+	 * Stores persistent properties in the diagram's resource. Should be called after resource has been saved.
+	 * @param diagram
+	 * @param name
+	 */
+	public void savePersistentProperties(final Diagram diagram);
+
+}

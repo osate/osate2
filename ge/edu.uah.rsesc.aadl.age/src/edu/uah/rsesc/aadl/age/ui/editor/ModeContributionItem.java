@@ -81,9 +81,11 @@ public class ModeContributionItem extends ComboContributionItem {
 	private static Element getElementForEditor(final IEditorPart part) {
 		if(part instanceof AgeDiagramEditor) {
 			final AgeDiagramEditor ed = (AgeDiagramEditor)part;
-			final IFeatureProvider fp = ed.getDiagramTypeProvider().getFeatureProvider();
-			final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(ed.getDiagramTypeProvider().getDiagram()));
-			return element;
+			if(ed.getDiagramTypeProvider() != null) {
+				final IFeatureProvider fp = ed.getDiagramTypeProvider().getFeatureProvider();
+				final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(ed.getDiagramTypeProvider().getDiagram()));
+				return element;
+			}
 		}
 		
 		return null;
