@@ -10,6 +10,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.ICustomUndoablePattern;
 import org.eclipse.graphiti.pattern.IPattern;
+import org.eclipse.graphiti.pattern.MoveShapeFeatureForPattern;
 
 /**
  * Base class for all shape patterns for AGE. Contains logic shared between all shape patterns.
@@ -42,6 +43,10 @@ public abstract class AgePattern extends AbstractPattern implements IPattern, IC
 	
 	@Override
 	public boolean canUndo(final IFeature feature, final IContext context) {
+		if(feature instanceof MoveShapeFeatureForPattern) {
+			return true;
+		}
+		
 		return false;
 	}
 

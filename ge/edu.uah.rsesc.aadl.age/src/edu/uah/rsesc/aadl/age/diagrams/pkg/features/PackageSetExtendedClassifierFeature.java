@@ -84,7 +84,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a classifier to extend.", getExtensibleClassifierDescriptions(classifier));
 		if(dlg.open() == Dialog.CANCEL) {
 			return;
-		}			
+		}		
 		
 		// Make the modification
 		modificationService.modify(classifier, new AbstractModifier<Classifier, Object>() {

@@ -2,6 +2,7 @@ package edu.uah.rsesc.aadl.age.diagrams.pkg.patterns;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -702,7 +703,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		}
 		
 		@Override
-		public void afterModification(final Resource resource, final Classifier classifier) {
+		public void beforeCommit(final Resource resource, final Classifier classifier, final Object modificationResult) {
 			diagramMod.commit();
 			diagramMod = null;
 		}

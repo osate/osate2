@@ -223,8 +223,9 @@ public class DefaultDiagramService implements DiagramService {
 		final List<Diagram> diagrams = new ArrayList<Diagram>();
 		final Map<URI, Diagram> openDiagrams = new HashMap<URI, Diagram>();
 		
+
 		for(final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences()) {
-			final IEditorPart editor = editorRef.getEditor(true);
+			final IEditorPart editor = editorRef.getEditor(false); // If restore is true then the editor is automatically updated
 			if(editor instanceof AgeDiagramEditor) {
 				final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editor;
 				final AgeDiagramBehavior behavior = (AgeDiagramBehavior)diagramEditor.getDiagramBehavior();

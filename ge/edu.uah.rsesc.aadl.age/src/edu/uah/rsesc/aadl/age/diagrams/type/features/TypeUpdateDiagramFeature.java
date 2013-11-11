@@ -23,7 +23,6 @@ import org.osate.aadl2.FeatureGroupType;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
-import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
@@ -49,6 +48,11 @@ public class TypeUpdateDiagramFeature extends AbstractUpdateFeature implements I
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public boolean canUndo(final IContext context) {
+		return false;
 	}
 	
 	@Override

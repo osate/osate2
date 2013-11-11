@@ -1,7 +1,9 @@
 package edu.uah.rsesc.aadl.age.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -64,6 +66,8 @@ public class DefaultVisibilityService implements VisibilityService {
 	
 	@Override
 	public void ghostInvalidShapes(final ContainerShape shape) {
+		final Set<Object> updatedBos = new HashSet<Object>(); // Set used to track if an object already associated with a business object has not-been ghosted(considered valid)
+		
 		for(final Shape childShape : shape.getChildren()) {
 			// Check if the shape has a business object and can be updated
 			final Object bo = bor.getBusinessObjectForPictogramElement(childShape);
@@ -72,22 +76,28 @@ public class DefaultVisibilityService implements VisibilityService {
 			
 			// Determine whether to ghost the shape
 			boolean ghost = false;
-			if(bo == null || updateFeature == null || (updateFeature != null && !updateFeature.canUpdate(updateContext))) {
+			if(updatedBos.contains(bo)) {
 				ghost = true;
 			} else {
-				EObject emfBusinessObject = (EObject)bo;
-				if(emfBusinessObject.eIsProxy()) {
-					emfBusinessObject = EcoreUtil.resolve(emfBusinessObject, OsateResourceUtil.getResourceSet());
-				}
-	
-				if(emfBusinessObject.eIsProxy()) {
+				if(bo == null || updateFeature == null || (updateFeature != null && !updateFeature.canUpdate(updateContext))) {
 					ghost = true;
+				} else {
+					EObject emfBusinessObject = (EObject)bo;
+					if(emfBusinessObject.eIsProxy()) {
+						emfBusinessObject = EcoreUtil.resolve(emfBusinessObject, OsateResourceUtil.getResourceSet());
+					}
+		
+					if(emfBusinessObject.eIsProxy()) {
+						ghost = true;
+					}
 				}
 			}
 			
 			// Ghost the shape
 			if(ghost) {
 				setIsGhost(childShape, true);
+			} else {
+				updatedBos.add(bo);
 			}
 		}
 	}
