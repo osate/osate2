@@ -31,7 +31,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 
 	@Override
 	public void createUpdateFeatureShapes(final ContainerShape shape, final List<Feature> features, final Collection<Shape> touchedShapes) {	
-		createUpdateShapesForElements(shape, features, 0, false, 25, 25, true, 5, true, touchedShapes);
+		createUpdateShapesForElements(shape, features, 0, false, 25, 45, true, 5, true, touchedShapes);
 	}
 	
 	@Override

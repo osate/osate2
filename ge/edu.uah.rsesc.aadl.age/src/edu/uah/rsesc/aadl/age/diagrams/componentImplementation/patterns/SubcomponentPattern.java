@@ -229,8 +229,14 @@ public class SubcomponentPattern extends AgePattern {
         final Shape labelShape = peCreateService.createShape(shape, false);
         this.link(labelShape, new AadlElementWrapper(sc));
         final String name = getLabelText(sc);
-        final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, name);
-        final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(text.getValue(), text.getStyle().getFont());
+        final Text labelText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, name);
+        final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getStyle().getFont());
+        
+		// Create Subcomponent Type Indicator
+        final Shape subcomponentTypeIndicatorShape = peCreateService.createShape(shape, false);
+        final String subcomponentTypeName = sc.getSubcomponentType() == null ? "" : sc.getSubcomponentType().getQualifiedName();
+        final Text subcomponentTypeText = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(subcomponentTypeIndicatorShape, subcomponentTypeName);
+        final IDimension subcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont());
         
 		// Adjust size. Width and height
 		final IGaService gaService = Graphiti.getGaService();
@@ -241,7 +247,7 @@ public class SubcomponentPattern extends AgePattern {
 		int maxHeight = Math.max(minHeight, 50);
 		final int extraWidth = 30;
 		final int extraHeight = 30;
-		maxWidth = Math.max(maxWidth, textSize.getWidth() + extraWidth);
+		maxWidth = Math.max(maxWidth, Math.max(textSize.getWidth(), subcomponentTypeTextSize.getWidth()) + extraWidth);
 		for(final Shape childShape : visibilityHelper.getNonGhostChildren(shape)) {
 			final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 			
@@ -257,7 +263,8 @@ public class SubcomponentPattern extends AgePattern {
 		gaService.setLocation(ga, x, y);
 		
 		// Set the position of the text
-		gaService.setLocationAndSize(text, 0, 0, ga.getWidth(), 20);
+		gaService.setLocationAndSize(labelText, 0, 0, ga.getWidth(), 20);
+		gaService.setLocationAndSize(subcomponentTypeText, 0, labelText.getY()+textSize.getHeight(), ga.getWidth(), 20);
 		
 		// Set color based on current mode
 		highlightingHelper.highlight(sc, ga);		
