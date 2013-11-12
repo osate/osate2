@@ -35,6 +35,7 @@ import org.osgi.framework.FrameworkUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
@@ -225,6 +226,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(make(DrillDownFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
+		features.add(make(ConfigureInModesFeature.class));
 	}
 	
 	@Override
