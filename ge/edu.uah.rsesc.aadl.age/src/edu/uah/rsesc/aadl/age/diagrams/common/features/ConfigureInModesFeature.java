@@ -27,18 +27,15 @@ import edu.uah.rsesc.aadl.age.dialogs.SetInModesDialog;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
-import edu.uah.rsesc.aadl.age.services.PropertyService;
 
 public class ConfigureInModesFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
-	private final PropertyService propService;	
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public ConfigureInModesFeature(final AadlModificationService aadlModService, final PropertyService propService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public ConfigureInModesFeature(final AadlModificationService aadlModService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		super(fp);
 		this.aadlModService = aadlModService;
-		this.propService = propService;
 		this.bor = bor;
 	}
 	
