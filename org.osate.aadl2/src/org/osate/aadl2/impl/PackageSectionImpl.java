@@ -598,8 +598,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PACKAGE_SECTION__OWNED_MEMBER:
-			return isSetOwnedMembers();
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:
 			return ownedPackageRenames != null
 					&& !ownedPackageRenames.isEmpty();
@@ -620,8 +618,6 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements
 			return noAnnexes != NO_ANNEXES_EDEFAULT;
 		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
 			return noProperties != NO_PROPERTIES_EDEFAULT;
-		case Aadl2Package.PACKAGE_SECTION__NAME:
-			return isSetName();
 		}
 		return super.eIsSet(featureID);
 	}

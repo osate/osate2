@@ -285,13 +285,9 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT:
-			return isSetOwnedSubcomponents();
 		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			return ownedVirtualBusSubcomponents != null
 					&& !ownedVirtualBusSubcomponents.isEmpty();
-		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION__TYPE:
-			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

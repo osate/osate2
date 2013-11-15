@@ -246,8 +246,6 @@ public abstract class NamespaceImpl extends NamedElementImpl implements
 		switch (featureID) {
 		case Aadl2Package.NAMESPACE__OWNED_MEMBER:
 			return isSetOwnedMembers();
-		case Aadl2Package.NAMESPACE__OWNED_ELEMENT:
-			return isSetOwnedElements();
 		case Aadl2Package.NAMESPACE__MEMBER:
 			return isSetMembers();
 		}

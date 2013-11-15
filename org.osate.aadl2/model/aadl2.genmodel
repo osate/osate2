@@ -1276,6 +1276,8 @@
           ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedPropertyConstant"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/importedUnit"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedAnnexSubclause"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//GlobalNamespace">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

@@ -217,8 +217,6 @@ public class MemorySubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MEMORY_SUBCOMPONENT__SUBCOMPONENT_TYPE:
-			return isSetSubcomponentType();
 		case Aadl2Package.MEMORY_SUBCOMPONENT__MEMORY_SUBCOMPONENT_TYPE:
 			return memorySubcomponentType != null;
 		}

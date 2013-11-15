@@ -336,8 +336,6 @@ public class DataTypeImpl extends ComponentTypeImpl implements DataType {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.DATA_TYPE__OWNED_FEATURE:
-			return isSetOwnedFeatures();
 		case Aadl2Package.DATA_TYPE__OWNED_SUBPROGRAM_ACCESS:
 			return ownedSubprogramAccesses != null
 					&& !ownedSubprogramAccesses.isEmpty();

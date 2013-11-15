@@ -376,11 +376,9 @@ public class IntegerLiteralImpl extends NumberValueImpl implements
 	//	}
 
 	@Override
-	public boolean equals(Object obj) 
-	{
-		if (! Aadl2Util.getUseTunedEqualsMethods())
-		{
-			return super.equals (obj);
+	public boolean equals(Object obj) {
+		if (!Aadl2Util.getUseTunedEqualsMethods()) {
+			return super.equals(obj);
 		}
 		if (this == obj)
 			return true;

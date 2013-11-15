@@ -220,8 +220,6 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__FEATURE_CLASSIFIER:
-			return isSetFeatureClassifier();
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER:
 			return subprogramGroupFeatureClassifier != null;
 		}

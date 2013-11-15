@@ -217,8 +217,6 @@ public class ThreadSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.THREAD_SUBCOMPONENT__SUBCOMPONENT_TYPE:
-			return isSetSubcomponentType();
 		case Aadl2Package.THREAD_SUBCOMPONENT__THREAD_SUBCOMPONENT_TYPE:
 			return threadSubcomponentType != null;
 		}

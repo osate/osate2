@@ -387,8 +387,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_SUBCOMPONENT:
-			return isSetOwnedSubcomponents();
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 			return ownedBusSubcomponents != null
 					&& !ownedBusSubcomponents.isEmpty();
@@ -398,8 +396,6 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			return ownedVirtualBusSubcomponents != null
 					&& !ownedVirtualBusSubcomponents.isEmpty();
-		case Aadl2Package.DEVICE_IMPLEMENTATION__TYPE:
-			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

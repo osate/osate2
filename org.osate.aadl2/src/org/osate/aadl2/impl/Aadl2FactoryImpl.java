@@ -224,7 +224,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public static Aadl2Factory init() {
 		try {
 			Aadl2Factory theAadl2Factory = (Aadl2Factory) EPackage.Registry.INSTANCE
-					.getEFactory(Aadl2Package.eNS_URI);
+					.getEFactory("http://aadl.info/AADL/2.0");
 			if (theAadl2Factory != null) {
 				return theAadl2Factory;
 			}
@@ -346,8 +346,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createConnectedElement();
 		case Aadl2Package.ELEMENT_NAME:
 			return (EObject) createElementName();
-		 case Aadl2Package.ANNEX_SUBCLAUSE:
-			 return (EObject) createAnnexSubclause(); 
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
 			return (EObject) createDefaultAnnexLibrary();
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
@@ -1141,12 +1139,12 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public AnnexSubclause createAnnexSubclause() {
 		AnnexSubclauseImpl annex = new AnnexSubclauseImpl() {
 			private String annexContent;
-			public String getAnnexContent ()
-			{
+
+			public String getAnnexContent() {
 				return this.annexContent;
 			}
-			public void setAnnexContent (String s)
-			{
+
+			public void setAnnexContent(String s) {
 				this.annexContent = s;
 			}
 		};

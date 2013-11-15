@@ -32131,13 +32131,22 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_SET__IMPORTED_UNIT = NAMESPACE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Owned Annex Subclause</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_SET__OWNED_ANNEX_SUBCLAUSE = NAMESPACE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Property Set</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_SET_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 4;
+	int PROPERTY_SET_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.GlobalNamespaceImpl <em>Global Namespace</em>}' class.
@@ -40353,6 +40362,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getPropertySet_ImportedUnit();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.PropertySet#getOwnedAnnexSubclauses <em>Owned Annex Subclause</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Owned Annex Subclause</em>'.
+	 * @see org.osate.aadl2.PropertySet#getOwnedAnnexSubclauses()
+	 * @see #getPropertySet()
+	 * @generated
+	 */
+	EReference getPropertySet_OwnedAnnexSubclause();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.GlobalNamespace <em>Global Namespace</em>}'.

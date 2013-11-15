@@ -213,8 +213,6 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.BUS_ACCESS__FEATURE_CLASSIFIER:
-			return isSetFeatureClassifier();
 		case Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER:
 			return busFeatureClassifier != null;
 		}

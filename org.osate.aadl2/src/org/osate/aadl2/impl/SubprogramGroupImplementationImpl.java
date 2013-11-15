@@ -393,8 +393,6 @@ public class SubprogramGroupImplementationImpl extends
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT:
-			return isSetOwnedSubcomponents();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
 			return ownedSubprogramSubcomponents != null
 					&& !ownedSubprogramSubcomponents.isEmpty();
@@ -404,8 +402,6 @@ public class SubprogramGroupImplementationImpl extends
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ownedDataSubcomponents != null
 					&& !ownedDataSubcomponents.isEmpty();
-		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__TYPE:
-			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

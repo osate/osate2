@@ -2374,6 +2374,8 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedUnit" ordered="false"
         upperBound="-1" eType="#//ModelUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAnnexSubclause" ordered="false"
+        upperBound="-1" eType="#//AnnexSubclause" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GlobalNamespace" eSuperTypes="#//Namespace">
     <eStructuralFeatures xsi:type="ecore:EReference" name="package" ordered="false"

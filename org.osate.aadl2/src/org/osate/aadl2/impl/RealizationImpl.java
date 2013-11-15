@@ -210,8 +210,6 @@ public class RealizationImpl extends GeneralizationImpl implements Realization {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.REALIZATION__GENERAL:
-			return isSetGeneral();
 		case Aadl2Package.REALIZATION__IMPLEMENTED:
 			return implemented != null;
 		}

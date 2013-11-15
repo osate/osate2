@@ -887,16 +887,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE:
 			return isSetClassifierFeatures();
-		case Aadl2Package.CLASSIFIER__MEMBER:
-			return isSetMembers();
 		case Aadl2Package.CLASSIFIER__GENERALIZATION:
 			return isSetGeneralizations();
-		case Aadl2Package.CLASSIFIER__OWNED_ELEMENT:
-			return isSetOwnedElements();
 		case Aadl2Package.CLASSIFIER__GENERAL:
 			return isSetGenerals();
-		case Aadl2Package.CLASSIFIER__OWNED_MEMBER:
-			return isSetOwnedMembers();
 		case Aadl2Package.CLASSIFIER__INHERITED_MEMBER:
 			return !getInheritedMembers().isEmpty();
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:

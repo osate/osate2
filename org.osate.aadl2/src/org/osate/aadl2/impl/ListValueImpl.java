@@ -206,16 +206,14 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 	}
 
 	@Override
-	public boolean equals(Object obj) 
-	{
-		if (! Aadl2Util.getUseTunedEqualsMethods())
-		{
-			return super.equals (obj);
+	public boolean equals(Object obj) {
+		if (!Aadl2Util.getUseTunedEqualsMethods()) {
+			return super.equals(obj);
 		}
-		
+
 		if (this == obj)
 			return true;
-		
+
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())

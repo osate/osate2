@@ -85,8 +85,7 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements
 			throws InvalidModelException {
 		List<InstanceObject> iol = root
 				.findInstanceObjects(getContainmentPathElements());
-		if (iol.size() == 0) 
-		{
+		if (iol.size() == 0) {
 			throw new InvalidModelException(this,
 					"Reference does not refer to an instance object");
 		} else if (iol.size() > 1) {

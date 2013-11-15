@@ -627,8 +627,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements
 			return arrayDimensions != null && !arrayDimensions.isEmpty();
 		case Aadl2Package.SUBCOMPONENT__SUBCOMPONENT_TYPE:
 			return isSetSubcomponentType();
-		case Aadl2Package.SUBCOMPONENT__REFINED_ELEMENT:
-			return isSetRefinedElement();
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			return ownedPrototypeBindings != null
 					&& !ownedPrototypeBindings.isEmpty();

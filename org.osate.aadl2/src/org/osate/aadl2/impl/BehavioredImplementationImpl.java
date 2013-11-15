@@ -374,12 +374,6 @@ public abstract class BehavioredImplementationImpl extends
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER:
-			return isSetMembers();
-		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE:
-			return isSetClassifierFeatures();
-		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER:
-			return isSetOwnedMembers();
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__CALL_SPECIFICATION:
 			return !getCallSpecifications().isEmpty();
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE:

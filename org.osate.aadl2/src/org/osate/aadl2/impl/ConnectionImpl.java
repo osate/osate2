@@ -638,8 +638,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements
 		case Aadl2Package.CONNECTION__IN_MODE_OR_TRANSITION:
 			return inModeOrTransitions != null
 					&& !inModeOrTransitions.isEmpty();
-		case Aadl2Package.CONNECTION__REFINED_ELEMENT:
-			return isSetRefinedElement();
 		case Aadl2Package.CONNECTION__DESTINATION:
 			return destination != null;
 		case Aadl2Package.CONNECTION__SOURCE:
