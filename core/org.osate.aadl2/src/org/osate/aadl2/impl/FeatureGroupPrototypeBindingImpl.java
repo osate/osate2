@@ -207,10 +207,6 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
-		if (newFormal != null && !(newFormal instanceof FeatureGroupPrototype)) {
-//			OsateDebug.osateDebug("[FeatureGroupPrototypeBindingImpl] newFormal must be an instance of FeatureGroupPrototype mcurrently being:" + newFormal);
-		//	return;
-		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
@@ -297,8 +293,6 @@ public class FeatureGroupPrototypeBindingImpl extends PrototypeBindingImpl
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__ACTUAL:
 			return actual != null;
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING__FORMAL:
-			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

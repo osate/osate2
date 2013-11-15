@@ -9091,6 +9091,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getPropertySet_OwnedAnnexSubclause() {
+		return (EReference) getPropertySet().getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGlobalNamespace() {
 		if (globalNamespaceEClass == null) {
 			globalNamespaceEClass = (EClass) EPackage.Registry.INSTANCE

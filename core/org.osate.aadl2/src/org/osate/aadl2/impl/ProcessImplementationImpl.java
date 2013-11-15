@@ -493,8 +493,6 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_SUBCOMPONENT:
-			return isSetOwnedSubcomponents();
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ownedDataSubcomponents != null
 					&& !ownedDataSubcomponents.isEmpty();
@@ -510,8 +508,6 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl
 		case Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT:
 			return ownedThreadGroupSubcomponents != null
 					&& !ownedThreadGroupSubcomponents.isEmpty();
-		case Aadl2Package.PROCESS_IMPLEMENTATION__TYPE:
-			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

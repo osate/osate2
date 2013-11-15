@@ -489,8 +489,6 @@ public class ThreadTypeImpl extends ComponentTypeImpl implements ThreadType {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.THREAD_TYPE__OWNED_FEATURE:
-			return isSetOwnedFeatures();
 		case Aadl2Package.THREAD_TYPE__OWNED_DATA_PORT:
 			return ownedDataPorts != null && !ownedDataPorts.isEmpty();
 		case Aadl2Package.THREAD_TYPE__OWNED_EVENT_DATA_PORT:

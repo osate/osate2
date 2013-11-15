@@ -217,8 +217,6 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.DATA_SUBCOMPONENT__SUBCOMPONENT_TYPE:
-			return isSetSubcomponentType();
 		case Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE:
 			return dataSubcomponentType != null;
 		}

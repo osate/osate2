@@ -161,13 +161,7 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 	 * @generated
 	 */
 	@Override
-	public void setFormal(Prototype newFormal) 
-	{
-
-		if (newFormal != null && !(newFormal instanceof ComponentPrototype)) {
-//			OsateDebug.osateDebug("[ComponentPrototypeBindingImpl] newFormal must be an instance of ComponentPrototype, currently being:" + newFormal);
-			//return;
-		}
+	public void setFormal(Prototype newFormal) {
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
@@ -258,8 +252,6 @@ public class ComponentPrototypeBindingImpl extends PrototypeBindingImpl
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__ACTUAL:
 			return actuals != null && !actuals.isEmpty();
-		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING__FORMAL:
-			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

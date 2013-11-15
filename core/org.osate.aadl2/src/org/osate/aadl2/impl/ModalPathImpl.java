@@ -212,8 +212,6 @@ public abstract class ModalPathImpl extends ModalElementImpl implements
 		case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
 			return inModeOrTransitions != null
 					&& !inModeOrTransitions.isEmpty();
-		case Aadl2Package.MODAL_PATH__IN_MODE:
-			return isSetInModes();
 		}
 		return super.eIsSet(featureID);
 	}

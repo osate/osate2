@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 import org.eclipse.uml2.uml.edit.UMLEditPlugin;
 
 /**
- * This is the central singleton for the Instance edit plugin.
+ * This is the central singleton for the Aadl2 edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
@@ -70,8 +70,8 @@ public final class Aadl2EditPlugin extends EMFPlugin {
 	 * @generated
 	 */
 	public Aadl2EditPlugin() {
-		super(new ResourceLocator[] { Aadl2EditPlugin.INSTANCE,
-				EcoreEditPlugin.INSTANCE, UMLEditPlugin.INSTANCE, });
+		super(new ResourceLocator[] { EcoreEditPlugin.INSTANCE,
+				UMLEditPlugin.INSTANCE, });
 	}
 
 	/**

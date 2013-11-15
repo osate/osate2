@@ -204,8 +204,6 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE:
 			return isSetSources();
-		case Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT:
-			return isSetRelatedElements();
 		case Aadl2Package.DIRECTED_RELATIONSHIP__TARGET:
 			return isSetTargets();
 		}

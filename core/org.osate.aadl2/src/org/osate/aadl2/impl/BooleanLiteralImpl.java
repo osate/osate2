@@ -207,11 +207,10 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements
 
 	@Override
 	public boolean equals(Object obj) {
-		if (! Aadl2Util.getUseTunedEqualsMethods())
-		{
-			return super.equals (obj);
+		if (!Aadl2Util.getUseTunedEqualsMethods()) {
+			return super.equals(obj);
 		}
-		
+
 		if (this == obj)
 			return true;
 		if (obj == null)

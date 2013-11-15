@@ -204,10 +204,6 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 */
 	@Override
 	public void setFormal(Prototype newFormal) {
-		if (newFormal != null && !(newFormal instanceof FeaturePrototype)) {
-//			OsateDebug.osateDebug("[FeaturePrototypeBindinImpl] newFormal must be an instance of FeaturePrototype, current is:" + newFormal);
-			//return;
-		}
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
@@ -294,8 +290,6 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
 			return actual != null;
-		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__FORMAL:
-			return isSetFormal();
 		}
 		return super.eIsSet(featureID);
 	}

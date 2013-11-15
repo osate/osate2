@@ -409,8 +409,6 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE_OR_TRANSITION:
 			return inModeOrTransitions != null
 					&& !inModeOrTransitions.isEmpty();
-		case Aadl2Package.END_TO_END_FLOW__REFINED_ELEMENT:
-			return isSetRefinedElement();
 		case Aadl2Package.END_TO_END_FLOW__REFINED:
 			return refined != null;
 		case Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT:

@@ -221,8 +221,6 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT__SUBCOMPONENT_TYPE:
-			return isSetSubcomponentType();
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT__VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE:
 			return virtualProcessorSubcomponentType != null;
 		}

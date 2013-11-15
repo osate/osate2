@@ -183,22 +183,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * @generated
 	 */
 	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.UNITS_TYPE__OWNED_MEMBER:
-			return isSetOwnedMembers();
-		case Aadl2Package.UNITS_TYPE__OWNED_LITERAL:
-			return isSetOwnedLiterals();
-		}
-		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || isSetOwnedLiterals();
 	}

@@ -314,8 +314,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 	@Override
 	public void setType(Type newType) {
 		if (newType != null && !(newType instanceof PropertyType)) {
-			throw new IllegalArgumentException(
-					"newType must be an instance of PropertyType");
+			throw new IllegalArgumentException(String.valueOf(newType));
 		}
 		setPropertyType((PropertyType) newType);
 	}
@@ -491,8 +490,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_CONSTANT__PROPERTY_TYPE:
 			return isSetPropertyType();
-		case Aadl2Package.PROPERTY_CONSTANT__TYPE:
-			return isSetType();
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE:
 			return ownedPropertyType != null;
 		case Aadl2Package.PROPERTY_CONSTANT__CONSTANT_VALUE:

@@ -220,8 +220,6 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__SUBCOMPONENT_TYPE:
-			return isSetSubcomponentType();
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE:
 			return virtualBusSubcomponentType != null;
 		}

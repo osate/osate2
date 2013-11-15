@@ -217,13 +217,11 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements
 	}
 
 	@Override
-	public boolean equals(Object obj) 
-	{
-		if (! Aadl2Util.getUseTunedEqualsMethods())
-		{
-			return super.equals (obj);
+	public boolean equals(Object obj) {
+		if (!Aadl2Util.getUseTunedEqualsMethods()) {
+			return super.equals(obj);
 		}
-		
+
 		if (this == obj)
 			return true;
 		if (obj == null)

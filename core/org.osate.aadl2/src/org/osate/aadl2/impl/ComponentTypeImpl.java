@@ -729,14 +729,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 			return isSetOwnedFeatures();
-		case Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE:
-			return isSetClassifierFeatures();
-		case Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER:
-			return isSetOwnedMembers();
-		case Aadl2Package.COMPONENT_TYPE__GENERAL:
-			return isSetGenerals();
-		case Aadl2Package.COMPONENT_TYPE__GENERALIZATION:
-			return isSetGeneralizations();
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
 			return basicGetExtended() != null;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:

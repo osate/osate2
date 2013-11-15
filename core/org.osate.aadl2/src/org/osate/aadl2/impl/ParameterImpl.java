@@ -213,8 +213,6 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.PARAMETER__FEATURE_CLASSIFIER:
-			return isSetFeatureClassifier();
 		case Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER:
 			return dataFeatureClassifier != null;
 		}

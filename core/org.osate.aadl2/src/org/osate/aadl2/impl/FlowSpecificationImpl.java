@@ -573,8 +573,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE_OR_TRANSITION:
 			return inModeOrTransitions != null
 					&& !inModeOrTransitions.isEmpty();
-		case Aadl2Package.FLOW_SPECIFICATION__REFINED_ELEMENT:
-			return isSetRefinedElement();
 		case Aadl2Package.FLOW_SPECIFICATION__REFINED:
 			return refined != null;
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:

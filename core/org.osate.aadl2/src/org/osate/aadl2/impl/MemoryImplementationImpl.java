@@ -335,16 +335,12 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_SUBCOMPONENT:
-			return isSetOwnedSubcomponents();
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 			return ownedBusSubcomponents != null
 					&& !ownedBusSubcomponents.isEmpty();
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
 			return ownedMemorySubcomponents != null
 					&& !ownedMemorySubcomponents.isEmpty();
-		case Aadl2Package.MEMORY_IMPLEMENTATION__TYPE:
-			return isSetType();
 		}
 		return super.eIsSet(featureID);
 	}

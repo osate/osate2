@@ -39,6 +39,11 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_avt5JYC7EeC4L4Ipr-wzPA" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_avt5JoC7EeC4L4Ipr-wzPA"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_sBrwoE4HEeOhgd3TaVpFAQ" name="ownedAnnexSubclause" aggregation="composite" association="_sCH1gE4HEeOhgd3TaVpFAQ">
+          <type xmi:type="uml:Class" href="../Core%20Language/AADLConstructs.uml#Extensibility-AnnexSubclause"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sBrwoU4HEeOhgd3TaVpFAQ" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sBrwok4HEeOhgd3TaVpFAQ"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="PropertySets-A_globalNamespace_propertySet" name="A_globalNamespace_propertySet" memberEnd="PropertySets-A_globalNamespace_propertySet-globalNamespace PropertySets-GlobalNamespace-propertySet">
         <ownedEnd xmi:id="PropertySets-A_globalNamespace_propertySet-globalNamespace" name="globalNamespace" type="PropertySets-GlobalNamespace" association="PropertySets-A_globalNamespace_propertySet">
@@ -83,6 +88,12 @@
         <ownedEnd xmi:id="_avt5IYC7EeC4L4Ipr-wzPA" name="propertySet" type="PropertySets-PropertySet" association="_avt5IIC7EeC4L4Ipr-wzPA">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_avt5IoC7EeC4L4Ipr-wzPA" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_avt5I4C7EeC4L4Ipr-wzPA"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_sCH1gE4HEeOhgd3TaVpFAQ" name="A_propertySet_ownedAnnexSubclause" memberEnd="_sCH1gU4HEeOhgd3TaVpFAQ _sBrwoE4HEeOhgd3TaVpFAQ">
+        <ownedEnd xmi:id="_sCH1gU4HEeOhgd3TaVpFAQ" name="owner" type="PropertySets-PropertySet" association="_sCH1gE4HEeOhgd3TaVpFAQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sCH1gk4HEeOhgd3TaVpFAQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sCH1g04HEeOhgd3TaVpFAQ"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>
