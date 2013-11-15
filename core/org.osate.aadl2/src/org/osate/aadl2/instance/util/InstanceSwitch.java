@@ -116,6 +116,13 @@ public class InstanceSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case InstancePackage.ANNEX_INSTANCE: {
+			AnnexInstance annexInstance = (AnnexInstance) theEObject;
+			T result = caseAnnexInstance(annexInstance);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case InstancePackage.CONNECTION_INSTANCE_END: {
 			ConnectionInstanceEnd connectionInstanceEnd = (ConnectionInstanceEnd) theEObject;
 			T result = caseConnectionInstanceEnd(connectionInstanceEnd);
@@ -326,6 +333,21 @@ public class InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseInstanceObject(InstanceObject object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Annex Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Annex Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnnexInstance(AnnexInstance object) {
 		return null;
 	}
 

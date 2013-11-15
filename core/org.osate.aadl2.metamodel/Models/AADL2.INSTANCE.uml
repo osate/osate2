@@ -67,6 +67,10 @@
       <generalization xmi:id="InstanceObject-_generalization.0">
         <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#NamedElement"/>
       </generalization>
+      <ownedAttribute xmi:id="_V_V_tECyEeOINe2VopeOiA" name="annexInstance" type="_PySnkECyEeOINe2VopeOiA" aggregation="composite" association="_V_V_sECyEeOINe2VopeOiA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_V_V_tUCyEeOINe2VopeOiA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_V_V_tkCyEeOINe2VopeOiA"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ConnectionInstance" name="ConnectionInstance">
       <ownedComment xmi:id="_G-6rEFn1Ed-39ebAzHAVCA">
@@ -624,6 +628,17 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lbgcYwZpEeKg0o0PHpVqpA"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PySnkECyEeOINe2VopeOiA" name="AnnexInstance" isAbstract="true">
+      <generalization xmi:id="__ZpSQEC-EeOVZK0SKrK62w">
+        <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#NamedElement"/>
+      </generalization>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_V_V_sECyEeOINe2VopeOiA" name="A_instanceObject_annexInstance" memberEnd="_V_V_sUCyEeOINe2VopeOiA _V_V_tECyEeOINe2VopeOiA">
+      <ownedEnd xmi:id="_V_V_sUCyEeOINe2VopeOiA" name="owner" type="InstanceObject" association="_V_V_sECyEeOINe2VopeOiA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_V_V_skCyEeOINe2VopeOiA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_V_V_s0CyEeOINe2VopeOiA" value="1"/>
+      </ownedEnd>
+    </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
@@ -654,4 +669,5 @@ These are those SOMs in which all of this flow's elements  are active.</body>
   <Standard:Metaclass xmi:id="_q3yj9WfKEd2ly6zXqnHGuA"/>
   <Standard:Metaclass xmi:id="_fQMMEJbxEd6qz8WeBBf9gQ" base_Class="ConnectionInstanceEnd"/>
   <Standard:Metaclass xmi:id="_XwTgMHV2Ed-5Z-hOGUPk8w" base_Class="_iPP2OHV0Ed-5Z-hOGUPk8w"/>
+  <Standard:Metaclass xmi:id="_Tvom4ECyEeOINe2VopeOiA" base_Class="_PySnkECyEeOINe2VopeOiA"/>
 </xmi:XMI>

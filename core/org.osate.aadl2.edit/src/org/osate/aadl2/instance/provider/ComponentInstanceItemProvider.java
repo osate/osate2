@@ -258,7 +258,7 @@ public class ComponentInstanceItemProvider extends
 		String label = ci.getFullName();
 		String ctype = ci.getCategory().getName();
 		return (ctype == null || ctype.length() == 0 ? getString("_UI_ComponentInstance_type") : ctype + " instance") + (label == null || label.length() == 0 ? "" : //$NON-NLS-1$
-						" " + label) ; //$NON-NLS-1$ //$NON-NLS-2$
+						" " + label); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
