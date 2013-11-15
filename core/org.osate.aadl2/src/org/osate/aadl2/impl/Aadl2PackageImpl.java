@@ -3326,7 +3326,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentClassifier_NoFlows() {
+	public EAttribute getComponentClassifier_DerivedModes() {
 		return (EAttribute) getComponentClassifier().getEStructuralFeatures()
 				.get(2);
 	}
@@ -3336,9 +3336,19 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComponentClassifier_NoModes() {
+	public EAttribute getComponentClassifier_NoFlows() {
 		return (EAttribute) getComponentClassifier().getEStructuralFeatures()
 				.get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComponentClassifier_NoModes() {
+		return (EAttribute) getComponentClassifier().getEStructuralFeatures()
+				.get(4);
 	}
 
 	/**

@@ -84,10 +84,30 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addDerivedModesPropertyDescriptor(object);
 			addNoFlowsPropertyDescriptor(object);
 			addNoModesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Derived Modes feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDerivedModesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ComponentClassifier_derivedModes_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentClassifier_derivedModes_feature",
+						"_UI_ComponentClassifier_type"), Aadl2Package.eINSTANCE
+						.getComponentClassifier_DerivedModes(), true, false,
+				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -187,6 +207,7 @@ public class ComponentClassifierItemProvider extends ClassifierItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ComponentClassifier.class)) {
+		case Aadl2Package.COMPONENT_CLASSIFIER__DERIVED_MODES:
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES:
 			fireNotifyChanged(new ViewerNotification(notification,

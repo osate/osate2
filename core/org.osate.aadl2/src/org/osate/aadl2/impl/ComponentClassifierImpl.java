@@ -66,6 +66,7 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedMembers <em>Owned Member</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedModes <em>Owned Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#getOwnedModeTransitions <em>Owned Mode Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#isDerivedModes <em>Derived Modes</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#isNoFlows <em>No Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ComponentClassifierImpl#isNoModes <em>No Modes</em>}</li>
  * </ul>
@@ -94,6 +95,24 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements
 	 */
 	protected EList<ModeTransition> ownedModeTransitions;
 
+	/**
+	 * The default value of the '{@link #isDerivedModes() <em>Derived Modes</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDerivedModes()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DERIVED_MODES_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isDerivedModes() <em>Derived Modes</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDerivedModes()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean derivedModes = DERIVED_MODES_EDEFAULT;
 	/**
 	 * The default value of the '{@link #isNoFlows() <em>No Flows</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -297,6 +316,29 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isDerivedModes() {
+		return derivedModes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDerivedModes(boolean newDerivedModes) {
+		boolean oldDerivedModes = derivedModes;
+		derivedModes = newDerivedModes;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_CLASSIFIER__DERIVED_MODES,
+					oldDerivedModes, derivedModes));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isNoFlows() {
 		return noFlows;
 	}
@@ -369,6 +411,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements
 			return getOwnedModes();
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
 			return getOwnedModeTransitions();
+		case Aadl2Package.COMPONENT_CLASSIFIER__DERIVED_MODES:
+			return isDerivedModes();
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			return isNoFlows();
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES:
@@ -395,6 +439,9 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements
 			getOwnedModeTransitions().addAll(
 					(Collection<? extends ModeTransition>) newValue);
 			return;
+		case Aadl2Package.COMPONENT_CLASSIFIER__DERIVED_MODES:
+			setDerivedModes((Boolean) newValue);
+			return;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			setNoFlows((Boolean) newValue);
 			return;
@@ -419,6 +466,9 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
 			getOwnedModeTransitions().clear();
 			return;
+		case Aadl2Package.COMPONENT_CLASSIFIER__DERIVED_MODES:
+			setDerivedModes(DERIVED_MODES_EDEFAULT);
+			return;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			setNoFlows(NO_FLOWS_EDEFAULT);
 			return;
@@ -442,6 +492,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
 			return ownedModeTransitions != null
 					&& !ownedModeTransitions.isEmpty();
+		case Aadl2Package.COMPONENT_CLASSIFIER__DERIVED_MODES:
+			return derivedModes != DERIVED_MODES_EDEFAULT;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			return noFlows != NO_FLOWS_EDEFAULT;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES:
@@ -461,7 +513,9 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (noFlows: ");
+		result.append(" (derivedModes: ");
+		result.append(derivedModes);
+		result.append(", noFlows: ");
 		result.append(noFlows);
 		result.append(", noModes: ");
 		result.append(noModes);

@@ -47,6 +47,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#getOwnedModes <em>Owned Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#getOwnedModeTransitions <em>Owned Mode Transition</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentClassifier#isDerivedModes <em>Derived Modes</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#isNoFlows <em>No Flows</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentClassifier#isNoModes <em>No Modes</em>}</li>
  * </ul>
@@ -123,6 +124,32 @@ public interface ComponentClassifier extends Classifier, SubcomponentType,
 	 * @generated
 	 */
 	ModeTransition createOwnedModeTransition();
+
+	/**
+	 * Returns the value of the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Derived Modes</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Derived Modes</em>' attribute.
+	 * @see #setDerivedModes(boolean)
+	 * @see org.osate.aadl2.Aadl2Package#getComponentClassifier_DerivedModes()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isDerivedModes();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.ComponentClassifier#isDerivedModes <em>Derived Modes</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Derived Modes</em>' attribute.
+	 * @see #isDerivedModes()
+	 * @generated
+	 */
+	void setDerivedModes(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>No Flows</b></em>' attribute.
