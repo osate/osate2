@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -82,6 +83,13 @@ public class InstancePackageImpl extends EPackageImpl implements
 	 * @generated
 	 */
 	private EClass instanceObjectEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass annexInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -335,6 +343,25 @@ public class InstancePackageImpl extends EPackageImpl implements
 	 */
 	public EClass getInstanceObject() {
 		return instanceObjectEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInstanceObject_AnnexInstance() {
+		return (EReference) instanceObjectEClass.getEStructuralFeatures()
+				.get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnnexInstance() {
+		return annexInstanceEClass;
 	}
 
 	/**
@@ -967,6 +994,9 @@ public class InstancePackageImpl extends EPackageImpl implements
 		createEAttribute(featureInstanceEClass, FEATURE_INSTANCE__INDEX);
 
 		instanceObjectEClass = createEClass(INSTANCE_OBJECT);
+		createEReference(instanceObjectEClass, INSTANCE_OBJECT__ANNEX_INSTANCE);
+
+		annexInstanceEClass = createEClass(ANNEX_INSTANCE);
 
 		connectionInstanceEndEClass = createEClass(CONNECTION_INSTANCE_END);
 		createEReference(connectionInstanceEndEClass,
@@ -1187,6 +1217,16 @@ public class InstancePackageImpl extends EPackageImpl implements
 				instanceObjectEClass,
 				InstanceObject.class,
 				"InstanceObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getInstanceObject_AnnexInstance(),
+				this.getAnnexInstance(),
+				null,
+				"annexInstance", null, 0, -1, InstanceObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				annexInstanceEClass,
+				AnnexInstance.class,
+				"AnnexInstance", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(
 				connectionInstanceEndEClass,

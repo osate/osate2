@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instance" nsURI="http://aadl.info/AADL/2.0/instance" nsPrefix="instance">
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instance"
+    nsURI="http://aadl.info/AADL/2.0/instance" nsPrefix="instance">
   <eClassifiers xsi:type="ecore:EClass" name="FeatureInstance" eSuperTypes="#//ConnectionInstanceEnd #//InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="srcFlowSpec" ordered="false"
         upperBound="-1" eType="#//FlowSpecificationInstance" eOpposite="#//FlowSpecificationInstance/source"/>
@@ -17,7 +19,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" ordered="false"
         unique="false" eType="ecore:EDataType aadl2.ecore#//Integer"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InstanceObject" abstract="true" eSuperTypes="aadl2.ecore#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceObject" abstract="true" eSuperTypes="aadl2.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annexInstance" ordered="false"
+        upperBound="-1" eType="#//AnnexInstance" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AnnexInstance" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstanceEnd" abstract="true"
       eSuperTypes="#//InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="srcConnectionInstance"

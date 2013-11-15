@@ -35,6 +35,8 @@
  */
 package org.osate.aadl2.instance.impl;
 
+import java.util.Collection;
+import org.eclipse.emf.common.notify.NotificationChain;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +46,9 @@ import java.util.NoSuchElementException;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.ArrayRange;
@@ -51,6 +56,7 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.impl.NamedElementImpl;
+import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -66,12 +72,26 @@ import org.osate.aadl2.util.OsateDebug;
  * <!-- begin-user-doc --> An implementation of the model object '
  * <em><b>Object</b></em>'. <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.instance.impl.InstanceObjectImpl#getAnnexInstances <em>Annex Instance</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
 public abstract class InstanceObjectImpl extends NamedElementImpl implements
 		InstanceObject {
+	/**
+	 * The cached value of the '{@link #getAnnexInstances() <em>Annex Instance</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnexInstances()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AnnexInstance> annexInstances;
+
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -89,6 +109,97 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements
 	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.INSTANCE_OBJECT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<AnnexInstance> getAnnexInstances() {
+		if (annexInstances == null) {
+			annexInstances = new EObjectContainmentEList<AnnexInstance>(
+					AnnexInstance.class, this,
+					InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE);
+		}
+		return annexInstances;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
+			return ((InternalEList<?>) getAnnexInstances()).basicRemove(
+					otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
+			return getAnnexInstances();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
+			getAnnexInstances().clear();
+			getAnnexInstances().addAll(
+					(Collection<? extends AnnexInstance>) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
+			getAnnexInstances().clear();
+			return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
+			return annexInstances != null && !annexInstances.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**
