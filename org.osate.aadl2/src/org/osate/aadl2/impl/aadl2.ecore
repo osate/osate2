@@ -322,7 +322,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="initial" ordered="false"
         lowerBound="1" eType="#//Boolean" defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="derived" ordered="false"
-        lowerBound="1" eType="#//Boolean" defaultValueLiteral="false"/>
+        lowerBound="1" eType="#//Boolean" changeable="false" volatile="true" transient="true"
+        defaultValueLiteral="false" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeFeature" abstract="true" eSuperTypes="#//ClassifierFeature"/>
   <eClassifiers xsi:type="ecore:EClass" name="Prototype" abstract="true" eSuperTypes="#//StructuralFeature #//CalledSubprogram">
@@ -487,6 +488,8 @@
         upperBound="-1" eType="#//ModeTransition" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="derivedModes" ordered="false"
+        lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noFlows" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noModes" ordered="false"

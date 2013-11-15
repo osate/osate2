@@ -4663,13 +4663,22 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION = CLASSIFIER_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_CLASSIFIER__DERIVED_MODES = CLASSIFIER_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_CLASSIFIER__NO_FLOWS = CLASSIFIER_FEATURE_COUNT + 2;
+	int COMPONENT_CLASSIFIER__NO_FLOWS = CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>No Modes</b></em>' attribute.
@@ -4678,7 +4687,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_CLASSIFIER__NO_MODES = CLASSIFIER_FEATURE_COUNT + 3;
+	int COMPONENT_CLASSIFIER__NO_MODES = CLASSIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Component Classifier</em>' class.
@@ -4687,7 +4696,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_CLASSIFIER_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 4;
+	int COMPONENT_CLASSIFIER_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4859,6 +4868,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_IMPLEMENTATION__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -5390,6 +5408,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int COMPONENT_TYPE__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_TYPE__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -13403,6 +13430,15 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13853,6 +13889,15 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14175,6 +14220,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -15345,6 +15399,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_IMPLEMENTATION__OWNED_MODE_TRANSITION = BEHAVIORED_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_IMPLEMENTATION__DERIVED_MODES = BEHAVIORED_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -18281,6 +18344,15 @@ public interface Aadl2Package extends EPackage {
 	int BUS_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18477,6 +18549,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int BUS_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -18774,6 +18855,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int BUS_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -19244,6 +19334,15 @@ public interface Aadl2Package extends EPackage {
 	int DATA_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -19440,6 +19539,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DATA_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -19728,6 +19836,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DATA_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -20207,6 +20324,15 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEVICE_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -20403,6 +20529,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DEVICE_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEVICE_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -20718,6 +20853,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DEVICE_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEVICE_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -21206,6 +21350,15 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MEMORY_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -21402,6 +21555,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MEMORY_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MEMORY_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -21699,6 +21861,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int MEMORY_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MEMORY_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -22178,6 +22349,15 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -22374,6 +22554,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -22689,6 +22878,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_IMPLEMENTATION__OWNED_MODE_TRANSITION = BEHAVIORED_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_IMPLEMENTATION__DERIVED_MODES = BEHAVIORED_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -23186,6 +23384,15 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -23382,6 +23589,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_GROUP_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -23661,6 +23877,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -24149,6 +24374,15 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -24345,6 +24579,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SYSTEM_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -24669,6 +24912,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int SYSTEM_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -25229,6 +25481,15 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -25425,6 +25686,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROCESSOR_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -25740,6 +26010,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROCESSOR_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSOR_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -26237,6 +26516,15 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -26433,6 +26721,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROCESS_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -26748,6 +27045,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int PROCESS_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESS_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -27254,6 +27560,15 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAD_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -27450,6 +27765,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int THREAD_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAD_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -27765,6 +28089,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int THREAD_IMPLEMENTATION__OWNED_MODE_TRANSITION = BEHAVIORED_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAD_IMPLEMENTATION__DERIVED_MODES = BEHAVIORED_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -28271,6 +28604,15 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAD_GROUP_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -28467,6 +28809,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int THREAD_GROUP_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAD_GROUP_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -28782,6 +29133,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int THREAD_GROUP_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAD_GROUP_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -29288,6 +29648,15 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_BUS_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -29484,6 +29853,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_BUS_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_BUS_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -29772,6 +30150,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_BUS_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_BUS_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -30242,6 +30629,15 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_CLASSIFIER__OWNED_MODE_TRANSITION = COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION;
 
 	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_PROCESSOR_CLASSIFIER__DERIVED_MODES = COMPONENT_CLASSIFIER__DERIVED_MODES;
+
+	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -30438,6 +30834,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_PROCESSOR_TYPE__OWNED_MODE_TRANSITION = COMPONENT_TYPE__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_PROCESSOR_TYPE__DERIVED_MODES = COMPONENT_TYPE__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -30744,6 +31149,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_MODE_TRANSITION = COMPONENT_IMPLEMENTATION__OWNED_MODE_TRANSITION;
+
+	/**
+	 * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_PROCESSOR_IMPLEMENTATION__DERIVED_MODES = COMPONENT_IMPLEMENTATION__DERIVED_MODES;
 
 	/**
 	 * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -34969,6 +35383,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getComponentClassifier_OwnedModeTransition();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.ComponentClassifier#isDerivedModes <em>Derived Modes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Derived Modes</em>'.
+	 * @see org.osate.aadl2.ComponentClassifier#isDerivedModes()
+	 * @see #getComponentClassifier()
+	 * @generated
+	 */
+	EAttribute getComponentClassifier_DerivedModes();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.aadl2.ComponentClassifier#isNoFlows <em>No Flows</em>}'.

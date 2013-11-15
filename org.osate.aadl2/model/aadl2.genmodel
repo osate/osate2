@@ -373,6 +373,8 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentClassifier/ownedMode"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentClassifier/ownedModeTransition"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" propertyCategory=""
+          ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentClassifier/derivedModes"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentClassifier/noFlows"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentClassifier/noModes"/>
     </genClasses>
