@@ -68,8 +68,8 @@ import org.osate.aadl2.SubcomponentType;
  *
  * @generated
  */
-public class ComponentPrototypeActualImpl extends ElementImpl implements
-		ComponentPrototypeActual {
+public class ComponentPrototypeActualImpl extends ArrayableElementImpl
+		implements ComponentPrototypeActual {
 	/**
 	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
 	 * <!-- begin-user-doc -->

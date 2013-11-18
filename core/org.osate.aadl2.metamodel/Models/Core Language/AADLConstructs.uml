@@ -684,9 +684,7 @@
         <ownedComment xmi:id="Templates-FeaturePrototypeActual-_ownedComment.0">
           <body>An element to which a feature prototype may be bound.</body>
         </ownedComment>
-        <generalization xmi:id="Templates-FeaturePrototypeActual-_generalization.0">
-          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
-        </generalization>
+        <generalization xmi:id="Templates-FeaturePrototypeActual-_generalization.0" general="Arrays-ArrayableElement"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Templates-AccessSpecification" name="AccessSpecification">
         <ownedComment xmi:id="Templates-AccessSpecification-_ownedComment.0">
@@ -774,9 +772,7 @@
         <ownedComment xmi:id="Templates-ComponentPrototypeActual-_ownedComment.0">
           <body>An element to which a component prototype may be bound.</body>
         </ownedComment>
-        <generalization xmi:id="Templates-ComponentPrototypeActual-_generalization.0">
-          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
-        </generalization>
+        <generalization xmi:id="Templates-ComponentPrototypeActual-_generalization.0" general="Arrays-ArrayableElement"/>
         <ownedAttribute xmi:id="Templates-ComponentPrototypeActual-category" name="category" type="Components-ComponentCategory">
           <ownedComment xmi:id="Templates-ComponentPrototypeActual-category-_ownedComment.0">
             <body>Specifies the component category of this actual.</body>

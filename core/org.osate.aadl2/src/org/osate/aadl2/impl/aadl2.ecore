@@ -1059,7 +1059,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="actual" lowerBound="1"
         upperBound="-1" eType="#//ComponentPrototypeActual" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeActual" eSuperTypes="#//Element">
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototypeActual" eSuperTypes="#//ArrayableElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
         lowerBound="1" eType="#//ComponentCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="binding" ordered="false"
@@ -1084,7 +1084,7 @@
         lowerBound="1" eType="#//FeatureType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeActual" abstract="true"
-      eSuperTypes="#//Element"/>
+      eSuperTypes="#//ArrayableElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeBinding" eSuperTypes="#//PrototypeBinding">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"

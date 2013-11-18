@@ -2316,6 +2316,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			ComponentPrototypeActual componentPrototypeActual = (ComponentPrototypeActual) theEObject;
 			T result = caseComponentPrototypeActual(componentPrototypeActual);
 			if (result == null)
+				result = caseArrayableElement(componentPrototypeActual);
+			if (result == null)
 				result = caseElement(componentPrototypeActual);
 			if (result == null)
 				result = defaultCase(theEObject);
@@ -2338,6 +2340,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseFeaturePrototypeActual(featureGroupPrototypeActual);
 			if (result == null)
+				result = caseArrayableElement(featureGroupPrototypeActual);
+			if (result == null)
 				result = caseElement(featureGroupPrototypeActual);
 			if (result == null)
 				result = defaultCase(theEObject);
@@ -2346,6 +2350,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 		case Aadl2Package.FEATURE_PROTOTYPE_ACTUAL: {
 			FeaturePrototypeActual featurePrototypeActual = (FeaturePrototypeActual) theEObject;
 			T result = caseFeaturePrototypeActual(featurePrototypeActual);
+			if (result == null)
+				result = caseArrayableElement(featurePrototypeActual);
 			if (result == null)
 				result = caseElement(featurePrototypeActual);
 			if (result == null)
@@ -2369,6 +2375,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseFeaturePrototypeActual(accessSpecification);
 			if (result == null)
+				result = caseArrayableElement(accessSpecification);
+			if (result == null)
 				result = caseElement(accessSpecification);
 			if (result == null)
 				result = defaultCase(theEObject);
@@ -2380,6 +2388,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseFeaturePrototypeActual(portSpecification);
 			if (result == null)
+				result = caseArrayableElement(portSpecification);
+			if (result == null)
 				result = caseElement(portSpecification);
 			if (result == null)
 				result = defaultCase(theEObject);
@@ -2390,6 +2400,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			T result = caseFeaturePrototypeReference(featurePrototypeReference);
 			if (result == null)
 				result = caseFeaturePrototypeActual(featurePrototypeReference);
+			if (result == null)
+				result = caseArrayableElement(featurePrototypeReference);
 			if (result == null)
 				result = caseElement(featurePrototypeReference);
 			if (result == null)
