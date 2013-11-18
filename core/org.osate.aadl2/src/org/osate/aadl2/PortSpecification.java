@@ -47,6 +47,7 @@ package org.osate.aadl2;
  *   <li>{@link org.osate.aadl2.PortSpecification#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.PortSpecification#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.PortSpecification#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.PortSpecification#getComponentPrototype <em>Component Prototype</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,5 +139,31 @@ public interface PortSpecification extends FeaturePrototypeActual {
 	 * @generated
 	 */
 	void setClassifier(ComponentClassifier value);
+
+	/**
+	 * Returns the value of the '<em><b>Component Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Component Prototype</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Component Prototype</em>' reference.
+	 * @see #setComponentPrototype(ComponentPrototype)
+	 * @see org.osate.aadl2.Aadl2Package#getPortSpecification_ComponentPrototype()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	ComponentPrototype getComponentPrototype();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.PortSpecification#getComponentPrototype <em>Component Prototype</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Component Prototype</em>' reference.
+	 * @see #getComponentPrototype()
+	 * @generated
+	 */
+	void setComponentPrototype(ComponentPrototype value);
 
 } // PortSpecification

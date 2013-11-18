@@ -8425,6 +8425,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getAccessSpecification_ComponentPrototype() {
+		return (EReference) getAccessSpecification().getEStructuralFeatures()
+				.get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPortSpecification() {
 		if (portSpecificationEClass == null) {
 			portSpecificationEClass = (EClass) EPackage.Registry.INSTANCE
@@ -8462,6 +8472,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	public EReference getPortSpecification_Classifier() {
 		return (EReference) getPortSpecification().getEStructuralFeatures()
 				.get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPortSpecification_ComponentPrototype() {
+		return (EReference) getPortSpecification().getEStructuralFeatures()
+				.get(3);
 	}
 
 	/**
