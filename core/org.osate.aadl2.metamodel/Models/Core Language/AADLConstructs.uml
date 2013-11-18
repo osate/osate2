@@ -2068,7 +2068,7 @@ The context owns the connection end instance.</body>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_QvW4cOvFEeGRG-ZDxoY3dg" value="false"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Modes-Mode-derived" name="derived" visibility="public" isDerived="true">
+        <ownedAttribute xmi:id="Modes-Mode-derived" name="derived" visibility="public" isReadOnly="true" isDerived="true">
           <ownedComment xmi:id="Modes-Mode-derived-_ownedComment.0">
             <body>Specifies that this mode is derived from the mode of the parent component.</body>
           </ownedComment>
