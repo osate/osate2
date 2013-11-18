@@ -12971,13 +12971,22 @@ public interface Aadl2Package extends EPackage {
 	int ACCESS_SPECIFICATION__CLASSIFIER = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Component Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Access Specification</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACCESS_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
+	int ACCESS_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -13034,13 +13043,22 @@ public interface Aadl2Package extends EPackage {
 	int PORT_SPECIFICATION__CLASSIFIER = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Component Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__COMPONENT_PROTOTYPE = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Port Specification</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
+	int PORT_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -40208,6 +40226,17 @@ public interface Aadl2Package extends EPackage {
 	EReference getAccessSpecification_Classifier();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.AccessSpecification#getComponentPrototype <em>Component Prototype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Component Prototype</em>'.
+	 * @see org.osate.aadl2.AccessSpecification#getComponentPrototype()
+	 * @see #getAccessSpecification()
+	 * @generated
+	 */
+	EReference getAccessSpecification_ComponentPrototype();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.PortSpecification <em>Port Specification</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -40249,6 +40278,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getPortSpecification_Classifier();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.PortSpecification#getComponentPrototype <em>Component Prototype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Component Prototype</em>'.
+	 * @see org.osate.aadl2.PortSpecification#getComponentPrototype()
+	 * @see #getPortSpecification()
+	 * @generated
+	 */
+	EReference getPortSpecification_ComponentPrototype();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.FeaturePrototypeReference <em>Feature Prototype Reference</em>}'.

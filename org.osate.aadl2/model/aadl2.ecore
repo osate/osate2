@@ -1410,6 +1410,8 @@
         lowerBound="1" eType="#//AccessCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
         eType="#//ComponentClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentPrototype" ordered="false"
+        eType="#//ComponentPrototype"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PortSpecification" eSuperTypes="#//FeaturePrototypeActual">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
@@ -1418,6 +1420,8 @@
         lowerBound="1" eType="#//PortCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
         eType="#//ComponentClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentPrototype" ordered="false"
+        eType="#//ComponentPrototype"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeReference" eSuperTypes="#//FeaturePrototypeActual">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"

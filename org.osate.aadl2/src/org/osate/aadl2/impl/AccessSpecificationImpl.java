@@ -46,6 +46,7 @@ import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentPrototype;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,6 +58,7 @@ import org.osate.aadl2.ComponentClassifier;
  *   <li>{@link org.osate.aadl2.impl.AccessSpecificationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AccessSpecificationImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AccessSpecificationImpl#getClassifier <em>Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.AccessSpecificationImpl#getComponentPrototype <em>Component Prototype</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,6 +115,16 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 	 * @ordered
 	 */
 	protected ComponentClassifier classifier;
+
+	/**
+	 * The cached value of the '{@link #getComponentPrototype() <em>Component Prototype</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getComponentPrototype()
+	 * @generated
+	 * @ordered
+	 */
+	protected ComponentPrototype componentPrototype;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -225,6 +237,51 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ComponentPrototype getComponentPrototype() {
+		if (componentPrototype != null
+				&& ((EObject) componentPrototype).eIsProxy()) {
+			InternalEObject oldComponentPrototype = (InternalEObject) componentPrototype;
+			componentPrototype = (ComponentPrototype) eResolveProxy(oldComponentPrototype);
+			if (componentPrototype != oldComponentPrototype) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE,
+							oldComponentPrototype, componentPrototype));
+			}
+		}
+		return componentPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentPrototype basicGetComponentPrototype() {
+		return componentPrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setComponentPrototype(ComponentPrototype newComponentPrototype) {
+		ComponentPrototype oldComponentPrototype = componentPrototype;
+		componentPrototype = newComponentPrototype;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE,
+					oldComponentPrototype, componentPrototype));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -236,6 +293,10 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 			if (resolve)
 				return getClassifier();
 			return basicGetClassifier();
+		case Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE:
+			if (resolve)
+				return getComponentPrototype();
+			return basicGetComponentPrototype();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -256,6 +317,9 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 			return;
 		case Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER:
 			setClassifier((ComponentClassifier) newValue);
+			return;
+		case Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE:
+			setComponentPrototype((ComponentPrototype) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -278,6 +342,9 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		case Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER:
 			setClassifier((ComponentClassifier) null);
 			return;
+		case Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE:
+			setComponentPrototype((ComponentPrototype) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -296,6 +363,8 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 			return category != CATEGORY_EDEFAULT;
 		case Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER:
 			return classifier != null;
+		case Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE:
+			return componentPrototype != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -88,6 +88,7 @@ public class AccessSpecificationItemProvider extends
 			addKindPropertyDescriptor(object);
 			addCategoryPropertyDescriptor(object);
 			addClassifierPropertyDescriptor(object);
+			addComponentPrototypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -147,6 +148,28 @@ public class AccessSpecificationItemProvider extends
 						"_UI_AccessSpecification_type"), Aadl2Package.eINSTANCE
 						.getAccessSpecification_Classifier(), true, false,
 				true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Component Prototype feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addComponentPrototypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_AccessSpecification_componentPrototype_feature"),
+						getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_AccessSpecification_componentPrototype_feature",
+								"_UI_AccessSpecification_type"),
+						Aadl2Package.eINSTANCE
+								.getAccessSpecification_ComponentPrototype(),
+						true, false, true, null, null, null));
 	}
 
 	/**

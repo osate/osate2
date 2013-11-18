@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_H8fC0PnyEd29ytDHZ1L1JA">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_ueXFwOcxEd2_oNHk7xXPgw">
   <model href="AADLConstructs.uml#_0"/>
   <diagrams xmi:id="_HKg1gEdvEdyOeaOA5AULsA" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_HbDL4EdvEdyOeaOA5AULsA" key="pageFormatName" value="A4"/>
@@ -1583,7 +1583,7 @@
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_ftKWSbFdEeCdCowcwygdUw" id="stereotypeEdgeObject" offset="0,-10"/>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_oyzmQOczEd2_oNHk7xXPgw" position="0,0" size="100,100" name="FeaturePrototypes" viewport="0,0">
+    <diagrams xmi:id="_oyzmQOczEd2_oNHk7xXPgw" position="0,0" size="100,100" name="FeaturePrototypes" viewport="-76,0">
       <property xmi:id="_o46OQOczEd2_oNHk7xXPgw" key="pageFormatName" value="A4"/>
       <property xmi:id="_o46OQeczEd2_oNHk7xXPgw" key="diagramWidth" value="840"/>
       <property xmi:id="_o46OQuczEd2_oNHk7xXPgw" key="diagramHeight" value="1188"/>
@@ -1959,7 +1959,7 @@
         <waypoints>[-71, 43, 132, -108]</waypoints>
         <waypoints>[-71, 151, 132, 0]</waypoints>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_-gOyELIyEeC2OduVpwNurQ" position="614,297" size="186,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_-gOyELIyEeC2OduVpwNurQ" position="614,297" size="203,-1">
         <anchorage xmi:id="_Chdy4LIzEeC2OduVpwNurQ" graphEdge="_ChgPILIzEeC2OduVpwNurQ"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_-gOyEbIyEeC2OduVpwNurQ" presentation="default">
           <element href="AADLConstructs.uml#Templates-FeatureGroupPrototypeActual"/>

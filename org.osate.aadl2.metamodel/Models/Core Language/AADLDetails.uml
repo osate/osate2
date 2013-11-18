@@ -825,7 +825,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_L2gT0XMdEd-Dn6vSwaGWGg"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_CAFm8J5lEeCP66JzwOyEVA" name="A_&lt;deviceImplementation>_&lt;virtualBusSubcomponent>" memberEnd="_CAFm8Z5lEeCP66JzwOyEVA _B_SVsJ5lEeCP66JzwOyEVA">
+        <packagedElement xmi:type="uml:Association" xmi:id="_CAFm8J5lEeCP66JzwOyEVA" name="A_deviceImplementation_ownedVirtualBusSubcomponent" memberEnd="_CAFm8Z5lEeCP66JzwOyEVA _B_SVsJ5lEeCP66JzwOyEVA">
           <ownedEnd xmi:id="_CAFm8Z5lEeCP66JzwOyEVA" name="owner" type="Components-Device-DeviceImplementation" association="_CAFm8J5lEeCP66JzwOyEVA">
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CAFm8p5lEeCP66JzwOyEVA" value="1"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CAFm855lEeCP66JzwOyEVA"/>
