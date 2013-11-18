@@ -12680,7 +12680,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+	int COMPONENT_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ARRAYABLE_ELEMENT__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -12689,7 +12689,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+	int COMPONENT_PROTOTYPE_ACTUAL__OWNED_COMMENT = ARRAYABLE_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_PROTOTYPE_ACTUAL__ARRAY_DIMENSION = ARRAYABLE_ELEMENT__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Category</b></em>' attribute.
@@ -12698,7 +12707,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL__CATEGORY = ELEMENT_FEATURE_COUNT + 0;
+	int COMPONENT_PROTOTYPE_ACTUAL__CATEGORY = ARRAYABLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
@@ -12707,7 +12716,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL__BINDING = ELEMENT_FEATURE_COUNT + 1;
+	int COMPONENT_PROTOTYPE_ACTUAL__BINDING = ARRAYABLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Subcomponent Type</b></em>' reference.
@@ -12716,7 +12725,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE = ELEMENT_FEATURE_COUNT + 2;
+	int COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE = ARRAYABLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Component Prototype Actual</em>' class.
@@ -12725,7 +12734,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 3;
+	int COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT = ARRAYABLE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -12779,7 +12788,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
+	int FEATURE_PROTOTYPE_ACTUAL__OWNED_ELEMENT = ARRAYABLE_ELEMENT__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -12788,7 +12797,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
+	int FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT = ARRAYABLE_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_ACTUAL__ARRAY_DIMENSION = ARRAYABLE_ELEMENT__ARRAY_DIMENSION;
 
 	/**
 	 * The number of structural features of the '<em>Feature Prototype Actual</em>' class.
@@ -12797,7 +12815,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
+	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ARRAYABLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -12816,6 +12834,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_GROUP_PROTOTYPE_ACTUAL__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL__ARRAY_DIMENSION = FEATURE_PROTOTYPE_ACTUAL__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Binding</b></em>' containment reference list.
@@ -12908,6 +12935,15 @@ public interface Aadl2Package extends EPackage {
 	int ACCESS_SPECIFICATION__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
 
 	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_SPECIFICATION__ARRAY_DIMENSION = FEATURE_PROTOTYPE_ACTUAL__ARRAY_DIMENSION;
+
+	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12962,6 +12998,15 @@ public interface Aadl2Package extends EPackage {
 	int PORT_SPECIFICATION__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
 
 	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_SPECIFICATION__ARRAY_DIMENSION = FEATURE_PROTOTYPE_ACTUAL__ARRAY_DIMENSION;
+
+	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13014,6 +13059,15 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_PROTOTYPE_REFERENCE__OWNED_COMMENT = FEATURE_PROTOTYPE_ACTUAL__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimension</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_PROTOTYPE_REFERENCE__ARRAY_DIMENSION = FEATURE_PROTOTYPE_ACTUAL__ARRAY_DIMENSION;
 
 	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.

@@ -57,7 +57,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface ComponentPrototypeActual extends Element {
+public interface ComponentPrototypeActual extends ArrayableElement {
 	/**
 	 * Returns the value of the '<em><b>Category</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.osate.aadl2.ComponentCategory}.
