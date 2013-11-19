@@ -280,7 +280,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	protected final void addAadlFeaturePatterns() {
 		// Create the feature patterns
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
 			this.addPattern(createFeaturePattern(featureType));	
 		}
