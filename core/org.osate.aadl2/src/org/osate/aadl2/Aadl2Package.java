@@ -4131,13 +4131,31 @@ public interface Aadl2Package extends EPackage {
 	int CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>In Annex</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT_PATH_ELEMENT__IN_ANNEX = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Annex Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTAINMENT_PATH_ELEMENT__ANNEX_NAME = ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Containment Path Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTAINMENT_PATH_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int CONTAINMENT_PATH_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35057,6 +35075,28 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getContainmentPathElement_NamedElement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.ContainmentPathElement#isInAnnex <em>In Annex</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In Annex</em>'.
+	 * @see org.osate.aadl2.ContainmentPathElement#isInAnnex()
+	 * @see #getContainmentPathElement()
+	 * @generated
+	 */
+	EAttribute getContainmentPathElement_InAnnex();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.ContainmentPathElement#getAnnexName <em>Annex Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Annex Name</em>'.
+	 * @see org.osate.aadl2.ContainmentPathElement#getAnnexName()
+	 * @see #getContainmentPathElement()
+	 * @generated
+	 */
+	EAttribute getContainmentPathElement_AnnexName();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ArrayRange <em>Array Range</em>}'.
