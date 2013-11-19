@@ -15,6 +15,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
@@ -23,13 +24,13 @@ import edu.uah.rsesc.aadl.age.services.ShapeService;
 
 public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 	private final AnchorService anchorUtil;
-	private final ShapeService shapeHelper;
+	private final ShapeService shapeService;
 	
 	@Inject
 	public AadlConnectionInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
 		super(bor, diagram);
 		this.anchorUtil = anchorUtil;
-		this.shapeHelper = shapeHelper;
+		this.shapeService = shapeHelper;
 	}
 
 	@Override
@@ -71,14 +72,16 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		final Shape sourceShape = (Shape)sourcePe;
 		final Shape destShape = (Shape)destPe;
 		final IPeService peService = Graphiti.getPeService();
-		
+
 		// Get the appropriate anchors
-		a1 = anchorUtil.getAnchorByName(sourcePe, shapeHelper.doesShapeContain(sourceShape.getContainer(), destShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		final Shape srcComponentShape = shapeService.getClosestAncestorWithBusinessObjectType(sourceShape, ComponentImplementation.class, Subcomponent.class);
+		a1 = anchorUtil.getAnchorByName(sourcePe, shapeService.doesShapeContain(srcComponentShape, destShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 		if(a1 == null) {
 			a1 = peService.getChopboxAnchor((AnchorContainer)sourcePe);
 		}
 
-		a2 = anchorUtil.getAnchorByName(destPe, shapeHelper.doesShapeContain(destShape.getContainer(), sourceShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		final Shape dstComponentShape = shapeService.getClosestAncestorWithBusinessObjectType(destShape, ComponentImplementation.class, Subcomponent.class);
+		a2 = anchorUtil.getAnchorByName(destPe, shapeService.doesShapeContain(dstComponentShape, sourceShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 		if(a2 == null) {
 			a2 = peService.getChopboxAnchor((AnchorContainer)destPe);
 		}
@@ -102,7 +105,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 			if(contextComponent == getBusinessObjectResolver().getBusinessObjectForPictogramElement(ownerShape)){
 				pe = ownerShape;
 			} else {
-				pe = shapeHelper.getChildShapeByElementQualifiedName(ownerShape, contextComponent);
+				pe = shapeService.getChildShapeByElementQualifiedName(ownerShape, contextComponent);
 				if(pe == null || !(pe instanceof ContainerShape)) {
 					return null;
 				}
@@ -115,7 +118,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 				return null;
 			} else {
 				// Get the shape for the context
-				pe = shapeHelper.getDescendantShapeByElementQualifiedName((ContainerShape)pe, context);
+				pe = shapeService.getDescendantShapeByElementQualifiedName((ContainerShape)pe, context);
 				if(pe == null || !(pe instanceof ContainerShape)) {
 					return null;
 				}
@@ -131,7 +134,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		}
 		
 		// Get Descendant PE
-		pe = shapeHelper.getDescendantShapeByElementQualifiedName((ContainerShape)pe, ce);		
+		pe = shapeService.getDescendantShapeByElementQualifiedName((ContainerShape)pe, ce);		
 		
 		// CLEAN-UP: Clarify or remove comments
 		// Case: Just CE is valid. (Probably a feature? could be a component)

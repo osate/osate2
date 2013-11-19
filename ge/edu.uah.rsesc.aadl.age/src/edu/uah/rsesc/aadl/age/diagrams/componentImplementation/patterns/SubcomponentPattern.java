@@ -293,14 +293,7 @@ public class SubcomponentPattern extends AgePattern {
 	 * @return
 	 */
 	private ComponentImplementation getComponentImplementation(final Shape shape) {
-		for(Shape tmpShape = shape; tmpShape != null; tmpShape = tmpShape.getContainer()) {
-			final Object tmpShapeBo = bor.getBusinessObjectForPictogramElement(tmpShape);
-			if(tmpShapeBo instanceof ComponentImplementation) {
-				return (ComponentImplementation)tmpShapeBo;
-			}
-		}
-		
-		return null;
+		return shapeService.getClosestBusinessObjectOfType(shape, ComponentImplementation.class);
 	}
 	
 	private List<ComponentImplementation> getAllExtended(final ComponentImplementation ci) {

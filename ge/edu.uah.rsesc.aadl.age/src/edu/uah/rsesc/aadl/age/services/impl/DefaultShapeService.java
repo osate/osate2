@@ -128,4 +128,30 @@ public class DefaultShapeService implements ShapeService {
 
 		return e1.getQualifiedName().equalsIgnoreCase(e2.getQualifiedName());
 	}
+	
+	@Override
+	public Shape getClosestAncestorWithBusinessObjectType(final Shape s, final Class<?> ... boTypes) {
+		for(Shape tmpShape = s; tmpShape != null; tmpShape = tmpShape.getContainer()) {
+			final Object tmpShapeBo = bor.getBusinessObjectForPictogramElement(tmpShape);
+			for(Class<?> tmpClass : boTypes) {
+				if(tmpClass.isInstance(tmpShapeBo)) {
+					return tmpShape;
+				}	
+			}			
+		}
+		
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getClosestBusinessObjectOfType(Shape s, Class<T> type) {
+		for(Shape tmpShape = s; tmpShape != null; tmpShape = tmpShape.getContainer()) {
+			final Object tmpShapeBo = bor.getBusinessObjectForPictogramElement(tmpShape);
+			if(type.isInstance(tmpShapeBo)) {
+				return (T)tmpShapeBo;
+			}			
+		}
+		
+		return null;
+	}
 }

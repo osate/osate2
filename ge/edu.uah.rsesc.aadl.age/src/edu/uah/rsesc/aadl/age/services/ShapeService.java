@@ -50,5 +50,18 @@ public interface ShapeService {
 	 * @return
 	 */
 	boolean doesShapeContain(Shape s1, Shape s2);
+	
+	/**
+	 * Returns the closest ancestor shape that has a business object of one of the specified types
+	 * @param s
+	 * @return
+	 */
+	Shape getClosestAncestorWithBusinessObjectType(Shape s, Class<?> ... boTypes);
 
+	/**
+	 * Returns the business object of the closest ancestor shape which has a business object of the specified type
+	 * @param s
+	 * @return
+	 */
+	<T> T getClosestBusinessObjectOfType(Shape s, Class<T> type);
 }
