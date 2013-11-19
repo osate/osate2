@@ -89,8 +89,6 @@ public class ChangeSubcomponentTypeFeature extends AbstractCustomFeature {
     
 	@Override
 	public boolean canUndo(final IContext context) {
-		System.out.println("UNDO?");
-		System.out.println(context);
 		return false;
 	}
     

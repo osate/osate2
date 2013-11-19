@@ -149,6 +149,7 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		return true;
 	}
 	
+	// IDelete	
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		return false;
