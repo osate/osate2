@@ -2925,6 +2925,26 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getContainmentPathElement_InAnnex() {
+		return (EAttribute) getContainmentPathElement()
+				.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getContainmentPathElement_AnnexName() {
+		return (EAttribute) getContainmentPathElement()
+				.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getArrayRange() {
 		if (arrayRangeEClass == null) {
 			arrayRangeEClass = (EClass) EPackage.Registry.INSTANCE

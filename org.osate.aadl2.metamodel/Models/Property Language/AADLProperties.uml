@@ -1107,6 +1107,14 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-ContainmentPathElement-namedElement-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-ContainmentPathElement-namedElement-_lowerValue" value="1"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_nQYS0FE-EeOvC4rwpuKd8g" name="inAnnex">
+          <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uUFJoVE_EeOvC4rwpuKd8g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uUFJoFE_EeOvC4rwpuKd8g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_8ccn8lE-EeOvC4rwpuKd8g" name="annexName">
+          <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_containedNamedElement_containmentPathElement" name="A_containedNamedElement_containmentPathElement" memberEnd="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement Associations-ContainedNamedElement-containmentPathElement">
         <ownedEnd xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement" name="containedNamedElement" type="Associations-ContainedNamedElement" association="Associations-A_containedNamedElement_containmentPathElement">
