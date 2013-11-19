@@ -52,6 +52,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
@@ -661,26 +662,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
     
     @Override
     public String checkValueValid(final String value, final IDirectEditingContext context) {
-    	final PictogramElement pe = context.getPictogramElement();
-    	final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(pe);
-
-    	// If the name hasn't changed or has only changed case
-    	if(value.equalsIgnoreCase(feature.getName())) {
-    		return null;
-    	}
-    	
-    	if(!namingService.isValidIdentifier(value)) {
-	    	return "The specified name is not a valid AADL identifier";
-	    }
-    	
-    	// Check for conflicts in the namespace
-    	if(namingService.isNameInUse(feature.getNamespace(), value)) {
-    		return "The specified name conflicts with an existing member of the namespace.";
-    	}
-
-        // The value is valid
-        return null;
-    }    
+    	return namingService.checkNameValidity((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), value);
+    }
      
  	public void setValue(final String value, final IDirectEditingContext context) {
     	final PictogramElement pe = context.getPictogramElement();

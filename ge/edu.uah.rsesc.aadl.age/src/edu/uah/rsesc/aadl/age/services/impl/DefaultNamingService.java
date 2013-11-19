@@ -60,4 +60,24 @@ public class DefaultNamingService implements NamingService {
 		
 		return false;
 	}
+	
+	@Override
+	public String checkNameValidity(final NamedElement ne, final String name) {
+    	// If the name hasn't changed or has only changed case
+    	if(name.equalsIgnoreCase(ne.getName())) {
+    		return null;
+    	}
+    	
+    	if(!isValidIdentifier(name)) {
+	    	return "The specified name is not a valid AADL identifier";
+	    }
+    	
+    	// Check for conflicts in the namespace
+    	if(isNameInUse(ne.getNamespace(), name)) {
+    		return "The specified name conflicts with an existing member of the namespace.";
+    	}
+
+        // The value is valid
+        return null;
+	}
 }

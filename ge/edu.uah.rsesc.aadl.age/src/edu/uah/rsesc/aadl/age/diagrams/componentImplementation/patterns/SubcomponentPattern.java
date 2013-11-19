@@ -36,6 +36,7 @@ import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -46,7 +47,6 @@ import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
-import edu.uah.rsesc.aadl.age.services.DiagramService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
@@ -418,6 +418,11 @@ public class SubcomponentPattern extends AgePattern {
 	@Override
 	public int getEditingType() {
         return TYPE_TEXT;
+    }
+	
+    @Override
+    public String checkValueValid(final String value, final IDirectEditingContext context) {
+    	return namingService.checkNameValidity((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), value);
     }
  
     @Override

@@ -1,5 +1,6 @@
 package edu.uah.rsesc.aadl.age.services;
 
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 
 public interface NamingService {
@@ -16,7 +17,7 @@ public interface NamingService {
 	 * @param value
 	 * @return
 	 */
-	boolean isValidIdentifier(final String value);
+	boolean isValidIdentifier(String value);
 	
 	/**
 	 * Returns whether an element with a specified name exists
@@ -24,5 +25,13 @@ public interface NamingService {
 	 * @param name
 	 * @return
 	 */
-	boolean isNameInUse(final Namespace namespace, final String name);
+	boolean isNameInUse(Namespace namespace, String name);
+	
+	/**
+	 * Helper function for checking if a name is valid for a specified named element. Essentially a generic implementation of checkValueValid.
+	 * @param ne
+	 * @param name
+	 * @return null is the name is valid. Otherwise a text string explaining why it is not.
+	 */
+	String checkNameValidity(NamedElement ne, String name);
 }
