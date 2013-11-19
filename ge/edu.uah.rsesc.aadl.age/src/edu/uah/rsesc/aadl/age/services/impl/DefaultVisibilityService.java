@@ -11,6 +11,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -46,7 +47,14 @@ public class DefaultVisibilityService implements VisibilityService {
 	 * @param pe
 	 */
 	private void updateVisibility(final PictogramElement pe) {
-		pe.setVisible(!propertyUtil.isGhost(pe));
+		final boolean visible = !propertyUtil.isGhost(pe);
+		pe.setVisible(visible);
+		if(pe instanceof Connection) {
+			final Connection c = (Connection)pe;
+			for(final ConnectionDecorator cd : c.getConnectionDecorators()) {
+				cd.setVisible(visible);
+			}
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -79,7 +87,7 @@ public class DefaultVisibilityService implements VisibilityService {
 			if(updatedBos.contains(bo)) {
 				ghost = true;
 			} else {
-				if(bo == null || updateFeature == null || (updateFeature != null && !updateFeature.canUpdate(updateContext))) {
+				if(bo == null || updateFeature == null || !updateFeature.canUpdate(updateContext)) {
 					ghost = true;
 				} else {
 					EObject emfBusinessObject = (EObject)bo;
@@ -105,8 +113,21 @@ public class DefaultVisibilityService implements VisibilityService {
 	@Override
 	public void ghostInvalidConnections() {
 		for(final Connection connection : getDiagram().getConnections()) {
+			boolean ghost = false;
 			final Object bo = bor.getBusinessObjectForPictogramElement(connection);
+			// If the business object is not valid, ghost the connection
 			if(!(bo instanceof EObject)) {
+				ghost = true;
+			} else {				
+				// If there is not a pattern to update the connection, ghost it
+				final UpdateContext updateContext = new UpdateContext(connection);
+				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+				if(updateFeature == null || !updateFeature.canUpdate(updateContext)) {
+					ghost = true;
+				}
+			}
+			
+			if(ghost) {
 				setIsGhost(connection, true);
 			}
 		}
