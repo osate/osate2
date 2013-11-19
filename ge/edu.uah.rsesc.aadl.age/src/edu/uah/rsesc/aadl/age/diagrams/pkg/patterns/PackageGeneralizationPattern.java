@@ -43,7 +43,7 @@ import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 
-public class PackageGeneralizationPattern extends AgeConnectionPattern implements IDelete {
+public class PackageGeneralizationPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
 	private final AadlModificationService modificationService;
 	private final ConnectionService connectionService;
@@ -237,11 +237,6 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	}
 
 	@Override
-	public void preDelete(final IDeleteContext context) {
-	
-	}
-
-	@Override
 	public void delete(final IDeleteContext context) {
 		if(!userInputService.confirmDelete(context)) {
 			return;
@@ -260,9 +255,5 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
-	}
-
-	@Override
-	public void postDelete(final IDeleteContext context) {
 	}
 }

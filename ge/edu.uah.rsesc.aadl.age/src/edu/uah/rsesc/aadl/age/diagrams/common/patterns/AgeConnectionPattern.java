@@ -7,8 +7,10 @@ import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddConnectionContext;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.IContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
+import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -29,7 +31,7 @@ import edu.uah.rsesc.aadl.age.services.VisibilityService;
  * @author philip.alldredge
  *
  */
-public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate {
+public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate, IDelete {
 	public abstract boolean isMainBusinessObjectApplicable(final Object mainBusinessObject);
 	private final VisibilityService visibilityHelper;
 	
@@ -145,5 +147,22 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public boolean canDelete(final IDeleteContext context) {
+		return false;
+	}
+	
+	@Override
+	public void preDelete(final IDeleteContext context) {	
+	}	
+	
+	@Override
+	public void delete(final IDeleteContext context) {		
+	}
+	
+	@Override
+	public void postDelete(final IDeleteContext context) {
 	}
 }
