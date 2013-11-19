@@ -27,8 +27,6 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
