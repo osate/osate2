@@ -632,11 +632,22 @@ These are those SOMs in which all of this flow's elements  are active.</body>
       <generalization xmi:id="__ZpSQEC-EeOVZK0SKrK62w">
         <general xmi:type="uml:Class" href="AADL2.EMF.merged.uml#NamedElement"/>
       </generalization>
+      <ownedAttribute xmi:id="_JfQRxVFREeOvC4rwpuKd8g" name="annexSubclause" association="_JfQRwVFREeOvC4rwpuKd8g">
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#AnnexSubclause"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JfQRxlFREeOvC4rwpuKd8g" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JfQRx1FREeOvC4rwpuKd8g" value="1"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_V_V_sECyEeOINe2VopeOiA" name="A_instanceObject_annexInstance" memberEnd="_V_V_sUCyEeOINe2VopeOiA _V_V_tECyEeOINe2VopeOiA">
       <ownedEnd xmi:id="_V_V_sUCyEeOINe2VopeOiA" name="owner" type="InstanceObject" association="_V_V_sECyEeOINe2VopeOiA">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_V_V_skCyEeOINe2VopeOiA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_V_V_s0CyEeOINe2VopeOiA" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_JfQRwVFREeOvC4rwpuKd8g" name="A_annexInstance_annexSubclause" memberEnd="_JfQRwlFREeOvC4rwpuKd8g _JfQRxVFREeOvC4rwpuKd8g">
+      <ownedEnd xmi:id="_JfQRwlFREeOvC4rwpuKd8g" name="annexInstance" type="_PySnkECyEeOINe2VopeOiA" association="_JfQRwVFREeOvC4rwpuKd8g">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JfQRw1FREeOvC4rwpuKd8g" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JfQRxFFREeOvC4rwpuKd8g"/>
       </ownedEnd>
     </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">

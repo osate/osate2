@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_iSauoHA6EdyCUOsiX56NUw" activeDiagram="_DzNU8M3WEdyzIeMd4AlZGQ">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_iSauoHA6EdyCUOsiX56NUw" activeDiagram="_JGej4Hc7EdyOANrHbpnTRA">
   <model href="AADLDetails.uml#_0"/>
   <diagrams xmi:id="_iSauoXA6EdyCUOsiX56NUw" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_iTdQcHA6EdyCUOsiX56NUw" key="pageFormatName" value="A4"/>
@@ -6382,7 +6382,7 @@
           </contained>
         </contained>
       </diagrams>
-      <diagrams xmi:id="_DzNU8M3WEdyzIeMd4AlZGQ" position="0,0" size="100,100" name="Subcomponents in Device Implementations" viewport="0,46">
+      <diagrams xmi:id="_DzNU8M3WEdyzIeMd4AlZGQ" position="0,0" size="100,100" name="Subcomponents in Device Implementations" viewport="109,194">
         <property xmi:id="_Dz870M3WEdyzIeMd4AlZGQ" key="pageFormatName" value="A4"/>
         <property xmi:id="_Dz870c3WEdyzIeMd4AlZGQ" key="diagramWidth" value="840"/>
         <property xmi:id="_Dz870s3WEdyzIeMd4AlZGQ" key="diagramHeight" value="1188"/>
@@ -8160,7 +8160,7 @@
             </semanticModel>
           </contained>
         </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_ONsVUHc7EdyOANrHbpnTRA" position="353,100" size="175,-1">
+        <contained xsi:type="di:GraphNode" xmi:id="_ONsVUHc7EdyOANrHbpnTRA" position="434,100" size="175,-1">
           <anchorage xmi:id="_PwMC0Hc7EdyOANrHbpnTRA" graphEdge="_PwMC0Xc7EdyOANrHbpnTRA _QzZMQHc7EdyOANrHbpnTRA"/>
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_ONsVUXc7EdyOANrHbpnTRA" presentation="default">
             <element href="AADLDetails.uml#Components-VirtualBus-VirtualBusSubcomponent"/>
@@ -8260,7 +8260,7 @@
             </semanticModel>
           </contained>
         </contained>
-        <contained xsi:type="di:GraphNode" xmi:id="_kZ4DkKfGEeCYEIHXYlP5sg" position="3,100" size="179,-1">
+        <contained xsi:type="di:GraphNode" xmi:id="_kZ4DkKfGEeCYEIHXYlP5sg" position="3,100" size="201,-1">
           <anchorage xmi:id="_qArUAKfGEeCYEIHXYlP5sg" graphEdge="_QzZMQHc7EdyOANrHbpnTRA _Pi7C4Xc7EdyOANrHbpnTRA _w6ymcKfGEeCYEIHXYlP5sg _xUb1gKfGEeCYEIHXYlP5sg _x3AXEKfGEeCYEIHXYlP5sg _LrN2MLRjEeCUlOZHyZaJRw"/>
           <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_kZ4DkafGEeCYEIHXYlP5sg" presentation="default">
             <element href="AADLDetails.uml#_TgY98KfGEeCYEIHXYlP5sg"/>

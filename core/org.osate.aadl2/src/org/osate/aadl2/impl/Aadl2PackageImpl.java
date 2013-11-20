@@ -1222,13 +1222,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass vitualBusSubcomponentTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass virtualBusClassifierEClass = null;
 
 	/**
@@ -1244,6 +1237,13 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	private EClass virtualProcessorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass virtualBusSubcomponentTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -6496,20 +6496,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getVitualBusSubcomponentType() {
-		if (vitualBusSubcomponentTypeEClass == null) {
-			vitualBusSubcomponentTypeEClass = (EClass) EPackage.Registry.INSTANCE
-					.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
-					.get(150);
-		}
-		return vitualBusSubcomponentTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getVirtualBusClassifier() {
 		if (virtualBusClassifierEClass == null) {
 			virtualBusClassifierEClass = (EClass) EPackage.Registry.INSTANCE
@@ -6555,6 +6541,20 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 					.get(149);
 		}
 		return virtualProcessorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getVirtualBusSubcomponentType() {
+		if (virtualBusSubcomponentTypeEClass == null) {
+			virtualBusSubcomponentTypeEClass = (EClass) EPackage.Registry.INSTANCE
+					.getEPackage(Aadl2Package.eNS_URI).getEClassifiers()
+					.get(150);
+		}
+		return virtualBusSubcomponentTypeEClass;
 	}
 
 	/**

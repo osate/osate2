@@ -420,13 +420,67 @@ public interface InstancePackage extends EPackage {
 	int ANNEX_INSTANCE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__OWNED_ELEMENT = Aadl2Package.NAMED_ELEMENT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__OWNED_COMMENT = Aadl2Package.NAMED_ELEMENT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__NAME = Aadl2Package.NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__QUALIFIED_NAME = Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Subclause</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNEX_INSTANCE__ANNEX_SUBCLAUSE = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Annex Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANNEX_INSTANCE_FEATURE_COUNT = 0;
+	int ANNEX_INSTANCE_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.FlowElementInstanceImpl <em>Flow Element Instance</em>}' class.
@@ -1910,6 +1964,17 @@ public interface InstancePackage extends EPackage {
 	EClass getAnnexInstance();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.AnnexInstance#getAnnexSubclause <em>Annex Subclause</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Annex Subclause</em>'.
+	 * @see org.osate.aadl2.instance.AnnexInstance#getAnnexSubclause()
+	 * @see #getAnnexInstance()
+	 * @generated
+	 */
+	EReference getAnnexInstance_AnnexSubclause();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.ConnectionInstanceEnd <em>Connection Instance End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2689,6 +2754,15 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EClass ANNEX_INSTANCE = eINSTANCE.getAnnexInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Annex Subclause</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANNEX_INSTANCE__ANNEX_SUBCLAUSE = eINSTANCE
+				.getAnnexInstance_AnnexSubclause();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.ConnectionInstanceEndImpl <em>Connection Instance End</em>}' class.

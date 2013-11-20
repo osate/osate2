@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -32,53 +32,18 @@
  * </copyright>
  * 
  */
-package org.osate.aadl2.instance;
-
-import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.NamedElement;
+package org.osate.aadl2;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Annex Instance</b></em>'.
+ * A representation of the model object '<em><b>Virtual Bus Subcomponent Type</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.osate.aadl2.instance.AnnexInstance#getAnnexSubclause <em>Annex Subclause</em>}</li>
- * </ul>
- * </p>
  *
- * @see org.osate.aadl2.instance.InstancePackage#getAnnexInstance()
+ * @see org.osate.aadl2.Aadl2Package#getVirtualBusSubcomponentType()
  * @model abstract="true"
  * @generated
  */
-public interface AnnexInstance extends EObject, NamedElement {
-
-	/**
-	 * Returns the value of the '<em><b>Annex Subclause</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Annex Subclause</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Annex Subclause</em>' reference.
-	 * @see #setAnnexSubclause(AnnexSubclause)
-	 * @see org.osate.aadl2.instance.InstancePackage#getAnnexInstance_AnnexSubclause()
-	 * @model required="true" ordered="false"
-	 * @generated
-	 */
-	AnnexSubclause getAnnexSubclause();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.instance.AnnexInstance#getAnnexSubclause <em>Annex Subclause</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Annex Subclause</em>' reference.
-	 * @see #getAnnexSubclause()
-	 * @generated
-	 */
-	void setAnnexSubclause(AnnexSubclause value);
-} // AnnexInstance
+public interface VirtualBusSubcomponentType extends SubcomponentType,
+		VirtualBus {
+} // VirtualBusSubcomponentType

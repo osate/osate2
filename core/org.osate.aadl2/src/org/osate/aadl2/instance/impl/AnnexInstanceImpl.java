@@ -34,9 +34,15 @@
  */
 package org.osate.aadl2.instance.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.ocl.ecore.OCL;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.impl.NamedElementImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -49,12 +55,26 @@ import org.osate.aadl2.instance.InstancePackage;
  * An implementation of the model object '<em><b>Annex Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.instance.impl.AnnexInstanceImpl#getAnnexSubclause <em>Annex Subclause</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class AnnexInstanceImpl extends EObjectImpl implements
+public abstract class AnnexInstanceImpl extends NamedElementImpl implements
 		AnnexInstance {
+	/**
+	 * The cached value of the '{@link #getAnnexSubclause() <em>Annex Subclause</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnexSubclause()
+	 * @generated
+	 * @ordered
+	 */
+	protected AnnexSubclause annexSubclause;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -75,15 +95,114 @@ public abstract class AnnexInstanceImpl extends EObjectImpl implements
 	}
 
 	/**
-	 * Creates a new instance of the specified Ecore class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param eClass The Ecore class of the instance to create.
-	 * @return The new instance.
 	 * @generated
 	 */
-	protected EObject create(EClass eClass) {
-		return EcoreUtil.create(eClass);
+	public AnnexSubclause getAnnexSubclause() {
+		if (annexSubclause != null && ((EObject) annexSubclause).eIsProxy()) {
+			InternalEObject oldAnnexSubclause = (InternalEObject) annexSubclause;
+			annexSubclause = (AnnexSubclause) eResolveProxy(oldAnnexSubclause);
+			if (annexSubclause != oldAnnexSubclause) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE,
+							oldAnnexSubclause, annexSubclause));
+			}
+		}
+		return annexSubclause;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AnnexSubclause basicGetAnnexSubclause() {
+		return annexSubclause;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAnnexSubclause(AnnexSubclause newAnnexSubclause) {
+		AnnexSubclause oldAnnexSubclause = annexSubclause;
+		annexSubclause = newAnnexSubclause;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE,
+					oldAnnexSubclause, annexSubclause));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE:
+			if (resolve)
+				return getAnnexSubclause();
+			return basicGetAnnexSubclause();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE:
+			setAnnexSubclause((AnnexSubclause) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE:
+			setAnnexSubclause((AnnexSubclause) null);
+			return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE:
+			return annexSubclause != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * The cached environment for evaluating OCL expressions.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 } //AnnexInstanceImpl

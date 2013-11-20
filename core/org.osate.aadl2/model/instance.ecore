@@ -23,7 +23,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="annexInstance" ordered="false"
         upperBound="-1" eType="#//AnnexInstance" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AnnexInstance" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AnnexInstance" abstract="true" eSuperTypes="aadl2.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annexSubclause" ordered="false"
+        lowerBound="1" eType="ecore:EClass aadl2.ecore#//AnnexSubclause"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstanceEnd" abstract="true"
       eSuperTypes="#//InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="srcConnectionInstance"

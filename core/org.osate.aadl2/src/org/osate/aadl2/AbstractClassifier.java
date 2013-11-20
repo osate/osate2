@@ -51,7 +51,7 @@ public interface AbstractClassifier extends ComponentClassifier,
 		ProcessorSubcomponentType, ProcessSubcomponentType,
 		SubprogramGroupSubcomponentType, SubprogramSubcomponentType,
 		SystemSubcomponentType, ThreadGroupSubcomponentType,
-		ThreadSubcomponentType, VirtualProcessorSubcomponentType,
-		VitualBusSubcomponentType {
+		ThreadSubcomponentType, VirtualBusSubcomponentType,
+		VirtualProcessorSubcomponentType {
 
 } // AbstractClassifier
