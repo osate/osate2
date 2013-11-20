@@ -50,6 +50,6 @@ public interface AbstractPrototype extends ComponentPrototype,
 		ProcessorSubcomponentType, ProcessSubcomponentType,
 		SubprogramGroupSubcomponentType, SubprogramSubcomponentType,
 		SystemSubcomponentType, ThreadGroupSubcomponentType,
-		ThreadSubcomponentType, VirtualProcessorSubcomponentType,
-		VitualBusSubcomponentType {
+		ThreadSubcomponentType, VirtualBusSubcomponentType,
+		VirtualProcessorSubcomponentType {
 } // AbstractPrototype

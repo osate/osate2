@@ -2705,16 +2705,6 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_SUBCOMPONENT_TYPE = 141;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.impl.VitualBusSubcomponentTypeImpl <em>Vitual Bus Subcomponent Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.impl.VitualBusSubcomponentTypeImpl
-	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVitualBusSubcomponentType()
-	 * @generated
-	 */
-	int VITUAL_BUS_SUBCOMPONENT_TYPE = 139;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentTypeImpl <em>Virtual Processor Subcomponent Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14456,13 +14446,23 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusSubcomponentTypeImpl <em>Virtual Bus Subcomponent Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.VirtualBusSubcomponentTypeImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponentType()
+	 * @generated
+	 */
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE = 139;
+
+	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VITUAL_BUS_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -14471,7 +14471,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VITUAL_BUS_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -14480,7 +14480,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VITUAL_BUS_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -14489,7 +14489,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VITUAL_BUS_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -14498,16 +14498,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VITUAL_BUS_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The number of structural features of the '<em>Vitual Bus Subcomponent Type</em>' class.
+	 * The number of structural features of the '<em>Virtual Bus Subcomponent Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VITUAL_BUS_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -38363,16 +38363,6 @@ public interface Aadl2Package extends EPackage {
 	EClass getVirtualBus();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.VitualBusSubcomponentType <em>Vitual Bus Subcomponent Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Vitual Bus Subcomponent Type</em>'.
-	 * @see org.osate.aadl2.VitualBusSubcomponentType
-	 * @generated
-	 */
-	EClass getVitualBusSubcomponentType();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.VirtualBusClassifier <em>Virtual Bus Classifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38412,6 +38402,16 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getVirtualProcessor();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.VirtualBusSubcomponentType <em>Virtual Bus Subcomponent Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Virtual Bus Subcomponent Type</em>'.
+	 * @see org.osate.aadl2.VirtualBusSubcomponentType
+	 * @generated
+	 */
+	EClass getVirtualBusSubcomponentType();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.VirtualProcessorSubcomponentType <em>Virtual Processor Subcomponent Type</em>}'.

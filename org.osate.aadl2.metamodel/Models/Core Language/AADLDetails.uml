@@ -2316,7 +2316,7 @@
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_TgY98KfGEeCYEIHXYlP5sg" name="VitualBusSubcomponentType" isAbstract="true">
+        <packagedElement xmi:type="uml:Class" xmi:id="_TgY98KfGEeCYEIHXYlP5sg" name="VirtualBusSubcomponentType" isAbstract="true">
           <generalization xmi:id="_x3thsKfGEeCYEIHXYlP5sg" general="Components-VirtualBus-VirtualBus"/>
           <generalization xmi:id="_ovkQoKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>

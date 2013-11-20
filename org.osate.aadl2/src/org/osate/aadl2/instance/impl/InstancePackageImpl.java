@@ -369,6 +369,15 @@ public class InstancePackageImpl extends EPackageImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getAnnexInstance_AnnexSubclause() {
+		return (EReference) annexInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConnectionInstanceEnd() {
 		return connectionInstanceEndEClass;
 	}
@@ -997,6 +1006,7 @@ public class InstancePackageImpl extends EPackageImpl implements
 		createEReference(instanceObjectEClass, INSTANCE_OBJECT__ANNEX_INSTANCE);
 
 		annexInstanceEClass = createEClass(ANNEX_INSTANCE);
+		createEReference(annexInstanceEClass, ANNEX_INSTANCE__ANNEX_SUBCLAUSE);
 
 		connectionInstanceEndEClass = createEClass(CONNECTION_INSTANCE_END);
 		createEReference(connectionInstanceEndEClass,
@@ -1148,6 +1158,8 @@ public class InstancePackageImpl extends EPackageImpl implements
 		featureInstanceEClass.getESuperTypes().add(this.getInstanceObject());
 		instanceObjectEClass.getESuperTypes().add(
 				theAadl2Package.getNamedElement());
+		annexInstanceEClass.getESuperTypes().add(
+				theAadl2Package.getNamedElement());
 		connectionInstanceEndEClass.getESuperTypes().add(
 				this.getInstanceObject());
 		connectionInstanceEClass.getESuperTypes().add(
@@ -1227,6 +1239,11 @@ public class InstancePackageImpl extends EPackageImpl implements
 				annexInstanceEClass,
 				AnnexInstance.class,
 				"AnnexInstance", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getAnnexInstance_AnnexSubclause(),
+				theAadl2Package.getAnnexSubclause(),
+				null,
+				"annexSubclause", null, 1, 1, AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
 				connectionInstanceEndEClass,

@@ -120,6 +120,10 @@ public class InstanceSwitch<T> extends Switch<T> {
 			AnnexInstance annexInstance = (AnnexInstance) theEObject;
 			T result = caseAnnexInstance(annexInstance);
 			if (result == null)
+				result = caseNamedElement(annexInstance);
+			if (result == null)
+				result = caseElement(annexInstance);
+			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
