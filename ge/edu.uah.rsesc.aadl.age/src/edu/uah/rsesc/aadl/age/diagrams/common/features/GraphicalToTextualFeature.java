@@ -1,18 +1,11 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.features;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Scanner;
-
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import javax.inject.Inject;
 
@@ -22,21 +15,17 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Subcomponent;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.AadlConstants;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 
 public class GraphicalToTextualFeature extends AbstractCustomFeature {
@@ -56,11 +45,6 @@ public class GraphicalToTextualFeature extends AbstractCustomFeature {
         return "View the textual representation of this part";
     }
 
-	//TODO make work for any Named element
-	//TODO use/justify not using ModeModelUtils.findActualNodeFor 
-	//TODO handle exceptions
-	//TODO fix null pointer (GraphicalToTextualFeature.java:104)    
-    
     @Override
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
@@ -72,19 +56,22 @@ public class GraphicalToTextualFeature extends AbstractCustomFeature {
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
-		return bo instanceof ComponentType || bo instanceof ComponentImplementation || bo instanceof FeatureGroupType;
+		return bo instanceof NamedElement;
 	}
     
     @Override
-    public boolean canExecute(ICustomContext context) {   	
+    public boolean canExecute(ICustomContext context) 
+    {   	
     	final ICustomContext customCtx = (ICustomContext)context;
     	PictogramElement[] pes = customCtx.getPictogramElements();
     	
 		final PictogramElement pe = pes[0];	
 		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-    	 if (pes != null && pes.length == 1 && !(pe instanceof Diagram)) { 
-             if(bo instanceof Package || bo instanceof Classifier) {
+    	 if (pes != null && pes.length == 1 && !(pe instanceof Diagram))
+    	 { 
+             if(bo instanceof NamedElement) 
+             {
                  return true;
         	 }
     	 }
@@ -92,86 +79,37 @@ public class GraphicalToTextualFeature extends AbstractCustomFeature {
     }
     
 	@Override
-	public void execute(ICustomContext context) {
-		PictogramElement[] pes = context.getPictogramElements();	
-		int linenumber = 1;
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IWorkspaceRoot root = workspace.getRoot();	
+	public void execute(ICustomContext context) 
+	{	
+		final Element bo = (Element)bor.getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
+		Resource res = bo.eResource();
+		final IResource ires = OsateResourceUtil.convertToIResource(res);
+		final IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		
-		if(context.getPictogramElements().length > 0){
-			Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pes[0]));
-			String elementName = ((NamedElement)bo).getName();
+		try
+		{
+			ICompositeNode node = NodeModelUtils.findActualNodeFor(bo);
 			
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();	
-			
-			String digramfile = page.getActiveEditor().getEditorInput().getName();
-
-			int i = digramfile.indexOf("_diagram");
-			int j = digramfile.indexOf("/resource") + 9;
-			
-			String packagefile = digramfile.substring(j, i);
-			
-			packagefile = packagefile.replaceFirst("diagrams", "packages");
-			
-			IResource resource = root.findMember(packagefile, false);
-
-			IPath location = resource.getLocation();
-
-			IFile textRepresnetation = workspace.getRoot().getFileForLocation(location);
-
-			if (textRepresnetation.exists())
-			{
-				Scanner sc = null;
-				try {
-					sc = new Scanner(new File(textRepresnetation.getRawLocationURI()));
-				} catch (FileNotFoundException e1) {
-					// TODO Error:File not found
-					e1.printStackTrace();
-				}
-				if (sc != null)
-				{
-					String currentLine = null;
-					linenumber = 1;
-					while (sc.hasNextLine())
-					{
-						currentLine = sc.nextLine();
-						if (currentLine.contains(elementName))
-						{
-							break;
-						}
-						linenumber++;
-					}
-									
-					if (currentLine != null)
-					{
-						HashMap<String, Object> map = new HashMap<String, Object>();
-						map.put(IMarker.LINE_NUMBER, linenumber);
-						IMarker marker = null;
-						try{
-							marker = textRepresnetation.createMarker(IMarker.TEXT);
-					        marker.setAttributes(map);
-					        try {
-								IDE.gotoMarker(IDE.openEditor(page, (IFile) textRepresnetation, true, false), marker);
-							} catch (PartInitException e) {
-								// TODO Error Message:Editor Open
-								e.printStackTrace();
-							}
-						} catch (CoreException e1) {
-							// TODO Error Message:Marker
-							e1.printStackTrace();
-						}
-						finally{
-							try {
-					            if (marker != null)
-					                marker.delete();
-					        } catch ( CoreException e ) {
-					        	// TODO Error Message:Marker Delete
-					        }
-						}
-					}
-				}
-			}				
-		}
-	}	
-}  
-
+			int offset = node.getTotalEndOffset();
+			int line = node.getTotalEndLine();		
+	
+			IMarker marker_p;
+			marker_p = ires.createMarker(AadlConstants.AADLGOTOMARKER);
+			marker_p = ires.createMarker(AadlConstants.AADLGOTOMARKER);
+			marker_p.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO);
+			String dest = EcoreUtil.getURI(bo).toString();
+			marker_p.setAttribute(IMarker.MESSAGE, "Going to "+ dest);
+			marker_p.setAttribute(IMarker.LOCATION, offset);
+			marker_p.setAttribute(IMarker.LINE_NUMBER, line);
+			marker_p.setAttribute(EValidator.URI_ATTRIBUTE, dest);
+			IDE.openEditor(page, marker_p);
+			// editor opened --- get rid of goto marker
+			ires.deleteMarkers(AadlConstants.AADLGOTOMARKER, false, IResource.DEPTH_ZERO);
+		} 
+		catch (final CoreException e) 
+		{
+			//System.err.println("CoreException: " + e.getMessage());
+			throw new RuntimeException(e);
+		}	
+	}
+}
