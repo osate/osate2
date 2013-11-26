@@ -1,49 +1,116 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns;
 
-import javax.inject.Inject;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.LinkedHashMap;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.features.context.ICreateConnectionContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AccessCategory;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.SubprogramAccess;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgeConnectionPattern;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
+import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ConnectionService;
+import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
+import edu.uah.rsesc.aadl.age.services.NamingService;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 public class ConnectionPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
 	private final HighlightingService highlightingHelper;
 	private final ConnectionService connectionHelper;
+	private final BusinessObjectResolutionService bor;
+	private final AadlModificationService aadlModService;
+	private final NamingService namingService;
+	private final DiagramModificationService diagramModService;
+	private final ShapeService shapeService;
+	private final UserInputService userInputService;
+	private final EClass connectionType;
+	private static LinkedHashMap<EClass, String> connectionTypeToMethodNameMap = new LinkedHashMap<EClass, String>();
+	
+	/**
+	 * Populate the map that contains the connection type to create method name mapping
+	 */
+	static {
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		connectionTypeToMethodNameMap.put(p.getAccessConnection(), "createOwnedAccessConnection");
+		connectionTypeToMethodNameMap.put(p.getFeatureConnection(), "createOwnedFeatureConnection");
+		connectionTypeToMethodNameMap.put(p.getFeatureGroupConnection(), "createOwnedFeatureGroupConnection");
+		connectionTypeToMethodNameMap.put(p.getParameterConnection(), "createOwnedParameterConnection");
+		connectionTypeToMethodNameMap.put(p.getPortConnection(), "createOwnedPortConnection");
+	}
+	
+	public static Collection<EClass> getConnectionTypes() {
+		return connectionTypeToMethodNameMap.keySet();
+	}
 	
 	@Inject
-	public ConnectionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, final ConnectionService connectionHelper) {
+	public ConnectionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, 
+			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
+			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final @Named("Connection Type") EClass connectionType) {
 		super(visibilityHelper);
 		this.styleUtil = styleUtil;
 		this.highlightingHelper = highlightingHelper;
 		this.connectionHelper = connectionHelper;
+		this.bor = bor;
+		this.aadlModService = aadlModService;
+		this.namingService = namingService;
+		this.connectionType = connectionType;
+		this.diagramModService = diagramModService;
+		this.shapeService = shapeService;
+		this.userInputService = userInputService;
 	}
 
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
-		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof org.osate.aadl2.Connection;
+		return connectionType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
 	}
 	
 	private org.osate.aadl2.Connection getAadlConnection(final Connection connection) {
@@ -67,7 +134,10 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		}
 		
 		connection.getConnectionDecorators().clear();
-
+		if(aadlConnection == null) {
+			return;
+		}
+			
 		final boolean showImmediateDecoration;
 		final boolean showDelayedDecoration;
 		if(aadlConnection instanceof PortConnection) {
@@ -136,6 +206,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		text.setStyle(styleUtil.getLabelStyle());
 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(aadlConnection.getName());
+	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(aadlConnection));
 	    
 	    // Set color based on current mode/mode transition
 	    highlightingHelper.highlight(aadlConnection, connection.getGraphicsAlgorithm());
@@ -170,5 +241,213 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
 		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
 		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, aadlConnection);	
+	}
+
+	// TODO: Document
+	private ConnectedElement getConnectedElementForShape(PictogramElement pe) {
+		if(!(pe instanceof Shape)) {
+			return null;
+		}
+		
+		Shape shape = (Shape)pe;
+		
+		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
+		for(; shape != null; shape = shape.getContainer()) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(shape);
+			if(bo instanceof ConnectionEnd) {
+				ce.setConnectionEnd((ConnectionEnd)bo);
+				break;
+			}			
+		}
+		
+		if(ce.getConnectionEnd() == null) {
+			return null;
+		}
+		
+		for(shape = shape.getContainer(); shape != null; shape = shape.getContainer()) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(shape);
+			if(bo instanceof Context) {
+				ce.setContext((Context)bo);
+				break;
+			}			
+		}
+		
+		return ce;
+	}
+	
+	// TODO: Comment
+	@Override
+	public boolean canDelete(final IDeleteContext context) {
+		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		final Connection connection = (Connection)context.getPictogramElement();
+		if(connection.getStart() == null) {
+			return false; 
+		}
+		
+		final AnchorContainer startContainer = connection.getStart().getParent();
+		if(!(startContainer instanceof Shape)) {
+			return false;
+		}
+		
+		final ComponentImplementation ci = getComponentImplementation((Shape)startContainer);
+		return aadlConnection.getContainingComponentImpl() == ci;
+	}
+	
+	@Override
+	public void delete(final IDeleteContext context) {
+		if(!userInputService.confirmDelete(context)) {
+			return;
+		}
+		
+		// Make the modification
+		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		aadlModService.modify(aadlConnection, new AbstractModifier<org.osate.aadl2.Connection, Object>() {
+			@Override
+			public Object modify(final Resource resource, final org.osate.aadl2.Connection aadlConnection) {
+				EcoreUtil.delete(aadlConnection);
+				
+				// TODO: Labels not deleted when connection are. Related to how connections are updated? Also weren't remove when feature was removed.
+				// TODO: Update other diagrams
+				return null;
+			}			
+		});	
+		
+		// Clear selection
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
+
+	@Override
+	public String getCreateName() {
+		return StringUtil.camelCaseToUser(connectionType.getName());
+	}
+	
+	@Override
+	public boolean canStartConnection(final ICreateConnectionContext context) {
+		return getConnectedElementForShape(context.getSourcePictogramElement()) != null;
+    }
+	
+	@Override
+	public boolean canCreate(final ICreateConnectionContext context) {
+		if(context.getSourcePictogramElement() == null || context.getTargetPictogramElement() == null) {
+			return false;
+		}
+		
+		// Get the connection elements for the source and destination
+		final ConnectedElement srcConnectedElement = getConnectedElementForShape(context.getSourcePictogramElement());
+		final ConnectedElement dstConnectedElement = getConnectedElementForShape(context.getTargetPictogramElement());
+		
+		// Ensure they are valid and are not the same
+		// TODO: The srcBo && dstBo check is not a valid check. Can connect 2 features that are the same. (nesting, etc). Context should be different
+		// TODO: That check is disabled but need a similiar one
+		if(srcConnectedElement == null || dstConnectedElement == null/* || srcBo == dstBo*/) {
+			return false;
+		}
+		
+		// TODO implement real rules
+		// TODO: Check, context, types, directions, etc.
+		// TODO: Can there be duplicate connections?(Same source and destination)
+		/*
+		if(srcBo instanceof ComponentType) {
+			return dstBo instanceof AbstractType || dstBo.getClass() == srcBo.getClass();
+		} else if(srcBo instanceof ComponentImplementation) {
+			return dstBo instanceof AbstractImplementation || dstBo.getClass() == srcBo.getClass();
+		} else if(srcBo instanceof FeatureGroupType) {
+			return dstBo instanceof FeatureGroupType;
+		}
+*/
+		
+		return true;
+	}
+
+	@Override
+	public Connection create(final ICreateConnectionContext context) {
+		// Get the Component Implementation
+		final ComponentImplementation ci = getComponentImplementation((Shape)context.getSourcePictogramElement());
+		
+		// Determine the name for the new connection
+		final String newConnectionName = namingService.buildUniqueIdentifier(ci, "new_connection");
+		
+		// TODO: Create appropriate connection type
+		
+		// Make the modification
+		final org.osate.aadl2.Connection newAadlConnection = aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, org.osate.aadl2.Connection>() {			
+			@Override
+			public org.osate.aadl2.Connection modify(final Resource resource, final ComponentImplementation ci) {
+				// TOOD: Need to be able to call different functions for different types of features
+				// Access Category has a get/set access category too
+				
+				// TODO: Create connection based on type.
+				// Create the connection object
+				final org.osate.aadl2.Connection newAadlConnection = createConnection(ci, connectionType);
+				if(newAadlConnection == null) {
+					return null;
+				}
+				
+				newAadlConnection.setBidirectional(true); // TODO: Don't set this? May not always be a valid option?
+				
+				// Set the name
+				newAadlConnection.setName(newConnectionName);
+				
+				// TODO: Resolve features?
+				
+				final ConnectedElement src = getConnectedElementForShape(context.getSourcePictogramElement());
+				newAadlConnection.setSource(src);
+				final ConnectedElement dst = getConnectedElementForShape(context.getTargetPictogramElement());
+				newAadlConnection.setDestination(dst);
+
+				// Set type of access connection
+				if(newAadlConnection instanceof AccessConnection) {
+					final AccessConnection ac = (AccessConnection)newAadlConnection;
+					if(src.getConnectionEnd() instanceof SubprogramAccess || dst.getConnectionEnd() instanceof SubprogramAccess) {
+						ac.setAccessCategory(AccessCategory.SUBPROGRAM);
+					} else if(src.getConnectionEnd() instanceof BusAccess || dst.getConnectionEnd() instanceof BusAccess) {
+						ac.setAccessCategory(AccessCategory.BUS);
+					} else if(src.getConnectionEnd() instanceof DataAccess || dst.getConnectionEnd() instanceof DataAccess) {
+						ac.setAccessCategory(AccessCategory.DATA);
+					}
+				}
+				
+				//fc.setSource(arg0);
+				// TODO: What is the proper way to create ConnectedElement?
+				// TODO: What is InternalEvent?
+				// TODO: ProcessorPort, ProcessorSubprogram
+				return newAadlConnection;
+			}			
+		});
+		
+		return null;
+	}
+	
+	/**
+	 * Returns the first component implementation associated with the specified or a containing shape.
+	 * @param shape
+	 * @return
+	 */
+	private ComponentImplementation getComponentImplementation(final Shape shape) {
+		return shapeService.getClosestBusinessObjectOfType(shape, ComponentImplementation.class);
+	}
+	
+	private Method getConnectionCreateMethod(final ComponentImplementation ci, final EClass connectionType) {
+		// Determine the method name for the type of feature
+		final String methodName = connectionTypeToMethodNameMap.get(connectionType);
+		if(methodName == null) {
+			return null;
+		}
+		
+		// Get the method
+		try {
+			final Method method = ci.getClass().getMethod(methodName);
+			return method;
+		} catch(final Exception ex) {
+			return null;
+		}
+	}
+	
+	private org.osate.aadl2.Connection createConnection(final ComponentImplementation ci, final EClass connectionClass) {
+		try {
+			return (org.osate.aadl2.Connection)getConnectionCreateMethod(ci, connectionClass).invoke(ci);
+		} catch (final Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
