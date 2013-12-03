@@ -21,16 +21,28 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-public class SetInModesDialog extends TitleAreaDialog {
+/**
+ * Dialog for configuring the modes and mode transitions, "mode features", in which a modal element is contained.
+ * @author philip.alldredge
+ *
+ */
+public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	private final List<Control> modeControls = new ArrayList<Control>(); // A list of all controls that are involved in configuring modes. Will be disabled when the all modes check box is selected.
 	private final List<String> localModes;
 	private final List<String> childModes;
 	private final Map<String, String> localToChildModeMap;
 	private boolean inAllModes;
 
-	public SetInModesDialog(final Shell parentShell, final List<String> localModes, final List<String> childModes, final Map<String, String> localToChildModeMap) {
+	/**
+	 * 
+	 * @param parentShell
+	 * @param localModeFeatures
+	 * @param childModes optional. Used in case there is a mapping to child modes
+	 * @param localToChildModeMap
+	 */
+	public SetInModeFeaturesDialog(final Shell parentShell, final List<String> localModeFeatures, final List<String> childModes, final Map<String, String> localToChildModeMap) {
 		super(parentShell);
-		this.localModes = localModes;
+		this.localModes = localModeFeatures;
 		this.childModes = childModes;
 		this.localToChildModeMap = new HashMap<String, String>(localToChildModeMap);
 		this.inAllModes = localToChildModeMap.size() == 0;

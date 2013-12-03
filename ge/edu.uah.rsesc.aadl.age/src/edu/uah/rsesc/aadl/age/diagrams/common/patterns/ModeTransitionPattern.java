@@ -309,6 +309,9 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 			final TriggerPort tp = (TriggerPort)trigger;
 			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(ownerShape, tp.getContext());
 			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeHelper.getChildShapeByElementQualifiedName(portShapeOwner, tp.getPort());
+			if(portShape == null) {
+				return null;
+			}
 			
 			// Get appropriate anchor depending on whether the port belongs to the component classifier or a subcomponent
 			return anchorUtil.getAnchorByName(portShape, shapeHelper.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);

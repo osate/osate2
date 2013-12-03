@@ -29,8 +29,10 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessConnectionEnd;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -38,13 +40,21 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureConnectionEnd;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnectionEnd;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnectionEnd;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortConnectionEnd;
 import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -278,7 +288,12 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	// TODO: Comment
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
-		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		if(!(bo instanceof org.osate.aadl2.Connection)) {
+			return false;
+		}
+		
+		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bo;
 		final Connection connection = (Connection)context.getPictogramElement();
 		if(connection.getStart() == null) {
 			return false; 
@@ -306,8 +321,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 			public Object modify(final Resource resource, final org.osate.aadl2.Connection aadlConnection) {
 				EcoreUtil.delete(aadlConnection);
 				
-				// TODO: Labels not deleted when connection are. Related to how connections are updated? Also weren't remove when feature was removed.
-				// TODO: Update other diagrams
 				return null;
 			}			
 		});	
@@ -323,12 +336,49 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	
 	@Override
 	public boolean canStartConnection(final ICreateConnectionContext context) {
-		return getConnectedElementForShape(context.getSourcePictogramElement()) != null;
+		if(getConnectedElementForShape(context.getSourcePictogramElement()) == null) {
+			return false;
+		}
+		
+		// Get the connection elements for the source and destination
+		final ConnectedElement srcConnectedElement = getConnectedElementForShape(context.getSourcePictogramElement());
+		if(srcConnectedElement == null) {
+			return false;
+		}
+
+		// Perform type specific connection start connection validity check
+		final Class<?> connectionEndType = getConnectionEndType();
+		return connectionEndType != null && connectionEndType.isInstance(srcConnectedElement.getConnectionEnd());
     }
+	
+	/**
+	 * Retrieves the appropriate interface for connection ends for the current connection type
+	 * @return
+	 */
+	private Class<?> getConnectionEndType() {
+		final Class<?> connectionEndType;
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		if(connectionType == p.getAccessConnection()) {
+			connectionEndType = AccessConnectionEnd.class;
+		} else if(connectionType == p.getFeatureConnection()) {
+			connectionEndType = FeatureConnectionEnd.class;
+		} else if(connectionType == p.getFeatureGroupConnection()) {
+			connectionEndType = FeatureGroupConnectionEnd.class;
+		} else if(connectionType == p.getParameterConnection()) {
+			connectionEndType = ParameterConnectionEnd.class;
+		} else if(connectionType == p.getPortConnection()) {
+			connectionEndType = PortConnectionEnd.class;
+		} else {
+			connectionEndType = null;
+		}
+		
+		return connectionEndType;
+	}
 	
 	@Override
 	public boolean canCreate(final ICreateConnectionContext context) {
-		if(context.getSourcePictogramElement() == null || context.getTargetPictogramElement() == null) {
+		if(context.getSourcePictogramElement() == null || context.getTargetPictogramElement() == null || 
+				!(context.getSourcePictogramElement() instanceof Shape) || getComponentImplementation((Shape)context.getSourcePictogramElement()) == null) {
 			return false;
 		}
 		
@@ -337,26 +387,16 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		final ConnectedElement dstConnectedElement = getConnectedElementForShape(context.getTargetPictogramElement());
 		
 		// Ensure they are valid and are not the same
-		// TODO: The srcBo && dstBo check is not a valid check. Can connect 2 features that are the same. (nesting, etc). Context should be different
-		// TODO: That check is disabled but need a similiar one
-		if(srcConnectedElement == null || dstConnectedElement == null/* || srcBo == dstBo*/) {
+		if(dstConnectedElement == null || EcoreUtil.equals(srcConnectedElement, dstConnectedElement)) {
 			return false;
 		}
+
+		// TODO: Need to take into account prototypes, and inverses when dealing with them?
+		// TODO: Need to take into account feature group inverses, and context and check directions.
+		// TODO: Additional checks for access features
 		
-		// TODO implement real rules
-		// TODO: Check, context, types, directions, etc.
-		// TODO: Can there be duplicate connections?(Same source and destination)
-		/*
-		if(srcBo instanceof ComponentType) {
-			return dstBo instanceof AbstractType || dstBo.getClass() == srcBo.getClass();
-		} else if(srcBo instanceof ComponentImplementation) {
-			return dstBo instanceof AbstractImplementation || dstBo.getClass() == srcBo.getClass();
-		} else if(srcBo instanceof FeatureGroupType) {
-			return dstBo instanceof FeatureGroupType;
-		}
-*/
-		
-		return true;
+		final Class<?> connectionEndType = getConnectionEndType();
+		return connectionEndType != null && connectionEndType.isInstance(dstConnectedElement.getConnectionEnd());
 	}
 
 	@Override
@@ -367,29 +407,22 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		// Determine the name for the new connection
 		final String newConnectionName = namingService.buildUniqueIdentifier(ci, "new_connection");
 		
-		// TODO: Create appropriate connection type
-		
 		// Make the modification
 		final org.osate.aadl2.Connection newAadlConnection = aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, org.osate.aadl2.Connection>() {			
 			@Override
 			public org.osate.aadl2.Connection modify(final Resource resource, final ComponentImplementation ci) {
-				// TOOD: Need to be able to call different functions for different types of features
-				// Access Category has a get/set access category too
-				
-				// TODO: Create connection based on type.
-				// Create the connection object
+				// Create the appropriate type of connection object
 				final org.osate.aadl2.Connection newAadlConnection = createConnection(ci, connectionType);
 				if(newAadlConnection == null) {
 					return null;
 				}
 				
-				newAadlConnection.setBidirectional(true); // TODO: Don't set this? May not always be a valid option?
+			//	newAadlConnection.setBidirectional(true); // TODO: Don't set this? May not always be a valid option?
 				
 				// Set the name
 				newAadlConnection.setName(newConnectionName);
 				
-				// TODO: Resolve features?
-				
+				// Set the source and destination
 				final ConnectedElement src = getConnectedElementForShape(context.getSourcePictogramElement());
 				newAadlConnection.setSource(src);
 				final ConnectedElement dst = getConnectedElementForShape(context.getTargetPictogramElement());
@@ -400,6 +433,8 @@ public class ConnectionPattern extends AgeConnectionPattern {
 					final AccessConnection ac = (AccessConnection)newAadlConnection;
 					if(src.getConnectionEnd() instanceof SubprogramAccess || dst.getConnectionEnd() instanceof SubprogramAccess) {
 						ac.setAccessCategory(AccessCategory.SUBPROGRAM);
+					} else if(src.getConnectionEnd() instanceof SubprogramGroupAccess || dst.getConnectionEnd() instanceof SubprogramGroupAccess) {
+						ac.setAccessCategory(AccessCategory.SUBPROGRAM_GROUP);
 					} else if(src.getConnectionEnd() instanceof BusAccess || dst.getConnectionEnd() instanceof BusAccess) {
 						ac.setAccessCategory(AccessCategory.BUS);
 					} else if(src.getConnectionEnd() instanceof DataAccess || dst.getConnectionEnd() instanceof DataAccess) {
@@ -407,10 +442,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 					}
 				}
 				
-				//fc.setSource(arg0);
-				// TODO: What is the proper way to create ConnectedElement?
-				// TODO: What is InternalEvent?
-				// TODO: ProcessorPort, ProcessorSubprogram
 				return newAadlConnection;
 			}			
 		});

@@ -1,5 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.common;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -256,7 +258,7 @@ public class IndependenceProvider implements IIndependenceSolver {
 	
 	private AadlPackage getPackage(final XtextResourceSet resourceSet, final String name) {
 		// Look for the resource that contains the package
-		for(final Resource resource : resourceSet.getResources()) {
+		for(final Resource resource : new ArrayList<Resource>(resourceSet.getResources())) {
 			if(resource.getContents().size() > 0) {
 				final EObject obj = resource.getContents().get(0);
 				if(obj instanceof AadlPackage) {
