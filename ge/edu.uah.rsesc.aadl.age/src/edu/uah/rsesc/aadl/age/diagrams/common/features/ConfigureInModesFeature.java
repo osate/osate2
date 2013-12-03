@@ -53,7 +53,7 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
 		final PictogramElement[] pes = customCtx.getPictogramElements();		
-		if(customCtx.getPictogramElements().length < 1 && customCtx.getPictogramElements()[0] instanceof Shape) {
+		if(customCtx.getPictogramElements().length < 1 || !(customCtx.getPictogramElements()[0] instanceof Shape)) {
 			return false;
 		}
 		
