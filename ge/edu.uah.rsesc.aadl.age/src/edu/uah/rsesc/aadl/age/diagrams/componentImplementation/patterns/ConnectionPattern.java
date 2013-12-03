@@ -458,7 +458,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		return shapeService.getClosestBusinessObjectOfType(shape, ComponentImplementation.class);
 	}
 	
-	private Method getConnectionCreateMethod(final ComponentImplementation ci, final EClass connectionType) {
+	private static Method getConnectionCreateMethod(final ComponentImplementation ci, final EClass connectionType) {
 		// Determine the method name for the type of feature
 		final String methodName = connectionTypeToMethodNameMap.get(connectionType);
 		if(methodName == null) {
@@ -474,7 +474,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		}
 	}
 	
-	private org.osate.aadl2.Connection createConnection(final ComponentImplementation ci, final EClass connectionClass) {
+	public static org.osate.aadl2.Connection createConnection(final ComponentImplementation ci, final EClass connectionClass) {
 		try {
 			return (org.osate.aadl2.Connection)getConnectionCreateMethod(ci, connectionClass).invoke(ci);
 		} catch (final Exception e) {

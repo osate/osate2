@@ -1,5 +1,8 @@
 package edu.uah.rsesc.aadl.age.diagrams.common.connections;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -69,6 +72,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		if(sourcePe == null || !(sourcePe instanceof Shape) || destPe == null || !(destPe instanceof Shape)) {
 			return null;
 		}
+
 		final Shape sourceShape = (Shape)sourcePe;
 		final Shape destShape = (Shape)destPe;
 		final IPeService peService = Graphiti.getPeService();
@@ -85,7 +89,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		if(a2 == null) {
 			a2 = peService.getChopboxAnchor((AnchorContainer)destPe);
 		}
-		
+
 		if(a1 == null || a2 == null) {
 			return null;
 		}
@@ -102,12 +106,23 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		PictogramElement pe = null;
 		if(contextComponent != null) {
 			// Check if the context matches the BO of the owner shape
-			if(contextComponent == getBusinessObjectResolver().getBusinessObjectForPictogramElement(ownerShape)){
+			final Object ownerShapeBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(ownerShape);
+			if(contextComponent == ownerShapeBo){
 				pe = ownerShape;
 			} else {
-				pe = shapeService.getChildShapeByElementQualifiedName(ownerShape, contextComponent);
-				if(pe == null || !(pe instanceof ContainerShape)) {
-					return null;
+				if(ownerShapeBo instanceof ComponentImplementation) {
+					final ComponentImplementation ci = (ComponentImplementation)ownerShapeBo;
+					if(getAllExtended(ci).contains(contextComponent)) {
+						pe = ownerShape;
+					}
+				}
+				
+				if(pe == null) {
+					// TODO: By qualified name could cause problems?
+					pe = shapeService.getChildShapeByElementQualifiedName(ownerShape, contextComponent);
+					if(pe == null || !(pe instanceof ContainerShape)) {
+						return null;
+					}
 				}
 			}
 		} 
@@ -147,5 +162,13 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		// 
 
 		return pe;
+	}
+	
+	private List<ComponentImplementation> getAllExtended(final ComponentImplementation ci) {
+		final List<ComponentImplementation> results = new ArrayList<ComponentImplementation>();		
+		for(ComponentImplementation tmp = ci.getExtended(); tmp != null; tmp = tmp.getExtended()) {
+			results.add(tmp);
+		}
+		return results;
 	}
 }

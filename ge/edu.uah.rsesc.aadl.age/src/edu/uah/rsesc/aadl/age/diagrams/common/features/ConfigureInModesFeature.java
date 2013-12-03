@@ -40,8 +40,8 @@ import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
  */
 public class ConfigureInModesFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
-	private final BusinessObjectResolutionService bor;
 	private final ShapeService shapeService;
+	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public ConfigureInModesFeature(final AadlModificationService aadlModService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
@@ -80,12 +80,7 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 		if(pe instanceof Shape) {
 			containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
 		} else if(pe instanceof Connection) {
-			final AnchorContainer startContainer = ((Connection)pe).getStart().getParent();
-			if(!(startContainer instanceof Shape)) {
-				return false;
-			}
-			
-			containerBo = getComponentImplementation((Shape)startContainer);
+			containerBo = getComponentImplementation((Connection)pe);
 		} else {
 			return false;
 		}
@@ -99,8 +94,13 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 	 * @param shape
 	 * @return
 	 */
-	private ComponentImplementation getComponentImplementation(final Shape shape) {
-		return shapeService.getClosestBusinessObjectOfType(shape, ComponentImplementation.class);
+	private ComponentImplementation getComponentImplementation(final Connection connection) {
+		final AnchorContainer startContainer = connection.getStart().getParent();
+		if(!(startContainer instanceof Shape)) {
+			return null;
+		}
+		
+		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, ComponentImplementation.class);
 	}
     
     @Override

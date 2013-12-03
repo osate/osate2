@@ -23,6 +23,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.ChangeSubcomponentTypeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.ComponentImplementationUpdateDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RefineConnectionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RefineSubcomponentFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RenameConnectionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.SetSubcomponentClassifierFeature;
@@ -59,6 +60,7 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(make(SetSubcomponentClassifierFeature.class));
 		features.add(make(RefineSubcomponentFeature.class));
+		features.add(make(RefineConnectionFeature.class));
 		
 		for(final EClass subcomponentType : ChangeSubcomponentTypeFeature.getSubcomponentTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();

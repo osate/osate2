@@ -37,6 +37,7 @@ public class DefaultConnectionCreationService implements ConnectionCreationServi
 		Connection connection = connectionService.getConnection(ownerShape, el);
 		if(connection == null) {			
 			final Anchor[] anchors = connectionService.getAnchors(ownerShape, el);
+			System.out.println(anchors);
 			if(anchors != null) {
 				final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
 				addContext.setNewObject(new AadlElementWrapper(el));

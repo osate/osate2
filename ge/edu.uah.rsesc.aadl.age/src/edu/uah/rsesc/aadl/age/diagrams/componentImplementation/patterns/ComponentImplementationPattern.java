@@ -121,9 +121,9 @@ public class ComponentImplementationPattern extends AgePattern {
 
 		// Create/Update Modes and Mode Transitions
 		shapeCreationService.createUpdateModeShapes(shape, ci.getAllModes());
-		connectionCreationService.createUpdateConnections(shape, ci.getAllModeTransitions());	
+		connectionCreationService.createUpdateConnections(shape, ci.getAllModeTransitions());
 		connectionCreationService.createUpdateConnections(shape, ci.getAllConnections());
-		
+
 		// Adjust size. Width and height		
 		final int newSize[] = layoutService.adjustChildShapePositions(shape);
 
