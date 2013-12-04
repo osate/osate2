@@ -1,23 +1,17 @@
 package edu.uah.rsesc.aadl.age.ui.editor;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
-import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
@@ -33,19 +27,19 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
-import edu.uah.rsesc.aadl.age.services.PropertyService;
+import edu.uah.rsesc.aadl.age.services.GhostPurgerService;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
-	private final PropertyService propertyUtil;
+	private final GhostPurgerService ghostPurger;
 	private final DiagramService diagramService;
 	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final PropertyService propertyUtil, final DiagramService diagramService) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurgerService ghostPurger, final DiagramService diagramService) {
 		super(diagramContainer);
-		this.propertyUtil = propertyUtil;
+		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;
 	}	
 	
@@ -111,30 +105,21 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		};
 	}
 	
+	public DefaultPersistencyBehavior getPersistencyBehavior() {
+		return super.getPersistencyBehavior();
+	}
+	
 	@Override
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
 		return new DefaultPersistencyBehavior(this) {
 			protected Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> saveOptions, final IProgressMonitor monitor) {
 				final Diagram diagram = getDiagramTypeProvider().getDiagram();
-				final List<PictogramElement> ghosts = new ArrayList<PictogramElement>();
-				
-				// Find all ghost connections
-				for(final Connection connection : diagram.getConnections()) {
-					if(propertyUtil.isGhost(connection)) {
-						ghosts.add(connection);
-					}
-				}
-				
-				// Find all ghost shapes
-				findGhostShapes(diagram, ghosts);
-				
-				// Delete all the orphans
+
+				// Delete all the ghosts
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 					@Override
 					protected void doExecute() {
-						for(final PictogramElement pe : ghosts) {
-							EcoreUtil.delete(pe, true);
-						}
+						ghostPurger.purgeGhosts(diagram);
 					}				
 				});				
 				
@@ -148,25 +133,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			}
 		};
 	}
-	
-	/**
-	 * Returns all shapes that are ghosts. Ghosts are shapes that have been hidden because their linked business object is no longer valid.
-	 * Does not include ghosts that are children of ghosts.
-	 * @param shape
-	 * @param ghostShapes
-	 */
-	private void findGhostShapes(final Shape shape, final List<PictogramElement> ghostShapes) {
-		if(propertyUtil.isGhost(shape)) {
-			ghostShapes.add(shape);
-		} else {
-			if(shape instanceof ContainerShape) {
-				for(final Shape child : ((ContainerShape)shape).getChildren()) {
-					findGhostShapes(child, ghostShapes);
-				}
-			}
-		}
-	}
-	
+
 	@Override
 	protected void registerBusinessObjectsListener() {
 		AgeXtextUtil.addModelListener(modelListener);
@@ -176,29 +143,4 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	protected void unregisterDiagramResourceSetListener() {
 		AgeXtextUtil.removeModelListener(modelListener);
 	}
-
-	// TODO: Remove? No longer needed?
-	/**
-	 * Implementation of executeFeature that flushes the command stack if a command that cannot be undone is executed.
-	 */
-	/*
-	@Override
-	public Object executeFeature(IFeature feature, IContext context) {
-		// Ensure command stack is valid. May receive an async command after editor is closed
-		final TransactionalEditingDomain editingDomain = this.getEditingDomain();
-		if(editingDomain != null && editingDomain.getCommandStack() != null) {
-			// Execute the feature and flush the command stack if the feature can not be undone.
-			// This will prevent the user being able to perform partial undo's when the features does not support it
-			final boolean canUndo = feature.canUndo(context);
-			final Object ret = super.executeFeature(feature, context);
-			if(!canUndo) {
-				editingDomain.getCommandStack().flush();
-			}
-			
-			return ret;
-		}
-		
-		return null;
-	}
-	*/
 }

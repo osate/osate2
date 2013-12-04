@@ -64,6 +64,7 @@ import edu.uah.rsesc.aadl.age.services.impl.DefaultBusinessObjectResolutionServi
 import edu.uah.rsesc.aadl.age.services.impl.DefaultConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultConnectionService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultDiagramModificationService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultGhostPurgerService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultGraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultHighlightingService;
@@ -94,16 +95,17 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Create objects for the context
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(this);
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, bor);
+		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
+		final DefaultVisibilityService visibilityHelper = new DefaultVisibilityService(propertyUtil, bor, this);
+		final DefaultGhostPurgerService ghostPurger = new DefaultGhostPurgerService(propertyUtil);
+		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, ghostPurger, bor);
 		final StyleProviderService styleProviderService = (StyleProviderService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(StyleProviderService.class);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(this);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
-		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultStyleService styleUtil = new DefaultStyleService(this, styleProviderService);
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
-		final DefaultVisibilityService visibilityHelper = new DefaultVisibilityService(propertyUtil, bor, this);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(visibilityHelper, bor, this);
 		final DefaultShapeService shapeHelper = new DefaultShapeService(propertyUtil, visibilityHelper, bor);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);

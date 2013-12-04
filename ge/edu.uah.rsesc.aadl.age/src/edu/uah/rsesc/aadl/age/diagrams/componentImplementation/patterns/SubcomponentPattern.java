@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
@@ -296,36 +297,6 @@ public class SubcomponentPattern extends AgePattern {
 		return shapeService.getClosestBusinessObjectOfType(shape, ComponentImplementation.class);
 	}
 	
-	private List<ComponentImplementation> getAllExtended(final ComponentImplementation ci) {
-		final List<ComponentImplementation> results = new ArrayList<ComponentImplementation>();		
-		for(ComponentImplementation tmp = ci.getExtended(); tmp != null; tmp = tmp.getExtended()) {
-			results.add(tmp);
-		}
-		return results;
-	}
-	
-	private boolean isExtendedFrom(final ComponentImplementation ci, ComponentImplementation baseComponentImplementation) {
-		for(final Classifier extended : getAllExtended(ci)) {
-			if(extended == baseComponentImplementation) {
-				return true;
-			}
-		}
-		return false;	
-	}
-	
-	private void markDiagramsOfDerivativeComponentImplementationsAsDirty(final DiagramModificationService.Modification diagramMod, final ComponentImplementation ci) {
-		// Mark any diagrams that are linked to component implementations that extends the current component implementation as dirty
-		for(final Diagram tmpDiagram : diagramMod.getDiagrams()) {
-			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
-			if(tmpDiagramBo instanceof ComponentImplementation) {
-				final ComponentImplementation tmpDiagramCi = (ComponentImplementation)tmpDiagramBo;
-				if(isExtendedFrom(tmpDiagramCi, ci)) {
-					diagramMod.markDiagramAsDirty(tmpDiagram);			
-				}
-			}					
-		}
-	}
-	
 	@Override
 	public Object[] create(final ICreateContext context) {
 		final Subcomponent newSubcomponent = aadlModService.modify(getComponentImplementation(context.getTargetContainer()), new AbstractModifier<ComponentImplementation, Subcomponent>() {
@@ -335,7 +306,7 @@ public class SubcomponentPattern extends AgePattern {
 			public Subcomponent modify(final Resource resource, final ComponentImplementation ci) {
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			markDiagramsOfDerivativeComponentImplementationsAsDirty(diagramMod, ci);
+	 			diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(ci);
 
 				final String name = namingService.buildUniqueIdentifier(ci, "newSubcomponent");
 				final AbstractSubcomponent sc = ci.createOwnedAbstractSubcomponent();
@@ -388,7 +359,7 @@ public class SubcomponentPattern extends AgePattern {
 			public Object modify(final Resource resource, final Subcomponent sc) {
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			markDiagramsOfDerivativeComponentImplementationsAsDirty(diagramMod, getComponentImplementation((Shape)context.getPictogramElement()));
+	 			diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(getComponentImplementation((Shape)context.getPictogramElement()));
 	 			
 				// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.
@@ -461,16 +432,7 @@ public class SubcomponentPattern extends AgePattern {
  			// Start the diagram modification
  			diagramMod = diagramModService.startModification();
  			
- 			// Mark linkages to refinements as dirty
-			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(sc, resource.getResourceSet())) {
-				final EStructuralFeature sf = s.getEStructuralFeature();
-				if(!sf.isDerived() && sf.isChangeable()) {
-					final EObject obj = s.getEObject();
-					if(obj instanceof Subcomponent && ((Subcomponent)obj).getRefined() == sc) {
-						diagramMod.markLinkagesAsDirty((Subcomponent)obj);
-					}
-				}
-			}
+ 			updateRefinees(sc, resource.getResourceSet());
  			
  			// Mark linkages to the subcomponent as dirty 			
  			diagramMod.markLinkagesAsDirty(sc);
@@ -485,5 +447,31 @@ public class SubcomponentPattern extends AgePattern {
 		public void beforeCommit(final Resource resource, final Subcomponent sc, final Object modificationResult) {
 			diagramMod.commit();
 		}
+ 		
+ 		/**
+ 		 * Recursive method that updates refinees as dirty and ensures that the source is regenerated with the name of the refined element
+ 		 * @param element
+ 		 * @param resourceSet
+ 		 */
+ 	    private void updateRefinees(final Subcomponent element, final ResourceSet resourceSet) {
+ 			// Mark linkages to refinements as dirty
+ 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(element, resourceSet)) {
+ 				final EStructuralFeature sf = s.getEStructuralFeature();
+ 				if(!sf.isDerived() && sf.isChangeable()) {
+ 					final EObject obj = s.getEObject();
+ 					if(obj instanceof Subcomponent && ((Subcomponent)obj).getRefined() == element) {
+ 						final Subcomponent refinee = (Subcomponent)obj;
+ 						
+ 						diagramMod.markLinkagesAsDirty(refinee);
+ 						
+ 						// Set the refined connection to null and then set it again to trigger the change 
+ 						refinee.setRefined(null);
+ 						refinee.setRefined(element);
+ 						
+ 						updateRefinees(refinee, resourceSet);
+ 					}
+ 				}
+ 			}
+ 	    }
  	}
 }

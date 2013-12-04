@@ -8,7 +8,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -29,27 +33,20 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessConnectionEnd;
 import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureConnectionEnd;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnectionEnd;
-import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnectionEnd;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PortConnectionEnd;
@@ -315,14 +312,34 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		}
 		
 		// Make the modification
-		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		final Connection connection = (Connection)context.getPictogramElement();
+		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(connection);
 		aadlModService.modify(aadlConnection, new AbstractModifier<org.osate.aadl2.Connection, Object>() {
+			private DiagramModificationService.Modification diagramMod;
+			
 			@Override
 			public Object modify(final Resource resource, final org.osate.aadl2.Connection aadlConnection) {
-				EcoreUtil.delete(aadlConnection);
+				// Start the diagram modification
+	 			diagramMod = diagramModService.startModification();	 			
+	 			
+	 			final AnchorContainer startContainer = connection.getStart().getParent();
+	 			if(startContainer instanceof Shape) {
+	 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(getComponentImplementation((Shape)startContainer));
+	 			}	 			
+	 			
+	 			// Remove instead of delete. If there are any refinees then there will be an error in the resulting AADL model. Refactoring would be ideal but may 
+	 			// not always be what the user wants.
+				//EcoreUtil.delete(aadlConnection);
+	 			EcoreUtil.remove(aadlConnection);
 				
 				return null;
-			}			
+			}
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final org.osate.aadl2.Connection aadlConnection, final Object modificationResult) {
+				diagramMod.commit();
+			}
+
 		});	
 		
 		// Clear selection
@@ -408,7 +425,9 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		final String newConnectionName = namingService.buildUniqueIdentifier(ci, "new_connection");
 		
 		// Make the modification
-		final org.osate.aadl2.Connection newAadlConnection = aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, org.osate.aadl2.Connection>() {			
+		aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, org.osate.aadl2.Connection>() {
+			private DiagramModificationService.Modification diagramMod;
+			
 			@Override
 			public org.osate.aadl2.Connection modify(final Resource resource, final ComponentImplementation ci) {
 				// Create the appropriate type of connection object
@@ -416,7 +435,11 @@ public class ConnectionPattern extends AgeConnectionPattern {
 				if(newAadlConnection == null) {
 					return null;
 				}
-				
+
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(ci);
+	 			
 			//	newAadlConnection.setBidirectional(true); // TODO: Don't set this? May not always be a valid option?
 				
 				// Set the name
@@ -443,7 +466,12 @@ public class ConnectionPattern extends AgeConnectionPattern {
 				}
 				
 				return newAadlConnection;
-			}			
+			}
+			
+			@Override
+			public void beforeCommit(final Resource resource, final ComponentImplementation ci, final org.osate.aadl2.Connection newAadlConnection) {
+				diagramMod.commit();
+			}
 		});
 		
 		return null;

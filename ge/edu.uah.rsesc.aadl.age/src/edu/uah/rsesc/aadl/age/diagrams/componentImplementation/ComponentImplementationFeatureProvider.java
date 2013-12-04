@@ -14,9 +14,6 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FlowSpecificationPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
@@ -26,6 +23,7 @@ import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.Componen
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RefineConnectionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RefineSubcomponentFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RenameConnectionFeature;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.SetSubcomponentClassifierFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ComponentImplementationPattern;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ConnectionPattern;
@@ -67,6 +65,10 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 			childCtx.set("Subcomponent Type", subcomponentType);
 			features.add(ContextInjectionFactory.make(ChangeSubcomponentTypeFeature.class, childCtx));	
 		}
+		
+		features.add(createSetConnectionBidirectionalityFeature(false));
+		features.add(createSetConnectionBidirectionalityFeature(true));
+		
 		super.addCustomFeatures(features);
 	}
 	
@@ -76,12 +78,17 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 		return ContextInjectionFactory.make(ConnectionPattern.class, childCtx);
 	}
 	
+	private ICustomFeature createSetConnectionBidirectionalityFeature(final Boolean bidirectionalityValue) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Value", bidirectionalityValue);
+		return ContextInjectionFactory.make(SetConnectionBidirectionalityFeature.class, childCtx);
+	}
+	
 	/**
 	 * Creates and adds patterns related to AADL Connections
 	 */
 	private void addAadlConnectionPatterns() {
 		// Create the connection patterns
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		for(final EClass connectionType : ConnectionPattern.getConnectionTypes()) {
 			addConnectionPattern(createConnectionPattern(connectionType));
 		}

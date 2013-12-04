@@ -5,6 +5,7 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.ui.PlatformUI;
 
 import edu.uah.rsesc.aadl.age.services.DiagramService;
+import edu.uah.rsesc.aadl.age.services.impl.DefaultGhostPurgerService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultPropertyService;
 
 public class AgeDiagramEditor extends DiagramEditor {
@@ -17,6 +18,6 @@ public class AgeDiagramEditor extends DiagramEditor {
 	
 	protected DiagramBehavior createDiagramBehavior() {
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-		return new AgeDiagramBehavior(this, new DefaultPropertyService(), diagramService);
+		return new AgeDiagramBehavior(this, new DefaultGhostPurgerService(new DefaultPropertyService()), diagramService);
 	}
 }

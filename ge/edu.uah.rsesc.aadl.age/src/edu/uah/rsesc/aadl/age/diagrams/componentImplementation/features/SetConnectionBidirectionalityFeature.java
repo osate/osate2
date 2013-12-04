@@ -1,7 +1,7 @@
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features;
 
 import javax.inject.Inject;
-
+import javax.inject.Named;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
@@ -12,35 +12,31 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentImplementation;
-import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
-import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.ConnectionPattern;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 
-public class RefineConnectionFeature extends AbstractCustomFeature {
+public class SetConnectionBidirectionalityFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
 	private final ShapeService shapeService;
 	private final BusinessObjectResolutionService bor;
+	private final boolean bidirectionalValue;
 	
 	@Inject
-	public RefineConnectionFeature(final AadlModificationService aadlModService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public SetConnectionBidirectionalityFeature(final AadlModificationService aadlModService, final ShapeService shapeService, final BusinessObjectResolutionService bor, 
+			final IFeatureProvider fp, final @Named("Value") Boolean value) {
 		super(fp);
 		this.aadlModService = aadlModService;
 		this.shapeService = shapeService;
 		this.bor = bor;
+		this.bidirectionalValue = value;
 	}
 
 	@Override
     public String getName() {
-        return "Refine";
+		return bidirectionalValue ? "Change to Bidirectional" : "Change to Unidirectional";
     }
-	
-	@Override
-	public boolean canUndo(final IContext context) {
-		return false;
-	}
 	
     @Override
 	public boolean isAvailable(final IContext context) {
@@ -50,18 +46,17 @@ public class RefineConnectionFeature extends AbstractCustomFeature {
 			return false;
 		}
 		
-		// Check that the shape represents a subcomponent and that the subcomponent is not owned by the classifier represented by the shape's container
 		final Connection connection = (Connection)pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 		final ComponentImplementation ci = getComponentImplementation(connection);
-		return bo instanceof org.osate.aadl2.Connection && ci != null && ((org.osate.aadl2.Connection)bo).getContainingClassifier() != ci;
+		
+		return bo instanceof org.osate.aadl2.Connection && 
+				((org.osate.aadl2.Connection)bo).isBidirectional() != bidirectionalValue && 
+				((org.osate.aadl2.Connection)bo).getRefined() == null && 
+				ci != null && 
+				((org.osate.aadl2.Connection)bo).getContainingClassifier() == ci;
 	}
     
-    @Override
-    public boolean canExecute(final ICustomContext context) {
-    	return true;
-    }
-        
 	/**
 	 * Returns the first component implementation associated with the specified or a containing shape.
 	 * @param shape
@@ -77,28 +72,25 @@ public class RefineConnectionFeature extends AbstractCustomFeature {
 	}
 	
 	@Override
+	public boolean canUndo(final IContext context) {
+		return false;
+	}
+    
+    @Override
+    public boolean canExecute(final ICustomContext context) {
+    	return true;
+    }
+    
+	@Override
 	public void execute(final ICustomContext context) {
-		final Connection connection = (Connection)context.getPictogramElements()[0];
-		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(connection);
-		final ComponentImplementation containerComponentImplementation = getComponentImplementation(connection);
-		
-		// Set the classifier
-		aadlModService.modify(aadlConnection, new AbstractModifier<org.osate.aadl2.Connection, org.osate.aadl2.Connection>() {
+		final PictogramElement pe = context.getPictogramElements()[0];		
+		final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(pe);
+		aadlModService.modify(aadlConnection, new AbstractModifier<org.osate.aadl2.Connection, Object>() {
 			@Override
-			public org.osate.aadl2.Connection modify(final Resource resource, final org.osate.aadl2.Connection aadlConnection) {
-				final org.osate.aadl2.Connection newAadlConnection = ConnectionPattern.createConnection(containerComponentImplementation, aadlConnection.eClass());
-				if(newAadlConnection != null) {
-					newAadlConnection.setRefined(aadlConnection);
-				}
-
-				return newAadlConnection;
+			public Object modify(final Resource resource, final org.osate.aadl2.Connection aadlConnection) {
+				aadlConnection.setBidirectional(bidirectionalValue);
+				return null;
 			}			
-			
-			@Override
-			public void beforeCommit(final Resource resource, final org.osate.aadl2.Connection aadlConnection, final org.osate.aadl2.Connection newAadlConnection) {
-				// Relink the connection
-				getFeatureProvider().link(connection, new AadlElementWrapper(newAadlConnection));
-			}
 		});
-	}	
+	}
 }

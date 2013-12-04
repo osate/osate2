@@ -18,12 +18,15 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
+import edu.uah.rsesc.aadl.age.services.GhostPurgerService;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class DefaultDiagramModificationService implements DiagramModificationService {
@@ -33,9 +36,11 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 	
 	private final DiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
+	private final GhostPurgerService ghostPurger;
 	
-	public DefaultDiagramModificationService(final DiagramService diagramService, final BusinessObjectResolutionService bor) {
+	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurgerService ghostPurger, final BusinessObjectResolutionService bor) {
 		this.diagramService = diagramService;
+		this.ghostPurger = ghostPurger;
 		this.bor = bor;
 	}
 
@@ -74,6 +79,37 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	@Override
     	public void markDiagramAsDirty(final Diagram diagram) {
     		dirtyDiagrams.add(diagram);
+    	}
+    	
+    	private List<ComponentImplementation> getAllExtended(final ComponentImplementation ci) {
+    		final List<ComponentImplementation> results = new ArrayList<ComponentImplementation>();		
+    		for(ComponentImplementation tmp = ci.getExtended(); tmp != null; tmp = tmp.getExtended()) {
+    			results.add(tmp);
+    		}
+    		return results;
+    	}
+    	
+    	private boolean isExtendedFrom(final ComponentImplementation ci, ComponentImplementation baseComponentImplementation) {
+    		for(final Classifier extended : getAllExtended(ci)) {
+    			if(extended == baseComponentImplementation) {
+    				return true;
+    			}
+    		}
+    		return false;	
+    	}
+    	
+    	@Override
+    	public void markDiagramsOfDerivativeComponentImplementationsAsDirty(final ComponentImplementation ci) {
+    		// Mark any diagrams that are linked to component implementations that extends the current component implementation as dirty
+    		for(final Diagram tmpDiagram : getDiagrams()) {
+    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
+    			if(tmpDiagramBo instanceof ComponentImplementation) {
+    				final ComponentImplementation tmpDiagramCi = (ComponentImplementation)tmpDiagramBo;
+    				if(isExtendedFrom(tmpDiagramCi, ci)) {
+    					markDiagramAsDirty(tmpDiagram);			
+    				}
+    			}					
+    		}
     	}
     	
     	@Override
@@ -161,6 +197,14 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 			
 			// Save the resource
 			try {
+				// Delete all ghosts
+				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+					@Override
+					protected void doExecute() {
+						ghostPurger.purgeGhosts(diagram);
+					}				
+				});	
+
 				resource.save(null);
 			} catch (IOException e) {
 				throw new RuntimeException("Error saving new diagram", e);
