@@ -27,17 +27,17 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
-import edu.uah.rsesc.aadl.age.services.GhostPurgerService;
+import edu.uah.rsesc.aadl.age.ui.util.GhostPurger;
 import edu.uah.rsesc.aadl.age.ui.xtext.AgeXtextUtil;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
-	private final GhostPurgerService ghostPurger;
+	private final GhostPurger ghostPurger;
 	private final DiagramService diagramService;
 	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurgerService ghostPurger, final DiagramService diagramService) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService) {
 		super(diagramContainer);
 		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;

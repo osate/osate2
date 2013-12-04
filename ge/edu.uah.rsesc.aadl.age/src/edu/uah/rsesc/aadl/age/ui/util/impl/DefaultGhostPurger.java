@@ -1,4 +1,4 @@
-package edu.uah.rsesc.aadl.age.services.impl;
+package edu.uah.rsesc.aadl.age.ui.util.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
-import edu.uah.rsesc.aadl.age.services.GhostPurgerService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
+import edu.uah.rsesc.aadl.age.ui.util.GhostPurger;
 
-public class DefaultGhostPurgerService implements GhostPurgerService {
+public class DefaultGhostPurger implements GhostPurger {
 	private final PropertyService propertyService;
 	
-	public DefaultGhostPurgerService(final PropertyService propertyService) {
+	public DefaultGhostPurger(final PropertyService propertyService) {
 		this.propertyService = propertyService;
 	}
 	

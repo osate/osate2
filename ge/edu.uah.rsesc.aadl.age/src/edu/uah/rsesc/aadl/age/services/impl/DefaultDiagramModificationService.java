@@ -26,7 +26,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
-import edu.uah.rsesc.aadl.age.services.GhostPurgerService;
+import edu.uah.rsesc.aadl.age.ui.util.GhostPurger;
 import edu.uah.rsesc.aadl.age.util.Log;
 
 public class DefaultDiagramModificationService implements DiagramModificationService {
@@ -36,9 +36,9 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 	
 	private final DiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
-	private final GhostPurgerService ghostPurger;
+	private final GhostPurger ghostPurger;
 	
-	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurgerService ghostPurger, final BusinessObjectResolutionService bor) {
+	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurger ghostPurger, final BusinessObjectResolutionService bor) {
 		this.diagramService = diagramService;
 		this.ghostPurger = ghostPurger;
 		this.bor = bor;
