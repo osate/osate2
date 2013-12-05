@@ -142,8 +142,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	 * Modifies the resource. If changes causes a validation error, the changes are reverted.
 	 * @param resource
 	 * @param modifier
-	 * @param saveOnSuccess is whether the resource should be saved if the modification is successful. If true, the save will take place after the modification but
-	 * before the afterModification callback. This ensures that any diagram operations that occur in afterModification will use the up to date model.
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
