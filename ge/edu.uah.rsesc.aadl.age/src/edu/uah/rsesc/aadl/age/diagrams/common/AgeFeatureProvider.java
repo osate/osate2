@@ -44,6 +44,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.GraphicalToTextualFeature
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
+import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
+import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureDirectionFeature;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -237,6 +239,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(ConfigureInModesFeature.class));
 		features.add(make(GraphicalToTextualFeature.class));
+		features.add(make(SetFeatureDirectionFeature.class));
+		features.add(make(SetAccessFeatureKindFeature.class));
 	}
 	
 	@Override
