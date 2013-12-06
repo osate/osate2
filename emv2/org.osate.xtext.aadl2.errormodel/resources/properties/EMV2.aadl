@@ -79,13 +79,43 @@ PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 Severity : inherit aadlinteger applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
+-- Failure condition categories: DO-178B/C, ARP 4761/4754A
+SeverityLabels: type enumeration (Catastrophic, Hazardous, Major, Minor, NoEffect);
+
+-- 4761 equivalent constant labels (compatibility with previous variant: constants mapped into integers)
+Catastrophic   : constant EMV2::SeverityLabels => Catastrophic;
+Hazardous      : constant EMV2::SeverityLabels => Hazardous;
+Major   : constant EMV2::SeverityLabels => Major;
+Minor   : constant EMV2::SeverityLabels => Minor;
+NoEffect   : constant EMV2::SeverityLabels => NoEffect;
+-- 882 equivalent constant labels (for compatibility of constant mappping into integers)
+--Catastrophic   : constant EMV2::SeverityLabels => Catastrophic;
+Critical   : constant EMV2::SeverityLabels => Hazardous;
+Marginal   : constant EMV2::SeverityLabels => Major;
+Negligible : constant EMV2::SeverityLabels => Minor;
+
 -- The likelihood property value indicates the likelihood of the hazard ranging from A (high) to E (low). 
 -- MIL-STD 882D suggests descriptive labels (Frequent, Probable, Occasional, Remote, Improbable) (See property set MILSTD882). 
 -- ARP 4761 defines descriptive labels (Probable, Remote, ExtremelyRemote, ExtremelyImprobable) (See property set ARP4761).
+
 Likelihood : inherit EMV2::LikelihoodLabels applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
-LikelihoodLabels: type enumeration (A,B,C,D,E);
+LikelihoodLabels: type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
+
+
+
+-- DAL equivalent Likelihood labels (for people that do not want to use DAL)
+-- use example Likelihood => EMV2::A; instead of Likelihood => Frequent;
+-- By adding A,B,C,D,E into the enum we could keep this transparent
+A  : constant EMV2::LikelihoodLabels => Frequent;
+B  : constant EMV2::LikelihoodLabels => Probable;
+C  : constant EMV2::LikelihoodLabels => Occasional;
+D  : constant EMV2::LikelihoodLabels => Remote;
+E  : constant EMV2::LikelihoodLabels => Improbable;
+
+
+
 DALLabels: type enumeration (A,B,C,D,E);
 
 Hazards: list of record
@@ -102,7 +132,7 @@ Hazards: list of record
    risk               : aadlstring; -- description of risk. Risk is characterized by severity, likelihood, and occurrence probability
    severity           : aadlinteger; --
    likelihood         : EMV2::LikelihoodLabels;
-   targetseverity     : aadlinteger; -- acceptable risk in terms of severity
+   targetseverity     : EMV2::SeverityLabels; -- acceptable risk in terms of severity
    targetlikelihood   : EMV2::LikelihoodLabels; -- acceptable risk in terms of likelihood
    developmentassurancelevel : EMV2::DALLabels; -- level of rigor in development assurance
    verificationmethod : aadlstring; -- verification method to address the hazard

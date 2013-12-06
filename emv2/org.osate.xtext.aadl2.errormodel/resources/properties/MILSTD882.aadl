@@ -4,14 +4,44 @@
 property set MILSTD882 is
   with EMV2;
 -- Severity labels
-Catastrophic   : constant aadlinteger => 1;
-Critical       : constant aadlinteger => 2;
-Marginal       : constant aadlinteger => 3;
-Negligible     : constant aadlinteger => 4;
+Catastrophic   : constant EMV2::SeverityLabels => Catastrophic;
+Critical   : constant EMV2::SeverityLabels => Hazardous;
+Marginal   : constant EMV2::SeverityLabels => Major;
+Negligible : constant EMV2::SeverityLabels => Minor;
 -- Likelihood labels
-Frequent    : constant EMV2::LikelihoodLabels => A;
-Probable    : constant EMV2::LikelihoodLabels => B;
-Occasional  : constant EMV2::LikelihoodLabels => C;
-Remote      : constant EMV2::LikelihoodLabels => D;
-Improbable  : constant EMV2::LikelihoodLabels => E;
+Frequent    : constant EMV2::LikelihoodLabels => Frequent;
+Probable    : constant EMV2::LikelihoodLabels => Probable;
+Occasional  : constant EMV2::LikelihoodLabels => Occasional;
+Remote      : constant EMV2::LikelihoodLabels => Remote;
+Improbable  : constant EMV2::LikelihoodLabels => Improbable;
+
+-- Failure condition categories: DO-178B/C, ARP 4761/4754A
+SeverityLabels: type enumeration (Catastrophic, Critical, Marginal, Negligible);
+
+LikelihoodLabels: type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
+
+Hazards: list of record
+  (
+   crossreference     : aadlstring; -- cross reference to an external document
+   hazardtitle        : aadlstring; -- short descriptive phrase for hazard
+   description        : aadlstring; -- description of the hazard (alternative to hazardtitle)
+   failure            : aadlstring; -- description of system deviation, giving rise to failure effect
+   failureeffect      : aadlstring; -- description of the consequences of a failure mode on system operation
+   phases             : list of aadlstring; -- operational phases in which the hazard is relevant
+   environment        : aadlstring; -- description of operational environment
+
+   risk               : aadlstring; -- description of risk. Risk is characterized by severity, likelihood, and occurrence probability
+   mishap             : aadlstring; -- description of event (series) resulting in unintentional death, etc.(MILSTD882)
+   severitylevel      : MILSTD882::SeverityLabels; 
+   probability        : MILSTD882::LikelihoodLabels;
+   targetseverity     : MILSTD882::SeverityLabels; -- acceptable risk in terms of severity
+   targetprobability  : MILSTD882::LikelihoodLabels; -- acceptable risk in terms of likelihood
+ 
+   verificationmethod : aadlstring; -- verification method to address the hazard
+   safetyreport       : aadlstring; -- capturing the analysis/assessment of hazard resulting in value included in the hazard record.
+   comment            : aadlstring; -- additional information about the hazard
+   )
+     applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
+                 {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
+
 end MILSTD882;
