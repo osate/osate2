@@ -34,7 +34,8 @@ DurationDistributionSpecification : type record (
 	Duration : Time_Range;
 	Distribution : EMV2::DistributionFunction;); 
 	  
-DurationDistribution : EMV2::DurationDistributionSpecification applies to ({emv2}**Repair Event, {emv2}**Recover Event);
+DurationDistribution : EMV2::DurationDistributionSpecification applies to ({emv2}**Repair Event, {emv2}**Recover Event,
+    {emv2}**Error Behavior Transition);
 
 -- A PropagationTimeDelay property indicates the delay in propagating and error as a distribution over a time interval. 
 -- For example, as a property associated with a connection it indicates the time delay of the error propagation.
