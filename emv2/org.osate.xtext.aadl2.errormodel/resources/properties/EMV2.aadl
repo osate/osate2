@@ -75,45 +75,31 @@ Persistence : EMV2::PersistenceEnum
 PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 
 -- The severity property value indicates the severity of the hazard ranging from 1 (high) to 5 (low). 
--- MIL-STD 882D suggests descriptive labels (Catastrophic, Critical, Marginal, Negligible) (See property set MILSTD882). 
--- ARP 4761 defines descriptive labels (Catastrophic, Hazardous, Major, Minor, NoEffect) (See property set ARP4761).
-Severity : inherit aadlinteger applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
+-- MIL-STD 882D refers to it as SeverityCategory with equivalent descriptive labels as SeverityLevel.
+-- Qualify these labels (Catastrophic, Critical, Marginal, Negligible) with MILSTD882::
+
+-- ARP 4761 calls this SeverityClassification with descriptive labels 
+-- (Catastrophic, Hazardous, Major, Minor, NoEffect) (qualify with ARP4761::).
+
+Severity : inherit EMV2::SeverityRange applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
+	  
+SeverityRange: type aadlinteger 1 .. 5;
 
--- Failure condition categories: DO-178B/C, ARP 4761/4754A
-SeverityLabels: type enumeration (Catastrophic, Hazardous, Major, Minor, NoEffect);
-
--- 4761 equivalent constant labels (compatibility with previous variant: constants mapped into integers)
-Catastrophic   : constant EMV2::SeverityLabels => Catastrophic;
-Hazardous      : constant EMV2::SeverityLabels => Hazardous;
-Major   : constant EMV2::SeverityLabels => Major;
-Minor   : constant EMV2::SeverityLabels => Minor;
-NoEffect   : constant EMV2::SeverityLabels => NoEffect;
--- 882 equivalent constant labels (for compatibility of constant mappping into integers)
---Catastrophic   : constant EMV2::SeverityLabels => Catastrophic;
-Critical   : constant EMV2::SeverityLabels => Hazardous;
-Marginal   : constant EMV2::SeverityLabels => Major;
-Negligible : constant EMV2::SeverityLabels => Minor;
 
 -- The likelihood property value indicates the likelihood of the hazard ranging from A (high) to E (low). 
--- MIL-STD 882D suggests descriptive labels (Frequent, Probable, Occasional, Remote, Improbable) (See property set MILSTD882). 
--- ARP 4761 defines descriptive labels (Probable, Remote, ExtremelyRemote, ExtremelyImprobable) (See property set ARP4761).
+-- MIL-STD 882D uses descriptive labels (Frequent, Probable, Occasional, Remote, Improbable) (See property set MILSTD882). 
+-- ARP 4761 uses descriptive labels (Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable) (See property set ARP4761).
 
 Likelihood : inherit EMV2::LikelihoodLabels applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state, 
 	  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
 
-LikelihoodLabels: type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
+LikelihoodLabels: type enumeration (A, B, C, D, E);
 
-
-
--- DAL equivalent Likelihood labels (for people that do not want to use DAL)
--- use example Likelihood => EMV2::A; instead of Likelihood => Frequent;
--- By adding A,B,C,D,E into the enum we could keep this transparent
-A  : constant EMV2::LikelihoodLabels => Frequent;
-B  : constant EMV2::LikelihoodLabels => Probable;
-C  : constant EMV2::LikelihoodLabels => Occasional;
-D  : constant EMV2::LikelihoodLabels => Remote;
-E  : constant EMV2::LikelihoodLabels => Improbable;
+-- ARP4761-style labels for likelihood: qualify with ARP4761::
+-- Frequent, Probable, Occasional, Remote, Improbable
+-- MILSTD882-style labels for likelihood: qualify with MILSTD882::
+-- Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable
 
 
 
@@ -121,24 +107,28 @@ DALLabels: type enumeration (A,B,C,D,E);
 
 Hazards: list of record
   (
-   crossreference     : aadlstring; -- cross reference to an external document
-   hazardtitle		  : aadlstring; -- short descriptive phrase for hazard
-   description        : aadlstring; -- description of the hazard (alternative to hazardtitle)
-   failure            : aadlstring; -- description of system deviation, giving rise to failure effect
-   failureeffect      : aadlstring; -- description of the consequences of a failure mode on system operation
-   phases             : list of aadlstring; -- operational phases in which the hazard is relevant
-   environment        : aadlstring; -- description of operational environment
-   mishap             : aadlstring; -- description of event (series) resulting in unintentional death, etc.(MILSTD882)
-   failurecondition   : aadlstring; -- description of event (series) resulting in unintentional death, etc.(ARP4761)
-   risk               : aadlstring; -- description of risk. Risk is characterized by severity, likelihood, and occurrence probability
-   severity           : aadlinteger; --
-   likelihood         : EMV2::LikelihoodLabels;
-   targetseverity     : EMV2::SeverityLabels; -- acceptable risk in terms of severity
-   targetlikelihood   : EMV2::LikelihoodLabels; -- acceptable risk in terms of likelihood
-   developmentassurancelevel : EMV2::DALLabels; -- level of rigor in development assurance
-   verificationmethod : aadlstring; -- verification method to address the hazard
-   safetyreport       : aadlstring; -- capturing the analysis/assessment of hazard resulting in value included in the hazard record.
-   comment            : aadlstring; -- additional information about the hazard
+   CrossReference : aadlstring;   -- cross reference to an external document 
+   HazardTitle : aadlstring;      -- short descriptive phrase for hazard
+   Description : aadlstring;      -- description of the hazard (same as hazardtitle)
+   Failure : aadlstring;          -- system deviation resulting in failure effect
+   FailureEffect : aadlstring;    -- description of the effect of a failure (mode)
+   Phases : list of aadlstring;   -- operational phases in which the hazard is relevant
+   Environment : aadlstring;      -- description of operational environment
+   Mishap : aadlstring;           -- description of event (series) resulting in 
+                                  -- unintentional death, etc.(MILSTD882)
+   FailureCondition : aadlstring; -- description of event (series) resulting in 
+                                  -- unintentional death, etc.(ARP4761)
+   Risk : aadlstring;             -- description of risk. Risk is characterized by 
+                                  -- severity, likelihood, and occurrence probability
+   Severity : EMV2::SeverityRange ;             -- actual risk as severity 
+   Likelihood : EMV2::LikelihoodLabels;         -- actual risk as likelihood/probability
+   TargetSeverity : EMV2::SeverityRange;        -- acceptable risk as severity 
+   TargetLikelihood : EMV2::LikelihoodLabels;   -- acceptable risk as likelihood/prob
+   DevelopmentAssuranceLevel : EMV2::DALLabels; -- level of rigor in development 
+                                                -- assurance (ARP4761)
+   VerificationMethod : aadlstring; -- verification method to address the hazard
+   SafetyReport : aadlstring;       -- analysis/assessment of hazard
+   Comment : aadlstring; 
    )
      applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
                  {emv2}**error source, {emv2}**error propagation, {emv2}**error event);
