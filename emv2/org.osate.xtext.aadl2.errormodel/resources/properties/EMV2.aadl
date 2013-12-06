@@ -86,6 +86,7 @@ Severity : inherit EMV2::SeverityRange applies to ({emv2}**error type, {emv2}**t
 	  
 SeverityRange: type aadlinteger 1 .. 5;
 
+ProbabilityRange: type aadlreal 0.0 .. 1.0;
 
 -- The likelihood property value indicates the likelihood of the hazard ranging from A (high) to E (low). 
 -- MIL-STD 882D uses descriptive labels (Frequent, Probable, Occasional, Remote, Improbable) (See property set MILSTD882). 
@@ -100,8 +101,6 @@ LikelihoodLabels: type enumeration (A, B, C, D, E);
 -- Frequent, Probable, Occasional, Remote, Improbable
 -- MILSTD882-style labels for likelihood: qualify with MILSTD882::
 -- Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable
-
-
 
 DALLabels: type enumeration (A,B,C,D,E);
 
@@ -122,6 +121,7 @@ Hazards: list of record
                                   -- severity, likelihood, and occurrence probability
    Severity : EMV2::SeverityRange ;             -- actual risk as severity 
    Likelihood : EMV2::LikelihoodLabels;         -- actual risk as likelihood/probability
+   Probability: EMV2::ProbabilityRange;            -- probability of a hazard   
    TargetSeverity : EMV2::SeverityRange;        -- acceptable risk as severity 
    TargetLikelihood : EMV2::LikelihoodLabels;   -- acceptable risk as likelihood/prob
    DevelopmentAssuranceLevel : EMV2::DALLabels; -- level of rigor in development 

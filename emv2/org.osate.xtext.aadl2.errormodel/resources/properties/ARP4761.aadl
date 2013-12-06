@@ -16,9 +16,9 @@ ExtremelyRemote     : constant EMV2::LikelihoodLabels => D;
 ExtremelyImprobable : constant EMV2::LikelihoodLabels => E;
 
 
-SeverityLabels: type enumeration (Catastrophic, SevereMajor, Major, Minor, NoEffect);
+SeverityClassification: type enumeration (Catastrophic, SevereMajor, Major, Minor, NoEffect);
 
-LikelihoodLabels: type enumeration (Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable);
+ProbabilityLabels: type enumeration (Frequent, Probable, Remote, ExtremelyRemote, ExtremelyImprobable);
 
 
 Hazards: list of record
@@ -36,9 +36,11 @@ Hazards: list of record
                                   -- severity, likelihood, and occurrence probability
    FailureCondition : aadlstring; -- description of event (series) resulting in 
                                   -- unintentional death, etc.(ARP4761)
-   FailureConditionClassification: ARP4761::SeverityLabels; -- actual risk as severity
-   QualitativeProbability: ARP4761::LikelihoodLabels;       -- actual risk as probability
-   QualitativeProbabilityObjective: ARP4761::LikelihoodLabels; -- acceptable risk as prob 
+   FailureConditionClassification: ARP4761::SeverityClassification; -- actual risk as severity
+   QualitativeProbability: ARP4761::ProbabilityLabels;       -- actual risk as probability
+   QuantitativeProbability: EMV2::ProbabilityRange;          -- probability of a hazard   
+   QualitativeProbabilityObjective: ARP4761::ProbabilityLabels; -- acceptable risk as prob 
+   QuantitativeProbabilityObjective: EMV2::ProbabilityRange; -- prob objective for hazard   
    DevelopmentAssuranceLevel : EMV2::DALLabels; -- level of rigor in development 
                                                 -- assurance (ARP4761)
    VerificationMethod : aadlstring; -- verification method to address the hazard

@@ -17,10 +17,10 @@ Remote      : constant EMV2::LikelihoodLabels => D;
 Improbable  : constant EMV2::LikelihoodLabels => E;
 
 SeverityLabels: type enumeration (Catastrophic, Critical, Marginal, Negligible);
-	  
 SeverityRange: type aadlinteger 1 .. 4;
 
-LikelihoodLabels: type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
+ProbabilityLabels: type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
+ProbabilityLevelLabels: type enumeration (A, B, C, D, E);
 
 Hazards: list of record
   (
@@ -37,10 +37,11 @@ Hazards: list of record
                                   -- severity, likelihood, and occurrence probability
    SeverityLevel : MILSTD882::SeverityLabels;         -- actual risk as severity level
    SeverityCategory : MILSTD882::SeverityRange;       -- equivalent severity category
-   QualitativeProbability : MILSTD882::LikelihoodLabels; -- actual risk as probability
-   ProbabilityLevel : EMV2::LikelihoodLabels;         -- equivalent probability level A-E
+   QualitativeProbability : MILSTD882::ProbabilityLabels; -- actual risk as probability
+   ProbabilityLevel : MILSTD882::ProbabilityLevelLabels;         -- equivalent probability level A-E
+   QuantitativeProbability: EMV2::ProbabilityRange;   -- probability of a hazard   
    TargetSeverityLevel: MILSTD882::SeverityLabels;    -- acceptable risk as severity
-   TargetProbability : MILSTD882::LikelihoodLabels;   -- acceptable probability risk 
+   TargetProbabilityLevel : MILSTD882::ProbabilityLevelLabels;   -- acceptable probability risk 
    VerificationMethod : aadlstring; -- verification method to address the hazard
    SafetyReport : aadlstring;       -- analysis/assessment of hazard
    Comment : aadlstring;            -- additional information about the hazard
