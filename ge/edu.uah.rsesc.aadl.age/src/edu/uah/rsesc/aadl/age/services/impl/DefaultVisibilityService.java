@@ -100,7 +100,7 @@ public class DefaultVisibilityService implements VisibilityService {
 				} else {
 					EObject emfBusinessObject = (EObject)bo;
 					if(emfBusinessObject.eIsProxy()) {
-						emfBusinessObject = EcoreUtil.resolve(emfBusinessObject, OsateResourceUtil.getResourceSet());
+						emfBusinessObject = EcoreUtil.resolve(emfBusinessObject, emfBusinessObject.eResource().getResourceSet());
 					}
 		
 					if(emfBusinessObject.eIsProxy()) {
