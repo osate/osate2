@@ -68,7 +68,7 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 		features.add(make(RefineSubcomponentFeature.class));
 		features.add(make(RefineConnectionFeature.class));
 		
-		for(final EClass subcomponentType : ChangeSubcomponentTypeFeature.getSubcomponentTypes()) {
+		for(final EClass subcomponentType : SubcomponentPattern.getSubcomponentTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
 			childCtx.set("Subcomponent Type", subcomponentType);
 			features.add(ContextInjectionFactory.make(ChangeSubcomponentTypeFeature.class, childCtx));	
