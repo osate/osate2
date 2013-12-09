@@ -22,6 +22,7 @@ import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.patterns.SubcomponentPattern;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 
@@ -58,7 +59,13 @@ public class RefineSubcomponentFeature extends AbstractCustomFeature {
 		final PictogramElement pe = pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
-		return bo instanceof Subcomponent && containerBo instanceof ComponentImplementation && ((Subcomponent)bo).getContainingClassifier() != containerBo;
+		if(!(bo instanceof Subcomponent && containerBo instanceof ComponentImplementation)) {
+			return false;
+		}
+		
+		final Subcomponent sc = (Subcomponent)bo;
+		final ComponentImplementation ci = (ComponentImplementation)containerBo;		
+		return sc.getContainingClassifier() != ci && SubcomponentPattern.canContainSubcomponentType(ci, sc.eClass());
 	}
     
     @Override
@@ -77,7 +84,7 @@ public class RefineSubcomponentFeature extends AbstractCustomFeature {
 			@Override
 			public Subcomponent modify(final Resource resource, final Subcomponent sc) {
 				// Refine the subcomponent
-				final Subcomponent newSc = containerComponentImplementation.createOwnedAbstractSubcomponent();
+				final Subcomponent newSc = SubcomponentPattern.createSubcomponent(containerComponentImplementation, sc.eClass());
 				newSc.setRefined(sc);
 				
 				return newSc;

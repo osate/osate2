@@ -24,6 +24,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 
@@ -66,7 +67,15 @@ public class ChangeSubcomponentTypeFeature extends AbstractCustomFeature {
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
 		
-		return bo instanceof Subcomponent && ((Subcomponent)bo).getContainingClassifier() == containerBo && SubcomponentPattern.canContainSubcomponentType(((Subcomponent)bo).getContainingComponentImpl(), subcomponentType);
+		if(!(bo instanceof Subcomponent && containerBo instanceof ComponentImplementation)) {
+			return false;
+		}
+		
+		final Subcomponent sc = (Subcomponent)bo;
+		final ComponentImplementation ci = (ComponentImplementation)containerBo;		
+		return sc.getContainingClassifier() == ci && 
+				SubcomponentPattern.canContainSubcomponentType(ci, subcomponentType) &&
+				(sc.getRefined() == null || sc.getRefined() instanceof AbstractSubcomponent);
 	}   	
     
 	@Override
