@@ -162,7 +162,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
-		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Feature;
+		return featureType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
 	}
 	
 	@Override
