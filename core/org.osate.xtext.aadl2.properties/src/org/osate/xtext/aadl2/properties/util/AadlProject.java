@@ -72,6 +72,8 @@ public final class AadlProject {
 	public static final String APERIODIC_LITERAL = "Aperiodic";
 	public static final String SPORADIC_LITERAL = "Sporadic";
 	public static final String BACKGROUND_LITERAL = "Background";
+	public static final String HYBRID_LITERAL = "Hybrid";
+	public static final String TIMED_LITERAL = "Timed";
 
 	public static final String SUPPORTED_HARDWARE_SOURCE_LANGUAGES = "Supported_Hardware_Source_Languages";
 	public static final String VHDL_LITERAL = "VHDL";
