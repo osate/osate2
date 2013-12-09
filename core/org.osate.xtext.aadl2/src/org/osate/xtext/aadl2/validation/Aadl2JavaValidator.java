@@ -3187,6 +3187,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkPortConnectionEnds(PortConnection connection) {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
+		if (Aadl2Util.isNull(source) || Aadl2Util.isNull(destination)){
+			return;
+		}
 		if (source instanceof EventPort && !(destination instanceof EventPort)) {
 			error(connection, "Source event port '" + source.getName()
 					+ "' must be connected to an event port destination.");
