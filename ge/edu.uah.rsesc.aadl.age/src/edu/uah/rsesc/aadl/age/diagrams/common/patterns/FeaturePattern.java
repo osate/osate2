@@ -634,6 +634,11 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	}
 	
 	@Override
+	public boolean stretchFieldToFitText() {
+		return true;
+	}
+	
+	@Override
 	public int getEditingType() {
         return TYPE_TEXT;
     }
