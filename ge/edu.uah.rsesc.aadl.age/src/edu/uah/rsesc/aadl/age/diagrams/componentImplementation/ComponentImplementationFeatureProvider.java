@@ -22,6 +22,8 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
+import org.eclipse.graphiti.pattern.IPattern;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FlowSpecificationPattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
@@ -42,7 +44,7 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 	public ComponentImplementationFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
 		this.addPattern(make(ComponentImplementationPattern.class));
-		this.addPattern(make(SubcomponentPattern.class));
+		this.addSubcomponentPatterns();
 		this.addConnectionPattern(make(FlowSpecificationPattern.class));
 		this.addPattern(make(ModePattern.class));
 		this.addConnectionPattern(make(ModeTransitionPattern.class));
@@ -112,5 +114,21 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 		}
 
 		return super.getDirectEditingFeatureAdditional(context);
+	}
+	
+	private IPattern createSubcomponentPattern(final EClass scType) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Subcomponent Type", scType);
+		return ContextInjectionFactory.make(SubcomponentPattern.class, childCtx);
+	}
+		
+	/**
+	 * Creates and adds patterns related to AADL Features
+	 */
+	protected final void addSubcomponentPatterns() {
+		// Create the subcomponent patterns
+		for(final EClass scType : SubcomponentPattern.getSubcomponentTypes()) {
+			this.addPattern(createSubcomponentPattern(scType));	
+		}
 	}
 }

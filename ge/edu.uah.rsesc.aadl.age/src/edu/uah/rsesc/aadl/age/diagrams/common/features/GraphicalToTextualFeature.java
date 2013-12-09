@@ -8,13 +8,9 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.diagrams.common.features;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -30,16 +26,13 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.nodemodel.impl.CompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ITextRegionWithLineInformation;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.AadlConstants;

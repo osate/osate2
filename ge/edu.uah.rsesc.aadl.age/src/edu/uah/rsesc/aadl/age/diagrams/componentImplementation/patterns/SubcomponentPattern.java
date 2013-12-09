@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -47,7 +48,6 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -73,6 +73,7 @@ import edu.uah.rsesc.aadl.age.services.SubcomponentService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 public class SubcomponentPattern extends AgePattern {
 	private static LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
@@ -92,6 +93,7 @@ public class SubcomponentPattern extends AgePattern {
 	private final ShapeService shapeService;
 	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
+	private final EClass subcomponentType;
 
 	/**
 	 * Populate the map that contains the subcomponent type to create method name mapping
@@ -124,7 +126,8 @@ public class SubcomponentPattern extends AgePattern {
 			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final HighlightingService highlightingHelper, final AadlModificationService aadlModService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final ShapeService shapeService, 
-			final PropertyService propertyService, final BusinessObjectResolutionService bor) {
+			final PropertyService propertyService, final BusinessObjectResolutionService bor,
+			final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = resizeHelper;
@@ -141,11 +144,12 @@ public class SubcomponentPattern extends AgePattern {
 		this.shapeService = shapeService;
 		this.propertyService = propertyService;
 		this.bor = bor;
+		this.subcomponentType = subcomponentType;
 	}
 	
 	@Override
 	public boolean isMainBusinessObjectApplicable(Object mainBusinessObject) {
-		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Subcomponent;
+		return subcomponentType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
 	}
 
 	@Override
@@ -319,13 +323,20 @@ public class SubcomponentPattern extends AgePattern {
 	}
 	
 	@Override
-	public boolean canCreate(ICreateContext context) {
-		return true;
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		return diagramBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)diagramBo, subcomponentType) : false;
+	}
+	
+	@Override
+	public boolean canCreate(final ICreateContext context) {
+		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+		return containerBo instanceof ComponentImplementation ? SubcomponentPattern.canContainSubcomponentType((ComponentImplementation)containerBo, subcomponentType) : false;
 	}
 	
 	@Override
 	public String getCreateName() {
-		return "Subcomponent";
+		return StringUtil.camelCaseToUser(subcomponentType.getName());
 	}
 	
 	/**
@@ -349,7 +360,7 @@ public class SubcomponentPattern extends AgePattern {
 	 			diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(ci);
 
 				final String name = namingService.buildUniqueIdentifier(ci, "newSubcomponent");
-				final AbstractSubcomponent sc = ci.createOwnedAbstractSubcomponent();
+				final Subcomponent sc = createSubcomponent(ci, subcomponentType);
 				sc.setName(name);
 				return sc;
 			}

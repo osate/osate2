@@ -8,9 +8,6 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,8 +24,6 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 

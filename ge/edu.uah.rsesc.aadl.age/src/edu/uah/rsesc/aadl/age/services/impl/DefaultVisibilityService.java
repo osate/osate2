@@ -24,8 +24,6 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
