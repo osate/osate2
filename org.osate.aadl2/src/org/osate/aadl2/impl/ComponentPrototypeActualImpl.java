@@ -195,7 +195,7 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements
 							oldSubcomponentType, subcomponentType));
 			}
 		}
-		return subcomponentType.eIsProxy() ? null : subcomponentType;
+		return (subcomponentType==null ||  subcomponentType.eIsProxy()) ? null : subcomponentType;
 	}
 
 	/**
