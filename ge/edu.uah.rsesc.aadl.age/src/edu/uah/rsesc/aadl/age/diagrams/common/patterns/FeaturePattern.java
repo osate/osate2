@@ -632,8 +632,6 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	
 	public static Feature createFeature(final Classifier featureOwner, final EClass featureClass) {
 		try {
-			System.out.println("AAAA");
-			System.out.println(getFeatureCreateMethod(featureOwner, featureClass));
 			return (Feature)getFeatureCreateMethod(featureOwner, featureClass).invoke(featureOwner);
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
