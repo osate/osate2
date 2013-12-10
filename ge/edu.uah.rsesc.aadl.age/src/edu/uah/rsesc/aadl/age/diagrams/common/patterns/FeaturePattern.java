@@ -545,10 +545,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
-		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)context.getPictogramElement()).getContainer());
-
-		// The container must be a Feature Group Type or a ComponentType
-		return containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType;
+		return canEdit(context.getPictogramElement());
 	}
 
 	@Override
@@ -584,7 +581,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
 
 		// The container must be a Feature Group Type or a ComponentType and it must have a method to create the feature type that is controlled by this pattern
-		return (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType) && getFeatureCreateMethod((Classifier)containerBo, featureType) != null;
+		return (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType) && canContainFeatureType((Classifier)containerBo, featureType);
 	}
 	
 	@Override
@@ -617,7 +614,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		return newFeature == null ? EMPTY : new Object[] {newFeature};		
 	}
 
-	private Method getFeatureCreateMethod(final Classifier featureOwner, final EClass featureType) {
+	private static Method getFeatureCreateMethod(final Classifier featureOwner, final EClass featureType) {
 		// Determine the method name for the type of feature
 		final String methodName = featureTypeToMethodNameMap.get(featureType);
 		if(methodName == null) {
@@ -633,12 +630,18 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		}
 	}
 	
-	private Feature createFeature(final Classifier featureOwner, final EClass featureClass) {
+	public static Feature createFeature(final Classifier featureOwner, final EClass featureClass) {
 		try {
+			System.out.println("AAAA");
+			System.out.println(getFeatureCreateMethod(featureOwner, featureClass));
 			return (Feature)getFeatureCreateMethod(featureOwner, featureClass).invoke(featureOwner);
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public static boolean canContainFeatureType(final Classifier featureOwner, final EClass featureType) {
+		return getFeatureCreateMethod(featureOwner, featureType) != null;
 	}
 	
 	@Override
@@ -650,6 +653,22 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	public int getEditingType() {
         return TYPE_TEXT;
     }
+	
+	private boolean canEdit(final PictogramElement pe) {
+		if(!(pe instanceof Shape)) {
+			return false;
+		}
+		
+		final Shape featureShape = (Shape)pe;
+		final Object bo = bor.getBusinessObjectForPictogramElement(featureShape);
+		if(!(bo instanceof Feature)) {
+			return false;
+		}
+		
+		final Feature feature = (Feature)bo;
+		final Object containerBo = bor.getBusinessObjectForPictogramElement(featureShape.getContainer());
+		return (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType) && feature.getContainingClassifier() == containerBo;
+	}
  
 	@Override
     public boolean canDirectEdit(final IDirectEditingContext context) {
@@ -660,8 +679,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	        if (bo instanceof Feature && ga instanceof Text) {
 	        	final Shape labelShape = (Shape)context.getPictogramElement();
 	        	final Shape featureShape = labelShape.getContainer();
-	        	final Object containerBo = bor.getBusinessObjectForPictogramElement(featureShape.getContainer());
-	        	return containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType;
+	        	return canEdit(featureShape);
 	        }
 		}
 
