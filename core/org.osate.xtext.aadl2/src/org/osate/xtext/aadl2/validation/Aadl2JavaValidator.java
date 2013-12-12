@@ -412,6 +412,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseDataAccess(DataAccess dataAccess) {
 		checkDataAccessPrototypeReference(dataAccess);
+		checkRequiresAccessOnly(dataAccess);
 	}
 
 	@Check(CheckType.FAST)
@@ -2836,6 +2837,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Prototype dp = dataAccess.getPrototype();
 		if (dp != null && !(dp instanceof DataPrototype)) {
 			error(dataAccess, "The category of the referenced component prototype must be data.");
+		}
+	}
+	private void checkRequiresAccessOnly(DataAccess dataAccess) {
+		Classifier cl = ((Feature)dataAccess).getContainingClassifier();
+		if ((cl instanceof Subprogram)) {
+			if (dataAccess.getKind().equals(AccessType.PROVIDES)){
+			error(dataAccess, "Subprograms can only have requires data access.");
+		}
 		}
 	}
 
