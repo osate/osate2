@@ -118,7 +118,7 @@ AbstractType returns aadl2::AbstractType:
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(('requires' 'modes'
+	((derivedModes?='requires' 'modes'
 	 ((ownedMode+=RequiresMode)+))
 	|
 	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
@@ -1747,7 +1747,7 @@ Mode returns aadl2::Mode:
 	';';
 
 RequiresMode returns aadl2::Mode:
-	name=ID ':' initial?='initial'? derived?='mode' 
+	name=ID ':' initial?='initial'? 'mode' 
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';';
 

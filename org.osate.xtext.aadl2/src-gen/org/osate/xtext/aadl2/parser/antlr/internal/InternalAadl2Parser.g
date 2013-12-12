@@ -1809,12 +1809,23 @@ ruleAbstractType returns [EObject current=null]
     {
     	newLeafNode(otherlv_27, grammarAccess.getAbstractTypeAccess().getSemicolonKeyword_5_1_1_1());
     }
-)))?((
-	otherlv_28=KEYWORD_81
+)))?(((
+(
+		lv_derivedModes_28_0=
+	KEYWORD_81
     {
-    	newLeafNode(otherlv_28, grammarAccess.getAbstractTypeAccess().getRequiresKeyword_6_0_0());
+        newLeafNode(lv_derivedModes_28_0, grammarAccess.getAbstractTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0());
     }
 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAbstractTypeRule());
+	        }
+       		setWithLastConsumed($current, "derivedModes", true, "requires");
+	    }
+
+)
+)
 	otherlv_29=KEYWORD_50
     {
     	newLeafNode(otherlv_29, grammarAccess.getAbstractTypeAccess().getModesKeyword_6_0_1());
@@ -30077,23 +30088,12 @@ ruleRequiresMode returns [EObject current=null]
 	    }
 
 )
-)?(
-(
-		lv_derived_3_0=
-	KEYWORD_34
+)?
+	otherlv_3=KEYWORD_34
     {
-        newLeafNode(lv_derived_3_0, grammarAccess.getRequiresModeAccess().getDerivedModeKeyword_3_0());
+    	newLeafNode(otherlv_3, grammarAccess.getRequiresModeAccess().getModeKeyword_3());
     }
-
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getRequiresModeRule());
-	        }
-       		setWithLastConsumed($current, "derived", true, "mode");
-	    }
-
-)
-)(
+(
 	otherlv_4=KEYWORD_12
     {
     	newLeafNode(otherlv_4, grammarAccess.getRequiresModeAccess().getLeftCurlyBracketKeyword_4_0());
