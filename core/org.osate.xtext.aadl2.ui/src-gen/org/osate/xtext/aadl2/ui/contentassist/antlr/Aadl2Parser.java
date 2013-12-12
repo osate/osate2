@@ -1386,6 +1386,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractTypeAccess().getOwnedAbstractFeatureAssignment_4_1_1_8(), "rule__AbstractType__OwnedAbstractFeatureAssignment_4_1_1_8");
 					put(grammarAccess.getAbstractTypeAccess().getOwnedFlowSpecificationAssignment_5_1_0(), "rule__AbstractType__OwnedFlowSpecificationAssignment_5_1_0");
 					put(grammarAccess.getAbstractTypeAccess().getNoFlowsAssignment_5_1_1_0(), "rule__AbstractType__NoFlowsAssignment_5_1_1_0");
+					put(grammarAccess.getAbstractTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__AbstractType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getAbstractTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__AbstractType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getAbstractTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__AbstractType__OwnedModeAssignment_6_1_1_0_0");
 					put(grammarAccess.getAbstractTypeAccess().getOwnedModeTransitionAssignment_6_1_1_0_1(), "rule__AbstractType__OwnedModeTransitionAssignment_6_1_1_0_1");
@@ -2455,7 +2456,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeAccess().getOwnedPropertyAssociationAssignment_4_1(), "rule__Mode__OwnedPropertyAssociationAssignment_4_1");
 					put(grammarAccess.getRequiresModeAccess().getNameAssignment_0(), "rule__RequiresMode__NameAssignment_0");
 					put(grammarAccess.getRequiresModeAccess().getInitialAssignment_2(), "rule__RequiresMode__InitialAssignment_2");
-					put(grammarAccess.getRequiresModeAccess().getDerivedAssignment_3(), "rule__RequiresMode__DerivedAssignment_3");
 					put(grammarAccess.getRequiresModeAccess().getOwnedPropertyAssociationAssignment_4_1(), "rule__RequiresMode__OwnedPropertyAssociationAssignment_4_1");
 					put(grammarAccess.getModeTransitionAccess().getNameAssignment_0_0(), "rule__ModeTransition__NameAssignment_0_0");
 					put(grammarAccess.getModeTransitionAccess().getSourceAssignment_1(), "rule__ModeTransition__SourceAssignment_1");

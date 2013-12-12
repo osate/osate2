@@ -20748,11 +20748,9 @@ rule__AbstractType__Group_6_0__0__Impl
     }
 :
 (
-{ before(grammarAccess.getAbstractTypeAccess().getRequiresKeyword_6_0_0()); }
-
-	KEYWORD_81 
-
-{ after(grammarAccess.getAbstractTypeAccess().getRequiresKeyword_6_0_0()); }
+{ before(grammarAccess.getAbstractTypeAccess().getDerivedModesAssignment_6_0_0()); }
+(rule__AbstractType__DerivedModesAssignment_6_0_0)
+{ after(grammarAccess.getAbstractTypeAccess().getDerivedModesAssignment_6_0_0()); }
 )
 
 ;
@@ -101498,9 +101496,11 @@ rule__RequiresMode__Group__3__Impl
     }
 :
 (
-{ before(grammarAccess.getRequiresModeAccess().getDerivedAssignment_3()); }
-(rule__RequiresMode__DerivedAssignment_3)
-{ after(grammarAccess.getRequiresModeAccess().getDerivedAssignment_3()); }
+{ before(grammarAccess.getRequiresModeAccess().getModeKeyword_3()); }
+
+	KEYWORD_34 
+
+{ after(grammarAccess.getRequiresModeAccess().getModeKeyword_3()); }
 )
 
 ;
@@ -115064,6 +115064,29 @@ rule__AbstractType__NoFlowsAssignment_5_1_1_0
 )
 
 { after(grammarAccess.getAbstractTypeAccess().getNoFlowsNoneKeyword_5_1_1_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__AbstractType__DerivedModesAssignment_6_0_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getAbstractTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0()); }
+(
+{ before(grammarAccess.getAbstractTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0()); }
+
+	KEYWORD_81 
+
+{ after(grammarAccess.getAbstractTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0()); }
+)
+
+{ after(grammarAccess.getAbstractTypeAccess().getDerivedModesRequiresKeyword_6_0_0_0()); }
 )
 
 ;
@@ -132808,29 +132831,6 @@ rule__RequiresMode__InitialAssignment_2
 )
 
 { after(grammarAccess.getRequiresModeAccess().getInitialInitialKeyword_2_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__RequiresMode__DerivedAssignment_3
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getRequiresModeAccess().getDerivedModeKeyword_3_0()); }
-(
-{ before(grammarAccess.getRequiresModeAccess().getDerivedModeKeyword_3_0()); }
-
-	KEYWORD_34 
-
-{ after(grammarAccess.getRequiresModeAccess().getDerivedModeKeyword_3_0()); }
-)
-
-{ after(grammarAccess.getRequiresModeAccess().getDerivedModeKeyword_3_0()); }
 )
 
 ;
