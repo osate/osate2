@@ -396,11 +396,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseSubprogramAccess(SubprogramAccess subprogramAccess) {
 		checkSubprogramAccessPrototypeReference(subprogramAccess);
-	}
+		checkProvidesAccessOnly(subprogramAccess);
+		checkRequiresAccessOnly(subprogramAccess);
+		}
 
 	@Check(CheckType.FAST)
 	public void caseSubprogramGroupAccess(SubprogramGroupAccess subprogramGroupAccess) {
 		checkSubprogramGroupAccessPrototypeReference(subprogramGroupAccess);
+		checkProvidesAccessOnly(subprogramGroupAccess);
+		checkRequiresAccessOnly(subprogramGroupAccess);
 	}
 
 	@Check(CheckType.FAST)
@@ -413,6 +417,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseDataAccess(DataAccess dataAccess) {
 		checkDataAccessPrototypeReference(dataAccess);
 		checkRequiresAccessOnly(dataAccess);
+	}
+
+	@Check(CheckType.FAST)
+	public void caseBusAccess(BusAccess busAccess) {
+		checkBusAccessPrototypeReference(busAccess);
 	}
 
 	@Check(CheckType.FAST)
@@ -2839,12 +2848,55 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			error(dataAccess, "The category of the referenced component prototype must be data.");
 		}
 	}
+
 	private void checkRequiresAccessOnly(DataAccess dataAccess) {
 		Classifier cl = ((Feature)dataAccess).getContainingClassifier();
 		if ((cl instanceof Subprogram)) {
 			if (dataAccess.getKind().equals(AccessType.PROVIDES)){
-			error(dataAccess, "Subprograms can only have requires data access.");
+				error(dataAccess, "Subprograms cannot have provides data access.");
+			}
 		}
+	}
+	private void checkBusAccessPrototypeReference(BusAccess busAccess) {
+		Prototype dp = busAccess.getPrototype();
+		if (dp != null && !(dp instanceof BusPrototype)) {
+			error(busAccess, "The category of the referenced component prototype must be bus.");
+		}
+	}
+
+	private void checkProvidesAccessOnly(SubprogramAccess spAccess) {
+		Classifier cl = ((Feature)spAccess).getContainingClassifier();
+		if ((cl instanceof Processor || cl instanceof VirtualProcessor|| cl instanceof Device)) {
+			if (spAccess.getKind().equals(AccessType.REQUIRES)){
+				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram access.");
+			}
+		}
+	}
+
+	private void checkProvidesAccessOnly(SubprogramGroupAccess spAccess) {
+		Classifier cl = ((Feature)spAccess).getContainingClassifier();
+		if ((cl instanceof Processor || cl instanceof VirtualProcessor|| cl instanceof Device)) {
+			if (spAccess.getKind().equals(AccessType.REQUIRES)){
+				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram group access.");
+			}
+		}
+	}
+
+	private void checkRequiresAccessOnly(SubprogramAccess spAccess) {
+		Classifier cl = ((Feature)spAccess).getContainingClassifier();
+		if ((cl instanceof Subprogram)) {
+			if (spAccess.getKind().equals(AccessType.PROVIDES)){
+				error(spAccess, "Subprograms cannot have provides subprogram access.");
+			}
+		}
+	}
+
+	private void checkRequiresAccessOnly(SubprogramGroupAccess spAccess) {
+		Classifier cl = ((Feature)spAccess).getContainingClassifier();
+		if ((cl instanceof Subprogram)) {
+			if (spAccess.getKind().equals(AccessType.PROVIDES)){
+				error(spAccess, "Subprograms cannot have provides subprogram group access.");
+			}
 		}
 	}
 
