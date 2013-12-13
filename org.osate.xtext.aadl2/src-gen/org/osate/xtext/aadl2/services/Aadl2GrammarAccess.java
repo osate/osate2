@@ -22333,9 +22333,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPropertyPropertyDefinitionParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssignment_5_1.eContents().get(0);
 		private final Assignment cOwnedPropertyConstantAssignment_5_2 = (Assignment)cAlternatives_5.eContents().get(2);
 		private final RuleCall cOwnedPropertyConstantPropertyConstantParserRuleCall_5_2_0 = (RuleCall)cOwnedPropertyConstantAssignment_5_2.eContents().get(0);
-		private final Keyword cEndKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final RuleCall cIDTerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
-		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Assignment cOwnedAnnexSubclauseAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_6_0 = (RuleCall)cOwnedAnnexSubclauseAssignment_6.eContents().get(0);
+		private final Keyword cEndKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final RuleCall cIDTerminalRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Keyword cSemicolonKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		////
 		// //terminal ANNEXTEXT:
@@ -22350,12 +22352,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PropertySet returns aadl2::PropertySet:
 		//	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
 		//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition |
-		//	ownedPropertyConstant+=PropertyConstant)* "end" ID ";";
+		//	ownedPropertyConstant+=PropertyConstant)* ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 		public ParserRule getRule() { return rule; }
 
 		//"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])* ";")*
-		//(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* "end"
-		//ID ";"
+		//(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
+		//ownedAnnexSubclause+=AnnexSubclause* "end" ID ";"
 		public Group getGroup() { return cGroup; }
 
 		//"property"
@@ -22427,14 +22429,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PropertyConstant
 		public RuleCall getOwnedPropertyConstantPropertyConstantParserRuleCall_5_2_0() { return cOwnedPropertyConstantPropertyConstantParserRuleCall_5_2_0; }
 
+		//ownedAnnexSubclause+=AnnexSubclause*
+		public Assignment getOwnedAnnexSubclauseAssignment_6() { return cOwnedAnnexSubclauseAssignment_6; }
+
+		//AnnexSubclause
+		public RuleCall getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_6_0() { return cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_6_0; }
+
 		//"end"
-		public Keyword getEndKeyword_6() { return cEndKeyword_6; }
+		public Keyword getEndKeyword_7() { return cEndKeyword_7; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_7() { return cIDTerminalRuleCall_7; }
+		public RuleCall getIDTerminalRuleCall_8() { return cIDTerminalRuleCall_8; }
 
 		//";"
-		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
+		public Keyword getSemicolonKeyword_9() { return cSemicolonKeyword_9; }
 	}
 
 	public class PropertyTypeElements extends AbstractParserRuleElementFinder {
@@ -27029,7 +27037,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//PropertySet returns aadl2::PropertySet:
 	//	"property" "set" name=ID "is" ("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])*
 	//	";")* (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition |
-	//	ownedPropertyConstant+=PropertyConstant)* "end" ID ";";
+	//	ownedPropertyConstant+=PropertyConstant)* ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public PropertySetElements getPropertySetAccess() {
 		return (pPropertySet != null) ? pPropertySet : (pPropertySet = new PropertySetElements());
 	}
