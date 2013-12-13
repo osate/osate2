@@ -30830,19 +30830,37 @@ rulePropertySet returns [EObject current=null]
 	    }
 
 )
-))*
-	otherlv_12=KEYWORD_28
+))*(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getPropertySetAccess().getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_6_0()); 
+	    }
+		lv_ownedAnnexSubclause_12_0=ruleAnnexSubclause		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPropertySetRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedAnnexSubclause",
+        		lv_ownedAnnexSubclause_12_0, 
+        		"AnnexSubclause");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*
+	otherlv_13=KEYWORD_28
     {
-    	newLeafNode(otherlv_12, grammarAccess.getPropertySetAccess().getEndKeyword_6());
+    	newLeafNode(otherlv_13, grammarAccess.getPropertySetAccess().getEndKeyword_7());
     }
-this_ID_13=RULE_ID
+this_ID_14=RULE_ID
     { 
-    newLeafNode(this_ID_13, grammarAccess.getPropertySetAccess().getIDTerminalRuleCall_7()); 
+    newLeafNode(this_ID_14, grammarAccess.getPropertySetAccess().getIDTerminalRuleCall_8()); 
     }
 
-	otherlv_14=KEYWORD_9
+	otherlv_15=KEYWORD_9
     {
-    	newLeafNode(otherlv_14, grammarAccess.getPropertySetAccess().getSemicolonKeyword_8());
+    	newLeafNode(otherlv_15, grammarAccess.getPropertySetAccess().getSemicolonKeyword_9());
     }
 )
 ;

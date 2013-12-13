@@ -2479,6 +2479,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getPropertySetAccess().getOwnedPropertyTypeAssignment_5_0(), "rule__PropertySet__OwnedPropertyTypeAssignment_5_0");
 					put(grammarAccess.getPropertySetAccess().getOwnedPropertyAssignment_5_1(), "rule__PropertySet__OwnedPropertyAssignment_5_1");
 					put(grammarAccess.getPropertySetAccess().getOwnedPropertyConstantAssignment_5_2(), "rule__PropertySet__OwnedPropertyConstantAssignment_5_2");
+					put(grammarAccess.getPropertySetAccess().getOwnedAnnexSubclauseAssignment_6(), "rule__PropertySet__OwnedAnnexSubclauseAssignment_6");
 					put(grammarAccess.getBooleanTypeAccess().getNameAssignment_0(), "rule__BooleanType__NameAssignment_0");
 					put(grammarAccess.getStringTypeAccess().getNameAssignment_0(), "rule__StringType__NameAssignment_0");
 					put(grammarAccess.getEnumerationTypeAccess().getNameAssignment_0(), "rule__EnumerationType__NameAssignment_0");

@@ -2953,7 +2953,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     (
 	 *         name=ID 
 	 *         (importedUnit+=[PropertySet|ID] importedUnit+=[PropertySet|ID]*)* 
-	 *         (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
+	 *         (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)* 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_PropertySet(EObject context, PropertySet semanticObject) {
