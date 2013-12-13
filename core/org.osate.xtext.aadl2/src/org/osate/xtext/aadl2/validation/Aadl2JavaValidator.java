@@ -2850,10 +2850,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void checkDefiningID(Connection conn) {
 		// TODO enable for 2.1 compatibility checking
-//		String name = conn.getName();
-//		if (name == null || name.isEmpty()){
-//			warning(conn, "Connection is missing defining identifier. Required in AADL V2.1");
-//		}
+		String name = conn.getName();
+		if (name == null || name.isEmpty()){
+			error(conn, "Connection is missing defining identifier. Required in AADL V2.1");
+		}
 	}
 	
 	/**
