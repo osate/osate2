@@ -195,7 +195,8 @@ public class ComponentPrototypeActualImpl extends ArrayableElementImpl
 							oldSubcomponentType, subcomponentType));
 			}
 		}
-		return (subcomponentType==null ||  subcomponentType.eIsProxy()) ? null : subcomponentType;
+		return (subcomponentType == null || subcomponentType.eIsProxy()) ? null
+				: subcomponentType;
 	}
 
 	/**

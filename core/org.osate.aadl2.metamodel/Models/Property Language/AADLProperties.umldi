@@ -3727,11 +3727,6 @@
               <element href="AADLProperties.uml#Associations-ContainmentPathElement-namedElement"/>
             </semanticModel>
           </contained>
-          <contained xsi:type="di:GraphNode" xmi:id="_nQFX4FE-EeOvC4rwpuKd8g" position="0,0" size="-1,-1">
-            <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_nQFX4VE-EeOvC4rwpuKd8g" presentation="default">
-              <element href="AADLProperties.uml#_nQYS0FE-EeOvC4rwpuKd8g"/>
-            </semanticModel>
-          </contained>
           <contained xsi:type="di:GraphNode" xmi:id="_8ccn8FE-EeOvC4rwpuKd8g" position="0,0" size="-1,-1">
             <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_8ccn8VE-EeOvC4rwpuKd8g" presentation="default">
               <element href="AADLProperties.uml#_8ccn8lE-EeOvC4rwpuKd8g"/>
