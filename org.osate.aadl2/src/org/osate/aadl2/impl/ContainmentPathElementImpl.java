@@ -61,7 +61,6 @@ import org.osate.aadl2.NamedElement;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getArrayRanges <em>Array Range</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getNamedElement <em>Named Element</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#isInAnnex <em>In Annex</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.ContainmentPathElementImpl#getAnnexName <em>Annex Name</em>}</li>
  * </ul>
  * </p>
@@ -89,26 +88,6 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 * @ordered
 	 */
 	protected NamedElement namedElement;
-
-	/**
-	 * The default value of the '{@link #isInAnnex() <em>In Annex</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isInAnnex()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean IN_ANNEX_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isInAnnex() <em>In Annex</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isInAnnex()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean inAnnex = IN_ANNEX_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getAnnexName() <em>Annex Name</em>}' attribute.
@@ -224,29 +203,6 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isInAnnex() {
-		return inAnnex;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setInAnnex(boolean newInAnnex) {
-		boolean oldInAnnex = inAnnex;
-		inAnnex = newInAnnex;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CONTAINMENT_PATH_ELEMENT__IN_ANNEX,
-					oldInAnnex, inAnnex));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getAnnexName() {
 		return annexName;
 	}
@@ -295,8 +251,6 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 			if (resolve)
 				return getNamedElement();
 			return basicGetNamedElement();
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__IN_ANNEX:
-			return isInAnnex();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			return getAnnexName();
 		}
@@ -320,9 +274,6 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
 			setNamedElement((NamedElement) newValue);
 			return;
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__IN_ANNEX:
-			setInAnnex((Boolean) newValue);
-			return;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			setAnnexName((String) newValue);
 			return;
@@ -344,9 +295,6 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
 			setNamedElement((NamedElement) null);
 			return;
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__IN_ANNEX:
-			setInAnnex(IN_ANNEX_EDEFAULT);
-			return;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			setAnnexName(ANNEX_NAME_EDEFAULT);
 			return;
@@ -366,8 +314,6 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 			return arrayRanges != null && !arrayRanges.isEmpty();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
 			return namedElement != null;
-		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__IN_ANNEX:
-			return inAnnex != IN_ANNEX_EDEFAULT;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			return ANNEX_NAME_EDEFAULT == null ? annexName != null
 					: !ANNEX_NAME_EDEFAULT.equals(annexName);
@@ -386,9 +332,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (inAnnex: ");
-		result.append(inAnnex);
-		result.append(", annexName: ");
+		result.append(" (annexName: ");
 		result.append(annexName);
 		result.append(')');
 		return result.toString();
