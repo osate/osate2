@@ -307,7 +307,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 					if(dlg.open() == Dialog.CANCEL) {
 						return null;
 					}			
-					baseClassifier = dlg.getFirstSelectedNamedElement();			
+					baseClassifier = (EObject)dlg.getFirstSelectedElement();			
 				} else {
 					baseClassifier = null;
 				}

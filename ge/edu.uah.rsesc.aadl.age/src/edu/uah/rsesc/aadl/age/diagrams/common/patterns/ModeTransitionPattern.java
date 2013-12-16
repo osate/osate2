@@ -50,7 +50,11 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
@@ -306,7 +310,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final Anchor anchor = anchorService.getAnchorByName(modeShape, getTransitionAnchorName(mt));
 		for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
 			final ContainerShape modeTransitionContainer = getModeContainer(connection);	
-			// TODO: Use same anchor for all triggers for hte transition...
+			// TODO: Use same anchor for all triggers for the transition...
 			final Anchor eventSourceAnchor = getAnchorForModeTransitionTrigger(trigger, modeTransitionContainer, modeShape, getFeatureProvider());
 			
 			if(eventSourceAnchor != null) {
@@ -352,7 +356,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		if(trigger instanceof TriggerPort) {
 			final TriggerPort tp = (TriggerPort)trigger;
 			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementQualifiedName(ownerShape, tp.getContext());
-			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeService.getChildShapeByElementQualifiedName(portShapeOwner, tp.getPort());
+			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeService.getDescendantShapeByElementQualifiedName(portShapeOwner, tp.getPort());
 			if(portShape == null) {
 				return null;
 			}
@@ -419,23 +423,16 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		// Determine the name for the new mode transition
 		final String newElementName = namingService.buildUniqueIdentifier(cc, "newTransition");
 		
-		// TODO: Only include ports?
 		// TODO: Include all relevant ports, subcomponent, feature group, or subprogram call
-		final List<Port> ports = new ArrayList<Port>();
-		for(final Feature f : cc.getAllFeatures()) {
-			if(f instanceof Port) {
-				ports.add((Port)f);
-			}
-		}
+		final List<ModeTransitionTriggerPort> ports = getPossibleModeTransitionTriggerPorts(cc);
 		final ElementSelectionDialog triggerSelectionDlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select Trigger Ports", "Select mode transition triggers", ports);
 		triggerSelectionDlg.setMultipleSelection(true);
 		if(triggerSelectionDlg.open() == Dialog.CANCEL) {
 			return null;
-		}
-		
+		}		
 
-		final NamedElement[] triggerPorts = triggerSelectionDlg.getSelectedNamedElements();
-		if(triggerPorts.length == 0) {
+		final ModeTransitionTriggerPort[] selectedPorts = triggerSelectionDlg.getAllSelectedElements(ModeTransitionTriggerPort.class);
+		if(selectedPorts.length == 0) {
 			return null;
 		}
 		
@@ -461,10 +458,10 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	 			newModeTransition.setDestination(getMode(context.getTargetPictogramElement()));
 	 			
 	 			final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-	 			for(NamedElement triggerPort : triggerPorts) {
+	 			for(ModeTransitionTriggerPort selectedPort : selectedPorts) {
 	 				final TriggerPort newTrigger = (TriggerPort)newModeTransition.createOwnedTrigger(p.getTriggerPort());
-	 				newTrigger.setPort((Port)triggerPort);
-	 				// TODO: Set context as appropriate
+	 				newTrigger.setPort(selectedPort.port);
+	 				newTrigger.setContext(selectedPort.context);
 	 			}
 
 				return newModeTransition;
@@ -540,5 +537,48 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
+	
+	private List<ModeTransitionTriggerPort> getPossibleModeTransitionTriggerPorts(final ComponentClassifier cc) {
+		// TODO: Cleaup
+		final List<ModeTransitionTriggerPort> ports = new ArrayList<ModeTransitionTriggerPort>();
+		for(final Feature f : cc.getAllFeatures()) {
+			if(f instanceof Port) {
+				ports.add(new ModeTransitionTriggerPort((Port)f, null));
+			} else if(f instanceof FeatureGroup) {
+				final FeatureGroupType fgt = ((FeatureGroup)f).getAllFeatureGroupType();
+				if(fgt != null) {
+					for(final Feature f2 : fgt.getAllFeatures()) {
+						if(f2 instanceof Port) {
+							ports.add(new ModeTransitionTriggerPort((Port)f2, (FeatureGroup)f));
+						}
+					}
+				}
+			}
+		}		
+
+		// TODO: Subcomponents
+		// TODO: SubprogramCall
+		
+		return ports;
+	}
+	
+	// Class for storing info about possible trigger ports
+	private static class ModeTransitionTriggerPort {
+		public final Port port;
+		public final Context context;
+		
+		public ModeTransitionTriggerPort(final Port port, final Context context) {
+			this.port = port;
+			this.context = context;
+		}
+		
+		public String toString() {
+			if(context == null) {
+				return port.getName();
+			} else {
+				return context.getName() + "." + port.getName();
+			}
+		}
 	}
 }

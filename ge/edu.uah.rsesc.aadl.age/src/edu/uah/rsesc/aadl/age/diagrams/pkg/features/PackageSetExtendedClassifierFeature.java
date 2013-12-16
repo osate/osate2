@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -102,7 +103,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 				final PackageSection section = pkg.getPublicSection();
 				
 				// Resolve the selected classifier
-				final Classifier selectedClassifier = (dlg.getFirstSelectedNamedElement() != null && dlg.getFirstSelectedNamedElement().eIsProxy()) ? (Classifier)EcoreUtil.resolve(dlg.getFirstSelectedNamedElement(), resource) : (Classifier)dlg.getFirstSelectedNamedElement();
+				final Classifier selectedClassifier = (dlg.getFirstSelectedElement() != null && ((EObject)dlg.getFirstSelectedElement()).eIsProxy()) ? (Classifier)EcoreUtil.resolve(((EObject)dlg.getFirstSelectedElement()), resource) : (Classifier)dlg.getFirstSelectedElement();
 				if(selectedClassifier == null) {
 					return null;
 				}

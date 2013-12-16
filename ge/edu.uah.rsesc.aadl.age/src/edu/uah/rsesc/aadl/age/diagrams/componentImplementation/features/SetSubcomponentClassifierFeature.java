@@ -123,7 +123,7 @@ public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 			public Object modify(final Resource resource, final Subcomponent sc) {
 				
 				// Import the package if necessary
-				SubcomponentType selectedSubcomponentType = (SubcomponentType)dlg.getFirstSelectedNamedElement();
+				SubcomponentType selectedSubcomponentType = (SubcomponentType)dlg.getFirstSelectedElement();
 				if(selectedSubcomponentType != null) {
 					// Resolve the reference
 					selectedSubcomponentType = (SubcomponentType)EcoreUtil.resolve(selectedSubcomponentType, resource);

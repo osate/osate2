@@ -8,6 +8,7 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.dialogs;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -15,11 +16,18 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.NamedElement;
 
-public class ElementSelectionDialog extends org.eclipse.ui.dialogs.ElementListSelectionDialog {
+/**
+ * Dialog to allow the user to select objects. Uses org.eclipse.ui.dialogs.ElementListSelectionDialog internally, but handles null objects. Contains
+ * special handling for IEobjectDescription and NamedElement objects
+ * @author philip.alldredge
+ *
+ */
+public class ElementSelectionDialog {
 	private static final Object nullObject = new Object(); // Object that represents a null value. ElementListSelectionDialog does not support having null elements
+	private final org.eclipse.ui.dialogs.ElementListSelectionDialog dlg;
 	
 	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt, final List<?> elementDescriptions) {
-		super(parentShell, new org.eclipse.jface.viewers.LabelProvider() {
+		dlg = new org.eclipse.ui.dialogs.ElementListSelectionDialog(parentShell, new org.eclipse.jface.viewers.LabelProvider() {
 			@Override
 			public String getText(Object element) {
 				if(element == nullObject) {
@@ -29,13 +37,13 @@ public class ElementSelectionDialog extends org.eclipse.ui.dialogs.ElementListSe
 				} else if(element instanceof NamedElement){
 					return ((NamedElement)element).getName();
 				} else {
-					throw new RuntimeException("Unsupported object type: " + element.getClass());
+					return element.toString();
 				}				
 			}
 		});
 		
-		this.setTitle(dlgTitle);
-		this.setMessage(prompt);
+		dlg.setTitle(dlgTitle);
+		dlg.setMessage(prompt);
 		
 		// Convert null values to point to the nullObject
 		final Object[] elementsArray = elementDescriptions.toArray();
@@ -45,25 +53,15 @@ public class ElementSelectionDialog extends org.eclipse.ui.dialogs.ElementListSe
 			}
 		}
 		
-		this.setElements(elementsArray);
+		dlg.setElements(elementsArray);
 	}
 	
-	@Override
-	public Object[] getResult() {
-		final Object[] results = super.getResult();
-		
-		// Convert the nullObject to a null value
-		for(int i = 0; i < results.length; i++) {
-			if(results[i] == nullObject) {
-				results[i] = null;
-			}
-		}
-	
-		return results;
+	public Object getFirstSelectedElement() {
+		return getFirstSelectedElement(Object.class);
 	}
-
-	public NamedElement getFirstSelectedNamedElement() {
-		final NamedElement[] selectedElements = getSelectedNamedElements();
+	
+	public <T> Object getFirstSelectedElement(final Class<T> c) {
+		final T[] selectedElements = getAllSelectedElements(c);
 		if(selectedElements.length > 0) {
 			return selectedElements[0];
 		} else {
@@ -71,25 +69,43 @@ public class ElementSelectionDialog extends org.eclipse.ui.dialogs.ElementListSe
 		}
 	}
 	
-	public NamedElement[] getSelectedNamedElements() {
-		final Object[] result = getResult();
-		final NamedElement[] selectedElements = new NamedElement[result.length];
-		for(int i = 0; i < result.length; i++) {
-			final Object obj = result[i];
+	public Object[] getAllSelectedElements() {
+		return getAllSelectedElements(Object.class);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T[] getAllSelectedElements(final Class<T> c) {
+		// Get the results and handle null objects
+		final Object[] results = dlg.getResult();
+		
+		// Convert the nullObject to a null value
+		for(int i = 0; i < results.length; i++) {
+			if(results[i] == nullObject) {
+				results[i] = null;
+			}
+		}
+		
+		final T[] selectedElements = (T[])Array.newInstance(c, results.length);
+		for(int i = 0; i < results.length; i++) {
+			final Object obj = results[i];
 			if(obj == null) {
 				selectedElements[i] = null;
 			} else if(obj instanceof IEObjectDescription) {
 				final EObject element = ((IEObjectDescription)obj).getEObjectOrProxy();	
-				
-				// Return the element
-				if(element instanceof NamedElement) {
-					selectedElements[i] = (NamedElement)element;
-				}
-			} else if(obj instanceof NamedElement) {
-				selectedElements[i] = (NamedElement)obj;
+				selectedElements[i] = (T)element;
+			} else {
+				selectedElements[i] = (T)obj;
 			}
 		}
-		
+
 		return selectedElements;
+	}
+	
+	public int open() {
+		return dlg.open();
+	}
+	
+	public void setMultipleSelection(final boolean value) {
+		dlg.setMultipleSelection(value);
 	}
 }
