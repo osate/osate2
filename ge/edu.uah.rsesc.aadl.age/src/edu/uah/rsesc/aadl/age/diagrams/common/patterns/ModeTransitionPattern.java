@@ -50,7 +50,6 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
@@ -58,8 +57,8 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -70,6 +69,7 @@ import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ConnectionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.NamingService;
+import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
@@ -77,6 +77,7 @@ import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 
 public class ModeTransitionPattern extends AgeConnectionPattern {
+	public static String MODE_TRANSITION_TRIGGER_CONNECTION_TYPE = "mode_transition_trigger";	
 	private final StyleService styleService;
 	private final AnchorService anchorService;
 	private final NamingService namingService;
@@ -86,11 +87,12 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
 	private final BusinessObjectResolutionService bor;
+	private final PropertyService propertyService;
 	
 	@Inject
 	public ModeTransitionPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
-			final UserInputService userInputService, final BusinessObjectResolutionService bor) {
+			final UserInputService userInputService, final BusinessObjectResolutionService bor, final PropertyService propertyService) {
 		super(visibilityHelper);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
@@ -101,6 +103,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
 		this.bor = bor;
+		this.propertyService = propertyService;
 	}
 
 	@Override
@@ -310,17 +313,17 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final Anchor anchor = anchorService.getAnchorByName(modeShape, getTransitionAnchorName(mt));
 		for(final ModeTransitionTrigger trigger : mt.getOwnedTriggers()) {
 			final ContainerShape modeTransitionContainer = getModeContainer(connection);	
-			// TODO: Use same anchor for all triggers for the transition...
 			final Anchor eventSourceAnchor = getAnchorForModeTransitionTrigger(trigger, modeTransitionContainer, modeShape, getFeatureProvider());
-			
 			if(eventSourceAnchor != null) {
 				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 				final Connection triggerConnection = peCreateService.createFreeFormConnection(getDiagram());
+				propertyService.setConnectionType(triggerConnection, MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
 				triggerConnection.setStart(eventSourceAnchor);
 				triggerConnection.setEnd(anchor);
 				createTriggerGraphicsAlgorithm(triggerConnection);
 			}
 		}
+		
 	}
 	
 	/**
@@ -355,8 +358,13 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	public Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
 		if(trigger instanceof TriggerPort) {
 			final TriggerPort tp = (TriggerPort)trigger;
+			// TODO: Consider using names instead of qualified names. Qualified names may cause problem with refinement, etc?
+			//final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementName(ownerShape, tp.getContext());
+			//final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeService.getDescendantShapeByElementName(portShapeOwner, tp.getPort());
+			
 			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementQualifiedName(ownerShape, tp.getContext());
 			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeService.getDescendantShapeByElementQualifiedName(portShapeOwner, tp.getPort());
+			
 			if(portShape == null) {
 				return null;
 			}
@@ -539,26 +547,44 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
 	
+	/**
+	 * Returns a list of ModeTransitionTriggerPort objects that contains information about the valid options for configuring a mode transition trigger
+	 * @param cc
+	 * @return
+	 */
 	private List<ModeTransitionTriggerPort> getPossibleModeTransitionTriggerPorts(final ComponentClassifier cc) {
-		// TODO: Cleaup
 		final List<ModeTransitionTriggerPort> ports = new ArrayList<ModeTransitionTriggerPort>();
+		
+		// Get ports from the classifier and it's feature groups
 		for(final Feature f : cc.getAllFeatures()) {
 			if(f instanceof Port) {
 				ports.add(new ModeTransitionTriggerPort((Port)f, null));
 			} else if(f instanceof FeatureGroup) {
-				final FeatureGroupType fgt = ((FeatureGroup)f).getAllFeatureGroupType();
+				final FeatureGroup fg = (FeatureGroup)f;
+				final FeatureGroupType fgt = fg.getAllFeatureGroupType();
 				if(fgt != null) {
-					for(final Feature f2 : fgt.getAllFeatures()) {
-						if(f2 instanceof Port) {
-							ports.add(new ModeTransitionTriggerPort((Port)f2, (FeatureGroup)f));
+					for(final Feature fgFeature : fgt.getAllFeatures()) {
+						if(fgFeature instanceof Port) {
+							ports.add(new ModeTransitionTriggerPort((Port)fgFeature, fg));
 						}
 					}
 				}
 			}
 		}		
 
-		// TODO: Subcomponents
-		// TODO: SubprogramCall
+		// Gets ports from the subcomponents
+		if(cc instanceof ComponentImplementation) {
+			final ComponentImplementation ci = (ComponentImplementation)cc;
+			for(final Subcomponent sc : ci.getAllSubcomponents()) {
+				for(final Feature f : sc.getAllFeatures()) {
+					if(f instanceof Port) {
+						ports.add(new ModeTransitionTriggerPort((Port)f, sc));
+					}
+				}
+			}			
+		}
+
+		// TODO: Get ports from subprogram calls
 		
 		return ports;
 	}

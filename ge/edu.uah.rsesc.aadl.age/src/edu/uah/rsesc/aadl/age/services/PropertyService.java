@@ -8,6 +8,7 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.services;
 
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
@@ -17,11 +18,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  *
  */
 public interface PropertyService {
-
-	String getTypeName(PictogramElement pe);
-
-	void setTypeName(PictogramElement pe, String typeName);
-
 	String getName(PictogramElement pe);
 
 	void setName(PictogramElement pe, String typeName);
@@ -51,5 +47,8 @@ public interface PropertyService {
 	boolean isGhost(PictogramElement pe);
 
 	void setIsGhost(PictogramElement pe, boolean value);
+	
+	String getConnectionType(Connection c);
+	void setConnectionType(Connection c, String type);
 
 }

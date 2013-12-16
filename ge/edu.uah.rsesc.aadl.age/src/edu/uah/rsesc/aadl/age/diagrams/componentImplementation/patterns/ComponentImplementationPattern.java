@@ -25,6 +25,7 @@ import org.osate.aadl2.ComponentImplementation;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
+import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
 import edu.uah.rsesc.aadl.age.services.ConnectionCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
@@ -117,7 +118,8 @@ public class ComponentImplementationPattern extends AgePattern {
 		visibilityHelper.setIsGhost(shape, false);
 		
 		// Remove invalid connections from the diagram
-		visibilityHelper.ghostInvalidConnections();
+		visibilityHelper.ghostInvalidConnections(null);
+		visibilityHelper.ghostInvalidConnections(ModeTransitionPattern.MODE_TRANSITION_TRIGGER_CONNECTION_TYPE);
 				
 		// Remove invalid features
 		visibilityHelper.ghostInvalidShapes(shape);		

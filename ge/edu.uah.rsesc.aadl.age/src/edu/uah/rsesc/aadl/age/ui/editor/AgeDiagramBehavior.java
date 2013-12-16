@@ -133,7 +133,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				
 				// Save the diagram				
 				final Set<Resource> retValue = super.save(editingDomain, saveOptions, monitor);
-				
+
 				// Set the persistent properties
 				diagramService.savePersistentProperties(diagram);
 				

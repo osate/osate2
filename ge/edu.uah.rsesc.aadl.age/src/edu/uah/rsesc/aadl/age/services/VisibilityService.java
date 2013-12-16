@@ -32,8 +32,8 @@ public interface VisibilityService {
 	void ghostInvalidShapes(ContainerShape shape);
 	
 	/**
-	 * Turns connections that are invalid into ghosts. Such as ones that do not have a valid business object associated with them.
-	 * @param diagram
+	 * Turns connections that are invalid and of a specified type into ghosts. Such as ones that do not have a valid business object associated with them.
+	 * @param connectionTypeFilter is the type of connections to turn into ghost. If null, turns only connections that do not have a connection type property set into ghosts
 	 */
-	void ghostInvalidConnections();
+	void ghostInvalidConnections(final String connectionTypeFilter);
 }

@@ -8,6 +8,7 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.services.impl;
 
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
@@ -15,30 +16,14 @@ import org.eclipse.graphiti.services.Graphiti;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 
 public class DefaultPropertyService implements PropertyService {
-	private static final String TYPE_NAME_KEY = "type";
 	private static final String NAME_KEY = "name";
+	private static final String CONNECTION_TYPE_KEY = "connection_type";
 	private static final String SIDE_KEY = "side"; // Which side the shape is on
 	private static final String LAYOUT_SIDE_KEY = "layout_side"; // Which side the shape is layed out as
 	private static final String SELECTED_MODE_KEY = "selected_mode"; // The name of the mode the user has selected in the UI
 	private static final String SELECTED_FLOW_KEY = "selected_flow"; // The name of the flow the user has selected in the UI
 	private static final String IS_LAYED_OUT_KEY = "is_layed_out"; // Whether the shape has been layed out by the automatic layout algorithm
 	private static final String IS_GHOST_KEY = "is_ghost"; // Whether the pictogram element is a ghost. A ghost is an element that has been hidden because the corresponding business object is no longer valid.
-
-	/* (non-Javadoc)
-	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService#getTypeName(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
-	@Override
-	public final String getTypeName(final PictogramElement pe) {
-		return Graphiti.getPeService().getPropertyValue(pe, TYPE_NAME_KEY);
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService#setTypeName(org.eclipse.graphiti.mm.pictograms.PictogramElement, java.lang.String)
-	 */
-	@Override
-	public final void setTypeName(final PictogramElement pe, final String typeName) {
-		Graphiti.getPeService().setPropertyValue(pe, TYPE_NAME_KEY, typeName);
-	}
 	
 	/* (non-Javadoc)
 	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.PropertyService#getName(org.eclipse.graphiti.mm.pictograms.PictogramElement)
@@ -154,5 +139,15 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public final void setIsGhost(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_GHOST_KEY, value ? "true" : "false");
+	}
+	
+	@Override
+	public String getConnectionType(Connection c) {
+		return Graphiti.getPeService().getPropertyValue(c, CONNECTION_TYPE_KEY);
+	}
+	
+	@Override
+	public void setConnectionType(final Connection c, final String value) {
+		Graphiti.getPeService().setPropertyValue(c, CONNECTION_TYPE_KEY, value);
 	}
 }

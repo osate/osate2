@@ -209,12 +209,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	}
 	
 	@Override
-	public void setShapeProperties(final ContainerShape shape, final Object bo) {
-		// Update the type name property
-		propertyUtil.setTypeName(shape, getClassifierTypeName((Classifier)bo));
-	}
-	
-	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
 		return super.canResizeShape(context);
 	}

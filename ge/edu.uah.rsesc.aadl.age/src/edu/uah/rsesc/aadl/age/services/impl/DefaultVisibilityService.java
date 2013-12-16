@@ -117,24 +117,27 @@ public class DefaultVisibilityService implements VisibilityService {
 	}
 	
 	@Override
-	public void ghostInvalidConnections() {
+	public void ghostInvalidConnections(final String connectionTypeFilter) {
 		for(final Connection connection : getDiagram().getConnections()) {
-			boolean ghost = false;
-			final Object bo = bor.getBusinessObjectForPictogramElement(connection);
-			// If the business object is not valid, ghost the connection
-			if(!(bo instanceof EObject)) {
-				ghost = true;
-			} else {				
-				// If there is not a pattern to update the connection, ghost it
-				final UpdateContext updateContext = new UpdateContext(connection);
-				final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-				if(updateFeature == null || !updateFeature.canUpdate(updateContext)) {
+			final String tmpConnectionType = propertyUtil.getConnectionType(connection);
+			if((connectionTypeFilter == null && tmpConnectionType == null) || (connectionTypeFilter != null && connectionTypeFilter.equals(tmpConnectionType))) {
+				boolean ghost = false;
+				final Object bo = bor.getBusinessObjectForPictogramElement(connection);
+				// If the business object is not valid, ghost the connection
+				if(!(bo instanceof EObject)) {
 					ghost = true;
+				} else {				
+					// If there is not a pattern to update the connection, ghost it
+					final UpdateContext updateContext = new UpdateContext(connection);
+					final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
+					if(updateFeature == null || !updateFeature.canUpdate(updateContext)) {
+						ghost = true;
+					}
 				}
-			}
-			
-			if(ghost) {
-				setIsGhost(connection, true);
+				
+				if(ghost) {
+					setIsGhost(connection, true);
+				}
 			}
 		}
 	}

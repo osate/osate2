@@ -97,7 +97,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature {
 		}
 				
 		// Prune Invalid Generalizations
-		visibilityService.ghostInvalidConnections();
+		visibilityService.ghostInvalidConnections(null);
 
 		// Prune Invalid Shapes
 		visibilityService.ghostInvalidShapes(diagram);
