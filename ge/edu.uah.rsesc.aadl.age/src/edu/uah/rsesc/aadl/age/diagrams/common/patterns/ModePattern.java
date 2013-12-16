@@ -36,28 +36,25 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
 import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
+import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
-import edu.uah.rsesc.aadl.age.util.StringUtil;
 
 public class ModePattern extends AgeLeafShapePattern {
 	public static String innerModeShapeName = "inner_mode";
@@ -68,14 +65,17 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final PropertyService propertyUtil;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final StyleService styleUtil;
+	private final ShapeCreationService shapeCreationService;
+	private final DiagramModificationService diagramModService;
 	private final AadlModificationService modificationService;
 	private final NamingService namingService;
 	private final BusinessObjectResolutionService bor;	
 	
 	@Inject
 	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final ShapeService shapeHelper, 
-			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil,
-			final AadlModificationService modificationService, final NamingService namingService, final BusinessObjectResolutionService bor) {
+			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
+			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
+			final NamingService namingService, final BusinessObjectResolutionService bor) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorService = anchorUtil;
 		this.resizeHelper = resizeHelper;
@@ -83,6 +83,8 @@ public class ModePattern extends AgeLeafShapePattern {
 		this.propertyUtil = propertyUtil;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.styleUtil = styleUtil;
+		this.shapeCreationService = shapeCreationService;
+		this.diagramModService = diagramModService;
 		this.modificationService = modificationService;
 		this.namingService = namingService;
 		this.bor = bor;
@@ -285,16 +287,27 @@ public class ModePattern extends AgeLeafShapePattern {
 			
 			// Make the modification
 			newMode = modificationService.modify(classifier, new AbstractModifier<ComponentClassifier, Mode>() {
+				private DiagramModificationService.Modification diagramMod;
+				
 				@Override
 				public Mode modify(final Resource resource, final ComponentClassifier classifier) {
+					// Handle diagram updates
+		 			diagramMod = diagramModService.startModification();
+		 			if(classifier instanceof ComponentImplementation) {
+		 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)classifier);	
+		 			}
+
 					final Mode newMode = classifier.createOwnedMode();
-					
 					newMode.setInitial(false);
-				//	newMode.eUnset(Aadl2Factory.eINSTANCE.getAadl2Package().getMode_Derived());
-					newMode.setDerived(false);
 					newMode.setName(newModeName);
 					return newMode;
-				}			
+				}
+				
+				@Override
+				public void beforeCommit(final Resource resource, final ComponentClassifier classifier, final Mode newMode) {
+					diagramMod.commit();
+					shapeCreationService.createShape(context.getTargetContainer(), newMode, context.getX(), context.getY());							
+				}
 			});
 		}
 		

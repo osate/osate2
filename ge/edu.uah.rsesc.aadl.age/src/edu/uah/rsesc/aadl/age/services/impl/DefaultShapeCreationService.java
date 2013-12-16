@@ -20,20 +20,27 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.services.LayoutService;
+import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 
 public class DefaultShapeCreationService implements ShapeCreationService {
 	private final ShapeService shapeService;
+	private final PropertyService propertyService;
+	private final LayoutService layoutService;
 	private IFeatureProvider fp;
 	
-	public DefaultShapeCreationService(final ShapeService shapeService, final IFeatureProvider fp) {
+	public DefaultShapeCreationService(final ShapeService shapeService, final PropertyService propertyService, final LayoutService layoutService, final IFeatureProvider fp) {
 		this.shapeService = shapeService;
+		this.propertyService = propertyService;
+		this.layoutService = layoutService;
 		this.fp = fp;
 	}
 
@@ -140,5 +147,41 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 				touchedShapes.add((Shape)pictogramElement);
 			}
 		}
+	}
+	
+	@Override
+	public Shape createShape(final ContainerShape container, final NamedElement el, final int x, final int y) {
+		if(el == null) {
+			return null;
+		}
+			
+		Shape newShape = (ContainerShape)shapeService.getDescendantShapeByElementQualifiedName(container, el);
+
+		// If the update feature hasn't been called, add the shape to the diagram. This is preferred rather than waiting because otherwise the container
+		// will be resized based on the original location for the shape.
+		if(newShape == null) {
+			final AddContext addContext = new AddContext();
+			addContext.setTargetContainer(container);
+			addContext.setNewObject(new AadlElementWrapper(el));				
+			
+			// Execute the add feature
+			final IAddFeature addFeature = fp.getAddFeature(addContext);
+			if(addFeature != null && addFeature.canAdd(addContext)) {
+				addFeature.execute(addContext);
+			}
+
+			// Try to find the shape again
+			newShape = shapeService.getDescendantShapeByElementQualifiedName(container, el);			
+		}
+			
+		if(newShape != null) {
+			Graphiti.getGaService().setLocation(newShape.getGraphicsAlgorithm(), x, y);
+			propertyService.setIsLayedOut(newShape, true);
+			
+			// Update the size of the container
+			layoutService.checkContainerSize((ContainerShape)newShape);
+		}
+
+		return newShape;
 	}
 }

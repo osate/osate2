@@ -31,4 +31,14 @@ public interface ShapeCreationService {
 	void createUpdateShapesForElements(ContainerShape shape,
 			List<? extends NamedElement> elements, int startX, boolean incX,
 			int xPadding, int startY, boolean incY, int yPadding);
+	
+	/**
+	 * Create a shape for the specified element in the specified container if one does not exist. Otherwise, it sets the shapes position.
+	 * @param container
+	 * @param el
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	Shape createShape(final ContainerShape container, final NamedElement el, final int x, final int y);
 }

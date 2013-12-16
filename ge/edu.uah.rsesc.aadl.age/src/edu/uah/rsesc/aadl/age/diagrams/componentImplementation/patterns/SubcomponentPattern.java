@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -36,7 +35,6 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
@@ -369,35 +367,7 @@ public class SubcomponentPattern extends AgePattern {
 	 		@Override
 			public void beforeCommit(final Resource resource, final ComponentImplementation ci, final Subcomponent newSubcomponent) {
 				diagramMod.commit();
-				
-				if(newSubcomponent != null) {
-					Shape newShape = (ContainerShape)shapeService.getDescendantShapeByElementQualifiedName(context.getTargetContainer(), newSubcomponent);
-
-					// If the update feature hasn't been called, add the shape to the diagram. This is preferred rather than waiting because otherwise the container
-					// will be resized based on the original location for the shape.
-					if(newShape == null) {
-						final AddContext addContext = new AddContext();
-						addContext.setTargetContainer(context.getTargetContainer());
-						addContext.setNewObject(new AadlElementWrapper(newSubcomponent));				
-						
-						// Execute the add feature
-						final IAddFeature addFeature = getFeatureProvider().getAddFeature(addContext);
-						if(addFeature != null && addFeature.canAdd(addContext)) {
-							addFeature.execute(addContext);
-						}
-			
-						// Try to find the shape again
-						newShape = shapeService.getDescendantShapeByElementQualifiedName(context.getTargetContainer(), newSubcomponent);			
-					}
-					
-					if(newShape != null) {
-						Graphiti.getGaService().setLocation(newShape.getGraphicsAlgorithm(), context.getX(), context.getY());
-						propertyService.setIsLayedOut(newShape, true);
-						
-						// Update the size of the container
-						layoutService.checkContainerSize((ContainerShape)newShape);
-					}
-				}							
+				shapeCreationService.createShape(context.getTargetContainer(), newSubcomponent, context.getX(), context.getY());
 			}
 		});
 		
