@@ -41,7 +41,7 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 
 	@Override
 	public ContainerShape getOwnerShape(final Connection connection) {
-		if(connection.getStart().getParent() instanceof ContainerShape) {
+		if(connection.getStart() != null && connection.getStart().getParent() instanceof ContainerShape) {
 			ContainerShape temp = (ContainerShape)connection.getStart().getParent();
 			while(temp != null) {
 				final Object tempBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(temp);

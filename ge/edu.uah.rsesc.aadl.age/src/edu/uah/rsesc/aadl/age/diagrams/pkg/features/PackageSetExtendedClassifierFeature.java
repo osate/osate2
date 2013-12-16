@@ -89,7 +89,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 		final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElements()[0]);
 		
 		// Prompt the user for the element
-		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a classifier to extend.", getExtensibleClassifierDescriptions(classifier));
+		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier to extend.", getExtensibleClassifierDescriptions(classifier));
 		if(dlg.open() == Dialog.CANCEL) {
 			return;
 		}		
@@ -102,7 +102,7 @@ public class PackageSetExtendedClassifierFeature extends AbstractCustomFeature {
 				final PackageSection section = pkg.getPublicSection();
 				
 				// Resolve the selected classifier
-				final Classifier selectedClassifier = (dlg.getSelectedElement() != null && dlg.getSelectedElement().eIsProxy()) ? (Classifier)EcoreUtil.resolve(dlg.getSelectedElement(), resource) : (Classifier)dlg.getSelectedElement();
+				final Classifier selectedClassifier = (dlg.getFirstSelectedNamedElement() != null && dlg.getFirstSelectedNamedElement().eIsProxy()) ? (Classifier)EcoreUtil.resolve(dlg.getFirstSelectedNamedElement(), resource) : (Classifier)dlg.getFirstSelectedNamedElement();
 				if(selectedClassifier == null) {
 					return null;
 				}

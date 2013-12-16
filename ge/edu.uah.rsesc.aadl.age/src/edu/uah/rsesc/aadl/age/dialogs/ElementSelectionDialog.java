@@ -8,6 +8,7 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.dialogs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -18,7 +19,7 @@ import org.osate.aadl2.NamedElement;
 public class ElementSelectionDialog extends org.eclipse.ui.dialogs.ElementListSelectionDialog {
 	private static final Object nullObject = new Object(); // Object that represents a null value. ElementListSelectionDialog does not support having null elements
 	
-	public ElementSelectionDialog(final Shell parentShell, final String prompt, final List<?> elementDescriptions) {
+	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt, final List<?> elementDescriptions) {
 		super(parentShell, new org.eclipse.jface.viewers.LabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -34,7 +35,7 @@ public class ElementSelectionDialog extends org.eclipse.ui.dialogs.ElementListSe
 			}
 		});
 		
-		this.setTitle("Select a Classifier");
+		this.setTitle(dlgTitle);
 		this.setMessage(prompt);
 		
 		// Convert null values to point to the nullObject
@@ -62,22 +63,34 @@ public class ElementSelectionDialog extends org.eclipse.ui.dialogs.ElementListSe
 		return results;
 	}
 
-	public NamedElement getSelectedElement() {
-		// Get the actual object
-		final Object firstResult = super.getFirstResult();
-		if(firstResult == null) {
+	public NamedElement getFirstSelectedNamedElement() {
+		final NamedElement[] selectedElements = getSelectedNamedElements();
+		if(selectedElements.length > 0) {
+			return selectedElements[0];
+		} else {
 			return null;
-		} else if(firstResult instanceof IEObjectDescription) {
-			final EObject element = ((IEObjectDescription)firstResult).getEObjectOrProxy();	
-			
-			// Return the element
-			if(element instanceof NamedElement) {
-				return (NamedElement)element;
+		}
+	}
+	
+	public NamedElement[] getSelectedNamedElements() {
+		final Object[] result = getResult();
+		final NamedElement[] selectedElements = new NamedElement[result.length];
+		for(int i = 0; i < result.length; i++) {
+			final Object obj = result[i];
+			if(obj == null) {
+				selectedElements[i] = null;
+			} else if(obj instanceof IEObjectDescription) {
+				final EObject element = ((IEObjectDescription)obj).getEObjectOrProxy();	
+				
+				// Return the element
+				if(element instanceof NamedElement) {
+					selectedElements[i] = (NamedElement)element;
+				}
+			} else if(obj instanceof NamedElement) {
+				selectedElements[i] = (NamedElement)obj;
 			}
-		} else if(firstResult instanceof NamedElement) {
-			return (NamedElement)firstResult;
 		}
 		
-		return null;
+		return selectedElements;
 	}
 }

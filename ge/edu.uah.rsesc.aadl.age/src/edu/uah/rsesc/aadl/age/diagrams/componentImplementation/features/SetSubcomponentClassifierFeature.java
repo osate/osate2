@@ -112,7 +112,7 @@ public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 		final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(pe);
 
 		// Prompt the user for the classifier
-		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a classifier.", getPotentialSubcomponentTypes(sc));
+		final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier.", getPotentialSubcomponentTypes(sc));
 		if(dlg.open() == Dialog.CANCEL) {
 			return;
 		}
@@ -123,7 +123,7 @@ public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 			public Object modify(final Resource resource, final Subcomponent sc) {
 				
 				// Import the package if necessary
-				SubcomponentType selectedSubcomponentType = (SubcomponentType)dlg.getSelectedElement();
+				SubcomponentType selectedSubcomponentType = (SubcomponentType)dlg.getFirstSelectedNamedElement();
 				if(selectedSubcomponentType != null) {
 					// Resolve the reference
 					selectedSubcomponentType = (SubcomponentType)EcoreUtil.resolve(selectedSubcomponentType, resource);

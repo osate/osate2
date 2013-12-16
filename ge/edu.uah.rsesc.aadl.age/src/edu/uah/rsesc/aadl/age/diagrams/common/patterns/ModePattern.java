@@ -17,12 +17,14 @@ import javax.inject.Inject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.features.IDirectEditingInfo;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
+import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -44,7 +46,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Subcomponent;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
@@ -102,7 +103,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return AadlElementWrapper.unwrap(mainBusinessObject) instanceof Mode;
 	}	
-	
+		
 	@Override
 	public boolean canAdd(final IAddContext context) {
 		if(isMainBusinessObjectApplicable(context.getNewObject())) {
@@ -119,15 +120,53 @@ public class ModePattern extends AgeLeafShapePattern {
 		return false;
 	}
 	
+	/** Method to transform a move shape context into one that can be used. Typically the "root" shapes are moved. However, due to an issue that prevents direct editing
+	 * when the label is not an active shape, the label is active and is used in the call to the move shape methods. This method transforms the move shape context
+	 * to point to the root shape instead of the label shape.
+	 * @param context
+	 * @return
+	 */
+	private IMoveShapeContext transformMoveShapeContext(final IMoveShapeContext context) {
+		final Shape shape = context.getShape();
+		final Shape newShape;
+		final ContainerShape sourceContainer;
+		if(shape.getGraphicsAlgorithm() instanceof Text) {
+			newShape = shapeHelper.getClosestAncestorWithBusinessObjectType(shape.getContainer(), Mode.class);
+			sourceContainer = newShape.getContainer();
+		} else {
+			newShape = shape;
+			sourceContainer = context.getSourceContainer();
+		}
+		final MoveShapeContext newCtx = new MoveShapeContext(newShape);
+		newCtx.setSourceContainer(sourceContainer);
+		newCtx.setTargetContainer(context.getTargetContainer());
+		newCtx.setDeltaX(context.getDeltaX());
+		newCtx.setDeltaY(context.getDeltaY());
+		newCtx.setX(context.getX());
+		newCtx.setY(context.getY());
+		return newCtx;
+	}
+	
+	@Override
+	public boolean canMoveShape(final IMoveShapeContext context) {
+		return super.canMoveShape(transformMoveShapeContext(context));
+	}
+
+	@Override
+	public void moveShape(final IMoveShapeContext context) {
+		super.moveShape(transformMoveShapeContext(context));
+	}
+	
 	@Override 
-	protected void postMoveShape(final IMoveShapeContext context) {
-		final Anchor anchor = anchorService.getAnchorByName(getInnerModeShape((ContainerShape)context.getPictogramElement()), chopboxAnchorName);
+	protected void postMoveShape(final IMoveShapeContext untransformedContext) {
+		final IMoveShapeContext newContext = transformMoveShapeContext(untransformedContext);
+		final Anchor anchor = anchorService.getAnchorByName(getInnerModeShape((ContainerShape)newContext.getPictogramElement()), chopboxAnchorName);
 		if(anchor != null) {
 			updateModeTransition(anchor.getIncomingConnections());
 			updateModeTransition(anchor.getOutgoingConnections());
 		}
 		
-		resizeHelper.checkContainerSize((ContainerShape)context.getPictogramElement());
+		resizeHelper.checkContainerSize((ContainerShape)newContext.getPictogramElement());
 	}
 	
 	// Updates the control points for mode transition connections. Also update the mode transition triggers. 

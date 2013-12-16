@@ -303,11 +303,11 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 				baseClassifier = containerObj;
 			} else {
 				if(isComponentImplementation()) {
-					final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a classifier to implement or extend.", getValidBaseClassifierDescriptions());
+					final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier to implement or extend.", getValidBaseClassifierDescriptions());
 					if(dlg.open() == Dialog.CANCEL) {
 						return null;
 					}			
-					baseClassifier = dlg.getSelectedElement();			
+					baseClassifier = dlg.getFirstSelectedNamedElement();			
 				} else {
 					baseClassifier = null;
 				}
