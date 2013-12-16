@@ -17,11 +17,13 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
+import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -38,6 +40,7 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.ModeTransition;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -47,6 +50,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.GraphicalToTextualFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.RenameModeTransitionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureDirectionFeature;
@@ -318,5 +322,17 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
 			this.addPattern(createFeaturePattern(featureType));	
 		}
+	}
+	
+	@Override
+	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
+		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
+		if(bor != null) {
+			if(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof ModeTransition) {
+				return make(RenameModeTransitionFeature.class);
+			}
+		}
+
+		return super.getDirectEditingFeatureAdditional(context);
 	}
 }

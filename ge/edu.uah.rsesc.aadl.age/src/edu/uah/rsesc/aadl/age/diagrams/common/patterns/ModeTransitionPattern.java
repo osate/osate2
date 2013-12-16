@@ -407,7 +407,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final ComponentClassifier cc = getComponentClassifier((Shape)context.getSourcePictogramElement());
 		
 		// Determine the name for the new mode transition
-		final String newElementName = namingService.buildUniqueIdentifier(cc, "new_transition");
+		final String newElementName = namingService.buildUniqueIdentifier(cc, "newTransition");
 		
 		// TODO: Only include ports?
 		// TODO: Include all relevant ports, subcomponent, feature group, or subprogram call
