@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
@@ -36,9 +37,9 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -53,6 +54,7 @@ import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
+import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 
@@ -68,6 +70,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final ShapeCreationService shapeCreationService;
 	private final DiagramModificationService diagramModService;
 	private final AadlModificationService modificationService;
+	private final UserInputService userInputService;
 	private final NamingService namingService;
 	private final BusinessObjectResolutionService bor;	
 	
@@ -75,7 +78,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final ShapeService shapeHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
-			final NamingService namingService, final BusinessObjectResolutionService bor) {
+			final UserInputService userInputService, final NamingService namingService, final BusinessObjectResolutionService bor) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorService = anchorUtil;
 		this.resizeHelper = resizeHelper;
@@ -86,6 +89,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		this.shapeCreationService = shapeCreationService;
 		this.diagramModService = diagramModService;
 		this.modificationService = modificationService;
+		this.userInputService = userInputService;
 		this.namingService = namingService;
 		this.bor = bor;
 	}
@@ -262,12 +266,12 @@ public class ModePattern extends AgeLeafShapePattern {
 
 	@Override
 	public boolean isPaletteApplicable() {
-		return bor.getBusinessObjectForPictogramElement(getDiagram()) instanceof ComponentType;
+		return bor.getBusinessObjectForPictogramElement(getDiagram()) instanceof ComponentClassifier;
 	}
 	
 	@Override
 	public boolean canCreate(final ICreateContext context) {
-		return bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentType;
+		return bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentClassifier;
 	}
 	
 	@Override
@@ -313,5 +317,46 @@ public class ModePattern extends AgeLeafShapePattern {
 		
 		// Return the new mode if it was created
 		return newMode == null ? EMPTY : new Object[] {newMode};
+	}
+	
+	@Override
+	public boolean canDelete(final IDeleteContext context) {
+		return true;
+	}
+
+	@Override
+	public void delete(final IDeleteContext context) {
+		if(!userInputService.confirmDelete(context)) {
+			return;
+		}
+		
+		final Mode mode = (Mode)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		modificationService.modify(mode, new AbstractModifier<Mode, Object>() {
+			private DiagramModificationService.Modification diagramMod;
+			
+			@Override
+			public Object modify(final Resource resource, final Mode mode) {
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			final Classifier classifier = mode.getContainingClassifier();
+	 			if(classifier instanceof ComponentImplementation) {
+	 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)classifier);	
+	 			}
+	 			
+				// Just remove the mode. In the future it would be helpful to offer options for refactoring the model so that it does not
+				// cause errors.
+				EcoreUtil.remove(mode);
+				
+				return null;
+			}		
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final Mode mode, final Object modificationResult) {
+				diagramMod.commit();
+			}
+		});
+				
+		// Clear selection
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
 }
