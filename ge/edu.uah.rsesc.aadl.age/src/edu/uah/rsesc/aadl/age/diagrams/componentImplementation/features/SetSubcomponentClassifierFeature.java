@@ -57,7 +57,7 @@ import org.osate.aadl2.ThreadGroupSubcomponentType;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.ThreadSubcomponentType;
 import org.osate.aadl2.VirtualBusSubcomponent;
-import org.osate.aadl2.VitualBusSubcomponentType;
+import org.osate.aadl2.VirtualBusSubcomponentType;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
@@ -157,7 +157,7 @@ public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 				} else if(sc instanceof AbstractSubcomponent) {
 					((AbstractSubcomponent)sc).setAbstractSubcomponentType((AbstractSubcomponentType)selectedSubcomponentType);
 				} else if(sc instanceof VirtualBusSubcomponent) {
-					((VirtualBusSubcomponent)sc).setVirtualBusSubcomponentType((VitualBusSubcomponentType)selectedSubcomponentType);
+					((VirtualBusSubcomponent)sc).setVirtualBusSubcomponentType((VirtualBusSubcomponentType)selectedSubcomponentType);
 				} else if(sc instanceof BusSubcomponent) {
 					((BusSubcomponent)sc).setBusSubcomponentType((BusSubcomponentType)selectedSubcomponentType);
 				} else if(sc instanceof ProcessorSubcomponent) {
@@ -204,7 +204,7 @@ public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 			return p.getAbstractSubcomponentType();
 			
 		case VIRTUAL_BUS:
-			return p.getVitualBusSubcomponentType();
+			return p.getVirtualBusSubcomponentType();
 			
 		case VIRTUAL_PROCESSOR:
 			return p.getVirtualProcessorSubcomponentType();
