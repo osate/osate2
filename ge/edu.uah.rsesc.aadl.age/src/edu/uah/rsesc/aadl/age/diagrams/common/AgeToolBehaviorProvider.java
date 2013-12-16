@@ -13,11 +13,9 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
-import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
-import org.eclipse.graphiti.util.ILocationInfo;
 import org.osate.aadl2.Generalization;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;

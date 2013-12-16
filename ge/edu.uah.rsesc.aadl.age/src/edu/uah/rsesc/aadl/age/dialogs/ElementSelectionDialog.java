@@ -8,7 +8,6 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.dialogs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;

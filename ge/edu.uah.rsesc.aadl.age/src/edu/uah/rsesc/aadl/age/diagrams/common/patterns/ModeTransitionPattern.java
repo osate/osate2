@@ -25,6 +25,7 @@ import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
@@ -45,7 +46,6 @@ import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.IGefService;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
@@ -160,7 +160,6 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		// Before removing all the decorators, get position of the label(if one exists)
-		/*
 		int labelX = 0;
 		int labelY = 0;
 		for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
@@ -170,7 +169,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 				labelY = text.getY();
 			}
 		}
-		*/
+		
 		connection.getConnectionDecorators().clear();
 		
 		// Create the arrow
@@ -178,15 +177,14 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
         createArrow(arrowConnectionDecorator, styleService.getDecoratorStyle());
         
 		// Create Label
-        // TODO: Consider whether or not to have labels for transitions. Only show up in properties? Causes the diagram to be less cluttered. 
-        /*
+        final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(connection);
         final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-		text.setStyle(StyleUtil.getLabelStyle(getDiagram()));
-		gaService.setLocation(text, labelX, labelY);
+		text.setStyle(styleService.getLabelStyle());
+ 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(mt.getName());
-	    */
+	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(mt));
 	}
 	
 	@Override
@@ -332,14 +330,14 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 
 	@Override
 	protected Anchor[] getAnchors(final Connection connection) {
-		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+		final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(connection);
 		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
 		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, mt);		
 	}
 	
 	@Override
 	protected void onAfterRefresh(final Connection connection) {
-		final ModeTransition mt = (ModeTransition)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+		final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(connection);
 		updateTriggers(connection, mt);
 	}
 	
