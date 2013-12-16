@@ -20,6 +20,7 @@ import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
@@ -42,6 +43,9 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
@@ -184,7 +188,8 @@ public class ModePattern extends AgeLeafShapePattern {
         final String labelTxt = mode.getName();
         
 		// Create label
-        final Shape labelShape = peCreateService.createShape(innerModeShape, false);
+        final Shape labelShape = peCreateService.createShape(innerModeShape, true);
+        link(labelShape, new AadlElementWrapper(mode));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
         // Set the size        
@@ -359,4 +364,62 @@ public class ModePattern extends AgeLeafShapePattern {
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
+	
+	// Renaming
+	@Override
+	public int getEditingType() {
+        return TYPE_TEXT;
+    }
+	
+	@Override
+	public boolean stretchFieldToFitText() {
+		return true;
+	}
+	
+    @Override
+    public String checkValueValid(final String value, final IDirectEditingContext context) {
+    	return namingService.checkNameValidity((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), value);
+    }
+ 
+    @Override
+    public boolean canDirectEdit(final IDirectEditingContext context) {
+        final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+        return ga instanceof Text;
+    }
+    
+    public String getInitialValue(final IDirectEditingContext context) {
+    	final Mode mode = (Mode)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	return mode.getName();
+    }
+    
+    public void setValue(final String value, final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+    	final Mode mode = (Mode)bor.getBusinessObjectForPictogramElement(pe);
+   	
+    	modificationService.modify(mode, new AbstractModifier<Mode, Object>() {
+    		private DiagramModificationService.Modification diagramMod;
+    		
+     		@Override
+    		public Object modify(final Resource resource, final Mode mode) {
+     			// Resolving allows the name change to propagate when editing without an Xtext document
+     			EcoreUtil.resolveAll(resource.getResourceSet());
+
+     			// Start the diagram modification
+     			diagramMod = diagramModService.startModification();     			
+     			
+     			// Mark linkages to the element as dirty 			
+     			diagramMod.markLinkagesAsDirty(mode);
+     			
+     			// Set the element's name
+    			mode.setName(value); 			
+    			
+    			return null;
+    		}	
+
+     		@Override
+    		public void beforeCommit(final Resource resource, final Mode mode, final Object modificationResult) {
+    			diagramMod.commit();
+    		}
+    	});   	
+    }
 }

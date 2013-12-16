@@ -128,10 +128,10 @@ public class RenameConnectionFeature extends AbstractDirectEditingFeature {
  			// Mark linkages to refinements as dirty
  			updateRefinees(aadlConnection, resource.getResourceSet());
  			
- 			// Mark linkages to the subcomponent as dirty 			
+ 			// Mark linkages to the element as dirty 			
  			diagramMod.markLinkagesAsDirty(aadlConnection);
  			
- 			// Set the subcomponent's name
+ 			// Set the element's name
 			aadlConnection.setName(newName); 			
 			
 			return null;

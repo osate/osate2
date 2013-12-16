@@ -65,7 +65,6 @@ import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
 import edu.uah.rsesc.aadl.age.services.LayoutService;
 import edu.uah.rsesc.aadl.age.services.NamingService;
-import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.SubcomponentService;
@@ -90,7 +89,6 @@ public class SubcomponentPattern extends AgePattern {
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
 	private final ShapeService shapeService;
-	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType;
 
@@ -125,8 +123,7 @@ public class SubcomponentPattern extends AgePattern {
 			final ConnectionCreationService connectionCreationService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final HighlightingService highlightingHelper, final AadlModificationService aadlModService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final ShapeService shapeService, 
-			final PropertyService propertyService, final BusinessObjectResolutionService bor,
-			final @Named("Subcomponent Type") EClass subcomponentType) {
+			final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.anchorUtil = anchorUtil;
 		this.visibilityHelper = visibilityHelper;
 		this.layoutService = resizeHelper;
@@ -141,7 +138,6 @@ public class SubcomponentPattern extends AgePattern {
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
 		this.shapeService = shapeService;
-		this.propertyService = propertyService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
