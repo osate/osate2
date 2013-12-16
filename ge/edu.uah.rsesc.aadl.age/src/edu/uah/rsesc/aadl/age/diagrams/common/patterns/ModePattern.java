@@ -45,7 +45,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
-
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
@@ -267,6 +266,10 @@ public class ModePattern extends AgeLeafShapePattern {
 		return (ContainerShape)shapeHelper.getChildShapeByName(shape, innerModeShapeName);
 	}
 	
+	private ComponentClassifier getComponentClassifier(final Shape modeShape) {
+		return shapeHelper.getClosestBusinessObjectOfType(modeShape, ComponentClassifier.class);
+	}
+	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
 	    final IGaService gaService = Graphiti.getGaService();
 	    final GraphicsAlgorithm ga = gaService.createPlainPolygon(gaContainer, new int[] {
@@ -364,7 +367,8 @@ public class ModePattern extends AgeLeafShapePattern {
 	
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
-		return true;
+		final Mode mode = (Mode)bor.getBusinessObjectForPictogramElement(((Shape)context.getPictogramElement()));
+		return mode.getContainingClassifier() == getComponentClassifier((Shape)context.getPictogramElement());
 	}
 
 	@Override
@@ -422,7 +426,8 @@ public class ModePattern extends AgeLeafShapePattern {
     @Override
     public boolean canDirectEdit(final IDirectEditingContext context) {
         final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
-        return ga instanceof Text;
+        final Mode mode = (Mode)bor.getBusinessObjectForPictogramElement(((Shape)context.getPictogramElement()));
+		return ga instanceof Text && mode.getContainingClassifier() == getComponentClassifier((Shape)context.getPictogramElement());
     }
     
     public String getInitialValue(final IDirectEditingContext context) {
