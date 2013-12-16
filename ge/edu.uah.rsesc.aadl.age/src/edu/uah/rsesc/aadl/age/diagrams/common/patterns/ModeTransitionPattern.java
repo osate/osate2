@@ -375,8 +375,18 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		if(!(context.getSourcePictogramElement() instanceof Shape)) {
 			return false;
 		}
+		
 		final Shape shape = (Shape)context.getSourcePictogramElement();
-		return getMode(shape) != null && getComponentClassifier(shape) != null;
+		if(getMode(shape) == null) {
+			return false;
+		}
+		
+		final ComponentClassifier cc = getComponentClassifier(shape);
+		if(cc == null) {
+			return false;
+		}
+		
+		return !cc.isDerivedModes();
     }
 	
 	private ComponentClassifier getComponentClassifier(final Shape modeShape) {
