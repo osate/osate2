@@ -35,13 +35,21 @@ import org.osate.importer.model.sm.StateMachine;
 
 public class Component implements Comparable {
 
+	public enum ComponentType {
+		EXTERNAL_INPORT, EXTERNAL_OUTPORT, BLOCK, UNKNOWN
+	};
+	
 	private String 				name;
-	private String 				type;
+	private ComponentType 		type;
 	private int    				identifier;
 	private List<Connection> 	connections;
 	private List<Component> 	subEntities;
 	private Component 			parent;
 	private List<StateMachine>	stateMachines;
+	
+	public final int COMPONENT_TYPE_EXTERNAL_INPORT  	= 1;
+	public final int COMPONENT_TYPE_EXTERNAL_OUTPORT 	= 2;
+	public final int COMPONENT_TYPE_BLOCK	 			= 3;
 	
 
 	
@@ -53,7 +61,7 @@ public class Component implements Comparable {
 		this.stateMachines  	= new ArrayList<StateMachine>();
 		this.parent 			= null;
 		this.identifier 		= Utils.INVALID_ID;
-		this.type 				= null;
+		this.type 				= ComponentType.UNKNOWN;
 	}
 	
 	public void addStateMachine (StateMachine sm)
@@ -61,12 +69,12 @@ public class Component implements Comparable {
 		this.stateMachines.add(sm);
 	}
 	
-	public String getType ()
+	public ComponentType getType ()
 	{
 		return this.type;
 	}
 	
-	public void setType (String t)
+	public void setType (ComponentType t)
 	{
 		this.type = t;
 	}

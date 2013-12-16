@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
+import org.osate.importer.model.Component.ComponentType;
 import org.osate.importer.model.Connection;
 import org.osate.importer.model.Model;
 import org.osate.importer.model.sm.State;
@@ -74,7 +75,19 @@ public class ImportModel {
 					int sidValue = Integer.parseInt(sidStr);
 					Component c = new Component(blockName);
 					c.setIdentifier (sidValue);
-					c.setType(blockType);
+					
+					if (blockType.equalsIgnoreCase("inport"))
+					{
+						c.setType(ComponentType.EXTERNAL_INPORT);
+					}
+					if (blockType.equalsIgnoreCase("outport"))
+					{
+						c.setType(ComponentType.EXTERNAL_OUTPORT);
+					}
+					if (blockType.equalsIgnoreCase("reference"))
+					{
+						c.setType(ComponentType.BLOCK);
+					}
 					model.addComponent(c);
 				}
 			}

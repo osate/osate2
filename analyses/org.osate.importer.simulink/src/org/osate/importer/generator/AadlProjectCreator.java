@@ -127,23 +127,26 @@ public class AadlProjectCreator
 
 			for (Component e : genericModel.getComponents())
 			{
-				out.write ("abstract "+e.getAadlName()+"\n");
-				if ( (e.getIncomingDependencies().size() > 0) ||
-						(e.getOutgoingDependencies().size() > 0))
+				if (e.getType() == Component.ComponentType.BLOCK)
 				{
-					out.write ("features\n");
-					for (Component e2 : e.getIncomingDependencies())
+					out.write ("abstract "+e.getAadlName()+"\n");
+					if ( (e.getIncomingDependencies().size() > 0) ||
+							(e.getOutgoingDependencies().size() > 0))
 					{
-						out.write ("   from_"+e2.getAadlName()+" : in event port;\n");
+						out.write ("features\n");
+						for (Component e2 : e.getIncomingDependencies())
+						{
+							out.write ("   from_"+e2.getAadlName()+" : in event port;\n");
+						}
+						for (Component e2 : e.getOutgoingDependencies())
+						{
+							out.write ("   to_" + e2.getAadlName()+" : out event port;\n");
+						}
 					}
-					for (Component e2 : e.getOutgoingDependencies())
-					{
-						out.write ("   to_" + e2.getAadlName()+" : out event port;\n");
-					}
+					out.write ("properties\n");
+					out.write ("   SEI::nsloc => 100;\n");
+					out.write ("end "+ e.getAadlName() + ";\n");
 				}
-				out.write ("properties\n");
-				out.write ("   SEI::nsloc => 100;\n");
-				out.write ("end "+ e.getAadlName() + ";\n");
 			}
 
 			out.write ("end "+Preferences.getPackagePrefix()+"imported::functions;\n");
@@ -194,6 +197,11 @@ public class AadlProjectCreator
 
 			for (Component e : genericModel.getComponents())
 			{
+				if (e.getType() != Component.ComponentType.BLOCK)
+				{
+					continue;
+				}
+				
 				/**
 				 * Try to find if we have a corresponding state machine
 				 * for this component.
@@ -586,13 +594,35 @@ public class AadlProjectCreator
 
 
 			out.write("system mainsystem\n");
-			out.write("end mainsystem;\n");
+			boolean featuresDeclared = false;
+			for (Component e : genericModel.getComponents())
+			{
+				if (e.getType() == Component.ComponentType.EXTERNAL_INPORT)
+				{
+					if (! featuresDeclared)
+					{
+						out.write("features\n");
+						featuresDeclared = true;
+					}
+					out.write ("   "+e.getAadlName()+" : in event data port generictype;\n");
+				}
+				if (e.getType() == Component.ComponentType.EXTERNAL_OUTPORT)
+				{
+					if (! featuresDeclared)
+					{
+						out.write("features\n");
+						featuresDeclared = true;
+					}
+					out.write ("   "+e.getAadlName()+" : out event data port generictype;\n");
+				}
+			}
+			out.write("end mainsystem;\n\n\n");
 
 			out.write("system implementation mainsystem.i\n");
 			out.write("subcomponents\n");
 			for (Component e : genericModel.getComponents())
 			{
-				if (e.getParent() == null)
+				if ((e.getParent() == null) && (e.getType() == Component.ComponentType.BLOCK))
 				{
 					out.write ("   "+e.getAadlName()+" : process pr_"+e.getAadlName()+".i;\n");
 
@@ -624,14 +654,25 @@ public class AadlProjectCreator
 						connectionPreamble = true;
 						out.write("connections\n");
 					}
-					out.write("   c" + connectionId++ +" : port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
+					if ((e.getType() == Component.ComponentType.BLOCK) && (e2.getType() == Component.ComponentType.BLOCK))
+					{
+						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
+					}
+					if ((e.getType() == Component.ComponentType.EXTERNAL_INPORT) && (e2.getType() == Component.ComponentType.BLOCK))
+					{
+						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + "->" +  e2.getAadlName() + ".from_" + e.getAadlName() +";\n");
+					}
+					if ((e.getType() == Component.ComponentType.BLOCK) && (e2.getType() == Component.ComponentType.EXTERNAL_OUTPORT))
+					{
+						out.write("   c" + connectionId++ +" : port " + e.getAadlName() + ".to_" + e2.getAadlName() + "->" +  e2.getAadlName() +";\n");
+					}
 				}
 			}
 
 			out.write("properties\n");
 			for (Component e : genericModel.getComponents())
 			{
-				if(e.getParent() != null)
+				if((e.getParent() != null) || (e.getType() != Component.ComponentType.BLOCK))
 				{
 					continue;
 				}
