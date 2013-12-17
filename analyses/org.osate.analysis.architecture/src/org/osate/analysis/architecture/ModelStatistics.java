@@ -134,6 +134,9 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 		instanceSwitch = new InstanceSwitch<String>() {
 			public String caseComponentInstance(ComponentInstance obj) {
 				componentCount++;
+				System.out.println ("fullname =" + obj.getFullName());
+				System.out.println ("qualified=" + obj.getQualifiedName());
+				System.out.println ("path     =" + obj.getComponentInstance().getInstanceObjectPath());
 				/*
 				 * We want to count category specific instances. We retrieve the
 				 * category and branch on its numeric representation.

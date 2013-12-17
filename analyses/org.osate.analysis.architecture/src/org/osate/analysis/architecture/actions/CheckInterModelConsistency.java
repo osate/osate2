@@ -61,6 +61,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -111,7 +112,7 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 			final SystemInstance root, final SystemOperationMode som) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 		final StringBuffer resoluteString = new StringBuffer();
-		resoluteString.append("package ConsistencyCheck\npublic\nannex resolute\n{**\nconsistency_check () <= \n  ** Check that all models are consistent **\n");
+		resoluteString.append("package ConsistencyCheck\npublic\nannex resolute\n{**\nconsistency_check () <= \n  ** \"Check that all models are consistent\" **\n");
 		final List<Element> features = new ForAllElement() {
 			@Override
 			protected boolean suchThat(final Element obj) {
@@ -132,12 +133,16 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 						StringLiteral modelType = (StringLiteral)PropertyUtils.getRecordFieldValue (rv, "model_type");
 						StringLiteral artifact = (StringLiteral)PropertyUtils.getRecordFieldValue (rv, "artifact");
 						
-						resoluteString.append ("  analysis(\"consistency\"," + "\""+modelType.getValue().toString()+"\"," + "\""+artifact.getValue().toString()+"\"," + "\""+filename.getValue().toString()+"\"\n" );
+						resoluteString.append ("  analysis(\"consistency\"," + "\""+modelType.getValue().toString()+"\"," + "\""+artifact.getValue().toString()+"\"," + "\""+filename.getValue().toString()+"\")\n" );
 					}
 				}
 			}
 		}.processPreOrderAll(root);
-
+		resoluteString.append("**};\nend ConsistencyChecks;\n");
+		WriteToFile report = new WriteToFile("Consistency", root);
+		report.addOutput(resoluteString.toString());
+		report.setFileExtension("aadl");
+		report.saveToFile();
 		OsateDebug.osateDebug(resoluteString.toString());
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();
