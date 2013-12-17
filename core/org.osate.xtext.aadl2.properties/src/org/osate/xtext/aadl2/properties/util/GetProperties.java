@@ -641,6 +641,9 @@ public class GetProperties {
 		return mipd;
 	}
 
+	
+
+	
 	/**
 	 * get specified instructions per dispatch as IPD
 	 * @param ne thread component instance
@@ -1084,5 +1087,15 @@ public class GetProperties {
 		return null;
 	}
 
+	public static List<? extends PropertyExpression> getModelReferences(final NamedElement ne) {
+		try {
+			Property modelReferences = lookupPropertyDefinition(ne,SEI._NAME, SEI.MODEL_REFERENCES);
+			List<? extends PropertyExpression> values = ne.getPropertyValueList(modelReferences);
+
+			return values;
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
 
 }
