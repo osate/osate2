@@ -114,6 +114,7 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 		final StringBuffer resoluteString = new StringBuffer();
 		resoluteString.append("package ConsistencyCheck\npublic\nannex resolute\n{**\nconsistency_check () <= \n  ** \"Check that all models are consistent\" **\n");
 		final List<Element> features = new ForAllElement() {
+			private boolean firstPassed = false;
 			@Override
 			protected boolean suchThat(final Element obj) {
 				return !monitor.isCanceled() && (obj instanceof ComponentInstance);
@@ -132,13 +133,17 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 						StringLiteral filename = (StringLiteral)PropertyUtils.getRecordFieldValue (rv, "filename");
 						StringLiteral modelType = (StringLiteral)PropertyUtils.getRecordFieldValue (rv, "model_type");
 						StringLiteral artifact = (StringLiteral)PropertyUtils.getRecordFieldValue (rv, "artifact");
-						
+						if (firstPassed)
+						{
+							resoluteString.append(" and ");
+						}
 						resoluteString.append ("  analysis(\"consistency\"," + "\""+modelType.getValue().toString()+"\"," + "\""+artifact.getValue().toString()+"\"," + "\""+filename.getValue().toString()+"\")\n" );
+						firstPassed = true;
 					}
 				}
 			}
 		}.processPreOrderAll(root);
-		resoluteString.append("**};\nend ConsistencyChecks;\n");
+		resoluteString.append("**};\nend ConsistencyCheck;\n");
 		WriteToFile report = new WriteToFile("Consistency", root);
 		report.addOutput(resoluteString.toString());
 		report.setFileExtension("aadl");
