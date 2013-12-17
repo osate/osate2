@@ -1,5 +1,6 @@
 package org.osate.importer.simulink;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,14 @@ import org.osate.importer.model.Model;
 import org.osate.importer.model.sm.State;
 import org.osate.importer.model.sm.StateMachine;
 import org.osate.importer.model.sm.Transition;
+import org.osate.importer.simulink.actions.DoImportModel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class ImportModel {
 
-	public static void processModel (Node model, Model produced)
+	public static void processModel (Node model, Model produced, String rootName)
 		{
 			NodeList nList = model.getChildNodes();
 			
@@ -32,12 +34,12 @@ public class ImportModel {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeName().equalsIgnoreCase("system"))
 				{
-					processSystem (nNode, produced);
+					processSystem (nNode, produced, rootName);
 				}
 			}
 		}
 
-	public static void processSystem (Node system, Model model)
+	public static void processSystem (Node system, Model model, String rootName)
 		{
 			Node attrName = null;
 			String direction;
@@ -49,12 +51,14 @@ public class ImportModel {
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeName().equalsIgnoreCase("block"))
 				{
+					
 					attrName = Utils.getAttribute(nNode, "Name");
 					
 					if (attrName == null)
 					{
 						continue;
 					}
+					
 					String blockName = attrName.getNodeValue().toString();
 					
 					attrName = Utils.getAttribute(nNode, "BlockType");
@@ -72,6 +76,13 @@ public class ImportModel {
 						continue;
 					}
 					String sidStr = attrName.getNodeValue().toString();
+					
+					if (sidStr.contains(":"))
+					{
+						sidStr = sidStr.substring(sidStr.lastIndexOf(":")+1);
+					}
+					
+					
 					int sidValue = Integer.parseInt(sidStr);
 					Component c = new Component(blockName);
 					c.setIdentifier (sidValue);
@@ -87,8 +98,32 @@ public class ImportModel {
 					if (blockType.equalsIgnoreCase("reference"))
 					{
 						c.setType(ComponentType.BLOCK);
+						if (blockName.equalsIgnoreCase(rootName))
+						{
+							String referenceSource = Utils.getSourceBlock (nNode);
+							OsateDebug.osateDebug(referenceSource);
+							if (referenceSource != null)
+							{
+								String[] strs = referenceSource.split("/");
+								String sourceFile = strs[0];
+								String sourceBlock = strs[1];
+//								OsateDebug.osateDebug("file=" + sourceFile);
+//								OsateDebug.osateDebug("block=" + sourceBlock);
+								c.setType(ComponentType.BLOCK);
+								FileImport.loadComponentFromLibrary (c, model, DoImportModel.getWorkingDirectory() + File.separator +  sourceFile + ".slx", sourceBlock);
+							}
+						}
 					}
-					model.addComponent(c);
+					if (blockType.equalsIgnoreCase("subsystem"))
+					{
+						c.setType(ComponentType.BLOCK);
+					}
+					
+					if ((c.getType() != ComponentType.UNKNOWN) && (DoImportModel.filterSystem() == false))
+					{
+						model.addComponent(c);
+					}
+					
 				}
 			}
 			

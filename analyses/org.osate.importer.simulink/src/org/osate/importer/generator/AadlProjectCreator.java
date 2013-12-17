@@ -224,7 +224,7 @@ public class AadlProjectCreator
 					{
 						if (! s.getStateMachine().isEmpty())
 						{
-							out.write ("subprogram "+s.getName()+"\n");
+							out.write ("system "+s.getName()+"\n");
 							if (s.getStateMachine().hasVariables())
 							{
 								out.write("features\n");
@@ -247,235 +247,18 @@ public class AadlProjectCreator
 							out.write ("end " + s.getName() + ";\n\n\n");
 							
 							
-							out.write ("subprogram implementation "+s.getName()+".i\n");
+							out.write ("system implementation "+s.getName()+".i\n");
 							Utils.writeBehaviorAnnex (s.getStateMachine(), out);
 							out.write ("end " + s.getName() + ".i;\n\n\n");
 						}
 					}
 				}
 				
-				if (Preferences.mapSubprogram())
+	
+
+				if (e.getParent() == null)
 				{
-					out.write ("subprogram "+e.getAadlName()+"\n");
-					if ( (e.getIncomingDependencies().size() > 0 )||
-							(e.getOutgoingDependencies().size() > 0 )||
-							((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
-									||
-									(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
-					{
-						out.write ("features\n");
-					}
-					for (Component etmp : e.getSubEntities())
-					{
-						for (Component e2 : etmp.getIncomingDependencies())
-						{
-							if (! e.contains(e2))
-							{
-								out.write ("   to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+" : in parameter generictype;\n");
-
-							}
-						}
-						for (Component e2 : etmp.getOutgoingDependencies())
-						{
-							if (! e.contains(e2))
-							{
-								out.write ("   from_" + etmp.getAadlName() +"_to_" + e2.getAadlName()+" : out parameter generictype;\n");
-							}
-						}
-					}
-					for (Component e2 : e.getIncomingDependencies())
-					{
-						out.write ("   to_"+e.getAadlName()+"_from_"+e2.getAadlName()+" : in parameter generictype;\n");
-					}
-					for (Component e2 : e.getOutgoingDependencies())
-					{
-						out.write ("   from_"+e.getAadlName()+"_to_" + e2.getAadlName()+" : out parameter generictype;\n");
-					}
-					out.write ("end "+ e.getAadlName() + ";\n\n");
-
-
-
-
-					out.write ("subprogram implementation "+e.getAadlName()+".i\n");
-					if (sm != null)
-					{
-			
-						if (sm.hasVariables() || sm.nestedStateMachinehasVariables())
-						{
-							out.write ("subcomponents\n");
-						}
-						
-						Utils.writeSubprogramSubcomponents (sm, out, new ArrayList<String>());
-						
-						/**
-						 * Let's call the other subprogram that contains
-						 * the sub state machines. Then, if these
-						 * state machines share data, we need to
-						 * add data components and connect them. 
-						 */
-						
-						if (sm.hasNestedStateMachines())
-						{
-							out.write ("calls\n");
-							out.write ("   mycall : {\n");
-							for (State s : sm.getStates())
-							{
-								if (! s.getStateMachine().isEmpty())
-								{
-									out.write ("      call_"+s.getName()+" : subprogram "+s.getName() + ".i;\n");
-
-								}
-							}
-							out.write ("};\n");
-						}
-						
-						
-						/**
-						 * 
-						 * Connect the data components shared among the different subprograms
-						 * using data access connections.
-						 */
-						if (sm.nestedStateMachinehasVariables())
-						{
-							int connectionId = 0;
-
-							out.write ("connections\n");
-							for (State state : sm.getStates())
-							{
-								for (String var : state.getStateMachine().getVariables())
-								{
-									out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
-
-								}
-							}
-						}
-					}
-
-					
-					
-					if (e.isContainer())
-					{
-						out.write ("calls\n");
-
-						out.write ("   mycall : {\n");
-						for (Component etmp : e.getSubEntities())
-						{
-							out.write ("      call_"+etmp.getAadlName()+" : subprogram "+etmp.getAadlName() + ".i;\n");
-						}
-						out.write ("};\n");
-
-						out.write ("connections\n");
-
-						int connectionId = 0;
-						for (Component etmp : e.getSubEntities())
-						{
-							for (Component e2 : etmp.getIncomingDependencies())
-							{
-								if (e.contains(e2))
-								{
-									out.write ("   c" + connectionId++ + " : parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> call_"+e2.getAadlName()+"to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
-
-								}
-								else
-								{
-									out.write ("   c" + connectionId++ + " : parameter "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
-								}
-							}
-							for (Component e2 : etmp.getOutgoingDependencies())
-							{
-								if (e.contains(e2))
-								{
-									out.write ("   c" + connectionId++ + " : parameter call_"+e2.getAadlName()+ "to_" + etmp.getAadlName() + "_from_"+e2.getAadlName() +" -> "+"call_"+etmp.getAadlName()+".to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+";\n");
-								}
-
-							}
-						}
-					}
-
-
-					if (sm != null)
-					{
-						Utils.writeBehaviorAnnex (sm, out);
-					}
-
-
-					out.write ("end "+ e.getAadlName() + ".i;\n\n");
-				}
-
-
-
-				if ((e.getParent() == null) && (Preferences.mapThread()))
-				{
-					out.write ("thread thr_"+e.getAadlName() + "\n");
-					if ( (e.getIncomingDependencies().size() > 0 )||
-							(e.getOutgoingDependencies().size() > 0 )||
-							((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
-									||
-									(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
-					{
-						out.write ("features\n");
-					}
-					for (Component etmp : e.getSubEntities())
-					{
-						for (Component e2 : etmp.getIncomingDependencies())
-						{
-							if (! e.contains(e2))
-							{
-								out.write ("   to_" + etmp.getAadlName() + "_from_"+e2.getAadlName()+" : in parameter generictype;\n");
-
-							}
-						}
-						for (Component e2 : etmp.getOutgoingDependencies())
-						{
-							if (! e.contains(e2))
-							{
-								out.write ("   from_" + etmp.getAadlName() +"_to_" + e2.getAadlName()+" : out parameter generictype;\n");
-							}
-						}
-					}
-
-					for (Component e2 : e.getIncomingDependencies())
-					{
-						out.write ("   from_"+e2.getAadlName()+" : in event data port generictype;\n");
-					}
-					for (Component e2 : e.getOutgoingDependencies())
-					{
-						out.write ("   to_" + e2.getAadlName()+" : out event data port generictype;\n");
-					}
-					out.write ("end thr_"+ e.getAadlName() + ";\n\n");
-
-					out.write ("thread implementation thr_"+e.getAadlName() + ".i\n");
-					if (Preferences.mapSubprogram())
-					{
-						int connectionId = 0;
-						out.write ("calls\n");
-
-						out.write ("   mycall : {\n");
-						out.write ("      call1 : subprogram "+e.getAadlName() + ";\n");
-						out.write ("};\n");
-						if ( (e.getIncomingDependencies().size() > 0 )||
-								(e.getOutgoingDependencies().size() > 0 )||
-								((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
-										||
-										(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
-						{
-							out.write ("connections\n");
-						}
-						for (Component e2 : e.getIncomingDependencies())
-						{
-							out.write ("   c" + connectionId++ +" : parameter from_"+e2.getAadlName()+" -> call1.to_"+e.getAadlName()+"_from_"+e2.getAadlName()+";\n");
-						}
-						for (Component e2 : e.getOutgoingDependencies())
-						{
-							out.write ("   c" + connectionId++ +" : parameter call1.from_"+e.getAadlName()+"_to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
-						}
-					}
-					out.write ("end thr_"+ e.getAadlName() + ".i;\n\n");
-
-				}
-				if ((e.getParent() == null) && (Preferences.mapProcess()))
-				{
-					out.write ("process pr_"+e.getAadlName()+"\n");
+					out.write ("system s_"+e.getAadlName()+"\n");
 					if ( (e.getIncomingDependencies().size() > 0 )||
 							(e.getOutgoingDependencies().size() > 0 )||
 							((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
@@ -492,33 +275,81 @@ public class AadlProjectCreator
 					{
 						out.write ("   to_" + e2.getAadlName()+" : out event data port generictype;\n");
 					}
-					out.write ("end pr_"+ e.getAadlName() + ";\n\n");
+					out.write ("end s_"+ e.getAadlName() + ";\n\n");
 
-					out.write ("process implementation pr_"+e.getAadlName()+".i\n");
-					if (Preferences.mapThread())
-					{
+					out.write ("system implementation s_"+e.getAadlName()+".i\n");
+
 						int connectionId = 0;
-						out.write ("subcomponents\n");
-						out.write ("   t_"+e.getAadlName()+" : thread thr_"+ e.getAadlName() + ".i;\n\n");
-						if ( (e.getIncomingDependencies().size() > 0 )||
-								(e.getOutgoingDependencies().size() > 0 )||
-								((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
+						if ( ((e.getSubEntities().size() > 0) && (((e.getSubEntities().get(0).getIncomingDependencies().size() > 0) 
 										||
 										(e.getSubEntities().get(0).getOutgoingDependencies().size() > 0)))))
 						{
 							out.write ("connections\n");
 						}
-						for (Component e2 : e.getIncomingDependencies())
-						{
-							out.write ("   c" + connectionId++ +" : port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
-						}
-						for (Component e2 : e.getOutgoingDependencies())
-						{
-							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
+//						for (Component e2 : e.getIncomingDependencies())
+//						{
+//							out.write ("   c" + connectionId++ +" : port from_"+e2.getAadlName()+" -> t_"+e.getAadlName()+".from_"+e2.getAadlName()+";\n");
+//						}
+//						for (Component e2 : e.getOutgoingDependencies())
+//						{
+//							out.write ("   c" + connectionId++ +" : port t_"+e.getAadlName()+".to_"+e2.getAadlName()+" -> to_"+e2.getAadlName()+";\n");
+//
+//						}
 
+						
+						
+						if (sm != null)
+						{
+				
+							
+							if (sm.hasVariables() || sm.nestedStateMachinehasVariables() || sm.hasNestedStateMachines())
+							{
+								out.write ("subcomponents\n");
+							}
+							
+							Utils.writeSubprogramSubcomponents (sm, out, new ArrayList<String>());
+							
+							/**
+							 * Let's call the other subprogram that contains
+							 * the sub state machines. Then, if these
+							 * state machines share data, we need to
+							 * add data components and connect them. 
+							 */
+							
+							if (sm.hasNestedStateMachines())
+							{
+
+								for (State s : sm.getStates())
+								{
+									if (! s.getStateMachine().isEmpty())
+									{
+										out.write ("      call_"+s.getName()+" : system "+s.getName() + ".i;\n");
+
+									}
+								}
+							}
+							
+							
+							/**
+							 * 
+							 * Connect the data components shared among the different subprograms
+							 * using data access connections.
+							 */
+							if (sm.nestedStateMachinehasVariables())
+							{
+
+								out.write ("connections\n");
+								for (State state : sm.getStates())
+								{
+									for (String var : state.getStateMachine().getVariables())
+									{
+										out.write ("   c" + connectionId++ + " : data access "+ var + "-> call_"+state.getName()+"." + var + ";\n");
+
+									}
+								}
+							}
 						}
-					}
-					out.write ("end pr_"+ e.getAadlName() + ".i;\n\n");
+					out.write ("end s_"+ e.getAadlName() + ".i;\n\n");
 				}
 			}
 
@@ -624,7 +455,7 @@ public class AadlProjectCreator
 			{
 				if ((e.getParent() == null) && (e.getType() == Component.ComponentType.BLOCK))
 				{
-					out.write ("   "+e.getAadlName()+" : process pr_"+e.getAadlName()+".i;\n");
+					out.write ("   "+e.getAadlName()+" : system s_"+e.getAadlName()+".i;\n");
 
 				}
 			}

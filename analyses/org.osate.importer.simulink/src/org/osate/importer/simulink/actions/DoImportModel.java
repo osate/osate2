@@ -38,6 +38,7 @@
 package org.osate.importer.simulink.actions;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,18 +53,23 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
@@ -84,142 +90,105 @@ import org.osate.importer.simulink.Activator;
 import org.osate.importer.simulink.FileImport;
 import org.osgi.framework.Bundle;
 
-/**
- * Internal class to display the Modules to be imported
- * @author jdelange
- *
- */
- class ModulesSelectionDialog extends Dialog {
-	  private String 			message;
-	  private List<String> 		selectedModules;
-	  private List<String> 		modulesList;
+ class SimulinkSystemDialog extends TitleAreaDialog {
 
+	  private Text txtSystemName;
+	  private String systemName;
 
-	  public ModulesSelectionDialog(Shell parent, List<String> ml) {
-	    this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-	    this.modulesList = ml;
-	    
+	  
+	  
+	  public SimulinkSystemDialog (Shell parentShell) {
+	    super(parentShell);
+	  }
+
+	  @Override
+	  public void create() {
+	    super.create();
+	    setTitle("Main System Selection");
+	    setMessage("Please select the System or Node that is the root AADL system", IMessageProvider.INFORMATION);
+	  }
+
+	  @Override
+	  protected Control createDialogArea(Composite parent) {
+	    Composite area = (Composite) super.createDialogArea(parent);
+	    Composite container = new Composite(area, SWT.NONE);
+	    container.setLayoutData(new GridData(GridData.FILL_BOTH));
+	    GridLayout layout = new GridLayout(2, false);
+	    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+	    container.setLayout(layout);
+
+	    createSystemName(container);
+
+	    return area;
+	  }
+
+	  private void createSystemName(Composite container) {
+	    Label labelSystemName  = new Label(container, SWT.NONE);
+	    labelSystemName.setText("Root Simulink System");
+
+	    GridData dataSystemName = new GridData();
+	    dataSystemName.grabExcessHorizontalSpace = true;
+	    dataSystemName.horizontalAlignment = GridData.FILL;
+
+	    txtSystemName = new Text(container, SWT.BORDER);
+	    txtSystemName.setLayoutData(dataSystemName);
 	  }
 
 
-	  public ModulesSelectionDialog(Shell parent, int style) {
-	    super(parent, style);
-	    setText("Select your modules");
-	    setMessage("Please select the modules to import:");
-	    this.selectedModules = new ArrayList<String>();
+
+
+	  @Override
+	  protected boolean isResizable() {
+	    return true;
 	  }
 
+	  // save content of the Text fields because they get disposed
+	  // as soon as the Dialog closes
+	  private void saveInput() {
+	    systemName = txtSystemName.getText();
 
-	  public String getMessage() 
+	  }
+
+	  @Override
+	  protected void okPressed() {
+	    saveInput();
+	    super.okPressed();
+	  }
+
+	  public String getSystemName()
 	  {
-	    return message;
+		  if (systemName.length() == 0)
+		  {
+			  return null;
+		  }
+		  return systemName;
 	  }
 
-
-	  public void setMessage(String message) {
-	    this.message = message;
-	  }
-
-
-	/**
-	 * Open the dialog box, display the content and wait for the result from the user
-	 * @return The list of modules names selected by the user.
-	 */
-	  public List<String> open()
-	  {
-	    Shell shell = new Shell(getParent(), getStyle());
-	    shell.setText(getText());
-	    createContents(shell);
-	    shell.pack();
-	    shell.open();
-	    Display display = getParent().getDisplay();
-	    while (!shell.isDisposed()) 
-	    {
-	      if (!display.readAndDispatch()) 
-	      {
-	        display.sleep();
-	      }
-	    }
-	    return this.selectedModules;
-	  }
-
-/**
- * Create all the widgets necessary to create the dialog
- * @param shell
- */
-	  private void createContents(final Shell shell) {
-	    shell.setLayout(new GridLayout(2, true));
-
-	    // Show the message
-	    Label label = new Label(shell, SWT.NONE);
-	    label.setText(message);
-	    GridData data = new GridData();
-	    data.horizontalSpan = 2;
-	    label.setLayoutData(data);
-
-    
-	    final Table table = new Table(shell, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-	    /**
-	     * Add the data to the table. For each
-	     * item to be displayed, we create an item with
-	     * a text field and a checkbox.
-	     */
-	    for (String moduleName : modulesList)
-	    {
-		    TableItem ti = new TableItem(table, SWT.NONE);
-		    ti.setText(moduleName);
-	    }
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    data.horizontalSpan = 2;
-	    table.setLayoutData(data);
-
-	/**
-	 * The OK button that register the selected
-	 * items.
-	 */
-	    Button ok = new Button(shell, SWT.PUSH);
-	    ok.setText("OK");
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    ok.setLayoutData(data);
-	    ok.addSelectionListener(new SelectionAdapter() {
-	      public void widgetSelected(SelectionEvent event) {
-	    	  for (TableItem ti : table.getItems())
-	    	  {
-	    		  if (ti.getChecked())
-	    		  {
-	    			  selectedModules.add(ti.getText());
-	    		  }
-	    	  }
-	        shell.close();
-	      }
-	    });
-
-	    // Create the cancel button and add a handler
-	    // so that pressing it will set input to null
-	    Button cancel = new Button(shell, SWT.PUSH);
-	    cancel.setText("Cancel");
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    cancel.setLayoutData(data);
-	    cancel.addSelectionListener(new SelectionAdapter() {
-	      public void widgetSelected(SelectionEvent event) {
-	        selectedModules = null;
-	        shell.close();
-	      }
-	    });
-
-	    // Set the OK button as the default, so
-	    // user can type input and press Enter
-	    // to dismiss
-	    shell.setDefaultButton(ok);
-	  }
-	}
+	} 
 
 public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 	
 	private String inputFile;
 	private String outputDirectory;
 	List<String> selectedModules;
-	
+	  private static String workingDirectory;
+	  private static boolean filterSystem = false;
+	  
+	  public static boolean filterSystem ()
+	  {
+		  return filterSystem;
+	  }
+	  
+	  public static void setFilterSystem (boolean f)
+	  {
+		  filterSystem = f;
+	  }
+	  
+	  public static String getWorkingDirectory ()
+	  {
+		  return workingDirectory;
+	  }
+	  
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
@@ -250,18 +219,7 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 		
 		final Display d = PlatformUI.getWorkbench().getDisplay();
 		
-		Job aadlGenerator = new Job("SIMULINK2AADL") {
-			  protected IStatus run(IProgressMonitor monitor) {
-				monitor.beginTask("Generating AADL files from LDM", 100);
-			    
-				Model genericModel = FileImport.loadFile (inputFile);
-			    AadlProjectCreator.createProject (outputDirectory, genericModel);
-				
-				Utils.refreshWorkspace(monitor);
-				monitor.done();
-			    return Status.OK_STATUS;
-			  }
-			};
+
 		
 		d.syncExec(new Runnable(){
 
@@ -276,7 +234,9 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 				
 				FileDialog fd = new FileDialog(sh, SWT.OPEN);
 				inputFile = fd.open();
-				
+				String parentDirectory = new File(inputFile).getParent();
+				workingDirectory = parentDirectory;
+				OsateDebug.osateDebug("parent=" + parentDirectory);
 				/**
 				 * Then, we open a new window 
 				 * to choose the module to be included
@@ -290,9 +250,35 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate  {
 					
 			}});
 		
+		SimulinkSystemDialog dialog = new SimulinkSystemDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+		dialog.create();
+		if (dialog.open() == Window.OK) 
+		{
+			final String rootSystemName = dialog.getSystemName();
+			if ((rootSystemName != null) && (rootSystemName.length() >= 0))
+			{
+				filterSystem = true;
+			}
+			else
+			{
+				filterSystem = false;
+			}
+			
+			Job aadlGenerator = new Job("SIMULINK2AADL") {
+				  protected IStatus run(IProgressMonitor monitor) {
+					monitor.beginTask("Generating AADL files from LDM", 100);
+					Model genericModel = new Model();
+					FileImport.loadFile (inputFile, genericModel, rootSystemName);
+				    AadlProjectCreator.createProject (outputDirectory, genericModel);
+					
+					Utils.refreshWorkspace(monitor);
+					monitor.done();
+				    return Status.OK_STATUS;
+				  }
+				};
+		  aadlGenerator.schedule();
+		} 
 
-		aadlGenerator.schedule();
-		
 		
 	}
 

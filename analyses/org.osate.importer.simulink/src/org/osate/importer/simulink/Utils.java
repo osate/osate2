@@ -75,7 +75,29 @@ public class Utils {
 
 
 
-	
+	public static String getSourceBlock (Node node)
+	{
+		NodeList nList = node.getChildNodes();
+		
+		
+		for (int temp = 0; temp < nList.getLength(); temp++) 
+		{
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeName().equalsIgnoreCase("p"))
+			{
+				Node attrName = Utils.getAttribute(nNode, "Name");
+				if (attrName != null)
+				{
+				OsateDebug.osateDebug("name=" + attrName.getNodeValue().toString());
+				}
+				if ((attrName != null ) && (attrName.getNodeValue().toString().equalsIgnoreCase("sourceblock")))
+				{
+					return nNode.getTextContent();
+				}
+			}
+		}
+		return null;
+	}
 	
 	public static String getActionFromLabel (String label)
 	{
@@ -259,12 +281,22 @@ public class Utils {
 			String portDirection;
 			String portIndex;
 			
-			idx1 = connection.indexOf("#");
-			idx2 = connection.indexOf(":");
-			blockIndex = connection.substring(0, idx1);
-			portDirection = connection.substring(idx1+1, idx2);
-			portIndex = connection.substring(idx2+1);
-			
+			try
+			{
+				idx1 = connection.indexOf("#");
+				idx2 = connection.indexOf(":");
+//				OsateDebug.osateDebug("conn=" + connection);
+//				OsateDebug.osateDebug("idx1=" + idx1);
+//				OsateDebug.osateDebug("idx2=" + idx2);
+				blockIndex = connection.substring(0, idx1);
+				portDirection = connection.substring(idx1+1, idx2);
+				portIndex = connection.substring(idx2+1);
+			}
+			catch (Exception e)
+			{
+				OsateDebug.osateDebug("[Utils] invalid string");
+				return 0;
+			}
 			switch (field)
 			{
 				case CONNECTION_FIELD_BLOCK_INDEX:

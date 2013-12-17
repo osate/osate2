@@ -162,7 +162,7 @@ public class Component implements Comparable {
 		result = result.replace('$', ' ');
 		result = result.replace('.', ' ');
 		result = result.replaceAll(" ", "");
-		
+		result = result.replaceAll("/", "_");
 		result = result.toLowerCase();
 		
 		/**
