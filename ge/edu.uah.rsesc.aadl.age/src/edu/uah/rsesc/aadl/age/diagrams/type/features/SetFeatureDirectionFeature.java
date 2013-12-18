@@ -44,14 +44,14 @@ public class SetFeatureDirectionFeature extends AbstractCustomFeature{
 	
 	@Override
     public String getName() {
-		if (featDir == DirectionType.IN){
-			return "Set Feature Direction to In";
+		if (featDir == DirectionType.IN) {
+			return "Set Direction to In";
 		}
-		else if (featDir == DirectionType.OUT){
-			return "Set Feature Direction to Out";
+		else if (featDir == DirectionType.OUT) {
+			return "Set Direction to Out";
 		}
-		else{
-			return "Set Feature Direction to In and Out";
+		else {
+			return "Set Direction to In and Out";
 		}
     }
  
@@ -61,8 +61,7 @@ public class SetFeatureDirectionFeature extends AbstractCustomFeature{
     }
 	
 	public boolean isAvailable(final IContext context) {
-		final ICustomContext customCtx = (ICustomContext)context;
-		
+		final ICustomContext customCtx = (ICustomContext)context;		
 		PictogramElement[] pes = customCtx.getPictogramElements();
 		
 		if(customCtx.getPictogramElements().length < 1) {
@@ -72,7 +71,7 @@ public class SetFeatureDirectionFeature extends AbstractCustomFeature{
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
-		if (bo instanceof DirectedFeature){
+		if (bo instanceof DirectedFeature) {
 			final DirectedFeature feat = (DirectedFeature)bo;
 			final Classifier classifier = feat.getContainingClassifier();	
 			return classifier instanceof FeatureGroupType || classifier instanceof ComponentType;
@@ -83,22 +82,20 @@ public class SetFeatureDirectionFeature extends AbstractCustomFeature{
 	}
 
     @Override
-    public boolean canExecute(ICustomContext context) 
-    {   	
+    public boolean canExecute(ICustomContext context) {   	
 		final PictogramElement pe = context.getPictogramElements()[0];
 		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
 			final DirectedFeature df = (DirectedFeature)bo;
-			if (featDir == df.getDirection()){
+			if (featDir == df.getDirection()) {
 				return false;
 			}
     	return true;
     }
 	
 	@Override
-	public void execute(ICustomContext context) 
-	{
+	public void execute(ICustomContext context) {
 		final PictogramElement pe = context.getPictogramElements()[0];
 		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);

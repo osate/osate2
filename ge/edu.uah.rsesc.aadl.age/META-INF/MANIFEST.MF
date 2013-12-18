@@ -28,8 +28,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: org.eclipse.draw2d.geometry,
- org.eclipse.draw2d.graph,
+Import-Package: org.eclipse.draw2d.graph,
  org.eclipse.ui,
  org.eclipse.ui.part,
  org.eclipse.ui.views.contentoutline

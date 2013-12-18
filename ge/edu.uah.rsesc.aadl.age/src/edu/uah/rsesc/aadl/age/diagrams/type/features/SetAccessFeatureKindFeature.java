@@ -44,17 +44,17 @@ public class SetAccessFeatureKindFeature extends AbstractCustomFeature{
 	
 	@Override
     public String getName() {
-		if(accType == AccessType.PROVIDES){
-			 return "Set Access Kind to Provides";
+		if(accType == AccessType.PROVIDES) {
+			 return "Set Kind to Provides";
 		}
-		else{
-			 return "Set Access Kind to Requires";
+		else {
+			 return "Set Kind to Requires";
 		}
     }
  
     @Override
     public String getDescription() {
-        return "Sets the Access Type of the Feature";
+        return "Sets the Access Kind of the Feature";
     }
 	 
 	public boolean isAvailable(final IContext context) {
@@ -80,8 +80,7 @@ public class SetAccessFeatureKindFeature extends AbstractCustomFeature{
 	}
 	
     public boolean canExecute(ICustomContext context){   	
-		final PictogramElement pe = context.getPictogramElements()[0];
-		
+		final PictogramElement pe = context.getPictogramElements()[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
 		final Access af = (Access)bo;
@@ -92,9 +91,8 @@ public class SetAccessFeatureKindFeature extends AbstractCustomFeature{
     }
     
 	@Override
-	public void execute(ICustomContext context){
-		final PictogramElement pe = context.getPictogramElements()[0];
-		
+	public void execute(ICustomContext context) {
+		final PictogramElement pe = context.getPictogramElements()[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
 		if(bo instanceof Access) {
