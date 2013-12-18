@@ -114,27 +114,42 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 	protected void analyzeInstanceModel(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
+		
+		final StringBuffer resoluteString = new StringBuffer();
+		final StringBuffer maintheorem = new StringBuffer();
+		
+		
+		resoluteString.append("package consistency_check\npublic\nannex resolute\n{**\n");
+		
+		maintheorem.append("consistency_check_"+root.getName().toLowerCase()+" (root : component) <= \n  ** \"Check that all models are consistent\" **\n");
+
 		final List<Element> features = new ForAllElement() {
-			
+			int cid = 0;
+			boolean firstTheoremGenerated = false;
 			@Override
 			protected boolean suchThat(final Element obj) {
 				return !monitor.isCanceled() && (obj instanceof ComponentInstance);
 			}
 
 			@Override
-			protected void action(final Element obj) {
+			protected void action(final Element obj)
+			{
+				
 				if (obj instanceof ComponentInstance)
 				{
-					boolean writeReport = false;
 					boolean firstPassed = false;
 					ComponentInstance ci = (ComponentInstance) obj;
-					final StringBuffer resoluteString = new StringBuffer();
-					resoluteString.append("package ConsistencyCheck"+ci.getName()+"\npublic\nannex resolute\n{**\nconsistency_check () <= \n  ** \"Check that all models are consistent\" **\n");
+					if (ci == root)
+					{
+						return;
+					}
 					
+					String theorem = "consistency_check_"+ci.getName().toLowerCase()+" (c : component) <= \n  ** \"Check that component "+ci.getName()+" is consistent\" **\n";
+					
+
 					List<? extends PropertyExpression> values = GetProperties.getModelReferences (ci);
 					for (PropertyExpression pe : values)
 					{
-						writeReport = true;
 //						OsateDebug.osateDebug("[CheckInterModelConsistency] ci=" + ci + ";pe=" + pe);
 						RecordValue rv = (RecordValue) pe;
 						PropertyExpression filenamePE = PropertyUtils.getRecordFieldValue (rv, "filename");
@@ -153,26 +168,39 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 						
 						if (firstPassed)
 						{
-							resoluteString.append(" and ");
+							theorem += " and ";
 						}
-						resoluteString.append ("  analysis(\"consistency\"," + "\""+modelType+"\"," + "\""+kind +"\",\""+artifact+"\"," + "\""+filename+"\")\n" );
+						theorem += ("  analysis(\"consistency\", c ,\""+modelType+"\"," + "\""+kind +"\",\""+artifact+"\"," + "\""+filename+"\")\n" );
 						firstPassed = true;
 					}
-					if (writeReport)
+					
+					if (firstPassed)
 					{
-						resoluteString.append("**};\nend ConsistencyCheck"+ci.getName()+";\n");
-						OsateDebug.osateDebug("ci=" + ci);
-						WriteToFile report = new WriteToFile("Consistency", ci);
-						report.setSuffix(ci.getName());
-						report.addOutput(resoluteString.toString());
-						report.setFileExtension("aadl");
-						report.saveToFile();
-						OsateDebug.osateDebug(resoluteString.toString());
+						if(cid > 0)
+						{
+							maintheorem.append("\n  and\n  ");
+						}
+						maintheorem.append ("(exists (s"+cid+" : component) . name (s"+cid+",\""+ci.getName().toLowerCase()+"\") and subcomponent_of(root, s"+cid+") and consistency_check_" + ci.getName().toLowerCase()+"(s"+cid+"))");
+						cid++;
+					}
+					firstTheoremGenerated = true;
+					
+					if (firstPassed)
+					{
+						resoluteString.append (theorem + "\n\n");
 					}
 				}
+
 			}
 		}.processPreOrderAll(root);
 		
+		resoluteString.append(maintheorem.toString());
+		resoluteString.append("**};\nend consistency_check;\n");
+		WriteToFile report = new WriteToFile("consistency", root);
+		report.addOutput(resoluteString.toString());
+		report.setFileExtension("aadl");
+		report.saveToFile();
+		OsateDebug.osateDebug(resoluteString.toString());
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();
 		}
