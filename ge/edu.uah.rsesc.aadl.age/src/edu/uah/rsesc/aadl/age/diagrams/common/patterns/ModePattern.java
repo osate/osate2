@@ -62,12 +62,13 @@ import edu.uah.rsesc.aadl.age.services.VisibilityService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 
 public class ModePattern extends AgeLeafShapePattern {
+	public static String INITIAL_MODE_CONNECTION_TYPE = "initial_mode";
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";
 	private final AnchorService anchorService;
 	private final LayoutService resizeHelper;
 	private final ShapeService shapeHelper;
-	private final PropertyService propertyUtil;
+	private final PropertyService propertyService;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final StyleService styleUtil;
 	private final ShapeCreationService shapeCreationService;
@@ -86,7 +87,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		this.anchorService = anchorUtil;
 		this.resizeHelper = resizeHelper;
 		this.shapeHelper = shapeHelper;
-		this.propertyUtil = propertyUtil;
+		this.propertyService = propertyUtil;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.styleUtil = styleUtil;
 		this.shapeCreationService = shapeCreationService;
@@ -200,7 +201,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		final Iterator<Shape> it = shape.getChildren().iterator();
 		while(it.hasNext()) {
 			final Shape child = it.next();
-			if(!innerModeShapeName.equals(propertyUtil.getName(child))) {
+			if(!innerModeShapeName.equals(propertyService.getName(child))) {
 				it.remove();
 			}
 		}		
@@ -214,7 +215,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		ContainerShape innerModeShape = getInnerModeShape(shape);
 		if(innerModeShape == null) {
 			innerModeShape = peCreateService.createContainerShape(shape, true);
-			propertyUtil.setName(innerModeShape, innerModeShapeName);
+			propertyService.setName(innerModeShape, innerModeShapeName);
 			anchorService.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		}
 		
@@ -242,7 +243,7 @@ public class ModePattern extends AgeLeafShapePattern {
         if(mode.isInitial()) {
 			// Create the shape for the initial mode
 			final ContainerShape initialModeShape = peCreateService.createContainerShape(shape, true);
-			propertyUtil.setName(initialModeShape, initialModeShapeName);
+			propertyService.setName(initialModeShape, initialModeShapeName);
 			graphicsAlgorithmCreator.createInitialModeGraphicsAlgorithm(initialModeShape, 10);			
 			final Anchor initialModeAnchor = peCreateService.createChopboxAnchor(initialModeShape);
 			
@@ -250,6 +251,7 @@ public class ModePattern extends AgeLeafShapePattern {
 			final Connection initialModeConnection = peCreateService.createCurvedConnection(new double[] {0.0, -10.0}, getDiagram());
 			initialModeConnection.setStart(initialModeAnchor);
 			initialModeConnection.setEnd(anchorService.getAnchorByName(innerModeShape, chopboxAnchorName));
+			propertyService.setConnectionType(initialModeConnection, INITIAL_MODE_CONNECTION_TYPE);
 			
 			// Create the line
 			final Polyline polyline = gaService.createPlainPolyline(initialModeConnection);

@@ -51,9 +51,11 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.GraphicalToTextualFeature
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.RenameModeTransitionFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.SetInitialModeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureDirectionFeature;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -246,7 +248,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(DrillDownFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(ConfigureInModesFeature.class));
-		features.add(make(GraphicalToTextualFeature.class));		
+		features.add(make(GraphicalToTextualFeature.class));
 		features.add(setFeatureDir(DirectionType.IN));
 		features.add(setFeatureDir(DirectionType.OUT));
 		features.add(setFeatureDir(DirectionType.IN_OUT));		
@@ -254,6 +256,14 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(setFeatureKind(AccessType.REQUIRES));
 		features.add(make(ComponentImplementationToTypeFeature.class));
 		features.add(make(ComponentToPackageFeature.class));
+		features.add(createSetInitialModeFeature(true));
+		features.add(createSetInitialModeFeature(false));
+	}
+	
+	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Is Initial", isInitial);
+		return ContextInjectionFactory.make(SetInitialModeFeature.class, childCtx);
 	}
 	
 	@Override
