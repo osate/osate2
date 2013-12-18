@@ -358,13 +358,11 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	public Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
 		if(trigger instanceof TriggerPort) {
 			final TriggerPort tp = (TriggerPort)trigger;
-			// TODO: Consider using names instead of qualified names. Qualified names may cause problem with refinement, etc?
-			//final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementName(ownerShape, tp.getContext());
-			//final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeService.getDescendantShapeByElementName(portShapeOwner, tp.getPort());
 			
-			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementQualifiedName(ownerShape, tp.getContext());
-			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeService.getDescendantShapeByElementQualifiedName(portShapeOwner, tp.getPort());
-			
+			// Get the shapes for the trigger port. 
+			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementName(ownerShape, tp.getContext());
+			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeService.getDescendantShapeByElementName(portShapeOwner, tp.getPort());
+
 			if(portShape == null) {
 				return null;
 			}

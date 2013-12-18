@@ -11,7 +11,6 @@ package edu.uah.rsesc.aadl.age.diagrams.common.features;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
@@ -22,8 +21,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
-
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
