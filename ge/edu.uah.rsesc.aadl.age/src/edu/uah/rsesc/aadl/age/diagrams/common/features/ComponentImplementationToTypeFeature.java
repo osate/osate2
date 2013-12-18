@@ -15,20 +15,18 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramService;
 
 import javax.inject.Inject;
 
-
 public class ComponentImplementationToTypeFeature extends AbstractCustomFeature {
 	private final DiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public ComponentImplementationToTypeFeature(IFeatureProvider fp, final DiagramService diagramService,final BusinessObjectResolutionService bor)  {
+	public ComponentImplementationToTypeFeature(final IFeatureProvider fp, final DiagramService diagramService,final BusinessObjectResolutionService bor)  {
 		super(fp);
 		this.diagramService = diagramService;
 		this.bor = bor;
@@ -36,12 +34,12 @@ public class ComponentImplementationToTypeFeature extends AbstractCustomFeature 
 
 	@Override
     public String getName() {
-        return "Go to the Type diagram";
+        return "Go to Type diagram";
     }
  
     @Override
     public String getDescription() {
-        return "Open the type diagram associated with this component implementation";
+        return "Open the type diagram associated with this component implementation's type";
     }
  
     @Override
@@ -55,35 +53,23 @@ public class ComponentImplementationToTypeFeature extends AbstractCustomFeature 
 
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 
-		return bo instanceof NamedElement;
+		return bo instanceof ComponentImplementation && ((ComponentImplementation)bo).getType() != null;
 	}
 
     @Override
-    public boolean canExecute(ICustomContext context) {   	
-		final ICustomContext customCtx = (ICustomContext)context;
-		PictogramElement[] pes = customCtx.getPictogramElements();		
-		final PictogramElement pe = pes[0];	
-		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		
-		if (bo instanceof ComponentImplementation){
-			return true;
-		}
-    	return false;
+    public boolean canExecute(final ICustomContext context) {   	
+		return true;
     }
     
 	@Override
-	public void execute(ICustomContext context) {
-		
+	public void execute(final ICustomContext context) {		
 		final ICustomContext customCtx = (ICustomContext)context;
-		PictogramElement[] pes = customCtx.getPictogramElements();		
+		final PictogramElement[] pes = customCtx.getPictogramElements();		
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		
-		ComponentImplementation compImpl = (ComponentImplementation)bo;
-		Classifier classify = compImpl.getType();
-		NamedElement parentType = (NamedElement)classify;
-		
-		diagramService.openOrCreateDiagramForRootBusinessObject(parentType);
+		final ComponentImplementation compImpl = (ComponentImplementation)bo;
+		final Classifier componentType = compImpl.getType();
+		diagramService.openOrCreateDiagramForRootBusinessObject(componentType);
 	}
 
 }

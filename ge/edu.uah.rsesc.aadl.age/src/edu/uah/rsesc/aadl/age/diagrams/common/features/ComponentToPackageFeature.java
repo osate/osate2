@@ -13,6 +13,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -25,7 +26,7 @@ public class ComponentToPackageFeature extends AbstractCustomFeature {
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public ComponentToPackageFeature(IFeatureProvider fp, final DiagramService diagramService,final BusinessObjectResolutionService bor)  {
+	public ComponentToPackageFeature(final IFeatureProvider fp, final DiagramService diagramService,final BusinessObjectResolutionService bor)  {
 		super(fp);
 		this.diagramService = diagramService;
 		this.bor = bor;
@@ -33,49 +34,38 @@ public class ComponentToPackageFeature extends AbstractCustomFeature {
 
 	@Override
     public String getName() {
-        return "Go to the Package diagram";
+        return "Go to Package diagram";
     }
  
     @Override
     public String getDescription() {
-        return "Open the package diagram associated with this component implementation";
+        return "Open the package diagram associated with this component classifier's package";
     }
  
     @Override
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
 		PictogramElement[] pes = customCtx.getPictogramElements();		
-		if(customCtx.getPictogramElements().length < 1) {
+		if(customCtx.getPictogramElements().length != 1) {
 			return false;
 		}
 		final PictogramElement pe = pes[0];	
-
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-
-		return bo instanceof NamedElement;
+		return bo instanceof NamedElement && ((NamedElement)bo).getElementRoot() instanceof AadlPackage;
 	}
+    
 
     @Override
-    public boolean canExecute(ICustomContext context) {   	
-		final ICustomContext customCtx = (ICustomContext)context;
-		PictogramElement[] pes = customCtx.getPictogramElements();		
-		final PictogramElement pe = pes[0];	
-		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		
-		if (bo instanceof NamedElement){
-			return true;
-		}
-    	return false;
+    public boolean canExecute(final ICustomContext context) {   	
+		return true;
     }
     
 	@Override
-	public void execute(ICustomContext context) {
-		
+	public void execute(final ICustomContext context) {		
 		final ICustomContext customCtx = (ICustomContext)context;
-		PictogramElement[] pes = customCtx.getPictogramElements();		
+		final PictogramElement[] pes = customCtx.getPictogramElements();		
 		final PictogramElement pe = pes[0];	
-		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		
+		final Object bo = bor.getBusinessObjectForPictogramElement(pe);		
 		NamedElement component = (NamedElement)bo;
 		
 		diagramService.openOrCreateDiagramForRootBusinessObject(component.getElementRoot());
