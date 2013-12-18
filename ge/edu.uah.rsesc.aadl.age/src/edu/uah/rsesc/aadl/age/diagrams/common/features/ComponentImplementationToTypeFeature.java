@@ -23,12 +23,12 @@ import edu.uah.rsesc.aadl.age.services.DiagramService;
 import javax.inject.Inject;
 
 
-public class ComponentImplementationToType extends AbstractCustomFeature {
+public class ComponentImplementationToTypeFeature extends AbstractCustomFeature {
 	private final DiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public ComponentImplementationToType(IFeatureProvider fp, final DiagramService diagramService,final BusinessObjectResolutionService bor)  {
+	public ComponentImplementationToTypeFeature(IFeatureProvider fp, final DiagramService diagramService,final BusinessObjectResolutionService bor)  {
 		super(fp);
 		this.diagramService = diagramService;
 		this.bor = bor;

@@ -41,7 +41,8 @@ import org.osate.aadl2.Element;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
-import edu.uah.rsesc.aadl.age.diagrams.common.features.ComponentImplementationToType;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.ComponentImplementationToTypeFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.ComponentToPackageFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.GraphicalToTextualFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
@@ -247,7 +248,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(setFeatureDir(DirectionType.IN_OUT));		
 		features.add(setFeatureKind(AccessType.PROVIDES));
 		features.add(setFeatureKind(AccessType.REQUIRES));
-		features.add(make(ComponentImplementationToType.class));
+		features.add(make(ComponentImplementationToTypeFeature.class));
+		features.add(make(ComponentToPackageFeature.class));
 	}
 	
 	@Override
