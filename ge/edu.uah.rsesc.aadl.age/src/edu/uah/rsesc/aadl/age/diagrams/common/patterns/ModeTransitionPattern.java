@@ -8,9 +8,6 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -44,25 +41,18 @@ import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
 import org.eclipse.graphiti.ui.internal.services.IGefService;
-import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.dialogs.ElementSelectionDialog;
+import edu.uah.rsesc.aadl.age.dialogs.ModeTransitionTriggerSelectionDialog;
+import edu.uah.rsesc.aadl.age.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -428,56 +418,46 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		
 		// Determine the name for the new mode transition
 		final String newElementName = namingService.buildUniqueIdentifier(cc, "newTransition");
-		
-		// TODO: Include all relevant ports, subcomponent, feature group, or subprogram call
-		final List<ModeTransitionTriggerPort> ports = getPossibleModeTransitionTriggerPorts(cc);
-		final ElementSelectionDialog triggerSelectionDlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select Trigger Ports", "Select mode transition triggers", ports);
-		triggerSelectionDlg.setMultipleSelection(true);
-		if(triggerSelectionDlg.open() == Dialog.CANCEL) {
-			return null;
-		}		
 
-		final ModeTransitionTriggerPort[] selectedPorts = triggerSelectionDlg.getAllSelectedElements(ModeTransitionTriggerPort.class);
-		if(selectedPorts.length == 0) {
-			return null;
-		}
-		
-		// Make the modification
-		aadlModService.modify(cc, new AbstractModifier<ComponentClassifier, ModeTransition>() {
-			private DiagramModificationService.Modification diagramMod;
-			
-			@Override
-			public ModeTransition modify(final Resource resource, final ComponentClassifier cc) {
-				final ModeTransition newModeTransition = cc.createOwnedModeTransition();
+		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, null);
+		if(selectedTriggers != null) {
+			// Make the modification
+			aadlModService.modify(cc, new AbstractModifier<ComponentClassifier, ModeTransition>() {
+				private DiagramModificationService.Modification diagramMod;
 				
-				// Handle diagram updates
-	 			diagramMod = diagramModService.startModification();
-	 			if(cc instanceof ComponentImplementation) {
-	 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)cc);
-	 			}
-			
-				// Set the name
-	 			newModeTransition.setName(newElementName);
-	 			
-	 			// Set the source and destination
-	 			newModeTransition.setSource(getMode(context.getSourcePictogramElement()));
-	 			newModeTransition.setDestination(getMode(context.getTargetPictogramElement()));
-	 			
-	 			final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-	 			for(ModeTransitionTriggerPort selectedPort : selectedPorts) {
-	 				final TriggerPort newTrigger = (TriggerPort)newModeTransition.createOwnedTrigger(p.getTriggerPort());
-	 				newTrigger.setPort(selectedPort.port);
-	 				newTrigger.setContext(selectedPort.context);
-	 			}
-
-				return newModeTransition;
-			}
-			
-			@Override
-			public void beforeCommit(final Resource resource, final ComponentClassifier cc, final ModeTransition newModeTransition) {
-				diagramMod.commit();
-			}
-		});
+				@Override
+				public ModeTransition modify(final Resource resource, final ComponentClassifier cc) {
+					final ModeTransition newModeTransition = cc.createOwnedModeTransition();
+					
+					// Handle diagram updates
+		 			diagramMod = diagramModService.startModification();
+		 			if(cc instanceof ComponentImplementation) {
+		 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)cc);
+		 			}
+				
+					// Set the name
+		 			newModeTransition.setName(newElementName);
+		 			
+		 			// Set the source and destination
+		 			newModeTransition.setSource(getMode(context.getSourcePictogramElement()));
+		 			newModeTransition.setDestination(getMode(context.getTargetPictogramElement()));
+		 			
+		 			final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		 			for(ModeTransitionTriggerInfo selectedPort : selectedTriggers) {
+		 				final TriggerPort newTrigger = (TriggerPort)newModeTransition.createOwnedTrigger(p.getTriggerPort());
+		 				newTrigger.setPort(selectedPort.port);
+		 				newTrigger.setContext(selectedPort.context);
+		 			}
+	
+					return newModeTransition;
+				}
+				
+				@Override
+				public void beforeCommit(final Resource resource, final ComponentClassifier cc, final ModeTransition newModeTransition) {
+					diagramMod.commit();
+				}
+			});
+		}
 
 		return null;
 	}
@@ -521,13 +501,11 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 				// Start the diagram modification
 	 			diagramMod = diagramModService.startModification();	 			
 	 			
-	 			final AnchorContainer startContainer = connection.getStart().getParent();
-	 			if(startContainer instanceof Shape) {
-	 				final ComponentClassifier cc = getComponentClassifier((Shape)startContainer);
-	 				if(cc instanceof ComponentImplementation) {
-	 					diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)cc);
-	 				}
-	 			}	 			
+	 			// Mark other diagrams for updating
+	 			// TODO: Handle the case where the container is not a component implementation when the diagram modification service supports it.
+	 			if(mt.getContainingComponentImpl() != null) {
+ 					diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(mt.getContainingComponentImpl());
+	 			}
 	 			
 	 			EcoreUtil.remove(mt);
 				
@@ -543,66 +521,5 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
-	}
-	
-	/**
-	 * Returns a list of ModeTransitionTriggerPort objects that contains information about the valid options for configuring a mode transition trigger
-	 * @param cc
-	 * @return
-	 */
-	private List<ModeTransitionTriggerPort> getPossibleModeTransitionTriggerPorts(final ComponentClassifier cc) {
-		final List<ModeTransitionTriggerPort> ports = new ArrayList<ModeTransitionTriggerPort>();
-		
-		// Get ports from the classifier and it's feature groups
-		for(final Feature f : cc.getAllFeatures()) {
-			if(f instanceof Port) {
-				ports.add(new ModeTransitionTriggerPort((Port)f, null));
-			} else if(f instanceof FeatureGroup) {
-				final FeatureGroup fg = (FeatureGroup)f;
-				final FeatureGroupType fgt = fg.getAllFeatureGroupType();
-				if(fgt != null) {
-					for(final Feature fgFeature : fgt.getAllFeatures()) {
-						if(fgFeature instanceof Port) {
-							ports.add(new ModeTransitionTriggerPort((Port)fgFeature, fg));
-						}
-					}
-				}
-			}
-		}		
-
-		// Gets ports from the subcomponents
-		if(cc instanceof ComponentImplementation) {
-			final ComponentImplementation ci = (ComponentImplementation)cc;
-			for(final Subcomponent sc : ci.getAllSubcomponents()) {
-				for(final Feature f : sc.getAllFeatures()) {
-					if(f instanceof Port) {
-						ports.add(new ModeTransitionTriggerPort((Port)f, sc));
-					}
-				}
-			}			
-		}
-
-		// TODO: Get ports from subprogram calls
-		
-		return ports;
-	}
-	
-	// Class for storing info about possible trigger ports
-	private static class ModeTransitionTriggerPort {
-		public final Port port;
-		public final Context context;
-		
-		public ModeTransitionTriggerPort(final Port port, final Context context) {
-			this.port = port;
-			this.context = context;
-		}
-		
-		public String toString() {
-			if(context == null) {
-				return port.getName();
-			} else {
-				return context.getName() + "." + port.getName();
-			}
-		}
 	}
 }

@@ -53,10 +53,10 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.RenameModeTransitionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetDerivedModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetInitialModeFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.SetModeTransitionTriggersFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureDirectionFeature;
-import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -261,6 +261,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(createSetInitialModeFeature(false));
 		features.add(createSetDerivedModesFeature(true));
 		features.add(createSetDerivedModesFeature(false));
+		features.add(make(SetModeTransitionTriggersFeature.class));
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {

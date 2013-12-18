@@ -46,13 +46,7 @@ public class ElementSelectionDialog {
 		dlg.setMessage(prompt);
 		
 		// Convert null values to point to the nullObject
-		final Object[] elementsArray = elementDescriptions.toArray();
-		for(int i = 0; i < elementsArray.length; i++) {
-			if(elementsArray[i] == null) {
-				elementsArray[i] = nullObject;
-			}
-		}
-		
+		final Object[] elementsArray = convertToNullObject(elementDescriptions.toArray());		
 		dlg.setElements(elementsArray);
 	}
 	
@@ -73,17 +67,42 @@ public class ElementSelectionDialog {
 		return getAllSelectedElements(Object.class);
 	}
 	
+	/**
+	 * Converts an array of values to an array that is identical except that references to the nullObject field have been replaced with null values.
+	 * @param values
+	 * @return
+	 */
+	private Object[] convertToNullValue(final Object[] values) {
+		final Object[] converted = new Object[values.length];
+		
+		// Convert the nullObject to a null value
+		for(int i = 0; i < values.length; i++) {
+			converted[i] = (values[i] == nullObject) ? null : values[i];
+		}
+		
+		return converted;
+	}
+	
+	/**
+	 * Converts an array of values to an array that is identical except that null references have been replaced to referenced to the nullObject field.
+	 * @param values
+	 * @return
+	 */
+	private Object[] convertToNullObject(final Object[] values) {
+		final Object[] converted = new Object[values.length];
+		
+		// Convert null values to point to the nullObject
+		for(int i = 0; i < values.length; i++) {
+			converted[i] = (values[i] == null) ? nullObject : values[i];
+		}
+		
+		return converted;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public <T> T[] getAllSelectedElements(final Class<T> c) {
 		// Get the results and handle null objects
-		final Object[] results = dlg.getResult();
-		
-		// Convert the nullObject to a null value
-		for(int i = 0; i < results.length; i++) {
-			if(results[i] == nullObject) {
-				results[i] = null;
-			}
-		}
+		final Object[] results = convertToNullValue(dlg.getResult());		
 		
 		final T[] selectedElements = (T[])Array.newInstance(c, results.length);
 		for(int i = 0; i < results.length; i++) {
@@ -107,5 +126,9 @@ public class ElementSelectionDialog {
 	
 	public void setMultipleSelection(final boolean value) {
 		dlg.setMultipleSelection(value);
+	}
+	
+	public void setInitialSelections(Object[] elements) {
+		dlg.setInitialSelections(convertToNullObject(elements));
 	}
 }
