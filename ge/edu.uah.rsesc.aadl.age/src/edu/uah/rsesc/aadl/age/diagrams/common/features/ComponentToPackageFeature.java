@@ -13,8 +13,6 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
