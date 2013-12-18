@@ -9,48 +9,58 @@
 package edu.uah.rsesc.aadl.age.diagrams.type.features;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
-import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.pattern.IPattern;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.NamedElement;
 
-import edu.uah.rsesc.aadl.age.diagrams.pkg.patterns.PackageClassifierPattern;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
+import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 
-public class SetAccessFeatureKindFeature extends AbstractCustomFeature
-{
-	private final BusinessObjectResolutionService bor;		
+public class SetAccessFeatureKindFeature extends AbstractCustomFeature{
+	private final BusinessObjectResolutionService bor;
+	private final AadlModificationService aadlModService;
+	private final AccessType accType;
+	
 	@Inject
-	public SetAccessFeatureKindFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor) 
-	{
+	public SetAccessFeatureKindFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor, final ShapeService shapeService,
+			final AadlModificationService aadlModService,final @Named("Access") AccessType accType){
 		super(fp);
+		this.aadlModService = aadlModService;
+		this.accType = accType;
 		this.bor = bor;
 	}
 	
 	@Override
     public String getName() {
-        return "SetAccessKind";
+		if(accType == AccessType.PROVIDES){
+			 return "Set Access Kind to Provides";
+		}
+		else{
+			 return "Set Access Kind to Requires";
+		}
     }
  
     @Override
     public String getDescription() {
-        return "Place holder";
+        return "Sets the Access Type of the Feature";
     }
-	
-    
+	 
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
+		Access feat = null;
 		PictogramElement[] pes = customCtx.getPictogramElements();
 		
 		if(customCtx.getPictogramElements().length < 1) {
@@ -59,19 +69,36 @@ public class SetAccessFeatureKindFeature extends AbstractCustomFeature
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
-		//return bo instanceof FeatureGroupType || bo instanceof ComponentType;
-		return false;
+		if (bo instanceof Access){
+			feat = (Access)bo;
+		}
+		else{
+			return false;
+		}
+
+		final Classifier classifier = feat.getContainingClassifier();	
+		return classifier instanceof FeatureGroupType || classifier instanceof ComponentType;
 	}
 	
-    public boolean canExecute(ICustomContext context) 
-    {   	
+    public boolean canExecute(ICustomContext context){   	
     	return true;
     }
     
 	@Override
-	public void execute(ICustomContext context) {
-		// TODO Auto-generated method stub
+	public void execute(ICustomContext context){
+		final PictogramElement pe = context.getPictogramElements()[0];
 		
+		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
+		if(bo instanceof Access) {
+			final Access af1 = (Access)bo;
+			aadlModService.modify(af1, new AbstractModifier<org.osate.aadl2.Access, Object>() {
+				public Object modify(final Resource res, final Access af) {
+					af.setKind(accType);
+					
+					return null;
+				}
+			});	
+		}
 	}
 }
