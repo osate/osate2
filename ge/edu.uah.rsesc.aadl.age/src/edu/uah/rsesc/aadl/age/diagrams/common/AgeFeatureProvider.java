@@ -51,6 +51,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.GraphicalToTextualFeature
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.RenameModeTransitionFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.SetDerivedModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetInitialModeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
@@ -258,12 +259,20 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(ComponentToPackageFeature.class));
 		features.add(createSetInitialModeFeature(true));
 		features.add(createSetInitialModeFeature(false));
+		features.add(createSetDerivedModesFeature(true));
+		features.add(createSetDerivedModesFeature(false));
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
 		final IEclipseContext childCtx = getContext().createChild();
 		childCtx.set("Is Initial", isInitial);
 		return ContextInjectionFactory.make(SetInitialModeFeature.class, childCtx);
+	}
+	
+	private ICustomFeature createSetDerivedModesFeature(final Boolean derivedModes) {
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Derived Modes", derivedModes);
+		return ContextInjectionFactory.make(SetDerivedModesFeature.class, childCtx);
 	}
 	
 	@Override

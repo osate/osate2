@@ -20,38 +20,34 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Mode;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
-import edu.uah.rsesc.aadl.age.services.ShapeService;
 
 /**
- * Feature for setting whether a mode is an intial mode
+ * Feature for setting whether the component classifier's modes are derived
  * @author philip.alldredge
  *
  */
-public class SetInitialModeFeature extends AbstractCustomFeature {
+public class SetDerivedModesFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
-	private final ShapeService shapeService;
 	private final BusinessObjectResolutionService bor;
-	private final boolean isInitial;
+	private final boolean derivedModes;
 	
 	@Inject
-	public SetInitialModeFeature(final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp, final @Named("Is Initial") Boolean isInitial) {
+	public SetDerivedModesFeature(final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final IFeatureProvider fp, final @Named("Derived Modes") Boolean derivedModes) {
 		super(fp);
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
-		this.shapeService = shapeService;
 		this.bor = bor;
-		this.isInitial = isInitial;
+		this.derivedModes = derivedModes;
 	}
 	
 	@Override
     public String getName() {
-        return isInitial ? "Change to Initial Mode" : "Change to Non-initial Mode";
+        return derivedModes ? "Change to Derived Modes" : "Change to Non-derived Modes";
     }
 	
 	@Override
@@ -74,58 +70,49 @@ public class SetInitialModeFeature extends AbstractCustomFeature {
 		
 		// Check that the pictogram represents a mode	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		if(!(bo instanceof Mode)) {
+		if(!(bo instanceof ComponentClassifier)) {
 			return false;
 		}
 		
-		final Mode mode = (Mode)bo;
-		return mode.getContainingClassifier() == getComponentClassifier((Shape)pe) && mode.isInitial() != isInitial;
-	}
-    
-	private ComponentClassifier getComponentClassifier(final Shape modeShape) {
-		return shapeService.getClosestBusinessObjectOfType(modeShape, ComponentClassifier.class);
+		// Only allow setting the value if the new value would be different, the classifier contains nodes, and the classifier has not inherited any modes or mode transitions
+		final ComponentClassifier cc = (ComponentClassifier)bo;
+		return cc.isDerivedModes() != derivedModes && (cc.getOwnedModes().size() > 0 || cc.getOwnedModeTransitions().size() > 0) && cc.getAllModes().size() == cc.getOwnedModes().size() && cc.getAllModeTransitions().size() == cc.getOwnedModeTransitions().size() ;
 	}
 	
     @Override
     public boolean canExecute(final ICustomContext context) {
-    	return true;
+    	// Only allow changing whether the modes are derived if it is being set to false or if there are no mode transitions. Mode transitions are not allowed
+    	// in requires mode clauses
+    	final PictogramElement pe = (PictogramElement)context.getPictogramElements()[0];
+		final ComponentClassifier cc = (ComponentClassifier)bor.getBusinessObjectForPictogramElement(pe);
+    	return !derivedModes || cc.getOwnedModeTransitions().size() == 0;
     }
         
 	@Override
 	public void execute(final ICustomContext context) {
 		final PictogramElement pe = (PictogramElement)context.getPictogramElements()[0];
-		final Mode mode = (Mode)bor.getBusinessObjectForPictogramElement(pe);
+		final ComponentClassifier cc = (ComponentClassifier)bor.getBusinessObjectForPictogramElement(pe);
 		
-		aadlModService.modify(mode, new AbstractModifier<Mode, Object>() {
+		aadlModService.modify(cc, new AbstractModifier<ComponentClassifier, Object>() {
 			private DiagramModificationService.Modification diagramMod;    	
 			
 			@Override
-			public Object modify(final Resource resource, final Mode mode) {
+			public Object modify(final Resource resource, final ComponentClassifier cc) {
 				// Start the diagram modification
      			diagramMod = diagramModService.startModification();
      			
-				// Reset the current initial mode. Only look in the current classifier and not in classifiers that have been extended
-				if(isInitial) {
-					final ComponentClassifier cc = (ComponentClassifier)mode.getContainingClassifier();
-					for(final Mode m : cc.getOwnedModes()) {
-						if(m.isInitial()) {
-							m.setInitial(false);
-						}
-					}
-				}
-				
-				mode.setInitial(isInitial);
+				cc.setDerivedModes(derivedModes);
 			
-				// TODO: Need to handle case when containing classifier is just a ComponentType. Use this method for now until diagram mod service is extended to handle
+				// TODO: Need to handle case when the classifier is just a ComponentType. Use this method for now until diagram mod service is extended to handle
 				// all cases.
-				if(mode.getContainingClassifier() instanceof ComponentImplementation) {
-					diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)mode.getContainingClassifier());
+				if(cc instanceof ComponentImplementation) {
+					diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)cc);
 				}
 				return null;
 			}
 			
 	 		@Override
-			public void beforeCommit(final Resource resource, final Mode mode, final Object modificationResult) {
+			public void beforeCommit(final Resource resource, final ComponentClassifier cc, final Object modificationResult) {
 				diagramMod.commit();
 			}
 		});
