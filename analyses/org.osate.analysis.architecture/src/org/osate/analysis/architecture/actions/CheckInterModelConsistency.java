@@ -46,9 +46,12 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
@@ -111,10 +114,8 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 	protected void analyzeInstanceModel(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		final StringBuffer resoluteString = new StringBuffer();
-		resoluteString.append("package ConsistencyCheck\npublic\nannex resolute\n{**\nconsistency_check () <= \n  ** \"Check that all models are consistent\" **\n");
 		final List<Element> features = new ForAllElement() {
-			private boolean firstPassed = false;
+			
 			@Override
 			protected boolean suchThat(final Element obj) {
 				return !monitor.isCanceled() && (obj instanceof ComponentInstance);
@@ -124,31 +125,54 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 			protected void action(final Element obj) {
 				if (obj instanceof ComponentInstance)
 				{
+					boolean writeReport = false;
+					boolean firstPassed = false;
 					ComponentInstance ci = (ComponentInstance) obj;
+					final StringBuffer resoluteString = new StringBuffer();
+					resoluteString.append("package ConsistencyCheck"+ci.getName()+"\npublic\nannex resolute\n{**\nconsistency_check () <= \n  ** \"Check that all models are consistent\" **\n");
+					
 					List<? extends PropertyExpression> values = GetProperties.getModelReferences (ci);
 					for (PropertyExpression pe : values)
 					{
+						writeReport = true;
 //						OsateDebug.osateDebug("[CheckInterModelConsistency] ci=" + ci + ";pe=" + pe);
 						RecordValue rv = (RecordValue) pe;
-						StringLiteral filename = (StringLiteral)PropertyUtils.getRecordFieldValue (rv, "filename");
-						StringLiteral modelType = (StringLiteral)PropertyUtils.getRecordFieldValue (rv, "model_type");
-						StringLiteral artifact = (StringLiteral)PropertyUtils.getRecordFieldValue (rv, "artifact");
+						PropertyExpression filenamePE = PropertyUtils.getRecordFieldValue (rv, "filename");
+						PropertyExpression modelTypePE = PropertyUtils.getRecordFieldValue (rv, "model_type");
+						PropertyExpression kindPE = PropertyUtils.getRecordFieldValue (rv, "kind");
+						PropertyExpression artifactPE = PropertyUtils.getRecordFieldValue (rv, "artifact");
+						
+						String filename = ((StringLiteral) filenamePE).getValue().toString();
+						String artifact = ((StringLiteral) artifactPE).getValue().toString();
+						
+						AbstractNamedValue kindNV = ((NamedValue)kindPE).getNamedValue();
+						String kind = ((EnumerationLiteral)kindNV).getName();
+						
+						AbstractNamedValue modelTypeNV = ((NamedValue)modelTypePE).getNamedValue();
+						String modelType = ((EnumerationLiteral)modelTypeNV).getName();
+						
 						if (firstPassed)
 						{
 							resoluteString.append(" and ");
 						}
-						resoluteString.append ("  analysis(\"consistency\"," + "\""+modelType.getValue().toString()+"\"," + "\""+artifact.getValue().toString()+"\"," + "\""+filename.getValue().toString()+"\")\n" );
+						resoluteString.append ("  analysis(\"consistency\"," + "\""+modelType+"\"," + "\""+kind +"\",\""+artifact+"\"," + "\""+filename+"\")\n" );
 						firstPassed = true;
+					}
+					if (writeReport)
+					{
+						resoluteString.append("**};\nend ConsistencyCheck"+ci.getName()+";\n");
+						OsateDebug.osateDebug("ci=" + ci);
+						WriteToFile report = new WriteToFile("Consistency", ci);
+						report.setSuffix(ci.getName());
+						report.addOutput(resoluteString.toString());
+						report.setFileExtension("aadl");
+						report.saveToFile();
+						OsateDebug.osateDebug(resoluteString.toString());
 					}
 				}
 			}
 		}.processPreOrderAll(root);
-		resoluteString.append("**};\nend ConsistencyCheck;\n");
-		WriteToFile report = new WriteToFile("Consistency", root);
-		report.addOutput(resoluteString.toString());
-		report.setFileExtension("aadl");
-		report.saveToFile();
-		OsateDebug.osateDebug(resoluteString.toString());
+		
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();
 		}
