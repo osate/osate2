@@ -21,7 +21,6 @@ import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
@@ -60,27 +59,35 @@ public class SetAccessFeatureKindFeature extends AbstractCustomFeature{
 	 
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
-		Access feat = null;
+		
 		PictogramElement[] pes = customCtx.getPictogramElements();
 		
 		if(customCtx.getPictogramElements().length < 1) {
 			return false;
 		}
+		
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
 		if (bo instanceof Access){
-			feat = (Access)bo;
+			final Access feat = (Access)bo;
+			final Classifier classifier = feat.getContainingClassifier();	
+			return classifier instanceof FeatureGroupType || classifier instanceof ComponentType;
 		}
 		else{
 			return false;
 		}
-
-		final Classifier classifier = feat.getContainingClassifier();	
-		return classifier instanceof FeatureGroupType || classifier instanceof ComponentType;
 	}
 	
     public boolean canExecute(ICustomContext context){   	
+		final PictogramElement pe = context.getPictogramElements()[0];
+		
+		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+		
+		final Access af = (Access)bo;
+		if (accType == af.getKind()){
+				return false;
+			}
     	return true;
     }
     
