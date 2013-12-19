@@ -198,31 +198,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	{
 		instanceSwitch = new InstanceSwitch<String>() 
 		{
-			boolean inArray = false;
-			String prefix = "";
 
 			public String caseComponentInstance(final ComponentInstance ci) throws UnsupportedOperationException 
 			{
 				if (!(ci instanceof SystemInstance)) 
 				{
-					if (!inArray) 
-					{
-						for (Long index : ci.getIndices()) 
-						{
-							if (index > 1) 
-							{
-								inArray = true;
-								prefix = ci.getContainingComponentInstance().getInstanceObjectPath() + "."
-										+ ci.getName();
-							}
-						}
-					} 
-					else 
-					{
-						inArray = ci.getInstanceObjectPath().startsWith(prefix);
-					}
-					
-					if (!inArray) 
+					if (isFirstArrayElement(ci)) 
 					{
 						// process first component of innermost array only
 						instantiateConnections(ci);
@@ -233,6 +214,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				return DONE;
 			}
 		};
+	}
+	
+	private boolean isFirstArrayElement(ComponentInstance ci){
+		while (!(ci instanceof SystemInstance)){
+			for (Long index : ci.getIndices()) 
+			{
+				if (index > 1) 
+				{
+					return false;
+				}
+			}
+			ci = ci.getContainingComponentInstance();
+		}
+		return true;
 	}
 
 	/**
