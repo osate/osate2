@@ -144,8 +144,8 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 						return;
 					}
 					
-					String theorem = "consistency_check_"+ci.getName().toLowerCase()+" (c : component) <= \n  ** \"Check that component "+ci.getName()+" is consistent\" **\n";
-					
+
+					String componentTheorem = "consistency_check_"+ci.getName().toLowerCase()+" (c : component) <= \n  ** \"Check that component "+ci.getName()+" is consistent\" **\n";
 
 					List<? extends PropertyExpression> values = GetProperties.getModelReferences (ci);
 					for (PropertyExpression pe : values)
@@ -157,6 +157,8 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 						PropertyExpression kindPE = PropertyUtils.getRecordFieldValue (rv, "kind");
 						PropertyExpression artifactPE = PropertyUtils.getRecordFieldValue (rv, "artifact");
 						
+				
+						
 						String filename = ((StringLiteral) filenamePE).getValue().toString();
 						String artifact = ((StringLiteral) artifactPE).getValue().toString();
 						
@@ -165,12 +167,17 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 						
 						AbstractNamedValue modelTypeNV = ((NamedValue)modelTypePE).getNamedValue();
 						String modelType = ((EnumerationLiteral)modelTypeNV).getName();
+						String theorem = "consistency_check_"+ci.getName().toLowerCase()+"_"+modelType+" (c : component) <= \n  ** \"Check that component "+ci.getName()+" is consistent for the model "+modelType+"\" **\n";
 						
 						if (firstPassed)
 						{
-							theorem += " and ";
+							componentTheorem += " and ";
 						}
+						
+						
 						theorem += ("  analysis(\"consistency\", c ,\""+modelType+"\"," + "\""+kind +"\",\""+artifact+"\"," + "\""+filename+"\")\n" );
+						resoluteString.append (theorem + "\n\n");
+						componentTheorem += "consistency_check_"+ci.getName().toLowerCase()+"_"+modelType+"(c)";
 						firstPassed = true;
 					}
 					
@@ -187,7 +194,7 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 					
 					if (firstPassed)
 					{
-						resoluteString.append (theorem + "\n\n");
+						resoluteString.append (componentTheorem + "\n\n");
 					}
 				}
 
