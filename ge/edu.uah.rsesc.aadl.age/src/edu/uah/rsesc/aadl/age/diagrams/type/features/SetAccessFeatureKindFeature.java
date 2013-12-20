@@ -17,6 +17,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.Classifier;
@@ -58,25 +59,24 @@ public class SetAccessFeatureKindFeature extends AbstractCustomFeature{
     }
 	 
 	public boolean isAvailable(final IContext context) {
-		final ICustomContext customCtx = (ICustomContext)context;
-		
+		final ICustomContext customCtx = (ICustomContext)context;		
 		PictogramElement[] pes = customCtx.getPictogramElements();
 		
-		if(customCtx.getPictogramElements().length < 1) {
+		if(customCtx.getPictogramElements().length != 1 || !(customCtx.getPictogramElements()[0] instanceof Shape)) {
 			return false;
 		}
 		
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
-		if (bo instanceof Access){
-			final Access feat = (Access)bo;
-			final Classifier classifier = feat.getContainingClassifier();	
-			return classifier instanceof FeatureGroupType || classifier instanceof ComponentType;
-		}
-		else{
+		if(!(bo instanceof Access)) {
 			return false;
 		}
+		
+		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
+		final Access feat = (Access)bo;
+		final Classifier classifier = feat.getContainingClassifier();	
+		return classifier == containerBo && (classifier instanceof FeatureGroupType || classifier instanceof ComponentType);
 	}
 	
     public boolean canExecute(ICustomContext context){   	

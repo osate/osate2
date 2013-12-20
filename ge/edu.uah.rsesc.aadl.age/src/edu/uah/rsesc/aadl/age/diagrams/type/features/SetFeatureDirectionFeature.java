@@ -17,6 +17,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DirectedFeature;
@@ -64,21 +65,21 @@ public class SetFeatureDirectionFeature extends AbstractCustomFeature{
 		final ICustomContext customCtx = (ICustomContext)context;		
 		PictogramElement[] pes = customCtx.getPictogramElements();
 		
-		if(customCtx.getPictogramElements().length < 1) {
+		if(customCtx.getPictogramElements().length != 1 || !(customCtx.getPictogramElements()[0] instanceof Shape)) {
 			return false;
 		}
 		
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		
-		if (bo instanceof DirectedFeature) {
-			final DirectedFeature feat = (DirectedFeature)bo;
-			final Classifier classifier = feat.getContainingClassifier();	
-			return classifier instanceof FeatureGroupType || classifier instanceof ComponentType;
-		}
-		else{
+		if(!(bo instanceof DirectedFeature)) {
 			return false;
 		}
+		
+		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
+		final DirectedFeature feat = (DirectedFeature)bo;
+		final Classifier classifier = feat.getContainingClassifier();
+		return classifier == containerBo && (classifier instanceof FeatureGroupType || classifier instanceof ComponentType);
 	}
 
     @Override
