@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "../docbook-xml-4.5/docbookx.dtd">
 
 <book>
-	<title>AADL Graphical Editor Part 1</title>
+	<title>AADL Graphical Editor (AGE) User Guide</title>
 	<bookinfo>
-		<title>DocBook Example</title>
+		<title>AADL Graphical Editor (AGE) User Guide</title>
 		<author>
 		<firstname>Marc</firstname>
 		<surname>Byrd</surname>
