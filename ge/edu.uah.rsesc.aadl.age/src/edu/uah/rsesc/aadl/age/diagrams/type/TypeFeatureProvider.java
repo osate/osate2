@@ -59,6 +59,7 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 	
 	@Override
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
+		super.addCustomFeatures(features);
 		features.add(make(RefineFeatureFeature.class));
 		
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
@@ -66,7 +67,5 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 			childCtx.set("Feature Type", featureType);
 			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));	
 		}
-
-		super.addCustomFeatures(features);
 	}
 }

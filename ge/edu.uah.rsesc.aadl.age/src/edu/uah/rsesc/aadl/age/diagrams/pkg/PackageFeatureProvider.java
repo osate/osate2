@@ -84,7 +84,7 @@ public class PackageFeatureProvider extends AgeFeatureProvider {
 	
 	@Override
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
-		features.add(make(PackageSetExtendedClassifierFeature.class));
 		super.addCustomFeatures(features);
+		features.add(make(PackageSetExtendedClassifierFeature.class));
 	}
 }

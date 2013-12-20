@@ -52,6 +52,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.RenameModeTransitionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetDerivedModesFeature;
+import edu.uah.rsesc.aadl.age.diagrams.common.features.SetFeatureClassifierFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetInitialModeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetModeTransitionTriggersFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
@@ -247,16 +248,19 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(make(DrillDownFeature.class));
-		features.add(make(LayoutDiagramFeature.class));
-		features.add(make(ConfigureInModesFeature.class));
+		features.add(make(ComponentImplementationToTypeFeature.class));
+		features.add(make(ComponentToPackageFeature.class));
 		features.add(make(GraphicalToTextualFeature.class));
+		features.add(make(LayoutDiagramFeature.class));
+		
+		features.add(make(SetFeatureClassifierFeature.class));
 		features.add(setFeatureDir(DirectionType.IN));
 		features.add(setFeatureDir(DirectionType.OUT));
 		features.add(setFeatureDir(DirectionType.IN_OUT));		
 		features.add(setFeatureKind(AccessType.PROVIDES));
 		features.add(setFeatureKind(AccessType.REQUIRES));
-		features.add(make(ComponentImplementationToTypeFeature.class));
-		features.add(make(ComponentToPackageFeature.class));
+		
+		features.add(make(ConfigureInModesFeature.class));
 		features.add(createSetInitialModeFeature(true));
 		features.add(createSetInitialModeFeature(false));
 		features.add(createSetDerivedModesFeature(true));

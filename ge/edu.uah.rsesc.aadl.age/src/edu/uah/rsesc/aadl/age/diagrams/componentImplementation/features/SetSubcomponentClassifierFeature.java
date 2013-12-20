@@ -130,7 +130,7 @@ public class SetSubcomponentClassifierFeature extends AbstractCustomFeature {
 					
 					// Import its package if necessary
 					final AadlPackage pkg = (AadlPackage)sc.getElementRoot();
-					if(selectedSubcomponentType instanceof ComponentClassifier && selectedSubcomponentType != null && selectedSubcomponentType.getNamespace() != null && pkg != null) {
+					if(selectedSubcomponentType instanceof ComponentClassifier && selectedSubcomponentType.getNamespace() != null && pkg != null) {
 						final PackageSection section = pkg.getPublicSection();
 						final AadlPackage selectedClassifierPkg = (AadlPackage)selectedSubcomponentType.getNamespace().getOwner();
 						if(pkg != selectedClassifierPkg && !section.getImportedUnits().contains(selectedClassifierPkg)) {

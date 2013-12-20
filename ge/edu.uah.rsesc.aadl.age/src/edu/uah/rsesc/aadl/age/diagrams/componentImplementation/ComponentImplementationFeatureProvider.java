@@ -66,6 +66,7 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 	 * @param features
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
+		super.addCustomFeatures(features);
 		features.add(make(SetSubcomponentClassifierFeature.class));
 		features.add(make(RefineSubcomponentFeature.class));
 		features.add(make(RefineConnectionFeature.class));
@@ -78,8 +79,6 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 		
 		features.add(createSetConnectionBidirectionalityFeature(false));
 		features.add(createSetConnectionBidirectionalityFeature(true));
-		
-		super.addCustomFeatures(features);
 	}
 	
 	private IConnectionPattern createConnectionPattern(final EClass connectionType) {
