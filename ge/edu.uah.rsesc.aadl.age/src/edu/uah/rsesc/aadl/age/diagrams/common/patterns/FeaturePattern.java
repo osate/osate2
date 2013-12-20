@@ -50,6 +50,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.DirectionType;
@@ -75,9 +76,11 @@ import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmCreationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
+import edu.uah.rsesc.aadl.age.services.LayoutService;
 import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.PrototypeService;
+import edu.uah.rsesc.aadl.age.services.ShapeCreationService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
 import edu.uah.rsesc.aadl.age.services.VisibilityService;
@@ -108,10 +111,12 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	private final AadlFeatureService featureService;
 	private final PrototypeService prototypeService;
 	private final UserInputService userInputService;
+	private final LayoutService layoutService;
 	private final AadlModificationService modificationService;
 	private final NamingService namingService;
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
+	private final ShapeCreationService shapeCreationService;
 	private final EClass featureType;
 	
 	/**
@@ -139,9 +144,9 @@ public class FeaturePattern extends AgeLeafShapePattern {
 	public FeaturePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
 			final ShapeService shapeHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
-			final AadlFeatureService featureService, final PrototypeService prototypeService, 
-			final UserInputService userInputService, final AadlModificationService modificationService, final NamingService namingService,
-			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor,
+			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
+			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
+			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
 			final @Named("Feature Type") EClass featureType) {
 		super(anchorUtil, visibilityHelper);
 		this.anchorUtil = anchorUtil;
@@ -153,10 +158,12 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		this.featureService = featureService;
 		this.prototypeService = prototypeService;
 		this.userInputService = userInputService;
+		this.layoutService = layoutService;
 		this.modificationService = modificationService;
 		this.namingService = namingService;
 		this.diagramModService = diagramModService;
 		this.bor = bor;
+		this.shapeCreationService = shapeCreationService;
 		this.featureType = featureType;
 	}
 
@@ -216,6 +223,8 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		layoutAll(shape);
 		updateAnchors(shape);
+		
+		layoutService.checkContainerSize((ContainerShape)context.getPictogramElement());
 	}
 
 	@Override
@@ -527,7 +536,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			}
 			shape = container;
 		}
-		
+
 		return propertyUtil.getIsLeft(shape);
 	}
 	
@@ -601,12 +610,32 @@ public class FeaturePattern extends AgeLeafShapePattern {
 			
 			// Make the modification
 			newFeature = modificationService.modify(classifier, new AbstractModifier<Classifier, Feature>() {
+				private DiagramModificationService.Modification diagramMod;
+				
 				@Override
 				public Feature modify(final Resource resource, final Classifier classifier) {
+					// Handle diagram updates
+		 			diagramMod = diagramModService.startModification();
+		 			if(classifier instanceof ComponentImplementation) {
+		 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)classifier);	
+		 			}
+		 			
 					final Feature newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);
 					return newFeature;
-				}			
+				}
+				
+				@Override
+				public void beforeCommit(final Resource resource, final Classifier classifier, final Feature newFeature) {
+					diagramMod.commit();
+					
+					final ContainerShape newShape = (ContainerShape)shapeCreationService.createShape(context.getTargetContainer(), newFeature, context.getX(), context.getY());
+					
+					// Set the is left property
+					final GraphicsAlgorithm newShapeGa = newShape.getGraphicsAlgorithm();
+					final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX() + (newShapeGa.getWidth() / 2));
+					propertyUtil.setIsLeft(newShape, isLeft);
+				}
 			});
 		}
 		
