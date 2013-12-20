@@ -68,6 +68,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -1636,6 +1637,7 @@ public final class AadlUtil {
 			}
 		}
 	}
+	
 
 	/**
 	 * determine whether a component instance has subcomponents that can have
@@ -2229,6 +2231,14 @@ public final class AadlUtil {
 			element = (InstanceObject) element.getOwner();
 		}
 		return false;
+	}
+	
+	public static IPath getResourcePath (NamedElement component)
+	{
+		Resource res = component.eResource();
+		URI uri = res.getURI();
+		IPath path = OsateResourceUtil.getOsatePath(uri);
+		return path.removeLastSegments(1);
 	}
 
 }
