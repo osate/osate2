@@ -45,32 +45,18 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractClassifier;
-import org.osate.aadl2.BusClassifier;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.DeviceClassifier;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.MemoryClassifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.ProcessClassifier;
-import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.Realization;
-import org.osate.aadl2.SubprogramClassifier;
-import org.osate.aadl2.SubprogramGroupClassifier;
-import org.osate.aadl2.SystemClassifier;
-import org.osate.aadl2.ThreadClassifier;
-import org.osate.aadl2.ThreadGroupClassifier;
 import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.VirtualBusClassifier;
-import org.osate.aadl2.VirtualProcessorClassifier;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -160,42 +146,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 		// Create the graphics algorithm
         final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, width, height);        
         gaService.setLocation(ga, x, y);
-	}
-	
-	private String getClassifierTypeName(final Classifier classifier) {
-		if(classifier instanceof SystemClassifier) {
-        	return "system";
-        } else if(classifier instanceof ProcessClassifier) {
-        	return "process";
-        } else if(classifier instanceof ThreadGroupClassifier) {
-        	return "thread_group";
-        } else if(classifier instanceof ThreadClassifier) {
-        	return "thread";
-        } else if(classifier instanceof SubprogramClassifier) {
-        	return "subprogram";
-        } else if(classifier instanceof SubprogramGroupClassifier) {
-        	return "subprogram_group";
-        } else if(classifier instanceof DataClassifier) {
-        	return "data";
-        } else if(classifier instanceof AbstractClassifier) {
-        	return "abstract";
-        } else if(classifier instanceof VirtualBusClassifier) {
-        	return "virtual_bus";
-        } else if(classifier instanceof VirtualProcessorClassifier) {
-        	return "virtual_processor";
-        } else if(classifier instanceof BusClassifier) {
-        	return "bus";
-        } else if(classifier instanceof ProcessorClassifier) {
-        	return "processor";
-        } else if(classifier instanceof DeviceClassifier) {     	
-        	return "device";
-        } else if(classifier instanceof MemoryClassifier) {
-        	return "memory";
-        } else if(classifier instanceof FeatureGroupType) {
-        	return "feature_group";
-        } else {
-        	return "unknown";
-        }
 	}
 
 	private String getLabelText(final Classifier classifier) {
