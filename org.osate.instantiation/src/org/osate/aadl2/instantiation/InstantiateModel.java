@@ -1107,184 +1107,174 @@ public class InstantiateModel {
 			int offset, List<Integer> srcSizes, int srcOffset, List<Integer> dstSizes, int dstOffset,
 			List<Long> srcIndices, List<Long> dstIndices) {
 		boolean result = true;
-
 		if (patterns != null ? offset >= patterns.size() : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
 			createNewConnection(conni, srcIndices, dstIndices);
-		} else if (patterns == null) {
+			return result;
+		}
+		String patternName = "One_to_One";
+		if (patterns == null) {
 			// default one-to-one pattern
-			if (srcOffset >= srcSizes.size()) {
-				errManager.error(conni, "Too few indices in for connection source");
-				return false;
-			}
-			if (dstOffset >= dstSizes.size()) {
-				errManager.error(conni, "Too few indices for connection destination");
-				return false;
-			}
-			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
-				errManager.error(conni, "Array size mismatch (One_To_One): " + srcSizes.get(srcOffset)
-						+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
-				return false;
-			} else {
-				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-					srcIndices.add(i);
-					dstIndices.add(i);
-					result &= interpretConnectionPatterns(conni, isOpposite, patterns, offset + 1, srcSizes, srcOffset + 1,
-							dstSizes, dstOffset + 1, srcIndices, dstIndices);
-					srcIndices.remove(srcOffset);
-					dstIndices.remove(dstOffset);
+			if (!conni.isComplete()){
+				// outgoing or incoming only
+				InstanceObject io = conni.getSource();
+				if (io instanceof FeatureInstance &&
+						io.getContainingComponentInstance() instanceof SystemInstance){
+					patternName = isOpposite?"All_to_One":"One_To_All";
+				} else {
+					patternName = isOpposite?"One_To_All":"All_to_One";
 				}
-			}
+			}	
 		} else {
 			NamedValue nv = (NamedValue) patterns.get(offset);
 			EnumerationLiteral pattern = (EnumerationLiteral) nv.getNamedValue();
-			String patternName = pattern.getName();
+			patternName = pattern.getName();
+		}
 
-			if (!isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (srcOffset >= srcSizes.size())) {
-				errManager.error(conni, "Too few indices for connection source");
-				return false;
+		if (!isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (srcOffset >= srcSizes.size())) {
+			errManager.error(conni, "Too few indices for connection source");
+			return false;
+		}
+		if (!isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (dstOffset >= dstSizes.size())) {
+			errManager.error(conni, "Too few indices for connection destination");
+			return false;
+		}
+		if (isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
+			errManager.error(conni, "Too few indices for connection source");
+			return false;
+		}
+		if (isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (srcOffset >= srcSizes.size())) {
+			errManager.error(conni, "Too few indices for connection destination");
+			return false;
+		}
+		if (patternName.equalsIgnoreCase("All_To_All")) {
+			for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+				srcIndices.add(i);
+				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
+					dstIndices.add(j);
+					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+							dstSizes, dstOffset + 1, srcIndices, dstIndices);
+					dstIndices.remove(dstOffset);
+				}
+				srcIndices.remove(srcOffset);
 			}
-			if (!isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (dstOffset >= dstSizes.size())) {
-				errManager.error(conni, "Too few indices for connection destination");
-				return false;
+		} else if ((!isOpposite&&patternName.equalsIgnoreCase("One_To_All"))||(isOpposite&&patternName.equalsIgnoreCase("All_To_One"))) {
+			for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
+				dstIndices.add(j);
+				result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset, dstSizes,
+						dstOffset + 1, srcIndices, dstIndices);
+				dstIndices.remove(dstOffset);
 			}
-			if (isOpposite&&!patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
-				errManager.error(conni, "Too few indices for connection source");
-				return false;
+		} else if ((!isOpposite&&patternName.equalsIgnoreCase("All_To_One"))||(isOpposite&&patternName.equalsIgnoreCase("One_To_All"))) {
+			for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+				srcIndices.add(i);
+				result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+						dstSizes, dstOffset, srcIndices, dstIndices);
+				srcIndices.remove(srcOffset);
 			}
-			if (isOpposite&&!patternName.equalsIgnoreCase("All_To_One") && (srcOffset >= srcSizes.size())) {
-				errManager.error(conni, "Too few indices for connection destination");
+		} else {
+			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
+				errManager.error(conni, "Array size mismatch (" + patternName + "): " + srcSizes.get(srcOffset)
+						+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
 				return false;
-			}
-			if (patternName.equalsIgnoreCase("All_To_All")) {
-				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-					srcIndices.add(i);
-					for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
-						dstIndices.add(j);
+			} else {
+				if (patternName.equalsIgnoreCase("One_To_One")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						srcIndices.remove(srcOffset);
+						dstIndices.remove(dstOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Next")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
+						srcIndices.add(i);
+						dstIndices.add(i + 1);
 						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
 								dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
 					}
-					srcIndices.remove(srcOffset);
-				}
-			} else if ((!isOpposite&&patternName.equalsIgnoreCase("One_To_All"))||(isOpposite&&patternName.equalsIgnoreCase("All_To_One"))) {
-				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
-					dstIndices.add(j);
-					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset, dstSizes,
-							dstOffset + 1, srcIndices, dstIndices);
-					dstIndices.remove(dstOffset);
-				}
-			} else if ((!isOpposite&&patternName.equalsIgnoreCase("All_To_One"))||(isOpposite&&patternName.equalsIgnoreCase("One_To_All"))) {
-				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-					srcIndices.add(i);
-					result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-							dstSizes, dstOffset, srcIndices, dstIndices);
-					srcIndices.remove(srcOffset);
-				}
-			} else {
-				if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
-					errManager.error(conni, "Array size mismatch (" + patternName + "): " + srcSizes.get(srcOffset)
-							+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
-					return false;
-				} else {
-					if (patternName.equalsIgnoreCase("One_To_One")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							srcIndices.remove(srcOffset);
-							dstIndices.remove(dstOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Next")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
-							srcIndices.add(i);
-							dstIndices.add(i + 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Previous")) {
-						for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i - 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Cyclic_Next")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Cyclic_Previous")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Next_Next")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset) - 2; i++) {
-							srcIndices.add(i);
-							dstIndices.add(i + 2);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Previous_Previous")) {
-						for (long i = 3; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i - 2);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Cyclic_Next_Next")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i == srcSizes.get(srcOffset) ? 2 :(i == srcSizes.get(srcOffset)-1 ? 1 : i + 1));
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Cyclic_Previous_Previous")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
-							srcIndices.add(i);
-							dstIndices.add(i == 2 ? srcSizes.get(srcOffset) :(i==1?srcSizes.get(srcOffset)-1: i - 1));
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Even_To_Even")) {
-						for (long i = 2; i <= srcSizes.get(srcOffset); i=i+2) {
-							srcIndices.add(i);
-							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
-					} else if (patternName.equalsIgnoreCase("Odd_To_Odd")) {
-						for (long i = 1; i <= srcSizes.get(srcOffset); i=i+2) {
-							srcIndices.add(i);
-							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
-									dstSizes, dstOffset + 1, srcIndices, dstIndices);
-							dstIndices.remove(dstOffset);
-							srcIndices.remove(srcOffset);
-						}
+				} else if (patternName.equalsIgnoreCase("Previous")) {
+					for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i - 1);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Cyclic_Next")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Cyclic_Previous")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Next_Next")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset) - 2; i++) {
+						srcIndices.add(i);
+						dstIndices.add(i + 2);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Previous_Previous")) {
+					for (long i = 3; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i - 2);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Cyclic_Next_Next")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i == srcSizes.get(srcOffset) ? 2 :(i == srcSizes.get(srcOffset)-1 ? 1 : i + 1));
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Cyclic_Previous_Previous")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+						srcIndices.add(i);
+						dstIndices.add(i == 2 ? srcSizes.get(srcOffset) :(i==1?srcSizes.get(srcOffset)-1: i - 1));
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Even_To_Even")) {
+					for (long i = 2; i <= srcSizes.get(srcOffset); i=i+2) {
+						srcIndices.add(i);
+						dstIndices.add(i);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
+					}
+				} else if (patternName.equalsIgnoreCase("Odd_To_Odd")) {
+					for (long i = 1; i <= srcSizes.get(srcOffset); i=i+2) {
+						srcIndices.add(i);
+						dstIndices.add(i);
+						result &= interpretConnectionPatterns(conni, isOpposite,patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+						srcIndices.remove(srcOffset);
 					}
 				}
 			}
