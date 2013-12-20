@@ -50,12 +50,12 @@ public class GraphicalToTextualFeature extends AbstractCustomFeature {
 	}
 	@Override
     public String getName() {
-        return "Switch to Textual View";
+        return "Go to AADL Source";
     }
  
     @Override
     public String getDescription() {
-        return "View the textual representation of this part";
+        return "Go to the AADL textual representation of this element.";
     }
 
     @Override
