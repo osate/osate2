@@ -8,6 +8,9 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.diagrams.common.patterns;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -18,7 +21,6 @@ import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
-import org.eclipse.graphiti.internal.datatypes.impl.LocationImpl;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -39,8 +41,6 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal;
-import org.eclipse.graphiti.ui.internal.services.IGefService;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
@@ -220,10 +220,10 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	}
 	
 	// Assume freeform and no bendpoints
-	private static ILocation getConnectionMidpoint(final Connection connection, final double d) {
+	private static Point getConnectionMidpoint(final Connection connection, final double d) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();
-		
-		final IGefService gefService = GraphitiUiInternal.getGefService();
+
+		//final IGefService gefService = GraphitiUiInternal.getGefService();
 		// Should be end point?
 		final Shape startShape = (Shape)connection.getStart().getParent();
 		final Shape endShape = (Shape)connection.getEnd().getParent();
@@ -236,55 +236,101 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final Rectangle startShapeRect = new Rectangle(startShapeLocation.getX(), startShapeLocation.getY(), startShapeGa.getWidth(), startShapeGa.getHeight());
 		final Rectangle endShapeRect = new Rectangle(endShapeLocation.getX(), endShapeLocation.getY(), endShapeGa.getWidth(), endShapeGa.getHeight());
 		
-		// TODO: Look for layout helpers
+		// Find a point on the the line
 		if(connection instanceof CurvedConnection) {			
-			final Point startPoint = gefService.getChopboxLocationOnBox(new Point(endShapeLocation.getX(), endShapeLocation.getY()), startShapeRect);
-			final Point endPoint = gefService.getChopboxLocationOnBox(new Point(startShapeLocation.getX(), startShapeLocation.getY()), endShapeRect);
-			
-			// Code example: y is handled differently than x....
-			final Point endPointRel = new Point(endPoint.x-startPoint.x, endPoint.y-startPoint.y);			
-			
+			final Point startPoint = new Point(startShapeLocation.getX() + startShapeRect.width/2, startShapeLocation.getY() + startShapeRect.height/2);
+			final Point endPoint = new Point(endShapeLocation.getX() + endShapeRect.width/2, endShapeLocation.getY() + endShapeRect.height/2);
+	
 			final CurvedConnection cc = (CurvedConnection)connection;
+			final BezierRouter router = new BezierRouter(cc.getControlPoints());
+			final List<org.eclipse.draw2d.geometry.PrecisionPoint> altResults = router.route(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
 			
-			// Calculate the transformed control point
-			// Algorithm copied from org.eclipse.graphiti.ui.internal.parts.CurvedConnectionEditPart.BezierRouter to duplicate control point transformation
-			double gradient = endPointRel.y / -endPointRel.x;
-			double ortho_gradient = -Math.pow(gradient, -1);
-			double orthovector_x = 1;
-			double orthovector_y = ortho_gradient;
-			double factor_to_length = 1 / Math.sqrt((Math.pow(orthovector_y, 2) + Math.pow(orthovector_x, 2)));
-			final PrecisionPoint cp = cc.getControlPoints().get(0);			
-			double orthovector_x_cp = factor_to_length * orthovector_x * cp.getY();
-			double orthovector_y_cp = factor_to_length * orthovector_y * cp.getY();
-			if (Double.isNaN(orthovector_x_cp)) {
-				orthovector_x_cp = 0;
-			}
-			if (Double.isNaN(orthovector_y_cp)) {
-				orthovector_y_cp = 1 * cp.getY();
-			}
-
-			final double cpX = startPoint.x + (endPointRel.x * cp.getX() - orthovector_x_cp);
-			final double cpY = startPoint.y + ((endPointRel.y * cp.getX()) + orthovector_y_cp);
-			
-			// Calculate the midpoint
-			final double ax = (startPoint.x + cpX) / 2;
-			final double ay = (startPoint.y + cpY) / 2;
-			final double bx = (cpX + endPoint.x) / 2;
-			final double by = (cpY + endPoint.y) / 2;
-			final double mx = (ax + bx)/2;
-			final double my = (ay + by)/2;		      
-			final int x = (int)mx;
-			final int y = (int)my;
-						
-			return new LocationImpl(x, y);			
+			// Not technically the midpoint but in practice the point is a reasonable substitute
+			final org.eclipse.draw2d.geometry.PrecisionPoint altPoint = altResults.get(altResults.size()/2-2);
+			return new Point(altPoint.x, altPoint.y);
 		}
 		
 		final ILocation startLoc = layoutService.getLocationRelativeToDiagram(connection.getStart());
 		final ILocation endLoc = layoutService.getLocationRelativeToDiagram(connection.getEnd());
 		
-		// TODO: Replace with something that works in all cases. The layout service works for freestyle but has an offset(of 25) for some reason
 		// Need a method that will work with CurvedConnections
-		return new LocationImpl((int)(startLoc.getX() + (endLoc.getX() - startLoc.getX()) * d), (int)(startLoc.getY() + (endLoc.getY() - startLoc.getY()) * d));
+		return new Point((int)(startLoc.getX() + (endLoc.getX() - startLoc.getX()) * d), (int)(startLoc.getY() + (endLoc.getY() - startLoc.getY()) * d));
+	}
+	
+	
+	// Copied and adapted from: org.eclipse.graphiti.ui.internal.parts.CurvedConnectionEditPart.BezierRouter
+	private static class BezierRouter {
+		private List<PrecisionPoint> bezierPoints;
+
+		public BezierRouter(List<PrecisionPoint> bezierPoints) {
+			this.bezierPoints = bezierPoints;
+		}
+
+		public List<org.eclipse.draw2d.geometry.PrecisionPoint> route(final int startX, final int startY, final int endX, final int endY) {
+			final List<org.eclipse.draw2d.geometry.PrecisionPoint> points = new ArrayList<org.eclipse.draw2d.geometry.PrecisionPoint>();
+			List<org.eclipse.draw2d.geometry.PrecisionPoint> controllPoints = new ArrayList<org.eclipse.draw2d.geometry.PrecisionPoint>();
+			org.eclipse.draw2d.geometry.PrecisionPoint start = new org.eclipse.draw2d.geometry.PrecisionPoint();
+			org.eclipse.draw2d.geometry.PrecisionPoint end = new org.eclipse.draw2d.geometry.PrecisionPoint();
+			start.setLocation(startX, startY);
+			end.setLocation(endX, endY);
+			controllPoints.add(start);
+			double gradient = (end.preciseY() - start.preciseY()) / (-end.preciseX() + start.preciseX());
+			double ortho_gradient = -Math.pow(gradient, -1);
+			double orthovector_x = 1;
+			double orthovector_y = ortho_gradient;
+			double factor_to_length = 1 / Math.sqrt((Math.pow(orthovector_y, 2) + Math.pow(orthovector_x, 2)));
+			for (PrecisionPoint precisionPoint : this.bezierPoints) {
+
+				double orthovector_x_cp = factor_to_length * orthovector_x * precisionPoint.getY();
+				double orthovector_y_cp = factor_to_length * orthovector_y * precisionPoint.getY();
+				if (Double.isNaN(orthovector_x_cp)) {
+					orthovector_x_cp = 0;
+				}
+				if (Double.isNaN(orthovector_y_cp)) {
+					orthovector_y_cp = 1 * precisionPoint.getY();
+				}
+				org.eclipse.draw2d.geometry.PrecisionPoint anchor = new org.eclipse.draw2d.geometry.PrecisionPoint(
+						(start.x + (end.x - start.x) * precisionPoint.getX() - orthovector_x_cp),
+						(start.y - (start.y - end.y) * precisionPoint.getX()) + orthovector_y_cp);
+
+				controllPoints.add(anchor);
+			}
+			controllPoints.add(end);
+			int precision = 10;
+			double factor = 1.0d / precision;
+			points.add(start);
+			for (int i = 1; i < precision; i++) {
+				int j = 0;
+				double sum_x = 0;
+				double sum_y = 0;
+				for (Point point : controllPoints) {
+					sum_x += (bezier(j, controllPoints.size() - 1, i * factor) * point.preciseX());
+					sum_y += (bezier(j, controllPoints.size() - 1, i * factor) * point.preciseY());
+					j++;
+				}
+				org.eclipse.draw2d.geometry.PrecisionPoint bezierPoint = new org.eclipse.draw2d.geometry.PrecisionPoint(
+						sum_x, sum_y);
+				points.add(bezierPoint);
+			}
+			points.add(end);
+			
+			return points;
+		}
+
+		private double bezier(int i, int n, double t) {
+			return binomialCoefficients(n, i) * Math.pow(t, i) * Math.pow((1 - t), (n - i));
+		}
+
+		private long binomialCoefficients(int n, int k) {
+			long coeff = 1;
+			for (int i = n - k + 1; i <= n; i++) {
+				coeff *= i;
+			}
+			for (int i = 1; i <= k; i++) {
+				coeff /= i;
+			}
+			return coeff;
+		}
 	}
 	
 	// CLEAN-UP: Should be private and not static. Develop another way for ModePattern to trigger updating of the anchors without causing issues
@@ -292,8 +338,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final ILayoutService layoutService = Graphiti.getLayoutService();
 		final ContainerShape modeShape = getStartModeShape(connection);
 		final ILocation modeLocation = layoutService.getLocationRelativeToDiagram(modeShape);
-		final ILocation l = getConnectionMidpoint(connection, 0.5);
-		anchorUtil.createOrUpdateFixPointAnchor(modeShape, getTransitionAnchorName(mt), l.getX() - modeLocation.getX(), l.getY() - modeLocation.getY());
+		final Point l = getConnectionMidpoint(connection, 0.5);
+		anchorUtil.createOrUpdateFixPointAnchor(modeShape, getTransitionAnchorName(mt), l.x - modeLocation.getX(), l.y - modeLocation.getY());
 	}
 	
 	private void updateTriggers(final Connection connection, final ModeTransition mt) {	
