@@ -9,6 +9,7 @@
   <property name="input.dir" value="input" />
   <property name="output.dir" value="output" />
   <property name="docbook.xsl.dir" value="docbook-xsl-1.76.1" />
+  <property name="html.stylesheet" value="${docbook.xsl.dir}/html/docbook.xsl" />
   <property name="eclipse.stylesheet" value="${docbook.xsl.dir}/eclipse/eclipse3.xsl" />
 
   <!-- Making saxon available -->
@@ -39,7 +40,7 @@ description="Generates eclipse help files">
 <!-- Copy the images to the same directory as the HTML files -->
 <copy todir="${output.dir}\images">
   <fileset dir="${input.dir}\images">
-<include name="title.png" />
+<include name="*" />
   </fileset>
 </copy>
 <!-- Transfer to eclipse help format -->

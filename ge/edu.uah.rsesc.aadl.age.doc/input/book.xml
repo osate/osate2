@@ -2,61 +2,91 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "../docbook-xml-4.5/docbookx.dtd">
 
 <book>
-  <title>AADL Graphical Editor</title>
-  
-  <bookinfo>
-    <title>DocBook Intro</title>
-    <author>
-      <firstname>Lars</firstname>
-      <surname>Vogel</surname>
-    </author>
-    <volumenum>1234</volumenum>
-  </bookinfo>
-  
-  <chapter>
-    <title>This is the first chapter</title>
-    <section>
-      <title> First section in the chapter</title>
-      <para> Test</para>
-        <section>
-      <title> First sub section </title>
-      <para> Subsection1</para>
-    </section>
-      <section>
-      <title> second sub section </title>
-      <para> Subsection2</para>
-    </section>
-    </section>
-    <section>
-      <title> Second section in the chapter</title>
-      <para>Other random text
-      </para>
-      <para>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/title.png"/>
-        </imageobject>
-        <textobject>
-        <phrase>
-        </phrase>
-      </textobject>
-      </mediaobject>
-    </para>
-    </section>
-    
-  </chapter>
+	<title>AADL Graphical Editor Part 1</title>
+	<bookinfo>
+		<title>DocBook Example</title>
+		<author>
+		<firstname>Marc</firstname>
+		<surname>Byrd</surname>
+		</author>
+		<volumenum>1</volumenum>
+	</bookinfo>
 
-  <chapter>
-    <title>This is the second chapter</title>
-    <section>
-      <title> My Title</title>
-      <para>More...
-      </para>
-    </section>
-    <section>
-      <title> Other title</title>
-      <para>Blabla
-      </para>
-    </section>
-  </chapter>
+	<chapter>
+		<title>Chapter 1</title>
+		<section>
+			<title>Section 1</title>
+			<para>This is paragraph text</para>
+			<section>
+				<title> Subsection 1 </title>
+				<para>This is subsection text</para>
+			</section>
+			<section>
+				<title> Subsection 2 </title>
+				<para> This is also subsection text</para>
+			</section>
+		</section>
+		<section>
+			<title> Section 2</title>
+				<para>This is paragraph text</para>
+				<para>Here you can put an image by choosing a correct path for the image file
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/title.png"/>
+						</imageobject>
+						<textobject>
+							<phrase>Alt Text</phrase>
+						</textobject>
+						  <caption>
+							   <para>This is a caption for the above image</para>
+						  </caption>
+					</mediaobject>
+				</para>
+		</section>
+	</chapter>
+
+	<chapter>
+	<title>Chapter 2</title>
+		<section>
+			<title>Section 1</title>
+			<itemizedlist mark='opencircle'>
+				<listitem>
+					<para>Open Bullet Point</para>
+					<itemizedlist mark='opencircle'>
+						<listitem>
+							<para>Sub Open Bullet Point</para>
+						</listitem>
+					</itemizedlist>	
+				</listitem>
+				<listitem override='bullet'>
+					<para>Closed Bullet Point</para>
+				</listitem>
+				<listitem>
+					<para>Another Open Bullet Point</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section>
+			<title>Section 2</title>
+			<orderedlist>
+			<listitem>
+				<para>This is the 1st part of an numbed list</para>
+				<orderedlist>
+					<listitem>
+						<para>Here is another level</para>
+					</listitem>
+				</orderedlist>
+			</listitem>
+			<listitem>
+				<para><emphasis role="bold">Two</emphasis></para>
+			</listitem>
+			<listitem>
+				<para><emphasis>Three</emphasis></para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strikethrough">Four</emphasis></para>
+			</listitem>
+			</orderedlist>
+		</section>
+	</chapter>
 </book> 
