@@ -37,8 +37,6 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModeTransition;
 import org.osgi.framework.Bundle;
@@ -52,12 +50,9 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.RenameModeTransitionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetDerivedModesFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.features.SetFeatureClassifierFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetInitialModeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetModeTransitionTriggersFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
-import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
-import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureDirectionFeature;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AnchorService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -253,13 +248,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(GraphicalToTextualFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		
-		features.add(make(SetFeatureClassifierFeature.class));
-		features.add(setFeatureDir(DirectionType.IN));
-		features.add(setFeatureDir(DirectionType.OUT));
-		features.add(setFeatureDir(DirectionType.IN_OUT));		
-		features.add(setFeatureKind(AccessType.PROVIDES));
-		features.add(setFeatureKind(AccessType.REQUIRES));
-		
 		features.add(make(ConfigureInModesFeature.class));
 		features.add(createSetInitialModeFeature(true));
 		features.add(createSetInitialModeFeature(false));
@@ -324,20 +312,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return ContextInjectionFactory.make(FeaturePattern.class, childCtx);
 	}
 	
-	private SetFeatureDirectionFeature setFeatureDir(final DirectionType dirType) 
-	{
-		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Direction", dirType);
-
-		return ContextInjectionFactory.make(SetFeatureDirectionFeature.class, childCtx);
-	}
-	private SetAccessFeatureKindFeature setFeatureKind(final AccessType accType) 
-	{
-		final IEclipseContext childCtx = getContext().createChild();
-		childCtx.set("Access", accType);
-
-		return ContextInjectionFactory.make(SetAccessFeatureKindFeature.class, childCtx);
-	}
 	/**
 	 * Creates and adds patterns related to AADL Features
 	 */

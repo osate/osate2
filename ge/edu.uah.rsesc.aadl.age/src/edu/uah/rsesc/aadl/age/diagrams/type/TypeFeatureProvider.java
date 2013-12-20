@@ -21,6 +21,8 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.DirectionType;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
@@ -29,6 +31,9 @@ import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.ChangeFeatureTypeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.RefineFeatureFeature;
+import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
+import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureClassifierFeature;
+import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureDirectionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.TypeUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeClassifierPattern;
 
@@ -61,11 +66,32 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		super.addCustomFeatures(features);
 		features.add(make(RefineFeatureFeature.class));
+		features.add(make(SetFeatureClassifierFeature.class));
+		features.add(setFeatureDir(DirectionType.IN));
+		features.add(setFeatureDir(DirectionType.OUT));
+		features.add(setFeatureDir(DirectionType.IN_OUT));		
+		features.add(setFeatureKind(AccessType.PROVIDES));
+		features.add(setFeatureKind(AccessType.REQUIRES));
 		
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
 			childCtx.set("Feature Type", featureType);
 			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));	
 		}
+	}
+	
+	private SetFeatureDirectionFeature setFeatureDir(final DirectionType dirType) 
+	{
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Direction", dirType);
+
+		return ContextInjectionFactory.make(SetFeatureDirectionFeature.class, childCtx);
+	}
+	private SetAccessFeatureKindFeature setFeatureKind(final AccessType accType) 
+	{
+		final IEclipseContext childCtx = getContext().createChild();
+		childCtx.set("Access", accType);
+
+		return ContextInjectionFactory.make(SetAccessFeatureKindFeature.class, childCtx);
 	}
 }
