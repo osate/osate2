@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<plugin name="AADL Graphical Editor" id="com.example.help" version="1.0" provider-name="Example provider">
+<plugin>
    <extension point="org.eclipse.help.toc">
       <toc file="toc.xml" primary="true"/>
    </extension>
    <extension point="org.eclipse.help.index">
-      <index file="index.xml"/>
+      <index file="output/index.xml"/>
    </extension>
 </plugin>
