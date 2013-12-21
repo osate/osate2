@@ -1119,9 +1119,11 @@ public class InstantiateModel {
 				InstanceObject io = conni.getSource();
 				if (io instanceof FeatureInstance &&
 						io.getContainingComponentInstance() instanceof SystemInstance){
-					patternName = isOpposite?"All_to_One":"One_To_All";
+					if (srcSizes.isEmpty())
+						patternName = isOpposite?"All_to_One":"One_To_All";
 				} else {
-					patternName = isOpposite?"One_To_All":"All_to_One";
+					if (dstSizes.isEmpty())
+						patternName = isOpposite?"One_To_All":"All_to_One";
 				}
 			}	
 		} else {
