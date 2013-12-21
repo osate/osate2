@@ -148,16 +148,9 @@ TypeSetConstructor returns TypeSet:
           ;
 
 TypeSetReference returns TypeSet: 
-     TypeSetConstructor //| TypeSetID
+     TypeSetConstructor 
           ;
 
-//TypeSetID returns TypeSet:
-//	typeTokens+=TypeSetAsElement	
-//;
-//      
-//TypeSetAsElement returns TypeToken :
-//	type+=[TypeSet|QEMREF] 
-//;
       
 TypeSetElement returns TypeToken :
 	type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorType|QEMREF])*
