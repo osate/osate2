@@ -313,6 +313,16 @@ public class InstanceModelUtil {
 
 
 		/**
+		 * return the list of system that the functional component is directly bound to
+		 * @param io
+		 * @return list of system component instances
+		 */
+		public static List<ComponentInstance> getFunctionBinding(final ComponentInstance io) {
+			List<ComponentInstance> bindinglist = GetProperties.getActualFunctionBinding(io);
+			return bindinglist;
+		}
+
+		/**
 		 * return the processor or virtual processor that the component is directly bound to
 		 * @param io
 		 * @return
