@@ -342,6 +342,11 @@ public class AnalysisModel {
 					populateBindingPropagationPaths(ci, bres,"connection");
 				}
 			}
+			List<ComponentInstance> systems = InstanceModelUtil.getFunctionBinding(ci);
+			for (ComponentInstance system : systems)
+			{
+				populateBindingPropagationPaths(ci, system,"binding");
+			}
 		} else if (obj instanceof ConnectionInstance){
 			// do connection bindings
 			List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(obj);
