@@ -289,6 +289,21 @@ public class GetProperties {
 		return components;
 	}
 
+	public static List<ComponentInstance> getActualFunctionBinding(final InstanceObject io) {
+		Property actualFunctionBinding = lookupPropertyDefinition(io,DeploymentProperties._NAME,
+				DeploymentProperties.ACTUAL_FUNCTION_BINDING);
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		List<? extends PropertyExpression> propertyValues ;
+		try {
+			propertyValues = io.getPropertyValueList(actualFunctionBinding);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues)
+			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+		return components;
+	}
+
 	public static List<? extends PropertyExpression> getActualConnectionBinding(final NamedElement ne) {
 			Property actualConnectionBinding = lookupPropertyDefinition(ne,DeploymentProperties._NAME,
 					DeploymentProperties.ACTUAL_CONNECTION_BINDING);
