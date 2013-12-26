@@ -313,9 +313,9 @@
                
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.Consistency.popupAction"
-               label="%UnhandledFaults.label"
-               tooltip="%UnhandledFaults.toolTip"
-               icon="%UnhandledFaults.icon"
+               label="%Consistency.label"
+               tooltip="%Consistency.toolTip"
+               icon="%Consistency.icon"
                class="org.osate.aadl2.errormodel.analysis.actions.ConsistencyAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>               
