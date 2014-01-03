@@ -1490,7 +1490,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentType parent = typeExtension.getExtended();
 		ComponentType child = (ComponentType) typeExtension.getSpecific();
 		if (!canExtend(parent, child))
-			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", parent,
+			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
 	}
 
