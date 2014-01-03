@@ -14,7 +14,7 @@ TransientServiceOmission: type extends SequenceOmission;
 LateServiceStart: type extends SequenceOmission;
 EarlyServiceTermination: type extends SequenceOmission;
 BoundedOmissionInterval: type extends SequenceOmission; 
-ItemComission: type extends ServiceError; 
+ItemCommission: type extends ServiceError; 
 ServiceCommission: type extends ServiceError;
 SequenceCommission: type extends ServiceError;
 EarlyServiceStart: type extends SequenceCommission;
