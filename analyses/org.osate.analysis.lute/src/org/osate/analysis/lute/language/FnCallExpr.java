@@ -17,7 +17,7 @@ LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE A
 IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
 FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
-*/
+ */
 
 /**
  * <copyright>
@@ -62,6 +62,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DirectionType;
@@ -71,11 +72,17 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.ContainmentPathElementImpl;
 import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -86,16 +93,70 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.OsateDebug;
+import org.osate.analysis.lute.LuteConstants;
 import org.osate.analysis.lute.LuteException;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
+
+
 
 public class FnCallExpr extends Expr {
 	final private String fn;
 	final private List<Expr> args;
 	private Environment evaluationEnvironment = null;
-	
+	private Val getProperty( final List<Val> p_argValues )
+	{
+		
+		expectArgs( p_argValues, new int[] { 2, 3 } );
+		Val arg0 = p_argValues.get(0);
+		
+		if (arg0 instanceof SetVal)
+		{
+			Collection<Val> arg0Set = arg0.getSet();
+			ArrayList<Val> result = new ArrayList<Val>();
+			Val tmp;
+			Iterator<Val> iter = arg0Set.iterator();
+			while (iter.hasNext())
+			{
+				Val v = iter.next();
+				List<Val> newArgs = new ArrayList<Val>();
+				newArgs.add(v);
+				newArgs.add(p_argValues.get(1));
+				if ( p_argValues.size() == 3 )
+				{
+					newArgs.add(p_argValues.get(2));
+				}
+				Val toAdd = getProperty(newArgs);
+				if (toAdd != null)
+				{
+					result.add(toAdd);
+				}
+			}
+			return new SetVal(result);
+		}
+		
+		final NamedElement aadl = p_argValues.get( 0 ).getAADL();
+		final String property = p_argValues.get( 1 ).getString();
+		Val result = null;
+
+		if ( p_argValues.size() == 2 ) {
+			result = getProperty( aadl, property );
+		}
+		else if ( p_argValues.size() == 3 ) {
+			final String unit = p_argValues.get( 2 ).getString();
+			result = getProperty( aadl, property, unit );
+		}
+		//
+		// DB: Allow null values to be returned when no property association is defined.
+		//		if ( result == null ) {
+		//			throw new LuteException( "Failed to find property " + property );
+		//		}
+
+		return result;
+	}
 	public List<Expr> getArgs ()
 	{
 		return this.args;
@@ -123,9 +184,9 @@ public class FnCallExpr extends Expr {
 			}
 		}
 		return ret;
-		
+
 	}
-	
+
 	@Override
 	public Val eval(Environment env) {
 		ArrayList<Val> argValues = new ArrayList<Val>();
@@ -133,117 +194,56 @@ public class FnCallExpr extends Expr {
 		for (Expr arg : args) {
 			argValues.add(arg.eval(env));
 		}
-		
-		if (fn.equals("Property")) {
-			Val result;
-			String property;
-						
-			expectArgs(2);
 
-			property = argValues.get(1).getString();
-			result = null;
 
-			
-			if (argValues.get(0) instanceof SetVal)
-			{
-				ArrayList<Val> list = new ArrayList<Val>();
+		if ( fn.equals( LuteConstants.PROPERTY ) ) {
+			return getProperty( argValues );
 
-				SetVal set = (SetVal) argValues.get(0);
-				Iterator<Val> iter= set.getSet().iterator();
-				
-				while (iter.hasNext())
-				{
-					Val val = iter.next();
-					result = getProperty(val.getAADL(), property);
-					//OsateDebug.osateDebug("result=" + result);
 
-					list.add(result);
-				}
-				result = new SetVal (list);
-			}
-			else
-			{
-				InstanceObject aadl = argValues.get(0).getAADL();
-				result = getProperty(aadl, property);
-				//OsateDebug.osateDebug("result" + result);
-				if (result == null) { 
-					return (new StringVal (""));
-				//	throw new LuteException("Failed to find property " + property);
-				}
-			}
-			return result;
-			
 		} else if (fn.equals("Property_Exists")) {
 			expectArgs(2);
-			InstanceObject aadl = argValues.get(0).getAADL();
+			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
 			String property = argValues.get(1).getString();
 			Val result = getProperty(aadl, property);
 			return new BoolVal(result != null);
-			
+
 		}else if (fn.equals("Is_Of_Type")) {
 			expectArgs(2);
-			InstanceObject aadl = argValues.get(0).getAADL();
+			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
 			String typeString = argValues.get(1).getString();
 			return new BoolVal(checkType(aadl, typeString));
-			
+
 		}
-		
+
 		else if (fn.equals("Is_Bound_To")) {
 			expectArgs(2);
 
-			InstanceObject s = argValues.get(0).getAADL();
-			InstanceObject t = argValues.get(1).getAADL();
+			InstanceObject s = (InstanceObject) argValues.get(0).getAADL();
+			InstanceObject t = (InstanceObject) argValues.get(1).getAADL();
 			return new BoolVal(isBoundTo(s, t));
-			
+
 		} else if (fn.equalsIgnoreCase("source")) {
 			expectArgs(1);
-			InstanceObject c = argValues.get(0).getAADL();
+			InstanceObject c = (InstanceObject) argValues.get(0).getAADL();
 			if (c instanceof ConnectionInstance) {
 				ConnectionInstance conn = (ConnectionInstance) c;
 				return new AADLVal(conn.getSource());
 			}
 			throw new LuteException("Source called on non-connection object");
-			
+
 		} else if (fn.equalsIgnoreCase("destination")) {
 			expectArgs(1);
-			InstanceObject c = argValues.get(0).getAADL();
+			InstanceObject c = (InstanceObject) argValues.get(0).getAADL();
 			if (c instanceof ConnectionInstance) {
 				ConnectionInstance conn = (ConnectionInstance) c;
 				return new AADLVal(conn.getDestination());
 			}
 
 			throw new LuteException("Destination called on non-connection object");
-			
+
 		} else if (fn.equalsIgnoreCase("has_out_ports")) {
 			expectArgs(1);
-			InstanceObject c = argValues.get(0).getAADL();
-			if (c instanceof ComponentInstance) {
-				int fis = 0;
-				ComponentInstance comp = (ComponentInstance) c;
-				for (FeatureInstance fi : comp.getFeatureInstances())
-				{
-					if ( (fi.getCategory() != FeatureCategory.DATA_PORT) &&
-						 (fi.getCategory() != FeatureCategory.EVENT_DATA_PORT) &&
-						 (fi.getCategory() != FeatureCategory.EVENT_PORT))
-					{
-						continue;
-					}
-					
-					if ((fi.getDirection() == DirectionType.OUT) ||
-						(fi.getDirection() == DirectionType.IN_OUT) )
-					{
-						fis++;
-					}
-
-				}
-				return new BoolVal(fis != 0);
-			}
-
-			throw new LuteException("has_out_ports called on non-connection object");
-			
-		} else if (fn.equalsIgnoreCase("has_in_ports")) {
-			expectArgs(1);
-			InstanceObject c = argValues.get(0).getAADL();
+			InstanceObject c = (InstanceObject) argValues.get(0).getAADL();
 			if (c instanceof ComponentInstance) {
 				int fis = 0;
 				ComponentInstance comp = (ComponentInstance) c;
@@ -255,9 +255,36 @@ public class FnCallExpr extends Expr {
 					{
 						continue;
 					}
-					
+
+					if ((fi.getDirection() == DirectionType.OUT) ||
+							(fi.getDirection() == DirectionType.IN_OUT) )
+					{
+						fis++;
+					}
+
+				}
+				return new BoolVal(fis != 0);
+			}
+
+			throw new LuteException("has_out_ports called on non-connection object");
+
+		} else if (fn.equalsIgnoreCase("has_in_ports")) {
+			expectArgs(1);
+			InstanceObject c = (InstanceObject) argValues.get(0).getAADL();
+			if (c instanceof ComponentInstance) {
+				int fis = 0;
+				ComponentInstance comp = (ComponentInstance) c;
+				for (FeatureInstance fi : comp.getFeatureInstances())
+				{
+					if ( (fi.getCategory() != FeatureCategory.DATA_PORT) &&
+							(fi.getCategory() != FeatureCategory.EVENT_DATA_PORT) &&
+							(fi.getCategory() != FeatureCategory.EVENT_PORT))
+					{
+						continue;
+					}
+
 					if ((fi.getDirection() == DirectionType.IN) ||
-						(fi.getDirection() == DirectionType.IN_OUT) )
+							(fi.getDirection() == DirectionType.IN_OUT) )
 					{
 						fis++;
 					}
@@ -267,23 +294,23 @@ public class FnCallExpr extends Expr {
 			}
 
 			throw new LuteException("has_in_ports called on non-connection object");
-			
+
 		} else if (fn.equals("Member")) {
 			expectArgs(2);
 			Val e = argValues.get(0);
 
 			Collection<Val> set = argValues.get(1).getSet();
 			return new BoolVal(set.contains(e));
-			
+
 		} else if (fn.equals("Owner")) {
 			expectArgs(1);
-			InstanceObject e = argValues.get(0).getAADL();
+			InstanceObject e = (InstanceObject) argValues.get(0).getAADL();
 			if (e.getOwner() instanceof InstanceObject) {
 				InstanceObject owner = (InstanceObject) e.getOwner();
 				return new AADLVal(owner);
 			}
 			throw new LuteException("Owner called on un-owned object");
-			
+
 		} else if (fn.equals("Is_Subcomponent_Of")) {
 			/*
 			 * Is_Subcomponent_Of looks if the component is
@@ -294,9 +321,9 @@ public class FnCallExpr extends Expr {
 			 * function instead.
 			 */
 			expectArgs(2);
-			InstanceObject sub = argValues.get(0).getAADL();
+			InstanceObject sub = (InstanceObject) argValues.get(0).getAADL();
 
-			InstanceObject top = argValues.get(1).getAADL();
+			InstanceObject top = (InstanceObject) argValues.get(1).getAADL();
 			while (sub.getOwner() instanceof InstanceObject) {
 				InstanceObject owner = (InstanceObject) sub.getOwner();
 				if (top.equals(owner)) {
@@ -305,7 +332,7 @@ public class FnCallExpr extends Expr {
 				sub = owner;
 			}
 			return new BoolVal(false);
-			
+
 		} 
 		else if (fn.equals("Is_Direct_Subcomponent_Of")) 
 		{
@@ -315,9 +342,9 @@ public class FnCallExpr extends Expr {
 			 * not look at the entire component hierarchy.
 			 */
 			expectArgs(2);
-			InstanceObject sub = argValues.get(0).getAADL();
+			InstanceObject sub = (InstanceObject) argValues.get(0).getAADL();
 
-			InstanceObject top = argValues.get(1).getAADL();
+			InstanceObject top = (InstanceObject) argValues.get(1).getAADL();
 			if (sub.getOwner() instanceof InstanceObject) {
 				InstanceObject owner = (InstanceObject) sub.getOwner();
 				if (top.equals(owner)) {
@@ -339,9 +366,16 @@ public class FnCallExpr extends Expr {
 				//OsateDebug.osateDebug("bla2=" + tmp.getInt());
 				retInt = retInt.add(tmp.getInt());
 			}
-			
+
 			return new IntVal(retInt);
 		}
+		else if ( fn.equals( LuteConstants.CONCAT ) ) {
+			expectArgs( 2 );
+			final String left = argValues.get(0).getString();
+			final String right = argValues.get(1).getString();
+
+			return new StringVal( left + right );
+		} 
 		else if (fn.equals("Max")) {
 			if (argValues.size() == 1) {
 				Val arg = argValues.get(0);
@@ -354,7 +388,7 @@ public class FnCallExpr extends Expr {
 			} else {
 				return max(argValues);
 			}
-			
+
 		} else if (fn.equals("Min")) {
 			if (argValues.size() == 1) {
 				Val arg = argValues.get(0);
@@ -367,41 +401,46 @@ public class FnCallExpr extends Expr {
 			} else {
 				return min(argValues);
 			}
-			
+
 		} else if (fn.equals("Cardinal")) 
 		{
 			expectArgs(1);
 			Collection<Val> set = argValues.get(0).getSet();
 			return new IntVal(set.size());
-			
+
 		} else if (fn.equals("Lower")) {
 			expectArgs(1);
 			RangeVal range = argValues.get(0).getRange();
 			return range.getLower();
-			
+
 		} else if (fn.equals("Upper")) {
 			expectArgs(1);
 			RangeVal range = argValues.get(0).getRange();
 			return range.getUpper();
-			
+
 		} else if (fn.equals("=")) {
 			expectArgs(2);
 			Val left = argValues.get(0);
 			Val right = argValues.get(1);
+			if ((left == null) || (right == null))
+			{
+				OsateDebug.osateDebug("[FnCallExpr] one arg is null");
+				return new BoolVal (false);
+			}
 			return new BoolVal(left.equals(right));
-			
+
 		} else if (fn.equals("!=")) {
 			expectArgs(2);
 			Val left = argValues.get(0);
 			Val right = argValues.get(1);
 			return new BoolVal(!left.equals(right));
-			
+
 		} else if (fn.equals(">")) {
 			expectArgs(2);
 			BigInteger left = argValues.get(0).getInt();
 			BigInteger right = argValues.get(1).getInt();
 			return new BoolVal(left.compareTo(right) > 0);
-			
+
 		} else if (fn.equals("<")) {
 			expectArgs(2);
 			BigInteger left = argValues.get(0).getInt();
@@ -410,48 +449,48 @@ public class FnCallExpr extends Expr {
 			//OsateDebug.osateDebug("right=" + right);
 
 			return new BoolVal(left.compareTo(right) < 0);
-			
+
 		} else if (fn.equals(">=")) {
 			expectArgs(2);
 			BigInteger left = argValues.get(0).getInt();
 			BigInteger right = argValues.get(1).getInt();
 			return new BoolVal(left.compareTo(right) >= 0);
-			
+
 		} else if (fn.equals("<=")) {
 			expectArgs(2);
 			BigInteger left = argValues.get(0).getInt();
 			BigInteger right = argValues.get(1).getInt();
 			return new BoolVal(left.compareTo(right) <= 0);
-			
+
 		} else if (fn.equals("+")) {
 			expectArgs(2);
 			BigInteger left = argValues.get(0).getInt();
 			BigInteger right = argValues.get(1).getInt();
 			return new IntVal(left.add(right));
-			
+
 		} else if (fn.equals("-")) {
 			expectArgs(2);
 			BigInteger left = argValues.get(0).getInt();
 			BigInteger right = argValues.get(1).getInt();
 			return new IntVal(left.subtract(right));
-			
+
 		} else if (fn.equals("*")) {
 			expectArgs(2);
 			BigInteger left = argValues.get(0).getInt();
 			BigInteger right = argValues.get(1).getInt();
 			return new IntVal(left.multiply(right));
-			
+
 		} else if (fn.equals("Hex")) {
 			expectArgs(1);
 			BigInteger i = argValues.get(0).getInt();
 			return new StringVal("16#" + i.toString(16) + "#");
-			
+
 		} else {
 			FunctionDefinition fd = env.lookupFn(fn);
 			return fd.eval(argValues);
 		}
 	}
-	
+
 	public String toString ()
 	{
 		String res = "";
@@ -467,8 +506,8 @@ public class FnCallExpr extends Expr {
 		res += ")";
 		return res;
 	}
-	
-	
+
+
 	private IntVal max(Collection<Val> vals) {
 		if (vals.isEmpty()) {
 			throw new LuteException("Max called with no arguments");
@@ -481,7 +520,7 @@ public class FnCallExpr extends Expr {
 		}
 		return new IntVal(r);
 	}
-	
+
 	private IntVal min(Collection<Val> vals) {
 		if (vals.isEmpty()) {
 			throw new LuteException("Min called with no arguments");
@@ -500,7 +539,46 @@ public class FnCallExpr extends Expr {
 			throw new LuteException("Function " + fn + " expects " + n + " arguments");
 		}
 	}
-	
+
+	private void expectArgs( 	final List<Val> p_values,
+			int... p_allowedSizes ) {
+		if ( p_values != null ) {
+			for ( final Val value : p_values ) {
+				if ( value == null ) {
+					final StringBuilder message = new StringBuilder( "Function " );
+					message.append( fn );
+					message.append( " cannot handle null values." );
+
+					throw new LuteException( message.toString() );
+				}
+			}
+		}
+
+		for ( final int expSize : p_allowedSizes ) {
+			if ( p_values.size() == expSize ) {
+				return;
+			}
+		}
+
+		final StringBuilder message = new StringBuilder( "Function " );
+		message.append( fn );
+		message.append( " expects " );
+		int ctr = 1;
+
+		for ( final int expSize :  p_allowedSizes ) {
+			message.append( expSize );
+
+			if ( ctr < p_allowedSizes.length ) {
+				message.append( " or " );
+				ctr++;
+			}
+		}
+
+		message.append( " arguments" );
+
+		throw new LuteException( message.toString() );
+	}
+
 	private boolean checkType(InstanceObject aadl, String typeName)
 	{
 		boolean r;
@@ -510,7 +588,9 @@ public class FnCallExpr extends Expr {
 		//OsateDebug.osateDebug("return " + r);
 		return r;
 	}
-	
+
+
+
 	private Val getProperty(InstanceObject aadl, String propName) 
 	{
 		PropertyExpression expr;
@@ -558,10 +638,10 @@ public class FnCallExpr extends Expr {
 		} else if (expr instanceof RangeValue) {
 			RangeValue range = (RangeValue) expr;
 			return new RangeVal(
-	 			AADLPropertyValueToValue(range.getMinimumValue()),
-				AADLPropertyValueToValue(range.getMaximumValue()),
-				AADLPropertyValueToValue(range.getDelta())
-			);
+					AADLPropertyValueToValue(range.getMinimumValue()),
+					AADLPropertyValueToValue(range.getMaximumValue()),
+					AADLPropertyValueToValue(range.getDelta())
+					);
 		} else if (expr instanceof InstanceReferenceValue) {
 			InstanceReferenceValue irv = (InstanceReferenceValue) expr;
 			return new AADLVal(irv.getReferencedInstanceObject());
@@ -588,11 +668,11 @@ public class FnCallExpr extends Expr {
 		else if (expr instanceof ReferenceValue) {
 			String refName;
 			ComponentInstance ref;
-			
+
 			ref = null;
-			
+
 			ReferenceValue rv = (ReferenceValue) expr;
-			
+
 			ContainmentPathElementImpl cpei = (ContainmentPathElementImpl)rv.getChildren().get(0);
 			NamedElement ne = cpei.getNamedElement();
 
@@ -617,7 +697,7 @@ public class FnCallExpr extends Expr {
 			throw new LuteException("Unknown AADL property value " + expr + " ("+expr.getOwner()+")on " + expr.getContainingClassifier());
 		}
 	}
-	
+
 	private boolean isBoundTo(InstanceObject s, InstanceObject t) {
 		if (t instanceof ComponentInstance) {
 			ComponentInstance platform = (ComponentInstance) t;
@@ -650,7 +730,7 @@ public class FnCallExpr extends Expr {
 		}
 		return false;
 	}
-	
+
 	public List<InstanceObject> getRelatedComponents ()
 	{
 		ArrayList<InstanceObject> ret = new ArrayList<InstanceObject>();
@@ -664,4 +744,194 @@ public class FnCallExpr extends Expr {
 		}
 		return ret;
 	}
+
+
+	private Val getProperty(	final NamedElement p_aadlElement,
+			final String p_propertyName ) {
+		return getProperty( p_aadlElement, p_propertyName, null );
+	}
+
+	private Val getProperty(	final NamedElement p_aadlElement,
+			final String p_propertyName,
+			final String p_unit ) {
+		final Property propDef = getPropertyDefinition( p_aadlElement, p_propertyName );
+
+		try {
+			if ( propDef.isList() ) {
+				final List<Val> list = new ArrayList<Val>();
+
+				for ( final PropertyExpression propExprIter : p_aadlElement.getPropertyValueList( propDef ) ) {
+					list.add( AADLPropertyValueToValue( propExprIter, p_unit ) );
+				}
+
+				return new SetVal( list );
+			}
+
+			final PropertyExpression propExpr = PropertyUtils.getSimplePropertyValue( p_aadlElement, propDef );
+
+			return AADLPropertyValueToValue( propExpr, p_unit );
+		}
+		catch ( final PropertyNotPresentException p_ex ) {
+			return null;
+		}
+	}
+
+
+	private Property getPropertyDefinition( final EObject p_context,
+			final String p_propertyName ) {
+		final Property propDef = GetProperties.lookupPropertyDefinition( p_context, null, p_propertyName );
+
+		if ( propDef == null ) {
+			throw new LuteException( "Property " + p_propertyName + " is not defined." );
+		}
+
+		return propDef;
+	}
+
+	private UnitLiteral findUnitLiteral( 	final PropertyExpression p_propExpr,
+			final String p_unit ) {
+		if ( p_unit == null ) {
+			return null;
+		}
+
+
+		EObject propContainer = p_propExpr.eContainer();
+
+		while ( propContainer != null && !( propContainer instanceof PropertyAssociation ) && !( propContainer instanceof PropertyConstant ) ) {
+			propContainer = propContainer.eContainer();
+		}
+
+		final UnitLiteral unitLit;
+
+		if ( propContainer instanceof PropertyAssociation ) {
+			unitLit = GetProperties.findUnitLiteral( ( (PropertyAssociation) propContainer ).getProperty(), p_unit );
+		}
+		else if ( propContainer instanceof PropertyConstant ) {
+			final PropertyExpression propExpr = ( (PropertyConstant) propContainer ).getConstantValue();
+
+			if ( ! ( propExpr instanceof NumberValue ) ) {
+				throw new LuteException( "Property constant expression " + propExpr + " has no unit." );
+			}
+
+			final NumberValue numberVal = (NumberValue) propExpr;
+			final UnitLiteral constantUnit = numberVal.getUnit();
+
+			if ( constantUnit == null ) {
+				throw new LuteException( "Property constant value " + propExpr + " has no unit." );
+			}
+
+			unitLit = GetProperties.findUnitLiteral( p_propExpr, ( (UnitsType) constantUnit.getOwner() ).getQualifiedName(), p_unit );
+		}
+		else {
+			throw new LuteException( "Unknown unit " + p_unit );
+		}
+
+		return unitLit;
+	}
+
+	private Val AADLPropertyValueToValue( 	final PropertyExpression p_expr,
+			final String p_unit ) {
+		if ( p_expr == null ) {
+			return null;
+		} 
+
+		if ( p_expr instanceof BooleanLiteral) {
+			final BooleanLiteral lit = (BooleanLiteral) p_expr;
+
+			return new BoolVal(lit.getValue());
+		}
+
+		if ( p_expr instanceof StringLiteral) {
+			final StringLiteral lit = (StringLiteral) p_expr;
+
+			return new StringVal(lit.getValue());
+		}
+
+		if ( p_expr instanceof NumberValue ) {
+			final UnitLiteral unitLit;
+
+			if ( p_unit == null ) {
+				unitLit = null;
+			}
+			else {
+				unitLit = findUnitLiteral( p_expr, p_unit );
+
+				if ( unitLit == null ) {
+					throw new LuteException( "Unknown unit: " + p_unit );
+				}
+			}
+
+			if ( p_expr instanceof IntegerLiteral ) {
+				final IntegerLiteral lit = (IntegerLiteral) p_expr;
+				final long value;
+
+				if ( unitLit == null ) {
+					value = (long) lit.getScaledValue();
+				}
+				else {
+					value = (long) lit.getScaledValue( unitLit );
+				}
+
+				return new IntVal( value );
+			}
+
+			if ( p_expr instanceof RealLiteral ) {
+				final RealLiteral lit = (RealLiteral) p_expr;
+				final double value;
+
+				if ( unitLit == null ) {
+					value = lit.getScaledValue();
+				}
+				else {
+					value = lit.getScaledValue( unitLit );
+				}
+
+				return new RealVal( value );
+			}
+		}
+
+		if ( p_expr instanceof RangeValue) {
+			RangeValue range = (RangeValue) p_expr;
+
+			return new RangeVal(
+					AADLPropertyValueToValue( range.getMinimumValue(), p_unit ),
+					AADLPropertyValueToValue( range.getMaximumValue(), p_unit ),
+					AADLPropertyValueToValue( range.getDelta(), p_unit )
+					);
+		}
+
+		if ( p_expr instanceof InstanceReferenceValue ) {
+			final InstanceReferenceValue irv = (InstanceReferenceValue) p_expr;
+
+			return new AADLVal( getReferencedObject( irv ) );
+		}
+
+		if ( p_expr instanceof ReferenceValue ) {
+			final ReferenceValue refValue = (ReferenceValue) p_expr;
+
+			return new AADLVal( getReferencedObject( refValue ) );
+		}
+
+		if ( p_expr instanceof ListValue ) {
+			final List<Val> values = new ArrayList<Val>();
+
+			for ( final PropertyExpression propExprIter : ( (ListValue) p_expr ).getOwnedListElements() ) {
+				values.add( AADLPropertyValueToValue( propExprIter, p_unit ) );
+			}
+
+			return new SetVal( values );
+		}
+
+		throw new LuteException( "Unknown AADL property value " + p_expr );
+	}
+
+
+	private NamedElement getReferencedObject( final InstanceReferenceValue p_propertyValue ) {
+		return p_propertyValue.getReferencedInstanceObject() ;
+	}
+
+	private NamedElement getReferencedObject( final ReferenceValue p_propertyValue ) {
+		return p_propertyValue.getContainmentPathElements().get( 0 ).getNamedElement();
+	}
+
 }

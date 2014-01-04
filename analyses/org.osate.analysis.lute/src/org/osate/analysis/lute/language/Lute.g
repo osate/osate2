@@ -29,8 +29,7 @@ options {
   package org.osate.analysis.lute.language;
   
   import java.util.Arrays;
-  import java.math.BigInteger;
-  import org.osate.analysis.lute.utils.Logger;
+  import org.slf4j.Logger;
 }
 
 @members{
@@ -43,22 +42,36 @@ options {
   
   @Override
   public void emitErrorMessage(String msg) {
-    if (log != null) {
-      log.error(msg);
-    } else {
-      super.emitErrorMessage(msg);
-    }
-  }
+    if (log == null) {
+        throw new LuteException( msg );
+    } 
 
-  protected void ignore(Stack<Void> stack, List<Void> list, ArrayList<Void> arraylist) {}
+    log.error(msg);
+  }
 }
 
 @lexer::header{
   package org.osate.analysis.lute.language;
+  
+  import org.slf4j.Logger;
 }
 
 @lexer::members{
-  protected void ignore(Stack<Void> stack, List<Void> list, ArrayList<Void> arraylist) {}
+  private Logger log;
+  
+  public LuteLexer(CharStream input, Logger log) {
+    this(input);
+    this.log = log;
+  }
+  
+  @Override
+  public void emitErrorMessage(String msg) {
+    if (log == null) {
+        throw new LuteException( msg );
+    } 
+
+    log.error(msg);
+  }
 }
 
 rule returns [List<Command> cmds]
@@ -80,13 +93,10 @@ command returns [Command c]
 stmt returns [Stmt s]
   : 'foreach' ID 'in' expr 'do' body=stmt
     { $s = new ForeachStmt($ID.text, $expr.e, $body.s); }
-  | { ArrayList<Expr> exprs = new ArrayList<Expr>(); }
-    'check' c=expr (',' d=expr { exprs.add($d.e); } )* ';'
-    { $s = new CheckStmt($c.e, exprs); }
+  | 'check' expr ';'
+    { $s = new CheckStmt($expr.e); }
   | ID ':=' expr ';' body=stmt
     { $s = new LetStmt($ID.text, $expr.e, $body.s); }
-  | 'when' expr 'do' body=stmt
-    { $s = new WhenStmt($expr.e, $body.s); }
   | { ArrayList<Expr> exprs = new ArrayList<Expr>(); }
     'print' d=expr { exprs.add($d.e); }
       (',' d=expr { exprs.add($d.e); } )* ';'
@@ -125,7 +135,7 @@ term returns [Expr e]
 
 factor returns [Expr e]
   : l=base { $e = $l.e; }
-    (op='*' r=base
+    (op=('*' | '\/' | '^') r=base
      { $e = new FnCallExpr($op.getText(), Arrays.asList($e, $r.e)); } )*
   ;
 
@@ -133,7 +143,9 @@ base returns [Expr e]
   : ID
     { $e = new IdExpr($ID.text); }
   | INT
-    { $e = new IntVal(new BigInteger($INT.text)); }
+    { $e = new IntVal(new Long($INT.text)); }
+  | REAL
+    { $e = new RealVal(new Double($REAL.text)); }
   | STRING
     { $e = new StringVal($STRING.text.substring(1, $STRING.text.length()-1)); }
   | bool
@@ -157,8 +169,64 @@ fragment LETTER: 'a'..'z' | 'A'..'Z' ;
 fragment DIGIT: '0'..'9';
 fragment SPECIAL: '_' | '.' | '::';
 INT: '-'? DIGIT+;
+REAL: '-'? DIGIT+ '.' DIGIT+ ('E'INT)? | '-'? '.' DIGIT+ ('E'INT)?;
 ID: LETTER (LETTER | DIGIT | SPECIAL)*;
 STRING: '"' (~'"')* '"';
 WS: (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
 COMMENT: '--' (~('\n'|'\r'))* {$channel = HIDDEN;};
-ERROR: '.';
+
+/*
+
+Elements not included in this grammar:
+
+-- Predefined model elements
+Self
+Owner
+Source
+Destination
+Connection_Set 
+Abstract_Set
+Bus_Set
+Data_Set
+Device_Set
+Memory_Set
+Process_Set
+Processor_Set
+Subprogram_Set
+Subprogram_Group_Set
+System_Set
+Thread_Set
+Thread_Group_Set
+Virtual_Bus_Set
+Virtual_Processor_Set
+
+-- Predefined Functions
+Property
+Property_Exists
+Is_Subcomponent_Of
+Is_Of_Type
+Is_Bound_To
+
+-- Set Functions
+Member
+Max
+Min
+Sum
+Cardinal
+First
+At
+Last
+
+-- Range Functions
+Lower
+Upper
+
+-- String Functions 
+Concat
+Substring
+Index_Of
+Length
+*/
+
+
+

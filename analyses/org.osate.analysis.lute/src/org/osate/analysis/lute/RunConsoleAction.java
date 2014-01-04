@@ -53,7 +53,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.analysis.lute.utils.Logger;
+import org.osate.analysis.lute.utils.LuteLogger;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
@@ -67,7 +67,7 @@ public class RunConsoleAction extends AadlAction {
 		return "Run LUTE console";
 	}
 
-	protected IStatus runJob(Element obj, IProgressMonitor monitor, Logger log) 
+	protected IStatus runJob(Element obj, IProgressMonitor monitor, LuteLogger log) 
 	{
 
 		final SystemInstance si;
@@ -118,9 +118,10 @@ public class RunConsoleAction extends AadlAction {
 
 				Shell sh = window.getShell();
 
-				Logger logger = new Logger(Logger.WARN, "AADL Validation", getWindow());
-
+				LuteLogger logger = new LuteLogger(LuteLogger.INFO, "AADL Validation", getWindow());
+				
 				DialogConsole dialog = new DialogConsole (sh, si, logger);
+				logger.setDialogConsole (dialog);
 				dialog.open();
 			}});
 		 return Status.OK_STATUS;

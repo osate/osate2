@@ -42,7 +42,7 @@ public class CustomLuteAction extends LuteAction {
 		try {
 			return new FileInputStream(filename);
 		} catch (FileNotFoundException e) {
-			log.error("Lute file not found: " + filename);
+			luteLogger.error("Lute file not found: " + filename);
 			e.printStackTrace(System.err);
 			return null;
 		}

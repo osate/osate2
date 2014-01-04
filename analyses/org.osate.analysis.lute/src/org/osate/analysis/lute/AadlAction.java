@@ -56,7 +56,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.analysis.lute.utils.Logger;
+import org.osate.analysis.lute.utils.LuteLogger;
 
 abstract public class AadlAction implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
@@ -71,10 +71,10 @@ abstract public class AadlAction implements IWorkbenchWindowActionDelegate {
 		}
 	}
 	
-	abstract protected IStatus runJob(Element sel, IProgressMonitor monitor, Logger log);
+	abstract protected IStatus runJob(Element sel, IProgressMonitor monitor, LuteLogger log);
 	
 	public void run(IAction action) {
-		final Logger log = new Logger(Logger.INFO, "AADL Validation", getWindow());
+		final LuteLogger log = new LuteLogger(LuteLogger.INFO, "AADL Validation", getWindow());
 
 		WorkspaceJob job = new WorkspaceJob("AADL Job") {
 			@Override

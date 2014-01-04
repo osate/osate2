@@ -60,7 +60,7 @@ import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
 import org.osate.analysis.lute.utils.Invoke;
-import org.osate.analysis.lute.utils.Logger;
+import org.osate.analysis.lute.utils.LuteLogger;
 
 
 public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
@@ -328,12 +328,11 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 	
 	public void applyTheorems (SystemInstance systemInstance)
 	{
-		Logger luteLogger;
+		LuteLogger luteLogger = new LuteLogger(LuteLogger.INFO);
 
-		luteLogger = new Logger (Logger.INFO);
 		
 		OsateDebug.osateDebug("[ConfigurationValidation] Call applyTheorems on " + systemInstance);
-		Invoke.invoke (systemInstance, ConfigurationValidation.class.getResourceAsStream("/resource/configuration-memory-segments.lute"), luteLogger); 
+		Invoke.invokeLuteLogger (systemInstance, ConfigurationValidation.class.getResourceAsStream("/resource/configuration-memory-segments.lute"), luteLogger); 
 		return;
 	}
 	

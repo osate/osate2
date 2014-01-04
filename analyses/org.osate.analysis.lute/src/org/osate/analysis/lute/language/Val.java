@@ -24,6 +24,7 @@ package org.osate.analysis.lute.language;
 import java.math.BigInteger;
 import java.util.Collection;
 
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.lute.LuteException;
 
@@ -48,12 +49,16 @@ public abstract class Val extends Expr {
 		throw new LuteException("Expected set value");
 	}
 	
-	public InstanceObject getAADL() {
+	public NamedElement getAADL() {
 		throw new LuteException("Expected AADL object value");
 	}
 	
 	public RangeVal getRange() {
 		throw new LuteException("Expected range value");
+	}
+	
+	public Double getReal() {
+		throw new LuteException( "Expected real value" );
 	}
 	
 	@Override

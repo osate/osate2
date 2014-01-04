@@ -58,7 +58,7 @@ import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.lute.utils.Invoke;
-import org.osate.analysis.lute.utils.Logger;
+import org.osate.analysis.lute.utils.LuteLogger;
 
 /*
  * Custom class to read an inputstream line by line
@@ -116,15 +116,16 @@ class MyInputStream
 public class DialogConsole extends Dialog {
 	  private String 			theorem;
 	  private String 			input;
-	  private Logger 			logger;
+	  private LuteLogger 			logger;
 	  private SystemInstance 	systemInstance;
-	
 	  private static Text 		analysisResult = null;
 
 	  private static Shell 		currentShell = null;
 	  public final static int			ERROR = 0;
 	  public final static int			OK = 1;
 	  public final static int			NONE = 2;
+	
+	  
 	  public List<String> getTheoremList ()
 	  {
 		  String tmp;
@@ -203,7 +204,7 @@ public class DialogConsole extends Dialog {
     	systemInstance 	= null;
 	  }
 
-	  public DialogConsole(Shell parent, SystemInstance systemInstance, Logger log)
+	  public DialogConsole(Shell parent, SystemInstance systemInstance, LuteLogger log)
 	  {
 	    this(parent, SWT.DIALOG_TRIM | SWT.RESIZE |  SWT.APPLICATION_MODAL);
 	    this.logger 			= log;
@@ -312,9 +313,7 @@ public class DialogConsole extends Dialog {
 	      public void widgetSelected(SelectionEvent event) {
 	        theorem = text.getText();
 	        analysisResult.clearSelection();
-	        
 	        Invoke.invoke(systemInstance, theorem, logger);
-	        DialogConsole.analysisResult.setText(analysisResult.getText()+"\n");
 	      }
 	    });
 

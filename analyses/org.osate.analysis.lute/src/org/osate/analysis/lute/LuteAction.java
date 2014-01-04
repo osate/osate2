@@ -69,16 +69,21 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.analysis.lute.utils.Logger;
+import org.osate.analysis.lute.utils.LuteLogger;
 import org.osate.ui.dialogs.Dialog;
+import org.slf4j.LoggerFactory;
+
 
 public abstract class LuteAction extends AadlAction {
-	protected Logger log;
+	protected LuteLogger luteLogger;
+	protected org.slf4j.Logger apacheLogger;
 
 	@Override
-	public IStatus runJob(Element sel, IProgressMonitor monitor, Logger log) {
+	public IStatus runJob(Element sel, IProgressMonitor monitor, LuteLogger log) {
 		SystemInstance si;
-
+		
+		luteLogger = log;
+		apacheLogger = LoggerFactory.getLogger( LuteAction.class );
 		System.out.println(" sel = " + sel);
 		log.clear();
 
@@ -109,7 +114,7 @@ public abstract class LuteAction extends AadlAction {
 			si = (SystemInstance) sel;
 		}
 
-		LuteInterpreter interpreter = new LuteInterpreter(si, log);
+		LuteInterpreter interpreter = new LuteInterpreter(si, apacheLogger);
 		InputStream stream = getLuteInput();
 		if (stream == null) {
 			return Status.CANCEL_STATUS;

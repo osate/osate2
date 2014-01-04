@@ -14,10 +14,13 @@ Require-Bundle: org.osate.aadl2,
  org.osate.analysis.architecture,
  org.osate.ui,
  org.osate.aadl2.modelsupport,
- org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.slf4j.log4j12
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
-Import-Package: org.osate.ui.actions,
+Import-Package: com.rockwellcollins.atc.meta.lute,
+ org.osate.ui.actions,
  org.osate.ui.dialogs
 Export-Package: org.osate.analysis.lute,
+ org.osate.analysis.lute.language,
  org.osate.analysis.lute.utils

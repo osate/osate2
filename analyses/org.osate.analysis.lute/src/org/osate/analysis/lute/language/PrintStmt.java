@@ -23,8 +23,11 @@ package org.osate.analysis.lute.language;
 
 import java.util.List;
 
+import org.osate.analysis.lute.LuteFailure;
 import org.osate.analysis.lute.LuteResult;
-import org.osate.analysis.lute.utils.Logger;
+import org.slf4j.Logger;
+
+
 
 
 public class PrintStmt extends Stmt {
@@ -38,7 +41,7 @@ public class PrintStmt extends Stmt {
 	}
 
 	@Override
-	public LuteResult exec(Environment env, Logger log) {
+	public int exec(Environment env, Logger log) throws LuteFailure {
 		StringBuilder line = new StringBuilder();
 		for (Expr e : exprs) {
 			line.append(e.eval(env));

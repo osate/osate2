@@ -21,8 +21,10 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 
 package org.osate.analysis.lute.language;
 
+import org.osate.analysis.lute.LuteFailure;
 import org.osate.analysis.lute.LuteResult;
-import org.osate.analysis.lute.utils.Logger;
+import org.slf4j.Logger;
+
 
 public class ForeachStmt extends Stmt {
 	final private String id;
@@ -37,11 +39,16 @@ public class ForeachStmt extends Stmt {
 	}
 
 	@Override
-	public LuteResult exec(Environment env, Logger log) {
-		LuteResult result = new LuteResult();
+	public int exec(Environment env, Logger log) throws LuteFailure {
+		int count = 0;
 		for (Val v : domain.eval(env).getSet()) {
-			result.accumulate(body.exec(env.add(id, v), log));
+			try {
+				count += body.exec(env.add(id, v), log);
+			} catch (LuteFailure lf) {
+				lf.addMessage(id + " -> " + v.toString());
+				throw lf;
+			}
 		}
-		return result;
+		return count;
 	}
 }

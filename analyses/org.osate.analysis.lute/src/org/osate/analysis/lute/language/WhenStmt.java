@@ -1,7 +1,8 @@
 package org.osate.analysis.lute.language;
 
+import org.osate.analysis.lute.LuteFailure;
 import org.osate.analysis.lute.LuteResult;
-import org.osate.analysis.lute.utils.Logger;
+import org.slf4j.Logger;
 
 public class WhenStmt extends Stmt {
 	final private Expr expr;
@@ -14,11 +15,11 @@ public class WhenStmt extends Stmt {
 	}
 
 	@Override
-	public LuteResult exec(Environment env, Logger log) {
+	public int exec(Environment env, Logger log) throws LuteFailure{ 
 		if (expr.eval(env).getBool()) {
 			return body.exec(env, log);
 		} else {
-			return LuteResult.empty();
+			return 0;
 		}
 	}
 }

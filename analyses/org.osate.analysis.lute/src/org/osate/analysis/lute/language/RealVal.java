@@ -18,35 +18,58 @@ IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT 
 FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
 */
-
 package org.osate.analysis.lute.language;
-import org.osate.analysis.lute.LuteFailure;
-import org.slf4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import org.osate.aadl2.instance.InstanceObject;
 
-public class Theorem extends Command {
-	final private String name;
-	final private Stmt stmt;
+public class RealVal extends Val {
 	
-	public Theorem(String name, Stmt stmt) {
+	private final Double value;
+	
+	public RealVal( Double p_value ) {
 		super();
-		this.name = name;
-		this.stmt = stmt;
+		
+		value = p_value;
+	}
+	
+	public RealVal(double  p_value ) {
+		super();
+
+		value = Double.valueOf( p_value );
+	}
+	
+	@Override
+	public Double getReal() {
+		return value;
 	}
 
 	@Override
-	public Environment exec(Environment env, Logger log) {
-		log.info("Executing theorem " + name + "...");
-		try {
-			int count = stmt.exec(env, log);
-			log.info("Passed " + count + " check(s)");
-		} catch (LuteFailure lf) {
-			log.info("Failed");
-			for (String msg : lf.getMessages()) {
-				log.info(msg);
-			}
+	public boolean equals(Object obj) {
+		if (obj instanceof RealVal) {
+			RealVal other = (RealVal) obj;
+			
+			return getReal().equals( other.getReal() );
 		}
-		return env;
+		
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return value.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return value.toString();
+	}
+
+	@Override
+	public List<InstanceObject> getRelatedComponents() {
+		// TODO Auto-generated method stub
+		return new ArrayList<InstanceObject>();
 	}
 }

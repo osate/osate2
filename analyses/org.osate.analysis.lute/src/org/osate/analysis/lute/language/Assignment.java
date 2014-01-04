@@ -21,7 +21,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 
 package org.osate.analysis.lute.language;
 
-import org.osate.analysis.lute.utils.Logger;
+import org.slf4j.Logger;
 
 
 public class Assignment extends Command {

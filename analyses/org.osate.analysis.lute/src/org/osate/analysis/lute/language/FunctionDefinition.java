@@ -24,7 +24,7 @@ package org.osate.analysis.lute.language;
 import java.util.List;
 
 import org.osate.analysis.lute.LuteException;
-import org.osate.analysis.lute.utils.Logger;
+import org.slf4j.Logger;
 
 
 public class FunctionDefinition extends Command {

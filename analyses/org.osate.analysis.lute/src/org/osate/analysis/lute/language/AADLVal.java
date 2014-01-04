@@ -28,14 +28,14 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 
 public class AADLVal extends Val {
-	final private InstanceObject aadl;
+	final private NamedElement aadl;
 	
-	public AADLVal(InstanceObject obj) {
+	public AADLVal(NamedElement obj) {
 		super();
 		this.aadl = obj;
 	}
 
-	public InstanceObject getAADL() {
+	public NamedElement getAADL() {
 		return aadl;
 	}
 
@@ -72,7 +72,10 @@ public class AADLVal extends Val {
 	public List<InstanceObject> getRelatedComponents ()
 	{
 		ArrayList<InstanceObject> ret = new ArrayList<InstanceObject>();
-		ret.add (aadl);
+		if (aadl instanceof InstanceObject)
+		{
+			ret.add ((InstanceObject)aadl);
+		}
 		return ret;
 	}
 }

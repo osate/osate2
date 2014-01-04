@@ -40,10 +40,10 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.analysis.arinc653.Activator;
+import org.osate.analysis.arinc653.Activator; 
 import org.osate.analysis.arinc653.ConfigurationValidation;
 import org.osate.analysis.lute.utils.Invoke;
-import org.osate.analysis.lute.utils.Logger;
+import org.osate.analysis.lute.utils.LuteLogger;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
@@ -91,11 +91,10 @@ abstract class DoCheckConfigurationGeneric extends AaxlReadOnlyActionAsJob {
 			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable(){
 
 				public void run() {
-					Logger luteLogger = new Logger(Logger.WARN, "AADL Validation", getWindow());
-
-					Invoke.invoke (si, ConfigurationValidation.class.getResourceAsStream(getTheoremFile()), luteLogger); 
+					LuteLogger logger = new LuteLogger(LuteLogger.INFO, "AADL Validation", getWindow());
+					Invoke.invokeLuteLogger (si, ConfigurationValidation.class.getResourceAsStream(getTheoremFile()), logger); 
 					return;
-				}});
+				}}); 
 		}
 		else
 		{

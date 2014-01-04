@@ -15,5 +15,8 @@ Require-Bundle: org.osate.aadl2,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
  org.osate.analysis.lute
 Bundle-ActivationPolicy: lazy
-Import-Package: org.osate.contribution.sei.names
+Import-Package: org.osate.contribution.sei.names,
+ org.osate.analysis.lute.utils,
+ org.apache.log4j
+
 

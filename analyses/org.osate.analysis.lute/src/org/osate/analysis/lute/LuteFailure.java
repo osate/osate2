@@ -19,34 +19,20 @@ FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TOR
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
 */
 
-package org.osate.analysis.lute.language;
-import org.osate.analysis.lute.LuteFailure;
-import org.slf4j.Logger;
+package org.osate.analysis.lute;
 
+import java.util.LinkedList;
+import java.util.List;
 
-
-public class Theorem extends Command {
-	final private String name;
-	final private Stmt stmt;
+@SuppressWarnings("serial")
+public class LuteFailure extends Exception {
+	private LinkedList<String> messages = new LinkedList<String>();
 	
-	public Theorem(String name, Stmt stmt) {
-		super();
-		this.name = name;
-		this.stmt = stmt;
+	public void addMessage(String msg) {
+		messages.addFirst(msg);
 	}
-
-	@Override
-	public Environment exec(Environment env, Logger log) {
-		log.info("Executing theorem " + name + "...");
-		try {
-			int count = stmt.exec(env, log);
-			log.info("Passed " + count + " check(s)");
-		} catch (LuteFailure lf) {
-			log.info("Failed");
-			for (String msg : lf.getMessages()) {
-				log.info(msg);
-			}
-		}
-		return env;
+	
+	public List<String> getMessages() {
+		return messages;
 	}
 }

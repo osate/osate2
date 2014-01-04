@@ -21,8 +21,9 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 
 package org.osate.analysis.lute.language;
 
+import org.osate.analysis.lute.LuteFailure;
 import org.osate.analysis.lute.LuteResult;
-import org.osate.analysis.lute.utils.Logger;
+import org.slf4j.Logger;
 
 public class LetStmt extends Stmt {
 	final private String id;
@@ -34,10 +35,10 @@ public class LetStmt extends Stmt {
 		this.id = id;
 		this.expr = expr;
 		this.body = body;
-	}
+	} 
 
 	@Override
-	public LuteResult exec(Environment env, Logger log) {
+	public int exec(Environment env, Logger log) throws LuteFailure {
 		return body.exec(env.add(id, expr.eval(env)), log);
 	}
 }

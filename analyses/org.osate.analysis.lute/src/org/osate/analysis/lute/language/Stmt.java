@@ -21,9 +21,9 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 
 package org.osate.analysis.lute.language;
 
-import org.osate.analysis.lute.LuteResult;
-import org.osate.analysis.lute.utils.Logger;
+import org.osate.analysis.lute.LuteFailure;
+import org.slf4j.Logger;
 
 public abstract class Stmt {
-	public abstract LuteResult exec(Environment env, Logger log);
+	public abstract int exec(Environment env, Logger log) throws LuteFailure;
 }

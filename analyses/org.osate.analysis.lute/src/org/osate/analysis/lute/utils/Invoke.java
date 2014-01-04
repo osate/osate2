@@ -38,8 +38,10 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.lute.DialogConsole;
 import org.osate.analysis.lute.LuteInterpreter;
+import org.slf4j.Logger;
 
 /**
  * This class provides helpers to execute LUTE theorems
@@ -59,6 +61,11 @@ public class Invoke {
 		stream	 	= new ByteArrayInputStream(theorem.getBytes());
 		
 		interpreter.run(stream);
+	}
+	
+	public static void invokeLuteLogger (SystemInstance systemInstance, InputStream theorem, LuteLogger log)
+	{
+		invoke (systemInstance, theorem, log);
 	}
 	
 	public static void invoke (SystemInstance systemInstance, InputStream theorem, Logger log)

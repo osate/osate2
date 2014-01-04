@@ -24,44 +24,25 @@ package org.osate.analysis.lute.language;
 import java.util.List;
 
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.analysis.lute.LuteFailure;
 import org.osate.analysis.lute.LuteResult;
-import org.osate.analysis.lute.utils.Logger;
+import org.slf4j.Logger;
+
+
 
 public class CheckStmt extends Stmt {
 	final private Expr expr;
-	final private List<Expr> failMessage;
 
-	public CheckStmt(Expr expr, List<Expr> failMessage) {
+	
+	public CheckStmt(Expr expr) {
 		super();
 		this.expr = expr;
-		this.failMessage = failMessage;
 	}
-
-	@Override
-	public LuteResult exec(Environment env, Logger log)
-	{
-		if (expr.eval(env).getBool())
-		{
-			return LuteResult.pass();
-		} 
-		else
-		{
-			StringBuilder line = new StringBuilder();
-			for (Expr e : failMessage)
-			{
-				line.append(e.eval(env));
-				line.append(" ");
-			}
-			if (failMessage.size() == 0)
-			{
-				line.append ("Theorem verification failed on components: ");
-				for (InstanceObject io : expr.getRelatedComponents())
-				{
-					line.append (io.getFullName() + " ");
-				}
-			}
-			
-			return LuteResult.fail(line.toString());
+	
+	public int exec(Environment env, Logger log) throws LuteFailure {
+		if (!expr.eval(env).getBool()) {
+			throw new LuteFailure();
 		}
+		return 1;
 	}
 }
