@@ -693,8 +693,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						"Target state "+ebs.getName()+" does not have a type set declared but the transition target specifies "
 								+ EMV2Util.getPrintName(ebtargetTS) );
 			} else
-				if (!EM2TypeSetUtil.contains(ebsTS,
-						ebtargetTS)) {
+				if (!EM2TypeSetUtil.contains(ebsTS,	ebtargetTS)) {
 					error(ebt,
 							"Target type "+EMV2Util.getPrintName(ebt.getTargetToken())+" is not contained in type set of error behavior state \'"
 									+ ebs.getName() + "\'");

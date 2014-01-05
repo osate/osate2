@@ -161,7 +161,17 @@ public class EM2TypeSetUtil {
 			if (token.isNoError()) return true;
 			return false;
 		}
-		if (constraint.getType().size() != token.getType().size()) return false;
+		if (constraint.getType().size() != token.getType().size()) {
+			if (constraint.getType().size()==1){
+				// the constraint is a single type set
+				ErrorTypes ts = constraint.getType().get(0);
+				if (ts instanceof TypeSet){
+					return contains((TypeSet)ts,token);
+				} else return false;
+			} else {
+				return false;
+			}
+		}
 		for (ErrorTypes errorType : token.getType()) {
 			if (!contains(constraint, errorType)) return false;
 		}	
@@ -184,7 +194,7 @@ public class EM2TypeSetUtil {
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
 		for (TypeToken tselement : ts.getTypeTokens()) {
-			if (tselement.getType().size() == toksize){
+			if (tselement.getType().size() == toksize||tselement.getType().get(0) instanceof TypeSet){
 				if( contains(tselement,token)) return true;
 			}
 		}
