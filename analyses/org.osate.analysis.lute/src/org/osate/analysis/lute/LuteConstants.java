@@ -22,7 +22,9 @@ public class LuteConstants {
 	public static final String IS_DIRECT_SUBCOMPONENT_OF = "Is_Direct_Subcomponent_Of";
 	public static final String IS_OF_TYPE = "Is_Of_Type";
 	public static final String IS_BOUND_TO = "Is_Bound_To";
-
+	
+	public static final String GET_FEATURE = "Get_Feature";
+	public static final String ASSOCIATED_DATA = "Associated_Data";
 	// Sets
 	public static final String CONNECTION_SET = "Connection_Set";
 	public static final String MEMBER = "Member";

@@ -65,9 +65,12 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
@@ -325,6 +328,53 @@ public class FnCallExpr extends Expr {
 				return new AADLVal(owner);
 			}
 			throw new LuteException("Owner called on un-owned object");
+
+		}
+		else if (fn.equalsIgnoreCase(LuteConstants.GET_FEATURE)) {
+			expectArgs(2);
+			NamedElement ne = null;
+			InstanceObject e = (InstanceObject) argValues.get(0).getAADL();
+			String str = (String) argValues.get(1).getString();
+			if (e instanceof ComponentInstance)
+			{
+				for (FeatureInstance fi : ((ComponentInstance)e).getFeatureInstances())
+				{
+					if (fi.getName().equalsIgnoreCase(str))
+					{
+						ne = fi;
+					}
+				}
+			}
+			if (ne != null)
+			{
+				return new AADLVal(ne);
+			}
+			
+			throw new LuteException("Cannot find the feature");
+
+		}
+		else if (fn.equalsIgnoreCase(LuteConstants.ASSOCIATED_DATA))
+		{
+			NamedElement dataType = null;
+			expectArgs(1);
+			InstanceObject io = (InstanceObject) argValues.get(0).getAADL();
+			if (io instanceof FeatureInstance)
+			{
+				Feature f = ((FeatureInstance)io).getFeature();
+				if (f instanceof DataPort)
+				{
+					dataType = ((DataPort)f).getDataFeatureClassifier();
+				}
+				if (f instanceof EventDataPort)
+				{
+					dataType = ((DataPort)f).getDataFeatureClassifier();
+				}
+			}
+			if (dataType != null)
+			{
+				return new AADLVal (dataType);
+			}
+			throw new LuteException("Cannot find the data type");
 
 		}
 		else if ( fn.equalsIgnoreCase( LuteConstants.DIVIDE ) ) {
