@@ -28,15 +28,15 @@ import java.util.List;
 import org.osate.aadl2.instance.InstanceObject;
 
 public class SetVal extends Val {
-	final private Collection<Val> set;
+	final private List<Val> set;
 
-	public SetVal(Collection<Val> set) {
+	public SetVal(List<Val> set) {
 		super();
 		this.set = set;
 	}
 
 	@Override
-	public Collection<Val> getSet() {
+	public List<Val> getSet() {
 		return set;
 	}
 	

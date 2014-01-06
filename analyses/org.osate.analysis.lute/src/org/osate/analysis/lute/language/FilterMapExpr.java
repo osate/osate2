@@ -53,8 +53,8 @@ public class FilterMapExpr extends Expr {
 
 	@Override
 	public Val eval(Environment env) {
-		Collection<Val> domainValues = domain.eval(env).getSet();
-		Collection<Val> result = new ArrayList<Val>();
+		List<Val> domainValues = domain.eval(env).getSet();
+		List<Val> result = new ArrayList<Val>();
 		for (Val v : domainValues) {
 			if (filter.eval(env.add(id, v)).getBool()) {
 				result.add(map.eval(env.add(id, v)));

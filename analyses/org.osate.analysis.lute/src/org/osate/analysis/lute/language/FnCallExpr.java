@@ -92,6 +92,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.OsateDebug;
@@ -100,6 +101,10 @@ import org.osate.analysis.lute.LuteException;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
+
+
+
+
 
 
 
@@ -214,7 +219,16 @@ public class FnCallExpr extends Expr {
 			return new BoolVal(checkType(aadl, typeString));
 
 		}
-
+		else if ( fn.equals( LuteConstants.PROPERTY_CONSTANT ) ) {
+			return getPropertyConstant( argValues );
+		}
+		
+		else if ( fn.equals( LuteConstants.LENGTH ) ) {
+			expectArgs( argValues, 1 );
+			final String strVal = argValues.get(0).getString();
+			
+			return new IntVal( strVal.length() );
+		} 
 		else if (fn.equals("Is_Bound_To")) {
 			expectArgs(2);
 
@@ -311,7 +325,60 @@ public class FnCallExpr extends Expr {
 			}
 			throw new LuteException("Owner called on un-owned object");
 
-		} else if (fn.equals("Is_Subcomponent_Of")) {
+		}
+		else if ( fn.equals( LuteConstants.DIVIDE ) ) {
+			expectArgs( argValues, 2 );
+			
+			final Number left = getNumberValue( argValues.get( 0 ) );
+			final Number right = getNumberValue( argValues.get( 1 ) );
+			final Number result = NumberUtil.divide( left, right );
+			
+			return createNumberValue( result );
+		}
+		else if (fn.equals( LuteConstants.FIRST ) ) {
+			expectArgs( argValues, 1 );
+			final List<Val> set = argValues.get(0).getSet();
+			
+			if ( set.isEmpty() ) {
+				throw new LuteException( "Set " + set + " is empty." );
+			}
+			
+			return set.get( 0 );
+		} 
+		
+		else if (fn.equals( LuteConstants.AT ) ) {
+			expectArgs( argValues, 2 );
+			final List<Val> set = argValues.get( 0 ).getSet();
+			
+			if ( set.isEmpty() ) {
+				throw new LuteException( "Set " + set + " is empty." );
+			}
+
+			final Long index = argValues.get( 1 ).getInt();
+			
+			return set.get( index.intValue() );
+		} 
+		
+		else if ( fn.equals( LuteConstants.LAST ) ) {
+			expectArgs( argValues, 1 );
+			final List<Val> set = argValues.get(0).getSet();
+			
+			if ( set.isEmpty() ) {
+				throw new LuteException( "Set " + set + " is empty." );
+			}
+			
+			return set.get( set.size() - 1 );
+		} 
+		else if ( fn.equals( LuteConstants.POWER ) ) {
+			expectArgs( argValues, 2 );
+
+			final Number left = getNumberValue( argValues.get( 0 ) );
+			final Number right = getNumberValue( argValues.get( 1 ) );
+			final Number result = NumberUtil.power( left, right );
+			
+			return createNumberValue( result );
+		}
+		else if (fn.equals("Is_Subcomponent_Of")) {
 			/*
 			 * Is_Subcomponent_Of looks if the component is
 			 * contained in the whole hierarchy and browse the whole
@@ -353,22 +420,20 @@ public class FnCallExpr extends Expr {
 			}
 			return new BoolVal(false);
 		}
-		else if (fn.equals("Sum")) {
-			BigInteger retInt = new BigInteger("0");
-			//OsateDebug.osateDebug("argval" + argValues.get(0));
-			SetVal sv = (SetVal) argValues.get(0);
-			Iterator<Val> iter = sv.getSet().iterator();
-			while (iter.hasNext())
-			{
-				Val tmp = iter.next();
-
-				//OsateDebug.osateDebug("bla1=" + tmp);
-				//OsateDebug.osateDebug("bla2=" + tmp.getInt());
-				retInt = retInt.add(tmp.getInt());
+		else if ( fn.equals( LuteConstants.SUM ) ) {
+			if (argValues.size() == 1) {
+				Val arg = argValues.get(0);
+				if (arg instanceof SetVal) {
+					SetVal set = (SetVal) arg;
+					
+					return sum(set.getSet());
+				}
+					
+				return arg;
 			}
-
-			return new IntVal(retInt);
-		}
+				
+			return sum(argValues);
+		} 
 		else if ( fn.equals( LuteConstants.CONCAT ) ) {
 			expectArgs( 2 );
 			final String left = argValues.get(0).getString();
@@ -435,54 +500,66 @@ public class FnCallExpr extends Expr {
 			Val right = argValues.get(1);
 			return new BoolVal(!left.equals(right));
 
-		} else if (fn.equals(">")) {
-			expectArgs(2);
-			BigInteger left = argValues.get(0).getInt();
-			BigInteger right = argValues.get(1).getInt();
-			return new BoolVal(left.compareTo(right) > 0);
+		} 
+		else if ( fn.equals( LuteConstants.GREATER_THAN ) ) {
+			expectArgs( argValues, 2 );
+			final Number left = getNumberValue( argValues.get(0) );
+			final Number right = getNumberValue( argValues.get(1) );
 
-		} else if (fn.equals("<")) {
-			expectArgs(2);
-			BigInteger left = argValues.get(0).getInt();
-			BigInteger right = argValues.get(1).getInt();
-			//OsateDebug.osateDebug("left=" + left);
-			//OsateDebug.osateDebug("right=" + right);
+			return new BoolVal( NumberUtil.isGreaterThan( left, right ) );
+		} 
+		
+		else if ( fn.equals( LuteConstants.LESS_THAN )) {
+			expectArgs( argValues, 2 );
+			final Number left = getNumberValue( argValues.get(0) );
+			final Number right = getNumberValue( argValues.get(1) );
 
-			return new BoolVal(left.compareTo(right) < 0);
+			return new BoolVal( NumberUtil.isLessThan( left, right ) );
+		} 
 
-		} else if (fn.equals(">=")) {
-			expectArgs(2);
-			BigInteger left = argValues.get(0).getInt();
-			BigInteger right = argValues.get(1).getInt();
-			return new BoolVal(left.compareTo(right) >= 0);
+		else if ( fn.equals( LuteConstants.GREATER_THAN_OR_EQUALS ) ) {
+			expectArgs( argValues, 2 );
+			final Number left = getNumberValue( argValues.get(0) );
+			final Number right = getNumberValue( argValues.get(1) );
 
-		} else if (fn.equals("<=")) {
-			expectArgs(2);
-			BigInteger left = argValues.get(0).getInt();
-			BigInteger right = argValues.get(1).getInt();
-			return new BoolVal(left.compareTo(right) <= 0);
+			return new BoolVal( NumberUtil.isGreaterThanOrEqual( left, right ) );
+		}
+		
+		else if ( fn.equals( LuteConstants.LESS_THAN_OR_EQUALS ) ) {
+			expectArgs( argValues, 2 );
+			final Number left = getNumberValue( argValues.get(0) );
+			final Number right = getNumberValue( argValues.get(1) );
 
-		} else if (fn.equals("+")) {
-			expectArgs(2);
-			BigInteger left = argValues.get(0).getInt();
-			BigInteger right = argValues.get(1).getInt();
-			return new IntVal(left.add(right));
+			return new BoolVal( NumberUtil.isLessThanOrEqual( left, right ) );
+		} 
+		
+		else if (fn.equals( LuteConstants.PLUS ) ) {
+			expectArgs( argValues, 2 );
+			final Number left = getNumberValue( argValues.get(0) );
+			final Number right = getNumberValue( argValues.get(1) );
+			final Number result = NumberUtil.add( left, right );
+			
+			return createNumberValue( result );
+		} 
+		else if ( fn.equals( LuteConstants.MINUS ) ) {
+			expectArgs( argValues, 2 );
 
-		} else if (fn.equals("-")) {
-			expectArgs(2);
-			BigInteger left = argValues.get(0).getInt();
-			BigInteger right = argValues.get(1).getInt();
-			return new IntVal(left.subtract(right));
+			final Number left = getNumberValue( argValues.get(0) );
+			final Number right = getNumberValue( argValues.get(1) );
+			final Number result = NumberUtil.subtract( left, right );
+			
+			return createNumberValue( result );
+		} else if ( fn.equals( LuteConstants.MULTIPLY ) ) {
+			expectArgs( argValues, 2 );
 
-		} else if (fn.equals("*")) {
-			expectArgs(2);
-			BigInteger left = argValues.get(0).getInt();
-			BigInteger right = argValues.get(1).getInt();
-			return new IntVal(left.multiply(right));
-
+			final Number left = getNumberValue( argValues.get(0) );
+			final Number right = getNumberValue( argValues.get(1) );
+			final Number result = NumberUtil.multiply( left, right );
+			
+			return createNumberValue( result );
 		} else if (fn.equals("Hex")) {
 			expectArgs(1);
-			BigInteger i = argValues.get(0).getInt();
+			Long i = argValues.get(0).getInt();
 			return new StringVal("16#" + i.toString(16) + "#");
 
 		} else {
@@ -507,25 +584,28 @@ public class FnCallExpr extends Expr {
 		return res;
 	}
 
-
 	private IntVal max(Collection<Val> vals) {
 		if (vals.isEmpty()) {
-			throw new LuteException("Max called with no arguments");
+			throw new LuteException( "Max called with no arguments." );
 		}
-		BigInteger r = vals.iterator().next().getInt();
+		
+		Long  r = vals.iterator().next().getInt();
+		
 		for (Val v : vals) {
 			if (v.getInt().compareTo(r) > 0) {
 				r = v.getInt();
 			}
 		}
+		
 		return new IntVal(r);
 	}
-
+	
 	private IntVal min(Collection<Val> vals) {
 		if (vals.isEmpty()) {
-			throw new LuteException("Min called with no arguments");
+			throw new LuteException( "Min called with no arguments." );
 		}
-		BigInteger r = vals.iterator().next().getInt();
+
+		Long r = vals.iterator().next().getInt();
 		for (Val v : vals) {
 			if (v.getInt().compareTo(r) < 0) {
 				r = v.getInt();
@@ -533,7 +613,6 @@ public class FnCallExpr extends Expr {
 		}
 		return new IntVal(r);
 	}
-
 	private void expectArgs(int n) {
 		if (!(args.size() == n)) {
 			throw new LuteException("Function " + fn + " expects " + n + " arguments");
@@ -934,4 +1013,95 @@ public class FnCallExpr extends Expr {
 		return p_propertyValue.getContainmentPathElements().get( 0 ).getNamedElement();
 	}
 
+	
+	private Val getPropertyConstant( final List<Val> p_argValues ) {
+		expectArgs( p_argValues, new int[] { 1, 2 } );
+
+		final String property = p_argValues.get( 0 ).getString();
+		Val result = null;
+		
+		if ( p_argValues.size() == 1 ) {
+			result = getPropertyConstant( property );
+		}
+		else if ( p_argValues.size() == 2 ) {
+			final String unit = p_argValues.get( 1 ).getString();
+			result = getPropertyConstant( property, unit );
+		}
+//
+		// DB: Allow null values to be returned when no property association is defined.
+//		if ( result == null ) {
+//			throw new LuteException( "Failed to find property " + property );
+//		}
+		
+		return result;
+	}
+	
+	private Val getPropertyConstant( final String p_propertyName ) {
+		final PropertyConstant propConst = EMFIndexRetrieval.getPropertyConstantInWorkspace( OsateResourceUtil.getResourceSet(), p_propertyName );
+		
+		return AADLPropertyValueToValue( propConst.getConstantValue(), null );
+	}
+	
+	private Val getPropertyConstant( 	final String p_propertyName,
+										final String p_unit ) {
+		final PropertyConstant propConst = EMFIndexRetrieval.getPropertyConstantInWorkspace( OsateResourceUtil.getResourceSet(), p_propertyName );
+		
+		return AADLPropertyValueToValue( propConst.getConstantValue(), p_unit );
+	}
+	
+	private Number getNumberValue( final Val p_value ) {
+		if ( p_value instanceof IntVal ) {
+			return p_value.getInt();
+		}
+
+		return p_value == null ? null : p_value.getReal();
+	}
+	
+	private Val createNumberValue( final Number p_value ) {
+//		if ( p_value instanceof BigInteger ) {
+//			return new IntVal( ( (BigInteger) p_value ).longValue() );
+//		}
+
+		if ( p_value instanceof Long ) {
+			return new IntVal( (Long) p_value );
+		}
+
+		if ( p_value instanceof Integer ) {
+			return new IntVal( (Integer) p_value );
+		}
+
+//		if ( p_value instanceof BigDecimal ) {
+//			return new RealVal( ( (BigDecimal) p_value ).doubleValue() );
+//		}
+
+		if ( p_value instanceof Double ) {
+			return new RealVal( (Double) p_value );
+		}
+
+		if ( p_value instanceof Float ) {
+			return new RealVal( (Float) p_value );
+		}
+		
+		throw new LuteException( "Unknown number type " + p_value );
+	}
+	
+	private RealVal sum(Collection<Val> vals) {
+		if (vals.isEmpty()) {
+			throw new LuteException( "Sum called with no arguments." );
+		}
+		
+		Number total = Double.valueOf( 0.0 );
+		
+		for ( final Val value : vals ) {
+			final Number valueToAdd = getNumberValue( value );
+			
+			total = NumberUtil.add( total, valueToAdd );
+		}
+		
+//		if ( total instanceof BigDecimal ) {
+//			return new RealVal( ( (BigDecimal) total );
+//		}
+
+		return new RealVal( total.doubleValue() );
+	}
 }

@@ -23,6 +23,7 @@ package org.osate.analysis.lute.language;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.List;
 
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
@@ -41,13 +42,13 @@ public abstract class Val extends Expr {
 		throw new LuteException("Expected string value");
 	}
 	
-	public BigInteger getInt() {
+	public Long getInt() {
 		throw new LuteException("Expected integer value");
 	}
 	
-	public Collection<Val> getSet() {
+	public List<Val> getSet() {
 		throw new LuteException("Expected set value");
-	}
+	} 
 	
 	public NamedElement getAADL() {
 		throw new LuteException("Expected AADL object value");

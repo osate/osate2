@@ -189,7 +189,7 @@ public class LuteInterpreter {
 	}
 	
 	private Val allComponents(List<ComponentInstance> components) {
-		Collection<Val> result = new ArrayList<Val>();
+		List<Val> result = new ArrayList<Val>();
 		for (ComponentInstance ci : components) {
 			result.add(new AADLVal(ci));
 		}

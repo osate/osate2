@@ -30,9 +30,9 @@ import org.osate.aadl2.util.OsateDebug;
 
 
 public class IntVal extends Val {
-	final private BigInteger i;
+	final private Long i;
 	
-	public IntVal(BigInteger i) {
+	public IntVal(Long i) {
 		super();
 		this.i = i;
 	}
@@ -40,11 +40,11 @@ public class IntVal extends Val {
 	public IntVal(long i) {
 		super();
 		//OsateDebug.osateDebug("i=" + i);
-		this.i = BigInteger.valueOf(i);
+		this.i = Long.valueOf(i);
 	}
 	
 	@Override
-	public BigInteger getInt() {
+	public Long getInt() {
 		return i;
 	}
 
