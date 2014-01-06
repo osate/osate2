@@ -103,11 +103,6 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 
-
-
-
-
-
 public class FnCallExpr extends Expr {
 	final private String fn;
 	final private List<Expr> args;
@@ -201,42 +196,48 @@ public class FnCallExpr extends Expr {
 		}
 
 
-		if ( fn.equals( LuteConstants.PROPERTY ) ) {
+		if ( fn.equalsIgnoreCase( LuteConstants.PROPERTY ) ) {
 			return getProperty( argValues );
 
 
-		} else if (fn.equals("Property_Exists")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.PROPERTY_EXISTS)) {
 			expectArgs(2);
 			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
 			String property = argValues.get(1).getString();
 			Val result = getProperty(aadl, property);
 			return new BoolVal(result != null);
 
-		}else if (fn.equals("Is_Of_Type")) {
+		}
+		else if ( fn.equalsIgnoreCase( LuteConstants.NAME ) ) {
+			expectArgs( argValues, 1 );
+			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			return new StringVal (aadl.getName());
+		} 
+		else if (fn.equalsIgnoreCase (LuteConstants.IS_OF_TYPE)) {
 			expectArgs(2);
 			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
 			String typeString = argValues.get(1).getString();
 			return new BoolVal(checkType(aadl, typeString));
 
 		}
-		else if ( fn.equals( LuteConstants.PROPERTY_CONSTANT ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.PROPERTY_CONSTANT ) ) {
 			return getPropertyConstant( argValues );
 		}
 		
-		else if ( fn.equals( LuteConstants.LENGTH ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.LENGTH ) ) {
 			expectArgs( argValues, 1 );
 			final String strVal = argValues.get(0).getString();
 			
 			return new IntVal( strVal.length() );
 		} 
-		else if (fn.equals("Is_Bound_To")) {
+		else if (fn.equalsIgnoreCase(LuteConstants.IS_BOUND_TO)) {
 			expectArgs(2);
 
 			InstanceObject s = (InstanceObject) argValues.get(0).getAADL();
 			InstanceObject t = (InstanceObject) argValues.get(1).getAADL();
 			return new BoolVal(isBoundTo(s, t));
 
-		} else if (fn.equalsIgnoreCase("source")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.SOURCE)) {
 			expectArgs(1);
 			InstanceObject c = (InstanceObject) argValues.get(0).getAADL();
 			if (c instanceof ConnectionInstance) {
@@ -245,7 +246,7 @@ public class FnCallExpr extends Expr {
 			}
 			throw new LuteException("Source called on non-connection object");
 
-		} else if (fn.equalsIgnoreCase("destination")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.DESTINATION)) {
 			expectArgs(1);
 			InstanceObject c = (InstanceObject) argValues.get(0).getAADL();
 			if (c instanceof ConnectionInstance) {
@@ -255,7 +256,7 @@ public class FnCallExpr extends Expr {
 
 			throw new LuteException("Destination called on non-connection object");
 
-		} else if (fn.equalsIgnoreCase("has_out_ports")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.HAS_OUT_PORTS)) {
 			expectArgs(1);
 			InstanceObject c = (InstanceObject) argValues.get(0).getAADL();
 			if (c instanceof ComponentInstance) {
@@ -282,7 +283,7 @@ public class FnCallExpr extends Expr {
 
 			throw new LuteException("has_out_ports called on non-connection object");
 
-		} else if (fn.equalsIgnoreCase("has_in_ports")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.HAS_IN_PORTS)) {
 			expectArgs(1);
 			InstanceObject c = (InstanceObject) argValues.get(0).getAADL();
 			if (c instanceof ComponentInstance) {
@@ -309,14 +310,14 @@ public class FnCallExpr extends Expr {
 
 			throw new LuteException("has_in_ports called on non-connection object");
 
-		} else if (fn.equals("Member")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.MEMBER)) {
 			expectArgs(2);
 			Val e = argValues.get(0);
 
 			Collection<Val> set = argValues.get(1).getSet();
 			return new BoolVal(set.contains(e));
 
-		} else if (fn.equals("Owner")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.OWNER)) {
 			expectArgs(1);
 			InstanceObject e = (InstanceObject) argValues.get(0).getAADL();
 			if (e.getOwner() instanceof InstanceObject) {
@@ -326,7 +327,7 @@ public class FnCallExpr extends Expr {
 			throw new LuteException("Owner called on un-owned object");
 
 		}
-		else if ( fn.equals( LuteConstants.DIVIDE ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.DIVIDE ) ) {
 			expectArgs( argValues, 2 );
 			
 			final Number left = getNumberValue( argValues.get( 0 ) );
@@ -335,7 +336,7 @@ public class FnCallExpr extends Expr {
 			
 			return createNumberValue( result );
 		}
-		else if (fn.equals( LuteConstants.FIRST ) ) {
+		else if (fn.equalsIgnoreCase( LuteConstants.FIRST ) ) {
 			expectArgs( argValues, 1 );
 			final List<Val> set = argValues.get(0).getSet();
 			
@@ -346,7 +347,7 @@ public class FnCallExpr extends Expr {
 			return set.get( 0 );
 		} 
 		
-		else if (fn.equals( LuteConstants.AT ) ) {
+		else if (fn.equalsIgnoreCase( LuteConstants.AT ) ) {
 			expectArgs( argValues, 2 );
 			final List<Val> set = argValues.get( 0 ).getSet();
 			
@@ -359,7 +360,7 @@ public class FnCallExpr extends Expr {
 			return set.get( index.intValue() );
 		} 
 		
-		else if ( fn.equals( LuteConstants.LAST ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.LAST ) ) {
 			expectArgs( argValues, 1 );
 			final List<Val> set = argValues.get(0).getSet();
 			
@@ -369,7 +370,7 @@ public class FnCallExpr extends Expr {
 			
 			return set.get( set.size() - 1 );
 		} 
-		else if ( fn.equals( LuteConstants.POWER ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.POWER ) ) {
 			expectArgs( argValues, 2 );
 
 			final Number left = getNumberValue( argValues.get( 0 ) );
@@ -378,7 +379,7 @@ public class FnCallExpr extends Expr {
 			
 			return createNumberValue( result );
 		}
-		else if (fn.equals("Is_Subcomponent_Of")) {
+		else if (fn.equalsIgnoreCase(LuteConstants.IS_SUBCOMPONENT_OF)) {
 			/*
 			 * Is_Subcomponent_Of looks if the component is
 			 * contained in the whole hierarchy and browse the whole
@@ -401,7 +402,7 @@ public class FnCallExpr extends Expr {
 			return new BoolVal(false);
 
 		} 
-		else if (fn.equals("Is_Direct_Subcomponent_Of")) 
+		else if (fn.equalsIgnoreCase(LuteConstants.IS_DIRECT_SUBCOMPONENT_OF)) 
 		{
 			/*
 			 * Is_Direct_Subcomponent_Of look if the component
@@ -420,7 +421,7 @@ public class FnCallExpr extends Expr {
 			}
 			return new BoolVal(false);
 		}
-		else if ( fn.equals( LuteConstants.SUM ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.SUM ) ) {
 			if (argValues.size() == 1) {
 				Val arg = argValues.get(0);
 				if (arg instanceof SetVal) {
@@ -434,14 +435,14 @@ public class FnCallExpr extends Expr {
 				
 			return sum(argValues);
 		} 
-		else if ( fn.equals( LuteConstants.CONCAT ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.CONCAT ) ) {
 			expectArgs( 2 );
 			final String left = argValues.get(0).getString();
 			final String right = argValues.get(1).getString();
 
 			return new StringVal( left + right );
 		} 
-		else if (fn.equals("Max")) {
+		else if (fn.equalsIgnoreCase(LuteConstants.MAX)) {
 			if (argValues.size() == 1) {
 				Val arg = argValues.get(0);
 				if (arg instanceof SetVal) {
@@ -454,7 +455,7 @@ public class FnCallExpr extends Expr {
 				return max(argValues);
 			}
 
-		} else if (fn.equals("Min")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.MIN)) {
 			if (argValues.size() == 1) {
 				Val arg = argValues.get(0);
 				if (arg instanceof SetVal) {
@@ -467,23 +468,23 @@ public class FnCallExpr extends Expr {
 				return min(argValues);
 			}
 
-		} else if (fn.equals("Cardinal")) 
+		} else if (fn.equalsIgnoreCase(LuteConstants.CARDINAL)) 
 		{
 			expectArgs(1);
 			Collection<Val> set = argValues.get(0).getSet();
 			return new IntVal(set.size());
 
-		} else if (fn.equals("Lower")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.LOWER)) {
 			expectArgs(1);
 			RangeVal range = argValues.get(0).getRange();
 			return range.getLower();
 
-		} else if (fn.equals("Upper")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.UPPER)) {
 			expectArgs(1);
 			RangeVal range = argValues.get(0).getRange();
 			return range.getUpper();
 
-		} else if (fn.equals("=")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.EQUALS)) {
 			expectArgs(2);
 			Val left = argValues.get(0);
 			Val right = argValues.get(1);
@@ -494,14 +495,15 @@ public class FnCallExpr extends Expr {
 			}
 			return new BoolVal(left.equals(right));
 
-		} else if (fn.equals("!=")) {
+		} else if (fn.equalsIgnoreCase(LuteConstants.NOT_EQUALS)) {
 			expectArgs(2);
 			Val left = argValues.get(0);
 			Val right = argValues.get(1);
 			return new BoolVal(!left.equals(right));
 
 		} 
-		else if ( fn.equals( LuteConstants.GREATER_THAN ) ) {
+
+		else if ( fn.equalsIgnoreCase( LuteConstants.GREATER_THAN ) ) {
 			expectArgs( argValues, 2 );
 			final Number left = getNumberValue( argValues.get(0) );
 			final Number right = getNumberValue( argValues.get(1) );
@@ -509,7 +511,7 @@ public class FnCallExpr extends Expr {
 			return new BoolVal( NumberUtil.isGreaterThan( left, right ) );
 		} 
 		
-		else if ( fn.equals( LuteConstants.LESS_THAN )) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.LESS_THAN )) {
 			expectArgs( argValues, 2 );
 			final Number left = getNumberValue( argValues.get(0) );
 			final Number right = getNumberValue( argValues.get(1) );
@@ -517,7 +519,7 @@ public class FnCallExpr extends Expr {
 			return new BoolVal( NumberUtil.isLessThan( left, right ) );
 		} 
 
-		else if ( fn.equals( LuteConstants.GREATER_THAN_OR_EQUALS ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.GREATER_THAN_OR_EQUALS ) ) {
 			expectArgs( argValues, 2 );
 			final Number left = getNumberValue( argValues.get(0) );
 			final Number right = getNumberValue( argValues.get(1) );
@@ -525,7 +527,7 @@ public class FnCallExpr extends Expr {
 			return new BoolVal( NumberUtil.isGreaterThanOrEqual( left, right ) );
 		}
 		
-		else if ( fn.equals( LuteConstants.LESS_THAN_OR_EQUALS ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.LESS_THAN_OR_EQUALS ) ) {
 			expectArgs( argValues, 2 );
 			final Number left = getNumberValue( argValues.get(0) );
 			final Number right = getNumberValue( argValues.get(1) );
@@ -533,7 +535,7 @@ public class FnCallExpr extends Expr {
 			return new BoolVal( NumberUtil.isLessThanOrEqual( left, right ) );
 		} 
 		
-		else if (fn.equals( LuteConstants.PLUS ) ) {
+		else if (fn.equalsIgnoreCase( LuteConstants.PLUS ) ) {
 			expectArgs( argValues, 2 );
 			final Number left = getNumberValue( argValues.get(0) );
 			final Number right = getNumberValue( argValues.get(1) );
@@ -541,7 +543,7 @@ public class FnCallExpr extends Expr {
 			
 			return createNumberValue( result );
 		} 
-		else if ( fn.equals( LuteConstants.MINUS ) ) {
+		else if ( fn.equalsIgnoreCase( LuteConstants.MINUS ) ) {
 			expectArgs( argValues, 2 );
 
 			final Number left = getNumberValue( argValues.get(0) );
@@ -549,7 +551,7 @@ public class FnCallExpr extends Expr {
 			final Number result = NumberUtil.subtract( left, right );
 			
 			return createNumberValue( result );
-		} else if ( fn.equals( LuteConstants.MULTIPLY ) ) {
+		} else if ( fn.equalsIgnoreCase( LuteConstants.MULTIPLY ) ) {
 			expectArgs( argValues, 2 );
 
 			final Number left = getNumberValue( argValues.get(0) );
@@ -557,7 +559,7 @@ public class FnCallExpr extends Expr {
 			final Number result = NumberUtil.multiply( left, right );
 			
 			return createNumberValue( result );
-		} else if (fn.equals("Hex")) {
+		} else if (fn.equalsIgnoreCase("Hex")) {
 			expectArgs(1);
 			Long i = argValues.get(0).getInt();
 			return new StringVal("16#" + i.toString(16) + "#");

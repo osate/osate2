@@ -19,6 +19,7 @@ public class LuteConstants {
 
 	public static final String OWNER = "Owner";
 	public static final String IS_SUBCOMPONENT_OF = "Is_Subcomponent_Of";
+	public static final String IS_DIRECT_SUBCOMPONENT_OF = "Is_Direct_Subcomponent_Of";
 	public static final String IS_OF_TYPE = "Is_Of_Type";
 	public static final String IS_BOUND_TO = "Is_Bound_To";
 
@@ -48,6 +49,10 @@ public class LuteConstants {
 	public static final String GREATER_THAN_OR_EQUALS = ">=";
 	public static final String LESS_THAN_OR_EQUALS = "<=";
 
+	public static final String HAS_IN_PORTS = "has_in_ports";
+	public static final String HAS_OUT_PORTS = "has_out_ports";
+	public static final String NAME = "Name";
+	
 	public static final String PLUS = "+";
 	public static final String MINUS = "-";
 	public static final String MULTIPLY = "*";
