@@ -37,7 +37,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.workspace.WorkspacePlugin;
 
 
 public class AadlNavigatorContentProvider extends WorkbenchContentProvider
@@ -51,7 +50,9 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider
 			{
 				try
 				{
-					return project.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR).members();
+					// DB: Fix
+					return project.members();
+					//return project.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR).members();
 				}
 				catch (CoreException e)
 				{
