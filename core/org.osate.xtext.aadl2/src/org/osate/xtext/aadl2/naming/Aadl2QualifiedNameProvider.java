@@ -95,8 +95,9 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 			  obj instanceof PropertyConstant || 
 			  obj instanceof Property || 
 			  obj instanceof PropertySet || 
-			  obj instanceof PropertyType)
-		  {
+			  obj instanceof PropertyType ||
+			  // DB: We also want a qualified name for package sections
+			  obj instanceof PackageSection ) {
 				if (((NamedElement)obj).getName() == null) return null;
 				return getConverter().toQualifiedName(getTheName((NamedElement)obj));
 		  }
