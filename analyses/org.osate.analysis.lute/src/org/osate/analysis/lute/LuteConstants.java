@@ -51,6 +51,10 @@ public class LuteConstants {
 	public static final String GREATER_THAN_OR_EQUALS = ">=";
 	public static final String LESS_THAN_OR_EQUALS = "<=";
 
+	public static final String IS_EVENT_PORT = "is_event_port";
+	public static final String IS_DATA_PORT = "is_data_port";
+	public static final String IS_EVENT_DATA_PORT = "is_event_data_port";
+	
 	public static final String HAS_IN_PORTS = "has_in_ports";
 	public static final String HAS_OUT_PORTS = "has_out_ports";
 	public static final String NAME = "Name";
@@ -91,6 +95,9 @@ public class LuteConstants {
     	CHECK,
     	ASSOCIATED_DATA,
     	GET_FEATURE,
+    	IS_EVENT_PORT,
+    	IS_DATA_PORT,
+    	IS_EVENT_DATA_PORT,
     	PROPERTY,
     	DO,
     	ELSE,

@@ -70,6 +70,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
@@ -222,6 +223,51 @@ public class FnCallExpr extends Expr {
 			String typeString = argValues.get(1).getString();
 			return new BoolVal(checkType(aadl, typeString));
 
+		}
+		else if (fn.equalsIgnoreCase (LuteConstants.IS_EVENT_DATA_PORT)) {
+			expectArgs(1);
+			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			if (aadl instanceof FeatureInstance)
+			{
+				FeatureInstance fi = (FeatureInstance)aadl;
+
+				if (fi.getFeature() instanceof EventDataPort)
+				{
+					return new BoolVal(true);
+				}
+			}
+			return new BoolVal(false);
+		}
+		else if (fn.equalsIgnoreCase (LuteConstants.IS_DATA_PORT)) {
+			expectArgs(1);
+			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			if (aadl instanceof FeatureInstance)
+			{
+				FeatureInstance fi = (FeatureInstance)aadl;
+
+				if (fi.getFeature() instanceof DataPort)
+				{
+					return new BoolVal(true);
+				}
+			}
+			return new BoolVal(false);
+		}
+		else if (fn.equalsIgnoreCase (LuteConstants.IS_EVENT_PORT)) {
+			expectArgs(1);
+			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			if (aadl instanceof FeatureInstance)
+			{
+				FeatureInstance fi = (FeatureInstance)aadl;
+				if (fi.getFeature() instanceof EventPort)
+				{
+					return new BoolVal(true);
+				}
+				if (fi.getFeature() instanceof EventDataPort)
+				{
+					return new BoolVal(true);
+				}
+			}
+			return new BoolVal(false);
 		}
 		else if ( fn.equalsIgnoreCase( LuteConstants.PROPERTY_CONSTANT ) ) {
 			return getPropertyConstant( argValues );
