@@ -1082,6 +1082,7 @@ public class InstantiateModel {
 					}
 				}
 			} 
+			// no else as we want both the pattern and the connection set evaluated
 			if (setPA != null) {
 				EcoreUtil.remove(setPA);
 				// TODO-LW: modal conn set allowed?
@@ -1416,15 +1417,20 @@ public class InstantiateModel {
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
+		if (srcIndices.size()!= sizes.size()){
+			errManager.error(newConn, "Source indices "+srcIndices+" do not match source dimension "+sizes.size());
+		} 
 		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
 				srcIndices, true);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
-		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
+		if (dstIndices.size()!= sizes.size()){
+			errManager.error(newConn, "Destination indices "+dstIndices+" do not match destination dimension "+sizes.size());
+		} 
+		InstanceObject	dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
 				dstIndices,false);
-
 		if (src == null) {
 			errManager.error(newConn, "Connection source not found");
 		}
