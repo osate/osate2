@@ -168,13 +168,21 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements
 
 	@Override
 	public String getName() {
-		if (name == null) {
-			if (!Aadl2Util.isNull(getRefinedElement()))
+		if (name == null) {	// DB Avoids stack trace overflow when a component refines itself (seems to be supported by OSATE)
+			if (!Aadl2Util.isNull(getRefinedElement()) && getRefinedElement() != this )
 				return getRefinedElement().getName();
 			else
 				return "";
 		}
 		return name;
 	}
-
+	
+	@Override
+	public void setName( final String newName ) {
+		// DB: Avoid setting a non null name to refined elements (causes a validation error during serialization 
+		// when both the name and refined element are set).
+		final String actualName = Aadl2Util.isNull(getRefinedElement() ) ? newName : null;
+			
+		super.setName( actualName );
+	}
 } // RefinableElementImpl

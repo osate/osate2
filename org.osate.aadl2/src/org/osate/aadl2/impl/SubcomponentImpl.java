@@ -453,11 +453,18 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void setRefined(Subcomponent newRefined) {
 		Subcomponent oldRefined = refined;
 		refined = newRefined;
+		
+		// DB: Avoid having a non null name to refined elements (causes a validation error during serialization 
+		// when both the name and refined element are set).
+		if ( refined != null ) {
+			setName( null );
+		}
+		
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.SUBCOMPONENT__REFINED, oldRefined, refined));
