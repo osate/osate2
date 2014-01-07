@@ -225,7 +225,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 				QualifiedPropagationPoint qpp = (QualifiedPropagationPoint)context;
 				SubcomponentElement sub = qpp.getSubcomponents().get(qpp.getSubcomponents().size()-1);
 				cl = sub.getSubcomponent().getAllClassifier();
-				searchResult = EMV2Util.findPropagationPoint(cl,name);
+				if (!Aadl2Util.isNull(cl))
+					searchResult = EMV2Util.findPropagationPoint(cl,name);
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType) {
 			// first look it up in global index
