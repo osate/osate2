@@ -81,6 +81,13 @@ public class LuteConstants {
     private static final String[] BASIC_LUTE_KEYWORDS = {
     	AND,
     	CONNECTION_SET,
+    	HAS_IN_PORTS,
+    	HAS_OUT_PORTS,
+    	SOURCE,
+    	DESTINATION,
+    	LOWER,
+    	UPPER,
+    	MEMBER,
     	CHECK,
     	DO,
     	ELSE,

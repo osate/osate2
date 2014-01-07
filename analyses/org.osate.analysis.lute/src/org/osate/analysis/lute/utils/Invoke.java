@@ -38,7 +38,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.lute.DialogConsole;
 import org.osate.analysis.lute.LuteInterpreter;
 import org.slf4j.Logger;

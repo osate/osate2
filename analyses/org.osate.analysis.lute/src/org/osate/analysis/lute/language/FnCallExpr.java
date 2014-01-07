@@ -1053,6 +1053,21 @@ public class FnCallExpr extends Expr {
 			return new SetVal( values );
 		}
 
+		if (p_expr instanceof NamedValue)
+		{
+			NamedValue nv = (NamedValue) p_expr;
+			String ret = null;
+			if (nv.getNamedValue() instanceof EnumerationLiteral)
+			{
+				EnumerationLiteral el = (EnumerationLiteral) nv.getNamedValue();
+				ret = el.getName();
+			}
+			if (ret != null)
+			{
+				return new StringVal (ret);	
+			}
+			
+		}
 		throw new LuteException( "Unknown AADL property value " + p_expr );
 	}
 

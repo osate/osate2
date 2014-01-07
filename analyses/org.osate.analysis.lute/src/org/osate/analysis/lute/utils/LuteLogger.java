@@ -11,11 +11,11 @@ import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.lute.DialogConsole;
+import org.slf4j.Logger;
 import org.slf4j.Marker;
 
-public class LuteLogger implements org.slf4j.Logger{
+public class LuteLogger implements Logger{
         
         final public static int STATUS = 0;
         final public static int ERROR = 1;

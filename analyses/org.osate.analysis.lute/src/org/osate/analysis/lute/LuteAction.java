@@ -77,7 +77,7 @@ import org.slf4j.LoggerFactory;
 public abstract class LuteAction extends AadlAction {
 	protected LuteLogger luteLogger;
 	protected org.slf4j.Logger apacheLogger;
-
+ 
 	@Override
 	public IStatus runJob(Element sel, IProgressMonitor monitor, LuteLogger log) {
 		SystemInstance si;
