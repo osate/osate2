@@ -37,6 +37,8 @@ public class EMV2Properties {
 
 	public static EList<ContainedNamedElement> getHazardsProperty(ComponentInstance ci, Element target, TypeSet ts){
 		EList<ContainedNamedElement> result =  getProperty("EMV2::hazards",ci,target,ts);
+		if (result.isEmpty()) result =  getProperty("ARP4761::hazards",ci,target,ts);
+		if (result.isEmpty()) result =  getProperty("MILSTD882::hazards",ci,target,ts);
 		return result;
 	}
 
@@ -340,8 +342,8 @@ public class EMV2Properties {
 	 */
 	public static EList<ContainedNamedElement> getMatchingErrorModelElementPropertyAssociationsInList(EList<PropertyAssociation> props,String propertyName, Element target,
 			 TypeSet ts){
-		if (props == null) return null;
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
+		if (props == null) return result;
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();

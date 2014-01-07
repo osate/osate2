@@ -209,6 +209,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		monitor.done();
 	}
 	
+	public enum HazardFormat { EMV2, MILSTD882, ARP4761};
+	
 
 	protected void processHazards(ComponentInstance ci, WriteToFile report)
 	{
@@ -222,12 +224,13 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				if (condElement.getIncoming() instanceof ErrorEvent)
 				{
 					ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
+					HazardFormat hazardtype = HazardFormat.EMV2;
 					EList<ContainedNamedElement> PA  = EMV2Properties.getHazardsProperty(ci, errorEvent,errorEvent.getTypeSet());
 					EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,errorEvent.getTypeSet());
 					EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,errorEvent.getTypeSet());
 					for (ContainedNamedElement hazProp: PA)
 					{
-						reportHazardProperty(ci, hazProp, EMV2Util.findMatchingType(hazProp, Sev), EMV2Util.findMatchingType(hazProp, Like), null, errorEvent.getTypeSet(), errorEvent,report);
+						reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev), EMV2Util.findMatchingErrorType(hazProp, Like), null, errorEvent.getTypeSet(), errorEvent,report);
 					}
 				}
 				//condElement.getIncoming()
@@ -243,7 +246,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, state,state.getTypeSet());
 			for (ContainedNamedElement hazProp: PA)
 			{
-				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingType(hazProp, Sev), EMV2Util.findMatchingType(hazProp, Like), state, state.getTypeSet(), state,report);
+				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev), EMV2Util.findMatchingErrorType(hazProp, Like), state, state.getTypeSet(), state,report);
 			}
 		}
 
@@ -295,7 +298,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			}
 			for (ContainedNamedElement hazProp: HazardPA)
 			{
-				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingType(hazProp, Sev), EMV2Util.findMatchingType(hazProp, Like), target, ts, localContext,report);
+				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev), EMV2Util.findMatchingErrorType(hazProp, Like), target, ts, localContext,report);
 			}
 		}
 	}
