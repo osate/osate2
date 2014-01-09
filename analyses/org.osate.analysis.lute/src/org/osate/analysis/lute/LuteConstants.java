@@ -114,6 +114,7 @@ public class LuteConstants {
     	PRINT,
     	THEN,
     	SELF,
+    	PROPERTY_CONSTANT,
     	THEOREM,
     	TRUE,
     };

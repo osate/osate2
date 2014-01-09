@@ -224,9 +224,25 @@ public class FnCallExpr extends Expr {
 		} 
 		else if (fn.equalsIgnoreCase (LuteConstants.IS_OF_TYPE)) {
 			expectArgs(2);
-			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			Classifier cl;
+			cl = null;
+			NamedElement obj = argValues.get(0).getAADL();
+			if (obj instanceof InstanceObject)
+			{
+				InstanceObject aadl = (InstanceObject) obj;
+				cl = aadl.getComponentInstance().getComponentClassifier();
+			}
+			if (obj instanceof Subcomponent)
+			{
+				Subcomponent aadl = (Subcomponent) obj;
+				cl = aadl.getClassifier();
+			}
+			if (obj instanceof Classifier)
+			{
+				cl = (Classifier)obj;
+			}
 			String typeString = argValues.get(1).getString();
-			return new BoolVal(checkType(aadl, typeString));
+			return new BoolVal(checkType(cl, typeString));
 
 		}
 		else if (fn.equalsIgnoreCase (LuteConstants.IS_EVENT_DATA_PORT)) {
@@ -413,7 +429,8 @@ public class FnCallExpr extends Expr {
 			NamedElement ne = null;
 			NamedElement e = (NamedElement) argValues.get(0).getAADL();
 			String str = (String) argValues.get(1).getString();
-			if (e instanceof ComponentInstance)
+			
+			if (argValues.get(0).getAADL() instanceof InstanceObject)
 			{
 				ne = AadlUtil.findNamedElementInList(((ComponentInstance)e).getFeatureInstances(), str);
 			} else if (e instanceof Classifier){
@@ -810,12 +827,12 @@ public class FnCallExpr extends Expr {
 		throw new LuteException( message.toString() );
 	}
 
-	private boolean checkType(InstanceObject aadl, String typeName)
+	private boolean checkType(Classifier aadl, String typeName)
 	{
 		boolean r;
 		//OsateDebug.osateDebug("aadl comp" + aadl.getComponentInstance().getComponentClassifier());
 		//OsateDebug.osateDebug("type=" + typeName);
-		r = aadl.getComponentInstance().getComponentClassifier().getName().toLowerCase().contains(typeName.toLowerCase());
+		r = aadl.getName().toLowerCase().contains(typeName.toLowerCase());
 		//OsateDebug.osateDebug("return " + r);
 		return r;
 	}
