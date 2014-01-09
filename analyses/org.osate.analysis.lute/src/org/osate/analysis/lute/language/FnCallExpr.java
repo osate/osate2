@@ -65,6 +65,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
@@ -85,6 +86,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.ContainmentPathElementImpl;
@@ -214,14 +216,25 @@ public class FnCallExpr extends Expr {
 		}
 		else if ( fn.equalsIgnoreCase( LuteConstants.NAME ) ) {
 			expectArgs( argValues, 1 );
-			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement aadl = (NamedElement) argValues.get(0).getAADL();
 			return new StringVal (aadl.getName());
 		} 
 		else if (fn.equalsIgnoreCase (LuteConstants.IS_OF_TYPE)) {
 			expectArgs(2);
-			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			ComponentClassifier cl;
+			cl = null;
+			if (argValues.get(0).getAADL() instanceof InstanceObject)
+			{
+				InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+				cl = aadl.getComponentInstance().getComponentClassifier();
+			}
+			if (argValues.get(0).getAADL() instanceof Subcomponent)
+			{
+				Subcomponent aadl = (Subcomponent) argValues.get(0).getAADL();
+				cl = aadl.getClassifier();
+			}
 			String typeString = argValues.get(1).getString();
-			return new BoolVal(checkType(aadl, typeString));
+			return new BoolVal(checkType(cl, typeString));
 
 		}
 		else if (fn.equalsIgnoreCase (LuteConstants.IS_EVENT_DATA_PORT)) {
@@ -379,21 +392,26 @@ public class FnCallExpr extends Expr {
 		else if (fn.equalsIgnoreCase(LuteConstants.GET_FEATURE)) {
 			expectArgs(2);
 			NamedElement ne = null;
-			InstanceObject e = (InstanceObject) argValues.get(0).getAADL();
 			String str = (String) argValues.get(1).getString();
-			if (e instanceof ComponentInstance)
+			
+			if (argValues.get(0).getAADL() instanceof InstanceObject)
 			{
-				for (FeatureInstance fi : ((ComponentInstance)e).getFeatureInstances())
+				InstanceObject e = (InstanceObject) argValues.get(0).getAADL();
+				
+				if (e instanceof ComponentInstance)
 				{
-					if (fi.getName().equalsIgnoreCase(str))
+					for (FeatureInstance fi : ((ComponentInstance)e).getFeatureInstances())
 					{
-						ne = fi;
+						if (fi.getName().equalsIgnoreCase(str))
+						{
+							ne = fi;
+						}
 					}
 				}
-			}
-			if (ne != null)
-			{
-				return new AADLVal(ne);
+				if (ne != null)
+				{
+					return new AADLVal(ne);
+				}
 			}
 			
 			throw new LuteException("Cannot find the feature");
@@ -756,12 +774,12 @@ public class FnCallExpr extends Expr {
 		throw new LuteException( message.toString() );
 	}
 
-	private boolean checkType(InstanceObject aadl, String typeName)
+	private boolean checkType(ComponentClassifier aadl, String typeName)
 	{
 		boolean r;
 		//OsateDebug.osateDebug("aadl comp" + aadl.getComponentInstance().getComponentClassifier());
 		//OsateDebug.osateDebug("type=" + typeName);
-		r = aadl.getComponentInstance().getComponentClassifier().getName().toLowerCase().contains(typeName.toLowerCase());
+		r = aadl.getName().toLowerCase().contains(typeName.toLowerCase());
 		//OsateDebug.osateDebug("return " + r);
 		return r;
 	}
