@@ -64,7 +64,9 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
@@ -77,6 +79,7 @@ import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
@@ -85,6 +88,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.ContainmentPathElementImpl;
@@ -97,6 +101,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.OsateDebug;
@@ -214,7 +219,7 @@ public class FnCallExpr extends Expr {
 		}
 		else if ( fn.equalsIgnoreCase( LuteConstants.NAME ) ) {
 			expectArgs( argValues, 1 );
-			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement aadl = (NamedElement) argValues.get(0).getAADL();
 			return new StringVal (aadl.getName());
 		} 
 		else if (fn.equalsIgnoreCase (LuteConstants.IS_OF_TYPE)) {
@@ -226,47 +231,47 @@ public class FnCallExpr extends Expr {
 		}
 		else if (fn.equalsIgnoreCase (LuteConstants.IS_EVENT_DATA_PORT)) {
 			expectArgs(1);
-			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement aadl = (NamedElement) argValues.get(0).getAADL();
 			if (aadl instanceof FeatureInstance)
 			{
-				FeatureInstance fi = (FeatureInstance)aadl;
+				aadl = ((FeatureInstance)aadl).getFeature();
+			}
 
-				if (fi.getFeature() instanceof EventDataPort)
+				if (aadl instanceof EventDataPort)
 				{
 					return new BoolVal(true);
 				}
-			}
 			return new BoolVal(false);
 		}
 		else if (fn.equalsIgnoreCase (LuteConstants.IS_DATA_PORT)) {
 			expectArgs(1);
-			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement aadl = (NamedElement) argValues.get(0).getAADL();
 			if (aadl instanceof FeatureInstance)
 			{
-				FeatureInstance fi = (FeatureInstance)aadl;
+				aadl = ((FeatureInstance)aadl).getFeature();
+			}
 
-				if (fi.getFeature() instanceof DataPort)
+				if (aadl instanceof DataPort)
 				{
 					return new BoolVal(true);
 				}
-			}
 			return new BoolVal(false);
 		}
 		else if (fn.equalsIgnoreCase (LuteConstants.IS_EVENT_PORT)) {
 			expectArgs(1);
-			InstanceObject aadl = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement aadl = (NamedElement) argValues.get(0).getAADL();
 			if (aadl instanceof FeatureInstance)
 			{
-				FeatureInstance fi = (FeatureInstance)aadl;
-				if (fi.getFeature() instanceof EventPort)
-				{
-					return new BoolVal(true);
-				}
-				if (fi.getFeature() instanceof EventDataPort)
-				{
-					return new BoolVal(true);
-				}
+				aadl = ((FeatureInstance)aadl).getFeature();
 			}
+				if (aadl instanceof EventPort)
+				{
+					return new BoolVal(true);
+				}
+//				if (aadl instanceof EventDataPort)
+//				{
+//					return new BoolVal(true);
+//				}
 			return new BoolVal(false);
 		}
 		else if ( fn.equalsIgnoreCase( LuteConstants.PROPERTY_CONSTANT ) ) {
@@ -282,9 +287,12 @@ public class FnCallExpr extends Expr {
 		else if (fn.equalsIgnoreCase(LuteConstants.IS_BOUND_TO)) {
 			expectArgs(2);
 
-			InstanceObject s = (InstanceObject) argValues.get(0).getAADL();
-			InstanceObject t = (InstanceObject) argValues.get(1).getAADL();
-			return new BoolVal(isBoundTo(s, t));
+			NamedElement s = (NamedElement) argValues.get(0).getAADL();
+			NamedElement t = (NamedElement) argValues.get(1).getAADL();
+			if (s instanceof InstanceObject && t instanceof InstanceObject){
+			return new BoolVal(isBoundTo((InstanceObject)s, (InstanceObject)t));
+			}
+			throw new LuteException("Is Bound To called on non-instance object");
 
 		} else if (fn.equalsIgnoreCase(LuteConstants.SOURCE)) {
 			expectArgs(1);
@@ -292,6 +300,9 @@ public class FnCallExpr extends Expr {
 			if (c instanceof ConnectionInstance) {
 				ConnectionInstance conn = (ConnectionInstance) c;
 				return new AADLVal(conn.getSource());
+			} else if (c instanceof Connection){
+				Connection conn = (Connection) c;
+				return new AADLVal(conn.getAllSource());
 			}
 			throw new LuteException("Source called on non-connection object");
 
@@ -301,6 +312,9 @@ public class FnCallExpr extends Expr {
 			if (c instanceof ConnectionInstance) {
 				ConnectionInstance conn = (ConnectionInstance) c;
 				return new AADLVal(conn.getDestination());
+			} else if (c instanceof Connection){
+				Connection conn = (Connection) c;
+				return new AADLVal(conn.getAllDestination());
 			}
 
 			throw new LuteException("Destination called on non-connection object");
@@ -328,6 +342,15 @@ public class FnCallExpr extends Expr {
 
 				}
 				return new BoolVal(fis != 0);
+			} else if (c instanceof Classifier){
+				int fis = 0;
+				Classifier cl = (Classifier) c;
+				for (Feature f: cl.getAllFeatures()){
+					if (f instanceof Port&&AadlUtil.isOutgoingFeature(f)){
+						fis++;
+					}
+				}
+				return new BoolVal(fis != 0);
 			}
 
 			throw new LuteException("has_out_ports called on non-connection object");
@@ -353,6 +376,15 @@ public class FnCallExpr extends Expr {
 						fis++;
 					}
 
+				} 
+				return new BoolVal(fis != 0);
+			} else if (c instanceof Classifier){
+				int fis = 0;
+				Classifier cl = (Classifier) c;
+				for (Feature f: cl.getAllFeatures()){
+					if (f instanceof Port&&AadlUtil.isIncomingFeature(f)){
+						fis++;
+					}
 				}
 				return new BoolVal(fis != 0);
 			}
@@ -368,28 +400,24 @@ public class FnCallExpr extends Expr {
 
 		} else if (fn.equalsIgnoreCase(LuteConstants.OWNER)) {
 			expectArgs(1);
-			InstanceObject e = (InstanceObject) argValues.get(0).getAADL();
-			if (e.getOwner() instanceof InstanceObject) {
-				InstanceObject owner = (InstanceObject) e.getOwner();
+			NamedElement e = (NamedElement) argValues.get(0).getAADL();
+			if (e.getOwner() instanceof NamedElement) {
+				NamedElement owner = (NamedElement) e.getOwner();
 				return new AADLVal(owner);
 			}
-			throw new LuteException("Owner called on un-owned object");
+			throw new LuteException("Owner not a NamedElement");
 
 		}
 		else if (fn.equalsIgnoreCase(LuteConstants.GET_FEATURE)) {
 			expectArgs(2);
 			NamedElement ne = null;
-			InstanceObject e = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement e = (NamedElement) argValues.get(0).getAADL();
 			String str = (String) argValues.get(1).getString();
 			if (e instanceof ComponentInstance)
 			{
-				for (FeatureInstance fi : ((ComponentInstance)e).getFeatureInstances())
-				{
-					if (fi.getName().equalsIgnoreCase(str))
-					{
-						ne = fi;
-					}
-				}
+				ne = AadlUtil.findNamedElementInList(((ComponentInstance)e).getFeatureInstances(), str);
+			} else if (e instanceof Classifier){
+				ne = AadlUtil.findNamedElementInList(((Classifier)e).getAllFeatures(), str);
 			}
 			if (ne != null)
 			{
@@ -403,24 +431,52 @@ public class FnCallExpr extends Expr {
 		{
 			NamedElement dataType = null;
 			expectArgs(1);
-			InstanceObject io = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement io = (NamedElement) argValues.get(0).getAADL();
+			Feature f = null;
 			if (io instanceof FeatureInstance)
 			{
-				Feature f = ((FeatureInstance)io).getFeature();
-				if (f instanceof DataPort)
-				{
-					dataType = ((DataPort)f).getDataFeatureClassifier();
-				}
-				if (f instanceof EventDataPort)
-				{
-					dataType = ((DataPort)f).getDataFeatureClassifier();
-				}
+				f = ((FeatureInstance)io).getFeature();
+			} else if (io instanceof Feature){
+				f = (Feature) io;
+			}
+
+			if (f instanceof DataPort)
+			{
+				dataType = ((DataPort)f).getDataFeatureClassifier();
+			}
+			if (f instanceof EventDataPort)
+			{
+				dataType = ((DataPort)f).getDataFeatureClassifier();
 			}
 			if (dataType != null)
 			{
 				return new AADLVal (dataType);
 			}
 			throw new LuteException("Cannot find the data type");
+
+		}
+		else if (fn.equalsIgnoreCase(LuteConstants.ASSOCIATED_CLASSIFIER))
+		{
+			Classifier cl = null;
+			expectArgs(1);
+			NamedElement io = (NamedElement) argValues.get(0).getAADL();
+			Subcomponent s = null;
+			if (io instanceof ComponentInstance)
+			{
+				s = ((ComponentInstance)io).getSubcomponent();
+			} else if (io instanceof Feature){
+				s = (Subcomponent) io;
+			}
+
+			if (s != null)
+			{
+				cl = s.getClassifier();
+			}
+			if (cl != null)
+			{
+				return new AADLVal (cl);
+			}
+			throw new LuteException("Object does not have classifier");
 
 		}
 		else if ( fn.equalsIgnoreCase( LuteConstants.DIVIDE ) ) {
@@ -485,9 +541,9 @@ public class FnCallExpr extends Expr {
 			 * function instead.
 			 */
 			expectArgs(2);
-			InstanceObject sub = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement sub = (NamedElement) argValues.get(0).getAADL();
 
-			InstanceObject top = (InstanceObject) argValues.get(1).getAADL();
+			NamedElement top = (NamedElement) argValues.get(1).getAADL();
 			while (sub.getOwner() instanceof InstanceObject) {
 				InstanceObject owner = (InstanceObject) sub.getOwner();
 				if (top.equals(owner)) {
@@ -506,14 +562,12 @@ public class FnCallExpr extends Expr {
 			 * not look at the entire component hierarchy.
 			 */
 			expectArgs(2);
-			InstanceObject sub = (InstanceObject) argValues.get(0).getAADL();
+			NamedElement sub = (NamedElement) argValues.get(0).getAADL();
 
-			InstanceObject top = (InstanceObject) argValues.get(1).getAADL();
-			if (sub.getOwner() instanceof InstanceObject) {
-				InstanceObject owner = (InstanceObject) sub.getOwner();
-				if (top.equals(owner)) {
-					return new BoolVal(true);
-				}
+			NamedElement top = (NamedElement) argValues.get(1).getAADL();
+			NamedElement owner = (NamedElement) sub.getOwner();
+			if (top.equals(owner)) {
+				return new BoolVal(true);
 			}
 			return new BoolVal(false);
 		}
@@ -768,31 +822,31 @@ public class FnCallExpr extends Expr {
 
 
 
-	private Val getProperty(InstanceObject aadl, String propName) 
-	{
-		PropertyExpression expr;
-		Property property = EMFIndexRetrieval.getPropertyDefinitionInWorkspace(aadl,propName);
-		if (property == null)
-		{
-			return null;
-		}
-		try {
-			if (! property.isList())
-			{
-				expr = PropertyUtils.getSimplePropertyValue(aadl, property);
-			}
-			else
-			{
-				expr = PropertyUtils.getSimplePropertyListValue(aadl, property);
-			}
-			Val res = AADLPropertyValueToValue(expr);
-			return res;
-		} catch (PropertyLookupException e)
-		{
-			e.printStackTrace();
-			return (new StringVal (""));
-		}
-	}
+//	private Val getProperty(InstanceObject aadl, String propName) 
+//	{
+//		PropertyExpression expr;
+//		Property property = EMFIndexRetrieval.getPropertyDefinitionInWorkspace(aadl,propName);
+//		if (property == null)
+//		{
+//			return null;
+//		}
+//		try {
+//			if (! property.isList())
+//			{
+//				expr = PropertyUtils.getSimplePropertyValue(aadl, property);
+//			}
+//			else
+//			{
+//				expr = PropertyUtils.getSimplePropertyListValue(aadl, property);
+//			}
+//			Val res = AADLPropertyValueToValue(expr);
+//			return res;
+//		} catch (PropertyLookupException e)
+//		{
+//			e.printStackTrace();
+//			return (new StringVal (""));
+//		}
+//	}
 
 	private Val AADLPropertyValueToValue(PropertyExpression expr) {
 		//OsateDebug.osateDebug("expr=" + expr);

@@ -25,6 +25,7 @@ public class LuteConstants {
 	
 	public static final String GET_FEATURE = "Get_Feature";
 	public static final String ASSOCIATED_DATA = "Associated_Data";
+	public static final String ASSOCIATED_CLASSIFIER = "Associated_Classifier";
 	// Sets
 	public static final String CONNECTION_SET = "Connection_Set";
 	public static final String MEMBER = "Member";
@@ -94,6 +95,7 @@ public class LuteConstants {
     	MEMBER,
     	CHECK,
     	ASSOCIATED_DATA,
+    	ASSOCIATED_CLASSIFIER,
     	GET_FEATURE,
     	IS_EVENT_PORT,
     	IS_DATA_PORT,
