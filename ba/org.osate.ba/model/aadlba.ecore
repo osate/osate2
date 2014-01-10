@@ -352,6 +352,7 @@
     <eLiterals name="REQUIRES_DATA_ACCESS_PROTOTYPE" value="59" literal="requires data access prototype"/>
     <eLiterals name="PROVIDES_BUS_ACCESS_PROTOTYPE" value="60" literal="provides bus access prototype"/>
     <eLiterals name="REQUIRES_BUS_ACCESS_PROTOTYPE" value="61" literal="requires bus access prototype"/>
+    <eLiterals name="SYSTEM_SUBCOMPONENT" value="62" literal="system subcomponent"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ForOrForAllStatement" eSuperTypes="#//LoopStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="iteratedValues" lowerBound="1"
