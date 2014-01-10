@@ -187,7 +187,7 @@ public final class CheckInterModelConsistency extends AbstractInstanceOrDeclarat
 						{
 							maintheorem.append("\n  and\n  ");
 						}
-						maintheorem.append ("(exists (s"+cid+" : component) . name (s"+cid+",\""+ci.getName().toLowerCase()+"\") and subcomponent_of(root, s"+cid+") and consistency_check_" + ci.getName().toLowerCase()+"(s"+cid+"))");
+						maintheorem.append ("(exists (s"+cid+" : component) . name (s"+cid+",\""+ci.getName().toLowerCase()+"\") and subcomponent_of( s"+cid+",root) and consistency_check_" + ci.getName().toLowerCase()+"(s"+cid+"))");
 						cid++;
 					}
 					firstTheoremGenerated = true;
