@@ -328,7 +328,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	 			
 	 			final AnchorContainer startContainer = connection.getStart().getParent();
 	 			if(startContainer instanceof Shape) {
-	 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(getComponentImplementation((Shape)startContainer));
+	 				diagramMod.markRelatedDiagramsAsDirty(getComponentImplementation((Shape)startContainer));
 	 			}	 			
 	 			
 	 			// Remove instead of delete. If there are any refinees then there will be an error in the resulting AADL model. Refactoring would be ideal but may 
@@ -442,7 +442,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(ci);
+	 			diagramMod.markRelatedDiagramsAsDirty(ci);
 	 			
 			//	newAadlConnection.setBidirectional(true); // TODO: Don't set this? May not always be a valid option?
 				

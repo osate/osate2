@@ -17,7 +17,6 @@ import org.osate.aadl2.NamedElement;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultDiagramService;
 import edu.uah.rsesc.aadl.age.services.impl.SimpleServiceFactory;
 
-// TODO: Review. Rename as appropriate
 /**
  * Service for finding, opening, and creating diagrams. Registered as an Eclipse service.
  * @author philip.alldredge

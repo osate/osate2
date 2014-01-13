@@ -50,7 +50,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.DirectionType;
@@ -616,9 +615,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 				public Feature modify(final Resource resource, final Classifier classifier) {
 					// Handle diagram updates
 		 			diagramMod = diagramModService.startModification();
-		 			if(classifier instanceof ComponentImplementation) {
-		 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)classifier);	
-		 			}
+		 			diagramMod.markRelatedDiagramsAsDirty(classifier);
 		 			
 					final Feature newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);

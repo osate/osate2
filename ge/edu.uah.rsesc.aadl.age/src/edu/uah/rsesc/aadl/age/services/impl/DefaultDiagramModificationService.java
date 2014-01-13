@@ -17,8 +17,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -27,9 +31,11 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.Generalization;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-
+import org.osate.aadl2.Subcomponent;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
@@ -88,35 +94,70 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	public void markDiagramAsDirty(final Diagram diagram) {
     		dirtyDiagrams.add(diagram);
     	}
+    	    	
+    	private List<Classifier> getSelfAndSpecificClassifiers(final Classifier c) {
+    		final List<Classifier> results = new ArrayList<Classifier>();
+			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(c, c.eResource().getResourceSet())) {
+				final EStructuralFeature sf = s.getEStructuralFeature();
+				if(!sf.isDerived()) {
+					final EObject obj = s.getEObject();
+					if(obj instanceof Generalization) {
+						final Generalization gen = (Generalization)obj;
+						if(gen.getGeneral() == c && gen.getSpecific() != null) {
+							results.add(gen.getSpecific());
+						}
+					}
+				}
+			}
+			return results;
+    	}
     	
-    	private List<ComponentImplementation> getAllExtended(final ComponentImplementation ci) {
-    		final List<ComponentImplementation> results = new ArrayList<ComponentImplementation>();		
-    		for(ComponentImplementation tmp = ci.getExtended(); tmp != null; tmp = tmp.getExtended()) {
-    			results.add(tmp);
+    	private List<AadlElementWrapper> getRelevantElements(final List<Classifier> classifiers) {
+    		final List<AadlElementWrapper> results = new ArrayList<AadlElementWrapper>();
+    		for(final Classifier c : classifiers) {
+    			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(c, c.eResource().getResourceSet())) {
+    				final EStructuralFeature sf = s.getEStructuralFeature();
+    				if(!sf.isDerived()) {
+    					final EObject obj = s.getEObject();
+    					if(obj instanceof FeatureGroup || obj instanceof Subcomponent) {
+    						results.add(new AadlElementWrapper((Element)obj));
+    					}
+    				}
+    			}
     		}
     		return results;
     	}
-    	
-    	private boolean isExtendedFrom(final ComponentImplementation ci, ComponentImplementation baseComponentImplementation) {
-    		for(final Classifier extended : getAllExtended(ci)) {
-    			if(extended == baseComponentImplementation) {
-    				return true;
-    			}
-    		}
-    		return false;	
-    	}
-    	
+
     	@Override
-    	public void markDiagramsOfDerivativeComponentImplementationsAsDirty(final ComponentImplementation ci) {
-    		// Mark any diagrams that are linked to component implementations that extends the current component implementation as dirty
-    		for(final Diagram tmpDiagram : getDiagrams()) {
-    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
-    			if(tmpDiagramBo instanceof ComponentImplementation) {
-    				final ComponentImplementation tmpDiagramCi = (ComponentImplementation)tmpDiagramBo;
-    				if(isExtendedFrom(tmpDiagramCi, ci)) {
-    					markDiagramAsDirty(tmpDiagram);			
-    				}
-    			}					
+    	public void markRelatedDiagramsAsDirty(final Classifier c) {
+    		if(c != null) {
+    			// Create a list of relevant classifiers by build a list that contains the specified classifiers and all classifiers "derived"(that extend or implement it).    			
+    			// Make a relevant element list that contains all the AADL elements that reference classifiers in the relevant classifier list
+     			// For each diagram, 
+    			// Mark as dirty if the diagram's BO is in the classifier list
+    			// Mark as dirty if the diagram contains a shape whose BO is in the relevant element list    			
+    			final List<Classifier> relevantClassifiers = getSelfAndSpecificClassifiers(c);
+    			final List<AadlElementWrapper> relevantElements = getRelevantElements(relevantClassifiers);
+    			
+    			for(final Diagram tmpDiagram : getDiagrams()) {
+	    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
+	    			boolean markDiagram = false;
+	    			
+	    			if(relevantClassifiers.contains(tmpDiagramBo)) {
+	    				markDiagram = true;
+	    			} else {		    			
+		    			final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(tmpDiagram);
+		    			for(final AadlElementWrapper relAadlElementWrapper : relevantElements) {
+		    				if(featureProvider.getPictogramElementForBusinessObject(relAadlElementWrapper) != null) {
+		    					markDiagram = true;
+		    				}
+		    			}
+	    			}
+	    			
+	    			if(markDiagram) {
+	    				markDiagramAsDirty(tmpDiagram);
+	    			}
+    			}
     		}
     	}
     	

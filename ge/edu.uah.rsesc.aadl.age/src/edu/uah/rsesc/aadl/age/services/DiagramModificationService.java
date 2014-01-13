@@ -11,7 +11,7 @@ package edu.uah.rsesc.aadl.age.services;
 import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 
 /**
@@ -31,19 +31,19 @@ public interface DiagramModificationService {
 		/**
 		 * Mark diagram as dirty.
 		 */
-		void markDiagramAsDirty(final Diagram diagram);
+		void markDiagramAsDirty(Diagram diagram);
 		
 		/**
-		 * Mark all diagrams that represent component implementations derived from the specified component implementation as dirty.
-		 * @param ci
+		 * Marks all diagrams that could be effected by a change to the specified classifier as dirty.
+		 * @param c
 		 */
-		void markDiagramsOfDerivativeComponentImplementationsAsDirty(final ComponentImplementation ci);
+		void markRelatedDiagramsAsDirty(Classifier c);
 		
 		/**
 		 * Marks linkages in all diagrams to the specified element as dirty.
 		 * @param el
 		 */
-		void markLinkagesAsDirty(final NamedElement el);		
+		void markLinkagesAsDirty(NamedElement el);		
 		
 		/**
     	 * Makes the actual changes to the diagrams.

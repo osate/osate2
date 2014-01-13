@@ -126,12 +126,9 @@ public class SetModeTransitionTriggersFeature extends AbstractCustomFeature {
 		 			diagramMod = diagramModService.startModification();	 			
 		 			
 		 			// Mark other diagrams for updating
-		 			// TODO: Handle the case where the container is not a component implementation when the diagram modification service supports it.
-		 			if(mt.getContainingComponentImpl() != null) {
-	 					diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(mt.getContainingComponentImpl());
-		 			}
-		 			
-					// Remove all trigger port triggers from the mode transition
+		 			diagramMod.markRelatedDiagramsAsDirty(mt.getContainingClassifier());
+
+		 			// Remove all trigger port triggers from the mode transition
 					final Iterator<ModeTransitionTrigger> mttIt = mt.getOwnedTriggers().iterator();
 					while(mttIt.hasNext()) {
 						if(mttIt.next() instanceof TriggerPort) {

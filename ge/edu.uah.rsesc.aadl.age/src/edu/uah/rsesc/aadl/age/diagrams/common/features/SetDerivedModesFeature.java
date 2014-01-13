@@ -19,7 +19,6 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
@@ -102,12 +101,8 @@ public class SetDerivedModesFeature extends AbstractCustomFeature {
      			diagramMod = diagramModService.startModification();
      			
 				cc.setDerivedModes(derivedModes);
-			
-				// TODO: Need to handle case when the classifier is just a ComponentType. Use this method for now until diagram mod service is extended to handle
-				// all cases.
-				if(cc instanceof ComponentImplementation) {
-					diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)cc);
-				}
+				diagramMod.markRelatedDiagramsAsDirty(cc);
+
 				return null;
 			}
 			

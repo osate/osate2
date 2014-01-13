@@ -19,7 +19,6 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
@@ -114,13 +113,9 @@ public class SetInitialModeFeature extends AbstractCustomFeature {
 					}
 				}
 				
-				mode.setInitial(isInitial);
-			
-				// TODO: Need to handle case when containing classifier is just a ComponentType. Use this method for now until diagram mod service is extended to handle
-				// all cases.
-				if(mode.getContainingClassifier() instanceof ComponentImplementation) {
-					diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)mode.getContainingClassifier());
-				}
+				mode.setInitial(isInitial);			
+				diagramMod.markRelatedDiagramsAsDirty(mode.getContainingClassifier());
+
 				return null;
 			}
 			

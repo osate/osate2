@@ -41,7 +41,6 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
@@ -345,10 +344,8 @@ public class ModePattern extends AgeLeafShapePattern {
 				public Mode modify(final Resource resource, final ComponentClassifier classifier) {
 					// Handle diagram updates
 		 			diagramMod = diagramModService.startModification();
-		 			if(classifier instanceof ComponentImplementation) {
-		 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)classifier);	
-		 			}
-
+		 			diagramMod.markRelatedDiagramsAsDirty(classifier);
+		 			
 					final Mode newMode = classifier.createOwnedMode();
 					newMode.setInitial(false);
 					newMode.setName(newModeName);
@@ -388,9 +385,7 @@ public class ModePattern extends AgeLeafShapePattern {
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
 	 			final Classifier classifier = mode.getContainingClassifier();
-	 			if(classifier instanceof ComponentImplementation) {
-	 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)classifier);	
-	 			}
+	 			diagramMod.markRelatedDiagramsAsDirty(classifier);
 	 			
 				// Just remove the mode. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.

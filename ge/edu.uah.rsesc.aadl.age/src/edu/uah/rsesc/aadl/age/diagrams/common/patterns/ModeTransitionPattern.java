@@ -44,7 +44,6 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
@@ -477,9 +476,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 					
 					// Handle diagram updates
 		 			diagramMod = diagramModService.startModification();
-		 			if(cc instanceof ComponentImplementation) {
-		 				diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty((ComponentImplementation)cc);
-		 			}
+		 			diagramMod.markRelatedDiagramsAsDirty(cc);
 				
 					// Set the name
 		 			newModeTransition.setName(newElementName);
@@ -548,11 +545,8 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 	 			diagramMod = diagramModService.startModification();	 			
 	 			
 	 			// Mark other diagrams for updating
-	 			// TODO: Handle the case where the container is not a component implementation when the diagram modification service supports it.
-	 			if(mt.getContainingComponentImpl() != null) {
- 					diagramMod.markDiagramsOfDerivativeComponentImplementationsAsDirty(mt.getContainingComponentImpl());
-	 			}
-	 			
+ 				diagramMod.markRelatedDiagramsAsDirty(mt.getContainingClassifier());
+
 	 			EcoreUtil.remove(mt);
 				
 				return null;

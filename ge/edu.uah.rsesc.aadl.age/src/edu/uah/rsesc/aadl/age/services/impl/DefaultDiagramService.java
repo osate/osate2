@@ -346,7 +346,6 @@ public class DefaultDiagramService implements DiagramService {
 				fileResource.setPersistentProperty(diagramNamePropertyName, diagram.getName());
 				fileResource.setPersistentProperty(diagramNameModificationStampPropertyName, Long.toString(fileResource.getModificationStamp()));
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
