@@ -61,8 +61,7 @@ import org.osate.aadl2.operations.UnitLiteralOperations;
  *
  * @generated
  */
-public class UnitLiteralImpl extends EnumerationLiteralImpl implements
-		UnitLiteral {
+public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiteral {
 	/**
 	 * The cached value of the '{@link #getBaseUnit() <em>Base Unit</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -108,9 +107,8 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements
 			baseUnit = (UnitLiteral) eResolveProxy(oldBaseUnit);
 			if (baseUnit != oldBaseUnit) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.UNIT_LITERAL__BASE_UNIT, oldBaseUnit,
-							baseUnit));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.UNIT_LITERAL__BASE_UNIT,
+							oldBaseUnit, baseUnit));
 			}
 		}
 		return baseUnit;
@@ -132,8 +130,8 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements
 		UnitLiteral oldBaseUnit = baseUnit;
 		baseUnit = newBaseUnit;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.UNIT_LITERAL__BASE_UNIT, oldBaseUnit, baseUnit));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.UNIT_LITERAL__BASE_UNIT, oldBaseUnit,
+					baseUnit));
 	}
 
 	/**
@@ -148,14 +146,12 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFactor(NumberValue newFactor,
-			NotificationChain msgs) {
+	public NotificationChain basicSetFactor(NumberValue newFactor, NotificationChain msgs) {
 		NumberValue oldFactor = factor;
 		factor = newFactor;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, Aadl2Package.UNIT_LITERAL__FACTOR,
-					oldFactor, newFactor);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.UNIT_LITERAL__FACTOR, oldFactor, newFactor);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -172,19 +168,17 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements
 		if (newFactor != factor) {
 			NotificationChain msgs = null;
 			if (factor != null)
-				msgs = ((InternalEObject) factor)
-						.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.UNIT_LITERAL__FACTOR, null, msgs);
+				msgs = ((InternalEObject) factor).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.UNIT_LITERAL__FACTOR, null, msgs);
 			if (newFactor != null)
-				msgs = ((InternalEObject) newFactor)
-						.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.UNIT_LITERAL__FACTOR, null, msgs);
+				msgs = ((InternalEObject) newFactor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.UNIT_LITERAL__FACTOR, null, msgs);
 			msgs = basicSetFactor(newFactor, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.UNIT_LITERAL__FACTOR, newFactor, newFactor));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.UNIT_LITERAL__FACTOR, newFactor,
+					newFactor));
 	}
 
 	/**
@@ -202,8 +196,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.UNIT_LITERAL__FACTOR:
 			return basicSetFactor(null, msgs);
@@ -287,8 +280,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements
 		UnitLiteral current = this;
 		while (current.getBaseUnit() != null) {
 			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current
-					.getFactor()).getValue());
+					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
 			factor *= val;
 			current = current.getBaseUnit();
 		}
@@ -309,8 +301,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements
 		UnitLiteral current = this;
 		while (current.getBaseUnit() != null) {
 			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current
-					.getFactor()).getValue());
+					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
 			factor *= val;
 			current = current.getBaseUnit();
 			if (current == target)
@@ -321,8 +312,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements
 		current = target;
 		while (current.getBaseUnit() != null) {
 			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
-					.getFactor()).getValue() : ((RealLiteral) current
-					.getFactor()).getValue());
+					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
 			factor /= val;
 			current = current.getBaseUnit();
 			if (current == this)

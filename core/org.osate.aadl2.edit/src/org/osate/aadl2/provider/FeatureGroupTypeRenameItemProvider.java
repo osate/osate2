@@ -56,10 +56,8 @@ import org.osate.aadl2.FeatureGroupTypeRename;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureGroupTypeRenameItemProvider extends
-		NamedElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider,
-		IItemLabelProvider, IItemPropertySource {
+public class FeatureGroupTypeRenameItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,17 +93,14 @@ public class FeatureGroupTypeRenameItemProvider extends
 	protected void addRenamedFeatureGroupTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FeatureGroupTypeRename_renamedFeatureGroupType_feature"),
-						getString(
-								"_UI_PropertyDescriptor_description",
+						getString("_UI_PropertyDescriptor_description",
 								"_UI_FeatureGroupTypeRename_renamedFeatureGroupType_feature",
-								"_UI_FeatureGroupTypeRename_type"),
-						Aadl2Package.eINSTANCE
-								.getFeatureGroupTypeRename_RenamedFeatureGroupType(),
-						true, false, true, null, null, null));
+								"_UI_FeatureGroupTypeRename_type"), Aadl2Package.eINSTANCE
+								.getFeatureGroupTypeRename_RenamedFeatureGroupType(), true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -116,10 +111,7 @@ public class FeatureGroupTypeRenameItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/FeatureGroupTypeRename"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupTypeRename"));
 	}
 
 	/**
@@ -156,8 +148,7 @@ public class FeatureGroupTypeRenameItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

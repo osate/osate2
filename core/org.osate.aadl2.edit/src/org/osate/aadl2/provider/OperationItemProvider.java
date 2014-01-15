@@ -61,9 +61,8 @@ import org.osate.aadl2.OperationKind;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OperationItemProvider extends PropertyExpressionItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class OperationItemProvider extends PropertyExpressionItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -98,12 +97,9 @@ public class OperationItemProvider extends PropertyExpressionItemProvider
 	 */
 	protected void addOpPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
-				getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Operation_op_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_Operation_op_feature", "_UI_Operation_type"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Operation_op_feature", "_UI_Operation_type"),
 				Aadl2Package.eINSTANCE.getOperation_Op(), true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -117,12 +113,10 @@ public class OperationItemProvider extends PropertyExpressionItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getOperation_OwnedPropertyExpression());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression());
 		}
 		return childrenFeatures;
 	}
@@ -148,8 +142,7 @@ public class OperationItemProvider extends PropertyExpressionItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Operation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Operation"));
 	}
 
 	/**
@@ -162,8 +155,8 @@ public class OperationItemProvider extends PropertyExpressionItemProvider
 	public String getText(Object object) {
 		OperationKind labelValue = ((Operation) object).getOp();
 		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ? getString("_UI_Operation_type")
-				: getString("_UI_Operation_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Operation_type") : getString("_UI_Operation_type")
+				+ " " + label;
 	}
 
 	/**
@@ -179,12 +172,10 @@ public class OperationItemProvider extends PropertyExpressionItemProvider
 
 		switch (notification.getFeatureID(Operation.class)) {
 		case Aadl2Package.OPERATION__OP:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -198,56 +189,43 @@ public class OperationItemProvider extends PropertyExpressionItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createStringLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createClassifierValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createReferenceValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createBooleanLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createRangeValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createIntegerLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createRealLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createOperation()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createRecordValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createComputedValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createListValue()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getOperation_OwnedPropertyExpression(),
 				Aadl2Factory.eINSTANCE.createNamedValue()));
 	}
 

@@ -64,8 +64,7 @@ import org.osate.aadl2.PortSpecification;
  *
  * @generated
  */
-public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
-		PortSpecification {
+public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements PortSpecification {
 	/**
 	 * The default value of the '{@link #getDirection() <em>Direction</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -163,9 +162,8 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_SPECIFICATION__DIRECTION, oldDirection,
-					direction));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_SPECIFICATION__DIRECTION,
+					oldDirection, direction));
 	}
 
 	/**
@@ -186,9 +184,8 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 		PortCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_SPECIFICATION__CATEGORY, oldCategory,
-					category));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_SPECIFICATION__CATEGORY,
+					oldCategory, category));
 	}
 
 	/**
@@ -203,8 +200,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 			if (classifier != oldClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PORT_SPECIFICATION__CLASSIFIER,
-							oldClassifier, classifier));
+							Aadl2Package.PORT_SPECIFICATION__CLASSIFIER, oldClassifier, classifier));
 			}
 		}
 		return classifier;
@@ -228,9 +224,8 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 		ComponentClassifier oldClassifier = classifier;
 		classifier = newClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_SPECIFICATION__CLASSIFIER, oldClassifier,
-					classifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_SPECIFICATION__CLASSIFIER,
+					oldClassifier, classifier));
 	}
 
 	/**
@@ -239,17 +234,14 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 	 * @generated
 	 */
 	public ComponentPrototype getComponentPrototype() {
-		if (componentPrototype != null
-				&& ((EObject) componentPrototype).eIsProxy()) {
+		if (componentPrototype != null && ((EObject) componentPrototype).eIsProxy()) {
 			InternalEObject oldComponentPrototype = (InternalEObject) componentPrototype;
 			componentPrototype = (ComponentPrototype) eResolveProxy(oldComponentPrototype);
 			if (componentPrototype != oldComponentPrototype) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.PORT_SPECIFICATION__COMPONENT_PROTOTYPE,
-							oldComponentPrototype, componentPrototype));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.PORT_SPECIFICATION__COMPONENT_PROTOTYPE, oldComponentPrototype,
+							componentPrototype));
 			}
 		}
 		return componentPrototype;
@@ -273,8 +265,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 		ComponentPrototype oldComponentPrototype = componentPrototype;
 		componentPrototype = newComponentPrototype;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_SPECIFICATION__COMPONENT_PROTOTYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_SPECIFICATION__COMPONENT_PROTOTYPE,
 					oldComponentPrototype, componentPrototype));
 	}
 

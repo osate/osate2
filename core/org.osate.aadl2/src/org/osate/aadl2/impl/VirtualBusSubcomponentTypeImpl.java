@@ -48,8 +48,7 @@ import org.osate.aadl2.VirtualBusSubcomponentType;
  *
  * @generated
  */
-public abstract class VirtualBusSubcomponentTypeImpl extends
-		SubcomponentTypeImpl implements VirtualBusSubcomponentType {
+public abstract class VirtualBusSubcomponentTypeImpl extends SubcomponentTypeImpl implements VirtualBusSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

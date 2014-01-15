@@ -47,8 +47,7 @@ import org.osate.aadl2.Aadl2Package;
  *
  * @generated
  */
-public abstract class SystemImpl extends NamedElementImpl implements
-		org.osate.aadl2.System {
+public abstract class SystemImpl extends NamedElementImpl implements org.osate.aadl2.System {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

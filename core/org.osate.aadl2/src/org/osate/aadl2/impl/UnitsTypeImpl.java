@@ -95,24 +95,17 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
-					eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
-								NamedElement.class, this,
-								Aadl2Package.UNITS_TYPE__OWNED_MEMBER,
-								OWNED_MEMBER_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+								Aadl2Package.UNITS_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
-				this, Aadl2Package.UNITS_TYPE__OWNED_MEMBER,
-				OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+				Aadl2Package.UNITS_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -133,8 +126,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	@Override
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
-			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(
-					UnitLiteral.class, this,
+			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(UnitLiteral.class, this,
 					Aadl2Package.UNITS_TYPE__OWNED_LITERAL);
 		}
 		return ownedLiterals;
@@ -146,8 +138,7 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * @generated
 	 */
 	public EnumerationLiteral createOwnedLiteral() {
-		UnitLiteral newOwnedLiteral = (UnitLiteral) create(Aadl2Package.eINSTANCE
-				.getUnitLiteral());
+		UnitLiteral newOwnedLiteral = (UnitLiteral) create(Aadl2Package.eINSTANCE.getUnitLiteral());
 		getOwnedLiterals().add(newOwnedLiteral);
 		return newOwnedLiteral;
 	}
@@ -167,12 +158,10 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.UNITS_TYPE__OWNED_LITERAL:
-			return ((InternalEList<?>) getOwnedLiterals()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedLiterals()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

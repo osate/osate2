@@ -60,9 +60,8 @@ import org.osate.aadl2.NamedElement;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NamedElementItemProvider extends ElementItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class NamedElementItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -98,14 +97,11 @@ public class NamedElementItemProvider extends ElementItemProvider implements
 	 */
 	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_NamedElement_name_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_NamedElement_name_feature",
-						"_UI_NamedElement_type"), Aadl2Package.eINSTANCE
-						.getNamedElement_Name(), true, false, false,
+				getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_name_feature",
+						"_UI_NamedElement_type"), Aadl2Package.eINSTANCE.getNamedElement_Name(), true, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -117,15 +113,12 @@ public class NamedElementItemProvider extends ElementItemProvider implements
 	 */
 	protected void addQualifiedNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_NamedElement_qualifiedName_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_NamedElement_qualifiedName_feature",
-						"_UI_NamedElement_type"), Aadl2Package.eINSTANCE
-						.getNamedElement_QualifiedName(), false, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_qualifiedName_feature",
+						"_UI_NamedElement_type"), Aadl2Package.eINSTANCE.getNamedElement_QualifiedName(), false, false,
+				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -137,12 +130,10 @@ public class NamedElementItemProvider extends ElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getNamedElement_OwnedPropertyAssociation());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation());
 		}
 		return childrenFeatures;
 	}
@@ -187,12 +178,10 @@ public class NamedElementItemProvider extends ElementItemProvider implements
 		switch (notification.getFeatureID(NamedElement.class)) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
 		case Aadl2Package.NAMED_ELEMENT__QUALIFIED_NAME:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -206,12 +195,10 @@ public class NamedElementItemProvider extends ElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
-				.getNamedElement_OwnedPropertyAssociation(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getNamedElement_OwnedPropertyAssociation(),
 				Aadl2Factory.eINSTANCE.createPropertyAssociation()));
 	}
 

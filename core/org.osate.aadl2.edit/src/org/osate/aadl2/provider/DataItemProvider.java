@@ -54,9 +54,8 @@ import org.osate.aadl2.Data;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DataItemProvider extends NamedElementItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class DataItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -91,8 +90,8 @@ public class DataItemProvider extends NamedElementItemProvider implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Data) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Data_type")
-				: getString("_UI_Data_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Data_type") : getString("_UI_Data_type") + " "
+				+ label;
 	}
 
 	/**
@@ -116,8 +115,7 @@ public class DataItemProvider extends NamedElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

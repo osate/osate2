@@ -58,9 +58,8 @@ import org.osate.aadl2.ArrayableElement;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ArrayableElementItemProvider extends ElementItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ArrayableElementItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +94,10 @@ public class ArrayableElementItemProvider extends ElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getArrayableElement_ArrayDimension());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension());
 		}
 		return childrenFeatures;
 	}
@@ -142,8 +139,7 @@ public class ArrayableElementItemProvider extends ElementItemProvider implements
 
 		switch (notification.getFeatureID(ArrayableElement.class)) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -157,12 +153,10 @@ public class ArrayableElementItemProvider extends ElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getArrayableElement_ArrayDimension(),
 				Aadl2Factory.eINSTANCE.createArrayDimension()));
 	}
 

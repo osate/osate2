@@ -44,6 +44,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SystemPrototype extends ComponentPrototype,
-		SystemSubcomponentType {
+public interface SystemPrototype extends ComponentPrototype, SystemSubcomponentType {
 } // SystemPrototype

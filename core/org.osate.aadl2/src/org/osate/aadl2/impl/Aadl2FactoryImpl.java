@@ -565,8 +565,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 		case Aadl2Package.PROCESSOR_SUBPROGRAM:
 			return (EObject) createProcessorSubprogram();
 		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName()
-					+ "' is not a valid classifier");
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -603,8 +602,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 		case Aadl2Package.REAL:
 			return createRealFromString(eDataType, initialValue);
 		default:
-			throw new IllegalArgumentException("The datatype '"
-					+ eDataType.getName() + "' is not a valid classifier");
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -641,8 +639,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 		case Aadl2Package.REAL:
 			return convertRealToString(eDataType, instanceValue);
 		default:
-			throw new IllegalArgumentException("The datatype '"
-					+ eDataType.getName() + "' is not a valid classifier");
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -2226,13 +2223,11 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DirectionType createDirectionTypeFromString(EDataType eDataType,
-			String initialValue) {
+	public DirectionType createDirectionTypeFromString(EDataType eDataType, String initialValue) {
 		DirectionType result = DirectionType.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
 		return result;
 	}
 
@@ -2241,8 +2236,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertDirectionTypeToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertDirectionTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2251,13 +2245,11 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PortCategory createPortCategoryFromString(EDataType eDataType,
-			String initialValue) {
+	public PortCategory createPortCategoryFromString(EDataType eDataType, String initialValue) {
 		PortCategory result = PortCategory.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
 		return result;
 	}
 
@@ -2266,8 +2258,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertPortCategoryToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertPortCategoryToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2276,13 +2267,11 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FlowKind createFlowKindFromString(EDataType eDataType,
-			String initialValue) {
+	public FlowKind createFlowKindFromString(EDataType eDataType, String initialValue) {
 		FlowKind result = FlowKind.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
 		return result;
 	}
 
@@ -2291,8 +2280,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertFlowKindToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertFlowKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2301,13 +2289,11 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AccessType createAccessTypeFromString(EDataType eDataType,
-			String initialValue) {
+	public AccessType createAccessTypeFromString(EDataType eDataType, String initialValue) {
 		AccessType result = AccessType.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
 		return result;
 	}
 
@@ -2316,8 +2302,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertAccessTypeToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertAccessTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2326,13 +2311,11 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AccessCategory createAccessCategoryFromString(EDataType eDataType,
-			String initialValue) {
+	public AccessCategory createAccessCategoryFromString(EDataType eDataType, String initialValue) {
 		AccessCategory result = AccessCategory.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
 		return result;
 	}
 
@@ -2341,8 +2324,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertAccessCategoryToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertAccessCategoryToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2351,13 +2333,11 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComponentCategory createComponentCategoryFromString(
-			EDataType eDataType, String initialValue) {
+	public ComponentCategory createComponentCategoryFromString(EDataType eDataType, String initialValue) {
 		ComponentCategory result = ComponentCategory.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
 		return result;
 	}
 
@@ -2366,8 +2346,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertComponentCategoryToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertComponentCategoryToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2376,13 +2355,11 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ElementNameKind createElementNameKindFromString(EDataType eDataType,
-			String initialValue) {
+	public ElementNameKind createElementNameKindFromString(EDataType eDataType, String initialValue) {
 		ElementNameKind result = ElementNameKind.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
 		return result;
 	}
 
@@ -2391,8 +2368,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertElementNameKindToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertElementNameKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2401,13 +2377,11 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OperationKind createOperationKindFromString(EDataType eDataType,
-			String initialValue) {
+	public OperationKind createOperationKindFromString(EDataType eDataType, String initialValue) {
 		OperationKind result = OperationKind.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue
-					+ "' is not a valid enumerator of '" + eDataType.getName()
-					+ "'");
+			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+					+ eDataType.getName() + "'");
 		return result;
 	}
 
@@ -2416,8 +2390,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertOperationKindToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertOperationKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2426,8 +2399,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String createStringFromString(EDataType eDataType,
-			String initialValue) {
+	public String createStringFromString(EDataType eDataType, String initialValue) {
 		return (String) super.createFromString(eDataType, initialValue);
 	}
 
@@ -2436,8 +2408,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertStringToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertStringToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 
@@ -2446,8 +2417,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Boolean createBooleanFromString(EDataType eDataType,
-			String initialValue) {
+	public Boolean createBooleanFromString(EDataType eDataType, String initialValue) {
 		return (Boolean) super.createFromString(eDataType, initialValue);
 	}
 
@@ -2456,8 +2426,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertBooleanToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertBooleanToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 
@@ -2475,8 +2444,7 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertIntegerToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertIntegerToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 
