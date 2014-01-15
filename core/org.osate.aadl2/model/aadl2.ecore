@@ -5,7 +5,7 @@
     nsURI="http://aadl.info/AADL/2.0" nsPrefix="aadl2">
   <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="An element is a constituent of a model.&#xD;&#xA;An element is a constituent of a model. As such, it has the capability of owning other elements."/>
+      <details key="documentation" value="An element is a constituent of a model.&#xA;An element is a constituent of a model. As such, it has the capability of owning other elements."/>
     </eAnnotations>
     <eOperations name="not_own_self" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
@@ -300,7 +300,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PropertyOwner" abstract="true" eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="Classifier" abstract="true" eSuperTypes="#//Namespace #//Type">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A classifier is a classification of instances - it describes a set of instances that have features in common.&#xD;&#xA;A classifier can specify a generalization hierarchy by referencing its general classifiers."/>
+      <details key="documentation" value="A classifier is a classification of instances - it describes a set of instances that have features in common.&#xA;A classifier can specify a generalization hierarchy by referencing its general classifiers."/>
     </eAnnotations>
     <eOperations name="no_cycles_in_generalization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
@@ -648,7 +648,7 @@
         eType="#//Classifier" changeable="false" volatile="true" transient="true"
         derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="References the contexts that this element may be redefined from.&#xD;&#xA;A refinable element can be refined by another element. Refinement is limited to classifier features, which can be refined by a classifier feature of the same name in an extended classifier. A refining element can add detail to an incomplete declaration."/>
+        <details key="documentation" value="References the contexts that this element may be redefined from.&#xA;A refinable element can be refined by another element. Refinement is limited to classifier features, which can be refined by a classifier feature of the same name in an extended classifier. A refining element can add detail to an incomplete declaration."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinedElement" ordered="false"
