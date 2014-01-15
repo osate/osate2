@@ -60,8 +60,7 @@ import org.osate.aadl2.SubcomponentType;
  *
  * @generated
  */
-public class ProcessorSubcomponentImpl extends SubcomponentImpl implements
-		ProcessorSubcomponent {
+public class ProcessorSubcomponentImpl extends SubcomponentImpl implements ProcessorSubcomponent {
 	/**
 	 * The cached value of the '{@link #getProcessorSubcomponentType() <em>Processor Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -99,8 +98,7 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null
-				&& ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 	}
 
@@ -123,18 +121,14 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements
 	 * @generated
 	 */
 	public ProcessorSubcomponentType getProcessorSubcomponentType() {
-		if (processorSubcomponentType != null
-				&& ((EObject) processorSubcomponentType).eIsProxy()) {
+		if (processorSubcomponentType != null && ((EObject) processorSubcomponentType).eIsProxy()) {
 			InternalEObject oldProcessorSubcomponentType = (InternalEObject) processorSubcomponentType;
 			processorSubcomponentType = (ProcessorSubcomponentType) eResolveProxy(oldProcessorSubcomponentType);
 			if (processorSubcomponentType != oldProcessorSubcomponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE,
-							oldProcessorSubcomponentType,
-							processorSubcomponentType));
+							oldProcessorSubcomponentType, processorSubcomponentType));
 			}
 		}
 		return processorSubcomponentType;
@@ -154,16 +148,13 @@ public class ProcessorSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setProcessorSubcomponentType(
-			ProcessorSubcomponentType newProcessorSubcomponentType) {
+	public void setProcessorSubcomponentType(ProcessorSubcomponentType newProcessorSubcomponentType) {
 		ProcessorSubcomponentType oldProcessorSubcomponentType = processorSubcomponentType;
 		processorSubcomponentType = newProcessorSubcomponentType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(
-					this,
-					Notification.SET,
-					Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE,
-					oldProcessorSubcomponentType, processorSubcomponentType));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROCESSOR_SUBCOMPONENT__PROCESSOR_SUBCOMPONENT_TYPE, oldProcessorSubcomponentType,
+					processorSubcomponentType));
 	}
 
 	/**

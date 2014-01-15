@@ -64,8 +64,7 @@ import org.osate.aadl2.ComponentPrototype;
  *
  * @generated
  */
-public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
-		implements AccessSpecification {
+public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implements AccessSpecification {
 	/**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -163,8 +162,8 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		AccessType oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ACCESS_SPECIFICATION__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__KIND, oldKind,
+					kind));
 	}
 
 	/**
@@ -185,9 +184,8 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		AccessCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ACCESS_SPECIFICATION__CATEGORY, oldCategory,
-					category));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__CATEGORY,
+					oldCategory, category));
 	}
 
 	/**
@@ -202,8 +200,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 			if (classifier != oldClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER,
-							oldClassifier, classifier));
+							Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER, oldClassifier, classifier));
 			}
 		}
 		return classifier;
@@ -227,8 +224,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		ComponentClassifier oldClassifier = classifier;
 		classifier = newClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER,
 					oldClassifier, classifier));
 	}
 
@@ -238,17 +234,14 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 	 * @generated
 	 */
 	public ComponentPrototype getComponentPrototype() {
-		if (componentPrototype != null
-				&& ((EObject) componentPrototype).eIsProxy()) {
+		if (componentPrototype != null && ((EObject) componentPrototype).eIsProxy()) {
 			InternalEObject oldComponentPrototype = (InternalEObject) componentPrototype;
 			componentPrototype = (ComponentPrototype) eResolveProxy(oldComponentPrototype);
 			if (componentPrototype != oldComponentPrototype) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE,
-							oldComponentPrototype, componentPrototype));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE, oldComponentPrototype,
+							componentPrototype));
 			}
 		}
 		return componentPrototype;
@@ -273,8 +266,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		componentPrototype = newComponentPrototype;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE,
-					oldComponentPrototype, componentPrototype));
+					Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE, oldComponentPrototype, componentPrototype));
 	}
 
 	/**

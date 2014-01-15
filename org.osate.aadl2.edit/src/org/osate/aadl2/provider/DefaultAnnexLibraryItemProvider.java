@@ -58,9 +58,8 @@ import org.osate.aadl2.DefaultAnnexLibrary;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,15 +94,12 @@ public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider
 	 */
 	protected void addSourceTextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_DefaultAnnexLibrary_sourceText_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_DefaultAnnexLibrary_sourceText_feature",
-						"_UI_DefaultAnnexLibrary_type"), Aadl2Package.eINSTANCE
-						.getDefaultAnnexLibrary_SourceText(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_DefaultAnnexLibrary_sourceText_feature",
+						"_UI_DefaultAnnexLibrary_type"), Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_SourceText(),
+				true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -114,8 +110,7 @@ public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/DefaultAnnexLibrary"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DefaultAnnexLibrary"));
 	}
 
 	/**
@@ -144,8 +139,7 @@ public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider
 
 		switch (notification.getFeatureID(DefaultAnnexLibrary.class)) {
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY__SOURCE_TEXT:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -159,8 +153,7 @@ public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

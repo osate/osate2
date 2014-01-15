@@ -58,8 +58,7 @@ import org.osate.aadl2.Context;
  *
  * @generated
  */
-public class ConnectedElementImpl extends ElementImpl implements
-		ConnectedElement {
+public class ConnectedElementImpl extends ElementImpl implements ConnectedElement {
 	/**
 	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -110,8 +109,7 @@ public class ConnectedElementImpl extends ElementImpl implements
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.CONNECTED_ELEMENT__CONTEXT,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTED_ELEMENT__CONTEXT,
 							oldContext, context));
 			}
 		}
@@ -136,8 +134,7 @@ public class ConnectedElementImpl extends ElementImpl implements
 		Context oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CONNECTED_ELEMENT__CONTEXT, oldContext,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__CONTEXT, oldContext,
 					context));
 	}
 
@@ -153,8 +150,7 @@ public class ConnectedElementImpl extends ElementImpl implements
 			if (connectionEnd != oldConnectionEnd) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END,
-							oldConnectionEnd, connectionEnd));
+							Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END, oldConnectionEnd, connectionEnd));
 			}
 		}
 		return connectionEnd;
@@ -178,8 +174,7 @@ public class ConnectedElementImpl extends ElementImpl implements
 		ConnectionEnd oldConnectionEnd = connectionEnd;
 		connectionEnd = newConnectionEnd;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END,
 					oldConnectionEnd, connectionEnd));
 	}
 

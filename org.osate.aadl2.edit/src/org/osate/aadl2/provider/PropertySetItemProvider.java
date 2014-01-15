@@ -59,9 +59,8 @@ import org.osate.aadl2.PropertySet;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PropertySetItemProvider extends NamespaceItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PropertySetItemProvider extends NamespaceItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,15 +95,12 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements
 	 */
 	protected void addImportedUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PropertySet_importedUnit_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PropertySet_importedUnit_feature",
-						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE
-						.getPropertySet_ImportedUnit(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_PropertySet_importedUnit_feature",
+						"_UI_PropertySet_type"), Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit(), true, false,
+				true, null, null, null));
 	}
 
 	/**
@@ -116,12 +112,10 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getPropertySet_OwnedAnnexSubclause());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getPropertySet_OwnedAnnexSubclause());
 		}
 		return childrenFeatures;
 	}
@@ -147,8 +141,7 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/PropertySet"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PropertySet"));
 	}
 
 	/**
@@ -177,8 +170,7 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements
 
 		switch (notification.getFeatureID(PropertySet.class)) {
 		case Aadl2Package.PROPERTY_SET__OWNED_ANNEX_SUBCLAUSE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -192,12 +184,10 @@ public class PropertySetItemProvider extends NamespaceItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getPropertySet_OwnedAnnexSubclause(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getPropertySet_OwnedAnnexSubclause(),
 				Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause()));
 	}
 

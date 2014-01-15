@@ -51,8 +51,7 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public abstract class FeatureClassifierImpl extends AObjectImpl implements
-		FeatureClassifier {
+public abstract class FeatureClassifierImpl extends AObjectImpl implements FeatureClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

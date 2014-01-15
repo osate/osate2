@@ -60,10 +60,9 @@ import org.osate.aadl2.PortSpecification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PortSpecificationItemProvider extends
-		FeaturePrototypeActualItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PortSpecificationItemProvider extends FeaturePrototypeActualItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -101,15 +100,12 @@ public class PortSpecificationItemProvider extends
 	 */
 	protected void addDirectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PortSpecification_direction_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PortSpecification_direction_feature",
-						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE
-						.getPortSpecification_Direction(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_PortSpecification_direction_feature",
+						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE.getPortSpecification_Direction(), true,
+				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -120,15 +116,12 @@ public class PortSpecificationItemProvider extends
 	 */
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PortSpecification_category_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PortSpecification_category_feature",
-						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE
-						.getPortSpecification_Category(), true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_PortSpecification_category_feature",
+						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE.getPortSpecification_Category(), true,
+				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -139,15 +132,12 @@ public class PortSpecificationItemProvider extends
 	 */
 	protected void addClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PortSpecification_classifier_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PortSpecification_classifier_feature",
-						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE
-						.getPortSpecification_Classifier(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_PortSpecification_classifier_feature",
+						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE.getPortSpecification_Classifier(), true,
+				false, true, null, null, null));
 	}
 
 	/**
@@ -158,15 +148,12 @@ public class PortSpecificationItemProvider extends
 	 */
 	protected void addComponentPrototypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory)
-						.getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_PortSpecification_componentPrototype_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_PortSpecification_componentPrototype_feature",
-						"_UI_PortSpecification_type"), Aadl2Package.eINSTANCE
-						.getPortSpecification_ComponentPrototype(), true,
-				false, true, null, null, null));
+				getString("_UI_PropertyDescriptor_description", "_UI_PortSpecification_componentPrototype_feature",
+						"_UI_PortSpecification_type"),
+				Aadl2Package.eINSTANCE.getPortSpecification_ComponentPrototype(), true, false, true, null, null, null));
 	}
 
 	/**
@@ -177,8 +164,7 @@ public class PortSpecificationItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/PortSpecification"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PortSpecification"));
 	}
 
 	/**
@@ -209,8 +195,7 @@ public class PortSpecificationItemProvider extends
 		switch (notification.getFeatureID(PortSpecification.class)) {
 		case Aadl2Package.PORT_SPECIFICATION__DIRECTION:
 		case Aadl2Package.PORT_SPECIFICATION__CATEGORY:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -224,8 +209,7 @@ public class PortSpecificationItemProvider extends
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

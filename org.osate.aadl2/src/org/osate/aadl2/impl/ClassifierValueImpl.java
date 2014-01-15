@@ -62,8 +62,7 @@ import org.osate.aadl2.util.Aadl2Util;
  *
  * @generated
  */
-public class ClassifierValueImpl extends PropertyOwnerImpl implements
-		ClassifierValue {
+public class ClassifierValueImpl extends PropertyOwnerImpl implements ClassifierValue {
 	/**
 	 * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -105,8 +104,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements
 			if (classifier != oldClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER,
-							oldClassifier, classifier));
+							Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER, oldClassifier, classifier));
 			}
 		}
 		return classifier;
@@ -130,9 +128,8 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements
 		Classifier oldClassifier = classifier;
 		classifier = newClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER, oldClassifier,
-					classifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER,
+					oldClassifier, classifier));
 	}
 
 	/**
@@ -211,8 +208,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((classifier == null) ? 0 : classifier.hashCode());
+		result = prime * result + ((classifier == null) ? 0 : classifier.hashCode());
 		return result;
 	}
 

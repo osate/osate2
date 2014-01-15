@@ -95,8 +95,7 @@ import org.osate.aadl2.util.NonNotifyingEObjectEList;
  *
  * @generated
  */
-public abstract class ClassifierImpl extends NamespaceImpl implements
-		Classifier {
+public abstract class ClassifierImpl extends NamespaceImpl implements Classifier {
 	/**
 	 * The cached value of the '{@link #getOwnedAnnexSubclauses() <em>Owned Annex Subclause</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -216,24 +215,16 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache
-					.get(eResource, this, Aadl2Package.eINSTANCE
-							.getClassifier_ClassifierFeature());
+			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
 			if (classifierFeatures == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE
-								.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(
-								ClassifierFeature.class, this,
-								Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE,
-								null));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
+						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
+								this, Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE, null));
 			}
 			return classifierFeatures;
 		}
-		return new DerivedUnionEObjectEList<ClassifierFeature>(
-				ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
 				Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE, null);
 	}
 
@@ -247,21 +238,17 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(
-					eResource, this,
+			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_Member());
 			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(
-								NamedElement.class, this,
-								Aadl2Package.CLASSIFIER__MEMBER,
-								MEMBER_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
+						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+								Aadl2Package.CLASSIFIER__MEMBER, MEMBER_ESUBSETS));
 			}
 			return members;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
-				this, Aadl2Package.CLASSIFIER__MEMBER, MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this, Aadl2Package.CLASSIFIER__MEMBER,
+				MEMBER_ESUBSETS);
 	}
 
 	@Override
@@ -269,8 +256,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		// DB This should be an EStructuralFeature.Setting
 		//		BasicEList<NamedElement> results = new BasicEList<NamedElement>(
 		//				getMembersGen());
-		final EList<NamedElement> results = new NonNotifyingEObjectEList<NamedElement>(
-				NamedElement.class, this, Aadl2Package.CLASSIFIER__MEMBER);
+		final EList<NamedElement> results = new NonNotifyingEObjectEList<NamedElement>(NamedElement.class, this,
+				Aadl2Package.CLASSIFIER__MEMBER);
 		results.addAll(getMembersGen());
 		results.addAll(getInheritedMembers());
 
@@ -285,10 +272,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] MEMBER_ESUBSETS = new int[] {
-			Aadl2Package.CLASSIFIER__OWNED_MEMBER,
-			Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE,
-			Aadl2Package.CLASSIFIER__INHERITED_MEMBER };
+	protected static final int[] MEMBER_ESUBSETS = new int[] { Aadl2Package.CLASSIFIER__OWNED_MEMBER,
+			Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE, Aadl2Package.CLASSIFIER__INHERITED_MEMBER };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -301,21 +286,17 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(
-					eResource, this,
+			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<Element>(
-								Element.class, this,
-								Aadl2Package.CLASSIFIER__OWNED_ELEMENT,
-								OWNED_ELEMENT_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
+						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
+								Aadl2Package.CLASSIFIER__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
 			}
 			return ownedElements;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this,
-				Aadl2Package.CLASSIFIER__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.CLASSIFIER__OWNED_ELEMENT,
+				OWNED_ELEMENT_ESUBSETS);
 	}
 
 	/**
@@ -326,10 +307,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] {
-			Aadl2Package.CLASSIFIER__OWNED_COMMENT,
-			Aadl2Package.CLASSIFIER__OWNED_MEMBER,
-			Aadl2Package.CLASSIFIER__GENERALIZATION };
+	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] { Aadl2Package.CLASSIFIER__OWNED_COMMENT,
+			Aadl2Package.CLASSIFIER__OWNED_MEMBER, Aadl2Package.CLASSIFIER__GENERALIZATION };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -342,24 +321,17 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
-					eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
-								NamedElement.class, this,
-								Aadl2Package.CLASSIFIER__OWNED_MEMBER,
-								OWNED_MEMBER_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+								Aadl2Package.CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
-				this, Aadl2Package.CLASSIFIER__OWNED_MEMBER,
-				OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+				Aadl2Package.CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -370,8 +342,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] {
-			Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE,
+	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] { Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE,
 			Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE };
 
 	/**
@@ -383,15 +354,13 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	public EList<NamedElement> getInheritedMembers() {
 		// DONE: implemented get inherited members
 		// list to track for cycles
-		EList<NamedElement> cls = new BasicInternalEList<NamedElement>(
-				NamedElement.class);
+		EList<NamedElement> cls = new BasicInternalEList<NamedElement>(NamedElement.class);
 		// members to be returned
 		// DB The returned list must be an EStructuralFeature.Setting
 		//		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(
 		//				NamedElement.class);
 		//		final EList<Classifier> list = new BasicEList<Classifier>();
-		final EList<NamedElement> tmp = new NonNotifyingEObjectEList<NamedElement>(
-				NamedElement.class, this,
+		final EList<NamedElement> tmp = new NonNotifyingEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.CLASSIFIER__INHERITED_MEMBER);
 		cls.add(this);
 		for (Generalization g : getGeneralizations()) {
@@ -407,8 +376,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		return tmp;
 	}
 
-	protected EList<NamedElement> getInheritedMembers(EList<NamedElement> tmp,
-			EList<NamedElement> cls) {
+	protected EList<NamedElement> getInheritedMembers(EList<NamedElement> tmp, EList<NamedElement> cls) {
 		// DONE: implemented get inherited members
 		for (Generalization g : getGeneralizations()) {
 			Classifier cl = g.getGeneral();
@@ -429,8 +397,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 */
 	public EList<Prototype> getOwnedPrototypes() {
 		if (ownedPrototypes == null) {
-			ownedPrototypes = new EObjectContainmentEList<Prototype>(
-					Prototype.class, this,
+			ownedPrototypes = new EObjectContainmentEList<Prototype>(Prototype.class, this,
 					Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE);
 		}
 		return ownedPrototypes;
@@ -454,8 +421,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 */
 	public EList<PrototypeBinding> getOwnedPrototypeBindings() {
 		if (ownedPrototypeBindings == null) {
-			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(
-					PrototypeBinding.class, this,
+			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
 					Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING);
 		}
 		return ownedPrototypeBindings;
@@ -482,22 +448,16 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Generalization> generalizations = (EList<Generalization>) cache
-					.get(eResource, this, Aadl2Package.eINSTANCE
-							.getClassifier_Generalization());
+			EList<Generalization> generalizations = (EList<Generalization>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getClassifier_Generalization());
 			if (generalizations == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE.getClassifier_Generalization(),
-						generalizations = new DerivedUnionEObjectEList<Generalization>(
-								Generalization.class, this,
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_Generalization(),
+						generalizations = new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
 								Aadl2Package.CLASSIFIER__GENERALIZATION, null));
 			}
 			return generalizations;
 		}
-		return new DerivedUnionEObjectEList<Generalization>(
-				Generalization.class, this,
+		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
 				Aadl2Package.CLASSIFIER__GENERALIZATION, null);
 	}
 
@@ -511,20 +471,16 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Classifier> generals = (EList<Classifier>) cache.get(
-					eResource, this,
+			EList<Classifier> generals = (EList<Classifier>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getClassifier_General());
 			if (generals == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getClassifier_General(),
-						generals = new DerivedUnionEObjectEList<Classifier>(
-								Classifier.class, this,
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_General(),
+						generals = new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
 								Aadl2Package.CLASSIFIER__GENERAL, null));
 			}
 			return generals;
 		}
-		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
-				Aadl2Package.CLASSIFIER__GENERAL, null);
+		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this, Aadl2Package.CLASSIFIER__GENERAL, null);
 	}
 
 	/**
@@ -534,8 +490,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 */
 	public EList<AnnexSubclause> getOwnedAnnexSubclauses() {
 		if (ownedAnnexSubclauses == null) {
-			ownedAnnexSubclauses = new EObjectContainmentEList<AnnexSubclause>(
-					AnnexSubclause.class, this,
+			ownedAnnexSubclauses = new EObjectContainmentEList<AnnexSubclause>(AnnexSubclause.class, this,
 					Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE);
 		}
 		return ownedAnnexSubclauses;
@@ -558,8 +513,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 * @generated
 	 */
 	public AnnexSubclause createOwnedAnnexSubclause() {
-		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE
-				.getAnnexSubclause());
+		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
 	}
 
 	public EList<AnnexSubclause> getAllAnnexSubclauses() {
@@ -603,9 +557,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		boolean oldNoProperties = noProperties;
 		noProperties = newNoProperties;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CLASSIFIER__NO_PROPERTIES, oldNoProperties,
-					noProperties));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROPERTIES,
+					oldNoProperties, noProperties));
 	}
 
 	/**
@@ -626,9 +579,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		boolean oldNoPrototypes = noPrototypes;
 		noPrototypes = newNoPrototypes;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CLASSIFIER__NO_PROTOTYPES, oldNoPrototypes,
-					noPrototypes));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROTOTYPES,
+					oldNoPrototypes, noPrototypes));
 	}
 
 	/**
@@ -649,8 +601,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CLASSIFIER__NO_ANNEXES, oldNoAnnexes,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_ANNEXES, oldNoAnnexes,
 					noAnnexes));
 	}
 
@@ -668,10 +619,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean no_cycles_in_generalization(DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
-		return ClassifierOperations.no_cycles_in_generalization(this,
-				diagnostics, context);
+	public boolean no_cycles_in_generalization(DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return ClassifierOperations.no_cycles_in_generalization(this, diagnostics, context);
 	}
 
 	/**
@@ -679,8 +628,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean specialize_type(DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public boolean specialize_type(DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return ClassifierOperations.specialize_type(this, diagnostics, context);
 	}
 
@@ -762,18 +710,14 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
-			return ((InternalEList<?>) getOwnedAnnexSubclauses()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedAnnexSubclauses()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE:
-			return ((InternalEList<?>) getOwnedPrototypes()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedPrototypes()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING:
-			return ((InternalEList<?>) getOwnedPrototypeBindings())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedPrototypeBindings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -821,18 +765,15 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
 			getOwnedAnnexSubclauses().clear();
-			getOwnedAnnexSubclauses().addAll(
-					(Collection<? extends AnnexSubclause>) newValue);
+			getOwnedAnnexSubclauses().addAll((Collection<? extends AnnexSubclause>) newValue);
 			return;
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE:
 			getOwnedPrototypes().clear();
-			getOwnedPrototypes().addAll(
-					(Collection<? extends Prototype>) newValue);
+			getOwnedPrototypes().addAll((Collection<? extends Prototype>) newValue);
 			return;
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING:
 			getOwnedPrototypeBindings().clear();
-			getOwnedPrototypeBindings().addAll(
-					(Collection<? extends PrototypeBinding>) newValue);
+			getOwnedPrototypeBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
 			return;
 		case Aadl2Package.CLASSIFIER__NO_PROTOTYPES:
 			setNoPrototypes((Boolean) newValue);
@@ -894,13 +835,11 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 		case Aadl2Package.CLASSIFIER__INHERITED_MEMBER:
 			return !getInheritedMembers().isEmpty();
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
-			return ownedAnnexSubclauses != null
-					&& !ownedAnnexSubclauses.isEmpty();
+			return ownedAnnexSubclauses != null && !ownedAnnexSubclauses.isEmpty();
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE:
 			return ownedPrototypes != null && !ownedPrototypes.isEmpty();
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING:
-			return ownedPrototypeBindings != null
-					&& !ownedPrototypeBindings.isEmpty();
+			return ownedPrototypeBindings != null && !ownedPrototypeBindings.isEmpty();
 		case Aadl2Package.CLASSIFIER__NO_PROTOTYPES:
 			return noPrototypes != NO_PROTOTYPES_EDEFAULT;
 		case Aadl2Package.CLASSIFIER__NO_ANNEXES:
@@ -948,8 +887,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 */
 	@Override
 	public boolean isSetMembers() {
-		return super.isSetMembers() || isSetClassifierFeatures()
-				|| eIsSet(Aadl2Package.CLASSIFIER__INHERITED_MEMBER);
+		return super.isSetMembers() || isSetClassifierFeatures() || eIsSet(Aadl2Package.CLASSIFIER__INHERITED_MEMBER);
 	}
 
 	/**
@@ -987,8 +925,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers()
-				|| eIsSet(Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE)
+		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE)
 				|| eIsSet(Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE);
 	}
 
@@ -1024,8 +961,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public boolean checkAppliesToClassifier(Property property) {
-		for (Classifier appliesToClassifier : property
-				.getAppliesToClassifiers())
+		for (Classifier appliesToClassifier : property.getAppliesToClassifiers())
 			if (isDescendentOf(appliesToClassifier))
 				return true;
 		return false;
@@ -1035,8 +971,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements
 	public EList<PropertyAssociation> getAllPropertyAssociations() {
 		final EList<PropertyAssociation> result = new BasicEList<PropertyAssociation>();
 		final EList<Classifier> classifiers = getSelfPlusAllExtended();
-		for (final ListIterator<Classifier> i = classifiers
-				.listIterator(classifiers.size()); i.hasPrevious();) {
+		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
 			final Classifier current = i.previous();
 			result.addAll(current.getOwnedPropertyAssociations());
 		}

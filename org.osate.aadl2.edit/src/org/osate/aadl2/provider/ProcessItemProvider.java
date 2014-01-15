@@ -53,9 +53,8 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProcessItemProvider extends NamedElementItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ProcessItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -90,8 +89,8 @@ public class ProcessItemProvider extends NamedElementItemProvider implements
 	@Override
 	public String getText(Object object) {
 		String label = ((org.osate.aadl2.Process) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Process_type")
-				: getString("_UI_Process_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_Process_type") : getString("_UI_Process_type")
+				+ " " + label;
 	}
 
 	/**
@@ -115,8 +114,7 @@ public class ProcessItemProvider extends NamedElementItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

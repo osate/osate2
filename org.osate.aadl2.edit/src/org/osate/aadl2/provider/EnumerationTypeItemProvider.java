@@ -58,9 +58,8 @@ import org.osate.aadl2.EnumerationType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EnumerationTypeItemProvider extends NamespaceItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class EnumerationTypeItemProvider extends NamespaceItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +94,10 @@ public class EnumerationTypeItemProvider extends NamespaceItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getEnumerationType_OwnedLiteral());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getEnumerationType_OwnedLiteral());
 		}
 		return childrenFeatures;
 	}
@@ -126,8 +123,7 @@ public class EnumerationTypeItemProvider extends NamespaceItemProvider
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/EnumerationType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/EnumerationType"));
 	}
 
 	/**
@@ -156,8 +152,7 @@ public class EnumerationTypeItemProvider extends NamespaceItemProvider
 
 		switch (notification.getFeatureID(EnumerationType.class)) {
 		case Aadl2Package.ENUMERATION_TYPE__OWNED_LITERAL:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -171,16 +166,13 @@ public class EnumerationTypeItemProvider extends NamespaceItemProvider
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getEnumerationType_OwnedLiteral(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getEnumerationType_OwnedLiteral(),
 				Aadl2Factory.eINSTANCE.createEnumerationLiteral()));
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getEnumerationType_OwnedLiteral(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getEnumerationType_OwnedLiteral(),
 				Aadl2Factory.eINSTANCE.createUnitLiteral()));
 	}
 

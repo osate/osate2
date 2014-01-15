@@ -55,8 +55,7 @@ import org.osate.aadl2.util.Aadl2Util;
  *
  * @generated
  */
-public class BooleanLiteralImpl extends PropertyValueImpl implements
-		BooleanLiteral {
+public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLiteral {
 	/**
 	 * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -118,8 +117,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements
 		boolean oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BOOLEAN_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**

@@ -47,8 +47,7 @@ import org.osate.aadl2.SubprogramSubcomponentType;
  *
  * @generated
  */
-public abstract class SubprogramSubcomponentTypeImpl extends
-		SubcomponentTypeImpl implements SubprogramSubcomponentType {
+public abstract class SubprogramSubcomponentTypeImpl extends SubcomponentTypeImpl implements SubprogramSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

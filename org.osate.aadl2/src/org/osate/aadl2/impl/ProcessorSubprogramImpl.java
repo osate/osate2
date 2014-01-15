@@ -49,8 +49,7 @@ import org.osate.aadl2.ProcessorSubprogram;
  *
  * @generated
  */
-public class ProcessorSubprogramImpl extends NamedElementImpl implements
-		ProcessorSubprogram {
+public class ProcessorSubprogramImpl extends NamedElementImpl implements ProcessorSubprogram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

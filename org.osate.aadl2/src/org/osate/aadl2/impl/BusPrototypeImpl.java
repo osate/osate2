@@ -47,8 +47,7 @@ import org.osate.aadl2.BusPrototype;
  *
  * @generated
  */
-public class BusPrototypeImpl extends ComponentPrototypeImpl implements
-		BusPrototype {
+public class BusPrototypeImpl extends ComponentPrototypeImpl implements BusPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

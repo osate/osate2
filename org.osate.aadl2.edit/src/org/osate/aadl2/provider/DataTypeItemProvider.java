@@ -58,9 +58,8 @@ import org.osate.aadl2.DataType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DataTypeItemProvider extends ComponentTypeItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class DataTypeItemProvider extends ComponentTypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +94,10 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE
-					.getDataType_OwnedDataAccess());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getDataType_OwnedDataAccess());
 		}
 		return childrenFeatures;
 	}
@@ -126,8 +123,7 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/DataType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataType"));
 	}
 
 	/**
@@ -139,8 +135,8 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider implements
 	@Override
 	public String getText(Object object) {
 		String label = ((DataType) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_DataType_type")
-				: getString("_UI_DataType_type") + " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_DataType_type") : getString("_UI_DataType_type")
+				+ " " + label;
 	}
 
 	/**
@@ -156,8 +152,7 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider implements
 
 		switch (notification.getFeatureID(DataType.class)) {
 		case Aadl2Package.DATA_TYPE__OWNED_DATA_ACCESS:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -171,12 +166,10 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getDataType_OwnedDataAccess(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getDataType_OwnedDataAccess(),
 				Aadl2Factory.eINSTANCE.createDataAccess()));
 	}
 
