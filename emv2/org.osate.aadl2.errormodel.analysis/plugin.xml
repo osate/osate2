@@ -166,6 +166,26 @@
                </or>
             </enablement>
          </action>
+
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.Cutset.action"
+               label="%Cutset.label"
+               tooltip="%Cutset.toolTip"
+               icon="%Cutset.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.CutsetAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
+         </action> 
          
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.Consistency.action"
@@ -310,6 +330,16 @@
                class="org.osate.aadl2.errormodel.analysis.actions.UnhandledFaultsAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
+
+
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.Cutset.popupAction"
+               label="%Cutset.label"
+               tooltip="%Cutset.toolTip"
+               icon="%Cutset.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.CutsetAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>    
                
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.Consistency.popupAction"
