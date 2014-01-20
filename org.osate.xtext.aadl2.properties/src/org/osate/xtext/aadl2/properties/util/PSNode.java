@@ -6,6 +6,8 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
+import org.eclipse.xtext.util.ITextRegion;
+import org.eclipse.xtext.util.ITextRegionWithLineInformation;
 
 public class PSNode implements ILeafNode{
 	
@@ -121,6 +123,31 @@ public class PSNode implements ILeafNode{
 
 	public boolean isHidden() {
 		return false;
+	}
+	@Override
+	public int getEndOffset() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public ITextRegion getTextRegion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public ITextRegion getTotalTextRegion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public ITextRegionWithLineInformation getTextRegionWithLineInformation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public ITextRegionWithLineInformation getTotalTextRegionWithLineInformation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
