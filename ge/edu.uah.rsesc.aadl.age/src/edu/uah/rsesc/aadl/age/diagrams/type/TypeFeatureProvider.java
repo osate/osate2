@@ -14,8 +14,10 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.IMoveBendpointContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -23,7 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
-
+import org.osate.aadl2.FlowSpecification;
 import edu.uah.rsesc.aadl.age.diagrams.common.AgeFeatureProvider;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FlowSpecificationPattern;
@@ -31,11 +33,13 @@ import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.ChangeFeatureTypeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.RefineFeatureFeature;
+import edu.uah.rsesc.aadl.age.diagrams.type.features.RenameFlowSpecificationFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureClassifierFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureDirectionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.TypeUpdateDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.patterns.TypeClassifierPattern;
+import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 
 public class TypeFeatureProvider extends AgeFeatureProvider {
 	public TypeFeatureProvider(final IDiagramTypeProvider dtp) {
@@ -93,5 +97,18 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 		childCtx.set("Access", accType);
 
 		return ContextInjectionFactory.make(SetAccessFeatureKindFeature.class, childCtx);
+	}
+	
+	@Override
+	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
+		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
+		if(bor != null) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+			if(bo instanceof FlowSpecification) {
+				return make(RenameFlowSpecificationFeature.class);
+			}
+		}
+
+		return super.getDirectEditingFeatureAdditional(context);
 	}
 }

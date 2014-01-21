@@ -38,7 +38,6 @@ import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -49,7 +48,6 @@ import edu.uah.rsesc.aadl.age.diagrams.common.features.DrillDownFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.GraphicalToTextualFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.LayoutDiagramFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.ConfigureInModesFeature;
-import edu.uah.rsesc.aadl.age.diagrams.common.features.RenameFlowSpecificationFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.RenameModeTransitionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetDerivedModesFeature;
 import edu.uah.rsesc.aadl.age.diagrams.common.features.SetInitialModeFeature;
@@ -331,8 +329,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 			if(bo instanceof ModeTransition) {
 				return make(RenameModeTransitionFeature.class);
-			} else if(bo instanceof FlowSpecification) {
-				return make(RenameFlowSpecificationFeature.class);
 			}
 		}
 
