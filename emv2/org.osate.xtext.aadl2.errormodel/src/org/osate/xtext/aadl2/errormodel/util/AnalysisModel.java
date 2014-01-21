@@ -45,6 +45,25 @@ public class AnalysisModel {
 		this(root, false);
 // printPropagationPaths();
 	}
+	public boolean impact (PropagationPathEnd src, PropagationPathEnd dst)
+	{
+		for (PropagationPathRecord ppr : propagationPaths)
+		{
+			if ((ppr.getPathSrc() == src) && (ppr.getPathDst() == dst))
+			{
+				return true;
+			}
+			
+			if ((ppr.getPathSrc() == src) && (ppr.getPathDst() != dst))
+			{
+				if (impact (ppr.getPathDst(), dst))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public AnalysisModel(ComponentInstance root, boolean closest) {
 		this.root = root;

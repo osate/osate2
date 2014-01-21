@@ -176,11 +176,14 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 						report.addOutput(t.getFeatureorPP().getName());
 					}
 					
-					for (PropagationPathEnd ppe : destinations)
+					for (PropagationPathEnd dst : destinations)
 					{
 						report.addOutput("," );
+						if (model.impact(src, dst))
+						{
+							report.addOutput("XX");
+						}
 						
-					
 					}
 
 					report.addOutput ("\n");
