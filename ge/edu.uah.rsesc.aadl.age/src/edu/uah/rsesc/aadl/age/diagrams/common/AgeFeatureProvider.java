@@ -16,6 +16,7 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -31,6 +32,7 @@ import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
 import org.eclipse.graphiti.pattern.IPattern;
@@ -326,11 +328,38 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
 		if(bor != null) {
-			if(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof ModeTransition) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+			if(bo instanceof ModeTransition) {
 				return make(RenameModeTransitionFeature.class);
 			}
 		}
 
 		return super.getDirectEditingFeatureAdditional(context);
+	}
+	
+	protected boolean allowConnectionCreation(final IConnectionPattern conPattern) {
+		return true;
+	}
+	
+	/**
+	 * Override of getCreateConnectionFeatures() that borrows code from DefaultFeatureProviderWithPatterns but allows connection creation to be disabled for a connection pattern by overriding allowConnectionCreation()
+	 */
+	@Override
+	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
+		ICreateConnectionFeature[] ret = new ICreateConnectionFeature[0];
+		List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();
+
+		for (IConnectionPattern conPattern : getConnectionPatterns()) {
+			if(allowConnectionCreation(conPattern)) {
+				retList.add(new CreateConnectionFeatureForPattern(this, conPattern));
+			}
+		}
+
+		ICreateConnectionFeature[] a = getCreateConnectionFeaturesAdditional();
+		for (ICreateConnectionFeature element : a) {
+			retList.add(element);
+		}
+
+		return retList.toArray(ret);
 	}
 }

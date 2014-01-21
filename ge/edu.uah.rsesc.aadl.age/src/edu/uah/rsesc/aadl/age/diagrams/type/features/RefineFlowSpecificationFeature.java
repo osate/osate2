@@ -15,28 +15,30 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
+import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
+import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.Access;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.DirectedFeature;
-import org.osate.aadl2.Feature;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.FlowSpecification;
 
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
-import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
+import edu.uah.rsesc.aadl.age.services.ShapeService;
 
-public class RefineFeatureFeature extends AbstractCustomFeature {
+public class RefineFlowSpecificationFeature extends AbstractCustomFeature {
+	private final ShapeService shapeService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public RefineFeatureFeature(final AadlModificationService aadlModService, final BusinessObjectResolutionService bor, final DiagramModificationService diagramModService, final IFeatureProvider fp) {
+	public RefineFlowSpecificationFeature(final ShapeService shapeService, final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		super(fp);
+		this.shapeService = shapeService;
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.bor = bor;
@@ -56,22 +58,36 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
 		final PictogramElement[] pes = customCtx.getPictogramElements();		
-		if(customCtx.getPictogramElements().length < 1 || !(customCtx.getPictogramElements()[0] instanceof Shape)) {
+		if(customCtx.getPictogramElements().length < 1 || !(customCtx.getPictogramElements()[0] instanceof Connection)) {
 			return false;
 		}
 		
-		// Check that the shape represents a feature and that the feature is not owned by the classifier represented by the shape's container
+		// Check that the connection represents a flow specification and that the flow specification is not owned by the classifier represented by the shape's container
 		final PictogramElement pe = pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		final Object containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
-		if(!(bo instanceof Feature && containerBo instanceof Classifier)) {
+		final ComponentType ct = getComponentType((Connection)pe);
+		if(!(bo instanceof FlowSpecification && ct instanceof ComponentType)) {
 			return false;
 		}
 		
-		final Feature feature = (Feature)bo;	
-		return feature.getContainingClassifier() != containerBo;
+		final FlowSpecification fs = (FlowSpecification)bo;	
+		return fs.getContainingClassifier() != ct;
 	}
     
+	/**
+	 * Returns the first component type associated with the specified or a containing shape.
+	 * @param shape
+	 * @return
+	 */
+	private ComponentType getComponentType(final Connection connection) {
+		final AnchorContainer startContainer = connection.getStart().getParent();
+		if(!(startContainer instanceof Shape)) {
+			return null;
+		}
+		
+		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, ComponentType.class);
+	}
+	
     @Override
     public boolean canExecute(final ICustomContext context) {
     	return true;
@@ -79,39 +95,34 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
         
 	@Override
 	public void execute(final ICustomContext context) {
-		final Shape shape = (Shape)context.getPictogramElements()[0];
-		final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(shape);
-		final Classifier featureOwner = (Classifier)bor.getBusinessObjectForPictogramElement(shape.getContainer());
+		final Connection fsConnection = (Connection)context.getPictogramElements()[0];
+		final FlowSpecification fs = (FlowSpecification)bor.getBusinessObjectForPictogramElement(fsConnection);
+		final ComponentType ct = getComponentType(fsConnection);
 		
 		// Set the classifier
-		aadlModService.modify(feature, new AbstractModifier<Feature, Feature>() {
-			private DiagramModificationService.Modification diagramMod;   
+		aadlModService.modify(fs, new AbstractModifier<FlowSpecification, FlowSpecification>() {
+			private DiagramModificationService.Modification diagramMod;    	
 			
 			@Override
-			public Feature modify(final Resource resource, final Feature feature) {
+			public FlowSpecification modify(final Resource resource, final FlowSpecification fs) {
 				// Start the diagram modification
      			diagramMod = diagramModService.startModification();
      			
-				// Refine the feature
-				final Feature newFeature = FeaturePattern.createFeature(featureOwner, feature.eClass());
-				newFeature.setRefined(feature);
+				// Refine the flow specification
+				final FlowSpecification newFs = ct.createOwnedFlowSpecification();
+				newFs.setKind(fs.getKind());
+				newFs.setRefined(fs);
 				
-				if(feature instanceof DirectedFeature) {
-					((DirectedFeature)newFeature).setDirection(((DirectedFeature)feature).getDirection());
-				} else if(feature instanceof Access) {
-					((Access)newFeature).setKind(((Access)feature).getKind());
-				}
+				diagramMod.markRelatedDiagramsAsDirty(ct);
 				
-				diagramMod.markRelatedDiagramsAsDirty(featureOwner);
-				
-				return newFeature;
+				return newFs;
 			}			
 			
 			@Override
-			public void beforeCommit(final Resource resource, final Feature feature, final Feature newFeature) {
+			public void beforeCommit(final Resource resource, final FlowSpecification fs, final FlowSpecification newFs) {
 				// Relink the shape
-				getFeatureProvider().link(shape, new AadlElementWrapper(newFeature));
-								
+				getFeatureProvider().link(fsConnection, new AadlElementWrapper(newFs));
+				
 				diagramMod.commit();
 			}
 		});

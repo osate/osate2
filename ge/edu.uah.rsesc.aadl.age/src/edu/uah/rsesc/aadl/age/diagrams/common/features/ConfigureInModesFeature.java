@@ -28,8 +28,9 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeFeature;
@@ -42,7 +43,7 @@ import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 
 /**
- * Feature for configuring the mode/mode transitions in which an element is contained. Currently supports subcomponents and connections.
+ * Feature for configuring the mode/mode transitions in which an element is contained. Currently supports subcomponents, connections, and flow specifications.
  * @author philip.alldredge
  *
  */
@@ -88,27 +89,27 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 		if(pe instanceof Shape) {
 			containerBo = bor.getBusinessObjectForPictogramElement(((Shape)pe).getContainer());
 		} else if(pe instanceof Connection) {
-			containerBo = getComponentImplementation((Connection)pe);
+			containerBo = getComponentClassifier((Connection)pe);
 		} else {
 			return false;
 		}
 		
-		return (bo instanceof Subcomponent || bo instanceof org.osate.aadl2.Connection) && 
+		return (bo instanceof Subcomponent || bo instanceof org.osate.aadl2.Connection || bo instanceof FlowSpecification) && 
 				((ModalElement)bo).getContainingClassifier() == containerBo && ((ModalElement)bo).getContainingClassifier() instanceof ComponentClassifier;
 	}
     
 	/**
-	 * Returns the first component implementation associated with the specified or a containing shape.
+	 * Returns the first component classifier associated with the specified or a containing shape.
 	 * @param shape
 	 * @return
 	 */
-	private ComponentImplementation getComponentImplementation(final Connection connection) {
+	private ComponentClassifier getComponentClassifier(final Connection connection) {
 		final AnchorContainer startContainer = connection.getStart().getParent();
 		if(!(startContainer instanceof Shape)) {
 			return null;
 		}
 		
-		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, ComponentImplementation.class);
+		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, ComponentClassifier.class);
 	}
     
     @Override
@@ -150,15 +151,15 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 				final String childModeName = modeBinding.getDerivedMode() == null ? null : modeBinding.getDerivedMode().getName();
 				localToChildModeMap.put(localModeName, childModeName);
 			}
-		} else if(me instanceof org.osate.aadl2.Connection) {
+		} else if(me instanceof org.osate.aadl2.Connection || me instanceof FlowSpecification) {
 			localModeFeatures.addAll(cc.getAllModeTransitions());
 			childModes = null;
 			childModeNames = null;
 			
-			final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)me;
-			for(final ModeFeature mf : aadlConnection.getInModeOrTransitions()) {
+			final ModalPath modalPath = (ModalPath)me;
+			for(final ModeFeature mf : modalPath.getInModeOrTransitions()) {
 				localToChildModeMap.put(mf.getName(), null);
-			}			
+			}		
 		} else {
 			throw new RuntimeException("Unsupported type: " + me.getClass());
 		}
@@ -188,13 +189,13 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 						newModeBinding.setParentMode((Mode)localMode);
 						newModeBinding.setDerivedMode((Mode)childMode);
 					}
-				} else if(me instanceof org.osate.aadl2.Connection) {
-					final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)me;
-					aadlConnection.getInModeOrTransitions().clear();
+				} else if(me instanceof org.osate.aadl2.Connection || me instanceof FlowSpecification) {
+					final ModalPath mp = (ModalPath)me;
+					mp.getInModeOrTransitions().clear();
 					for(final Entry<String, String> localToChildModeMapEntry : dlg.getLocalToChildModeMap().entrySet()) {
 						final ModeFeature localMode = findModeByName(localModeFeatures, localToChildModeMapEntry.getKey());
 						if(localMode != null) {
-							aadlConnection.getInModeOrTransitions().add(localMode);
+							mp.getInModeOrTransitions().add(localMode);
 						}
 					}
 				} else {

@@ -27,7 +27,7 @@ import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 
 /**
- * Feature for setting whether a mode is an intial mode
+ * Feature for setting whether a mode is an initial mode
  * @author philip.alldredge
  *
  */
