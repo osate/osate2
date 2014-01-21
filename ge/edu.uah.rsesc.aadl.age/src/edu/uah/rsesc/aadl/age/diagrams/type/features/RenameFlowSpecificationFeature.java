@@ -50,12 +50,9 @@ public class RenameFlowSpecificationFeature extends AbstractDirectEditingFeature
 
 	@Override
     public boolean canDirectEdit(final IDirectEditingContext context) {
-		System.out.println("A");
 		if(!(context.getPictogramElement() instanceof ConnectionDecorator)) {
 			return false;
 		}
-		
-		System.out.println("B");
 
 		final Connection connection = ((ConnectionDecorator)context.getPictogramElement()).getConnection();		
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
