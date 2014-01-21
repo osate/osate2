@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class AnalysisModel {
 	public boolean impact (PropagationPathEnd src, PropagationPathEnd dst)
 	{
 		for (PropagationPathRecord ppr : propagationPaths)
-		{
+		{ 
 			if ((ppr.getPathSrc() == src) && (ppr.getPathDst() == dst))
 			{
 				return true;
@@ -56,10 +57,23 @@ public class AnalysisModel {
 			
 			if ((ppr.getPathSrc() == src) && (ppr.getPathDst() != dst))
 			{
-				if (impact (ppr.getPathDst(), dst))
+				
+				ComponentInstance dstCI = ppr.getDstCI();
+				OsateDebug.osateDebug("try with comp" + dstCI.getName());
+				List<ErrorPropagation> eps = new ArrayList<ErrorPropagation>();
+				eps.addAll (EMV2Util.getAllOutgoingErrorPropagations(dstCI.getComponentClassifier()));
+				for (ErrorPropagation ep : eps)
 				{
-					return true;
+					for (PropagationPathEnd ppe : this.getAllPropagationSourceEnds(dstCI, ep))
+					{
+						if (impact (ppe, dst))
+						{
+							
+							return true;
+						}
+					}
 				}
+				
 			}
 		}
 		return false;
