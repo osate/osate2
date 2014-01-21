@@ -36,6 +36,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.ChangeFeatureTypeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.CreateSimpleFlowSpecificationFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.RefineFeatureFeature;
+import edu.uah.rsesc.aadl.age.diagrams.type.features.RefineFlowSpecificationFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.RenameFlowSpecificationFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetAccessFeatureKindFeature;
 import edu.uah.rsesc.aadl.age.diagrams.type.features.SetFeatureClassifierFeature;
@@ -73,6 +74,7 @@ public class TypeFeatureProvider extends AgeFeatureProvider {
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		super.addCustomFeatures(features);
 		features.add(make(RefineFeatureFeature.class));
+		features.add(make(RefineFlowSpecificationFeature.class));
 		features.add(make(SetFeatureClassifierFeature.class));
 		features.add(createSetFeatureDirectionFeature(DirectionType.IN));
 		features.add(createSetFeatureDirectionFeature(DirectionType.OUT));
