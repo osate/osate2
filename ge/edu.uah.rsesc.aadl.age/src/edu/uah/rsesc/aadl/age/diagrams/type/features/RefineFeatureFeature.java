@@ -17,7 +17,9 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.aadl2.Access;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.Feature;
 
 import edu.uah.rsesc.aadl.age.services.AadlModificationService.AbstractModifier;
@@ -25,15 +27,18 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.FeaturePattern;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
+import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 
 public class RefineFeatureFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
+	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public RefineFeatureFeature(final AadlModificationService aadlModService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public RefineFeatureFeature(final AadlModificationService aadlModService, final BusinessObjectResolutionService bor, final DiagramModificationService diagramModService, final IFeatureProvider fp) {
 		super(fp);
 		this.aadlModService = aadlModService;
+		this.diagramModService = diagramModService;
 		this.bor = bor;
 	}
 
@@ -80,11 +85,24 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
 		
 		// Set the classifier
 		aadlModService.modify(feature, new AbstractModifier<Feature, Feature>() {
+			private DiagramModificationService.Modification diagramMod;   
+			
 			@Override
 			public Feature modify(final Resource resource, final Feature feature) {
+				// Start the diagram modification
+     			diagramMod = diagramModService.startModification();
+     			
 				// Refine the feature
 				final Feature newFeature = FeaturePattern.createFeature(featureOwner, feature.eClass());
 				newFeature.setRefined(feature);
+				
+				if(feature instanceof DirectedFeature) {
+					((DirectedFeature)newFeature).setDirection(((DirectedFeature)feature).getDirection());
+				} else if(feature instanceof Access) {
+					((Access)newFeature).setKind(((Access)feature).getKind());
+				}
+				
+				diagramMod.markRelatedDiagramsAsDirty(featureOwner);
 				
 				return newFeature;
 			}			
@@ -93,6 +111,8 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
 			public void beforeCommit(final Resource resource, final Feature feature, final Feature newFeature) {
 				// Relink the shape
 				getFeatureProvider().link(shape, new AadlElementWrapper(newFeature));
+								
+				diagramMod.commit();
 			}
 		});
 	}	
