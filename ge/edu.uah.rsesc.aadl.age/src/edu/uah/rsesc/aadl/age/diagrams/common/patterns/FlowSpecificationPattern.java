@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
@@ -28,15 +29,29 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.Port;
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
+import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.ConnectionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
 import edu.uah.rsesc.aadl.age.services.GraphicsAlgorithmManipulationService;
 import edu.uah.rsesc.aadl.age.services.HighlightingService;
+import edu.uah.rsesc.aadl.age.services.NamingService;
 import edu.uah.rsesc.aadl.age.services.ShapeService;
 import edu.uah.rsesc.aadl.age.services.StyleService;
 import edu.uah.rsesc.aadl.age.services.UserInputService;
@@ -52,12 +67,15 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
+	private final AadlFeatureService featureService;
+	private final NamingService namingService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public FlowSpecificationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil, 
 			final HighlightingService highlightingHelper, final ConnectionService connectionHelper, final ShapeService shapeService, AadlModificationService aadlModService, 
-			final DiagramModificationService diagramModService, final UserInputService userInputService, final BusinessObjectResolutionService bor) {
+			final DiagramModificationService diagramModService, final UserInputService userInputService, final AadlFeatureService featureService, 
+			final NamingService namingService, final BusinessObjectResolutionService bor) {
 		super(visibilityHelper);
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
@@ -67,6 +85,8 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
+		this.featureService = featureService;
+		this.namingService = namingService;
 		this.bor = bor;
 	}
 
@@ -236,5 +256,121 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 	
 	private ComponentClassifier getComponentClassifier(final Shape shape) {
 		return shapeService.getClosestBusinessObjectOfType(shape, ComponentClassifier.class);
+	}
+	
+	// This pattern only handles the creation of flow paths. Flow sources and flow sinks are handled by features via context menus.
+	@Override
+	public String getCreateName() {
+		return "Flow Path";
+	}
+	
+	@Override
+	public boolean canStartConnection(final ICreateConnectionContext context) {
+		return isValidCreateEndShape(context.getSourcePictogramElement(), DirectionType.IN);
+    }
+	
+	@Override
+	public boolean canCreate(final ICreateConnectionContext context) {
+		return isValidCreateEndShape(context.getTargetPictogramElement(), DirectionType.OUT);
+	}
+	
+	private Shape getFeatureShape(final Shape shape) {
+		return shapeService.getClosestAncestorWithBusinessObjectType(shape, Feature.class);
+	}
+	
+	private Context getContext(final Shape featureShape) {
+		return shapeService.getClosestBusinessObjectOfType(featureShape, Context.class);
+	}
+	
+	@Override
+	public Connection create(final ICreateConnectionContext context) {
+		final Shape inFeatureShape = getFeatureShape((Shape)context.getSourcePictogramElement());
+		final Feature inFeature = (Feature)bor.getBusinessObjectForPictogramElement(inFeatureShape);
+		final Shape outFeatureShape = getFeatureShape((Shape)context.getTargetPictogramElement());
+		final Feature outFeature = (Feature)bor.getBusinessObjectForPictogramElement(outFeatureShape);
+		
+		// Get the Component Type
+		final ComponentType ct = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), ComponentType.class);
+		
+		// Determine the name for the new flow specification
+		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "newFlowSpec");
+
+		// Make the modification
+		aadlModService.modify(ct, new AbstractModifier<ComponentType, FlowSpecification>() {
+			private DiagramModificationService.Modification diagramMod;
+			
+			@Override
+			public FlowSpecification modify(final Resource resource, final ComponentType ct) {
+				// Start the diagram modification
+     			diagramMod = diagramModService.startModification();
+     			
+     			final FlowSpecification fs = ct.createOwnedFlowSpecification();
+     			fs.setKind(FlowKind.PATH);
+     			fs.setName(newFlowSpecName);
+
+     			// Create the flow ends
+     			final FlowEnd inFlowEnd = fs.createInEnd();
+     			inFlowEnd.setFeature(inFeature);
+     			inFlowEnd.setContext(getContext(inFeatureShape));
+     			
+     			final FlowEnd outFlowEnd = fs.createOutEnd();
+     			outFlowEnd.setFeature(outFeature);
+     			outFlowEnd.setContext(getContext(outFeatureShape));
+     			
+     			diagramMod.markRelatedDiagramsAsDirty(ct);
+
+				return fs;
+			}
+			
+			@Override
+			public void beforeCommit(final Resource resource, final ComponentType ct, final FlowSpecification newFlowSpecification) {
+				diagramMod.commit();
+			}
+		});
+
+		return null;
+	}
+	
+	/**
+	 * Returns whether a specified pictogram element is a shape that is contained in a feature shape that can be used as an end point for a flow path. If the feature is a directed
+	 * feature, its direction must be IN OUT or match the specified direction
+	 * @param pe
+	 * @param requiredDirection
+	 * @return
+	 */
+	private boolean isValidCreateEndShape(final PictogramElement pe, final DirectionType requiredDirection) {
+		if(!(pe instanceof Shape)) {
+			return false;
+		}
+
+		// Check that the pictogram represents a feature
+		final Shape shape = (Shape)pe;
+		final Feature feature = shapeService.getClosestBusinessObjectOfType(shape, Feature.class);
+		if(feature == null) {
+			return false;
+		}
+		
+		// Check that the feature is of the appropriate type
+		if(!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess || feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
+			return false;
+		}
+		
+		// If it is a direct feature, it must have the specified direction or be an in out feature. Take into account feature group, inverse, etc..
+		if(feature instanceof DirectedFeature) {
+			// Determine the actual direction of the feature. Since it could effected by things like inverse feature groups, etc
+			final DirectedFeature df = (DirectedFeature)feature;
+			DirectionType direction = df.getDirection();
+	 		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
+	 			if(featureService.isFeatureInverted(shape)) {
+	 				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+	 			}
+	 		}	
+	 		
+ 			if(direction != requiredDirection && direction != DirectionType.IN_OUT) {
+ 				return false;
+ 			}
+		}
+		
+		return true;
 	}
 }

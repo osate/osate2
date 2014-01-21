@@ -130,4 +130,9 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 			this.addPattern(createSubcomponentPattern(scType));	
 		}
 	}
+	
+	@Override
+	protected boolean allowConnectionCreation(final IConnectionPattern conPattern) {
+		return !(conPattern instanceof FlowSpecificationPattern);
+	}
 }
