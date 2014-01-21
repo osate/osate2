@@ -68,6 +68,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -81,7 +82,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
@@ -100,7 +103,27 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected String getActionName() {
-		return "Consistency";
+		return "CutSet";
+	}
+	
+	protected void reportHeading(WriteToFile report, List<PropagationPathEnd> dests){
+		report.addOutput("Failure injected");
+		
+		for (PropagationPathEnd ppe : dests)
+		{
+			report.addOutput("," + ppe.getComponentInstance().getName());
+			
+			if (ppe.getErrorPropagation().getFeatureorPPRefs().size() > 0)
+			{
+				report.addOutput ("/");
+				for (FeatureorPPReference t : ppe.getErrorPropagation().getFeatureorPPRefs())
+				{
+					report.addOutput(t.getFeatureorPP().getName());
+				}
+			}
+		}
+
+		report.addOutput ("\n");
 	}
 
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
@@ -115,6 +138,9 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 			si = ((InstanceObject)obj).getSystemInstance();
 		}
 		else return;
+		
+		
+		WriteToFile report = new WriteToFile("CutSet", si);
 
 	
 		model = new AnalysisModel(si);
@@ -123,18 +149,53 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 		for (PropagationPathRecord ppr : pathlist)
 		{
 			sources.add(ppr.getPathSrc());
-			destinations.add(ppr.getPathSrc());
+			destinations.add(ppr.getPathDst());
 		}
+		
+		reportHeading(report, destinations);
 		
 		for (PropagationPathEnd src : sources)
 		{
-			OsateDebug.osateDebug("[SRC] ci=" + src.getComponentInstance() + ";ep=" + src.getErrorPropagation());
-		}
-		for (PropagationPathEnd dst : destinations)
-		{
-			OsateDebug.osateDebug("[DST] ci=" + dst.getComponentInstance() + ";ep=" + dst.getErrorPropagation());
-		}
+			OsateDebug.osateDebug("[SRC] ci=" + src.getComponentInstance() + ";ep=" + src.getErrorPropagation().getKind());
+			
+			for (TypeToken tt : src.getErrorPropagation().getTypeSet().getTypeTokens())
+			{
+				for (ErrorTypes et : tt.getType())
+				{
 
+					report.addOutput(src.getComponentInstance().getName());
+					
+					report.addOutput(" - " + et.getName());
+					
+					if (src.getErrorPropagation().getFeatureorPPRefs().size() > 0)
+					{
+						report.addOutput (" on ");
+					}
+					for (FeatureorPPReference t : src.getErrorPropagation().getFeatureorPPRefs())
+					{
+						report.addOutput(t.getFeatureorPP().getName());
+					}
+					
+					for (PropagationPathEnd ppe : destinations)
+					{
+						report.addOutput("," );
+						
+					
+					}
+
+					report.addOutput ("\n");
+				}
+				
+
+			}
+			
+			
+			
+			
+		
+		}
+		
+		report.saveToFile();
 		
 		monitor.done();
 	}
