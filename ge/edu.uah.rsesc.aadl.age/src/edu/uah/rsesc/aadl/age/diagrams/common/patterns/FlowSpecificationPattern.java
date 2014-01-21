@@ -133,6 +133,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		text.setStyle(styleUtil.getLabelStyle());
 		gaService.setLocation(text, labelX, labelY);
 	    text.setValue(fs.getName());
+	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(fs));
 	}
 	
 	@Override
