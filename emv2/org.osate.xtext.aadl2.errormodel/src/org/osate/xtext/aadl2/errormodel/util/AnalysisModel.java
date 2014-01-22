@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
@@ -50,28 +51,31 @@ public class AnalysisModel {
 	{
 		for (PropagationPathRecord ppr : propagationPaths)
 		{ 
-			if ((ppr.getPathSrc() == src) && (ppr.getPathDst() == dst))
+			if ((ppr.getPathSrc().getComponentInstance() == src.getComponentInstance()) && 
+				(ppr.getPathSrc().getErrorPropagation() == src.getErrorPropagation()) &&
+				(ppr.getPathDst().getComponentInstance() == dst.getComponentInstance()) && 
+				(ppr.getPathDst().getErrorPropagation() == dst.getErrorPropagation()))
 			{
 				return true;
 			}
 			
-			if ((ppr.getPathSrc() == src) && (ppr.getPathDst() != dst))
+			if ((ppr.getPathSrc().getComponentInstance() == src.getComponentInstance()) && 
+				(ppr.getPathSrc().getErrorPropagation() == src.getErrorPropagation()))
 			{
 				
 				ComponentInstance dstCI = ppr.getDstCI();
 				OsateDebug.osateDebug("try with comp" + dstCI.getName());
 				List<ErrorPropagation> eps = new ArrayList<ErrorPropagation>();
-				eps.addAll (EMV2Util.getAllOutgoingErrorPropagations(dstCI.getComponentClassifier()));
+				ComponentClassifier classifier = dstCI.getComponentClassifier();
+				eps.addAll (EMV2Util.getAllOutgoingErrorPropagations(classifier));
 				for (ErrorPropagation ep : eps)
 				{
-					for (PropagationPathEnd ppe : this.getAllPropagationSourceEnds(dstCI, ep))
-					{
-						if (impact (ppe, dst))
+						if (impact (new PropagationPathEnd(dstCI,ep), dst))
 						{
 							
 							return true;
 						}
-					}
+					
 				}
 				
 			}
