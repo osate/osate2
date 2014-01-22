@@ -64,7 +64,6 @@ public class AnalysisModel {
 			{
 				
 				ComponentInstance dstCI = ppr.getDstCI();
-				OsateDebug.osateDebug("try with comp" + dstCI.getName());
 				List<ErrorPropagation> eps = new ArrayList<ErrorPropagation>();
 				ComponentClassifier classifier = dstCI.getComponentClassifier();
 				eps.addAll (EMV2Util.getAllOutgoingErrorPropagations(classifier));
