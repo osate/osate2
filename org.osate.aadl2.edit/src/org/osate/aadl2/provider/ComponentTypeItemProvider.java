@@ -83,10 +83,27 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addOwnedFeaturePropertyDescriptor(object);
 			addExtendedPropertyDescriptor(object);
 			addNoFeaturesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Owned Feature feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOwnedFeaturePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ComponentType_ownedFeature_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentType_ownedFeature_feature",
+						"_UI_ComponentType_type"), Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(), false,
+				false, false, null, null, null));
 	}
 
 	/**
@@ -133,9 +150,10 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedFlowSpecification());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedFeatureGroup());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentType_OwnedAbstractFeature());
 		}
 		return childrenFeatures;
 	}
@@ -181,9 +199,10 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 		case Aadl2Package.COMPONENT_TYPE__NO_FEATURES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
+		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP:
+		case Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -206,6 +225,12 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider i
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_OwnedExtension(),
 				Aadl2Factory.eINSTANCE.createTypeExtension()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_OwnedFeatureGroup(),
+				Aadl2Factory.eINSTANCE.createFeatureGroup()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_OwnedAbstractFeature(),
+				Aadl2Factory.eINSTANCE.createAbstractFeature()));
 	}
 
 }

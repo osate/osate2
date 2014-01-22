@@ -65,8 +65,6 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.operations.ModalElementOperations;
-import org.osate.aadl2.operations.ModalPathOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.NonNotifyingEObjectEList;
@@ -182,7 +180,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 */
 	public EList<Mode> getInModes() {
-		return ModalPathOperations.getInModes(this);
+		// TODO: implement this method to return the 'In Mode' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -356,6 +356,15 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AbstractConnectionEnd createDestination() {
+		return createDestination(Aadl2Package.eINSTANCE.getAbstractConnectionEnd());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AbstractConnectionEnd getSource() {
 		return source;
 	}
@@ -409,6 +418,15 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		AbstractConnectionEnd newSource = (AbstractConnectionEnd) create(eClass);
 		setSource(newSource);
 		return newSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AbstractConnectionEnd createSource() {
+		return createSource(Aadl2Package.eINSTANCE.getAbstractConnectionEnd());
 	}
 
 	/**
@@ -478,7 +496,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 */
 	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -487,7 +507,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 */
 	public EList<ModeTransition> getInModeTransitions() {
-		return ModalPathOperations.getInModeTransitions(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -496,7 +518,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 */
 	public EList<ModeTransition> getAllInModeTransitions() {
-		return ModalPathOperations.getAllInModeTransitions(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**

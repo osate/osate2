@@ -56,10 +56,9 @@ import org.osate.aadl2.instance.InstancePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FlowSpecificationInstanceItemProvider extends
-		FlowElementInstanceItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider,
-		IItemLabelProvider, IItemPropertySource {
+public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -99,14 +98,13 @@ public class FlowSpecificationInstanceItemProvider extends
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FlowSpecificationInstance_source_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FlowSpecificationInstance_source_feature", "_UI_FlowSpecificationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__SOURCE,
-						true, false, true, null, null, null));
+						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__SOURCE, true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -118,14 +116,13 @@ public class FlowSpecificationInstanceItemProvider extends
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FlowSpecificationInstance_destination_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FlowSpecificationInstance_destination_feature", "_UI_FlowSpecificationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__DESTINATION,
-						true, false, true, null, null, null));
+						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__DESTINATION, true, false, true, null,
+						null, null));
 	}
 
 	/**
@@ -137,14 +134,13 @@ public class FlowSpecificationInstanceItemProvider extends
 	protected void addFlowSpecificationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FlowSpecificationInstance_flowSpecification_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FlowSpecificationInstance_flowSpecification_feature", "_UI_FlowSpecificationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION,
-						true, false, true, null, null, null));
+						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION, true, false, true,
+						null, null, null));
 	}
 
 	/**
@@ -156,14 +152,13 @@ public class FlowSpecificationInstanceItemProvider extends
 	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FlowSpecificationInstance_inMode_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FlowSpecificationInstance_inMode_feature", "_UI_FlowSpecificationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__IN_MODE,
-						true, false, true, null, null, null));
+						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__IN_MODE, true, false, true, null, null,
+						null));
 	}
 
 	/**
@@ -175,14 +170,13 @@ public class FlowSpecificationInstanceItemProvider extends
 	protected void addInModeTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FlowSpecificationInstance_inModeTransition_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FlowSpecificationInstance_inModeTransition_feature", "_UI_FlowSpecificationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION,
-						true, false, true, null, null, null));
+						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION, true, false, true,
+						null, null, null));
 	}
 
 	/**
@@ -193,10 +187,7 @@ public class FlowSpecificationInstanceItemProvider extends
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(
-				object,
-				getResourceLocator().getImage(
-						"full/obj16/FlowSpecificationInstance")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSpecificationInstance")); //$NON-NLS-1$
 	}
 
 	/**

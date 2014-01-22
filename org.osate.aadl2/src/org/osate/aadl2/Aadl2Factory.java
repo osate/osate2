@@ -198,24 +198,6 @@ public interface Aadl2Factory extends EFactory {
 	TriggerPort createTriggerPort();
 
 	/**
-	 * Returns a new object of class '<em>Processor Port</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Processor Port</em>'.
-	 * @generated
-	 */
-	ProcessorPort createProcessorPort();
-
-	/**
-	 * Returns a new object of class '<em>Internal Event</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Internal Event</em>'.
-	 * @generated
-	 */
-	InternalEvent createInternalEvent();
-
-	/**
 	 * Returns a new object of class '<em>Flow Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -432,15 +414,6 @@ public interface Aadl2Factory extends EFactory {
 	AbstractSubcomponent createAbstractSubcomponent();
 
 	/**
-	 * Returns a new object of class '<em>Element Name</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Element Name</em>'.
-	 * @generated
-	 */
-	ElementName createElementName();
-
-	/**
 	 * Returns a new object of class '<em>Access Connection</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -484,15 +457,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	FeatureGroupConnection createFeatureGroupConnection();
-
-	/**
-	 * Returns a new object of class '<em>Processor Subprogram</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Processor Subprogram</em>'.
-	 * @generated
-	 */
-	ProcessorSubprogram createProcessorSubprogram();
 
 	/**
 	 * Returns a new object of class '<em>Default Annex Library</em>'.
@@ -1159,15 +1123,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	FeaturePrototypeReference createFeaturePrototypeReference();
-
-	/**
-	 * Returns a new object of class '<em>Processor Call</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Processor Call</em>'.
-	 * @generated
-	 */
-	ProcessorCall createProcessorCall();
 
 	/**
 	 * Returns a new object of class '<em>Subprogram Call</em>'.

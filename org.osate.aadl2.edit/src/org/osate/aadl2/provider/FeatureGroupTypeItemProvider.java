@@ -82,10 +82,27 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider impleme
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addOwnedFeaturePropertyDescriptor(object);
 			addExtendedPropertyDescriptor(object);
 			addInversePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Owned Feature feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOwnedFeaturePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_FeatureGroupType_ownedFeature_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_FeatureGroupType_ownedFeature_feature",
+						"_UI_FeatureGroupType_type"), Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeature(), false,
+				false, false, null, null, null));
 	}
 
 	/**
@@ -132,8 +149,17 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider impleme
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeature());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedExtension());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedBusAccess());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedDataAccess());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedDataPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedEventDataPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedEventPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeatureGroup());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedParameter());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramAccess());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramGroupAccess());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedAbstractFeature());
 		}
 		return childrenFeatures;
 	}
@@ -187,8 +213,17 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider impleme
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(FeatureGroupType.class)) {
-		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_BUS_ACCESS:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_ACCESS:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_DATA_PORT:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_DATA_PORT:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EVENT_PORT:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE_GROUP:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_PARAMETER:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_ACCESS:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
+		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_ABSTRACT_FEATURE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -208,6 +243,38 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider impleme
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedExtension(),
 				Aadl2Factory.eINSTANCE.createGroupExtension()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedBusAccess(),
+				Aadl2Factory.eINSTANCE.createBusAccess()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedDataAccess(),
+				Aadl2Factory.eINSTANCE.createDataAccess()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedDataPort(),
+				Aadl2Factory.eINSTANCE.createDataPort()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedEventDataPort(),
+				Aadl2Factory.eINSTANCE.createEventDataPort()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedEventPort(),
+				Aadl2Factory.eINSTANCE.createEventPort()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedFeatureGroup(),
+				Aadl2Factory.eINSTANCE.createFeatureGroup()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedParameter(),
+				Aadl2Factory.eINSTANCE.createParameter()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramAccess(),
+				Aadl2Factory.eINSTANCE.createSubprogramAccess()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramGroupAccess(),
+				Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedAbstractFeature(),
+				Aadl2Factory.eINSTANCE.createAbstractFeature()));
 	}
 
 }

@@ -65,7 +65,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public class SubprogramCallImpl extends CallSpecificationImpl implements SubprogramCall {
+public class SubprogramCallImpl extends BehavioralFeatureImpl implements SubprogramCall {
 	/**
 	 * The cached value of the '{@link #getCalledSubprogram() <em>Called Subprogram</em>}' reference.
 	 * <!-- begin-user-doc -->

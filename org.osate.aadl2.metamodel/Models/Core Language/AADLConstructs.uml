@@ -1789,15 +1789,6 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QWNzM6jSEeCoIp43xtd66A"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_z-dokKjTEeCoIp43xtd66A" name="ElementName">
-        <generalization xmi:id="_XVSMMKjUEeCoIp43xtd66A" general="Connections-ConnectionEnd"/>
-        <ownedAttribute xmi:id="_HHPQQKjUEeCoIp43xtd66A" name="kind" type="_6zTZcKjTEeCoIp43xtd66A"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Enumeration" xmi:id="_6zTZcKjTEeCoIp43xtd66A" name="ElementNameKind">
-        <ownedLiteral xmi:id="_-fIyAKjTEeCoIp43xtd66A" name="InternalEvent"/>
-        <ownedLiteral xmi:id="_--b9IKjTEeCoIp43xtd66A" name="ProcessorPort"/>
-        <ownedLiteral xmi:id="__eFGgKjTEeCoIp43xtd66A" name="ProcessorSubprogram"/>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_iT__cKl3EeCfxLim1SVFOg" name="AbstractConnectionEnd" isAbstract="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Flows" name="Flows">

@@ -59,8 +59,6 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
-import org.osate.aadl2.operations.ModalElementOperations;
-import org.osate.aadl2.operations.ModalPathOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 
@@ -169,7 +167,9 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * @generated
 	 */
 	public EList<Mode> getInModes() {
-		return ModalPathOperations.getInModes(this);
+		// TODO: implement this method to return the 'In Mode' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -413,7 +413,9 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * @generated
 	 */
 	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -422,7 +424,9 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * @generated
 	 */
 	public EList<ModeTransition> getInModeTransitions() {
-		return ModalPathOperations.getInModeTransitions(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -431,7 +435,9 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * @generated
 	 */
 	public EList<ModeTransition> getAllInModeTransitions() {
-		return ModalPathOperations.getAllInModeTransitions(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**

@@ -153,8 +153,8 @@ public class SubcomponentItemProvider extends StructuralFeatureItemProvider impl
 				getResourceLocator(),
 				getString("_UI_Subcomponent_prototype_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_Subcomponent_prototype_feature",
-						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Prototype(), true, false,
-				true, null, null, null));
+						"_UI_Subcomponent_type"), Aadl2Package.eINSTANCE.getSubcomponent_Prototype(), false, false,
+				false, null, null, null));
 	}
 
 	/**

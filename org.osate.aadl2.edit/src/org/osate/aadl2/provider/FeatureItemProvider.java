@@ -101,7 +101,7 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider implement
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Feature_prototype_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_Feature_prototype_feature", "_UI_Feature_type"),
-				Aadl2Package.eINSTANCE.getFeature_Prototype(), true, false, true, null, null, null));
+				Aadl2Package.eINSTANCE.getFeature_Prototype(), false, false, false, null, null, null));
 	}
 
 	/**

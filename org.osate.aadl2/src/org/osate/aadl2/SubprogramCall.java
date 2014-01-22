@@ -52,7 +52,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SubprogramCall extends CallSpecification, Context {
+public interface SubprogramCall extends BehavioralFeature, Context {
 	/**
 	 * Returns the value of the '<em><b>Called Subprogram</b></em>' reference.
 	 * <!-- begin-user-doc -->

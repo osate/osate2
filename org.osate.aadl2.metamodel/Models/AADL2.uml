@@ -109,9 +109,6 @@
     <packageMerge xmi:id="_Y5GYch-jEd6oIu99HumgeA">
       <mergedPackage href="Core%20Language/AADLDetails.uml#_JK-Ssh-jEd6oIu99HumgeA"/>
     </packageMerge>
-    <packageMerge xmi:id="_5sgLMKlcEeCVAsPdeCCOXw">
-      <mergedPackage href="Core%20Language/AADLDetails.uml#_KdZncKlbEeCVAsPdeCCOXw"/>
-    </packageMerge>
     <packageMerge xmi:id="_EACmMLOSEeCzMYz5ww7glA">
       <mergedPackage href="Property%20Language/AADLProperties.uml#_s2TqgLOREeCzMYz5ww7glA"/>
     </packageMerge>

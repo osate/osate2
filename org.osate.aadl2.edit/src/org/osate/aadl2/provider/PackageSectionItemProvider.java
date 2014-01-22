@@ -197,7 +197,6 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(PackageSection.class)) {
-		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
 		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

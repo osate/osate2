@@ -85,8 +85,9 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 			super.getPropertyDescriptors(object);
 
 			addTypePropertyDescriptor(object);
+			addOwnedSubcomponentPropertyDescriptor(object);
 			addExtendedPropertyDescriptor(object);
-			addOwnedExtensionPropertyDescriptor(object);
+			addOwnedConnectionPropertyDescriptor(object);
 			addNoSubcomponentsPropertyDescriptor(object);
 			addNoConnectionsPropertyDescriptor(object);
 			addNoCallsPropertyDescriptor(object);
@@ -108,6 +109,23 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_type_feature",
 						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE.getComponentImplementation_Type(),
 				true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Owned Subcomponent feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOwnedSubcomponentPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ComponentImplementation_ownedSubcomponent_feature"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComponentImplementation_ownedSubcomponent_feature", "_UI_ComponentImplementation_type"),
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(), false, false, false, null, null,
+				null));
 	}
 
 	/**
@@ -178,19 +196,19 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	}
 
 	/**
-	 * This adds a property descriptor for the Owned Extension feature.
+	 * This adds a property descriptor for the Owned Connection feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addOwnedExtensionPropertyDescriptor(Object object) {
+	protected void addOwnedConnectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 				getResourceLocator(),
-				getString("_UI_ComponentImplementation_ownedExtension_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_ownedExtension_feature",
+				getString("_UI_ComponentImplementation_ownedConnection_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ComponentImplementation_ownedConnection_feature",
 						"_UI_ComponentImplementation_type"), Aadl2Package.eINSTANCE
-						.getComponentImplementation_OwnedExtension(), true, false, true, null, null, null));
+						.getComponentImplementation_OwnedConnection(), false, false, false, null, null, null));
 	}
 
 	/**
@@ -205,11 +223,16 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFlowImplementation());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedExtension());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEndToEndFlow());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAbstractSubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedParameterConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedPortConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureConnection());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getComponentImplementation_OwnedFeatureGroupConnection());
 		}
 		return childrenFeatures;
 	}
@@ -252,21 +275,21 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ComponentImplementation.class)) {
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION:
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION:
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION:
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION:
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
-		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION:
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION:
+		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -289,12 +312,20 @@ public class ComponentImplementationItemProvider extends ComponentClassifierItem
 				Aadl2Factory.eINSTANCE.createFlowImplementation()));
 
 		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedExtension(),
+				Aadl2Factory.eINSTANCE.createImplementationExtension()));
+
+		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedRealization(),
 				Aadl2Factory.eINSTANCE.createRealization()));
 
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedEndToEndFlow(),
 				Aadl2Factory.eINSTANCE.createEndToEndFlow()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAbstractSubcomponent(),
+				Aadl2Factory.eINSTANCE.createAbstractSubcomponent()));
 
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getComponentImplementation_OwnedAccessConnection(),

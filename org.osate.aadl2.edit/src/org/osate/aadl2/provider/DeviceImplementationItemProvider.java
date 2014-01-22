@@ -98,6 +98,7 @@ public class DeviceImplementationItemProvider extends ComponentImplementationIte
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedBusSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedDataSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedVirtualBusSubcomponent());
 		}
@@ -153,6 +154,7 @@ public class DeviceImplementationItemProvider extends ComponentImplementationIte
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DeviceImplementation.class)) {
+		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -171,6 +173,10 @@ public class DeviceImplementationItemProvider extends ComponentImplementationIte
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedBusSubcomponent(),
+				Aadl2Factory.eINSTANCE.createBusSubcomponent()));
 
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getDeviceImplementation_OwnedDataSubcomponent(),

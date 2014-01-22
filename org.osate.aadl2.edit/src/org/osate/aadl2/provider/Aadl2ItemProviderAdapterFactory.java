@@ -471,52 +471,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorPort} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorPortItemProvider processorPortItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorPort}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorPortAdapter() {
-		if (processorPortItemProvider == null) {
-			processorPortItemProvider = new ProcessorPortItemProvider(this);
-		}
-
-		return processorPortItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.InternalEvent} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected InternalEventItemProvider internalEventItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.InternalEvent}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createInternalEventAdapter() {
-		if (internalEventItemProvider == null) {
-			internalEventItemProvider = new InternalEventItemProvider(this);
-		}
-
-		return internalEventItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.FlowSpecification} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1069,29 +1023,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ElementName} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ElementNameItemProvider elementNameItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ElementName}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createElementNameAdapter() {
-		if (elementNameItemProvider == null) {
-			elementNameItemProvider = new ElementNameItemProvider(this);
-		}
-
-		return elementNameItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AccessConnection} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1204,29 +1135,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 		}
 
 		return featureGroupConnectionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorSubprogram} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorSubprogramItemProvider processorSubprogramItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorSubprogram}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorSubprogramAdapter() {
-		if (processorSubprogramItemProvider == null) {
-			processorSubprogramItemProvider = new ProcessorSubprogramItemProvider(this);
-		}
-
-		return processorSubprogramItemProvider;
 	}
 
 	/**
@@ -2932,29 +2840,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.ProcessorCall} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ProcessorCallItemProvider processorCallItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.osate.aadl2.ProcessorCall}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createProcessorCallAdapter() {
-		if (processorCallItemProvider == null) {
-			processorCallItemProvider = new ProcessorCallItemProvider(this);
-		}
-
-		return processorCallItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramCall} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3881,8 +3766,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featureGroupConnectionItemProvider.dispose();
 		if (connectedElementItemProvider != null)
 			connectedElementItemProvider.dispose();
-		if (elementNameItemProvider != null)
-			elementNameItemProvider.dispose();
 		if (defaultAnnexLibraryItemProvider != null)
 			defaultAnnexLibraryItemProvider.dispose();
 		if (defaultAnnexSubclauseItemProvider != null)
@@ -3919,8 +3802,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featurePrototypeReferenceItemProvider.dispose();
 		if (subprogramCallSequenceItemProvider != null)
 			subprogramCallSequenceItemProvider.dispose();
-		if (processorCallItemProvider != null)
-			processorCallItemProvider.dispose();
 		if (subprogramCallItemProvider != null)
 			subprogramCallItemProvider.dispose();
 		if (abstractTypeItemProvider != null)
@@ -4095,12 +3976,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			referenceTypeItemProvider.dispose();
 		if (listTypeItemProvider != null)
 			listTypeItemProvider.dispose();
-		if (processorPortItemProvider != null)
-			processorPortItemProvider.dispose();
-		if (internalEventItemProvider != null)
-			internalEventItemProvider.dispose();
-		if (processorSubprogramItemProvider != null)
-			processorSubprogramItemProvider.dispose();
 	}
 
 }

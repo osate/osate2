@@ -36,8 +36,8 @@
 package org.osate.aadl2.util;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -46,7 +46,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
  * @see org.osate.aadl2.util.Aadl2ResourceFactoryImpl
  * @generated
  */
-public class Aadl2ResourceImpl extends XMIResourceImpl {
+public class Aadl2ResourceImpl extends XMLResourceImpl {
 
 	static final XMLParserPoolImpl parserPool = new XMLParserPoolImpl();
 

@@ -44,14 +44,24 @@ import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.ocl.EvaluationEnvironment;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.expressions.OCLExpression;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ClassifierValue;
@@ -78,6 +88,7 @@ import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.util.Aadl2Validator;
 
 /**
  * <!-- begin-user-doc -->
@@ -224,13 +235,74 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	}
 
 	/**
+	 * The cached OCL expression body for the '{@link #has_no_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has no qualified name</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #has_no_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String HAS_NO_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP = "(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty()) implies self.qualifiedName->isEmpty()";
+
+	/**
+	 * The cached OCL invariant for the '{@link #has_no_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has no qualified name</em>}' invariant operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #has_no_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static Constraint HAS_NO_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean has_no_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return NamedElementOperations.has_no_qualified_name(this, diagnostics, context);
+		if (HAS_NO_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setContext(Aadl2Package.eINSTANCE.getNamedElement());
+			try {
+				HAS_NO_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
+						.createInvariant(HAS_NO_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		if (!EOCL_ENV.createQuery(HAS_NO_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
+			if (diagnostics != null) {
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.NAMED_ELEMENT__HAS_NO_QUALIFIED_NAME, EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic", new Object[] { "has_no_qualified_name",
+										EObjectValidator.getObjectLabel(this, context) }), new Object[] { this }));
+			}
+			return false;
+		}
+		return true;
 	}
+
+	/**
+	 * The cached OCL expression body for the '{@link #has_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has qualified name</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #has_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String HAS_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP = "(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) "
+			+ "implies "
+			+ "self.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))";
+
+	/**
+	 * The cached OCL invariant for the '{@link #has_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has qualified name</em>}' invariant operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #has_qualified_name(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static Constraint HAS_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -238,7 +310,26 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public boolean has_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return NamedElementOperations.has_qualified_name(this, diagnostics, context);
+		if (HAS_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setContext(Aadl2Package.eINSTANCE.getNamedElement());
+			try {
+				HAS_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
+						.createInvariant(HAS_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		if (!EOCL_ENV.createQuery(HAS_QUALIFIED_NAME__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
+			if (diagnostics != null) {
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.NAMED_ELEMENT__HAS_QUALIFIED_NAME, EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic", new Object[] { "has_qualified_name",
+										EObjectValidator.getObjectLabel(this, context) }), new Object[] { this }));
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -247,8 +338,31 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public Namespace getNamespace() {
-		return NamedElementOperations.getNamespace(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
+
+	/**
+	 * The cached OCL expression body for the '{@link #allNamespaces() <em>All Namespaces</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #allNamespaces()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ALL_NAMESPACES__EOCL_EXP = "if self.namespace->isEmpty() then " + "  Sequence{}"
+			+ "else" + "  self.namespace.allNamespaces()->prepend(self.namespace)" + "endif";
+
+	/**
+	 * The cached OCL query for the '{@link #allNamespaces() <em>All Namespaces</em>}' query operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #allNamespaces()
+	 * @generated
+	 * @ordered
+	 */
+	protected static OCLExpression<EClassifier> ALL_NAMESPACES__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -256,8 +370,45 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public EList<Namespace> allNamespaces() {
-		return NamedElementOperations.allNamespaces(this);
+		if (ALL_NAMESPACES__EOCL_QRY == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
+					.getNamedElement().getEAllOperations().get(8));
+			try {
+				ALL_NAMESPACES__EOCL_QRY = helper.createQuery(ALL_NAMESPACES__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		OCL.Query query = EOCL_ENV.createQuery(ALL_NAMESPACES__EOCL_QRY);
+		@SuppressWarnings("unchecked")
+		Collection<Namespace> result = (Collection<Namespace>) query.evaluate(this);
+		return new BasicEList.UnmodifiableEList<Namespace>(result.size(), result.toArray());
 	}
+
+	/**
+	 * The cached OCL expression body for the '{@link #isDistinguishableFrom(org.osate.aadl2.NamedElement, org.osate.aadl2.Namespace) <em>Is Distinguishable From</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDistinguishableFrom(org.osate.aadl2.NamedElement, org.osate.aadl2.Namespace)
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_EXP = "if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then"
+			+ "  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()"
+			+ "else"
+			+ "  true"
+			+ "endif";
+
+	/**
+	 * The cached OCL query for the '{@link #isDistinguishableFrom(org.osate.aadl2.NamedElement, org.osate.aadl2.Namespace) <em>Is Distinguishable From</em>}' query operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDistinguishableFrom(org.osate.aadl2.NamedElement, org.osate.aadl2.Namespace)
+	 * @generated
+	 * @ordered
+	 */
+	protected static OCLExpression<EClassifier> IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -265,8 +416,43 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public boolean isDistinguishableFrom(NamedElement n, Namespace ns) {
-		return NamedElementOperations.isDistinguishableFrom(this, n, ns);
+		if (IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_QRY == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
+					.getNamedElement().getEAllOperations().get(9));
+			try {
+				IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_QRY = helper
+						.createQuery(IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		OCL.Query query = EOCL_ENV.createQuery(IS_DISTINGUISHABLE_FROM__NAMED_ELEMENT_NAMESPACE__EOCL_QRY);
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		environment.add("n", n);
+		environment.add("ns", ns);
+		return ((Boolean) query.evaluate(this)).booleanValue();
 	}
+
+	/**
+	 * The cached OCL expression body for the '{@link #separator() <em>Separator</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #separator()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SEPARATOR__EOCL_EXP = "'.'";
+
+	/**
+	 * The cached OCL query for the '{@link #separator() <em>Separator</em>}' query operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #separator()
+	 * @generated
+	 * @ordered
+	 */
+	protected static OCLExpression<EClassifier> SEPARATOR__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -274,8 +460,41 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public String separator() {
-		return NamedElementOperations.separator(this);
+		if (SEPARATOR__EOCL_QRY == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
+					.getNamedElement().getEAllOperations().get(10));
+			try {
+				SEPARATOR__EOCL_QRY = helper.createQuery(SEPARATOR__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		OCL.Query query = EOCL_ENV.createQuery(SEPARATOR__EOCL_QRY);
+		return (String) query.evaluate(this);
 	}
+
+	/**
+	 * The cached OCL expression body for the '{@link #qualifiedName() <em>Qualified Name</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #qualifiedName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String QUALIFIED_NAME__EOCL_EXP = "if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then"
+			+ "  self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))"
+			+ "else " + "  '' " + "endif";
+
+	/**
+	 * The cached OCL query for the '{@link #qualifiedName() <em>Qualified Name</em>}' query operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #qualifiedName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static OCLExpression<EClassifier> QUALIFIED_NAME__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -283,7 +502,18 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public String qualifiedName() {
-		return NamedElementOperations.qualifiedName(this);
+		if (QUALIFIED_NAME__EOCL_QRY == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getNamedElement(), Aadl2Package.eINSTANCE
+					.getNamedElement().getEAllOperations().get(11));
+			try {
+				QUALIFIED_NAME__EOCL_QRY = helper.createQuery(QUALIFIED_NAME__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		OCL.Query query = EOCL_ENV.createQuery(QUALIFIED_NAME__EOCL_QRY);
+		return (String) query.evaluate(this);
 	}
 
 	/**

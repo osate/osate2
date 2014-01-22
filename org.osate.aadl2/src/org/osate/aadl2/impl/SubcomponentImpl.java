@@ -70,7 +70,6 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
-import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
@@ -462,7 +461,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * @generated
 	 */
 	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**

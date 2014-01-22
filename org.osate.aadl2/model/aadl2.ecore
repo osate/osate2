@@ -1257,15 +1257,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionEnd" ordered="false"
         lowerBound="1" eType="#//ConnectionEnd"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementName" eSuperTypes="#//ConnectionEnd">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
-        eType="#//ElementNameKind"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="ElementNameKind">
-    <eLiterals name="InternalEvent"/>
-    <eLiterals name="ProcessorPort" value="1"/>
-    <eLiterals name="ProcessorSubprogram" value="2"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AnnexLibrary" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="DefaultAnnexLibrary" eSuperTypes="#//AnnexLibrary">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceText" ordered="false"
@@ -1432,23 +1423,24 @@
         lowerBound="1" eType="#//FeaturePrototype"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallSequence" eSuperTypes="#//BehavioralFeature #//ModalElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedCallSpecification"
-        upperBound="-1" eType="#//CallSpecification" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramCall" upperBound="-1"
+        eType="#//SubprogramCall" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CallSpecification" abstract="true" eSuperTypes="#//BehavioralFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorCall" eSuperTypes="#//CallSpecification">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="subprogramAccessName" ordered="false"
-        lowerBound="1" eType="#//String"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramCall" eSuperTypes="#//BehavioralFeature #//Context">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="calledSubprogram" ordered="false"
+        eType="#//CalledSubprogram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
+        eType="#//CallContext"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehavioredImplementation" abstract="true"
       eSuperTypes="#//ComponentImplementation">
-    <eOperations name="callSpecifications" ordered="false" upperBound="-1" eType="#//CallSpecification">
+    <eOperations name="subprogramCalls" ordered="false" upperBound="-1" eType="#//SubprogramCall">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Get all calls owned by owned call sequences."/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="callSpecification" ordered="false"
-        upperBound="-1" eType="#//CallSpecification" volatile="true" transient="true"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramCall" ordered="false"
+        upperBound="-1" eType="#//SubprogramCall" volatile="true" transient="true"
         derived="true">
       <eAnnotations source="subsets" references="#//Namespace/member"/>
     </eStructuralFeatures>
@@ -1456,12 +1448,6 @@
         ordered="false" upperBound="-1" eType="#//SubprogramCallSequence" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
     </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramCall" eSuperTypes="#//CallSpecification #//Context">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="calledSubprogram" ordered="false"
-        eType="#//CalledSubprogram"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
-        eType="#//CallContext"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractType" eSuperTypes="#//ComponentType #//AbstractClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
@@ -2464,7 +2450,4 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="elementType" ordered="false"
         lowerBound="1" eType="#//PropertyType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorPort" eSuperTypes="#//NamedElement #//ModeTransitionTrigger #//AbstractConnectionEnd"/>
-  <eClassifiers xsi:type="ecore:EClass" name="InternalEvent" eSuperTypes="#//NamedElement #//ModeTransitionTrigger #//AbstractConnectionEnd"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubprogram" eSuperTypes="#//NamedElement #//AbstractConnectionEnd"/>
 </ecore:EPackage>
