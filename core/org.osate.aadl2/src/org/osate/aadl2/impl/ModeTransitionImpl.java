@@ -225,15 +225,6 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ModeTransitionTrigger createOwnedTrigger() {
-		return createOwnedTrigger(Aadl2Package.eINSTANCE.getModeTransitionTrigger());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
