@@ -2939,6 +2939,106 @@
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_JK-Ssh-jEd6oIu99HumgeA" name="Flows"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_-k1pwINwEeOmPsvY4RoXnw" name="Special Features">
+      <packagedElement xmi:type="uml:Class" xmi:id="_Vq1isIN2EeOWItHzPgezWw" name="ComponentImplementation" isAbstract="true">
+        <ownedAttribute xmi:id="_3_HrQIN2EeOWItHzPgezWw" name="ownedProcessorFeature" type="_ylhJUIN2EeOWItHzPgezWw" isReadOnly="true" isDerived="true" isDerivedUnion="true" aggregation="composite" association="_3_pPsIN2EeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3_HrQYN2EeOWItHzPgezWw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3_HrQoN2EeOWItHzPgezWw"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Classifier-classifierFeature"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_4wLUwIN2EeOWItHzPgezWw" name="ownedInternalFeature" type="_y7R98IN2EeOWItHzPgezWw" isReadOnly="true" isDerived="true" isDerivedUnion="true" aggregation="composite" association="_4woAsIN2EeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4wLUwYN2EeOWItHzPgezWw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4wLUwoN2EeOWItHzPgezWw"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Namespace-ownedMember"/>
+          <subsettedProperty href="AADLInfrastructure.uml#Classifier-classifierFeature"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_9C3UIIOFEeOWItHzPgezWw" name="ownedEventSource" type="_mFhrIIOEEeOWItHzPgezWw" aggregation="composite" subsettedProperty="_4wLUwIN2EeOWItHzPgezWw" association="_9DkewIOFEeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9C3UIYOFEeOWItHzPgezWw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9C3UIoOFEeOWItHzPgezWw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_9s0QEIOFEeOWItHzPgezWw" name="ownedEventDataSource" type="_mkiiYIOEEeOWItHzPgezWw" aggregation="composite" subsettedProperty="_4wLUwIN2EeOWItHzPgezWw" association="_9tlFEIOFEeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9s0QEYOFEeOWItHzPgezWw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9s0QEoOFEeOWItHzPgezWw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-QXCAIOFEeOWItHzPgezWw" name="ownedPortProxy" type="_nQXtoIOEEeOWItHzPgezWw" aggregation="composite" subsettedProperty="_3_HrQIN2EeOWItHzPgezWw" association="_-RK6UIOFEeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-QXCAYOFEeOWItHzPgezWw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-QXCAoOFEeOWItHzPgezWw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-rEoEIOFEeOWItHzPgezWw" name="ownedSubprogramProxy" type="_m5EA4IOEEeOWItHzPgezWw" aggregation="composite" subsettedProperty="_3_HrQIN2EeOWItHzPgezWw" association="_-r3SQIOFEeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-rEoEYOFEeOWItHzPgezWw" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-rEoEoOFEeOWItHzPgezWw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_ylhJUIN2EeOWItHzPgezWw" name="ProcessorFeature" isAbstract="true">
+        <generalization xmi:id="_1_4XYIN2EeOWItHzPgezWw">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
+        </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_y7R98IN2EeOWItHzPgezWw" name="InternalFeature" isAbstract="true">
+        <generalization xmi:id="_2m7JQIN2EeOWItHzPgezWw">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
+        </generalization>
+        <generalization xmi:id="_Rh8qoIOKEeOWItHzPgezWw">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-ModeTransitionTrigger"/>
+        </generalization>
+        <generalization xmi:id="_4ZDeIIOKEeOWItHzPgezWw" general="Connections-PortConnectionEnd"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_3_pPsIN2EeOWItHzPgezWw" name="A_componentImplementation_ownedProcessorFeature" memberEnd="_3_pPsYN2EeOWItHzPgezWw _3_HrQIN2EeOWItHzPgezWw">
+        <ownedEnd xmi:id="_3_pPsYN2EeOWItHzPgezWw" name="owner" type="_Vq1isIN2EeOWItHzPgezWw" association="_3_pPsIN2EeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3_pPsoN2EeOWItHzPgezWw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3_pPs4N2EeOWItHzPgezWw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_4woAsIN2EeOWItHzPgezWw" name="A_componentImplementation_ownedInternalFeature" memberEnd="_4woAsYN2EeOWItHzPgezWw _4wLUwIN2EeOWItHzPgezWw">
+        <ownedEnd xmi:id="_4woAsYN2EeOWItHzPgezWw" name="owner" type="_Vq1isIN2EeOWItHzPgezWw" association="_4woAsIN2EeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4woAsoN2EeOWItHzPgezWw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4woAs4N2EeOWItHzPgezWw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_mFhrIIOEEeOWItHzPgezWw" name="EventSource">
+        <generalization xmi:id="_Qf4i8IOFEeOWItHzPgezWw" general="_y7R98IN2EeOWItHzPgezWw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_mkiiYIOEEeOWItHzPgezWw" name="EventDataSource">
+        <generalization xmi:id="_RM1vkIOFEeOWItHzPgezWw" general="_y7R98IN2EeOWItHzPgezWw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_m5EA4IOEEeOWItHzPgezWw" name="SubprogramProxy">
+        <generalization xmi:id="_NumuIIOFEeOWItHzPgezWw" general="_ylhJUIN2EeOWItHzPgezWw"/>
+        <generalization xmi:id="_SIDoYIOKEeOWItHzPgezWw" general="Connections-AccessConnectionEnd"/>
+        <generalization xmi:id="_ifDE8IOKEeOWItHzPgezWw" general="Calls-CalledSubprogram"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_nQXtoIOEEeOWItHzPgezWw" name="PortProxy">
+        <generalization xmi:id="_MuvMkIOFEeOWItHzPgezWw" general="_ylhJUIN2EeOWItHzPgezWw"/>
+        <generalization xmi:id="_R1KhkIOKEeOWItHzPgezWw">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#Modes-ModeTransitionTrigger"/>
+        </generalization>
+        <generalization xmi:id="_SmJSkIOKEeOWItHzPgezWw" general="Connections-PortConnectionEnd"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_9DkewIOFEeOWItHzPgezWw" name="A_componentImplementation_ownedEventSource" memberEnd="_9DkewYOFEeOWItHzPgezWw _9C3UIIOFEeOWItHzPgezWw">
+        <ownedEnd xmi:id="_9DkewYOFEeOWItHzPgezWw" name="owner" type="_Vq1isIN2EeOWItHzPgezWw" association="_9DkewIOFEeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9DkewoOFEeOWItHzPgezWw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9Dkew4OFEeOWItHzPgezWw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_9tlFEIOFEeOWItHzPgezWw" name="A_componentImplementation_ownedEventDataSource" memberEnd="_9tlFEYOFEeOWItHzPgezWw _9s0QEIOFEeOWItHzPgezWw">
+        <ownedEnd xmi:id="_9tlFEYOFEeOWItHzPgezWw" name="owner" type="_Vq1isIN2EeOWItHzPgezWw" association="_9tlFEIOFEeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9tlFEoOFEeOWItHzPgezWw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9tlFE4OFEeOWItHzPgezWw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_-RK6UIOFEeOWItHzPgezWw" name="A_componentImplementation_ownedPortProxy" memberEnd="_-RK6UYOFEeOWItHzPgezWw _-QXCAIOFEeOWItHzPgezWw">
+        <ownedEnd xmi:id="_-RK6UYOFEeOWItHzPgezWw" name="owner" type="_Vq1isIN2EeOWItHzPgezWw" association="_-RK6UIOFEeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-RK6UoOFEeOWItHzPgezWw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-RK6U4OFEeOWItHzPgezWw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_-r3SQIOFEeOWItHzPgezWw" name="A_componentImplementation_ownedSubprogramProxy" memberEnd="_-r3SQYOFEeOWItHzPgezWw _-rEoEIOFEeOWItHzPgezWw">
+        <ownedEnd xmi:id="_-r3SQYOFEeOWItHzPgezWw" name="owner" type="_Vq1isIN2EeOWItHzPgezWw" association="_-r3SQIOFEeOWItHzPgezWw">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-r3SQoOFEeOWItHzPgezWw" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-r3SQ4OFEeOWItHzPgezWw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>

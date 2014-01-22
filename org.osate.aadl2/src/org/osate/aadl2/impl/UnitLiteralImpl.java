@@ -305,7 +305,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 			current = current.getBaseUnit();
 			if (current == target)
 				return factor;
-			if(current == current.getBaseUnit())
+			if (current == current.getBaseUnit())
 				break;
 		}
 		// did not find target. Let's go in opposite direction
@@ -318,8 +318,8 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 			current = current.getBaseUnit();
 			if (current == this)
 				return factor;
-			if(current == current.getBaseUnit())
-			    break;
+			if (current == current.getBaseUnit())
+				break;
 
 		}
 		return 1.0;

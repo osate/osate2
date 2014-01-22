@@ -1138,6 +1138,98 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EventSource} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventSourceItemProvider eventSourceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EventSource}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEventSourceAdapter() {
+		if (eventSourceItemProvider == null) {
+			eventSourceItemProvider = new EventSourceItemProvider(this);
+		}
+
+		return eventSourceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.EventDataSource} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventDataSourceItemProvider eventDataSourceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.EventDataSource}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEventDataSourceAdapter() {
+		if (eventDataSourceItemProvider == null) {
+			eventDataSourceItemProvider = new EventDataSourceItemProvider(this);
+		}
+
+		return eventDataSourceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.PortProxy} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PortProxyItemProvider portProxyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.PortProxy}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPortProxyAdapter() {
+		if (portProxyItemProvider == null) {
+			portProxyItemProvider = new PortProxyItemProvider(this);
+		}
+
+		return portProxyItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.SubprogramProxy} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramProxyItemProvider subprogramProxyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.SubprogramProxy}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSubprogramProxyAdapter() {
+		if (subprogramProxyItemProvider == null) {
+			subprogramProxyItemProvider = new SubprogramProxyItemProvider(this);
+		}
+
+		return subprogramProxyItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.DefaultAnnexLibrary} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3764,6 +3856,14 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featureConnectionItemProvider.dispose();
 		if (featureGroupConnectionItemProvider != null)
 			featureGroupConnectionItemProvider.dispose();
+		if (eventSourceItemProvider != null)
+			eventSourceItemProvider.dispose();
+		if (eventDataSourceItemProvider != null)
+			eventDataSourceItemProvider.dispose();
+		if (portProxyItemProvider != null)
+			portProxyItemProvider.dispose();
+		if (subprogramProxyItemProvider != null)
+			subprogramProxyItemProvider.dispose();
 		if (connectedElementItemProvider != null)
 			connectedElementItemProvider.dispose();
 		if (defaultAnnexLibraryItemProvider != null)
