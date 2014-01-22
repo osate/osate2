@@ -97,7 +97,9 @@ import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventPort;
+import org.osate.aadl2.EventSource;
 import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
@@ -139,6 +141,7 @@ import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessImplementation;
@@ -174,6 +177,7 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemImplementation;
@@ -336,6 +340,14 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFeatureConnection();
 		case Aadl2Package.FEATURE_GROUP_CONNECTION:
 			return (EObject) createFeatureGroupConnection();
+		case Aadl2Package.EVENT_SOURCE:
+			return (EObject) createEventSource();
+		case Aadl2Package.EVENT_DATA_SOURCE:
+			return (EObject) createEventDataSource();
+		case Aadl2Package.PORT_PROXY:
+			return (EObject) createPortProxy();
+		case Aadl2Package.SUBPROGRAM_PROXY:
+			return (EObject) createSubprogramProxy();
 		case Aadl2Package.CONNECTED_ELEMENT:
 			return (EObject) createConnectedElement();
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
@@ -1073,6 +1085,46 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public FeatureGroupConnection createFeatureGroupConnection() {
 		FeatureGroupConnectionImpl featureGroupConnection = new FeatureGroupConnectionImpl();
 		return featureGroupConnection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventSource createEventSource() {
+		EventSourceImpl eventSource = new EventSourceImpl();
+		return eventSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventDataSource createEventDataSource() {
+		EventDataSourceImpl eventDataSource = new EventDataSourceImpl();
+		return eventDataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortProxy createPortProxy() {
+		PortProxyImpl portProxy = new PortProxyImpl();
+		return portProxy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramProxy createSubprogramProxy() {
+		SubprogramProxyImpl subprogramProxy = new SubprogramProxyImpl();
+		return subprogramProxy;
 	}
 
 	public AnnexSubclause createAnnexSubclause() {

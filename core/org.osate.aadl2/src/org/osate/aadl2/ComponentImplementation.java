@@ -61,6 +61,12 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.ComponentImplementation#isNoSubcomponents <em>No Subcomponents</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#isNoConnections <em>No Connections</em>}</li>
  *   <li>{@link org.osate.aadl2.ComponentImplementation#isNoCalls <em>No Calls</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedProcessorFeatures <em>Owned Processor Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedInternalFeatures <em>Owned Internal Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedEventSources <em>Owned Event Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedEventDataSources <em>Owned Event Data Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedPortProxies <em>Owned Port Proxy</em>}</li>
+ *   <li>{@link org.osate.aadl2.ComponentImplementation#getOwnedSubprogramProxies <em>Owned Subprogram Proxy</em>}</li>
  * </ul>
  * </p>
  *
@@ -155,6 +161,182 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * @generated
 	 */
 	void setNoCalls(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Owned Processor Feature</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.ProcessorFeature}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * This feature is a derived union.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Processor Feature</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Processor Feature</em>' reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedProcessorFeature()
+	 * @model changeable="false" volatile="true" derived="true" ordered="false"
+	 * @generated
+	 */
+	EList<ProcessorFeature> getOwnedProcessorFeatures();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Internal Feature</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.InternalFeature}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.Namespace#getOwnedMembers() <em>Owned Member</em>}'</li>
+	 *   <li>'{@link org.osate.aadl2.Classifier#getClassifierFeatures() <em>Classifier Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * This feature is a derived union.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Internal Feature</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Internal Feature</em>' reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedInternalFeature()
+	 * @model changeable="false" volatile="true" derived="true" ordered="false"
+	 * @generated
+	 */
+	EList<InternalFeature> getOwnedInternalFeatures();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Event Source</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.EventSource}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedInternalFeatures() <em>Owned Internal Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Event Source</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Event Source</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedEventSource()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<EventSource> getOwnedEventSources();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.EventSource} and appends it to the '<em><b>Owned Event Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.EventSource}.
+	 * @see #getOwnedEventSources()
+	 * @generated
+	 */
+	EventSource createOwnedEventSource();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Event Data Source</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.EventDataSource}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedInternalFeatures() <em>Owned Internal Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Event Data Source</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Event Data Source</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedEventDataSource()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<EventDataSource> getOwnedEventDataSources();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.EventDataSource} and appends it to the '<em><b>Owned Event Data Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.EventDataSource}.
+	 * @see #getOwnedEventDataSources()
+	 * @generated
+	 */
+	EventDataSource createOwnedEventDataSource();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Port Proxy</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.PortProxy}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedProcessorFeatures() <em>Owned Processor Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Port Proxy</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Port Proxy</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedPortProxy()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<PortProxy> getOwnedPortProxies();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.PortProxy} and appends it to the '<em><b>Owned Port Proxy</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.PortProxy}.
+	 * @see #getOwnedPortProxies()
+	 * @generated
+	 */
+	PortProxy createOwnedPortProxy();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Subprogram Proxy</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.SubprogramProxy}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedProcessorFeatures() <em>Owned Processor Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Subprogram Proxy</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Subprogram Proxy</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedSubprogramProxy()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<SubprogramProxy> getOwnedSubprogramProxies();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.SubprogramProxy} and appends it to the '<em><b>Owned Subprogram Proxy</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.SubprogramProxy}.
+	 * @see #getOwnedSubprogramProxies()
+	 * @generated
+	 */
+	SubprogramProxy createOwnedSubprogramProxy();
 
 	/**
 	 * Returns the value of the '<em><b>No Connections</b></em>' attribute. <!--

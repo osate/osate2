@@ -38,6 +38,263 @@ package org.osate.aadl2.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlBoolean;
+import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AadlReal;
+import org.osate.aadl2.AadlString;
+import org.osate.aadl2.Abstract;
+import org.osate.aadl2.AbstractClassifier;
+import org.osate.aadl2.AbstractConnectionEnd;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractNamedValue;
+import org.osate.aadl2.AbstractPrototype;
+import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.AbstractSubcomponentType;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessConnectionEnd;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArraySize;
+import org.osate.aadl2.ArraySizeProperty;
+import org.osate.aadl2.ArrayableElement;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BehavioralFeature;
+import org.osate.aadl2.BehavioredImplementation;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.Bus;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusClassifier;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusPrototype;
+import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.BusSubcomponentType;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.CallContext;
+import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ClassifierType;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.Comment;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.Data;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataSubcomponentType;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Device;
+import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DevicePrototype;
+import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DeviceSubcomponentType;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectedRelationship;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EndToEndFlowSegment;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventDataSource;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.EventSource;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureClassifier;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureConnectionEnd;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupConnectionEnd;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureGroupTypeRename;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeActual;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.Flow;
+import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.FlowFeature;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSegment;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Generalization;
+import org.osate.aadl2.GlobalNamespace;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ListType;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.Memory;
+import org.osate.aadl2.MemoryClassifier;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemoryPrototype;
+import org.osate.aadl2.MemorySubcomponent;
+import org.osate.aadl2.MemorySubcomponentType;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.MetaclassReference;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeBinding;
+import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.NonListType;
+import org.osate.aadl2.NumberType;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.NumericRange;
+import org.osate.aadl2.Operation;
+import org.osate.aadl2.PackageRename;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.ParameterConnectionEnd;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortConnectionEnd;
+import org.osate.aadl2.PortProxy;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessClassifier;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessPrototype;
+import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessSubcomponentType;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.Processor;
+import org.osate.aadl2.ProcessorClassifier;
+import org.osate.aadl2.ProcessorFeature;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorPrototype;
+import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.ProcessorSubcomponentType;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyOwner;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.RecordField;
+import org.osate.aadl2.RecordType;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceType;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.Relationship;
+import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.StructuralFeature;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.Subprogram;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.SubprogramGroup;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupClassifier;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupPrototype;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupSubcomponentType;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramProxy;
+import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramSubcomponentType;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemClassifier;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemPrototype;
+import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.SystemSubcomponentType;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadClassifier;
+import org.osate.aadl2.ThreadGroupClassifier;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupPrototype;
+import org.osate.aadl2.ThreadGroupSubcomponent;
+import org.osate.aadl2.ThreadGroupSubcomponentType;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadPrototype;
+import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.ThreadSubcomponentType;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.Type;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.TypedElement;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBus;
+import org.osate.aadl2.VirtualBusClassifier;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusPrototype;
+import org.osate.aadl2.VirtualBusSubcomponent;
+import org.osate.aadl2.VirtualBusSubcomponentType;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessor;
+import org.osate.aadl2.VirtualProcessorClassifier;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorPrototype;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.VirtualProcessorSubcomponentType;
+import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.*;
 
 /**
@@ -1862,6 +2119,146 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseNamedElement(featureGroupConnection);
 			if (result == null)
 				result = caseElement(featureGroupConnection);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PROCESSOR_FEATURE: {
+			ProcessorFeature processorFeature = (ProcessorFeature) theEObject;
+			T result = caseProcessorFeature(processorFeature);
+			if (result == null)
+				result = caseStructuralFeature(processorFeature);
+			if (result == null)
+				result = caseRefinableElement(processorFeature);
+			if (result == null)
+				result = caseClassifierFeature(processorFeature);
+			if (result == null)
+				result = caseNamedElement(processorFeature);
+			if (result == null)
+				result = caseElement(processorFeature);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.INTERNAL_FEATURE: {
+			InternalFeature internalFeature = (InternalFeature) theEObject;
+			T result = caseInternalFeature(internalFeature);
+			if (result == null)
+				result = caseStructuralFeature(internalFeature);
+			if (result == null)
+				result = casePortConnectionEnd(internalFeature);
+			if (result == null)
+				result = caseModeTransitionTrigger(internalFeature);
+			if (result == null)
+				result = caseRefinableElement(internalFeature);
+			if (result == null)
+				result = caseClassifierFeature(internalFeature);
+			if (result == null)
+				result = caseConnectionEnd(internalFeature);
+			if (result == null)
+				result = caseNamedElement(internalFeature);
+			if (result == null)
+				result = caseElement(internalFeature);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.EVENT_SOURCE: {
+			EventSource eventSource = (EventSource) theEObject;
+			T result = caseEventSource(eventSource);
+			if (result == null)
+				result = caseInternalFeature(eventSource);
+			if (result == null)
+				result = caseStructuralFeature(eventSource);
+			if (result == null)
+				result = casePortConnectionEnd(eventSource);
+			if (result == null)
+				result = caseModeTransitionTrigger(eventSource);
+			if (result == null)
+				result = caseRefinableElement(eventSource);
+			if (result == null)
+				result = caseClassifierFeature(eventSource);
+			if (result == null)
+				result = caseConnectionEnd(eventSource);
+			if (result == null)
+				result = caseNamedElement(eventSource);
+			if (result == null)
+				result = caseElement(eventSource);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.EVENT_DATA_SOURCE: {
+			EventDataSource eventDataSource = (EventDataSource) theEObject;
+			T result = caseEventDataSource(eventDataSource);
+			if (result == null)
+				result = caseInternalFeature(eventDataSource);
+			if (result == null)
+				result = caseStructuralFeature(eventDataSource);
+			if (result == null)
+				result = casePortConnectionEnd(eventDataSource);
+			if (result == null)
+				result = caseModeTransitionTrigger(eventDataSource);
+			if (result == null)
+				result = caseRefinableElement(eventDataSource);
+			if (result == null)
+				result = caseClassifierFeature(eventDataSource);
+			if (result == null)
+				result = caseConnectionEnd(eventDataSource);
+			if (result == null)
+				result = caseNamedElement(eventDataSource);
+			if (result == null)
+				result = caseElement(eventDataSource);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.PORT_PROXY: {
+			PortProxy portProxy = (PortProxy) theEObject;
+			T result = casePortProxy(portProxy);
+			if (result == null)
+				result = caseProcessorFeature(portProxy);
+			if (result == null)
+				result = casePortConnectionEnd(portProxy);
+			if (result == null)
+				result = caseModeTransitionTrigger(portProxy);
+			if (result == null)
+				result = caseStructuralFeature(portProxy);
+			if (result == null)
+				result = caseConnectionEnd(portProxy);
+			if (result == null)
+				result = caseRefinableElement(portProxy);
+			if (result == null)
+				result = caseClassifierFeature(portProxy);
+			if (result == null)
+				result = caseNamedElement(portProxy);
+			if (result == null)
+				result = caseElement(portProxy);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM_PROXY: {
+			SubprogramProxy subprogramProxy = (SubprogramProxy) theEObject;
+			T result = caseSubprogramProxy(subprogramProxy);
+			if (result == null)
+				result = caseProcessorFeature(subprogramProxy);
+			if (result == null)
+				result = caseAccessConnectionEnd(subprogramProxy);
+			if (result == null)
+				result = caseCalledSubprogram(subprogramProxy);
+			if (result == null)
+				result = caseStructuralFeature(subprogramProxy);
+			if (result == null)
+				result = caseConnectionEnd(subprogramProxy);
+			if (result == null)
+				result = caseRefinableElement(subprogramProxy);
+			if (result == null)
+				result = caseClassifierFeature(subprogramProxy);
+			if (result == null)
+				result = caseNamedElement(subprogramProxy);
+			if (result == null)
+				result = caseElement(subprogramProxy);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -7015,6 +7412,96 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFeatureGroupConnection(FeatureGroupConnection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Processor Feature</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Processor Feature</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProcessorFeature(ProcessorFeature object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Internal Feature</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Internal Feature</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInternalFeature(InternalFeature object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Source</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Source</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventSource(EventSource object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Data Source</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Data Source</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventDataSource(EventDataSource object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Port Proxy</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Port Proxy</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePortProxy(PortProxy object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Subprogram Proxy</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Subprogram Proxy</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubprogramProxy(SubprogramProxy object) {
 		return null;
 	}
 

@@ -787,6 +787,34 @@
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="noCalls" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorFeature"
+        ordered="false" upperBound="-1" eType="#//ProcessorFeature" changeable="false"
+        volatile="true" derived="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember #//Classifier/classifierFeature"/>
+      <eAnnotations source="union"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedInternalFeature" ordered="false"
+        upperBound="-1" eType="#//InternalFeature" changeable="false" volatile="true"
+        derived="true">
+      <eAnnotations source="subsets" references="#//Namespace/ownedMember #//Classifier/classifierFeature"/>
+      <eAnnotations source="union"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventSource" ordered="false"
+        upperBound="-1" eType="#//EventSource" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedInternalFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataSource" ordered="false"
+        upperBound="-1" eType="#//EventDataSource" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedInternalFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPortProxy" ordered="false"
+        upperBound="-1" eType="#//PortProxy" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedProcessorFeature"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramProxy" ordered="false"
+        upperBound="-1" eType="#//SubprogramProxy" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedProcessorFeature"/>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentClassifier" abstract="true"
       eSuperTypes="#//Classifier #//SubcomponentType #//FeatureClassifier">
@@ -1235,6 +1263,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="PortConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureConnection" eSuperTypes="#//Connection"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupConnection" eSuperTypes="#//Connection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessorFeature" abstract="true" eSuperTypes="#//StructuralFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalFeature" abstract="true" eSuperTypes="#//StructuralFeature #//PortConnectionEnd #//ModeTransitionTrigger"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EventSource" eSuperTypes="#//InternalFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EventDataSource" eSuperTypes="#//InternalFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PortProxy" eSuperTypes="#//ProcessorFeature #//PortConnectionEnd #//ModeTransitionTrigger"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramProxy" eSuperTypes="#//ProcessorFeature #//AccessConnectionEnd #//CalledSubprogram"/>
   <eClassifiers xsi:type="ecore:EEnum" name="ComponentCategory">
     <eLiterals name="abstract"/>
     <eLiterals name="bus" value="1"/>

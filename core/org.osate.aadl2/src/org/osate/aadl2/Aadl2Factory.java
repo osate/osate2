@@ -459,6 +459,42 @@ public interface Aadl2Factory extends EFactory {
 	FeatureGroupConnection createFeatureGroupConnection();
 
 	/**
+	 * Returns a new object of class '<em>Event Source</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Source</em>'.
+	 * @generated
+	 */
+	EventSource createEventSource();
+
+	/**
+	 * Returns a new object of class '<em>Event Data Source</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Data Source</em>'.
+	 * @generated
+	 */
+	EventDataSource createEventDataSource();
+
+	/**
+	 * Returns a new object of class '<em>Port Proxy</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Port Proxy</em>'.
+	 * @generated
+	 */
+	PortProxy createPortProxy();
+
+	/**
+	 * Returns a new object of class '<em>Subprogram Proxy</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Subprogram Proxy</em>'.
+	 * @generated
+	 */
+	SubprogramProxy createSubprogramProxy();
+
+	/**
 	 * Returns a new object of class '<em>Default Annex Library</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
