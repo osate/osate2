@@ -48,6 +48,20 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Dialog;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.AbstractConnectionEnd;
@@ -95,8 +109,136 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
+class ComponentSelectionDialog extends Dialog {
+	  private String 			message;
+	  private List<String> 		selectedComponents;
+	  private List<String> 		componentsList;
+
+
+	  public ComponentSelectionDialog(Shell parent, List<String> components) {
+	    this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+	    this.componentsList = components;
+	    
+	  }
+
+
+	  public ComponentSelectionDialog(Shell parent, int style) {
+	    super(parent, style);
+	    setText("Select the components");
+	    setMessage("Please select the components under investigation:");
+	    this.selectedComponents = new ArrayList<String>();
+	  }
+
+
+	  public String getMessage() 
+	  {
+	    return message;
+	  }
+
+
+	  public void setMessage(String message) {
+	    this.message = message;
+	  }
+
+
+	/**
+	 * Open the dialog box, display the content and wait for the result from the user
+	 * @return The list of modules names selected by the user.
+	 */
+	  public List<String> open()
+	  {
+	    Shell shell = new Shell(getParent(), getStyle());
+	    shell.setText(getText());
+	    createContents(shell);
+	    shell.pack();
+	    shell.open();
+	    Display display = getParent().getDisplay();
+	    while (!shell.isDisposed()) 
+	    {
+	      if (!display.readAndDispatch()) 
+	      {
+	        display.sleep();
+	      }
+	    }
+	    return this.selectedComponents;
+	  }
+
+/**
+* Create all the widgets necessary to create the dialog
+* @param shell
+*/
+	  private void createContents(final Shell shell) {
+	    shell.setLayout(new GridLayout(2, true));
+
+	    // Show the message
+	    Label label = new Label(shell, SWT.NONE);
+	    label.setText(message);
+	    GridData data = new GridData();
+	    data.horizontalSpan = 2;
+	    label.setLayoutData(data);
+
+  
+	    final Table table = new Table(shell, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+	    /**
+	     * Add the data to the table. For each
+	     * item to be displayed, we create an item with
+	     * a text field and a checkbox.
+	     */
+	    for (String moduleName : componentsList)
+	    {
+		    TableItem ti = new TableItem(table, SWT.NONE);
+		    ti.setText(moduleName);
+	    }
+	    data = new GridData(GridData.FILL_HORIZONTAL);
+	    data.horizontalSpan = 2;
+	    table.setLayoutData(data);
+
+	/**
+	 * The OK button that register the selected
+	 * items.
+	 */
+	    Button ok = new Button(shell, SWT.PUSH);
+	    ok.setText("OK");
+	    data = new GridData(GridData.FILL_HORIZONTAL);
+	    ok.setLayoutData(data);
+	    ok.addSelectionListener(new SelectionAdapter() {
+	      public void widgetSelected(SelectionEvent event) {
+	    	  for (TableItem ti : table.getItems())
+	    	  {
+	    		  if (ti.getChecked())
+	    		  {
+	    			  selectedComponents.add(ti.getText());
+	    		  }
+	    	  }
+	        shell.close();
+	      }
+	    });
+
+	    // Create the cancel button and add a handler
+	    // so that pressing it will set input to null
+	    Button cancel = new Button(shell, SWT.PUSH);
+	    cancel.setText("Cancel");
+	    data = new GridData(GridData.FILL_HORIZONTAL);
+	    cancel.setLayoutData(data);
+	    cancel.addSelectionListener(new SelectionAdapter() {
+	      public void widgetSelected(SelectionEvent event) {
+	        selectedComponents = null;
+	        shell.close();
+	      }
+	    });
+
+	    // Set the OK button as the default, so
+	    // user can type input and press Enter
+	    // to dismiss
+	    shell.setDefaultButton(ok);
+	  }
+	}
+
+
 public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 	AnalysisModel model;
+
+	 List<String> selectedComponents;
 	
 	protected String getMarkerType() {
 		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
@@ -126,7 +268,32 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 		report.addOutput ("\n");
 	}
 
+	private boolean isAnalyzed (String s)
+	{
+		boolean ret;
+		
+		ret = false;
+		
+		for (String sc : selectedComponents)
+		{
+			if (s.equalsIgnoreCase(sc))
+			{
+				ret = true;
+			}
+		}
+		return ret;
+	}
+	
+	private boolean isAnalyzed (ComponentInstance ci)
+	{
+		return isAnalyzed (ci.getName());
+	}
+	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
+		final List<String> componentsList;
+
+		
+		
 		monitor.beginTask("Generating Cutset", IProgressMonitor.UNKNOWN);
 		List<PropagationPathEnd> sources;
 		List<PropagationPathEnd> destinations;
@@ -144,19 +311,51 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 
 	
 		model = new AnalysisModel(si);
+		componentsList = new ArrayList<String>();
+		
+		for (ComponentInstance tmpi : model.getSubcomponents())
+		{
+			componentsList.add(tmpi.getName());
+		}
+		
+		final Display d = PlatformUI.getWorkbench().getDisplay();
+		d.syncExec(new Runnable(){
+
+			public void run() {
+				IWorkbenchWindow window;
+				Shell sh;
+				ComponentSelectionDialog csd;
+				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+				sh = window.getShell();
+				csd = new ComponentSelectionDialog(sh, componentsList);
+				selectedComponents = csd.open();
+			}
+		});
+		
+//		for (String s : selectedComponents)
+//		{
+//			OsateDebug.osateDebug("SELECTED" + s);
+//		}
 		
 		EList<PropagationPathRecord> pathlist = model.getPropagationPaths();
+		
 		for (PropagationPathRecord ppr : pathlist)
 		{
-			sources.add(ppr.getPathSrc());
-			destinations.add(ppr.getPathDst());
+			if (isAnalyzed(ppr.getSrcCI()))
+			{
+//				OsateDebug.osateDebug("[SRC] ci=" + ppr.getSrcCI());
+				sources.add(ppr.getPathSrc());
+			}
+			if (isAnalyzed(ppr.getDstCI()))
+			{
+				destinations.add(ppr.getPathDst());
+			}
 		}
 		
 		reportHeading(report, destinations);
 		
 		for (PropagationPathEnd src : sources)
 		{
-			OsateDebug.osateDebug("[SRC] ci=" + src.getComponentInstance() + ";ep=" + src.getErrorPropagation().getKind());
 			
 			for (TypeToken tt : src.getErrorPropagation().getTypeSet().getTypeTokens())
 			{
@@ -181,7 +380,7 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 						report.addOutput("," );
 						if (model.impact(src, dst))
 						{
-							report.addOutput("XX");
+							report.addOutput(EMV2Util.getPrintName (dst.getErrorPropagation().getTypeSet()).replace("{", "").replace("}",""));
 						}
 						
 					}
