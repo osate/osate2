@@ -85,6 +85,7 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements IEd
 
 			addClassifierFeaturePropertyDescriptor(object);
 			addInheritedMemberPropertyDescriptor(object);
+			addGeneralizationPropertyDescriptor(object);
 			addGeneralPropertyDescriptor(object);
 			addNoPrototypesPropertyDescriptor(object);
 			addNoAnnexesPropertyDescriptor(object);
@@ -122,6 +123,22 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements IEd
 				getString("_UI_Classifier_inheritedMember_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_inheritedMember_feature",
 						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_InheritedMember(), false, false,
+				false, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Generalization feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGeneralizationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_Classifier_generalization_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Classifier_generalization_feature",
+						"_UI_Classifier_type"), Aadl2Package.eINSTANCE.getClassifier_Generalization(), false, false,
 				false, null, null, null));
 	}
 
@@ -202,7 +219,6 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements IEd
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifier_Generalization());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifier_OwnedAnnexSubclause());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototypeBinding());
@@ -253,7 +269,6 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements IEd
 		case Aadl2Package.CLASSIFIER__NO_PROPERTIES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case Aadl2Package.CLASSIFIER__GENERALIZATION:
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE:
 		case Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE_BINDING:

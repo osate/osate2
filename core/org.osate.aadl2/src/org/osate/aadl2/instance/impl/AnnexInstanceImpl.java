@@ -37,16 +37,11 @@ package org.osate.aadl2.instance.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.impl.NamedElementImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.InstancePackage;
 
@@ -63,8 +58,7 @@ import org.osate.aadl2.instance.InstancePackage;
  *
  * @generated
  */
-public abstract class AnnexInstanceImpl extends NamedElementImpl implements
-		AnnexInstance {
+public abstract class AnnexInstanceImpl extends NamedElementImpl implements AnnexInstance {
 	/**
 	 * The cached value of the '{@link #getAnnexSubclause() <em>Annex Subclause</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -106,8 +100,7 @@ public abstract class AnnexInstanceImpl extends NamedElementImpl implements
 			if (annexSubclause != oldAnnexSubclause) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE,
-							oldAnnexSubclause, annexSubclause));
+							InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE, oldAnnexSubclause, annexSubclause));
 			}
 		}
 		return annexSubclause;
@@ -131,8 +124,7 @@ public abstract class AnnexInstanceImpl extends NamedElementImpl implements
 		AnnexSubclause oldAnnexSubclause = annexSubclause;
 		annexSubclause = newAnnexSubclause;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE,
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE,
 					oldAnnexSubclause, annexSubclause));
 	}
 
@@ -195,14 +187,5 @@ public abstract class AnnexInstanceImpl extends NamedElementImpl implements
 		}
 		return super.eIsSet(featureID);
 	}
-
-	/**
-	 * The cached environment for evaluating OCL expressions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 } //AnnexInstanceImpl

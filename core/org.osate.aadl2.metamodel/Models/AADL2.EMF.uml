@@ -97,7 +97,7 @@
       <ownedAttribute xmi:id="Subcomponent-inMode" name="inMode" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
-      <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="callSpecification" isDerived="true"/>
+      <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="subprogramCall" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModalPath" name="ModalPath">
       <ownedAttribute xmi:id="ModalPath-inMode" name="inMode" isDerived="true"/>

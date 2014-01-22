@@ -45,11 +45,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -59,7 +58,7 @@ import org.osate.aadl2.operations.ModalElementOperations;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl#getInModes <em>In Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl#getOwnedCallSpecifications <em>Owned Call Specification</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl#getOwnedSubprogramCalls <em>Owned Subprogram Call</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,14 +75,14 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 */
 	protected EList<Mode> inModes;
 	/**
-	 * The cached value of the '{@link #getOwnedCallSpecifications() <em>Owned Call Specification</em>}' containment reference list.
+	 * The cached value of the '{@link #getOwnedSubprogramCalls() <em>Owned Subprogram Call</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOwnedCallSpecifications()
+	 * @see #getOwnedSubprogramCalls()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<CallSpecification> ownedCallSpecifications;
+	protected EList<SubprogramCall> ownedSubprogramCalls;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -121,12 +120,12 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<CallSpecification> getOwnedCallSpecifications() {
-		if (ownedCallSpecifications == null) {
-			ownedCallSpecifications = new EObjectContainmentEList<CallSpecification>(CallSpecification.class, this,
-					Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION);
+	public EList<SubprogramCall> getOwnedSubprogramCalls() {
+		if (ownedSubprogramCalls == null) {
+			ownedSubprogramCalls = new EObjectContainmentEList<SubprogramCall>(SubprogramCall.class, this,
+					Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL);
 		}
-		return ownedCallSpecifications;
+		return ownedSubprogramCalls;
 	}
 
 	/**
@@ -134,10 +133,10 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CallSpecification createOwnedCallSpecification(EClass eClass) {
-		CallSpecification newOwnedCallSpecification = (CallSpecification) create(eClass);
-		getOwnedCallSpecifications().add(newOwnedCallSpecification);
-		return newOwnedCallSpecification;
+	public SubprogramCall createOwnedSubprogramCall() {
+		SubprogramCall newOwnedSubprogramCall = (SubprogramCall) create(Aadl2Package.eINSTANCE.getSubprogramCall());
+		getOwnedSubprogramCalls().add(newOwnedSubprogramCall);
+		return newOwnedSubprogramCall;
 	}
 
 	/**
@@ -146,7 +145,9 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * @generated
 	 */
 	public EList<Mode> getAllInModes() {
-		return ModalElementOperations.getAllInModes(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -157,8 +158,8 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
-			return ((InternalEList<?>) getOwnedCallSpecifications()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL:
+			return ((InternalEList<?>) getOwnedSubprogramCalls()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -173,8 +174,8 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
 			return getInModes();
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
-			return getOwnedCallSpecifications();
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL:
+			return getOwnedSubprogramCalls();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -192,9 +193,9 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends Mode>) newValue);
 			return;
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
-			getOwnedCallSpecifications().clear();
-			getOwnedCallSpecifications().addAll((Collection<? extends CallSpecification>) newValue);
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL:
+			getOwnedSubprogramCalls().clear();
+			getOwnedSubprogramCalls().addAll((Collection<? extends SubprogramCall>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -211,8 +212,8 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
 			getInModes().clear();
 			return;
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
-			getOwnedCallSpecifications().clear();
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL:
+			getOwnedSubprogramCalls().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -228,8 +229,8 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
-		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_CALL_SPECIFICATION:
-			return ownedCallSpecifications != null && !ownedCallSpecifications.isEmpty();
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE__OWNED_SUBPROGRAM_CALL:
+			return ownedSubprogramCalls != null && !ownedSubprogramCalls.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

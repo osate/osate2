@@ -61,9 +61,8 @@ import org.osate.aadl2.provider.NamedElementItemProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AnnexInstanceItemProvider extends NamedElementItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class AnnexInstanceItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -98,15 +97,12 @@ public class AnnexInstanceItemProvider extends NamedElementItemProvider
 	 */
 	protected void addAnnexSubclausePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_AnnexInstance_annexSubclause_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_AnnexInstance_annexSubclause_feature", "_UI_AnnexInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.ANNEX_INSTANCE__ANNEX_SUBCLAUSE,
-						true, false, true, null, null, null));
+						InstancePackage.Literals.ANNEX_INSTANCE__ANNEX_SUBCLAUSE, true, false, true, null, null, null));
 	}
 
 	/**

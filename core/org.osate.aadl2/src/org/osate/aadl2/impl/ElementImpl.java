@@ -39,16 +39,25 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
@@ -57,8 +66,8 @@ import org.osate.aadl2.Comment;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.operations.ElementOperations;
 import org.osate.aadl2.parsesupport.AObjectImpl;
+import org.osate.aadl2.util.Aadl2Validator;
 
 /**
  * <!-- begin-user-doc -->
@@ -162,13 +171,71 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	}
 
 	/**
+	 * The cached OCL expression body for the '{@link #not_own_self(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Not own self</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #not_own_self(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP = "not self.allOwnedElements()->includes(self)";
+	/**
+	 * The cached OCL invariant for the '{@link #not_own_self(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Not own self</em>}' invariant operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #not_own_self(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static Constraint NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean not_own_self(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return ElementOperations.not_own_self(this, diagnostics, context);
+		if (NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setContext(Aadl2Package.eINSTANCE.getElement());
+			try {
+				NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
+						.createInvariant(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		if (!EOCL_ENV.createQuery(NOT_OWN_SELF__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
+			if (diagnostics != null) {
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.ELEMENT__NOT_OWN_SELF, EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic",
+								new Object[] { "not_own_self", EObjectValidator.getObjectLabel(this, context) }),
+						new Object[] { this }));
+			}
+			return false;
+		}
+		return true;
 	}
+
+	/**
+	 * The cached OCL expression body for the '{@link #has_owner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has owner</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #has_owner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP = "self.mustBeOwned() implies owner->notEmpty()";
+	/**
+	 * The cached OCL invariant for the '{@link #has_owner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Has owner</em>}' invariant operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #has_owner(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+	 * @generated
+	 * @ordered
+	 */
+	protected static Constraint HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -176,7 +243,27 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	public boolean has_owner(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return ElementOperations.has_owner(this, diagnostics, context);
+		if (HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setContext(Aadl2Package.eINSTANCE.getElement());
+			try {
+				HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
+						.createInvariant(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		if (!EOCL_ENV.createQuery(HAS_OWNER__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(this)) {
+			if (diagnostics != null) {
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
+						Aadl2Validator.ELEMENT__HAS_OWNER, EcorePlugin.INSTANCE.getString(
+								"_UI_GenericInvariant_diagnostic",
+								new Object[] { "has_owner", EObjectValidator.getObjectLabel(this, context) }),
+						new Object[] { this }));
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -185,8 +272,29 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	public Element getOwner() {
-		return ElementOperations.getOwner(this);
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
+
+	/**
+	 * The cached OCL expression body for the '{@link #allOwnedElements() <em>All Owned Elements</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #allOwnedElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ALL_OWNED_ELEMENTS__EOCL_EXP = "ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))";
+	/**
+	 * The cached OCL query for the '{@link #allOwnedElements() <em>All Owned Elements</em>}' query operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #allOwnedElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected static OCLExpression<EClassifier> ALL_OWNED_ELEMENTS__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -194,8 +302,40 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	public EList<Element> allOwnedElements() {
-		return ElementOperations.allOwnedElements(this);
+		if (ALL_OWNED_ELEMENTS__EOCL_QRY == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
+					.getEAllOperations().get(3));
+			try {
+				ALL_OWNED_ELEMENTS__EOCL_QRY = helper.createQuery(ALL_OWNED_ELEMENTS__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		OCL.Query query = EOCL_ENV.createQuery(ALL_OWNED_ELEMENTS__EOCL_QRY);
+		@SuppressWarnings("unchecked")
+		Collection<Element> result = (Collection<Element>) query.evaluate(this);
+		return new BasicEList.UnmodifiableEList<Element>(result.size(), result.toArray());
 	}
+
+	/**
+	 * The cached OCL expression body for the '{@link #mustBeOwned() <em>Must Be Owned</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #mustBeOwned()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MUST_BE_OWNED__EOCL_EXP = "true";
+	/**
+	 * The cached OCL query for the '{@link #mustBeOwned() <em>Must Be Owned</em>}' query operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #mustBeOwned()
+	 * @generated
+	 * @ordered
+	 */
+	protected static OCLExpression<EClassifier> MUST_BE_OWNED__EOCL_QRY;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -203,7 +343,18 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	public boolean mustBeOwned() {
-		return ElementOperations.mustBeOwned(this);
+		if (MUST_BE_OWNED__EOCL_QRY == null) {
+			OCL.Helper helper = EOCL_ENV.createOCLHelper();
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getElement(), Aadl2Package.eINSTANCE.getElement()
+					.getEAllOperations().get(4));
+			try {
+				MUST_BE_OWNED__EOCL_QRY = helper.createQuery(MUST_BE_OWNED__EOCL_EXP);
+			} catch (ParserException pe) {
+				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+			}
+		}
+		OCL.Query query = EOCL_ENV.createQuery(MUST_BE_OWNED__EOCL_QRY);
+		return ((Boolean) query.evaluate(this)).booleanValue();
 	}
 
 	/**
@@ -283,6 +434,15 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		}
 		return super.eIsSet(featureID);
 	}
+
+	/**
+	 * The cached environment for evaluating OCL expressions.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 	/**
 	 * Creates a new instance of the specified Ecore class.

@@ -98,6 +98,7 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedDataSubcomponent());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedSubprogramSubcomponent());
 		}
 		return childrenFeatures;
@@ -152,6 +153,7 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(SubprogramImplementation.class)) {
+		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -169,6 +171,10 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedDataSubcomponent(),
+				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedSubprogramSubcomponent(),

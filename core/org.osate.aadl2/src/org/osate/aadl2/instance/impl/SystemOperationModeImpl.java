@@ -63,8 +63,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *
  * @generated
  */
-public class SystemOperationModeImpl extends ModeImpl implements
-		SystemOperationMode {
+public class SystemOperationModeImpl extends ModeImpl implements SystemOperationMode {
 	/**
 	 * The cached value of the '{@link #getCurrentModes() <em>Current Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -103,8 +102,7 @@ public class SystemOperationModeImpl extends ModeImpl implements
 	 */
 	public EList<ModeInstance> getCurrentModes() {
 		if (currentModes == null) {
-			currentModes = new EObjectResolvingEList<ModeInstance>(
-					ModeInstance.class, this,
+			currentModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
 					InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE);
 		}
 		return currentModes;
@@ -135,8 +133,7 @@ public class SystemOperationModeImpl extends ModeImpl implements
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:
 			getCurrentModes().clear();
-			getCurrentModes().addAll(
-					(Collection<? extends ModeInstance>) newValue);
+			getCurrentModes().addAll((Collection<? extends ModeInstance>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -172,15 +169,6 @@ public class SystemOperationModeImpl extends ModeImpl implements
 	}
 
 	/**
-	 * The cached environment for evaluating OCL expressions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected static final OCL EOCL_ENV = OCL.newInstance();
-
-	/**
 	 * returns initial mode as true if it is a SOM without modes ("no Modes" aka NORMAL_SOM_NME)
 	 * or if all of the modes are initial mode
 	 */
@@ -191,8 +179,7 @@ public class SystemOperationModeImpl extends ModeImpl implements
 			// Is the list empty?
 			if (!i.hasNext()) {
 				// The SOM has no modes. Check to make sure, it is the only SOM, i.e., "No Modes". Otherwise it is not initial
-				if (((SystemInstance) this.eContainer())
-						.getSystemOperationModes().size() != 1) {
+				if (((SystemInstance) this.eContainer()).getSystemOperationModes().size() != 1) {
 					value = Boolean.FALSE;
 				}
 			} else {

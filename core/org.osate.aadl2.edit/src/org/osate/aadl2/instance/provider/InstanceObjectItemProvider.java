@@ -61,9 +61,8 @@ import org.osate.aadl2.provider.NamedElementItemProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstanceObjectItemProvider extends NamedElementItemProvider
-		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class InstanceObjectItemProvider extends NamedElementItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -98,12 +97,10 @@ public class InstanceObjectItemProvider extends NamedElementItemProvider
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures
-					.add(InstancePackage.Literals.INSTANCE_OBJECT__ANNEX_INSTANCE);
+			childrenFeatures.add(InstancePackage.Literals.INSTANCE_OBJECT__ANNEX_INSTANCE);
 		}
 		return childrenFeatures;
 	}
@@ -147,8 +144,7 @@ public class InstanceObjectItemProvider extends NamedElementItemProvider
 
 		switch (notification.getFeatureID(InstanceObject.class)) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);

@@ -291,9 +291,8 @@ public enum FeatureCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final FeatureCategory[] VALUES_ARRAY = new FeatureCategory[] {
-			DATA_PORT, EVENT_PORT, EVENT_DATA_PORT, PARAMETER, BUS_ACCESS,
-			DATA_ACCESS, SUBPROGRAM_ACCESS, SUBPROGRAM_GROUP_ACCESS,
+	private static final FeatureCategory[] VALUES_ARRAY = new FeatureCategory[] { DATA_PORT, EVENT_PORT,
+			EVENT_DATA_PORT, PARAMETER, BUS_ACCESS, DATA_ACCESS, SUBPROGRAM_ACCESS, SUBPROGRAM_GROUP_ACCESS,
 			FEATURE_GROUP, ABSTRACT_FEATURE, };
 
 	/**
@@ -302,8 +301,7 @@ public enum FeatureCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<FeatureCategory> VALUES = Collections
-			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<FeatureCategory> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Feature Category</b></em>' literal with the specified literal value.

@@ -55,7 +55,6 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -73,8 +72,7 @@ import org.osate.aadl2.util.OsateDebug;
  *
  * @generated
  */
-public class ConnectionReferenceImpl extends InstanceObjectImpl implements
-		ConnectionReference {
+public class ConnectionReferenceImpl extends InstanceObjectImpl implements ConnectionReference {
 	/**
 	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -146,8 +144,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 			if (context != oldContext) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.CONNECTION_REFERENCE__CONTEXT,
-							oldContext, context));
+							InstancePackage.CONNECTION_REFERENCE__CONTEXT, oldContext, context));
 			}
 		}
 		return context;
@@ -171,9 +168,8 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 		ComponentInstance oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.CONNECTION_REFERENCE__CONTEXT, oldContext,
-					context));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__CONTEXT,
+					oldContext, context));
 	}
 
 	/**
@@ -188,8 +184,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 			if (connection != oldConnection) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.CONNECTION_REFERENCE__CONNECTION,
-							oldConnection, connection));
+							InstancePackage.CONNECTION_REFERENCE__CONNECTION, oldConnection, connection));
 			}
 		}
 		return connection;
@@ -213,8 +208,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 		Connection oldConnection = connection;
 		connection = newConnection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.CONNECTION_REFERENCE__CONNECTION,
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__CONNECTION,
 					oldConnection, connection));
 	}
 
@@ -230,8 +224,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.CONNECTION_REFERENCE__SOURCE,
-							oldSource, source));
+							InstancePackage.CONNECTION_REFERENCE__SOURCE, oldSource, source));
 			}
 		}
 		return source;
@@ -255,9 +248,8 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 		ConnectionInstanceEnd oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.CONNECTION_REFERENCE__SOURCE, oldSource,
-					source));
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__SOURCE,
+					oldSource, source));
 	}
 
 	/**
@@ -272,8 +264,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.CONNECTION_REFERENCE__DESTINATION,
-							oldDestination, destination));
+							InstancePackage.CONNECTION_REFERENCE__DESTINATION, oldDestination, destination));
 			}
 		}
 		return destination;
@@ -297,8 +288,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 		ConnectionInstanceEnd oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.CONNECTION_REFERENCE__DESTINATION,
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__DESTINATION,
 					oldDestination, destination));
 	}
 
@@ -428,10 +418,8 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements
 			//OsateDebug.osateDebug("[ConnectionReferenceImpl]   property owner=" + propOwner);
 
 			if (propOwner instanceof MetaclassReference) {
-				if ((((MetaclassReference) propOwner).getMetaclassNames()
-						.size() > 0)
-						&& ((MetaclassReference) propOwner).getMetaclassNames()
-								.get(0).equals("all")) {
+				if ((((MetaclassReference) propOwner).getMetaclassNames().size() > 0)
+						&& ((MetaclassReference) propOwner).getMetaclassNames().get(0).equals("all")) {
 					//		OsateDebug.osateDebug("[ConnectionReferenceImpl]   accept property");
 
 					return true;

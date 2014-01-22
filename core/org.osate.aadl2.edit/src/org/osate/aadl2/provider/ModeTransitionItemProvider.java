@@ -206,12 +206,6 @@ public class ModeTransitionItemProvider extends ModeFeatureItemProvider implemen
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger(),
 				Aadl2Factory.eINSTANCE.createTriggerPort()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger(),
-				Aadl2Factory.eINSTANCE.createProcessorPort()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getModeTransition_OwnedTrigger(),
-				Aadl2Factory.eINSTANCE.createInternalEvent()));
 	}
 
 }

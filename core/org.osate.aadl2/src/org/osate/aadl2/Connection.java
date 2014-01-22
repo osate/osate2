@@ -95,6 +95,16 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	AbstractConnectionEnd createDestination(EClass eClass);
 
 	/**
+	 * Creates a new {@link org.osate.aadl2.ConnectedElement} and sets the '<em><b>Destination</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ConnectedElement}.
+	 * @see #getDestination()
+	 * @generated
+	 */
+	AbstractConnectionEnd createDestination();
+
+	/**
 	 * Returns the value of the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -130,6 +140,16 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @generated
 	 */
 	AbstractConnectionEnd createSource(EClass eClass);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.ConnectedElement} and sets the '<em><b>Source</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ConnectedElement}.
+	 * @see #getSource()
+	 * @generated
+	 */
+	AbstractConnectionEnd createSource();
 
 	/**
 	 * Returns the value of the '<em><b>Bidirectional</b></em>' attribute.
