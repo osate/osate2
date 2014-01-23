@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -105,9 +106,7 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * @generated
 	 */
 	public EList<Mode> getAllInModes() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return ModalElementOperations.getAllInModes(this);
 	}
 
 	/**

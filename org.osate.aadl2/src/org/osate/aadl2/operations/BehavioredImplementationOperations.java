@@ -49,7 +49,7 @@ import org.osate.aadl2.SubprogramCallSequence;
  * <p>
  * The following operations are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.BehavioredImplementation#callSpecifications() <em>Call Specifications</em>}</li>
+ *   <li>{@link org.osate.aadl2.BehavioredImplementation#subprogramCalls() <em>Subprogram Calls</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,8 +75,7 @@ public class BehavioredImplementationOperations extends ComponentImplementationO
 	 * @generated NOT
 	 */
 	public static EList<SubprogramCall> subprogramCalls(BehavioredImplementation behavioredImplementation) {
-		EList<SubprogramCall> allCalls = new BasicInternalEList<SubprogramCall>(
-				SubprogramCall.class);
+		EList<SubprogramCall> allCalls = new BasicInternalEList<SubprogramCall>(SubprogramCall.class);
 		for (SubprogramCallSequence callSequence : behavioredImplementation.getOwnedSubprogramCallSequences())
 			allCalls.addAll(callSequence.getOwnedSubprogramCalls());
 		return allCalls;

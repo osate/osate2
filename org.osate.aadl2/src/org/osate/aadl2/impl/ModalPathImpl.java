@@ -46,6 +46,7 @@ import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.operations.ModalPathOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -111,9 +112,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 */
 	@Override
 	public EList<Mode> getInModes() {
-		// TODO: implement this method to return the 'In Mode' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return ModalPathOperations.getInModes(this);
 	}
 
 	/**
@@ -141,9 +140,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * @generated
 	 */
 	public EList<ModeTransition> getInModeTransitions() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return ModalPathOperations.getInModeTransitions(this);
 	}
 
 	/**
@@ -152,9 +149,7 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 * @generated
 	 */
 	public EList<ModeTransition> getAllInModeTransitions() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return ModalPathOperations.getAllInModeTransitions(this);
 	}
 
 	/**

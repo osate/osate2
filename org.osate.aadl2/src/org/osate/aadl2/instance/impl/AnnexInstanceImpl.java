@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.instance.AnnexInstance;

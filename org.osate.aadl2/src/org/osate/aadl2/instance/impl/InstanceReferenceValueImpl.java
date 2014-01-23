@@ -39,7 +39,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.impl.PropertyValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;

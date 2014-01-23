@@ -49,6 +49,7 @@ import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.operations.ModalElementOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -145,9 +146,7 @@ public class SubprogramCallSequenceImpl extends BehavioralFeatureImpl implements
 	 * @generated
 	 */
 	public EList<Mode> getAllInModes() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return ModalElementOperations.getAllInModes(this);
 	}
 
 	/**
