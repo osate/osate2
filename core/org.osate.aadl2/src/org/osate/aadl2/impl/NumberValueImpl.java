@@ -44,6 +44,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.operations.NumberValueOperations;
 import org.osate.aadl2.util.Aadl2Util;
 
 /**
@@ -134,9 +135,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * @generated
 	 */
 	public double getScaledValue(UnitLiteral target) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return NumberValueOperations.getScaledValue(this, target);
 	}
 
 	/**
@@ -145,9 +144,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	 * @generated
 	 */
 	public double getScaledValue() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return NumberValueOperations.getScaledValue(this);
 	}
 
 	/**

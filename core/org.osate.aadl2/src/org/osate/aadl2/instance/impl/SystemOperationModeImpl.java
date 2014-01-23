@@ -41,7 +41,6 @@ import java.util.Iterator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.impl.ModeImpl;
 import org.osate.aadl2.instance.ComponentInstance;

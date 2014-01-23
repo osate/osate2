@@ -50,7 +50,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
