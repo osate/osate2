@@ -300,6 +300,22 @@ public class DefaultStyleService implements StyleService {
 		return ColorConstant.BLUE;
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.StyleService#getInSelectedFlowColor()
+	 */
+	@Override
+	public IColorConstant getInSelectedFlowColor() {
+		return ColorConstant.GREEN;
+	}
+	
+	/* (non-Javadoc)
+	 * @see edu.uah.rsesc.aadl.age.diagrams.common.util.getInSelectedModeAndFlowColor()
+	 */
+	@Override
+	public IColorConstant getInSelectedModeAndFlowColor() {
+		return ColorConstant.CYAN;
+	};
+	
 	@Override
 	public void refreshStyles() {
 		// Remove all styles. Styles will be recreated as needed

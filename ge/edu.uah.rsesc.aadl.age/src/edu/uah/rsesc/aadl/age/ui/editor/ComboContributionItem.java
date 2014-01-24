@@ -9,6 +9,7 @@
 package edu.uah.rsesc.aadl.age.ui.editor;
 
 import org.eclipse.jface.action.ControlContribution;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionEvent;
@@ -26,8 +27,7 @@ public class ComboContributionItem extends ControlContribution {
 
 	@Override
 	protected Control createControl(final Composite parent) {
-		//System.out.println("CREATING CONTROL");
-		combo = new Combo(parent, 0);
+		combo = new Combo(parent, SWT.DROP_DOWN);
 		combo.addDisposeListener(new DisposeListener() {
 			@Override
 			public void widgetDisposed(DisposeEvent e) {
@@ -46,6 +46,7 @@ public class ComboContributionItem extends ControlContribution {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}			
 		});
+
 		return combo;
 	}
 

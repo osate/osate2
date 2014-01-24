@@ -85,6 +85,8 @@ public interface StyleService {
 	Style getInitialModeStyle();
 
 	IColorConstant getInSelectedModeColor();
+	IColorConstant getInSelectedFlowColor();
+	IColorConstant getInSelectedModeAndFlowColor();
 	
 	/**
 	 * Refresh styles used by all the diagrams. Removes all styles from the diagram and then finds any usage of styles and reset them.

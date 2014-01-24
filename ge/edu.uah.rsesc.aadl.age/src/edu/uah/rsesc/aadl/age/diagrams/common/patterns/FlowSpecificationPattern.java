@@ -43,6 +43,8 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.Subcomponent;
+
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.AadlFeatureService;
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
@@ -143,7 +145,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		
 		// Set color for the decorators
 		for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
-			highlightingHelper.highlight(fs, cd.getGraphicsAlgorithm());
+			highlightingHelper.highlight(fs, getSubcomponent(connection), cd.getGraphicsAlgorithm());
 		}
 		
 		// Create Label
@@ -163,7 +165,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		final Polyline polyline = gaService.createPlainPolyline(connection);
 		final Style style = styleUtil.getFlowSpecificationStyle();
 		polyline.setStyle(style);
-		highlightingHelper.highlight(fs, polyline);
+		highlightingHelper.highlight(fs, getSubcomponent(connection), polyline);
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -254,8 +256,23 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
 	
+	// Gets the first ComponentClassifier container for the shape
 	private ComponentClassifier getComponentClassifier(final Shape shape) {
 		return shapeService.getClosestBusinessObjectOfType(shape, ComponentClassifier.class);
+	}	
+	
+	private Subcomponent getSubcomponent(final Connection connection) {
+		if(connection.getStart() == null) {
+			return null;
+		}
+		
+		final AnchorContainer startContainer = connection.getStart().getParent();
+		if(!(startContainer instanceof Shape)) {
+			return null;
+		}
+		
+		
+		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, Subcomponent.class);
 	}
 	
 	// This pattern only handles the creation of flow paths. Flow sources and flow sinks are handled by features via context menus.

@@ -27,7 +27,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 
 public class ModeContributionItem extends ComboContributionItem {
-	private final String selectedModePropertyKey = "edu.uah.rsesc.aadl.age.ui.editor.selectedMode";
+	private static final String emptySelectionTxt = "<Modes>";
+	private static final String selectedModePropertyKey = "edu.uah.rsesc.aadl.age.ui.editor.selectedMode";
 	private final PropertyService propertyUtil;
 	private AgeDiagramEditor editor = null;	
 	
@@ -130,10 +131,10 @@ public class ModeContributionItem extends ComboContributionItem {
 			// Clear the combo box			
 			combo.removeAll();
 
-			String selectionTxt = "";
+			String selectionTxt = emptySelectionTxt;
 			final ComponentClassifier componentClassifier = getComponentClassifier();
 			if(componentClassifier != null) {
-				combo.add("");
+				combo.add(emptySelectionTxt);
 				
 				// Add both modes and mode transitions to the drop down
 				for(final Mode mode : componentClassifier.getAllModes()) {
@@ -159,20 +160,22 @@ public class ModeContributionItem extends ComboContributionItem {
 			
 			// Set the selection
 			combo.setText(selectionTxt);
-			onSelection(selectionTxt);
+
+			combo.pack(true);
 		}
 	}
 	
 	@Override
 	protected void onSelection(final String txt) {
 		final ComponentClassifier cc = getComponentClassifier();
+		final String transformedTxt = txt.equals(emptySelectionTxt) ? "" : txt;
 		if(cc != null) {	
-			if(!txt.equalsIgnoreCase(propertyUtil.getSelectedMode(editor.getDiagramTypeProvider().getDiagram()))) {
+			if(!transformedTxt.equalsIgnoreCase(propertyUtil.getSelectedMode(editor.getDiagramTypeProvider().getDiagram()))) {
 				// Set the selected mode property on the diagram
 				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
 					@Override
 					protected void doExecute() {
-						propertyUtil.setSelectedMode(editor.getDiagramTypeProvider().getDiagram(), txt);
+						propertyUtil.setSelectedMode(editor.getDiagramTypeProvider().getDiagram(), transformedTxt);
 					}				
 				});
 			

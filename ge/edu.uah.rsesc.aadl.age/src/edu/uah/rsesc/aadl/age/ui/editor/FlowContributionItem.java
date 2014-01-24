@@ -28,7 +28,8 @@ import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.services.PropertyService;
 
 public class FlowContributionItem extends ComboContributionItem {
-	private final String selectedFlowPropertyKey = "edu.uah.rsesc.aadl.age.ui.editor.selectedFlow";
+	private static final String emptySelectionTxt = "<Flows>";
+	private static final String selectedFlowPropertyKey = "edu.uah.rsesc.aadl.age.ui.editor.selectedFlow";
 	private final PropertyService propertyUtil;
 	private AgeDiagramEditor editor = null;	
 	
@@ -118,7 +119,7 @@ public class FlowContributionItem extends ComboContributionItem {
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
 		refresh(); // Populate the combo box
-		return control;
+		return control;		
 	}
 	
 	private void refresh() {
@@ -128,10 +129,10 @@ public class FlowContributionItem extends ComboContributionItem {
 			// Clear the combo box			
 			combo.removeAll();
 
-			String selectionTxt = "";
+			String selectionTxt = emptySelectionTxt; // TODO
 			final ComponentImplementation componentImplementation = getComponentImplementation();
 			if(componentImplementation != null) {
-				combo.add("");
+				combo.add(emptySelectionTxt);
 				
 				// Add Flow Implementations
 				for(final FlowImplementation flow : componentImplementation.getAllFlowImplementations()) {
@@ -159,23 +160,25 @@ public class FlowContributionItem extends ComboContributionItem {
 			
 			// Set the selection
 			combo.setText(selectionTxt);
-			onSelection(selectionTxt);
+
+			combo.pack(true);
 		}
 	}
 	
 	@Override
 	protected void onSelection(final String txt) {
 		final ComponentClassifier cc = getComponentImplementation();
-		if(cc != null) {	
-			if(!txt.equalsIgnoreCase(propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram()))) {
+		final String transformedTxt = txt.equals(emptySelectionTxt) ? "" : txt;
+		if(cc != null) {
+			if(!transformedTxt.equalsIgnoreCase(propertyUtil.getSelectedFlow(editor.getDiagramTypeProvider().getDiagram()))) {
 				// Set the selected flow property on the diagram
 				editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain()) {
 					@Override
 					protected void doExecute() {
-						propertyUtil.setSelectedFlow(editor.getDiagramTypeProvider().getDiagram(), txt);
+						propertyUtil.setSelectedFlow(editor.getDiagramTypeProvider().getDiagram(), transformedTxt);
 					}				
 				});
-			
+
 				// Update the diagram
 				final UpdateContext ctx = new UpdateContext(editor.getDiagramTypeProvider().getDiagram());
 				final IUpdateFeature feature = editor.getDiagramTypeProvider().getFeatureProvider().getUpdateFeature(ctx);

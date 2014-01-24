@@ -9,29 +9,34 @@
 package edu.uah.rsesc.aadl.age.ui.editor;
 
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
 
+import edu.uah.rsesc.aadl.age.services.PropertyService;
 import edu.uah.rsesc.aadl.age.services.impl.DefaultPropertyService;
 
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;
-	//final FlowContributionItem selectedFlowItem = new FlowContributionItem("edu.uah.rsesc.aadl.age.ui.editor.items.selected_flow");
+	final FlowContributionItem selectedFlowItem;
 	
 	public AgeDiagramEditorActionBarContributor() {
-		selectedModeItem = new ModeContributionItem("edu.uah.rsesc.aadl.age.ui.editor.items.selected_mode", new DefaultPropertyService());
+		final PropertyService propService = new DefaultPropertyService();
+		selectedModeItem = new ModeContributionItem("edu.uah.rsesc.aadl.age.ui.editor.items.selected_mode", propService);
+		selectedFlowItem = new FlowContributionItem("edu.uah.rsesc.aadl.age.ui.editor.items.selected_flow", propService);
 	}
 	
 	@Override
 	public void contributeToToolBar(final IToolBarManager tbm) {
 		super.contributeToToolBar(tbm);
 		tbm.add(selectedModeItem);
-	//	tbm.add(selectedFlowItem);
+		tbm.add(new Separator());
+		tbm.add(selectedFlowItem);
 	}
 	
 	@Override
 	public final void setActiveEditor(final IEditorPart editor) {
 		super.setActiveEditor(editor);
 		selectedModeItem.setActiveEditor(editor);
-	//	selectedFlowItem.setActiveEditor(editor);
+		selectedFlowItem.setActiveEditor(editor);
 	}
 }

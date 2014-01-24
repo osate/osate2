@@ -220,7 +220,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(aadlConnection));
 	    
 	    // Set color based on current mode/mode transition
-	    highlightingHelper.highlight(aadlConnection, connection.getGraphicsAlgorithm());
+	    highlightingHelper.highlight(aadlConnection, null, connection.getGraphicsAlgorithm());
 	}
 
 	@Override

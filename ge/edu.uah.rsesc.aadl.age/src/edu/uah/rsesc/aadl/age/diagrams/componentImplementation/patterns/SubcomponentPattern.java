@@ -307,7 +307,7 @@ public class SubcomponentPattern extends AgePattern {
 		gaService.setLocationAndSize(subcomponentTypeText, 0, labelText.getY()+textSize.getHeight(), ga.getWidth(), 20);
 		
 		// Set color based on current mode
-		highlightingHelper.highlight(sc, ga);		
+		highlightingHelper.highlight(sc, null, ga);		
 	
 		layoutService.layoutChildren(shape);
 		anchorUtil.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
