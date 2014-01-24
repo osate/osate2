@@ -46,7 +46,7 @@ public class DrillDownFeature extends AbstractCustomFeature {
 
 	@Override
     public String getName() {
-        return "Open associated diagram";
+        return "Open Associated Diagram";
     }
  
     @Override
