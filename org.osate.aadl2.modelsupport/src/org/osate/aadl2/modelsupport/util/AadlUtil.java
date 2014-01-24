@@ -109,7 +109,6 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.InternalEvent;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
@@ -121,9 +120,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessorPort;
 import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubprogram;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
@@ -1883,10 +1880,6 @@ public final class AadlUtil {
 			} else {
 				return cend.getName();
 			}
-		} else if (end instanceof ProcessorPort || end instanceof ProcessorSubprogram) {
-			return "processor." + ((NamedElement) end).getName();
-		} else if (end instanceof InternalEvent) {
-			return "self." + ((NamedElement) end).getName();
 		}
 		return "<?>";
 	}
@@ -1931,10 +1924,6 @@ public final class AadlUtil {
 			} else {
 				return cend.getName();
 			}
-		} else if (end instanceof ProcessorPort) {
-			return "processor." + ((NamedElement) end).getName();
-		} else if (end instanceof InternalEvent) {
-			return "self." + ((NamedElement) end).getName();
 		}
 		return "<?>";
 	}
