@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
@@ -60,10 +61,17 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSegment;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Port;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
@@ -741,30 +749,93 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		public Object modify(final Resource resource, final Feature feature) {
  			// Resolving allows the name change to propagate when editing without an Xtext document
  			EcoreUtil.resolveAll(resource.getResourceSet());
- 					
+			
  			diagramMod = diagramModService.startModification();
  			diagramMod.markLinkagesAsDirty(feature);
-			feature.setName(newName);
+			feature.setName(newName); // TODO:Reneable
 			
-			// Check for cross references and update them
-			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(feature, resource.getResourceSet())) {
-				final EStructuralFeature sf = s.getEStructuralFeature();
-				if(!sf.isDerived() && sf.isChangeable()) {
-					final EObject obj = s.getEObject();
-					if(obj instanceof ConnectedElement) {
+			updateReferences(feature, resource.getResourceSet());
+			
+			return null;
+		}
+ 		
+ 		/**
+ 		 * Recursive method that updates references to the feature. It recursively updates refinees.
+ 		 * @param feature
+ 		 * @param resourceSet
+ 		 */
+ 	    private void updateReferences(final Feature feature, final ResourceSet resourceSet) {
+ 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(feature, resourceSet)) {
+ 				final EStructuralFeature sf = s.getEStructuralFeature();
+ 				if(!sf.isDerived() && sf.isChangeable()) {
+ 					final EObject obj = s.getEObject();
+ 		 			// Mark linkages to refinements as dirty
+ 					if(obj instanceof Feature && ((Feature)obj).getRefined() == feature) {
+ 						final Feature refinee = (Feature)obj;
+ 						
+ 						diagramMod.markLinkagesAsDirty(refinee);
+ 						
+ 						// Set the refined element to null and then set it again to trigger the change 
+ 						refinee.setRefined(null);
+ 						refinee.setRefined(feature);
+ 						
+ 						updateReferences(refinee, resourceSet);
+ 					} else if(obj instanceof ConnectedElement) {
 						final ConnectedElement connectedElement = (ConnectedElement)obj;
 						if(connectedElement.getConnectionEnd() == feature) {
 							// Reset the connection end. This will trigger and update by xtext
 							connectedElement.setConnectionEnd(null);
 							connectedElement.setConnectionEnd(feature);							
 						} 
+					} else if(obj instanceof TriggerPort) {
+						final TriggerPort tp = (TriggerPort)obj;
+						if(tp.getPort() == feature) {
+							// Reset the port. This will trigger and update by xtext
+							tp.setPort(null);
+							tp.setPort((Port)feature);							
+						} 
+					} else if(obj instanceof FlowEnd) {
+						final FlowEnd fe = (FlowEnd)obj;
+						if(fe.getFeature() == feature) {
+							// Reset the feature. This will trigger and update by xtext
+							fe.setFeature(null);
+							fe.setFeature(feature);
+						}
+						
+						// Flow Implementations do not have a reference to the feature but rather to the flow specification. Trigger an update.
+						if(fe.getOwner() instanceof FlowSpecification) {
+							final FlowSpecification flowSpec = (FlowSpecification)fe.getOwner();
+							updateFlowImplementationReferencesToFlowSpecification(flowSpec, resourceSet);
+						}
+					} else if(obj instanceof FlowSegment && obj instanceof FlowElement) {
+						final FlowSegment fs = (FlowSegment)obj;
+						if(fs.getFlowElement() == feature) {
+							// Reset the flow element. This will trigger and update by xtext
+							fs.setFlowElement(null);
+							fs.setFlowElement((FlowElement)feature);							
+						}
+					}
+ 				}
+ 			}
+ 	    }
+ 				
+ 		private void updateFlowImplementationReferencesToFlowSpecification(final FlowSpecification flowSpec, final ResourceSet resourceSet) {
+ 			// Look for flow implementations
+			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(flowSpec, resourceSet)) {
+				final EStructuralFeature sf = s.getEStructuralFeature();
+				if(!sf.isDerived() && sf.isChangeable()) {
+					final EObject obj = s.getEObject();
+					if(obj instanceof FlowImplementation) {
+						final FlowImplementation fi = (FlowImplementation)obj;
+						if(fi.getSpecification() == flowSpec) {
+							fi.setSpecification(null);
+							fi.setSpecification(flowSpec);
+						}
 					}
 				}
 			}
-			
-			return null;
-		}		
-		
+ 		}		
+
 		@Override
 		public void beforeCommit(final Resource resource, final Feature feature, final Object modificationResult) {
 			diagramMod.commit();

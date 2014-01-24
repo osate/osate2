@@ -24,8 +24,9 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.EndToEndFlowSegment;
+import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.NamedElement;
-
 import edu.uah.rsesc.aadl.age.services.AadlModificationService;
 import edu.uah.rsesc.aadl.age.services.BusinessObjectResolutionService;
 import edu.uah.rsesc.aadl.age.services.DiagramModificationService;
@@ -125,8 +126,8 @@ public class RenameConnectionFeature extends AbstractDirectEditingFeature {
  			// Start the diagram modification
  			diagramMod = diagramModService.startModification();
  			
- 			// Mark linkages to refinements as dirty
- 			updateRefinees(aadlConnection, resource.getResourceSet());
+ 			// Update reference to the connection
+ 			updateReferences(aadlConnection, resource.getResourceSet());
  			
  			// Mark linkages to the element as dirty 			
  			diagramMod.markLinkagesAsDirty(aadlConnection);
@@ -147,23 +148,37 @@ public class RenameConnectionFeature extends AbstractDirectEditingFeature {
  		 * @param element
  		 * @param resourceSet
  		 */
- 	    private void updateRefinees(final org.osate.aadl2.Connection element, final ResourceSet resourceSet) {
- 			// Mark linkages to refinements as dirty
+ 	    private void updateReferences(final org.osate.aadl2.Connection element, final ResourceSet resourceSet) {
  			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(element, resourceSet)) {
  				final EStructuralFeature sf = s.getEStructuralFeature();
  				if(!sf.isDerived() && sf.isChangeable()) {
  					final EObject obj = s.getEObject();
+ 		 			// Mark linkages to refinements as dirty
  					if(obj instanceof org.osate.aadl2.Connection && ((org.osate.aadl2.Connection)obj).getRefined() == element) {
  						final org.osate.aadl2.Connection refinee = (org.osate.aadl2.Connection)obj;
  						
  						diagramMod.markLinkagesAsDirty(refinee);
  						
- 						// Set the refined connection to null and then set it again to trigger the change 
+ 						// Set the refined element to null and then set it again to trigger the change 
  						refinee.setRefined(null);
  						refinee.setRefined(element);
  						
- 						updateRefinees(refinee, resourceSet);
- 					}
+ 						updateReferences(refinee, resourceSet);
+ 					} else if(obj instanceof FlowSegment) {
+						final FlowSegment fs = (FlowSegment)obj;
+						if(fs.getFlowElement() == element) {
+							// Reset the flow element. This will trigger and update by xtext
+							fs.setFlowElement(null);
+							fs.setFlowElement(element);							
+						}
+					} else if(obj instanceof EndToEndFlowSegment) {
+						final EndToEndFlowSegment fs = (EndToEndFlowSegment)obj;
+						if(fs.getFlowElement() == element) {
+							// Reset the flow element. This will trigger and update by xtext
+							fs.setFlowElement(null);
+							fs.setFlowElement(element);							
+						}
+					}
  				}
  			}
  	    }

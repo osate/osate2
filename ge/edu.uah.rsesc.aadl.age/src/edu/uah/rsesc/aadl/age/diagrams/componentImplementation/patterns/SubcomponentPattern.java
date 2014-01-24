@@ -50,8 +50,12 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.EndToEndFlowSegment;
+import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.TriggerPort;
 
 import edu.uah.rsesc.aadl.age.diagrams.common.AadlElementWrapper;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.AgePattern;
@@ -464,7 +468,7 @@ public class SubcomponentPattern extends AgePattern {
  			// Start the diagram modification
  			diagramMod = diagramModService.startModification();
  			
- 			updateRefinees(sc, resource.getResourceSet());
+ 			updateReferences(sc, resource.getResourceSet());
  			
  			// Mark linkages to the subcomponent as dirty 			
  			diagramMod.markLinkagesAsDirty(sc);
@@ -481,27 +485,56 @@ public class SubcomponentPattern extends AgePattern {
 		}
  		
  		/**
- 		 * Recursive method that updates refinees as dirty and ensures that the source is regenerated with the name of the refined element
+ 		 * Recursive method that updates references to the subcomponent. It recursively updates refinees.
  		 * @param element
  		 * @param resourceSet
  		 */
- 	    private void updateRefinees(final Subcomponent element, final ResourceSet resourceSet) {
- 			// Mark linkages to refinements as dirty
+ 	    private void updateReferences(final Subcomponent element, final ResourceSet resourceSet) {
  			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(element, resourceSet)) {
  				final EStructuralFeature sf = s.getEStructuralFeature();
  				if(!sf.isDerived() && sf.isChangeable()) {
  					final EObject obj = s.getEObject();
+ 		 			// Mark linkages to refinements as dirty
  					if(obj instanceof Subcomponent && ((Subcomponent)obj).getRefined() == element) {
  						final Subcomponent refinee = (Subcomponent)obj;
  						
  						diagramMod.markLinkagesAsDirty(refinee);
  						
- 						// Set the refined connection to null and then set it again to trigger the change 
+ 						// Set the refined element to null and then set it again to trigger the change 
  						refinee.setRefined(null);
  						refinee.setRefined(element);
  						
- 						updateRefinees(refinee, resourceSet);
+ 						updateReferences(refinee, resourceSet);
  					}
+ 					else if(obj instanceof ConnectedElement) {
+						final ConnectedElement connectedElement = (ConnectedElement)obj;
+						if(connectedElement.getContext() == element) {
+							// Reset the context. This will trigger and update by xtext
+							connectedElement.setContext(null);
+							connectedElement.setContext(element);							
+						}
+					} else if(obj instanceof FlowSegment) {
+						final FlowSegment fs = (FlowSegment)obj;
+						if(fs.getContext() == element) {
+							// Reset the context. This will trigger and update by xtext
+							fs.setContext(null);
+							fs.setContext(element);							
+						}
+					} else if(obj instanceof EndToEndFlowSegment) {
+						final EndToEndFlowSegment fs = (EndToEndFlowSegment)obj;
+						if(fs.getContext() == element) {
+							// Reset the context. This will trigger and update by xtext
+							fs.setContext(null);
+							fs.setContext(element);							
+						}
+					} else if(obj instanceof TriggerPort) {
+						final TriggerPort tp = (TriggerPort)obj;
+						if(tp.getContext() == element) {
+							// Reset the context. This will trigger and update by xtext
+							tp.setContext(null);
+							tp.setContext(element);							
+						}
+					}
  				}
  			}
  	    }

@@ -396,7 +396,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 			
 			// Get the shapes for the trigger port. 
 			final ContainerShape portShapeOwner = tp.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementName(ownerShape, tp.getContext());
-			final ContainerShape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : (ContainerShape)shapeService.getDescendantShapeByElementName(portShapeOwner, tp.getPort());
+			final Shape portShape = (portShapeOwner == null || tp.getPort() == null) ? null : shapeService.getDescendantShapeByElementName(portShapeOwner, tp.getPort());
 
 			if(portShape == null) {
 				return null;
