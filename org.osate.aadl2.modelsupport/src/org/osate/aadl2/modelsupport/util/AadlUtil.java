@@ -1024,6 +1024,23 @@ public final class AadlUtil {
 	 * @return boolean true if repl is an extension of origin
 	 */
 	public static boolean isSameOrExtends(Classifier origin, Classifier extension){
+		
+		/**
+		 * If we have a feature group that is inverse, we have no clue to find
+		 * if this is an extension because we cannot "extends" another
+		 * type. So, we try to find the extension by using the inverse type.
+		 */
+		if ( (origin instanceof FeatureGroupType) && (((FeatureGroupType)origin).getInverse() != null))
+		{
+			origin = ((FeatureGroupType)origin).getInverse();
+		}
+		
+		if ( (extension instanceof FeatureGroupType) && (((FeatureGroupType)extension).getInverse() != null))
+		{
+			extension = ((FeatureGroupType)origin).getInverse();
+		}
+		
+		
 		while (origin != extension) {
 			extension = extension.getExtended();
 			if (extension == null) return false;
