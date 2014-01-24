@@ -3744,6 +3744,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     addEEnumLiteral(featureTypeEEnum, FeatureType.REQUIRES_DATA_ACCESS_PROTOTYPE);
     addEEnumLiteral(featureTypeEEnum, FeatureType.PROVIDES_BUS_ACCESS_PROTOTYPE);
     addEEnumLiteral(featureTypeEEnum, FeatureType.REQUIRES_BUS_ACCESS_PROTOTYPE);
+    addEEnumLiteral(featureTypeEEnum, FeatureType.SYSTEM_SUBCOMPONENT);
 
     initEEnum(logicalOperatorEEnum, LogicalOperator.class, "LogicalOperator");
     addEEnumLiteral(logicalOperatorEEnum, LogicalOperator.NONE);

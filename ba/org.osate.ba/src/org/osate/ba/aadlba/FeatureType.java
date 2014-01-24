@@ -654,7 +654,15 @@ public enum FeatureType implements Enumerator
    * @generated
    * @ordered
    */
-  REQUIRES_BUS_ACCESS_PROTOTYPE(61, "REQUIRES_BUS_ACCESS_PROTOTYPE", "requires bus access prototype");
+  REQUIRES_BUS_ACCESS_PROTOTYPE(61, "REQUIRES_BUS_ACCESS_PROTOTYPE", "requires bus access prototype"), /**
+   * The '<em><b>SYSTEM SUBCOMPONENT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #SYSTEM_SUBCOMPONENT_VALUE
+   * @generated
+   * @ordered
+   */
+  SYSTEM_SUBCOMPONENT(62, "SYSTEM_SUBCOMPONENT", "system subcomponent");
 
   /**
    * The '<em><b>NONE</b></em>' literal value.
@@ -1587,6 +1595,21 @@ public enum FeatureType implements Enumerator
   public static final int REQUIRES_BUS_ACCESS_PROTOTYPE_VALUE = 61;
 
   /**
+   * The '<em><b>SYSTEM SUBCOMPONENT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>SYSTEM SUBCOMPONENT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #SYSTEM_SUBCOMPONENT
+   * @model literal="system subcomponent"
+   * @generated
+   * @ordered
+   */
+  public static final int SYSTEM_SUBCOMPONENT_VALUE = 62;
+
+  /**
    * An array of all the '<em><b>Feature Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1657,6 +1680,7 @@ public enum FeatureType implements Enumerator
       REQUIRES_DATA_ACCESS_PROTOTYPE,
       PROVIDES_BUS_ACCESS_PROTOTYPE,
       REQUIRES_BUS_ACCESS_PROTOTYPE,
+      SYSTEM_SUBCOMPONENT,
     };
 
   /**
@@ -1777,6 +1801,7 @@ public enum FeatureType implements Enumerator
       case REQUIRES_DATA_ACCESS_PROTOTYPE_VALUE: return REQUIRES_DATA_ACCESS_PROTOTYPE;
       case PROVIDES_BUS_ACCESS_PROTOTYPE_VALUE: return PROVIDES_BUS_ACCESS_PROTOTYPE;
       case REQUIRES_BUS_ACCESS_PROTOTYPE_VALUE: return REQUIRES_BUS_ACCESS_PROTOTYPE;
+      case SYSTEM_SUBCOMPONENT_VALUE: return SYSTEM_SUBCOMPONENT;
     }
     return null;
   }

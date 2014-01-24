@@ -48,7 +48,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
   {
     try
     {
-      AadlBaFactory theAadlBaFactory = (AadlBaFactory)EPackage.Registry.INSTANCE.getEFactory("https://github.com/osate/osate2-ba.git/aadlba"); 
+      AadlBaFactory theAadlBaFactory = (AadlBaFactory)EPackage.Registry.INSTANCE.getEFactory(AadlBaPackage.eNS_URI);
       if (theAadlBaFactory != null)
       {
         return theAadlBaFactory;

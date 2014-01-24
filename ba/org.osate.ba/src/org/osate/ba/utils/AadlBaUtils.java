@@ -1456,6 +1456,10 @@ public class AadlBaUtils {
     }
     else if (el instanceof ThreadGroup )
       return FeatureType.THREAD_GROUP ;
+    else if (el instanceof SystemSubcomponent)
+      return FeatureType.SYSTEM_SUBCOMPONENT ;
+            
+            
     // ALWAYS PUT THE FOLLOWING TESTS AT THE END OF THE METHOD :
     // these classifiers are high level classifiers.
 
