@@ -134,7 +134,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final DefaultConnectionService connectionService = new DefaultConnectionService(anchorUtil, shapeHelper, bor, this);
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, this);
 		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleUtil, featureService, subcomponentService, graphicsAlgorithmUtil);		
-		final DefaultHighlightingService highlightingHelper = new DefaultHighlightingService(propertyUtil, styleUtil, this);		
+		final DefaultHighlightingService highlightingHelper = new DefaultHighlightingService(propertyUtil, styleUtil, bor, this);		
 		
 		// Create the eclipse context
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());	

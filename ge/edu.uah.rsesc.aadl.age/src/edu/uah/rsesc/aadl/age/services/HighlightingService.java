@@ -20,7 +20,8 @@ public interface HighlightingService {
 	/**
 	 * Sets the foreground color of the element depending on the selected mode, mode transition, flow, etc
 	 * @param modalElement
+	 * @param context is the context in which the element is used. For example for a flow specification, the context will be the subcomponent. May be null
 	 * @param ga
 	 */
-	void highlight(Element element, GraphicsAlgorithm ga);
+	void highlight(Element element, Element context, GraphicsAlgorithm ga);
 }
