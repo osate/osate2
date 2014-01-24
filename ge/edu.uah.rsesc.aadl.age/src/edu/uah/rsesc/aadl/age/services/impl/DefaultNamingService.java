@@ -8,6 +8,7 @@
  *******************************************************************************/
 package edu.uah.rsesc.aadl.age.services.impl;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,6 +57,10 @@ public class DefaultNamingService implements NamingService {
 	
 	@Override
     public boolean isValidIdentifier(final String value) {
+		if(reservedWords.contains(value.toLowerCase())) {
+			return false;
+		}
+		
     	return value.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*");
     }
 	
@@ -88,4 +93,85 @@ public class DefaultNamingService implements NamingService {
         // The value is valid
         return null;
 	}
+	
+	
+	final static HashSet<String> reservedWords = new HashSet<String>(Arrays.asList(new String[] {
+		"aadlboolean",
+		"aadlinteger",
+		"aadlreal",
+		"aadlstring",
+		"abstract",
+		"access",
+		"all",
+		"and",
+		"annex",
+		"applies",
+		"binding",
+		"bus",
+		"calls",
+		"classifier",
+		"compute",
+		"connections",
+		"constant",
+		"data",
+		"delta",
+		"device",
+		"end",
+		"enumeration",
+		"event",
+		"extends",
+		"false",
+		"feature",
+		"features",
+		"flow",
+		"flows",
+		"group",
+		"implementation",
+		"in",
+		"inherit",
+		"initial",
+		"inverse",
+		"is",
+		"list",
+		"memory",
+		"mode",
+		"modes",
+		"none",
+		"not",
+		"of",
+		"or",
+		"out", 
+		"package", 
+		"parameter", 
+		"path",
+		"port",
+		"private", 
+		"process",
+		"processor",
+		"properties", 
+		"property",
+		"prototypes", 
+		"provides",
+		"public", 
+		"range",
+		"record",
+		"reference",
+		"refined",
+		"renames",
+		"requires", 
+		"self",
+		"set",
+		"sink",
+		"source",
+		"subcomponents",
+		"subprogram", 
+		"system",
+		"thread", 
+		"to",
+		"true",
+		"type",
+		"units",
+		"virtual",
+		"with"
+	}));
 }
