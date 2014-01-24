@@ -605,7 +605,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		if(classifier == null) {
 			newFeature = null;
 		} else {		
-			final String newFeatureName = namingService.buildUniqueIdentifier(classifier, "newFeature");
+			final String newFeatureName = namingService.buildUniqueIdentifier(classifier, "new_feature");
 			
 			// Make the modification
 			newFeature = modificationService.modify(classifier, new AbstractModifier<Classifier, Feature>() {
