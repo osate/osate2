@@ -153,7 +153,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
 		final Shape featureShape = (Shape)context.getPictogramElements()[0];
 		final ComponentType ct = getComponentType(featureShape);
 		final Feature feature = (Feature)bor.getBusinessObjectForPictogramElement(featureShape);
-		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "newFlowSpec");
+		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
 
 		// Create the flow specification
 		aadlModService.modify(ct, new AbstractModifier<ComponentType, Object>() {

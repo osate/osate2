@@ -310,7 +310,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		final ComponentType ct = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), ComponentType.class);
 		
 		// Determine the name for the new flow specification
-		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "newFlowSpec");
+		final String newFlowSpecName = namingService.buildUniqueIdentifier(ct, "new_flow_spec");
 
 		// Make the modification
 		aadlModService.modify(ct, new AbstractModifier<ComponentType, FlowSpecification>() {

@@ -441,7 +441,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 			
 			baseName = componentTypeName + ".Impl";
 		} else {
-			baseName = "NewClassifier";
+			baseName = "new_classifier";
 		}
 		
 		// Build the name and check for conflicts

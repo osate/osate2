@@ -334,7 +334,7 @@ public class ModePattern extends AgeLeafShapePattern {
 		if(classifier == null) {
 			newMode = null;
 		} else {
-			final String newModeName = namingService.buildUniqueIdentifier(classifier, "newMode");
+			final String newModeName = namingService.buildUniqueIdentifier(classifier, "new_mode");
 			
 			// Make the modification
 			newMode = modificationService.modify(classifier, new AbstractModifier<ComponentClassifier, Mode>() {

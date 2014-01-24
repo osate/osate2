@@ -354,7 +354,7 @@ public class SubcomponentPattern extends AgePattern {
 	 			diagramMod = diagramModService.startModification();
 	 			diagramMod.markRelatedDiagramsAsDirty(ci);
 
-				final String name = namingService.buildUniqueIdentifier(ci, "newSubcomponent");
+				final String name = namingService.buildUniqueIdentifier(ci, "new_subcomponent");
 				final Subcomponent sc = createSubcomponent(ci, subcomponentType);
 				sc.setName(name);
 				return sc;

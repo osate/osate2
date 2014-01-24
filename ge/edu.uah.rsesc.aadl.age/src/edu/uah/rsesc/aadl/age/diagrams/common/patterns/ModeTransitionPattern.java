@@ -462,7 +462,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern {
 		final ComponentClassifier cc = getComponentClassifier((Shape)context.getSourcePictogramElement());
 		
 		// Determine the name for the new mode transition
-		final String newElementName = namingService.buildUniqueIdentifier(cc, "newTransition");
+		final String newElementName = namingService.buildUniqueIdentifier(cc, "new_transition");
 
 		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, null);
 		if(selectedTriggers != null) {
