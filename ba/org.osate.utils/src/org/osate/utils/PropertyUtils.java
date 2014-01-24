@@ -494,7 +494,7 @@ public class PropertyUtils {
 	 * @throws Exception
 	 *             thrown if property does not exist or if is not a range.
 	 */
-	public static float getMinRangeValue(NamedElement i, String propertyName) throws Exception {
+	public static NumberValue getMinRangeValue(NamedElement i, String propertyName) throws Exception {
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -509,16 +509,9 @@ public class PropertyUtils {
 
 					if (expr instanceof RangeValue) {
 						NumberValue n = ((RangeValue) expr).getMinimumValue();
-
-						if (n instanceof IntegerLiteral) {
-							return (float) ((IntegerLiteral) n).getValue();
-						} else if (n instanceof RealLiteral) {
-							return (float) ((RealLiteral) n).getValue();
-						}
-					} else if (expr instanceof IntegerLiteral) {
-						return (float) ((IntegerLiteral) expr).getValue();
-					} else if (expr instanceof RealLiteral) {
-						return (float) ((RealLiteral) expr).getValue();
+						return n;
+					} else if (expr instanceof NumberValue) {
+						return (NumberValue) expr;
 					}
 				}
 			}
@@ -538,7 +531,7 @@ public class PropertyUtils {
 	 * @throws Exception
 	 *             thrown if property does not exist or if is not a range.
 	 */
-	public static float getMaxRangeValue(NamedElement i, String propertyName) throws Exception {
+	public static NumberValue getMaxRangeValue(NamedElement i, String propertyName) throws Exception {
 		PropertyAssociation pa = findProperty(propertyName, i);
 
 		if (pa != null) {
@@ -553,16 +546,9 @@ public class PropertyUtils {
 
 					if (expr instanceof RangeValue) {
 						NumberValue n = ((RangeValue) expr).getMaximumValue();
-
-						if (n instanceof IntegerLiteral) {
-							return ((IntegerLiteral) n).getValue();
-						} else if (n instanceof RealLiteral) {
-							return (float) ((RealLiteral) n).getValue();
-						}
-					} else if (expr instanceof IntegerLiteral) {
-						return ((IntegerLiteral) expr).getValue();
-					} else if (expr instanceof RealLiteral) {
-						return (float) ((RealLiteral) expr).getValue();
+						return n;
+					} else if (expr instanceof NumberValue) {
+						return (NumberValue) expr;
 					}
 				}
 			}
@@ -580,9 +566,10 @@ public class PropertyUtils {
 	 *            property name.
 	 * @return property value.
 	 */
-	public static float getMaxRangeValue(NamedElement i, String propertyName, float defaultValue) {
+	public static double getMaxRangeValue(NamedElement i, String propertyName, float defaultValue) {
 		try {
-			return getMaxRangeValue(i, propertyName);
+			RealLiteral rl = (RealLiteral) getMaxRangeValue(i, propertyName);
+			return  rl.getValue();
 		} catch (Exception e) {
 			return defaultValue;
 		}
