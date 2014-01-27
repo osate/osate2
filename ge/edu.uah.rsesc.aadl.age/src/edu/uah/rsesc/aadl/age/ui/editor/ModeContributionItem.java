@@ -161,7 +161,7 @@ public class ModeContributionItem extends ComboContributionItem {
 			// Set the selection
 			combo.setText(selectionTxt);
 
-			combo.getParent().pack(true);
+			//combo.getParent().pack();
 		}
 	}
 	

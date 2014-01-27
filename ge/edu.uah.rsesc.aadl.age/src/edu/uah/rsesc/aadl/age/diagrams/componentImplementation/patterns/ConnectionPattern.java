@@ -251,6 +251,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	protected Anchor[] getAnchors(final Connection connection) {
 		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
 		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
+		
 		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, aadlConnection);	
 	}
 
