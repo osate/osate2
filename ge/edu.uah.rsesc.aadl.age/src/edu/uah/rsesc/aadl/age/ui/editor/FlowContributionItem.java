@@ -161,7 +161,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			// Set the selection
 			combo.setText(selectionTxt);
 
-			combo.pack(true);
+			combo.getParent().pack(true);
 		}
 	}
 	
