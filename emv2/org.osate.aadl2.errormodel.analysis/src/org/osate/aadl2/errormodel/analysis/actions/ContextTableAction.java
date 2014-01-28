@@ -48,6 +48,8 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -75,6 +77,8 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.errormodel.analysis.ComponentSelectionDialog;
+import org.osate.aadl2.errormodel.analysis.fta.Event;
+import org.osate.aadl2.errormodel.analysis.fta.FTAUtils;
 import org.osate.aadl2.impl.ConnectedElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -88,6 +92,7 @@ import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -101,6 +106,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
+import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
@@ -111,8 +118,9 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 
-public final class CutsetAction extends AaxlReadOnlyActionAsJob {
+public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 	AnalysisModel model;
+	 static String ERROR_STATE_NAME;
 
 	 List<String> selectedComponents;
 	
@@ -167,10 +175,9 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		final List<String> componentsList;
-
+		boolean firstPassed;
 		
-		
-		monitor.beginTask("Generating Cutset", IProgressMonitor.UNKNOWN);
+		monitor.beginTask("Generating Context Table", IProgressMonitor.UNKNOWN);
 		List<PropagationPathEnd> sources;
 		List<PropagationPathEnd> destinations;
 		sources = new ArrayList<PropagationPathEnd>();
@@ -183,7 +190,7 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 		else return;
 		
 		
-		WriteToFile report = new WriteToFile("CutSet", si);
+		WriteToFile report = new WriteToFile("ContextTable", si);
 
 	
 		model = new AnalysisModel(si);
@@ -203,74 +210,92 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 				ComponentSelectionDialog csd;
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
-				csd = new ComponentSelectionDialog(sh, componentsList);
-				selectedComponents = csd.open();
+//				csd = new ComponentSelectionDialog(sh, componentsList);
+//				selectedComponents = csd.open();
+				
+				InputDialog fd = new InputDialog(sh, "Error State name", "Please specify the name of the error state name", "failed", null);
+				if (fd.open() == Window.OK)
+				{
+					ERROR_STATE_NAME = fd.getValue();
+				}
+				else
+				{
+					ERROR_STATE_NAME = null;
+				}
 			}
 		});
 		
-//		for (String s : selectedComponents)
-//		{
-//			OsateDebug.osateDebug("SELECTED" + s);
-//		}
-		
-		EList<PropagationPathRecord> pathlist = model.getPropagationPaths();
-		
-		for (PropagationPathRecord ppr : pathlist)
-		{
-			if (isAnalyzed(ppr.getSrcCI()))
-			{
-//				OsateDebug.osateDebug("[SRC] ci=" + ppr.getSrcCI());
-				sources.add(ppr.getPathSrc());
-			}
-			if (isAnalyzed(ppr.getDstCI()))
-			{
-				destinations.add(ppr.getPathDst());
-			}
-		}
-		
-		reportHeading(report, destinations);
-		
-		for (PropagationPathEnd src : sources)
-		{
-			
-			for (TypeToken tt : src.getErrorPropagation().getTypeSet().getTypeTokens())
-			{
-				for (ErrorTypes et : tt.getType())
-				{
 
-					report.addOutput(src.getComponentInstance().getName());
-					
-					report.addOutput(" - " + et.getName());
-					
-					if (src.getErrorPropagation().getFeatureorPPRefs().size() > 0)
+		List<ComponentInstance> subcomponents = new ArrayList<ComponentInstance> ();
+		firstPassed = false;
+		
+		for (ComponentInstance ci : si.getComponentInstances())
+		{
+			if (firstPassed == true)
+			{
+				report.addOutput(",");
+			}
+			
+			firstPassed = true;
+			report.addOutput(ci.getName());
+			subcomponents.add(ci);
+		}
+		report.addOutput("\n");
+		
+		EList<CompositeState> states = EMV2Util.getAllCompositeStates(si);
+		for (CompositeState state : states)
+		{
+			firstPassed = false;
+			
+			String stateName = state.getState().getName();
+			if (state.getTypedToken() != null)
+			{
+				stateName += state.getTypedToken().getType().get(0).getName();
+			}
+			
+			if (stateName.equalsIgnoreCase(ERROR_STATE_NAME))
+			{
+				OsateDebug.osateDebug("here");
+			
+				List<ConditionElement> elements = new ArrayList<ConditionElement>();
+	
+				getAllConditionLeafs (state.getCondition(), elements);
+				
+				
+				for (ComponentInstance ci : subcomponents)
+				{
+					if (firstPassed == true)
 					{
-						report.addOutput (" on ");
+						report.addOutput(",");
 					}
-					for (FeatureorPPReference t : src.getErrorPropagation().getFeatureorPPRefs())
-					{
-						report.addOutput(t.getFeatureorPP().getName());
-					}
+					firstPassed = true;
 					
-					for (PropagationPathEnd dst : destinations)
+					boolean found = false;
+					for (ConditionElement el : elements)
 					{
-						report.addOutput("," );
-						if (model.impact(src, dst))
+						SubcomponentElement sel = el.getSubcomponents().get(0);
+						OsateDebug.osateDebug("el = "  + sel.getSubcomponent().getContainingClassifier());
+						OsateDebug.osateDebug("ci = "  + ci.getComponentClassifier());
+	
+						if (sel.getSubcomponent().getClassifier() == ci.getComponentClassifier())
 						{
-							report.addOutput(EMV2Util.getPrintName (dst.getErrorPropagation().getTypeSet()).replace("{", "").replace("}","").replace(',', '/'));
+							report.addOutput(el.getState().getName());
+							found = true;
 						}
 						
+						
 					}
-
-					report.addOutput ("\n");
+					
+					if (! found)
+					{
+						report.addOutput("DNM");
+	
+					}
 				}
-				
 
+				report.addOutput("\n");
 			}
-			
-			
-			
-			
-		
+						
 		}
 		
 		report.saveToFile();
@@ -278,7 +303,30 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 		monitor.done();
 	}
 	
-
+	private void getAllConditionLeafs (ConditionExpression ce, List<ConditionElement> result)
+	{
+		if (ce instanceof SAndExpression)
+		{
+			SAndExpression sae = (SAndExpression) ce;
+			for (ConditionExpression cetmp : sae.getOperands())
+			{
+				getAllConditionLeafs (cetmp, result);
+			}
+		}
+		if (ce instanceof SOrExpression)
+		{
+			SOrExpression soe = (SOrExpression) ce;
+			for (ConditionExpression cetmp : soe.getOperands())
+			{
+				getAllConditionLeafs (cetmp, result);
+			}
+		}
+		
+		if (ce instanceof ConditionElement)
+		{
+			result.add((ConditionElement)ce);
+		}
+	}
 		
 
 }
