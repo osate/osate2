@@ -380,7 +380,7 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 						report.addOutput("," );
 						if (model.impact(src, dst))
 						{
-							report.addOutput(EMV2Util.getPrintName (dst.getErrorPropagation().getTypeSet()).replace("{", "").replace("}",""));
+							report.addOutput(EMV2Util.getPrintName (dst.getErrorPropagation().getTypeSet()).replace("{", "").replace("}","").replace(',', '/'));
 						}
 						
 					}
