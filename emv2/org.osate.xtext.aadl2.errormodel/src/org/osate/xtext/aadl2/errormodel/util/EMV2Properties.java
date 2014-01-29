@@ -12,6 +12,7 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -20,21 +21,173 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class EMV2Properties {
 
 	public static final String INVALID_OCCURRENCE_TYPE = "unknown_distribution";
 
+	
+	/**
+	 * 
+	 * @param element - the EMV2 element that refers to the artifact
+	 * @param relatedComponentInstance - the component that have the property association
+	 * @return - the text related to the description part of the hazards property. Null if not defined
+	 */
+	public static String getDescription (NamedElement element, ComponentInstance relatedComponentInstance)
+	{
+		TypeSet ts = null;
+		
+		if (element instanceof ErrorBehaviorState)
+		{
+			ts = ((ErrorBehaviorState)element).getTypeSet();
+		}
+		
+		if (element instanceof ErrorPropagation)
+		{
+			ts = ((ErrorPropagation)element).getTypeSet();
+		}
+		
+		if (element instanceof ErrorEvent)
+		{
+			ts = ((ErrorEvent)element).getTypeSet();
+		}
+		
+		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponentInstance,element,ts);
+		
+		if (PA.isEmpty())
+		{
+			return null;
+		}
+		// XXX TODO we may get more than one back, one each for different types
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA.get(0)).getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+			if (val instanceof RecordValue)
+			{
+				RecordValue rv = (RecordValue)val;
+				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+				BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
+				if (xref != null){
+					PropertyExpression peVal = xref.getOwnedValue();
+					if (peVal instanceof StringLiteral){
+						String text = ((StringLiteral)peVal).getValue();
+						text = text.replace('\"', ' ');
+						return text;
+					}
+				} 
+			}
+			if (val instanceof ListValue)
+			{
+				ListValue lv = (ListValue)val;
+				for (PropertyExpression pe : lv.getOwnedListElements())
+				{
+					if (pe instanceof RecordValue)
+					{
+						RecordValue rv = (RecordValue) pe;
+						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+						BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
+						if (xref != null){
+							PropertyExpression peVal = xref.getOwnedValue();
+							if (peVal instanceof StringLiteral){
+								String text = ((StringLiteral)peVal).getValue();
+								text = text.replace('\"', ' ');
+								return text;
+							}
+						} 
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * 
+	 * @param element - the EMV2 element that referes to the artifact
+	 * @param relatedComponentInstance - the component that have the property association
+	 * @return - the text related to the failure part of the hazards property. Null if not defined
+	 */
+	public static String getFailure (NamedElement element, ComponentInstance relatedComponentInstance)
+	{
+		TypeSet ts = null;
+		
+		if (element instanceof ErrorBehaviorState)
+		{
+			ts = ((ErrorBehaviorState)element).getTypeSet();
+		}
+		
+		if (element instanceof ErrorPropagation)
+		{
+			ts = ((ErrorPropagation)element).getTypeSet();
+		}
+		
+		if (element instanceof ErrorEvent)
+		{
+			ts = ((ErrorEvent)element).getTypeSet();
+		}
+		
+		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponentInstance,element,ts);
+		
+		if (PA.isEmpty())
+		{
+			return null;
+		}
+		// XXX TODO we may get more than one back, one each for different types
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA.get(0)).getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+			if (val instanceof RecordValue)
+			{
+				RecordValue rv = (RecordValue)val;
+				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+				BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "failure");
+				if (xref != null){
+					PropertyExpression peVal = xref.getOwnedValue();
+					if (peVal instanceof StringLiteral){
+						String text = ((StringLiteral)peVal).getValue();
+						text = text.replace('\"', ' ');
+						return text;
+					}
+				} 
+			}
+			if (val instanceof ListValue)
+			{
+				ListValue lv = (ListValue)val;
+				for (PropertyExpression pe : lv.getOwnedListElements())
+				{
+					if (pe instanceof RecordValue)
+					{
+						RecordValue rv = (RecordValue) pe;
+						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+						BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "failure");
+						if (xref != null){
+							PropertyExpression peVal = xref.getOwnedValue();
+							if (peVal instanceof StringLiteral){
+								String text = ((StringLiteral)peVal).getValue();
+								text = text.replace('\"', ' ');
+								return text;
+							}
+						} 
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
 	public static EList<ContainedNamedElement> getHazardsProperty(ComponentInstance ci, Element target, TypeSet ts){
 		EList<ContainedNamedElement> result =  getProperty("EMV2::hazards",ci,target,ts);
 		if (result.isEmpty()) result =  getProperty("ARP4761::hazards",ci,target,ts);

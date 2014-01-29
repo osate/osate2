@@ -384,9 +384,9 @@ public class FTAUtils
 							tmpEvent.setProbability(prob);
 						}
 						
-						if (getDescription (ep, relatedComponentInstance) != null)
+						if (EMV2Properties.getDescription (ep, relatedComponentInstance) != null)
 						{
-							event.setDescription("\"" + getDescription (ep, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
+							event.setDescription("\"" + EMV2Properties.getDescription (ep, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
 						}
 						
 						toAdd.add(tmpEvent);
@@ -455,9 +455,9 @@ public class FTAUtils
 						event.setProbability(prob);
 					}		
 					
-					if (getDescription (ee, relatedComponentInstance) != null)
+					if (EMV2Properties.getDescription (ee, relatedComponentInstance) != null)
 					{
-						event.setDescription("\"" + getDescription (ee, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
+						event.setDescription("\"" + EMV2Properties.getDescription (ee, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
 					}
 					
 					event.setName(ee.getName());
@@ -675,72 +675,6 @@ public class FTAUtils
 		}
 	}
 	
-	public static String getDescription (NamedElement element, ComponentInstance relatedComponentInstance)
-	{
-		TypeSet ts = null;
-		
-		if (element instanceof ErrorBehaviorState)
-		{
-			ts = ((ErrorBehaviorState)element).getTypeSet();
-		}
-		
-		if (element instanceof ErrorPropagation)
-		{
-			ts = ((ErrorPropagation)element).getTypeSet();
-		}
-		
-		if (element instanceof ErrorEvent)
-		{
-			ts = ((ErrorEvent)element).getTypeSet();
-		}
-		
-		EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(relatedComponentInstance,element,ts);
-		
-		if (PA.isEmpty())
-		{
-			return null;
-		}
-		// XXX TODO we may get more than one back, one each for different types
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PA.get(0)).getOwnedValues()) {
-			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof RecordValue)
-			{
-				RecordValue rv = (RecordValue)val;
-				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-				BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
-				if (xref != null){
-					PropertyExpression peVal = xref.getOwnedValue();
-					if (peVal instanceof StringLiteral){
-						String text = ((StringLiteral)peVal).getValue();
-						text = text.replace('\"', ' ');
-						return text;
-					}
-				} 
-			}
-			if (val instanceof ListValue)
-			{
-				ListValue lv = (ListValue)val;
-				for (PropertyExpression pe : lv.getOwnedListElements())
-				{
-					if (pe instanceof RecordValue)
-					{
-						RecordValue rv = (RecordValue) pe;
-						EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-						BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
-						if (xref != null){
-							PropertyExpression peVal = xref.getOwnedValue();
-							if (peVal instanceof StringLiteral){
-								String text = ((StringLiteral)peVal).getValue();
-								text = text.replace('\"', ' ');
-								return text;
-							}
-						} 
-					}
-				}
-			}
-		}
-		return null;
-	}
 	
 	
 	public static void fillFTAEventfromEventState (Event event, ErrorBehaviorState behaviorState, ComponentInstance relatedComponentInstance, final EList<ComponentInstance> componentInstances)
@@ -766,9 +700,9 @@ public class FTAUtils
 		}
 		
 
-		if (getDescription (behaviorState, relatedComponentInstance) != null)
+		if (EMV2Properties.getDescription (behaviorState, relatedComponentInstance) != null)
 		{
-			event.setDescription("\"" + getDescription (behaviorState, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
+			event.setDescription("\"" + EMV2Properties.getDescription (behaviorState, relatedComponentInstance) + "(from " + relatedComponentInstance.getName() +")\"");
 		}
 		
 		event.setName(behaviorState.getName() + "/" + relatedComponentInstance.getName()); 
