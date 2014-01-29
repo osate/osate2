@@ -112,6 +112,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.impl.AadlIntegerImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -1060,7 +1061,7 @@ public class InstantiateModel {
 					}
 				}
 			} else if (patternPA != null) {
-				boolean isOpposite = isOpposite(conni, "Connection_Pattern");
+				boolean isOpposite = Aadl2InstanceUtil.isOpposite(conni);
 				EcoreUtil.remove(patternPA);
 				List<PropertyExpression> patterns = ((ListValue) patternPA.getOwnedValues().get(0).getOwnedValue())
 						.getOwnedListElements();
@@ -1094,7 +1095,12 @@ public class InstantiateModel {
 
 					srcIndices = getIndices(rv, "src");
 					dstIndices = getIndices(rv, "dst");
-					createNewConnection(conni, srcIndices, dstIndices);
+					if (Aadl2InstanceUtil.isOpposite(conni)){
+						// flip indices since we are goin gin the opposite direction
+						createNewConnection(conni, dstIndices,srcIndices);
+					} else {
+						createNewConnection(conni, srcIndices, dstIndices);
+					}
 				}
 				toRemove.add(conni);
 			}
@@ -1311,31 +1317,31 @@ public class InstantiateModel {
 		}
 		return null;
 	}
-
-	private boolean isOpposite(ConnectionInstance conni, String name) {
-		for (ConnectionReference connref : conni.getConnectionReferences()) {
-			for (PropertyAssociation pa : connref.getConnection().getOwnedPropertyAssociations()) {
-				if (pa.getProperty().getName().equalsIgnoreCase(name)
-						&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
-								"Communication_Properties")) {
-					ConnectionInstanceEnd dstfi = connref.getDestination();
-					ConnectionEnd srce = connref.getConnection().getAllSource();
-					if (dstfi instanceof FeatureInstance){
-						Feature dstf = ((FeatureInstance)dstfi).getFeature();
-						if (dstf == srce){
-							return true;
-						}
-					} else if (dstfi instanceof ComponentInstance){
-						Subcomponent dstsub = ((ComponentInstance)dstfi).getSubcomponent();
-						if (dstsub == srce){
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
+//
+//	private boolean isOpposite(ConnectionInstance conni, String name) {
+//		for (ConnectionReference connref : conni.getConnectionReferences()) {
+//			for (PropertyAssociation pa : connref.getConnection().getOwnedPropertyAssociations()) {
+//				if (pa.getProperty().getName().equalsIgnoreCase(name)
+//						&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
+//								"Communication_Properties")) {
+//					ConnectionInstanceEnd dstfi = connref.getDestination();
+//					ConnectionEnd srce = connref.getConnection().getAllSource();
+//					if (dstfi instanceof FeatureInstance){
+//						Feature dstf = ((FeatureInstance)dstfi).getFeature();
+//						if (dstf == srce){
+//							return true;
+//						}
+//					} else if (dstfi instanceof ComponentInstance){
+//						Subcomponent dstsub = ((ComponentInstance)dstfi).getSubcomponent();
+//						if (dstsub == srce){
+//							return true;
+//						}
+//					}
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 	private Collection<PropertyExpression> getOffsetList(ConnectionInstance conni) {
 		for (ConnectionReference connref : conni.getConnectionReferences()) {
@@ -1352,7 +1358,7 @@ public class InstantiateModel {
 	}
 
 	private long getArraySizeValue(ComponentInstance ci, Property pd) {
-		PropertyExpression res = ci.getSimplePropertyValue(pd);
+//		PropertyExpression res = ci.getSimplePropertyValue(pd);
 		Subcomponent sub = ci.getSubcomponent();
 		for (PropertyAssociation pa : sub.getOwnedPropertyAssociations()) {
 			if (pa.getProperty().getName().equalsIgnoreCase(pd.getName())) {
