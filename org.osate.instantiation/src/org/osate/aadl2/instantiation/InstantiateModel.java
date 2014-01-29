@@ -1417,7 +1417,9 @@ public class InstantiateModel {
 		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
 		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
-		if (srcIndices.size()!= sizes.size()){
+		if (srcIndices.size()!= sizes.size()&& 
+				// filter out one side being an element without index (array of 1) (many to one mapping)
+				!(sizes.size() == 0 && dstIndices.size() == 1 )){
 			errManager.error(newConn, "Source indices "+srcIndices+" do not match source dimension "+sizes.size());
 		} 
 		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
@@ -1426,7 +1428,9 @@ public class InstantiateModel {
 		dims.clear();
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
-		if (dstIndices.size()!= sizes.size()){
+		if (dstIndices.size()!= sizes.size() &&
+				// filter out one side being an element without index (array of 1) (many to one mapping)
+				!(sizes.size() == 0 && dstIndices.size() == 1 )){
 			errManager.error(newConn, "Destination indices "+dstIndices+" do not match destination dimension "+sizes.size());
 		} 
 		InstanceObject	dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
