@@ -109,6 +109,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
@@ -120,68 +121,24 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 	AnalysisModel model;
-	 static String ERROR_STATE_NAME;
+	static String ERROR_STATE_NAME;
 
-	 List<String> selectedComponents;
 	
 	protected String getMarkerType() {
 		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
 	}
 
 	protected String getActionName() {
-		return "CutSet";
+		return "ContextTable";
 	}
 	
-	protected void reportHeading(WriteToFile report, List<PropagationPathEnd> dests){
-		report.addOutput("Failure injected");
-		
-		for (PropagationPathEnd ppe : dests)
-		{
-			report.addOutput("," + ppe.getComponentInstance().getName());
-			
-			if (ppe.getErrorPropagation().getFeatureorPPRefs().size() > 0)
-			{
-				report.addOutput ("/");
-				for (FeatureorPPReference t : ppe.getErrorPropagation().getFeatureorPPRefs())
-				{
-					report.addOutput(t.getFeatureorPP().getName());
-				}
-			}
-		}
-
-		report.addOutput ("\n");
-	}
-
-	private boolean isAnalyzed (String s)
+	
+	public void doAaxlAction(IProgressMonitor monitor, Element obj) 
 	{
-		boolean ret;
-		
-		ret = false;
-		
-		for (String sc : selectedComponents)
-		{
-			if (s.equalsIgnoreCase(sc))
-			{
-				ret = true;
-			}
-		}
-		return ret;
-	}
-	
-	private boolean isAnalyzed (ComponentInstance ci)
-	{
-		return isAnalyzed (ci.getName());
-	}
-	
-	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		final List<String> componentsList;
+		List<ComponentInstance> subcomponents;
 		boolean firstPassed;
 		
 		monitor.beginTask("Generating Context Table", IProgressMonitor.UNKNOWN);
-		List<PropagationPathEnd> sources;
-		List<PropagationPathEnd> destinations;
-		sources = new ArrayList<PropagationPathEnd>();
-		destinations = new ArrayList<PropagationPathEnd>();
 		// Get the system instance (if any)
 		SystemInstance si;
 		if (obj instanceof InstanceObject){
@@ -189,27 +146,20 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 		}
 		else return;
 		
-		
+		/**
+		 * Initialize the report to write
+		 */
 		WriteToFile report = new WriteToFile("ContextTable", si);
-
 	
-		model = new AnalysisModel(si);
-		componentsList = new ArrayList<String>();
-		
-		for (ComponentInstance tmpi : model.getSubcomponents())
-		{
-			componentsList.add(tmpi.getName());
-		}
-		
 		final Display d = PlatformUI.getWorkbench().getDisplay();
 		d.syncExec(new Runnable(){
 
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
-				ComponentSelectionDialog csd;
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
+//				ComponentSelectionDialog csd;
 //				csd = new ComponentSelectionDialog(sh, componentsList);
 //				selectedComponents = csd.open();
 				
@@ -225,8 +175,15 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 			}
 		});
 		
-
-		List<ComponentInstance> subcomponents = new ArrayList<ComponentInstance> ();
+		report.addOutputNewline("Analyze for the hazard state " + ERROR_STATE_NAME);
+		report.addOutput("\n");
+		
+		
+		/**
+		 * We get all the subcomponents of the system instance
+		 * to analyze. We add a column for each of then.
+		 */
+		subcomponents = new ArrayList<ComponentInstance> ();
 		firstPassed = false;
 		
 		for (ComponentInstance ci : si.getComponentInstances())
@@ -242,8 +199,14 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 		}
 		report.addOutput("\n");
 		
-		EList<CompositeState> states = EMV2Util.getAllCompositeStates(si);
-		for (CompositeState state : states)
+		
+		/**
+		 * Then, for each state of the composite error state, we
+		 * add a line and show the status for each other component.
+		 * Either this is a DNM (Does Not Matter) or an error behavior
+		 * status.
+		 */
+		for (CompositeState state : EMV2Util.getAllCompositeStates(si))
 		{
 			firstPassed = false;
 			
@@ -255,7 +218,6 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 			
 			if (stateName.equalsIgnoreCase(ERROR_STATE_NAME))
 			{
-				OsateDebug.osateDebug("here");
 			
 				List<ConditionElement> elements = new ArrayList<ConditionElement>();
 	
@@ -298,10 +260,40 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 						
 		}
 		
+		report.addOutput("\n");
+		report.addOutputNewline("Error descriptions");
+		report.addOutputNewline("DNM, Does not matter");
+		for (ComponentInstance io : subcomponents)
+		{
+			for (ErrorBehaviorState ebs : EMV2Util.getErrorBehaviorStateMachine(io).getStates())
+			{
+				String txt = "";
+				String description = EMV2Properties.getDescription(ebs, io);
+				String failure     = EMV2Properties.getFailure(ebs, io);
+				if (failure != null)
+				{
+					txt += failure;
+				}
+				
+				if (description != null)
+				{
+					txt += description;
+				}
+				
+				if (txt.length() > 0)
+				{
+					report.addOutputNewline(io.getName()+"/"+ebs.getName() + "," + txt);
+				}
+			}
+		}
+		report.addOutput("\n");
+		
+		
 		report.saveToFile();
 		
 		monitor.done();
 	}
+
 	
 	private void getAllConditionLeafs (ConditionExpression ce, List<ConditionElement> result)
 	{
