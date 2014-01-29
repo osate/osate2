@@ -42,49 +42,17 @@ package org.osate.aadl2.errormodel.analysis.actions;
  * 
  */
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.uml2.uml.Classifier;
-import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.AbstractConnectionEnd;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.errormodel.analysis.ComponentSelectionDialog;
-import org.osate.aadl2.errormodel.analysis.fta.Event;
-import org.osate.aadl2.errormodel.analysis.fta.FTAUtils;
-import org.osate.aadl2.impl.ConnectedElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
@@ -93,30 +61,13 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
-import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 
 public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
@@ -136,7 +87,6 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) 
 	{
 		List<ComponentInstance> subcomponents;
-		boolean firstPassed;
 		
 		monitor.beginTask("Generating Context Table", IProgressMonitor.UNKNOWN);
 		// Get the system instance (if any)
@@ -184,17 +134,12 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 		 * to analyze. We add a column for each of then.
 		 */
 		subcomponents = new ArrayList<ComponentInstance> ();
-		firstPassed = false;
 		
+		report.addOutput("Component");
 		for (ComponentInstance ci : si.getComponentInstances())
 		{
-			if (firstPassed == true)
-			{
-				report.addOutput(",");
-			}
 			
-			firstPassed = true;
-			report.addOutput(ci.getName());
+			report.addOutput("," + ci.getName());
 			subcomponents.add(ci);
 		}
 		report.addOutput("\n");
@@ -208,7 +153,6 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 		 */
 		for (CompositeState state : EMV2Util.getAllCompositeStates(si))
 		{
-			firstPassed = false;
 			
 			String stateName = state.getState().getName();
 			if (state.getTypedToken() != null)
@@ -226,11 +170,8 @@ public final class ContextTableAction extends AaxlReadOnlyActionAsJob {
 				
 				for (ComponentInstance ci : subcomponents)
 				{
-					if (firstPassed == true)
-					{
-						report.addOutput(",");
-					}
-					firstPassed = true;
+			
+					report.addOutput(",");
 					
 					boolean found = false;
 					for (ConditionElement el : elements)

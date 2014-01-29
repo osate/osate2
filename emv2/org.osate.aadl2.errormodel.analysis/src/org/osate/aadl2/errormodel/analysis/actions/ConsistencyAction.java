@@ -42,14 +42,10 @@ package org.osate.aadl2.errormodel.analysis.actions;
  * 
  */
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.uml2.uml.Classifier;
-import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.AbstractConnectionEnd;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
@@ -67,7 +63,6 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
@@ -80,7 +75,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
@@ -89,7 +83,6 @@ import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 	AnalysisModel model;
@@ -313,7 +306,6 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					
 //					OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
 //					OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
-					EList<TypeToken> srcTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
 					EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep2.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
 //				
 //					for (TypeToken tt1 : srcTokens)
@@ -987,8 +979,6 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						{
 							boolean found = false;
 
-							AbstractConnectionEnd ace = conn.getDestination();
-							
 							ConnectedElementImpl ceiDst = (ConnectedElementImpl)conn.getDestination();
 							//OsateDebug.osateDebug("before");
 

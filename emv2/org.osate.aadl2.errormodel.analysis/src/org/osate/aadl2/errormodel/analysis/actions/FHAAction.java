@@ -47,19 +47,16 @@ import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.errormodel.analysis.Options;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
@@ -87,105 +84,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 	protected String getActionName() {
 		return "FHA";
-	}
-	private static String getLikelihood (final int code)
-	{
-		if (Options.getFhaReportType() == REPORT_TYPE_ARP4761)
-		{
-			if (code == 1)
-			{
-				return "probable";
-			}
-			if (code == 2)
-			{
-				return "remote";
-			}
-			if (code == 3)
-			{
-				return "extremely remote";
-			}
-			if (code == 4)
-			{
-				return "extremelyimprobable";
-			}
-		}
-
-		if (Options.getFhaReportType() == REPORT_TYPE_MILSTD882)
-		{
-			if (code == 1)
-			{
-				return "frequent";
-			}
-			if (code == 2)
-			{
-				return "probable";
-			}
-			if (code == 3)
-			{
-				return "occasional";
-			}
-			if (code == 4)
-			{
-				return "remote";
-			}
-			if (code == 5)
-			{
-				return "improbable";
-			}
-		
-		}
-		return "unknown likelihood";
-	}
-	
-	private static String getSeverity (final int code)
-	{
-		if (Options.getFhaReportType() == REPORT_TYPE_ARP4761)
-		{
-			if (code == 1)
-			{
-				return "catastrophic";
-			}
-			if (code == 2)
-			{
-				return "hazardous";
-			}
-			if (code == 3)
-			{
-				return "major";
-			}
-			if (code == 4)
-			{
-				return "minor";
-			}
-			if (code == 5)
-			{
-				return "noeffect";
-			}
-		}
-
-		if (Options.getFhaReportType() == REPORT_TYPE_MILSTD882)
-		{
-			if (code == 1)
-			{
-				return "catastrophic";
-			}
-			if (code == 2)
-			{
-				return "critical";
-			}
-			if (code == 3)
-			{
-				return "marginal";
-			}
-			if (code == 4)
-			{
-				return "negligible";
-			}
-		
-		}
-		return "unknown severity";
-	}
-	
+	}	
 
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
@@ -224,7 +123,6 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				if (condElement.getIncoming() instanceof ErrorEvent)
 				{
 					ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
-					HazardFormat hazardtype = HazardFormat.EMV2;
 					EList<ContainedNamedElement> PA  = EMV2Properties.getHazardsProperty(ci, errorEvent,errorEvent.getTypeSet());
 					EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,errorEvent.getTypeSet());
 					EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,errorEvent.getTypeSet());

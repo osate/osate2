@@ -33,8 +33,6 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-import java.util.List;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
@@ -54,7 +52,6 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public final class FTAAction extends AaxlReadOnlyActionAsJob 
@@ -75,7 +72,6 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 	
 	public Event processRootSystem (SystemInstance systemInstance)
 	{
-		EList<CompositeState> 		states;
 		EList<ComponentInstance> 	componentInstances = new UniqueEList<ComponentInstance>();
 		
 		Event						result;
@@ -94,7 +90,6 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 	
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
-		String message;
 		
 		monitor.beginTask("Fault Tree Analysis", IProgressMonitor.UNKNOWN);
 
@@ -122,9 +117,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
-				List<String> modulesList;
 				
-
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
 				

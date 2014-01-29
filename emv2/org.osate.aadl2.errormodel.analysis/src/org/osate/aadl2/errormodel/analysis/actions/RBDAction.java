@@ -57,11 +57,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.SAndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SOrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -97,7 +95,6 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		double result = 0;
 
 		ErrorBehaviorState behaviorState = conditionElement.getState();
-		TypeSet ts = conditionElement.getConstraint();
 
 		ComponentInstance relatedInstance = findInstance(root, conditionElement.getSubcomponents());
 		OsateDebug.osateDebug("         instance " + relatedInstance);
@@ -228,7 +225,6 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
-				List<String> modulesList;
 				
 
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
