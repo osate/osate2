@@ -50,6 +50,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
@@ -194,6 +195,15 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		}
 		return super.eIsSet(featureID);
 	}
+
+	/**
+	 * The cached environment for evaluating OCL expressions.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 	/**
 	 * Get the closest component instance that contains this object.

@@ -34,7 +34,7 @@
   </genAnnotations>
   <foreignModel>../../org.osate.aadl2.metamodel/Models/AADL2.EMF.merged.uml</foreignModel>
   <genPackages xsi:type="genmodel:GenPackage" prefix="Aadl2" basePackage="org.osate"
-      resource="XML" disposableProviderFactory="true" loadInitialization="true" literalsInterface="false"
+      resource="XMI" disposableProviderFactory="true" loadInitialization="true" literalsInterface="false"
       ecorePackage="aadl2.ecore#/" operationsPackage="org.osate.aadl2.operations">
     <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//FlowKind">
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//FlowKind/source"/>

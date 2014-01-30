@@ -41,6 +41,7 @@ import java.util.Iterator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.impl.ModeImpl;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -166,6 +167,15 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		}
 		return super.eIsSet(featureID);
 	}
+
+	/**
+	 * The cached environment for evaluating OCL expressions.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 	/**
 	 * returns initial mode as true if it is a SOM without modes ("no Modes" aka NORMAL_SOM_NME)
