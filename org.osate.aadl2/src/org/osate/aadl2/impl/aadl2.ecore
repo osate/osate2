@@ -481,13 +481,13 @@
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedProcessorFeature"
         ordered="false" upperBound="-1" eType="#//ProcessorFeature" changeable="false"
-        volatile="true" derived="true">
+        volatile="true" transient="true" derived="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember #//Classifier/classifierFeature"/>
       <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedInternalFeature" ordered="false"
         upperBound="-1" eType="#//InternalFeature" changeable="false" volatile="true"
-        derived="true">
+        transient="true" derived="true">
       <eAnnotations source="subsets" references="#//Namespace/ownedMember #//Classifier/classifierFeature"/>
       <eAnnotations source="union"/>
     </eStructuralFeatures>

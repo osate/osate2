@@ -89,6 +89,8 @@
       <ownedAttribute xmi:id="ComponentImplementation-ownedSubcomponent" name="ownedSubcomponent" isDerived="true" aggregation="composite"/>
       <ownedAttribute xmi:id="ComponentImplementation-extended" name="extended" isDerived="true"/>
       <ownedAttribute xmi:id="ComponentImplementation-ownedConnection" name="ownedConnection" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="_0uHzQInGEeOHif2o_nrmYQ" name="ownedInternalFeature" isDerived="true"/>
+      <ownedAttribute xmi:id="_2t9kEInGEeOHif2o_nrmYQ" name="ownedProcessorFeature" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Subcomponent" name="Subcomponent" isAbstract="true">
       <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isDerived="true"/>
@@ -330,4 +332,6 @@
   <Ecore:EAttribute xmi:id="_YW234E4fEeOhgd3TaVpFAQ" isTransient="true" isVolatile="true" base_Property="Mode-derived"/>
   <Standard:Metaclass xmi:id="_62gtgE4gEeOhgd3TaVpFAQ" base_Class="ComponentClassifier"/>
   <Ecore:EAttribute xmi:id="_210X4E4jEeOhgd3TaVpFAQ" base_Property="ComponentClassifier-derivedModes"/>
+  <Ecore:EReference xmi:id="_G4sGQInHEeOHif2o_nrmYQ" isTransient="true" isVolatile="true" base_Property="_0uHzQInGEeOHif2o_nrmYQ"/>
+  <Ecore:EReference xmi:id="_ICpX8InHEeOHif2o_nrmYQ" isTransient="true" isVolatile="true" base_Property="_2t9kEInGEeOHif2o_nrmYQ"/>
 </xmi:XMI>

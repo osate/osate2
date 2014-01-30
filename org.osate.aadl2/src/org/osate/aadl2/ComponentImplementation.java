@@ -181,7 +181,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Processor Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedProcessorFeature()
-	 * @model changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<ProcessorFeature> getOwnedProcessorFeatures();
@@ -205,7 +205,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Internal Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedInternalFeature()
-	 * @model changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<InternalFeature> getOwnedInternalFeatures();
