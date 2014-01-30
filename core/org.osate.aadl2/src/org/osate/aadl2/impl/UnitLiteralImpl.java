@@ -46,6 +46,7 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.operations.UnitLiteralOperations;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
