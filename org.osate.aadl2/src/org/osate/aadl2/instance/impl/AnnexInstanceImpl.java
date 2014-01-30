@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.instance.AnnexInstance;
@@ -186,5 +187,14 @@ public abstract class AnnexInstanceImpl extends NamedElementImpl implements Anne
 		}
 		return super.eIsSet(featureID);
 	}
+
+	/**
+	 * The cached environment for evaluating OCL expressions.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 } //AnnexInstanceImpl
