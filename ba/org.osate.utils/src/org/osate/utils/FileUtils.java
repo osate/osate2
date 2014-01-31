@@ -23,8 +23,12 @@ package org.osate.utils;
 
 import java.io.File ;
 import java.io.FileFilter ;
+import java.io.FileNotFoundException ;
 import java.io.IOException ;
+import java.util.Collections ;
+import java.util.LinkedHashSet ;
 import java.util.List ;
+import java.util.Set ;
 
 import org.osate.workspace.WorkspacePlugin ;
 
@@ -186,6 +190,97 @@ public class FileUtils
       {
         toBeDelete.delete() ;
       }
+    }
+  }
+  
+  /**
+   * Create a File object with the given path. It checks if the corresponding
+   * file or directory exists and throws an FileNotFoundException otherwise.
+   * 
+   * @param path the given path to a file or a directory
+   * @return the File object
+   * @throws FileNotFoundException if the file or the directory doesn't exist
+   */
+  public static File stringToFile(String path) throws FileNotFoundException
+  {
+    File result = new File(path) ;
+    
+    if(! result.exists())
+    {
+      throw new FileNotFoundException () ;
+    }
+    
+    return result ;
+  }
+  
+  /**
+   * Returns the path of the directory that contains the given file (even if the
+   * file doesn't exist). If the given object File represents a directory, it
+   * will return the object. If the given file is in the file system root, it
+   * will throw the NullPointerException.  
+   * 
+   * @param file the given object File (or a file)
+   * @return the path of the directory that contains the given file
+   * @exception if the given file is in the file system root
+   */
+  public static File getContainningDirectory(File file)
+                                                     throws NullPointerException
+  {
+    File result = null ;
+    
+    if(file.isFile())
+    {
+      // Throws NullPointerException if trying to get the parent of the root
+      // file system.
+      result = new File (file.getAbsoluteFile().getParent()) ;
+    }
+    else
+    {
+      result = file ;
+    }
+    
+    return result ;
+  }
+  
+  /**
+   * Returns recursively all the sub directories contained in the given directory.
+   * The result set doesn't contain the given directory. If the given File 
+   * object doesn't represent a directory, it returns an empty set.
+   * 
+   * @param directory the given directory or the file object
+   * @return the sub directories of the given directory excepted their parent
+   */
+  public static Set<File> getSubDirectories(File directory)
+  {
+    Set<File> result = null ;
+    
+    if(directory.isDirectory())
+    {
+      result = new LinkedHashSet<File>() ;
+      
+      for(File f : directory.listFiles(new DirectoryFileFilter()))
+      {
+        result.add(f) ;
+        result.addAll(getSubDirectories(f)) ;
+      }
+    }
+    else
+    {
+      result = Collections.emptySet() ;
+    }
+    
+    return result ;
+  }
+  
+  /**
+   * Provides filter for file object that represents a directory.
+   */
+  public static class DirectoryFileFilter implements FileFilter
+  {
+    @Override
+    public boolean accept(File pathname)
+    {
+      return pathname.isDirectory() ;
     }
   }
 }
