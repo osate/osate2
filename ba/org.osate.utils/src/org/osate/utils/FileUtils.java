@@ -214,16 +214,16 @@ public class FileUtils
   }
   
   /**
-   * Returns the path of the directory that contains the given file (even if the
+   * Returns the directory that contains the given file (even if the
    * file doesn't exist). If the given object File represents a directory, it
-   * will return the object. If the given file is in the file system root, it
-   * will throw the NullPointerException.  
+   * will return the same object. If the given file is in the file system root,
+   * it will throw the NullPointerException.  
    * 
    * @param file the given object File (or a file)
-   * @return the path of the directory that contains the given file
+   * @return the parent directory of the given file
    * @exception if the given file is in the file system root
    */
-  public static File getContainningDirectory(File file)
+  public static File getContainingDirectory(File file)
                                                      throws NullPointerException
   {
     File result = null ;
