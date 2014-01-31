@@ -1020,9 +1020,13 @@ public class InstantiateModel {
 	// --------------------------------------------------------------------------------------------
 
 	private void processConnections(SystemInstance root) {
+		EList<ComponentInstance> replicateConns = new UniqueEList<ComponentInstance>();
 		List<ConnectionInstance> toRemove = new ArrayList<ConnectionInstance>();
 		EList<ConnectionInstance> connilist = root.getAllConnectionInstances();
 		for (ConnectionInstance conni : connilist) {
+			// track all component instances that contain connection instances
+			replicateConns.add(conni.getComponentInstance());
+			
 			PropertyAssociation setPA = getPA(conni, "Connection_Set");
 			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
 
@@ -1096,7 +1100,7 @@ public class InstantiateModel {
 					srcIndices = getIndices(rv, "src");
 					dstIndices = getIndices(rv, "dst");
 					if (Aadl2InstanceUtil.isOpposite(conni)){
-						// flip indices since we are goin gin the opposite direction
+						// flip indices since we are going in the opposite direction
 						createNewConnection(conni, dstIndices,srcIndices);
 					} else {
 						createNewConnection(conni, srcIndices, dstIndices);
@@ -1108,7 +1112,72 @@ public class InstantiateModel {
 		for (ConnectionInstance conni : toRemove) {
 			EcoreUtil.delete(conni);
 		}
+		replicateConnections(replicateConns);
 	}
+	
+	private void replicateConnections(EList<ComponentInstance> replicateConns){
+		for (ComponentInstance ci : replicateConns){
+			if (isInArray(ci)){
+				doReplicateConnections(ci);
+			}
+		}
+	}
+	
+	private boolean isInArray(ComponentInstance ci){
+		while (!(ci instanceof SystemInstance)){
+			if (!ci.getIndices().isEmpty())
+				return true;
+			ci = ci.getContainingComponentInstance();
+		}
+		return false;
+	}
+	
+	private ComponentInstance outermostArray(ComponentInstance ci){
+		ComponentInstance res = null;
+		while (!(ci instanceof SystemInstance)){
+			if (!ci.getIndices().isEmpty())
+				res = ci;
+			ci = ci.getContainingComponentInstance();
+		}
+		return res;
+	}
+	
+	
+	private void doReplicateConnections(ComponentInstance ci){
+		String origPath = getComponentInstanceNamePath(ci);
+		ComponentInstance outermostParent = outermostArray(ci).getContainingComponentInstance();
+		doReplicateConnections(ci, origPath, outermostParent);
+	}
+	
+	private void doReplicateConnections(ComponentInstance ci, String origPath, ComponentInstance targetParent){
+		for (ComponentInstance targetci : targetParent.getComponentInstances()){
+			// do it only for sibling components. Misses out on enclosing arrays
+			if (targetci.getConnectionInstances().isEmpty()){
+				// only if it does not yet have connection instances
+				String targetpath = getComponentInstanceNamePath(targetci);
+				// compare paths without indices
+				if (origPath.equalsIgnoreCase(targetpath)){
+					for (ConnectionInstance conni : ci.getConnectionInstances()){
+						createNewConnection(conni, targetci);
+					}
+				} else if (origPath.startsWith(targetpath)){
+					doReplicateConnections(ci, origPath,targetci);
+				}
+			}
+		}
+	}
+	
+	private String getComponentInstanceNamePath(ComponentInstance ci) {
+		if (ci instanceof SystemInstance) {
+			return ci.getName();
+		}
+		final String path = getComponentInstanceNamePath(ci.getContainingComponentInstance());
+		final String localname = ci.getName();
+
+		return path + "." + localname;
+	}
+
+	
 
 	private boolean interpretConnectionPatterns(ConnectionInstance conni, boolean isOpposite, List<PropertyExpression> patterns,
 			int offset, List<Integer> srcSizes, int srcOffset, List<Integer> dstSizes, int dstOffset,
@@ -1317,31 +1386,6 @@ public class InstantiateModel {
 		}
 		return null;
 	}
-//
-//	private boolean isOpposite(ConnectionInstance conni, String name) {
-//		for (ConnectionReference connref : conni.getConnectionReferences()) {
-//			for (PropertyAssociation pa : connref.getConnection().getOwnedPropertyAssociations()) {
-//				if (pa.getProperty().getName().equalsIgnoreCase(name)
-//						&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
-//								"Communication_Properties")) {
-//					ConnectionInstanceEnd dstfi = connref.getDestination();
-//					ConnectionEnd srce = connref.getConnection().getAllSource();
-//					if (dstfi instanceof FeatureInstance){
-//						Feature dstf = ((FeatureInstance)dstfi).getFeature();
-//						if (dstf == srce){
-//							return true;
-//						}
-//					} else if (dstfi instanceof ComponentInstance){
-//						Subcomponent dstsub = ((ComponentInstance)dstfi).getSubcomponent();
-//						if (dstsub == srce){
-//							return true;
-//						}
-//					}
-//				}
-//			}
-//		}
-//		return false;
-//	}
 
 	private Collection<PropertyExpression> getOffsetList(ConnectionInstance conni) {
 		for (ConnectionReference connref : conni.getConnectionReferences()) {
@@ -1379,6 +1423,53 @@ public class InstantiateModel {
 
 			if (names != null) {
 				names.add(current.getName());
+			}
+			
+			if (current instanceof ComponentInstance) {
+				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
+			} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
+				d = 1;
+			}
+			if (dims != null) {
+				dims.add(d);
+			}
+			if (sizes != null && d != 0) {
+				if (current instanceof ComponentInstance) {
+					Subcomponent s = ((ComponentInstance) current).getSubcomponent();
+
+					for (ArrayDimension ad : s.getArrayDimensions()) {
+						ArraySize as = ad.getSize();
+
+						sizes.add((int) getElementCount(as,(ComponentInstance)current.getContainingComponentInstance()));
+					}
+
+				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
+					Feature f = ((FeatureInstance) current).getFeature();
+					ArraySize as = f.getArrayDimensions().get(0).getSize();
+
+					sizes.add((int) getElementCount(as,current.getContainingComponentInstance()));
+				}
+			}
+			current = (InstanceObject) current.getOwner();
+		}
+	}
+
+	
+	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
+			LinkedList<Integer> dims, LinkedList<Integer> sizes, LinkedList<Long> indices) {
+		InstanceObject current = end;
+		while (current != container) {
+			int d = 0;
+
+			if (names != null) {
+				names.add(current.getName());
+			}
+			if (current instanceof ComponentInstance){
+				EList<Long> idx = ((ComponentInstance) current).getIndices();
+				if (!idx.isEmpty()) indices.addAll(((ComponentInstance) current).getIndices());
+			} else if (current instanceof FeatureInstance){
+				long idx = ((FeatureInstance) current).getIndex();	
+				if (idx != 0) indices.add(idx);
 			}
 			if (current instanceof ComponentInstance) {
 				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
@@ -1469,6 +1560,55 @@ public class InstantiateModel {
 		newConn.setName(sb.toString());
 
 	}
+	/**
+	 * create a copy of the connection instance with the specified indices for the source and the destination
+	 * @param conni
+	 * @param srcIndices
+	 * @param dstIndices
+	 * @return 
+	 */
+	private void createNewConnection(ConnectionInstance conni, ComponentInstance targetComponent) {
+		LinkedList<Long> indices = new LinkedList<Long>();
+		LinkedList<String> names = new LinkedList<String>();
+		LinkedList<Integer> dims = new LinkedList<Integer>();
+		LinkedList<Integer> sizes = new LinkedList<Integer>();
+		ConnectionInstance newConn = EcoreUtil.copy(conni);
+		targetComponent.getConnectionInstances().add(newConn);
+		ConnectionReference topConnRef = Aadl2InstanceUtil.getTopConnectionReference(newConn);
+		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes, indices);
+		InstanceObject src = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
+				indices, true);
+		names.clear();
+		dims.clear();
+		sizes.clear();
+		indices.clear();
+		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes, indices);
+		InstanceObject	dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes,
+				indices,false);
+		if (src == null) {
+			errManager.error(newConn, "Connection source not found");
+		}
+		if (dst == null) {
+			errManager.error(newConn, "Connection destination not found");
+		}
+
+		String containerPath = targetComponent.getInstanceObjectPath();
+		int len = containerPath.length() + 1;
+		String srcPath = (src != null) ? src.getInstanceObjectPath() : "Source end not found";
+		StringBuffer sb = new StringBuffer();
+		int i = (srcPath.startsWith(containerPath)) ? len : 0;
+		sb.append(srcPath.substring(i));
+		sb.append(" --> ");
+		String dstPath = (dst != null) ? dst.getInstanceObjectPath() : "Destination end not found";
+		i = (dstPath.startsWith(containerPath)) ? len : 0;
+		sb.append(dstPath.substring(i));
+
+		newConn.setSource((ConnectionInstanceEnd) src);
+		newConn.setDestination((ConnectionInstanceEnd) dst);
+		newConn.setName(sb.toString());
+
+	}
+
 	
 	/**
 	 * resolve downgoing source or destination of the connection reference.
