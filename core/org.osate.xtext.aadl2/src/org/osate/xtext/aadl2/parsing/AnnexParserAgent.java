@@ -59,6 +59,7 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
 import org.osate.aadl2.modelsupport.errorreporting.LogParseErrorReporter;
@@ -240,8 +241,18 @@ public class AnnexParserAgent  extends LazyLinker {
 							asc.getInModes().add(mode);
 						}
 														
-						// replace default annex library with the new one. 
-						EList<AnnexSubclause> ael= ((Classifier)defaultAnnexSubclause.eContainer()).getOwnedAnnexSubclauses();
+						// replace default annex subclause with the new one. 
+						EObject subclauseOwner = defaultAnnexSubclause.eContainer();
+						EList<AnnexSubclause> ael=null;
+						if (subclauseOwner instanceof Classifier){
+						    ael= ((Classifier)subclauseOwner).getOwnedAnnexSubclauses();
+						} else if (subclauseOwner instanceof PropertySet){
+							ael= ((PropertySet)subclauseOwner).getOwnedAnnexSubclauses();
+						} else 
+						{
+							OsateDebug.osateDebug ("annex subclause parent is not Classifier or PropertySet: " + defaultAnnexSubclause.getSourceText());
+							continue;
+						}
 						int idx = ael.indexOf(defaultAnnexSubclause);
 						ael.add(idx, asc);
 						ael.remove(defaultAnnexSubclause);
