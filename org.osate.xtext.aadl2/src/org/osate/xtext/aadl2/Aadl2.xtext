@@ -2032,12 +2032,6 @@ RealRange returns aadl2::NumericRange:
 
 
 CoreKeyWord :
-//	'system' | 'thread' | 'group' | 'process' | 'data' | 'processor' | 'memory' | 'device' | 'bus' 
-//	 | 'virtual' | 'subprogram' | 'feature' |'package'|'parameter'
-//	| 'port' |'calls' |'event'|'flow'|'implementation'|'type'|'mode'|'prototype'|'to' |'end'
-//	| 'abstract' |'access'|'classifier'
-//	|'sink'|'source'|'path'|'set'
-//	       
 	'abstract' |'access' | 'annex'| 'applies' 
 	| 'bus' |'calls' |'classifier'| 'connections' |'constant'| 'data'| 'device'
 	|'end' |'enumeration'|'event'|'extends'
@@ -2048,7 +2042,7 @@ CoreKeyWord :
 	|'prototypes'|'provides'|'public'
 	|'refined'|'renames'|'requires'|'self'|'set'|'sink'|'source'
 	|'subcomponents'| 'subprogram'|'system'| 'thread'|'type'|'to'|'virtual'|'with'
-//// properties grammar	|'properties'|'property'|'delta'|'false'|'not'| 'and'|'or'|'range'|'record'|'reference'|'true'|'type'|'units'
+//// properties grammar	|'properties'|'property'|'delta'|'false'|'not'| 'and'|'or'|'range'|'record'|'reference'|'true'|'units'
 ;
 
 
