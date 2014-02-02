@@ -256,19 +256,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
    return null;
    }
 	
-	private NamedElement getContainedNamedElement(NamedElement r, String segment) {
-		for(EObject e:r.getOwnedElements())
-		{
-			if(e instanceof NamedElement)
-			{
-				NamedElement ne = (NamedElement) e;
-				if(ne.getName().equalsIgnoreCase(segment))
-					return ne;
-			}
-		}
-		return null;
-	}
-	
 
 
 	@Override
