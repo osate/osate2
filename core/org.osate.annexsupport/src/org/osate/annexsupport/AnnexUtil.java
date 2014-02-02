@@ -17,6 +17,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PropertySet;
 
 public class AnnexUtil {
 	
@@ -94,6 +95,20 @@ public class AnnexUtil {
 			}
 		}
 	}
+	/**
+	 * add default annex subclauses of property set.
+	 * @param property set
+	 * @param result
+	 */
+	public static void addSubclauses(PropertySet propset,List<DefaultAnnexSubclause> result ){
+		if (propset != null){
+			EList<AnnexSubclause> libs = propset.getOwnedAnnexSubclauses();
+			for (AnnexSubclause annexSubclause : libs) {
+				if (annexSubclause instanceof DefaultAnnexSubclause)
+					result.add((DefaultAnnexSubclause)annexSubclause);
+			}
+		}
+	}
 
 	
 	public static List<DefaultAnnexSubclause> getAllDefaultAnnexSubclauses(EObject root) {
@@ -104,8 +119,8 @@ public class AnnexUtil {
 			addSubclauses(pack.getOwnedPrivateSection(),result);
 		} else if (root instanceof PackageSection){
 			addSubclauses((PackageSection)root, result);
-		} else if (root instanceof ComponentClassifier){
-			
+		} else if (root instanceof PropertySet){
+			addSubclauses((PropertySet)root, result);
 		}
 		return result;
 	}
