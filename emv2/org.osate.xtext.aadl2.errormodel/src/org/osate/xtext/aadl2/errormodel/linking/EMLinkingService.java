@@ -230,7 +230,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType) {
 			// first look it up in global index
-			EObject gobj = getIndexedObject(context, reference, name);
+			
+			EObject gobj = getIndexedObject(context, reference, name+"::emv2");
 			if (gobj != null ){
 				if( gobj.eClass() == requiredType){
 					return Collections.singletonList(gobj);
@@ -320,7 +321,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 
 		ErrorModelLibrary eml = (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), name+"::"+"emv2");
 		if (eml != null) return eml;
-		AadlPackage ap = findAadlPackageReference(name, AadlUtil.getContainingPackageSection(context));
+		AadlPackage ap = AadlUtil.findImportedPackage(name, AadlUtil.getContainingTopLevelNamespace(context));
 		if (ap == null)
 			return null;
 		PackageSection ps = ap.getOwnedPublicSection();
