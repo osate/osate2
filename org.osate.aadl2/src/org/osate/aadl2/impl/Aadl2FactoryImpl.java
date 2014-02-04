@@ -564,6 +564,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createInternalEvent();
 		case Aadl2Package.PROCESSOR_SUBPROGRAM:
 			return (EObject) createProcessorSubprogram();
+		case Aadl2Package.ANNEX_SUBCLAUSE:
+			return (EObject) createAnnexSubclause();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
