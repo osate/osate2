@@ -30,6 +30,7 @@ import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModePattern;
 import edu.uah.rsesc.aadl.age.diagrams.common.patterns.ModeTransitionPattern;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.ChangeSubcomponentTypeFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.ComponentImplementationUpdateDiagramFeature;
+import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.EditFlowsFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RefineConnectionFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RefineSubcomponentFeature;
 import edu.uah.rsesc.aadl.age.diagrams.componentImplementation.features.RenameConnectionFeature;
@@ -67,6 +68,7 @@ public class ComponentImplementationFeatureProvider extends AgeFeatureProvider {
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		super.addCustomFeatures(features);
+		features.add(make(EditFlowsFeature.class));
 		features.add(make(SetSubcomponentClassifierFeature.class));
 		features.add(make(RefineSubcomponentFeature.class));
 		features.add(make(RefineConnectionFeature.class));
